@@ -2,6 +2,9 @@
 
 import hashlib
 import json
+import re
+import shutil
+import subprocess
 from datetime import date
 from decimal import ROUND_HALF_UP, Decimal, localcontext
 from fractions import Fraction
@@ -10,11 +13,34 @@ from pathlib import Path
 import pytest
 
 from deploy_vii.report_view import pathways
+from deploy_workflow.handoff_delivery import verify_delivery
 from deploy_workflow.markdown_delivery import _yield_observations, literal_module
 from deploy_workflow.owners.cpos import run_handoffs
 
 ROOT = Path(__file__).resolve().parents[1]
 CASE = ROOT / "runs/cpos-arcc-rv-001"
+
+
+@pytest.mark.skipif(
+    shutil.which("node") is None, reason="Node required for the pure JS header check"
+)
+def test_source_column_labels_cannot_be_replaced_by_trace_positions():
+    app = (ROOT / "src/deploy_vii/assets/app.js").read_text()
+    expression = re.search(r"const columnLabel = (.*?);", app, re.DOTALL).group(1)
+    script = (
+        "const labels=(traceDisplay)=>{ const columnLabel=" + expression + ";"
+        "return [columnLabel('Market Level',0),columnLabel('Quote Quality',3),"
+        "columnLabel('Coupon',0),columnLabel('Yield',3),"
+        "columnLabel('Coupon',3),columnLabel('Yield',0)]; };"
+        "console.log(JSON.stringify([labels(true),labels(false)]));"
+    )
+    result = subprocess.run(
+        [shutil.which("node"), "-e", script], check=True, capture_output=True, text=True
+    )
+    assert json.loads(result.stdout) == [
+        ["Market Level", "Quote Quality", "Coupon (%)", "Yield (%)", "Coupon", "Yield"],
+        ["Market Level", "Quote Quality", "Coupon", "Yield", "Coupon", "Yield"],
+    ]
 
 
 def test_actual_relative_value_sections_and_four_exact_conditional_yields(tmp_path):
@@ -36,6 +62,25 @@ def test_actual_relative_value_sections_and_four_exact_conditional_yields(tmp_pa
     report = run_handoffs(manifest, tmp_path / "state", execute=no_execute, check=check)
     view = json.loads((report.parent / "view.json").read_bytes())
     assert [m["module_id"] for m in view["modules"]] == ["CP-3D", "CP-3", "CP-6"]
+    amendment = json.loads((CASE / "format-amendment.json").read_bytes())
+    original = (ROOT / amendment["original_path"]).read_bytes()
+    assert responses["CP-3"].replace(amendment["inserted_block"].encode(), b"", 1) == original
+    for module in view["modules"]:
+        raw = responses[module["module_id"]]
+        lines = raw.decode().splitlines()
+        for fact in module["facts"]:
+            assert fact["citations"]
+            for cite in fact["citations"]:
+                assert cite["source_sha256"] == hashlib.sha256(raw).hexdigest()
+                assert cite["quote"] == lines[int(cite["locator"].split()[-1]) - 1]
+            if fact["table_id"].startswith("raw-"):
+                cells = [
+                    s.strip().replace("**", "").replace("`", "")
+                    for s in fact["citations"][0]["quote"].strip("|").split("|")
+                ]
+                assert fact["label"] == cells[0]
+                cell = cells[int(fact["field"][1:]) + 1]
+                assert fact["text"] == (cell or None)
     rv = json.loads((report.parent / "report-view.json").read_bytes())
     assert tuple(b["block_id"] for b in rv["blocks"]) == next(
         p.blocks for p in pathways() if p.id == "relative_value"
@@ -78,6 +123,12 @@ def test_actual_relative_value_sections_and_four_exact_conditional_yields(tmp_pa
         assert (report.parent / (module + ".md")).read_bytes() == raw
     assert run_handoffs(manifest, tmp_path / "state", execute=no_execute, check=check) == report
     assert len(list((tmp_path / "state/requests").glob("*/*/*.response.md"))) == 3
+    assert (
+        verify_delivery(next((tmp_path / "state").glob("delivery-*.json")), report.parent) == report
+    )
+    assert not any(
+        p.suffix.lower() in {".xls", ".xlsx", ".xlsm", ".xlsb"} for p in report.parent.iterdir()
+    )
 
 
 def chart_source(rows, *, header="Yield, %", owner="CP-3"):

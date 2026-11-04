@@ -1,0 +1,19 @@
+{
+  "kind": "cpos-markdown-delivery/1",
+  "execution": "retained-response-replay",
+  "scope": "ARCC historical December31 2024 retrospective evaluated-price and two-parent-note comparison; audit/source retrieval later, not an information-availability backtest or current executable market. Actual CP-3D market, CP-3/CP-3A comparison and actual subsequent CP-6 challenge replay through CP-OS. Source price basis is unknown: clean and dirty are separate conditional assumptions, with exact original values and gaps retained. Yield figure is a categorical maturity comparison, not a fitted/observed curve; no new pricing analysis. The added four-row table copies C2/C3 only; original CP-6 consumed the financially identical pre-table version, not a newly invented response. Missing external peers and loan/HY comparisons remain explicit; no corporate peer median, numeric score, current preference, mandate clearance or new size. What Changed names the original historical14-to15.294-point narrative repair, not a new financial/market period. Assessment pending is not a full committee call. Existing renderers only, no Excel output/provider/native acceptance.",
+  "provider_cap_usd": 0,
+  "modules": {
+    "CP-3D": "requests/CP-3D/4bbc46a20c9a9c4f2493c6f82e8a96fadf4342fb49d5e043faaebdae7d8acdee/1.response.md",
+    "CP-3": "requests/CP-3/de9accc2d9af3a4605f917c968d53b6529787078493f8ab95cf813712d59141e/1.response.md",
+    "CP-6": "requests/CP-6/742e0db90b4a9e3784fe58ad2d4707d555d74fe00fc62205be8a38f8c986e9c2/1.response.md"
+  },
+  "module_execution": {
+    "CP-3D": "retained-response-replay",
+    "CP-3": "retained-response-replay",
+    "CP-6": "retained-response-replay"
+  },
+  "cp_model_published": false,
+  "delivery_manifest_sha256": "00f58d875d6ac7b80ff8515b4daee074fb48a79dad913874e2088204bf3e8272",
+  "report_sha256": "067046ca098cdb1a1bf1ef74fd337327ac635c1961de0d81085bd8c3263d7048"
+}

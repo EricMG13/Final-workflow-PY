@@ -1,10 +1,177 @@
 {
-  "status": "in progress",
+  "status": "Ten-section Relative Value publication with cited conditional yield figure verified; broader goal active",
   "execution": "retained-response-replay",
   "observed_failure": "markdown_layout: preserve complete table columns in a table block",
   "source_context_pins_verified": 33,
-  "production_code_changes": [],
+  "production_code_changes": [
+    "src/deploy_workflow/markdown_delivery.py",
+    "src/deploy_vii/report_view.py",
+    "src/deploy_vii/assets/app.js"
+  ],
   "provider_calls": 0,
   "subagents_used": false,
-  "excel_output": false
+  "excel_output": false,
+  "workflow_sha256": "d2587aba2496e52d006e9241baf9e3c4fadebf00d36c9d4fc3e659f88cd0ec6a",
+  "report": "runs/cpos-arcc-rv-001/execution/deliveries/70f990d9ed622edfffbd91f9b82ebf54fc3a358a100bc8ed40a3054cd09a7142/report.html",
+  "report_sha256": "067046ca098cdb1a1bf1ef74fd337327ac635c1961de0d81085bd8c3263d7048",
+  "case_pins_verified": 219,
+  "facts": 579,
+  "exact_handoff_citations": 813,
+  "literal_raw_table_values": 528,
+  "all_preset_sections": 10,
+  "figure": {
+    "id": "RV.1",
+    "points": [
+      {
+        "series": "Assume clean",
+        "label": "2029-03-01 \u00b7 US04010LBF94",
+        "text": "5.600265%",
+        "ref_id": "C230",
+        "value": "0.05600264521",
+        "role": "value",
+        "decimals": 6,
+        "hatched": false
+      },
+      {
+        "series": "Assume dirty",
+        "label": "2029-03-01 \u00b7 US04010LBF94",
+        "text": "6.131729%",
+        "ref_id": "C231",
+        "value": "0.06131728905",
+        "role": "value",
+        "decimals": 6,
+        "hatched": false
+      },
+      {
+        "series": "Assume clean",
+        "label": "2029-07-15 \u00b7 US04010LBG77",
+        "text": "5.622366%",
+        "ref_id": "C232",
+        "value": "0.05622366058",
+        "role": "value",
+        "decimals": 6,
+        "hatched": false
+      },
+      {
+        "series": "Assume dirty",
+        "label": "2029-07-15 \u00b7 US04010LBG77",
+        "text": "6.316949%",
+        "ref_id": "C233",
+        "value": "0.06316949000",
+        "role": "value",
+        "decimals": 6,
+        "hatched": false
+      }
+    ],
+    "unit": "percent fraction; source tokens are percentage points",
+    "scope": "Conditional clean/dirty cases, categorical actual note maturities; not observed/executable yields or fitted curve",
+    "table_twin_exact": true
+  },
+  "format_amendment": {
+    "original_path": "runs/arcc-selection-2024-001/CP-3-attempt-2.md",
+    "original_sha256": "9ef2f6e17a2e22fd980c72bf586a3807afdf44ab37043db2581d4ec0e2780bf8",
+    "new_sha256": "63c56793bbcc8e9e43671a4cdebefdc1a018cb57df8163125c80bd654294ea60",
+    "inserted_block": "### Conditional yield observations\n\n| Instrument | Maturity | Price basis | Yield, % |\n|---|---|---|---:|\n| US04010LBF94 | 2029-03-01 | Assume clean | 5.600264521 |\n| US04010LBF94 | 2029-03-01 | Assume dirty | 6.131728905 |\n| US04010LBG77 | 2029-07-15 | Assume clean | 5.622366058 |\n| US04010LBG77 | 2029-07-15 | Assume dirty | 6.316949000 |\n\nFormat amendment only: these dates and nominal maturity yields are copied from\nC2\u2013C3 above. They are conditional model outputs under two separate unverified\nprice-basis assumptions, not observed investor yields, an executable quote or a\nfitted issuer curve. The raw nine-decimal tokens remain retained; chart labels\nmay show the existing six-decimal display. No prior analysis or value changes.\n\n",
+    "all_other_bytes_equal": true,
+    "execution": "Actual current host format-only output after frozen instructions; no new financial analysis or native run."
+  },
+  "actual_consumer": "Original actual CP6 consumed the old CP3 version; all old bytes/financial results remain equal after removing the inserted format table. No invented fresh reading or native acceptance.",
+  "verification_commands": [
+    "PYTHONPATH=src:tests:tests/prompts .venv/bin/pytest -q tests/test_relative_value_handoff_delivery.py",
+    "PYTHONPATH=src .venv/bin/python -m deploy_workflow.owners.cpos --manifest runs/cpos-arcc-rv-001/workflow.json --state runs/cpos-arcc-rv-001/execution",
+    "Clean staged checkout: PYTHONPATH=src:tests:tests/prompts PYTHONDONTWRITEBYTECODE=1 python -m pytest -q tests/test_relative_value_handoff_delivery.py tests/test_portfolio_handoff_delivery.py tests/test_markdown_delivery.py tests/test_cpos_handoffs.py tests/test_model_handoff_delivery.py tests/test_retained_planning.py tests/test_cpos_comparison.py tests/test_handoff_delivery.py tests/test_chart_render_rv3.py"
+  ],
+  "tests": {
+    "targeted": "22 Relative Value checks passed as part of the final163-test staged-copy suite, including actual publication, source-bound values and TRACE/non-TRACE/wrong-position label cases.",
+    "broader": "163 passed in19.19s from an exact staged checkout; no provider/model calls. Verification JSON/docs were updated afterward only to record this result.",
+    "mypy": "Success: no issues found in2 source files",
+    "ruff": "Changed adapter/tests checked; report_view retains its pre-existing SIM102 at line313. No unrelated style guard was changed.",
+    "legacy_suite_limit": "tests/test_owner_rendering.py cannot collect because imported docs/OWNER-RENDERING-LEASE.md is absent; no claim of full legacy-suite success.",
+    "javascript": "node --check src/deploy_vii/assets/app.js passed; pure Node regression in pytest passed.",
+    "push_readiness": "Staged whitespace and exclusion checks passed. Credential scan flagged only two existing31-character synthetic test-key literals used with fake transports; no actual credential found."
+  },
+  "confidence_review": {
+    "ranked_doubts": [
+      {
+        "point": "Design slots silently downgrade the requested table/figure to prose",
+        "finding": "Confirmed real publication refusal; approved FP03 uses a table and yield figure. Registered those two existing component kinds and added only a source adapter; no new chart engine or financial model."
+      },
+      {
+        "point": "Wrong percent scale, missing versus zero, nonfinite/locale values or ambient Decimal rounding",
+        "finding": "21 tests verify exact Fraction/model-oracle equivalence, source citations/table twin, low ambient precision, genuine zero/negative yields and preserved missing. ASCII plain decimal tokens and declared percent header required; numeric representation conversion only."
+      },
+      {
+        "point": "Conflicting maturities or omitted conditional case appears as a valid comparison",
+        "finding": "Three adversarial cases reproduced confirmed holes. Now one maturity per instrument, unique instrument/basis, both case rows required. Missing yield stays an explicit blank rather than dropping the row."
+      },
+      {
+        "point": "Handoff amendment invents or changes analysis",
+        "finding": "Original actual answer preserved; removing the inserted four-row block gives every original byte. Values are exact original C2/C3 outputs, checked against independent pre-answer roots. Prior CP6 source-version distinction is explicit."
+      },
+      {
+        "point": "Cross-module binding or renderer loses data/source identity",
+        "finding": "Actual ten-section integration checks every literal cell/physical source citation, all full handoffs, four source-bound plotted values and table twins; complete publication reconstructs and resumes with no model calls.33 source pins and219 case pins unchanged."
+      },
+      {
+        "point": "Historical/conditional data become approval, peer medians, loan analysis or current prices",
+        "finding": "Old conclusions and limitations remain. No new preference/score/size/quote; external-peer/loan gaps explicit. What Changed is explicitly the historical narrative repair. Native/independent/fresh-run qualification remains open."
+      },
+      {
+        "point": "Legacy TRACE positional header mapping could relabel unrelated handoff columns",
+        "finding": "Browser showed Market Level as Coupon (%) and Quote Quality as Yield (%). Pure Node replay reproduced the old mapping. Two exact source-label guards preserve Market Level/Quote Quality and the intended legacy Coupon/Yield unit labels. Expanded regression includes non-TRACE and wrong-position cases; numeric conversion already checks fact identity/unit and is unchanged.",
+        "verdict": "CONFIRMED bug repaired at dataTable header mapping; real rebuilt HTML visibly checked."
+      },
+      {
+        "point": "Publication could contain stale JS or verification fixtures could be absent from the pushed tree",
+        "finding": "CP-OS published a new immutable delivery after the asset change without executing analytical models. Browser confirms corrected visible headers. Retained fixtures are tracked; a fresh checkout of the staged tree is checked before push."
+      }
+    ]
+  },
+  "rewrite_tournament": {
+    "mode": "Inline post-edit, no agents",
+    "targets": [
+      "_yield_observations",
+      "markdown_files changed chart integration region"
+    ],
+    "impact_set": [
+      "markdown_files calls _yield_observations",
+      "handoff_delivery.delivery_files calls markdown_files",
+      "owners.cpos publishes, verifies and resumes the resulting bytes",
+      "native report_view two slot declarations and existing chart factory reused"
+    ],
+    "invariants": [
+      "No pricing or new analytical conclusion",
+      "Exact source cells/citations/units and raw handoff retained",
+      "Finite numbers, missing versus zero, stable maturity and both explicit scenarios",
+      "Public signatures, immutable publication and other existing paths preserved"
+    ],
+    "candidates": "For each target: speed, memory and readability alternatives each passed21 targeted tests in isolated fresh Python processes. No production file was modified by candidates.",
+    "winner": "Incumbent holds",
+    "justification": [
+      "Named gates, one source loop and existing constructors keep the actual transport contract visible.",
+      "Alternative lookup/state changes added machinery without a verified practical gain.",
+      "All alternatives matched current cases; incumbent retains reviewed caller/signature behavior."
+    ],
+    "bracket": [
+      "Speed over Memory: avoids additional state; equal correctness evidence.",
+      "Readability over Speed: explicit validation intent, but extra loops/allocation.",
+      "Incumbent over Readability: current guarded structure is simpler for the actual bounded records."
+    ],
+    "final_helper_code": "def _yield_observations(\n    module: ModuleView, table: ReportTable, as_of: date\n) -> tuple[ModuleView, tuple[str, ...], tuple[_ChartPoint, ...]]:\n    \"\"\"Type explicit yield cells for the existing figure; retain the literal table unchanged.\"\"\"\n    if (\n        module.module_id not in {\"CP-3\", \"CP-3D\"}\n        or table.row_header != \"Instrument\"\n        or tuple(c.label for c in table.columns) != (\"Maturity\", \"Price basis\", \"Yield, %\")\n    ):\n        raise ValueError(\"markdown_yield: expected Instrument / Maturity / Price basis / Yield, %\")\n    facts = {f.fact_id: f for f in module.facts}\n    tid = \"chart-\" + table.table_id\n    values, rows, points = [], [], []\n    seen = set()\n    maturities: dict[str, str] = {}\n    for index, row in enumerate(table.rows):\n        maturity, basis, source = (facts[fid] for fid in row.fact_ids)\n        if (\n            maturity.status != \"known\"\n            or maturity.text is None\n            or date.fromisoformat(maturity.text).isoformat() != maturity.text\n            or date.fromisoformat(maturity.text) <= as_of\n            or basis.text not in {\"Assume clean\", \"Assume dirty\"}\n        ):\n            raise ValueError(\n                \"markdown_yield: future ISO maturity and explicit price assumption required\"\n            )\n        if maturities.setdefault(row.label, maturity.text) != maturity.text:\n            raise ValueError(\"markdown_yield: conflicting maturities for one instrument\")\n        key = (row.label, basis.text)\n        if key in seen:\n            raise ValueError(\n                \"markdown_yield: duplicate instrument/maturity/price-basis observation\"\n            )\n        seen.add(key)\n        amount = None\n        decimals = None\n        if source.status == \"known\":\n            token = source.text or \"\"\n            if len(token) > 64 or re.fullmatch(r\"[+-]?[0-9]+(?:\\.[0-9]+)?\", token) is None:\n                raise ValueError(\n                    \"markdown_yield: yield must be a finite plain percentage-point token\"\n                )\n            value = Decimal(token)\n            # Decimal construction is exact; this is unit representation, not a yield calculation.\n            amount = value.scaleb(-2, context=Context(prec=max(28, len(value.as_tuple().digits))))\n            decimals = min(6, len(token.partition(\".\")[2]))\n        fact_id = f\"{tid}.r{index}.value\"\n        values.append(\n            Fact(\n                fact_id=fact_id,\n                table_id=tid,\n                row_id=f\"r{index}\",\n                field=\"value\",\n                label=row.label,\n                amount=amount,\n                status=source.status,\n                unit=\"PERCENT\",\n                period=as_of.isoformat(),\n                decimals=decimals,\n                citations=source.citations,\n                limitation=source.limitation,\n                basis=\"Conditional model yield copied from Markdown; percentage points / 100 for display, no repricing.\",\n                value_class=\"source\",\n            )\n        )\n        category = f\"{maturity.text} \u00b7 {row.label}\"\n        rows.append(\n            TableRow(row_id=f\"r{index}\", label=f\"{category} \u00b7 {basis.text}\", fact_ids=(fact_id,))\n        )\n        points.append(_ChartPoint(series=basis.text, category=category, fact_id=fact_id))\n    if len(seen) != 2 * len(maturities):\n        raise ValueError(\n            \"markdown_yield: both price-basis rows required; retain missing yields as blanks\"\n        )\n    if not any(f.amount is not None for f in values):\n        raise ValueError(\n            \"markdown_yield: at least one numeric observation required; missing is not zero\"\n        )\n    typed = ReportTable(\n        table_id=tid,\n        title=\"Conditional maturity yield numeric view\",\n        row_header=\"Observation\",\n        columns=(TableColumn(field=\"value\", label=\"Yield, %\"),),\n        rows=tuple(rows),\n    )\n    updated = module.model_copy(\n        update={\"facts\": (*module.facts, *values), \"tables\": (*module.tables, typed)}\n    )\n    points.sort(key=lambda p: (p.category, p.series))\n    return updated, tuple(dict.fromkeys(p.series for p in points)), tuple(points)\n",
+    "final_integration_source": "src/deploy_workflow/markdown_delivery.py:276; same signature and file contract; added preparation/figure branches only",
+    "native_slot_change": "Static two-entry configuration; no calculation or renderer algorithm changed.",
+    "verification": "Six candidate runs21passed each; incumbent162-test regression and mypy checks recorded.",
+    "additional_scope": "The final two-line JS source-label guard adds no branch or new interface; trivial edit exempt under the skill. Its actual callers (table headers and source inspector labels), syntax, TRACE/non-TRACE and mismatched-column controls are checked. No agents."
+  },
+  "remaining": [
+    "Fresh end-to-end issuer execution and remaining pathway/substantive module branches remain open.",
+    "No complete market/peer/funding/legal/portfolio implementation clearance.",
+    "Legacy imported-test collection gap is recorded, not bypassed as a full-suite pass."
+  ],
+  "browser_verification": {
+    "report": "runs/cpos-arcc-rv-001/execution/deliveries/70f990d9ed622edfffbd91f9b82ebf54fc3a358a100bc8ed40a3054cd09a7142/report.html",
+    "observed": "Rebuilt HTML displays MARKET LEVEL and QUOTE QUALITY with the original cited note text; earlier graph check verified four cited conditional points. Native chart data and values are unchanged by the JS-only label fix.",
+    "server": "Stopped after final review; HTTP session exited0.",
+    "new_analytical_calls": 0
+  }
 }

@@ -215,8 +215,8 @@
     return original.replace(/0+$/, "").replace(/\.$/, "");
   };
   const dataTable = (block, interactive, owner, traceDisplay = false) => {
-    const columnLabel = (label, index) => traceDisplay && index === 0 ? "Coupon (%)"
-      : traceDisplay && index === 3 ? "Yield (%)" : label;
+    const columnLabel = (label, index) => traceDisplay && index === 0 && label === "Coupon" ? "Coupon (%)"
+      : traceDisplay && index === 3 && label === "Yield" ? "Yield (%)" : label;
     const result = node("table", null, block.kind === "keyvalue" ? "keyvalue" : "dense");
     result.append(node("caption", block.title, "sr-only"));
     const grid = block.kind === "period_grid";

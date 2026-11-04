@@ -54,7 +54,7 @@ issuer-underwriting claims remain separate from the stated functional evidence.
 | CP-2E | Historical exposure/hedge registers and conditional illustration checked and consumed by CP-2. CP-OS now delivers all17 macro/ESG registers,84 rows and230 exact table values after a delimiter-only repair; complete net rate/FX/cost sensitivities remain open | CP-2F: explicit alias request dispatches once to CP-2E and delivers all eight ESG registers. Separate Enel historical host case adds a checked positive coupon mechanism, actual targeted CP-3C reading and report; complete terms/payments/materiality/market and full-method qualification remain open |
 | CP-2G | Three conditional annual paths checked and consumed by CP-2/report. CP-OS now publishes all nine registers with180 independently checked cells/nulls,15 breakpoint tests and224 exact table values. Complete source-backed cash forecast, native fiscal wrapper and Model-driver publication remain open | None |
 | CP-2H | Real April 2024 Ford Otosan S&P/Fitch case checked across ten registers and consumed by CP-3C. CP-OS now publishes all ten registers from four pinned handoffs without inventing a new stress module. Exact agency headroom, native runtime and TDG ratings remain unproven | None |
-| CP-3 | Actual ARCC two-note normalized historical RV/precision/duration comparison checked, consumed by CP-6 and rendered; runtime can preserve no supported ranking. Full current/executable and complete underwriting scope remains open; Frontier recovery-phase handoff consumed | CP-3A: actual priced pair structure, compensation, recovery-sensitivity/preference trade-offs and monitoring checked/consumed; no robust executable preference asserted. Prior Frontier class-recovery function also exercised. CP-3B: actual historical LQD five-note exposure, concentration, conditional loss and monitoring checked, consumed by CP-6 intake and rendered; full gated selection/sizing pending |
+| CP-3 | Actual ARCC two-note normalized historical RV/precision/duration comparison checked, consumed by CP-6 and rendered; runtime can preserve no supported ranking. All ten Relative Value sections now publish through CP-OS with the source-bound conditional yield figure. Full current/executable and complete underwriting scope remains open; Frontier recovery-phase handoff consumed | CP-3A: actual priced pair structure, compensation, recovery-sensitivity/preference trade-offs and monitoring checked/consumed; no robust executable preference asserted. Prior Frontier class-recovery function also exercised. CP-3B: actual historical LQD five-note exposure, concentration, conditional loss and monitoring checked, consumed by CP-6 intake and rendered; full gated selection/sizing pending |
 | CP-4 | Actual TDG executed-notes core interpretation checked/repaired and consumed by CP-3C; current/native/full-package acceptance unproven | CP-4A: actual historical ARCC published-precision coverage cushion and conditional commitment difference checked, consumed by CP-6; other basket families unproven. CP-4B: actual historical LMI nineteen-entity partial map checked/repaired and consumed. CP-4D: actual LMI six-view ICA/control loop checked and consumed; complete current package remains unproven |
 | CP-4C | Actual Frontier historical numerical pledged-pool waterfall, deficiency recovery, pool-specific marginal-class change and plan EV/equity bridge checked and consumed by CP-3 recovery phase; full/native/all-entity underwriting unproven | None |
 | CP-5 | Ford fourteen-claim review consumed by CP-6. Active CP-OS now also retains a fresh TDG twenty-claim host review, targeted lineage repair and checked delivery of all seventeen assurance registers; independent/native/full underwriting acceptance unproven | CP-5A: actual alias request dispatches to CP-5 after selected analysts; eight audit lanes, two inherited Material restrictions and scoped clearance delivered. The actual CP-5 final LQD recheck now also reaches the eight-section CP-OS Portfolio Decision publication. Full/current/independent scope unproven |
@@ -63,9 +63,9 @@ issuer-underwriting claims remain separate from the stated functional evidence.
 | CP-L10 | Actual historical ARCC combined five-screen answer checked, repaired, consumed by CP-5 and rendered into a populated report; native narrow runtime and full-owner work remain separate | CP-L20, CP-L23, CP-L30, CP-L40: all six distinct topics, decisions, upgrades and monitoring exercised per screen; actual resolver maps each to CP-L10 |
 | CP-MEMO replacement | Actual deliverables from module handoffs: snapshot, HTML Model/charts/JSON, CP-8 comparison and eight selected earnings sections checked. The eight-section Portfolio Decision preset is also published through CP-OS from actual handoffs; remaining outputs/full-pathway delivery pending | Replaced by actual deliverables per current user ruling |
 | CP-MODEL | Historical HTML Model, calculation JSON and three charts from actual handoffs checked and consumed. CP-OS now publishes that method with the report; 81 independently checked numeric cells,51 raw tables,46 blanks and18 chart observations verified. Selected annual USD-million adapter only; broader/native scope open; Excel ingestion-only | None |
-| CP-OS | Active local handoff snapshot: planner, current Markdown, bounded repair, resume and checked publication. Fresh host CP-2, Model delivery, CP-8 comparison and CP-5 repair proved within stated scopes. Retained planning now follows pinned consumed inputs, so the Ford ratings case publishes without rebuilding an unused stress analysis; all default fresh plans remain unchanged. All eight Portfolio Decision sections now delivered through CP-OS from retained actual LQD analysis, debate and final QA; broader fresh/native/provider and full-pathway delivery remain open | None |
+| CP-OS | Active local handoff snapshot: planner, current Markdown, bounded repair, resume and checked publication. Fresh host CP-2, Model delivery, CP-8 comparison and CP-5 repair proved within stated scopes. Retained planning now follows pinned consumed inputs, so the Ford ratings case publishes without rebuilding an unused stress analysis; all default fresh plans remain unchanged. All ten Relative Value sections also publish from retained actual historical answers. All eight Portfolio Decision sections now delivered through CP-OS from retained actual LQD analysis, debate and final QA; broader fresh/native/provider and full-pathway delivery remain open | None |
 | CP-2D | Annual/quarter cash reviews plus actual historical CRC thirteen-week cash/funding bridge and monthly-to-maturity diagnostic checked, consumed by CP-3C and rendered. Full twelve-month accessible liquidity, formal MTE, actual covenant compliance and native integration remain open | None |
-| CP-3D | Actual ARCC historical evaluated-price map, conditional dated July2029 yields/call legs/Treasury residuals, model-loss and price sensitivities independently checked and consumed by CP-3 intake; exact/executable/current and full option/default/native scope remain open | None |
+| CP-3D | Actual ARCC historical evaluated-price map, conditional dated July2029 yields/call legs/Treasury residuals, model-loss and price sensitivities independently checked and consumed by CP-3 intake; the full Relative Value publication now retains the cited evaluated-price table and both conditional yield cases. Exact/executable/current and full option/default/native scope remain open | None |
 | CP-3C | Actual Ford ratings/funding intake now also delivered through CP-OS with six checked conditional cases. TDG legal consumption and conditional contractual offer calculation checked. Actual CRC forward cash/funding intake now checked across six findings and five route dispositions and rendered; complete takeout/funding/LME feasibility remains open | None |
 
 Later source needs include comparable quarters, peers, governing debt documents,
@@ -73,6 +73,34 @@ market quotes, rating evidence, explicit stress/forecast assumptions and prior-r
 deliverables. The local corpus already contains additional TDG HTML
 filings; they require source-readiness checks before use. Missing inputs will be
 addressed at the relevant module, not silently replaced by invented examples.
+
+## CP-OS / CP-3D / CP-3A — all ten Relative Value sections
+
+The [frozen workflow](runs/cpos-arcc-rv-001/workflow.json) now publishes the
+[complete existing Relative Value design](runs/cpos-arcc-rv-001/execution/deliveries/70f990d9ed622edfffbd91f9b82ebf54fc3a358a100bc8ed40a3054cd09a7142/report.html)
+from actual retained historical ARCC CP-3D, CP-3 and CP-6 answers. This is
+publication replay, with zero new provider calls. A format-only CP-3 amendment
+copies four original conditional yield results into an explicit table; removing
+that block restores every original byte. CP-6 consumed the original version;
+no fresh consumer reading or native acceptance is claimed.
+
+The real publication first refused the complete instrument table because the
+design slots were unbound. Two existing component declarations and a narrow
+adapter now feed the existing renderer:579 facts,528 literal table values,
+813 exact handoff citations and four source-bound chart points. Plain finite
+percentage tokens, exact unit conversion, missing versus zero, consistent
+maturities and both explicit price-basis rows are checked. No pricing is rerun.
+Browser review then caught positional TRACE headers overwriting Market Level
+and Quote Quality. Exact label guards fix that display error; rebuilt HTML was
+checked and the local server stopped. Earlier immutable reports remain retained.
+
+The [single case record](runs/cpos-arcc-rv-001/verification.json) contains the
+ranked confidence review, inline rewrite comparison, independent roots, tests
+and scope limits. The final clean staged checkout passed163 focused tests;
+changed adapter/test Ruff, two-file mypy and JS syntax checks also pass. The
+legacy full-suite collection limitation is retained in the case record.
+Full current pricing, external peers, executable preference,
+complete underwriting and a fresh end-to-end pathway remain open.
 
 ## CP-OS / CP-3B / CP-6A / CP-5A — all eight Portfolio Decision sections
 

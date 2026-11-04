@@ -32,6 +32,14 @@ constraint and proposed size remain unknown. This is checked retained replay,
 with full source content, not current investment approval or a fresh model run.
 Reproduce with `PYTHONPATH=src .venv/bin/python runs/cpos-lqd-portfolio-001/verify.py`.
 
+CP-OS also publishes the complete ten-section
+[historical ARCC Relative Value report](runs/cpos-arcc-rv-001/execution/deliveries/70f990d9ed622edfffbd91f9b82ebf54fc3a358a100bc8ed40a3054cd09a7142/report.html)
+from retained CP-3D, CP-3A and CP-6 handoffs. The existing instrument table and
+yield chart preserve both conditional clean/dirty cases and their exact source
+references. This proves publication replay, not executable prices or a fresh
+analytical run. The [case record](runs/cpos-arcc-rv-001/verification.json) states
+the original-answer format amendment and remaining limits.
+
 The [historical Ford funding report](runs/cpos-ford-funding-2024-001/execution/deliveries/526e1b1a46636703a009b9652e982f87df45f147643b2bd082285353a8e5bf58/report.html)
 now connects CP-2H's actual handoff to CP-3C and CP-OS delivery. Six conditional
 funding cases retain their source units, dates, signs and access assumptions.

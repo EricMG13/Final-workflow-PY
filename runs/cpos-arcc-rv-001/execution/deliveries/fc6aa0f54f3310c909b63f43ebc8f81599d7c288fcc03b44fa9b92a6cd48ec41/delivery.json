@@ -1,0 +1,15 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "ARCC historical December31 2024 retrospective evaluated-price and two-parent-note comparison; audit/source retrieval later, not an information-availability backtest or current executable market. Actual CP-3D market, CP-3/CP-3A comparison and actual subsequent CP-6 challenge replay through CP-OS. Source price basis is unknown: clean and dirty are separate conditional assumptions, with exact original values and gaps retained. Yield figure is a categorical maturity comparison, not a fitted/observed curve; no new pricing analysis. The added four-row table copies C2/C3 only; original CP-6 consumed the financially identical pre-table version, not a newly invented response. Missing external peers and loan/HY comparisons remain explicit; no corporate peer median, numeric score, current preference, mandate clearance or new size. What Changed names the original historical14-to15.294-point narrative repair, not a new financial/market period. Assessment pending is not a full committee call. Existing renderers only, no Excel output/provider/native acceptance.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-3D.md": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa",
+    "CP-3.md": "63c56793bbcc8e9e43671a4cdebefdc1a018cb57df8163125c80bd654294ea60",
+    "CP-6.md": "5f6d862a3bbe44892f8611559e612faf7ebd9e32cf65e564f2fc71eca8692bd6",
+    "view.json": "899b4b72bf3c19799d460c86e7a0fa7f673d985ee13255ae2fa9ec3896f0bddc",
+    "report-view.json": "e3525d59566b3683ee65295502cfbb0cddbf5357839cb1e0f196f9e607b99662",
+    "report.html": "39e61c5ac02c4cf424c1d7e5ae243c3f27c4505a6d0813053f0995b4e053e92a"
+  }
+}
