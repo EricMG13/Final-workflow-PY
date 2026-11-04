@@ -1,0 +1,293 @@
+{
+  "publication_checks": {
+    "eight_populated_blocks": true,
+    "all_thirteen_registers_exact_once": true,
+    "register_rows": 57,
+    "register_cells_including_row_labels": 227,
+    "placements": {
+      "T1D.1": {
+        "block": "ebitda-adjustments",
+        "rows": 7,
+        "cells": 35,
+        "headers": [
+          "ID / period",
+          "Issuer description",
+          "Amount",
+          "Category / management rationale",
+          "Evidence"
+        ]
+      },
+      "T1D.4": {
+        "block": "ebitda-adjustments",
+        "rows": 5,
+        "cells": 20,
+        "headers": [
+          "Step",
+          "Source adjustment",
+          "Cumulative issuer EBITDA",
+          "Quality treatment / cumulative quality value"
+        ]
+      },
+      "T1D.7": {
+        "block": "ebitda-adjustments",
+        "rows": 3,
+        "cells": 9,
+        "headers": [
+          "Gap",
+          "Missing evidence",
+          "Affected conclusion / follow-up"
+        ]
+      },
+      "T1D.2": {
+        "block": "earnings-quality",
+        "rows": 4,
+        "cells": 16,
+        "headers": [
+          "ID",
+          "Evidence of action / realisation",
+          "Assessment and counterevidence",
+          "Accepted normalisation / limitation"
+        ]
+      },
+      "T1D.3": {
+        "block": "earnings-quality",
+        "rows": 4,
+        "cells": 12,
+        "headers": [
+          "Category",
+          "Named prior periods and current evidence",
+          "Verdict / creditor mechanism"
+        ]
+      },
+      "T1D.5": {
+        "block": "restated-leverage",
+        "rows": 3,
+        "cells": 15,
+        "headers": [
+          "Basis / FY2024",
+          "EBITDA",
+          "OCF",
+          "Calculated OCF / EBITDA",
+          "Explanation and creditor consequence"
+        ]
+      },
+      "T1D.6": {
+        "block": "restated-leverage",
+        "rows": 2,
+        "cells": 10,
+        "headers": [
+          "Calculated measure, September 30, 2024",
+          "Ordinary EBITDA",
+          "Issuer As Defined",
+          "Quality-adjusted EBITDA",
+          "Meaning"
+        ]
+      },
+      "T1E.1": {
+        "block": "restated-leverage",
+        "rows": 9,
+        "cells": 36,
+        "headers": [
+          "Item",
+          "Reported amount / date",
+          "Category and disclosure quality",
+          "Evidence"
+        ]
+      },
+      "T1E.2": {
+        "block": "restated-leverage",
+        "rows": 5,
+        "cells": 15,
+        "headers": [
+          "Item",
+          "Treatment / adjustment",
+          "Analytical convention, basis and counterevidence"
+        ]
+      },
+      "T1E.3": {
+        "block": "restated-leverage",
+        "rows": 5,
+        "cells": 20,
+        "headers": [
+          "Step",
+          "Increment",
+          "Cumulative known subtotal",
+          "Basis"
+        ]
+      },
+      "T1E.4": {
+        "block": "restated-leverage",
+        "rows": 3,
+        "cells": 15,
+        "headers": [
+          "Annual denominator",
+          "CP-1 carrying debt",
+          "Known adjusted subtotal",
+          "Delta",
+          "Creditor implication"
+        ]
+      },
+      "T1E.5": {
+        "block": "restated-leverage",
+        "rows": 3,
+        "cells": 12,
+        "headers": [
+          "Item",
+          "This analysis",
+          "Agency / alternative treatment",
+          "Status and reason"
+        ]
+      },
+      "T1E.6": {
+        "block": "restated-leverage",
+        "rows": 4,
+        "cells": 12,
+        "headers": [
+          "Gap",
+          "Missing data / why it matters",
+          "Output effect and follow-up"
+        ]
+      }
+    },
+    "five_existing_blocks_identical": true,
+    "all_original_line_hash_citations": 1598,
+    "facts": 1308,
+    "canonical_module_count": 4,
+    "cp1d_present_once": true,
+    "alias_exposed": true,
+    "requests_retained": 4,
+    "one_completion_after_resume": true,
+    "no_excel_output": true,
+    "replay_not_analytical_execution": true,
+    "exact_publication_verified": true
+  },
+  "status": "progress — CP-1D/CP-1E retained handoffs now reach a checked earnings report; full goal active",
+  "execution": "retained-response-replay; actual host-model answers are prior retained evidence, not new model calls",
+  "fresh_model_run": false,
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "subagents_used": false,
+  "excel_output": false,
+  "production_code_changed": false,
+  "case_scope": "Historical TDG earnings and quality review. USD millions except percentages, percentage points and multiples. The earnings comparison is fiscal Q1 2024-10-01–2024-12-28 (89 days) versus 2023-10-01–2023-12-30 (91 days). Quality/cash-conversion/leverage tables use FY2024 and September 30, 2024 balances unless explicitly labelled quarterly. Quality-adjusted EBITDA is unresolved; 24,961 is only a known-item debt subtotal. Guidance, matching LTM ratios and current cash access remain unestablished. Eight selected sections plus complete retained handoffs/evidence; replay publication, not a fresh model run or full pathway/native acceptance.",
+  "temporal_scope": "Historical financial period, not a claim that all publications were available by 2024-12-28 or describe current conditions.",
+  "workflow": {
+    "path": "runs/cpos-tdg-quality-001/workflow.json",
+    "sha256": "f93917b775a35a9a64e9b5e16896ae599661bc1c4e028864850a8e7032460c56"
+  },
+  "original_analytical_evidence": {
+    "runs/tdg-003/CP-1D-attempt-1.md": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+    "runs/tdg-003/CP-1D-instructions.md": "6c71bc731480124fca01a5f3aceca94ea5102b1fa09411cefee4c79907aa0a98",
+    "runs/tdg-003/CP-1D-attempt-1-calculations.json": "ad7b384c0d962cfd43195c7f2656c6c1f1056065e16e3f2662ff4b20181532fb",
+    "runs/tdg-003/CP-2-quality-update.md": "f147a5ad94c83015487f4e254788e8f93d025b643eedf213ba2d6184bf1a443e"
+  },
+  "method_selection": {
+    "basis": "METHODOLOGY-REVIEW.md CP-1D/CP-1E signed issuer bridge amendment; analytical breadth of seven quality and six debt duties retained; later additional-financing-case engine not misused. Current transport/orchestration/delivery and Excel ruling supersede historical invocation/export/approval clauses.",
+    "original_skill_sha256": "9682b2da83fe7fd3288cae31fc5d1cf7f6d2daa3de2fac297637fe13d5e8e2ae",
+    "revision": "cp-os e67bf0cda2dc80d7a744bee371c4fb3c7b8b8df7; selected files clean",
+    "archive": "docs/reuse/selected-methods/skills/cp-1d-earnings-quality/SKILL.md",
+    "later_method_sha256": "47bc1422b52c5b66cf9a766ca0295c01c9292b2e7724aa9a4229514c1174e3da"
+  },
+  "instruction_output_review": [
+    {
+      "duty": "Seven CP-1D stages",
+      "actual": "All signed categories retained, achievability distinguished from transcription, named prior periods tested, issuer control bridge reconciled, quality denominator unresolved, annual conversion and leverage differences shown, gaps explicit.",
+      "verdict": "Bounded source-supported duties exercised; no fabricated supported EBITDA."
+    },
+    {
+      "duty": "Six absorbed CP-1E stages",
+      "actual": "Obligation inventory/treatment/known subtotal/leverage/conventions/gaps all exercised. Already-counted finance leases/securitization/advances add zero twice-counting adjustment; operating leases 62 and gross pension 19 add to carrying 24,880; asset 13/net deficit 6 separate.",
+      "verdict": "Positive arithmetic and treatment proof for known items; incomplete total/agency/current conventions remain unproven."
+    },
+    {
+      "duty": "Onward use",
+      "actual": "Prior actual CP-2-quality-update retains the exact CP-1D hash and uses recurrence/conversion/obligation findings. New CP-OS alias request hands the exact artifact to independent delivery; all thirteen analytical tables occur once in the three new report blocks.",
+      "verdict": "Actual retained downstream consumption, not alias resolution alone."
+    }
+  ],
+  "independent_source_checks": {
+    "annual_pdf": "data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+    "annual_pdf_sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+    "text_page53": "Ordinary EBITDA 3,813; adjustments 70 + 217 + 58 + 15; issuer As Defined 4,173.",
+    "text_page148": "Operating lease liabilities 62, finance lease liabilities 262.",
+    "pension_visual": "Re-opened actual pdf134-pension.png. U.S./non-U.S. gross recognised liabilities 3 + 16 = 19; separate asset 13; net deficits 3 + 3 = 6. Not gross obligations 180 or plan assets 174.",
+    "pension_visual_sha256": "ecfde5816ead1f994e29e03c7168778974f36ad99c3dbeaf8598edb219e54de2"
+  },
+  "independent_arithmetic": {
+    "method": "Python integer/Fraction checks, no production sums/quotients imported. Original independent expectations frozen before new publication.",
+    "annual_bridge": "3813 + 70 + 217 + 58 + 15 = 4173",
+    "quarter_bridge": "1087 + 13 + 25 - 64 = 1061",
+    "debt_known_subtotal": "24880 + 62 + 19 + 0 = 24961",
+    "ratio_count": 8,
+    "ratio_error_bound": "below 1e-35 versus retained exact-decimal record",
+    "leverage_deltas": "81/3813 rounds +0.0212x; 81/4173 rounds +0.0194x. Not differences recomputed from rounded display endpoints.",
+    "quality_adjusted_ebitda": null,
+    "full_adjusted_debt": null
+  },
+  "publication": {
+    "report": "runs/cpos-tdg-quality-001/execution/deliveries/c93479b08736770845f403c97825fc55c86c2e1ea58a39ca876056c7a13e849b/report.html",
+    "report_sha256": "0935f491fc6c20c1b98c238a2bac89e460ba4d3a6a0b37e569291394a43c1d8f",
+    "files": {
+      "CP-1B.md": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+      "report-view.json": "c528399b4bbe86e361f7b12f4b12da37c8456ee136493d070ee97b446342db1e",
+      "delivery.json": "53bb291e9cb1ce0ce1d68d414aa4ac19148ef3d5764dcf7801a0e3d8b03ef50f",
+      "view.json": "3798bf7479132f7ecf0dfae7777b489eb4acb6b19cbf680bd2b27c9ded16018f",
+      "CP-0.md": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+      "CP-1.md": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+      "CP-1D.md": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+      "report.html": "0935f491fc6c20c1b98c238a2bac89e460ba4d3a6a0b37e569291394a43c1d8f"
+    },
+    "literal_handoffs": [
+      "CP-0",
+      "CP-1",
+      "CP-1B",
+      "CP-1D"
+    ],
+    "sources_and_upstreams": "All pinned bytes and per-response context checked. New frozen evaluation bindings are not original native receipts."
+  },
+  "browser_check": {
+    "result": "Actual DOM confirmed eight sections; signed quarterly (64); recurring-cost challenge and Medium-confidence unresolved-quality assessment; 53.63% / 49.01% annual conversion; 24,961 known subtotal, zero second additions and Full total unavailable.",
+    "source_inspector": "CP-1D line 158: | Gross recognised pension liabilities | 19 | 24,961 | No offset of separate asset. |; exact 02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b hash.",
+    "server": "127.0.0.1:8784 stopped"
+  },
+  "resume_check": {
+    "command": "PYTHONPATH=src .venv/bin/python -m deploy_workflow.owners.cpos --manifest runs/cpos-tdg-quality-001/workflow.json --state runs/cpos-tdg-quality-001/execution",
+    "result": "Same publication hash, four retained response requests and one completion after repeat; no analytical executor/provider calls."
+  },
+  "review_of_uncertainties": [
+    {
+      "doubt": "Could annual ratios be mistaken for current/LTM leverage?",
+      "resolution": "Named FY2024/September bases in tables, tabs, assessment and scope banner; quarter rows remain separate. No annualisation or LTM fabrication."
+    },
+    {
+      "doubt": "Could a subtotal become complete adjusted debt or an unresolved earning become zero?",
+      "resolution": "All original strings/empty distinctions preserved; full debt unavailable and quality denominator unresolved in explicit cells. Known zero means no second addition only."
+    },
+    {
+      "doubt": "Could selection drop a table, change headers/cells or overwrite earlier report sections?",
+      "resolution": "Independent regular-table parser matched all thirteen tables exactly once: 57 rows, 227 cells including row labels; all five earlier blocks exactly equal; all 1,598 citations match original physical lines/hashes."
+    },
+    {
+      "doubt": "Does alias routing prove debt scope?",
+      "resolution": "Actual CP-1E request dispatches once to CP-1D, with all six debt registers delivered and three positive quantified controls independently checked. Unknown categories still open."
+    },
+    {
+      "doubt": "Did this require new analytical/platform code?",
+      "resolution": "No. Existing generic adapter/configuration and CP-OS exchange reused; five production source hashes match previous case. No new production tests, confidence-review or rewrite tournament required for config/docs/data-only changes."
+    }
+  ],
+  "production_source_sha256": {
+    "src/deploy_workflow/markdown_delivery.py": "9670707024a4745a889f90e5d0d0aae16b294c5a373ca59ee3009541f30dad42",
+    "src/deploy_workflow/handoff_delivery.py": "4d505fa46029dc975c4ee33d15fae597d52c6819c8754bb8fdede6973fc43cec",
+    "src/deploy_workflow/owners/cpos.py": "bd6b8097aca9b01a42048be6b567a6e167115d54ebca8117bfbec80afc7c14e2",
+    "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+    "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba"
+  },
+  "verification_scope": "Actual retained-output/instruction/source/arithmetic/publication/browser/resume checks. The earlier 95 focused production regressions apply to unchanged source; they were not rerun or relabelled as new analytical proof.",
+  "remaining": [
+    "Complete adjusted-debt quantum and resolved sustainable quality earnings need actual additional evidence.",
+    "Full earnings preset, other module/pathway integrations and fresh/provider/native scope remain open.",
+    "Legacy native T4.9 publication-unit fixture issue from prior turn is unchanged and not exercised by this route."
+  ],
+  "next_available_step": "Connect the next selected module after reviewing its actual answer and evidence; do not wait for a complete TDG underwriting pack or add a competing controller."
+}

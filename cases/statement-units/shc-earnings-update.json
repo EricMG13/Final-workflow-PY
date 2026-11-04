@@ -1,0 +1,107 @@
+{
+ "schema": "statement-units/1",
+ "case": "shc-earnings-update",
+ "sources": [
+  {
+   "source_id": "SHC_2025-06-30_10-Q_0001822479-25-000044_shc-20250630",
+   "file": "SHC/SHC_2025-06-30_10-Q_0001822479-25-000044_shc-20250630.htm",
+   "converted_sha256": "97fb82ba3c37fb4d3819aa4b54a5c2d191a74d32a3cc9f59b1440c77ae837dad",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:33",
+     "end": "line:81",
+     "heading": "Consolidated Balance Sheets"
+    },
+    {
+     "kind": "IS",
+     "start": "line:82",
+     "end": "line:114",
+     "heading": "Consolidated Statements of Operations and Comprehensive Income (Loss)"
+    },
+    {
+     "kind": "CFS",
+     "start": "line:115",
+     "end": "line:162",
+     "heading": "Consolidated Statements of Cash Flows"
+    }
+   ],
+   "none": [],
+   "remarks": [
+    "IS is the combined operations and comprehensive income (loss) statement. Equity statement (163, continued at 187) is never a unit."
+   ]
+  },
+  {
+   "source_id": "SHC_2024-12-31_10-K_0001822479-25-000015_shc-20241231",
+   "file": "SHC/SHC_2024-12-31_10-K_0001822479-25-000015_shc-20241231.htm",
+   "converted_sha256": "e700d0c369be75b1030091800e39eb8073b9ce6e709ff762cf85adc147687bb5",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:217",
+     "end": "line:266",
+     "heading": "Consolidated Balance Sheets"
+    },
+    {
+     "kind": "IS",
+     "start": "line:267",
+     "end": "line:305",
+     "heading": "Consolidated Statements of Operations and Comprehensive Income (Loss)"
+    },
+    {
+     "kind": "CFS",
+     "start": "line:306",
+     "end": "line:357",
+     "heading": "Consolidated Statements of Cash Flows"
+    }
+   ],
+   "none": [],
+   "remarks": [
+    "IS is the combined operations and comprehensive income (loss) statement. Lines 194-198 are the table of contents; 203 is the auditor's report. Equity statement at 358 is never a unit."
+   ]
+  },
+  {
+   "source_id": "SHC_legal_event_amendment_no4",
+   "file": "SHC/SHC_legal_event_amendment_no4.html",
+   "converted_sha256": "d9ea556fd6c670c37bfccd78005ecb51f59d03d076c8543c91a04a9ab667f241",
+   "units": [],
+   "none": [
+    {
+     "kind": "BS",
+     "reason": "credit agreement amendment No. 4 (legal exhibit); no financial statements"
+    },
+    {
+     "kind": "IS",
+     "reason": "credit agreement amendment No. 4 (legal exhibit); no financial statements"
+    },
+    {
+     "kind": "CFS",
+     "reason": "credit agreement amendment No. 4 (legal exhibit); no financial statements"
+    }
+   ],
+   "remarks": []
+  },
+  {
+   "source_id": "SHC_legal_event_term_loan_closing_SEC_8K_exhibit_99_1",
+   "file": "SHC/SHC_legal_event_term_loan_closing_SEC_8K_exhibit_99_1.html",
+   "converted_sha256": "04a8f4f93b98724b186aae54317a635456563a270138c24677804881df4c8025",
+   "units": [],
+   "none": [
+    {
+     "kind": "BS",
+     "reason": "8-K exhibit 99.1 press release on the term loan closing; no financial statements"
+    },
+    {
+     "kind": "IS",
+     "reason": "8-K exhibit 99.1 press release on the term loan closing; no financial statements"
+    },
+    {
+     "kind": "CFS",
+     "reason": "8-K exhibit 99.1 press release on the term loan closing; no financial statements"
+    }
+   ],
+   "remarks": []
+  }
+ ],
+ "missing": []
+}

@@ -1,0 +1,28 @@
+CP-1A governance scoring calculation transcript
+
+Purpose: audit the exact grounded model judgments in CP-1A-attempt-1-governance-inputs.json. This calculation reuses, without modification, `GovernanceItem` and `governance_sponsor_score` from `src/deploy_vii/business_context.py`.
+
+Input file SHA-256: 7fc6417bea9417245c0c442f1b369506ab5609cb5adebac974b36d2a6e466bc9
+Source function: deploy_vii.business_context.governance_sponsor_score
+SHA-256 of Python inspect.getsource(governance_sponsor_score) UTF-8 bytes: fa695c59a819cd673e82ea1df38d2def1da64e5846e897127db6c4e3e4dc01ee
+
+Execution: Python 3.13 from the project `.venv`; load each JSON row as a `GovernanceItem` using Pydantic JSON validation; pass the eight records to `governance_sponsor_score`.
+
+Rule applied by the existing function: each supported dimension is scored 1 when all directions are Supportive, 5 when any Extraction-Oriented/Creditor-Adverse row exists and no Supportive row exists, and 3 for other combinations. With at least four dimensions supported, composite is the most adverse dimension score; risk level maps 1=Low, 3=Medium, 5=High. Below four dimensions, composite is Not Scorable, except a High-quality adverse action sets the risk level High. No average or weights are added.
+
+Result:
+- Leverage tolerance: Not Scorable
+- Shareholder extraction risk: 5, Adverse (two High-quality documented distribution/repurchase rows)
+- Acquisition appetite: 3, Mixed (High-quality completed acquisitions; management's selective-policy statement is separately qualified)
+- Support behavior: Not Scorable
+- Disclosure transparency: 1, Creditor-favorable
+- Creditor treatment / amendment behavior: Not Scorable
+- Legal-capacity linkage: Not Scorable
+- Reporting quality: 1, Creditor-favorable
+- Related-party leakage risk: Not Scorable
+- Supported dimensions: 4 of 9
+- Composite: 5
+- Sponsor / Governance Risk Level: High
+- High-quality adverse-action override present: true (the FY2024 and FY2022 extraction rows)
+
+Interpretation boundary: this is the selected rubric's categorical governance result from documented issuer-level actions. It is not a credit rating, default probability, legal-breach finding, recovery estimate or assessment of an individual's quality. Five dimensions remain explicitly Not Scorable.

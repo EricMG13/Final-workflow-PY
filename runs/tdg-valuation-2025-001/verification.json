@@ -1,0 +1,117 @@
+{
+  "scope": "Current-host source/instruction/output check; no independent-model assurance or native acceptance",
+  "producer_sha256": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8",
+  "arithmetic_oracle_checks": 21,
+  "displayed_named_calculation_rows_checked": 17,
+  "exact_valuation_schemas_checked": 3,
+  "source_literal_crosschecks": 25,
+  "headings": "pass",
+  "conditional_and_missing_labels": "pass",
+  "stale_current_native_admission_exclusion": "pass",
+  "producer_repairs_required": [],
+  "source_retention_repair": {
+    "observed_failure": "Initial retained captures omitted the exact note4 USD125,000-thousand receivables point; the MD&A USD125-million statement was retained. The source figure was not changed.",
+    "repair": "Retained the original SEC note4 passage at L1445 separately; initial frozen files unchanged. All source-literal checks now pass.",
+    "path": "runs/tdg-valuation-2025-001/sources/receivables-supplement.txt",
+    "sha256": "2bb2817184e33a56159d14de6c0719425a9f9f77663674a85bcac3ffa2ada467"
+  },
+  "limitations": [
+    "No full source-document/raw-byte equivalence",
+    "Complete EV, economic adjustments, transaction methods and normalized/current sector valuation remain unproven",
+    "Single host saw source/oracle/producer/review; no independent-model assurance"
+  ],
+  "next": "Continue positive remaining module functions; complete EV/transaction valuation and CP-OS end-to-end integration remain open.",
+  "consumer": {
+    "path": "CP-2-consumer.md",
+    "sha256": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa",
+    "request_sha256": "f95c0a84acf78fc22ee4f31c859ae8a76dad18b66001aab8db8326d6591a4f5e",
+    "principle_source": "src/deploy_vii/methods/cp2.md",
+    "principle_source_sha256": "9ddd2ab22b5aeab99054cf82ebfb7f03ef49422678be08374566b96dc18dcbd1",
+    "actual_findings": 5,
+    "producer_value_copy_checks": 11,
+    "source_mechanism_credit_consequence_and_limits": "present for each finding",
+    "execution": "same current host, preceding context; not independent/native assurance",
+    "analytical_repairs_required": []
+  },
+  "delivery": {
+    "directory": "deliverables/tdg-fy2025-valuation-1",
+    "kind": "manual_checked_handoff_delivery",
+    "analytical_rerun_for_delivery": false,
+    "production_code_changed": false,
+    "native_accepted_heads_created": false,
+    "no_excel_output": true,
+    "scope": "Historical FY2025 issuer filings; Moog price as of 27 September 2025, TDG year ended 30 September 2025. Stale at the 4 November 2026 run date. N=1; individual known-components EV-proxy indications only. Complete EV, transaction methods and normalized/current sector valuation remain unproven. Alternative methods are not a valuation range. Same-host handoffs, not independent assurance or native CP-OS completion.",
+    "source_tables": 19,
+    "source_data_rows": 61,
+    "literal_value_cells_checked": 174,
+    "facts_and_exact_line_citations": 174,
+    "missing_null_cells": 28,
+    "front_summary_rows": 5,
+    "narrative_tables": 12,
+    "call_from_literal_provisional_status": true,
+    "files": {
+      "CP-1C-attempt-1.md": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8",
+      "CP-2-consumer.md": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa",
+      "calculation.json": "f08e324d1c3b60ddd64459d264d18d4eabd8fb1fc626007e7b74f443d8e6be8d",
+      "CP-1-valuation-inputs.md": "2d88e82cea96c83108b53a86dafa27056f35098c786419d25dba0280fe0735df",
+      "view.json": "08e713acf4190edec5fd038e43e9559cc0d88cfd4df8f1402a037d71c08f66ff",
+      "report-view.json": "d5c0d0eb6583b985941d66f909fab3d4c3005e616b45d2d28291064dee1b6506",
+      "report.html": "843d1e58e8027570adf9af2c03ce81505275efb8488eee74c56233443166a424"
+    },
+    "reused_code": {
+      "src/deploy_workflow/handoff_delivery.py": "aa77ae59a2e408f05a3cf2f5c7af92b4dde2b2df635f961545d49fc05bc0e00c",
+      "src/deploy_vii/contracts.py": "b07965cc3907da1911c29a09bfea8b4559fb1c27dfc57c7e89eab97f1a3d0ee3",
+      "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+      "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba"
+    }
+  },
+  "confidence_review": {
+    "scope": "New retained analytical case, reused Decimal helpers and case-specific literal report composition; no production functions changed",
+    "least_confident_ranked": [
+      {
+        "point": "Source identity and changed economic basis",
+        "finding": "Both classes, actual outstanding shares, gross/carrying/fair borrowing distinctions and separate finance leases checked against located filing passages; 21 independent Fraction checks and 17 output-coordinate checks pass. Exact receivables capture omission repaired at source, no numerical patch."
+      },
+      {
+        "point": "Missing capital values or one-peer/stale values promoted into full EV/current statistics",
+        "finding": "Complete EV/adjustment/statistic fields stay null; 28 publication cells remain missing. Current native date admission actually excludes the record. Provisional use, N=1 and Stale labels are visible."
+      },
+      {
+        "point": "Consumer turns conditional amounts into fair value, debt coverage or a range",
+        "finding": "Actual five-finding CP-2 answer copies 11 checked values, explains the sales/earnings mechanism and withholds those conclusions."
+      },
+      {
+        "point": "Delivery drops reasoning, changes units or breaks provenance",
+        "finding": "Seven original tables and twelve narrative presentations copied; 174 fact/value/physical-line citations checked. Original period/unit/definition text stays in cells/quotes. This literal adapter does not populate all native numerical inspector facets; typed/general integration remains open."
+      },
+      {
+        "point": "Accidental code or historical-artifact changes",
+        "finding": "Frozen case pins, method/helper hashes, reused renderer code and delivery-file hashes rechecked unchanged. Previous run/delivery directories were not written."
+      }
+    ],
+    "case_specific_adversarial_alternatives_rejected": {
+      "single_A_price_for_both_classes": true,
+      "issued_instead_of_outstanding": true,
+      "omitting_finance_leases": true,
+      "deducting_restricted_cash": true,
+      "substituting_As_Defined_EBITDA": true
+    },
+    "rewrite_tournament": "Skipped: new analytical Markdown, generated JSON/HTML and reuse of the existing case composer; no production function changes.",
+    "open": [
+      "Complete economic EV and actual transaction valuation",
+      "Normalized/current/broader CP-1C analytical scope",
+      "General typed delivery/CP-OS integration",
+      "Independent/native provider qualification"
+    ]
+  },
+  "browser": {
+    "scope": "Actual local report AX inspection, not full visual/a11y/native qualification",
+    "front_page": "Provisional header, historical/stale/N=1 scope and all five actual CP-2 findings visible",
+    "producer_tables": "T4.8/T4.9/T4.10 and calculation register present",
+    "known_value": "USD17160.112063m conditional indication, CP-1C line79 and producer hash verified in inspector",
+    "missing_value": "Median shows missing/Insufficient Information, not zero",
+    "narrative": "Full alternative-method/margin/definition explanation preserved; exact original multiline quote lines84\u201392 and producer hash verified",
+    "consumer_source": "CP-2 revenue finding line28 and consumer hash verified",
+    "cua_completion_summary": "Verified valuation report"
+  }
+}

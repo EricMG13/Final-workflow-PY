@@ -1,0 +1,324 @@
+{
+  "execution": "Current host model with context, no agents/providers; documentary hypothetical historical cases, not synthetic issuer inputs or realized distributions",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/20520/000114036120015359/ex99_1.htm",
+  "source_date": "2020-06-29",
+  "source_hashes": {
+    "runs/frontier-2020-001/sources/source-lines.txt": "449e28443aebc42a7f5a2a323ca5dea1d4c34a2407531b9caaff47dcd3cac4d8",
+    "runs/frontier-2020-001/sources/web-captures.json": "22409b9cdf04e434f809169fb2533f50ca00355e99519908b5d419492e777093"
+  },
+  "instruction_sha256": "153fe3f52fc9686eeceace15b8539acac3535b66832d240a7c422556ff931c60",
+  "cp0_sha256": "166c1395182a3ed574ac6ef1be9050489b2a8f4cd9faf13a1a3cfc6172695a9d",
+  "method_hashes": {
+    "docs/reuse/selected-methods/skills/cp-4c-restructuring-fulcrum/SKILL.md": "9e1a16330a06e98cd22ef7aa97be526c131d962ec3d3ff1ef9a3e42ca9bb311c",
+    "docs/reuse/selected-methods/skills/cp-4c-restructuring-fulcrum/references/REF_CP-4C_STEPS.md": "1483f4fe9e37d593bdf0cab58ac8eb0674aaa22745579bd9430380c57e763e97",
+    "docs/reuse/selected-methods/skills/cp-4c-restructuring-fulcrum/scripts/recovery_waterfall.py": "2e6c084747be7f67052c5c333fc80d5954f0fe6dcdba14e6b933fffaae3c1878",
+    "docs/reuse/selected-methods/skills/cp-4c-restructuring-fulcrum/scripts/cp_tables.py": "02590c0bf151e1e291b72214df3311f686d88e576d60a80a6b5ca73ecc44a8d1",
+    "docs/reuse/selected-methods/skills/cp-4c-restructuring-fulcrum/scripts/validate_handoff.py": "c640aaaf579907c63a72d5a5a0df5134ed89dbf273441846ec399353e3bbac9e",
+    "docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/CP-3A_RUNBOOK.md": "cbb19deed431ea93c91b5e4d025d466869169681e8daa2d94a70ecde775dbc8e",
+    "docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/REF_CP-3A_STEPS.md": "40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec"
+  },
+  "inputs": {
+    "low": {
+      "pledged_available": "3523.2",
+      "holdco_available": "1306.1",
+      "guc": {
+        "1L_deficiency": "615.8",
+        "2L_deficiency": "1600.0",
+        "Senior_Notes": "11445.4",
+        "OPEB_deficiency": "13.5",
+        "Lease_Rejection": "8.7",
+        "Trade": "7.6",
+        "Trade_deficiency": "15.4"
+      }
+    },
+    "high": {
+      "pledged_available": "5274.1",
+      "holdco_available": "1654.1",
+      "guc": {
+        "1L_deficiency": "0",
+        "2L_deficiency": "464.9",
+        "Senior_Notes": "11445.4",
+        "OPEB_deficiency": "8.2",
+        "Lease_Rejection": "8.3",
+        "Trade": "7.6",
+        "Trade_deficiency": "15.4"
+      }
+    }
+  },
+  "claims": [
+    {
+      "claim_id": "1L_AGGREGATE",
+      "class": "three pari-passu first-lien instruments",
+      "amount": "4139.0",
+      "entities": [
+        "pledged pool, source aggregation"
+      ]
+    },
+    {
+      "claim_id": "2L",
+      "class": "second-lien notes, collateral component",
+      "amount": "1600.0",
+      "entities": [
+        "pledged pool, source aggregation"
+      ]
+    }
+  ],
+  "calculations": {
+    "low": {
+      "helper_result": {
+        "enterprise_value": 3523.2,
+        "costs": [],
+        "claims": [
+          {
+            "claim_id": "1L_AGGREGATE",
+            "class": "three pari-passu first-lien instruments",
+            "entities": [
+              "pledged pool, source aggregation"
+            ],
+            "amount": 4139.0,
+            "recovered": 3523.2,
+            "recovery_pct": 0.85122,
+            "status": "partial",
+            "is_fulcrum": true
+          },
+          {
+            "claim_id": "2L",
+            "class": "second-lien notes, collateral component",
+            "entities": [
+              "pledged pool, source aggregation"
+            ],
+            "amount": 1600.0,
+            "recovered": 0.0,
+            "recovery_pct": 0.0,
+            "status": "no recovery",
+            "is_fulcrum": false
+          }
+        ],
+        "fulcrum_claim_id": "1L_AGGREGATE",
+        "residual_to_equity": 0.0,
+        "fully_allocated": true,
+        "allocation_state": "partial recovery",
+        "status": "complete",
+        "note": null
+      },
+      "holdco_guc_total": "13706.4",
+      "holdco_ratio": "0.09529125080254479659137337302",
+      "holdco_payouts": {
+        "1L_deficiency": "58.68035224420708574096772311",
+        "2L_deficiency": "152.4660012840716745461973968",
+        "Senior_Notes": "1090.646481935446214906904804",
+        "OPEB_deficiency": "1.286431885834354753983540536",
+        "Lease_Rejection": "0.8290338819821397303449483453",
+        "Trade": "0.7242135060993404540944376350",
+        "Trade_deficiency": "1.467485262359189867507149945"
+      },
+      "total_recovery_fraction": {
+        "1L": "0.8653975240986245677074094523",
+        "2L": "0.09529125080254479659137337302",
+        "Senior_Notes": "0.09529125080254479659137337302"
+      },
+      "independent_published_payouts": {
+        "1L_deficiency": "58.7",
+        "2L_deficiency": "152.5",
+        "Senior_Notes": "1090.7"
+      },
+      "source_rounding_deltas_usdm": {
+        "1L_deficiency": "0.01964775579291425903227689",
+        "2L_deficiency": "0.0339987159283254538026032",
+        "Senior_Notes": "0.053518064553785093095196"
+      },
+      "expected_pledged_paid": [
+        "3523.2",
+        "0"
+      ],
+      "pool_fulcrum_expected": "1L_AGGREGATE",
+      "scope": "Source-defined hypothetical liquidation; not actual realized recovery"
+    },
+    "high": {
+      "helper_result": {
+        "enterprise_value": 5274.1,
+        "costs": [],
+        "claims": [
+          {
+            "claim_id": "1L_AGGREGATE",
+            "class": "three pari-passu first-lien instruments",
+            "entities": [
+              "pledged pool, source aggregation"
+            ],
+            "amount": 4139.0,
+            "recovered": 4139.0,
+            "recovery_pct": 1.0,
+            "status": "full",
+            "is_fulcrum": false
+          },
+          {
+            "claim_id": "2L",
+            "class": "second-lien notes, collateral component",
+            "entities": [
+              "pledged pool, source aggregation"
+            ],
+            "amount": 1600.0,
+            "recovered": 1135.1,
+            "recovery_pct": 0.709438,
+            "status": "partial",
+            "is_fulcrum": true
+          }
+        ],
+        "fulcrum_claim_id": "2L",
+        "residual_to_equity": 0.0,
+        "fully_allocated": true,
+        "allocation_state": "partial recovery",
+        "status": "complete",
+        "note": null
+      },
+      "holdco_guc_total": "11949.8",
+      "holdco_ratio": "0.1384207267067231250732229828",
+      "holdco_payouts": {
+        "1L_deficiency": "0",
+        "2L_deficiency": "64.35179584595558084654136471",
+        "Senior_Notes": "1584.280585449128855713066327",
+        "OPEB_deficiency": "1.135049958995129625600428459",
+        "Lease_Rejection": "1.148892031665801938107750757",
+        "Trade": "1.051997522971095750556494669",
+        "Trade_deficiency": "2.131679191283536126127633935"
+      },
+      "total_recovery_fraction": {
+        "1L": "1",
+        "2L": "0.7496573724037222380290883529",
+        "Senior_Notes": "0.1384207267067231250732229828"
+      },
+      "independent_published_payouts": {
+        "1L_deficiency": "0",
+        "2L_deficiency": "64.4",
+        "Senior_Notes": "1584.3"
+      },
+      "source_rounding_deltas_usdm": {
+        "1L_deficiency": "0",
+        "2L_deficiency": "0.04820415404441915345863529",
+        "Senior_Notes": "0.019414550871144286933673"
+      },
+      "expected_pledged_paid": [
+        "4139",
+        "1135.1"
+      ],
+      "pool_fulcrum_expected": "2L",
+      "scope": "Source-defined hypothetical liquidation; not actual realized recovery"
+    }
+  },
+  "checks": {
+    "low": {
+      "helper_matches_independent_literal_expectations": true,
+      "pool_fulcrum_matches": true,
+      "holdco_pro_rata_conserves_value_exactly": true,
+      "selected_published_payouts_match_within_0_1_usdm": true
+    },
+    "high": {
+      "helper_matches_independent_literal_expectations": true,
+      "pool_fulcrum_matches": true,
+      "holdco_pro_rata_conserves_value_exactly": true,
+      "selected_published_payouts_match_within_0_1_usdm": true
+    }
+  },
+  "plan_bridge": [
+    {
+      "ev_usdm": "10000",
+      "net_debt_usdm": "6560",
+      "tax_affected_pension_opeb_usdm": "1370",
+      "equity_usdm": "2070",
+      "independent_source_expected": "2070"
+    },
+    {
+      "ev_usdm": "11250",
+      "net_debt_usdm": "6560",
+      "tax_affected_pension_opeb_usdm": "1370",
+      "equity_usdm": "3320",
+      "independent_source_expected": "3320"
+    },
+    {
+      "ev_usdm": "12500",
+      "net_debt_usdm": "6560",
+      "tax_affected_pension_opeb_usdm": "1370",
+      "equity_usdm": "4570",
+      "independent_source_expected": "4570"
+    }
+  ],
+  "execution_repair": "First helper import lacked transitive validate_handoff dependency; copied unchanged dependency from same method snapshot, no production or predecessor edit",
+  "boundaries": [
+    "Net pledged proceeds parameter is not group EV; costs already deducted",
+    "1L collapsed equal-rank aggregate avoids serial allocation between peers",
+    "Deficiency is unpaid balance only, not full principal a second time",
+    "Source group aggregation cannot validate every legal entity",
+    "Rounded source inputs explain small payout differences",
+    "Liquidation date and plan valuation date are separate",
+    "Complete native producer gates/full underwriting not executed"
+  ],
+  "source_comparison_checks": {
+    "source_version": true,
+    "venue": true,
+    "real_distress": true,
+    "entity_aggregation_limitation": true,
+    "low_pool": true,
+    "high_pool": true,
+    "actual_claim_operands": true,
+    "deficiency_scope": true,
+    "source_payout_checks": true,
+    "source_estimate_warning": true,
+    "plan_bridge": true,
+    "plan_equity_source": true,
+    "plan_recovery_distinguished": true,
+    "vote_threshold": true,
+    "sale_and_liquidation_dates": true,
+    "plan_date": true,
+    "equal_rank_sum": true,
+    "low_value_product": true,
+    "high_value_product": true
+  },
+  "transport_checks": {
+    "CP-0.md": [
+      "Request",
+      "Sources",
+      "Findings",
+      "Calculations",
+      "Gaps",
+      "Next module"
+    ],
+    "CP-4C-attempt-1.md": [
+      "Request",
+      "Sources",
+      "Findings",
+      "Calculations",
+      "Gaps",
+      "Next module"
+    ],
+    "CP-3-recovery-consumer.md": [
+      "Request",
+      "Sources",
+      "Findings",
+      "Calculations",
+      "Gaps",
+      "Next module"
+    ]
+  },
+  "outputs": {
+    "runs/frontier-2020-001/CP-0.md": "166c1395182a3ed574ac6ef1be9050489b2a8f4cd9faf13a1a3cfc6172695a9d",
+    "runs/frontier-2020-001/CP-4C-attempt-1.md": "e0b0a126724a5af0ae97ce133f804962d66fb3851c3a841c69021966b00a4146",
+    "runs/frontier-2020-001/CP-3-recovery-consumer.md": "3f15bf73ef25073d2a95304e111a8d974932b938b1a31083ee3646526fd9ea8a"
+  },
+  "synthetic_controls": {
+    "repeated_claim_id_refused": true,
+    "unknown_senior_claim_blocks_lower_fulcrum": true,
+    "scope": "Synthetic negative helper controls, not issuer outcomes or primary positive proof"
+  },
+  "output_review": {
+    "result": "First retained answer passes the selected source/instruction comparison; no confirmed output defect or production-method change justified",
+    "comparison_mode": "Same host model, direct source checks and independent Fraction/Decimal arithmetic; not independent expert review",
+    "supported": "Positive net-pledged waterfall, pool-specific marginal rank, deficiency recovery and plan EV/equity bridge",
+    "remaining": "Independent EV, all-entity claims/legal reconciliation, final outcomes, full native upstream gates and broader preference/pricing"
+  },
+  "downstream_consumption": {
+    "file": "runs/frontier-2020-001/CP-3-recovery-consumer.md",
+    "input_sha256": "e0b0a126724a5af0ae97ce133f804962d66fb3851c3a841c69021966b00a4146",
+    "actual": true,
+    "scope": "CP-3 recovery-phase comparison/monitoring; price-based preference blocked by missing market/RV, not a full CP-3A acceptance"
+  }
+}

@@ -1,0 +1,3450 @@
+[
+  {
+    "path": "/Users/ericguei/.codex/worktrees/937c3610-a192-4082-a356-c56ea78e7418/CAOS-LangMVP",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/agent-prompts-coordinator/caos-workbench",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/agent-prompts-q2-integrated/caos-workbench",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/caos-accepted-shared.SZkvPv/checkout",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/caos-reconciled-tree.ssCugz/checkout",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-audit-scope-round4/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-audit-scope-round5/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-budget-renewal/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-chain-oracle/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-chain-proof/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-chain-proof/Deploy Workflow-sol-long-context",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-chain-proof/Deploy Workflow-sol-long-context-runtime",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-chain-proof/cp1-scope-key",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-chain-runtime-round2/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-chain-runtime-round3/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-chain-runtime/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-durable-accounting/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-duration-scope-guidance/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-history-replay/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-history-tournament/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-pdf-header-build/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-pdf-header-oracle/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-pdf-header-verifier/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-pdf-live-ready/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-public-scope/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-quantity-contract/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-quantity-outputs/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-review-test-repairs/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-scope-verifier-author",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-scope-verifier-baseline",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-scope-verifier-fix1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/cp1-typed-producer/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/deliverable-contract-prep/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/deliverable-design/Deploy Workflow",
+    "changes": [
+      " M src/deploy_vii/assets/app.js",
+      " M src/deploy_workflow/evaluation/native_runner.py",
+      " M src/deploy_workflow/owner_workflow.py",
+      "?? scripts/preview_deliverables.py",
+      "?? scripts/preview_existing_reports.py",
+      "?? src/deploy_workflow/evaluation/__init__.py",
+      "?? src/deploy_workflow/evaluation/__main__.py",
+      "?? src/deploy_workflow/evaluation/agent_session.py",
+      "?? src/deploy_workflow/evaluation/broker.py",
+      "?? src/deploy_workflow/evaluation/campaign.py",
+      "?? src/deploy_workflow/evaluation/campaign_budget.py",
+      "?? src/deploy_workflow/evaluation/codex_cli_provider.py",
+      "?? src/deploy_workflow/evaluation/collection_cli.py",
+      "?? src/deploy_workflow/evaluation/contracts.py",
+      "?? src/deploy_workflow/evaluation/corpus.py",
+      "?? src/deploy_workflow/evaluation/dpp.py",
+      "?? src/deploy_workflow/evaluation/execution_manifest.py",
+      "?? src/deploy_workflow/evaluation/fault_registry.py",
+      "?? src/deploy_workflow/evaluation/input_catalog.py",
+      "?? src/deploy_workflow/evaluation/input_discovery.py",
+      "?? src/deploy_workflow/evaluation/instruction_transport.py",
+      "?? src/deploy_workflow/evaluation/journal.py",
+      "?? src/deploy_workflow/evaluation/judgments.py",
+      "?? src/deploy_workflow/evaluation/native_admission.py",
+      "?? src/deploy_workflow/evaluation/native_context.py",
+      "?? src/deploy_workflow/evaluation/native_control.py",
+      "?? src/deploy_workflow/evaluation/native_packets.py",
+      "?? src/deploy_workflow/evaluation/operation_contracts.py",
+      "?? src/deploy_workflow/evaluation/pairing.py",
+      "?? src/deploy_workflow/evaluation/parsing.py",
+      "?? src/deploy_workflow/evaluation/providers.py",
+      "?? src/deploy_workflow/evaluation/public_attempts.py",
+      "?? src/deploy_workflow/evaluation/public_quality_catalog.py",
+      "?? src/deploy_workflow/evaluation/quality_projection.py",
+      "?? src/deploy_workflow/evaluation/readiness.py",
+      "?? src/deploy_workflow/evaluation/reporting.py",
+      "?? src/deploy_workflow/evaluation/review_packets.py",
+      "?? src/deploy_workflow/evaluation/scoring.py",
+      "?? src/deploy_workflow/evaluation/session_host.py",
+      "?? src/deploy_workflow/evaluation/transport_profiles.py",
+      "?? src/deploy_workflow/evaluation/units.py",
+      "?? src/deploy_workflow/owners/cp6.py",
+      "?? src/deploy_workflow/public_preparation/__init__.py",
+      "?? src/deploy_workflow/public_preparation/core.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/deploy-vii-b-review/DEPLOY VII",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/deploy-vii-m9-review/DEPLOY VII",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/deploy-vii-pf1-review/DEPLOY VII",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/deploy-vii-takeover-ready/DEPLOY VII",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/extraction-method-review/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/fd32/deploy workflow Codex",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/final-deliverable-contracts",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/forecast-cash-stack/caos-databricks",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/m10-cp1b-owner/DEPLOY VII",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/plans-11-13/Deploy VI",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pr-o7-postmerge/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pr122-prior-fixture/Deploy VI",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pr4-document-dependencies/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pr5-reviewed-integration/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pretesting-completion/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/product-cp1-port-phase-a-r1/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/product-cp1-port-phase-a/Deploy Workflow",
+    "changes": [
+      " M src/deploy_vii/canonical_audit.py",
+      " M src/deploy_vii/canonical_tables.py",
+      " M src/deploy_vii/cash_bridge.py",
+      " M src/deploy_vii/financial_contracts.py",
+      " M src/deploy_vii/live/tools.py",
+      " M src/deploy_vii/model_interface.py",
+      " M src/deploy_vii/preparation.py",
+      " M src/deploy_vii/report_view.py",
+      " M src/deploy_vii/statement_extract.py",
+      " M src/deploy_vii/statement_history.py",
+      " M src/deploy_vii/statement_output.py",
+      " M src/deploy_vii/statement_validation.py",
+      " M src/deploy_vii/statement_view.py",
+      " M src/deploy_workflow/financial_workflow.py",
+      " M src/deploy_workflow/host.py",
+      " M src/deploy_workflow/owner_workflow.py",
+      " M src/deploy_workflow/prompts/compose.py",
+      " M src/deploy_workflow/prompts/factory.py",
+      " M src/deploy_workflow/prompts/fence.py",
+      " M src/deploy_workflow/prompts/tools.py",
+      " M src/deploy_workflow/tools/source.py",
+      "?? src/deploy_workflow/pdf_headers.py",
+      "?? src/deploy_workflow/prompts/coverage_rule.py",
+      "?? src/deploy_workflow/statement_compose.py",
+      "?? src/deploy_workflow/statement_lines.py",
+      "?? src/deploy_workflow/unit_maps.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/product-epc-a01-final/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/product-operating-docs/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/product-owner-binding-final/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/product-trace-display/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-ci-001",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-epc-a01-comparator",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-epc-a01-comparator-r1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-epc-a01-key",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-extraction-port-key",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-h03-portfolio-oracle/Deploy-Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-h05-guard-fixtures",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-h05-trace-verifier",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-h05-trace-verifier-fix1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-h05-trace-verifier-round2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-h05-ui-display-context-candidate/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-main-prompt-alignment",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-model-bgs-primary-r1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-model-bgs-primary-verification",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-model-ihrt-primary-verification",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-model-lth-primary-verification",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-model-method-admission",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-model-method-admission-r1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-model-method-admission-r2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-model-natl-primary-verification",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-model-publication-keys",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-model-shc-primary-r1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-model-shc-primary-verification",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-model-tdg-source-verification",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-opex-legacy-comparator",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-owner-audit-selector",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-owner-boundary-comparator",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-owner-boundary-comparator-r1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-owner-boundary-comparator-r2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-owner-boundary-comparator-r3",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-owner-boundary-key",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-owner-boundary-key-r1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-owner-boundary-key-r2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-pr5-ci-class",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-pr5-ci-final-r3",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-pr5-ci-tier",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-pr5-golden-comparison",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-pr5-prompt-fence-compare",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-pr5-stop-shim",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-prompt-fence-test-alignment",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-shc-band-source-coverage",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-shc-band-source-coverage-r1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-shc-chain-comparator",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-shc-comparator-r2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-shc-comparator-r3",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-shc-source-basis",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-source-support-guard",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-tdg-adjustment-key",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-tdg-chart-key",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-tdg-content-key",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-tdg-direct-da-key",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-tdg-image-oracle",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-tdg-income-frame-key",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-tdg-opex-input-key",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-tdg-period-key",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-tdg-statement-key",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-trace-normal-input",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-ui-fixture-compiler",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/pt-ui-trace-final-r3",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/q1-declared-key-conjunction/caos-workbench",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/q1-r4-storage-fault/caos-workbench",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/q1-r5-double-activation/caos-workbench",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/q1-r6-expiry/caos-workbench",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/q1-signer-delivery-record/caos-workbench",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/q1-signer-readback/caos-workbench",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/q3-research-inventory/caos-workbench",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/.codex/worktrees/shc-comparative-oracle",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/CAOS",
+    "changes": [
+      "?? scripts/check_pr_size.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/CAOS-Final",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/CAOS-Final/.claude/worktrees/claude-make-dev-docs-11bed3",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/CAOS-Final/.claude/worktrees/code-audit-quality-scoring-124e31",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/CAOS-Final/.claude/worktrees/determined-bouman-e6a2de",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/CAOS-LangMVP",
+    "changes": [
+      "?? scripts/check_pr_size.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/CAOS-LangMVP/.claude/worktrees/codebase-adversarial-review-cea873",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/CAOS-LangMVP/.claude/worktrees/consolidate-review-findings-a9a239",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/CAOS-LangMVP/.claude/worktrees/pr-babysit-loop-5cb68c",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/CAOS-LangMVP/.claude/worktrees/soak-monitoring-watch-ef91e2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/CAOS-LangMVP/.claude/worktrees/verify-enterprise-2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/CAOS/.claude/worktrees/festive-bartik-baedee",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/CAOS/.claude/worktrees/harness-config-328bad",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/Credit Operating System",
+    "changes": [
+      " M caos/frontend/src/app/layout-upload-smoke.test.tsx",
+      " M caos/frontend/src/components/command/CitationViewer.tsx",
+      " M caos/frontend/src/components/model/export.ts",
+      " M caos/frontend/src/components/query/VaultMemoUpload.test.tsx",
+      " M caos/frontend/src/components/query/VaultMemoUpload.tsx",
+      " M caos/frontend/src/components/shared/AskContext.tsx",
+      " M caos/frontend/src/components/shared/AskShell.tsx",
+      " M caos/frontend/src/components/shared/CrossDefaultDominoes.tsx",
+      " M caos/frontend/src/components/shared/ShortcutHelp.tsx",
+      " M caos/frontend/src/lib/csv.ts",
+      " M caos/server/alert_dispatch.py",
+      " M caos/server/config.py",
+      " M caos/server/edgar.py",
+      " M caos/server/engine/embeddings.py",
+      " M caos/server/engine/entailment.py",
+      " M caos/server/engine/llm_safety.py",
+      " M caos/server/engine/portfolio.py",
+      " M caos/server/engine/queryanswer.py",
+      " M caos/server/engine/queryinsights.py",
+      " M caos/server/engine/queryoverlay.py",
+      " M caos/server/engine/rerank.py",
+      " M caos/server/freshness.py",
+      " M caos/server/ingest.py",
+      " M caos/server/lineage_reconciliation.py",
+      " M caos/server/model_workbook.py",
+      " M caos/server/portfolio_ingest.py",
+      " M caos/server/routes/alerts.py",
+      " M caos/server/routes/edgar.py",
+      " M caos/server/routes/ingestion.py",
+      " M caos/server/routes/settings.py",
+      " M caos/server/routes/watch_rules.py",
+      " M caos/tests/server/golden/test_ocr_lane.py",
+      " M caos/tests/server/test_ingest_markitdown.py",
+      "?? caos/scripts/seed_showcase.py",
+      "?? caos/tests/server/test_alert_draft_keys.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/Credit Operating System/.claude/worktrees/elegant-jackson-7609c6",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/Credit Operating System/.claude/worktrees/friendly-benz-d23d34",
+    "changes": [
+      " M caos/server/model_service.py",
+      " M caos/tests/server/test_model_engine_v2.py",
+      " M caos/tests/server/test_model_v2_api.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/Credit Operating System/.claude/worktrees/intelligent-lamarr-766a06",
+    "changes": [
+      "M  caos/frontend/src/lib/ic-book.test.ts",
+      "M  caos/frontend/src/lib/ic-book.ts",
+      "M  caos/server/routes/decisions.py",
+      "M  caos/tests/server/test_ic_book.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/Credit Operating System/.claude/worktrees/priceless-lichterman-178be4",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Claude/Projects/Credit Operating System/.claude/worktrees/zen-panini-bf0c89",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/COAS-V3",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Co-Pilot Agents",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Co-Pilot Agents/.claude/worktrees/nostalgic-raman-224a8f",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Credit Operating System",
+    "changes": [
+      "?? caos/backend/agents/__init__.py",
+      "?? caos/backend/agents/l1_base/__init__.py",
+      "?? caos/backend/agents/l1_base/cp1_capital_structure.py",
+      "?? caos/backend/agents/l1_base/cp1a_debt_waterfall.py",
+      "?? caos/backend/agents/l1_base/cp1b_earnings_update.py",
+      "?? caos/backend/agents/l1_base/cp1c_peer_benchmark.py",
+      "?? caos/backend/agents/l2_synthesis/__init__.py",
+      "?? caos/backend/agents/l2_synthesis/cp2_fundamentals.py",
+      "?? caos/backend/agents/l2_synthesis/cp2b_downside_pathway.py",
+      "?? caos/backend/agents/l2_synthesis/cp2c_event_catalyst.py",
+      "?? caos/backend/agents/l2_synthesis/cp2d_governance_sponsor.py",
+      "?? caos/backend/agents/l2_synthesis/cp2e_liquidity_bridge.py",
+      "?? caos/backend/agents/l2_synthesis/cp2f_macro_fx.py",
+      "?? caos/backend/agents/l3_relative_value/__init__.py",
+      "?? caos/backend/agents/l3_relative_value/cp3_relative_value.py",
+      "?? caos/backend/agents/l3_relative_value/cp3b_recovery_instrument.py",
+      "?? caos/backend/agents/l3_relative_value/cp3c_portfolio_fit.py",
+      "?? caos/backend/agents/l3_relative_value/cp3d_refinancing_lme.py",
+      "?? caos/backend/agents/l4_legal/__init__.py",
+      "?? caos/backend/agents/l4_legal/cp4_covenant_interpreter.py",
+      "?? caos/backend/agents/l4c_capacity/__init__.py",
+      "?? caos/backend/agents/l4c_capacity/cp4c_capacity_headroom.py",
+      "?? caos/backend/agents/l5_governance/__init__.py",
+      "?? caos/backend/agents/l5_governance/cp5_integrity_qa.py",
+      "?? caos/backend/agents/l5_governance/cp5b_traceability.py",
+      "?? caos/backend/agents/l6_debate/__init__.py",
+      "?? caos/backend/agents/l6_debate/cp6a_ic_debate.py",
+      "?? caos/backend/agents/l6_debate/cp6e_portfolio_debate.py",
+      "?? caos/backend/agents/l7_sector_monitoring/__init__.py",
+      "?? caos/backend/agents/l7_sector_monitoring/cp_mon_credit_pulse.py",
+      "?? caos/backend/agents/l7_sector_monitoring/cp_sr_sector_review.py",
+      "?? caos/backend/agents/orchestration/__init__.py",
+      "?? caos/backend/agents/orchestration/dag.py",
+      "?? caos/backend/agents/orchestration/planner_router.py",
+      "?? caos/backend/agents/orchestration/readiness.py",
+      "?? caos/backend/agents/orchestration/registry_planner.py",
+      "?? caos/backend/agents/orchestration/registry_runner.py",
+      "?? caos/backend/agents/registry_dispatch.py",
+      "?? caos/backend/agents/utils/__init__.py",
+      "?? caos/backend/agents/utils/issuer_docs.py",
+      "?? caos/backend/api/__init__.py",
+      "?? caos/backend/api/middleware/__init__.py",
+      "?? caos/backend/api/middleware/jwt.py",
+      "?? caos/backend/api/routes/__init__.py",
+      "?? caos/backend/api/routes/agents.py",
+      "?? caos/backend/api/routes/auth.py",
+      "?? caos/backend/api/routes/chat.py",
+      "?? caos/backend/api/routes/health.py",
+      "?? caos/backend/api/routes/ingestion.py",
+      "?? caos/backend/api/routes/issuers.py",
+      "?? caos/backend/api/routes/webhooks.py",
+      "?? caos/backend/core/__init__.py",
+      "?? caos/backend/core/claude_client.py",
+      "?? caos/backend/core/config.py",
+      "?? caos/backend/core/rate_limit.py",
+      "?? caos/backend/core/severity_engine.py",
+      "?? caos/backend/db/__init__.py",
+      "?? caos/backend/db/migrations/env.py",
+      "?? caos/backend/db/migrations/versions/0001_baseline_schema.py",
+      "?? caos/backend/db/models.py",
+      "?? caos/backend/db/session.py",
+      "?? caos/backend/governance/__init__.py",
+      "?? caos/backend/governance/email_routing.py",
+      "?? caos/backend/governance/enums.py",
+      "?? caos/backend/governance/export.py",
+      "?? caos/backend/governance/loop_guard.py",
+      "?? caos/backend/governance/payload_base.py",
+      "?? caos/backend/governance/payloads.py",
+      "?? caos/backend/governance/prompts.py",
+      "?? caos/backend/governance/qa_engine.py",
+      "?? caos/backend/governance/registry.py",
+      "?? caos/backend/governance/validation.py",
+      "?? caos/backend/ingestion/__init__.py",
+      "?? caos/backend/ingestion/ms_graph.py",
+      "?? caos/backend/ingestion/pdf_parser.py",
+      "?? caos/backend/ingestion/rag/__init__.py",
+      "?? caos/backend/ingestion/rag/chunker.py",
+      "?? caos/backend/ingestion/rag/embedder.py",
+      "?? caos/backend/ingestion/xlsx_parser.py",
+      "?? caos/backend/main.py",
+      "?? caos/backend/schemas/__init__.py",
+      "?? caos/backend/schemas/agent_outputs.py",
+      "?? caos/backend/schemas/taxonomy_a.py",
+      "?? caos/demo_mock_backend.py",
+      "?? caos/frontend/.next/server/app/command/page.js",
+      "?? caos/frontend/.next/server/app/command/page_client-reference-manifest.js",
+      "?? caos/frontend/.next/server/app/issuers/page.js",
+      "?? caos/frontend/.next/server/app/issuers/page_client-reference-manifest.js",
+      "?? caos/frontend/.next/server/app/login/page.js",
+      "?? caos/frontend/.next/server/app/login/page_client-reference-manifest.js",
+      "?? caos/frontend/.next/server/app/page.js",
+      "?? caos/frontend/.next/server/app/page_client-reference-manifest.js",
+      "?? caos/frontend/.next/server/app/reports/page.js",
+      "?? caos/frontend/.next/server/app/reports/page_client-reference-manifest.js",
+      "?? caos/frontend/.next/server/app/upload/page.js",
+      "?? caos/frontend/.next/server/app/upload/page_client-reference-manifest.js",
+      "?? caos/frontend/.next/server/interception-route-rewrite-manifest.js",
+      "?? caos/frontend/.next/server/middleware-build-manifest.js",
+      "?? caos/frontend/.next/server/middleware-react-loadable-manifest.js",
+      "?? caos/frontend/.next/server/next-font-manifest.js",
+      "?? caos/frontend/.next/server/server-reference-manifest.js",
+      "?? caos/frontend/.next/server/vendor-chunks/@antv.js",
+      "?? caos/frontend/.next/server/vendor-chunks/@babel.js",
+      "?? caos/frontend/.next/server/vendor-chunks/@swc.js",
+      "?? caos/frontend/.next/server/vendor-chunks/agent-base.js",
+      "?? caos/frontend/.next/server/vendor-chunks/asynckit.js",
+      "?? caos/frontend/.next/server/vendor-chunks/attr-accept.js",
+      "?? caos/frontend/.next/server/vendor-chunks/axios.js",
+      "?? caos/frontend/.next/server/vendor-chunks/call-bind-apply-helpers.js",
+      "?? caos/frontend/.next/server/vendor-chunks/color-name.js",
+      "?? caos/frontend/.next/server/vendor-chunks/color-string.js",
+      "?? caos/frontend/.next/server/vendor-chunks/combined-stream.js",
+      "?? caos/frontend/.next/server/vendor-chunks/d3-array.js",
+      "?? caos/frontend/.next/server/vendor-chunks/d3-color.js",
+      "?? caos/frontend/.next/server/vendor-chunks/d3-dispatch.js",
+      "?? caos/frontend/.next/server/vendor-chunks/d3-dsv.js",
+      "?? caos/frontend/.next/server/vendor-chunks/d3-force.js",
+      "?? caos/frontend/.next/server/vendor-chunks/d3-format.js",
+      "?? caos/frontend/.next/server/vendor-chunks/d3-geo.js",
+      "?? caos/frontend/.next/server/vendor-chunks/d3-hierarchy.js",
+      "?? caos/frontend/.next/server/vendor-chunks/d3-interpolate.js",
+      "?? caos/frontend/.next/server/vendor-chunks/d3-path.js",
+      "?? caos/frontend/.next/server/vendor-chunks/d3-quadtree.js",
+      "?? caos/frontend/.next/server/vendor-chunks/d3-scale-chromatic.js",
+      "?? caos/frontend/.next/server/vendor-chunks/d3-shape.js",
+      "?? caos/frontend/.next/server/vendor-chunks/d3-timer.js",
+      "?? caos/frontend/.next/server/vendor-chunks/debug.js",
+      "?? caos/frontend/.next/server/vendor-chunks/delayed-stream.js",
+      "?? caos/frontend/.next/server/vendor-chunks/dunder-proto.js",
+      "?? caos/frontend/.next/server/vendor-chunks/es-define-property.js",
+      "?? caos/frontend/.next/server/vendor-chunks/es-errors.js",
+      "?? caos/frontend/.next/server/vendor-chunks/es-object-atoms.js",
+      "?? caos/frontend/.next/server/vendor-chunks/es-set-tostringtag.js",
+      "?? caos/frontend/.next/server/vendor-chunks/eventemitter3.js",
+      "?? caos/frontend/.next/server/vendor-chunks/fecha.js",
+      "?? caos/frontend/.next/server/vendor-chunks/file-selector.js",
+      "?? caos/frontend/.next/server/vendor-chunks/flru.js",
+      "?? caos/frontend/.next/server/vendor-chunks/follow-redirects.js",
+      "?? caos/frontend/.next/server/vendor-chunks/form-data.js",
+      "?? caos/frontend/.next/server/vendor-chunks/function-bind.js",
+      "?? caos/frontend/.next/server/vendor-chunks/get-intrinsic.js",
+      "?? caos/frontend/.next/server/vendor-chunks/get-proto.js",
+      "?? caos/frontend/.next/server/vendor-chunks/gl-matrix.js",
+      "?? caos/frontend/.next/server/vendor-chunks/gopd.js",
+      "?? caos/frontend/.next/server/vendor-chunks/has-flag.js",
+      "?? caos/frontend/.next/server/vendor-chunks/has-symbols.js",
+      "?? caos/frontend/.next/server/vendor-chunks/has-tostringtag.js",
+      "?? caos/frontend/.next/server/vendor-chunks/hasown.js",
+      "?? caos/frontend/.next/server/vendor-chunks/html2canvas.js",
+      "?? caos/frontend/.next/server/vendor-chunks/https-proxy-agent.js",
+      "?? caos/frontend/.next/server/vendor-chunks/internmap.js",
+      "?? caos/frontend/.next/server/vendor-chunks/is-arrayish.js",
+      "?? caos/frontend/.next/server/vendor-chunks/math-intrinsics.js",
+      "?? caos/frontend/.next/server/vendor-chunks/mime-db.js",
+      "?? caos/frontend/.next/server/vendor-chunks/mime-types.js",
+      "?? caos/frontend/.next/server/vendor-chunks/ms.js",
+      "?? caos/frontend/.next/server/vendor-chunks/next.js",
+      "?? caos/frontend/.next/server/vendor-chunks/object-assign.js",
+      "?? caos/frontend/.next/server/vendor-chunks/pdfast.js",
+      "?? caos/frontend/.next/server/vendor-chunks/prop-types.js",
+      "?? caos/frontend/.next/server/vendor-chunks/proxy-from-env.js",
+      "?? caos/frontend/.next/server/vendor-chunks/react-dropzone.js",
+      "?? caos/frontend/.next/server/vendor-chunks/react-is.js",
+      "?? caos/frontend/.next/server/vendor-chunks/simple-swizzle.js",
+      "?? caos/frontend/.next/server/vendor-chunks/supports-color.js",
+      "?? caos/frontend/.next/server/vendor-chunks/tslib.js",
+      "?? caos/frontend/.next/server/webpack-runtime.js",
+      "?? caos/frontend/.next/static/chunks/app-pages-internals.js",
+      "?? caos/frontend/.next/static/chunks/app/command/page.js",
+      "?? caos/frontend/.next/static/chunks/app/issuers/page.js",
+      "?? caos/frontend/.next/static/chunks/app/layout.js",
+      "?? caos/frontend/.next/static/chunks/app/login/page.js",
+      "?? caos/frontend/.next/static/chunks/app/page.js",
+      "?? caos/frontend/.next/static/chunks/app/reports/page.js",
+      "?? caos/frontend/.next/static/chunks/app/upload/page.js",
+      "?? caos/frontend/.next/static/chunks/main-app.js",
+      "?? caos/frontend/.next/static/chunks/polyfills.js",
+      "?? caos/frontend/.next/static/chunks/webpack.js",
+      "?? caos/frontend/.next/static/development/_buildManifest.js",
+      "?? caos/frontend/.next/static/development/_ssgManifest.js",
+      "?? caos/frontend/.next/static/webpack/app/issuers/page.9da3acb8c65970d5.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/app/issuers/page.fe9afb512006e91d.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/app/layout.2d7736903080480b.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/app/layout.89705967459efef2.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/app/layout.9da3acb8c65970d5.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/app/layout.fe9afb512006e91d.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/app/upload/page.2d7736903080480b.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/app/upload/page.89705967459efef2.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/webpack.1e62111799029b31.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/webpack.2d7736903080480b.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/webpack.6589e43ad4006ed3.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/webpack.7c1cca58d5cc1a6f.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/webpack.89705967459efef2.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/webpack.9da3acb8c65970d5.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/webpack.a73ceea4b4fea004.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/webpack.cb38ab5b8d0dd6e6.hot-update.js",
+      "?? caos/frontend/.next/static/webpack/webpack.fe9afb512006e91d.hot-update.js",
+      "?? caos/frontend/.next/types/app/command/page.ts",
+      "?? caos/frontend/.next/types/app/issuers/page.ts",
+      "?? caos/frontend/.next/types/app/layout.ts",
+      "?? caos/frontend/.next/types/app/login/page.ts",
+      "?? caos/frontend/.next/types/app/page.ts",
+      "?? caos/frontend/.next/types/app/reports/page.ts",
+      "?? caos/frontend/.next/types/app/upload/page.ts",
+      "?? caos/frontend/.next/types/cache-life.d.ts",
+      "?? caos/frontend/.next/types/routes.d.ts",
+      "?? caos/frontend/.next/types/validator.ts",
+      "?? caos/frontend/next-env.d.ts",
+      "?? caos/frontend/next.config.js",
+      "?? caos/frontend/playwright.config.ts",
+      "?? caos/frontend/postcss.config.js",
+      "?? caos/frontend/src/app/command/page.tsx",
+      "?? caos/frontend/src/app/deepdive/page.tsx",
+      "?? caos/frontend/src/app/issuers/[id]/page.tsx",
+      "?? caos/frontend/src/app/issuers/page.tsx",
+      "?? caos/frontend/src/app/layout.tsx",
+      "?? caos/frontend/src/app/login/page.tsx",
+      "?? caos/frontend/src/app/model/page.tsx",
+      "?? caos/frontend/src/app/page.tsx",
+      "?? caos/frontend/src/app/pipeline/page.tsx",
+      "?? caos/frontend/src/app/reports/page.tsx",
+      "?? caos/frontend/src/app/upload/page.tsx",
+      "?? caos/frontend/src/components/charts/G2Chart.tsx",
+      "?? caos/frontend/src/components/cockpit/AnalysisTab.tsx",
+      "?? caos/frontend/src/components/cockpit/CovenantGauges.tsx",
+      "?? caos/frontend/src/components/cockpit/CreditCockpit.tsx",
+      "?? caos/frontend/src/components/cockpit/DebateMatrix.tsx",
+      "?? caos/frontend/src/components/cockpit/EvidenceTracePanel.tsx",
+      "?? caos/frontend/src/components/cockpit/FinancialsChart.tsx",
+      "?? caos/frontend/src/components/cockpit/LiquidityWaterfall.tsx",
+      "?? caos/frontend/src/components/cockpit/RVScatterPlot.tsx",
+      "?? caos/frontend/src/components/command/views.tsx",
+      "?? caos/frontend/src/components/deepdive/IssuerChat.tsx",
+      "?? caos/frontend/src/components/deepdive/ModuleCharts.tsx",
+      "?? caos/frontend/src/components/deepdive/OutSections.tsx",
+      "?? caos/frontend/src/components/deepdive/OutputRegister.tsx",
+      "?? caos/frontend/src/components/deepdive/rails.tsx",
+      "?? caos/frontend/src/components/deepdive/tabs.tsx",
+      "?? caos/frontend/src/components/model/ModelSheet.tsx",
+      "?? caos/frontend/src/components/model/export.ts",
+      "?? caos/frontend/src/components/model/rows.ts",
+      "?? caos/frontend/src/components/narrative/NarrativeBlock.tsx",
+      "?? caos/frontend/src/components/nav/AgentExecutionMesh.tsx",
+      "?? caos/frontend/src/components/nav/GlobalNavBar.tsx",
+      "?? caos/frontend/src/components/nav/WorkflowStageHeader.tsx",
+      "?? caos/frontend/src/components/pipeline/atoms.tsx",
+      "?? caos/frontend/src/components/pipeline/views.tsx",
+      "?? caos/frontend/src/components/reports/EvidenceModal.tsx",
+      "?? caos/frontend/src/components/reports/ReportDoc.tsx",
+      "?? caos/frontend/src/components/reports/panels.tsx",
+      "?? caos/frontend/src/components/shared/AuthProvider.tsx",
+      "?? caos/frontend/src/components/shared/RequireAuth.tsx",
+      "?? caos/frontend/src/components/upload/UploadWizard.tsx",
+      "?? caos/frontend/src/components/vault/DocumentVault.tsx",
+      "?? caos/frontend/src/components/vault/PDFViewer.tsx",
+      "?? caos/frontend/src/components/vault/SourceDocViewer.tsx",
+      "?? caos/frontend/src/lib/api.ts",
+      "?? caos/frontend/src/lib/citations.test.ts",
+      "?? caos/frontend/src/lib/citations.ts",
+      "?? caos/frontend/src/lib/command/data.ts",
+      "?? caos/frontend/src/lib/deepdive/module-outputs.ts",
+      "?? caos/frontend/src/lib/deepdive/module-steps.ts",
+      "?? caos/frontend/src/lib/deepdive/step-notes.ts",
+      "?? caos/frontend/src/lib/deepdive/step-outputs.ts",
+      "?? caos/frontend/src/lib/pipeline/data.ts",
+      "?? caos/frontend/src/lib/pipeline/sim.ts",
+      "?? caos/frontend/src/lib/reports/builders.ts",
+      "?? caos/frontend/src/lib/reports/deal.ts",
+      "?? caos/frontend/src/lib/reports/evidence.ts",
+      "?? caos/frontend/src/lib/reports/model.ts",
+      "?? caos/frontend/src/store/analysis.ts",
+      "?? caos/frontend/src/store/issuer.ts",
+      "?? caos/frontend/src/store/selection.ts",
+      "?? caos/frontend/src/store/ui.ts",
+      "?? caos/frontend/src/types/agents.ts",
+      "?? caos/frontend/src/types/analysis.ts",
+      "?? caos/frontend/src/types/issuers.ts",
+      "?? caos/frontend/tailwind.config.js",
+      "?? caos/frontend/vitest.config.ts",
+      "?? caos/tests/backend/conftest.py",
+      "?? caos/tests/backend/test_agent_coverage.py",
+      "?? caos/tests/backend/test_dag.py",
+      "?? caos/tests/backend/test_email_routing.py",
+      "?? caos/tests/backend/test_governance.py",
+      "?? caos/tests/backend/test_ingestion.py",
+      "?? caos/tests/backend/test_invoke_wiring.py",
+      "?? caos/tests/backend/test_module_registry.py",
+      "?? caos/tests/backend/test_qa_export.py",
+      "?? caos/tests/backend/test_registry_planner.py",
+      "?? caos/tests/backend/test_registry_runner.py",
+      "?? caos/tests/frontend/e2e/evidence_sync.spec.ts",
+      "?? caos/tests/frontend/e2e/upload_flow.spec.ts"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a009dc7f9dfaa4278",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a03b55db6a4f6687e",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a0a3d42628fdf98b5",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a0c9627f49e790d69",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a620b45b3f32ad1db",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-aa4f20655ffc2eb4d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-ac0d880131ddd6b00",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/cp1-handoff-approach-0ef7bf",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/deploy-vii-adversarial-review-a78eab",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/determined-chebyshev-990090",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/dev-process-optimization-34d19b",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/focused-cray-a5417d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/m2-lane-run",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/serene-rubin-4e1c84",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy V",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI",
+    "changes": [
+      "?? scripts/dev_evidence.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/f11",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/f12",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/f8",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/mut",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/plan09",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/print",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/rc10f",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/rc2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/rc2gates",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/rc3",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/rc4",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/rc5",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/rcgates",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/v1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/win",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/codex-dev-status-9f609e/.wt/xfer",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/deploy-vi-plan-09-1992b3",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/frosty-lederberg-6901af",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/plan-01",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/plan-02",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/plan-02b",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/plan-06",
+    "changes": [
+      "?? rbot/scripts/rbotlib/isolation_evidence.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/report-a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/v1-finish",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/v1-model-fix",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/v1-proxy",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy VI/.claude/worktrees/v1-report",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/coordinator-1",
+    "changes": [
+      "?? src/deploy_workflow/integrity_workflow.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/coordinator-1-owner",
+    "changes": [
+      "?? src/deploy_workflow/owner_workflow.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/coordinator-1-source-host",
+    "changes": [
+      " M src/deploy_workflow/host.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/coordinator-2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/coordinator-3",
+    "changes": [
+      "?? src/deploy_workflow/earnings_workflow.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/lead",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/lead-0d-b",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/lead-0d-c",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/lead-0d-d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/lead-0d-normalise",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/lead-b10-engines",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/lead-b10-repin",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/lead-cp6-freeze",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/lead-methodology",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/lead-stage1-release",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow Sessions/s1a-build",
+    "changes": [
+      " M src/deploy_workflow/host.py",
+      " M src/deploy_workflow/owner_workflow.py",
+      "?? src/deploy_workflow/owners/__init__.py",
+      "?? src/deploy_workflow/owners/cp1a.py",
+      "?? src/deploy_workflow/owners/cp2.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a030039fae37ebe87",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a056c0e21206cb44a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a05bc6ca7d51dad98",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a0c3e0f7fd714d68b",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a0d90464ab3b94172",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a0e94aff12429230a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a10997d4c24ca415e",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a10bd5a2d7d405a1f",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a1257385047cbaff2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a1265e43ff00ad378",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a137244cd727ee164",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a16e092a817c84c4a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a17ff76d7716cc8f9",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a18111abdaf5fbc58",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a195c291adc844d9a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a1a84e6430b319288",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a1af47f93f253e89c",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a1c69c467b8de6866",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a1ceb9b5c3b9c048d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a20e867561d79ede0",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a219254fe68cc1c2d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a24d283c066edc2c8",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a286aba8db659bd39",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a2b07df1043618c51",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a2b7322e3b479e9b7",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a2c15c441717ec41c",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a2deaf29991c34b87",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a2f57624b0b7195e0",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a3179638c813adbe7",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a32eab207f42aedab",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a34fec3e9469279cd",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a3822801a9a54e78a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a3b503dcc11b15bb2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a3b54498f51eaae07",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a3cc9818386e8861a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a3ed59a423cbfd432",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a3fa6cc9b5517c84c",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a42694143ceed53eb",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a4377a7580e8e70db",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a46a5b1a387e2c358",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a48727064e61c0719",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a49f08eb1911e17e7",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a4a62637d498b45c2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a4e2d162a7e3dc99d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a4e64e9076f6f1471",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a501135c78cafb479",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a5179b66c0620c416",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a52b5ec0919986ddb",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a543732f3e37355b5",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a5e7b2cf540f833e9",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a5f22d113428d8313",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a6031124fa7b32150",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a60548ec32f92a14f",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a65e3bebaf505057e",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a66d44aeb0c45fc3a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a67210e345d701e9b",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a67612a13f7ac1bd9",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a6852ab78b8d4072c",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a69f2394899aee6d5",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a69f811059171c714",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a6a33cd806abc576a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a6ac0c59189acc4b4",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a6beca849de943e56",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a6fe6bee590a3ee10",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a714b9a4569e1c0f3",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a714bcbf87761c145",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a73d56fba74ffc860",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a7a024bc7a07ff5d7",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a7b022fb25c064a06",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a7e48f47956c9ff2e",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a7f4a60a15094c4ea",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a7fa497acc06ce436",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a7fde69a871528d88",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a80bad5f3d6f3aa11",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a84136ec315fffe56",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a85e6cee38aa83cb0",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a87cbdaa2f05d727b",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a89ec660cbebbcaf4",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a92173f7b99f7f2c1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a94f0c41b72324e5f",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a9a3ee6a5aabe7f60",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a9e912fec9de2ef79",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a9ee78138c4aecb65",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a9f7455abd6a50772",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-a9fabd4201a264930",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-aa1636abdcc4b185d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-aa39cc7674a713949",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-aa4ce44aebd02d4a2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-aa5a4817fa00cd287",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-aa6ef474a0f78ec9e",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-aa9a504e9d7d9c34d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-aaaeb02a349bf3fca",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ab34920acb6e018fd",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ab4d6f24ed23cdb91",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ab66372ac20999075",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ab9090f635d423382",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-abb2e1b657aa756b8",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-abd03c21876cb82c8",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-abd3ae35150be0227",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-abd740dfc43433f04",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ac1c51e9eea5773d4",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ac3073eb3e220b120",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ac30ad65afe44cc9c",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ac556aa462c7ae531",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ac6940c087df14967",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-aca609fa82ea6d6e5",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-accae7c78976b34dc",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ad058d4133d99b253",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ad578b923e77abaf6",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ad91bc589881bbe2d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ad94dd6a9ff324a74",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-adecdc069fa330325",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-adf0d9dbb0838157f",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ae1a2917ce52a0804",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ae33a6245c6b4370a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ae36d2811b5a37347",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ae43744522e086c98",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-ae582dfb529dab818",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-aeae6535e103f9714",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-aeb0053d0b2b0d047",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-aee040a5dc9594631",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-af0f4e6d543f0f3db",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-af35a9f8d4d312259",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-afdd823d6e7d9d80d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-afe9b616755c80953",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-aff2e15a84ad05e03",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agent-affa7da68d13e0873",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/agitated-meitner-5f25bb",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/codex-findings-review-64c673",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/codex-project-context-a11b1b",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/cp1c-stage1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/cp1d-owner-fix",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/cp1d-stage1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/cp3-stage1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/cp3d-stage1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/cp5-stage1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/cpdr-stage1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/defect-classes",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/g1x-fill",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/h1b",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/lead-multi-round-707c23",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/module-dev-status-review-0981b6",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/open-items-fd69c5",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/r13-0dc",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/r13-cp1d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/r13-cp2d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/r13-cp2e",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/r13-cp3c",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/r13-cp3d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/r13-cp4c",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/r13-cp8",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/r13-cpl10",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/release-followup",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/review-wip-worktrees-0145fe",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/reviewer-adversarial-comparison-46e5f9",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/round12",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/round12-b10",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-batch",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-batch-render",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-cp1d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-cp2a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-cp2d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-cp2e",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-cp3",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-cp3d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-cp4",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-cp5",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-cp8",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-cpdr",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-cpl10",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-defect-classes",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-fix-infra",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-fix-src",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-fix-tests",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-g1x",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-g1x-order",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2-integrate",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2b-cp2h",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2b-cp3c",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s2b-cp4c",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s3-czr",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s3-g2",
+    "changes": [
+      " M src/deploy_workflow/owner_rendering.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s3-i4",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s3-i6",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s3-i8",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s4-b1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s4-int",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s4-int2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s4-int3",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s5-final",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s5-final2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s5-int",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s5-int2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/s8vii-run",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/stage1-lows",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/tool-use-m365-copilot-research-8ff28f",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/Deploy Workflow/.claude/worktrees/vigilant-mendel-070f6d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos test",
+    "changes": [
+      "?? scripts/check_pr_size.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks-streamlit",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a00f6bb8c3d685831",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a018e71d195629fe1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a02bb0e0dde85fd6d",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a0aacb5a231a7aa48",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a0b762d40493dc812",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a0f2daedd27f9e177",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a11c300d8fef862d2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a12bb677e5f415fbe",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a16da1a6febc2c541",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a18d8a3f9c7aa2409",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a1c5873cd89f198fa",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a1de4b9c9b057ca11",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a1e8f84879bb4a713",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a2187d7b3a5133da4",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a23f91f2d9a692286",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a253f6ed29ad1aa26",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a274200946afcf3d3",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a2832d57106c5b905",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a2bb8023848f0c3f5",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a36b6b6366607c3e9",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a3c651bc6f897ace4",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a474f63314bfe9285",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a4997e7a33a8450bc",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a4c70436c54c72d6c",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a4d12bb0d0a9a4e03",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a504baab3c2bdcb41",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a5081e10afdec76d3",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a51731fa01f98cb03",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a53093a661b37784e",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a553d736935dd5785",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a5ae24fb7fc020f1a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a5d3e5b652e269ec7",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a62ad91dcd60812e8",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a684c176b7b069dfe",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a69ab1e4e95bf2237",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a6bc0b33af804d97e",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a6e86c753dfaca786",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a7105d21f67b357ae",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a722f5fce52b1fc54",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a7659a9b759f09807",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a79c1e41e784a0bc7",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a7ae88568f472fdda",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a7e961e2ccd93296f",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a819ad1b87684f543",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a8852d8be674d9d44",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a8c7cec04859c207f",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a8f0d3e1561c2f247",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a91a1d95ca4de5a94",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a93502362ec67bf4b",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a93d50b36f96a3274",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a93e9e2617c83e28b",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a962df4551ab464e6",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a969eb82360d4a5fd",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a9749b854e0856ae6",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a9798996d7698f6b8",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a994d2df2a69f8dea",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-a9aefa974a6d8f93a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-aa43f2dcb74a8e60a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-aaa4ef56a33d32ea0",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-aaddc1dbfd7d35072",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-aae0ee930b83f8f5e",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-ab8d6459ab786c4e2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-abc2d6c0e733fc84a",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-abee78697f4a54b72",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-ac562f485374e0b35",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-ac872d0421de94016",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-ad89dde4573463af8",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-adb0414f5c8af7fcd",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-add95e9366fe7d37e",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-ae9db417558604b11",
+    "changes": [
+      " M caos/api/app.py",
+      " M caos/api/commands/deliverable.py",
+      " M caos/api/edge.py",
+      " M caos/api/health.py",
+      " M caos/api/identity.py",
+      " M caos/api/reads/reports.py",
+      " M caos/api/stream.py",
+      " M caos/boundary_text.py",
+      " M caos/deliverable/filing.py",
+      " M caos/deliverable/receipts.py",
+      " M caos/deliverable/revisions.py",
+      " M caos/deliverable/verify_package.py",
+      " M caos/evidence/citations.py",
+      " M caos/evidence/extract.py",
+      " M caos/evidence/ingest.py",
+      " M caos/evidence/page.py",
+      " M caos/evidence/pdf.py",
+      " M caos/graph/checkpoint.py",
+      " M caos/graph/worker.py",
+      " M caos/methodology/canonical.py",
+      " M caos/methodology/handoff.py",
+      " M caos/models.py",
+      " M caos/provider.py",
+      " M caos/qualification/harness.py",
+      " M caos/qualification/matrix.py",
+      " M caos/qualification/on_disk.py",
+      " M caos/qualification/store.py",
+      " M caos/serve.py",
+      " M caos/store/lakebase.py",
+      " M caos/store/runs.py",
+      " M caos/store/work.py",
+      " M caos/workspace.py",
+      " M scripts/document_register.py",
+      " M scripts/io_budget.py",
+      " M scripts/qualify.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-aefed4e80ca15e5e2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-af32538386332a004",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-af6b4110bf669bcd6",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-af83fd37f429f3229",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-afb820609534e2232",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-afe6217a230b13d92",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/agent-affe6a44ac534f229",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/book-model-redesign-status-ec64c9",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/eloquent-hopper-7adbf0",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/interesting-tereshkova-75e150",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/jolly-colden-aea662",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/n212-cp4-reason-form",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/next",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/oi-host-forecast",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/readiness-check-b2c5fe",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/trusting-kirch-2a276f",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/wf_9e8457ab-5c7-1",
+    "changes": [
+      " M caos/api/app.py",
+      " M caos/api/commands/_request.py",
+      " M caos/api/deps.py",
+      " M caos/api/edge.py",
+      " M caos/api/health.py",
+      " M caos/api/identity.py",
+      " M caos/api/wire.py",
+      " M caos/blobs.py",
+      " M caos/calculators/cash_flow.py",
+      " M caos/deliverable/filing.py",
+      " M caos/deliverable/render.py",
+      " M caos/deliverable/revisions.py",
+      " M caos/deliverable/verify_package.py",
+      " M caos/evidence/citations.py",
+      " M caos/evidence/pdf.py",
+      " M caos/graph/build.py",
+      " M caos/graph/checkpoint.py",
+      " M caos/graph/runtime.py",
+      " M caos/graph/worker.py",
+      " M caos/icm.py",
+      " M caos/methodology/bundle.py",
+      " M caos/methodology/canonical.py",
+      " M caos/methodology/host_pin.py",
+      " M caos/methodology/selection.py",
+      " M caos/models.py",
+      " M caos/qualification/on_disk.py",
+      " M caos/qualification/store.py",
+      " M caos/refusals.py",
+      " M caos/serve.py",
+      " M caos/store/lakebase.py",
+      " M caos/store/work.py",
+      " M scripts/check_gate_config.py",
+      " M scripts/check_tested.py",
+      " M scripts/enterprise_deploy.py",
+      " M scripts/host_manifest.py",
+      " M scripts/preflight.py",
+      "?? caos/methodology/bundle_pin.py",
+      "?? caos/workspace.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/wf_9e8457ab-5c7-2",
+    "changes": [
+      " M caos/api/app.py",
+      " M caos/api/commands/_request.py",
+      " M caos/api/deps.py",
+      " M caos/api/edge.py",
+      " M caos/api/health.py",
+      " M caos/api/identity.py",
+      " M caos/api/wire.py",
+      " M caos/blobs.py",
+      " M caos/calculators/cash_flow.py",
+      " M caos/deliverable/filing.py",
+      " M caos/deliverable/render.py",
+      " M caos/deliverable/revisions.py",
+      " M caos/deliverable/verify_package.py",
+      " M caos/evidence/citations.py",
+      " M caos/evidence/pdf.py",
+      " M caos/graph/build.py",
+      " M caos/graph/checkpoint.py",
+      " M caos/graph/runtime.py",
+      " M caos/graph/worker.py",
+      " M caos/icm.py",
+      " M caos/methodology/bundle.py",
+      " M caos/methodology/canonical.py",
+      " M caos/methodology/host_pin.py",
+      " M caos/methodology/selection.py",
+      " M caos/models.py",
+      " M caos/qualification/on_disk.py",
+      " M caos/qualification/store.py",
+      " M caos/refusals.py",
+      " M caos/serve.py",
+      " M caos/store/lakebase.py",
+      " M caos/store/work.py",
+      " M scripts/check_gate_config.py",
+      " M scripts/check_tested.py",
+      " M scripts/enterprise_deploy.py",
+      " M scripts/host_manifest.py",
+      " M scripts/preflight.py",
+      "?? caos/methodology/bundle_pin.py",
+      "?? caos/workspace.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/wf_9e8457ab-5c7-3",
+    "changes": [
+      " M caos/api/app.py",
+      " M caos/api/commands/_request.py",
+      " M caos/api/deps.py",
+      " M caos/api/edge.py",
+      " M caos/api/health.py",
+      " M caos/api/identity.py",
+      " M caos/api/wire.py",
+      " M caos/blobs.py",
+      " M caos/calculators/cash_flow.py",
+      " M caos/deliverable/filing.py",
+      " M caos/deliverable/render.py",
+      " M caos/deliverable/revisions.py",
+      " M caos/deliverable/verify_package.py",
+      " M caos/evidence/citations.py",
+      " M caos/evidence/pdf.py",
+      " M caos/graph/build.py",
+      " M caos/graph/checkpoint.py",
+      " M caos/graph/runtime.py",
+      " M caos/graph/worker.py",
+      " M caos/icm.py",
+      " M caos/methodology/bundle.py",
+      " M caos/methodology/canonical.py",
+      " M caos/methodology/host_pin.py",
+      " M caos/methodology/selection.py",
+      " M caos/models.py",
+      " M caos/qualification/on_disk.py",
+      " M caos/qualification/store.py",
+      " M caos/refusals.py",
+      " M caos/serve.py",
+      " M caos/store/lakebase.py",
+      " M caos/store/work.py",
+      " M scripts/check_gate_config.py",
+      " M scripts/check_tested.py",
+      " M scripts/enterprise_deploy.py",
+      " M scripts/host_manifest.py",
+      " M scripts/preflight.py",
+      "?? caos/methodology/bundle_pin.py",
+      "?? caos/workspace.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/wf_9e8457ab-5c7-4",
+    "changes": [
+      " M caos/api/app.py",
+      " M caos/api/commands/_request.py",
+      " M caos/api/deps.py",
+      " M caos/api/edge.py",
+      " M caos/api/health.py",
+      " M caos/api/identity.py",
+      " M caos/api/wire.py",
+      " M caos/blobs.py",
+      " M caos/calculators/cash_flow.py",
+      " M caos/deliverable/filing.py",
+      " M caos/deliverable/render.py",
+      " M caos/deliverable/revisions.py",
+      " M caos/deliverable/verify_package.py",
+      " M caos/evidence/citations.py",
+      " M caos/evidence/pdf.py",
+      " M caos/graph/build.py",
+      " M caos/graph/checkpoint.py",
+      " M caos/graph/runtime.py",
+      " M caos/graph/worker.py",
+      " M caos/icm.py",
+      " M caos/methodology/bundle.py",
+      " M caos/methodology/canonical.py",
+      " M caos/methodology/host_pin.py",
+      " M caos/methodology/selection.py",
+      " M caos/models.py",
+      " M caos/qualification/on_disk.py",
+      " M caos/qualification/store.py",
+      " M caos/refusals.py",
+      " M caos/serve.py",
+      " M caos/store/lakebase.py",
+      " M caos/store/work.py",
+      " M scripts/check_gate_config.py",
+      " M scripts/check_tested.py",
+      " M scripts/enterprise_deploy.py",
+      " M scripts/host_manifest.py",
+      " M scripts/preflight.py",
+      "?? caos/methodology/bundle_pin.py",
+      "?? caos/workspace.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/wf_9e8457ab-5c7-5",
+    "changes": [
+      " M caos/api/app.py",
+      " M caos/api/commands/_request.py",
+      " M caos/api/deps.py",
+      " M caos/api/edge.py",
+      " M caos/api/health.py",
+      " M caos/api/identity.py",
+      " M caos/api/wire.py",
+      " M caos/blobs.py",
+      " M caos/calculators/cash_flow.py",
+      " M caos/deliverable/filing.py",
+      " M caos/deliverable/render.py",
+      " M caos/deliverable/revisions.py",
+      " M caos/deliverable/verify_package.py",
+      " M caos/evidence/citations.py",
+      " M caos/evidence/pdf.py",
+      " M caos/graph/build.py",
+      " M caos/graph/checkpoint.py",
+      " M caos/graph/runtime.py",
+      " M caos/graph/worker.py",
+      " M caos/icm.py",
+      " M caos/methodology/bundle.py",
+      " M caos/methodology/canonical.py",
+      " M caos/methodology/host_pin.py",
+      " M caos/methodology/selection.py",
+      " M caos/models.py",
+      " M caos/qualification/on_disk.py",
+      " M caos/qualification/store.py",
+      " M caos/refusals.py",
+      " M caos/serve.py",
+      " M caos/store/lakebase.py",
+      " M caos/store/work.py",
+      " M scripts/check_gate_config.py",
+      " M scripts/check_tested.py",
+      " M scripts/enterprise_deploy.py",
+      " M scripts/host_manifest.py",
+      " M scripts/preflight.py",
+      "?? caos/methodology/bundle_pin.py",
+      "?? caos/workspace.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/wf_9e8457ab-5c7-6",
+    "changes": [
+      " M caos/api/app.py",
+      " M caos/api/commands/_request.py",
+      " M caos/api/deps.py",
+      " M caos/api/edge.py",
+      " M caos/api/health.py",
+      " M caos/api/identity.py",
+      " M caos/api/wire.py",
+      " M caos/blobs.py",
+      " M caos/calculators/cash_flow.py",
+      " M caos/deliverable/filing.py",
+      " M caos/deliverable/render.py",
+      " M caos/deliverable/revisions.py",
+      " M caos/deliverable/verify_package.py",
+      " M caos/evidence/citations.py",
+      " M caos/evidence/pdf.py",
+      " M caos/graph/build.py",
+      " M caos/graph/checkpoint.py",
+      " M caos/graph/runtime.py",
+      " M caos/graph/worker.py",
+      " M caos/icm.py",
+      " M caos/methodology/bundle.py",
+      " M caos/methodology/canonical.py",
+      " M caos/methodology/host_pin.py",
+      " M caos/methodology/selection.py",
+      " M caos/models.py",
+      " M caos/qualification/on_disk.py",
+      " M caos/qualification/store.py",
+      " M caos/refusals.py",
+      " M caos/serve.py",
+      " M caos/store/lakebase.py",
+      " M caos/store/work.py",
+      " M scripts/check_gate_config.py",
+      " M scripts/check_tested.py",
+      " M scripts/enterprise_deploy.py",
+      " M scripts/host_manifest.py",
+      " M scripts/preflight.py",
+      "?? caos/methodology/bundle_pin.py",
+      "?? caos/workspace.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/wf_9e8457ab-5c7-7",
+    "changes": [
+      " M caos/api/app.py",
+      " M caos/api/commands/_request.py",
+      " M caos/api/deps.py",
+      " M caos/api/edge.py",
+      " M caos/api/health.py",
+      " M caos/api/identity.py",
+      " M caos/api/wire.py",
+      " M caos/blobs.py",
+      " M caos/calculators/cash_flow.py",
+      " M caos/deliverable/filing.py",
+      " M caos/deliverable/render.py",
+      " M caos/deliverable/revisions.py",
+      " M caos/deliverable/verify_package.py",
+      " M caos/evidence/citations.py",
+      " M caos/evidence/pdf.py",
+      " M caos/graph/build.py",
+      " M caos/graph/checkpoint.py",
+      " M caos/graph/runtime.py",
+      " M caos/graph/worker.py",
+      " M caos/icm.py",
+      " M caos/methodology/bundle.py",
+      " M caos/methodology/canonical.py",
+      " M caos/methodology/host_pin.py",
+      " M caos/methodology/selection.py",
+      " M caos/models.py",
+      " M caos/qualification/on_disk.py",
+      " M caos/qualification/store.py",
+      " M caos/refusals.py",
+      " M caos/serve.py",
+      " M caos/store/lakebase.py",
+      " M caos/store/work.py",
+      " M scripts/check_gate_config.py",
+      " M scripts/check_tested.py",
+      " M scripts/enterprise_deploy.py",
+      " M scripts/host_manifest.py",
+      " M scripts/preflight.py",
+      "?? caos/methodology/bundle_pin.py",
+      "?? caos/workspace.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-databricks/.claude/worktrees/wf_9e8457ab-5c7-8",
+    "changes": [
+      " M caos/api/app.py",
+      " M caos/api/commands/_request.py",
+      " M caos/api/deps.py",
+      " M caos/api/edge.py",
+      " M caos/api/health.py",
+      " M caos/api/identity.py",
+      " M caos/api/wire.py",
+      " M caos/blobs.py",
+      " M caos/calculators/cash_flow.py",
+      " M caos/deliverable/filing.py",
+      " M caos/deliverable/render.py",
+      " M caos/deliverable/revisions.py",
+      " M caos/deliverable/verify_package.py",
+      " M caos/evidence/citations.py",
+      " M caos/evidence/pdf.py",
+      " M caos/graph/build.py",
+      " M caos/graph/checkpoint.py",
+      " M caos/graph/runtime.py",
+      " M caos/graph/worker.py",
+      " M caos/icm.py",
+      " M caos/methodology/bundle.py",
+      " M caos/methodology/canonical.py",
+      " M caos/methodology/host_pin.py",
+      " M caos/methodology/selection.py",
+      " M caos/models.py",
+      " M caos/qualification/on_disk.py",
+      " M caos/qualification/store.py",
+      " M caos/refusals.py",
+      " M caos/serve.py",
+      " M caos/store/lakebase.py",
+      " M caos/store/work.py",
+      " M scripts/check_gate_config.py",
+      " M scripts/check_tested.py",
+      " M scripts/enterprise_deploy.py",
+      " M scripts/host_manifest.py",
+      " M scripts/preflight.py",
+      "?? caos/methodology/bundle_pin.py",
+      "?? caos/workspace.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-firebase",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-gitleaks",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-v2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-v2/.claude/worktrees/kind-lamport-d5f9bb",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-v2/.claude/worktrees/no-action-530db2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-v2/.claude/worktrees/no-action-685f68",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-v2/.claude/worktrees/upbeat-swirles-3817fb",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/caos-workbench",
+    "changes": [
+      " M scripts/check_pr_size.py"
+    ],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/deploy",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/deploy workflow Codex",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/deploy workflow Codex/work/sessions/c1",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/deploy workflow Codex/work/sessions/c2",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/deploy workflow Codex/work/sessions/c3",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/deploy workflow Codex/work/sessions/lead",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/Documents/deploy-vii",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/Users/ericguei/caos-wt/integration",
+    "changes": [],
+    "error": null
+  },
+  {
+    "path": "/private/tmp/caos-accepted-tree.S8oPrY/checkout",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/caos-user-pathways.ZT2ulq/checkout",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/-Users-ericguei-Documents-Co-Pilot-Agents/3ce96d97-9c34-4a5e-9cae-97d0865250f1/scratchpad/verify",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/-Users-ericguei-Documents-Deploy-VI--claude-worktrees-codex-dev-status-9f609e/e4ff6bbb-f758-4272-ad3c-92e4c97f5119/scratchpad/rc10",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/-Users-ericguei-Documents-Deploy-VI--claude-worktrees-codex-dev-status-9f609e/e4ff6bbb-f758-4272-ad3c-92e4c97f5119/scratchpad/wt103",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/-Users-ericguei-Documents-Deploy-VI--claude-worktrees-codex-dev-status-9f609e/e4ff6bbb-f758-4272-ad3c-92e4c97f5119/scratchpad/wt105",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/-Users-ericguei-Documents-Deploy-VI--claude-worktrees-codex-dev-status-9f609e/e4ff6bbb-f758-4272-ad3c-92e4c97f5119/scratchpad/wt106",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/-Users-ericguei-Documents-Deploy-VI--claude-worktrees-codex-dev-status-9f609e/e4ff6bbb-f758-4272-ad3c-92e4c97f5119/scratchpad/wtfull",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/-Users-ericguei-Documents-Deploy-VI--claude-worktrees-deploy-vi-plan-09-1992b3/7a476d49-32cd-4e09-b52d-bd14201c9e45/scratchpad/rc09",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/-Users-ericguei-Documents-Deploy-VI--claude-worktrees-deploy-vi-plan-09-1992b3/7a476d49-32cd-4e09-b52d-bd14201c9e45/scratchpad/rc09b",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/-Users-ericguei-Documents-caos-v2--claude-worktrees-no-action-530db2/ff56c110-2ca8-4296-bded-e4d4a7d41bbd/scratchpad/csv-wt",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/-Users-ericguei-Documents-caos-v2--claude-worktrees-no-action-530db2/ff56c110-2ca8-4296-bded-e4d4a7d41bbd/scratchpad/fix-wt",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/caos-devspeed-wt",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/caos-nosync-wt",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/caos-qualify-wt",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/caos-run4-wt",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/claude-501/caos-sync-wt",
+    "missing": true
+  },
+  {
+    "path": "/private/tmp/deployvi-depth-baseline",
+    "missing": true
+  }
+]

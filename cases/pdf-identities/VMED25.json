@@ -1,0 +1,240 @@
+{
+ "schema": "pdf-identities/1",
+ "doc": "VMED25",
+ "source_name": "VMED-O2-UK-Limited-2025-Annual-Report-and-Consolidated-Financial-Statements.pdf",
+ "source_sha256": "9a01f61f83e8c0c1aac943fb08df8fbb6b94d5415521818acc78dd59872b2b47",
+ "unit": "GBP millions",
+ "note": "label and page name a row of tests/fixtures/pdf_pages/<doc>/pNNN.txt; printed values are in column order; each identity is lhs sum == rhs sum, exact, per column",
+ "identities": [
+  {
+   "id": "VMED25-BS-1",
+   "kind": "BS",
+   "equation": "total assets (page 109) = total liabilities + total combined equity (page 110)",
+   "lhs": [
+    {
+     "label": "Total assets",
+     "page": 109,
+     "printed": [
+      "38,117.9",
+      "40,011.1"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Total liabilities",
+     "page": 110,
+     "printed": [
+      "27,341.5",
+      "27,203.6"
+     ]
+    },
+    {
+     "label": "Total combined equity",
+     "page": 110,
+     "printed": [
+      "10,776.4",
+      "12,807.5"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "31 December 2025",
+     "lhs_sum": "38117.9",
+     "rhs_sum": "38117.9",
+     "values": {
+      "Total assets": "38117.9",
+      "Total liabilities": "27341.5",
+      "Total combined equity": "10776.4"
+     }
+    },
+    {
+     "header_text": "31 December 2024",
+     "lhs_sum": "40011.1",
+     "rhs_sum": "40011.1",
+     "values": {
+      "Total assets": "40011.1",
+      "Total liabilities": "27203.6",
+      "Total combined equity": "12807.5"
+     }
+    }
+   ]
+  },
+  {
+   "id": "VMED25-BS-2",
+   "kind": "BS",
+   "equation": "total assets (page 109) = the printed total of equity and liabilities (page 110)",
+   "lhs": [
+    {
+     "label": "Total assets",
+     "page": 109,
+     "printed": [
+      "38,117.9",
+      "40,011.1"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Total equity and liabilities",
+     "page": 110,
+     "printed": [
+      "38,117.9",
+      "40,011.1"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "31 December 2025",
+     "lhs_sum": "38117.9",
+     "rhs_sum": "38117.9",
+     "values": {
+      "Total assets": "38117.9",
+      "Total equity and liabilities": "38117.9"
+     }
+    },
+    {
+     "header_text": "31 December 2024",
+     "lhs_sum": "40011.1",
+     "rhs_sum": "40011.1",
+     "values": {
+      "Total assets": "40011.1",
+      "Total equity and liabilities": "40011.1"
+     }
+    }
+   ]
+  },
+  {
+   "id": "VMED25-CFS-1",
+   "kind": "CFS",
+   "equation": "operating (page 112) + investing (page 112) + financing (page 113) + exchange-rate effect = net change in cash",
+   "lhs": [
+    {
+     "label": "Net cash provided by operating activities",
+     "page": 112,
+     "printed": [
+      "2,763.1",
+      "3,027.6"
+     ]
+    },
+    {
+     "label": "Net cash used by investing activities",
+     "page": 112,
+     "printed": [
+      "(1,382.6)",
+      "(1,509.9)"
+     ]
+    },
+    {
+     "label": "Net cash used by financing activities",
+     "page": 113,
+     "printed": [
+      "(1,941.1)",
+      "(1,276.9)"
+     ]
+    },
+    {
+     "label": "Effect of exchange rate changes on cash and cash equivalents",
+     "page": 113,
+     "printed": [
+      "5.8",
+      "11.9"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Net (decrease) increase in cash and cash equivalents",
+     "page": 113,
+     "printed": [
+      "(554.8)",
+      "252.7"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "Year ended 31 December 2025",
+     "lhs_sum": "-554.8",
+     "rhs_sum": "-554.8",
+     "values": {
+      "Net cash provided by operating activities": "2763.1",
+      "Net cash used by investing activities": "-1382.6",
+      "Net cash used by financing activities": "-1941.1",
+      "Effect of exchange rate changes on cash and cash equivalents": "5.8",
+      "Net (decrease) increase in cash and cash equivalents": "-554.8"
+     }
+    },
+    {
+     "header_text": "Year ended 31 December 2024",
+     "lhs_sum": "252.7",
+     "rhs_sum": "252.7",
+     "values": {
+      "Net cash provided by operating activities": "3027.6",
+      "Net cash used by investing activities": "-1509.9",
+      "Net cash used by financing activities": "-1276.9",
+      "Effect of exchange rate changes on cash and cash equivalents": "11.9",
+      "Net (decrease) increase in cash and cash equivalents": "252.7"
+     }
+    }
+   ]
+  },
+  {
+   "id": "VMED25-CFS-2",
+   "kind": "CFS",
+   "equation": "cash at beginning + net change = cash at end",
+   "lhs": [
+    {
+     "label": "Beginning of period",
+     "page": 113,
+     "printed": [
+      "1,128.3",
+      "875.6"
+     ]
+    },
+    {
+     "label": "Net (decrease) increase in cash and cash equivalents",
+     "page": 113,
+     "printed": [
+      "(554.8)",
+      "252.7"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "End of period",
+     "page": 113,
+     "printed": [
+      "573.5",
+      "1,128.3"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "Year ended 31 December 2025",
+     "lhs_sum": "573.5",
+     "rhs_sum": "573.5",
+     "values": {
+      "Beginning of period": "1128.3",
+      "Net (decrease) increase in cash and cash equivalents": "-554.8",
+      "End of period": "573.5"
+     }
+    },
+    {
+     "header_text": "Year ended 31 December 2024",
+     "lhs_sum": "1128.3",
+     "rhs_sum": "1128.3",
+     "values": {
+      "Beginning of period": "875.6",
+      "Net (decrease) increase in cash and cash equivalents": "252.7",
+      "End of period": "1128.3"
+     }
+    }
+   ]
+  }
+ ]
+}

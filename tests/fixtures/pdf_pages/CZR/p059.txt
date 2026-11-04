@@ -1,0 +1,53 @@
+                                                                  CAESARS ENTERTAINMENT, INC.
+                                               CONSOLIDATED STATEMENTS OF STOCKHOLDERS’ EQUITY
+
+                                                                         Caesars Stockholders' Equity
+                                   Preferred Stock        Common Stock                                                             TreasuryStock
+
+                                                                                                               Accumulated
+                                                                              Additional                           Other                                                  Total
+                                                                                Paid-in     Accumulated       Comprehensive                       Noncontrolling     Stockholders'
+(In millions)                      Shares    Amount      Shares    Amount       Capital         Deficit       Income (Loss)         Amount           Interests           Equity
+Balance, January 1, 2023                —    $     —        215    $     —    $     6,953   $       (3,309)  $              92   $         (23)   $            38    $       3,751
+   Stock-based compensation             —          —           1         —           104                —                   —               —                  —               104
+   Net income                           —          —          —          —             —               786                  —               —                  42              828
+   Other comprehensive
+      income, net of tax                —          —          —          —             —                —                    5              —                  —                  5
+   Shares withheld related to
+      net share settlement of
+      stock awards                      —          —          —          —            (27)              —                   —               —                  —                (27)
+   Transactions with
+      noncontrolling interests          —          —          —          —            (29)              —                   —               —                  88                59
+Balance, December 31, 2023              —          —        216          —          7,001           (2,523)                 97             (23)               168            4,720
+   Stock-based compensation             —          —          —          —             94               —                   —               —                  —                 94
+   Net income (loss)                    —          —          —          —             —              (278)                 —               —                  67             (211)
+   Other comprehensive loss,
+      net of tax                        —          —          —          —             —                —                   (1)             —                  —                 (1)
+   Shares withheld related to
+      net share settlement of
+      stock awards                      —          —          —          —            (17)              —                   —               —                  —                (17)
+   Cancellation of shares
+      issued                            —          —         —           —           (14)               —                  —                14                 —                 —
+   Repurchase of common
+      stock                             —          —          (5)        —          (202)               —                  —                 9                 —              (193)
+   Transactions with
+      noncontrolling interests          —          —          —          —             —                —                   —               —                 (16)              (16)
+Balance, December 31, 2024              —          —         211         —          6,862           (2,801)                 96              —                 219            4,376
+   Stock-based compensation             —          —           1         —             95               —                   —               —                  —                 95
+   Net income (loss)                    —          —          —          —             —              (502)                 —               —                  65             (437)
+   Other comprehensive
+      income, net of tax                —          —          —          —             —                —                    2              —                  —                  2
+   Shares withheld related to
+      net share settlement of
+      stock awards                      —          —          —          —            (17)              —                   —               —                  —                (17)
+   Repurchase of common
+      stock                             —          —          (9)        —          (231)               —                   —               —                  —              (231)
+   Transactions with
+      noncontrolling interests          —          —          —          —             —                —                   —               —                (102)            (102)
+Balance, December 31, 2025              —    $     —        203    $     —    $     6,709   $       (3,303)  $              98   $          —     $           182    $       3,686
+
+
+                                       The accompanying notes are an integral part of these consolidated financial statements.
+
+Table of Contents
+                                                                                         59

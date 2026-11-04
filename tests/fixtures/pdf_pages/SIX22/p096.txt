@@ -1,0 +1,97 @@
+16/06/2026, 22:24                                                      sec.gov/Archives/edgar/data/701374/000155837022001971/six-20220102x10k.htm
+
+
+                        Table of Contents
+
+
+
+                                                               SIX FLAGS ENTERTAINMENT CORPORATION
+                                                                      Consolidated Statements of Equity (Deficit)
+
+
+                                                                                                                                                        Accumulated
+                                                                                                                    Capital in                              other               Total
+                                                                                         Common stock                excess of       Accumulated       comprehensive       stockholders'
+                        (Amounts in thousands, except share data)                    Shares issued    Amount         par value           deficit             loss              deficit
+                        Balances at December 31, 2018                                 83,962,182      $  2,099     $  1,037,640      $  (1,611,334)    $       (71,498)    $    (643,093)
+                        Issuance of common stock                                         622,787            16            17,480                 —                   —             17,496
+                        Stock-based compensation                                               —            —             13,274                 —                   —             13,274
+                        Dividends declared to common stockholders                              —            —                 —          (277,523)                   —          (277,523)
+                        Repurchase of common stock                                           (882)          —                (52)                —                   —                (52)
+                        Employee stock purchase plan                                       49,758             1            2,130                 —                   —              2,131
+                        Fresh start valuation adjustment for SFOT units
+                            purchased                                                          —            —                 —                  45                  —                 45
+                        Change in redemption value of partnership units                        —            —             (4,249)                —                   —             (4,249)
+                        Net income attributable to Six Flags Entertainment
+                            Corporation                                                        —            —                 —           179,065                    —           179,065
+                        Other comprehensive loss, net of tax                                   —            —                 —                  —              (3,212)            (3,212)
+                        Balances at December 31, 2019                                 84,633,845      $  2,116     $  1,066,223      $ (1,709,747)     $       (74,710)    $    (716,118)
+                        Issuance of common stock                                         371,182              8            2,237                 —                   —              2,245
+                        Stock-based compensation                                               —            —             19,530                 —                   —             19,530
+                        Dividends declared to common stockholders                              —            —                 —            (21,165)                  —            (21,165)
+                        Payment of tax withholdings on equity-based
+                            compensation through shares withheld                           (2,291)          —                (54)                —                   —                (54)
+                        Employee stock purchase plan                                       73,165             2            1,281                 —                   —              1,283
+                        Fresh start valuation adjustment for SFOT units
+                            purchased                                                          —            —                 —                924                   —                924
+                        Change in redemption value of partnership units                        —            —                (18)                —                   —                (18)
+                        Net loss attributable to Six Flags Entertainment
+                            Corporation                                                        —            —                 —          (423,380)                   —          (423,380)
+                        Other comprehensive loss, net of tax                                   —            —                 —                  —             (21,794)           (21,794)
+                        Balances at December 31, 2020                                 85,075,901      $  2,126     $  1,089,199      $ (2,153,368)     $       (96,504)    $  (1,158,547)
+                        Issuance of common stock                                       1,175,610            30            13,425                 —                   —             13,455
+                        Stock-based compensation                                               —            —             21,462                 —                   —             21,462
+                        Payment of tax withholdings on equity-based
+                            compensation through shares withheld                        (127,066)            (3)          (5,292)                —                   —             (5,295)
+                        Employee stock purchase plan                                       38,434             1            1,290                 —                   —              1,291
+                        Fresh start valuation adjustment for SFOG and
+                            SFOT units purchased                                               —            —                 —                194                   —                194
+                        Net income attributable to Six Flags Entertainment
+                            Corporation                                                        —            —                 —           129,923                    —           129,923
+                        Other comprehensive income, net of tax                                 —            —                 —                  —              15,317             15,317
+                        Balances at January 2, 2022                                   86,162,879      $  2,154     $  1,120,084      $ (2,023,251)      $      (81,187)     $   (982,200)
+
+                                                             See accompanying notes to consolidated financial statements.
+
+
+
+
+
+                                                                                                        55
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://www.sec.gov/Archives/edgar/data/701374/000155837022001971/six-20220102x10k.htm                                                                                                                     96/170

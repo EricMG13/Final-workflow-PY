@@ -1,0 +1,381 @@
+10.31.24 HEI 10K filing-2024-12-19-16-56 (https://heicocorporation.gcs-web.com/static-files/8cd64e3b-3482-424e-ae4a-33f0687e1b75)
+citeturn104view0 [wordlim: 200] Crawled: today; Content type: application/pdf; Number of pages: 145; Source: open({"ref_id":"https://heicocorporation.gcs-web.com/static-files/8cd64e3b-3482-424e-ae4a-33f0687e1b75","lineno":3710}); Total lines: 5276
+L3583@P95: Corporate-owned life insurance $— $313,794 $— $313,794
+L3584@P95: Money market fund 3,365 — — 3,365
+L3585@P95: Total assets $3,365 $313,794 $— $317,159
+L3586@P95: Liabilities:
+L3604@P95: Money market fund 5,829 — — 5,829
+L3605@P95: Total assets $5,829 $227,710 $— $233,539
+L3606@P95: Liabilities:
+L3607@P95: Contingent consideration $— $— $71,136 $71,136
+L3608@P95:  The Company maintains the HEICO Corporation Leadership Compensation Plan (the
+L3609@P95: "LCP"), which is a non-qualified deferred compensation plan. The assets of the LCP principally
+L3610@P95: represent cash surrender values of life insurance policies, which derive their fair values from
+L3611@P95: investments in mutual funds that are managed by an insurance company, and are classified
+L3612@P95: within Level 2 and valued using a market approach. Certain other assets of the LCP represent an
+L3613@P95: investment in a money market fund that is classified within Level 1. The assets of the LCP are
+L3614@P95: held within an irrevocable trust and classified within other assets in the Company’s Consolidated
+L3615@P95: Balance Sheets.
+L3616@P95: Index
+L3617@P95-96: 93In connection with a fiscal 2023 acquisition that is part of the FSG, the Company
+L3618@P96: assumed an agreement which may have obligated it to pay contingent consideration of
+L3619@P96: $17.5 million if certain operating entities of the acquired company met a calendar year 2023
+L3620@P96: earnings objective and obtained a certain level of new orders with deliveries scheduled in
+L3621@P96: calendar year 2024, of which both targets were tied to a specific customer contract. Both
+L3622@P96: requirements were met as of October 31, 2023. However, payment of the earnout was also
+L3623@P96: predicated on no indication of a significant change with respect to the underlying customer
+L3624@P96: agreement. In the second quarter of fiscal 2024, the customer notified the Company that it
+L3625@P96: intends to reduce its future orders. As a result, the parties to this agreement agreed to settle on a
+L3626@P96: specific contingent consideration amount of $11.0 million. Accordingly, the $17.3 million
+L3627@P96: estimated fair value of the contingent consideration as of October 31, 2023 was reduced to
+L3628@P96: $11.0 million as of April 30, 2024 and paid in the third quarter of fiscal 2024.
+L3629@P96: As part of the agreement to acquire 80.36% of the stock of a subsidiary by the ETG in
+L3630@P96: fiscal 2022, the Company may be obligated to pay contingent consideration of up to
+L3631@P96: $12.1 million in fiscal 2027 based on the earnings of the acquired entity during fiscal years 2025
+L3632@P96: and 2026 provided the entity meets a certain earnings objective during each of fiscal years 2024
+L3633@P96: to 2026. The acquired entity did not achieve the required fiscal 2024 earnings objective. The
+L3634@P96: $5.5 million estimated fair value of the contingent consideration as of October 31, 2023 was
+L3635@P96: reversed in the third quarter of fiscal 2024.
+L3636@P96: As part of the agreement to acquire 96% of the stock of a subsidiary by the FSG in fiscal
+L3637@P96: 2022, the Company may be obligated to pay contingent consideration of up to $27.4 million in
+L3638@P96: fiscal 2027 based on the earnings of the acquired entity during fiscal years 2025 and 2026
+L3639@P96: provided the entity meets certain earnings objectives during each of fiscal years 2022 to 2024.
+L3640@P96: As of October 31, 2024, the estimated fair value of the contingent consideration was
+L3641@P96: $21.8 million.
+L3642@P96: As part of the agreement to acquire 74% of the membership interests of a subsidiary by
+L3643@P96: the FSG in fiscal 2022, the Company would be obligated to pay contingent consideration of
+L3644@P96: $14.1 million in fiscal 2027 only if the acquired entity met a certain earnings objective during the
+L3645@P96: five-year period following the acquisition. Based on the actual earnings of the acquired entity
+L3646@P96: subsequent to the acquisition and forecasted earnings over the remainder of the earnout period,
+L3647@P96: the Company does not expect that the required earnings objective will be met. Accordingly, as
+L3648@P96: of October 31, 2024 and October 31, 2023, the Company did not accrue any contingent
+L3649@P96: consideration for this agreement.
+L3650@P96: As part of the agreement to acquire 89.99% of the equity interests of a subsidiary by the
+L3651@P96: ETG in fiscal 2020, the Company may be obligated to pay contingent consideration of up to
+L3652@P96: CAD $13.5 million, or $9.7 million, should the acquired entity meet certain earnings objectives
+L3653@P96: during fiscal years 2023 and 2024. Based on the actual results of the acquired entity during those
+L3654@P96: years, the Company is obligated to pay additional contingent consideration of CAD
+L3655@P96: $11.7 million, or $8.4 million, which was fully accrued as of October 31, 2024 and expected to
+L3656@P96: be paid in the first quarter of fiscal 2025.
+L3657@P96: Index
+L3658@P96-97: 94As part of the agreement to acquire a subsidiary by the ETG in fiscal 2017, the Company
+L3659@P97: paid contingent consideration of $20.0 million in December 2023 as the acquired entity met a
+L3660@P97: certain earnings objective during the first six years following the acquisition.
+L3661@P97: The following unobservable inputs were used to derive the estimated fair value of the
+L3662@P97: Company's Level 3 contingent consideration liabilities as of October 31, 2024:
+L3663@P97: Acquisition Fair Value Unobservable Weighted
+L3664@P97: Date (in thousands) Input Range Average (1)
+L3665@P97: 7-18-2022 $21,770
+L3666@P97: Compound annual revenue
+L3667@P97: growth rate 3% - 10% 8%
+L3668@P97: Discount rate 8.5% - 8.5% 8.5%
+L3669@P97: 3-17-2022 —
+L3670@P97: Compound annual revenue
+L3671@P97: growth rate 0% - 5% 3%
+L3672@P97: (1) Unobservable inputs were weighted by the relative fair value of the contingent consideration liability.
+L3673@P97: Changes in the Company’s contingent consideration liabilities measured at fair value on a
+L3674@P97: recurring basis using unobservable inputs (Level 3) during fiscal 2024 and 2023 are as follows
+L3675@P97: (in thousands):
+L3676@P97: Liabilities
+L3677@P97: Balance as of October 31, 2022 $82,803
+L3678@P97: Payment of contingent consideration (18,909)
+L3679@P97: Contingent consideration related to an acquisition 17,018
+L3680@P97: Amendment and termination of contingent consideration agreement (9,057)
+L3681@P97: Decrease in accrued contingent consideration, net (686)
+L3682@P97: Foreign currency transaction adjustments (33)
+L3683@P97: Balance as of October 31, 2023 71,136
+L3684@P97: Payment of contingent consideration (31,000)
+L3685@P97: Decrease in accrued contingent consideration, net (9,884)
+L3686@P97: Foreign currency transaction adjustments (45)
+L3687@P97: Balance as of October 31, 2024 $30,207
+L3688@P97: Included in the accompanying Consolidated Balance Sheet
+L3689@P97: under the following captions:
+L3690@P97: Accrued expenses and other current liabilities $8,437
+L3691@P97: Other long-term liabilities 21,770
+L3692@P97:  $30,207
+L3693@P97: The Company records changes in accrued contingent consideration and foreign currency
+L3694@P97: transaction adjustments within SG&A expenses in its Consolidated Statements of Operations.
+L3695@P97: Index
+L3696@P97-98: 95The carrying amounts of the Company’s cash and cash equivalents, accounts receivable,
+L3697@P98: trade accounts payable and accrued expenses and other current liabilities approximate fair value
+L3698@P98: as of October 31, 2024 due to the relatively short maturity of the respective instruments. The
+L3699@P98: carrying amount of borrowings under the Company's credit facility approximates fair value due
+L3700@P98: to its variable interest rate. See Note 5, Short-Term and Long-Term Debt, for the estimated fair
+L3701@P98: value of the Company's senior unsecured notes.
+L3702@P98: During fiscal 2024, two non-amortizing trade names within the ETG were measured at
+L3703@P98: fair value on a nonrecurring basis, resulting in the recognition of impairment losses aggregating
+L3704@P98: $7.5 million (see Note 4, Goodwill and Other Intangible Assets). The aggregate fair value of
+L3705@P98: these nonfinancial assets, which are classified within Level 3, and the related impairment loss
+L3706@P98: recognized in fiscal 2024 are as follows (in thousands):
+L3707@P98: Carrying Amount Impairment Loss Fair Value (Level 3)
+L3708@P98: Asset:
+L3709@P98: Trade names $11,500 ($7,500) $4,000
+L3710@P98: The fair value of each trade name was determined using the relief from royalty method,
+L3711@P98: which is an income approach. This method involves applying an asset-specific discount rate to a
+L3712@P98: forecast of cash flows specific to the asset. The following unobservable inputs were used to
+L3713@P98: derive the estimated fair value of the Level 3 trade names as of July 31, 2024 and October 31,
+L3714@P98: 2024:
+L3715@P98: Unobservable Input Range
+L3716@P98: Discount rate 15.0% - 20.5%
+L3717@P98: Royalty rate 1.0% - 2.5%
+L3718@P98: 9. LEASES
+L3719@P98:  HEICO’s lease ROU assets represent its right to use an underlying asset during the lease
+L3720@P98: term and its lease liabilities represent the Company’s obligation to make lease payments arising
+L3721@P98: from the lease. HEICO’s operating lease ROU assets are included within other assets and its
+L3722@P98: operating lease liabilities are included within other long-term liabilities and accrued expenses
+L3723@P98: and other current liabilities in the Company’s Consolidated Balance Sheets. HEICO's finance
+L3724@P98: lease ROU assets are included within property, plant and equipment, net and its finance lease
+L3725@P98: liabilities are included within long-term debt, net of current maturities and short-term debt and
+L3726@P98: current maturities of long-term debt within the Company's Consolidated Balance Sheets. The
+L3727@P98: following table presents the Company’s lease ROU assets and lease liabilities (in thousands):
+L3728@P98: Index
+L3729@P98-99: 96Operating Leases
+L3730@P99: As of October 31,
+L3731@P99: Finance Leases
+L3732@P99: As of October 31,
+L3733@P99: 2024 2023 2024 2023
+L3734@P99: Right-of-use assets $131,836 $121,373 $24,024 $26,608
+L3735@P99: Current lease liabilities $23,422 $20,503 $4,060 $4,254
+L3736@P99: Long-term lease liabilities 113,458 104,759 21,800 23,564
+L3737@P99: Total lease liabilities $136,880 $125,262 $25,860 $27,818
+L3738@P99: The Company’s operating lease expenses are recorded within cost of sales and/or SG&A
+L3739@P99: expenses in the Company’s Consolidated Statements of Operations. The Company's finance
+L3740@P99: lease expenses consist of amortization of ROU assets and interest on lease liabilities, which are
+L3741@P99: included within cost of sales and/or SG&A expenses, and interest expense, respectively, in the
+L3742@P99: Company's Consolidated Statements of Operations. Further, interest expense on finance leases is
+L3743@P99: recognized using the effective interest method based on the discount rate determined at lease
+L3744@P99: commencement.
+L3745@P99: The following table presents the components of lease expense for fiscal 2024 and 2023
+L3746@P99: (in thousands):
+L3747@P99: Year ended October 31,
+L3748@P99: 2024 2023
+L3749@P99: Operating Leases:
+L3750@P99: Operating lease expense $32,655 $24,192
+L3751@P99: Variable lease expense 5,574 4,047
+L3752@P99: Total operating lease expense (1) $38,229 $28,239
+L3753@P99: Finance Leases:
+L3754@P99: Amortization of finance lease ROU assets $4,804 $3,026
+L3755@P99: Interest on finance lease liabilities 1,660 1,211
+L3756@P99: Variable lease expense 839 617
+L3757@P99: Total finance lease expense $7,303 $4,854
+L3758@P99: (1) Excludes short-term lease expense, which is not material.
+L3759@P99: Index
+L3760@P99-100: 97The following table presents a maturity analysis of the Company's lease liabilities as of
+L3761@P100: October 31, 2024 for the next five fiscal years and thereafter (in thousands):
+L3762@P100: Operating Leases Finance Leases
+L3763@P100: Year ending October 31,
+L3764@P100: 2025 $31,153 $5,497
+L3765@P100: 2026 28,645 4,857
+L3766@P100: 2027 25,006 4,760
+L3767@P100: 2028 19,246 4,338
+L3768@P100: 2029 14,843 3,786
+L3769@P100: Thereafter 54,521 8,253
+L3770@P100: Total minimum lease payments 173,414 31,491
+L3771@P100: Less: imputed interest (36,534) (5,631)
+L3772@P100: Present value of minimum lease payments $136,880 $25,860
+L3773@P100: The Company does not have any material leases that have been signed but have yet to
+L3774@P100: commence as of October 31, 2024.
+L3775@P100: The following table presents the weighted average remaining lease term and discount rate
+L3776@P100: of the Company’s leases:
+L3777@P100: Operating Leases
+L3778@P100: As of October 31,
+L3779@P100: Finance Leases
+L3780@P100: As of October 31,
+L3781@P100: 2024 2023 2024 2023
+L3782@P100: Weighted average remaining lease term (years) 7.2 7.1 6.7 7.5
+L3783@P100: Weighted average discount rate 6.7% 6.2% 6.2% 6.1%
+L3784@P100: The following table presents supplemental disclosures of cash flow information
+L3785@P100: associated with the Company's leases for fiscal 2024 and 2023 (in thousands):
+L3786@P100: Operating Leases
+L3787@P100: As of October 31,
+L3788@P100: Finance Leases
+L3789@P100: As of October 31,
+L3790@P100: 2024 2023 2024 2023
+L3791@P100: Cash paid for amounts included in the
+L3792@P100: measurement of lease liabilities:
+L3793@P100: Operating cash flows $31,045 $22,058 $1,660 $1,211
+L3794@P100: Financing cash flows — — 3,948 2,663
+L3795@P100: Right-of-use assets obtained in exchange for
+L3796@P100: new lease liabilities, net of terminations 33,232 26,271 1,037 5
+L3797@P100: Index
+L3798@P100-101: 9810. SHAREHOLDERS’ EQUITY
+L3799@P101: Common Stock and Class A Common Stock
+L3800@P101:  The Company has two classes of common stock that are virtually identical in all
+L3801@P101: economic respects except voting rights. Each share of Common Stock is entitled to one vote per
+L3802@P101: share. Each share of Class A Common Stock is entitled to a 1/10 vote per share. Holders of the
+L3803@P101: Company’s common stock are entitled to receive dividends and other distributions payable in
+L3804@P101: cash, property, stock or otherwise, when and if declared by the Board of Directors. In the event
+L3805@P101: of liquidation, after payment of debts and other liabilities of the Company, the remaining assets
+L3806@P101: of the Company will be distributable ratably among the holders of both classes of common stock.
+L3807@P101: Share Repurchases
+L3808@P101:  In 1990, the Company's Board of Directors authorized a share repurchase program, which
+L3809@P101: allows the Company to repurchase shares of Company common stock in the open market or in
+L3810@P101: privately negotiated transactions at the Company's discretion, subject to certain restrictions
+L3811@P101: included in the Company's revolving credit agreement. As of October 31, 2024, the maximum
+L3812@P101: number of shares that may yet be purchased under this program was 4,886,353 of either or both
+L3813@P101: of the Company's Class A Common Stock and the Company's Common Stock. The repurchase
+L3814@P101: program does not have a fixed termination date. During fiscal 2024, 2023 and 2022, the
+L3815@P101: Company did not repurchase any shares of Company common stock under this program.
+L3816@P101: During fiscal 2024, the Company redeemed an aggregate 68,494 shares and 62,215 shares
+L3817@P101: of Common Stock and Class A Common Stock, respectively, at a total cost of $18.2 million and
+L3818@P101: $11.8 million, respectively. During fiscal 2023, the Company redeemed an aggregate 61,658
+L3819@P101: shares and 33,992 shares of Common Stock and Class A Common Stock, respectively, at a total
+L3820@P101: cost of $10.4 million and $4.4 million, respectively. During fiscal 2022, the Company redeemed
+L3821@P101: an aggregate 87,593 shares and 104,867 shares of Common Stock and Class A Common Stock,
+L3822@P101: respectively, at a total cost of $12.7 million and $13.3 million, respectively. The shares
+L3823@P101: redeemed represent shares tendered as payments to satisfy employee withholding taxes due upon
+L3824@P101: exercises of stock option awards. The shares redeemed in fiscal 2024, 2023 and 2022 did not
+L3825@P101: impact the number of shares authorized for future purchase under the Company’s share
+L3826@P101: repurchase program and are reflected as redemptions of common stock related to stock option
+L3827@P101: exercises in the Company's Consolidated Statements of Shareholders' Equity and Consolidated
+L3828@P101: Statements of Cash Flows.
+L3829@P101: Issuance of Common Stock for Acquisitions
+L3830@P101: On August 4, 2023, the Company acquired Wencor. The purchase price of this
+L3831@P101: acquisition consisted of a combination of cash and 1,137,628 shares of HEICO Class A Common
+L3832@P101: Stock. 1,054,606 shares of HEICO Class A Common Stock issued in connection with this
+L3833@P101: acquisition were registered for resale pursuant to a Registration Statement on Form S-3 declared
+L3834@P101: effective on August 4, 2023. See Note 2, Acquisitions, for additional information.
+L3835@P101: Index
+L3836@P101-102: 99In August 2022, the Company acquired 100% of the stock of Sensor. The purchase price
+L3837@P102: of this acquisition was paid for with a proportional combination of cash using proceeds from the
+L3838@P102: Company's revolving credit facility and 576,338 shares of HEICO Class A Common Stock. The
+L3839@P102: shares of Class A Common Stock issued in connection with this acquisition were registered for
+L3840@P102: resale pursuant to a Registration Statement on Form S-3 declared effective on August 31, 2022.
+L3841@P102: See Note 2, Acquisitions, for additional information.
+L3842@P102: 11. SHARE-BASED COMPENSATION
+L3843@P102:  The Company currently has one stock option plan, the HEICO Corporation 2018
+L3844@P102: Incentive Compensation Plan ("2018 Plan"), which enables the Company to grant various forms
+L3845@P102: of share-based compensation awards including stock options, restricted stock, restricted stock
+L3846@P102: awards and stock appreciation rights. The 2018 Plan became effective in fiscal 2018 and
+L3847@P102: replaced the Company's 2012 Incentive Compensation Plan (“2012 Plan”). Options outstanding
+L3848@P102: under the Company's 2012 Plan and Non-Qualified Stock Option Plan may be exercised pursuant
+L3849@P102: to their terms. The total number of shares approved by the shareholders of the Company for the
+L3850@P102: 2018 Plan is 5.0 million plus any options outstanding under the 2012 Plan as of the 2018 Plan's
+L3851@P102: effective date that are subsequently forfeited or expire. A total of 5.7 million shares of the
+L3852@P102: Company's common stock are reserved for issuance to employees, directors, officers and
+L3853@P102: consultants as of October 31, 2024, including 3.4 million shares currently under option and
+L3854@P102: approximately 2.3 million shares available for future grants.
+L3855@P102:  Stock options granted pursuant to the 2018 Plan may be designated as Common Stock
+L3856@P102: and/or Class A Common Stock in such proportions as shall be determined by the Board of
+L3857@P102: Directors or the Stock Option Plan Committee at its sole discretion. The exercise price per share
+L3858@P102: of a stock option granted under the 2018 Plan may not be less than the fair market value of the
+L3859@P102: designated class of Company common stock as of the date of grant and stock option grants vest
+L3860@P102: ratably over a period specified as of the date of grant (generally five years) and expire ten years
+L3861@P102: after the date of grant. Options issued under the 2018 Plan may be designated as incentive stock
+L3862@P102: options or non-qualified stock options, but only employees are eligible to receive incentive stock
+L3863@P102: options and no incentive stock options were outstanding as of October 31, 2024. The 2018 Plan
+L3864@P102: will terminate no later than the tenth anniversary of its effective date.
+L3865@P102: Index
+L3866@P102-103: 100Information concerning share-based activity for each of the last three fiscal years ended
+L3867@P103: October 31 is as follows (in thousands, except per share data):
+L3868@P103: Shares Under Option
+L3869@P103: Shares
+L3870@P103: Available For
+L3871@P103: Grant Shares
+L3872@P103: Weighted
+L3873@P103: Average
+L3874@P103: Exercise Price
+L3875@P103: Outstanding as of October 31, 2021 3,374 4,341 $52.16
+L3876@P103: Granted (56) 56 $120.76
+L3877@P103: Exercised — (762) $22.40
+L3878@P103: Cancelled 6 (6) $67.98
+L3879@P103: Outstanding as of October 31, 2022 3,324 3,629 $59.44
+L3880@P103: Granted (969) 969 $144.72
+L3881@P103: Exercised — (537) $29.23
+L3882@P103: Cancelled 7 (7) $111.41
+L3883@P103: Outstanding as of October 31, 2023 2,362 4,054 $83.74
+L3884@P103: Granted (65) 65 $158.68
+L3885@P103: Exercised — (672) $27.16
+L3886@P103: Cancelled 12 (12) $114.70
+L3887@P103: Outstanding as of October 31, 2024 2,309 3,435 $96.14
+L3888@P103: Information concerning stock options outstanding (all of which are vested or expected to
+L3889@P103: vest) and stock options exercisable by class of common stock as of October 31, 2024 is as
+L3890@P103: follows (in thousands, except per share and contractual life data):
+L3891@P103: Options Outstanding
+L3892@P103: Number
+L3893@P103: Outstanding
+L3894@P103: Weighted
+L3895@P103: Average
+L3896@P103: Exercise Price
+L3897@P103: Weighted Average
+L3898@P103: Remaining Contractual
+L3899@P103: Life (Years)
+L3900@P103: Aggregate
+L3901@P103: Intrinsic
+L3902@P103: Value
+L3903@P103: Common Stock 1,369 $100.21 5.2 $198,153
+L3904@P103: Class A Common Stock 2,066 $93.44 5.7 203,663
+L3905@P103:  3,435 $96.14 5.5 $401,816
+L3906@P103: Options Exercisable
+L3907@P103: Number
+L3908@P103: Exercisable
+L3909@P103: Weighted
+L3910@P103: Average
+L3911@P103: Exercise Price
+L3912@P103: Weighted Average
+L3913@P103: Remaining Contractual
+L3914@P103: Life (Years)
+L3915@P103: Aggregate
+L3916@P103: Intrinsic
+L3917@P103: Value
+L3918@P103: Common Stock 963 $76.58 3.9 $162,143
+L3919@P103: Class A Common Stock 1,323 $72.21 4.3 158,441
+L3920@P103:  2,286 $74.05 4.2 $320,584
+L3921@P103: Index
+L3922@P103-104: 101Information concerning stock options exercised is as follows (in thousands):
+L3923@P104: Year ended October 31,
+L3924@P104: 2024 2023 2022
+L3925@P104: Cash proceeds from stock option exercises $7,951 $6,713 $2,352
+L3926@P104: Tax benefit realized from stock option exercises 13,558 6,101 17,752
+L3927@P104: Intrinsic value of stock option exercises 121,532 63,710 86,015
+L3928@P104:  Net income from consolidated operations for the fiscal years ended October 31, 2024,
+L3929@P104: 2023 and 2022 includes compensation expense of $18.8 million, $15.5 million and $12.6 million,
+L3930@P104: respectively, and an income tax benefit of $2.4 million, $2.0 million and $1.7 million,
+L3931@P104: respectively, related to the Company’s stock options. Substantially all of the stock option
+L3932@P104: compensation expense was recorded as a component of SG&A expenses in the Company’s
+L3933@P104: Consolidated Statements of Operations. As of October 31, 2024, there was $55.2 million of pretax unrecognized compensation expense related to nonvested stock options, which is expected to
+L3934@P104: be recognized over a weighted average period of approximately 3.2 years. The total fair value of
+L3935@P104: stock options that vested in fiscal 2024, 2023 and 2022 was $20.1 million, $11.1 million and
+L3936@P104: $14.3 million, respectively. If there were a change in control of the Company, all of the unvested
+L3937@P104: options outstanding as of October 31, 2024 would become immediately exercisable.
+L3938@P104: The fair value of each stock option grant in fiscal 2024, 2023 and 2022 was estimated on
+L3939@P104: the date of grant using the Black-Scholes option-pricing model based on the following weighted
+L3940@P104: average assumptions:
+L3941@P104: 2024 2023 2022
+L3942@P104: Class A
+L3943@P104: Common
+L3944@P104: Stock
+L3945@P104: Common
+L3946@P104: Stock
+L3947@P104: Class A
+L3948@P104: Common
+L3949@P104: Stock
+L3950@P104: Class A
+L3951@P104: Common
+L3952@P104: Stock
+L3953@P104: Expected stock price volatility 32.65% 31.48% 33.59% 32.61%
+L3954@P104: Risk-free interest rate 4.20% 3.63% 3.64% 1.72%
+L3955@P104: Dividend yield .16% .15% .17% .18%
+L3956@P104: Forfeiture rate .00% .00% .00% .00%
+L3957@P104: Expected option life (years) 6 8 6 6
+L3958@P104: Weighted average fair value $63.15 $69.57 $50.90 $41.00
+L3959@P104: Index
+L3960@P104-105: 10212. EMPLOYEE RETIREMENT PLANS
+L3961@P105: The HEICO Savings and Investment Plan (the “401(k) Plan”) is a qualified defined
+L3962@P105: contribution retirement plan under which eligible employees of the Company and its
+L3963@P105: participating subsidiaries may make Elective Deferral Contributions up to the limitations set
+L3964@P105: forth in Section 402(g) of the Internal Revenue Code. The Company generally makes a 50%
+L3965@P105: Employer Matching Contribution, as determined by the Board of Directors, based on a
+L3966@P105: participant’s Elective Deferral Contribution up to 6% of the participant’s Compensation for the
+L3967@P105: Elective Deferral Contribution period. The 401(k) Plan also provides that the Company may
+L3968@P105: make additional Employer Contributions. Employer Contributions may be contributed in the
+L3969@P105: form of the Company’s common stock or cash, as determined by the Company. Employer
+L3970@P105: Contributions awarded in the form of Company common stock are valued based on the fair value
+L3971@P105: of the underlying shares as of the effective date of contribution. Employer Contributions may be
+L3972@P105: diversified by a participant into any of the participant-directed investment options of the 401(k)
+L3973@P105: Plan; however, Employee Contributions may not be invested in Company common stock.
+L3974@P105: Unless specified otherwise, all capitalized terms herein are defined in the 401(k) Plan document.
+L3975@P105: Participants receive 100% vesting in Employee Contributions and on cash dividends
+L3976@P105: received on Company common stock. Vesting in Employer Contributions is based on a
+L3977@P105: participant’s number of Years of Service. Employer Contributions to the 401(k) Plan charged to
+

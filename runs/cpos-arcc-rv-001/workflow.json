@@ -1,0 +1,383 @@
+{
+  "run": {
+    "run_id": "cpos-arcc-relative-value-2024-1",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2024-12-31",
+    "case_kind": "public",
+    "pathway": "relative_value",
+    "requested_modules": [
+      "CP-3D",
+      "CP-3A",
+      "CP-6"
+    ]
+  },
+  "execution": "retained-response-replay",
+  "max_attempts": 1,
+  "provider_cap_usd": 0,
+  "sources": {
+    "context/0": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/SKILL.md",
+      "sha256": "7e85b2f545fffcb3ad17f4997e5c577ae9620d279f1ffe8e12aefa8ce38abcd1"
+    },
+    "context/1": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/REF_CP-3A_STEPS.md",
+      "sha256": "40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec"
+    },
+    "context/2": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/REF_CP-3_STEPS.md",
+      "sha256": "a142dd66006ea876e3abc9166e0184fcb0685b32bc5cff703e9158da22fe8767"
+    },
+    "context/3": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/SKILL.md",
+      "sha256": "7b1dcf5967f599a94a6b0c2138a51647a66fd73fc232c385bbec4b20286e02a4"
+    },
+    "context/4": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/references/REF_CP-3D_STEPS.md",
+      "sha256": "e1a3dc9584611edcf1e1dac66345aebba01e86b573c3ac7e7f848b7350683545"
+    },
+    "context/5": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/scripts/bond_analytics.py",
+      "sha256": "b51b375a1a1c0aff668f85a9550e2d272f5f9a9be142407a68ba7bced0d4bced"
+    },
+    "context/6": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/scripts/cp_tables.py",
+      "sha256": "02590c0bf151e1e291b72214df3311f686d88e576d60a80a6b5ca73ecc44a8d1"
+    },
+    "context/7": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/scripts/validate_handoff.py",
+      "sha256": "c640aaaf579907c63a72d5a5a0df5134ed89dbf273441846ec399353e3bbac9e"
+    },
+    "context/8": {
+      "path": "../arcc-2024-001/CP-4.md",
+      "sha256": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9"
+    },
+    "context/9": {
+      "path": "../arcc-2024-001/CP-4A-attempt-1.md",
+      "sha256": "ca53528bf1f6d9758a7d9194e76af181eb884e237388fe46e839e601606168b6"
+    },
+    "context/10": {
+      "path": "../arcc-2024-001/sources/ARCC-FY2024-10K.pdf",
+      "sha256": "4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170"
+    },
+    "context/11": {
+      "path": "../arcc-2024-001/sources/annual-pages.txt",
+      "sha256": "9e216fdd000f529b4f1c452d5786b2ec9e0cab69e8fcd9659558d87d8b4e1976"
+    },
+    "context/12": {
+      "path": "../arcc-2024-001/sources/base-lines.txt",
+      "sha256": "ef8ad4d8a3d5902746726697b6f6fa53058d7445b59d99157cbea6258bf2d459"
+    },
+    "context/13": {
+      "path": "../arcc-2024-001/sources/legal-web-captures.json",
+      "sha256": "53550ae8ebd03dd5c53c5a74586a6bae261c761578a3216fda9b2a801bf301bd"
+    },
+    "context/14": {
+      "path": "../arcc-2024-001/sources/supplement-lines.txt",
+      "sha256": "bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c"
+    },
+    "context/15": {
+      "path": "../arcc-lite-2024-001/ARCC_CP-L10_20261104-attempt-3.md",
+      "sha256": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1"
+    },
+    "context/16": {
+      "path": "../arcc-market-2024-001/CP-0.md",
+      "sha256": "f61415aa2b3c2d0d6fd79ad6853d49ec96e51d65e3130277e54f18e30b24626a"
+    },
+    "context/17": {
+      "path": "../arcc-market-2024-001/CP-1-market-inputs.md",
+      "sha256": "68437034bceb3ebb0d04ad97e0746b255588aef701c8e7a6bcd8c38507b3ae1c"
+    },
+    "context/18": {
+      "path": "../arcc-market-2024-001/CP-3-intake-instructions.md",
+      "sha256": "b727671ad0d4072b7ee5f9c48c9d3717ee6bac7dc39526e07c8eec503d451483"
+    },
+    "context/19": {
+      "path": "../arcc-market-2024-001/CP-3-market-consumer.md",
+      "sha256": "6094c0aceae47371363fb9aed6906e41feab902268b10f3a347ebdf47e5400e1"
+    },
+    "context/20": {
+      "path": "../arcc-market-2024-001/CP-3D-attempt-1.md",
+      "sha256": "233ecfd06e68129db51d42a8ea3148992df25e5f75781f45fc53aeda2d4073a9"
+    },
+    "context/21": {
+      "path": "../arcc-market-2024-001/CP-3D-attempt-2.md",
+      "sha256": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa"
+    },
+    "context/22": {
+      "path": "../arcc-market-2024-001/CP-3D-calculations.json",
+      "sha256": "6a7189eeb6fa57a80403b0ec47474c3a4108401dc96940965c86d3965b7985a7"
+    },
+    "context/23": {
+      "path": "../arcc-market-2024-001/instructions.md",
+      "sha256": "058cb7677433078089dcb483e773fc857787d4c5a93d6b5da519e2c387677b5a"
+    },
+    "context/24": {
+      "path": "../arcc-market-2024-001/sources/retrieval.json",
+      "sha256": "d71ad1a24f24448e4a20c01464716c37ace271a15bd86477df851618d04f1e58"
+    },
+    "context/25": {
+      "path": "../arcc-market-2024-001/sources/treasury-2024.csv",
+      "sha256": "6775840b76cd7fd41121f61d6f6c60184eca6b2ba49954ec7372c463cbeef34d"
+    },
+    "context/26": {
+      "path": "../arcc-market-2024-001/sources/treasury-web-capture.txt",
+      "sha256": "202c0857ef29f05cb2bff0725fea3f0fc00e3fc4051581f31c4058c41320f01c"
+    },
+    "context/27": {
+      "path": "../arcc-selection-2024-001/CP-3-attempt-2.md",
+      "sha256": "9ef2f6e17a2e22fd980c72bf586a3807afdf44ab37043db2581d4ec0e2780bf8"
+    },
+    "context/28": {
+      "path": "../arcc-selection-2024-001/CP-6-consumer-instructions.md",
+      "sha256": "f371e31da8d34f6e188086bcbd7f5b7fd809ef0d961d8fd02fc0744f424663e5"
+    },
+    "context/29": {
+      "path": "../arcc-selection-2024-001/expectations.json",
+      "sha256": "381fa0e30ad3973846c0c286ee3c9f25860707499eddc13a4683d72d64fca354"
+    },
+    "context/30": {
+      "path": "../arcc-selection-2024-001/sources/March2029-executed-supplement.html",
+      "sha256": "1bd078c6b2ce56450399287f3206b22ef91380ebf0410cadcbe0772bdc5e93a6"
+    },
+    "context/31": {
+      "path": "../arcc-selection-2024-001/sources/March2029-lines.txt",
+      "sha256": "afa48e16a39d3cab0e427ec9bc2967980570f2117223203482d0cf1d84f8bbd3"
+    },
+    "context/32": {
+      "path": "format-amendment.json",
+      "sha256": "11e82ebe095561f2ef03c407e3848952e41ce9e120d56ebdbb87b80c962480f2"
+    }
+  },
+  "instructions": {
+    "CP-3D": {
+      "path": "instructions.md",
+      "sha256": "71ef250bfb1f1585ef42f7810ffe322d6a8f61983c1eb71aacbab89964d311c3"
+    },
+    "CP-3": {
+      "path": "instructions.md",
+      "sha256": "71ef250bfb1f1585ef42f7810ffe322d6a8f61983c1eb71aacbab89964d311c3"
+    },
+    "CP-6": {
+      "path": "instructions.md",
+      "sha256": "71ef250bfb1f1585ef42f7810ffe322d6a8f61983c1eb71aacbab89964d311c3"
+    }
+  },
+  "retained_handoffs": {
+    "CP-3D": {
+      "path": "../arcc-market-2024-001/CP-3D-attempt-2.md",
+      "sha256": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa",
+      "source_hashes": {
+        "context/0": "7e85b2f545fffcb3ad17f4997e5c577ae9620d279f1ffe8e12aefa8ce38abcd1",
+        "context/1": "40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec",
+        "context/2": "a142dd66006ea876e3abc9166e0184fcb0685b32bc5cff703e9158da22fe8767",
+        "context/3": "7b1dcf5967f599a94a6b0c2138a51647a66fd73fc232c385bbec4b20286e02a4",
+        "context/4": "e1a3dc9584611edcf1e1dac66345aebba01e86b573c3ac7e7f848b7350683545",
+        "context/5": "b51b375a1a1c0aff668f85a9550e2d272f5f9a9be142407a68ba7bced0d4bced",
+        "context/6": "02590c0bf151e1e291b72214df3311f686d88e576d60a80a6b5ca73ecc44a8d1",
+        "context/7": "c640aaaf579907c63a72d5a5a0df5134ed89dbf273441846ec399353e3bbac9e",
+        "context/8": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9",
+        "context/9": "ca53528bf1f6d9758a7d9194e76af181eb884e237388fe46e839e601606168b6",
+        "context/10": "4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170",
+        "context/11": "9e216fdd000f529b4f1c452d5786b2ec9e0cab69e8fcd9659558d87d8b4e1976",
+        "context/12": "ef8ad4d8a3d5902746726697b6f6fa53058d7445b59d99157cbea6258bf2d459",
+        "context/13": "53550ae8ebd03dd5c53c5a74586a6bae261c761578a3216fda9b2a801bf301bd",
+        "context/14": "bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c",
+        "context/15": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1",
+        "context/16": "f61415aa2b3c2d0d6fd79ad6853d49ec96e51d65e3130277e54f18e30b24626a",
+        "context/17": "68437034bceb3ebb0d04ad97e0746b255588aef701c8e7a6bcd8c38507b3ae1c",
+        "context/18": "b727671ad0d4072b7ee5f9c48c9d3717ee6bac7dc39526e07c8eec503d451483",
+        "context/19": "6094c0aceae47371363fb9aed6906e41feab902268b10f3a347ebdf47e5400e1",
+        "context/20": "233ecfd06e68129db51d42a8ea3148992df25e5f75781f45fc53aeda2d4073a9",
+        "context/21": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa",
+        "context/22": "6a7189eeb6fa57a80403b0ec47474c3a4108401dc96940965c86d3965b7985a7",
+        "context/23": "058cb7677433078089dcb483e773fc857787d4c5a93d6b5da519e2c387677b5a",
+        "context/24": "d71ad1a24f24448e4a20c01464716c37ace271a15bd86477df851618d04f1e58",
+        "context/25": "6775840b76cd7fd41121f61d6f6c60184eca6b2ba49954ec7372c463cbeef34d",
+        "context/26": "202c0857ef29f05cb2bff0725fea3f0fc00e3fc4051581f31c4058c41320f01c",
+        "context/27": "9ef2f6e17a2e22fd980c72bf586a3807afdf44ab37043db2581d4ec0e2780bf8",
+        "context/28": "f371e31da8d34f6e188086bcbd7f5b7fd809ef0d961d8fd02fc0744f424663e5",
+        "context/29": "381fa0e30ad3973846c0c286ee3c9f25860707499eddc13a4683d72d64fca354",
+        "context/30": "1bd078c6b2ce56450399287f3206b22ef91380ebf0410cadcbe0772bdc5e93a6",
+        "context/31": "afa48e16a39d3cab0e427ec9bc2967980570f2117223203482d0cf1d84f8bbd3",
+        "context/32": "11e82ebe095561f2ef03c407e3848952e41ce9e120d56ebdbb87b80c962480f2"
+      },
+      "upstream": {}
+    },
+    "CP-3": {
+      "path": "CP-3-yield-table.md",
+      "sha256": "63c56793bbcc8e9e43671a4cdebefdc1a018cb57df8163125c80bd654294ea60",
+      "source_hashes": {
+        "context/0": "7e85b2f545fffcb3ad17f4997e5c577ae9620d279f1ffe8e12aefa8ce38abcd1",
+        "context/1": "40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec",
+        "context/2": "a142dd66006ea876e3abc9166e0184fcb0685b32bc5cff703e9158da22fe8767",
+        "context/3": "7b1dcf5967f599a94a6b0c2138a51647a66fd73fc232c385bbec4b20286e02a4",
+        "context/4": "e1a3dc9584611edcf1e1dac66345aebba01e86b573c3ac7e7f848b7350683545",
+        "context/5": "b51b375a1a1c0aff668f85a9550e2d272f5f9a9be142407a68ba7bced0d4bced",
+        "context/6": "02590c0bf151e1e291b72214df3311f686d88e576d60a80a6b5ca73ecc44a8d1",
+        "context/7": "c640aaaf579907c63a72d5a5a0df5134ed89dbf273441846ec399353e3bbac9e",
+        "context/8": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9",
+        "context/9": "ca53528bf1f6d9758a7d9194e76af181eb884e237388fe46e839e601606168b6",
+        "context/10": "4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170",
+        "context/11": "9e216fdd000f529b4f1c452d5786b2ec9e0cab69e8fcd9659558d87d8b4e1976",
+        "context/12": "ef8ad4d8a3d5902746726697b6f6fa53058d7445b59d99157cbea6258bf2d459",
+        "context/13": "53550ae8ebd03dd5c53c5a74586a6bae261c761578a3216fda9b2a801bf301bd",
+        "context/14": "bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c",
+        "context/15": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1",
+        "context/16": "f61415aa2b3c2d0d6fd79ad6853d49ec96e51d65e3130277e54f18e30b24626a",
+        "context/17": "68437034bceb3ebb0d04ad97e0746b255588aef701c8e7a6bcd8c38507b3ae1c",
+        "context/18": "b727671ad0d4072b7ee5f9c48c9d3717ee6bac7dc39526e07c8eec503d451483",
+        "context/19": "6094c0aceae47371363fb9aed6906e41feab902268b10f3a347ebdf47e5400e1",
+        "context/20": "233ecfd06e68129db51d42a8ea3148992df25e5f75781f45fc53aeda2d4073a9",
+        "context/21": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa",
+        "context/22": "6a7189eeb6fa57a80403b0ec47474c3a4108401dc96940965c86d3965b7985a7",
+        "context/23": "058cb7677433078089dcb483e773fc857787d4c5a93d6b5da519e2c387677b5a",
+        "context/24": "d71ad1a24f24448e4a20c01464716c37ace271a15bd86477df851618d04f1e58",
+        "context/25": "6775840b76cd7fd41121f61d6f6c60184eca6b2ba49954ec7372c463cbeef34d",
+        "context/26": "202c0857ef29f05cb2bff0725fea3f0fc00e3fc4051581f31c4058c41320f01c",
+        "context/27": "9ef2f6e17a2e22fd980c72bf586a3807afdf44ab37043db2581d4ec0e2780bf8",
+        "context/28": "f371e31da8d34f6e188086bcbd7f5b7fd809ef0d961d8fd02fc0744f424663e5",
+        "context/29": "381fa0e30ad3973846c0c286ee3c9f25860707499eddc13a4683d72d64fca354",
+        "context/30": "1bd078c6b2ce56450399287f3206b22ef91380ebf0410cadcbe0772bdc5e93a6",
+        "context/31": "afa48e16a39d3cab0e427ec9bc2967980570f2117223203482d0cf1d84f8bbd3",
+        "context/32": "11e82ebe095561f2ef03c407e3848952e41ce9e120d56ebdbb87b80c962480f2"
+      },
+      "upstream": {
+        "CP-3D": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa"
+      }
+    },
+    "CP-6": {
+      "path": "../arcc-selection-2024-001/CP-6-consumer.md",
+      "sha256": "5f6d862a3bbe44892f8611559e612faf7ebd9e32cf65e564f2fc71eca8692bd6",
+      "source_hashes": {
+        "context/0": "7e85b2f545fffcb3ad17f4997e5c577ae9620d279f1ffe8e12aefa8ce38abcd1",
+        "context/1": "40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec",
+        "context/2": "a142dd66006ea876e3abc9166e0184fcb0685b32bc5cff703e9158da22fe8767",
+        "context/3": "7b1dcf5967f599a94a6b0c2138a51647a66fd73fc232c385bbec4b20286e02a4",
+        "context/4": "e1a3dc9584611edcf1e1dac66345aebba01e86b573c3ac7e7f848b7350683545",
+        "context/5": "b51b375a1a1c0aff668f85a9550e2d272f5f9a9be142407a68ba7bced0d4bced",
+        "context/6": "02590c0bf151e1e291b72214df3311f686d88e576d60a80a6b5ca73ecc44a8d1",
+        "context/7": "c640aaaf579907c63a72d5a5a0df5134ed89dbf273441846ec399353e3bbac9e",
+        "context/8": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9",
+        "context/9": "ca53528bf1f6d9758a7d9194e76af181eb884e237388fe46e839e601606168b6",
+        "context/10": "4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170",
+        "context/11": "9e216fdd000f529b4f1c452d5786b2ec9e0cab69e8fcd9659558d87d8b4e1976",
+        "context/12": "ef8ad4d8a3d5902746726697b6f6fa53058d7445b59d99157cbea6258bf2d459",
+        "context/13": "53550ae8ebd03dd5c53c5a74586a6bae261c761578a3216fda9b2a801bf301bd",
+        "context/14": "bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c",
+        "context/15": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1",
+        "context/16": "f61415aa2b3c2d0d6fd79ad6853d49ec96e51d65e3130277e54f18e30b24626a",
+        "context/17": "68437034bceb3ebb0d04ad97e0746b255588aef701c8e7a6bcd8c38507b3ae1c",
+        "context/18": "b727671ad0d4072b7ee5f9c48c9d3717ee6bac7dc39526e07c8eec503d451483",
+        "context/19": "6094c0aceae47371363fb9aed6906e41feab902268b10f3a347ebdf47e5400e1",
+        "context/20": "233ecfd06e68129db51d42a8ea3148992df25e5f75781f45fc53aeda2d4073a9",
+        "context/21": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa",
+        "context/22": "6a7189eeb6fa57a80403b0ec47474c3a4108401dc96940965c86d3965b7985a7",
+        "context/23": "058cb7677433078089dcb483e773fc857787d4c5a93d6b5da519e2c387677b5a",
+        "context/24": "d71ad1a24f24448e4a20c01464716c37ace271a15bd86477df851618d04f1e58",
+        "context/25": "6775840b76cd7fd41121f61d6f6c60184eca6b2ba49954ec7372c463cbeef34d",
+        "context/26": "202c0857ef29f05cb2bff0725fea3f0fc00e3fc4051581f31c4058c41320f01c",
+        "context/27": "9ef2f6e17a2e22fd980c72bf586a3807afdf44ab37043db2581d4ec0e2780bf8",
+        "context/28": "f371e31da8d34f6e188086bcbd7f5b7fd809ef0d961d8fd02fc0744f424663e5",
+        "context/29": "381fa0e30ad3973846c0c286ee3c9f25860707499eddc13a4683d72d64fca354",
+        "context/30": "1bd078c6b2ce56450399287f3206b22ef91380ebf0410cadcbe0772bdc5e93a6",
+        "context/31": "afa48e16a39d3cab0e427ec9bc2967980570f2117223203482d0cf1d84f8bbd3",
+        "context/32": "11e82ebe095561f2ef03c407e3848952e41ce9e120d56ebdbb87b80c962480f2"
+      },
+      "upstream": {
+        "CP-3D": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa",
+        "CP-3": "63c56793bbcc8e9e43671a4cdebefdc1a018cb57df8163125c80bd654294ea60"
+      }
+    }
+  },
+  "layout": {
+    "blocks": [
+      "instrument-levels",
+      "yield-against-maturity",
+      "market-against-fundamentals",
+      "compensation-preference",
+      "peer-positioning",
+      "recommendation-portfolio-fit",
+      "capital-structure",
+      "loan-hy-relative-value",
+      "credit-view",
+      "what-changed"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-3",
+        "heading": "T3.5 — Relative value table",
+        "kind": "table",
+        "block_id": "instrument-levels",
+        "label": "Two actual series; conditional model yields and unknown quote basis"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Conditional yield observations",
+        "kind": "table",
+        "block_id": "yield-against-maturity",
+        "label": "Separate clean/dirty assumptions; categorical note maturities"
+      },
+      {
+        "module_id": "CP-3D",
+        "heading": "T3E.7 — fundamental reconciliation and strongest countercase",
+        "kind": "prose",
+        "block_id": "market-against-fundamentals",
+        "label": "Asset coverage is not cash or default probability"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Security-selection view",
+        "kind": "prose",
+        "block_id": "compensation-preference",
+        "label": "Conditional compensation and strongest contrary case"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "T3.6 — Fundamental value matrix",
+        "kind": "table",
+        "block_id": "peer-positioning",
+        "label": "Same-issuer comparison; no independent corporate-peer cohort"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Actual challenge, countercase and changed action",
+        "kind": "prose",
+        "block_id": "recommendation-portfolio-fit",
+        "label": "Actual challenge and action restriction"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "T3B.2 — Selected capital-structure dashboard",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "Selected pair, not whole issuer obligations"
+      },
+      {
+        "module_id": "CP-3D",
+        "heading": "T3E.1 — instrument, source and freshness gate",
+        "kind": "prose",
+        "block_id": "loan-hy-relative-value",
+        "label": "Fixed parent bonds only; loan/cross-market data unavailable"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Fundamental credit summary — actual upstream context used",
+        "kind": "prose",
+        "block_id": "credit-view",
+        "label": "Actual limited fundamental context, no full credit grade"
+      },
+      {
+        "module_id": "CP-3D",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "what-changed",
+        "label": "Historical narrative repair; no new observation",
+        "prefix": "Second attempt:"
+      }
+    ],
+    "scope": "ARCC historical December31 2024 retrospective evaluated-price and two-parent-note comparison; audit/source retrieval later, not an information-availability backtest or current executable market. Actual CP-3D market, CP-3/CP-3A comparison and actual subsequent CP-6 challenge replay through CP-OS. Source price basis is unknown: clean and dirty are separate conditional assumptions, with exact original values and gaps retained. Yield figure is a categorical maturity comparison, not a fitted/observed curve; no new pricing analysis. The added four-row table copies C2/C3 only; original CP-6 consumed the financially identical pre-table version, not a newly invented response. Missing external peers and loan/HY comparisons remain explicit; no corporate peer median, numeric score, current preference, mandate clearance or new size. What Changed names the original historical14-to15.294-point narrative repair, not a new financial/market period. Assessment pending is not a full committee call. Existing renderers only, no Excel output/provider/native acceptance.",
+    "title": "ARCC · historical relative-value comparison",
+    "question": "What compensation survives price-basis, precision, tenor and protection uncertainty?"
+  }
+}

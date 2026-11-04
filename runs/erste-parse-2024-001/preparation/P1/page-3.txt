@@ -1,0 +1,66 @@
+Consolidated statement of income
+
+
+
+in EUR million                                                                                                                 Notes          1-12 23             1-12 24
+Net interest income                                                                                                                 2            7228               7528
+   Interest income                                                                                                                  2          15045              15353
+   Other similar income                                                                                                             2            4446               3756
+   Interest expenses                                                                                                                2           -6873              -7549
+   Other similar expenses                                                                                                           2           -5389              -4032
+Net fee and commission income                                                                                                       3            2640               2938
+   Fee and commission income                                                                                                        3            3104               3454
+   Fee and commission expenses                                                                                                      3             -464                -517
+Dividend income                                                                                                                     4                38                 39
+Net trading result                                                                                                                  5              754                 519
+Gains/losses from financial instruments measured at fair value through profit or loss                                               6             -306                 -82
+Net result from equity method investments                                                                                                            23                 27
+Rental income from investment properties & other operating leases                                                                   7              175                 210
+Personnel expenses                                                                                                                  8           -2991              -3202
+Other administrative expenses                                                                                                       8           -1468              -1529
+Depreciation and amortisation                                                                                                       8             -560                -547
+Gains/losses from derecognition of financial assets measured at amortised cost                                                      9               -13                -90
+Other gains/losses from derecognition of financial instruments not measured at fair value through profit or loss                  10              -128                   -1
+Impairment result from financial instruments                                                                                      11              -128                -397
+Other operating result                                                                                                            12              -468                -414
+   Levies on banking activities                                                                                                   12              -183                -245
+Pre-tax result from continuing operations                                                                                                        4795              4997
+Taxes on income                                                                                                                   13              -874              -1053
+Net result for the period                                                                                                                        3921              3945
+   Net result attributable to non-controlling interests                                                                                            923                 819
+   Net result attributable to owners of the parent                                                                                               2998              3125
+
+
+Earnings per share
+
+Earnings per share constitute net profit/loss for the year attributable to owners of the parent divided by the average number of ordi-
+nary shares outstanding. The average number of outstanding shares is net of the average number of treasury shares, considering the
+shares buyback in the previous year. Diluted earnings per share represent the maximum potential dilution (through an increase in
+the average number of shares) that would occur if all subscription and conversion rights granted were exercised. The difference
+between the weighted average number of outstanding shares and the weighted average diluted number of outstanding shares results
+from share-based payment transactions with employees. For information on share-based payments please refer to Note 61.
+
+                                                                                                                                               1-12 23            1-12 24
+Net result attributable to owners of the parent                                                                    in EUR thousand           2997576         3125299
+Dividend on AT1 capital (after tax effect)                                                                         in EUR thousand             -99067          -132593
+Net result for the period attributable to owners of the parent after deduction of AT1 capital dividend             in EUR thousand           2898509         2992706
+Weighted average undiluted number of outstanding shares                                                                                  425951928        415854514
+Earnings per share                                                                                                             in EUR              680               720
+Weighted average diluted number of outstanding shares                                                                                    426324432        416176925
+Diluted earnings per share                                                                                                     in EUR              680               719
+
+For details regarding the number of outstanding shares please refer to Note 55 Total equity.
+
+
+
+
+
+
+
+
+
+
+
+
+
+236

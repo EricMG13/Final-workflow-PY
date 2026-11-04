@@ -1,0 +1,2336 @@
+{
+  "schema_version": "deliverable-contract/1",
+  "contract_id": "tdg-credit-snapshot-keyed-inventory-slice",
+  "status": "PARTIAL / BLOCKED; candidate contract inventory, not accepted runtime proof",
+  "pathway": "credit_snapshot",
+  "public_case": "tdg-credit-snapshot",
+  "independence": "Expected content references adopted goldens and mapping only; no candidate renderer/output value used.",
+  "source_authority": {
+    "golden_path": "cases/goldens/tdg-credit-snapshot/module_golden.json",
+    "golden_sha256": "f9f8bf8c09ff6d0101f80d4d9b9aca9fab86c6c63cc4ce2933bee8e7566c4807",
+    "mapping_path": "cases/goldens/tdg-credit-snapshot/mapping.json",
+    "mapping_sha256": "dc160519f9c1e2c36d0cbb5fffef218cd9c725498460048466f21347ee27fe17",
+    "methodology_path": "src/deploy_vii/methodology.json",
+    "methodology_sha256": "aea67de94e90d2c5ce513c5898d9b7afdd10c849a082bb1f61a31bb07baf347e",
+    "report_view_path": "src/deploy_vii/report_view.py",
+    "report_view_sha256": "920e57d2f5836c79b0aa27c8e840e4b8673a12ac2e1ac378e0f85ee5d5579790"
+  },
+  "artifacts": [
+    {
+      "name": "report.html",
+      "required_sections": [
+        "key-findings",
+        "company-operating-model",
+        "model-chart-strip",
+        "capital-structure",
+        "financials-credit-metrics",
+        "strengths-weaknesses",
+        "relative-value",
+        "company-profile",
+        "transaction-summary",
+        "portfolio-fit",
+        "committee-challenge",
+        "what-changed"
+      ],
+      "producer_consumer": "producer per selected owner; actual consuming modules and section-specific producer mapping BLOCKED",
+      "output_locator": "one section element per listed #id; section content locator BLOCKED until field-to-block mapping is independently reviewed",
+      "positive_duty": "all keyed required facts and required qualitative duties appear in assigned content with correct citations; exact per-section field mapping remains BLOCKED",
+      "negative_duty": "an unavailable/refused fact appears only where the key/source authority expects an honest gap/refusal; unsupported values fail closed",
+      "comparison": "BLOCKED: no runnable whole-pathway comparison on this base"
+    },
+    {
+      "name": "calculation.json",
+      "required_sections": "all mapped calculation table/row/field locators",
+      "producer_consumer": "owner writes fact; actual downstream consumer must reference settled producer head; per-fact consumer mapping unresolved",
+      "output_locator": "cases/goldens/tdg-credit-snapshot/mapping.json#/entries locator table_id,row_id,field,period",
+      "comparison": "independent references below plus contract-level table/claim/render comparison BLOCKED"
+    },
+    {
+      "name": "model.html",
+      "required_sections": [
+        "cash-flow Model outputs required by CP-MODEL contract"
+      ],
+      "producer_consumer": "CP-MODEL deterministic publication and report consumers",
+      "output_locator": "Model-owned block inside #model-chart-strip; exact field locator/use comparison BLOCKED"
+    }
+  ],
+  "fact_references": [
+    {
+      "fact_id": "CP-0.identity.TransDigm_Group_Incorporated.legal_name",
+      "key_pointer": "/facts/0",
+      "module": "CP-0",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": null,
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Cover page > registrant name"
+        }
+      ],
+      "matching_mapping_entry": 0,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/0"
+    },
+    {
+      "fact_id": "CP-0.documents.Form_10_Q_2024_03_30.period_covered.2024-03-30",
+      "key_pointer": "/facts/1",
+      "module": "CP-0",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-03-30",
+      "evidence_sources": [
+        {
+          "source_id": "Q2FY24",
+          "locator": "Cover page"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-0.documents.Form_10_Q_2024_06_29.period_covered.2024-06-29",
+      "key_pointer": "/facts/2",
+      "module": "CP-0",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-06-29",
+      "evidence_sources": [
+        {
+          "source_id": "Q3FY24",
+          "locator": "Cover page"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-0.documents.Form_10_K_2024_09_30.period_covered.2024-09-30",
+      "key_pointer": "/facts/3",
+      "module": "CP-0",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Cover page"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-0.documents.Form_10_Q_2024_12_28.period_covered.2024-12-28",
+      "key_pointer": "/facts/4",
+      "module": "CP-0",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Cover page"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.segments.TransDigm.reporting_segment_count.2024-09-30",
+      "key_pointer": "/facts/5",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Item 1 Business > Segments"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.segments.Power_Control.reporting_segment_name.2024-09-30",
+      "key_pointer": "/facts/6",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Item 1 Business > Segments"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.segments.Airframe.reporting_segment_name.2024-09-30",
+      "key_pointer": "/facts/7",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Item 1 Business > Segments"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.segments.Non_aviation.reporting_segment_name.2024-09-30",
+      "key_pointer": "/facts/8",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Item 1 Business > Segments"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.profile.TransDigm.sector_description",
+      "key_pointer": "/facts/9",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": null,
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Item 1 Business > The Company"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.profile.TransDigm.aftermarket_share_of_net_sales.2024-09-30",
+      "key_pointer": "/facts/10",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "percent",
+      "scale": null,
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Item 1 Business > The Company"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.profile.TransDigm.proprietary_share_of_net_sales.2024-09-30",
+      "key_pointer": "/facts/11",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "percent",
+      "scale": null,
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Item 1 Business > The Company"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.profile.TransDigm.businesses_acquired_since_1993.2024-09-30",
+      "key_pointer": "/facts/12",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Item 1 Business > The Company"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.profile.TransDigm.sponsor_or_controlling_holder",
+      "key_pointer": "/facts/13",
+      "module": "CP-1A",
+      "status": "missing",
+      "unit": null,
+      "scale": null,
+      "period_end": null,
+      "evidence_sources": [],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.acquisitions.CPI_s_Electron_Device_Business.purchase_price.2024-06-06",
+      "key_pointer": "/facts/14",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-06-06",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 2 Acquisitions"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.acquisitions.CPI_s_Electron_Device_Business.segment.2024-06-06",
+      "key_pointer": "/facts/15",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-06-06",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 2 Acquisitions"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.acquisitions.Raptor_Scientific.purchase_price_as_first_reported.2024-07-31",
+      "key_pointer": "/facts/16",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-07-31",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 2 Acquisitions"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.acquisitions.Raptor_Scientific.purchase_price_latest.2024-07-31",
+      "key_pointer": "/facts/17",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-07-31",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 2 Acquisitions"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.acquisitions.Raptor_Scientific.segment.2024-07-31",
+      "key_pointer": "/facts/18",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-07-31",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 2 Acquisitions"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.acquisitions.Product_lines_acquired_in_Q1_FY2025.purchase_price.2024-12-28",
+      "key_pointer": "/facts/19",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Investing Activities"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.7_125_Senior_Secured_Notes_due_2031_issuance.principal.2023-11-28",
+      "key_pointer": "/facts/20",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2023-11-28",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.Tranche_J_term_loans_Amendment_No_13.principal.2023-11-28",
+      "key_pointer": "/facts/21",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2023-11-28",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.Revolving_credit_facility_refinancing_Amendment_No_14.commitments_after.2024-02-27",
+      "key_pointer": "/facts/22",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-02-27",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.6_375_Senior_Secured_Notes_due_2029_initial.principal.2024-02-27",
+      "key_pointer": "/facts/23",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-02-27",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.6_625_Senior_Secured_Notes_due_2032.principal.2024-02-27",
+      "key_pointer": "/facts/24",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-02-27",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.6_25_Secured_Notes_due_2026_redemption.principal_redeemed.2024-03-28",
+      "key_pointer": "/facts/25",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-03-28",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.2029_Secured_Notes_add_on.principal.2024-03-22",
+      "key_pointer": "/facts/26",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-03-22",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.7_50_Senior_Subordinated_Notes_due_2027_redemption.principal_redeemed.2024-04-22",
+      "key_pointer": "/facts/27",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-04-22",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.6_00_Senior_Secured_Notes_due_2033.principal.2024-09-19",
+      "key_pointer": "/facts/28",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-09-19",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.Tranche_L_term_loans_Amendment_No_17.principal.2024-09-19",
+      "key_pointer": "/facts/29",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-09-19",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.Special_cash_dividend_75_00_per_share.amount_paid.2024-10-18",
+      "key_pointer": "/facts/30",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-10-18",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Significant Transactions of Fiscal 2025"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.Common_stock_repurchases_Q1_FY2025.amount.2024-12-28",
+      "key_pointer": "/facts/31",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Significant Transactions of Fiscal 2025"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.Trade_receivable_securitization_facility_draw_Q1_FY2025.amount_drawn.2024-12-28",
+      "key_pointer": "/facts/32",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Financing Activities"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1.debt_stack.5_50_2027_Notes.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/33",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Gross Amount"
+        }
+      ],
+      "matching_mapping_entry": 35,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/35"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.5_50_2027_Notes.carrying_amount_net.2024-12-28",
+      "key_pointer": "/facts/34",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Net Amount"
+        }
+      ],
+      "matching_mapping_entry": 36,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/36"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.5_50_2027_Notes.maturity_date.2024-12-28",
+      "key_pointer": "/facts/35",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Maturity Date"
+        }
+      ],
+      "matching_mapping_entry": 37,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/37"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.5_50_2027_Notes.interest_rate.2024-12-28",
+      "key_pointer": "/facts/36",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "percent",
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Interest Rate (fixed coupon)"
+        }
+      ],
+      "matching_mapping_entry": 38,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/38"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2028_Secured_Notes.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/37",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Gross Amount"
+        }
+      ],
+      "matching_mapping_entry": 39,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/39"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2028_Secured_Notes.carrying_amount_net.2024-12-28",
+      "key_pointer": "/facts/38",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Net Amount"
+        }
+      ],
+      "matching_mapping_entry": 40,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/40"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2028_Secured_Notes.maturity_date.2024-12-28",
+      "key_pointer": "/facts/39",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Maturity Date"
+        }
+      ],
+      "matching_mapping_entry": 41,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/41"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2028_Secured_Notes.interest_rate.2024-12-28",
+      "key_pointer": "/facts/40",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "percent",
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Interest Rate (fixed coupon)"
+        }
+      ],
+      "matching_mapping_entry": 42,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/42"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.4_625_2029_Notes.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/41",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Gross Amount"
+        }
+      ],
+      "matching_mapping_entry": 43,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/43"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.4_625_2029_Notes.carrying_amount_net.2024-12-28",
+      "key_pointer": "/facts/42",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Net Amount"
+        }
+      ],
+      "matching_mapping_entry": 44,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/44"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.4_625_2029_Notes.maturity_date.2024-12-28",
+      "key_pointer": "/facts/43",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Maturity Date"
+        }
+      ],
+      "matching_mapping_entry": 45,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/45"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.4_625_2029_Notes.interest_rate.2024-12-28",
+      "key_pointer": "/facts/44",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "percent",
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Interest Rate (fixed coupon)"
+        }
+      ],
+      "matching_mapping_entry": 46,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/46"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2029_Secured_Notes.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/45",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Gross Amount"
+        }
+      ],
+      "matching_mapping_entry": 47,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/47"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2029_Secured_Notes.carrying_amount_net.2024-12-28",
+      "key_pointer": "/facts/46",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Net Amount"
+        }
+      ],
+      "matching_mapping_entry": 48,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/48"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2029_Secured_Notes.maturity_date.2024-12-28",
+      "key_pointer": "/facts/47",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Maturity Date"
+        }
+      ],
+      "matching_mapping_entry": 49,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/49"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2029_Secured_Notes.interest_rate.2024-12-28",
+      "key_pointer": "/facts/48",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "percent",
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Interest Rate (fixed coupon)"
+        }
+      ],
+      "matching_mapping_entry": 50,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/50"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.4_875_2029_Notes.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/49",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Gross Amount"
+        }
+      ],
+      "matching_mapping_entry": 51,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/51"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.4_875_2029_Notes.carrying_amount_net.2024-12-28",
+      "key_pointer": "/facts/50",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Net Amount"
+        }
+      ],
+      "matching_mapping_entry": 52,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/52"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.4_875_2029_Notes.maturity_date.2024-12-28",
+      "key_pointer": "/facts/51",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Maturity Date"
+        }
+      ],
+      "matching_mapping_entry": 53,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/53"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.4_875_2029_Notes.interest_rate.2024-12-28",
+      "key_pointer": "/facts/52",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "percent",
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Interest Rate (fixed coupon)"
+        }
+      ],
+      "matching_mapping_entry": 54,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/54"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2030_Secured_Notes.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/53",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Gross Amount"
+        }
+      ],
+      "matching_mapping_entry": 55,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/55"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2030_Secured_Notes.carrying_amount_net.2024-12-28",
+      "key_pointer": "/facts/54",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Net Amount"
+        }
+      ],
+      "matching_mapping_entry": 56,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/56"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2030_Secured_Notes.maturity_date.2024-12-28",
+      "key_pointer": "/facts/55",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Maturity Date"
+        }
+      ],
+      "matching_mapping_entry": 57,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/57"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2030_Secured_Notes.interest_rate.2024-12-28",
+      "key_pointer": "/facts/56",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "percent",
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Interest Rate (fixed coupon)"
+        }
+      ],
+      "matching_mapping_entry": 58,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/58"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2031_Secured_Notes.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/57",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Gross Amount"
+        }
+      ],
+      "matching_mapping_entry": 59,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/59"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2031_Secured_Notes.carrying_amount_net.2024-12-28",
+      "key_pointer": "/facts/58",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Net Amount"
+        }
+      ],
+      "matching_mapping_entry": 60,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/60"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2031_Secured_Notes.maturity_date.2024-12-28",
+      "key_pointer": "/facts/59",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Maturity Date"
+        }
+      ],
+      "matching_mapping_entry": 61,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/61"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2031_Secured_Notes.interest_rate.2024-12-28",
+      "key_pointer": "/facts/60",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "percent",
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Interest Rate (fixed coupon)"
+        }
+      ],
+      "matching_mapping_entry": 62,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/62"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2032_Secured_Notes.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/61",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Gross Amount"
+        }
+      ],
+      "matching_mapping_entry": 63,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/63"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2032_Secured_Notes.carrying_amount_net.2024-12-28",
+      "key_pointer": "/facts/62",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Net Amount"
+        }
+      ],
+      "matching_mapping_entry": 64,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/64"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2032_Secured_Notes.maturity_date.2024-12-28",
+      "key_pointer": "/facts/63",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Maturity Date"
+        }
+      ],
+      "matching_mapping_entry": 65,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/65"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2032_Secured_Notes.interest_rate.2024-12-28",
+      "key_pointer": "/facts/64",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "percent",
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Interest Rate (fixed coupon)"
+        }
+      ],
+      "matching_mapping_entry": 66,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/66"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2033_Secured_Notes.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/65",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Gross Amount"
+        }
+      ],
+      "matching_mapping_entry": 67,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/67"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2033_Secured_Notes.carrying_amount_net.2024-12-28",
+      "key_pointer": "/facts/66",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Net Amount"
+        }
+      ],
+      "matching_mapping_entry": 68,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/68"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2033_Secured_Notes.maturity_date.2024-12-28",
+      "key_pointer": "/facts/67",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Maturity Date"
+        }
+      ],
+      "matching_mapping_entry": 69,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/69"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.2033_Secured_Notes.interest_rate.2024-12-28",
+      "key_pointer": "/facts/68",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "percent",
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Indentures table > Interest Rate (fixed coupon)"
+        }
+      ],
+      "matching_mapping_entry": 70,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/70"
+    },
+    {
+      "fact_id": "CP-2.debt_stack.Term_loans.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/69",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Gross Amount"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Term_loan_Tranche_I.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/70",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Term Loans Facility table > Aggregate Principal"
+        }
+      ],
+      "matching_mapping_entry": 71,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/71"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Term_loan_Tranche_I.maturity_date.2024-12-28",
+      "key_pointer": "/facts/71",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Term Loans Facility table > Maturity Date"
+        }
+      ],
+      "matching_mapping_entry": 72,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/72"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Term_loan_Tranche_I.interest_rate_terms.2024-12-28",
+      "key_pointer": "/facts/72",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Term Loans Facility table > Interest Rate"
+        }
+      ],
+      "matching_mapping_entry": 73,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/73"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Term_loan_Tranche_J.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/73",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Term Loans Facility table > Aggregate Principal"
+        }
+      ],
+      "matching_mapping_entry": 74,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/74"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Term_loan_Tranche_J.maturity_date.2024-12-28",
+      "key_pointer": "/facts/74",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Term Loans Facility table > Maturity Date"
+        }
+      ],
+      "matching_mapping_entry": 75,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/75"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Term_loan_Tranche_J.interest_rate_terms.2024-12-28",
+      "key_pointer": "/facts/75",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Term Loans Facility table > Interest Rate"
+        }
+      ],
+      "matching_mapping_entry": 76,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/76"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Term_loan_Tranche_K.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/76",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Term Loans Facility table > Aggregate Principal"
+        }
+      ],
+      "matching_mapping_entry": 77,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/77"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Term_loan_Tranche_K.maturity_date.2024-12-28",
+      "key_pointer": "/facts/77",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Term Loans Facility table > Maturity Date"
+        }
+      ],
+      "matching_mapping_entry": 78,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/78"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Term_loan_Tranche_K.interest_rate_terms.2024-12-28",
+      "key_pointer": "/facts/78",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Term Loans Facility table > Interest Rate"
+        }
+      ],
+      "matching_mapping_entry": 79,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/79"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Term_loan_Tranche_L.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/79",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Term Loans Facility table > Aggregate Principal"
+        }
+      ],
+      "matching_mapping_entry": 80,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/80"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Term_loan_Tranche_L.maturity_date.2024-12-28",
+      "key_pointer": "/facts/80",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Term Loans Facility table > Maturity Date"
+        }
+      ],
+      "matching_mapping_entry": 81,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/81"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Term_loan_Tranche_L.interest_rate_terms.2024-12-28",
+      "key_pointer": "/facts/81",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > Term Loans Facility table > Interest Rate"
+        }
+      ],
+      "matching_mapping_entry": 82,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/82"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Trade_receivable_securitization_facility.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/82",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Gross Amount"
+        }
+      ],
+      "matching_mapping_entry": 83,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/83"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Trade_receivable_securitization_facility.carrying_amount_net.2024-12-28",
+      "key_pointer": "/facts/83",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Net Amount"
+        }
+      ],
+      "matching_mapping_entry": 84,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/84"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Trade_receivable_securitization_facility.maturity_date.2024-12-28",
+      "key_pointer": "/facts/84",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > Trade Receivable Securitization Facility"
+        }
+      ],
+      "matching_mapping_entry": 85,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/85"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Trade_receivable_securitization_facility.interest_rate_terms.2024-12-28",
+      "key_pointer": "/facts/85",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > Trade Receivable Securitization Facility"
+        }
+      ],
+      "matching_mapping_entry": 86,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/86"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Government_refundable_advances.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/86",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Gross Amount"
+        }
+      ],
+      "matching_mapping_entry": 87,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/87"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Government_refundable_advances.carrying_amount_net.2024-12-28",
+      "key_pointer": "/facts/87",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Net Amount"
+        }
+      ],
+      "matching_mapping_entry": 88,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/88"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Finance_lease_obligations.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/88",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Gross Amount"
+        }
+      ],
+      "matching_mapping_entry": 89,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/89"
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Finance_lease_obligations.carrying_amount_net.2024-12-28",
+      "key_pointer": "/facts/89",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table December 28, 2024 > Net Amount"
+        }
+      ],
+      "matching_mapping_entry": 90,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/90"
+    },
+    {
+      "fact_id": "CP-2.debt_totals.Debt_excluding_securitization_facility.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/90",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "Note 8 Debt > table > total row (before current portion)"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-2.debt_totals.Total_gross_principal_including_securitization_facility.principal_outstanding.2024-12-28",
+      "key_pointer": "/facts/91",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1.revolver.Revolving_credit_facility.commitments.2024-12-28",
+      "key_pointer": "/facts/92",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Description of Senior Secured Term Loans"
+        }
+      ],
+      "matching_mapping_entry": 91,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/91"
+    },
+    {
+      "fact_id": "CP-2.revolver.Revolving_credit_facility.letters_of_credit_outstanding.2024-12-28",
+      "key_pointer": "/facts/93",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Description of Senior Secured Term Loans"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-2.revolver.Revolving_credit_facility.availability.2024-12-28",
+      "key_pointer": "/facts/94",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Description of Senior Secured Term Loans"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1.revolver.Revolving_credit_facility.drawn_balance.2024-12-28",
+      "key_pointer": "/facts/95",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [],
+      "matching_mapping_entry": 92,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/92"
+    },
+    {
+      "fact_id": "CP-1.revolver.Revolving_credit_facility.maturity_date.2024-12-28",
+      "key_pointer": "/facts/96",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Description of Senior Secured Term Loans"
+        }
+      ],
+      "matching_mapping_entry": 93,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/93"
+    },
+    {
+      "fact_id": "CP-1.revolver.Revolving_credit_facility.drawn_rate_terms.2024-12-28",
+      "key_pointer": "/facts/97",
+      "module": "CP-1",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Description of Senior Secured Term Loans"
+        }
+      ],
+      "matching_mapping_entry": 94,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": "/entries/94"
+    },
+    {
+      "fact_id": "CP-2.liquidity.Cash_and_cash_equivalents.balance.2024-12-28",
+      "key_pointer": "/facts/98",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > cash liquidity table"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-2.liquidity.Cash_liquidity_cash_plus_revolver_availability.amount.2024-12-28",
+      "key_pointer": "/facts/99",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Liquidity > cash liquidity table"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-2.maturity_schedule.Fiscal_2025.scheduled_maturity.2024-09-30",
+      "key_pointer": "/facts/100",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt > Debt Repayment Schedule (at September 30, 2024; excludes finance leases)"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-2.maturity_schedule.Fiscal_2026.scheduled_maturity.2024-09-30",
+      "key_pointer": "/facts/101",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt > Debt Repayment Schedule (at September 30, 2024; excludes finance leases)"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-2.maturity_schedule.Fiscal_2027.scheduled_maturity.2024-09-30",
+      "key_pointer": "/facts/102",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt > Debt Repayment Schedule (at September 30, 2024; excludes finance leases)"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-2.maturity_schedule.Fiscal_2028.scheduled_maturity.2024-09-30",
+      "key_pointer": "/facts/103",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt > Debt Repayment Schedule (at September 30, 2024; excludes finance leases)"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-2.maturity_schedule.Fiscal_2029.scheduled_maturity.2024-09-30",
+      "key_pointer": "/facts/104",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt > Debt Repayment Schedule (at September 30, 2024; excludes finance leases)"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-2.maturity_schedule.Thereafter.scheduled_maturity.2024-09-30",
+      "key_pointer": "/facts/105",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt > Debt Repayment Schedule (at September 30, 2024; excludes finance leases)"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-2.maturity_schedule.Total.scheduled_maturity.2024-09-30",
+      "key_pointer": "/facts/106",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt > Debt Repayment Schedule (at September 30, 2024; excludes finance leases)"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-2.debt_totals.Debt_excluding_securitization_facility.principal_outstanding.2024-09-30",
+      "key_pointer": "/facts/107",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt > table September 30, 2024 > total row"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1.debt_stack.Finance_lease_obligations.principal_outstanding.2024-09-30",
+      "key_pointer": "/facts/108",
+      "module": "CP-1",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-09-30",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "Note 10 Debt > table September 30, 2024"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-2.maturity_schedule.Reconciliation_gross_debt_excl_securitization_less_finance_leases.amount.2024-09-30",
+      "key_pointer": "/facts/109",
+      "module": "CP-2",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-09-30",
+      "evidence_sources": [],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-4.covenants.Revolving_credit_facility_springing_financial_covenant.maintenance_covenants_elsewhere.2024-12-28",
+      "key_pointer": "/facts/110",
+      "module": "CP-4",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Certain Restrictive Covenants in Our Debt Documents"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-4.covenants.Revolving_credit_facility_springing_financial_covenant.test_trigger_usage.2024-12-28",
+      "key_pointer": "/facts/111",
+      "module": "CP-4",
+      "status": "known",
+      "unit": "percent",
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Certain Restrictive Covenants in Our Debt Documents"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-4.covenants.Revolving_credit_facility_springing_financial_covenant.test_trigger_usage_amount.2024-12-28",
+      "key_pointer": "/facts/112",
+      "module": "CP-4",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Certain Restrictive Covenants in Our Debt Documents"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-4.covenants.Revolving_credit_facility_springing_financial_covenant.maximum_consolidated_net_leverage_ratio.2024-12-28",
+      "key_pointer": "/facts/113",
+      "module": "CP-4",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Certain Restrictive Covenants in Our Debt Documents"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-4.covenants.Revolving_credit_facility_springing_financial_covenant.maximum_net_leverage_after_material_acquisition.2024-12-28",
+      "key_pointer": "/facts/114",
+      "module": "CP-4",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Certain Restrictive Covenants in Our Debt Documents"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-4.covenants.Revolving_credit_facility_springing_financial_covenant.ratio_definition.2024-12-28",
+      "key_pointer": "/facts/115",
+      "module": "CP-4",
+      "status": "conflicting",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Certain Restrictive Covenants in Our Debt Documents"
+        },
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Non-GAAP EBITDA As Defined"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-4.covenants.Incremental_facilities_condition.maximum_consolidated_net_leverage_ratio.2024-12-28",
+      "key_pointer": "/facts/116",
+      "module": "CP-4",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Certain Restrictive Covenants in Our Debt Documents"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-4.covenants.Incremental_facilities_condition.maximum_consolidated_secured_net_debt_ratio.2024-12-28",
+      "key_pointer": "/facts/117",
+      "module": "CP-4",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Certain Restrictive Covenants in Our Debt Documents"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-4.covenants.Credit_Agreement_and_Indentures.restrictive_covenant_scope.2024-12-28",
+      "key_pointer": "/facts/118",
+      "module": "CP-4",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Certain Restrictive Covenants in Our Debt Documents"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-4.covenants.Credit_Agreement.latest_amendment_affecting_covenants.2024-12-28",
+      "key_pointer": "/facts/119",
+      "module": "CP-4",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Certain Restrictive Covenants in Our Debt Documents"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-4.covenants.Compliance.company_statement.2024-12-28",
+      "key_pointer": "/facts/120",
+      "module": "CP-4",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Certain Restrictive Covenants in Our Debt Documents"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-4.covenants.Event_of_default_remedies.collateral_includes_cash.2024-12-28",
+      "key_pointer": "/facts/121",
+      "module": "CP-4",
+      "status": "known",
+      "unit": null,
+      "scale": null,
+      "period_end": "2024-12-28",
+      "evidence_sources": [
+        {
+          "source_id": "Q1FY25",
+          "locator": "MD&A > Certain Restrictive Covenants in Our Debt Documents"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-3.market_quotes.TransDigm_debt_instruments.observed_quotes_or_price_talk",
+      "key_pointer": "/facts/122",
+      "module": "CP-3",
+      "status": "missing",
+      "unit": null,
+      "scale": null,
+      "period_end": null,
+      "evidence_sources": [],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.Tranche_K_replacement_of_Tranche_H_and_Tranche_I_repricing_Amendment_No_15.tranche_i_repriced_principal.2024-03-22",
+      "key_pointer": "/facts/123",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-03-22",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "MD&A > Significant Transactions of Fiscal 2024"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.Tranche_K_replacement_of_Tranche_H_and_Tranche_I_repricing_Amendment_No_15.tranche_h_replaced_by_tranche_k_principal.2024-03-22",
+      "key_pointer": "/facts/124",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-03-22",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "MD&A > Significant Transactions of Fiscal 2024"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.Tranche_J_and_I_term_loans_Amendment_No_16.tranche_j_repriced_principal.2024-06-04",
+      "key_pointer": "/facts/125",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-06-04",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "MD&A > Significant Transactions of Fiscal 2024"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    },
+    {
+      "fact_id": "CP-1A.financing_events.Tranche_J_and_I_term_loans_Amendment_No_16.tranche_i_extended_to_tranche_j_principal.2024-06-04",
+      "key_pointer": "/facts/126",
+      "module": "CP-1A",
+      "status": "known",
+      "unit": "USD",
+      "scale": "millions",
+      "period_end": "2024-06-04",
+      "evidence_sources": [
+        {
+          "source_id": "K24",
+          "locator": "MD&A > Significant Transactions of Fiscal 2024"
+        }
+      ],
+      "matching_mapping_entry": null,
+      "expected_content": "SEE PINNED KEY POINTER; do not copy expected value into this contract",
+      "matching_mapping_entry_pointer": null
+    }
+  ],
+  "gaps": {
+    "fact_to_block_assignment": "MISSING: mapping identifies calculation table coordinate but no frozen complete required block assignment for each required fact.",
+    "downstream_consumption": "MISSING: independent per-fact consumer refs and actual settled-head comparison not pinned here.",
+    "comparison_argv": "MISSING: no whole-pathway comparison executable is defined by the referenced source key.",
+    "qualitative_duties": "MISSING: CP-2 synthesis / CP-5 fan-in / CP-6 challenge prose must be independently specified from adopted methodology and source, not candidate output."
+  },
+  "comparison_rules": {
+    "numeric": "source/key-specific exact values and derivations; if a key omits tolerance, MISSING, do not assume approximate equality.",
+    "dimension": "entity, definition, period_end, unit, scale and status must match facts; exact values preserve zero vs missing.",
+    "citation": "each populated fact citation must match its evidence source_id+locator; unmatched citations fail.",
+    "qualitative": "BLOCKED until method duties and evidence rubric frozen; do not score preferred wording."
+  }
+}

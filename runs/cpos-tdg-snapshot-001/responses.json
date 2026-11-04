@@ -1,0 +1,18 @@
+{
+  "CP-0": {
+    "path": "../tdg-001/CP-0.md",
+    "sha256": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0"
+  },
+  "CP-1": {
+    "path": "../tdg-002/CP-1-attempt-2.md",
+    "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+  },
+  "CP-1A": {
+    "path": "../tdg-002/CP-1A-attempt-3.md",
+    "sha256": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+  },
+  "CP-2": {
+    "path": "../tdg-002/CP-2-attempt-2.md",
+    "sha256": "249d0cbdf1ba8159dcae68d4ff3241c73ea092ff66353c0c2eef08691e0afa57"
+  }
+}

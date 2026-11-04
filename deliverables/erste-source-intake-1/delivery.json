@@ -1,0 +1,13 @@
+{
+  "kind": "manual_handoff_delivery",
+  "scope": "Historical FY2024/comparative2023 source-intake report from actual checked CP-0/CP-1 Markdown. Source spreadsheets were ingested only; no workbook output. Conflicting workbook decimals remain uncorrected and barred from blanket monetary import. Individually checked worksheet observations and separately identified PDF amounts are distinct. Source restrictions G1\u2013G5 apply; no current credit assessment, full annual dataset or native/provider acceptance.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "files": {
+    "CP-0.md": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70",
+    "CP-1.md": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53",
+    "view.json": "7f7174bf9e027c2d1b9b6f7835f96301a1bf74db95448ff0a7c6af39697276f3",
+    "report-view.json": "1d0eb53d5746cd0940911a82f06f4836194006ede5f4359fc4a9b766e55d8a5b",
+    "report.html": "4db65ab0dfd0e224d7c373ef53a108b036e03775186bee4bbceceb5092a119c8"
+  }
+}

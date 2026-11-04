@@ -1,0 +1,255 @@
+{
+  "execution": "actual current-host-model source analysis; unchanged pure helpers; no provider or owner/runtime invocation",
+  "handoffs": {
+    "CP-0": {
+      "path": "runs/tdg-003/CP-0.md",
+      "sha256": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d"
+    },
+    "CP-1-annual": {
+      "path": "runs/tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "CP-1-quarter": {
+      "path": "runs/tdg-003/CP-1-attempt-2.md",
+      "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+    },
+    "CP-1A": {
+      "path": "runs/tdg-002/CP-1A-attempt-3.md",
+      "sha256": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+    },
+    "CP-1B": {
+      "path": "runs/tdg-003/CP-1B-attempt-1.md",
+      "sha256": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12"
+    },
+    "CP-1D": {
+      "path": "runs/tdg-003/CP-1D-attempt-1.md",
+      "sha256": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b"
+    },
+    "CP-2": {
+      "path": "runs/tdg-003/CP-2-quality-update.md",
+      "sha256": "f147a5ad94c83015487f4e254788e8f93d025b643eedf213ba2d6184bf1a443e"
+    },
+    "CP-2D": {
+      "path": "runs/tdg-003/CP-2D-attempt-1.md",
+      "sha256": "36978d54a4c6d10dad21e381c8c7351d6e1a4d95aeb58bcc1226aed223ee0196"
+    }
+  },
+  "method_hashes": {
+    "skills/cp-2e-macro-fx-hedging-sensitivity/SKILL.md": "b931f41bb1ac7630c110f2a8b5d5bd4b5cf07d47232c333ef0a56d26923dfa95",
+    "skills/cp-2e-macro-fx-hedging-sensitivity/references/REF_CP-2E_STEPS.md": "23ddaf2269f8361e01a301e407b89dbb1ae16a05b8ce7430c9e20a8f83ab15b8",
+    "skills/cp-2e-macro-fx-hedging-sensitivity/references/REF_CP-2F_STEPS.md": "312301c620990d3810d19125cde30224f9696860c3ef5f04b3f9473652555e08",
+    "src/deploy_vii/methods/cp2e.md": "f257dc2c8f7884a7a3eb720cdee9292e391d93e0e6301d0a09865588d07ea99b",
+    "src/deploy_workflow/owners/cp2e.py": "b5d87f314e733f7e642fa525340c5201a468e65f5958971858b8f60bfd01b85d"
+  },
+  "source_pdf": {
+    "path": "data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+    "sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+  },
+  "quotes": {
+    "rate_base": {
+      "pdf_page": 54,
+      "quote": "approximately $8,702 million, as well as $487 million from the Securitization Facility"
+    },
+    "reported_fixed": {
+      "pdf_page": 55,
+      "quote": "approximately 77% of our gross debt was fixed rate"
+    },
+    "reported_rate_case": {
+      "pdf_page": 55,
+      "quote": "would increase the annual interest costs under our Term Loans Facility and Securitization Facility by approximately $30 million"
+    },
+    "reported_fx_case": {
+      "pdf_page": 55,
+      "quote": "A 10% change in foreign currency exchange rates would not have resulted in a material impact to net income"
+    },
+    "environment_current": {
+      "pdf_page": 139,
+      "quote": "current environmental remediation obligations at September 30, 2024 and 2023 of $5 million and $3 million"
+    },
+    "environment_long": {
+      "pdf_page": 139,
+      "quote": "non-current environmental remediation obligations at September 30, 2024 and 2023 of $36 million and $41 million"
+    },
+    "preferred_zero": {
+      "pdf_page": 139,
+      "quote": "There were no shares of preferred stock outstanding at September 30, 2024 and 2023"
+    },
+    "fx_notional": {
+      "pdf_page": 152,
+      "quote": "foreign currency forward exchange contracts to sell U.S. dollars with notional amounts of $120 million"
+    },
+    "target": {
+      "pdf_page": 18,
+      "quote": "a 50% reduction in our Scope 1 and Scope 2 emissions on an absolute basis by the year 2031"
+    }
+  },
+  "scope": "September 30, 2024 balances and FY2024 flows; hypothetical/static sensitivity, not present conditions or forecast",
+  "currency": "USD",
+  "money_unit": "millions",
+  "quantities": {
+    "identified_floating_principal": "9189",
+    "gross_debt_classification_total": "25068",
+    "carrying_debt_for_other_modules": "24880",
+    "active_swap_notional_only": "2700",
+    "cap_notional_only": "700",
+    "qualified_unhedged_floating": null,
+    "qualified_hedge_ratio": null,
+    "fx_ebitda_share": null,
+    "pre_protection_bps_product_only": "91.89",
+    "issuer_reported_100bp_effect_approx": "30",
+    "environmental_liabilities_current": "5",
+    "environmental_liabilities_noncurrent": "36",
+    "environmental_liabilities_total": "41",
+    "environmental_liabilities_prior_total": "44",
+    "preferred_shares_outstanding_reported": "0"
+  },
+  "conditional_reported_sensitivity_illustration": {
+    "assumption": "Treat the issuer approximately-30 rate estimate as 30 incremental annual cash interest, hold all other FY2024 inputs unchanged, no tax or working-capital feedback; not an independent hedge model.",
+    "base_cash_interest": "1158",
+    "base_proxy": "1880",
+    "cash_interest_after_assumed_change": "1188",
+    "cash_after_capex_proxy_after_assumed_change": "1850",
+    "coverage_after_assumed_change": "3.5126262626262626262626262626262626263",
+    "precision": "Result inherits approximate source estimate; displayed approximately 3.51x; not a forecast, covenant ratio or liquidity runway."
+  },
+  "legacy_single_facility_diagnostic": {
+    "inputs": {
+      "total_debt": "25068",
+      "ebitda": "4173",
+      "interest": "1158",
+      "fcf": null,
+      "facility_balance": "8702",
+      "rate_type": "FLOATING",
+      "floor_bp": null,
+      "debt_foreign": null,
+      "foreign_ebitda_share": null
+    },
+    "output": {
+      "floating": {
+        "state": "known",
+        "amount": "8702",
+        "reason": null
+      },
+      "floating_share": {
+        "state": "known",
+        "amount": "0.3471357906494335407691080261688208074",
+        "reason": null
+      },
+      "cov_base": {
+        "state": "known",
+        "amount": "3.6036269430051813471502590673575129534",
+        "reason": null
+      },
+      "lev_base": {
+        "state": "known",
+        "amount": "6.0071890726096333572969086987778576564",
+        "reason": null
+      },
+      "hedge": {
+        "state": "missing",
+        "amount": null,
+        "reason": "no hedge ratio is stated"
+      },
+      "floating_after_hedge": {
+        "state": "missing",
+        "amount": null,
+        "reason": "no hedge ratio is stated"
+      },
+      "rate": [
+        {
+          "shock_bp": {
+            "state": "known",
+            "amount": "100",
+            "reason": null
+          },
+          "gross": {
+            "state": "missing",
+            "amount": null,
+            "reason": "the floor of the facility is not stated"
+          },
+          "net": {
+            "state": "missing",
+            "amount": null,
+            "reason": "the floor of the facility is not stated"
+          },
+          "interest_after": {
+            "state": "missing",
+            "amount": null,
+            "reason": "the floor of the facility is not stated"
+          },
+          "cov_after": {
+            "state": "missing",
+            "amount": null,
+            "reason": "the floor of the facility is not stated"
+          },
+          "cov_change": {
+            "state": "missing",
+            "amount": null,
+            "reason": "the floor of the facility is not stated"
+          },
+          "fcf_after": {
+            "state": "missing",
+            "amount": null,
+            "reason": "the floor of the facility is not stated"
+          },
+          "share_of_ebitda": {
+            "state": "missing",
+            "amount": null,
+            "reason": "the floor of the facility is not stated"
+          }
+        }
+      ],
+      "foreign_debt": {
+        "state": "missing",
+        "amount": null,
+        "reason": "the currency of the debt is not stated"
+      },
+      "foreign_debt_share": {
+        "state": "missing",
+        "amount": null,
+        "reason": "the currency of the debt is not stated"
+      },
+      "fx": [
+        {
+          "shock": {
+            "state": "known",
+            "amount": "0.1",
+            "reason": null
+          },
+          "debt_change": {
+            "state": "missing",
+            "amount": null,
+            "reason": "the currency of the debt is not stated"
+          },
+          "debt_after": {
+            "state": "missing",
+            "amount": null,
+            "reason": "the currency of the debt is not stated"
+          },
+          "ebitda_change": {
+            "state": "missing",
+            "amount": null,
+            "reason": "the share of EBITDA earned in other currencies is not stated"
+          },
+          "ebitda_after": {
+            "state": "missing",
+            "amount": null,
+            "reason": "the share of EBITDA earned in other currencies is not stated"
+          },
+          "lev_after": {
+            "state": "missing",
+            "amount": null,
+            "reason": "the currency of the debt is not stated"
+          }
+        }
+      ]
+    },
+    "scope": "No total-issuer sensitivity acceptance; actual missing floor/hedge and FX shares are not filled with zero."
+  },
+  "alias_check": "canonical(CP-2F)==CP-2E; ESG source work separately exercised",
+  "visuals": {
+    "runs/tdg-003/source-preparation/pdf151-hedges.png": "7eda7a0269e7828dad011294c17775aa345dc72bd4fdb8d6dc23f53ac02096db",
+    "runs/tdg-003/source-preparation/pdf139-environment.png": "07c1f5257523620ae95d638cfc38e1abc8a7959d3bd4d680559416ed2f826dfc"
+  },
+  "verification": "All exact source excerpts matched; source sums, bps arithmetic and conditional illustration independently checked with integer/Fraction arithmetic."
+}

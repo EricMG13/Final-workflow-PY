@@ -1,0 +1,82 @@
+16/06/2026, 22:24                                                                                       f-20251231
+
+
+
+
+                                                          FORD MOTOR COMPANY AND SUBSIDIARIES
+                                                        CONSOLIDATED STATEMENTS OF CASH FLOWS
+                                                                                      (in millions)
+                                                                                                                                  For the years ended December 31,
+                                                                                                                             2023                    2024                    2025
+   Cash flows from operating activities
+   Net income/(loss)                                                                                                 $             4,329     $             5,894     $            (8,162)
+   Depreciation and tooling amortization (Note 12 and Note 13)                                                                     7,690                   7,567                   7,834
+   Other amortization                                                                                                             (1,167)                 (1,700)                 (1,839)
+   EV asset impairment/program cancellation asset write-downs (including depreciation of $8,140)
+   (Note 13)                                                                                                                           —                       —                   9,435
+   Provision for credit and insurance losses                                                                                         438                     575                      616
+   Pension and other postretirement employee benefits (“OPEB”) expense/(income) (Note 16)                                          3,052                     149                   1,062
+   Equity method investment (earnings)/losses and impairments in excess of dividends received
+   (Note 14 and Note 23)                                                                                                              (33)                  (287)                  3,572
+   Foreign currency adjustments                                                                                                     (234)                    227                      (87)
+   Net realized and unrealized (gains)/losses on cash equivalents, marketable securities, and
+   other investments (Note 5)                                                                                                        205                       42                    (346)
+   Stock compensation (Note 6)                                                                                                       460                      511                     510
+   Provision for/(Benefit from) deferred income taxes                                                                             (1,649)                    350                  (4,536)
+   Decrease/(Increase) in finance receivables (wholesale and other)                                                               (4,827)                 (4,299)                  4,992
+   Decrease/(Increase) in accounts receivable and other assets                                                                    (2,620)                 (2,497)                 (2,791)
+   Decrease/(Increase) in inventory                                                                                               (1,219)                      27                     539
+   Increase/(Decrease) in accounts payable and accrued and other liabilities                                                       9,829                   8,425                  10,103
+   Other                                                                                                                             664                     439                      380
+     Net cash provided by/(used in) operating activities                                                                         14,918                   15,423                  21,282
+
+   Cash flows from investing activities
+   Capital spending                                                                                                               (8,236)                 (8,684)                 (8,815)
+   Acquisitions of finance receivables and operating leases                                                                     (54,505)                 (59,720)                (55,747)
+   Collections of finance receivables and operating leases                                                                       44,561                   45,159                  45,710
+   Purchases of marketable securities and other investments                                                                       (8,590)                (12,300)                 (9,457)
+   Sales and maturities of marketable securities and other investments                                                           12,700                   12,346                  10,063
+   Settlements of derivatives                                                                                                       (138)                   (268)                    (443)
+   Capital contributions to equity method investments (Note 23)                                                                   (2,733)                 (2,323)                 (1,172)
+   Returns of capital from equity method investments (Note 23)                                                                          1                  1,465                   1,702
+   Other                                                                                                                            (688)                     (45)                    110
+     Net cash provided by/(used in) investing activities                                                                        (17,628)                 (24,370)                (18,049)
+
+   Cash flows from financing activities
+   Cash payments for dividends and dividend equivalents                                                                           (4,995)                 (3,118)                 (2,989)
+   Purchases of common stock                                                                                                        (335)                   (426)                      —
+   Net changes in short-term debt                                                                                                 (1,539)                   (276)                     654
+   Proceeds from issuance of long-term debt                                                                                      51,659                   57,312                  49,688
+   Payments of long-term debt                                                                                                   (41,965)                 (45,680)                (50,303)
+   Other                                                                                                                            (241)                   (327)                    (255)
+     Net cash provided by/(used in) financing activities                                                                           2,584                   7,485                  (3,205)
+   Effect of exchange rate changes on cash, cash equivalents, and restricted cash                                                   (104)                   (458)                     532
+   Net increase/(decrease) in cash, cash equivalents, and restricted cash                                            $              (230)    $            (1,920)    $                560
+
+   Cash, cash equivalents, and restricted cash at beginning of period (Note 9)                                       $           25,340      $            25,110     $            23,190
+   Net increase/(decrease) in cash, cash equivalents, and restricted cash                                                           (230)                 (1,920)                     560
+   Cash, cash equivalents, and restricted cash at end of period (Note 9)                                             $            25,110     $            23,190     $            23,750
+
+
+                                                   The accompanying notes are part of the consolidated financial statements.
+
+
+                                                                                            113
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm                                                                                                       117/181

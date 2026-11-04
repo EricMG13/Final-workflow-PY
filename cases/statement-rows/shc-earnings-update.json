@@ -1,0 +1,1904 @@
+{
+ "schema": "statement-rows/1",
+ "case": "shc-earnings-update",
+ "method": "DVII extract_statement_lines over each unit of cases/statement-units (fc93c39d), on a cell-marked re-conversion of the filing (td/th boundaries joined by ' | '); line-aligned with convert_html's text (asserted). A row's label is its own label cell (review H1: each <tr> is one line, so DVII's continuation merge would glue a heading row on). Headers are not part of the key (review L1). BGS excluded (CP1H-R18 F1).",
+ "sources": [
+  {
+   "source_id": "SHC_2025-06-30_10-Q_0001822479-25-000044_shc-20250630",
+   "file": "SHC/SHC_2025-06-30_10-Q_0001822479-25-000044_shc-20250630.htm",
+   "converted_sha256": "97fb82ba3c37fb4d3819aa4b54a5c2d191a74d32a3cc9f59b1440c77ae837dad",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:33",
+     "end": "line:81",
+     "rows": [
+      {
+       "line": 38,
+       "label": "Cash and cash equivalents",
+       "raw_values": [
+        "332,437",
+        "277,242"
+       ]
+      },
+      {
+       "line": 39,
+       "label": "Restricted cash short-term",
+       "raw_values": [
+        "1,835",
+        "1,623"
+       ]
+      },
+      {
+       "line": 40,
+       "label": "Accounts receivable, net of allowance for uncollectible accounts of $2,323 and $2,532, respectively",
+       "raw_values": [
+        "136,557",
+        "140,327"
+       ]
+      },
+      {
+       "line": 41,
+       "label": "Inventories, net",
+       "raw_values": [
+        "59,949",
+        "49,158"
+       ]
+      },
+      {
+       "line": 42,
+       "label": "Prepaid expenses and other current assets",
+       "raw_values": [
+        "66,024",
+        "51,031"
+       ]
+      },
+      {
+       "line": 43,
+       "label": "Income taxes receivable",
+       "raw_values": [
+        "11,373",
+        "6,656"
+       ]
+      },
+      {
+       "line": 44,
+       "label": "Total current assets",
+       "raw_values": [
+        "608,175",
+        "526,037"
+       ]
+      },
+      {
+       "line": 45,
+       "label": "Property, plant, and equipment, net",
+       "raw_values": [
+        "1,080,399",
+        "1,036,892"
+       ]
+      },
+      {
+       "line": 46,
+       "label": "Operating lease assets",
+       "raw_values": [
+        "31,524",
+        "27,551"
+       ]
+      },
+      {
+       "line": 47,
+       "label": "Deferred income taxes",
+       "raw_values": [
+        "4,466",
+        "2,865"
+       ]
+      },
+      {
+       "line": 48,
+       "label": "Post-retirement assets",
+       "raw_values": [
+        "48,272",
+        "42,524"
+       ]
+      },
+      {
+       "line": 49,
+       "label": "Other assets",
+       "raw_values": [
+        "39,282",
+        "37,053"
+       ]
+      },
+      {
+       "line": 50,
+       "label": "Other intangible assets, net",
+       "raw_values": [
+        "300,109",
+        "317,653"
+       ]
+      },
+      {
+       "line": 51,
+       "label": "Goodwill",
+       "raw_values": [
+        "1,104,502",
+        "1,081,073"
+       ]
+      },
+      {
+       "line": 52,
+       "label": "Total assets",
+       "raw_values": [
+        "3,216,729",
+        "3,071,648"
+       ]
+      },
+      {
+       "line": 55,
+       "label": "Accounts payable",
+       "raw_values": [
+        "63,660",
+        "55,098"
+       ]
+      },
+      {
+       "line": 56,
+       "label": "Accrued liabilities",
+       "raw_values": [
+        "143,542",
+        "90,463"
+       ]
+      },
+      {
+       "line": 57,
+       "label": "Deferred revenues",
+       "raw_values": [
+        "11,526",
+        "15,100"
+       ]
+      },
+      {
+       "line": 58,
+       "label": "Current portion of long-term debt",
+       "raw_values": [
+        "14,820",
+        "14,803"
+       ]
+      },
+      {
+       "line": 59,
+       "label": "Current portion of finance lease obligations",
+       "raw_values": [
+        "3,237",
+        "2,923"
+       ]
+      },
+      {
+       "line": 60,
+       "label": "Current portion of operating lease obligations",
+       "raw_values": [
+        "5,598",
+        "5,056"
+       ]
+      },
+      {
+       "line": 61,
+       "label": "Income taxes payable",
+       "raw_values": [
+        "3,937",
+        "7,559"
+       ]
+      },
+      {
+       "line": 62,
+       "label": "Total current liabilities",
+       "raw_values": [
+        "246,320",
+        "191,002"
+       ]
+      },
+      {
+       "line": 63,
+       "label": "Long-term debt",
+       "raw_values": [
+        "2,202,651",
+        "2,208,100"
+       ]
+      },
+      {
+       "line": 64,
+       "label": "Finance lease obligations, less current portion",
+       "raw_values": [
+        "95,420",
+        "95,286"
+       ]
+      },
+      {
+       "line": 65,
+       "label": "Operating lease obligations, less current portion",
+       "raw_values": [
+        "27,988",
+        "24,465"
+       ]
+      },
+      {
+       "line": 66,
+       "label": "Noncurrent asset retirement obligations",
+       "raw_values": [
+        "52,150",
+        "49,319"
+       ]
+      },
+      {
+       "line": 67,
+       "label": "Deferred lease income",
+       "raw_values": [
+        "17,397",
+        "16,784"
+       ]
+      },
+      {
+       "line": 68,
+       "label": "Post-retirement obligations",
+       "raw_values": [
+        "8,302",
+        "7,863"
+       ]
+      },
+      {
+       "line": 69,
+       "label": "Noncurrent liabilities",
+       "raw_values": [
+        "7,150",
+        "4,418"
+       ]
+      },
+      {
+       "line": 70,
+       "label": "Deferred income taxes",
+       "raw_values": [
+        "48,068",
+        "69,500"
+       ]
+      },
+      {
+       "line": 71,
+       "label": "Total liabilities",
+       "raw_values": [
+        "2,705,446",
+        "2,666,737"
+       ]
+      },
+      {
+       "line": 74,
+       "label": "Common stock, with $0.01 par value, 1,200,000 shares authorized; 286,037 shares issued at June 30, 2025 and December 31, 2024",
+       "raw_values": [
+        "2,860",
+        "2,860"
+       ]
+      },
+      {
+       "line": 75,
+       "label": "Preferred stock, with $0.01 par value, 120,000 shares authorized; no shares issued at June 30, 2025 and December 31, 2024",
+       "raw_values": [
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 76,
+       "label": "Treasury stock, at cost (1,991 and 2,571 shares at June 30, 2025 and December 31, 2024, respectively)",
+       "raw_values": [
+        "(19,038)",
+        "(23,434)"
+       ]
+      },
+      {
+       "line": 77,
+       "label": "Additional paid-in capital",
+       "raw_values": [
+        "1,251,089",
+        "1,243,778"
+       ]
+      },
+      {
+       "line": 78,
+       "label": "Retained deficit",
+       "raw_values": [
+        "(615,340)",
+        "(610,042)"
+       ]
+      },
+      {
+       "line": 79,
+       "label": "Accumulated other comprehensive loss",
+       "raw_values": [
+        "(108,288)",
+        "(208,251)"
+       ]
+      },
+      {
+       "line": 80,
+       "label": "Total equity",
+       "raw_values": [
+        "511,283",
+        "404,911"
+       ]
+      },
+      {
+       "line": 81,
+       "label": "Total liabilities and equity",
+       "raw_values": [
+        "3,216,729",
+        "3,071,648"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "IS",
+     "start": "line:82",
+     "end": "line:114",
+     "rows": [
+      {
+       "line": 86,
+       "label": "Service",
+       "raw_values": [
+        "257,244",
+        "237,756",
+        "481,184",
+        "464,237"
+       ]
+      },
+      {
+       "line": 87,
+       "label": "Product",
+       "raw_values": [
+        "37,097",
+        "38,838",
+        "67,680",
+        "60,533"
+       ]
+      },
+      {
+       "line": 88,
+       "label": "Total net revenues",
+       "raw_values": [
+        "294,341",
+        "276,594",
+        "548,864",
+        "524,770"
+       ]
+      },
+      {
+       "line": 90,
+       "label": "Service",
+       "raw_values": [
+        "113,293",
+        "109,136",
+        "220,922",
+        "219,988"
+       ]
+      },
+      {
+       "line": 91,
+       "label": "Product",
+       "raw_values": [
+        "14,427",
+        "14,667",
+        "25,889",
+        "24,876"
+       ]
+      },
+      {
+       "line": 92,
+       "label": "Total cost of revenues",
+       "raw_values": [
+        "127,720",
+        "123,803",
+        "246,811",
+        "244,864"
+       ]
+      },
+      {
+       "line": 93,
+       "label": "Gross profit",
+       "raw_values": [
+        "166,621",
+        "152,791",
+        "302,053",
+        "279,906"
+       ]
+      },
+      {
+       "line": 94,
+       "label": "Selling, general and administrative expenses",
+       "raw_values": [
+        "68,893",
+        "60,575",
+        "131,954",
+        "118,784"
+       ]
+      },
+      {
+       "line": 95,
+       "label": "Amortization of intangible assets",
+       "raw_values": [
+        "9,298",
+        "15,417",
+        "24,625",
+        "31,149"
+       ]
+      },
+      {
+       "line": 96,
+       "label": "Illinois EO litigation settlements",
+       "raw_values": [
+        "34,000",
+        "—",
+        "64,943",
+        "—"
+       ]
+      },
+      {
+       "line": 97,
+       "label": "Interest expense, net",
+       "raw_values": [
+        "40,651",
+        "40,388",
+        "81,527",
+        "82,159"
+       ]
+      },
+      {
+       "line": 98,
+       "label": "Loss on refinancing of debt",
+       "raw_values": [
+        "80",
+        "23,400",
+        "80",
+        "24,090"
+       ]
+      },
+      {
+       "line": 99,
+       "label": "Foreign exchange loss (gain)",
+       "raw_values": [
+        "627",
+        "(611)",
+        "916",
+        "(1,183)"
+       ]
+      },
+      {
+       "line": 100,
+       "label": "Other income, net",
+       "raw_values": [
+        "(5,825)",
+        "(1,520)",
+        "(6,066)",
+        "(1,249)"
+       ]
+      },
+      {
+       "line": 101,
+       "label": "Income before income taxes",
+       "raw_values": [
+        "18,897",
+        "15,142",
+        "4,074",
+        "26,156"
+       ]
+      },
+      {
+       "line": 102,
+       "label": "Provision for income taxes",
+       "raw_values": [
+        "10,935",
+        "6,388",
+        "9,372",
+        "11,079"
+       ]
+      },
+      {
+       "line": 103,
+       "label": "Net income (loss)",
+       "raw_values": [
+        "7,962",
+        "8,754",
+        "(5,298)",
+        "15,077"
+       ]
+      },
+      {
+       "line": 105,
+       "label": "Pension and post-retirement benefits (net of taxes of $24, $10, $27, and $47, respectively)",
+       "raw_values": [
+        "71",
+        "30",
+        "81",
+        "143"
+       ]
+      },
+      {
+       "line": 106,
+       "label": "Interest rate derivatives (net of taxes of $(386), $(857), $(652) and $(711), respectively)",
+       "raw_values": [
+        "(1,123)",
+        "(2,461)",
+        "(1,895)",
+        "(2,042)"
+       ]
+      },
+      {
+       "line": 107,
+       "label": "Foreign currency translation",
+       "raw_values": [
+        "82,217",
+        "(23,110)",
+        "101,777",
+        "(50,816)"
+       ]
+      },
+      {
+       "line": 108,
+       "label": "Comprehensive income (loss)",
+       "raw_values": [
+        "89,127",
+        "(16,787)",
+        "94,665",
+        "(37,638)"
+       ]
+      },
+      {
+       "line": 110,
+       "label": "Basic",
+       "raw_values": [
+        "0.03",
+        "0.03",
+        "(0.02)",
+        "0.05"
+       ]
+      },
+      {
+       "line": 111,
+       "label": "Diluted",
+       "raw_values": [
+        "0.03",
+        "0.03",
+        "(0.02)",
+        "0.05"
+       ]
+      },
+      {
+       "line": 113,
+       "label": "Basic",
+       "raw_values": [
+        "283,933",
+        "282,894",
+        "283,747",
+        "282,403"
+       ]
+      },
+      {
+       "line": 114,
+       "label": "Diluted",
+       "raw_values": [
+        "285,756",
+        "284,541",
+        "283,747",
+        "284,264"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "CFS",
+     "start": "line:115",
+     "end": "line:162",
+     "rows": [
+      {
+       "line": 119,
+       "label": "Net (loss) income",
+       "raw_values": [
+        "(5,298)",
+        "15,077"
+       ]
+      },
+      {
+       "line": 121,
+       "label": "Depreciation",
+       "raw_values": [
+        "45,223",
+        "40,381"
+       ]
+      },
+      {
+       "line": 122,
+       "label": "Amortization of intangible assets",
+       "raw_values": [
+        "30,597",
+        "39,879"
+       ]
+      },
+      {
+       "line": 123,
+       "label": "Loss on refinancing of debt",
+       "raw_values": [
+        "80",
+        "24,090"
+       ]
+      },
+      {
+       "line": 124,
+       "label": "Deferred income taxes",
+       "raw_values": [
+        "(25,099)",
+        "(8,099)"
+       ]
+      },
+      {
+       "line": 125,
+       "label": "Share-based compensation expense",
+       "raw_values": [
+        "15,361",
+        "18,844"
+       ]
+      },
+      {
+       "line": 126,
+       "label": "Accretion of asset retirement obligations",
+       "raw_values": [
+        "1,136",
+        "1,278"
+       ]
+      },
+      {
+       "line": 127,
+       "label": "Unrealized foreign exchange loss (gain)",
+       "raw_values": [
+        "18,886",
+        "(6,980)"
+       ]
+      },
+      {
+       "line": 128,
+       "label": "Unrealized (gain) loss on derivatives not designated as hedging instruments",
+       "raw_values": [
+        "(1,994)",
+        "1,750"
+       ]
+      },
+      {
+       "line": 129,
+       "label": "Amortization of debt issuance costs",
+       "raw_values": [
+        "2,645",
+        "4,704"
+       ]
+      },
+      {
+       "line": 130,
+       "label": "Other",
+       "raw_values": [
+        "(2,474)",
+        "(3,258)"
+       ]
+      },
+      {
+       "line": 132,
+       "label": "Accounts receivable",
+       "raw_values": [
+        "9,084",
+        "22,261"
+       ]
+      },
+      {
+       "line": 133,
+       "label": "Inventories",
+       "raw_values": [
+        "(7,663)",
+        "(11,084)"
+       ]
+      },
+      {
+       "line": 134,
+       "label": "Other current assets",
+       "raw_values": [
+        "(14,250)",
+        "(3,602)"
+       ]
+      },
+      {
+       "line": 135,
+       "label": "Accounts payable",
+       "raw_values": [
+        "5,573",
+        "(1,959)"
+       ]
+      },
+      {
+       "line": 136,
+       "label": "Accrued liabilities",
+       "raw_values": [
+        "(14,514)",
+        "(18,585)"
+       ]
+      },
+      {
+       "line": 137,
+       "label": "Illinois EO litigation settlements",
+       "raw_values": [
+        "64,943",
+        "—"
+       ]
+      },
+      {
+       "line": 138,
+       "label": "Georgia EO litigation settlement",
+       "raw_values": [
+        "—",
+        "(35,000)"
+       ]
+      },
+      {
+       "line": 139,
+       "label": "Income taxes payable / receivable, net",
+       "raw_values": [
+        "(8,212)",
+        "(5,343)"
+       ]
+      },
+      {
+       "line": 140,
+       "label": "Other liabilities",
+       "raw_values": [
+        "(27)",
+        "(128)"
+       ]
+      },
+      {
+       "line": 141,
+       "label": "Other long-term assets",
+       "raw_values": [
+        "(1,060)",
+        "(3,232)"
+       ]
+      },
+      {
+       "line": 142,
+       "label": "Net cash provided by operating activities",
+       "raw_values": [
+        "112,937",
+        "70,994"
+       ]
+      },
+      {
+       "line": 144,
+       "label": "Purchases of property, plant and equipment",
+       "raw_values": [
+        "(51,147)",
+        "(76,811)"
+       ]
+      },
+      {
+       "line": 145,
+       "label": "Other investing activities",
+       "raw_values": [
+        "37",
+        "37"
+       ]
+      },
+      {
+       "line": 146,
+       "label": "Net cash used in investing activities",
+       "raw_values": [
+        "(51,110)",
+        "(76,774)"
+       ]
+      },
+      {
+       "line": 148,
+       "label": "Proceeds from long-term borrowings",
+       "raw_values": [
+        "—",
+        "2,259,350"
+       ]
+      },
+      {
+       "line": 149,
+       "label": "Payments of debt issuance costs and debt discount",
+       "raw_values": [
+        "(2,326)",
+        "(30,204)"
+       ]
+      },
+      {
+       "line": 150,
+       "label": "Payment on long-term borrowings",
+       "raw_values": [
+        "(7,547)",
+        "(2,260,600)"
+       ]
+      },
+      {
+       "line": 151,
+       "label": "Buyout of leased facility",
+       "raw_values": [
+        "—",
+        "(6,736)"
+       ]
+      },
+      {
+       "line": 152,
+       "label": "Shares withheld for employee taxes on equity awards",
+       "raw_values": [
+        "(3,654)",
+        "(2,176)"
+       ]
+      },
+      {
+       "line": 153,
+       "label": "Other financing activities",
+       "raw_values": [
+        "(1,493)",
+        "(996)"
+       ]
+      },
+      {
+       "line": 154,
+       "label": "Net cash used in financing activities",
+       "raw_values": [
+        "(15,020)",
+        "(41,362)"
+       ]
+      },
+      {
+       "line": 155,
+       "label": "Effect of exchange rate changes on cash and cash equivalents",
+       "raw_values": [
+        "8,600",
+        "(6,754)"
+       ]
+      },
+      {
+       "line": 156,
+       "label": "Net increase (decrease) in cash and cash equivalents, including restricted cash",
+       "raw_values": [
+        "55,407",
+        "(53,896)"
+       ]
+      },
+      {
+       "line": 157,
+       "label": "Cash and cash equivalents, including restricted cash, at beginning of period",
+       "raw_values": [
+        "278,865",
+        "301,654"
+       ]
+      },
+      {
+       "line": 158,
+       "label": "Cash and cash equivalents, including restricted cash, at end of period",
+       "raw_values": [
+        "334,272",
+        "247,758"
+       ]
+      },
+      {
+       "line": 160,
+       "label": "Cash paid during the period for interest",
+       "raw_values": [
+        "102,716",
+        "111,169"
+       ]
+      },
+      {
+       "line": 161,
+       "label": "Cash paid during the period for income taxes, net of tax refunds received",
+       "raw_values": [
+        "32,207",
+        "27,714"
+       ]
+      },
+      {
+       "line": 162,
+       "label": "Purchases of property, plant and equipment included in accounts payable",
+       "raw_values": [
+        "10,307",
+        "13,538"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "source_id": "SHC_2024-12-31_10-K_0001822479-25-000015_shc-20241231",
+   "file": "SHC/SHC_2024-12-31_10-K_0001822479-25-000015_shc-20241231.htm",
+   "converted_sha256": "e700d0c369be75b1030091800e39eb8073b9ce6e709ff762cf85adc147687bb5",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:217",
+     "end": "line:266",
+     "rows": [
+      {
+       "line": 222,
+       "label": "Cash and cash equivalents",
+       "raw_values": [
+        "277,242",
+        "296,407"
+       ]
+      },
+      {
+       "line": 223,
+       "label": "Restricted cash short-term",
+       "raw_values": [
+        "1,623",
+        "5,247"
+       ]
+      },
+      {
+       "line": 224,
+       "label": "Accounts receivable, net of allowance for uncollectible accounts of $2,532 and $4,689 as of December 31, 2024 and 2023, respectively",
+       "raw_values": [
+        "140,327",
+        "147,696"
+       ]
+      },
+      {
+       "line": 225,
+       "label": "Inventories, net",
+       "raw_values": [
+        "49,158",
+        "48,316"
+       ]
+      },
+      {
+       "line": 226,
+       "label": "Prepaid expenses and other current assets",
+       "raw_values": [
+        "51,031",
+        "53,846"
+       ]
+      },
+      {
+       "line": 227,
+       "label": "Income taxes receivable",
+       "raw_values": [
+        "6,656",
+        "5,732"
+       ]
+      },
+      {
+       "line": 228,
+       "label": "Total current assets",
+       "raw_values": [
+        "526,037",
+        "557,244"
+       ]
+      },
+      {
+       "line": 229,
+       "label": "Property, plant, and equipment, net",
+       "raw_values": [
+        "1,036,892",
+        "946,914"
+       ]
+      },
+      {
+       "line": 230,
+       "label": "Operating lease assets",
+       "raw_values": [
+        "27,551",
+        "24,037"
+       ]
+      },
+      {
+       "line": 231,
+       "label": "Deferred income taxes",
+       "raw_values": [
+        "2,865",
+        "4,993"
+       ]
+      },
+      {
+       "line": 232,
+       "label": "Post-retirement assets",
+       "raw_values": [
+        "42,524",
+        "28,482"
+       ]
+      },
+      {
+       "line": 233,
+       "label": "Other assets",
+       "raw_values": [
+        "37,053",
+        "41,242"
+       ]
+      },
+      {
+       "line": 234,
+       "label": "Other intangible assets, net",
+       "raw_values": [
+        "317,653",
+        "416,318"
+       ]
+      },
+      {
+       "line": 235,
+       "label": "Goodwill",
+       "raw_values": [
+        "1,081,073",
+        "1,111,190"
+       ]
+      },
+      {
+       "line": 236,
+       "label": "Total assets",
+       "raw_values": [
+        "3,071,648",
+        "3,130,420"
+       ]
+      },
+      {
+       "line": 239,
+       "label": "Accounts payable",
+       "raw_values": [
+        "55,098",
+        "71,039"
+       ]
+      },
+      {
+       "line": 240,
+       "label": "Accrued liabilities",
+       "raw_values": [
+        "90,463",
+        "122,471"
+       ]
+      },
+      {
+       "line": 241,
+       "label": "Deferred revenue",
+       "raw_values": [
+        "15,100",
+        "13,492"
+       ]
+      },
+      {
+       "line": 242,
+       "label": "Current portion of long-term debt",
+       "raw_values": [
+        "14,803",
+        "4,797"
+       ]
+      },
+      {
+       "line": 243,
+       "label": "Current portion of finance lease obligations",
+       "raw_values": [
+        "2,923",
+        "8,771"
+       ]
+      },
+      {
+       "line": 244,
+       "label": "Current portion of operating lease obligations",
+       "raw_values": [
+        "5,056",
+        "5,934"
+       ]
+      },
+      {
+       "line": 245,
+       "label": "Income taxes payable",
+       "raw_values": [
+        "7,559",
+        "4,150"
+       ]
+      },
+      {
+       "line": 246,
+       "label": "Total current liabilities",
+       "raw_values": [
+        "191,002",
+        "230,654"
+       ]
+      },
+      {
+       "line": 247,
+       "label": "Long-term debt",
+       "raw_values": [
+        "2,208,100",
+        "2,223,674"
+       ]
+      },
+      {
+       "line": 248,
+       "label": "Finance lease obligations, less current portion",
+       "raw_values": [
+        "95,286",
+        "63,793"
+       ]
+      },
+      {
+       "line": 249,
+       "label": "Operating lease obligations, less current portion",
+       "raw_values": [
+        "24,465",
+        "20,087"
+       ]
+      },
+      {
+       "line": 250,
+       "label": "Noncurrent asset retirement obligations",
+       "raw_values": [
+        "49,319",
+        "47,944"
+       ]
+      },
+      {
+       "line": 251,
+       "label": "Deferred lease income",
+       "raw_values": [
+        "16,784",
+        "18,762"
+       ]
+      },
+      {
+       "line": 252,
+       "label": "Post-retirement obligations",
+       "raw_values": [
+        "7,863",
+        "8,439"
+       ]
+      },
+      {
+       "line": 253,
+       "label": "Noncurrent liabilities",
+       "raw_values": [
+        "4,418",
+        "8,879"
+       ]
+      },
+      {
+       "line": 254,
+       "label": "Deferred income taxes",
+       "raw_values": [
+        "69,500",
+        "64,454"
+       ]
+      },
+      {
+       "line": 255,
+       "label": "Total liabilities",
+       "raw_values": [
+        "2,666,737",
+        "2,686,686"
+       ]
+      },
+      {
+       "line": 258,
+       "label": "Common stock, with $0.01 par value, 1,200,000 shares authorized; 286,037 shares issued at December 31, 2024 and 2023",
+       "raw_values": [
+        "2,860",
+        "2,860"
+       ]
+      },
+      {
+       "line": 259,
+       "label": "Preferred stock, with $0.01 par value, 120,000 shares authorized; no shares issued at December 31, 2024 and 2023",
+       "raw_values": [
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 260,
+       "label": "Treasury stock, at cost (2,571 and 3,207 shares at December 31, 2024 and 2023, respectively)",
+       "raw_values": [
+        "(23,434)",
+        "(27,182)"
+       ]
+      },
+      {
+       "line": 261,
+       "label": "Additional paid-in capital",
+       "raw_values": [
+        "1,243,778",
+        "1,215,178"
+       ]
+      },
+      {
+       "line": 262,
+       "label": "Retained deficit",
+       "raw_values": [
+        "(610,042)",
+        "(654,440)"
+       ]
+      },
+      {
+       "line": 263,
+       "label": "Accumulated other comprehensive loss",
+       "raw_values": [
+        "(208,251)",
+        "(92,682)"
+       ]
+      },
+      {
+       "line": 264,
+       "label": "Total equity",
+       "raw_values": [
+        "404,911",
+        "443,734"
+       ]
+      },
+      {
+       "line": 265,
+       "label": "Total liabilities and equity",
+       "raw_values": [
+        "3,071,648",
+        "3,130,420"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "IS",
+     "start": "line:267",
+     "end": "line:305",
+     "rows": [
+      {
+       "line": 271,
+       "label": "Service",
+       "raw_values": [
+        "941,822",
+        "905,598",
+        "864,828"
+       ]
+      },
+      {
+       "line": 272,
+       "label": "Product",
+       "raw_values": [
+        "158,619",
+        "143,690",
+        "138,859"
+       ]
+      },
+      {
+       "line": 273,
+       "label": "Total net revenues",
+       "raw_values": [
+        "1,100,441",
+        "1,049,288",
+        "1,003,687"
+       ]
+      },
+      {
+       "line": 275,
+       "label": "Service",
+       "raw_values": [
+        "439,543",
+        "418,611",
+        "390,860"
+       ]
+      },
+      {
+       "line": 276,
+       "label": "Product",
+       "raw_values": [
+        "58,603",
+        "53,519",
+        "55,823"
+       ]
+      },
+      {
+       "line": 277,
+       "label": "Total cost of revenues",
+       "raw_values": [
+        "498,146",
+        "472,130",
+        "446,683"
+       ]
+      },
+      {
+       "line": 278,
+       "label": "Gross profit",
+       "raw_values": [
+        "602,295",
+        "577,158",
+        "557,004"
+       ]
+      },
+      {
+       "line": 280,
+       "label": "Selling, general and administrative expenses",
+       "raw_values": [
+        "242,630",
+        "236,667",
+        "245,714"
+       ]
+      },
+      {
+       "line": 281,
+       "label": "Amortization of intangible assets",
+       "raw_values": [
+        "62,039",
+        "63,799",
+        "62,940"
+       ]
+      },
+      {
+       "line": 282,
+       "label": "Total operating expenses",
+       "raw_values": [
+        "304,669",
+        "300,466",
+        "308,654"
+       ]
+      },
+      {
+       "line": 283,
+       "label": "Operating income",
+       "raw_values": [
+        "297,626",
+        "276,692",
+        "248,350"
+       ]
+      },
+      {
+       "line": 284,
+       "label": "Interest expense, net",
+       "raw_values": [
+        "164,691",
+        "142,878",
+        "80,144"
+       ]
+      },
+      {
+       "line": 285,
+       "label": "Loss on refinancing of debt",
+       "raw_values": [
+        "24,168",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 286,
+       "label": "Georgia EO litigation settlement",
+       "raw_values": [
+        "—",
+        "35,000",
+        "—"
+       ]
+      },
+      {
+       "line": 287,
+       "label": "Illinois EO litigation settlement",
+       "raw_values": [
+        "—",
+        "—",
+        "408,000"
+       ]
+      },
+      {
+       "line": 288,
+       "label": "Impairment of investment in unconsolidated affiliate",
+       "raw_values": [
+        "—",
+        "—",
+        "9,613"
+       ]
+      },
+      {
+       "line": 289,
+       "label": "Foreign exchange loss",
+       "raw_values": [
+        "199",
+        "159",
+        "145"
+       ]
+      },
+      {
+       "line": 290,
+       "label": "Other income, net",
+       "raw_values": [
+        "(5,306)",
+        "(7,372)",
+        "(6,441)"
+       ]
+      },
+      {
+       "line": 291,
+       "label": "Income (loss) before income taxes",
+       "raw_values": [
+        "113,874",
+        "106,027",
+        "(243,111)"
+       ]
+      },
+      {
+       "line": 292,
+       "label": "Provision (benefit) for income taxes",
+       "raw_values": [
+        "69,476",
+        "54,651",
+        "(9,541)"
+       ]
+      },
+      {
+       "line": 293,
+       "label": "Net income (loss)",
+       "raw_values": [
+        "44,398",
+        "51,376",
+        "(233,570)"
+       ]
+      },
+      {
+       "line": 295,
+       "label": "Pension and post-retirement benefits (net of taxes of $2,804, $(3,420) and $7,022, respectively)",
+       "raw_values": [
+        "8,462",
+        "(10,506)",
+        "20,790"
+       ]
+      },
+      {
+       "line": 296,
+       "label": "Interest rate derivatives (net of taxes of $(1,856), $(5,467) and $7,387, respectively)",
+       "raw_values": [
+        "(5,396)",
+        "(15,697)",
+        "20,939"
+       ]
+      },
+      {
+       "line": 297,
+       "label": "Foreign currency translation",
+       "raw_values": [
+        "(118,635)",
+        "40,174",
+        "(64,816)"
+       ]
+      },
+      {
+       "line": 298,
+       "label": "Comprehensive income (loss)",
+       "raw_values": [
+        "(71,171)",
+        "65,347",
+        "(256,657)"
+       ]
+      },
+      {
+       "line": 300,
+       "label": "Basic",
+       "raw_values": [
+        "0.16",
+        "0.18",
+        "(0.83)"
+       ]
+      },
+      {
+       "line": 301,
+       "label": "Diluted",
+       "raw_values": [
+        "0.16",
+        "0.18",
+        "(0.83)"
+       ]
+      },
+      {
+       "line": 303,
+       "label": "Basic",
+       "raw_values": [
+        "282,784",
+        "281,008",
+        "280,096"
+       ]
+      },
+      {
+       "line": 304,
+       "label": "Diluted",
+       "raw_values": [
+        "284,906",
+        "283,222",
+        "280,096"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "CFS",
+     "start": "line:306",
+     "end": "line:357",
+     "rows": [
+      {
+       "line": 310,
+       "label": "Net income (loss)",
+       "raw_values": [
+        "44,398",
+        "51,376",
+        "(233,570)"
+       ]
+      },
+      {
+       "line": 312,
+       "label": "Depreciation",
+       "raw_values": [
+        "84,260",
+        "76,577",
+        "64,000"
+       ]
+      },
+      {
+       "line": 313,
+       "label": "Amortization of intangible assets",
+       "raw_values": [
+        "79,377",
+        "81,348",
+        "81,554"
+       ]
+      },
+      {
+       "line": 314,
+       "label": "Loss on refinancing of debt",
+       "raw_values": [
+        "24,168",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 315,
+       "label": "Impairment of investment in unconsolidated affiliate",
+       "raw_values": [
+        "—",
+        "—",
+        "9,613"
+       ]
+      },
+      {
+       "line": 316,
+       "label": "Deferred income taxes",
+       "raw_values": [
+        "9,433",
+        "3,449",
+        "(73,960)"
+       ]
+      },
+      {
+       "line": 317,
+       "label": "Share-based compensation expense",
+       "raw_values": [
+        "36,777",
+        "32,238",
+        "21,211"
+       ]
+      },
+      {
+       "line": 318,
+       "label": "Accretion of asset retirement obligations",
+       "raw_values": [
+        "2,638",
+        "2,413",
+        "2,194"
+       ]
+      },
+      {
+       "line": 319,
+       "label": "Unrealized foreign exchange (gain) loss",
+       "raw_values": [
+        "(18,337)",
+        "6,057",
+        "(3,984)"
+       ]
+      },
+      {
+       "line": 320,
+       "label": "Unrealized loss (gain) on derivatives not designated as hedging instruments",
+       "raw_values": [
+        "2,213",
+        "(1,637)",
+        "2,977"
+       ]
+      },
+      {
+       "line": 321,
+       "label": "Amortization of debt issuance costs",
+       "raw_values": [
+        "7,238",
+        "9,051",
+        "5,681"
+       ]
+      },
+      {
+       "line": 322,
+       "label": "Other",
+       "raw_values": [
+        "(5,367)",
+        "(5,319)",
+        "(6,989)"
+       ]
+      },
+      {
+       "line": 324,
+       "label": "Accounts receivable",
+       "raw_values": [
+        "2,216",
+        "(21,724)",
+        "(12,555)"
+       ]
+      },
+      {
+       "line": 325,
+       "label": "Inventories",
+       "raw_values": [
+        "(4,753)",
+        "(9,972)",
+        "14,441"
+       ]
+      },
+      {
+       "line": 326,
+       "label": "Other current assets",
+       "raw_values": [
+        "3,598",
+        "4,003",
+        "(5,816)"
+       ]
+      },
+      {
+       "line": 327,
+       "label": "Accounts payable",
+       "raw_values": [
+        "(6,644)",
+        "(5,333)",
+        "1,107"
+       ]
+      },
+      {
+       "line": 328,
+       "label": "Accrued liabilities",
+       "raw_values": [
+        "7,114",
+        "3,500",
+        "20,595"
+       ]
+      },
+      {
+       "line": 329,
+       "label": "Illinois EO litigation settlement",
+       "raw_values": [
+        "—",
+        "(407,712)",
+        "408,000"
+       ]
+      },
+      {
+       "line": 330,
+       "label": "Georgia EO litigation settlement",
+       "raw_values": [
+        "(35,000)",
+        "35,000",
+        "—"
+       ]
+      },
+      {
+       "line": 331,
+       "label": "Income taxes payable / receivable, net",
+       "raw_values": [
+        "1,470",
+        "924",
+        "(12,332)"
+       ]
+      },
+      {
+       "line": 332,
+       "label": "Other liabilities",
+       "raw_values": [
+        "(3,793)",
+        "(1,733)",
+        "383"
+       ]
+      },
+      {
+       "line": 333,
+       "label": "Other long-term assets",
+       "raw_values": [
+        "(6,842)",
+        "(238)",
+        "(4,589)"
+       ]
+      },
+      {
+       "line": 334,
+       "label": "Net cash provided by (used in) operating activities",
+       "raw_values": [
+        "224,164",
+        "(147,732)",
+        "277,961"
+       ]
+      },
+      {
+       "line": 336,
+       "label": "Purchases of property, plant and equipment",
+       "raw_values": [
+        "(179,070)",
+        "(214,975)",
+        "(182,378)"
+       ]
+      },
+      {
+       "line": 337,
+       "label": "Purchase of Regulatory Compliance Associates Inc., net of cash acquired",
+       "raw_values": [
+        "—",
+        "—",
+        "450"
+       ]
+      },
+      {
+       "line": 338,
+       "label": "Other investing activities",
+       "raw_values": [
+        "74",
+        "69",
+        "32"
+       ]
+      },
+      {
+       "line": 339,
+       "label": "Net cash used in investing activities",
+       "raw_values": [
+        "(178,996)",
+        "(214,906)",
+        "(181,896)"
+       ]
+      },
+      {
+       "line": 341,
+       "label": "Proceeds from revolving credit facility and long-term borrowings",
+       "raw_values": [
+        "2,259,350",
+        "500,000",
+        "200,000"
+       ]
+      },
+      {
+       "line": 342,
+       "label": "Payment of revolving credit facility",
+       "raw_values": [
+        "—",
+        "(200,000)",
+        "—"
+       ]
+      },
+      {
+       "line": 343,
+       "label": "Payments of debt issuance costs and debt discount",
+       "raw_values": [
+        "(32,071)",
+        "(25,645)",
+        "(31)"
+       ]
+      },
+      {
+       "line": 344,
+       "label": "Payments of long-term borrowings",
+       "raw_values": [
+        "(2,264,373)",
+        "(2,500)",
+        "—"
+       ]
+      },
+      {
+       "line": 345,
+       "label": "Buyout of leased facility",
+       "raw_values": [
+        "(6,736)",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 346,
+       "label": "Shares withheld for employee taxes on equity awards",
+       "raw_values": [
+        "(4,428)",
+        "(4,089)",
+        "(393)"
+       ]
+      },
+      {
+       "line": 347,
+       "label": "Other financing activities",
+       "raw_values": [
+        "(2,306)",
+        "(1,807)",
+        "(1,815)"
+       ]
+      },
+      {
+       "line": 348,
+       "label": "Net cash (used in) provided by financing activities",
+       "raw_values": [
+        "(50,564)",
+        "265,959",
+        "197,761"
+       ]
+      },
+      {
+       "line": 349,
+       "label": "Effect of exchange rate changes on cash and cash equivalents",
+       "raw_values": [
+        "(17,393)",
+        "2,039",
+        "(4,456)"
+       ]
+      },
+      {
+       "line": 350,
+       "label": "Net (decrease) increase in cash and cash equivalents, including restricted cash",
+       "raw_values": [
+        "(22,789)",
+        "(94,640)",
+        "289,370"
+       ]
+      },
+      {
+       "line": 351,
+       "label": "Cash and cash equivalents, including restricted cash, at beginning of period",
+       "raw_values": [
+        "301,654",
+        "396,294",
+        "106,924"
+       ]
+      },
+      {
+       "line": 352,
+       "label": "Cash and cash equivalents, including restricted cash, at end of period",
+       "raw_values": [
+        "278,865",
+        "301,654",
+        "396,294"
+       ]
+      },
+      {
+       "line": 354,
+       "label": "Cash paid during the period for interest",
+       "raw_values": [
+        "179,924",
+        "173,842",
+        "75,849"
+       ]
+      },
+      {
+       "line": 355,
+       "label": "Cash paid during the period for income taxes, net of tax refunds received",
+       "raw_values": [
+        "65,829",
+        "50,210",
+        "75,496"
+       ]
+      },
+      {
+       "line": 356,
+       "label": "Purchases of property, plant and equipment included in accounts payable",
+       "raw_values": [
+        "10,180",
+        "16,720",
+        "16,413"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

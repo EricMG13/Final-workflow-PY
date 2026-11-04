@@ -1,0 +1,4 @@
+line:101|STATEMENT OF OPERATIONS
+line:102|Amounts in millions
+line:103|                          2025       2024
+line:104|Net sales                    90         82

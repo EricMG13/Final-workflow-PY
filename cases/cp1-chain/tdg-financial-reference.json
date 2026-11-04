@@ -1,0 +1,3041 @@
+{
+ "schema": "statement-rows/1",
+ "case": "tdg-credit-snapshot",
+ "method": "DVII extract_statement_lines over each unit of cases/statement-units (fc93c39d), on a cell-marked re-conversion of the filing (td/th boundaries joined by ' | '); line-aligned with convert_html's text (asserted). A row's label is its own label cell (review H1: each <tr> is one line, so DVII's continuation merge would glue a heading row on). Headers are not part of the key (review L1). BGS excluded (CP1H-R18 F1).",
+ "sources": [
+  {
+   "source_id": "Q2FY24",
+   "file": "TDG/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm",
+   "converted_sha256": "588b7c34c017ce024f786c250bd64543f77903cec3e15799747c16ab33682a57",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:42",
+     "end": "line:77",
+     "rows": [
+      {
+       "line": 46,
+       "label": "Cash and cash equivalents",
+       "raw_values": [
+        "4,288",
+        "3,472"
+       ]
+      },
+      {
+       "line": 47,
+       "label": "Restricted cash",
+       "raw_values": [
+        "550",
+        "—"
+       ]
+      },
+      {
+       "line": 48,
+       "label": "Trade accounts receivable—Net",
+       "raw_values": [
+        "1,201",
+        "1,230"
+       ]
+      },
+      {
+       "line": 49,
+       "label": "Inventories—Net",
+       "raw_values": [
+        "1,753",
+        "1,616"
+       ]
+      },
+      {
+       "line": 50,
+       "label": "Prepaid expenses and other",
+       "raw_values": [
+        "490",
+        "420"
+       ]
+      },
+      {
+       "line": 51,
+       "label": "Total current assets",
+       "raw_values": [
+        "8,282",
+        "6,738"
+       ]
+      },
+      {
+       "line": 52,
+       "label": "PROPERTY, PLANT AND EQUIPMENT—NET",
+       "raw_values": [
+        "1,288",
+        "1,255"
+       ]
+      },
+      {
+       "line": 53,
+       "label": "GOODWILL",
+       "raw_values": [
+        "9,051",
+        "8,988"
+       ]
+      },
+      {
+       "line": 54,
+       "label": "OTHER INTANGIBLE ASSETS—NET",
+       "raw_values": [
+        "2,709",
+        "2,747"
+       ]
+      },
+      {
+       "line": 55,
+       "label": "OTHER NON-CURRENT ASSETS",
+       "raw_values": [
+        "247",
+        "242"
+       ]
+      },
+      {
+       "line": 56,
+       "label": "TOTAL ASSETS",
+       "raw_values": [
+        "21,577",
+        "19,970"
+       ]
+      },
+      {
+       "line": 59,
+       "label": "Current portion of long-term debt",
+       "raw_values": [
+        "625",
+        "71"
+       ]
+      },
+      {
+       "line": 60,
+       "label": "Short-term borrowings—trade receivable securitization facility",
+       "raw_values": [
+        "450",
+        "349"
+       ]
+      },
+      {
+       "line": 61,
+       "label": "Accounts payable",
+       "raw_values": [
+        "302",
+        "305"
+       ]
+      },
+      {
+       "line": 62,
+       "label": "Accrued and other current liabilities",
+       "raw_values": [
+        "858",
+        "854"
+       ]
+      },
+      {
+       "line": 63,
+       "label": "Total current liabilities",
+       "raw_values": [
+        "2,235",
+        "1,579"
+       ]
+      },
+      {
+       "line": 64,
+       "label": "LONG-TERM DEBT",
+       "raw_values": [
+        "21,331",
+        "19,330"
+       ]
+      },
+      {
+       "line": 65,
+       "label": "DEFERRED INCOME TAXES",
+       "raw_values": [
+        "606",
+        "627"
+       ]
+      },
+      {
+       "line": 66,
+       "label": "OTHER NON-CURRENT LIABILITIES",
+       "raw_values": [
+        "427",
+        "412"
+       ]
+      },
+      {
+       "line": 67,
+       "label": "Total liabilities",
+       "raw_values": [
+        "24,599",
+        "21,948"
+       ]
+      },
+      {
+       "line": 69,
+       "label": "Common stock - $.01 par value; authorized 224,400,000 shares; issued 61,622,411 and 60,995,513 at March 30, 2024 and September 30, 2023, respectively",
+       "raw_values": [
+        "1",
+        "1"
+       ]
+      },
+      {
+       "line": 70,
+       "label": "Additional paid-in capital",
+       "raw_values": [
+        "2,664",
+        "2,440"
+       ]
+      },
+      {
+       "line": 71,
+       "label": "Accumulated deficit",
+       "raw_values": [
+        "(3,870)",
+        "(2,621)"
+       ]
+      },
+      {
+       "line": 72,
+       "label": "Accumulated other comprehensive loss",
+       "raw_values": [
+        "(118)",
+        "(98)"
+       ]
+      },
+      {
+       "line": 73,
+       "label": "Treasury stock, at cost; 5,688,639 shares at March 30, 2024 and September 30, 2023, respectively",
+       "raw_values": [
+        "(1,706)",
+        "(1,706)"
+       ]
+      },
+      {
+       "line": 74,
+       "label": "Total TD Group stockholders’ deficit",
+       "raw_values": [
+        "(3,029)",
+        "(1,984)"
+       ]
+      },
+      {
+       "line": 75,
+       "label": "NONCONTROLLING INTERESTS",
+       "raw_values": [
+        "7",
+        "6"
+       ]
+      },
+      {
+       "line": 76,
+       "label": "Total stockholders’ deficit",
+       "raw_values": [
+        "(3,022)",
+        "(1,978)"
+       ]
+      },
+      {
+       "line": 77,
+       "label": "TOTAL LIABILITIES AND STOCKHOLDERS’ DEFICIT",
+       "raw_values": [
+        "21,577",
+        "19,970"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "IS",
+     "start": "line:78",
+     "end": "line:100",
+     "rows": [
+      {
+       "line": 81,
+       "label": "NET SALES",
+       "raw_values": [
+        "1,919",
+        "1,592",
+        "3,708",
+        "2,989"
+       ]
+      },
+      {
+       "line": 82,
+       "label": "COST OF SALES",
+       "raw_values": [
+        "767",
+        "663",
+        "1,515",
+        "1,268"
+       ]
+      },
+      {
+       "line": 83,
+       "label": "GROSS PROFIT",
+       "raw_values": [
+        "1,152",
+        "929",
+        "2,193",
+        "1,721"
+       ]
+      },
+      {
+       "line": 84,
+       "label": "SELLING AND ADMINISTRATIVE EXPENSES",
+       "raw_values": [
+        "248",
+        "199",
+        "467",
+        "369"
+       ]
+      },
+      {
+       "line": 85,
+       "label": "AMORTIZATION OF INTANGIBLE ASSETS",
+       "raw_values": [
+        "37",
+        "35",
+        "72",
+        "68"
+       ]
+      },
+      {
+       "line": 86,
+       "label": "INCOME FROM OPERATIONS",
+       "raw_values": [
+        "867",
+        "695",
+        "1,654",
+        "1,284"
+       ]
+      },
+      {
+       "line": 87,
+       "label": "INTEREST EXPENSE—NET",
+       "raw_values": [
+        "326",
+        "295",
+        "626",
+        "581"
+       ]
+      },
+      {
+       "line": 88,
+       "label": "REFINANCING COSTS",
+       "raw_values": [
+        "28",
+        "5",
+        "28",
+        "9"
+       ]
+      },
+      {
+       "line": 89,
+       "label": "OTHER INCOME",
+       "raw_values": [
+        "(6)",
+        "(2)",
+        "(8)",
+        "(3)"
+       ]
+      },
+      {
+       "line": 90,
+       "label": "INCOME FROM OPERATIONS BEFORE INCOME TAXES",
+       "raw_values": [
+        "519",
+        "397",
+        "1,008",
+        "697"
+       ]
+      },
+      {
+       "line": 91,
+       "label": "INCOME TAX PROVISION",
+       "raw_values": [
+        "115",
+        "93",
+        "222",
+        "164"
+       ]
+      },
+      {
+       "line": 92,
+       "label": "NET INCOME",
+       "raw_values": [
+        "404",
+        "304",
+        "786",
+        "533"
+       ]
+      },
+      {
+       "line": 93,
+       "label": "LESS: NET INCOME ATTRIBUTABLE TO NONCONTROLLING INTERESTS",
+       "raw_values": [
+        "(1)",
+        "—",
+        "(1)",
+        "(1)"
+       ]
+      },
+      {
+       "line": 94,
+       "label": "NET INCOME ATTRIBUTABLE TO TD GROUP",
+       "raw_values": [
+        "403",
+        "304",
+        "785",
+        "532"
+       ]
+      },
+      {
+       "line": 95,
+       "label": "NET INCOME APPLICABLE TO TD GROUP COMMON STOCKHOLDERS",
+       "raw_values": [
+        "403",
+        "304",
+        "684",
+        "494"
+       ]
+      },
+      {
+       "line": 97,
+       "label": "Basic and diluted",
+       "raw_values": [
+        "6.97",
+        "5.32",
+        "11.83",
+        "8.65"
+       ]
+      },
+      {
+       "line": 98,
+       "label": "Cash dividends paid per common share",
+       "raw_values": [
+        "—",
+        "—",
+        "35.00",
+        "—"
+       ]
+      },
+      {
+       "line": 100,
+       "label": "Basic and diluted",
+       "raw_values": [
+        "57.8",
+        "57.1",
+        "57.8",
+        "57.1"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "CFS",
+     "start": "line:171",
+     "end": "line:215",
+     "rows": [
+      {
+       "line": 175,
+       "label": "Net income",
+       "raw_values": [
+        "786",
+        "533"
+       ]
+      },
+      {
+       "line": 177,
+       "label": "Depreciation",
+       "raw_values": [
+        "71",
+        "61"
+       ]
+      },
+      {
+       "line": 178,
+       "label": "Amortization of intangible assets and product certification costs",
+       "raw_values": [
+        "72",
+        "68"
+       ]
+      },
+      {
+       "line": 179,
+       "label": "Amortization of debt issuance costs, original issue discount and premium",
+       "raw_values": [
+        "22",
+        "20"
+       ]
+      },
+      {
+       "line": 180,
+       "label": "Amortization of inventory step-up",
+       "raw_values": [
+        "3",
+        "2"
+       ]
+      },
+      {
+       "line": 181,
+       "label": "Amortization of loss contract reserves",
+       "raw_values": [
+        "(17)",
+        "(19)"
+       ]
+      },
+      {
+       "line": 182,
+       "label": "Refinancing costs",
+       "raw_values": [
+        "28",
+        "9"
+       ]
+      },
+      {
+       "line": 183,
+       "label": "Non-cash stock and deferred compensation expense",
+       "raw_values": [
+        "111",
+        "77"
+       ]
+      },
+      {
+       "line": 184,
+       "label": "Deferred income taxes",
+       "raw_values": [
+        "(1)",
+        "—"
+       ]
+      },
+      {
+       "line": 185,
+       "label": "Foreign currency exchange losses",
+       "raw_values": [
+        "5",
+        "22"
+       ]
+      },
+      {
+       "line": 187,
+       "label": "Trade accounts receivable",
+       "raw_values": [
+        "36",
+        "(33)"
+       ]
+      },
+      {
+       "line": 188,
+       "label": "Inventories",
+       "raw_values": [
+        "(114)",
+        "(176)"
+       ]
+      },
+      {
+       "line": 189,
+       "label": "Income taxes (receivable) payable",
+       "raw_values": [
+        "(136)",
+        "21"
+       ]
+      },
+      {
+       "line": 190,
+       "label": "Other assets",
+       "raw_values": [
+        "(23)",
+        "(26)"
+       ]
+      },
+      {
+       "line": 191,
+       "label": "Accounts payable",
+       "raw_values": [
+        "(9)",
+        "6"
+       ]
+      },
+      {
+       "line": 192,
+       "label": "Accrued interest",
+       "raw_values": [
+        "61",
+        "14"
+       ]
+      },
+      {
+       "line": 193,
+       "label": "Accrued and other liabilities",
+       "raw_values": [
+        "(30)",
+        "(72)"
+       ]
+      },
+      {
+       "line": 194,
+       "label": "Net cash provided by operating activities",
+       "raw_values": [
+        "865",
+        "507"
+       ]
+      },
+      {
+       "line": 196,
+       "label": "Capital expenditures",
+       "raw_values": [
+        "(84)",
+        "(66)"
+       ]
+      },
+      {
+       "line": 197,
+       "label": "Acquisition of businesses, net of cash acquired",
+       "raw_values": [
+        "(87)",
+        "(10)"
+       ]
+      },
+      {
+       "line": 198,
+       "label": "Net cash used in investing activities",
+       "raw_values": [
+        "(171)",
+        "(76)"
+       ]
+      },
+      {
+       "line": 200,
+       "label": "Proceeds from exercise of stock options",
+       "raw_values": [
+        "165",
+        "119"
+       ]
+      },
+      {
+       "line": 201,
+       "label": "Dividends and dividend equivalent payments",
+       "raw_values": [
+        "(2,038)",
+        "(38)"
+       ]
+      },
+      {
+       "line": 202,
+       "label": "Proceeds from issuance of senior secured notes, net",
+       "raw_values": [
+        "5,887",
+        "2,066"
+       ]
+      },
+      {
+       "line": 203,
+       "label": "Repayments of senior secured notes",
+       "raw_values": [
+        "(4,400)",
+        "—"
+       ]
+      },
+      {
+       "line": 204,
+       "label": "Proceeds from term loans, net",
+       "raw_values": [
+        "2,689",
+        "6,235"
+       ]
+      },
+      {
+       "line": 205,
+       "label": "Proceeds from trade receivable securitization facility, net",
+       "raw_values": [
+        "99",
+        "—"
+       ]
+      },
+      {
+       "line": 206,
+       "label": "Repayment on term loans",
+       "raw_values": [
+        "(1,730)",
+        "(7,303)"
+       ]
+      },
+      {
+       "line": 207,
+       "label": "Financing costs and other, net",
+       "raw_values": [
+        "(4)",
+        "(11)"
+       ]
+      },
+      {
+       "line": 208,
+       "label": "Net cash provided by financing activities",
+       "raw_values": [
+        "668",
+        "1,068"
+       ]
+      },
+      {
+       "line": 209,
+       "label": "EFFECT OF EXCHANGE RATE CHANGES ON CASH, CASH EQUIVALENTS AND RESTRICTED CASH",
+       "raw_values": [
+        "4",
+        "18"
+       ]
+      },
+      {
+       "line": 210,
+       "label": "NET INCREASE IN CASH, CASH EQUIVALENTS AND RESTRICTED CASH",
+       "raw_values": [
+        "1,366",
+        "1,517"
+       ]
+      },
+      {
+       "line": 211,
+       "label": "CASH, CASH EQUIVALENTS AND RESTRICTED CASH, BEGINNING OF PERIOD",
+       "raw_values": [
+        "3,472",
+        "3,001"
+       ]
+      },
+      {
+       "line": 212,
+       "label": "CASH, CASH EQUIVALENTS AND RESTRICTED CASH, END OF PERIOD",
+       "raw_values": [
+        "4,838",
+        "4,518"
+       ]
+      },
+      {
+       "line": 214,
+       "label": "Cash paid during the period for interest, net",
+       "raw_values": [
+        "545",
+        "545"
+       ]
+      },
+      {
+       "line": 215,
+       "label": "Cash paid during the period for income taxes, net of refunds",
+       "raw_values": [
+        "350",
+        "154"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "source_id": "Q3FY24",
+   "file": "TDG/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm",
+   "converted_sha256": "d00c6e3d87fe29839ce7220ef9e20e662733f0337476078eb5eeaf2f41ffc3af",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:40",
+     "end": "line:74",
+     "rows": [
+      {
+       "line": 44,
+       "label": "Cash and cash equivalents",
+       "raw_values": [
+        "3,360",
+        "3,472"
+       ]
+      },
+      {
+       "line": 45,
+       "label": "Trade accounts receivable—Net",
+       "raw_values": [
+        "1,300",
+        "1,230"
+       ]
+      },
+      {
+       "line": 46,
+       "label": "Inventories—Net",
+       "raw_values": [
+        "1,878",
+        "1,616"
+       ]
+      },
+      {
+       "line": 47,
+       "label": "Prepaid expenses and other",
+       "raw_values": [
+        "523",
+        "420"
+       ]
+      },
+      {
+       "line": 48,
+       "label": "Total current assets",
+       "raw_values": [
+        "7,061",
+        "6,738"
+       ]
+      },
+      {
+       "line": 49,
+       "label": "PROPERTY, PLANT AND EQUIPMENT—NET",
+       "raw_values": [
+        "1,431",
+        "1,255"
+       ]
+      },
+      {
+       "line": 50,
+       "label": "GOODWILL",
+       "raw_values": [
+        "10,018",
+        "8,988"
+       ]
+      },
+      {
+       "line": 51,
+       "label": "OTHER INTANGIBLE ASSETS—NET",
+       "raw_values": [
+        "3,116",
+        "2,747"
+       ]
+      },
+      {
+       "line": 52,
+       "label": "OTHER NON-CURRENT ASSETS",
+       "raw_values": [
+        "202",
+        "242"
+       ]
+      },
+      {
+       "line": 53,
+       "label": "TOTAL ASSETS",
+       "raw_values": [
+        "21,828",
+        "19,970"
+       ]
+      },
+      {
+       "line": 56,
+       "label": "Current portion of long-term debt",
+       "raw_values": [
+        "78",
+        "71"
+       ]
+      },
+      {
+       "line": 57,
+       "label": "Short-term borrowings—trade receivable securitization facility",
+       "raw_values": [
+        "450",
+        "349"
+       ]
+      },
+      {
+       "line": 58,
+       "label": "Accounts payable",
+       "raw_values": [
+        "320",
+        "305"
+       ]
+      },
+      {
+       "line": 59,
+       "label": "Accrued and other current liabilities",
+       "raw_values": [
+        "1,003",
+        "854"
+       ]
+      },
+      {
+       "line": 60,
+       "label": "Total current liabilities",
+       "raw_values": [
+        "1,851",
+        "1,579"
+       ]
+      },
+      {
+       "line": 61,
+       "label": "LONG-TERM DEBT",
+       "raw_values": [
+        "21,364",
+        "19,330"
+       ]
+      },
+      {
+       "line": 62,
+       "label": "DEFERRED INCOME TAXES",
+       "raw_values": [
+        "708",
+        "627"
+       ]
+      },
+      {
+       "line": 63,
+       "label": "OTHER NON-CURRENT LIABILITIES",
+       "raw_values": [
+        "415",
+        "412"
+       ]
+      },
+      {
+       "line": 64,
+       "label": "Total liabilities",
+       "raw_values": [
+        "24,338",
+        "21,948"
+       ]
+      },
+      {
+       "line": 66,
+       "label": "Common stock - $.01 par value; authorized 224,400,000 shares; issued 61,774,108 and 60,995,513 at June 29, 2024 and September 30, 2023, respectively",
+       "raw_values": [
+        "1",
+        "1"
+       ]
+      },
+      {
+       "line": 67,
+       "label": "Additional paid-in capital",
+       "raw_values": [
+        "2,749",
+        "2,440"
+       ]
+      },
+      {
+       "line": 68,
+       "label": "Accumulated deficit",
+       "raw_values": [
+        "(3,416)",
+        "(2,621)"
+       ]
+      },
+      {
+       "line": 69,
+       "label": "Accumulated other comprehensive loss",
+       "raw_values": [
+        "(146)",
+        "(98)"
+       ]
+      },
+      {
+       "line": 70,
+       "label": "Treasury stock, at cost; 5,688,639 shares at June 29, 2024 and September 30, 2023, respectively",
+       "raw_values": [
+        "(1,706)",
+        "(1,706)"
+       ]
+      },
+      {
+       "line": 71,
+       "label": "Total TD Group stockholders’ deficit",
+       "raw_values": [
+        "(2,518)",
+        "(1,984)"
+       ]
+      },
+      {
+       "line": 72,
+       "label": "NONCONTROLLING INTERESTS",
+       "raw_values": [
+        "8",
+        "6"
+       ]
+      },
+      {
+       "line": 73,
+       "label": "Total stockholders’ deficit",
+       "raw_values": [
+        "(2,510)",
+        "(1,978)"
+       ]
+      },
+      {
+       "line": 74,
+       "label": "TOTAL LIABILITIES AND STOCKHOLDERS’ DEFICIT",
+       "raw_values": [
+        "21,828",
+        "19,970"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "IS",
+     "start": "line:75",
+     "end": "line:97",
+     "rows": [
+      {
+       "line": 78,
+       "label": "NET SALES",
+       "raw_values": [
+        "2,046",
+        "1,744",
+        "5,754",
+        "4,733"
+       ]
+      },
+      {
+       "line": 79,
+       "label": "COST OF SALES",
+       "raw_values": [
+        "826",
+        "715",
+        "2,341",
+        "1,983"
+       ]
+      },
+      {
+       "line": 80,
+       "label": "GROSS PROFIT",
+       "raw_values": [
+        "1,220",
+        "1,029",
+        "3,413",
+        "2,750"
+       ]
+      },
+      {
+       "line": 81,
+       "label": "SELLING AND ADMINISTRATIVE EXPENSES",
+       "raw_values": [
+        "248",
+        "209",
+        "715",
+        "578"
+       ]
+      },
+      {
+       "line": 82,
+       "label": "AMORTIZATION OF INTANGIBLE ASSETS",
+       "raw_values": [
+        "38",
+        "37",
+        "110",
+        "105"
+       ]
+      },
+      {
+       "line": 83,
+       "label": "INCOME FROM OPERATIONS",
+       "raw_values": [
+        "934",
+        "783",
+        "2,588",
+        "2,067"
+       ]
+      },
+      {
+       "line": 84,
+       "label": "INTEREST EXPENSE—NET",
+       "raw_values": [
+        "316",
+        "291",
+        "943",
+        "872"
+       ]
+      },
+      {
+       "line": 85,
+       "label": "REFINANCING COSTS",
+       "raw_values": [
+        "30",
+        "32",
+        "59",
+        "41"
+       ]
+      },
+      {
+       "line": 86,
+       "label": "OTHER INCOME",
+       "raw_values": [
+        "(14)",
+        "(9)",
+        "(24)",
+        "(12)"
+       ]
+      },
+      {
+       "line": 87,
+       "label": "INCOME FROM OPERATIONS BEFORE INCOME TAXES",
+       "raw_values": [
+        "602",
+        "469",
+        "1,610",
+        "1,166"
+       ]
+      },
+      {
+       "line": 88,
+       "label": "INCOME TAX PROVISION",
+       "raw_values": [
+        "141",
+        "117",
+        "362",
+        "281"
+       ]
+      },
+      {
+       "line": 89,
+       "label": "NET INCOME",
+       "raw_values": [
+        "461",
+        "352",
+        "1,248",
+        "885"
+       ]
+      },
+      {
+       "line": 90,
+       "label": "LESS: NET INCOME ATTRIBUTABLE TO NONCONTROLLING INTERESTS",
+       "raw_values": [
+        "—",
+        "(1)",
+        "(2)",
+        "(2)"
+       ]
+      },
+      {
+       "line": 91,
+       "label": "NET INCOME ATTRIBUTABLE TO TD GROUP",
+       "raw_values": [
+        "461",
+        "351",
+        "1,246",
+        "883"
+       ]
+      },
+      {
+       "line": 92,
+       "label": "NET INCOME APPLICABLE TO TD GROUP COMMON STOCKHOLDERS",
+       "raw_values": [
+        "461",
+        "351",
+        "1,145",
+        "845"
+       ]
+      },
+      {
+       "line": 94,
+       "label": "Basic and diluted",
+       "raw_values": [
+        "7.96",
+        "6.14",
+        "19.81",
+        "14.80"
+       ]
+      },
+      {
+       "line": 95,
+       "label": "Cash dividends paid per common share",
+       "raw_values": [
+        "—",
+        "—",
+        "35.00",
+        "—"
+       ]
+      },
+      {
+       "line": 97,
+       "label": "Basic and diluted",
+       "raw_values": [
+        "57.9",
+        "57.2",
+        "57.8",
+        "57.1"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "CFS",
+     "start": "line:186",
+     "end": "line:235",
+     "rows": [
+      {
+       "line": 190,
+       "label": "Net income",
+       "raw_values": [
+        "1,248",
+        "885"
+       ]
+      },
+      {
+       "line": 192,
+       "label": "Depreciation",
+       "raw_values": [
+        "108",
+        "93"
+       ]
+      },
+      {
+       "line": 193,
+       "label": "Amortization of intangible assets and product certification costs",
+       "raw_values": [
+        "111",
+        "106"
+       ]
+      },
+      {
+       "line": 194,
+       "label": "Amortization of debt issuance costs, original issue discount and premium",
+       "raw_values": [
+        "31",
+        "30"
+       ]
+      },
+      {
+       "line": 195,
+       "label": "Amortization of inventory step-up",
+       "raw_values": [
+        "8",
+        "2"
+       ]
+      },
+      {
+       "line": 196,
+       "label": "Amortization of loss contract reserves",
+       "raw_values": [
+        "(24)",
+        "(27)"
+       ]
+      },
+      {
+       "line": 197,
+       "label": "Refinancing costs",
+       "raw_values": [
+        "59",
+        "41"
+       ]
+      },
+      {
+       "line": 198,
+       "label": "Gain on sale of businesses, net",
+       "raw_values": [
+        "(11)",
+        "—"
+       ]
+      },
+      {
+       "line": 199,
+       "label": "Non-cash stock and deferred compensation expense",
+       "raw_values": [
+        "158",
+        "131"
+       ]
+      },
+      {
+       "line": 200,
+       "label": "Deferred income taxes",
+       "raw_values": [
+        "—",
+        "(1)"
+       ]
+      },
+      {
+       "line": 201,
+       "label": "Foreign currency exchange losses",
+       "raw_values": [
+        "3",
+        "21"
+       ]
+      },
+      {
+       "line": 202,
+       "label": "Gain on settlement of the Esterline Retirement Plan (the “ERP”)",
+       "raw_values": [
+        "—",
+        "(8)"
+       ]
+      },
+      {
+       "line": 203,
+       "label": "Cash refund for the ERP settlement, net",
+       "raw_values": [
+        "—",
+        "8"
+       ]
+      },
+      {
+       "line": 205,
+       "label": "Trade accounts receivable",
+       "raw_values": [
+        "(22)",
+        "(134)"
+       ]
+      },
+      {
+       "line": 206,
+       "label": "Inventories",
+       "raw_values": [
+        "(140)",
+        "(244)"
+       ]
+      },
+      {
+       "line": 207,
+       "label": "Income taxes (receivable) payable",
+       "raw_values": [
+        "(120)",
+        "70"
+       ]
+      },
+      {
+       "line": 208,
+       "label": "Other assets",
+       "raw_values": [
+        "(27)",
+        "(16)"
+       ]
+      },
+      {
+       "line": 209,
+       "label": "Accounts payable",
+       "raw_values": [
+        "(9)",
+        "(4)"
+       ]
+      },
+      {
+       "line": 210,
+       "label": "Accrued interest",
+       "raw_values": [
+        "118",
+        "29"
+       ]
+      },
+      {
+       "line": 211,
+       "label": "Accrued and other liabilities",
+       "raw_values": [
+        "(18)",
+        "(69)"
+       ]
+      },
+      {
+       "line": 212,
+       "label": "Net cash provided by operating activities",
+       "raw_values": [
+        "1,473",
+        "913"
+       ]
+      },
+      {
+       "line": 214,
+       "label": "Capital expenditures",
+       "raw_values": [
+        "(124)",
+        "(102)"
+       ]
+      },
+      {
+       "line": 215,
+       "label": "Acquisition of businesses, net of cash acquired",
+       "raw_values": [
+        "(1,686)",
+        "(750)"
+       ]
+      },
+      {
+       "line": 216,
+       "label": "Other investing transactions",
+       "raw_values": [
+        "71",
+        "—"
+       ]
+      },
+      {
+       "line": 217,
+       "label": "Net cash used in investing activities",
+       "raw_values": [
+        "(1,739)",
+        "(852)"
+       ]
+      },
+      {
+       "line": 219,
+       "label": "Proceeds from exercise of stock options",
+       "raw_values": [
+        "213",
+        "179"
+       ]
+      },
+      {
+       "line": 220,
+       "label": "Dividends and dividend equivalent payments",
+       "raw_values": [
+        "(2,038)",
+        "(38)"
+       ]
+      },
+      {
+       "line": 221,
+       "label": "Repayments of senior subordinated notes, net",
+       "raw_values": [
+        "(550)",
+        "—"
+       ]
+      },
+      {
+       "line": 222,
+       "label": "Proceeds from issuance of senior secured notes, net",
+       "raw_values": [
+        "5,887",
+        "2,068"
+       ]
+      },
+      {
+       "line": 223,
+       "label": "Repayments of senior secured notes",
+       "raw_values": [
+        "(4,400)",
+        "(1,122)"
+       ]
+      },
+      {
+       "line": 224,
+       "label": "Proceeds from term loans, net",
+       "raw_values": [
+        "5,332",
+        "6,238"
+       ]
+      },
+      {
+       "line": 225,
+       "label": "Proceeds from trade receivable securitization facility, net",
+       "raw_values": [
+        "100",
+        "—"
+       ]
+      },
+      {
+       "line": 226,
+       "label": "Repayment on term loans",
+       "raw_values": [
+        "(4,385)",
+        "(7,318)"
+       ]
+      },
+      {
+       "line": 227,
+       "label": "Financing costs and other, net",
+       "raw_values": [
+        "(7)",
+        "(18)"
+       ]
+      },
+      {
+       "line": 228,
+       "label": "Net cash provided by (used in) financing activities",
+       "raw_values": [
+        "152",
+        "(11)"
+       ]
+      },
+      {
+       "line": 229,
+       "label": "EFFECT OF EXCHANGE RATE CHANGES ON CASH AND CASH EQUIVALENTS",
+       "raw_values": [
+        "2",
+        "20"
+       ]
+      },
+      {
+       "line": 230,
+       "label": "NET (DECREASE) INCREASE IN CASH AND CASH EQUIVALENTS",
+       "raw_values": [
+        "(112)",
+        "70"
+       ]
+      },
+      {
+       "line": 231,
+       "label": "CASH AND CASH EQUIVALENTS, BEGINNING OF PERIOD",
+       "raw_values": [
+        "3,472",
+        "3,001"
+       ]
+      },
+      {
+       "line": 232,
+       "label": "CASH AND CASH EQUIVALENTS, END OF PERIOD",
+       "raw_values": [
+        "3,360",
+        "3,071"
+       ]
+      },
+      {
+       "line": 234,
+       "label": "Cash paid during the period for interest, net",
+       "raw_values": [
+        "777",
+        "808"
+       ]
+      },
+      {
+       "line": 235,
+       "label": "Cash paid during the period for income taxes, net of refunds",
+       "raw_values": [
+        "472",
+        "231"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "source_id": "K24",
+   "file": "TDG/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+   "converted_sha256": "813e2ac155b9cff1dc46447b4565657b19aa833acdf81de49b1d569dae609292",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:898",
+     "end": "line:933",
+     "rows": [
+      {
+       "line": 902,
+       "label": "Cash and cash equivalents",
+       "raw_values": [
+        "6,261",
+        "3,472"
+       ]
+      },
+      {
+       "line": 903,
+       "label": "Trade accounts receivable—Net",
+       "raw_values": [
+        "1,381",
+        "1,230"
+       ]
+      },
+      {
+       "line": 904,
+       "label": "Inventories—Net",
+       "raw_values": [
+        "1,876",
+        "1,616"
+       ]
+      },
+      {
+       "line": 905,
+       "label": "Prepaid expenses and other",
+       "raw_values": [
+        "511",
+        "420"
+       ]
+      },
+      {
+       "line": 906,
+       "label": "Total current assets",
+       "raw_values": [
+        "10,029",
+        "6,738"
+       ]
+      },
+      {
+       "line": 907,
+       "label": "PROPERTY, PLANT AND EQUIPMENT—NET",
+       "raw_values": [
+        "1,488",
+        "1,255"
+       ]
+      },
+      {
+       "line": 908,
+       "label": "GOODWILL",
+       "raw_values": [
+        "10,419",
+        "8,988"
+       ]
+      },
+      {
+       "line": 909,
+       "label": "OTHER INTANGIBLE ASSETS—NET",
+       "raw_values": [
+        "3,446",
+        "2,747"
+       ]
+      },
+      {
+       "line": 910,
+       "label": "OTHER NON-CURRENT ASSETS",
+       "raw_values": [
+        "204",
+        "242"
+       ]
+      },
+      {
+       "line": 911,
+       "label": "TOTAL ASSETS",
+       "raw_values": [
+        "25,586",
+        "19,970"
+       ]
+      },
+      {
+       "line": 914,
+       "label": "Current portion of long-term debt",
+       "raw_values": [
+        "98",
+        "71"
+       ]
+      },
+      {
+       "line": 915,
+       "label": "Short-term borrowings—trade receivable securitization facility",
+       "raw_values": [
+        "486",
+        "349"
+       ]
+      },
+      {
+       "line": 916,
+       "label": "Accounts payable",
+       "raw_values": [
+        "323",
+        "305"
+       ]
+      },
+      {
+       "line": 917,
+       "label": "Dividends payable",
+       "raw_values": [
+        "4,216",
+        "—"
+       ]
+      },
+      {
+       "line": 918,
+       "label": "Accrued and other current liabilities",
+       "raw_values": [
+        "1,216",
+        "854"
+       ]
+      },
+      {
+       "line": 919,
+       "label": "Total current liabilities",
+       "raw_values": [
+        "6,339",
+        "1,579"
+       ]
+      },
+      {
+       "line": 920,
+       "label": "LONG-TERM DEBT",
+       "raw_values": [
+        "24,296",
+        "19,330"
+       ]
+      },
+      {
+       "line": 921,
+       "label": "DEFERRED INCOME TAXES",
+       "raw_values": [
+        "766",
+        "627"
+       ]
+      },
+      {
+       "line": 922,
+       "label": "OTHER NON-CURRENT LIABILITIES",
+       "raw_values": [
+        "468",
+        "412"
+       ]
+      },
+      {
+       "line": 923,
+       "label": "Total liabilities",
+       "raw_values": [
+        "31,869",
+        "21,948"
+       ]
+      },
+      {
+       "line": 925,
+       "label": "Common stock - $.01 par value; authorized 224,400,000 shares; issued 61,904,833 and 60,995,513 at September 30, 2024 and September 30, 2023, respectively",
+       "raw_values": [
+        "1",
+        "1"
+       ]
+      },
+      {
+       "line": 926,
+       "label": "Additional paid-in capital",
+       "raw_values": [
+        "2,819",
+        "2,440"
+       ]
+      },
+      {
+       "line": 927,
+       "label": "Accumulated deficit",
+       "raw_values": [
+        "(7,362)",
+        "(2,621)"
+       ]
+      },
+      {
+       "line": 928,
+       "label": "Accumulated other comprehensive loss",
+       "raw_values": [
+        "(42)",
+        "(98)"
+       ]
+      },
+      {
+       "line": 929,
+       "label": "Treasury stock, at cost; 5,688,639 shares at September 30, 2024 and September 30, 2023, respectively",
+       "raw_values": [
+        "(1,706)",
+        "(1,706)"
+       ]
+      },
+      {
+       "line": 930,
+       "label": "Total TD Group stockholders’ deficit",
+       "raw_values": [
+        "(6,290)",
+        "(1,984)"
+       ]
+      },
+      {
+       "line": 931,
+       "label": "NONCONTROLLING INTERESTS",
+       "raw_values": [
+        "7",
+        "6"
+       ]
+      },
+      {
+       "line": 932,
+       "label": "Total stockholders’ deficit",
+       "raw_values": [
+        "(6,283)",
+        "(1,978)"
+       ]
+      },
+      {
+       "line": 933,
+       "label": "TOTAL LIABILITIES AND STOCKHOLDERS’ DEFICIT",
+       "raw_values": [
+        "25,586",
+        "19,970"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "IS",
+     "start": "line:934",
+     "end": "line:960",
+     "rows": [
+      {
+       "line": 937,
+       "label": "NET SALES",
+       "raw_values": [
+        "7,940",
+        "6,585",
+        "5,429"
+       ]
+      },
+      {
+       "line": 938,
+       "label": "COST OF SALES",
+       "raw_values": [
+        "3,268",
+        "2,743",
+        "2,330"
+       ]
+      },
+      {
+       "line": 939,
+       "label": "GROSS PROFIT",
+       "raw_values": [
+        "4,672",
+        "3,842",
+        "3,099"
+       ]
+      },
+      {
+       "line": 940,
+       "label": "SELLING AND ADMINISTRATIVE EXPENSES",
+       "raw_values": [
+        "980",
+        "780",
+        "748"
+       ]
+      },
+      {
+       "line": 941,
+       "label": "AMORTIZATION OF INTANGIBLE ASSETS",
+       "raw_values": [
+        "161",
+        "139",
+        "136"
+       ]
+      },
+      {
+       "line": 942,
+       "label": "INCOME FROM OPERATIONS",
+       "raw_values": [
+        "3,531",
+        "2,923",
+        "2,215"
+       ]
+      },
+      {
+       "line": 943,
+       "label": "INTEREST EXPENSE—NET",
+       "raw_values": [
+        "1,286",
+        "1,164",
+        "1,076"
+       ]
+      },
+      {
+       "line": 944,
+       "label": "REFINANCING COSTS",
+       "raw_values": [
+        "58",
+        "56",
+        "1"
+       ]
+      },
+      {
+       "line": 945,
+       "label": "OTHER (INCOME) EXPENSE",
+       "raw_values": [
+        "(28)",
+        "(13)",
+        "11"
+       ]
+      },
+      {
+       "line": 946,
+       "label": "INCOME FROM CONTINUING OPERATIONS BEFORE INCOME TAXES",
+       "raw_values": [
+        "2,215",
+        "1,716",
+        "1,127"
+       ]
+      },
+      {
+       "line": 947,
+       "label": "INCOME TAX PROVISION",
+       "raw_values": [
+        "500",
+        "417",
+        "261"
+       ]
+      },
+      {
+       "line": 948,
+       "label": "INCOME FROM CONTINUING OPERATIONS",
+       "raw_values": [
+        "1,715",
+        "1,299",
+        "866"
+       ]
+      },
+      {
+       "line": 949,
+       "label": "INCOME FROM DISCONTINUED OPERATIONS, NET OF TAX",
+       "raw_values": [
+        "—",
+        "—",
+        "1"
+       ]
+      },
+      {
+       "line": 950,
+       "label": "NET INCOME",
+       "raw_values": [
+        "1,715",
+        "1,299",
+        "867"
+       ]
+      },
+      {
+       "line": 951,
+       "label": "LESS: NET INCOME ATTRIBUTABLE TO NONCONTROLLING INTERESTS",
+       "raw_values": [
+        "(1)",
+        "(1)",
+        "(1)"
+       ]
+      },
+      {
+       "line": 952,
+       "label": "NET INCOME ATTRIBUTABLE TO TD GROUP",
+       "raw_values": [
+        "1,714",
+        "1,298",
+        "866"
+       ]
+      },
+      {
+       "line": 953,
+       "label": "NET INCOME APPLICABLE TO TD GROUP COMMON STOCKHOLDERS",
+       "raw_values": [
+        "1,481",
+        "1,260",
+        "780"
+       ]
+      },
+      {
+       "line": 955,
+       "label": "Earnings per share from continuing operations—basic and diluted",
+       "raw_values": [
+        "25.62",
+        "22.03",
+        "13.38"
+       ]
+      },
+      {
+       "line": 956,
+       "label": "Earnings per share from discontinued operations—basic and diluted",
+       "raw_values": [
+        "—",
+        "—",
+        "0.02"
+       ]
+      },
+      {
+       "line": 957,
+       "label": "Earnings per share",
+       "raw_values": [
+        "25.62",
+        "22.03",
+        "13.40"
+       ]
+      },
+      {
+       "line": 958,
+       "label": "Cash dividends declared per common share",
+       "raw_values": [
+        "110.00",
+        "—",
+        "18.50"
+       ]
+      },
+      {
+       "line": 960,
+       "label": "Basic and diluted",
+       "raw_values": [
+        "57.8",
+        "57.2",
+        "58.2"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "CFS",
+     "start": "line:1015",
+     "end": "line:1067",
+     "rows": [
+      {
+       "line": 1019,
+       "label": "Net income",
+       "raw_values": [
+        "1,715",
+        "1,299",
+        "867"
+       ]
+      },
+      {
+       "line": 1020,
+       "label": "Income from discontinued operations, net of tax",
+       "raw_values": [
+        "—",
+        "—",
+        "(1)"
+       ]
+      },
+      {
+       "line": 1022,
+       "label": "Depreciation",
+       "raw_values": [
+        "149",
+        "129",
+        "116"
+       ]
+      },
+      {
+       "line": 1023,
+       "label": "Amortization of intangible assets and product certification costs",
+       "raw_values": [
+        "163",
+        "139",
+        "137"
+       ]
+      },
+      {
+       "line": 1024,
+       "label": "Amortization of debt issuance costs, original issue discount and premium",
+       "raw_values": [
+        "40",
+        "41",
+        "34"
+       ]
+      },
+      {
+       "line": 1025,
+       "label": "Amortization of inventory step-up",
+       "raw_values": [
+        "21",
+        "2",
+        "3"
+       ]
+      },
+      {
+       "line": 1026,
+       "label": "Amortization of loss contract reserves",
+       "raw_values": [
+        "(35)",
+        "(34)",
+        "(39)"
+       ]
+      },
+      {
+       "line": 1027,
+       "label": "Refinancing costs",
+       "raw_values": [
+        "58",
+        "56",
+        "1"
+       ]
+      },
+      {
+       "line": 1028,
+       "label": "Gain on sale of businesses, net",
+       "raw_values": [
+        "(11)",
+        "—",
+        "(7)"
+       ]
+      },
+      {
+       "line": 1029,
+       "label": "Non-cash stock and deferred compensation expense",
+       "raw_values": [
+        "217",
+        "157",
+        "184"
+       ]
+      },
+      {
+       "line": 1030,
+       "label": "Deferred income taxes",
+       "raw_values": [
+        "10",
+        "3",
+        "(22)"
+       ]
+      },
+      {
+       "line": 1031,
+       "label": "Foreign currency exchange losses (gains)",
+       "raw_values": [
+        "20",
+        "14",
+        "(40)"
+       ]
+      },
+      {
+       "line": 1032,
+       "label": "(Gain) loss on settlement of the Esterline Retirement Plan (the “ERP”)",
+       "raw_values": [
+        "—",
+        "(9)",
+        "22"
+       ]
+      },
+      {
+       "line": 1033,
+       "label": "Cash refund (contribution) for the ERP settlement, net",
+       "raw_values": [
+        "—",
+        "9",
+        "(16)"
+       ]
+      },
+      {
+       "line": 1035,
+       "label": "Trade accounts receivable",
+       "raw_values": [
+        "(84)",
+        "(212)",
+        "(190)"
+       ]
+      },
+      {
+       "line": 1036,
+       "label": "Inventories",
+       "raw_values": [
+        "(104)",
+        "(261)",
+        "(134)"
+       ]
+      },
+      {
+       "line": 1037,
+       "label": "Income taxes (receivable) payable",
+       "raw_values": [
+        "(62)",
+        "168",
+        "58"
+       ]
+      },
+      {
+       "line": 1038,
+       "label": "Other assets",
+       "raw_values": [
+        "(60)",
+        "(44)",
+        "(56)"
+       ]
+      },
+      {
+       "line": 1039,
+       "label": "Accounts payable",
+       "raw_values": [
+        "(11)",
+        "12",
+        "58"
+       ]
+      },
+      {
+       "line": 1040,
+       "label": "Accrued interest",
+       "raw_values": [
+        "60",
+        "(45)",
+        "(21)"
+       ]
+      },
+      {
+       "line": 1041,
+       "label": "Accrued and other liabilities",
+       "raw_values": [
+        "(41)",
+        "(49)",
+        "(6)"
+       ]
+      },
+      {
+       "line": 1042,
+       "label": "Net cash provided by operating activities",
+       "raw_values": [
+        "2,045",
+        "1,375",
+        "948"
+       ]
+      },
+      {
+       "line": 1044,
+       "label": "Capital expenditures",
+       "raw_values": [
+        "(165)",
+        "(139)",
+        "(119)"
+       ]
+      },
+      {
+       "line": 1045,
+       "label": "Acquisition of businesses, net of cash acquired",
+       "raw_values": [
+        "(2,347)",
+        "(762)",
+        "(437)"
+       ]
+      },
+      {
+       "line": 1046,
+       "label": "Other investing transactions",
+       "raw_values": [
+        "71",
+        "1",
+        "3"
+       ]
+      },
+      {
+       "line": 1047,
+       "label": "Net cash used in investing activities",
+       "raw_values": [
+        "(2,441)",
+        "(900)",
+        "(553)"
+       ]
+      },
+      {
+       "line": 1049,
+       "label": "Proceeds from exercise of stock options",
+       "raw_values": [
+        "245",
+        "215",
+        "132"
+       ]
+      },
+      {
+       "line": 1050,
+       "label": "Dividends and dividend equivalent payments",
+       "raw_values": [
+        "(2,038)",
+        "(38)",
+        "(1,091)"
+       ]
+      },
+      {
+       "line": 1051,
+       "label": "Repurchases of common stock",
+       "raw_values": [
+        "—",
+        "—",
+        "(912)"
+       ]
+      },
+      {
+       "line": 1052,
+       "label": "Proceeds from issuance of senior secured notes, net",
+       "raw_values": [
+        "7,373",
+        "3,504",
+        "—"
+       ]
+      },
+      {
+       "line": 1053,
+       "label": "Repayments of senior secured notes",
+       "raw_values": [
+        "(4,400)",
+        "(1,122)",
+        "—"
+       ]
+      },
+      {
+       "line": 1054,
+       "label": "Repayments of senior subordinated notes, net",
+       "raw_values": [
+        "(550)",
+        "(1,459)",
+        "—"
+       ]
+      },
+      {
+       "line": 1055,
+       "label": "Repayment on revolving credit facility",
+       "raw_values": [
+        "—",
+        "—",
+        "(200)"
+       ]
+      },
+      {
+       "line": 1056,
+       "label": "Proceeds from trade receivable securitization facility, net",
+       "raw_values": [
+        "137",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 1057,
+       "label": "Proceeds from term loans, net",
+       "raw_values": [
+        "6,815",
+        "6,238",
+        "—"
+       ]
+      },
+      {
+       "line": 1058,
+       "label": "Repayment on term loans",
+       "raw_values": [
+        "(4,403)",
+        "(7,334)",
+        "(75)"
+       ]
+      },
+      {
+       "line": 1059,
+       "label": "Financing costs and other, net",
+       "raw_values": [
+        "(8)",
+        "(20)",
+        "(2)"
+       ]
+      },
+      {
+       "line": 1060,
+       "label": "Net cash provided by (used in) financing activities",
+       "raw_values": [
+        "3,171",
+        "(16)",
+        "(2,148)"
+       ]
+      },
+      {
+       "line": 1061,
+       "label": "EFFECT OF EXCHANGE RATE CHANGES ON CASH AND CASH EQUIVALENTS",
+       "raw_values": [
+        "14",
+        "12",
+        "(33)"
+       ]
+      },
+      {
+       "line": 1062,
+       "label": "NET INCREASE (DECREASE) IN CASH AND CASH EQUIVALENTS",
+       "raw_values": [
+        "2,789",
+        "471",
+        "(1,786)"
+       ]
+      },
+      {
+       "line": 1063,
+       "label": "CASH AND CASH EQUIVALENTS, BEGINNING OF PERIOD",
+       "raw_values": [
+        "3,472",
+        "3,001",
+        "4,787"
+       ]
+      },
+      {
+       "line": 1064,
+       "label": "CASH AND CASH EQUIVALENTS, END OF PERIOD",
+       "raw_values": [
+        "6,261",
+        "3,472",
+        "3,001"
+       ]
+      },
+      {
+       "line": 1066,
+       "label": "Cash paid during the period for interest, net",
+       "raw_values": [
+        "1,158",
+        "1,160",
+        "1,057"
+       ]
+      },
+      {
+       "line": 1067,
+       "label": "Cash paid during the period for income taxes, net of refunds",
+       "raw_values": [
+        "539",
+        "260",
+        "220"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "source_id": "Q1FY25",
+   "file": "TDG/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm",
+   "converted_sha256": "797a0f8e1c052ce622930588143759bb5a6dae7f10310a6daa8e773b45a67382",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:40",
+     "end": "line:75",
+     "rows": [
+      {
+       "line": 44,
+       "label": "Cash and cash equivalents",
+       "raw_values": [
+        "2,459",
+        "6,261"
+       ]
+      },
+      {
+       "line": 45,
+       "label": "Trade accounts receivable—Net",
+       "raw_values": [
+        "1,285",
+        "1,381"
+       ]
+      },
+      {
+       "line": 46,
+       "label": "Inventories—Net",
+       "raw_values": [
+        "1,930",
+        "1,876"
+       ]
+      },
+      {
+       "line": 47,
+       "label": "Prepaid expenses and other",
+       "raw_values": [
+        "482",
+        "511"
+       ]
+      },
+      {
+       "line": 48,
+       "label": "Total current assets",
+       "raw_values": [
+        "6,156",
+        "10,029"
+       ]
+      },
+      {
+       "line": 49,
+       "label": "PROPERTY, PLANT AND EQUIPMENT—NET",
+       "raw_values": [
+        "1,477",
+        "1,488"
+       ]
+      },
+      {
+       "line": 50,
+       "label": "GOODWILL",
+       "raw_values": [
+        "10,304",
+        "10,419"
+       ]
+      },
+      {
+       "line": 51,
+       "label": "OTHER INTANGIBLE ASSETS—NET",
+       "raw_values": [
+        "3,360",
+        "3,446"
+       ]
+      },
+      {
+       "line": 52,
+       "label": "OTHER NON-CURRENT ASSETS",
+       "raw_values": [
+        "218",
+        "204"
+       ]
+      },
+      {
+       "line": 53,
+       "label": "TOTAL ASSETS",
+       "raw_values": [
+        "21,515",
+        "25,586"
+       ]
+      },
+      {
+       "line": 56,
+       "label": "Current portion of long-term debt",
+       "raw_values": [
+        "98",
+        "98"
+       ]
+      },
+      {
+       "line": 57,
+       "label": "Short-term borrowings—trade receivable securitization facility",
+       "raw_values": [
+        "649",
+        "486"
+       ]
+      },
+      {
+       "line": 58,
+       "label": "Accounts payable",
+       "raw_values": [
+        "315",
+        "323"
+       ]
+      },
+      {
+       "line": 59,
+       "label": "Dividends payable",
+       "raw_values": [
+        "—",
+        "4,216"
+       ]
+      },
+      {
+       "line": 60,
+       "label": "Accrued and other current liabilities",
+       "raw_values": [
+        "1,222",
+        "1,216"
+       ]
+      },
+      {
+       "line": 61,
+       "label": "Total current liabilities",
+       "raw_values": [
+        "2,284",
+        "6,339"
+       ]
+      },
+      {
+       "line": 62,
+       "label": "LONG-TERM DEBT",
+       "raw_values": [
+        "24,302",
+        "24,296"
+       ]
+      },
+      {
+       "line": 63,
+       "label": "DEFERRED INCOME TAXES",
+       "raw_values": [
+        "762",
+        "766"
+       ]
+      },
+      {
+       "line": 64,
+       "label": "OTHER NON-CURRENT LIABILITIES",
+       "raw_values": [
+        "418",
+        "468"
+       ]
+      },
+      {
+       "line": 65,
+       "label": "Total liabilities",
+       "raw_values": [
+        "27,766",
+        "31,869"
+       ]
+      },
+      {
+       "line": 67,
+       "label": "Common stock - $.01 par value; authorized 224,400,000 shares; issued 62,022,913 and 61,904,833 at December 28, 2024 and September 30, 2024, respectively",
+       "raw_values": [
+        "1",
+        "1"
+       ]
+      },
+      {
+       "line": 68,
+       "label": "Additional paid-in capital",
+       "raw_values": [
+        "2,887",
+        "2,819"
+       ]
+      },
+      {
+       "line": 69,
+       "label": "Accumulated deficit",
+       "raw_values": [
+        "(6,877)",
+        "(7,362)"
+       ]
+      },
+      {
+       "line": 70,
+       "label": "Accumulated other comprehensive loss",
+       "raw_values": [
+        "(247)",
+        "(42)"
+       ]
+      },
+      {
+       "line": 71,
+       "label": "Treasury stock, at cost; 5,941,439 and 5,688,639 shares at December 28, 2024 and September 30, 2024, respectively",
+       "raw_values": [
+        "(2,022)",
+        "(1,706)"
+       ]
+      },
+      {
+       "line": 72,
+       "label": "Total TD Group stockholders’ deficit",
+       "raw_values": [
+        "(6,258)",
+        "(6,290)"
+       ]
+      },
+      {
+       "line": 73,
+       "label": "NONCONTROLLING INTERESTS",
+       "raw_values": [
+        "7",
+        "7"
+       ]
+      },
+      {
+       "line": 74,
+       "label": "Total stockholders’ deficit",
+       "raw_values": [
+        "(6,251)",
+        "(6,283)"
+       ]
+      },
+      {
+       "line": 75,
+       "label": "TOTAL LIABILITIES AND STOCKHOLDERS’ DEFICIT",
+       "raw_values": [
+        "21,515",
+        "25,586"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "IS",
+     "start": "line:76",
+     "end": "line:97",
+     "rows": [
+      {
+       "line": 79,
+       "label": "NET SALES",
+       "raw_values": [
+        "2,006",
+        "1,789"
+       ]
+      },
+      {
+       "line": 80,
+       "label": "COST OF SALES",
+       "raw_values": [
+        "771",
+        "747"
+       ]
+      },
+      {
+       "line": 81,
+       "label": "GROSS PROFIT",
+       "raw_values": [
+        "1,235",
+        "1,042"
+       ]
+      },
+      {
+       "line": 82,
+       "label": "SELLING AND ADMINISTRATIVE EXPENSES",
+       "raw_values": [
+        "211",
+        "220"
+       ]
+      },
+      {
+       "line": 83,
+       "label": "AMORTIZATION OF INTANGIBLE ASSETS",
+       "raw_values": [
+        "50",
+        "35"
+       ]
+      },
+      {
+       "line": 84,
+       "label": "INCOME FROM OPERATIONS",
+       "raw_values": [
+        "974",
+        "787"
+       ]
+      },
+      {
+       "line": 85,
+       "label": "INTEREST EXPENSE—NET",
+       "raw_values": [
+        "378",
+        "300"
+       ]
+      },
+      {
+       "line": 86,
+       "label": "OTHER INCOME",
+       "raw_values": [
+        "(23)",
+        "(1)"
+       ]
+      },
+      {
+       "line": 87,
+       "label": "INCOME FROM CONTINUING OPERATIONS BEFORE INCOME TAXES",
+       "raw_values": [
+        "619",
+        "488"
+       ]
+      },
+      {
+       "line": 88,
+       "label": "INCOME TAX PROVISION",
+       "raw_values": [
+        "126",
+        "106"
+       ]
+      },
+      {
+       "line": 89,
+       "label": "NET INCOME",
+       "raw_values": [
+        "493",
+        "382"
+       ]
+      },
+      {
+       "line": 90,
+       "label": "LESS: NET INCOME ATTRIBUTABLE TO NONCONTROLLING INTERESTS",
+       "raw_values": [
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 91,
+       "label": "NET INCOME ATTRIBUTABLE TO TD GROUP",
+       "raw_values": [
+        "493",
+        "382"
+       ]
+      },
+      {
+       "line": 92,
+       "label": "NET INCOME APPLICABLE TO TD GROUP COMMON STOCKHOLDERS",
+       "raw_values": [
+        "444",
+        "281"
+       ]
+      },
+      {
+       "line": 94,
+       "label": "Earnings per share",
+       "raw_values": [
+        "7.62",
+        "4.87"
+       ]
+      },
+      {
+       "line": 95,
+       "label": "Cash dividends declared per common share",
+       "raw_values": [
+        "—",
+        "35.00"
+       ]
+      },
+      {
+       "line": 97,
+       "label": "Basic and diluted",
+       "raw_values": [
+        "58.3",
+        "57.7"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "CFS",
+     "start": "line:150",
+     "end": "line:195",
+     "rows": [
+      {
+       "line": 154,
+       "label": "Net income",
+       "raw_values": [
+        "493",
+        "382"
+       ]
+      },
+      {
+       "line": 156,
+       "label": "Depreciation",
+       "raw_values": [
+        "40",
+        "36"
+       ]
+      },
+      {
+       "line": 157,
+       "label": "Amortization of intangible assets and product certification costs",
+       "raw_values": [
+        "50",
+        "35"
+       ]
+      },
+      {
+       "line": 158,
+       "label": "Amortization of debt issuance costs, original issue discount and premium",
+       "raw_values": [
+        "9",
+        "11"
+       ]
+      },
+      {
+       "line": 159,
+       "label": "Amortization of inventory step-up",
+       "raw_values": [
+        "7",
+        "1"
+       ]
+      },
+      {
+       "line": 160,
+       "label": "Amortization of loss contract reserves",
+       "raw_values": [
+        "(19)",
+        "(5)"
+       ]
+      },
+      {
+       "line": 161,
+       "label": "Gain on sale of businesses, net",
+       "raw_values": [
+        "(19)",
+        "—"
+       ]
+      },
+      {
+       "line": 162,
+       "label": "Non-cash stock and deferred compensation expense",
+       "raw_values": [
+        "25",
+        "51"
+       ]
+      },
+      {
+       "line": 163,
+       "label": "Deferred income taxes",
+       "raw_values": [
+        "(2)",
+        "—"
+       ]
+      },
+      {
+       "line": 164,
+       "label": "Foreign currency exchange (gains) losses",
+       "raw_values": [
+        "(20)",
+        "14"
+       ]
+      },
+      {
+       "line": 166,
+       "label": "Trade accounts receivable",
+       "raw_values": [
+        "80",
+        "94"
+       ]
+      },
+      {
+       "line": 167,
+       "label": "Inventories",
+       "raw_values": [
+        "(79)",
+        "(78)"
+       ]
+      },
+      {
+       "line": 168,
+       "label": "Income taxes payable",
+       "raw_values": [
+        "91",
+        "94"
+       ]
+      },
+      {
+       "line": 169,
+       "label": "Other assets",
+       "raw_values": [
+        "(2)",
+        "3"
+       ]
+      },
+      {
+       "line": 170,
+       "label": "Accounts payable",
+       "raw_values": [
+        "(3)",
+        "(21)"
+       ]
+      },
+      {
+       "line": 171,
+       "label": "Accrued interest",
+       "raw_values": [
+        "201",
+        "82"
+       ]
+      },
+      {
+       "line": 172,
+       "label": "Accrued and other liabilities",
+       "raw_values": [
+        "(100)",
+        "(63)"
+       ]
+      },
+      {
+       "line": 173,
+       "label": "Net cash provided by operating activities",
+       "raw_values": [
+        "752",
+        "636"
+       ]
+      },
+      {
+       "line": 175,
+       "label": "Capital expenditures",
+       "raw_values": [
+        "(42)",
+        "(36)"
+       ]
+      },
+      {
+       "line": 176,
+       "label": "Acquisition of businesses, net of cash acquired",
+       "raw_values": [
+        "(29)",
+        "(14)"
+       ]
+      },
+      {
+       "line": 177,
+       "label": "Other investing transactions",
+       "raw_values": [
+        "47",
+        "—"
+       ]
+      },
+      {
+       "line": 178,
+       "label": "Net cash used in investing activities",
+       "raw_values": [
+        "(24)",
+        "(50)"
+       ]
+      },
+      {
+       "line": 180,
+       "label": "Proceeds from exercise of stock options",
+       "raw_values": [
+        "35",
+        "52"
+       ]
+      },
+      {
+       "line": 181,
+       "label": "Dividends and dividend equivalent payments",
+       "raw_values": [
+        "(4,396)",
+        "(2,038)"
+       ]
+      },
+      {
+       "line": 182,
+       "label": "Repurchases of common stock",
+       "raw_values": [
+        "(316)",
+        "—"
+       ]
+      },
+      {
+       "line": 183,
+       "label": "Proceeds from issuance of senior secured notes, net",
+       "raw_values": [
+        "—",
+        "983"
+       ]
+      },
+      {
+       "line": 184,
+       "label": "Proceeds from term loans, net",
+       "raw_values": [
+        "—",
+        "988"
+       ]
+      },
+      {
+       "line": 185,
+       "label": "Proceeds from trade receivable securitization facility, net",
+       "raw_values": [
+        "163",
+        "100"
+       ]
+      },
+      {
+       "line": 186,
+       "label": "Repayment on term loans",
+       "raw_values": [
+        "—",
+        "(16)"
+       ]
+      },
+      {
+       "line": 187,
+       "label": "Financing costs and other, net",
+       "raw_values": [
+        "(2)",
+        "(2)"
+       ]
+      },
+      {
+       "line": 188,
+       "label": "Net cash (used in) provided by financing activities",
+       "raw_values": [
+        "(4,516)",
+        "67"
+       ]
+      },
+      {
+       "line": 189,
+       "label": "EFFECT OF EXCHANGE RATE CHANGES ON CASH AND CASH EQUIVALENTS",
+       "raw_values": [
+        "(14)",
+        "10"
+       ]
+      },
+      {
+       "line": 190,
+       "label": "NET (DECREASE) INCREASE IN CASH AND CASH EQUIVALENTS",
+       "raw_values": [
+        "(3,802)",
+        "663"
+       ]
+      },
+      {
+       "line": 191,
+       "label": "CASH AND CASH EQUIVALENTS, BEGINNING OF PERIOD",
+       "raw_values": [
+        "6,261",
+        "3,472"
+       ]
+      },
+      {
+       "line": 192,
+       "label": "CASH AND CASH EQUIVALENTS, END OF PERIOD",
+       "raw_values": [
+        "2,459",
+        "4,135"
+       ]
+      },
+      {
+       "line": 194,
+       "label": "Cash paid during the period for interest, net",
+       "raw_values": [
+        "162",
+        "205"
+       ]
+      },
+      {
+       "line": 195,
+       "label": "Cash paid during the period for income taxes, net of refunds",
+       "raw_values": [
+        "37",
+        "11"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

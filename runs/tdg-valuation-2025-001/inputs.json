@@ -1,0 +1,42 @@
+{
+  "case": "tdg-valuation-2025-001",
+  "run_date": "2026-11-04",
+  "execution": "current host model, preceding context, sequential; no subagents, provider calls or native accepted heads",
+  "source_dates": {
+    "Moog": "2025-09-27",
+    "TDG": "2025-09-30"
+  },
+  "pins": {
+    "instructions.md": "2f1543a577caa396417667c8d79cab41f1c26d4b57627d23b78911aef2955fd8",
+    "CP-1-valuation-inputs.md": "2d88e82cea96c83108b53a86dafa27056f35098c786419d25dba0280fe0735df",
+    "sources/filing-captures.txt": "b81f0bc9b1c467086fc7a4c81f1bb40b8b0ae1198fa70b0b17c344902492d331",
+    "expectations.json": "57b877a6b2d4e537f8ac6bcf9d9007bc635252ec60ba87bfbb22f9941e57b425"
+  },
+  "methods": {
+    "docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/SKILL.md": "4bd3b130ce0b49571f7b4b97da25a42a81dbed80b03ea752552ea8ae90cd9f71",
+    "docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/references/REF_CP-1C_STEPS.md": "fbbed9bac006c67a04397303c39c684046817cf491ebad6a4fa1302ecfbfd766",
+    "docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/scripts/peer_statistics.py": "3073ed168e8f89b422b3421df4255a48a0875b1d44a90a53414ce078c2f7015b",
+    "src/deploy_workflow/owners/valuation_basis.py": "a117218880cadee538f939f47b21168d99790f2db81864910867d5dfb3479fdc",
+    "src/deploy_workflow/owners/cp1c.py": "85e0b29bc0320f48ce724278b543f1d7425856b66b6f8bb4238cdc572a96cf33"
+  },
+  "method_selection": "Archived wider CP-1C valuation/alignment duties, plus later exact Decimal and missing-value safeguards. One valuation increment; previous operating peer evidence retained separately. Narrow native user-context valuation rules do not replace source-grounded analysis.",
+  "source_access": "Retained located SEC web-tool captures; original-byte download/equivalence and full-document coverage not established.",
+  "retrieval_failures": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm",
+      "direct_download": "403"
+    },
+    {
+      "url": "https://transdigmgroupinc.gcs-web.com/static-files/698d8cc1-b8a0-4865-bdc1-15cdff36a88b",
+      "direct_download": "403"
+    },
+    {
+      "url": "https://www.moog.com/content/dam/moog/literature/Corporate/Investors/press-releases-pdf/2025/q4/10-K-Document-FY25-Q4.pdf",
+      "web": "404"
+    },
+    {
+      "url": "https://www.moog.com.cn/content/dam/moog/literature/Corporate/Investors/financial-performance/fy25/2025-Moog-Annual-Report.pdf",
+      "direct_download": "404"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "scope": "Actual current-host-model bounded CP-6 debate and actual CP-5 downstream consumption; no native owner/provider or independent-persona claim. CP-6A portfolio scope not executed.",
+  "consumed": {
+    "runs/ford-otosan-2024-001/CP-1-selected-input.md": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+    "runs/ford-otosan-2024-001/CP-2G-published-forecast.md": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931",
+    "runs/ford-otosan-2024-001/CP-2H-attempt-2.md": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72",
+    "runs/ford-otosan-2024-001/CP-3C-consumer.md": "4dacb927b491334e57cd01fd848437156975cb0e1b44599e92eeaee490acaed8",
+    "runs/ford-otosan-2024-001/CP-5-attempt-1.md": "a447168100a8ecd9930abbbe82f1b143e6ef3435ea849e80583f8bb0fb47a751",
+    "runs/ford-otosan-2024-001/CP-5-verification.json": "8920e0a2b7bcd6bec3912cdfff2a6cd1471dd071dc2e84c8ad5036bbd9cc8fc4",
+    "runs/ford-otosan-2024-001/CP-6-instructions.md": "c2faed1095c1e74e41164fdb0810436dc9431ec99e4bcd475ef2af2cfea0593b"
+  },
+  "selected_methods": {
+    "src/deploy_vii/methods/cp6.md": "324595e417e5bf903a27040220e87d1221f9f6d89245cb62f73b9b0ad2182c5d",
+    "/Users/ericguei/Documents/cp-os/skills/cp-6-ic-debate-challenge/SKILL.md": "0ae74db02dd569fe7805e62a661f22cd436494183ba5cb928f8be37aa549a96b",
+    "/Users/ericguei/Documents/cp-os/skills/cp-6-ic-debate-challenge/references/REF_CP-6_STEPS.md": "6141d27e800d45d2d0208173f38060c75d97005ee9b93013e24a16a40570f1e1",
+    "/Users/ericguei/Documents/cp-os/skills/cp-6-ic-debate-challenge/references/REF_CP-6A_STEPS.md": "9e36ee1bc5ed1b2a99ffb2e8bc1ed2a10e2a3d26b70083a00beb598a8d1c9478"
+  },
+  "output_sha256": "1204b4d00afc8bdd6c8ed183f742d6cff4f6e178e4aab0e14ff2685348c4d99c",
+  "checks": {
+    "six_common_headings": true,
+    "three_bull_claims": true,
+    "three_matching_attacks_and_resolutions": true,
+    "four_broad_registers": true,
+    "ten_neutral_dimensions": true,
+    "nine_chair_dimensions": true,
+    "cp5_inputs_rechecked": true,
+    "cp5_restriction_and_score_scope_preserved": true,
+    "final_action": "Insufficient Information",
+    "final_action_confidence": "Insufficient Information",
+    "overall_score": null,
+    "scores": [
+      {
+        "dimension": "Cash-flow durability",
+        "score": 3
+      },
+      {
+        "dimension": "Downside pathway severity",
+        "score": null
+      },
+      {
+        "dimension": "Liquidity runway",
+        "score": null
+      },
+      {
+        "dimension": "Refinancing / maturity risk",
+        "score": 3
+      },
+      {
+        "dimension": "Legal / covenant control",
+        "score": null
+      },
+      {
+        "dimension": "Recovery / LGD protection",
+        "score": null
+      },
+      {
+        "dimension": "Sponsor / governance alignment",
+        "score": null
+      },
+      {
+        "dimension": "Relative value compensation",
+        "score": null
+      },
+      {
+        "dimension": "Portfolio fit / sizing",
+        "score": null
+      }
+    ],
+    "cp6a_portfolio_phase_executed": false
+  },
+  "semantic_review": {
+    "scope": "Manual comparison of actual response to frozen instructions/upstream; assertions cover structure/provenance, not semantic truth.",
+    "causal_countercases": "Published positive generation versus cash uses, access and investment/ramp dependence.",
+    "unsupported_inferences_refused": [
+      "actual financing failure/default",
+      "covenant capacity or exploit",
+      "numeric recovery from RR4",
+      "cheapness, position size or actual mandate breach"
+    ],
+    "limitations": [
+      "Missing full fundamentals/downside/cash timing/operative legal/security market/portfolio sources.",
+      "Same session/model with surrounding context; no isolated reliability evidence.",
+      "No complete pathway or final deliverable follows merely from this handoff."
+    ]
+  }
+}

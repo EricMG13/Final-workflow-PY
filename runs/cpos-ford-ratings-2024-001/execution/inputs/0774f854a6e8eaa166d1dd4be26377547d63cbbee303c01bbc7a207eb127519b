@@ -1,0 +1,229 @@
+{
+  "case": "Ford Otomotiv Sanayi A.S. / Ford Otosan, historical functional case as of 2024-04-11; separate from TDG and current ratings",
+  "execution": "actual host-model source analysis with unchanged quotient helper; no provider/full owner invocation",
+  "instructions_sha256": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+  "sources": {
+    "runs/ford-otosan-2024-001/sources/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+    "runs/ford-otosan-2024-001/sources/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+    "runs/ford-otosan-2024-001/sources/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+    "runs/ford-otosan-2024-001/sources/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf"
+  },
+  "upstream": {
+    "CP-0": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79"
+  },
+  "method_source": {
+    "src/deploy_workflow/owners/cp1d.py": "f9544b356fd0b7b54fe2d4230958b349092e462c0a3c581b32968b081ab783fb"
+  },
+  "selected_source": "S&P forecast summary, PDF page 7; years 2023a/2024f/2025f; TRY millions except ratios",
+  "source_line_map": {
+    "revenue": [
+      269,
+      270,
+      271
+    ],
+    "ebitda_reported": [
+      278,
+      279,
+      280
+    ],
+    "capitalised_development_signed": [
+      286,
+      287,
+      288
+    ],
+    "disposal_adjustment": [
+      317,
+      318,
+      319
+    ],
+    "ebitda_sp": [
+      326,
+      327,
+      328
+    ],
+    "cash_interest_signed": [
+      335,
+      336,
+      337
+    ],
+    "cash_tax_signed": [
+      344,
+      345,
+      346
+    ],
+    "ffo": [
+      353,
+      354,
+      355
+    ],
+    "capex": [
+      362,
+      363,
+      364
+    ],
+    "focf": [
+      371,
+      372,
+      373
+    ],
+    "dividends": [
+      380,
+      381,
+      382
+    ],
+    "dcf": [
+      389,
+      390,
+      391
+    ],
+    "debt_sp": [
+      398,
+      399,
+      400
+    ],
+    "debt_ebitda_reported": [
+      426,
+      427,
+      428
+    ],
+    "ffo_debt_pct_reported": [
+      435,
+      436,
+      437
+    ],
+    "margin_pct_reported": [
+      417,
+      418,
+      419
+    ],
+    "ebitda_interest_cover_reported": [
+      453,
+      454,
+      455
+    ]
+  },
+  "values": {
+    "revenue": [
+      "411906",
+      "742742",
+      "1056981"
+    ],
+    "ebitda_reported": [
+      "50082",
+      "64619",
+      "82445"
+    ],
+    "capitalised_development_signed": [
+      "-1932",
+      "-7249",
+      "-10393"
+    ],
+    "disposal_adjustment": [
+      "65",
+      null,
+      null
+    ],
+    "ebitda_sp": [
+      "48214",
+      "57370",
+      "72052"
+    ],
+    "cash_interest_signed": [
+      "-4505",
+      "-8310",
+      "-11596"
+    ],
+    "cash_tax_signed": [
+      "-1704",
+      "-343",
+      "-5220"
+    ],
+    "ffo": [
+      "42005",
+      "48717",
+      "55236"
+    ],
+    "capex": [
+      "30128",
+      "38989",
+      "52010"
+    ],
+    "focf": [
+      "16425",
+      "8611",
+      "8834"
+    ],
+    "dividends": [
+      "18424",
+      "27087",
+      "30378"
+    ],
+    "dcf": [
+      "-1999",
+      "-18475",
+      "-21544"
+    ],
+    "debt_sp": [
+      "76904",
+      "127142",
+      "144661"
+    ],
+    "debt_ebitda_reported": [
+      "1.6",
+      "2.2",
+      "2.0"
+    ],
+    "ffo_debt_pct_reported": [
+      "54.6",
+      "38.3",
+      "38.2"
+    ],
+    "margin_pct_reported": [
+      "11.7",
+      "7.7",
+      "6.8"
+    ],
+    "ebitda_interest_cover_reported": [
+      "8.2",
+      "6.7",
+      "6.1"
+    ]
+  },
+  "calculations": [
+    {
+      "year": 2023,
+      "scope": "agency-reported historical actual",
+      "leverage_calculated": "1.5950553781059443315219645746048865475",
+      "ffo_debt_calculated": "0.54620045771351295121190055133673150941",
+      "margin_calculated": "0.11705097765024058887221841876544648536",
+      "identified_numeric_ebitda_bridge_residual": "-1",
+      "dcf_display_bridge_residual": "0"
+    },
+    {
+      "year": 2024,
+      "scope": "agency-published forecast, not our generated model",
+      "leverage_calculated": "2.2161757015861948753704026494683632561",
+      "ffo_debt_calculated": "0.38316999889886898113919869122713186830",
+      "margin_calculated": "0.077240818480710663999073702577745704430",
+      "identified_numeric_ebitda_bridge_residual": "0",
+      "dcf_display_bridge_residual": "1"
+    },
+    {
+      "year": 2025,
+      "scope": "agency-published forecast, not our generated model",
+      "leverage_calculated": "2.0077305279520346416476988841392327763",
+      "ffo_debt_calculated": "0.38183062470188924450957756409813287617",
+      "margin_calculated": "0.068167734330134600338132851962334233066",
+      "identified_numeric_ebitda_bridge_residual": "0",
+      "dcf_display_bridge_residual": "0"
+    }
+  ],
+  "checks": 21,
+  "limits": [
+    "Raw PDF bytes not retained; text/cell locators checked, visual attempt timed out",
+    "Agency-reported adjustments/forecasts, not independent issuer financial reconstruction",
+    "Display residuals retained; cause not conclusively resolved",
+    "Source -- remains null; known-numeric subtotal does not assert missing row is zero",
+    "No Fitch-to-SP metric equality or full CP1/CP2G acceptance claimed"
+  ]
+}

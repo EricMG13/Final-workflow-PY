@@ -1,0 +1,61 @@
+{
+  "scope": "Verbatim issuer HTML unit elements. No normalized unit or value inference. Existing parser represents divide units as empty tuples; use the original definitions for affected facts.",
+  "sources": [
+    {
+      "raw_path": "data/public-corpus/v1/TDG/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm",
+      "raw_sha256": "7e902c48d87067b4ea96c388ab2ca460c9c1c3c2e2960da09629377a7b359b0d",
+      "unit_definitions_verbatim": {
+        "shares": "<xbrli:unit id=\"shares\"><xbrli:measure>xbrli:shares</xbrli:measure></xbrli:unit>",
+        "usd": "<xbrli:unit id=\"usd\"><xbrli:measure>iso4217:USD</xbrli:measure></xbrli:unit>",
+        "usdPerShare": "<xbrli:unit id=\"usdPerShare\"><xbrli:divide><xbrli:unitNumerator><xbrli:measure>iso4217:USD</xbrli:measure></xbrli:unitNumerator><xbrli:unitDenominator><xbrli:measure>xbrli:shares</xbrli:measure></xbrli:unitDenominator></xbrli:divide></xbrli:unit>",
+        "number": "<xbrli:unit id=\"number\"><xbrli:measure>xbrli:pure</xbrli:measure></xbrli:unit>",
+        "segment": "<xbrli:unit id=\"segment\"><xbrli:measure>tdg:Segment</xbrli:measure></xbrli:unit>"
+      },
+      "compound_unit_fact_counts": {
+        "usdPerShare": 22
+      }
+    },
+    {
+      "raw_path": "data/public-corpus/v1/TDG/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm",
+      "raw_sha256": "74876b8874a3a396efd700114b280f45fcfcd3f11ceae31adee98c93bfacbf03",
+      "unit_definitions_verbatim": {
+        "shares": "<xbrli:unit id=\"shares\"><xbrli:measure>xbrli:shares</xbrli:measure></xbrli:unit>",
+        "usd": "<xbrli:unit id=\"usd\"><xbrli:measure>iso4217:USD</xbrli:measure></xbrli:unit>",
+        "usdPerShare": "<xbrli:unit id=\"usdPerShare\"><xbrli:divide><xbrli:unitNumerator><xbrli:measure>iso4217:USD</xbrli:measure></xbrli:unitNumerator><xbrli:unitDenominator><xbrli:measure>xbrli:shares</xbrli:measure></xbrli:unitDenominator></xbrli:divide></xbrli:unit>",
+        "number": "<xbrli:unit id=\"number\"><xbrli:measure>xbrli:pure</xbrli:measure></xbrli:unit>",
+        "segment": "<xbrli:unit id=\"segment\"><xbrli:measure>tdg:Segment</xbrli:measure></xbrli:unit>"
+      },
+      "compound_unit_fact_counts": {
+        "usdPerShare": 22
+      }
+    },
+    {
+      "raw_path": "data/public-corpus/v1/TDG/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+      "raw_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+      "unit_definitions_verbatim": {
+        "usd": "<xbrli:unit id=\"usd\"><xbrli:measure>iso4217:USD</xbrli:measure></xbrli:unit>",
+        "shares": "<xbrli:unit id=\"shares\"><xbrli:measure>xbrli:shares</xbrli:measure></xbrli:unit>",
+        "usdPerShare": "<xbrli:unit id=\"usdPerShare\"><xbrli:divide><xbrli:unitNumerator><xbrli:measure>iso4217:USD</xbrli:measure></xbrli:unitNumerator><xbrli:unitDenominator><xbrli:measure>xbrli:shares</xbrli:measure></xbrli:unitDenominator></xbrli:divide></xbrli:unit>",
+        "number": "<xbrli:unit id=\"number\"><xbrli:measure>xbrli:pure</xbrli:measure></xbrli:unit>",
+        "segment": "<xbrli:unit id=\"segment\"><xbrli:measure>tdg:Segment</xbrli:measure></xbrli:unit>"
+      },
+      "compound_unit_fact_counts": {
+        "usdPerShare": 78
+      }
+    },
+    {
+      "raw_path": "data/public-corpus/v1/TDG/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm",
+      "raw_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "unit_definitions_verbatim": {
+        "shares": "<xbrli:unit id=\"shares\"><xbrli:measure>xbrli:shares</xbrli:measure></xbrli:unit>",
+        "usd": "<xbrli:unit id=\"usd\"><xbrli:measure>iso4217:USD</xbrli:measure></xbrli:unit>",
+        "usdPerShare": "<xbrli:unit id=\"usdPerShare\"><xbrli:divide><xbrli:unitNumerator><xbrli:measure>iso4217:USD</xbrli:measure></xbrli:unitNumerator><xbrli:unitDenominator><xbrli:measure>xbrli:shares</xbrli:measure></xbrli:unitDenominator></xbrli:divide></xbrli:unit>",
+        "number": "<xbrli:unit id=\"number\"><xbrli:measure>xbrli:pure</xbrli:measure></xbrli:unit>",
+        "segment": "<xbrli:unit id=\"segment\"><xbrli:measure>tdg:Segment</xbrli:measure></xbrli:unit>"
+      },
+      "compound_unit_fact_counts": {
+        "usdPerShare": 13
+      }
+    }
+  ]
+}

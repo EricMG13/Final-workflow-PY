@@ -1,0 +1,290 @@
+{
+  "run": {
+    "run_id": "cpos-ford-funding-2024-1",
+    "issuer_id": "FORD-OTOSAN",
+    "issuer_name": "Ford Otomotiv Sanayi A.S.",
+    "as_of": "2024-04-11",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-3C"
+    ]
+  },
+  "execution": "retained-response-replay",
+  "max_attempts": 2,
+  "provider_cap_usd": 0,
+  "sources": {
+    "captured/fitch-and-metrics.json": {
+      "path": "../ford-otosan-2024-001/sources/fitch-and-metrics.json",
+      "sha256": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9"
+    },
+    "captured/fitch-terms.json": {
+      "path": "../ford-otosan-2024-001/sources/fitch-terms.json",
+      "sha256": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf"
+    },
+    "captured/sp-retrieval.json": {
+      "path": "../ford-otosan-2024-001/sources/sp-retrieval.json",
+      "sha256": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839"
+    },
+    "captured/sp-retry.json": {
+      "path": "../ford-otosan-2024-001/sources/sp-retry.json",
+      "sha256": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8"
+    },
+    "financial-calculations": {
+      "path": "../ford-otosan-2024-001/financial-calculations.json",
+      "sha256": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b"
+    },
+    "ratings-calculations": {
+      "path": "../ford-otosan-2024-001/CP-2H-calculations.json",
+      "sha256": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8"
+    },
+    "original-instructions": {
+      "path": "../ford-otosan-2024-001/instructions.md",
+      "sha256": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983"
+    },
+    "selected-method": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/SKILL.md",
+      "sha256": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb"
+    },
+    "step-method": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/references/REF_CP-2H_STEPS.md",
+      "sha256": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e"
+    },
+    "later-method": {
+      "path": "../../src/deploy_vii/methods/cp2h.md",
+      "sha256": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de"
+    },
+    "funding-calculations": {
+      "path": "../ford-otosan-2024-001/CP-3C-intake-calculations.json",
+      "sha256": "df4315aa49b67bb1254ea75d1517188af16e6ef09469171a7ecdda20e257dc63"
+    },
+    "funding-method": {
+      "path": "../../src/deploy_vii/methods/cp3c.md",
+      "sha256": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72"
+    },
+    "funding-calculation-implementation": {
+      "path": "../../src/deploy_workflow/owners/cp3c.py",
+      "sha256": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3"
+    }
+  },
+  "instructions": {
+    "CP-0": {
+      "path": "../cpos-ford-ratings-2024-001/CP-0-reuse-instructions.md",
+      "sha256": "c5469406dd4793b6c44ac0d2e521dc07e86912a6dcce1814b9af48e252c2648e"
+    },
+    "CP-1": {
+      "path": "../cpos-ford-ratings-2024-001/CP-1-reuse-instructions.md",
+      "sha256": "89313528596967ac577aa1d658303ec0d5f9e492212fd278258d88db28fb8cfb"
+    },
+    "CP-2G": {
+      "path": "../cpos-ford-ratings-2024-001/CP-2G-reuse-instructions.md",
+      "sha256": "82e1434fce9a10efbc865dcd69d6f80f78e8aab6c8a64d168cf050f80fa241ad"
+    },
+    "CP-2H": {
+      "path": "../cpos-ford-ratings-2024-001/CP-2H-reuse-instructions.md",
+      "sha256": "4db10963ec69f0d314c2e104c3652d228b5c21abe9c861f624922f4b4f69b993"
+    },
+    "CP-3C": {
+      "path": "CP-3C-reuse-instructions.md",
+      "sha256": "f7a8b72e0b421c95283f60a947567e6f01f29ecdd57b881bf1890c8f9da6f8a0"
+    }
+  },
+  "retained_handoffs": {
+    "CP-0": {
+      "path": "../ford-otosan-2024-001/CP-0.md",
+      "sha256": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+      "source_hashes": {
+        "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+        "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+        "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+        "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+        "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+        "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+        "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+        "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+        "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+        "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+        "funding-calculations": "df4315aa49b67bb1254ea75d1517188af16e6ef09469171a7ecdda20e257dc63",
+        "funding-method": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72",
+        "funding-calculation-implementation": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3"
+      },
+      "upstream": {}
+    },
+    "CP-1": {
+      "path": "../ford-otosan-2024-001/CP-1-selected-input.md",
+      "sha256": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+      "source_hashes": {
+        "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+        "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+        "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+        "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+        "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+        "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+        "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+        "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+        "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+        "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+        "funding-calculations": "df4315aa49b67bb1254ea75d1517188af16e6ef09469171a7ecdda20e257dc63",
+        "funding-method": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72",
+        "funding-calculation-implementation": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3"
+      },
+      "upstream": {
+        "CP-0": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79"
+      }
+    },
+    "CP-2G": {
+      "path": "../ford-otosan-2024-001/CP-2G-published-forecast.md",
+      "sha256": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931",
+      "source_hashes": {
+        "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+        "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+        "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+        "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+        "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+        "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+        "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+        "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+        "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+        "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+        "funding-calculations": "df4315aa49b67bb1254ea75d1517188af16e6ef09469171a7ecdda20e257dc63",
+        "funding-method": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72",
+        "funding-calculation-implementation": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3"
+      },
+      "upstream": {
+        "CP-0": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+        "CP-1": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af"
+      }
+    },
+    "CP-2H": {
+      "path": "../ford-otosan-2024-001/CP-2H-attempt-2.md",
+      "sha256": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72",
+      "source_hashes": {
+        "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+        "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+        "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+        "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+        "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+        "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+        "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+        "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+        "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+        "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+        "funding-calculations": "df4315aa49b67bb1254ea75d1517188af16e6ef09469171a7ecdda20e257dc63",
+        "funding-method": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72",
+        "funding-calculation-implementation": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3"
+      },
+      "upstream": {
+        "CP-0": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+        "CP-1": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+        "CP-2G": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931"
+      }
+    },
+    "CP-3C": {
+      "path": "../ford-otosan-2024-001/CP-3C-consumer.md",
+      "sha256": "4dacb927b491334e57cd01fd848437156975cb0e1b44599e92eeaee490acaed8",
+      "source_hashes": {
+        "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+        "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+        "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+        "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+        "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+        "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+        "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+        "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+        "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+        "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+        "funding-calculations": "df4315aa49b67bb1254ea75d1517188af16e6ef09469171a7ecdda20e257dc63",
+        "funding-method": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72",
+        "funding-calculation-implementation": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3"
+      },
+      "upstream": {
+        "CP-0": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+        "CP-1": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+        "CP-2G": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931",
+        "CP-2H": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72"
+      }
+    }
+  },
+  "layout": {
+    "blocks": [
+      "funding-gap",
+      "refinancing-paths"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-3C",
+        "heading": "Findings",
+        "kind": "table",
+        "block_id": "funding-gap",
+        "label": "Separate conditional cases · TRY billions"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Findings",
+        "kind": "prose",
+        "block_id": "funding-gap",
+        "label": "Plan horizon and rounded components",
+        "prefix": "The source's 2024 plan"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Findings",
+        "kind": "prose",
+        "block_id": "funding-gap",
+        "label": "Conditions on the dividend and capex cases",
+        "prefix": "These are separately stipulated cases."
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Calculations",
+        "kind": "prose",
+        "block_id": "funding-gap",
+        "label": "Calculation scope and separate currency scales"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Findings",
+        "kind": "prose",
+        "block_id": "refinancing-paths",
+        "label": "Funding access remains conditional",
+        "prefix": "CP-2H changes how"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Findings",
+        "kind": "prose",
+        "block_id": "refinancing-paths",
+        "label": "Metric definitions remain separate",
+        "prefix": "Do not substitute"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Findings",
+        "kind": "prose",
+        "block_id": "refinancing-paths",
+        "label": "Causal risk and contrary case",
+        "prefix": "The causal risk"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Gaps",
+        "kind": "prose",
+        "block_id": "refinancing-paths",
+        "label": "Unassessed legal capacity, feasibility and outcomes"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Next module",
+        "kind": "prose",
+        "block_id": "refinancing-paths",
+        "label": "Targeted next-module evidence needs"
+      }
+    ],
+    "title": "Ford Otosan · historical funding review",
+    "question": "What does the April 2024 published funding plan support, and which access and cash-use assumptions change its coverage?",
+    "issuer_aliases": [
+      "Ford Otosan"
+    ],
+    "scope": "Historical Ford Otomotiv Sanayi A.S. (Ford Otosan), April 11, 2024. Bounded published-plan funding intake from actual retained handoffs. Plan covers 2024 starting January 1; not twelve months from the April review. Displayed rounded TRY-billion components use the full up-to-2 working-capital swing. Proposed bond proceeds and purpose-specific capex facility availability remain conditional; dividend overlay and exactly-15% capex mitigation are separate stipulated cases, not actual failures or the agency working model. TRY-million forecasts remain separate. Complete maturities, operative documents, unrestricted access, refinancing/LME feasibility, creditor treatment and outcomes remain unassessed. Retained-response replay, not fresh model/provider/native acceptance. Excel is an analytical input only; no workbook output."
+  }
+}

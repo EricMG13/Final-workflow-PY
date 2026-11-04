@@ -1,0 +1,42 @@
+[
+  {
+    "issuer": "HEICO",
+    "url": "https://heicocorporation.gcs-web.com/static-files/8cd64e3b-3482-424e-ae4a-33f0687e1b75",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "issuer": "CW",
+    "url": "https://cdn.curtisswright.com/admin/files/doc_financials/annual/2024/assets/files/CW-AR2024_10-K.pdf",
+    "status": 200,
+    "bytes": 1454994,
+    "pages": 98,
+    "sha256": "f758203854c323ef4bdcda3650047920b1fa5433f8ab6562c702d3a1d6b94688",
+    "retrieved_on": "2026-11-04",
+    "scope": "Original primary issuer-hosted FY2024 PDF; historical/outdated, not a current investment view"
+  },
+  {
+    "issuer": "MOOG",
+    "url": "https://www.moog.com/content/dam/moog/literature/Corporate/Investors/SEC/10-K_Filings/fy24/Moog-10-K-2024.pdf",
+    "status": 200,
+    "bytes": 547769,
+    "pages": 98,
+    "sha256": "b20e9d309b1fd685953556b08d7007cce326ae48d76d9c1d8f4ecbdbdffd0bc4",
+    "retrieved_on": "2026-11-04",
+    "scope": "Original primary issuer-hosted FY2024 PDF; historical/outdated, not a current investment view"
+  },
+  {
+    "issuer": "HEICO",
+    "url": "https://heico.com/wp-content/uploads/2025/01/AnnualReport_2024.pdf",
+    "error": "cryptography>=3.1 is required for AES algorithm"
+  },
+  {
+    "issuer": "HEICO",
+    "url": "https://heico.com/wp-content/uploads/2025/01/AnnualReport_2024.pdf",
+    "original_bytes_retained": true,
+    "bytes": 3579869,
+    "sha256": "523888d4a41351cd7af10556343ae12d5098a3fafaf9cfcde48f8ad0c5071af0",
+    "pages": 152,
+    "extraction": "pdftotext -layout; pypdf lacked optional AES dependency, no source mutation",
+    "retrieved_on": "2026-11-04"
+  }
+]

@@ -1,0 +1,49 @@
+ Strategic Report                                      Corporate Governance     Consolidated Financial                                                                              VMED O2 UK Limited                                   114
+                                        Report                                  Statements                                                                                          Annual Report and Consolidated Financial
+                                                                                                                                                                                    Statements 31 December 2025
+
+Notes to the Consolidated Financial Statements 31 December 2025
+
+
+(1) Basis of Presentation                                                                                               These Consolidated Financial Statements are presented in pound sterling, the functional
+VMED O2 UK Limited (VMED O2) is domiciled in England and Wales (registered number                                       currency of the Group, and all values are rounded to the nearest million, unless otherwise
+12580944) The registered address is 500 Brook Drive, Reading, RG2 6UU. VMED O2 is an                                    stated.
+integrated communications provider of mobile, broadband internet, video and fixed-line
+telephony services to residential customers and businesses in the United Kingdom (UK).                                  Basis of Consolidation
+                                                                                                                        The accompanying Consolidated Financial Statements comprise the Financial Statements of
+As described in the Strategic Report, the principal activity of VMED O2 is the provision of                             the Company, its subsidiaries and its share of jointly controlled entities as of 31 December 2025.
+telecommunication services in the UK.
+                                                                                                                        Subsidiaries are all entities over which we have control. We control an entity if we have power
+In these notes, the terms “we”, “our”, “our Company”, “our Group” and “us” may refer, as the                            over the investee, or are exposed to variable returns from our involvement with the entity and
+context requires, to VMED O2 or collectively to VMED O2 and its subsidiaries. As of 31                                  we have the ability to affect those returns through our power over the respective entity. Such
+December 2025, the primary subsidiaries of VMED O2 include (i) Virgin Media Inc. and its                                entities are included in the Consolidated Financial Statements from the date that control
+subsidiaries (collectively, Virgin Media) and (ii) O2 Holdings Limited and its subsidiaries                             commences until the date that control ceases.
+(collectively, O2).
+                                                                                                                        NCI are measured initially at their proportionate share of the acquiree’s identifiable net assets
+VMED O2 is a 50:50 joint venture (the Joint Venture) that was formed on 1 June 2021 between                             at the date of acquisition. Changes in the Group’s interest in a subsidiary that do not result in
+Liberty Global Ltd. (Liberty Global) and Telefónica, SA (through Telefónica O2 Holdings                                 a loss of control are accounted for as equity transactions.
+Limited) (Telefónica), (the Shareholders).
+                                                                                                                        All significant intra-group balances and transactions have been eliminated in preparing the
+The Consolidated Financial Statements of VMED O2 for the year ended 31 December 2025                                    Consolidated Financial Statements. When control over an entity is lost, we derecognise the
+were authorised for issue by the Board of Directors on 14 April 2026 and were signed on the                             assets and liabilities of the entity, and any related NCI and other components of equity. Any
+Board’s behalf by Juan Azcue Vich.                                                                                      resulting gain or loss is recognised in profit or (loss). Any interest retained in the entity is
+                                                                                                                        measured at fair value when control is lost.
+These Consolidated Financial Statements have been prepared in accordance with
+International Accounting Standards (IAS) 1 Presentation of Financial Statements. These                                  Joint arrangements are defined as the contractually agreed sharing of control of an
+Consolidated Financial Statements reflect our consideration of the accounting and disclosure                            arrangement, which exists only when the decisions about the relevant activities required the
+implications of subsequent events through 14 April 2026.                                                                unanimous consent of the parties sharing control. For additional information regarding our
+                                                                                                                        joint arrangements, see the relevant section below under “Joint Arrangements”.
+(2) Significant Accounting Policies
+A summary of the principal accounting policies is set out below. All accounting policies have                           Going Concern
+been applied consistently, unless noted below:                                                                          These Consolidated Financial Statements have been prepared on a going concern basis.
+                                                                                                                        Management have reviewed business activities, together with factors likely to affect its future
+Basis of Accounting                                                                                                     development and performance, as well as VMED O2’s principal risks and uncertainties. We
+The principal accounting policies adopted by VMED O2 are set out below and have all been                                have concluded that it is appropriate to adopt the going concern basis having undertaken a
+applied consistently throughout the current period.                                                                     rigorous assessment of the financial forecasts, with specific consideration of the trading
+                                                                                                                        position of the Group in the context of the current global economic environment, and the
+These Consolidated Financial Statements were prepared on a going concern basis and                                      industrial relations landscape in relation to the UK business, for the reasons as set out below.
+under the historical cost basis in accordance with the Companies Act 2006 and UK-adopted
+IFRS. The Company has elected to prepare its parent Company financial statements in                                     At 31 December 2025, the Group had net current liabilities of £4,331.9 million and net assets of
+accordance with FRS 101, as presented on pages 172 to 176.                                                              £10,776.4 million. Liquidity available as of the reporting date was £1,951.5 million (excluding
+                                                                                                                        Cornerstone unused borrowing capacity), made up of cash and cash equivalents of £573.5
+                                                                                                                        million and unused borrowing capacity under the VMED O2 Credit Facilities of £1,378.0 million.

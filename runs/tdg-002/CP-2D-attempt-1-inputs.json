@@ -1,0 +1,376 @@
+{
+  "execution": "current host model, actual handoff inputs; pure calculation reuse, not runtime",
+  "input_handoffs": {
+    "CP-0": {
+      "path": "runs/tdg-001/CP-0.md",
+      "sha256": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0"
+    },
+    "CP-1": {
+      "path": "runs/tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "CP-1A": {
+      "path": "runs/tdg-002/CP-1A-attempt-3.md",
+      "sha256": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+    },
+    "CP-2": {
+      "path": "runs/tdg-002/CP-2-attempt-2.md",
+      "sha256": "249d0cbdf1ba8159dcae68d4ff3241c73ea092ff66353c0c2eef08691e0afa57"
+    },
+    "CP-2A": {
+      "path": "runs/tdg-002/CP-2A-attempt-1.md",
+      "sha256": "6591fd403e775f7e1caefd7ac4de96b95a48df8b364e77a249b2c9eb0f79f199"
+    }
+  },
+  "units": "USD millions; all flows FY2024 and balances 2024-09-30",
+  "reported_non_numeric_cells": {
+    "repurchases": "\u2014",
+    "revolver_repayment": "\u2014"
+  },
+  "numeric_debt_financing_components": [
+    "7373",
+    "-4400",
+    "-550",
+    "137",
+    "6815",
+    "-4403"
+  ],
+  "operands": {
+    "opening_cash": {
+      "status": "known",
+      "amount": "3472",
+      "period": "FY2024: 2023-10-01 to 2024-09-30",
+      "limitation": null
+    },
+    "cfo": {
+      "status": "known",
+      "amount": "2045",
+      "period": "FY2024: 2023-10-01 to 2024-09-30",
+      "limitation": null
+    },
+    "investing": {
+      "status": "known",
+      "amount": "-2441",
+      "period": "FY2024: 2023-10-01 to 2024-09-30",
+      "limitation": null
+    },
+    "net_debt_issuance": {
+      "status": "known",
+      "amount": "4972",
+      "period": "FY2024: 2023-10-01 to 2024-09-30",
+      "limitation": null
+    },
+    "equity_issuance": {
+      "status": "known",
+      "amount": "245",
+      "period": "FY2024: 2023-10-01 to 2024-09-30",
+      "limitation": null
+    },
+    "equity_repurchases": {
+      "status": "missing",
+      "amount": null,
+      "period": "FY2024: 2023-10-01 to 2024-09-30",
+      "limitation": "Source cell is a dash (\u2014); no numeric surrogate supplied to this check."
+    },
+    "dividends_paid": {
+      "status": "known",
+      "amount": "-2038",
+      "period": "FY2024: 2023-10-01 to 2024-09-30",
+      "limitation": null
+    },
+    "other_investing_financing": {
+      "status": "known",
+      "amount": "-8",
+      "period": "FY2024: 2023-10-01 to 2024-09-30",
+      "limitation": null
+    },
+    "financing": {
+      "status": "known",
+      "amount": "3171",
+      "period": "FY2024: 2023-10-01 to 2024-09-30",
+      "limitation": null
+    },
+    "fx_effect": {
+      "status": "known",
+      "amount": "14",
+      "period": "FY2024: 2023-10-01 to 2024-09-30",
+      "limitation": null
+    },
+    "closing_cash": {
+      "status": "known",
+      "amount": "6261",
+      "period": "FY2024: 2023-10-01 to 2024-09-30",
+      "limitation": null
+    },
+    "cash_bs": {
+      "status": "known",
+      "amount": "6261",
+      "period": "2024-09-30",
+      "limitation": null
+    },
+    "restricted_cash": {
+      "status": "missing",
+      "amount": null,
+      "period": "2024-09-30",
+      "limitation": "Restricted/unrestricted cash decomposition not established."
+    },
+    "rcf_commitment": {
+      "status": "known",
+      "amount": "910",
+      "period": "2024-09-30",
+      "limitation": null
+    },
+    "rcf_drawn": {
+      "status": "missing",
+      "amount": null,
+      "period": "2024-09-30",
+      "limitation": "Funded revolver draw not established; 67 is letters of credit, not funded debt."
+    },
+    "total_debt_bs": {
+      "status": "known",
+      "amount": "24880",
+      "period": "2024-09-30",
+      "limitation": null
+    },
+    "cash_closing": {
+      "status": "known",
+      "amount": "6261",
+      "period": "2024-09-30",
+      "limitation": null
+    },
+    "total_debt": {
+      "status": "known",
+      "amount": "24880",
+      "period": "2024-09-30",
+      "limitation": null
+    },
+    "undrawn_rcf": {
+      "status": "known",
+      "amount": "843",
+      "period": "2024-09-30",
+      "limitation": null
+    },
+    "liquidity": null,
+    "liquidity_to_debt": null,
+    "facilities": [
+      {
+        "facility_id": "f0",
+        "name": "Tranche I",
+        "currency": "USD",
+        "principal": "1871",
+        "maturity_date": "2028-08-24",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "f1",
+        "name": "Tranche J",
+        "currency": "USD",
+        "principal": "3632",
+        "maturity_date": "2031-02-28",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "f2",
+        "name": "Tranche K",
+        "currency": "USD",
+        "principal": "1699",
+        "maturity_date": "2030-03-22",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "f3",
+        "name": "Tranche L",
+        "currency": "USD",
+        "principal": "1500",
+        "maturity_date": "2032-01-19",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "f4",
+        "name": "5.50% subordinated",
+        "currency": "USD",
+        "principal": "2650",
+        "maturity_date": "2027-11-15",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "f5",
+        "name": "6.75% secured",
+        "currency": "USD",
+        "principal": "2100",
+        "maturity_date": "2028-08-15",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "f6",
+        "name": "4.625% subordinated",
+        "currency": "USD",
+        "principal": "1200",
+        "maturity_date": "2029-01-15",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "f7",
+        "name": "6.375% secured",
+        "currency": "USD",
+        "principal": "2750",
+        "maturity_date": "2029-03-01",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "f8",
+        "name": "4.875% subordinated",
+        "currency": "USD",
+        "principal": "750",
+        "maturity_date": "2029-05-01",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "f9",
+        "name": "6.875% secured",
+        "currency": "USD",
+        "principal": "1450",
+        "maturity_date": "2030-12-15",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "f10",
+        "name": "7.125% secured",
+        "currency": "USD",
+        "principal": "1000",
+        "maturity_date": "2031-12-01",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "f11",
+        "name": "6.625% secured",
+        "currency": "USD",
+        "principal": "2200",
+        "maturity_date": "2032-03-01",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "f12",
+        "name": "6.00% secured",
+        "currency": "USD",
+        "principal": "1500",
+        "maturity_date": "2033-01-15",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "securitization",
+        "name": "Trade receivable securitization",
+        "currency": "USD",
+        "principal": "487",
+        "maturity_date": "2025-07-11",
+        "commitment": "650",
+        "drawn_amount": "487",
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "revolver",
+        "name": "Revolving credit facility",
+        "currency": "USD",
+        "principal": null,
+        "maturity_date": "2029-02-27",
+        "commitment": "910",
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "government",
+        "name": "Government refundable advances",
+        "currency": "USD",
+        "principal": "17",
+        "maturity_date": null,
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      {
+        "facility_id": "leases",
+        "name": "Finance leases \u2014 gross maturity principal not isolated",
+        "currency": "USD",
+        "principal": null,
+        "maturity_date": null,
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      }
+    ]
+  },
+  "basis": {
+    "currency": "USD",
+    "money_unit": "US$ m",
+    "base_year": 2024,
+    "years": [
+      2025,
+      2026,
+      2027
+    ],
+    "ltm_start": "2023-10-01",
+    "ltm_end": "2024-09-30",
+    "q4_start": "2024-07-01",
+    "ltm_tag": "FY2024",
+    "ltm_column": "FY2024: 2023-10-01 to 2024-09-30",
+    "ltm_period": "FY2024: 2023-10-01 to 2024-09-30",
+    "t45_period": "FY2024: 2023-10-01 to 2024-09-30",
+    "t46_period": "2024-09-30",
+    "schedule_period": "2024-09-30",
+    "bs_period": "2024-09-30",
+    "bs_column": "2024-09-30",
+    "bridge_basis_line": "FY2024: 2023-10-01 to 2024-09-30"
+  },
+  "horizon_months": 12,
+  "minimum_cash": null,
+  "limitations": [
+    "Annual ex-debt movement includes acquisitions and distributions; not recurring cash burn.",
+    "Funded revolver draw and accessible cash are not established.",
+    "Facility-specific amortization and government/lease maturity terms incomplete.",
+    "Principal/carrying-value ratios inside raw bridge output are not used as reconciled maturity shares.",
+    "Reported 843 availability is copied independently; calculator recomputation cannot infer funded drawing."
+  ]
+}

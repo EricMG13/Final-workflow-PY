@@ -1,0 +1,106 @@
+{
+ "schema": "pdf-units/1",
+ "doc": "VMED25",
+ "document": "VMED O2 UK Limited 2025 Annual Report and Consolidated Financial Statements (year ended 31 Dec 2025)",
+ "source_name": "VMED-O2-UK-Limited-2025-Annual-Report-and-Consolidated-Financial-Statements.pdf",
+ "source_sha256": "9a01f61f83e8c0c1aac943fb08df8fbb6b94d5415521818acc78dd59872b2b47",
+ "page_numbering": "page N = the intake locator page:N (1-based PDF page index), not the printed folio",
+ "units": [
+  {
+   "kind": "IS",
+   "title_as_printed": "Consolidated Statements of Profit or (Loss)",
+   "title_lines": [
+    "Consolidated Statements of Profit or (Loss)"
+   ],
+   "pages": [
+    107
+   ],
+   "basis": "Title on p107 (folio 107) after the running header; Revenue to Net loss, split Owners and NCI; the income statement is called 'Profit or (Loss)'."
+  },
+  {
+   "kind": "CI",
+   "title_as_printed": "Consolidated Statements of Comprehensive Income (Loss)",
+   "title_lines": [
+    "Consolidated Statements of Comprehensive Income (Loss)"
+   ],
+   "pages": [
+    108
+   ],
+   "basis": "Title on p108 (folio 108); Net loss to Comprehensive loss, split Owners and NCI."
+  },
+  {
+   "kind": "BS",
+   "title_as_printed": "Consolidated Statements of Financial Position",
+   "title_lines": [
+    "Consolidated Statements of Financial Position"
+   ],
+   "pages": [
+    109,
+    110
+   ],
+   "basis": "p109 (folio 109) holds assets down to Total assets. p110 repeats the title with '(continued)' and holds liabilities and equity down to Total equity and liabilities.",
+   "continuation": {
+    "110": "Title repeated as 'Consolidated Statements of Financial Position (continued)'; liabilities and equity, then the board approval note."
+   }
+  },
+  {
+   "kind": "SE",
+   "title_as_printed": "Consolidated Statements of Changes in Equity",
+   "title_lines": [
+    "Consolidated Statements of Changes in Equity"
+   ],
+   "pages": [
+    111
+   ],
+   "basis": "Title on p111 (folio 111); two blocks, the year 2025 (1 January 2025 to 31 December 2025) and the year 2024, on the one page."
+  },
+  {
+   "kind": "CFS",
+   "title_as_printed": "Consolidated Statements of Cash Flows",
+   "title_lines": [
+    "Consolidated Statements of Cash Flows"
+   ],
+   "pages": [
+    112,
+    113
+   ],
+   "basis": "p112 (folio 112) holds operating and investing; p113 repeats the title with '(continued)' and holds financing, the exchange effect, net change and opening and closing cash.",
+   "continuation": {
+    "113": "Title repeated as 'Consolidated Statements of Cash Flows (continued)'; financing section, FX effect and the cash roll."
+   }
+  }
+ ],
+ "not_units": [
+  {
+   "page": 2,
+   "looks_like": "BS, IS, CI, SE, CFS titles",
+   "reason": "Annual report contents page, titles with page numbers 107 to 112, plus the company statements."
+  },
+  {
+   "page": 34,
+   "looks_like": "CFS: 'Consolidated Statements of Cash Flows' heading and the net cash rows",
+   "reason": "Financial Review (MD&A): a summarised table of net cash flows and prose; not the primary statement. It names 'page 112' for the real statement."
+  },
+  {
+   "page": 106,
+   "looks_like": "BS, IS, CI, SE, CFS titles",
+   "reason": "Contents list of the Financial Statements section with folio numbers."
+  },
+  {
+   "page": 114,
+   "looks_like": "none (page after the CFS)",
+   "reason": "Notes to the Consolidated Financial Statements, Note 1 'Basis of Presentation', prose."
+  },
+  {
+   "page": 172,
+   "looks_like": "BS: 'Company Statements of Financial Position'",
+   "reason": "Ruling: company-only statements of a separate entity (the parent), with their own notes (p174-176), and no income statement or cash flow statement. They are not the group's primary statements, and a locator must not emit them as units."
+  },
+  {
+   "page": 173,
+   "looks_like": "SE: 'Company Statements of Changes in Equity'",
+   "reason": "Ruling: company-only statements of a separate entity (the parent), with their own notes (p174-176), and no income statement or cash flow statement. They are not the group's primary statements, and a locator must not emit them as units."
+  }
+ ],
+ "fixture_pages_not_listed": []
+}

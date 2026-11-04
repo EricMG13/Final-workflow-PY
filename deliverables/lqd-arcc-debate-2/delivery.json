@@ -1,0 +1,29 @@
+{
+  "kind": "manual_checked_handoff_delivery",
+  "analytical_rerun_for_delivery": false,
+  "production_code_changed": false,
+  "native_accepted_heads_created": false,
+  "no_excel_output": true,
+  "scope": "Historical LQD holdings: 31 May 2025. Portfolio debate from checked model handoffs. Market, mandate, loss-budget and execution gaps leave the posture Requires More Work; an exact binding constraint is not established. The figures describe actual holdings and conditional sensitivities, without new position sizing or trade approval.",
+  "source_tables": 22,
+  "source_data_rows": 73,
+  "literal_value_cells_checked": 164,
+  "facts_and_exact_line_citations": 164,
+  "missing_null_cells": 8,
+  "front_summary_rows": 6,
+  "narrative_tables": 11,
+  "call_from_literal_CIO_posture": true,
+  "files": {
+    "CP-6-attempt-2.md": "805f90563c8019d4ed34650011532d5e19e7bf75815b6556b43c7d8295eeb93d",
+    "CP-5-recheck.md": "c2e32b4d8292c75aaa37257f1ff626604d983ebf0aa33e0e49d3872424a12d26",
+    "view.json": "952b30a7ecaa148e6d8c3f902d7f82faefa597f337739708a335ee25bc98b7e3",
+    "report-view.json": "d744e5b2ca624debbbae05039f14297ff24505e0fb1cd4e79d8c10d40c5366d7",
+    "report.html": "52c1bfd8d911e648fb88906062bf8cb9d7a33f350989922a1f0b8b991e628577"
+  },
+  "reused_code": {
+    "src/deploy_workflow/handoff_delivery.py": "aa77ae59a2e408f05a3cf2f5c7af92b4dde2b2df635f961545d49fc05bc0e00c",
+    "src/deploy_vii/contracts.py": "b07965cc3907da1911c29a09bfea8b4559fb1c27dfc57c7e89eab97f1a3d0ee3",
+    "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+    "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba"
+  }
+}

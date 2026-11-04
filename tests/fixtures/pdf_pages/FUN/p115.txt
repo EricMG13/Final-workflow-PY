@@ -1,0 +1,81 @@
+16/06/2026, 22:24                                                                                  f-20251231
+
+
+
+
+                                                       FORD MOTOR COMPANY AND SUBSIDIARIES
+                                                            CONSOLIDATED INCOME STATEMENTS
+                                                             (in millions, except per share amounts)
+                                                                                                                           For the years ended December 31,
+                                                                                                                      2023                   2024                   2025
+   Revenues
+   Company excluding Ford Credit                                                                               $         165,901      $         172,706      $         173,996
+   Ford Credit                                                                                                             10,290                 12,286                 13,271
+     Total revenues (Note 4)                                                                                             176,191                184,992                187,267
+
+   Costs and expenses
+   Cost of sales (Note 13)                                                                                               150,550                158,434                174,466
+   Selling, administrative, and other expenses                                                                             10,702                 10,287                 10,849
+   Ford Credit interest, operating, and other expenses                                                                      9,481                 11,052                 11,121
+     Total costs and expenses                                                                                            170,733                179,773                196,436
+       Operating income/(loss)                                                                                              5,458                  5,219                 (9,169)
+   Interest expense on Company debt excluding Ford Credit                                                                   1,302                  1,115                  1,254
+   Other income/(loss), net (Note 5)                                                                                         (603)                 2,451                  1,746
+   Equity in net income/(loss) of affiliated companies (Note 14 and Note 23)                                                  414                    678                 (3,153)
+   Income/(Loss) before income taxes                                                                                        3,967                  7,233                (11,830)
+   Provision for/(Benefit from) income taxes (Note 7)                                                                        (362)                 1,339                 (3,668)
+   Net income/(loss)                                                                                                        4,329                  5,894                 (8,162)
+   Less: Income/(Loss) attributable to noncontrolling interests                                                                (18)                    15                     20
+   Net income/(loss) attributable to Ford Motor Company                                                        $            4,347     $            5,879     $           (8,182)
+
+
+   EARNINGS/(LOSS) PER SHARE ATTRIBUTABLE TO FORD MOTOR COMPANY COMMON AND CLASS B STOCK (Note 8)
+   Basic income/(loss)                                                                                         $             1.09     $              1.48    $             (2.06)
+   Diluted income/(loss)                                                                                                     1.08                    1.46                  (2.06)
+
+   Weighted-average shares used in computation of earnings/(loss) per share
+   Basic shares                                                                                                             3,998                  3,978                  3,979
+   Diluted shares                                                                                                           4,041                  4,021                  3,979
+
+                                           CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME
+                                                                                 (in millions)
+                                                                                                                           For the years ended December 31,
+                                                                                                                      2023                   2024                   2025
+   Net income/(loss)                                                                                           $            4,329     $            5,894     $           (8,162)
+   Other comprehensive income/(loss), net of tax (Note 22)
+     Foreign currency translation                                                                                             974                 (1,457)                 2,020
+     Marketable securities                                                                                                    272                    120                    131
+     Derivative instruments                                                                                                  (460)                   608                   (315)
+     Pension and other postretirement benefits                                                                               (488)                   131                      92
+   Total other comprehensive income/(loss), net of tax                                                                        298                   (598)                 1,928
+   Comprehensive income/(loss)                                                                                              4,627                  5,296                 (6,234)
+   Less: Comprehensive income/(loss) attributable to noncontrolling interests                                                  (17)                    14                     19
+   Comprehensive income/(loss) attributable to Ford Motor Company                                              $            4,644     $            5,282     $           (6,253)
+
+
+                                                The accompanying notes are part of the consolidated financial statements.
+
+
+                                                                                        111
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm                                                                                             115/181

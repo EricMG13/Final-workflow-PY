@@ -1,0 +1,71 @@
+16/06/2026, 22:24                                                                       f-20251231
+
+
+
+
+  December 31, 2025, of which the United States comprises a significant portion. Management accrues the estimated cost of
+  both base warranty coverages and field service actions at the time of sale. Management establishes their estimate of base
+  warranty obligations using a patterned estimation model, using historical information regarding the nature, frequency, and
+  average cost of claims for each vehicle line by model year. Management establishes their estimates of field service action
+  obligations using a patterned estimation model, using historical information regarding the nature, frequency, severity, and
+  average cost of claims for each model year. Management reevaluates the adequacy of their accruals on a regular basis.
+
+  The principal considerations for our determination that performing procedures relating to the warranty accrual for the United
+  States is a critical audit matter are (i) the significant judgment by management in the estimation of the accrual and
+  development of the patterned estimation model; (ii) a high degree of auditor judgment, subjectivity, and effort in performing
+  procedures and evaluating the estimation model and significant assumptions related to the frequency and average cost of
+  claims; and (iii) the audit effort involved the use of professionals with specialized skill and knowledge.
+
+  Addressing the matter involved performing procedures and evaluating audit evidence in connection with forming our overall
+  opinion on the consolidated financial statements. These procedures included testing the effectiveness of controls related to
+  the estimate of the warranty accrual for the United States. These procedures also included, among others, evaluating the
+  reasonableness of significant assumptions used by management to develop the warranty accrual for the United States,
+  related to the frequency and average cost of claims, in part by considering the historical experience of the Company.
+  Professionals with specialized skill and knowledge were used to assist in evaluating the appropriateness of the model as well
+  as the reasonableness of significant assumptions related to the frequency and average cost of claims.
+
+  Ford Credit Consumer Finance Receivables Allowance for Credit Losses
+
+  As described in Note 10 to the consolidated financial statements, the Company had consumer finance receivables of
+  $85,255 million, for which a consumer allowance for credit losses of $902 million was recorded as of December 31, 2025.
+  The consumer allowance for credit losses represents management’s estimate of the lifetime expected credit losses inherent
+  in the consumer finance receivables as of the balance sheet date. For consumer receivables that share similar risk
+  characteristics, management estimates the lifetime expected credit losses based on a collective assessment using
+  measurement models and management judgment. The lifetime expected credit losses for the receivables is determined by
+  applying probability of default and loss given default assumptions to monthly expected exposures, then discounting these
+  cash flows to present value using the receivable’s original effective interest rate or the current effective interest rate for a
+  variable rate receivable. If management does not believe the models reflect lifetime expected credit losses for the portfolio,
+  an adjustment is made to reflect management judgment regarding qualitative factors including economic uncertainty,
+  observable changes in portfolio performance, and other relevant factors.
+
+  The principal considerations for our determination that performing procedures relating to the Ford Credit consumer finance
+  receivables allowance for credit losses is a critical audit matter are (i) the significant judgment by management in
+  determining the consumer finance receivables allowance for credit losses; (ii) a high degree of auditor judgment, subjectivity
+  and effort in performing procedures and evaluating audit evidence relating to the probability of default and loss given default
+  assumptions and management’s judgment regarding qualitative factors; and (iii) the audit effort involved the use of
+  professionals with specialized skill and knowledge.
+
+  Addressing the matter involved performing procedures and evaluating audit evidence in connection with forming our overall
+  opinion on the consolidated financial statements. These procedures included testing the effectiveness of controls relating to
+  the Company’s determination of the consumer finance receivables allowance for credit losses. These procedures also
+  included, among others (i) testing management’s process for determining the consumer finance receivables allowance for
+  credit losses; (ii) evaluating the appropriateness of the models used to determine the allowance; (iii) evaluating the
+  reasonableness of the probability of default and loss given default assumptions; (iv) testing the data used in the models; and
+  (v) evaluating the reasonableness of management’s judgment regarding qualitative factors related to economic uncertainty,
+  observable changes in portfolio performance, and other relevant factors. Professionals with specialized skill and knowledge
+  were used to assist in performing the procedures described in (i) through (v).
+
+  /s/ PricewaterhouseCoopers LLP
+
+  Detroit, Michigan
+  February 10, 2026
+
+  We have served as the Company’s auditor since 1946.
+
+
+                                                                              110
+
+
+
+
+https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm                                                                           114/181

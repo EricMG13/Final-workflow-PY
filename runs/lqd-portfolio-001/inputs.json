@@ -1,0 +1,21 @@
+{
+  "run_id": "lqd-portfolio-001",
+  "execution": "Current host model with preceding context; no provider calls/subagents/native accepted heads",
+  "inputs": {
+    "sources/LQD-20250531-NPORT.xml": "7617ce8e9f605035939d57fdf019636510ba08d9cb2388d561be04d574bb11df",
+    "sources/formn-port.pdf": "f953af594dee58522fc3e9fe92b9872aedce5e59a2a954281aa4fbb6d3ded2cf",
+    "../arcc-market-2024-001/CP-3-market-consumer.md": "6094c0aceae47371363fb9aed6906e41feab902268b10f3a347ebdf47e5400e1",
+    "../arcc-market-2024-001/CP-3D-attempt-2.md": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa",
+    "../arcc-lite-2024-001/ARCC_CP-L10_20261104-attempt-3.md": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1",
+    "../arcc-2024-001/CP-4.md": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9",
+    "../arcc-2024-001/CP-4A-attempt-1.md": "ca53528bf1f6d9758a7d9194e76af181eb884e237388fe46e839e601606168b6"
+  },
+  "selected_methods": {
+    "CP-3B_RUNBOOK.md": "b506932e7abb629e5da139f0f049673c4737c662c988f4e0ee69fd799787bafa",
+    "CP-3B_SCHEMA_REFERENCE.md": "c686fbe33f83970fa235e666f66a1caa55b3dbaab6eed2fe87d8bca3de8f640d",
+    "REF_CP-3B_STEPS.md": "9e134207ab85d004174ef27094948bdcbd798601def55cf307b63c5c302c4711"
+  },
+  "scope": "Historical LQD-owned ARCC exposure and conditional-loss function; selected CP-3B substantive tables. Full matching security-selection/current-investment gate NOT cleared. No numeric new position or fund limit supplied.",
+  "source_conflicts": "repPdDate is portfolio date, repPdEnd fiscal year end. Form C.2 pctVal is percent NAV; C.12 loanVal is value already on loan, not extra holding. New 2025 holdings not covered by earlier 2024 terms.",
+  "actual_output_required": "CP-3.md then checked actual consumer, then unchanged existing Workflow renderer from literal handoff rows; no Excel output"
+}

@@ -1,0 +1,1616 @@
+=== Capture 1 ===
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn142view0 [wordlim: 200] Crawled: last week; Content type: text/html; Source: open({"ref_id":"turn141view0","lineno":2697}); Total lines: 4735
+L2651: CRC Senior Secured Superpriority DIP Credit Agreement
+L2652: 
+L2653: * * *
+L2654: 
+L2655:  |  |  |
+L2656:    | JPMORGAN CHASE BANK, N.A., as Administrative Agent, Letter of Credit Issuer and Lender
+L2657:    |    |    |
+L2658:    |    |    |
+L2659:    | By:  | /s/ Sandeep Parihar
+L2660:    | Name:  | Sandeep Parihar
+L2661:    | Title:  | Executive Director
+L2662: 
+L2663: Signature Page
+L2664: 
+L2665: CRC Senior Secured Superpriority DIP Credit Agreement
+L2666: 
+L2667: * * *
+L2668: 
+L2669: [*****]
+L2670: 
+L2671: Signature Page
+L2672: 
+L2673: CRC Senior Secured Superpriority DIP Credit Agreement
+L2674: 
+L2675: * * *
+L2676: 
+L2677: EXHIBIT A
+L2678: 
+L2679: FORM OF BUDGET
+L2680: 
+L2681: [See attached.]
+L2682: 
+L2683: * * *
+L2684: 【0†Image: crclogoa35.jpg】
+L2685: 
+L2686: Initial 13 Week Budget & Monthly DIP Forecast
+L2687: 
+L2688: July 9, 2020
+L2689: 
+L2690: PRIVILEGED AND CONFIDENTIAL
+L2691: 
+L2692: SUBJECT TO MATERIAL CHANGE
+L2693: 
+L2694: FOR DISCUSSION PURPOSES ONLY
+L2695: 
+L2696: * * *
+L2697:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L2698: Project Compass  |    | Initial 13 Week Budget
+L2699: Consolidated Weekly Cash Flow Forecast  |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2700:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2701:    |    | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  |    |    |    |
+L2702: Week  |    | Wk-1  | Wk-2  | Wk-3  | Wk-4  | Wk-5  | Wk-6  | Wk-7  | Wk-8  | Wk-9  | Wk-10  | Wk-11  | Wk-12  | Wk-13  |    |    | Wk 1 - 13  |
+L2703: Week Ending ==>  |    | 17-Jul  | 24-Jul  | 31-Jul  | 7-Aug  | 14-Aug  | 21-Aug  | 28-Aug  | 4-Sep  | 11-Sep  | 18-Sep  | 25-Sep  | 2-Oct  | 9-Oct  |    |    | Total  |
+L2704: Cash Inflows  |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2705: Total Receipts  |    | $  | 7  |
+L2706:  | $  | 98  |
+L2707:  | $  | 34  |
+L2708:  | $  | 3  |
+L2709:  | $  | 7  |
+L2710:  | $  | 83  |
+L2711:  | $  | 16  |
+L2712:  | $  | 23  |
+L2713:  | $  | 3  |
+L2714:  | $  | 8  |
+L2715:  | $  | 100  |
+L2716:  | $  | 24  |
+L2717:  | $  | 3  |
+L2718:  |    |    | $  | 407  |
+L2719:  |
+L2720:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2721: Operating AP Payments  |    | $  | —  |
+L2722:  | $  | 28  |
+L2723:  | $  | 25  |
+L2724:  | $  | 16  |
+L2725:  | $  | 14  |
+L2726:  | $  | 16  |
+L2727:  | $  | 9  |
+L2728:  | $  | 12  |
+L2729:  | $  | 11  |
+L2730:  | $  | 10  |
+L2731:  | $  | 10  |
+L2732:  | $  | 10  |
+L2733:  | $  | 11  |
+L2734:  |    |    | 172  |
+L2735:  |
+L2736: Payroll / Payroll Taxes  |    | —  |
+L2737:  | 8  |
+L2738:  | —  |
+L2739:  | 8  |
+L2740:  | —  |
+L2741:  | 8  |
+L2742:  | —  |
+L2743:  | 8  |
+L2744:  | —  |
+L2745:  | 8  |
+L2746:  | —  |
+L2747:  | 8  |
+L2748:  | —  |
+L2749:  |    |    | 48  |
+L2750:  |
+L2751: Elk Hills Power Capacity / Reimbursement  |    | 23  |
+L2752:  | —  |
+L2753:  | —  |
+L2754:  | —  |
+L2755:  | 23  |
+L2756:  | —  |
+L2757:  | —  |
+L2758:  | —  |
+L2759:  | —  |
+L2760:  | 23  |
+L2761:  | —  |
+L2762:  | —  |
+L2763:  | —  |
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn142view1 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"Minimum Liquidity"}); Total lines: 4735
+No matching text found for "Minimum Liquidity"--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn142view2 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"Ending Cash"}); Total lines: 4735
+L2872:  | $  | 10  |
+L2873:  | $  | 10  |
+L2874:  | $  | 10  |
+L2875:  | $  | 10  |
+L2876:  | $  | 10  |
+L2877:  | $  | 10  |
+L2878:  | $  | 10  |
+L2879:  | $  | 10  |
+L2880:  | $  | 10  |
+L2881:  | $  | 10  |
+L2882:  | $  | 10  |
+L2883:  |    |    | $  | 47  |
+L2884:  |
+L2885: ( +/- ) Net Cash Flow  |    | (68  | )  | 13  |
+L2886:  | (4  | )  | (31  | )  | (47  | )  | 57  |
+L2887:  | (14  | )  | (9  | )  | (17  | )  | (37  | )  | 63  |
+L2888:  | (5  | )  | (20  | )  |    |    | (119  | )  |
+L2889: ( +/- ) RBL Draw / (Paydown)  |    | —  |
+L2890:  | —  |
+L2891:  | —  |
+L2892:  | —  |
+L2893:  | —  |
+L2894:  | —  |
+L2895:  | —  |
+L2896:  | —  |
+L2897:  | —  |
+L2898:  | —  |
+L2899:  | —  |
+L2900:  | —  |
+L2901:  | —  |
+L2902:  |    |    | —  |
+L2903:  |
+L2904: ( +/- ) DIP Draw / (Paydown)  |    | 31  |
+L2905:  | (13  | )  | 4  |
+L2906:  | 31  |
+L2907:  | 47  |
+L2908:  | (57  | )  | 14  |
+L2909:  | 9  |
+L2910:  | 17  |
+L2911:  | 37  |
+L2912:  | (63  | )  | 5  |
+L2913:  | 20  |
+L2914:  |    |    | 82  |
+L2915:  |
+L2916: Ending Cash Balance  |    | $  | 10  |
+L2917:  | $  | 10  |
+L2918:  | $  | 10  |
+L2919:  | $  | 10  |
+L2920:  | $  | 10  |
+L2921:  | $  | 10  |
+L2922:  | $  | 10  |
+L2923:  | $  | 10  |
+L2924:  | $  | 10  |
+L2925:  | $  | 10  |
+L2926:  | $  | 10  |
+L2927:  | $  | 10  |
+L2928:  | $  | 10  |
+L2929:  |    |    | $  | 10  |
+L2930:  |
+L2931:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2932: Senior DIP Roll-Up  |    | $  | 83  |
+L2933:  | $  | 83  |
+L2934:  | $  | 83  |
+L2935:  | $  | 83  |
+L2936:  | $  | 83  |
+L2937:  | $  | 83  |
+L2938:  | $  | 83  |
+L2939:  | $  | 83  |
+L2940:  | $  | 83  |
+L2941:  | $  | 83  |
+L2942:  | $  | 83  |
+L2943:  | $  | 83  |
+L2944:  | $  | 83  |
+L2945:  |    |    | $  | 83  |
+L2946:  |
+L2947: Junior DIP Roll-Up  |    | $  | 650  |
+L2948:  | $  | 650  |
+L2949:  | $  | 650  |
+L2950:  | $  | 650  |
+L2951:  | $  | 650  |
+L2952:  | $  | 650  |
+L2953:  | $  | 650  |
+L2954:  | $  | 650  |
+L2955:  | $  | 650  |
+L2956:  | $  | 650  |
+L2957:  | $  | 650  |
+L2958:  | $  | 650  |
+L2959:  | $  | 650  |
+L2960:  |    |    | $  | 650  |
+L2961:  |
+L2962:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2963: Beginning DIP Balance  |    | $  | —  |
+L2964:  | $  | 31  |
+L2965:  | $  | 18  |
+L2966:  | $  | 22  |
+L2967:  | $  | 53  |
+L2968:  | $  | 100  |
+L2969:  | $  | 43  |
+L2970:  | $  | 58  |
+L2971:  | $  | 67  |
+L2972:  | $  | 84  |
+L2973:  | $  | 120  |
+L2974:  | $  | 58  |
+L2975:  | $  | 63  |
+L2976:  |    |    | $  | —  |
+L2977:  |
+L2978: ( +/- ) DIP Draw / (Paydown)  |    | 31  |
+L2979:  | (13  | )  | 4  |
+L3155:  | $  | 207  |
+L3156:  | $  | 111  |
+L3157:  |    |    | $  | 1,166  |
+L3158:  |
+L3159: NET CASH FLOW  |    | $  | (109  | )  | $  | (36  | )  | $  | —  |
+L3160:  | $  | (16  | )  | $  | (19  | )  | $  | (58  | )  | $  | (98  | )  |    |    | $  | (336  | )  |
+L3161:    |    |    |    |    |    |    |    |    |    |    |    |
+L3162: CASH AND BORROWINGS  |    |    |    |    |    |    |    |    |    |    |    |
+L3163: Beginning Cash Balance  |    | $  | 97  |
+L3164:  | $  | 10  |
+L3165:  | $  | 10  |
+L3166:  | $  | 10  |
+L3167:  | $  | 10  |
+L3168:  | $  | 10  |
+L3169:  | $  | 10  |
+L3170:  |    |    | $  | 97  |
+L3171:  |
+L3172: ( +/- ) Net Cash Flow  |    | (109  | )  | (36  | )  | —  |
+L3173:  | (16  | )  | (19  | )  | (58  | )  | (98  | )  |    |    | (336  | )  |
+L3174: ( +/- ) RBL Draw / (Paydown)  |    | —  |
+L3175:  | —  |
+L3176:  | —  |
+L3177:  | —  |
+L3178:  | —  |
+L3179:  | —  |
+L3180:  | —  |
+L3181:  |    |    | —  |
+L3182:  |
+L3183: ( +/- ) DIP Draw / (Paydown)  |    | 22  |
+L3184:  | 36  |
+L3185:  | —  |
+L3186:  | 16  |
+L3187:  | 19  |
+L3188:  | 58  |
+L3189:  | 98  |
+L3190:  |    |    | 249  |
+L3191:  |
+L3192: Ending Cash Balance  |    | $  | 10  |
+L3193:  | $  | 10  |
+L3194:  | $  | 10  |
+L3195:  | $  | 10  |
+L3196:  | $  | 10  |
+L3197:  | $  | 10  |
+L3198:  | $  | 10  |
+L3199:  |    |    | $  | 10  |
+L3200:  |
+L3201:    |    |    |    |    |    |    |    |    |    |    |    |
+L3202: Senior DIP Roll-Up  |    | $  | 83  |
+L3203:  | $  | 83  |
+L3204:  | $  | 83  |
+L3205:  | $  | 83  |
+L3206:  | $  | 83  |
+L3207:  | $  | 83  |
+L3208:  | $  | 83  |
+L3209:  |    |    | $  | 83  |
+L3210:  |
+L3211: Junior DIP Roll-Up  |    | $  | 650  |
+L3212:  | $  | 650  |
+L3213:  | $  | 650  |
+L3214:  | $  | 650  |
+L3215:  | $  | 650  |
+L3216:  | $  | 650  |
+L3217:  | $  | 650  |
+L3218:  |    |    | $  | 650  |
+L3219:  |
+L3220:    |    |    |    |    |    |    |    |    |    |    |    |
+L3221: Beginning DIP Balance  |    | $  | —  |
+L3222:  | $  | 22  |
+L3223:  | $  | 58  |
+L3224:  | $  | 58  |
+L3225:  | $  | 74  |
+L3226:  | $  | 93  |
+L3227:  | $  | 151  |
+L3228:  |    |    | $  | —  |
+L3229:  |
+L3230: ( +/- ) DIP Draw / (Paydown)  |    | 22  |
+L3231:  | 36  |
+L3232:  | —  |
+L3233:  | 16  |
+L3234:  | 19  |
+L3235:  | 58  |
+L3236:  | 98  |
+L3237:  |    |    | 249  |
+L3238:  |
+L3239: Ending DIP Balance  |    | $  | 22  |
+L3240:  | $  | 58  |
+L3241:  | $  | 58  |
+L3242:  | $  | 74  |
+L3243:  | $  | 93  |
+L3244:  | $  | 151  |
+L3245:  | $  | 249  |
+L3246:  |    |    | $  | 249  |
+L3247:  |
+L3248: DIP Availability Balance  |    | $  | 228  |
+L3249:  | $  | 192  |
+L3250:  | $  | 192  |
+L3251:  | $  | 176  |
+L3252:  | $  | 157  |
+L3253:  | $  | 99  |
+L3254:  | $  | 1  |
+L3255:  |    |    | $  | 1  |
+L3256:  |
+L3257:    |    |    |    |    |    |    |    |    |    |    |    |
+L3258: Incremental Letters of Credit  |    | $  | 31  |
+L3259:  | $  | 31  |
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn142view3 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"Beginning Cash"}); Total lines: 4735
+L2842:  | $  | 3  |
+L2843:  | $  | 9  |
+L2844:  | $  | 8  |
+L2845:  | $  | 8  |
+L2846:  |    |    | $  | 100  |
+L2847:  |
+L2848:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2849: TOTAL DISBURSEMENTS  |    | $  | 74  |
+L2850:  | $  | 86  |
+L2851:  | $  | 38  |
+L2852:  | $  | 34  |
+L2853:  | $  | 54  |
+L2854:  | $  | 25  |
+L2855:  | $  | 30  |
+L2856:  | $  | 32  |
+L2857:  | $  | 19  |
+L2858:  | $  | 44  |
+L2859:  | $  | 37  |
+L2860:  | $  | 29  |
+L2861:  | $  | 22  |
+L2862:  |    |    | $  | 527  |
+L2863:  |
+L2864:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2865: NET CASH FLOW  |    | $  | (68  | )  | $  | 13  |
+L2866:  | $  | (4  | )  | $  | (31  | )  | $  | (47  | )  | $  | 57  |
+L2867:  | $  | (14  | )  | $  | (9  | )  | $  | (17  | )  | $  | (37  | )  | $  | 63  |
+L2868:  | $  | (5  | )  | $  | (20  | )  |    |    | $  | (119  | )  |
+L2869:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2870: Beginning Cash Balance  |    | $  | 47  |
+L2871:  | $  | 10  |
+L2872:  | $  | 10  |
+L2873:  | $  | 10  |
+L2874:  | $  | 10  |
+L2875:  | $  | 10  |
+L2876:  | $  | 10  |
+L2877:  | $  | 10  |
+L2878:  | $  | 10  |
+L2879:  | $  | 10  |
+L2880:  | $  | 10  |
+L2881:  | $  | 10  |
+L2882:  | $  | 10  |
+L2883:  |    |    | $  | 47  |
+L2884:  |
+L2885: ( +/- ) Net Cash Flow  |    | (68  | )  | 13  |
+L2886:  | (4  | )  | (31  | )  | (47  | )  | 57  |
+L2887:  | (14  | )  | (9  | )  | (17  | )  | (37  | )  | 63  |
+L2888:  | (5  | )  | (20  | )  |    |    | (119  | )  |
+L2889: ( +/- ) RBL Draw / (Paydown)  |    | —  |
+L2890:  | —  |
+L2891:  | —  |
+L2892:  | —  |
+L2893:  | —  |
+L2894:  | —  |
+L2895:  | —  |
+L2896:  | —  |
+L2897:  | —  |
+L2898:  | —  |
+L2899:  | —  |
+L2900:  | —  |
+L2901:  | —  |
+L2902:  |    |    | —  |
+L2903:  |
+L2904: ( +/- ) DIP Draw / (Paydown)  |    | 31  |
+L2905:  | (13  | )  | 4  |
+L2906:  | 31  |
+L2907:  | 47  |
+L2908:  | (57  | )  | 14  |
+L2909:  | 9  |
+L2910:  | 17  |
+L2911:  | 37  |
+L2912:  | (63  | )  | 5  |
+L2913:  | 20  |
+L2914:  |    |    | 82  |
+L2915:  |
+L2916: Ending Cash Balance  |    | $  | 10  |
+L2917:  | $  | 10  |
+L2918:  | $  | 10  |
+L2919:  | $  | 10  |
+L2920:  | $  | 10  |
+L2921:  | $  | 10  |
+L2922:  | $  | 10  |
+L2923:  | $  | 10  |
+L2924:  | $  | 10  |
+L2925:  | $  | 10  |
+L2926:  | $  | 10  |
+L2927:  | $  | 10  |
+L2928:  | $  | 10  |
+L2929:  |    |    | $  | 10  |
+L2930:  |
+L3127:  | $  | 15  |
+L3128:  | $  | 4  |
+L3129:  |    |    | $  | 65  |
+L3130:  |
+L3131: Other Disbursements  |    | 67  |
+L3132:  | 10  |
+L3133:  | 11  |
+L3134:  | 33  |
+L3135:  | 11  |
+L3136:  | 14  |
+L3137:  | 51  |
+L3138:  |    |    | 198  |
+L3139:  |
+L3140: Total Other Cash Flows  |    | $  | 90  |
+L3141:  | $  | 14  |
+L3142:  | $  | 18  |
+L3143:  | $  | 41  |
+L3144:  | $  | 18  |
+L3145:  | $  | 28  |
+L3146:  | $  | 54  |
+L3147:  |    |    | $  | 263  |
+L3148:  |
+L3149:    |    |    |    |    |    |    |    |    |    |    |    |
+L3150: TOTAL DISBURSEMENTS  |    | $  | 267  |
+L3151:  | $  | 144  |
+L3152:  | $  | 133  |
+L3153:  | $  | 166  |
+L3154:  | $  | 138  |
+L3155:  | $  | 207  |
+L3156:  | $  | 111  |
+L3157:  |    |    | $  | 1,166  |
+L3158:  |
+L3159: NET CASH FLOW  |    | $  | (109  | )  | $  | (36  | )  | $  | —  |
+L3160:  | $  | (16  | )  | $  | (19  | )  | $  | (58  | )  | $  | (98  | )  |    |    | $  | (336  | )  |
+L3161:    |    |    |    |    |    |    |    |    |    |    |    |
+L3162: CASH AND BORROWINGS  |    |    |    |    |    |    |    |    |    |    |    |
+L3163: Beginning Cash Balance  |    | $  | 97  |
+L3164:  | $  | 10  |
+L3165:  | $  | 10  |
+L3166:  | $  | 10  |
+L3167:  | $  | 10  |
+L3168:  | $  | 10  |
+L3169:  | $  | 10  |
+L3170:  |    |    | $  | 97  |
+L3171:  |
+L3172: ( +/- ) Net Cash Flow  |    | (109  | )  | (36  | )  | —  |
+L3173:  | (16  | )  | (19  | )  | (58  | )  | (98  | )  |    |    | (336  | )  |
+L3174: ( +/- ) RBL Draw / (Paydown)  |    | —  |
+L3175:  | —  |
+L3176:  | —  |
+L3177:  | —  |
+L3178:  | —  |
+L3179:  | —  |
+L3180:  | —  |
+L3181:  |    |    | —  |
+L3182:  |
+L3183: ( +/- ) DIP Draw / (Paydown)  |    | 22  |
+L3184:  | 36  |
+L3185:  | —  |
+L3186:  | 16  |
+L3187:  | 19  |
+L3188:  | 58  |
+L3189:  | 98  |
+L3190:  |    |    | 249  |
+L3191:  |
+L3192: Ending Cash Balance  |    | $  | 10  |
+L3193:  | $  | 10  |
+L3194:  | $  | 10  |
+L3195:  | $  | 10  |
+L3196:  | $  | 10  |
+L3197:  | $  | 10  |
+L3198:  | $  | 10  |
+L3199:  |    |    | $  | 10  |
+L3200:  |
+L3201:    |    |    |    |    |    |    |    |    |    |    |    |
+L3202: Senior DIP Roll-Up  |    | $  | 83  |
+L3203:  | $  | 83  |
+L3204:  | $  | 83  |
+L3205:  | $  | 83  |
+L3206:  | $  | 83  |
+L3207:  | $  | 83  |
+L3208:  | $  | 83  |
+L3209:  |    |    | $  | 83  |
+L3210:  |
+L3211: Junior DIP Roll-Up  |    | $  | 650  |
+L3212:  | $  | 650  |
+L3213:  | $  | 650  |
+L3214:  | $  | 650  |
+L3215:  | $  | 650  |
+L3216:  | $  | 650  |
+L3217:  | $  | 650  |
+L3218:  |    |    | $  | 650  |
+L3219:  |
+
+
+=== Capture 2 ===
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn143view0 [wordlim: 200] Crawled: last week; Content type: text/html; Source: open({"ref_id":"turn141view0","lineno":2980}); Total lines: 4735
+L2980:  | 31  |
+L2981:  | 47  |
+L2982:  | (57  | )  | 14  |
+L2983:  | 9  |
+L2984:  | 17  |
+L2985:  | 37  |
+L2986:  | (63  | )  | 5  |
+L2987:  | 20  |
+L2988:  |    |    | 82  |
+L2989:  |
+L2990: Ending DIP Balance  |    | $  | 31  |
+L2991:  | $  | 18  |
+L2992:  | $  | 22  |
+L2993:  | $  | 53  |
+L2994:  | $  | 100  |
+L2995:  | $  | 43  |
+L2996:  | $  | 58  |
+L2997:  | $  | 67  |
+L2998:  | $  | 84  |
+L2999:  | $  | 120  |
+L3000:  | $  | 58  |
+L3001:  | $  | 63  |
+L3002:  | $  | 82  |
+L3003:  |    |    | $  | 82  |
+L3004:  |
+L3005: DIP Availability Balance  |    | $  | 219  |
+L3006:  | $  | 232  |
+L3007:  | $  | 228  |
+L3008:  | $  | 197  |
+L3009:  | $  | 150  |
+L3010:  | $  | 207  |
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn143view1 [wordlim: 200] Crawled: last week; Content type: text/html; Source: open({"ref_id":"turn141view0","lineno":3050}); Total lines: 4735
+L3036: Existing Letters of Credit  |    | $  | 150  |
+L3037:  | $  | 150  |
+L3038:  | $  | 150  |
+L3039:  | $  | 150  |
+L3040:  | $  | 150  |
+L3041:  | $  | 150  |
+L3042:  | $  | 150  |
+L3043:  | $  | 150  |
+L3044:  | $  | 150  |
+L3045:  | $  | 150  |
+L3046:  | $  | 150  |
+L3047:  | $  | 150  |
+L3048:  | $  | 150  |
+L3049:  |    |    | $  | 150  |
+L3050:  |
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn143view2 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"250,000,000"}); Total lines: 4735
+L886: “Letter of Credit Commitment” shall mean $35,000,000, as the same may be increased or reduced from time to time pursuant to Section 3.1; provided that (a) no issuer of a Prepetition Letter of Credit shall be obligated to issue Letters of Credit (including Prepetition Letters of Credit) in an aggregate face amount in excess of $80,000,000 outstanding at any time and (b) Citibank, N.A.
+L887: shall not be obligated to issue Letters of Credit in an aggregate face amount in excess of $35,000,000 outstanding at any time.
+L978: (d)    time deposits with, or domestic and LIBOR certificates of deposit or bankers’ acceptances maturing no more than one year after the date of acquisition thereof issued by any Lender or any other bank having combined capital and surplus of not less than $500,000,000 in the case of domestic banks and $100,000,000 (or the Dollar equivalent thereof) in the case of foreign banks;
+L980: (f)    marketable short-term money market and similar funds (i) either having assets in excess of $500,000,000 or (ii) having a rating of at least A-2 or P-2 from either S&P or Moody’s (or, if at any time neither S&P nor Moody’s shall be rating such obligations, an equivalent rating from another nationally recognized rating service);
+L982: (h)    investments in an aggregate amount not to exceed $100,000,000 in corporate debt securities having a rating of either A from S&P or A2 from Moody’s (or, if at any time neither S&P nor Moody’s shall be rating such obligations, an equivalent rating from another nationally recognized rating service); and
+L1542: If the Borrower or any one of the other Credit Parties consummates a Disposition of any of the assets identified on Schedule 5.2(f) (the “Identified Assets”), the Borrower shall, on the Business Day after receiving such proceeds, (i) repay the Loans in an aggregate principal amount equal to the lesser of (A) the sum of (1) 50% of the first $20,000,000 of Net Cash Proceeds obtained from all such Dispositions and (2) 100% of the Net Cash Proceeds obtained in excess thereof and (B) the sum of the then-outstanding Loans and (ii) if any excess remains after prepaying all of the Loans as a result of any Letter of Credit Exposure, pay to the Administrative Agent on behalf of the Letter of Credit Issuer and the L/C Participants an amount in cash equal to such excess to be held as Cash Collateral as provided in Section 3.8.
+L2014: (o)    [reserved];
+L2015: 
+L2016: (p)    Liens on insurance policies and the proceeds thereof securing the financing of the premiums with respect thereto;
+L2017: 
+L2018: (q)    Liens in respect of Production Payments which, in the case of Production Payments constituting Indebtedness, only secure assets that are subject to such Production Payments; provided that the obligations secured by such Liens shall not exceed $5,000,000;
+L2026: (v)    Liens arising pursuant to Section 107(l) of CERCLA, or other Environmental Law, unless such Lien (i) by action of the lienholder, or by operation of law, takes priority over any Liens arising under the Credit Documents on the property upon which it is a Lien, and (ii) relates to a liability of the Borrower or any Subsidiary that is reasonably likely to exceed $5,000,000;
+L2027: 
+L2028: 87
+L2029: 
+L2030: * * *
+L2031: 
+L2032: (w)    [reserved];
+L2033: 
+L2034: (x)    [reserved];
+L2035: 
+L2036: (y)    [reserved];
+L2477: and increments of $1,000,000 in excess thereof and (2) after giving effect to such assignment, the amount of the remaining Commitment or Loans of the assigning Lender (determined as of the date the Assignment and Acceptance with respect to such assignment is delivered to the Administrative Agent) shall not be less than $5,000,000, in each case unless each Letter of Credit Issuer and the Administrative Agent otherwise consents (which consents shall not be unreasonably withheld or delayed); provided that contemporaneous assignments to a single assignee made by Affiliates of Lenders and related Approved Funds shall be aggregated for purposes of meeting the minimum assignment amount requirements stated above;
+L3968: (B) a junior secured superpriority debtor-in-possession term loan facility (the “Junior DIP Facility”, together with the Senior DIP Facility, the “DIP Facilities”) in the aggregate principal amount of $650,000,000 (all extensions of credit under the Junior DIP Facility, the “Junior DIP Loans”, and together with the Senior DIP Loans, the “DIP Loans”) pursuant to the terms and conditions of this Interim Order and that certain Junior Secured Superpriority Debtor-In-Possession Credit Agreement substantially in the form attached
+L3974: (2)    authorizing the Debtors to draw up to $266,139,598.62 of Senior DIP Loans under the Senior New Money Subfacility during the interim period pending entry of the Final Order to be used in accordance with this Interim Order and the Senior DIP Loan Documents, consisting of up to $85,000,000 for new money Senior DIP Loans, $150,139,598.62 of capacity to issue (or deemed to issue) DIP Letters of Credit to replace the RBL Letters of Credit and up to $31,000,000 to issue additional new DIP Letters of Credit to backstop surety bonds;
+L3975: (3)    authorizing the Debtors to fully draw $82,871,057.00 of Senior DIP Loans under the Roll-Up Subfacility on the closing date of the Senior DIP Facility and to use the proceeds thereof to refund, refinance, replace and repay $82,871,057.00 of the RBL Loans (as defined below);
+L3976: 
+L3977: (4)    authorizing the Debtors to fully draw $650,000,000 of Junior DIP Loans under the Junior DIP Facility on the closing date of the Junior DIP Facility to repay $650,000,000 of the RBL Loans;
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn143view3 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"New Money"}); Total lines: 4735
+L927: “New Money Commitment” shall mean the total amount beneath the column entitled “Additional New Money Loans” on Schedule 1.1(a), as the same may be changed from time to time pursuant to the terms of this Agreement.
+L928: 
+L929: “New Money Facility” shall have the meaning provided in the recitals hereto.
+L930: 
+L931: “New Money Loans” shall have the meaning provided in Section 2.1(a)(i).
+L932: 
+L933: “Non-Affiliated Lender” shall mean any Lender that is not an Affiliated Lender.
+L3965: (A) a senior secured superpriority debtor-in-possession revolving credit facility (the “Senior DIP Facility”) in the aggregate principal amount of up to $483,010,655.62, consisting of (i) a $400,139,598.62 new money subfacility (the “Senior New Money Subfacility”), including $150,139,598.62 to deem the RBL Letters of Credit (as defined below) as being issued under the Senior New Money Subfacility and a sublimit of not more than $35,000,000 for additional letters of credit (together, the “DIP Letters of Credit”), and (ii) a $82,871,057.00 “roll-up” term loan subfacility (the “Senior Roll-Up Subfacility”) (all extensions of credit, including the issuance or deemed issuance of DIP Letters of Credit, under the Senior DIP Facility, the “Senior DIP Loans”) pursuant to the terms and conditions of this Interim Order and that certain Senior Secured Superpriority Debtor-In-Possession Credit Agreement substantially in the form attached hereto as Exhibit 1 (as amended, supplemented, restated, refunded, refinanced, replaced or otherwise modified from time to time in accordance with the terms thereof, the “Senior DIP Credit Agreement”, and together with all agreements, commitment and fee letters, documents, instruments and certificates executed, delivered or filed in connection therewith, as amended, supplemented, restated or otherwise modified from time to time in accordance with the terms thereof, collectively, the “Senior DIP Loan Documents”), by and among California Resources Corporation, as borrower (“CRC” or the “Senior DIP Borrower”), each of the other Debtors, as guarantors (the “Senior DIP Guarantors”), JPMorgan Chase Bank, N.A.
+L3974: (2)    authorizing the Debtors to draw up to $266,139,598.62 of Senior DIP Loans under the Senior New Money Subfacility during the interim period pending entry of the Final Order to be used in accordance with this Interim Order and the Senior DIP Loan Documents, consisting of up to $85,000,000 for new money Senior DIP Loans, $150,139,598.62 of capacity to issue (or deemed to issue) DIP Letters of Credit to replace the RBL Letters of Credit and up to $31,000,000 to issue additional new DIP Letters of Credit to backstop surety bonds;
+L3978: (5)    authorizing the Debtors to issue DIP Letters of Credit, including deeming all of the RBL Letters of Credit to be DIP Letters of Credit issued under the Senior New Money Subfacility;
+L3979: 
+L3980: (6)    authorizing the Debtors to execute and deliver to the DIP Secured Parties and perform under the DIP Credit Agreements and the other DIP Loan Documents and to perform such other and further acts as may be necessary or desirable in connection with the DIP Loan Documents;
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn143view4 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"millions"}); Total lines: 4735
+L3054:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L3055: Project Compass  | Monthly DIP Forecast
+L3056: Consolidated Monthly Cash Flow Forecast  |    |    |    |    |    |    |    |    |    |    |    |
+L3057: ($ in millions)  |    |    |    |    |    |    |    |    |    |    |    |
+L3058:    |    | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  |    |    | Fcst  |
+L3059:    |    | Jul-20  | Aug-20  | Sep-20  | Oct-20  | Nov-20  | Dec-20  | Jan-21  |    |    | Total  |
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn143view5 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"50,000,000"}); Total lines: 4735
+L886: “Letter of Credit Commitment” shall mean $35,000,000, as the same may be increased or reduced from time to time pursuant to Section 3.1; provided that (a) no issuer of a Prepetition Letter of Credit shall be obligated to issue Letters of Credit (including Prepetition Letters of Credit) in an aggregate face amount in excess of $80,000,000 outstanding at any time and (b) Citibank, N.A.
+L978: (d)    time deposits with, or domestic and LIBOR certificates of deposit or bankers’ acceptances maturing no more than one year after the date of acquisition thereof issued by any Lender or any other bank having combined capital and surplus of not less than $500,000,000 in the case of domestic banks and $100,000,000 (or the Dollar equivalent thereof) in the case of foreign banks;
+L980: (f)    marketable short-term money market and similar funds (i) either having assets in excess of $500,000,000 or (ii) having a rating of at least A-2 or P-2 from either S&P or Moody’s (or, if at any time neither S&P nor Moody’s shall be rating such obligations, an equivalent rating from another nationally recognized rating service);
+L982: (h)    investments in an aggregate amount not to exceed $100,000,000 in corporate debt securities having a rating of either A from S&P or A2 from Moody’s (or, if at any time neither S&P nor Moody’s shall be rating such obligations, an equivalent rating from another nationally recognized rating service); and
+L2180: (b)    Liquidity. (i) The Borrower shall not permit the 4-week Rolling Average Liquidity to be less than $50,000,000 at any time and (ii) the Borrower shall not permit Liquidity to be less than $35,000,000 as of the close of business on any day.
+L3974: (2)    authorizing the Debtors to draw up to $266,139,598.62 of Senior DIP Loans under the Senior New Money Subfacility during the interim period pending entry of the Final Order to be used in accordance with this Interim Order and the Senior DIP Loan Documents, consisting of up to $85,000,000 for new money Senior DIP Loans, $150,139,598.62 of capacity to issue (or deemed to issue) DIP Letters of Credit to replace the RBL Letters of Credit and up to $31,000,000 to issue additional new DIP Letters of Credit to backstop surety bonds;
+L3975: (3)    authorizing the Debtors to fully draw $82,871,057.00 of Senior DIP Loans under the Roll-Up Subfacility on the closing date of the Senior DIP Facility and to use the proceeds thereof to refund, refinance, replace and repay $82,871,057.00 of the RBL Loans (as defined below);
+L3976: 
+L3977: (4)    authorizing the Debtors to fully draw $650,000,000 of Junior DIP Loans under the Junior DIP Facility on the closing date of the Junior DIP Facility to repay $650,000,000 of the RBL Loans;
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn143view6 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"Maturity Date"}); Total lines: 4735
+L867: “L/C Borrowing” shall mean an extension of credit resulting from a drawing under any Letter of Credit which has not been reimbursed on the date when made or refinanced as a Borrowing. All L/C Borrowings shall be denominated in Dollars.
+L868: 
+L869: “L/C Maturity Date” shall mean the date that is five Business Days prior to the Maturity Date.
+L914: “Maturity Date” shall mean January 15, 2021.
+L915: 
+L916: “Milestones” shall have the meaning provided in Section 10.15.
+L917: 
+L918: “Moody’s” shall mean Moody’s Investors Service, Inc. or any successor by merger or consolidation to its business.
+L1127: “Termination Date” shall mean the earliest to occur of (a) the Maturity Date, (b) the sale of all or substantially all of the Credit Parties’ assets, (c) the effective date of the Plan of Reorganization or any other plan of reorganization in respect of the Debtors, (d) the termination of the Total Commitment and (e) the date that is 40 days after the Petition Date if the Final Order has not been entered by the Bankruptcy Court by such date.
+L1297: (d)    the Borrower shall not be entitled to elect any Interest Period in respect of any LIBOR Loan if such Interest Period would extend beyond the Maturity Date.
+L1298: 
+L1299: 2.10    Increased Costs, Illegality, Etc
+L1300: 
+L1301: (a)    In the event that any Lender, shall have reasonably determined (which determination shall, absent clearly demonstrable error, be final and conclusive and binding upon all parties hereto):
+L1331: (b)    The Commitment and the Credit Exposure of such Defaulting Lender shall not be included in determining whether all Lenders or the Majority Lenders have taken or may take any action hereunder (including any consent to any amendment or waiver pursuant to Section 14.1); provided that any waiver, amendment or modification requiring the consent of all Lenders pursuant to Section 14.1 (other than Section 14.1(b)(x) or requiring the consent of each affected Lender pursuant to Section 14.1(b)(i) or (ix)) shall require the consent of such Defaulting Lender (which for the avoidance of doubt would include any change to the Maturity Date applicable to such Defaulting Lender, decreasing or forgiving any principal or interest due to such Defaulting Lender, any decrease of any interest rate applicable to Loans made by such
+L1379: (a)    Subject to and upon the terms and conditions herein set forth, including entry of the DIP Order, (i) the Prepetition Letters of Credit shall be deemed to have been issued pursuant hereto on the Closing Date and, on and after the Closing Date, shall constitute Letters of Credit for all purposes hereunder and under the Credit Documents and (ii) at any time and from time to time on and after the Closing Date and prior to the L/C Maturity Date, the Letter of Credit Issuer agrees, in reliance upon the agreements of the Lenders set forth in this Article III, to issue upon the request of the Borrower and for the direct or indirect benefit of the Borrower and the Subsidiaries, a letter of credit or letters of credit (the “Letters of Credit” and
+L1385: (b)    Notwithstanding the foregoing, (i) no Letter of Credit shall be issued the Stated Amount of which, when added to the Letters of Credit Outstanding at such time (excluding Prepetition Letters of Credit), would exceed the Letter of Credit Commitment then in effect, (ii) no Letter of Credit shall be issued the Stated Amount of which would cause the Total Credit Exposure at such time to exceed the Loan Limit then in effect, (iii) each Letter of Credit (including any Prepetition Letter of Credit) shall have an expiration date occurring no later than one year after the date of issuance or such longer period of time as may be agreed by the applicable Letter of Credit Issuer, unless otherwise agreed upon by the Administrative Agent and the Letter of Credit Issuer or as provided under Section 3.2(b); provided that any Letter of Credit may provide for automatic renewal thereof for additional periods of up to 12 months or such longer period of time as may be agreed by the applicable Letter of Credit Issuer, subject to the provisions of Section 3.2(b); provided, that, notwithstanding anything to the contrary contained herein, with respect to Letters of Credit issued, renewed or extended after the Closing Date, in no event shall such expiration date occur later than the L/C Maturity Date, (iv) each Letter of Credit shall be denominated in Dollars, (v) no Letter of Credit shall be issued if it would be illegal under any applicable Requirement of Law for the beneficiary of the Letter of Credit to have a Letter of Credit issued in its favor and (vi) no Letter of Credit shall be issued by a Letter of Credit Issuer after it has received a written notice from any Credit Party or the Administrative Agent or the Majority Lenders stating that a Default or Event of Default has occurred and is continuing until such time as the Letter of Credit Issuer shall have received a written notice (A) of rescission of such notice from the party or parties originally delivering such notice, (B) of the waiver of such Default or Event of Default in accordance with the provisions of Section 14.1 or (C) that such Default or Event of Default is no longer continuing.
+L1400: Once an Auto-Extension Letter of Credit has been issued, the Lenders shall be deemed to have authorized (but may not require) the Letter of Credit Issuer to permit the extension of such Letter of Credit at any time to an expiry date not later than the L/C Maturity Date; provided, however, that the Letter of Credit Issuer shall not permit any such extension if (i) the Letter of Credit Issuer has determined that it would not be permitted, or would have no obligation, at such time to issue such Letter of Credit in its revised form (as extended) under the terms hereof (by reason of the provisions of clause (b) of Section 3.1 or otherwise), or (ii) it has received notice (which may be by telephone or in writing) on or before the day that is five Business Days before the Non-Extension Notice Date (A) from the Administrative Agent that the Majority Lenders have elected not to permit such extension or (B) from the Administrative Agent, any Lender or the Borrower that one or more of the applicable conditions specified in Article VIII are not then satisfied, and in each such case directing the Letter of Credit Issuer not to permit such extension.
+L1439: In the event that the Borrower fails to Cash Collateralize any Letter of Credit that is outstanding on the Maturity Date, the full amount of the Letters of Credit Outstanding in respect of such Letter of Credit shall be deemed to be an Unpaid Drawing subject to the provisions of this Section 3.4 except that the Letter of Credit Issuer shall hold the proceeds received from the Lenders as contemplated above as Cash Collateral for such Letter of Credit to reimburse any Drawing under such Letter of Credit and shall use such proceeds first, to reimburse itself for any Drawings made in respect of such Letter of Credit following the L/C Maturity Date, second, to the extent such Letter of Credit expires or is returned undrawn while any such Cash Collateral remains, to the repayment of obligations in respect of any Loans that have not paid at such time and third, to the Borrower or as otherwise directed by a court of competent jurisdiction.
+L1467: 3.8    Cash Collateral.
+L1468: 
+L1469: (a)    Upon the request of the Majority Lenders if, as of the L/C Maturity Date or, if earlier, the Termination Date, there are any Letters of Credit Outstanding, the Borrower shall immediately Cash Collateralize the Letters of Credit then outstanding.
+L1470: 
+L1471: (b)    If any Event of Default shall occur and be continuing, the Majority Lenders may require that the L/C Obligations be Cash Collateralized.
+L2419: The Majority Lenders may, or, with the written consent of the Majority Lenders, the Administrative Agent shall, from time to time, (a) enter into with the relevant Credit Party or Credit Parties written amendments, supplements or modifications hereto and to the other Credit Documents for the purpose of adding any provisions to this Agreement or the other Credit Documents or changing in any manner the rights of the Lenders or of the Credit Parties hereunder or thereunder or (b) waive in writing, on such terms and conditions as the Majority Lenders or the Administrative Agent, as the case may be, may specify in such instrument, any of the requirements of this Agreement or the other Credit Documents or any Default or Event of Default and its consequences; provided that each such waiver and each such amendment, supplement or modification shall be effective only in the specific instance and for the specific purpose for which given; provided, further, that no such waiver and no such amendment, supplement or modification shall (i) forgive or reduce any portion of any Loan or reduce the stated rate (it being understood that only the consent of the Majority Lenders shall be necessary to waive any obligation of the Borrower to pay interest at the Default Rate or amend Section 2.8(e)), or forgive any portion, or extend the date for the payment, of any interest or fee payable hereunder (other than as a result of waiving the applicability of any post-default increase in interest rates), or extend the Maturity Date or the final expiration date of any Lender’s Commitment (provided that
+L2423: any Lender, upon the request of the Borrower, may extend the final expiration date of its Commitment without the consent of any other Lender, including the Majority Lenders) or extend the final expiration date of any Letter of Credit beyond the L/C Maturity Date, or increase the amount of the Commitment of any Lender (provided that, any Lender, upon the request of the Borrower, may increase the amount of its Commitment without the consent of any other Lender, including the Majority Lenders), or make any Loan, interest, fee or other amount payable in any currency other than Dollars, in each case without the written consent of each Lender directly and adversely affected thereby, or (ii) amend, modify or waive any provision of this Section 14.1, or amend or modify any of the provisions of Section 14.8(a) to the extent it would alter the ratable allocation of payments thereunder, or reduce the percentages specified in the definition of the term “Majority Lenders”, consent to the assignment or transfer by the Borrower of its rights and obligations under any Credit Document to which it is a party (except as permitted pursuant to Section 11.3) or alter the order of application set forth in Section 12.2 or modify any definition used in such final paragraph if the effect thereof would be to alter the order of payment specified therein, in each case without the written consent of each Lender directly and adversely affected thereby, or (iii) amend, modify or waive any provision of Article XIII without the written consent of the then-current Administrative Agent, as applicable, or any other former Administrative Agent to whom Article XIII then applies in a manner that directly and adversely affects such Person, or (iv) amend, modify or waive any provision of Article III with respect to any Letter of Credit without the written consent of each Letter of Credit Issuer to whom Article III then applies in a manner that directly and adversely affects such Person, or (v) [reserved], or (vi) release all or substantially all of the value of the guarantees made by the Guarantors under the Guarantee (except as expressly permitted by the Guarantee or this Agreement) without the prior written consent of each Lender, or (vii) release all or substantially all of the Collateral under the Security Documents (except as expressly permitted by the Security Documents or this Agreement) without the prior written consent of each Lender, or (viii) amend Section 2.9 so as to permit Interest Period intervals greater than three months without regard to availability to Lenders, without the written consent of each Lender directly and adversely affected thereby, or (ix) affect the rights or duties of, or any fees or other amounts payable to the Administrative Agent under this Agreement or any other Credit Document without the prior written consent of the Administrative Agent, or (x) amend, modify or waive any provision of ARTICLE VII or ARTICLE VIII without the written consent of each Lender; provided, further, that any provision of this Agreement or any other Credit Document may be amended by an agreement in writing entered into by the Borrower and the Administrative Agent to cure any ambiguity, omission, defect or inconsistency so long as, in each case, the Lenders shall have received at least five Business Days’ prior written notice thereof and the Administrative Agent shall not have received, within five Business Days of the date of such notice to the Lenders, a written notice from the Majority Lenders stating that the Majority Lenders object to such amendment.
+L2520: notify the Administrative Agent of such fact, and (ii) purchase for cash at face value from the other Lenders a participating interest in such portion of each such other Lender’s Loans, or shall provide such other Lenders with the benefits of any such collateral, or the proceeds thereof, as shall be necessary to cause such Benefited Lender to share the excess payment or benefits of such collateral or proceeds ratably in accordance with the aggregate principal of and accrued interest on their respective Loans and other amounts owing them; provided that, (A) if all or any portion of such excess payment or benefits is thereafter recovered from such Benefited Lender, such purchase shall be rescinded, and the purchase price and benefits returned, to the extent of such recovery, but without interest and (B) the provisions of this paragraph shall not be construed to apply to (1) any payment made by the Borrower or any other Credit Party pursuant to and in accordance with the express terms of this Agreement and the other Credit Documents, (2) any payment obtained by a Lender as consideration for the assignment of or sale of a participation in any of its Loans, Commitments or participations in Drawings to any assignee or participant or (3) any disproportionate payment obtained by a Lender as a result of the extension by Lenders of the maturity date or expiration date of some but not all Loans or Commitments or any increase in the Applicable Margin in respect of Loans or Commitments of Lenders that have consented to any such extension.
+L3382: The Borrower hereby requests that a Letter of Credit be issued:
+L3383: 
+L3384: (i)    on [insert date of requested issuance]
+L3385: 
+L3386: (ii)    in the aggregate Stated Amount of $[_________];
+L3387: 
+L3388: (iii)    in favor of [insert name and address of beneficiary];
+L3389: 
+L3390: (iv)    which expires on [insert date at least five Business Days prior to Maturity Date];
+L3391: 
+L3392: (v)    which automatically renews for [__]-month periods; and
+L3888: (the “Administrative Agent”) shall have specified, in Dollars and in immediately available funds, in accordance with Section 5.3 of the Credit Agreement (as defined below; capitalized terms used and not otherwise defined herein shall have the meanings assigned to such terms in Article I of the Credit Agreement) on the Maturity Date, the aggregate unpaid principal amount, if any, of all advances made by the Lender to the Borrower in respect of Loans pursuant to the Credit Agreement.
+L3891: This Promissory Note is subject to, and the Lender is entitled to the benefits of, the provisions of the Credit Agreement, and the Loans evidenced hereby are guaranteed and secured as provided therein and in the other Credit Documents. The Loans evidenced hereby are subject to prepayment prior to the Maturity Date, in whole or in part, as provided in the Credit Agreement.
+
+
+=== Capture 3 ===
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn144view0 [wordlim: 200] Crawled: last week; Content type: text/html; Source: open({"ref_id":"turn141view0","lineno":2760}); Total lines: 4735
+L2724:  | $  | 16  |
+L2725:  | $  | 14  |
+L2726:  | $  | 16  |
+L2727:  | $  | 9  |
+L2728:  | $  | 12  |
+L2729:  | $  | 11  |
+L2730:  | $  | 10  |
+L2731:  | $  | 10  |
+L2732:  | $  | 10  |
+L2733:  | $  | 11  |
+L2734:  |    |    | 172  |
+L2735:  |
+L2736: Payroll / Payroll Taxes  |    | —  |
+L2737:  | 8  |
+L2738:  | —  |
+L2739:  | 8  |
+L2740:  | —  |
+L2741:  | 8  |
+L2742:  | —  |
+L2743:  | 8  |
+L2744:  | —  |
+L2745:  | 8  |
+L2746:  | —  |
+L2747:  | 8  |
+L2748:  | —  |
+L2749:  |    |    | 48  |
+L2750:  |
+L2751: Elk Hills Power Capacity / Reimbursement  |    | 23  |
+L2752:  | —  |
+L2753:  | —  |
+L2754:  | —  |
+L2755:  | 23  |
+L2756:  | —  |
+L2757:  | —  |
+L2758:  | —  |
+L2759:  | —  |
+L2760:  | 23  |
+L2761:  | —  |
+L2762:  | —  |
+L2763:  | —  |
+L2764:  |    |    | 69  |
+L2765:  |
+L2766: Other Operating Disbursements  |    | —  |
+L2767:  | 50  |
+L2768:  | 11  |
+L2769:  | 7  |
+L2770:  | 15  |
+L2771:  | —  |
+L2772:  | 16  |
+L2773:  | 6  |
+L2774:  | 8  |
+L2775:  | —  |
+L2776:  | 18  |
+L2777:  | 3  |
+L2778:  | 3  |
+L2779:  |    |    | 137  |
+L2780:  |
+L2781: Total Operating Disbursements  |    | $  | 23  |
+L2782:  | $  | 86  |
+L2783:  | $  | 36  |
+L2784:  | $  | 30  |
+L2785:  | $  | 51  |
+L2786:  | $  | 24  |
+L2787:  | $  | 25  |
+L2788:  | $  | 26  |
+L2789:  | $  | 19  |
+L2790:  | $  | 42  |
+L2791:  | $  | 28  |
+L2792:  | $  | 22  |
+L2793:  | $  | 15  |
+L2794:  |    |    | $  | 427  |
+L2795:  |
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn144view1 [wordlim: 200] Crawled: last week; Content type: text/html; Source: open({"ref_id":"turn141view0","lineno":2815}); Total lines: 4735
+L2805:  | $  | —  |
+L2806:  | $  | 4  |
+L2807:  | $  | —  |
+L2808:  | $  | —  |
+L2809:  | $  | —  |
+L2810:  | $  | 6  |
+L2811:  | $  | —  |
+L2812:  | $  | —  |
+L2813:  | $  | —  |
+L2814:  | $  | 8  |
+L2815:  | $  | —  |
+L2816:  |    |    | $  | 38  |
+L2817:  |
+L2818: Other Disbursements  |    | 31  |
+L2819:  | —  |
+L2820:  | 2  |
+L2821:  | —  |
+L2822:  | 3  |
+L2823:  | 2  |
+L2824:  | 5  |
+L2825:  | —  |
+L2826:  | —  |
+L2827:  | 3  |
+L2828:  | 9  |
+L2829:  | —  |
+L2830:  | 8  |
+L2831:  |    |    | 62  |
+L2832:  |
+L2833: Total Other Cash Flows  |    | $  | 51  |
+L2834:  | $  | —  |
+L2835:  | $  | 2  |
+L2836:  | $  | 4  |
+L2837:  | $  | 3  |
+L2838:  | $  | 2  |
+L2839:  | $  | 5  |
+L2840:  | $  | 7  |
+L2841:  | $  | —  |
+L2842:  | $  | 3  |
+L2843:  | $  | 9  |
+L2844:  | $  | 8  |
+L2845:  | $  | 8  |
+L2846:  |    |    | $  | 100  |
+L2847:  |
+L2848:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2849: TOTAL DISBURSEMENTS  |    | $  | 74  |
+L2850:  | $  | 86  |
+L2851:  | $  | 38  |
+L2852:  | $  | 34  |
+L2853:  | $  | 54  |
+L2854:  | $  | 25  |
+L2855:  | $  | 30  |
+L2856:  | $  | 32  |
+L2857:  | $  | 19  |
+L2858:  | $  | 44  |
+L2859:  | $  | 37  |
+L2860:  | $  | 29  |
+L2861:  | $  | 22  |
+L2862:  |    |    | $  | 527  |
+L2863:  |
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn144view2 [wordlim: 200] Crawled: last week; Content type: text/html; Source: open({"ref_id":"turn141view0","lineno":3006}); Total lines: 4735
+L2980:  | 31  |
+L2981:  | 47  |
+L2982:  | (57  | )  | 14  |
+L2983:  | 9  |
+L2984:  | 17  |
+L2985:  | 37  |
+L2986:  | (63  | )  | 5  |
+L2987:  | 20  |
+L2988:  |    |    | 82  |
+L2989:  |
+L2990: Ending DIP Balance  |    | $  | 31  |
+L2991:  | $  | 18  |
+L2992:  | $  | 22  |
+L2993:  | $  | 53  |
+L2994:  | $  | 100  |
+L2995:  | $  | 43  |
+L2996:  | $  | 58  |
+L2997:  | $  | 67  |
+L2998:  | $  | 84  |
+L2999:  | $  | 120  |
+L3000:  | $  | 58  |
+L3001:  | $  | 63  |
+L3002:  | $  | 82  |
+L3003:  |    |    | $  | 82  |
+L3004:  |
+L3005: DIP Availability Balance  |    | $  | 219  |
+L3006:  | $  | 232  |
+L3007:  | $  | 228  |
+L3008:  | $  | 197  |
+L3009:  | $  | 150  |
+L3010:  | $  | 207  |
+L3011:  | $  | 192  |
+L3012:  | $  | 183  |
+L3013:  | $  | 166  |
+L3014:  | $  | 130  |
+L3015:  | $  | 192  |
+L3016:  | $  | 187  |
+L3017:  | $  | 168  |
+L3018:  |    |    | $  | 168  |
+L3019:  |
+L3020:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L3021: Incremental Letters of Credit  |    | $  | 31  |
+L3022:  | $  | 31  |
+L3023:  | $  | 31  |
+L3024:  | $  | 31  |
+L3025:  | $  | 31  |
+L3026:  | $  | 31  |
+L3027:  | $  | 31  |
+L3028:  | $  | 31  |
+L3029:  | $  | 31  |
+L3030:  | $  | 31  |
+L3031:  | $  | 31  |
+L3032:  | $  | 31  |
+L3033:  | $  | 31  |
+L3034:  |    |    | $  | 31  |
+L3035:  |
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn144view3 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"“Liquidity”"}); Total lines: 4735
+L521: “4-week Rolling Average Liquidity” shall mean, as of any date of determination, the quotient of (a) the sum of Liquidity at the close of business on each of the four (4) Fridays immediately preceding such date of determination divided by (b) four (4).
+L673: “Confirmation Order” shall mean an order of the Bankruptcy Court approving the Plan of Reorganization in form and substance reasonably acceptable to the Administrative Agent.
+L674: 
+L675: 9
+L676: 
+L677: * * *
+L678: 
+L679: “Consolidated Cash Balance” shall have the meaning set forth in the definition of “Liquidity”.
+L680: 
+L681: “Contractual Requirement” shall have the meaning provided in Section 9.3.
+L2179: As of Thursday, August 13, 2020 and on each fourth Thursday thereafter (each four-week period ending on the immediately preceding Friday prior to the delivery of the latest 13-week Projection, a “Testing Period”; provided that the initial Testing Period shall be deemed to include the full calendar week in which the Petition Date occurs), the Borrower shall not permit (i) the Total Operating Disbursements made by the Borrower and its Subsidiaries during such Testing Period (provided that if the 13-week Projection for such Testing Period has not yet been approved or deemed approved by the Administrative Agent and the Majority Lenders, then such amount shall be reduced by any Total Operating Disbursements projected for the previous Testing Period in the Budget for the previous Testing Period and not expended during the previous Testing Period) to be greater than 110% of the Total Operating Disbursements as set forth in the Budget for such Testing Period or (ii) Operating AP Payments, Payroll/Payroll Taxes (which, for the avoidance of doubt and consistent with the Budget, shall include amounts associated with the Borrower’s “Key Employee Incentive Plan” and “Key Employee Retention Plan”) and Elk Hills Power Capacity/Reimbursement (provided that if the 13-week Projection for such Testing Period has not yet been approved or deemed approved by the Administrative Agent and the Majority Lenders, then each such amount shall be reduced by any operating disbursements related to each such line item projected for the previous Testing Period in the Budget for the previous Testing Period and not expended during the previous Testing Period), in each case, to be greater than 115% of the amounts set forth for such line items in the Budget for such Testing Period; provided that, for purposes of calculating variance pursuant to clause (i), professional fees and expenses and fees and expenses of the Administrative Agent and the Lenders shall not be counted toward Total Operating Disbursements.
+L2180: (b)    Liquidity. (i) The Borrower shall not permit the 4-week Rolling Average Liquidity to be less than $50,000,000 at any time and (ii) the Borrower shall not permit Liquidity to be less than $35,000,000 as of the close of business on any day.
+L2181: 11.12    Transactions with Affiliates.
+L2182: The Borrower will not, and will not permit any of the Subsidiaries to conduct, any transaction with any of its Affiliates (other than the Borrower and the Guarantors or any entity that becomes a Guarantor as a result of such transaction) other than (a) transactions or arrangements in place as of the Petition Date (including contractual obligations in place at such time) and set forth on Schedule 11.12, (b) those approved by the Bankruptcy Court pursuant to an order in form and substance reasonably satisfactory to the Administrative Agent and the Majority Lenders or (c) to the extent such transactions are upon fair and reasonable terms no less favorable to the Borrower or such Guarantor than it would obtain in a comparable arm’s-length transaction with a Person that is not an Affiliate.
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn144view4 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"New Money Availability"}); Total lines: 4735
+L505: WHEREAS, in connection with the Chapter 11 Cases, the Borrower has requested that the Lenders provide a senior secured superpriority debtor-in-possession revolving credit facility (the “Facility”) in an aggregate principal amount not to exceed $483,010,655.62, which shall consist of (a) a $400,139,598.62 new money superpriority revolving credit facility (the “New Money Facility”) and (b) an $82,871,057.00 deemed term loan to roll up a portion of the existing outstanding loans under the Prepetition Credit Agreement that are held by the Lenders, in each case to be afforded the liens and priority set forth in the DIP Order and as set forth in the other Credit Documents;
+L909: “Loan” shall mean any extension of credit by a Lender to the Borrower and shall include, for the avoidance of doubt, both New Money Loans and Rollup Loans.
+L910: 
+L911: “Loan Limit” shall mean the lesser of (a) the Total Commitment at such time and (b) the amount permitted to be outstanding hereunder pursuant to the Interim Order or the Final Order.
+L926: “Net Cash Proceeds” shall mean (a) with respect to any Disposition, the cash proceeds (including cash proceeds subsequently received (as and when received) in respect of noncash consideration initially received), net of, in respect of the Debtors (i) selling expenses (including reasonable broker’s fees or commissions, legal, accounting and investment banking fees and expenses, title insurance premiums, survey costs, transfer and similar taxes and the Borrower’s good faith estimate of income taxes paid or payable in connection with such sale) approved by the Bankruptcy Court, if such approval is necessary pursuant to the Bankruptcy Code, (ii) amounts provided as a reserve, in accordance with GAAP, against any liabilities under any indemnification obligations or purchase price adjustment associated with such Disposition (provided that, to the extent and at the time any such amounts are released from such reserve, such amounts shall constitute Net Cash Proceeds), (iii) amounts paid in respect of the termination of Hedge Agreements in respect of notional volumes or amounts corresponding to the property subject of such Disposition or any Indebtedness being repaid under clause (iv) and (iv) the principal amount, premium or penalty, if any, interest and other amounts on any Indebtedness permitted hereunder that is secured by a Lien permitted hereunder (other than any Lien pursuant to a Security Document) on the asset disposed of in such Disposition and required to be repaid with such proceeds (other than any such Indebtedness assumed by the purchaser of such asset); and (b) with respect to any issuance or incurrence of Indebtedness, the cash proceeds thereof, net of all taxes and attorneys’ fees, accountants’ fees, underwriters’ or placement agents’ fees, listing fees, commissions and brokerage, consultant and other customary fees and charges actually incurred by the Debtors in connection with such issuance.
+L927: “New Money Commitment” shall mean the total amount beneath the column entitled “Additional New Money Loans” on Schedule 1.1(a), as the same may be changed from time to time pursuant to the terms of this Agreement.
+L928: 
+L929: “New Money Facility” shall have the meaning provided in the recitals hereto.
+L930: 
+L931: “New Money Loans” shall have the meaning provided in Section 2.1(a)(i).
+L932: 
+L933: “Non-Affiliated Lender” shall mean any Lender that is not an Affiliated Lender.
+L1215: (a)    (i)    Subject to and upon the terms and conditions herein set forth, including entry of the DIP Order, on and after the Closing Date, each Lender severally, but not jointly, agrees to make new money loans (the “New Money Loans”) denominated in Dollars to the Borrower, which New Money Loans (A) shall be made at any time and from time to time on and after the Closing Date and prior to the Termination Date in such amounts authorized by the DIP Order, (B) may, at the option of the Borrower, be incurred and maintained as, and/or converted into, ABR Loans or LIBOR Loans, (C) may be repaid and reborrowed in accordance with the provisions hereof, (D) shall not, for any Lender at any time, after giving effect thereto and to the application of the proceeds thereof, result in such Lender’s Credit Exposure at such time exceeding such Lender’s Commitment Percentage at such time of the Loan Limit and (E) shall not, after giving effect thereto and to the application of the proceeds thereof, result in the Total Credit Exposure exceeding the Loan Limit at such time.
+L1490: (b)    The Borrower agrees to pay to the Administrative Agent in Dollars for the account of the Lenders pro rata on the basis of their respective Letter of Credit Exposure, a fee in respect of each Letter of Credit (the “Letter of Credit Fee”), for the period from the date of issuance of such Letter of Credit until the termination or expiration date of such Letter of Credit computed at the per annum rate for each day equal to the Applicable Margin for LIBOR Loans under the New Money Facility on the average daily Stated Amount of such Letter of Credit.
+L1690: 68
+L1691: 
+L1692: * * *
+L1693: 
+L1694: 8.6    Borrowing Limit. Prior to the making of each Loan and also after giving pro forma effect thereto, the amount of New Money Loans outstanding (excluding any Loans made pursuant to Section 3.4(a)) shall not exceed the lesser of (a) the New Money Commitment and (b) the Loan Limit.
+L2481: (D)    the assignee, if it shall not be a Lender, shall deliver to the Administrative Agent an Administrative Questionnaire; and
+L2482: 
+L2483: (E)    each assignment of any Lender’s Commitment and/or New Money Loans (including any portion thereof) shall include an assignment in the same proportion of such Lender’s Rollup Loans.
+L3965: (A) a senior secured superpriority debtor-in-possession revolving credit facility (the “Senior DIP Facility”) in the aggregate principal amount of up to $483,010,655.62, consisting of (i) a $400,139,598.62 new money subfacility (the “Senior New Money Subfacility”), including $150,139,598.62 to deem the RBL Letters of Credit (as defined below) as being issued under the Senior New Money Subfacility and a sublimit of not more than $35,000,000 for additional letters of credit (together, the “DIP Letters of Credit”), and (ii) a $82,871,057.00 “roll-up” term loan subfacility (the “Senior Roll-Up Subfacility”) (all extensions of credit, including the issuance or deemed issuance of DIP Letters of Credit, under the Senior DIP Facility, the “Senior DIP Loans”) pursuant to the terms and conditions of this Interim Order and that certain Senior Secured Superpriority Debtor-In-Possession Credit Agreement substantially in the form attached hereto as Exhibit 1 (as amended, supplemented, restated, refunded, refinanced, replaced or otherwise modified from time to time in accordance with the terms thereof, the “Senior DIP Credit Agreement”, and together with all agreements, commitment and fee letters, documents, instruments and certificates executed, delivered or filed in connection therewith, as amended, supplemented, restated or otherwise modified from time to time in accordance with the terms thereof, collectively, the “Senior DIP Loan Documents”), by and among California Resources Corporation, as borrower (“CRC” or the “Senior DIP Borrower”), each of the other Debtors, as guarantors (the “Senior DIP Guarantors”), JPMorgan Chase Bank, N.A.
+L3973: (or any successor or assign), as administrative agent (in such capacity, the “Junior DIP Agent”, and together with the Senior DIP Agent, the “DIP Agents”), and the financial institutions party thereto from time to time as lenders (the “Junior DIP Lenders”, and together with the Junior DIP Agent, and each other Secured Party (as defined in the Junior DIP Credit Agreement), the “Junior DIP Secured Parties”; the Junior DIP Lenders together with the Senior DIP Lenders, the “DIP Lenders”, and the Junior DIP Secured Parties together with the Senior DIP Secured Parties, the “DIP Secured Parties”);
+L3974: (2)    authorizing the Debtors to draw up to $266,139,598.62 of Senior DIP Loans under the Senior New Money Subfacility during the interim period pending entry of the Final Order to be used in accordance with this Interim Order and the Senior DIP Loan Documents, consisting of up to $85,000,000 for new money Senior DIP Loans, $150,139,598.62 of capacity to issue (or deemed to issue) DIP Letters of Credit to replace the RBL Letters of Credit and up to $31,000,000 to issue additional new DIP Letters of Credit to backstop surety bonds;
+L3975: (3)    authorizing the Debtors to fully draw $82,871,057.00 of Senior DIP Loans under the Roll-Up Subfacility on the closing date of the Senior DIP Facility and to use the proceeds thereof to refund, refinance, replace and repay $82,871,057.00 of the RBL Loans (as defined below);
+L3976: 
+L3977: (4)    authorizing the Debtors to fully draw $650,000,000 of Junior DIP Loans under the Junior DIP Facility on the closing date of the Junior DIP Facility to repay $650,000,000 of the RBL Loans;
+L3978: (5)    authorizing the Debtors to issue DIP Letters of Credit, including deeming all of the RBL Letters of Credit to be DIP Letters of Credit issued under the Senior New Money Subfacility;
+L3979: 
+L3980: (6)    authorizing the Debtors to execute and deliver to the DIP Secured Parties and perform under the DIP Credit Agreements and the other DIP Loan Documents and to perform such other and further acts as may be necessary or desirable in connection with the DIP Loan Documents;
+L3981: (7)    authorizing and directing the Debtors to incur and pay all DIP Obligations (as defined below), subject to the terms of the respective DIP Loan Documents and this Interim Order;
+L3982: 
+L3983: 3
+L3984: 
+L3985: * * *
+L3986: (8)    granting each DIP Agent, for the benefit of itself and the other DIP Secured Parties for which it is the agent, and authorizing the Debtors to incur, valid, enforceable, non-avoidable, automatically and fully perfected priming liens on and security interests in all DIP Collateral (as defined below), including, without limitation, all Cash Collateral (as defined below), to secure the respective DIP Obligations, which liens and security interests shall be subject to the rankings and priorities set forth herein;
+L3987: (9)    granting to the Senior DIP Secured Parties and Junior DIP Secured Parties allowed superpriority administrative expense claims against each of the Debtors, on a joint and several basis, in respect of all Senior DIP Obligations and Junior DIP Obligations (each as defined below), respectively, as set forth herein, which claims shall be subject to the ranking and priorities set forth herein;
+L4215: To prevent immediate and irreparable harm to the Debtors’ estates, the Debtors are hereby authorized to borrow the Senior DIP Loans from the Senior DIP Lenders under the Senior DIP Facility, issue DIP Letters of Credit (including by having all RBL Letters of Credit deemed issued as DIP Letters of Credit) and use Senior DIP Loans under the New Money Subfacility to pay any reimbursement obligations in respect of any drawn DIP Letters of Credit (and the DIP Guarantors are hereby authorized to unconditionally guarantee, on a joint and several basis, the repayment of the Senior DIP Facility) up to an aggregate principal amount of $349,010,655.62, comprised of (a) $266,139,598.62 of Senior DIP Loans under the Senior New Money Subfacility, of which (i) $150,139,598.62 is available to deem the RBL Letters of Credit as being issued under the Senior New Money Subfacility as DIP Letters of Credit, , and (ii) an additional amount not to exceed $31,000,000 is available to issue new DIP Letters of Credit to backstop surety bonds, and (iii) up to $85,000,000 is available for new money Senior DIP Loans and (b) the $82,871,057.00 Senior Roll-Up Subfacility, in each case subject to the terms and conditions set forth in this Interim Order and the Senior DIP Loan Documents.
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn144view5 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"“Availability”"}); Total lines: 4735
+L2980:  | 31  |
+L2981:  | 47  |
+L2982:  | (57  | )  | 14  |
+L2983:  | 9  |
+L2984:  | 17  |
+L2985:  | 37  |
+L2986:  | (63  | )  | 5  |
+L2987:  | 20  |
+L2988:  |    |    | 82  |
+L2989:  |
+L2990: Ending DIP Balance  |    | $  | 31  |
+L2991:  | $  | 18  |
+L2992:  | $  | 22  |
+L2993:  | $  | 53  |
+L2994:  | $  | 100  |
+L2995:  | $  | 43  |
+L2996:  | $  | 58  |
+L2997:  | $  | 67  |
+L2998:  | $  | 84  |
+L2999:  | $  | 120  |
+L3000:  | $  | 58  |
+L3001:  | $  | 63  |
+L3002:  | $  | 82  |
+L3003:  |    |    | $  | 82  |
+L3004:  |
+L3005: DIP Availability Balance  |    | $  | 219  |
+L3006:  | $  | 232  |
+L3007:  | $  | 228  |
+L3008:  | $  | 197  |
+L3009:  | $  | 150  |
+L3010:  | $  | 207  |
+L3011:  | $  | 192  |
+L3012:  | $  | 183  |
+L3013:  | $  | 166  |
+L3014:  | $  | 130  |
+L3015:  | $  | 192  |
+L3016:  | $  | 187  |
+L3017:  | $  | 168  |
+L3220:    |    |    |    |    |    |    |    |    |    |    |    |
+L3221: Beginning DIP Balance  |    | $  | —  |
+L3222:  | $  | 22  |
+L3223:  | $  | 58  |
+L3224:  | $  | 58  |
+L3225:  | $  | 74  |
+L3226:  | $  | 93  |
+L3227:  | $  | 151  |
+L3228:  |    |    | $  | —  |
+L3229:  |
+L3230: ( +/- ) DIP Draw / (Paydown)  |    | 22  |
+L3231:  | 36  |
+L3232:  | —  |
+L3233:  | 16  |
+L3234:  | 19  |
+L3235:  | 58  |
+L3236:  | 98  |
+L3237:  |    |    | 249  |
+L3238:  |
+L3239: Ending DIP Balance  |    | $  | 22  |
+L3240:  | $  | 58  |
+L3241:  | $  | 58  |
+L3242:  | $  | 74  |
+L3243:  | $  | 93  |
+L3244:  | $  | 151  |
+L3245:  | $  | 249  |
+L3246:  |    |    | $  | 249  |
+L3247:  |
+L3248: DIP Availability Balance  |    | $  | 228  |
+L3249:  | $  | 192  |
+L3250:  | $  | 192  |
+L3251:  | $  | 176  |
+L3252:  | $  | 157  |
+L3253:  | $  | 99  |
+L3254:  | $  | 1  |
+L3255:  |    |    | $  | 1  |
+L3256:  |
+L3257:    |    |    |    |    |    |    |    |    |    |    |    |
+L3258: Incremental Letters of Credit  |    | $  | 31  |
+L3259:  | $  | 31  |
+L3260:  | $  | 31  |
+L3261:  | $  | 31  |
+L3262:  | $  | 31  |
+L3263:  | $  | 31  |
+L3264:  | $  | 31  |
+L3265:  |    |    | $  | 31  |
+L3266:  |
+L3267: Existing Letters of Credit  |    | $  | 150  |
+L3268:  | $  | 150  |
+L3269:  | $  | 150  |
+L3270:  | $  | 150  |
+L3271:  | $  | 150  |
+L3272:  | $  | 150  |
+L3273:  | $  | 150  |
+L3274:  |    |    | $  | 150  |
+L3275:  |
+L3276:    |    |    |    |    |    |    |    |    |    |    |    |
+L3277:  |
+L3278: (1)  | Comprised of pre-petition cash flows for weeks ending 7/3 through 7/10. Comprised of post-petition cash flows for weeks ending 7/17, 7/24 and 7/31
+L3279:  |
+L3280: (2)  | Comprised of stub period cash flows through week ending 1/15
+L3281: 
+L3282: For Discussion Purposes Only    Page 3 of 3
+L3283: 
+L3284: * * *
+L3285: 
+L3286: EXHIBIT B
+L3287: 
+L3288: FORM OF NOTICE OF BORROWING
+L3289: 
+L3290: [Letterhead of Borrower]
+L3291: 
+L3292: [Date]^{1}
+L3293: 
+L3294: JPMorgan Chase Bank, N.A.
+L3295: 
+L3296: as Administrative Agent
+L3297: 
+L3298:  |
+L3299: Re:  | California Resources Corporation Notice of Borrowing
+L3300: 
+L3301: Ladies and Gentlemen:
+L4130: The ability of the Debtors to finance their operations, maintain business relationships with their vendors and suppliers, and pay their employees requires the availability of working capital from the Senior DIP Facility and the use of Cash Collateral. The Debtors’ inability to access the interim financing under the DIP Facilities and use Cash Collateral
+
+
+=== Capture 4 ===
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn145view0 [wordlim: 200] Crawled: last week; Content type: text/html; Source: open({"ref_id":"turn141view0","lineno":899}); Total lines: 4735
+L893: made) payments to the Letter of Credit Issuer pursuant to Section 3.4(a) at such time and (b) such Lender’s Commitment Percentage of the Letters of Credit Outstanding at such time (excluding the portion thereof consisting of Unpaid Drawings in respect of which the Lenders have made (or are required to have made) payments to the Letter of Credit Issuer pursuant to Section 3.4(a)) minus the amount of cash or deposit account balances held by the Administrative Agent to Cash Collateralize outstanding Letters of Credit and Unpaid Drawings under Section 3.8.
+L894: “Letter of Credit Fee” shall have the meaning provided in Section 4.1(b).
+L895: “Letter of Credit Issuer” shall mean (a) JPMorgan Chase Bank, N.A., (b) Bank of America, N.A. and (c) Citibank, N.A., or, in each case, any of their respective Affiliates or any replacement or successor appointed pursuant to Section 3.6. References herein and in the other Credit Documents to the Letter of Credit Issuer shall be deemed to refer to the Letter of Credit Issuer in respect of the applicable Letter of Credit or to all Letter of Credit Issuers, as the context requires.
+L896: “Letter of Credit Request” shall have the meaning provided in Section 3.2(a).
+L897: 
+L898: “Letters of Credit Outstanding” shall mean, at any time, the sum of, without duplication, (a) the aggregate Stated Amount of all outstanding Letters of Credit and (b) the aggregate principal amount of all Unpaid Drawings in respect of all Letters of Credit.
+L899: 
+L900: “Liabilities” shall mean any losses, claims (including intraparty claims), obligations, penalties, actions, demands, damages, judgments or liabilities of any kind.
+L901: “LIBOR Loan” shall mean any Loan bearing interest at a rate determined by reference to the LIBOR Rate (other than an ABR Loan bearing interest by reference to the LIBOR Rate by virtue of clause (c) of the definition of ABR).
+L902: “LIBOR Rate” shall mean, with respect to any LIBOR Loan for any Interest Period, the LIBOR Screen Rate at approximately 11:00 a.m., London time, two Business Days prior to the commencement of such Interest Period; provided that if the LIBOR Screen Rate shall not be available at such time for such Interest Period (an “Impacted Interest Period”) then the LIBOR Rate shall be the Interpolated Rate.
+L903: “LIBOR Screen Rate” shall mean, for any day and time, with respect to any LIBOR Loan for any Interest Period, the London interbank offered rate as administered by ICE Benchmark Administration (or any other Person that takes over the administration of such rate for Dollars) for a period equal in length to such Interest Period as displayed on such day and time on pages LIBOR01 or LIBOR02 of the Reuters screen that displays such rate (or, in the event such rate does not appear on a Reuters page or screen, on any successor or substitute page on such screen that displays such rate, or on the appropriate page of such other information service that publishes such rate from time to time as selected by the Administrative Agent in its reasonable discretion), provided that if the LIBOR Screen Rate shall be less than 1.00%, such rate shall be deemed to 1.00% for the purposes of this Agreement.
+L904: “Lien” shall mean any interest in property securing an obligation owed to, or a claim by, a Person other than the owner of the property, whether such interest is based on the common law, statute or contract, and whether such obligation or claim is fixed or contingent, and including (a) the lien or security interest arising from a mortgage, encumbrance, pledge, security agreement or a financing lease, consignment or bailment for security purposes or (b) Production Payments and the like payable out of Oil and Gas Properties; provided that in no event shall an operating lease be deemed to be a Lien.
+L905: 22
+L906: 
+L907: * * *
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn145view1 [wordlim: 200] Crawled: last week; Content type: text/html; Source: open({"ref_id":"turn141view0","lineno":3055}); Total lines: 4735
+L2980:  | 31  |
+L2981:  | 47  |
+L2982:  | (57  | )  | 14  |
+L2983:  | 9  |
+L2984:  | 17  |
+L2985:  | 37  |
+L2986:  | (63  | )  | 5  |
+L2987:  | 20  |
+L2988:  |    |    | 82  |
+L2989:  |
+L2990: Ending DIP Balance  |    | $  | 31  |
+L2991:  | $  | 18  |
+L2992:  | $  | 22  |
+L2993:  | $  | 53  |
+L2994:  | $  | 100  |
+L2995:  | $  | 43  |
+L2996:  | $  | 58  |
+L2997:  | $  | 67  |
+L2998:  | $  | 84  |
+L2999:  | $  | 120  |
+L3000:  | $  | 58  |
+L3001:  | $  | 63  |
+L3002:  | $  | 82  |
+L3003:  |    |    | $  | 82  |
+L3004:  |
+L3005: DIP Availability Balance  |    | $  | 219  |
+L3006:  | $  | 232  |
+L3007:  | $  | 228  |
+L3008:  | $  | 197  |
+L3009:  | $  | 150  |
+L3010:  | $  | 207  |
+L3011:  | $  | 192  |
+L3012:  | $  | 183  |
+L3013:  | $  | 166  |
+L3014:  | $  | 130  |
+L3015:  | $  | 192  |
+L3016:  | $  | 187  |
+L3017:  | $  | 168  |
+L3018:  |    |    | $  | 168  |
+L3019:  |
+L3020:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L3021: Incremental Letters of Credit  |    | $  | 31  |
+L3022:  | $  | 31  |
+L3023:  | $  | 31  |
+L3024:  | $  | 31  |
+L3025:  | $  | 31  |
+L3026:  | $  | 31  |
+L3027:  | $  | 31  |
+L3028:  | $  | 31  |
+L3029:  | $  | 31  |
+L3030:  | $  | 31  |
+L3031:  | $  | 31  |
+L3032:  | $  | 31  |
+L3033:  | $  | 31  |
+L3034:  |    |    | $  | 31  |
+L3035:  |
+L3036: Existing Letters of Credit  |    | $  | 150  |
+L3037:  | $  | 150  |
+L3038:  | $  | 150  |
+L3039:  | $  | 150  |
+L3040:  | $  | 150  |
+L3041:  | $  | 150  |
+L3042:  | $  | 150  |
+L3043:  | $  | 150  |
+L3044:  | $  | 150  |
+L3045:  | $  | 150  |
+L3046:  | $  | 150  |
+L3047:  | $  | 150  |
+L3048:  | $  | 150  |
+L3049:  |    |    | $  | 150  |
+L3050:  |
+L3051: For Discussion Purposes Only    Page 2 of 3
+L3052: 
+L3053: * * *
+L3054:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L3055: Project Compass  | Monthly DIP Forecast
+L3056: Consolidated Monthly Cash Flow Forecast  |    |    |    |    |    |    |    |    |    |    |    |
+L3057: ($ in millions)  |    |    |    |    |    |    |    |    |    |    |    |
+L3058:    |    | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  | Fcst  |    |    | Fcst  |
+L3059:    |    | Jul-20  | Aug-20  | Sep-20  | Oct-20  | Nov-20  | Dec-20  | Jan-21  |    |    | Total  |
+L3060: Cash Inflows  |    |    |    |    |    |    |    |    |    |    |    |
+L3061: Total Receipts  |    | $  | 158  |
+L3062:  | $  | 108  |
+L3063:  | $  | 133  |
+L3064:  | $  | 150  |
+L3065:  | $  | 118  |
+L3066:  | $  | 150  |
+L3067:  | $  | 13  |
+L3068:  |    |    | $  | 830  |
+L3069:  |
+L3070: Cash Outflows  |    |    |    |    |    |    |    |    |    |    |    |
+L3071: Operating AP Payments  |    | $  | 73  |
+L3072:  | $  | 54  |
+L3073:  | $  | 44  |
+L3074:  | $  | 51  |
+L3075:  | $  | 53  |
+L3076:  | $  | 59  |
+L3077:  | $  | 8  |
+L3078:  |    |    | 341  |
+L3079:  |
+L3080: Payroll / Payroll Taxes  |    | 16  |
+L3081:  | 16  |
+L3082:  | 16  |
+L3083:  | 25  |
+L3084:  | 16  |
+L3085:  | 22  |
+L3086:  | 8  |
+L3087:  |    |    | 118  |
+L3088:  |
+L3089: Elk Hills Power Capacity / Reimbursement  |    | 23  |
+L3090:  | 23  |
+L3091:  | 23  |
+L3092:  | 23  |
+L3093:  | 23  |
+L3094:  | 23  |
+L3095:  | 24  |
+L3096:  |    |    | 163  |
+L3097:  |
+L3098: Other Operating Disbursements  |    | 66  |
+L3099:  | 37  |
+L3100:  | 32  |
+L3101:  | 27  |
+L3102:  | 28  |
+L3103:  | 75  |
+L3104:  | 17  |
+L3105:  |    |    | 282  |
+L3106:  |
+L3107: Total Operating Disbursements  |    | $  | 178  |
+L3108:  | $  | 130  |
+L3109:  | $  | 115  |
+L3110:  | $  | 125  |
+L3111:  | $  | 120  |
+L3112:  | $  | 179  |
+L3113:  | $  | 56  |
+L3114:  |    |    | $  | 904  |
+L3115:  |
+L3116:    |    |    |    |    |    |    |    |    |    |    |    |
+L3117: OPERATING CASH FLOW  |    | $  | (19  | )  | $  | (22  | )  | $  | 17  |
+L3118:  | $  | 25  |
+L3119:  | $  | (2  | )  | $  | (29  | )  | $  | (43  | )  |    |    | $  | (74  | )  |
+L3120:    |    |    |    |    |    |    |    |    |    |    |    |
+L3121: Other Cash Flows  |    |    |    |    |    |    |    |    |    |    |    |
+L3122: Interest Expense / Fees  |    | $  | 22  |
+L3123:  | $  | 4  |
+L3124:  | $  | 6  |
+L3125:  | $  | 8  |
+L3126:  | $  | 6  |
+L3127:  | $  | 15  |
+L3128:  | $  | 4  |
+L3129:  |    |    | $  | 65  |
+L3130:  |
+L3131: Other Disbursements  |    | 67  |
+L3132:  | 10  |
+L3133:  | 11  |
+L3134:  | 33  |
+L3135:  | 11  |
+L3136:  | 14  |
+L3137:  | 51  |
+L3138:  |    |    | 198  |
+L3139:  |
+L3140: Total Other Cash Flows  |    | $  | 90  |
+L3141:  | $  | 14  |
+L3142:  | $  | 18  |
+L3143:  | $  | 41  |
+L3144:  | $  | 18  |
+L3145:  | $  | 28  |
+L3146:  | $  | 54  |
+L3147:  |    |    | $  | 263  |
+L3148:  |
+L3149:    |    |    |    |    |    |    |    |    |    |    |    |
+L3150: TOTAL DISBURSEMENTS  |    | $  | 267  |
+L3151:  | $  | 144  |
+L3152:  | $  | 133  |
+L3153:  | $  | 166  |
+L3154:  | $  | 138  |
+L3155:  | $  | 207  |
+L3156:  | $  | 111  |
+L3157:  |    |    | $  | 1,166  |
+L3158:  |
+L3159: NET CASH FLOW  |    | $  | (109  | )  | $  | (36  | )  | $  | —  |
+L3160:  | $  | (16  | )  | $  | (19  | )  | $  | (58  | )  | $  | (98  | )  |    |    | $  | (336  | )  |
+L3161:    |    |    |    |    |    |    |    |    |    |    |    |
+L3162: CASH AND BORROWINGS  |    |    |    |    |    |    |    |    |    |    |    |
+L3163: Beginning Cash Balance  |    | $  | 97  |
+L3164:  | $  | 10  |
+L3165:  | $  | 10  |
+L3166:  | $  | 10  |
+L3167:  | $  | 10  |
+L3168:  | $  | 10  |
+L3169:  | $  | 10  |
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn145view2 [wordlim: 200] Crawled: last week; Content type: text/html; Source: open({"ref_id":"turn141view0","lineno":2797}); Total lines: 4735
+L2724:  | $  | 16  |
+L2725:  | $  | 14  |
+L2726:  | $  | 16  |
+L2727:  | $  | 9  |
+L2728:  | $  | 12  |
+L2729:  | $  | 11  |
+L2730:  | $  | 10  |
+L2731:  | $  | 10  |
+L2732:  | $  | 10  |
+L2733:  | $  | 11  |
+L2734:  |    |    | 172  |
+L2735:  |
+L2736: Payroll / Payroll Taxes  |    | —  |
+L2737:  | 8  |
+L2738:  | —  |
+L2739:  | 8  |
+L2740:  | —  |
+L2741:  | 8  |
+L2742:  | —  |
+L2743:  | 8  |
+L2744:  | —  |
+L2745:  | 8  |
+L2746:  | —  |
+L2747:  | 8  |
+L2748:  | —  |
+L2749:  |    |    | 48  |
+L2750:  |
+L2751: Elk Hills Power Capacity / Reimbursement  |    | 23  |
+L2752:  | —  |
+L2753:  | —  |
+L2754:  | —  |
+L2755:  | 23  |
+L2756:  | —  |
+L2757:  | —  |
+L2758:  | —  |
+L2759:  | —  |
+L2760:  | 23  |
+L2761:  | —  |
+L2762:  | —  |
+L2763:  | —  |
+L2764:  |    |    | 69  |
+L2765:  |
+L2766: Other Operating Disbursements  |    | —  |
+L2767:  | 50  |
+L2768:  | 11  |
+L2769:  | 7  |
+L2770:  | 15  |
+L2771:  | —  |
+L2772:  | 16  |
+L2773:  | 6  |
+L2774:  | 8  |
+L2775:  | —  |
+L2776:  | 18  |
+L2777:  | 3  |
+L2778:  | 3  |
+L2779:  |    |    | 137  |
+L2780:  |
+L2781: Total Operating Disbursements  |    | $  | 23  |
+L2782:  | $  | 86  |
+L2783:  | $  | 36  |
+L2784:  | $  | 30  |
+L2785:  | $  | 51  |
+L2786:  | $  | 24  |
+L2787:  | $  | 25  |
+L2788:  | $  | 26  |
+L2789:  | $  | 19  |
+L2790:  | $  | 42  |
+L2791:  | $  | 28  |
+L2792:  | $  | 22  |
+L2793:  | $  | 15  |
+L2794:  |    |    | $  | 427  |
+L2795:  |
+L2796:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2797: OPERATING CASH FLOW  |    | $  | (17  | )  | $  | 13  |
+L2798:  | $  | (2  | )  | $  | (27  | )  | $  | (44  | )  | $  | 59  |
+L2799:  | $  | (9  | )  | $  | (3  | )  | $  | (17  | )  | $  | (34  | )  | $  | 71  |
+L2800:  | $  | 3  |
+L2801:  | $  | (12  | )  |    |    | $  | (19  | )  |
+L2802:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2803: Interest Expense / Fees  |    | $  | 20  |
+L2804:  | $  | —  |
+L2805:  | $  | —  |
+L2806:  | $  | 4  |
+L2807:  | $  | —  |
+L2808:  | $  | —  |
+L2809:  | $  | —  |
+L2810:  | $  | 6  |
+L2811:  | $  | —  |
+L2812:  | $  | —  |
+L2813:  | $  | —  |
+L2814:  | $  | 8  |
+L2815:  | $  | —  |
+L2816:  |    |    | $  | 38  |
+L2817:  |
+L2818: Other Disbursements  |    | 31  |
+L2819:  | —  |
+L2820:  | 2  |
+L2821:  | —  |
+L2822:  | 3  |
+L2823:  | 2  |
+L2824:  | 5  |
+L2825:  | —  |
+L2826:  | —  |
+L2827:  | 3  |
+L2828:  | 9  |
+L2829:  | —  |
+L2830:  | 8  |
+L2831:  |    |    | 62  |
+L2832:  |
+L2833: Total Other Cash Flows  |    | $  | 51  |
+L2834:  | $  | —  |
+L2835:  | $  | 2  |
+L2836:  | $  | 4  |
+L2837:  | $  | 3  |
+L2838:  | $  | 2  |
+L2839:  | $  | 5  |
+L2840:  | $  | 7  |
+L2841:  | $  | —  |
+L2842:  | $  | 3  |
+L2843:  | $  | 9  |
+L2844:  | $  | 8  |
+L2845:  | $  | 8  |
+L2846:  |    |    | $  | 100  |
+L2847:  |
+L2848:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2849: TOTAL DISBURSEMENTS  |    | $  | 74  |
+L2850:  | $  | 86  |
+L2851:  | $  | 38  |
+L2852:  | $  | 34  |
+L2853:  | $  | 54  |
+L2854:  | $  | 25  |
+L2855:  | $  | 30  |
+L2856:  | $  | 32  |
+L2857:  | $  | 19  |
+L2858:  | $  | 44  |
+L2859:  | $  | 37  |
+L2860:  | $  | 29  |
+L2861:  | $  | 22  |
+L2862:  |    |    | $  | 527  |
+L2863:  |
+L2864:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2865: NET CASH FLOW  |    | $  | (68  | )  | $  | 13  |
+L2866:  | $  | (4  | )  | $  | (31  | )  | $  | (47  | )  | $  | 57  |
+L2867:  | $  | (14  | )  | $  | (9  | )  | $  | (17  | )  | $  | (37  | )  | $  | 63  |
+L2868:  | $  | (5  | )  | $  | (20  | )  |    |    | $  | (119  | )  |
+L2869:    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+L2870: Beginning Cash Balance  |    | $  | 47  |
+L2871:  | $  | 10  |
+L2872:  | $  | 10  |
+L2873:  | $  | 10  |
+L2874:  | $  | 10  |
+L2875:  | $  | 10  |
+L2876:  | $  | 10  |
+L2877:  | $  | 10  |
+L2878:  | $  | 10  |
+L2879:  | $  | 10  |
+L2880:  | $  | 10  |
+L2881:  | $  | 10  |
+L2882:  | $  | 10  |
+L2883:  |    |    | $  | 47  |
+L2884:  |
+L2885: ( +/- ) Net Cash Flow  |    | (68  | )  | 13  |
+L2886:  | (4  | )  | (31  | )  | (47  | )  | 57  |
+L2887:  | (14  | )  | (9  | )  | (17  | )  | (37  | )  | 63  |
+L2888:  | (5  | )  | (20  | )  |    |    | (119  | )  |
+L2889: ( +/- ) RBL Draw / (Paydown)  |    | —  |
+L2890:  | —  |
+L2891:  | —  |
+L2892:  | —  |
+L2893:  | —  |
+L2894:  | —  |
+L2895:  | —  |
+L2896:  | —  |
+L2897:  | —  |
+L2898:  | —  |
+L2899:  | —  |
+L2900:  | —  |
+L2901:  | —  |
+L2902:  |    |    | —  |
+L2903:  |
+L2904: ( +/- ) DIP Draw / (Paydown)  |    | 31  |
+L2905:  | (13  | )  | 4  |
+L2906:  | 31  |
+L2907:  | 47  |
+L2908:  | (57  | )  | 14  |
+L2909:  | 9  |
+L2910:  | 17  |
+L2911:  | 37  |
+L2912:  | (63  | )  | 5  |
+L2913:  | 20  |
+L2914:  |    |    | 82  |
+L2915:  |
+L2916: Ending Cash Balance  |    | $  | 10  |
+L2917:  | $  | 10  |
+L2918:  | $  | 10  |
+L2919:  | $  | 10  |
+L2920:  | $  | 10  |
+L2921:  | $  | 10  |
+L2922:  | $  | 10  |
+L2923:  | $  | 10  |
+L2924:  | $  | 10  |
+L2925:  | $  | 10  |
+L2926:  | $  | 10  |
+L2927:  | $  | 10  |
+L2928:  | $  | 10  |
+L2929:  |    |    | $  | 10  |
+L2930:  |
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn145view3 [wordlim: 200] Crawled: last week; Content type: text/html; Source: open({"ref_id":"turn141view0","lineno":2177}); Total lines: 4735
+L2167: (c)    any such Hedge Agreement is non-speculative (including Hedge Agreements entered into to unwind or offset other permitted Hedge Agreements); and
+L2168: 
+L2169: (d)    the Borrower and the Subsidiaries properly identify and consistently report such hedges, the Borrower and the Subsidiaries may utilize crude oil hedges as a substitute for hedging natural gas liquids.
+L2170: It is understood that for purposes of this Section 11.10, the following Hedge Agreements shall not be deemed speculative or entered into for speculative purposes: (i) any commodity Hedge Agreement intended, at inception of execution, to hedge or manage any of the risks related to existing and or forecasted Hydrocarbon production of the Borrower or its Subsidiaries (whether or not contracted) and (ii) any Hedge Agreement intended, at inception of execution, (A) to hedge or manage the interest rate exposure associated with any existing debt securities, debt facilities or leases of the Borrower or its Subsidiaries and (B) for foreign exchange or currency exchange management.
+L2171: Notwithstanding anything to the contrary in this Section 11.10, any other provisions of this Agreement or any other Credit Document, the Borrower will not permit any Non-Debtor Subsidiary, nor will any Non-Debtor Subsidiary be permitted, to enter into any Hedge Agreements with any Person.
+L2172: 
+L2173: 93
+L2174: 
+L2175: * * *
+L2176: 
+L2177: 11.11    Financial Performance Covenants.
+L2178: (a)    Budget Variance.
+L2179: As of Thursday, August 13, 2020 and on each fourth Thursday thereafter (each four-week period ending on the immediately preceding Friday prior to the delivery of the latest 13-week Projection, a “Testing Period”; provided that the initial Testing Period shall be deemed to include the full calendar week in which the Petition Date occurs), the Borrower shall not permit (i) the Total Operating Disbursements made by the Borrower and its Subsidiaries during such Testing Period (provided that if the 13-week Projection for such Testing Period has not yet been approved or deemed approved by the Administrative Agent and the Majority Lenders, then such amount shall be reduced by any Total Operating Disbursements projected for the previous Testing Period in the Budget for the previous Testing Period and not expended during the previous Testing Period) to be greater than 110% of the Total Operating Disbursements as set forth in the Budget for such Testing Period or (ii) Operating AP Payments, Payroll/Payroll Taxes (which, for the avoidance of doubt and consistent with the Budget, shall include amounts associated with the Borrower’s “Key Employee Incentive Plan” and “Key Employee Retention Plan”) and Elk Hills Power Capacity/Reimbursement (provided that if the 13-week Projection for such Testing Period has not yet been approved or deemed approved by the Administrative Agent and the Majority Lenders, then each such amount shall be reduced by any operating disbursements related to each such line item projected for the previous Testing Period in the Budget for the previous Testing Period and not expended during the previous Testing Period), in each case, to be greater than 115% of the amounts set forth for such line items in the Budget for such Testing Period; provided that, for purposes of calculating variance pursuant to clause (i), professional fees and expenses and fees and expenses of the Administrative Agent and the Lenders shall not be counted toward Total Operating Disbursements.
+L2180: (b)    Liquidity. (i) The Borrower shall not permit the 4-week Rolling Average Liquidity to be less than $50,000,000 at any time and (ii) the Borrower shall not permit Liquidity to be less than $35,000,000 as of the close of business on any day.
+L2181: 11.12    Transactions with Affiliates.
+
+
+=== Capture 5 ===
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn147view0 [wordlim: 200] Crawled: last week; Content type: text/html; Source: open({"ref_id":"turn141view0","lineno":908}); Total lines: 4735
+L908: “Liquidity” shall mean, as of any date of determination, the sum of (a) the Total Commitments at such time minus the Total Credit Exposure at such time and (b) the aggregate amount of unrestricted cash and cash equivalents of the Borrower and its Subsidiaries as set forth on the most recent consolidated balance sheet of the Borrower and its Subsidiaries (it being understood that (i) cash or cash equivalents subject to a control agreement in favor of Persons other than the Administrative Agent for the benefit of the Secured Parties or the Junior DIP Agent for the benefit of the “Secured Parties” under and as defined in the Junior DIP Credit Agreement shall be deemed “restricted” (except calculating the Consolidated Cash Balance for purposes of Section 5.2(d), in which case such cash or cash equivalents shall be deemed not “restricted”) and (ii) cash or cash equivalents upon which a Lien in favor of the Administrative Agent for the benefit of the Secured Parties or the Junior DIP Agent for the benefit of the “Secured Parties” under and as defined in the Junior DIP Credit Agreement has been granted (excluding cash that is Cash Collateralizing outstanding L/C Obligations under Section 3.8) shall be deemed not “restricted”) (the amount in this clause (b), the “Consolidated Cash Balance”).
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn147view1 [wordlim: 200] Crawled: last week; Content type: text/html; Source: open({"ref_id":"turn141view0","lineno":1130}); Total lines: 4735
+L1128: “Testing Period” shall have the meaning provided in Section 11.11(a).
+L1129: 
+L1130: “Total Commitment” shall mean, as of any date of determination, (a) the sum of the Commitments of the Lenders or (b) if the Total Commitment has been terminated or for the purposes of acceleration pursuant to ARTICLE XII, the sum of the outstanding Loans and Letter of Credit Exposure. The Total Commitment as of the Closing Date is $483,010,655.62.
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn147view2 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"“Credit Exposure”"}); Total lines: 4735
+L694: “Credit Event” shall mean and include the making (but not the conversion or continuation) of a Loan and the issuance of a Letter of Credit.
+L695: 
+L696: “Credit Exposure” shall mean, with respect to any Lender at any time, the sum of (a) the aggregate principal amount of the Loans of such Lender then outstanding and (b) such Lender’s Letter of Credit Exposure at such time.
+L697: 
+L698: “Credit Party” shall mean each of the Borrower and the Guarantors.
+L699: 
+L700: “Debtor(s)” shall have the meaning provided in the recitals hereto.
+L908: “Liquidity” shall mean, as of any date of determination, the sum of (a) the Total Commitments at such time minus the Total Credit Exposure at such time and (b) the aggregate amount of unrestricted cash and cash equivalents of the Borrower and its Subsidiaries as set forth on the most recent consolidated balance sheet of the Borrower and its Subsidiaries (it being understood that (i) cash or cash equivalents subject to a control agreement in favor of Persons other than the Administrative Agent for the benefit of the Secured Parties or the Junior DIP Agent for the benefit of the “Secured Parties” under and as defined in the Junior DIP Credit Agreement shall be deemed “restricted” (except calculating the Consolidated Cash Balance for purposes of Section 5.2(d), in which case such cash or cash equivalents shall be deemed not “restricted”) and (ii) cash or cash equivalents upon which a Lien in favor of the Administrative Agent for the benefit of the Secured Parties or the Junior DIP Agent for the benefit of the “Secured Parties” under and as defined in the Junior DIP Credit Agreement has been granted (excluding cash that is Cash Collateralizing outstanding L/C Obligations under Section 3.8) shall be deemed not “restricted”) (the amount in this clause (b), the “Consolidated Cash Balance”).
+L912: “Majority Lenders” shall mean, at any date, (a) Non-Defaulting Lenders having or holding more than 50% of the unused Adjusted Total Commitment at such date and the Total Credit Exposure (excluding the Credit Exposure of Defaulting Lenders) in the aggregate at such date or (b) for the purposes of acceleration pursuant to ARTICLE XII, Non-Defaulting Lenders having or holding more than 50% of the Loans and Letter of Credit Exposure (excluding the Credit Exposure of Defaulting Lenders) in the aggregate at such date; provided that to the same extent set forth in Section 14.1(b) with respect to a determination of Majority Lenders, the Commitments, Loans and participation interests in Letters of Credit of any Affiliated Lender shall in each case be excluded for purposes of making a determination of Majority Lenders.
+L1128: “Testing Period” shall have the meaning provided in Section 11.11(a).
+L1129: 
+L1130: “Total Commitment” shall mean, as of any date of determination, (a) the sum of the Commitments of the Lenders or (b) if the Total Commitment has been terminated or for the purposes of acceleration pursuant to ARTICLE XII, the sum of the outstanding Loans and Letter of Credit Exposure. The Total Commitment as of the Closing Date is $483,010,655.62.
+L1131: “Total Credit Exposure” shall mean, as of any date of determination the sum of the Credit Exposures of the Lenders at such date.
+L1132: 
+L1133: “Transaction Expenses” shall mean any fees or expenses incurred or paid by the Borrower or any of its Subsidiaries or any of their Affiliates in connection with the Transactions, this Agreement and the other Credit Documents and the transactions contemplated hereby and thereby.
+L1230: Such notice (a “Notice of Borrowing”) shall specify (A) the aggregate principal amount of the Loans to be made pursuant to such Borrowing, (B) the date of the Borrowing (which shall be a Business Day), (C) whether the respective Borrowing shall consist of ABR Loans and/or LIBOR Loans and, if LIBOR Loans, the Interest Period to be initially applicable thereto (if no Interest Period is selected, the Borrower shall be deemed to have selected an Interest Period of one month’s duration), (D) the current Total Credit Exposure (without regard to the requested Borrowing) of all Lenders and the pro forma Total Credit Exposure (giving effect to the requested Borrowing) of all Lenders and (E) the pro forma Consolidated Cash Balance (giving effect to the requested Borrowing).
+L1337: (c)    If any Letter of Credit Exposure exists at the time a Lender becomes a Defaulting Lender, then (i) all or any part of such Letter of Credit Exposure of such Defaulting Lender will, subject to the limitation in the first proviso below, automatically be reallocated (effective on the day such Lender becomes a Defaulting Lender) among the Non-Defaulting Lenders pro rata in accordance with their respective Commitment Percentages; provided that (A) each Non-Defaulting Lender’s Credit Exposure may not in any event exceed the Commitment Percentage of the Loan Limit of such Non-Defaulting Lender as in effect at the time of such reallocation and (B) subject to Section 14.24, neither such reallocation nor any payment by a Non-Defaulting Lender pursuant thereto will constitute a waiver or release of any claim the Borrower, the Administrative Agent, the Letter of Credit Issuers or any other Lender may have against such Defaulting Lender or cause such Defaulting Lender to be a Non-Defaulting Lender, (ii) to the extent that all or any portion (the “unreallocated portion”) of the Defaulting Lender’s Letter of Credit Exposure cannot, or can only partially, be so reallocated to Non-Defaulting Lenders, whether by reason of the first proviso in Section 2.15(c)(i) or otherwise, the Borrower shall within two Business Days following notice by the Administrative Agent or the applicable Letter of Credit Issuer Cash Collateralize, for the benefit of the applicable Letter of Credit Issuer only, the Borrower’s obligations corresponding to such Defaulting Lender’s Letter of Credit Exposure (after giving effect to any partial reallocation pursuant to clause (i) above), in accordance with the procedures set forth in Section 3.8 for so long as such Letter of Credit Exposure is outstanding, (iii) if the Borrower Cash Collateralizes any portion of such Defaulting Lender’s Letter of Credit Exposure pursuant to Section 2.15(c), the Borrower shall not be required to pay any fees to such Defaulting Lender pursuant to Section 4.1(b) with respect to such Defaulting Lender’s Letter of Credit Exposure during the period such Defaulting Lender’s Letter of Credit Exposure is Cash Collateralized, (iv) if the Letter of Credit Exposure of the Non-Defaulting Lenders is reallocated pursuant to Section 2.15(c), then the Letter of Credit Fees payable for the account of the Lenders pursuant to Section 4.1(b) shall be adjusted in accordance with such Non-Defaulting Lenders’ Commitment Percentages and the Borrower shall not be required to pay any Letter of Credit Fees to the Defaulting Lender pursuant to Section 4.1(b) with respect to such Defaulting Lender’s Letter of Credit Exposure during the period that such Defaulting Lender’s Letter of Credit Exposure is reallocated, or (v) if any Defaulting Lender’s Letter of Credit Exposure is neither Cash Collateralized nor reallocated pursuant to this Section 2.15(c), then, without prejudice to any rights or remedies of the Letter of Credit Issuer or any Lender hereunder, all Letter of Credit Fees payable under Section 4.1(b) with respect to such Defaulting Lender’s Letter of Credit Exposure shall be payable to the Letter of Credit Issuer until such Letter of Credit Exposure is Cash Collateralized and/or reallocated;
+L1340: 46
+L1341: 
+L1342: * * *
+L1343: 
+L1344: returned to the Borrower and any Letter of Credit Exposure of such Lender reallocated pursuant to Section 2.15(c) shall be reallocated back to such Lender; provided that, except to the extent otherwise expressly agreed by the affected parties, no change hereunder from Defaulting Lender to Non-Defaulting Lender will constitute a waiver or release of any claim of any party hereunder arising from such Lender’s having been a Defaulting Lender.
+L1503: (a)    Upon at least two Business Days’ prior written notice (or telephonic notice promptly confirmed in writing) to the Administrative Agent at the Administrative Agent’s Office (which notice the Administrative Agent shall promptly transmit to each of the Lenders), the Borrower shall have the right, without premium or penalty, on any day, to permanently terminate or reduce the Commitments, as determined by the Borrower, in whole or in part; provided that (i) any such termination or reduction shall apply ratably to reduce each Lender’s Commitment, (ii) any partial reduction pursuant to this Section 4.2 shall be in the amount of at least $500,000 and in an integral multiple of $100,000 in excess thereof and (iii) after giving effect to such termination or reduction and to any prepayments of Loans or cancellation or Cash Collateralization of Letters of Credit made on the date thereof in accordance with this Agreement, the Total Credit Exposure shall not exceed the Loan Limit.
+L1527: (a)    Repayment following Excess Credit Exposure.
+L1528: If, at any time, including as a result of giving effect to any termination or reduction of the Commitments pursuant to Section 4.2(a), the Total Credit Exposure exceeds the Loan Limit (and if terminated or reduced, as terminated or reduced), then the Borrower shall on the same Business Day (i) prepay the Loans on the date such excess (and in the case of a termination or reduction, such termination or reduction) has occurred in an aggregate principal amount equal to such excess and (ii) if any excess remains after prepaying all of the Loans as a result of any Letter of Credit Exposure, pay to the Administrative Agent on behalf of the Letter of Credit Issuer and the L/C Participants an amount in cash equal to such excess to be held as Cash Collateral as provided in Section 3.8.
+L1535: If the Borrower or any one of the other Credit Parties consummates (i) a Disposition of any of its Oil and Gas Properties or any other property (including, for the avoidance of doubt, transfers of property subject to a Casualty Event but excluding any Disposition (x) permitted under Sections 11.4(a) or 11.4(e) (other than with respect to Oil and Gas Properties), (y) by a Credit Party to another Credit Party (to the extent such Disposition is otherwise permitted hereunder) or (z) of Identified Assets (which shall be subject to Section 5.2(f))) or (ii) the unwinding, terminating and/or offsetting of any Hedge Agreement, the Borrower shall, on the Business Day after receiving such proceeds, (A) repay the Loans in an aggregate principal amount equal to the lesser of (1) 100% of the Net Cash Proceeds obtained from such Disposition and (2) the sum of the
+L1536: 59
+L1537: 
+L1538: * * *
+L1539: 
+L1540: then-outstanding Loans and (B) if any excess remains after prepaying all of the Loans as a result of any Letter of Credit Exposure, pay to the Administrative Agent on behalf of the Letter of Credit Issuer and the L/C Participants an amount in cash equal to such excess to be held as Cash Collateral as provided in Section 3.8; provided, that contemporaneously with any repayment of Loans made pursuant to Section 5.2(e), the Total Commitment shall be reduced by the amount of such repayment.
+L1542: If the Borrower or any one of the other Credit Parties consummates a Disposition of any of the assets identified on Schedule 5.2(f) (the “Identified Assets”), the Borrower shall, on the Business Day after receiving such proceeds, (i) repay the Loans in an aggregate principal amount equal to the lesser of (A) the sum of (1) 50% of the first $20,000,000 of Net Cash Proceeds obtained from all such Dispositions and (2) 100% of the Net Cash Proceeds obtained in excess thereof and (B) the sum of the then-outstanding Loans and (ii) if any excess remains after prepaying all of the Loans as a result of any Letter of Credit Exposure, pay to the Administrative Agent on behalf of the Letter of Credit Issuer and the L/C Participants an amount in cash equal to such excess to be held as Cash Collateral as provided in Section 3.8.
+L1544: If the Borrower or any one of the other Credit Parties (i) incurs any Indebtedness other than Loans and Indebtedness permitted under subsections (c) and (m) of Section 11.1 or (ii) issues any Stock or Stock Equivalents for cash (other than issuances of Stock or Stock Equivalents permitted under Section 11.6), the Borrower shall, on the Business Day after receiving such proceeds, following prior written notice to the Administrative Agent of its intent to repay the Loans and reduce the Commitments as hereinafter set forth, (A) repay the Loans in an aggregate principal amount equal to the lesser of (1) 100% of the Net Cash Proceeds obtained from such incurrence or issuance and (2) the sum of the then-outstanding Loans and (B) if any excess remains after prepaying all of the Loans as a result of any Letter of Credit Exposure, pay to the Administrative Agent on behalf of the Letter of Credit Issuer and the L/C Participants an amount in cash equal to such excess to be held as Cash Collateral as provided in Section 3.8; provided that contemporaneously with any repayment of Loans made pursuant to this Section 5.2(g), the Total Commitment shall be reduced by the amount of such repayment.
+L3394: After giving effect to the requested issuance, (i) the Stated Amount of the Letter of Credit requested by this Letter of Credit Request does not (x) when added to the Letters of Credit Outstanding at this time, exceed the Letter of Credit Commitment now in effect or (y) cause the Total Credit Exposure to exceed the Loan Limit now in effect and (ii) the pro forma Consolidated Cash Balance is $[                   ].
+L3395: 
+L3396: __________
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn147view3 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"$10,000,000"}); Total lines: 4735
+L838: “Indebtedness” of any Person shall mean (a) all indebtedness of such Person for borrowed money, (b) all obligations of such Person evidenced by bonds, debentures, notes, loan agreements or other similar instruments, (c) the deferred purchase price of assets or services that in accordance with GAAP would be included as a liability on the balance sheet of such Person (other than (i) any earn-out obligation until such obligation becomes a liability on the balance sheet of such Person in accordance with GAAP and (ii) obligations resulting under firm transportation contracts or take or pay contracts entered into in the ordinary course of business), (d) the face amount of all letters of credit issued for the account of such Person and, without duplication, all drafts drawn thereunder, (e) all Indebtedness (excluding prepaid interest thereon) of any other Person secured by any Lien on any property owned by such Person, whether or not such Indebtedness has been assumed by such Person, (f) the principal component of all Capitalized Lease Obligations of such Person, (g) obligations to deliver commodities, goods or services, including Hydrocarbons, in consideration of one or more advance payments, other than obligations relating to net oil, natural gas liquids or natural gas balancing arrangements arising in the ordinary course of business, (h) the undischarged balance of any Production Payment created by such Person or for the creation of which such Person directly or indirectly received payment, and (i) without duplication, all Guarantee Obligations of such Person; provided that Indebtedness shall not include (i) trade and other ordinary course payables and accrued expenses arising in the ordinary course of business, (ii) deferred or prepaid revenue, (iii) purchase price holdbacks in respect of a portion of the purchase price of an asset to satisfy warranty or other unperformed obligations of the respective seller, (iv) any obligation in respect of a farm-in agreement, joint development agreement, joint operating agreement or similar arrangement whereby such Person agrees to pay all or a share of the drilling, completion or other expenses of an exploratory or development well (which agreement may be subject to a maximum payment obligation, after which expenses are shared in accordance with the working or participation interest therein or in accordance with the agreement of the parties) or perform the drilling, completion or other operation on such well in exchange for an ownership interest in an oil or gas property, (v) any obligations in respect of any Hedge Agreement that is permitted under this Agreement, (vi) prepayments for gas or crude oil production not to exceed $10,000,000 in the aggregate at any time outstanding, provided that no more than $5,000,000 of such prepayments shall be outstanding more than 30 days in advance thereof, or (vii) obligations arising from net profits interests, working interests, overriding, non-participating or other royalty interests or similar real property interests.
+L886: “Letter of Credit Commitment” shall mean $35,000,000, as the same may be increased or reduced from time to time pursuant to Section 3.1; provided that (a) no issuer of a Prepetition Letter of Credit shall be obligated to issue Letters of Credit (including Prepetition Letters of Credit) in an aggregate face amount in excess of $80,000,000 outstanding at any time and (b) Citibank, N.A.
+L887: shall not be obligated to issue Letters of Credit in an aggregate face amount in excess of $35,000,000 outstanding at any time.
+L978: (d)    time deposits with, or domestic and LIBOR certificates of deposit or bankers’ acceptances maturing no more than one year after the date of acquisition thereof issued by any Lender or any other bank having combined capital and surplus of not less than $500,000,000 in the case of domestic banks and $100,000,000 (or the Dollar equivalent thereof) in the case of foreign banks;
+L980: (f)    marketable short-term money market and similar funds (i) either having assets in excess of $500,000,000 or (ii) having a rating of at least A-2 or P-2 from either S&P or Moody’s (or, if at any time neither S&P nor Moody’s shall be rating such obligations, an equivalent rating from another nationally recognized rating service);
+L981: (g)    shares of investment companies that are registered under the Investment Company Act of 1940 and substantially all the investments of which are one or more of the types of securities described in clauses (a) through (f) above;
+L982: (h)    investments in an aggregate amount not to exceed $100,000,000 in corporate debt securities having a rating of either A from S&P or A2 from Moody’s (or, if at any time neither S&P nor Moody’s shall be rating such obligations, an equivalent rating from another nationally recognized rating service); and
+L1522: (b)    each partial prepayment of (i) LIBOR Loans shall be in a minimum amount of $500,000 and in multiples of $100,000 in excess thereof, and (ii) any ABR Loans shall be in a minimum amount of $500,000 and in multiples of $100,000 in excess thereof; provided that no partial prepayment of LIBOR Loans made pursuant to a single Borrowing shall reduce the outstanding LIBOR Loans made pursuant to such Borrowing to an amount less than $1,000,000 for such LIBOR Loans; and
+L1532: (d)    Application of Excess Cash. If, as of the end of any Business Day, the Consolidated Cash Balance exceeds $150,000,000, the Borrower shall on or before 9:00 a.m.
+L1542: If the Borrower or any one of the other Credit Parties consummates a Disposition of any of the assets identified on Schedule 5.2(f) (the “Identified Assets”), the Borrower shall, on the Business Day after receiving such proceeds, (i) repay the Loans in an aggregate principal amount equal to the lesser of (A) the sum of (1) 50% of the first $20,000,000 of Net Cash Proceeds obtained from all such Dispositions and (2) 100% of the Net Cash Proceeds obtained in excess thereof and (B) the sum of the then-outstanding Loans and (ii) if any excess remains after prepaying all of the Loans as a result of any Letter of Credit Exposure, pay to the Administrative Agent on behalf of the Letter of Credit Issuer and the L/C Participants an amount in cash equal to such excess to be held as Cash Collateral as provided in Section 3.8.
+L1975: (t)    Indebtedness associated with bonds or surety obligations required by Requirements of Law or by Governmental Authorities in connection with the operation of Oil and Gas Properties in the ordinary course of business;
+L1976: 
+L1977: (u)    [reserved];
+L1978: 
+L1979: (v)    [reserved];
+L1980: 
+L1981: (w)    [reserved];
+L1982: 
+L1983: (x)    other Indebtedness in an aggregate principal amount not to exceed $5,000,000;
+L2014: (o)    [reserved];
+L2015: 
+L2016: (p)    Liens on insurance policies and the proceeds thereof securing the financing of the premiums with respect thereto;
+L2017: 
+L2018: (q)    Liens in respect of Production Payments which, in the case of Production Payments constituting Indebtedness, only secure assets that are subject to such Production Payments; provided that the obligations secured by such Liens shall not exceed $5,000,000;
+L2026: (v)    Liens arising pursuant to Section 107(l) of CERCLA, or other Environmental Law, unless such Lien (i) by action of the lienholder, or by operation of law, takes priority over any Liens arising under the Credit Documents on the property upon which it is a Lien, and (ii) relates to a liability of the Borrower or any Subsidiary that is reasonably likely to exceed $5,000,000;
+L2027: 
+L2028: 87
+L2029: 
+L2030: * * *
+L2031: 
+L2032: (w)    [reserved];
+L2033: 
+L2034: (x)    [reserved];
+L2035: 
+L2036: (y)    [reserved];
+L2214: (e)    (i) the Borrower or any of the Subsidiaries shall default in any payment with respect to the Junior DIP Facility or any other Indebtedness (other than Indebtedness described in Section 12.1(a)) or Hedge Obligations in excess of $5,000,000, beyond the grace period, if any, provided in the instrument or agreement under which such Indebtedness or Hedge Obligation was created, (ii) the Borrower or any of the Subsidiaries shall be in breach or default of any other term under the documentation governing any Indebtedness or Hedge Obligations referred to in clause (i) if the effect of such breach or default is to cause, or to permit the holder or holders of such Indebtedness (or a trustee or agent on behalf of such holder or holders) or the counterparty or counterparties in respect of such Hedge Obligations to cause (in each case, with the giving of notice, the passage of time or both), such Indebtedness or Hedge Obligations to become or be declared due and payable, or to be required to be prepaid, defeased or redeemed, prior to its stated maturity or the stated maturity of any underlying obligation, as the case may be or (iii) any Indebtedness or Hedge Obligations referred to in clause (i) shall be declared to be due and payable, or shall be required to be prepaid, defeased or redeemed other than by a regularly scheduled required prepayment or as a mandatory prepayment (and, (A) with respect to any Hedge Obligations, other than due to a termination event or equivalent event pursuant to the terms of the related Hedge Agreements and (B) other than secured Indebtedness that becomes due as a result of a Disposition (including as a result of Casualty Event) of the property or assets securing such Indebtedness permitted under this Agreement), prior to the stated maturity thereof; provided that clauses (ii) and (iii) shall not apply to any Indebtedness of any Debtor that was incurred prior to the Petition Date so long as the remedies under such Indebtedness are subject to the automatic stay applicable under Section 362 of the Bankruptcy Code;
+L2222: (i)    one or more monetary judgments or decrees as to post-Petition Date liability or debt shall be entered against the Borrower or any of the Subsidiaries involving a liability of $5,000,000 or more in the aggregate for all such judgments and decrees for the Borrower and the Subsidiaries (to the extent not paid or covered by insurance provided by a carrier not disputing coverage) and any such judgments or decrees shall not have been satisfied, vacated, discharged or stayed or bonded pending appeal within 60 days after the entry thereof;
+L2233: (r)    the entry of an order granting relief from any stay of proceeding (including, without limitation, the automatic stay) so as to allow a third party to proceed with foreclosure (or granting of a deed in lieu of foreclosure) against assets with an aggregate value in excess of $1,000,000;
+L2234: 
+L2235: (s)    the entry of any post-petition judgment against any Credit Party in excess of $1,000,000;
+L2472: (A)    except in the case of an assignment to a Lender, an Affiliate of a Lender or an Approved Fund or an assignment of the entire remaining amount of the assigning Lender’s Commitment or Loans, (1) the amount of the Commitment or Loans of the assigning Lender subject to each such assignment (determined as of the date the Assignment and Acceptance with respect to such assignment is delivered to the Administrative Agent) shall not be less than $5,000,000
+L2473: 
+L2474: 114
+L2475: 
+L2476: * * *
+L2477: and increments of $1,000,000 in excess thereof and (2) after giving effect to such assignment, the amount of the remaining Commitment or Loans of the assigning Lender (determined as of the date the Assignment and Acceptance with respect to such assignment is delivered to the Administrative Agent) shall not be less than $5,000,000, in each case unless each Letter of Credit Issuer and the Administrative Agent otherwise consents (which consents shall not be unreasonably withheld or delayed); provided that contemporaneous assignments to a single assignee made by Affiliates of Lenders and related Approved Funds shall be aggregated for purposes of meeting the minimum assignment amount requirements stated above;
+L3965: (A) a senior secured superpriority debtor-in-possession revolving credit facility (the “Senior DIP Facility”) in the aggregate principal amount of up to $483,010,655.62, consisting of (i) a $400,139,598.62 new money subfacility (the “Senior New Money Subfacility”), including $150,139,598.62 to deem the RBL Letters of Credit (as defined below) as being issued under the Senior New Money Subfacility and a sublimit of not more than $35,000,000 for additional letters of credit (together, the “DIP Letters of Credit”), and (ii) a $82,871,057.00 “roll-up” term loan subfacility (the “Senior Roll-Up Subfacility”) (all extensions of credit, including the issuance or deemed issuance of DIP Letters of Credit, under the Senior DIP Facility, the “Senior DIP Loans”) pursuant to the terms and conditions of this Interim Order and that certain Senior Secured Superpriority Debtor-In-Possession Credit Agreement substantially in the form attached hereto as Exhibit 1 (as amended, supplemented, restated, refunded, refinanced, replaced or otherwise modified from time to time in accordance with the terms thereof, the “Senior DIP Credit Agreement”, and together with all agreements, commitment and fee letters, documents, instruments and certificates executed, delivered or filed in connection therewith, as amended, supplemented, restated or otherwise modified from time to time in accordance with the terms thereof, collectively, the “Senior DIP Loan Documents”), by and among California Resources Corporation, as borrower (“CRC” or the “Senior DIP Borrower”), each of the other Debtors, as guarantors (the “Senior DIP Guarantors”), JPMorgan Chase Bank, N.A.
+L3968: (B) a junior secured superpriority debtor-in-possession term loan facility (the “Junior DIP Facility”, together with the Senior DIP Facility, the “DIP Facilities”) in the aggregate principal amount of $650,000,000 (all extensions of credit under the Junior DIP Facility, the “Junior DIP Loans”, and together with the Senior DIP Loans, the “DIP Loans”) pursuant to the terms and conditions of this Interim Order and that certain Junior Secured Superpriority Debtor-In-Possession Credit Agreement substantially in the form attached
+L3974: (2)    authorizing the Debtors to draw up to $266,139,598.62 of Senior DIP Loans under the Senior New Money Subfacility during the interim period pending entry of the Final Order to be used in accordance with this Interim Order and the Senior DIP Loan Documents, consisting of up to $85,000,000 for new money Senior DIP Loans, $150,139,598.62 of capacity to issue (or deemed to issue) DIP Letters of Credit to replace the RBL Letters of Credit and up to $31,000,000 to issue additional new DIP Letters of Credit to backstop surety bonds;
+L3975: (3)    authorizing the Debtors to fully draw $82,871,057.00 of Senior DIP Loans under the Roll-Up Subfacility on the closing date of the Senior DIP Facility and to use the proceeds thereof to refund, refinance, replace and repay $82,871,057.00 of the RBL Loans (as defined below);
+L3976: 
+L3977: (4)    authorizing the Debtors to fully draw $650,000,000 of Junior DIP Loans under the Junior DIP Facility on the closing date of the Junior DIP Facility to repay $650,000,000 of the RBL Loans;
+L4063: As of the Petition Date, without defense, counterclaim or offset of any kind, the Prepetition Second Lien Note Parties were jointly and severally indebted to the Prepetition Second Lien Noteholders in the aggregate principal amount of $1,809,000,000, plus any other amounts incurred or accrued but unpaid prior to the Petition Date in accordance with the Prepetition Second Lien Documents, including, without limitation, principal, accrued and unpaid interest, premiums, any reimbursement obligations (contingent or otherwise), any fees, expenses and disbursements (including, without limitation, attorneys’ fees, financial advisors’ fees, related expenses and disbursements), indemnification obligations, any other charges, amounts and costs of whatever nature owing, whether or not contingent, whenever arising, accrued, accruing, due, owing or chargeable in respect thereof, in each case, to the extent provided in the Prepetition Second Lien Documents (collectively, including any Obligations (as defined in the Prepetition Second Lien Indenture), the “Prepetition Second Lien Note Obligations”, and together with the Prepetition RBL Obligations, the Prepetition FLMO Obligations and the Prepetition FLLO Obligations, the “Prepetition Obligations”).
+L4215: To prevent immediate and irreparable harm to the Debtors’ estates, the Debtors are hereby authorized to borrow the Senior DIP Loans from the Senior DIP Lenders under the Senior DIP Facility, issue DIP Letters of Credit (including by having all RBL Letters of Credit deemed issued as DIP Letters of Credit) and use Senior DIP Loans under the New Money Subfacility to pay any reimbursement obligations in respect of any drawn DIP Letters of Credit (and the DIP Guarantors are hereby authorized to unconditionally guarantee, on a joint and several basis, the repayment of the Senior DIP Facility) up to an aggregate principal amount of $349,010,655.62, comprised of (a) $266,139,598.62 of Senior DIP Loans under the Senior New Money Subfacility, of which (i) $150,139,598.62 is available to deem the RBL Letters of Credit as being issued under the Senior New Money Subfacility as DIP Letters of Credit, , and (ii) an additional amount not to exceed $31,000,000 is available to issue new DIP Letters of Credit to backstop surety bonds, and (iii) up to $85,000,000 is available for new money Senior DIP Loans and (b) the $82,871,057.00 Senior Roll-Up Subfacility, in each case subject to the terms and conditions set forth in this Interim Order and the Senior DIP Loan Documents.
+L4221: To prevent immediate and irreparable harm to the Debtors’ estates, the Debtors are also hereby authorized to borrow the full amount of the Junior DIP Loans ($650,000,000) from the Junior DIP Lenders under the Junior DIP Facility (and the DIP Guarantors are hereby authorized to unconditionally guarantee, on a joint and several basis, the repayment of the Junior DIP Facility), subject to the terms and conditions set forth in this Interim Order and the Junior DIP Loan Documents.
+

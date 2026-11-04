@@ -1,0 +1,97 @@
+{
+ "schema": "pdf-units/1",
+ "doc": "VMO2Q3",
+ "document": "VMED O2 UK Holdings Limited condensed consolidated IFRS quarterly bond report, 30 Sep 2025 (nine months)",
+ "source_name": "VMO2-IFRS-Quarterly-Bond-Report-Q3-2025.pdf",
+ "source_sha256": "dc1d977f3f6b98e84a93af0c6f6b3bccb32b9a9e2e178b37846871e4b06ac9e9",
+ "page_numbering": "page N = the intake locator page:N (1-based PDF page index), not the printed folio",
+ "units": [
+  {
+   "kind": "BS",
+   "title_as_printed": "Condensed Consolidated Statements of Financial Position (unaudited)",
+   "title_lines": [
+    "Condensed Consolidated Statements",
+    "of Financial Position (unaudited)"
+   ],
+   "pages": [
+    4,
+    5
+   ],
+   "basis": "Two-line title on p4 (folio 4) with assets down to Total assets. p5 carries the same title with '– continued' and the liabilities and equity down to Total equity and liabilities. The statement is a two-page table.",
+   "continuation": {
+    "5": "Title repeated on two lines as 'Condensed Consolidated Statements' / 'of Financial Position (unaudited) – continued'; liabilities and equity side."
+   }
+  },
+  {
+   "kind": "IS",
+   "title_as_printed": "Condensed Consolidated Statements of Profit or (Loss) (unaudited)",
+   "title_lines": [
+    "Condensed Consolidated Statements",
+    "of Profit or (Loss) (unaudited)"
+   ],
+   "pages": [
+    6
+   ],
+   "basis": "Two-line title on p6 (folio 6); the income statement is called 'Profit or (Loss)'; columns three months 2025 and 2024, nine months 2025 and 2024."
+  },
+  {
+   "kind": "CI",
+   "title_as_printed": "Condensed Consolidated Statements of Comprehensive Income (Loss) (unaudited)",
+   "title_lines": [
+    "Condensed Consolidated Statements",
+    "of Comprehensive Income (Loss)",
+    "(unaudited)"
+   ],
+   "pages": [
+    7
+   ],
+   "basis": "Three-line title on p7 (folio 7); Net profit to Comprehensive income, split Owners and NCI."
+  },
+  {
+   "kind": "SE",
+   "title_as_printed": "Condensed Consolidated Statements of Changes in Equity (unaudited)",
+   "title_lines": [
+    "Condensed Consolidated Statements",
+    "of Changes in Equity (unaudited)"
+   ],
+   "pages": [
+    8
+   ],
+   "basis": "Two-line title on p8 (folio 8); balances at 1 January 2025 onward."
+  },
+  {
+   "kind": "CFS",
+   "title_as_printed": "Condensed Consolidated Statements of Cash Flows (unaudited)",
+   "title_lines": [
+    "Condensed Consolidated Statements",
+    "of Cash Flows (unaudited)"
+   ],
+   "pages": [
+    9,
+    10
+   ],
+   "basis": "Two-line title on p9 (folio 9) with operating and investing sections; p10 repeats the title with '– continued' and holds financing, the exchange effect, net change and the opening and closing cash.",
+   "continuation": {
+    "10": "Title repeated as 'of Cash Flows (unaudited) – continued'; financing section, FX effect and the cash roll."
+   }
+  }
+ ],
+ "not_units": [
+  {
+   "page": 2,
+   "looks_like": "BS, IS, CI, SE, CFS titles",
+   "reason": "Contents page listing the condensed statements and notes with page numbers."
+  },
+  {
+   "page": 3,
+   "looks_like": "none",
+   "reason": "Divider page headed 'Condensed Consolidated Financial Statements'; no data."
+  },
+  {
+   "page": 11,
+   "looks_like": "none (page after the CFS)",
+   "reason": "Note 1 'Basis of Presentation', two-column prose; mentions 'consolidated statements of profit or (loss)' in a sentence."
+  }
+ ],
+ "fixture_pages_not_listed": []
+}

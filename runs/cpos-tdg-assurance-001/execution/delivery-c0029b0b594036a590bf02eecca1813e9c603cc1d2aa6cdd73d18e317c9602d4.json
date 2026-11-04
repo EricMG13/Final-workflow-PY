@@ -1,0 +1,262 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "cpos-tdg-q1-assurance-1",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-12-28",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "earnings_update",
+    "requested_modules": [
+      "CP-1B",
+      "CP-1E",
+      "CP-5A"
+    ]
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "requests/CP-0/173783df160ff2a4e7e3f6f7ec9bf9ef4bc9501f0628e03167e378bfe0f650b7/1.response.md",
+      "sha256": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d"
+    },
+    "CP-1": {
+      "path": "requests/CP-1/0a963aff3e0654ec76f54c70e2d3094788f35e527c6d532861c1e06091f93fb6/1.response.md",
+      "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+    },
+    "CP-1B": {
+      "path": "requests/CP-1B/d54f938d82e14648457eaff2a4cebfed8449c94d3b2258768b4cf8d731a434d8/1.response.md",
+      "sha256": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12"
+    },
+    "CP-1D": {
+      "path": "requests/CP-1D/19d54c57f00fab53b6b11fcb64cdae95fbefd6d91ad7bd6eb93662df4158b6f4/1.response.md",
+      "sha256": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b"
+    },
+    "CP-5": {
+      "path": "requests/CP-5/6d57b9943dd8e0b6d365167a69c13eb8e1ad81686883d690d8dedc6d1f647764/1.response.md",
+      "sha256": "ab30010d7ea5e79831fcfa0825ccea93f48b2c5afa2a5ea7f47c4bb76630d82f"
+    }
+  },
+  "model": null,
+  "layout": {
+    "blocks": [
+      "headline-results",
+      "variance-drivers",
+      "kpi-changes",
+      "guidance-signals",
+      "ebitda-adjustments",
+      "earnings-quality",
+      "restated-leverage",
+      "watch-items"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-1B",
+        "heading": "Financial performance / comparator register",
+        "kind": "table",
+        "block_id": "headline-results",
+        "table_header": "Metric",
+        "prefix": null,
+        "label": "Reported fiscal-quarter comparisons"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "headline-results",
+        "table_header": null,
+        "prefix": "Earnings view",
+        "label": "Earnings assessment"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Financial performance / comparator register",
+        "kind": "table",
+        "block_id": "kpi-changes",
+        "table_header": "Additional required measure",
+        "prefix": null,
+        "label": null
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Definition lock and top sheet",
+        "kind": "prose",
+        "block_id": "kpi-changes",
+        "table_header": null,
+        "prefix": null,
+        "label": "Definitions and balance dates"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Variance mechanics and comparative credit evaluation",
+        "kind": "prose",
+        "block_id": "guidance-signals",
+        "table_header": null,
+        "prefix": "No accepted budget",
+        "label": null
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Variance mechanics and comparative credit evaluation",
+        "kind": "prose",
+        "block_id": "variance-drivers",
+        "table_header": null,
+        "prefix": null,
+        "label": null
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Monitoring and method changes justified by observed output",
+        "kind": "prose",
+        "block_id": "watch-items",
+        "table_header": null,
+        "prefix": "Track dated cash",
+        "label": null
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.1 — inherited signed adjustment register",
+        "kind": "table",
+        "block_id": "ebitda-adjustments",
+        "table_header": null,
+        "prefix": null,
+        "label": "Signed issuer adjustments — annual and quarter"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.4 — issuer control bridge and unresolved quality bridge",
+        "kind": "table",
+        "block_id": "ebitda-adjustments",
+        "table_header": null,
+        "prefix": null,
+        "label": "FY2024 issuer bridge; quality earnings unresolved"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.7 — earnings-quality gaps",
+        "kind": "table",
+        "block_id": "ebitda-adjustments",
+        "table_header": null,
+        "prefix": null,
+        "label": "Earnings-quality evidence gaps"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.2 — achievability and normalisation assessment",
+        "kind": "table",
+        "block_id": "earnings-quality",
+        "table_header": null,
+        "prefix": null,
+        "label": "Achievability and normalisation"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.3 — recurrence test",
+        "kind": "table",
+        "block_id": "earnings-quality",
+        "table_header": null,
+        "prefix": null,
+        "label": "Recurrence across named periods"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.5 — annual cash-conversion test",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "table_header": null,
+        "prefix": null,
+        "label": "FY2024 cash conversion"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.6 — annual-balance leverage sensitivity",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "table_header": null,
+        "prefix": null,
+        "label": "September 2024 debt / FY2024 EBITDA"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1E.1 — obligation inventory, annual balance basis",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "table_header": null,
+        "prefix": null,
+        "label": "Obligation inventory — September 2024"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1E.2 — debt-like treatment and convention",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "table_header": null,
+        "prefix": null,
+        "label": "Debt treatment and conventions"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1E.3 — known-item adjusted-debt bridge",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "table_header": null,
+        "prefix": null,
+        "label": "Known-item debt subtotal — September 2024"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1E.4 — effect of the quantified subtotal",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "table_header": null,
+        "prefix": null,
+        "label": "Known-subtotal leverage sensitivity"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1E.5 — convention reconciliation",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "table_header": null,
+        "prefix": null,
+        "label": "Convention reconciliation"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1E.6 — adjusted-debt gaps",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "table_header": null,
+        "prefix": null,
+        "label": "Adjusted-debt evidence gaps"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "earnings-quality",
+        "table_header": null,
+        "prefix": "Earnings-quality view",
+        "label": "Earnings-quality assessment"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "earnings-quality",
+        "table_header": null,
+        "prefix": "Adjusted-debt view",
+        "label": "Adjusted-debt assessment"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "Credit read-through, contrary evidence and monitoring",
+        "kind": "prose",
+        "block_id": "earnings-quality",
+        "table_header": null,
+        "prefix": null,
+        "label": "Creditor read-through and monitoring"
+      }
+    ],
+    "scope": "Historical TDG earnings and quality review. USD millions except percentages, percentage points and multiples. The earnings comparison is fiscal Q1 2024-10-01–2024-12-28 (89 days) versus 2023-10-01–2023-12-30 (91 days). Quality/cash-conversion/leverage tables use FY2024 and September 30, 2024 balances unless explicitly labelled quarterly. Quality-adjusted EBITDA is unresolved; 24,961 is only a known-item debt subtotal. Guidance, matching LTM ratios and current cash access remain unestablished. Eight analytical sections reuse retained answers; CP-5/CP-5A is a new current-host review with preceding context. No provider, independent-context or full pathway/native acceptance is claimed. CP-5A permits restricted historical analytical use with two inherited Material limitations: source coverage and the unresolved distribution disclosure difference. The exact review is under CP-5/Evidence. No overall credit decision or unrestricted committee use is cleared."
+  }
+}

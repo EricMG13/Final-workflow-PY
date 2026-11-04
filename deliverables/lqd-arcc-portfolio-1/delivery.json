@@ -1,0 +1,27 @@
+{
+  "kind": "manual_checked_handoff_delivery",
+  "analytical_rerun_for_delivery": false,
+  "production_code_changed": false,
+  "native_accepted_heads_created": false,
+  "no_excel_output": true,
+  "scope": "Manual report from checked current-host-model Markdown handoffs. Historical LQD holdings: 31 May 2025. Actual issuer exposure and conditional loss only. Full security-selection/portfolio implementation gate blocked; no current trade, mandate headroom, Core/Starter size, independent/native or CP-OS qualification. Recovery assumptions are illustrative. Excel is ingestion-only; no workbook output.",
+  "source_tables": 16,
+  "source_data_rows": 80,
+  "literal_value_cells_checked": 349,
+  "facts_and_exact_line_citations": 349,
+  "missing_null_cells": 12,
+  "front_summary_rows": 5,
+  "files": {
+    "CP-3.md": "6afd9798ba22956bc98b333a35d8bffddc43e23d04f052767ba427ff70e6e10f",
+    "CP-6-portfolio-consumer-attempt-2.md": "48a1d06dee47d9e793eb74327f040446301cd5707f653c4acb76b19407b2829e",
+    "view.json": "725fe8786e6b7f59fbb602a591dbd0007d6e4c6ec3b032daf7111d8c092cff16",
+    "report-view.json": "6e2972607865b1229914a8fca9a9c6b5581dce14b55c57065f586ed082342a15",
+    "report.html": "8901bb1862aeea8f4dc680e0dfadaa7bf84b1a9b5a6ef04fd605ddfdad995532"
+  },
+  "reused_code": {
+    "src/deploy_workflow/handoff_delivery.py": "aa77ae59a2e408f05a3cf2f5c7af92b4dde2b2df635f961545d49fc05bc0e00c",
+    "src/deploy_vii/contracts.py": "b07965cc3907da1911c29a09bfea8b4559fb1c27dfc57c7e89eab97f1a3d0ee3",
+    "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+    "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba"
+  }
+}

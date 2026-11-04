@@ -1,0 +1,21 @@
+{
+  "kind": "manual_retained_lite_handoff_delivery",
+  "scope": "Manual populated report from actual checked model Markdown. ARCC historical FY2024/FY2023, closing dates 31 December; annual published February2025 and subsequent events separately identified. SCREENING_ONLY; five screens COMPLETE_WITH_GAPS and FULL_UPGRADE_REQUIRED. Current host model with preceding context and same-session CP-5 recheck; zero providers/agents/native accepted heads. No recommendation, full-owner clearance, current pricing, CP-MODEL workbook/charts or automated CP-OS pathway is qualified. All20 original tables are on the CP-L10 page; exact handoff-line evidence accompanies each copied cell. Selected broader five-screen methods differ from the legacy narrow runtime slice.",
+  "source_handoff": "runs/arcc-lite-2024-001/ARCC_CP-L10_20261104-attempt-3.md",
+  "source_sha256": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1",
+  "consumer": "runs/arcc-lite-2024-001/CP-5-lite-consumer-attempt-2.md",
+  "consumer_sha256": "dc98fc337835101acb4caf81e9329dead6e2c1f3613a23137fbe198af9b99eff",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "facts": 635,
+  "original_tables": 20,
+  "front_page_summary_rows": 5,
+  "literal_original_cells": 630,
+  "files": {
+    "ARCC_CP-L10_20261104-attempt-3.md": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1",
+    "CP-5-lite-consumer-attempt-2.md": "dc98fc337835101acb4caf81e9329dead6e2c1f3613a23137fbe198af9b99eff",
+    "view.json": "8946b15e20258776c48d0f81aee340483d41aafc7d5d4cd67bc18b7f4b1a929a",
+    "report-view.json": "f747de7ebaea303a60c5f210c8f1cba5b25917491210a729c12b97ff19069710",
+    "report.html": "212b3cf72d470c44eedd21457f223f8ea89e5487de52a4cd091d748dea64983f"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "inputs": {
+    "sources/March2029-executed-supplement.html": "1bd078c6b2ce56450399287f3206b22ef91380ebf0410cadcbe0772bdc5e93a6",
+    "sources/March2029-lines.txt": "afa48e16a39d3cab0e427ec9bc2967980570f2117223203482d0cf1d84f8bbd3",
+    "../arcc-2024-001/sources/annual-pages.txt": "9e216fdd000f529b4f1c452d5786b2ec9e0cab69e8fcd9659558d87d8b4e1976",
+    "../arcc-2024-001/sources/ARCC-FY2024-10K.pdf": "4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170",
+    "../arcc-2024-001/sources/base-lines.txt": "ef8ad4d8a3d5902746726697b6f6fa53058d7445b59d99157cbea6258bf2d459",
+    "../arcc-2024-001/sources/supplement-lines.txt": "bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c",
+    "../arcc-2024-001/CP-4.md": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9",
+    "../arcc-2024-001/CP-4A-attempt-1.md": "ca53528bf1f6d9758a7d9194e76af181eb884e237388fe46e839e601606168b6",
+    "../arcc-market-2024-001/CP-1-market-inputs.md": "68437034bceb3ebb0d04ad97e0746b255588aef701c8e7a6bcd8c38507b3ae1c",
+    "../arcc-market-2024-001/CP-3D-attempt-2.md": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa",
+    "../arcc-lite-2024-001/ARCC_CP-L10_20261104-attempt-3.md": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1",
+    "../arcc-market-2024-001/sources/treasury-2024.csv": "6775840b76cd7fd41121f61d6f6c60184eca6b2ba49954ec7372c463cbeef34d"
+  },
+  "expectations_sha256": "381fa0e30ad3973846c0c286ee3c9f25860707499eddc13a4683d72d64fca354",
+  "selected_method_sources": {
+    "docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/SKILL.md": "7e85b2f545fffcb3ad17f4997e5c577ae9620d279f1ffe8e12aefa8ce38abcd1",
+    "docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/REF_CP-3_STEPS.md": "a142dd66006ea876e3abc9166e0184fcb0685b32bc5cff703e9158da22fe8767",
+    "docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/REF_CP-3A_STEPS.md": "40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec"
+  },
+  "execution": "Actual current host model, preceding context retained; no agents/providers/native acceptance",
+  "scope": "CP-3 capital-structure RV functions over two parent notes; absorb matching CP-3A instrument tradeoffs. Full current underwriting, preference/implementation approval not inferred."
+}

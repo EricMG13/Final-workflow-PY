@@ -1,0 +1,3178 @@
+{
+  "source": "data/public-corpus/v1/TDG/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm",
+  "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+  "calculation_scope": "source-display reconciliation; original zero dashes contribute no amount only within these identity checks; handoff retains raw dashes",
+  "inline_numeric_checks": 478,
+  "checks": [
+    {
+      "check": "BS current assets 0",
+      "observed": "6156",
+      "independent_expected": "6156"
+    },
+    {
+      "check": "BS total assets 0",
+      "observed": "21515",
+      "independent_expected": "21515"
+    },
+    {
+      "check": "BS current liabilities 0",
+      "observed": "2284",
+      "independent_expected": "2284"
+    },
+    {
+      "check": "BS total liabilities 0",
+      "observed": "27766",
+      "independent_expected": "27766"
+    },
+    {
+      "check": "BS parent equity 0",
+      "observed": "-6258",
+      "independent_expected": "-6258"
+    },
+    {
+      "check": "BS total equity 0",
+      "observed": "-6251",
+      "independent_expected": "-6251"
+    },
+    {
+      "check": "BS balances 0",
+      "observed": "21515",
+      "independent_expected": "21515"
+    },
+    {
+      "check": "Gross profit 0",
+      "observed": "1235",
+      "independent_expected": "1235"
+    },
+    {
+      "check": "OPEX / EBIT 0",
+      "observed": "974",
+      "independent_expected": "974"
+    },
+    {
+      "check": "Pretax 0",
+      "observed": "619",
+      "independent_expected": "619"
+    },
+    {
+      "check": "Net income 0",
+      "observed": "493",
+      "independent_expected": "493"
+    },
+    {
+      "check": "OCI 0",
+      "observed": "-205",
+      "independent_expected": "-205"
+    },
+    {
+      "check": "Comprehensive income 0",
+      "observed": "288",
+      "independent_expected": "288"
+    },
+    {
+      "check": "CFO 0",
+      "observed": "752",
+      "independent_expected": "752"
+    },
+    {
+      "check": "CFI 0",
+      "observed": "-24",
+      "independent_expected": "-24"
+    },
+    {
+      "check": "CFF 0",
+      "observed": "-4516",
+      "independent_expected": "-4516"
+    },
+    {
+      "check": "Cash change 0",
+      "observed": "-3802",
+      "independent_expected": "-3802"
+    },
+    {
+      "check": "Cash close 0",
+      "observed": "2459",
+      "independent_expected": "2459"
+    },
+    {
+      "check": "BS current assets 1",
+      "observed": "10029",
+      "independent_expected": "10029"
+    },
+    {
+      "check": "BS total assets 1",
+      "observed": "25586",
+      "independent_expected": "25586"
+    },
+    {
+      "check": "BS current liabilities 1",
+      "observed": "6339",
+      "independent_expected": "6339"
+    },
+    {
+      "check": "BS total liabilities 1",
+      "observed": "31869",
+      "independent_expected": "31869"
+    },
+    {
+      "check": "BS parent equity 1",
+      "observed": "-6290",
+      "independent_expected": "-6290"
+    },
+    {
+      "check": "BS total equity 1",
+      "observed": "-6283",
+      "independent_expected": "-6283"
+    },
+    {
+      "check": "BS balances 1",
+      "observed": "25586",
+      "independent_expected": "25586"
+    },
+    {
+      "check": "Gross profit 1",
+      "observed": "1042",
+      "independent_expected": "1042"
+    },
+    {
+      "check": "OPEX / EBIT 1",
+      "observed": "787",
+      "independent_expected": "787"
+    },
+    {
+      "check": "Pretax 1",
+      "observed": "488",
+      "independent_expected": "488"
+    },
+    {
+      "check": "Net income 1",
+      "observed": "382",
+      "independent_expected": "382"
+    },
+    {
+      "check": "OCI 1",
+      "observed": "38",
+      "independent_expected": "38"
+    },
+    {
+      "check": "Comprehensive income 1",
+      "observed": "420",
+      "independent_expected": "420"
+    },
+    {
+      "check": "CFO 1",
+      "observed": "636",
+      "independent_expected": "636"
+    },
+    {
+      "check": "CFI 1",
+      "observed": "-50",
+      "independent_expected": "-50"
+    },
+    {
+      "check": "CFF 1",
+      "observed": "67",
+      "independent_expected": "67"
+    },
+    {
+      "check": "Cash change 1",
+      "observed": "663",
+      "independent_expected": "663"
+    },
+    {
+      "check": "Cash close 1",
+      "observed": "4135",
+      "independent_expected": "4135"
+    },
+    {
+      "check": "Equity 12 column 0",
+      "observed": "61211663",
+      "independent_expected": "61211663"
+    },
+    {
+      "check": "Equity 12 column 1",
+      "observed": "1",
+      "independent_expected": "1"
+    },
+    {
+      "check": "Equity 12 column 2",
+      "observed": "2518",
+      "independent_expected": "2518"
+    },
+    {
+      "check": "Equity 12 column 3",
+      "observed": "-4266",
+      "independent_expected": "-4266"
+    },
+    {
+      "check": "Equity 12 column 4",
+      "observed": "-60",
+      "independent_expected": "-60"
+    },
+    {
+      "check": "Equity 12 column 5",
+      "observed": "-5688639",
+      "independent_expected": "-5688639"
+    },
+    {
+      "check": "Equity 12 column 6",
+      "observed": "-1706",
+      "independent_expected": "-1706"
+    },
+    {
+      "check": "Equity 12 column 7",
+      "observed": "7",
+      "independent_expected": "7"
+    },
+    {
+      "check": "Equity 12 column 8",
+      "observed": "-3506",
+      "independent_expected": "-3506"
+    },
+    {
+      "check": "Equity 12 row 4",
+      "observed": "-1978",
+      "independent_expected": "-1978"
+    },
+    {
+      "check": "Equity 12 row 5",
+      "observed": "1",
+      "independent_expected": "1"
+    },
+    {
+      "check": "Equity 12 row 6",
+      "observed": "-2020",
+      "independent_expected": "-2020"
+    },
+    {
+      "check": "Equity 12 row 7",
+      "observed": "-7",
+      "independent_expected": "-7"
+    },
+    {
+      "check": "Equity 12 row 8",
+      "observed": "26",
+      "independent_expected": "26"
+    },
+    {
+      "check": "Equity 12 row 9",
+      "observed": "52",
+      "independent_expected": "52"
+    },
+    {
+      "check": "Equity 12 row 10",
+      "observed": "382",
+      "independent_expected": "382"
+    },
+    {
+      "check": "Equity 12 row 11",
+      "observed": "91",
+      "independent_expected": "91"
+    },
+    {
+      "check": "Equity 12 row 12",
+      "observed": "-53",
+      "independent_expected": "-53"
+    },
+    {
+      "check": "Equity 12 row 13",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Equity 12 row 14",
+      "observed": "-3506",
+      "independent_expected": "-3506"
+    },
+    {
+      "check": "Equity 13 column 0",
+      "observed": "62022913",
+      "independent_expected": "62022913"
+    },
+    {
+      "check": "Equity 13 column 1",
+      "observed": "1",
+      "independent_expected": "1"
+    },
+    {
+      "check": "Equity 13 column 2",
+      "observed": "2887",
+      "independent_expected": "2887"
+    },
+    {
+      "check": "Equity 13 column 3",
+      "observed": "-6877",
+      "independent_expected": "-6877"
+    },
+    {
+      "check": "Equity 13 column 4",
+      "observed": "-247",
+      "independent_expected": "-247"
+    },
+    {
+      "check": "Equity 13 column 5",
+      "observed": "-5941439",
+      "independent_expected": "-5941439"
+    },
+    {
+      "check": "Equity 13 column 6",
+      "observed": "-2022",
+      "independent_expected": "-2022"
+    },
+    {
+      "check": "Equity 13 column 7",
+      "observed": "7",
+      "independent_expected": "7"
+    },
+    {
+      "check": "Equity 13 column 8",
+      "observed": "-6251",
+      "independent_expected": "-6251"
+    },
+    {
+      "check": "Equity 13 row 4",
+      "observed": "-6283",
+      "independent_expected": "-6283"
+    },
+    {
+      "check": "Equity 13 row 6",
+      "observed": "-8",
+      "independent_expected": "-8"
+    },
+    {
+      "check": "Equity 13 row 7",
+      "observed": "33",
+      "independent_expected": "33"
+    },
+    {
+      "check": "Equity 13 row 8",
+      "observed": "35",
+      "independent_expected": "35"
+    },
+    {
+      "check": "Equity 13 row 9",
+      "observed": "-316",
+      "independent_expected": "-316"
+    },
+    {
+      "check": "Equity 13 row 10",
+      "observed": "493",
+      "independent_expected": "493"
+    },
+    {
+      "check": "Equity 13 row 11",
+      "observed": "-227",
+      "independent_expected": "-227"
+    },
+    {
+      "check": "Equity 13 row 12",
+      "observed": "22",
+      "independent_expected": "22"
+    },
+    {
+      "check": "Equity 13 row 13",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Equity 13 row 14",
+      "observed": "-6251",
+      "independent_expected": "-6251"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 3",
+      "observed": "649",
+      "independent_expected": "649"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 4",
+      "observed": "8645",
+      "independent_expected": "8645"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 6",
+      "observed": "2641",
+      "independent_expected": "2641"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 7",
+      "observed": "2079",
+      "independent_expected": "2079"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 8",
+      "observed": "1194",
+      "independent_expected": "1194"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 9",
+      "observed": "2728",
+      "independent_expected": "2728"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 10",
+      "observed": "746",
+      "independent_expected": "746"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 11",
+      "observed": "1438",
+      "independent_expected": "1438"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 12",
+      "observed": "986",
+      "independent_expected": "986"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 13",
+      "observed": "2181",
+      "independent_expected": "2181"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 14",
+      "observed": "1486",
+      "independent_expected": "1486"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 15",
+      "observed": "16",
+      "independent_expected": "16"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 16",
+      "observed": "260",
+      "independent_expected": "260"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 17",
+      "observed": "24400",
+      "independent_expected": "24400"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 18",
+      "observed": "98",
+      "independent_expected": "98"
+    },
+    {
+      "check": "Debt gross-to-net table 30 row 19",
+      "observed": "24302",
+      "independent_expected": "24302"
+    },
+    {
+      "check": "Debt excluding separate securitization 30/0",
+      "observed": "24578",
+      "independent_expected": "24578"
+    },
+    {
+      "check": "Debt current vs long 30/0",
+      "observed": "24479",
+      "independent_expected": "24479"
+    },
+    {
+      "check": "Debt excluding separate securitization 30/1",
+      "observed": "-131",
+      "independent_expected": "-131"
+    },
+    {
+      "check": "Debt current vs long 30/1",
+      "observed": "-130",
+      "independent_expected": "-130"
+    },
+    {
+      "check": "Debt excluding separate securitization 30/2",
+      "observed": "-47",
+      "independent_expected": "-47"
+    },
+    {
+      "check": "Debt current vs long 30/2",
+      "observed": "-47",
+      "independent_expected": "-47"
+    },
+    {
+      "check": "Debt excluding separate securitization 30/3",
+      "observed": "24400",
+      "independent_expected": "24400"
+    },
+    {
+      "check": "Debt current vs long 30/3",
+      "observed": "24302",
+      "independent_expected": "24302"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 3",
+      "observed": "486",
+      "independent_expected": "486"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 4",
+      "observed": "8642",
+      "independent_expected": "8642"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 6",
+      "observed": "2641",
+      "independent_expected": "2641"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 7",
+      "observed": "2077",
+      "independent_expected": "2077"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 8",
+      "observed": "1194",
+      "independent_expected": "1194"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 9",
+      "observed": "2727",
+      "independent_expected": "2727"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 10",
+      "observed": "746",
+      "independent_expected": "746"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 11",
+      "observed": "1438",
+      "independent_expected": "1438"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 12",
+      "observed": "984",
+      "independent_expected": "984"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 13",
+      "observed": "2180",
+      "independent_expected": "2180"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 14",
+      "observed": "1486",
+      "independent_expected": "1486"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 15",
+      "observed": "17",
+      "independent_expected": "17"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 16",
+      "observed": "262",
+      "independent_expected": "262"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 17",
+      "observed": "24394",
+      "independent_expected": "24394"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 18",
+      "observed": "98",
+      "independent_expected": "98"
+    },
+    {
+      "check": "Debt gross-to-net table 31 row 19",
+      "observed": "24296",
+      "independent_expected": "24296"
+    },
+    {
+      "check": "Debt excluding separate securitization 31/0",
+      "observed": "24581",
+      "independent_expected": "24581"
+    },
+    {
+      "check": "Debt current vs long 31/0",
+      "observed": "24482",
+      "independent_expected": "24482"
+    },
+    {
+      "check": "Debt excluding separate securitization 31/1",
+      "observed": "-136",
+      "independent_expected": "-136"
+    },
+    {
+      "check": "Debt current vs long 31/1",
+      "observed": "-135",
+      "independent_expected": "-135"
+    },
+    {
+      "check": "Debt excluding separate securitization 31/2",
+      "observed": "-51",
+      "independent_expected": "-51"
+    },
+    {
+      "check": "Debt current vs long 31/2",
+      "observed": "-51",
+      "independent_expected": "-51"
+    },
+    {
+      "check": "Debt excluding separate securitization 31/3",
+      "observed": "24394",
+      "independent_expected": "24394"
+    },
+    {
+      "check": "Debt current vs long 31/3",
+      "observed": "24296",
+      "independent_expected": "24296"
+    },
+    {
+      "check": "Power control revenue 0",
+      "observed": "1027",
+      "independent_expected": "1027"
+    },
+    {
+      "check": "Airframe revenue 0",
+      "observed": "946",
+      "independent_expected": "946"
+    },
+    {
+      "check": "Total segment revenue 0",
+      "observed": "2006",
+      "independent_expected": "2006"
+    },
+    {
+      "check": "Segment EBITDA 0",
+      "observed": "1113",
+      "independent_expected": "1113"
+    },
+    {
+      "check": "Corporate EBITDA 0",
+      "observed": "1061",
+      "independent_expected": "1061"
+    },
+    {
+      "check": "Segment EBITDA to pretax 0",
+      "observed": "619",
+      "independent_expected": "619"
+    },
+    {
+      "check": "Net-income EBITDA bridge 0",
+      "observed": "1087",
+      "independent_expected": "1087"
+    },
+    {
+      "check": "Net-income EBITDA As Defined bridge 0",
+      "observed": "1061",
+      "independent_expected": "1061"
+    },
+    {
+      "check": "OCF EBITDA bridge 0",
+      "observed": "1087",
+      "independent_expected": "1087"
+    },
+    {
+      "check": "OCF EBITDA As Defined bridge 0",
+      "observed": "1061",
+      "independent_expected": "1061"
+    },
+    {
+      "check": "Cash less capex proxy 0",
+      "observed": "710",
+      "independent_expected": "710"
+    },
+    {
+      "check": "OPEX below gross profit 0",
+      "observed": "261",
+      "independent_expected": "261"
+    },
+    {
+      "check": "Power control revenue 1",
+      "observed": "890",
+      "independent_expected": "890"
+    },
+    {
+      "check": "Airframe revenue 1",
+      "observed": "862",
+      "independent_expected": "862"
+    },
+    {
+      "check": "Total segment revenue 1",
+      "observed": "1789",
+      "independent_expected": "1789"
+    },
+    {
+      "check": "Segment EBITDA 1",
+      "observed": "957",
+      "independent_expected": "957"
+    },
+    {
+      "check": "Corporate EBITDA 1",
+      "observed": "912",
+      "independent_expected": "912"
+    },
+    {
+      "check": "Segment EBITDA to pretax 1",
+      "observed": "488",
+      "independent_expected": "488"
+    },
+    {
+      "check": "Net-income EBITDA bridge 1",
+      "observed": "859",
+      "independent_expected": "859"
+    },
+    {
+      "check": "Net-income EBITDA As Defined bridge 1",
+      "observed": "912",
+      "independent_expected": "912"
+    },
+    {
+      "check": "OCF EBITDA bridge 1",
+      "observed": "859",
+      "independent_expected": "859"
+    },
+    {
+      "check": "OCF EBITDA As Defined bridge 1",
+      "observed": "912",
+      "independent_expected": "912"
+    },
+    {
+      "check": "Cash less capex proxy 1",
+      "observed": "600",
+      "independent_expected": "600"
+    },
+    {
+      "check": "OPEX below gross profit 1",
+      "observed": "255",
+      "independent_expected": "255"
+    },
+    {
+      "check": "Current inclusive days",
+      "observed": "89",
+      "independent_expected": "89"
+    },
+    {
+      "check": "Prior inclusive days",
+      "observed": "91",
+      "independent_expected": "91"
+    },
+    {
+      "check": "Debt classification 0",
+      "observed": "25049",
+      "independent_expected": "25049"
+    },
+    {
+      "check": "Net carrying debt 0",
+      "observed": "22590",
+      "independent_expected": "22590"
+    },
+    {
+      "check": "Debt classification 1",
+      "observed": "24880",
+      "independent_expected": "24880"
+    },
+    {
+      "check": "Net carrying debt 1",
+      "observed": "18619",
+      "independent_expected": "18619"
+    },
+    {
+      "check": "Organic plus acquisition current",
+      "observed": "2006",
+      "independent_expected": "2006"
+    },
+    {
+      "check": "Organic plus acquisition prior",
+      "observed": "1789",
+      "independent_expected": "1789"
+    },
+    {
+      "check": "Issuer cash liquidity arithmetic",
+      "observed": "3308",
+      "independent_expected": "3308"
+    },
+    {
+      "check": "Inline numeric f-31",
+      "observed": "2.459E+9",
+      "independent_expected": "2459000000"
+    },
+    {
+      "check": "Inline numeric f-32",
+      "observed": "6.261E+9",
+      "independent_expected": "6261000000"
+    },
+    {
+      "check": "Inline numeric f-33",
+      "observed": "1.285E+9",
+      "independent_expected": "1285000000"
+    },
+    {
+      "check": "Inline numeric f-34",
+      "observed": "1.381E+9",
+      "independent_expected": "1381000000"
+    },
+    {
+      "check": "Inline numeric f-35",
+      "observed": "1.930E+9",
+      "independent_expected": "1930000000"
+    },
+    {
+      "check": "Inline numeric f-36",
+      "observed": "1.876E+9",
+      "independent_expected": "1876000000"
+    },
+    {
+      "check": "Inline numeric f-37",
+      "observed": "4.82E+8",
+      "independent_expected": "482000000"
+    },
+    {
+      "check": "Inline numeric f-38",
+      "observed": "5.11E+8",
+      "independent_expected": "511000000"
+    },
+    {
+      "check": "Inline numeric f-39",
+      "observed": "6.156E+9",
+      "independent_expected": "6156000000"
+    },
+    {
+      "check": "Inline numeric f-40",
+      "observed": "1.0029E+10",
+      "independent_expected": "10029000000"
+    },
+    {
+      "check": "Inline numeric f-41",
+      "observed": "1.477E+9",
+      "independent_expected": "1477000000"
+    },
+    {
+      "check": "Inline numeric f-42",
+      "observed": "1.488E+9",
+      "independent_expected": "1488000000"
+    },
+    {
+      "check": "Inline numeric f-43",
+      "observed": "1.0304E+10",
+      "independent_expected": "10304000000"
+    },
+    {
+      "check": "Inline numeric f-44",
+      "observed": "1.0419E+10",
+      "independent_expected": "10419000000"
+    },
+    {
+      "check": "Inline numeric f-45",
+      "observed": "3.360E+9",
+      "independent_expected": "3360000000"
+    },
+    {
+      "check": "Inline numeric f-46",
+      "observed": "3.446E+9",
+      "independent_expected": "3446000000"
+    },
+    {
+      "check": "Inline numeric f-47",
+      "observed": "2.18E+8",
+      "independent_expected": "218000000"
+    },
+    {
+      "check": "Inline numeric f-48",
+      "observed": "2.04E+8",
+      "independent_expected": "204000000"
+    },
+    {
+      "check": "Inline numeric f-49",
+      "observed": "2.1515E+10",
+      "independent_expected": "21515000000"
+    },
+    {
+      "check": "Inline numeric f-50",
+      "observed": "2.5586E+10",
+      "independent_expected": "25586000000"
+    },
+    {
+      "check": "Inline numeric f-51",
+      "observed": "9.8E+7",
+      "independent_expected": "98000000"
+    },
+    {
+      "check": "Inline numeric f-52",
+      "observed": "9.8E+7",
+      "independent_expected": "98000000"
+    },
+    {
+      "check": "Inline numeric f-53",
+      "observed": "6.49E+8",
+      "independent_expected": "649000000"
+    },
+    {
+      "check": "Inline numeric f-54",
+      "observed": "4.86E+8",
+      "independent_expected": "486000000"
+    },
+    {
+      "check": "Inline numeric f-55",
+      "observed": "3.15E+8",
+      "independent_expected": "315000000"
+    },
+    {
+      "check": "Inline numeric f-56",
+      "observed": "3.23E+8",
+      "independent_expected": "323000000"
+    },
+    {
+      "check": "Inline numeric f-57",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-58",
+      "observed": "4.216E+9",
+      "independent_expected": "4216000000"
+    },
+    {
+      "check": "Inline numeric f-59",
+      "observed": "1.222E+9",
+      "independent_expected": "1222000000"
+    },
+    {
+      "check": "Inline numeric f-60",
+      "observed": "1.216E+9",
+      "independent_expected": "1216000000"
+    },
+    {
+      "check": "Inline numeric f-61",
+      "observed": "2.284E+9",
+      "independent_expected": "2284000000"
+    },
+    {
+      "check": "Inline numeric f-62",
+      "observed": "6.339E+9",
+      "independent_expected": "6339000000"
+    },
+    {
+      "check": "Inline numeric f-63",
+      "observed": "2.4302E+10",
+      "independent_expected": "24302000000"
+    },
+    {
+      "check": "Inline numeric f-64",
+      "observed": "2.4296E+10",
+      "independent_expected": "24296000000"
+    },
+    {
+      "check": "Inline numeric f-65",
+      "observed": "7.62E+8",
+      "independent_expected": "762000000"
+    },
+    {
+      "check": "Inline numeric f-66",
+      "observed": "7.66E+8",
+      "independent_expected": "766000000"
+    },
+    {
+      "check": "Inline numeric f-67",
+      "observed": "4.18E+8",
+      "independent_expected": "418000000"
+    },
+    {
+      "check": "Inline numeric f-68",
+      "observed": "4.68E+8",
+      "independent_expected": "468000000"
+    },
+    {
+      "check": "Inline numeric f-69",
+      "observed": "2.7766E+10",
+      "independent_expected": "27766000000"
+    },
+    {
+      "check": "Inline numeric f-70",
+      "observed": "3.1869E+10",
+      "independent_expected": "31869000000"
+    },
+    {
+      "check": "Inline numeric f-71",
+      "observed": "0.01",
+      "independent_expected": "0.01"
+    },
+    {
+      "check": "Inline numeric f-72",
+      "observed": "224400000",
+      "independent_expected": "224400000"
+    },
+    {
+      "check": "Inline numeric f-73",
+      "observed": "62022913",
+      "independent_expected": "62022913"
+    },
+    {
+      "check": "Inline numeric f-74",
+      "observed": "61904833",
+      "independent_expected": "61904833"
+    },
+    {
+      "check": "Inline numeric f-75",
+      "observed": "1E+6",
+      "independent_expected": "1000000"
+    },
+    {
+      "check": "Inline numeric f-76",
+      "observed": "1E+6",
+      "independent_expected": "1000000"
+    },
+    {
+      "check": "Inline numeric f-77",
+      "observed": "2.887E+9",
+      "independent_expected": "2887000000"
+    },
+    {
+      "check": "Inline numeric f-78",
+      "observed": "2.819E+9",
+      "independent_expected": "2819000000"
+    },
+    {
+      "check": "Inline numeric f-79",
+      "observed": "-6.877E+9",
+      "independent_expected": "-6877000000"
+    },
+    {
+      "check": "Inline numeric f-80",
+      "observed": "-7.362E+9",
+      "independent_expected": "-7362000000"
+    },
+    {
+      "check": "Inline numeric f-81",
+      "observed": "-2.47E+8",
+      "independent_expected": "-247000000"
+    },
+    {
+      "check": "Inline numeric f-82",
+      "observed": "-4.2E+7",
+      "independent_expected": "-42000000"
+    },
+    {
+      "check": "Inline numeric f-83",
+      "observed": "5941439",
+      "independent_expected": "5941439"
+    },
+    {
+      "check": "Inline numeric f-84",
+      "observed": "5688639",
+      "independent_expected": "5688639"
+    },
+    {
+      "check": "Inline numeric f-85",
+      "observed": "2.022E+9",
+      "independent_expected": "2022000000"
+    },
+    {
+      "check": "Inline numeric f-86",
+      "observed": "1.706E+9",
+      "independent_expected": "1706000000"
+    },
+    {
+      "check": "Inline numeric f-87",
+      "observed": "-6.258E+9",
+      "independent_expected": "-6258000000"
+    },
+    {
+      "check": "Inline numeric f-88",
+      "observed": "-6.290E+9",
+      "independent_expected": "-6290000000"
+    },
+    {
+      "check": "Inline numeric f-89",
+      "observed": "7E+6",
+      "independent_expected": "7000000"
+    },
+    {
+      "check": "Inline numeric f-90",
+      "observed": "7E+6",
+      "independent_expected": "7000000"
+    },
+    {
+      "check": "Inline numeric f-91",
+      "observed": "-6.251E+9",
+      "independent_expected": "-6251000000"
+    },
+    {
+      "check": "Inline numeric f-92",
+      "observed": "-6.283E+9",
+      "independent_expected": "-6283000000"
+    },
+    {
+      "check": "Inline numeric f-93",
+      "observed": "2.1515E+10",
+      "independent_expected": "21515000000"
+    },
+    {
+      "check": "Inline numeric f-94",
+      "observed": "2.5586E+10",
+      "independent_expected": "25586000000"
+    },
+    {
+      "check": "Inline numeric f-95",
+      "observed": "2.006E+9",
+      "independent_expected": "2006000000"
+    },
+    {
+      "check": "Inline numeric f-96",
+      "observed": "1.789E+9",
+      "independent_expected": "1789000000"
+    },
+    {
+      "check": "Inline numeric f-97",
+      "observed": "7.71E+8",
+      "independent_expected": "771000000"
+    },
+    {
+      "check": "Inline numeric f-98",
+      "observed": "7.47E+8",
+      "independent_expected": "747000000"
+    },
+    {
+      "check": "Inline numeric f-99",
+      "observed": "1.235E+9",
+      "independent_expected": "1235000000"
+    },
+    {
+      "check": "Inline numeric f-100",
+      "observed": "1.042E+9",
+      "independent_expected": "1042000000"
+    },
+    {
+      "check": "Inline numeric f-101",
+      "observed": "2.11E+8",
+      "independent_expected": "211000000"
+    },
+    {
+      "check": "Inline numeric f-102",
+      "observed": "2.20E+8",
+      "independent_expected": "220000000"
+    },
+    {
+      "check": "Inline numeric f-103",
+      "observed": "5.0E+7",
+      "independent_expected": "50000000"
+    },
+    {
+      "check": "Inline numeric f-104",
+      "observed": "3.5E+7",
+      "independent_expected": "35000000"
+    },
+    {
+      "check": "Inline numeric f-105",
+      "observed": "9.74E+8",
+      "independent_expected": "974000000"
+    },
+    {
+      "check": "Inline numeric f-106",
+      "observed": "7.87E+8",
+      "independent_expected": "787000000"
+    },
+    {
+      "check": "Inline numeric f-107",
+      "observed": "3.78E+8",
+      "independent_expected": "378000000"
+    },
+    {
+      "check": "Inline numeric f-108",
+      "observed": "3.00E+8",
+      "independent_expected": "300000000"
+    },
+    {
+      "check": "Inline numeric f-109",
+      "observed": "2.3E+7",
+      "independent_expected": "23000000"
+    },
+    {
+      "check": "Inline numeric f-110",
+      "observed": "1E+6",
+      "independent_expected": "1000000"
+    },
+    {
+      "check": "Inline numeric f-111",
+      "observed": "6.19E+8",
+      "independent_expected": "619000000"
+    },
+    {
+      "check": "Inline numeric f-112",
+      "observed": "4.88E+8",
+      "independent_expected": "488000000"
+    },
+    {
+      "check": "Inline numeric f-113",
+      "observed": "1.26E+8",
+      "independent_expected": "126000000"
+    },
+    {
+      "check": "Inline numeric f-114",
+      "observed": "1.06E+8",
+      "independent_expected": "106000000"
+    },
+    {
+      "check": "Inline numeric f-115",
+      "observed": "4.93E+8",
+      "independent_expected": "493000000"
+    },
+    {
+      "check": "Inline numeric f-116",
+      "observed": "3.82E+8",
+      "independent_expected": "382000000"
+    },
+    {
+      "check": "Inline numeric f-117",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-118",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-119",
+      "observed": "4.93E+8",
+      "independent_expected": "493000000"
+    },
+    {
+      "check": "Inline numeric f-120",
+      "observed": "3.82E+8",
+      "independent_expected": "382000000"
+    },
+    {
+      "check": "Inline numeric f-121",
+      "observed": "4.44E+8",
+      "independent_expected": "444000000"
+    },
+    {
+      "check": "Inline numeric f-122",
+      "observed": "2.81E+8",
+      "independent_expected": "281000000"
+    },
+    {
+      "check": "Inline numeric f-124",
+      "observed": "7.62",
+      "independent_expected": "7.62"
+    },
+    {
+      "check": "Inline numeric f-123",
+      "observed": "7.62",
+      "independent_expected": "7.62"
+    },
+    {
+      "check": "Inline numeric f-126",
+      "observed": "4.87",
+      "independent_expected": "4.87"
+    },
+    {
+      "check": "Inline numeric f-125",
+      "observed": "4.87",
+      "independent_expected": "4.87"
+    },
+    {
+      "check": "Inline numeric f-127",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-128",
+      "observed": "35.00",
+      "independent_expected": "35.00"
+    },
+    {
+      "check": "Inline numeric f-130",
+      "observed": "5.83E+7",
+      "independent_expected": "58300000.0"
+    },
+    {
+      "check": "Inline numeric f-129",
+      "observed": "5.83E+7",
+      "independent_expected": "58300000.0"
+    },
+    {
+      "check": "Inline numeric f-132",
+      "observed": "5.77E+7",
+      "independent_expected": "57700000.0"
+    },
+    {
+      "check": "Inline numeric f-131",
+      "observed": "5.77E+7",
+      "independent_expected": "57700000.0"
+    },
+    {
+      "check": "Inline numeric f-133",
+      "observed": "4.93E+8",
+      "independent_expected": "493000000"
+    },
+    {
+      "check": "Inline numeric f-134",
+      "observed": "3.82E+8",
+      "independent_expected": "382000000"
+    },
+    {
+      "check": "Inline numeric f-135",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-136",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-137",
+      "observed": "4.93E+8",
+      "independent_expected": "493000000"
+    },
+    {
+      "check": "Inline numeric f-138",
+      "observed": "3.82E+8",
+      "independent_expected": "382000000"
+    },
+    {
+      "check": "Inline numeric f-139",
+      "observed": "-2.27E+8",
+      "independent_expected": "-227000000"
+    },
+    {
+      "check": "Inline numeric f-140",
+      "observed": "9.1E+7",
+      "independent_expected": "91000000"
+    },
+    {
+      "check": "Inline numeric f-141",
+      "observed": "-2.2E+7",
+      "independent_expected": "-22000000"
+    },
+    {
+      "check": "Inline numeric f-142",
+      "observed": "5.3E+7",
+      "independent_expected": "53000000"
+    },
+    {
+      "check": "Inline numeric f-143",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-144",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-145",
+      "observed": "-2.05E+8",
+      "independent_expected": "-205000000"
+    },
+    {
+      "check": "Inline numeric f-146",
+      "observed": "3.8E+7",
+      "independent_expected": "38000000"
+    },
+    {
+      "check": "Inline numeric f-147",
+      "observed": "2.88E+8",
+      "independent_expected": "288000000"
+    },
+    {
+      "check": "Inline numeric f-148",
+      "observed": "4.20E+8",
+      "independent_expected": "420000000"
+    },
+    {
+      "check": "Inline numeric f-149",
+      "observed": "60995513",
+      "independent_expected": "60995513"
+    },
+    {
+      "check": "Inline numeric f-150",
+      "observed": "1E+6",
+      "independent_expected": "1000000"
+    },
+    {
+      "check": "Inline numeric f-151",
+      "observed": "2.440E+9",
+      "independent_expected": "2440000000"
+    },
+    {
+      "check": "Inline numeric f-152",
+      "observed": "-2.621E+9",
+      "independent_expected": "-2621000000"
+    },
+    {
+      "check": "Inline numeric f-153",
+      "observed": "-9.8E+7",
+      "independent_expected": "-98000000"
+    },
+    {
+      "check": "Inline numeric f-154",
+      "observed": "5688639",
+      "independent_expected": "5688639"
+    },
+    {
+      "check": "Inline numeric f-155",
+      "observed": "-1.706E+9",
+      "independent_expected": "-1706000000"
+    },
+    {
+      "check": "Inline numeric f-156",
+      "observed": "6E+6",
+      "independent_expected": "6000000"
+    },
+    {
+      "check": "Inline numeric f-157",
+      "observed": "-1.978E+9",
+      "independent_expected": "-1978000000"
+    },
+    {
+      "check": "Inline numeric f-158",
+      "observed": "-1E+6",
+      "independent_expected": "-1000000"
+    },
+    {
+      "check": "Inline numeric f-159",
+      "observed": "-1E+6",
+      "independent_expected": "-1000000"
+    },
+    {
+      "check": "Inline numeric f-160",
+      "observed": "35.00",
+      "independent_expected": "35.00"
+    },
+    {
+      "check": "Inline numeric f-161",
+      "observed": "2.020E+9",
+      "independent_expected": "2020000000"
+    },
+    {
+      "check": "Inline numeric f-162",
+      "observed": "2.020E+9",
+      "independent_expected": "2020000000"
+    },
+    {
+      "check": "Inline numeric f-163",
+      "observed": "7E+6",
+      "independent_expected": "7000000"
+    },
+    {
+      "check": "Inline numeric f-164",
+      "observed": "7E+6",
+      "independent_expected": "7000000"
+    },
+    {
+      "check": "Inline numeric f-165",
+      "observed": "2.6E+7",
+      "independent_expected": "26000000"
+    },
+    {
+      "check": "Inline numeric f-166",
+      "observed": "2.6E+7",
+      "independent_expected": "26000000"
+    },
+    {
+      "check": "Inline numeric f-167",
+      "observed": "216150",
+      "independent_expected": "216150"
+    },
+    {
+      "check": "Inline numeric f-168",
+      "observed": "5.2E+7",
+      "independent_expected": "52000000"
+    },
+    {
+      "check": "Inline numeric f-169",
+      "observed": "5.2E+7",
+      "independent_expected": "52000000"
+    },
+    {
+      "check": "Inline numeric f-170",
+      "observed": "3.82E+8",
+      "independent_expected": "382000000"
+    },
+    {
+      "check": "Inline numeric f-171",
+      "observed": "3.82E+8",
+      "independent_expected": "382000000"
+    },
+    {
+      "check": "Inline numeric f-172",
+      "observed": "9.1E+7",
+      "independent_expected": "91000000"
+    },
+    {
+      "check": "Inline numeric f-173",
+      "observed": "9.1E+7",
+      "independent_expected": "91000000"
+    },
+    {
+      "check": "Inline numeric f-174",
+      "observed": "-5.3E+7",
+      "independent_expected": "-53000000"
+    },
+    {
+      "check": "Inline numeric f-175",
+      "observed": "-5.3E+7",
+      "independent_expected": "-53000000"
+    },
+    {
+      "check": "Inline numeric f-176",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-177",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-178",
+      "observed": "61211663",
+      "independent_expected": "61211663"
+    },
+    {
+      "check": "Inline numeric f-179",
+      "observed": "1E+6",
+      "independent_expected": "1000000"
+    },
+    {
+      "check": "Inline numeric f-180",
+      "observed": "2.518E+9",
+      "independent_expected": "2518000000"
+    },
+    {
+      "check": "Inline numeric f-181",
+      "observed": "-4.266E+9",
+      "independent_expected": "-4266000000"
+    },
+    {
+      "check": "Inline numeric f-182",
+      "observed": "-6.0E+7",
+      "independent_expected": "-60000000"
+    },
+    {
+      "check": "Inline numeric f-183",
+      "observed": "5688639",
+      "independent_expected": "5688639"
+    },
+    {
+      "check": "Inline numeric f-184",
+      "observed": "-1.706E+9",
+      "independent_expected": "-1706000000"
+    },
+    {
+      "check": "Inline numeric f-185",
+      "observed": "7E+6",
+      "independent_expected": "7000000"
+    },
+    {
+      "check": "Inline numeric f-186",
+      "observed": "-3.506E+9",
+      "independent_expected": "-3506000000"
+    },
+    {
+      "check": "Inline numeric f-187",
+      "observed": "61904833",
+      "independent_expected": "61904833"
+    },
+    {
+      "check": "Inline numeric f-188",
+      "observed": "1E+6",
+      "independent_expected": "1000000"
+    },
+    {
+      "check": "Inline numeric f-189",
+      "observed": "2.819E+9",
+      "independent_expected": "2819000000"
+    },
+    {
+      "check": "Inline numeric f-190",
+      "observed": "-7.362E+9",
+      "independent_expected": "-7362000000"
+    },
+    {
+      "check": "Inline numeric f-191",
+      "observed": "-4.2E+7",
+      "independent_expected": "-42000000"
+    },
+    {
+      "check": "Inline numeric f-192",
+      "observed": "-5688639",
+      "independent_expected": "-5688639"
+    },
+    {
+      "check": "Inline numeric f-193",
+      "observed": "-1.706E+9",
+      "independent_expected": "-1706000000"
+    },
+    {
+      "check": "Inline numeric f-194",
+      "observed": "7E+6",
+      "independent_expected": "7000000"
+    },
+    {
+      "check": "Inline numeric f-195",
+      "observed": "-6.283E+9",
+      "independent_expected": "-6283000000"
+    },
+    {
+      "check": "Inline numeric f-196",
+      "observed": "8E+6",
+      "independent_expected": "8000000"
+    },
+    {
+      "check": "Inline numeric f-197",
+      "observed": "8E+6",
+      "independent_expected": "8000000"
+    },
+    {
+      "check": "Inline numeric f-198",
+      "observed": "3.3E+7",
+      "independent_expected": "33000000"
+    },
+    {
+      "check": "Inline numeric f-199",
+      "observed": "3.3E+7",
+      "independent_expected": "33000000"
+    },
+    {
+      "check": "Inline numeric f-200",
+      "observed": "118080",
+      "independent_expected": "118080"
+    },
+    {
+      "check": "Inline numeric f-201",
+      "observed": "3.5E+7",
+      "independent_expected": "35000000"
+    },
+    {
+      "check": "Inline numeric f-202",
+      "observed": "3.5E+7",
+      "independent_expected": "35000000"
+    },
+    {
+      "check": "Inline numeric f-203",
+      "observed": "252800",
+      "independent_expected": "252800"
+    },
+    {
+      "check": "Inline numeric f-204",
+      "observed": "3.16E+8",
+      "independent_expected": "316000000"
+    },
+    {
+      "check": "Inline numeric f-205",
+      "observed": "3.16E+8",
+      "independent_expected": "316000000"
+    },
+    {
+      "check": "Inline numeric f-206",
+      "observed": "4.93E+8",
+      "independent_expected": "493000000"
+    },
+    {
+      "check": "Inline numeric f-207",
+      "observed": "4.93E+8",
+      "independent_expected": "493000000"
+    },
+    {
+      "check": "Inline numeric f-208",
+      "observed": "-2.27E+8",
+      "independent_expected": "-227000000"
+    },
+    {
+      "check": "Inline numeric f-209",
+      "observed": "-2.27E+8",
+      "independent_expected": "-227000000"
+    },
+    {
+      "check": "Inline numeric f-210",
+      "observed": "2.2E+7",
+      "independent_expected": "22000000"
+    },
+    {
+      "check": "Inline numeric f-211",
+      "observed": "-2.2E+7",
+      "independent_expected": "-22000000"
+    },
+    {
+      "check": "Inline numeric f-212",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-213",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-214",
+      "observed": "62022913",
+      "independent_expected": "62022913"
+    },
+    {
+      "check": "Inline numeric f-215",
+      "observed": "1E+6",
+      "independent_expected": "1000000"
+    },
+    {
+      "check": "Inline numeric f-216",
+      "observed": "2.887E+9",
+      "independent_expected": "2887000000"
+    },
+    {
+      "check": "Inline numeric f-217",
+      "observed": "-6.877E+9",
+      "independent_expected": "-6877000000"
+    },
+    {
+      "check": "Inline numeric f-218",
+      "observed": "-2.47E+8",
+      "independent_expected": "-247000000"
+    },
+    {
+      "check": "Inline numeric f-219",
+      "observed": "-5941439",
+      "independent_expected": "-5941439"
+    },
+    {
+      "check": "Inline numeric f-220",
+      "observed": "-2.022E+9",
+      "independent_expected": "-2022000000"
+    },
+    {
+      "check": "Inline numeric f-221",
+      "observed": "7E+6",
+      "independent_expected": "7000000"
+    },
+    {
+      "check": "Inline numeric f-222",
+      "observed": "-6.251E+9",
+      "independent_expected": "-6251000000"
+    },
+    {
+      "check": "Inline numeric f-223",
+      "observed": "4.93E+8",
+      "independent_expected": "493000000"
+    },
+    {
+      "check": "Inline numeric f-224",
+      "observed": "3.82E+8",
+      "independent_expected": "382000000"
+    },
+    {
+      "check": "Inline numeric f-225",
+      "observed": "4.0E+7",
+      "independent_expected": "40000000"
+    },
+    {
+      "check": "Inline numeric f-226",
+      "observed": "3.6E+7",
+      "independent_expected": "36000000"
+    },
+    {
+      "check": "Inline numeric f-227",
+      "observed": "5.0E+7",
+      "independent_expected": "50000000"
+    },
+    {
+      "check": "Inline numeric f-228",
+      "observed": "3.5E+7",
+      "independent_expected": "35000000"
+    },
+    {
+      "check": "Inline numeric f-229",
+      "observed": "9E+6",
+      "independent_expected": "9000000"
+    },
+    {
+      "check": "Inline numeric f-230",
+      "observed": "1.1E+7",
+      "independent_expected": "11000000"
+    },
+    {
+      "check": "Inline numeric f-231",
+      "observed": "7E+6",
+      "independent_expected": "7000000"
+    },
+    {
+      "check": "Inline numeric f-232",
+      "observed": "1E+6",
+      "independent_expected": "1000000"
+    },
+    {
+      "check": "Inline numeric f-233",
+      "observed": "1.9E+7",
+      "independent_expected": "19000000"
+    },
+    {
+      "check": "Inline numeric f-234",
+      "observed": "5E+6",
+      "independent_expected": "5000000"
+    },
+    {
+      "check": "Inline numeric f-235",
+      "observed": "1.9E+7",
+      "independent_expected": "19000000"
+    },
+    {
+      "check": "Inline numeric f-236",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-237",
+      "observed": "2.5E+7",
+      "independent_expected": "25000000"
+    },
+    {
+      "check": "Inline numeric f-238",
+      "observed": "5.1E+7",
+      "independent_expected": "51000000"
+    },
+    {
+      "check": "Inline numeric f-239",
+      "observed": "2E+6",
+      "independent_expected": "2000000"
+    },
+    {
+      "check": "Inline numeric f-240",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-241",
+      "observed": "2.0E+7",
+      "independent_expected": "20000000"
+    },
+    {
+      "check": "Inline numeric f-242",
+      "observed": "-1.4E+7",
+      "independent_expected": "-14000000"
+    },
+    {
+      "check": "Inline numeric f-243",
+      "observed": "-8.0E+7",
+      "independent_expected": "-80000000"
+    },
+    {
+      "check": "Inline numeric f-244",
+      "observed": "-9.4E+7",
+      "independent_expected": "-94000000"
+    },
+    {
+      "check": "Inline numeric f-245",
+      "observed": "7.9E+7",
+      "independent_expected": "79000000"
+    },
+    {
+      "check": "Inline numeric f-246",
+      "observed": "7.8E+7",
+      "independent_expected": "78000000"
+    },
+    {
+      "check": "Inline numeric f-247",
+      "observed": "9.1E+7",
+      "independent_expected": "91000000"
+    },
+    {
+      "check": "Inline numeric f-248",
+      "observed": "9.4E+7",
+      "independent_expected": "94000000"
+    },
+    {
+      "check": "Inline numeric f-249",
+      "observed": "2E+6",
+      "independent_expected": "2000000"
+    },
+    {
+      "check": "Inline numeric f-250",
+      "observed": "-3E+6",
+      "independent_expected": "-3000000"
+    },
+    {
+      "check": "Inline numeric f-251",
+      "observed": "-3E+6",
+      "independent_expected": "-3000000"
+    },
+    {
+      "check": "Inline numeric f-252",
+      "observed": "-2.1E+7",
+      "independent_expected": "-21000000"
+    },
+    {
+      "check": "Inline numeric f-253",
+      "observed": "2.01E+8",
+      "independent_expected": "201000000"
+    },
+    {
+      "check": "Inline numeric f-254",
+      "observed": "8.2E+7",
+      "independent_expected": "82000000"
+    },
+    {
+      "check": "Inline numeric f-255",
+      "observed": "-1.00E+8",
+      "independent_expected": "-100000000"
+    },
+    {
+      "check": "Inline numeric f-256",
+      "observed": "-6.3E+7",
+      "independent_expected": "-63000000"
+    },
+    {
+      "check": "Inline numeric f-257",
+      "observed": "7.52E+8",
+      "independent_expected": "752000000"
+    },
+    {
+      "check": "Inline numeric f-258",
+      "observed": "6.36E+8",
+      "independent_expected": "636000000"
+    },
+    {
+      "check": "Inline numeric f-259",
+      "observed": "4.2E+7",
+      "independent_expected": "42000000"
+    },
+    {
+      "check": "Inline numeric f-260",
+      "observed": "3.6E+7",
+      "independent_expected": "36000000"
+    },
+    {
+      "check": "Inline numeric f-261",
+      "observed": "2.9E+7",
+      "independent_expected": "29000000"
+    },
+    {
+      "check": "Inline numeric f-262",
+      "observed": "1.4E+7",
+      "independent_expected": "14000000"
+    },
+    {
+      "check": "Inline numeric f-263",
+      "observed": "4.7E+7",
+      "independent_expected": "47000000"
+    },
+    {
+      "check": "Inline numeric f-264",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-265",
+      "observed": "-2.4E+7",
+      "independent_expected": "-24000000"
+    },
+    {
+      "check": "Inline numeric f-266",
+      "observed": "-5.0E+7",
+      "independent_expected": "-50000000"
+    },
+    {
+      "check": "Inline numeric f-267",
+      "observed": "3.5E+7",
+      "independent_expected": "35000000"
+    },
+    {
+      "check": "Inline numeric f-268",
+      "observed": "5.2E+7",
+      "independent_expected": "52000000"
+    },
+    {
+      "check": "Inline numeric f-269",
+      "observed": "4.396E+9",
+      "independent_expected": "4396000000"
+    },
+    {
+      "check": "Inline numeric f-270",
+      "observed": "2.038E+9",
+      "independent_expected": "2038000000"
+    },
+    {
+      "check": "Inline numeric f-271",
+      "observed": "3.16E+8",
+      "independent_expected": "316000000"
+    },
+    {
+      "check": "Inline numeric f-272",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-273",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-274",
+      "observed": "9.83E+8",
+      "independent_expected": "983000000"
+    },
+    {
+      "check": "Inline numeric f-275",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-276",
+      "observed": "9.88E+8",
+      "independent_expected": "988000000"
+    },
+    {
+      "check": "Inline numeric f-277",
+      "observed": "1.63E+8",
+      "independent_expected": "163000000"
+    },
+    {
+      "check": "Inline numeric f-278",
+      "observed": "1.00E+8",
+      "independent_expected": "100000000"
+    },
+    {
+      "check": "Inline numeric f-279",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-280",
+      "observed": "1.6E+7",
+      "independent_expected": "16000000"
+    },
+    {
+      "check": "Inline numeric f-281",
+      "observed": "-2E+6",
+      "independent_expected": "-2000000"
+    },
+    {
+      "check": "Inline numeric f-282",
+      "observed": "-2E+6",
+      "independent_expected": "-2000000"
+    },
+    {
+      "check": "Inline numeric f-283",
+      "observed": "-4.516E+9",
+      "independent_expected": "-4516000000"
+    },
+    {
+      "check": "Inline numeric f-284",
+      "observed": "6.7E+7",
+      "independent_expected": "67000000"
+    },
+    {
+      "check": "Inline numeric f-285",
+      "observed": "-1.4E+7",
+      "independent_expected": "-14000000"
+    },
+    {
+      "check": "Inline numeric f-286",
+      "observed": "1.0E+7",
+      "independent_expected": "10000000"
+    },
+    {
+      "check": "Inline numeric f-287",
+      "observed": "-3.802E+9",
+      "independent_expected": "-3802000000"
+    },
+    {
+      "check": "Inline numeric f-288",
+      "observed": "6.63E+8",
+      "independent_expected": "663000000"
+    },
+    {
+      "check": "Inline numeric f-289",
+      "observed": "6.261E+9",
+      "independent_expected": "6261000000"
+    },
+    {
+      "check": "Inline numeric f-290",
+      "observed": "3.472E+9",
+      "independent_expected": "3472000000"
+    },
+    {
+      "check": "Inline numeric f-291",
+      "observed": "2.459E+9",
+      "independent_expected": "2459000000"
+    },
+    {
+      "check": "Inline numeric f-292",
+      "observed": "4.135E+9",
+      "independent_expected": "4135000000"
+    },
+    {
+      "check": "Inline numeric f-293",
+      "observed": "1.62E+8",
+      "independent_expected": "162000000"
+    },
+    {
+      "check": "Inline numeric f-294",
+      "observed": "2.05E+8",
+      "independent_expected": "205000000"
+    },
+    {
+      "check": "Inline numeric f-295",
+      "observed": "3.7E+7",
+      "independent_expected": "37000000"
+    },
+    {
+      "check": "Inline numeric f-296",
+      "observed": "1.1E+7",
+      "independent_expected": "11000000"
+    },
+    {
+      "check": "Inline numeric f-591",
+      "observed": "6.50E+8",
+      "independent_expected": "650000000"
+    },
+    {
+      "check": "Inline numeric f-592",
+      "observed": "1E+6",
+      "independent_expected": "1000000"
+    },
+    {
+      "check": "Inline numeric f-593",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-594",
+      "observed": "6.49E+8",
+      "independent_expected": "649000000"
+    },
+    {
+      "check": "Inline numeric f-595",
+      "observed": "8.702E+9",
+      "independent_expected": "8702000000"
+    },
+    {
+      "check": "Inline numeric f-596",
+      "observed": "2.4E+7",
+      "independent_expected": "24000000"
+    },
+    {
+      "check": "Inline numeric f-597",
+      "observed": "3.3E+7",
+      "independent_expected": "33000000"
+    },
+    {
+      "check": "Inline numeric f-598",
+      "observed": "8.645E+9",
+      "independent_expected": "8645000000"
+    },
+    {
+      "check": "Inline numeric f-599",
+      "observed": "0.0550",
+      "independent_expected": "0.0550"
+    },
+    {
+      "check": "Inline numeric f-600",
+      "observed": "2.650E+9",
+      "independent_expected": "2650000000"
+    },
+    {
+      "check": "Inline numeric f-601",
+      "observed": "9E+6",
+      "independent_expected": "9000000"
+    },
+    {
+      "check": "Inline numeric f-602",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-603",
+      "observed": "2.641E+9",
+      "independent_expected": "2641000000"
+    },
+    {
+      "check": "Inline numeric f-604",
+      "observed": "0.0675",
+      "independent_expected": "0.0675"
+    },
+    {
+      "check": "Inline numeric f-605",
+      "observed": "2.100E+9",
+      "independent_expected": "2100000000"
+    },
+    {
+      "check": "Inline numeric f-606",
+      "observed": "1.4E+7",
+      "independent_expected": "14000000"
+    },
+    {
+      "check": "Inline numeric f-607",
+      "observed": "7E+6",
+      "independent_expected": "7000000"
+    },
+    {
+      "check": "Inline numeric f-608",
+      "observed": "2.079E+9",
+      "independent_expected": "2079000000"
+    },
+    {
+      "check": "Inline numeric f-609",
+      "observed": "0.04625",
+      "independent_expected": "0.04625"
+    },
+    {
+      "check": "Inline numeric f-610",
+      "observed": "1.200E+9",
+      "independent_expected": "1200000000"
+    },
+    {
+      "check": "Inline numeric f-611",
+      "observed": "6E+6",
+      "independent_expected": "6000000"
+    },
+    {
+      "check": "Inline numeric f-612",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-613",
+      "observed": "1.194E+9",
+      "independent_expected": "1194000000"
+    },
+    {
+      "check": "Inline numeric f-614",
+      "observed": "0.06375",
+      "independent_expected": "0.06375"
+    },
+    {
+      "check": "Inline numeric f-615",
+      "observed": "2.750E+9",
+      "independent_expected": "2750000000"
+    },
+    {
+      "check": "Inline numeric f-616",
+      "observed": "2.1E+7",
+      "independent_expected": "21000000"
+    },
+    {
+      "check": "Inline numeric f-617",
+      "observed": "1E+6",
+      "independent_expected": "1000000"
+    },
+    {
+      "check": "Inline numeric f-618",
+      "observed": "2.728E+9",
+      "independent_expected": "2728000000"
+    },
+    {
+      "check": "Inline numeric f-619",
+      "observed": "0.04875",
+      "independent_expected": "0.04875"
+    },
+    {
+      "check": "Inline numeric f-620",
+      "observed": "7.50E+8",
+      "independent_expected": "750000000"
+    },
+    {
+      "check": "Inline numeric f-621",
+      "observed": "4E+6",
+      "independent_expected": "4000000"
+    },
+    {
+      "check": "Inline numeric f-622",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-623",
+      "observed": "7.46E+8",
+      "independent_expected": "746000000"
+    },
+    {
+      "check": "Inline numeric f-624",
+      "observed": "0.06875",
+      "independent_expected": "0.06875"
+    },
+    {
+      "check": "Inline numeric f-625",
+      "observed": "1.450E+9",
+      "independent_expected": "1450000000"
+    },
+    {
+      "check": "Inline numeric f-626",
+      "observed": "1.2E+7",
+      "independent_expected": "12000000"
+    },
+    {
+      "check": "Inline numeric f-627",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-628",
+      "observed": "1.438E+9",
+      "independent_expected": "1438000000"
+    },
+    {
+      "check": "Inline numeric f-629",
+      "observed": "0.07125",
+      "independent_expected": "0.07125"
+    },
+    {
+      "check": "Inline numeric f-630",
+      "observed": "1.000E+9",
+      "independent_expected": "1000000000"
+    },
+    {
+      "check": "Inline numeric f-631",
+      "observed": "8E+6",
+      "independent_expected": "8000000"
+    },
+    {
+      "check": "Inline numeric f-632",
+      "observed": "6E+6",
+      "independent_expected": "6000000"
+    },
+    {
+      "check": "Inline numeric f-633",
+      "observed": "9.86E+8",
+      "independent_expected": "986000000"
+    },
+    {
+      "check": "Inline numeric f-634",
+      "observed": "0.06625",
+      "independent_expected": "0.06625"
+    },
+    {
+      "check": "Inline numeric f-635",
+      "observed": "2.200E+9",
+      "independent_expected": "2200000000"
+    },
+    {
+      "check": "Inline numeric f-636",
+      "observed": "1.9E+7",
+      "independent_expected": "19000000"
+    },
+    {
+      "check": "Inline numeric f-637",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-638",
+      "observed": "2.181E+9",
+      "independent_expected": "2181000000"
+    },
+    {
+      "check": "Inline numeric f-639",
+      "observed": "0.0600",
+      "independent_expected": "0.0600"
+    },
+    {
+      "check": "Inline numeric f-640",
+      "observed": "1.500E+9",
+      "independent_expected": "1500000000"
+    },
+    {
+      "check": "Inline numeric f-641",
+      "observed": "1.4E+7",
+      "independent_expected": "14000000"
+    },
+    {
+      "check": "Inline numeric f-642",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-643",
+      "observed": "1.486E+9",
+      "independent_expected": "1486000000"
+    },
+    {
+      "check": "Inline numeric f-644",
+      "observed": "1.6E+7",
+      "independent_expected": "16000000"
+    },
+    {
+      "check": "Inline numeric f-645",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-646",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-647",
+      "observed": "1.6E+7",
+      "independent_expected": "16000000"
+    },
+    {
+      "check": "Inline numeric f-648",
+      "observed": "2.60E+8",
+      "independent_expected": "260000000"
+    },
+    {
+      "check": "Inline numeric f-649",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-650",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-651",
+      "observed": "2.60E+8",
+      "independent_expected": "260000000"
+    },
+    {
+      "check": "Inline numeric f-652",
+      "observed": "2.4578E+10",
+      "independent_expected": "24578000000"
+    },
+    {
+      "check": "Inline numeric f-653",
+      "observed": "1.31E+8",
+      "independent_expected": "131000000"
+    },
+    {
+      "check": "Inline numeric f-654",
+      "observed": "4.7E+7",
+      "independent_expected": "47000000"
+    },
+    {
+      "check": "Inline numeric f-655",
+      "observed": "2.4400E+10",
+      "independent_expected": "24400000000"
+    },
+    {
+      "check": "Inline numeric f-656",
+      "observed": "9.9E+7",
+      "independent_expected": "99000000"
+    },
+    {
+      "check": "Inline numeric f-657",
+      "observed": "1E+6",
+      "independent_expected": "1000000"
+    },
+    {
+      "check": "Inline numeric f-658",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-659",
+      "observed": "9.8E+7",
+      "independent_expected": "98000000"
+    },
+    {
+      "check": "Inline numeric f-660",
+      "observed": "2.4479E+10",
+      "independent_expected": "24479000000"
+    },
+    {
+      "check": "Inline numeric f-661",
+      "observed": "1.30E+8",
+      "independent_expected": "130000000"
+    },
+    {
+      "check": "Inline numeric f-662",
+      "observed": "4.7E+7",
+      "independent_expected": "47000000"
+    },
+    {
+      "check": "Inline numeric f-663",
+      "observed": "2.4302E+10",
+      "independent_expected": "24302000000"
+    },
+    {
+      "check": "Inline numeric f-664",
+      "observed": "4.87E+8",
+      "independent_expected": "487000000"
+    },
+    {
+      "check": "Inline numeric f-665",
+      "observed": "1E+6",
+      "independent_expected": "1000000"
+    },
+    {
+      "check": "Inline numeric f-666",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-667",
+      "observed": "4.86E+8",
+      "independent_expected": "486000000"
+    },
+    {
+      "check": "Inline numeric f-668",
+      "observed": "8.702E+9",
+      "independent_expected": "8702000000"
+    },
+    {
+      "check": "Inline numeric f-669",
+      "observed": "2.5E+7",
+      "independent_expected": "25000000"
+    },
+    {
+      "check": "Inline numeric f-670",
+      "observed": "3.5E+7",
+      "independent_expected": "35000000"
+    },
+    {
+      "check": "Inline numeric f-671",
+      "observed": "8.642E+9",
+      "independent_expected": "8642000000"
+    },
+    {
+      "check": "Inline numeric f-672",
+      "observed": "0.0550",
+      "independent_expected": "0.0550"
+    },
+    {
+      "check": "Inline numeric f-673",
+      "observed": "2.650E+9",
+      "independent_expected": "2650000000"
+    },
+    {
+      "check": "Inline numeric f-674",
+      "observed": "9E+6",
+      "independent_expected": "9000000"
+    },
+    {
+      "check": "Inline numeric f-675",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-676",
+      "observed": "2.641E+9",
+      "independent_expected": "2641000000"
+    },
+    {
+      "check": "Inline numeric f-677",
+      "observed": "2.100E+9",
+      "independent_expected": "2100000000"
+    },
+    {
+      "check": "Inline numeric f-678",
+      "observed": "1.5E+7",
+      "independent_expected": "15000000"
+    },
+    {
+      "check": "Inline numeric f-679",
+      "observed": "8E+6",
+      "independent_expected": "8000000"
+    },
+    {
+      "check": "Inline numeric f-680",
+      "observed": "2.077E+9",
+      "independent_expected": "2077000000"
+    },
+    {
+      "check": "Inline numeric f-681",
+      "observed": "0.04625",
+      "independent_expected": "0.04625"
+    },
+    {
+      "check": "Inline numeric f-682",
+      "observed": "1.200E+9",
+      "independent_expected": "1200000000"
+    },
+    {
+      "check": "Inline numeric f-683",
+      "observed": "6E+6",
+      "independent_expected": "6000000"
+    },
+    {
+      "check": "Inline numeric f-684",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-685",
+      "observed": "1.194E+9",
+      "independent_expected": "1194000000"
+    },
+    {
+      "check": "Inline numeric f-686",
+      "observed": "2.750E+9",
+      "independent_expected": "2750000000"
+    },
+    {
+      "check": "Inline numeric f-687",
+      "observed": "2.2E+7",
+      "independent_expected": "22000000"
+    },
+    {
+      "check": "Inline numeric f-688",
+      "observed": "1E+6",
+      "independent_expected": "1000000"
+    },
+    {
+      "check": "Inline numeric f-689",
+      "observed": "2.727E+9",
+      "independent_expected": "2727000000"
+    },
+    {
+      "check": "Inline numeric f-690",
+      "observed": "0.04875",
+      "independent_expected": "0.04875"
+    },
+    {
+      "check": "Inline numeric f-691",
+      "observed": "7.50E+8",
+      "independent_expected": "750000000"
+    },
+    {
+      "check": "Inline numeric f-692",
+      "observed": "4E+6",
+      "independent_expected": "4000000"
+    },
+    {
+      "check": "Inline numeric f-693",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-694",
+      "observed": "7.46E+8",
+      "independent_expected": "746000000"
+    },
+    {
+      "check": "Inline numeric f-695",
+      "observed": "1.450E+9",
+      "independent_expected": "1450000000"
+    },
+    {
+      "check": "Inline numeric f-696",
+      "observed": "1.2E+7",
+      "independent_expected": "12000000"
+    },
+    {
+      "check": "Inline numeric f-697",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-698",
+      "observed": "1.438E+9",
+      "independent_expected": "1438000000"
+    },
+    {
+      "check": "Inline numeric f-699",
+      "observed": "1.000E+9",
+      "independent_expected": "1000000000"
+    },
+    {
+      "check": "Inline numeric f-700",
+      "observed": "9E+6",
+      "independent_expected": "9000000"
+    },
+    {
+      "check": "Inline numeric f-701",
+      "observed": "7E+6",
+      "independent_expected": "7000000"
+    },
+    {
+      "check": "Inline numeric f-702",
+      "observed": "9.84E+8",
+      "independent_expected": "984000000"
+    },
+    {
+      "check": "Inline numeric f-703",
+      "observed": "2.200E+9",
+      "independent_expected": "2200000000"
+    },
+    {
+      "check": "Inline numeric f-704",
+      "observed": "2.0E+7",
+      "independent_expected": "20000000"
+    },
+    {
+      "check": "Inline numeric f-705",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-706",
+      "observed": "2.180E+9",
+      "independent_expected": "2180000000"
+    },
+    {
+      "check": "Inline numeric f-707",
+      "observed": "1.500E+9",
+      "independent_expected": "1500000000"
+    },
+    {
+      "check": "Inline numeric f-708",
+      "observed": "1.4E+7",
+      "independent_expected": "14000000"
+    },
+    {
+      "check": "Inline numeric f-709",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-710",
+      "observed": "1.486E+9",
+      "independent_expected": "1486000000"
+    },
+    {
+      "check": "Inline numeric f-711",
+      "observed": "1.7E+7",
+      "independent_expected": "17000000"
+    },
+    {
+      "check": "Inline numeric f-712",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-713",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-714",
+      "observed": "1.7E+7",
+      "independent_expected": "17000000"
+    },
+    {
+      "check": "Inline numeric f-715",
+      "observed": "2.62E+8",
+      "independent_expected": "262000000"
+    },
+    {
+      "check": "Inline numeric f-716",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-717",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-718",
+      "observed": "2.62E+8",
+      "independent_expected": "262000000"
+    },
+    {
+      "check": "Inline numeric f-719",
+      "observed": "2.4581E+10",
+      "independent_expected": "24581000000"
+    },
+    {
+      "check": "Inline numeric f-720",
+      "observed": "1.36E+8",
+      "independent_expected": "136000000"
+    },
+    {
+      "check": "Inline numeric f-721",
+      "observed": "5.1E+7",
+      "independent_expected": "51000000"
+    },
+    {
+      "check": "Inline numeric f-722",
+      "observed": "2.4394E+10",
+      "independent_expected": "24394000000"
+    },
+    {
+      "check": "Inline numeric f-723",
+      "observed": "9.9E+7",
+      "independent_expected": "99000000"
+    },
+    {
+      "check": "Inline numeric f-724",
+      "observed": "1E+6",
+      "independent_expected": "1000000"
+    },
+    {
+      "check": "Inline numeric f-725",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-726",
+      "observed": "9.8E+7",
+      "independent_expected": "98000000"
+    },
+    {
+      "check": "Inline numeric f-727",
+      "observed": "2.4482E+10",
+      "independent_expected": "24482000000"
+    },
+    {
+      "check": "Inline numeric f-728",
+      "observed": "1.35E+8",
+      "independent_expected": "135000000"
+    },
+    {
+      "check": "Inline numeric f-729",
+      "observed": "5.1E+7",
+      "independent_expected": "51000000"
+    },
+    {
+      "check": "Inline numeric f-730",
+      "observed": "2.4296E+10",
+      "independent_expected": "24296000000"
+    },
+    {
+      "check": "Inline numeric f-900",
+      "observed": "1.95E+8",
+      "independent_expected": "195000000"
+    },
+    {
+      "check": "Inline numeric f-901",
+      "observed": "1.79E+8",
+      "independent_expected": "179000000"
+    },
+    {
+      "check": "Inline numeric f-902",
+      "observed": "3.41E+8",
+      "independent_expected": "341000000"
+    },
+    {
+      "check": "Inline numeric f-903",
+      "observed": "3.00E+8",
+      "independent_expected": "300000000"
+    },
+    {
+      "check": "Inline numeric f-904",
+      "observed": "4.91E+8",
+      "independent_expected": "491000000"
+    },
+    {
+      "check": "Inline numeric f-905",
+      "observed": "4.11E+8",
+      "independent_expected": "411000000"
+    },
+    {
+      "check": "Inline numeric f-906",
+      "observed": "1.027E+9",
+      "independent_expected": "1027000000"
+    },
+    {
+      "check": "Inline numeric f-907",
+      "observed": "8.90E+8",
+      "independent_expected": "890000000"
+    },
+    {
+      "check": "Inline numeric f-908",
+      "observed": "2.78E+8",
+      "independent_expected": "278000000"
+    },
+    {
+      "check": "Inline numeric f-909",
+      "observed": "2.94E+8",
+      "independent_expected": "294000000"
+    },
+    {
+      "check": "Inline numeric f-910",
+      "observed": "3.33E+8",
+      "independent_expected": "333000000"
+    },
+    {
+      "check": "Inline numeric f-911",
+      "observed": "3.02E+8",
+      "independent_expected": "302000000"
+    },
+    {
+      "check": "Inline numeric f-912",
+      "observed": "3.35E+8",
+      "independent_expected": "335000000"
+    },
+    {
+      "check": "Inline numeric f-913",
+      "observed": "2.66E+8",
+      "independent_expected": "266000000"
+    },
+    {
+      "check": "Inline numeric f-914",
+      "observed": "9.46E+8",
+      "independent_expected": "946000000"
+    },
+    {
+      "check": "Inline numeric f-915",
+      "observed": "8.62E+8",
+      "independent_expected": "862000000"
+    },
+    {
+      "check": "Inline numeric f-916",
+      "observed": "3.3E+7",
+      "independent_expected": "33000000"
+    },
+    {
+      "check": "Inline numeric f-917",
+      "observed": "3.7E+7",
+      "independent_expected": "37000000"
+    },
+    {
+      "check": "Inline numeric f-918",
+      "observed": "2.006E+9",
+      "independent_expected": "2006000000"
+    },
+    {
+      "check": "Inline numeric f-919",
+      "observed": "1.789E+9",
+      "independent_expected": "1789000000"
+    },
+    {
+      "check": "Inline numeric f-921",
+      "observed": "5.85E+8",
+      "independent_expected": "585000000"
+    },
+    {
+      "check": "Inline numeric f-922",
+      "observed": "5.12E+8",
+      "independent_expected": "512000000"
+    },
+    {
+      "check": "Inline numeric f-923",
+      "observed": "5.16E+8",
+      "independent_expected": "516000000"
+    },
+    {
+      "check": "Inline numeric f-924",
+      "observed": "4.31E+8",
+      "independent_expected": "431000000"
+    },
+    {
+      "check": "Inline numeric f-925",
+      "observed": "1.2E+7",
+      "independent_expected": "12000000"
+    },
+    {
+      "check": "Inline numeric f-926",
+      "observed": "1.4E+7",
+      "independent_expected": "14000000"
+    },
+    {
+      "check": "Inline numeric f-927",
+      "observed": "1.113E+9",
+      "independent_expected": "1113000000"
+    },
+    {
+      "check": "Inline numeric f-928",
+      "observed": "9.57E+8",
+      "independent_expected": "957000000"
+    },
+    {
+      "check": "Inline numeric f-929",
+      "observed": "5.2E+7",
+      "independent_expected": "52000000"
+    },
+    {
+      "check": "Inline numeric f-930",
+      "observed": "4.5E+7",
+      "independent_expected": "45000000"
+    },
+    {
+      "check": "Inline numeric f-931",
+      "observed": "1.061E+9",
+      "independent_expected": "1061000000"
+    },
+    {
+      "check": "Inline numeric f-932",
+      "observed": "9.12E+8",
+      "independent_expected": "912000000"
+    },
+    {
+      "check": "Inline numeric f-933",
+      "observed": "9.0E+7",
+      "independent_expected": "90000000"
+    },
+    {
+      "check": "Inline numeric f-934",
+      "observed": "7.1E+7",
+      "independent_expected": "71000000"
+    },
+    {
+      "check": "Inline numeric f-935",
+      "observed": "3.78E+8",
+      "independent_expected": "378000000"
+    },
+    {
+      "check": "Inline numeric f-936",
+      "observed": "3.00E+8",
+      "independent_expected": "300000000"
+    },
+    {
+      "check": "Inline numeric f-937",
+      "observed": "1.3E+7",
+      "independent_expected": "13000000"
+    },
+    {
+      "check": "Inline numeric f-938",
+      "observed": "2E+6",
+      "independent_expected": "2000000"
+    },
+    {
+      "check": "Inline numeric f-939",
+      "observed": "2.5E+7",
+      "independent_expected": "25000000"
+    },
+    {
+      "check": "Inline numeric f-940",
+      "observed": "5.1E+7",
+      "independent_expected": "51000000"
+    },
+    {
+      "check": "Inline numeric f-941",
+      "observed": "6.4E+7",
+      "independent_expected": "64000000"
+    },
+    {
+      "check": "Inline numeric f-942",
+      "observed": "0",
+      "independent_expected": "0"
+    },
+    {
+      "check": "Inline numeric f-943",
+      "observed": "6.19E+8",
+      "independent_expected": "619000000"
+    },
+    {
+      "check": "Inline numeric f-944",
+      "observed": "4.88E+8",
+      "independent_expected": "488000000"
+    },
+    {
+      "check": "Inline numeric f-946",
+      "observed": "9.172E+9",
+      "independent_expected": "9172000000"
+    },
+    {
+      "check": "Inline numeric f-947",
+      "observed": "9.180E+9",
+      "independent_expected": "9180000000"
+    },
+    {
+      "check": "Inline numeric f-948",
+      "observed": "9.905E+9",
+      "independent_expected": "9905000000"
+    },
+    {
+      "check": "Inline numeric f-949",
+      "observed": "1.0045E+10",
+      "independent_expected": "10045000000"
+    },
+    {
+      "check": "Inline numeric f-950",
+      "observed": "1.86E+8",
+      "independent_expected": "186000000"
+    },
+    {
+      "check": "Inline numeric f-951",
+      "observed": "1.93E+8",
+      "independent_expected": "193000000"
+    },
+    {
+      "check": "Inline numeric f-952",
+      "observed": "2.252E+9",
+      "independent_expected": "2252000000"
+    },
+    {
+      "check": "Inline numeric f-953",
+      "observed": "6.168E+9",
+      "independent_expected": "6168000000"
+    },
+    {
+      "check": "Inline numeric f-954",
+      "observed": "2.1515E+10",
+      "independent_expected": "21515000000"
+    },
+    {
+      "check": "Inline numeric f-955",
+      "observed": "2.5586E+10",
+      "independent_expected": "25586000000"
+    },
+    {
+      "check": "Inline numeric f-1050",
+      "observed": "2.1E+7",
+      "independent_expected": "21000000"
+    },
+    {
+      "check": "Inline numeric f-1051",
+      "observed": "1.9E+7",
+      "independent_expected": "19000000"
+    },
+    {
+      "check": "Inline numeric f-1052",
+      "observed": "1.5E+7",
+      "independent_expected": "15000000"
+    },
+    {
+      "check": "Inline numeric f-1053",
+      "observed": "2.2E+7",
+      "independent_expected": "22000000"
+    },
+    {
+      "check": "Inline numeric f-1054",
+      "observed": "1.1E+7",
+      "independent_expected": "11000000"
+    },
+    {
+      "check": "Inline numeric f-1055",
+      "observed": "2.2E+7",
+      "independent_expected": "22000000"
+    },
+    {
+      "check": "Inline numeric f-1056",
+      "observed": "7E+6",
+      "independent_expected": "7000000"
+    },
+    {
+      "check": "Inline numeric f-1057",
+      "observed": "2.3E+7",
+      "independent_expected": "23000000"
+    },
+    {
+      "check": "Inline numeric f-1058",
+      "observed": "4E+6",
+      "independent_expected": "4000000"
+    },
+    {
+      "check": "Inline numeric f-1059",
+      "observed": "2.3E+7",
+      "independent_expected": "23000000"
+    },
+    {
+      "check": "Inline numeric f-1060",
+      "observed": "1.1E+7",
+      "independent_expected": "11000000"
+    },
+    {
+      "check": "Inline numeric f-1061",
+      "observed": "4.23E+8",
+      "independent_expected": "423000000"
+    },
+    {
+      "check": "Inline numeric f-1062",
+      "observed": "6.9E+7",
+      "independent_expected": "69000000"
+    },
+    {
+      "check": "Inline numeric f-1063",
+      "observed": "5.32E+8",
+      "independent_expected": "532000000"
+    },
+    {
+      "check": "Inline numeric f-1064",
+      "observed": "1.1E+7",
+      "independent_expected": "11000000"
+    },
+    {
+      "check": "Inline numeric f-1065",
+      "observed": "2.72E+8",
+      "independent_expected": "272000000"
+    },
+    {
+      "check": "Inline numeric f-1066",
+      "observed": "5.8E+7",
+      "independent_expected": "58000000"
+    },
+    {
+      "check": "Inline numeric f-1067",
+      "observed": "2.60E+8",
+      "independent_expected": "260000000"
+    }
+  ]
+}

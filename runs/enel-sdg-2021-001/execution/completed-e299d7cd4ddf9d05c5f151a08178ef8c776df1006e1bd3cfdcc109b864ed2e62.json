@@ -1,0 +1,17 @@
+{
+  "kind": "cpos-markdown-delivery/1",
+  "execution": "host-session",
+  "scope": "Historical Enel Finance International N.V. EUR1,000m initial0% notes XS2066706818 due June17 2024; guarantor/KPI Enel S.p.A. under the documented perimeter. Knowledge cutoff August3 2021; June30 KPI observation is not the December31 2021 target outcome. Source programme supplement, issuer financial-note/target disclosures and limited-assurance statement support a conditional pricing test; specific Final Terms/full contract package remain incomplete. Full-year coupon equivalents assume full original principal and an effective step-up; they are not actual accrued payments, net hedged funding cost, a spread forecast or issuer-level materiality. Unknown event/timing/access/market/outcome fields remain gaps. Actual current host with preflight context; no blind/independent/provider/native claim. All eight ESG analytical views remain. Excel is ingestion-only; no workbook output.",
+  "provider_cap_usd": 0,
+  "modules": {
+    "CP-0": "requests/CP-0/f64bf29c2fa559ef5d0356412c46270316da4cc1f390215a71fcc64986f0bfe0/1.response.md",
+    "CP-2E": "requests/CP-2E/cba710350803e6877307f0dbbb1e1974354ea8b6e71485baafc3fefe410a8012/1.response.md"
+  },
+  "module_execution": {
+    "CP-0": "host-session",
+    "CP-2E": "host-session"
+  },
+  "cp_model_published": false,
+  "delivery_manifest_sha256": "3f7c6c3954fa1181c1cc193c6ea5cc75c51d9e8dbc2f9bbee635d1e51d1d1280",
+  "report_sha256": "3f158735c83440507deb328be5737593998bd5ec4b847545921c66538600cfcb"
+}

@@ -1,0 +1,266 @@
+{
+  "scope": "Real agency report analysis; conditional approximate/proxy arithmetic kept separate from synthetic boundary controls. Not provider/full owner invocation or current ratings.",
+  "instructions_sha256": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+  "consumed": {
+    "runs/ford-otosan-2024-001/CP-0.md": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+    "runs/ford-otosan-2024-001/CP-1-selected-input.md": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+    "runs/ford-otosan-2024-001/CP-2G-published-forecast.md": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931",
+    "runs/ford-otosan-2024-001/financial-calculations.json": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+    "runs/ford-otosan-2024-001/sources/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+    "runs/ford-otosan-2024-001/sources/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+    "runs/ford-otosan-2024-001/sources/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf"
+  },
+  "methods": {
+    "src/deploy_workflow/owners/cp2h.py": "e13c1e1abe984d9f7d926408ce9cc0bce8ed55786470743186a50d12aef7e4ad",
+    "src/deploy_vii/methods/cp2h.md": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+    "docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/SKILL.md": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+    "docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/references/REF_CP-2H_STEPS.md": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+    "/Users/ericguei/Documents/cp-os/skills/cp-2h-ratings-migration-trigger/scripts/covenant_headroom.py": "9b01a0077994e84f039802d2210d0473c276ab0e1b3b840d39bebde6abb81533",
+    "/Users/ericguei/Documents/cp-os/skills/cp-2h-ratings-migration-trigger/scripts/cp_tables.py": "02590c0bf151e1e291b72214df3311f686d88e576d60a80a6b5ca73ecc44a8d1"
+  },
+  "reported_fitch_central_illustration": {
+    "source_metric_literal": "around 2x",
+    "threshold": "above 2.0x by 2025",
+    "central_headroom": "0",
+    "precision": "approximately zero, NOT exact true headroom",
+    "strict_reached": null,
+    "reason": "approximate input has no disclosed uncertainty band; actual threshold crossing cannot be determined"
+  },
+  "sp_geography_proxy": {
+    "basis": "100% minus source approximately 85% Turkey EBITDA estimate; total earnings definition for the upgrade condition is not independently bridged",
+    "outside_ebitda_pct": "15",
+    "outside_earnings_condition_pct": "30",
+    "central_distance_to_positive_condition_pp": "15",
+    "true_agency_headroom": null,
+    "conditional": "Proxy only; source says more than, plus sustainable and other conditions; no upgrade conclusion"
+  },
+  "ordinal_symbol_distance": {
+    "fitch": "BB+",
+    "sp": "BB-",
+    "sp_qualifier": "preliminary",
+    "steps": 2,
+    "meaning": "ordinal comparison, not a probability, average rating, or automatic notch action"
+  },
+  "synthetic_boundary_controls": [
+    {
+      "comparison": "Above",
+      "metric": "2.1",
+      "threshold": "2",
+      "unit": "multiple",
+      "headroom": "-0.1",
+      "strict_reached": true
+    },
+    {
+      "comparison": "Above",
+      "metric": "1.9",
+      "threshold": "2",
+      "unit": "multiple",
+      "headroom": "0.1",
+      "strict_reached": false
+    },
+    {
+      "comparison": "Above",
+      "metric": "2",
+      "threshold": "2",
+      "unit": "multiple",
+      "headroom": "0",
+      "strict_reached": false
+    },
+    {
+      "comparison": "Below",
+      "metric": ".055",
+      "threshold": ".06",
+      "unit": "percent",
+      "headroom": "-0.5",
+      "strict_reached": true
+    },
+    {
+      "comparison": "Below",
+      "metric": ".065",
+      "threshold": ".06",
+      "unit": "percent",
+      "headroom": "0.5",
+      "strict_reached": false
+    },
+    {
+      "comparison": "Below",
+      "metric": ".06",
+      "threshold": ".06",
+      "unit": "percent",
+      "headroom": "0",
+      "strict_reached": false
+    }
+  ],
+  "synthetic_duration_controls": {
+    "repeated_without_rule": {
+      "trigger": "synthetic margin control",
+      "trigger_direction": "min-ratio",
+      "thresholds": {
+        "threshold": 0.06
+      },
+      "is_range": false,
+      "periods": [
+        {
+          "period": "2024",
+          "case": "D",
+          "value": 0.055,
+          "headroom": {
+            "threshold": -0.005
+          },
+          "binding_threshold": 0.06,
+          "binding_headroom": -0.005,
+          "status": "Breached"
+        },
+        {
+          "period": "2025",
+          "case": "D",
+          "value": 0.055,
+          "headroom": {
+            "threshold": -0.005
+          },
+          "binding_threshold": 0.06,
+          "binding_headroom": -0.005,
+          "status": "Breached"
+        }
+      ],
+      "breach_periods": [
+        "2024",
+        "2025"
+      ],
+      "classification": "multiple-period breaches \u2014 sustained duration not established",
+      "sustained": null,
+      "sustained_periods": null,
+      "sustained_cases": [],
+      "note": "point threshold; agencies often publish a range \u2014 confirm before treating this as a hard bound"
+    },
+    "explicit_same_case_rule": {
+      "trigger": "synthetic margin control",
+      "trigger_direction": "min-ratio",
+      "thresholds": {
+        "threshold": 0.06
+      },
+      "is_range": false,
+      "periods": [
+        {
+          "period": "2024",
+          "case": "D",
+          "value": 0.055,
+          "headroom": {
+            "threshold": -0.005
+          },
+          "binding_threshold": 0.06,
+          "binding_headroom": -0.005,
+          "status": "Breached"
+        },
+        {
+          "period": "2025",
+          "case": "D",
+          "value": 0.055,
+          "headroom": {
+            "threshold": -0.005
+          },
+          "binding_threshold": 0.06,
+          "binding_headroom": -0.005,
+          "status": "Breached"
+        }
+      ],
+      "breach_periods": [
+        "2024",
+        "2025"
+      ],
+      "classification": "sustained breach",
+      "sustained": true,
+      "sustained_periods": [
+        "2024",
+        "2025"
+      ],
+      "sustained_cases": [
+        "D"
+      ],
+      "note": "point threshold; agencies often publish a range \u2014 confirm before treating this as a hard bound"
+    },
+    "split_cases_not_duration": {
+      "trigger": "synthetic margin control",
+      "trigger_direction": "min-ratio",
+      "thresholds": {
+        "threshold": 0.06
+      },
+      "is_range": false,
+      "periods": [
+        {
+          "period": "2024",
+          "case": "A",
+          "value": 0.055,
+          "headroom": {
+            "threshold": -0.005
+          },
+          "binding_threshold": 0.06,
+          "binding_headroom": -0.005,
+          "status": "Breached"
+        },
+        {
+          "period": "2025",
+          "case": "B",
+          "value": 0.055,
+          "headroom": {
+            "threshold": -0.005
+          },
+          "binding_threshold": 0.06,
+          "binding_headroom": -0.005,
+          "status": "Breached"
+        }
+      ],
+      "breach_periods": [
+        "2024",
+        "2025"
+      ],
+      "classification": "point-in-time breach \u2014 not automatically a trigger",
+      "sustained": null,
+      "sustained_periods": [
+        "2024",
+        "2025"
+      ],
+      "sustained_cases": [],
+      "note": "point threshold; agencies often publish a range \u2014 confirm before treating this as a hard bound"
+    },
+    "range_endpoints": {
+      "trigger": "synthetic range control",
+      "trigger_direction": "max-ratio",
+      "thresholds": {
+        "lower": 2.0,
+        "upper": 2.2
+      },
+      "is_range": true,
+      "periods": [
+        {
+          "period": "P",
+          "case": "X",
+          "value": 2.1,
+          "headroom": {
+            "lower": -0.1,
+            "upper": 0.1
+          },
+          "binding_threshold": 2.0,
+          "binding_headroom": -0.1,
+          "status": "Breached"
+        }
+      ],
+      "breach_periods": [
+        "P"
+      ],
+      "classification": "point-in-time breach \u2014 not automatically a trigger",
+      "sustained": false,
+      "sustained_periods": null,
+      "sustained_cases": [],
+      "note": null
+    }
+  },
+  "known_source_claim_checks": 16,
+  "limitations": [
+    "No reconstructed Fitch adjusted net-leverage path",
+    "No predefined sustained window from either agency",
+    "SP published forecast is not our three-year modeled base/downside/upside",
+    "Original raw PDF and visual verification not retained",
+    "Different issuer/date than TDG; later actions excluded"
+  ]
+}

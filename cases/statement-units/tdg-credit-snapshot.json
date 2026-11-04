@@ -1,0 +1,123 @@
+{
+ "schema": "statement-units/1",
+ "case": "tdg-credit-snapshot",
+ "sources": [
+  {
+   "source_id": "Q2FY24",
+   "file": "TDG/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm",
+   "converted_sha256": "588b7c34c017ce024f786c250bd64543f77903cec3e15799747c16ab33682a57",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:42",
+     "end": "line:77",
+     "heading": "CONDENSED CONSOLIDATED BALANCE SHEETS"
+    },
+    {
+     "kind": "IS",
+     "start": "line:78",
+     "end": "line:100",
+     "heading": "CONDENSED CONSOLIDATED STATEMENTS OF INCOME"
+    },
+    {
+     "kind": "CFS",
+     "start": "line:171",
+     "end": "line:215",
+     "heading": "CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS"
+    }
+   ],
+   "none": [],
+   "remarks": [
+    "Titles sit at the tail of long lines. Comprehensive income (101) and the two equity pages (113, 142) are not units. CFS ends at 215 because line 216 begins the notes. Lines 26-31 are the table of contents."
+   ]
+  },
+  {
+   "source_id": "Q3FY24",
+   "file": "TDG/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm",
+   "converted_sha256": "d00c6e3d87fe29839ce7220ef9e20e662733f0337476078eb5eeaf2f41ffc3af",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:40",
+     "end": "line:74",
+     "heading": "CONDENSED CONSOLIDATED BALANCE SHEETS"
+    },
+    {
+     "kind": "IS",
+     "start": "line:75",
+     "end": "line:97",
+     "heading": "CONDENSED CONSOLIDATED STATEMENTS OF INCOME"
+    },
+    {
+     "kind": "CFS",
+     "start": "line:186",
+     "end": "line:235",
+     "heading": "CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS"
+    }
+   ],
+   "none": [],
+   "remarks": [
+    "Titles sit at the tail of long lines. Comprehensive income (98) and the two equity pages (110, 148) are not units. CFS ends at 235 because line 236 begins the notes."
+   ]
+  },
+  {
+   "source_id": "K24",
+   "file": "TDG/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+   "converted_sha256": "813e2ac155b9cff1dc46447b4565657b19aa833acdf81de49b1d569dae609292",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:898",
+     "end": "line:933",
+     "heading": "CONSOLIDATED BALANCE SHEETS"
+    },
+    {
+     "kind": "IS",
+     "start": "line:934",
+     "end": "line:960",
+     "heading": "CONSOLIDATED STATEMENTS OF INCOME"
+    },
+    {
+     "kind": "CFS",
+     "start": "line:1015",
+     "end": "line:1067",
+     "heading": "CONSOLIDATED STATEMENTS OF CASH FLOWS"
+    }
+   ],
+   "none": [],
+   "remarks": [
+    "Titles sit at the tail of long lines. Index of financial statements appears twice (363-368 and 883-888), not units. Comprehensive income (961) and equity (973) are not units. CFS ends at 1067 because line 1068 begins the notes."
+   ]
+  },
+  {
+   "source_id": "Q1FY25",
+   "file": "TDG/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm",
+   "converted_sha256": "797a0f8e1c052ce622930588143759bb5a6dae7f10310a6daa8e773b45a67382",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:40",
+     "end": "line:75",
+     "heading": "CONDENSED CONSOLIDATED BALANCE SHEETS"
+    },
+    {
+     "kind": "IS",
+     "start": "line:76",
+     "end": "line:97",
+     "heading": "CONDENSED CONSOLIDATED STATEMENTS OF INCOME"
+    },
+    {
+     "kind": "CFS",
+     "start": "line:150",
+     "end": "line:195",
+     "heading": "CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS"
+    }
+   ],
+   "none": [],
+   "remarks": [
+    "Titles sit at the tail of long lines. Comprehensive income (98) and equity (110) are not units. CFS ends at 195 because line 196 begins the notes."
+   ]
+  }
+ ],
+ "missing": []
+}

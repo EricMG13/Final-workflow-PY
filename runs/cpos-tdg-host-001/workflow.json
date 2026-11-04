@@ -1,0 +1,81 @@
+{
+  "run": {
+    "run_id": "cpos-tdg-fy2024-host-snapshot-1",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-1",
+      "CP-MODEL",
+      "CP-1A",
+      "CP-2"
+    ]
+  },
+  "execution": "host-session",
+  "max_attempts": 2,
+  "provider_cap_usd": 0,
+  "sources": {
+    "S1-annual-report.pdf": {
+      "path": "../../data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+    },
+    "S1-text-aid.jsonl": {
+      "path": "../tdg-001/source-pages.jsonl",
+      "sha256": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+    }
+  },
+  "instructions": {
+    "CP-0": {
+      "path": "CP-0-reuse-instructions.md",
+      "sha256": "a7ba1c3d56216c60c04d3ae72faf3fbacb6d471af47b8db852924ed140c7fc8a"
+    },
+    "CP-1": {
+      "path": "CP-1-reuse-instructions.md",
+      "sha256": "e402c9cb5a6f36ca741da08e361b2e77b6177b67abe977bb852e77fb8bf5f848"
+    },
+    "CP-1A": {
+      "path": "CP-1A-reuse-instructions.md",
+      "sha256": "180d5f68fff973514a94b8f82b796ed7c0bb68fabe9a3c6288d39d969af87631"
+    },
+    "CP-2": {
+      "path": "CP-2-instructions.md",
+      "sha256": "c0f15591e28b210c2c41e2b239eebb19a0d4e479fd34deb3c98f3993c55564d9"
+    }
+  },
+  "retained_handoffs": {
+    "CP-0": {
+      "path": "../tdg-001/CP-0.md",
+      "sha256": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0",
+      "source_hashes": {
+        "S1-annual-report.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "S1-text-aid.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+      },
+      "upstream": {}
+    },
+    "CP-1": {
+      "path": "../tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "source_hashes": {
+        "S1-annual-report.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "S1-text-aid.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+      },
+      "upstream": {
+        "CP-0": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0"
+      }
+    },
+    "CP-1A": {
+      "path": "../tdg-002/CP-1A-attempt-3.md",
+      "sha256": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+      "source_hashes": {
+        "S1-annual-report.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "S1-text-aid.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+      },
+      "upstream": {
+        "CP-0": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0",
+        "CP-1": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+      }
+    }
+  }
+}

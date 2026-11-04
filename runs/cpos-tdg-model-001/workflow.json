@@ -1,0 +1,226 @@
+{
+  "run": {
+    "run_id": "cpos-tdg-fy2024-model-1",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-1",
+      "CP-MODEL",
+      "CP-1A",
+      "CP-2"
+    ]
+  },
+  "execution": "retained-response-replay",
+  "max_attempts": 2,
+  "provider_cap_usd": 0,
+  "sources": {
+    "S1-annual-report.pdf": {
+      "path": "../../data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+    },
+    "S1-text-aid.jsonl": {
+      "path": "../tdg-001/source-pages.jsonl",
+      "sha256": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+    }
+  },
+  "instructions": {
+    "CP-0": {
+      "path": "CP-0-reuse-instructions.md",
+      "sha256": "4cee72057b859c2cd1acbea4e1000c4cc9d9755cb2bfb61222912675d5e79cda"
+    },
+    "CP-1": {
+      "path": "CP-1-reuse-instructions.md",
+      "sha256": "6a4bd251540e67cd9c95e1352ffa0e882b77aab72cf68ccd41ffc808daf4fbd1"
+    },
+    "CP-1A": {
+      "path": "CP-1A-reuse-instructions.md",
+      "sha256": "d8fc530ba362bebe8d7cd773c908896283bc82c57486200b63f4971aea4646fd"
+    },
+    "CP-2": {
+      "path": "CP-2-reuse-instructions.md",
+      "sha256": "a0c9ff11afe92cd14c37534174bd725f4c88c6493bbc28bed6a7b7e513766e18"
+    }
+  },
+  "retained_handoffs": {
+    "CP-0": {
+      "path": "../tdg-001/CP-0.md",
+      "sha256": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0",
+      "source_hashes": {
+        "S1-annual-report.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "S1-text-aid.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+      },
+      "upstream": {}
+    },
+    "CP-1": {
+      "path": "../tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "source_hashes": {
+        "S1-annual-report.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "S1-text-aid.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+      },
+      "upstream": {
+        "CP-0": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0"
+      }
+    },
+    "CP-1A": {
+      "path": "../tdg-002/CP-1A-attempt-3.md",
+      "sha256": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+      "source_hashes": {
+        "S1-annual-report.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "S1-text-aid.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+      },
+      "upstream": {
+        "CP-0": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0",
+        "CP-1": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+      }
+    },
+    "CP-2": {
+      "path": "../cpos-tdg-host-001/execution/requests/CP-2/4ca1b576eeae591784a10f1ac2401566f430619aed7391b22de5f06f1f56f265/1.response.md",
+      "sha256": "f50a11f516267a55ee2b0e25ac8b292639e40c49947d3964dce39a04303f6b0e",
+      "source_hashes": {
+        "S1-annual-report.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "S1-text-aid.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+      },
+      "upstream": {
+        "CP-0": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0",
+        "CP-1": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+        "CP-1A": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+      }
+    }
+  },
+  "model": {
+    "periods": {
+      "FY2022": {
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "balance_column": null
+      },
+      "FY2023": {
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "balance_column": "Sep 30, 2023"
+      },
+      "FY2024": {
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "balance_column": "Sep 30, 2024"
+      }
+    },
+    "anchors": {
+      "normalization": "### T4.1\u2013T4.3 \u2014 Source, entity, normalization",
+      "periods": "### T4.8 and T4.14 \u2014 Period register",
+      "income": "### T4.4 \u2014 Income statement and comprehensive-income/equity supplements",
+      "cash": "### T4.5 \u2014 Cash-flow statement",
+      "balance": "### T4.6 \u2014 Balance sheet",
+      "dashboard": "### T4.10 \u2014 Source-supported dashboard",
+      "issuer_bridge": "**Net income to EBITDA and EBITDA As Defined, reported (PDF 53):**"
+    },
+    "rows": {
+      "revenue": {
+        "table": "income",
+        "label": "NET SALES"
+      },
+      "cogs": {
+        "table": "income",
+        "label": "COST OF SALES"
+      },
+      "gross_profit": {
+        "table": "income",
+        "label": "GROSS PROFIT"
+      },
+      "selling_admin": {
+        "table": "income",
+        "label": "SELLING AND ADMINISTRATIVE EXPENSES"
+      },
+      "income_statement_amortization": {
+        "table": "income",
+        "label": "AMORTIZATION OF INTANGIBLE ASSETS"
+      },
+      "ebit_reported": {
+        "table": "income",
+        "label": "INCOME FROM OPERATIONS"
+      },
+      "depreciation": {
+        "table": "cash",
+        "label": "Depreciation"
+      },
+      "cf_amortization": {
+        "table": "cash",
+        "label": "Amortization of intangible assets and product certification costs"
+      },
+      "cfo": {
+        "table": "cash",
+        "label": "Net cash provided by operating activities"
+      },
+      "capex_signed": {
+        "table": "cash",
+        "label": "Capital expenditures"
+      },
+      "cash": {
+        "table": "cash",
+        "label": "Cash and cash equivalents, end of period"
+      },
+      "interest_cash": {
+        "table": "cash",
+        "label": "Cash paid during period for interest, net"
+      },
+      "tax_cash": {
+        "table": "cash",
+        "label": "Cash paid during period for income taxes, net of refunds"
+      },
+      "issuer_ordinary_ebitda": {
+        "table": "issuer_bridge",
+        "label": "EBITDA"
+      },
+      "issuer_as_defined": {
+        "table": "dashboard",
+        "label": "EBITDA As Defined, total company"
+      },
+      "debt_long_term": {
+        "table": "balance",
+        "label": "Long-term debt"
+      },
+      "debt_current": {
+        "table": "balance",
+        "label": "Current portion of long-term debt"
+      },
+      "debt_securitization": {
+        "table": "balance",
+        "label": "Short-term borrowings\u2014trade receivable securitization facility"
+      },
+      "adjustment_acquisition": {
+        "table": "issuer_bridge",
+        "label": "Acquisition transaction and integration-related expenses"
+      },
+      "adjustment_compensation": {
+        "table": "issuer_bridge",
+        "label": "Non-cash stock and deferred compensation expense"
+      },
+      "adjustment_refinancing": {
+        "table": "issuer_bridge",
+        "label": "Refinancing costs"
+      },
+      "adjustment_other": {
+        "table": "issuer_bridge",
+        "label": "Other, net"
+      }
+    },
+    "extra_handoffs": {
+      "quarter": {
+        "path": "../tdg-003/CP-1-attempt-2.md",
+        "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+      },
+      "forecast": {
+        "path": "../tdg-003/CP-2G-attempt-2.md",
+        "sha256": "696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928"
+      }
+    },
+    "forecast_exact": {
+      "path": "../tdg-003/CP-2G-attempt-1-calculations.json",
+      "sha256": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843"
+    }
+  }
+}

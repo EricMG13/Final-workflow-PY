@@ -1,0 +1,17 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Historical TDG earnings and quality review. USD millions except percentages, percentage points and multiples. The earnings comparison is fiscal Q1 2024-10-01\u20132024-12-28 (89 days) versus 2023-10-01\u20132023-12-30 (91 days). Quality/cash-conversion/leverage tables use FY2024 and September 30, 2024 balances unless explicitly labelled quarterly. Quality-adjusted EBITDA is unresolved; 24,961 is only a known-item debt subtotal. Guidance, matching LTM ratios and current cash access remain unestablished. Eight analytical sections reuse retained answers; CP-5/CP-5A is a new current-host review with preceding context. No provider, independent-context or full pathway/native acceptance is claimed. CP-5A permits restricted historical analytical use with two inherited Material limitations: source coverage and the unresolved distribution disclosure difference. The exact review is under CP-5/Evidence. No overall credit decision or unrestricted committee use is cleared.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-0.md": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+    "CP-1.md": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+    "CP-1B.md": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+    "CP-1D.md": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+    "CP-5.md": "dbf8849b2ebcccfd6bd9ae8851cf7ede3f22c1a80b0c13bc271dd62dd76f6ec6",
+    "view.json": "6fde78cb48bc8020a99a4f712837845bb3ec5a7df7575ce83149de3cf80eacae",
+    "report-view.json": "b5600188a3aad5b175b38b3b0ac4438bca9963fa3232630f25f28a88ef85f9f0",
+    "report.html": "7aefaafe77068bc6fb066911332e325d0da66dc78a1ae537dbac9258bb577fc7"
+  }
+}

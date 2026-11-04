@@ -1,0 +1,1303 @@
+L1341: 34products, including infrared simulation and test equipment, laser rangefinder receivers,
+L1342: electrical power supplies, back-up power supplies, power conversion products, underwater
+L1343: locator beacons, emergency locator transmission beacons, flight deck annunciators, panels
+L1344: and indicators, electromagnetic and radio frequency interference shielding and filters, high
+L1345: power capacitor charging power supplies, amplifiers, traveling wave tube amplifiers,
+L1346: photodetectors, amplifier modules, microwave power modules, flash lamp drivers, laser
+L1347: diode drivers, arc lamp power supplies, custom power supply designs, cable assemblies,
+L1348: high voltage power supplies, high voltage interconnection devices and wire, high voltage
+L1349: energy generators, high frequency power delivery systems; memory products, including
+L1350: three-dimensional microelectronic and stacked memory, static random-access memory
+L1351: (SRAM) and electronically erasable programmable read-only memory (EEPROM); harsh
+L1352: environment electronic connectors and other interconnect products, RF and microwave
+L1353: amplifiers, transmitters, and receivers and integrated assemblies, sub-assemblies and
+L1354: components; RF sources, detectors and controllers, wireless cabin control systems, solid
+L1355: state power distribution and management systems, proprietary in-cabin power and
+L1356: entertainment components and subsystems, crashworthy and ballistically self-sealing
+L1357: auxiliary fuel systems, nuclear radiation detectors, communications and electronic intercept
+L1358: receivers and tuners, fuel level sensing systems, high-speed interface products that link
+L1359: devices, high performance active antenna systems and airborne antennas for commercial
+L1360: and military aircraft, precision guided munitions, other defense applications and
+L1361: commercial uses; silicone material for a variety of demanding applications; precision
+L1362: power analog monolithic, hybrid and open frame components; high-reliability ceramic-tometal feedthroughs and connectors, technical surveillance countermeasures (TSCM)
+L1363: equipment to detect devices used for espionage and information theft; rugged small-form
+L1364: factor embedded computing solutions; custom high power filters and filter assemblies; test
+L1365: sockets and adapters for both engineering and production use of semiconductor devices,
+L1366: and radiation assurance services and products; and Hi-Rel, complex, passive electronic
+L1367: components and rotary joint assemblies for mostly aerospace and defense applications, in
+L1368: addition to other high-end applications, such as medical and energy uses including
+L1369: emerging "clean energy" and electrification applications.
+L1370: Additionally, our results of operations in fiscal 2024 have been affected by recent
+L1371: acquisitions as further detailed in Note 2, Acquisitions, of the Notes to Consolidated Financial
+L1372: Statements.
+L1373: Presentation of Results of Operations and Liquidity and Capital Resources
+L1374:  The following discussion and analysis of our Results of Operations and Liquidity and
+L1375: Capital Resources includes a comparison of fiscal 2024 to fiscal 2023. A similar discussion and
+L1376: analysis that compares fiscal 2023 to fiscal 2022 may be found in Item 7, "Management’s
+L1377: Discussion and Analysis of Financial Condition and Results of Operations,” of our Form 10-K
+L1378: for the fiscal year ended October 31, 2023.
+L1379: Index
+L1380: 35Results of Operations
+L1381:  The following table sets forth the results of our operations, net sales and operating
+L1382: income by segment and the percentage of net sales represented by the respective items in our
+L1383: Consolidated Statements of Operations (in thousands):
+L1384: Year ended October 31,
+L1385: 2024 2023
+L1386: Net sales $3,857,669 $2,968,105
+L1387: Cost of sales 2,355,943 1,814,617
+L1388: Selling, general and administrative expenses 677,271 528,149
+L1389: Total operating costs and expenses 3,033,214 2,342,766
+L1390: Operating income $824,455 $625,339
+L1391: Net sales by segment:
+L1392: Flight Support Group $2,639,354 $1,770,185
+L1393: Electronic Technologies Group 1,263,626 1,225,222
+L1394: Intersegment sales (45,311) (27,302)
+L1395:  $3,857,669 $2,968,105
+L1396: Operating income by segment:
+L1397: Flight Support Group $593,074 $387,297
+L1398: Electronic Technologies Group 288,193 285,053
+L1399: Other, primarily corporate (56,812) (47,011)
+L1400:  $824,455 $625,339
+L1401: Net sales 100.0% 100.0%
+L1402: Gross profit 38.9% 38.9%
+L1403: Selling, general and administrative expenses 17.6% 17.8%
+L1404: Operating income 21.4% 21.1%
+L1405: Interest expense (3.9%) (2.5%)
+L1406: Other income .1% .1%
+L1407: Income tax expense 3.1% 3.7%
+L1408: Net income attributable to noncontrolling interests 1.2% 1.4%
+L1409: Net income attributable to HEICO 13.3% 13.6%
+L1410: Index
+L1411: 36Comparison of Fiscal 2024 to Fiscal 2023
+L1412: Net Sales
+L1413: Our consolidated net sales in fiscal 2024 increased by 30% to a record $3,857.7 million,
+L1414: up from net sales of $2,968.1 million in fiscal 2023. The increase in consolidated net sales
+L1415: principally reflects an increase of $869.2 million (a 49% increase) to a record $2,639.4 million in
+L1416: net sales of the FSG and an increase of $38.4 million (a 3% increase) to a record $1,263.6
+L1417: million in net sales of the ETG. The net sales increase in the FSG reflects $643.5 million
+L1418: contributed by fiscal 2023 and 2024 acquisitions as well as strong organic growth of 13%. The
+L1419: FSG's organic net sales growth reflects increased demand within its aftermarket replacement
+L1420: parts, repair and overhaul parts and services, and specialty products product lines resulting in net
+L1421: sales increases of $172.1 million, $33.5 million and $20.1 million, respectively. The net sales
+L1422: increase in the ETG includes $40.7 million contributed by fiscal 2023 and 2024 acquisitions,
+L1423: partially offset by a 2% organic net sales decline. The ETG's organic net sales decline is mainly
+L1424: attributable to decreased demand for its other electronics and medical products resulting in net
+L1425: sales decreases of $45.0 million and $14.0 million, respectively, partially offset by increased
+L1426: demand for its defense and aerospace products resulting in net sales increases of $24.4 million
+L1427: and $12.9 million, respectively. Sales price changes were not a significant contributing factor to
+L1428: the change in net sales of the FSG and ETG in fiscal 2024.
+L1429: Our net sales in fiscal 2024 and 2023 by market consisted of approximately 56% and
+L1430: 48% from the commercial aviation industry, respectively, 32% and 35% from the defense and
+L1431: space industries, respectively, and 12% and 17% from other industrial markets including
+L1432: electronics, medical and telecommunications, respectively.
+L1433: Gross Profit and Operating Expenses
+L1434: Our consolidated gross profit margin was 38.9% in both fiscal 2024 and 2023 and reflects
+L1435: increases of .5% in both the FSG’s and ETG’s gross profit margin. The increase in the FSG's
+L1436: gross profit margin principally reflects the previously mentioned higher net sales within our
+L1437: aftermarket replacement parts and repair and overhaul parts and services product lines. The
+L1438: increase in the ETG's gross profit margin principally reflects the previously mentioned higher net
+L1439: sales of defense and aerospace products, partially offset by the previously mentioned decrease in
+L1440: net sales of other electronics and medical products. Total new product research and development
+L1441: expenses included within our consolidated cost of sales were $111.3 million in fiscal 2024, up
+L1442: from $95.8 million in fiscal 2023.
+L1443: Our consolidated selling, general and administrative ("SG&A") expenses were $677.3
+L1444: million in fiscal 2024, as compared to $528.1 million in fiscal 2023. The increase in
+L1445: consolidated SG&A expenses principally reflects $118.4 million attributable to our fiscal 2023
+L1446: and 2024 acquisitions, inclusive of $32.9 million of intangible asset amortization expense.
+L1447: Additionally, the increase in consolidated SG&A expenses includes costs incurred to support the
+L1448: previously mentioned net sales growth resulting in increases of $23.7 million and $10.2 million
+L1449: in other general and administrative expenses and other selling expenses, respectively, a $9.1
+L1450: Index
+L1451: 37million prior year impact from the amendment and termination of a contingent consideration
+L1452: agreement pertaining to a fiscal 2021 acquisition and a $7.6 million increase in performancebased compensation expense, partially offset by a $19.8 million decrease in acquisition costs.
+L1453: Our consolidated SG&A expenses as a percentage of net sales decreased to 17.6% in
+L1454: fiscal 2024, down from 17.8% in fiscal 2023. The decrease in consolidated SG&A expenses as a
+L1455: percentage of net sales principally reflects a .7% impact from the previously mentioned lower
+L1456: acquisition costs, partially offset by a .3% impact from both the previously mentioned higher
+L1457: intangible asset amortization expense and amendment and termination of a contingent
+L1458: consideration agreement.
+L1459: Operating Income
+L1460: Our consolidated operating income increased by 32% to a record $824.5 million in fiscal
+L1461: 2024, up from $625.3 million in fiscal 2023. The increase in consolidated operating income
+L1462: principally reflects a $205.8 million increase (a 53% increase) to a record $593.1 million in
+L1463: operating income of the FSG and a $3.1 million increase (a 1% increase) to a record $288.2
+L1464: million in operating income of the ETG. The increase in operating income of the FSG
+L1465: principally reflects the previously mentioned net sales growth, a $15.0 million decrease in
+L1466: acquisition costs and the previously mentioned improved gross profit margin, partially offset by
+L1467: a $36.6 million increase in intangible asset amortization expense, a $15.9 million increase in
+L1468: performance-based compensation expense and a $9.1 million prior year impact from the
+L1469: previously mentioned termination of a contingent consideration agreement. The increase in
+L1470: operating income of the ETG principally reflects the previously mentioned net sales growth and
+L1471: improved gross profit margin, partially offset by a lower level of SG&A efficiencies.
+L1472: Our consolidated operating income as a percentage of net sales improved to 21.4% in
+L1473: fiscal 2024, up from 21.1% in fiscal 2023. The increase in consolidated operating income as a
+L1474: percentage of net sales principally reflects an increase in the FSG’s operating income as a
+L1475: percentage of net sales to 22.5% in fiscal 2024, up from 21.9% in fiscal 2023, partially offset by
+L1476: a decrease in the ETG's operating income as a percentage of net sales to 22.8% in fiscal 2024, as
+L1477: compared to 23.3% in fiscal 2023. The increase in the FSG’s operating income as a percentage
+L1478: of net sales principally reflects a .9% impact from lower acquisition costs, a .5% impact from the
+L1479: previously mentioned improved gross profit margin and a .4% impact from lower performancebased compensation expense as a percentage of net sales, partially offset by a .7% impact from
+L1480: the previously mentioned higher intangible asset amortization expense and a .5% prior year
+L1481: impact from the previously mentioned amendment and termination of a contingent consideration
+L1482: agreement. The decrease in the ETG's operating income as a percentage of net sales principally
+L1483: reflects a 1.0% impact from an increase in SG&A expenses as a percentage of net sales
+L1484: principally reflecting the previously mentioned lower level of efficiencies, which was partially
+L1485: offset by the previously mentioned improved gross profit margin.
+L1486: Index
+L1487: 38Interest Expense
+L1488: Interest expense increased to $149.3 million in fiscal 2024, as compared to $73.0 million
+L1489: in fiscal 2023. The increase in interest expense was principally due to an increase in the amount
+L1490: of outstanding debt related to fiscal 2023 acquisitions.
+L1491: Other Income
+L1492:  Other income in fiscal 2024 and 2023 was not material.
+L1493: Income Tax Expense
+L1494: Our effective tax rate decreased to 17.5% in fiscal 2024, down from 20.0% in fiscal 2023.
+L1495: The decrease in our effective tax rate reflects a larger tax benefit from stock option exercises
+L1496: recognized in the first quarter of fiscal 2024. We recognized a discrete tax benefit from stock
+L1497: option exercises in both the first quarter of fiscal 2024 and 2023 of $13.6 million and $6.2
+L1498: million, respectively. Additionally, the decrease in our effective tax rate reflects a larger
+L1499: favorable impact from tax-exempt unrealized gains in the cash surrender values of life insurance
+L1500: policies related to the HEICO Leadership Compensation Plan (the “LCP”) in fiscal 2024, net of
+L1501: the nondeductible portion of the related gains in the LCP accounts of certain executive officers,
+L1502: as well as increased foreign-derived intangible income, which is subject to a lower tax rate.
+L1503: Net Income Attributable to Noncontrolling Interests
+L1504:  Net income attributable to noncontrolling interests relates to the 20% noncontrolling
+L1505: interest held by Lufthansa Technik AG in HEICO Aerospace Holdings Corp. and the
+L1506: noncontrolling interests held by others in certain subsidiaries of the FSG and ETG. Net income
+L1507: attributable to noncontrolling interests was $45.0 million in fiscal 2024, as compared to $40.8
+L1508: million in fiscal 2023. The increase in net income attributable to noncontrolling interests
+L1509: principally reflects improved operating results of certain subsidiaries of the FSG and ETG in
+L1510: which noncontrolling interests are held.
+L1511: Net Income Attributable to HEICO
+L1512: Net income attributable to HEICO increased by 27% to a record $514.1 million, or $3.67
+L1513: per diluted share, in fiscal 2024, up from $403.6 million, or $2.91 per diluted share, in fiscal
+L1514: 2023 principally reflecting the previously mentioned higher consolidated operating income,
+L1515: partially offset by the previously mentioned higher interest expense.
+L1516: Outlook
+L1517: As we look ahead to fiscal 2025, we anticipate net sales growth in both the FSG and
+L1518: ETG, driven primarily by organic growth supported by strong demand for the majority of our
+L1519: products. Additionally, we plan to drive growth through our recently completed acquisitions
+L1520: while positioning ourselves to capitalize on potential opportunities from future acquisitions. Our
+L1521: Index
+L1522: 39priorities include advancing the development of new products and services, further expanding
+L1523: market penetration, and maintaining our financial strength and flexibility, all with a strong
+L1524: emphasis on delivering long-term value to our shareholders.
+L1525: Inflation
+L1526:  We have generally experienced increases in our costs of labor, materials and services
+L1527: consistent with overall rates of inflation. The impact of such increases on net income attributable
+L1528: to HEICO has been generally minimized by efforts to lower costs through manufacturing
+L1529: efficiencies and cost reductions as well as selective price increases.
+L1530: Liquidity and Capital Resources
+L1531:  The following table summarizes our capitalization (in thousands):
+L1532: As of October 31,
+L1533: 2024 2023
+L1534: Cash and cash equivalents $162,103 $171,048
+L1535: Total debt (including current portion) 2,229,374 2,478,078
+L1536: Shareholders’ equity 3,697,406 3,193,151
+L1537: Total capitalization (debt plus equity) 5,926,780 5,671,229
+L1538: Total debt to total capitalization 38% 44%
+L1539:  Our principal uses of cash include acquisitions, capital expenditures, interest payments,
+L1540: cash dividends, distributions to noncontrolling interests and working capital needs. Capital
+L1541: expenditures in fiscal 2025 are anticipated to be approximately $65 to $70 million. We finance
+L1542: our activities primarily from our operating and financing activities, including borrowings under
+L1543: our revolving credit facility.
+L1544:  As of December 18, 2024, we had approximately $995 million of unused committed
+L1545: availability under the terms of our revolving credit facility. Based on our current outlook, we
+L1546: believe that net cash provided by operating activities and available borrowings under our
+L1547: revolving credit facility will be sufficient to fund our cash requirements for at least the next
+L1548: twelve months.
+L1549: Operating Activities
+L1550: Net cash provided by operating activities was $672.4 million in fiscal 2024 and consisted
+L1551: primarily of net income from consolidated operations of $559.1 million, depreciation and
+L1552: amortization expense of $175.3 million (a non-cash item), net changes of $53.5 million included
+L1553: in the "Other" caption (principally the receipt of advance deposits on certain long-term customer
+L1554: contracts), net changes in other long-term liabilities and assets related to the HEICO Corporation
+L1555: Leadership Compensation Plan (the "LCP") of $21.6 million (principally participant deferrals
+L1556: and employer contributions), and $7.5 million of intangible asset impairment expense (a nonIndex
+L1557: 40cash item), partially offset by a $143.0 million increase in net working capital. The increase in
+L1558: net working capital principally reflects a $132.9 million increase in inventories to support an
+L1559: increase in consolidated backlog.
+L1560: 
+L1561: Net cash provided by operating activities increased by $223.6 million (a 50% increase) in
+L1562: fiscal 2024, up from $448.7 million in fiscal 2023. The increase is principally attributable to a
+L1563: $114.7 million increase in net income from consolidated operations, a $63.5 million increase in
+L1564: the "Other" caption mainly from the previously mentioned receipt of advance long-term
+L1565: customer deposits in fiscal 2024, a $45.3 million increase in depreciation and amortization
+L1566: expense, a $9.1 million prior year impact from the amendment and termination of a contingent
+L1567: consideration agreement, an $8.1 million increase in net changes in other long-term liabilities
+L1568: and assets related to the LCP and a $7.5 million impact from intangible asset impairment
+L1569: expense, partially offset by a $25.6 million increase in net working capital mainly reflecting a
+L1570: $50.5 million increase in accrued expenses and other current liabilities and a $28.6 million
+L1571: increase in prepaid expenses and other current assets partially offset by a $44.8 million decrease
+L1572: in accounts receivable.
+L1573: Net cash provided by operating activities was $448.7 million in fiscal 2023 and consisted
+L1574: primarily of net income from consolidated operations of $444.4 million, depreciation and
+L1575: amortization expense of $130.0 million (a non-cash item), $15.5 million in share-based
+L1576: compensation expense (a non-cash item) and $15.3 million in employer contributions to the
+L1577: HEICO Savings and Investment Plan (a non-cash item), partially offset by a $117.4 million
+L1578: increase in net working capital, a $26.5 million deferred income tax benefit (a non-cash item),
+L1579: and a $9.1 million impact from the amendment and termination of a contingent consideration
+L1580: agreement (a non-cash item). The increase in net working capital is inclusive of a $124.8 million
+L1581: increase in inventories to support an increase in consolidated backlog and a $65.6 million
+L1582: increase in accounts receivable resulting from the previously mentioned higher net sales and the
+L1583: timing of collections, partially offset by a $72.6 million increase in accrued expenses and other
+L1584: current liabilities principally from a higher level of accrued performance based-compensation
+L1585: due to the improved operating results and an increase in contract liabilities.
+L1586: Investing Activities
+L1587: Net cash used in investing activities totaled $293.2 million in fiscal 2024 and related
+L1588: primarily to acquisitions of $219.3 million, capital expenditures of $58.3 million, and LCP
+L1589: funding of $19.9 million. Further details regarding our acquisitions may be found in Note 2,
+L1590: Acquisitions, of the Notes to Consolidated Financial Statements.
+L1591: Net cash used in investing activities totaled $2,484.5 million in fiscal 2023 and related
+L1592: primarily to acquisitions of $2,421.8 million, capital expenditures of $49.4 million, and LCP
+L1593: funding of $18.9 million.
+L1594: Index
+L1595: 41Financing Activities
+L1596: Net cash used in financing activities in fiscal 2024 totaled $389.4 million. During fiscal
+L1597: 2024, we made $365.0 million of payments on our revolving credit facility and $34.3 million of
+L1598: distributions to noncontrolling interests, redeemed $29.9 million of common stock related to
+L1599: stock option exercises, paid $29.1 million of cash dividends on our common stock and $26.6
+L1600: million to acquire certain noncontrolling interests, and made $24.8 million of contingent
+L1601: consideration payments and $13.9 million of net payments on short-term debt, partially offset by
+L1602: $130.0 million of borrowings on our revolving credit facility to fund certain fiscal 2024
+L1603: acquisitions.
+L1604: Net cash provided by financing activities in fiscal 2023 totaled $2,065.0 million. During
+L1605: fiscal 2023, we borrowed $1,964.0 million under our revolving credit facility and received
+L1606: $1,189.5 million in proceeds from the issuance of senior unsecured notes, which were partially
+L1607: offset by $989.0 million in payments made on our revolving credit facility, $36.6 million of
+L1608: distributions to noncontrolling interests, $27.4 million of cash dividends on our common stock,
+L1609: redemptions of common stock related to stock option exercises aggregating $14.8 million, $12.6
+L1610: million of contingent consideration payments, and $10.1 million paid of debt issuance costs.
+L1611: Revolving Credit Facility
+L1612: In November 2017, we entered into a $1.3 billion Revolving Credit Facility Agreement
+L1613: ("Credit Facility") with a bank syndicate. The Credit Facility may be used to finance
+L1614: acquisitions and for working capital and other general corporate purposes, including capital
+L1615: expenditures. In December 2020, we entered into an amendment to increase the capacity by
+L1616: $200 million to $1.5 billion. In April 2022, we entered into an amendment to extend the
+L1617: maturity date of our Credit Facility by one year to November 2024 and to replace the
+L1618: Eurocurrency Rate with Adjusted Term SOFR as an election in which borrowings under the
+L1619: Credit Facility accrue interest, as such capitalized terms are defined in the Credit Facility. In
+L1620: July 2023, we entered into a third amendment to our Credit Facility, to, among other things, (i)
+L1621: increase the capacity by $500 million to $2.0 billion, (ii) extend the maturity date to July 2028,
+L1622: and (iii) increase the applicable rate with respect to certain total leverage ratio tiers in the pricing
+L1623: grid. The Credit Facility includes a feature that will allow us to increase the capacity by $750
+L1624: million to become a $2.75 billion facility through increased commitments from existing lenders.
+L1625: Borrowings under the Credit Facility accrue interest at our election of the Base Rate or
+L1626: Adjusted Term SOFR, plus in each case, the Applicable Rate (based on the Company’s Total
+L1627: Leverage Ratio), as such capitalized terms are defined in the Credit Facility. The Base Rate for
+L1628: any day is a fluctuating rate per annum equal to the highest of (i) the Prime Rate; (ii) the Federal
+L1629: Funds Rate plus .50%; and (iii) Adjusted Term SOFR for an Interest Period of one month plus
+L1630: 100 basis points. Adjusted Term SOFR is the rate per annum equal to Term SOFR plus a Term
+L1631: SOFR Adjustment of .10%; provided that Adjusted Term SOFR as so determined shall never be
+L1632: less than 0%. The Applicable Rate for SOFR Loans ranges from 1.125% to 2.00%. The
+L1633: Applicable Rate for Base Rate Loans ranges from .125% to 1.00%. A fee is charged on the
+L1634: amount of the unused commitment ranging from .15% to .35% (depending on the Company’s
+L1635: Index
+L1636: 42Total Leverage Ratio). The Credit Facility also includes a $200 million sublimit for swingline
+L1637: borrowings and $100 million sublimits for borrowings made in foreign currencies and for letters
+L1638: of credit. Outstanding principal, accrued and unpaid interest and other amounts payable under
+L1639: the Credit Facility may be accelerated upon an event of default, as such events are described in
+L1640: the Credit Facility. The Credit Facility is unsecured and contains covenants that require, among
+L1641: other things, the maintenance of a Total Leverage Ratio and an Interest Coverage Ratio, as such
+L1642: capitalized terms are defined in the Credit Facility. We were in compliance with all financial and
+L1643: nonfinancial covenants of the Credit Facility as of October 31, 2024.
+L1644: Senior Unsecured Notes
+L1645: On July 27, 2023, we completed the public offer and sale of senior unsecured notes,
+L1646: which consisted of $600 million principal amount of 5.25% Senior Notes due August 1, 2028
+L1647: (the "2028 Notes") and $600 million principal amount of 5.35% Senior Notes due August 1,
+L1648: 2033 (the "2033 Notes" and, collectively with the 2028 Notes, the "Notes"). Interest on the
+L1649: Notes is payable semi-annually in arrears on February 1 and August 1 of each year, and
+L1650: commenced on February 1, 2024. The 2028 Notes and 2033 Notes each have an effective
+L1651: interest rate of 5.5%. The Notes are fully and unconditionally guaranteed on a senior unsecured
+L1652: basis by all of our existing and future subsidiaries that guarantee our obligations under the Credit
+L1653: Facility (the “Guarantor Group”).
+L1654: Other Obligations and Commitments
+L1655: The holders of equity interests in certain of our subsidiaries have rights (“Put Rights”)
+L1656: that require us to provide cash consideration for their equity interests (the “Redemption
+L1657: Amount”) at fair value or at a formula that management intended to reasonably approximate fair
+L1658: value based solely on a multiple of future earnings over a measurement period. As of October
+L1659: 31, 2024, management’s estimate of the aggregate Redemption Amount of all Put Rights that we
+L1660: could be required to pay is approximately $366.2 million, which is included within redeemable
+L1661: noncontrolling interests in our Consolidated Balance Sheet. The estimated aggregate
+L1662: Redemption Amount of the Put Rights that are currently puttable, previously put, or becoming
+L1663: puttable during fiscal 2025 is approximately $194.2 million, of which approximately $91.0
+L1664: million would be payable in fiscal 2025 should all of the eligible associated noncontrolling
+L1665: interest holders elect to exercise their Put Rights during fiscal 2025. See Note 13, Redeemable
+L1666: Noncontrolling Interests, of the Notes to Consolidated Financial Statements for further
+L1667: information.
+L1668:  See Note 5, Short-Term and Long-Term Debt, of the Notes to Consolidated Financial
+L1669: Statements for information regarding our long-term debt obligations.
+L1670: See Note 8, Fair Value Measurements, of the Notes to Consolidated Financial Statements
+L1671: for information pertaining to contingent consideration obligations. As of October 31, 2024, the
+L1672: estimated fair value of contingent consideration payable in fiscal 2025 was $8.4 million.
+L1673: Index
+L1674: 43See Note 9, Leases, of the Notes to Consolidated Financial Statements for information
+L1941: 51REPORT OF INDEPENDENT REGISTERED PUBLIC ACCOUNTING FIRM
+L1942: To the Board of Directors and Shareholders of
+L1943: HEICO Corporation
+L1944: Hollywood, Florida
+L1945: Opinion on the Financial Statements
+L1946: We have audited the accompanying consolidated balance sheets of HEICO Corporation and
+L1947: subsidiaries (the "Company") as of October 31, 2024 and 2023, the related consolidated
+L1948: statements of operations, comprehensive income, shareholders' equity, and cash flows, for each
+L1949: of the three years in the period ended October 31, 2024, and the related notes and the schedule
+L1950: listed in the Index at Item 15 (collectively referred to as the "financial statements"). In our
+L1951: opinion, the financial statements present fairly, in all material respects, the financial position of
+L1952: the Company as of October 31, 2024 and 2023, and the results of its operations and its cash
+L1953: flows for each of the three years in the period ended October 31, 2024, in conformity with
+L1954: accounting principles generally accepted in the United States of America.
+L1955: We have also audited, in accordance with the standards of the Public Company Accounting
+L1956: Oversight Board (United States) (PCAOB), the Company's internal control over financial
+L1957: reporting as of October 31, 2024, based on criteria established in Internal Control - Integrated
+L1958: Framework (2013) issued by the Committee of Sponsoring Organizations of the Treadway
+L1959: Commission and our report dated December 19, 2024, expressed an unqualified opinion on the
+L1960: Company's internal control over financial reporting.
+L1961: Basis for Opinion
+L1962: These financial statements are the responsibility of the Company's management. Our
+L1963: responsibility is to express an opinion on the Company's financial statements based on our
+L1964: audits. We are a public accounting firm registered with the PCAOB and are required to be
+L1965: independent with respect to the Company in accordance with the U.S. federal securities laws and
+L1966: the applicable rules and regulations of the Securities and Exchange Commission and the
+L1967: PCAOB.
+L1968: We conducted our audits in accordance with the standards of the PCAOB. Those standards
+L1969: require that we plan and perform the audit to obtain reasonable assurance about whether the
+L1970: financial statements are free of material misstatement, whether due to error or fraud. Our audits
+L1971: included performing procedures to assess the risks of material misstatement of the financial
+L1972: statements, whether due to error or fraud, and performing procedures that respond to those risks.
+L1973: Such procedures included examining, on a test basis, evidence regarding the amounts and
+L1974: disclosures in the financial statements. Our audits also included evaluating the accounting
+L1975: principles used and significant estimates made by management, as well as evaluating the overall
+L1976: presentation of the financial statements. We believe that our audits provide a reasonable basis
+L1977: for our opinion.
+L1978: Index
+L1979: 52Critical Audit Matter
+L1980: The critical audit matter communicated below is a matter arising from the current-period audit of
+L1981: the financial statements that was communicated or required to be communicated to the Finance/
+L1982: Audit committee and that (1) relates to accounts or disclosures that are material to the financial
+L1983: statements and (2) involved our especially challenging, subjective, or complex judgments. The
+L1984: communication of critical audit matters does not alter in any way our opinion on the financial
+L1985: statements, taken as a whole, and we are not, by communicating the critical audit matter below,
+L1986: providing a separate opinion on the critical audit matter or on the accounts or disclosures to
+L1987: which it relates.
+L1988: Inventories, net - Flight Support Group - Refer to Notes 1 and 3 to the financial statements
+L1989: Critical Audit Matter Description
+L1990: Inventory is stated at the lower of cost or net realizable value. The Company periodically
+L1991: evaluates the carrying value of inventory, which requires management to make significant
+L1992: estimates and assumptions related to sales patterns and expected future demand in order to
+L1993: estimate the amount necessary to write down any slow moving or obsolete inventory. Changes
+L1994: in the assumptions related to future demand and sales patterns could have a significant impact on
+L1995: the valuation of finished goods inventory for certain of the Company’s distribution and
+L1996: aftermarket parts business units in the Flight Support Group operating segment.
+L1997: Given the magnitude of the inventory balances at these business units, coupled with the
+L1998: judgments necessary to project sales patterns and expected future demand within these business
+L1999: units, auditing such estimates required a high degree of auditor judgment and an increased extent
+L2000: of effort when performing audit procedures and evaluating the results of those procedures.
+L2001: How the Critical Audit Matter Was Addressed in the Audit
+L2002: Our audit procedures related to the expected future demand and sales patterns used by
+L2003: management to estimate the valuation reserve on inventory included the following, among
+L2004: others:
+L2005: • We tested the effectiveness of controls, including those related to evaluating the
+L2006: reasonableness of expected future demand and sales patterns.
+L2007: • We evaluated the reasonableness of management’s assumptions of future demand and
+L2008: sales patterns by performing the following:
+L2009: ◦ Utilized historical inventory usage data to analyze the relationship between the
+L2010: inventory valuation reserve calculated, the inventory on hand, and the sales trends
+L2011: over time.
+L2012: Index
+L2013: 53◦ Compared management’s assumptions to available external market data for
+L2014: certain inventory items.
+L2015: • We evaluated the accuracy and completeness of the valuation reserve by developing an
+L2016: expectation of the reserve balance at the business unit level and comparing it to the
+L2017: recorded balance.
+L2018: • We tested changes in the inventory valuation reserve and evaluated whether such changes
+L2019: were the result of the sale or write off of inventory parts or the result of changes in the
+L2020: significant assumptions used to develop the valuation reserve.
+L2021: /s/ DELOITTE & TOUCHE LLP
+L2022: Miami, Florida
+L2023: December 19, 2024
+L2024: We have served as the Company's auditor since 1990.
+L2025: Index
+L2026: 54HEICO CORPORATION AND SUBSIDIARIES
+L2027: CONSOLIDATED BALANCE SHEETS
+L2028: (in thousands, except per share data)
+L2029: As of October 31,
+L2030: 2024 2023
+L2031: ASSETS
+L2032: Current assets:
+L2033: Cash and cash equivalents $162,103 $171,048
+L2034: Accounts receivable, net 538,487 509,075
+L2035: Contract assets 112,235 111,702
+L2036: Inventories, net 1,170,949 1,013,680
+L2037: Prepaid expenses and other current assets 78,518 49,837
+L2038: Total current assets 2,062,292 1,855,342
+L2039: Property, plant and equipment, net 339,034 321,848
+L2040: Goodwill 3,380,295 3,274,327
+L2041: Intangible assets, net 1,334,774 1,357,281
+L2042: Other assets 476,427 386,265
+L2043: Total assets $7,592,822 $7,195,063
+L2044: LIABILITIES AND EQUITY
+L2045: Current liabilities:
+L2046: Short-term debt and current maturities of long-term debt $4,107 $17,801
+L2047: Trade accounts payable 198,429 205,893
+L2048: Accrued expenses and other current liabilities 427,781 433,101
+L2049: Income taxes payable 33,534 8,547
+L2050: Total current liabilities 663,851 665,342
+L2051: Long-term debt, net of current maturities 2,225,267 2,460,277
+L2052: Deferred income taxes 114,156 131,846
+L2053: Other long-term liabilities 525,986 379,640
+L2054: Total liabilities 3,529,260 3,637,105
+L2055: Commitments and contingencies (Note 16)
+L2056: Redeemable noncontrolling interests (Note 13) 366,156 364,807
+L2057: Shareholders’ equity:
+L2058: Preferred Stock, $.01 par value per share; 10,000 shares authorized; none issued — —
+L2059: Common Stock, $.01 par value per share; 150,000 shares authorized;
+L2060: 54,986 and 54,721 shares issued and outstanding 550 547
+L2061: Class A Common Stock, $.01 par value per share; 150,000 shares authorized;
+L2062: 83,827 and 83,507 shares issued and outstanding 838 835
+L2063: Capital in excess of par value 599,399 578,809
+L2064: Deferred compensation obligation 7,272 6,318
+L2065: HEICO stock held by irrevocable trust (7,272) (6,318)
+L2066: Accumulated other comprehensive loss (26,076) (40,180)
+L2067: Retained earnings 3,062,166 2,605,984
+L2068: Total HEICO shareholders’ equity 3,636,877 3,145,995
+L2069: Noncontrolling interests 60,529 47,156
+L2070: Total shareholders’ equity 3,697,406 3,193,151
+L2071: Total liabilities and equity $7,592,822 $7,195,063
+L2072: The accompanying notes are an integral part of these consolidated financial statements.
+L2073: Index
+L2074: 55HEICO CORPORATION AND SUBSIDIARIES
+L2075: CONSOLIDATED STATEMENTS OF OPERATIONS
+L2076: (in thousands, except per share data)
+L2077: Year ended October 31,
+L2078: 2024 2023 2022
+L2079: Net sales $3,857,669 $2,968,105 $2,208,322
+L2080: Operating costs and expenses:
+L2081: Cost of sales 2,355,943 1,814,617 1,345,563
+L2082: Selling, general and administrative expenses 677,271 528,149 365,915
+L2083: Total operating costs and expenses 3,033,214 2,342,766 1,711,478
+L2084: Operating income 824,455 625,339 496,844
+L2085: Interest expense (149,313) (72,984) (6,386)
+L2086: Other income 2,444 2,928 565
+L2087: Income before income taxes and noncontrolling interests 677,586 555,283 491,023
+L2088: Income tax expense 118,500 110,900 100,400
+L2089: Net income from consolidated operations 559,086 444,383 390,623
+L2090: Less: Net income attributable to noncontrolling interests 44,977 40,787 38,948
+L2091: Net income attributable to HEICO $514,109 $403,596 $351,675
+L2092: Net income per share attributable to HEICO shareholders:
+L2093: Basic $3.71 $2.94 $2.59
+L2094: Diluted $3.67 $2.91 $2.55
+L2095: Weighted average number of common shares outstanding:
+L2096: Basic 138,455 137,185 136,010
+L2097: Diluted 140,198 138,905 138,037
+L2098: The accompanying notes are an integral part of these consolidated financial statements.
+L2099: Index
+L2100: 56HEICO CORPORATION AND SUBSIDIARIES
+L2101: CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME
+L2102: (in thousands)
+L2103: Year ended October 31,
+L2104: 2024 2023 2022
+L2105: Net income from consolidated operations $559,086 $444,383 $390,623
+L2106: Other comprehensive income (loss):
+L2107: Foreign currency translation adjustments 13,983 6,905 (40,078)
+L2108: Unrealized gain on defined benefit pension plan, net of tax 554 59 368
+L2109: Amortization of unrealized loss on defined benefit pension plan, net of tax 52 56 65
+L2110: Total other comprehensive income (loss) 14,589 7,020 (39,645)
+L2111: Comprehensive income from consolidated operations 573,675 451,403 350,978
+L2112: Net income attributable to noncontrolling interests 44,977 40,787 38,948
+L2113: Foreign currency translation adjustments attributable to noncontrolling interests 485 701 (1,698)
+L2114: Comprehensive income attributable to noncontrolling interests 45,462 41,488 37,250
+L2115: Comprehensive income attributable to HEICO $528,213 $409,915 $313,728
+L2116: The accompanying notes are an integral part of these consolidated financial statements.
+L2117: Index
+L2118: 57HEICO CORPORATION AND SUBSIDIARIES
+L2119: CONSOLIDATED STATEMENTS OF SHAREHOLDERS’ EQUITY
+L2120: (in thousands, except per share data)
+L2121: HEICO Shareholders' Equity
+L2122: Redeemable
+L2123: Noncontrolling
+L2124: Interests
+L2125: Common
+L2126: Stock
+L2127: Class A
+L2128: Common
+L2129: Stock
+L2130: Capital in
+L2131: Excess of
+L2132: Par Value
+L2133: Deferred
+L2134: Compensation
+L2135: Obligation
+L2136: HEICO Stock
+L2137: Held by
+L2138: Irrevocable
+L2139: Trust
+L2140: Accumulated
+L2141: Other
+L2142: Comprehensive
+L2143: Loss
+L2144: Retained
+L2145: Earnings
+L2146: Noncontrolling
+L2147: Interests
+L2148: Total
+L2149: Shareholders'
+L2150: Equity
+L2151: Balances as of October 31, 2023 $364,807 $547 $835 $578,809 $6,318 ($6,318) ($40,180) $2,605,984 $47,156 $3,193,151
+L2152: Comprehensive income 31,134 — — — — — 14,104 514,109 14,328 542,541
+L2153: Cash dividends ($.21 per share) — — — — — — — (29,069) — (29,069)
+L2154: Issuance of common stock to
+L2155: HEICO Savings and
+L2156: Investment Plan — 1 1 15,994 — — — — — 15,996
+L2157: Share-based compensation
+L2158: expense — — — 18,775 — — — — — 18,775
+L2159: Proceeds from stock option
+L2160: exercises — 3 3 7,945 — — — — — 7,951
+L2161: Redemptions of common stock
+L2162: related to stock option
+L2163: exercises — (1) (1) (29,910) — — — — — (29,912)
+L2164: Distributions to noncontrolling
+L2165: interests (33,478) — — — — — — — (955) (955)
+L2166: Acquisitions of noncontrolling
+L2167: interests (26,567) — — — — — — — — —
+L2168: Noncontrolling interests assumed
+L2169: related to acquisitions 8,783 — — — — — — — — —
+L2170: Adjustments to redemption
+L2171: amount of redeemable
+L2172: noncontrolling interests 29,143 — — — — — — (29,143) — (29,143)
+L2173: Deferred compensation obligation — — — — 954 (954) — — — —
+L2174: Other (7,666) — — 7,786 — — — 285 — 8,071
+L2175: Balances as of October 31, 2024 $366,156 $550 $838 $599,399 $7,272 ($7,272) ($26,076) $3,062,166 $60,529 $3,697,406
+L2176: HEICO Shareholders' Equity
+L2177: Redeemable
+L2178: Noncontrolling
+L2179: Interests
+L2180: Common
+L2181: Stock
+L2182: Class A
+L2183: Common
+L2184: Stock
+L2185: Capital in
+L2186: Excess of
+L2187: Par Value
+L2188: Deferred
+L2189: Compensation
+L2190: Obligation
+L2191: HEICO Stock
+L2192: Held by
+L2193: Irrevocable
+L2194: Trust
+L2195: Accumulated
+L2196: Other
+L2197: Comprehensive
+L2198: Loss
+L2199: Retained
+L2200: Earnings
+L2201: Noncontrolling
+L2202: Interests
+L2203: Total
+L2204: Shareholders'
+L2205: Equity
+L2206: Balances as of October 31, 2022 $327,601 $545 $821 $397,337 $5,297 ($5,297) ($46,499) $2,253,932 $42,170 $2,648,306
+L2207: Comprehensive income 29,565 — — — — — 6,319 403,596 11,923 421,838
+L2208: Cash dividends ($.20 per share) — — — — — — — (27,370) — (27,370)
+L2209: Issuance of common stock for an
+L2210: acquisition — — 11 161,362 — — — — — 161,373
+L2211: Issuance of common stock to
+L2212: HEICO Savings and
+L2213: Investment Plan — — — 13,677 — — — — — 13,677
+L2214: Share-based compensation
+L2215: expense — — — 15,475 — — — — — 15,475
+L2216: Proceeds from stock option
+L2217: exercises — 2 3 6,708 — — — — — 6,713
+L2218: Redemptions of common stock
+L2219: related to stock option
+L2220: exercises — — — (14,847) — — — — — (14,847)
+L2221: Distributions to noncontrolling
+L2222: interests (29,654) — — — — — — — (6,937) (6,937)
+L2223: Acquisitions of noncontrolling
+L2224: interests (1,059) — — (1,674) — — — — — (1,674)
+L2225: Noncontrolling interests assumed
+L2226: related to acquisitions 12,137 — — — — — — — — —
+L2227: Adjustments to redemption
+L2228: amount of redeemable
+L2229: noncontrolling interests 23,866 — — — — — — (23,866) — (23,866)
+L2230: Deferred compensation obligation — — — — 1,021 (1,021) — — — —
+L2231: Other 2,351 — — 771 — — — (308) — 463
+L2232: Balances as of October 31, 2023 $364,807 $547 $835 $578,809 $6,318 ($6,318) ($40,180) $2,605,984 $47,156 $3,193,151
+L2233: The accompanying notes are an integral part of these consolidated financial statements.
+L2234: Index
+L2235: 58HEICO CORPORATION AND SUBSIDIARIES
+L2236: CONSOLIDATED STATEMENTS OF SHAREHOLDERS’ EQUITY
+L2237: (in thousands, except per share data)
+L2238: HEICO Shareholders' Equity
+L2239: Redeemable
+L2240: Noncontrolling
+L2241: Interests
+L2242: Common
+L2243: Stock
+L2244: Class A
+L2245: Common
+L2246: Stock
+L2247: Capital in
+L2248: Excess of
+L2249: Par Value
+L2250: Deferred
+L2251: Compensation
+L2252: Obligation
+L2253: HEICO Stock
+L2254: Held by
+L2255: Irrevocable
+L2256: Trust
+L2257: Accumulated
+L2258: Other
+L2259: Comprehensive
+L2260: Loss
+L2261: Retained
+L2262: Earnings
+L2263: Noncontrolling
+L2264: Interests
+L2265: Total
+L2266: Shareholders'
+L2267: Equity
+L2268: Balances as of October 31, 2021 $252,587 $543 $812 $320,747 $5,297 ($5,297) ($8,552) $1,949,521 $33,868 $2,296,939
+L2269: Comprehensive income (loss) 27,442 — — — — — (37,947) 351,675 9,808 323,536
+L2270: Cash dividends ($.18 per share) — — — — — — — (24,466) — (24,466)
+L2271: Issuance of common stock for an
+L2272: acquisition — — 6 74,999 — — — — — 75,005
+L2273: Issuance of common stock to
+L2274: HEICO Savings and
+L2275: Investment Plan — — 1 11,416 — — — — — 11,417
+L2276: Share-based compensation
+L2277: expense — — — 12,646 — — — — — 12,646
+L2278: Proceeds from stock option
+L2279: exercises — 3 3 2,346 — — — — — 2,352
+L2280: Redemptions of common stock
+L2281: related to stock option
+L2282: exercises — (1) (1) (25,944) — — — — — (25,946)
+L2283: Distributions to noncontrolling
+L2284: interests (23,607) — — — — — — — (1,485) (1,485)
+L2285: Acquisitions of noncontrolling
+L2286: interests (12,150) — — 3,415 — — — — — 3,415
+L2287: Noncontrolling interests assumed
+L2288: related to acquisitions 56,770 — — — — — — — — —
+L2289: Adjustments to redemption
+L2290: amount of redeemable
+L2291: noncontrolling interests 22,798 — — — — — — (22,798) — (22,798)
+L2292: Other 3,761 — — (2,288) — — — — (21) (2,309)
+L2293: Balances as of October 31, 2022 $327,601 $545 $821 $397,337 $5,297 ($5,297) ($46,499) $2,253,932 $42,170 $2,648,306
+L2294: The accompanying notes are an integral part of these consolidated financial statements.
+L2295: Index
+L2296: 59HEICO CORPORATION AND SUBSIDIARIES
+L2297: CONSOLIDATED STATEMENTS OF CASH FLOWS
+L2298: (in thousands)
+L2299: Year ended October 31,
+L2300: 2024 2023 2022
+L2301: Operating Activities:
+L2302: Net income from consolidated operations $559,086 $444,383 $390,623
+L2303: Adjustments to reconcile net income from consolidated operations
+L2304: to net cash provided by operating activities:
+L2305: Depreciation and amortization 175,331 130,043 96,333
+L2306: Share-based compensation expense 18,775 15,475 12,646
+L2307: Employer contributions to HEICO Savings and Investment Plan 17,617 15,276 12,180
+L2308: Impairment of intangible assets 7,500 — —
+L2309: Deferred income tax (benefit) provision (22,002) (26,531) 8,876
+L2310: Decrease in accrued contingent consideration, net (9,884) (686) (7,631)
+L2311: Payment of contingent consideration (6,203) (6,299) —
+L2312: Amendment and termination of contingent consideration agreement — (9,057) —
+L2313: Changes in operating assets and liabilities, net of acquisitions:
+L2314: Increase in accounts receivable (20,815) (65,595) (29,272)
+L2315: Decrease (increase) in contract assets 1,294 (11,642) (4,148)
+L2316: Increase in inventories (132,934) (124,782) (89,186)
+L2317: (Increase) decrease in prepaid expenses and other current assets (23,029) 5,599 (10,077)
+L2318: (Decrease) increase in trade accounts payable (9,823) 10,975 25,567
+L2319: Increase in accrued expenses and other current liabilities 22,095 72,589 34,122
+L2320: Increase (decrease) in income taxes payable 20,220 (4,505) 11,597
+L2321: Net changes in other long-term liabilities and assets related to
+L2322: HEICO Leadership Compensation Plan 21,618 13,512 15,398
+L2323: Other 53,524 (10,020) 828
+L2324: Net cash provided by operating activities 672,370 448,735 467,856
+L2325: Investing Activities:
+L2326: Acquisitions, net of cash acquired (219,293) (2,421,788) (347,308)
+L2327: Capital expenditures (58,261) (49,434) (31,982)
+L2328: Investments related to HEICO Leadership Compensation Plan (19,910) (18,892) (15,300)
+L2329: Other 4,264 5,647 (1,239)
+L2330: Net cash used in investing activities (293,200) (2,484,467) (395,829)
+L2331: Financing Activities:
+L2332: Payments on revolving credit facility (365,000) (989,000) (212,000)
+L2333: Proceeds from issuance of senior unsecured notes — 1,189,452 —
+L2334: Borrowings on revolving credit facility 130,000 1,964,000 262,000
+L2335: Distributions to noncontrolling interests (34,318) (36,591) (25,092)
+L2336: Redemptions of common stock related to stock option exercises (29,912) (14,847) (25,946)
+L2337: Cash dividends paid (29,069) (27,370) (24,466)
+L2338: Acquisitions of noncontrolling interests (26,567) (2,733) (8,735)
+L2339: Payment of contingent consideration (24,797) (12,610) (320)
+L2340: Payments on short-term debt, net (13,924) (1,593) —
+L2341: Debt issuance costs — (10,060) (1,010)
+L2342: Proceeds from stock option exercises 7,951 6,713 2,352
+L2343: Other (3,757) (312) (616)
+L2344: Net cash (used in) provided by financing activities (389,393) 2,065,049 (33,833)
+L2345: Effect of exchange rate changes on cash 1,278 2,227 (6,988)
+L2346: Net (decrease) increase in cash and cash equivalents (8,945) 31,544 31,206
+L2347: Cash and cash equivalents at beginning of year 171,048 139,504 108,298
+L2348: Cash and cash equivalents at end of year $162,103 $171,048 $139,504
+L2349: The accompanying notes are an integral part of these consolidated financial statements.
+L2350: Index
+L2351: 60HEICO CORPORATION AND SUBSIDIARIES
+L2352: NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+L2353: 1. SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES
+L2354: Nature of Business
+L2355:  HEICO Corporation, through its principal subsidiaries consisting of HEICO Aerospace
+L2356: Holdings Corp. (“HEICO Aerospace”), HEICO Flight Support Corp. ("HFSC") and HEICO
+L2357: Electronic Technologies Corp. (“HEICO Electronic”) and their respective subsidiaries
+L2358: (collectively, the “Company”), is principally engaged in the design, manufacture and sale of
+L2359: aerospace, defense and electronic related products and services throughout the United States
+L2360: ("U.S.") and internationally. The Company’s customer base is primarily the aviation, defense,
+L2361: space, medical, telecommunications and electronics industries.
+L2362: Basis of Presentation
+L2363:  The Company has two operating segments: the Flight Support Group (“FSG”),
+L2364: consisting of HEICO Aerospace and HFSC and their respective subsidiaries; and the Electronic
+L2365: Technologies Group (“ETG”), consisting of HEICO Electronic and its subsidiaries.
+L2366: In Note 15, Operating Segments, the Company’s long-lived asset amounts for fiscal years
+L2367: 2023 and 2022 have been adjusted to align with the current year presentation and now include
+L2368: the Company's operating lease right-of-use assets for those periods.
+L2369: The consolidated financial statements include the financial accounts of HEICO
+L2370: Corporation and its direct subsidiaries, all of which are wholly owned except for HEICO
+L2371: Aerospace, which is 20% owned by Lufthansa Technik AG ("LHT"), the technical services
+L2372: subsidiary of Lufthansa German Airlines. HFSC consolidates six subsidiaries which are 74%,
+L2373: 82%, 84%, 90.1%, 89% and 96% owned, respectively, two subsidiaries that are each 90% owned
+L2374: and five subsidiaries that are each 80.1% owned. In addition, HEICO Aerospace consolidates a
+L2375: joint venture, which is 84% owned. HEICO Electronic consolidates four subsidiaries that are
+L2376: each 80.1% owned, two subsidiaries that are each 75% owned, and nine subsidiaries which are
+L2377: 80.4%, 82.5%, 87.9%, 88.8%, 90%, 90.7%, 92.5%, 92.7% and 95.9% owned, respectively.
+L2378: Certain subsidiaries of HEICO Electronic consolidate subsidiaries that are less than wholly
+L2379: owned. See Note 13, Redeemable Noncontrolling Interests. All intercompany balances and
+L2380: transactions are eliminated.
+L2381: Use of Estimates and Assumptions
+L2382:  The preparation of financial statements in conformity with accounting principles
+L2383: generally accepted in the United States of America requires management to make estimates and
+L2384: assumptions that affect the reported amounts of assets and liabilities and disclosure of contingent
+L2385: assets and liabilities as of the date of the financial statements and the reported amounts of
+L2386: Index
+L2387: 61revenue and expenses during the reporting period. Actual results could differ from those
+L2388: estimates.
+L2389: Cash and Cash Equivalents
+L2390:  For purposes of the consolidated financial statements, the Company considers all highly
+L2391: liquid investments such as U.S. Treasury bills and money market funds with an original maturity
+L2392: of three months or less at the time of purchase to be cash equivalents.
+L2393: Accounts Receivable
+L2394:  Accounts receivable consist of amounts billed and currently due from customers. The
+L2395: valuation of accounts receivable requires that the Company set up an allowance for estimated
+L2396: uncollectible accounts and record a corresponding charge to bad debt expense. The Company
+L2397: estimates uncollectible receivables based on such factors as its prior experience, its appraisal of a
+L2398: customer’s ability to pay, age of receivables outstanding and economic conditions within and
+L2399: outside of the aviation, defense, space, medical, telecommunications and electronics industries.
+L2400: Contract Assets and Contract Liabilities
+L2401: Contract assets (unbilled receivables) represent revenue recognized on contracts using an
+L2402: over-time recognition model in excess of amounts invoiced to the customer. Contract liabilities
+L2403: (deferred revenue) represent customer advances and billings in excess of revenue recognized and
+L2404: are included within accrued expenses and other current liabilities and other long-term liabilities
+L2405: in the Company’s Consolidated Balance Sheets. See Note 6, Revenue, for additional information
+L2406: regarding the Company's contract assets and contract liabilities.
+L2407: Concentrations of Credit Risk
+L2408:  Financial instruments that potentially subject the Company to concentrations of credit
+L2409: risk consist principally of temporary cash investments and trade accounts receivable. The
+L2410: Company places its temporary cash investments with high credit quality financial institutions and
+L2411: limits the amount of credit exposure to any one financial institution. Concentrations of credit
+L2412: risk with respect to trade receivables are limited due to the large number of customers
+L2413: comprising the Company’s customer base and their dispersion across many different
+L2414: geographical regions. The Company performs ongoing credit evaluations of its customers, but
+L2415: does not generally require collateral to support customer receivables.
+L2416: Inventory
+L2417:  Inventory is stated at the lower of cost or net realizable value, with cost being determined
+L2418: on the first-in, first-out or the average cost basis. Losses, if any, are recognized fully in the
+L2419: period when identified. The Company periodically evaluates the carrying value of inventory,
+L2420: giving consideration to factors such as its physical condition, sales patterns and expected future
+L2421: demand in order to estimate the amount necessary to write down any slow moving, obsolete or
+L2422: Index
+L2423: 62damaged inventory. These estimates could vary significantly from actual amounts based upon
+L2424: future economic conditions, customer inventory levels or competitive factors that were not
+L2425: foreseen or did not exist when the estimated write-downs were made. In accordance with
+L2426: industry practice, all inventories are classified as a current asset including portions with long
+L2427: production cycles, some of which may not be realized within one year.
+L2428: Property, Plant and Equipment
+L2429:  Property, plant and equipment is recorded at cost. Depreciation and amortization is
+L2430: generally provided on the straight-line method over the estimated useful lives of the various
+L2431: assets. The Company’s property, plant and equipment is generally depreciated over the
+L2432: following estimated useful lives:
+L2433: Buildings and improvements 10 to 40 years
+L2434: Machinery and equipment 3 to 10 years
+L2435: Leasehold improvements 2 to 20 years
+L2436: Tooling 2 to 5 years
+L2437:  The costs of major additions and improvements are capitalized. Leasehold improvements
+L2438: are amortized over the shorter of the leasehold improvement’s useful life or the lease term.
+L2439: Repairs and maintenance costs are expensed as incurred. Upon an asset's disposition, its cost and
+L2440: related accumulated depreciation are removed from the financial accounts and any resulting gain
+L2441: or loss is reflected within earnings.
+L2442: Leases
+L2443: The Company’s lease arrangements primarily pertain to manufacturing facilities, office
+L2444: buildings, equipment, land and vehicles. The Company evaluates whether a contractual
+L2445: arrangement that provides it with control over the use of an asset is, or contains, a lease at the
+L2446: inception date. The term of a lease is inclusive of any option to renew, extend, or terminate the
+L2447: lease when it is reasonably certain that the Company will exercise such option. The Company
+L2448: classifies a lease as operating or finance using the classification criteria set forth in Accounting
+L2449: Standards Codification ("ASC") Topic 842. HEICO recognizes lease right-of-use (“ROU”)
+L2450: assets and corresponding lease liabilities as of the lease commencement date based on the present
+L2451: value of the lease payments over the lease term. The discount rate used to calculate the present
+L2452: value of the Company’s leases is based on HEICO’s incremental borrowing rate and considers
+L2453: credit risk, the lease term and other available information as of the commencement date since the
+L2454: leases do not provide a readily determinable implicit rate. Variable lease payments that depend
+L2455: on an index or a rate are included in the determination of ROU assets and lease liabilities using
+L2456: the index or rate at the lease commencement date. Variable lease payments that do not depend
+L2457: on an index or rate or resulting from changes in an index or rate subsequent to the lease
+L2458: commencement date, are recorded as lease expense in the period in which the obligation for the
+L2459: payment is incurred. The Company’s ROU assets are increased by any prepaid lease payments
+L2460: and initial direct costs and reduced by any lease incentives. The Company’s leases do not
+L2461: Index
+L2462: 63contain any material residual value guarantees or restrictive covenants. See Note 9, Leases, for
+L2463: additional information regarding the Company’s accounting policy for leases.
+L2464: Business Combinations
+L2465:  The Company allocates the purchase price of acquired entities to the underlying tangible
+L2466: and identifiable intangible assets acquired and liabilities and any noncontrolling interests
+L2467: assumed based on their estimated fair values, with any excess recorded as goodwill. The
+L2468: operating results of acquired businesses are included in the Company’s results of operations
+L2469: beginning as of their effective acquisition dates. Acquisition costs were not material in fiscal
+L2470: 2024 and 2022. Acquisition costs totaled $25.4 million in fiscal 2023 of which $21.6 million
+L2471: was recorded as a component of selling, general and administrative ("SG&A") expenses and
+L2472: $3.8 million was recorded to interest expense in the Company's Consolidated Statement of
+L2473: Operations. See Note 2, Acquisitions, for additional information regarding the Company's fiscal
+L2474: 2023 acquisition costs.
+L2475:  For contingent consideration arrangements, a liability is recognized at fair value as of the
+L2476: acquisition date with subsequent fair value adjustments recorded in operations. Additional
+L2477: information regarding the Company's contingent consideration arrangements may be found in
+L2478: Note 2, Acquisitions, and Note 8, Fair Value Measurements.
+L2479: Goodwill and Other Intangible Assets
+L2480:  The Company tests goodwill for impairment annually as of October 31, or more
+L2481: frequently if events or changes in circumstances indicate that the carrying amount of goodwill
+L2482: may exceed its fair value. When testing goodwill for impairment, the Company has the option to
+L2483: first assess qualitative factors to determine whether the existence of events or circumstances
+L2484: leads to a determination that it is more-likely-than-not that the estimated fair value of a reporting
+L2485: unit is less than its carrying amount. If the Company elects to perform a qualitative assessment
+L2486: and determine that an impairment is more-likely-than-not, the Company is then required to
+L2487: perform a quantitative impairment test, otherwise no further analysis is required. The Company
+L2488: may also may elect not to perform a qualitative assessment and, instead, proceed directly to a
+L2489: quantitative impairment test. When performing the quantitative impairment test, the Company
+L2490: compares the fair value of each of its reporting units to its carrying value to determine potential
+L2491: impairment and an impairment loss is recognized in the amount by which the carrying value of a
+L2492: reporting unit’s goodwill exceeds its fair value. The fair values of the Company's reporting units
+L2493: are determined by using a weighted average of a market approach and an income approach.
+L2494: Under the market approach, fair values are estimated using published market multiples for
+L2495: comparable companies. The Company calculates fair values under the income approach by
+L2496: taking estimated future cash flows that are based on internal projections and other assumptions
+L2497: deemed reasonable by management and discounting them using an estimated weighted average
+L2498: cost of capital.
+L2499: The Company’s intangible assets not subject to amortization consist principally of its
+L2500: trade names. The Company’s intangible assets subject to amortization are amortized on the
+L2501: Index
+L2502: 64straight-line method (except for customer relationships, which are amortized on an accelerated
+L2503: method) over the following estimated useful lives:
+L2504: Customer relationships 3 to 17 years
+L2505: Intellectual property 3 to 22 years
+L2506: Other 5 to 19 years
+L2507:  Amortization expense of intellectual property is recorded as a component of cost of sales
+L2508: and amortization expense of customer relationships is recorded as a component of SG&A
+L2509: expenses in the Company’s Consolidated Statements of Operations. The Company tests each
+L2510: non-amortizing intangible asset for impairment annually as of October 31, or more frequently if
+L2511: events or changes in circumstances indicate that the asset might be impaired. To derive the fair
+L2512: value of its trade names, the Company utilizes an income approach, which relies upon
+L2513: management's assumptions of royalty rates, projected revenues and discount rates. The
+L2514: Company also tests each amortizing intangible asset for impairment if events or circumstances
+L2515: indicate that the asset might be impaired. The test consists of determining whether the carrying
+L2516: value of such assets will be recovered through undiscounted expected future cash flows. If the
+L2517: total of the undiscounted future cash flows is less than the carrying amount of those assets, the
+L2518: Company recognizes an impairment loss based on the excess of the carrying amount over the fair
+L2519: value of the assets. The determination of fair value requires management to make a number of
+L2520: estimates, assumptions and judgments of such factors as projected revenues and earnings and
+L2521: discount rates.
+L2522: Customer Rebates and Credits
+L2523:  The Company records accrued customer rebates and credits as a component of accrued
+L2524: expenses and other current liabilities in its Consolidated Balance Sheets. These amounts
+L2525: generally relate to discounts negotiated with customers as part of certain sales contracts that are
+L2526: usually tied to sales volume thresholds. The Company accrues customer rebates and credits as a
+L2527: reduction within net sales as the revenue is recognized based on the estimated level of discount
+L2528: rate expected to be earned by each customer over the life of the contractual rebate period
+L2529: (generally one year). Accrued customer rebates and credits are monitored by management and
+L2530: discount levels are updated at least quarterly.
+L2531: Product Warranties
+L2532:  Product warranty liabilities are estimated at the time of shipment and recorded as a
+L2533: component of accrued expenses and other current liabilities in the Company’s Consolidated
+L2534: Balance Sheets. The amount recognized is based on historical claims experience.
+L2535: Defined Benefit Pension Plan
+L2536: In connection with a prior acquisition, the Company assumed a frozen qualified defined
+L2537: benefit pension plan (the "Plan"). The Plan's benefits are based on employee compensation and
+L2538: years of service; however, the accrued benefit for Plan participants was fixed as of the date of
+L2539: Index
+L2540: 65acquisition. The Company uses an actuarial valuation to determine the projected benefit
+L2541: obligation of the Plan and records the difference between the fair value of the Plan's assets and
+L2542: the projected benefit obligation as of October 31 in other long-term liabilities in its Consolidated
+L2543: Balance Sheets, but reclassifies any excess funded amounts to other long-term assets.
+L2544: Additionally, any actuarial gain or loss that arises during a fiscal year that is not recognized as a
+L2545: component of net periodic pension income or expense is recorded as a component of other
+L3282: capitalized terms are defined in the Credit Facility. In July 2023, the Company entered into a
+L3283: third amendment to its Credit Facility, to, among other things, (i) increase the capacity by
+L3284: $500 million to $2.0 billion, (ii) extend the maturity date to July 2028, and (iii) increase the
+L3285: applicable rate with respect to certain total leverage ratio tiers in the pricing grid. The Credit
+L3286: Facility includes a feature that will allow the Company to increase the capacity by $750 million
+L3287: to become a $2.75 billion facility through increased commitments from existing lenders. The
+L3288: Company incurred $6.7 million of debt issuance costs in fiscal 2023 related to the third
+L3289: amendment of the Credit Facility, which were classified as other assets in the Company's
+L3290: Consolidated Balance Sheet and are being amortized to SG&A expenses in the Company's
+L3291: Consolidated Statement of Operations over the remaining term of the Credit Facility.
+L3292: Borrowings under the Credit Facility accrue interest at the Company’s election of the
+L3293: Base Rate or Adjusted Term SOFR, plus in each case, the Applicable Rate (based on the
+L3294: Company’s Total Leverage Ratio) as such capitalized terms are defined in the Credit Facility.
+L3295: The Base Rate for any day is a fluctuating rate per annum equal to the highest of (i) the Prime
+L3296: Rate; (ii) the Federal Funds Rate plus .50%; and (iii) Adjusted Term SOFR for an Interest Period
+L3297: of one month plus 100 basis points. Adjusted Term SOFR is the rate per annum equal to Term
+L3298: SOFR plus a Term SOFR Adjustment of .10%; provided that Adjusted Term SOFR as so
+L3299: determined shall never be less than 0%. The Applicable Rate for SOFR Loans ranges from
+L3300: 1.125% to 2.00%. The Applicable Rate for Base Rate Loans ranges from .125% to 1.00%. A
+L3301: fee is charged on the amount of the unused commitment ranging from .15% to .35% (depending
+L3302: on the Company’s Total Leverage Ratio). The Credit Facility also includes a $200 million
+L3303: sublimit for swingline borrowings and $100 million sublimits for borrowings made in foreign
+L3304: currencies and for letters of credit. Outstanding principal, accrued and unpaid interest and other
+L3305: amounts payable under the Credit Facility may be accelerated upon an event of default, as such
+L3306: events are described in the Credit Facility. The Credit Facility is unsecured and contains
+L3307: covenants that require, among other things, the maintenance of a Total Leverage Ratio and an
+L3308: Interest Coverage Ratio, as such capitalized terms are defined in the Credit Facility.
+L3309: Index
+L3310: 85Senior Unsecured Notes
+L3311: On July 27, 2023, the Company completed the public offer and sale of senior unsecured
+L3312: notes, which consisted of $600 million principal amount of 5.25% Senior Notes due August 1,
+L3313: 2028 (the "2028 Notes") and $600 million principal amount of 5.35% Senior Notes due August
+L3314: 1, 2033 (the "2033 Notes" and, collectively with the 2028 Notes, the "Notes"). The Company
+L3315: used the net proceeds from the sale of the Notes to repay the outstanding borrowings under its
+L3316: Credit Facility and to fund a portion of the purchase price of the Wencor Acquisition. See Note
+L3317: 2, Acquisitions, for additional information. Interest on the Notes is payable semi-annually in
+L3318: arrears on February 1 and August 1 of each year, and commenced on February 1, 2024. The
+L3319: 2028 Notes and 2033 Notes each have an effective interest rate of 5.5%.
+L3320: The Notes were issued pursuant to an Indenture, dated as of July 27, 2023 (the “Base
+L3321: Indenture”), between the Company and certain of its subsidiaries (collectively, the "Subsidiary
+L3322: Guarantors") and Truist Bank, as trustee (the “Trustee”), as supplemented by a First
+L3323: Supplemental Indenture, dated as of July 27, 2023 (the “First Supplemental Indenture” and,
+L3324: together with the Base Indenture, the “Indenture”), between the Company, Subsidiary Guarantors
+L3325: and the Trustee. The Notes are direct, unsecured senior obligations of the Company and rank
+L3326: equally in right of payment with all of the Company's existing and future senior unsecured
+L3327: indebtedness.
+L3328: The Notes are fully and unconditionally guaranteed on a senior unsecured basis by all of
+L3329: the Company's existing and future subsidiaries that guarantee the Company's obligations under
+L3330: the Credit Facility (the "Guarantor Group"). The Company may redeem the Notes at any time in
+L3331: whole, or from time to time in part, prior to the applicable par call date at the applicable
+L3332: redemption price described in the Indenture. On or after the applicable par call date, the Notes
+L3333: will be redeemable, at the Company’s option, at any time in whole, or from time to time in part,
+L3334: at a redemption price equal to 100% of the principal amount of the Notes to be redeemed plus
+L3335: accrued and unpaid interest on the Notes to be redeemed to, but excluding, the date of
+L3336: redemption. The Company may be required to make an offer to purchase the Notes upon the
+L3337: occurrence of a “change of control triggering event” as described in the Indenture.
+L3338: The Indenture includes certain customary covenants that, among other things, limit the
+L3339: Company’s and its restricted subsidiaries’ ability to grant liens to secure indebtedness or engage
+L3340: in sale and leaseback transactions and the Company’s ability to merge or consolidate with, or
+L3341: convey, transfer or lease all or substantially all of its assets to, a third party, as further described
+L3342: in the Indenture. Each of these limitations is subject to certain important qualifications and
+L3343: exceptions. The Indenture also includes certain customary events of default. The occurrence of
+L3344: an event of default will either automatically, in certain instances, or upon declaration by the
+L3345: Trustee or the holders of at least 25% in aggregate principal amount of the Notes at the time
+L3346: outstanding, in other instances, cause the acceleration of the amounts due under the Notes. As of
+L3347: October 31, 2024, the Company was in compliance with all such covenants.
+L3348: The Company received net proceeds of $1,189.5 million from the issuance of the Notes,
+L3349: which was net of a debt discount and underwriting fees. The Company also incurred an
+L3350: Index
+L3351: 86additional $3.4 million of debt issuance fees related to the Notes. The aggregate debt discount
+L3352: and debt issuance costs of $13.9 million are classified as a contra liability within long-term debt
+L3353: in the Company's Consolidated Balance Sheet and are being amortized to interest expense in the
+L3354: Company's Consolidated Statement of Operations over the respective term of each senior note
+L3355: using the effective interest method.
+L3356: The following table sets forth the carrying value and estimated fair value of the
+L3357: Company’s Notes, which are classified as Level 1 financial instruments in the fair value
+L3358: hierarchy (in thousands). The Company estimated the fair value of the Notes by taking the
+L3359: weighted average of market quotes for the exact security that was actively traded on October 31,
+L3360: 2024 and October 31, 2023.
+L3361: October 31, 2024 October 31, 2023
+L3362: Carrying Value Fair Value Carrying Value Fair Value
+L3363: 2028 Notes $595,267 $609,376 $594,158 $579,762
+L3364: 2033 Notes 592,974 605,917 592,364 552,594
+L3365: Total $1,188,241 $1,215,293 $1,186,522 $1,132,356
+L3366: 6. REVENUE
+L3367: Contract Balances
+L3368:  Contract assets (unbilled receivables) represent revenue recognized on contracts using an
+L3369: over-time recognition model in excess of amounts invoiced to the customer. Contract liabilities
+L3370: (deferred revenue) represent customer advances and billings in excess of revenue recognized and
+L3371: are included within accrued expenses and other current liabilities and other long-term liabilities
+L3372: in the Company’s Consolidated Balance Sheets.
+L3373: Changes in the Company’s contract assets and liabilities during fiscal 2024 and 2023 are
+L3374: as follows (in thousands):
+L3375: October 31, 2024 October 31, 2023 Change
+L3376: Contract assets, current $112,235 $111,702 $533
+L3377: Contract liabilities, current 83,903 87,556 (3,653)
+L3378: Contract liabilities, long-term 61,843 — 61,843
+L3379: Total contract liabilities 145,746 87,556 58,190
+L3380: Net contract (liabilities) assets ($33,511) $24,146 ($57,657)
+L3381:  The increase in the Company's total contract liabilities during fiscal 2024 principally
+L3382: reflects the receipt of advance deposits on certain customer contracts, mainly at the FSG.
+L3383: Index
+L3384: 87The amount of revenue that the Company recognized during fiscal 2024 that was
+L3385: included in contract liabilities as of the beginning of fiscal 2024 was $60.4 million.
+L3386: Remaining Performance Obligations
+L3387: Backlog, which the Company believes to be the equivalent of its remaining performance
+L3388: obligations, represents contractually committed, or firm customer orders. As of October 31,
+L3389: 2024, the Company had $1,924.5 million of remaining performance obligations associated with
+L3390: firm contracts pertaining to many of the products offered by the FSG and ETG. The Company
+L3391: will recognize net sales as these obligations are satisfied. The Company expects to recognize
+L3392: $1,178.1 million of this amount during fiscal 2025 and $746.4 million thereafter, of which a little
+L3393: more than half is expected to occur in fiscal 2026.
+L3394: Disaggregation of Revenue
+L3395: The following table summarizes the Company’s net sales by product line for each
+L3396: operating segment (in thousands):
+L3397: Year Ended October 31,
+L3398: 2024 2023 2022
+L3399: Flight Support Group:
+L3400: Aftermarket replacement parts (1) $1,658,431 $1,040,502 $694,900
+L3401: Repair and overhaul parts and services (2) 593,237 366,566 264,986
+L3402: Specialty products (3) 387,686 363,117 295,326
+L3403: Total net sales 2,639,354 1,770,185 1,255,212
+L3404: Electronic Technologies Group:
+L3405: Electronic component parts primarily for
+L3406:  defense, space and aerospace equipment (4) 1,004,511 918,374 672,147
+L3407: Electronic component parts for equipment
+L3408: in various other industries (5) 259,115 306,848 300,328
+L3409: Total net sales 1,263,626 1,225,222 972,475
+L3410: Intersegment sales (45,311) (27,302) (19,365)
+L3411: Total consolidated net sales $3,857,669 $2,968,105 $2,208,322
+L3412: (1) Includes various jet engine and aircraft component replacement parts.
+L3413: (2) Includes primarily the sale of parts consumed in various repair and overhaul services on selected jet
+L3414: engine and aircraft components, avionics, instruments, composites and flight surfaces of commercial
+L3415: and military aircraft.
+L3416: (3) Includes primarily the sale of specialty components such as thermal insulation blankets, renewable/
+L3417: reusable insulation systems, advanced niche components, complex composite assemblies, expanded
+L3418: Index
+L3419: 88foil mesh as well as machining, brazing, fabricating and welding services generally to original
+L3420: equipment manufacturers, and emergency descent devices and personnel and cargo parachute
+L3421: products.
+L3422: (4) Includes various component parts such as electro-optical infrared simulation and test equipment,
+L3423: electro-optical laser products, electro-optical, microwave and other power equipment, high-speed
+L3424: interface products, power conversion products, power distribution solutions, underwater locator
+L3425: beacons, emergency locator transmission beacons, traveling wave tube amplifiers, microwave power
+L3426: modules, a wide variety of memory products and radio frequency (RF) and microwave products,
+L3427: crashworthy and ballistically self-sealing auxiliary fuel systems, high performance communications
+L3428: and electronic intercept receivers and tuners, high performance active antenna systems and airborne
+L3429: antennas, technical surveillance countermeasures (TSCM) equipment, custom high power filters and
+L3430: filter assemblies, radiation assurance services and products, and high-reliability, complex, passive
+L3431: electronic components and rotary joint assemblies, and proprietary in-cabin power and entertainment
+L3432: components and subsystems.
+L3433: (5) Includes various component parts such as electromagnetic and radio frequency interference shielding,
+L3434: high voltage interconnection devices, high voltage advanced power electronics, harsh environment
+L3435: connectivity products, custom molded cable assemblies, silicone material for a variety of demanding
+L3436: applications, and rugged small form-factor embedded computing solutions, and high performance test
+L3437: sockets and adaptors.
+L3438: The following table summarizes the Company’s net sales by industry for each operating
+L3439: segment (in thousands):
+L3440: Year ended October 31,
+L3441: 2024 2023 2022
+L3442: Flight Support Group:
+L3443: Aerospace $1,960,705 $1,257,650 $876,254
+L3444: Defense and Space 600,806 434,229 316,460
+L3445: Other (1) 77,843 78,306 62,498
+L3446: Total net sales 2,639,354 1,770,185 1,255,212
+L3447: Electronic Technologies Group:
+L3448: Defense and Space 650,647 603,414 545,384
+L3449: Other (2) 394,932 438,189 340,311
+L3450: Aerospace 218,047 183,619 86,780
+L3451: Total net sales 1,263,626 1,225,222 972,475
+L3452: Intersegment sales (45,311) (27,302) (19,365)
+L3453: Total consolidated net sales $3,857,669 $2,968,105 $2,208,322
+L3454: (1) Principally industrial products.
+L3455: (2) Principally other electronics and medical products.
+L3456: Index
+L3457: 897. INCOME TAXES
+L3458: The components of income before income taxes and noncontrolling interests are as
+L3459: follows (in thousands):
+L3460: Year ended October 31,
+L3461: 2024 2023 2022
+L3462: Domestic $596,060 $479,990 $429,329
+L3463: Foreign 81,526 75,293 61,694
+L3464: Income before taxes and noncontrolling interests $677,586 $555,283 $491,023
+L3465: The components of the provision for income taxes on income before income taxes and
+L3466: noncontrolling interests are as follows (in thousands):
+L3467: Year ended October 31,
+L3468: 2024 2023 2022
+L3469: Current:
+L3470: Federal $97,164 $96,492 $63,861
+L3471: State 19,195 18,225 13,015
+L3472: Foreign 24,143 22,714 14,648
+L3473:  140,502 137,431 91,524
+L3474: Deferred:
+L3475: Federal (17,038) (19,049) 8,154
+L3476: State (2,911) (4,311) 1,129
+L3477: Foreign (2,053) (3,171) (407)
+L3478:  (22,002) (26,531) 8,876
+L3479: Total income tax expense $118,500 $110,900 $100,400
+L3480: A reconciliation of the federal statutory income tax rate to the Company’s effective tax
+L3481: rate is as follows:
+L3482: Year ended October 31,
+L3483: 2024 2023 2022
+L3484: Federal statutory income tax rate 21.0% 21.0% 21.0%
+L3485: State taxes, net of federal income tax benefit 2.5% 2.5% 2.6%
+L3486: Foreign-derived intangible income deduction (2.4%) (1.9%) (1.9%)
+L3487: Tax-exempt (gains) losses on corporate-owned life insurance policies (2.3%) (.6%) 2.8%
+L3488: Research and development tax credits (2.1%) (1.9%) (1.5%)
+L3489: Tax benefit related to stock option exercises (2.0%) (1.1%) (3.6%)
+L3490: Nondeductible compensation 2.2% 1.4% 1.2%
+L3491: Other, net .6% .6% (.2%)
+L3492: Effective tax rate 17.5% 20.0% 20.4%
+L3493: Index
+L3494: 90The Company's effective tax rate decreased to 17.5% in fiscal 2024, down from 20.0% in
+L3495: fiscal 2023. The decrease in the Company's effective tax rate reflects a larger tax benefit from
+L3496: stock option exercises recognized in the first quarter of fiscal 2024. The Company recognized a
+L3497: discrete tax benefit from stock option exercises in both the first quarter of fiscal 2024 and 2023
+L3498: of $13.6 million and $6.2 million, respectively. Additionally, the decrease in the Company's
+L3499: effective tax rate reflects a larger favorable impact from tax-exempt unrealized gains in the cash
+L3500: surrender values of life insurance policies related to the HEICO Leadership Compensation Plan
+L3501: (the “LCP”) in fiscal 2024, net of the nondeductible portion of the related gains in the LCP
+L3502: accounts of certain executive officers, as well as increased foreign-derived intangible income,
+L3503: which is subject to a lower tax rate.
+L3504: The Company's effective tax rate decreased to 20.0% in fiscal 2023, down from 20.4% in
+L3505: fiscal 2022. The decrease in the Company's effective tax rate principally reflects a favorable
+L3506: impact from tax-exempt unrealized gains in the cash surrender values of life insurance policies
+L3507: related to the LCP in fiscal 2023 as compared to tax-exempt unrealized losses recognized in
+L3508: fiscal 2022. This was partially offset by a larger tax benefit from stock option exercises
+L3509: recognized in the first quarter of fiscal 2022 and the portion of acquisition costs associated with
+L3510: fiscal 2023 acquisitions that were not deductible for income tax purposes. The Company
+L3511: recognized a discrete tax benefit from stock option exercises in both the first quarter of fiscal
+L3512: 2023 and 2022 of $6.2 million and $17.8 million, respectively.
+L3513:  The Company files income tax returns in the U.S. federal jurisdiction and in multiple
+L3514: state jurisdictions. The Company is also subject to income taxes in certain jurisdictions outside
+L3515: the U.S., none of which are individually material to the accompanying consolidated financial
+L3516: statements. Generally, the Company is no longer subject to U.S. federal, state or foreign
+L3517: examinations by tax authorities for years prior to fiscal 2020. One of the Company's foreign
+L3518: subsidiaries files income tax returns in The Netherlands and Thailand where the statute of
+L3519: limitations is open for its fiscal 2015 returns.
+L3520:  Deferred income taxes reflect the net tax effects of temporary differences between the
+L3521: carrying amounts of assets and liabilities for financial reporting purposes and the amounts used
+L3522: for income tax purposes. The Company believes that it is more likely than not that it will
+L3523: generate sufficient future taxable income to utilize all of its deferred tax assets and has therefore
+L3524: not recorded a valuation allowance on any such asset.
+L3525: Index
+L3526: 91Significant components of the Company’s deferred tax assets and liabilities are as follows
+L3527: (in thousands):
+L3528: As of October 31,
+L3529: 2024 2023
+L3530: Deferred tax assets:
+L3531: Inventories $92,498 $85,560
+L3532: Deferred compensation plan liability 57,016 44,882
+L3533: Capitalized research and development costs 48,820 29,142
+L3534: Operating lease liabilities 28,270 26,771
+L3535: Share-based compensation 11,387 10,665
+L3536: Performance-based compensation accrual 8,183 6,632
+L3537: Contract liabilities (deferred revenue) 6,146 2,885
+L3538: Interest expense limitation carryforward 4,869 24,770
+L3539: Other 16,788 19,092
+L3540: Total deferred tax assets 273,977 250,399
+L3541: Deferred tax liabilities:
+L3542: Goodwill and other intangible assets (330,624) (324,774)
+L3543: Property, plant and equipment (27,701) (28,533)
+L3544: Operating lease right-of-use assets (26,766) (25,620)
+L3545: Other (3,042) (3,318)
+L3546: Total deferred tax liabilities (388,133) (382,245)
+L3547: Net deferred tax liability ($114,156) ($131,846)
+L3548: As a result of the Tax Cuts and Jobs Act, the Company began capitalizing research and
+L3549: development costs beginning in fiscal 2023, which are now amortized over five years for income
+L3550: tax purposes.
+L3551: As of October 31, 2024 and 2023, the Company’s liability for gross unrecognized tax
+L3552: benefits related to uncertain tax positions was $6.5 million and $4.4 million, respectively, of
+L3553: which $5.1 million and $3.4 million, respectively, would decrease the Company’s income tax
+L3554: expense and effective income tax rate if the tax benefits were recognized. A reconciliation of the
+L3555: activity related to the liability for gross unrecognized tax benefits during fiscal 2024 and 2023 is
+L3556: as follows (in thousands):
+L3557: Year ended October 31,
+L3558: 2024 2023
+L3559: Balances as of beginning of year $4,363 $3,503
+L3560: Increases related to current year tax positions 2,521 1,356
+L3561: Increases related to prior year tax positions 88 214
+L3562: Lapses of statutes of limitations (521) (710)
+L3563: Balance as of end of year $6,451 $4,363
+L3564: Index
+L3565: 928. FAIR VALUE MEASUREMENTS
+L3566: The Company's assets and liabilities that were measured at fair value on a recurring basis
+L3567: are set forth by level within the fair value hierarchy in the following tables (in thousands):
+L3568: As of October 31, 2024
+L3569: Quoted Prices
+L3570: in Active Markets
+L3571: for Identical Assets
+L3572: (Level 1)
+L3573: Significant
+L3574: Other Observable
+L3575: Inputs
+L3576: (Level 2)
+L3577: Significant
+L3578: Unobservable
+L3579: Inputs
+L3580: (Level 3) Total
+L3581: Assets:
+L3582: Deferred compensation plan:
+L3583: Corporate-owned life insurance $— $313,794 $— $313,794
+L3584: Money market fund 3,365 — — 3,365
+L3585: Total assets $3,365 $313,794 $— $317,159
+L3586: Liabilities:
+L3587: Contingent consideration $— $— $30,207 $30,207
+L3588: As of October 31, 2023
+L3589: Quoted Prices
+L3590: in Active Markets
+L3591: for Identical Assets
+L3592: (Level 1)
+L3593: Significant
+L3594: Other Observable
+L3595: Inputs
+L3596: (Level 2)
+L3597: Significant
+L3598: Unobservable
+L3599: Inputs
+L3600: (Level 3) Total
+L3601: Assets:
+L3602: Deferred compensation plan:
+L3603: Corporate-owned life insurance $— $227,710 $— $227,710
+L3604: Money market fund 5,829 — — 5,829
+L3605: Total assets $5,829 $227,710 $— $233,539
+L3606: Liabilities:
+L3607: Contingent consideration $— $— $71,136 $71,136
+L3608:  The Company maintains the HEICO Corporation Leadership Compensation Plan (the
+L3609: "LCP"), which is a non-qualified deferred compensation plan. The assets of the LCP principally
+L3610: represent cash surrender values of life insurance policies, which derive their fair values from
+L3611: investments in mutual funds that are managed by an insurance company, and are classified
+L3612: within Level 2 and valued using a market approach. Certain other assets of the LCP represent an
+L3613: investment in a money market fund that is classified within Level 1. The assets of the LCP are
+L3614: held within an irrevocable trust and classified within other assets in the Company’s Consolidated
+L3615: Balance Sheets.
+L3616: Index
+L3617: 93In connection with a fiscal 2023 acquisition that is part of the FSG, the Company
+L3618: assumed an agreement which may have obligated it to pay contingent consideration of
+L3619: $17.5 million if certain operating entities of the acquired company met a calendar year 2023
+L3620: earnings objective and obtained a certain level of new orders with deliveries scheduled in
+L3621: calendar year 2024, of which both targets were tied to a specific customer contract. Both
+L3622: requirements were met as of October 31, 2023. However, payment of the earnout was also
+L3623: predicated on no indication of a significant change with respect to the underlying customer
+L3624: agreement. In the second quarter of fiscal 2024, the customer notified the Company that it
+L3625: intends to reduce its future orders. As a result, the parties to this agreement agreed to settle on a
+L3626: specific contingent consideration amount of $11.0 million. Accordingly, the $17.3 million
+L3627: estimated fair value of the contingent consideration as of October 31, 2023 was reduced to
+L3628: $11.0 million as of April 30, 2024 and paid in the third quarter of fiscal 2024.
+L3629: As part of the agreement to acquire 80.36% of the stock of a subsidiary by the ETG in
+L3630: fiscal 2022, the Company may be obligated to pay contingent consideration of up to
+L3631: $12.1 million in fiscal 2027 based on the earnings of the acquired entity during fiscal years 2025
+L3632: and 2026 provided the entity meets a certain earnings objective during each of fiscal years 2024
+L3633: to 2026. The acquired entity did not achieve the required fiscal 2024 earnings objective. The
+L3634: $5.5 million estimated fair value of the contingent consideration as of October 31, 2023 was
+L3635: reversed in the third quarter of fiscal 2024.
+L3636: As part of the agreement to acquire 96% of the stock of a subsidiary by the FSG in fiscal
+L3637: 2022, the Company may be obligated to pay contingent consideration of up to $27.4 million in
+L3638: fiscal 2027 based on the earnings of the acquired entity during fiscal years 2025 and 2026
+L3639: provided the entity meets certain earnings objectives during each of fiscal years 2022 to 2024.
+L3640: As of October 31, 2024, the estimated fair value of the contingent consideration was
+L3641: $21.8 million.
+L3642: As part of the agreement to acquire 74% of the membership interests of a subsidiary by
+L3643: the FSG in fiscal 2022, the Company would be obligated to pay contingent consideration of
+L3644: $14.1 million in fiscal 2027 only if the acquired entity met a certain earnings objective during the
+L3645: five-year period following the acquisition. Based on the actual earnings of the acquired entity

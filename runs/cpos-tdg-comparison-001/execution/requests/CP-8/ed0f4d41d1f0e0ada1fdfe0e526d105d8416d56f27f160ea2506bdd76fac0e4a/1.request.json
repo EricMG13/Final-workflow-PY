@@ -1,0 +1,46 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {},
+  "instructions": "# CP-8 \u2014 compare selected prior/current TDG deliverables through CP-OS\n\nCurrent user definition: compare deliverables from prior runs with the latest\nselected current run across values, periods, assumptions, conclusions, sources,\nlimitations and output scope. The legacy investment-decision post-mortem and\nthree-decision gate are superseded. No investment history or later return is\nrequired. No fresh issuer analysis or financial forecast is requested.\n\nThe actual CP-OS request supplies complete, receipt/hash-checked prior/current\nbundles as source bytes. Prior is the TDG five-section fresh-host CP-2 report;\ncurrent is the subsequent TDG five-section plus HTML Model/chart/JSON publication.\nBoth financial bases are30 September2024. \"Latest\" means this explicitly selected\nlocal TDG publication, not current2026 issuer information. Another issuer's\nsubsequent report is outside this comparison.\n\nRead both reports, their View/ReportView files, copied analytical handoffs and\nall additional current Model/source/calculation files. Use exact retained source\nidentities. Compare semantic facts/definitions, not merely row indexes, byte\ncounts, citation numbering or added filenames. Prior absence of a published\nmeasure is not zero, and a newly displayed amount is not financial growth.\n\nCompare all five narrative sections and the new Model/three charts. Identify\nwhich facts, assumptions, conclusions and restrictions are unchanged, newly\nvisible, revised, missing or unresolved. Keep money, shares/per-share, ratios,\nsource dates, annual/interim windows, and conditional scenarios distinct.\nDo not treat publication of raw quarter/forecast tables as a new CP-2 synthesis\nor verified current forecast. New delivery coverage does not close unrelated\ncredit evidence gaps or create native accepted heads.\n\nWrite the six common H2 headings. In Findings, include exactly one table headed\n`Dimension` with one row for each of: Values, Periods, Assumptions, Conclusions,\nSources, Limitations, Output scope. Explain prior/current content and material\neffect with concrete artifact/table/cell or handoff references. Additional\nevidence/gap tables are permitted. Explain any presentation-only change and\nthe strongest contrary reading. Give targeted repairs only when evidence\ndemonstrates a problem; do not manufacture a repair to make the loop active.\n\nCalculations states the actual comparisons performed; no new ratios, returns,\nprobabilities or issuer-financial calculations. Gaps retains all incomparable\nor unverified scope. Next module instructs separate delivery to consume this\nactual comparison without rerunning upstream analysis. No Excel output,\nsubagent, provider call, credential file, historical mutation or new controller.\n\nThis is an actual current-host-model exchange with preceding context and access\nto pre-output check data; it is not blind, independent-context or provider/native\nqualification. Acceptance requires instruction/source comparison plus actual\ndownstream publication and checks. Markdown/table shape alone is not analytical\napproval. CP-OS owns retain, bounded repair, resume and checked completion.\n",
+  "module_id": "CP-8",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-8"
+    ],
+    "run_id": "cpos-tdg-comparison-1",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "current/CP-1.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+    "current/CP-1A.md": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+    "current/CP-2.md": "f50a11f516267a55ee2b0e25ac8b292639e40c49947d3964dce39a04303f6b0e",
+    "current/annual.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+    "current/calculation.json": "356c04c1801c0d48f4a53770b0238a38945266b97e47e0a5ce2d2262eaf3af1d",
+    "current/current_synthesis.md": "f50a11f516267a55ee2b0e25ac8b292639e40c49947d3964dce39a04303f6b0e",
+    "current/delivery.json": "380a4e5f3835f21104eae5103f39a98d5ec08d5b2e082441d1ecc4d5fb9637d7",
+    "current/forecast.md": "696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928",
+    "current/forecast_exact.json": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843",
+    "current/model-report-view.json": "34885e89945daafca9cc650a8a7621cf09e3d48a97a21a9b248b8bd1bbf428c8",
+    "current/model-view.json": "5337c0789c98ad04800f97a2651f0cec25e8871ab03f7c3e95165272f866a183",
+    "current/model.html": "c673a9b44031e4bde0888dae3950f103b0dbec791aa4428cccc3e86cd2c01bc5",
+    "current/quarter.md": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+    "current/report-view.json": "e79ac27b6f61f489c47a0d9cb806f2e6c0b75043a3656bf472604f0c1c7a64fe",
+    "current/report.html": "cdb682b743990b0484bb51e895a1007973c746510079963f8fc57eb62c3a09b7",
+    "current/view.json": "bfab55d0e03616d9107b44d02ab98c119d4743a86be9ea1653e687920fe2d5b1",
+    "prior/CP-1.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+    "prior/CP-1A.md": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+    "prior/CP-2.md": "f50a11f516267a55ee2b0e25ac8b292639e40c49947d3964dce39a04303f6b0e",
+    "prior/delivery.json": "4216fe746df0e4d46ae384b7abb0f464f8e0b4adfcbc6d2638382da98d440344",
+    "prior/report-view.json": "7d389730d1e2e44340ad0be62b46d553186da6311dbd73f20624b8ec312d7ad3",
+    "prior/report.html": "128027b2625f5ab697c3141c9998f2be6f18ff03115fcddb41a7e682f31282b7",
+    "prior/view.json": "abbbcb0fdbfdc8b469aa7aee96766ef6c61ab216fc062b960e75ed36a5ae2da8"
+  }
+}

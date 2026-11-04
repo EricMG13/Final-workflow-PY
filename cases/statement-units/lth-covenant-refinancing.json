@@ -1,0 +1,130 @@
+{
+ "schema": "statement-units/1",
+ "case": "lth-covenant-refinancing",
+ "sources": [
+  {
+   "source_id": "k24",
+   "file": "LTH/LTH_2024-12-31_10-K_0001869198-25-000009_lth-20241231.htm",
+   "converted_sha256": "9627324f38d1273b7c6799c12fc4323cdc543ce1b4b4d5b09ba15913de49fdaf",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:240",
+     "end": "line:279",
+     "heading": "CONSOLIDATED BALANCE SHEETS"
+    },
+    {
+     "kind": "IS",
+     "start": "line:280",
+     "end": "line:307",
+     "heading": "CONSOLIDATED STATEMENTS OF OPERATIONS"
+    },
+    {
+     "kind": "CFS",
+     "start": "line:349",
+     "end": "line:390",
+     "heading": "CONSOLIDATED STATEMENTS OF CASH FLOWS"
+    }
+   ],
+   "none": [],
+   "remarks": [
+    "Each title sits at the tail of a long line (preceded by the auditor's signature, or 'See notes ... Table of Contents' text); the unit starts on that line.",
+    "Second candidates, not primary: Schedule I parent-company-only condensed balance sheets (line:691), statements of operations (line:711) and statements of cash flows (line:725). The consolidated statements are the primary units.",
+    "Lines 232-237 are the table of contents; line 239 is the auditor's report. Comprehensive income (line:308) and equity (line:314) are not units. CFS ends at 390 because line 391 begins the notes."
+   ]
+  },
+  {
+   "source_id": "q225",
+   "file": "LTH/LTH_2025-06-30_10-Q_0001869198-25-000034_lth-20250630.htm",
+   "converted_sha256": "00aa68019554c309274d47e3e71cb0767be75943059de43286140362c05f2659",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:33",
+     "end": "line:73",
+     "heading": "CONDENSED CONSOLIDATED BALANCE SHEETS"
+    },
+    {
+     "kind": "IS",
+     "start": "line:74",
+     "end": "line:104",
+     "heading": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS"
+    },
+    {
+     "kind": "CFS",
+     "start": "line:174",
+     "end": "line:210",
+     "heading": "CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS"
+    }
+   ],
+   "none": [],
+   "remarks": [
+    "Titles at the tail of long lines (33, 74). The CFS company-name line is 173; its title is the whole of line 174. Comprehensive income (105) and equity (118) are not units. CFS ends at 210 because line 211 begins the notes."
+   ]
+  },
+  {
+   "source_id": "a13",
+   "file": "LTH/LTH_legal_event_13th_credit_amendment.html",
+   "converted_sha256": "d4d58f052817aca8cb1abcb2ea8dbb7cd819997316a4ee49abf06ac7155924b6",
+   "units": [],
+   "none": [
+    {
+     "kind": "BS",
+     "reason": "13th credit agreement amendment (legal exhibit); no financial statements"
+    },
+    {
+     "kind": "IS",
+     "reason": "13th credit agreement amendment (legal exhibit); no financial statements"
+    },
+    {
+     "kind": "CFS",
+     "reason": "13th credit agreement amendment (legal exhibit); no financial statements"
+    }
+   ],
+   "remarks": []
+  },
+  {
+   "source_id": "a14",
+   "file": "LTH/LTH_legal_event_14th_credit_amendment.html",
+   "converted_sha256": "08a820359354f42d0edb8d92361f54f018ed10ea74deed9a16509f5f01cc2052",
+   "units": [],
+   "none": [
+    {
+     "kind": "BS",
+     "reason": "14th credit agreement amendment (legal exhibit); no financial statements"
+    },
+    {
+     "kind": "IS",
+     "reason": "14th credit agreement amendment (legal exhibit); no financial statements"
+    },
+    {
+     "kind": "CFS",
+     "reason": "14th credit agreement amendment (legal exhibit); no financial statements"
+    }
+   ],
+   "remarks": []
+  },
+  {
+   "source_id": "a15",
+   "file": "LTH/LTH_legal_event_15th_amendment_annex_ii.html",
+   "converted_sha256": "663f0a8c51ed58b7e63654f8b2bfaf3c491e145ab9db84ca62224b36811726f4",
+   "units": [],
+   "none": [
+    {
+     "kind": "BS",
+     "reason": "15th amendment and annex (legal exhibit); no financial statements"
+    },
+    {
+     "kind": "IS",
+     "reason": "15th amendment and annex (legal exhibit); no financial statements"
+    },
+    {
+     "kind": "CFS",
+     "reason": "15th amendment and annex (legal exhibit); no financial statements"
+    }
+   ],
+   "remarks": []
+  }
+ ],
+ "missing": []
+}

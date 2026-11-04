@@ -1,0 +1,243 @@
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn149view0 [wordlim: 200] Crawled: last week; Content type: text/html; Source: open({"ref_id":"turn141view0","lineno":1240}); Total lines: 4735
+L1232: (b)    [Reserved].
+L1233: 
+L1234: (c)    [Reserved].
+L1235: 
+L1236: (d)    Borrowings to reimburse Unpaid Drawings shall be made upon the notice specified in Section 3.4(a).
+L1237: 
+L1238: 39
+L1239: 
+L1240: * * *
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn149view1 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"Termination Date, the Borrower"}); Total lines: 4735
+L1246: Unless the Administrative Agent shall have been notified by any Lender prior to the date of any such Borrowing that such Lender does not intend to make available to the Administrative Agent its portion of the Borrowing or Borrowings to be made on such date, the Administrative Agent may assume that such Lender has made such amount available to the Administrative Agent on such date of Borrowing, and the Administrative Agent, in reliance upon such assumption, may (in its sole discretion and without any obligation to do so) make available to the Borrower a corresponding amount.
+L1247: If such corresponding amount is not in fact made available to the Administrative Agent by such Lender and the Administrative Agent has made available such amount to the Borrower, the Administrative Agent shall be entitled to recover such corresponding amount from such Lender.
+L1248: If such Lender does not pay such corresponding amount forthwith upon the Administrative Agent’s demand therefor the Administrative Agent shall promptly notify the Borrower and the Borrower shall immediately pay such corresponding amount to the Administrative Agent in Dollars.
+L1249: The Administrative Agent shall also be entitled to recover from such Lender or the Borrower, as the case may be, interest on such corresponding amount in respect of each day from the date such corresponding amount was made available by the Administrative Agent to the Borrower to the date such corresponding amount is recovered by the Administrative Agent, at a rate per annum equal to (i) in the case of such Lender, the greater of the NYFRB Rate and a rate determined by the Administrative Agent in accordance with banking industry rules on interbank compensation or (ii) in the case of the Borrower, the interest rate applicable to ABR Loans.
+L1250: (c)    Nothing in this Section 2.4 shall be deemed to relieve any Lender from its obligation to fulfill its commitments hereunder or to prejudice any rights that the Borrower may have against any Lender as a result of any default by such Lender hereunder (it being understood, however, that no Lender shall be responsible for the failure of any other Lender to fulfill its commitments hereunder).
+L1251: 
+L1252: 2.5    Repayment of Loans; Evidence of Debt.
+L1253: (a)    The Borrower hereby promises to pay to the Administrative Agent, for the benefit of the applicable Lenders, on the Termination Date, the then outstanding principal amount of all Loans.
+L1254: (b)    Each Lender shall maintain in accordance with its usual practice an account or accounts evidencing the indebtedness of the Borrower to the appropriate lending office of such Lender resulting from each Loan made by such lending office from time to time, including the amounts of principal and interest payable and paid to such lending office from time to time under this Agreement.
+L1255: 
+L1256: 40
+L1257: 
+L1258: * * *
+L1259: (c)    The Administrative Agent, on behalf of the Borrower, shall maintain the Register pursuant to Section 14.6(b), and a subaccount for each Lender, in which Register and subaccounts (taken together) shall be recorded (i) the amount of each Loan made hereunder, the Type of each Loan made and the Interest Period applicable thereto, (ii) the amount of any principal or interest due and payable or to become due and payable from the Borrower to each Lender hereunder and (iii) the amount of any sum received by the Administrative Agent hereunder from the Borrower and each Lender’s share thereof.
+L1260: (d)    The entries made in the Register and accounts and subaccounts maintained pursuant to clause (b) of this Section 2.5 shall, to the extent permitted by applicable Requirements of Law, be prima facie evidence of the existence and amounts of the obligations of the Borrower therein recorded; provided that the failure of any Lender or the Administrative Agent to maintain such account, such Register or such subaccount, as applicable, or any error therein, shall not in any manner affect the obligation of the Borrower to repay (with applicable interest) the Loans made to the Borrower by such Lender in accordance with the terms of this Agreement
+L1261: (e)    Any Lender may request that Loans made by it be evidenced by a promissory note substantially in the form of Exhibit F hereto. In such event, the Borrower shall prepare, execute and deliver to such Lender a promissory note payable to such Lender (or, if requested by such Lender, to such Lender and its registered assigns).
+L1264: (a)    Subject to the penultimate sentence of this clause (a), (i) the Borrower shall have the option on any Business Day to convert all or a portion equal to at least $1,000,000 (and in multiples of $100,000 in excess thereof) of the outstanding principal amount of Loans of one Type into a Borrowing or Borrowings of another Type and (ii) the Borrower shall have the option on any Business Day to continue the outstanding principal amount of any LIBOR Loans as LIBOR Loans for an additional Interest Period; provided that (A) no partial conversion of LIBOR Loans shall reduce the outstanding principal amount of LIBOR Loans made pursuant to a single Borrowing to less than $1,000,000, (B) ABR Loans may not be converted into LIBOR Loans if an Event of Default is in existence on the date of the conversion and the Administrative Agent has or the Majority Lenders have determined in its or their sole discretion not to permit such conversion, (C) LIBOR Loans may not be continued as LIBOR Loans for an additional Interest Period if an Event of Default is in existence on the date of the proposed continuation and the Administrative Agent has or the Majority Lenders have determined in its or their sole discretion not to permit such continuation, and (D) Borrowings resulting from conversions pursuant to this Section 2.6 shall be limited in number as provided in Section 2.2.
+L1439: In the event that the Borrower fails to Cash Collateralize any Letter of Credit that is outstanding on the Maturity Date, the full amount of the Letters of Credit Outstanding in respect of such Letter of Credit shall be deemed to be an Unpaid Drawing subject to the provisions of this Section 3.4 except that the Letter of Credit Issuer shall hold the proceeds received from the Lenders as contemplated above as Cash Collateral for such Letter of Credit to reimburse any Drawing under such Letter of Credit and shall use such proceeds first, to reimburse itself for any Drawings made in respect of such Letter of Credit following the L/C Maturity Date, second, to the extent such Letter of Credit expires or is returned undrawn while any such Cash Collateral remains, to the repayment of obligations in respect of any Loans that have not paid at such time and third, to the Borrower or as otherwise directed by a court of competent jurisdiction.
+L1443: If, after the Closing Date, the adoption of any Change in Law shall either (a) impose, modify or make applicable any reserve, deposit, capital adequacy, liquidity or similar requirement against letters of credit issued by the Letter of Credit Issuer, or any L/C Participant’s L/C Participation therein, or (b) impose on the Letter of Credit Issuer or any L/C Participant any other conditions, costs or expenses affecting its obligations under this Agreement in respect of Letters of Credit or L/C Participations therein or any Letter of Credit or such L/C Participant’s L/C Participation therein, and the result of any of the foregoing is to increase the cost to the Letter of Credit Issuer or such L/C Participant of issuing, maintaining or participating in any Letter of Credit, or to reduce the amount of any sum received or receivable by the Letter of Credit Issuer or such L/C Participant hereunder (other than (i) Taxes indemnifiable under Section 5.4, or (ii) Excluded Taxes) in respect of Letters of Credit or L/C Participations therein, then, promptly (and in any event no later than 15 days) after receipt of written demand to the Borrower by the Letter of Credit Issuer or such L/C Participant, as the case may be (a copy of which notice shall be sent by the Letter of Credit Issuer or such L/C Participant to the Administrative Agent), the Borrower shall pay to the Letter of Credit Issuer or such L/C Participant such additional amount or amounts as will compensate the Letter of Credit Issuer or such L/C Participant for such increased cost or reduction, it being understood and agreed, however, that the Letter of Credit Issuer or an L/C Participant shall not be entitled to such compensation as a result of such Person’s compliance with, or pursuant to any request or directive to comply with, any such Requirement
+L1474: 56
+L1475: 
+L1476: * * *
+L1477: 
+L1478: Issuer and the L/C Participants, a security interest in all such cash, deposit accounts and all balances therein and all proceeds of the foregoing. Such Cash Collateral shall be maintained in blocked, interest bearing deposit accounts established by and in the name of the Borrower, but under the “control” (as defined in Section 9-104 of the Uniform Commercial Code) of the Administrative Agent.
+L1479: 3.9    Applicability of ISP and UCP. Unless otherwise expressly agreed by the Letter of Credit Issuer and the Borrower when a Letter of Credit is issued, (a) the rules of the ISP shall apply to each standby Letter of Credit and (b) the rules of the UCP, as most recently published by the International Chamber of Commerce at the time of issuance, shall apply to each commercial Letter of Credit and, on an exception basis to a standby Letter of Credit, as may be required by local law or statute.
+L1481: 3.11    Letters of Credit Issued for Subsidiaries. Notwithstanding that a Letter of Credit issued or outstanding hereunder is in support of any obligations of, or is for the account of, a Subsidiary, the Borrower shall be obligated to reimburse the Letter of Credit Issuer hereunder for any and all drawings under such Letter of Credit.
+L1482: The Borrower hereby acknowledges that the issuance of Letters of Credit for the account of Subsidiaries inures to the benefit of the Borrower, and that the Borrower’s business derives substantial benefits from the businesses of such Subsidiaries.
+L1483: ARTICLE IV
+L1484: 
+L1485: FEES; COMMITMENTS
+L1486: 
+L1487: 4.1    Fees.
+L1488: (a)    The Borrower agrees to pay to the Administrative Agent in Dollars, for the account of each Lender (in each case pro rata according to the respective Commitment Percentages of the Lenders), a commitment fee (the “Commitment Fee”) for each day from the Closing Date until but excluding the Termination Date.
+L1489: Each Commitment Fee shall be payable by the Borrower (i) quarterly in arrears on the last Business Day of each March, June, September and December (for the three-month period (or portion thereof) ended on such day for which no payment has been received) and (ii) on the Termination Date (for the period ended on such date for which no payment has been received pursuant to clause (i) above), and shall be computed for each day during such period at a rate per annum equal to the Commitment Fee Rate in effect on such day on the Available Commitment in effect on such day.
+L1490: (b)    The Borrower agrees to pay to the Administrative Agent in Dollars for the account of the Lenders pro rata on the basis of their respective Letter of Credit Exposure, a fee in respect of each Letter of Credit (the “Letter of Credit Fee”), for the period from the date of issuance of such Letter of Credit until the termination or expiration date of such Letter of Credit computed at the per annum rate for each day equal to the Applicable Margin for LIBOR Loans under the New Money Facility on the average daily Stated Amount of such Letter of Credit.
+L1491: Such Letter of Credit Fees shall be due and payable (i) quarterly in arrears on the last Business Day of each March, June, September and December and (ii) on the Termination Date (for the period for which no payment has been received pursuant to clause (i) above).
+L1492: (c)    The Borrower agrees to pay to each Letter of Credit Issuer a fee in respect of each Letter of Credit issued by it (the “Fronting Fee”), for the period from the date of issuance of such Letter of Credit to the termination or expiration date of such Letter of Credit, computed at the rate for each day equal to 0.125^{ }% per annum (or such other amount a may be agreed in a separate writing between the Borrower and any Letter of Credit Issuer) on the average daily Stated Amount of such Letter of Credit (or at such other rate per annum as agreed in writing between the Borrower and the Letter of Credit Issuer).
+L1493: Such Fronting
+L1494: 57
+L1495: 
+L1496: * * *
+L1497: 
+L1498: Fees shall be due and payable by the Borrower (i) quarterly in arrears on the last Business Day of each March, June, September and December and (ii) on the Termination Date (for the period for which no payment has been received pursuant to clause (i) above).
+L1499: (d)    The Borrower agrees to pay directly to the Letter of Credit Issuer upon each issuance of, drawing under, and/or amendment of, a Letter of Credit issued by it such amount as the Letter of Credit Issuer and the Borrower shall have agreed upon for issuances of, drawings under or amendments of, letters of credit issued by it.
+L1500: (e)    The Borrower agrees to pay to the Administrative Agent (i) the administrative agent fees and (ii) for the benefit of the Lenders, any upfront fees, in each case, in the amounts and on the dates as set forth in writing from time to time between the Administrative Agent and the Borrower.
+L1501: 
+L1502: 4.2    Voluntary Reduction of Commitments.
+L1503: (a)    Upon at least two Business Days’ prior written notice (or telephonic notice promptly confirmed in writing) to the Administrative Agent at the Administrative Agent’s Office (which notice the Administrative Agent shall promptly transmit to each of the Lenders), the Borrower shall have the right, without premium or penalty, on any day, to permanently terminate or reduce the Commitments, as determined by the Borrower, in whole or in part; provided that (i) any such termination or reduction shall apply ratably to reduce each Lender’s Commitment, (ii) any partial reduction pursuant to this Section 4.2 shall be in the amount of at least $500,000 and in an integral multiple of $100,000 in excess thereof and (iii) after giving effect to such termination or reduction and to any prepayments of Loans or cancellation or Cash Collateralization of Letters of Credit made on the date thereof in accordance with this Agreement, the Total Credit Exposure shall not exceed the Loan Limit.
+L1504: (b)    The Borrower may terminate the unused amount of the Commitment of a Defaulting Lender upon not less than two (2) Business Days’ prior notice to the Administrative Agent (which will promptly notify the Lenders thereof), and in such event the provisions of Section 2.15(f) will apply to all amounts thereafter paid by the Borrower for the account of such Defaulting Lender under this Agreement (whether on account of principal, interest, fees, indemnity or other amounts), provided that such termination will not be deemed to be a waiver or release of any claim the Borrower, the Administrative Agent, any Letter of Credit Issuer or any Lender may have against such Defaulting Lender.
+L1505: 4.3    Mandatory Termination or Reduction of Commitments.
+L1506: 
+L1507: (a)    The Total Commitment shall terminate at 5:00 p.m. (New York City time) on the Termination Date.
+L1508: 
+L1509: (b)    The Total Commitment shall be permanently reduced in connection with any repayment or prepayment of Rollup Loans and any prepayment of Loans pursuant to Sections 5.2(e) and 5.2(g).
+L1510: 
+L1511: ARTICLE V
+L1512: 
+L1513: PAYMENTS
+L1514: 5.1    Voluntary Prepayments. The Borrower shall have the right to prepay Loans, without premium or penalty, in whole or in part from time to time on the following terms and conditions:
+L1515: 
+L1516: (a)    the Borrower shall give the Administrative Agent at the Administrative Agent’s Office written notice (or telephonic notice promptly confirmed in writing) of its intent to make such
+L1517: 
+L1518: 58
+L1519: 
+L1520: * * *
+L1521: prepayment, the amount of such prepayment and (in the case of LIBOR Loans) the specific Borrowing(s) being prepaid, which notice shall be given by the Borrower no later than 1:00 p.m. (New York City time) (i) in the case of LIBOR Loans, three Business Days prior to and (ii) in the case of ABR Loans on the date of such prepayment and shall promptly be transmitted by the Administrative Agent to each of the Lenders;
+L1767: Each of the Borrower and each Subsidiary is in compliance in all material respects with the Requirements of Law applicable to it or to its properties, except in such instances in which (a) such Requirement of Law is being contested in good faith by appropriate proceedings diligently conducted or (b) the failure to comply therewith, either individually or in the aggregate, would not reasonably be expected to have a Material Adverse Effect.
+L1769: The Borrower and its Subsidiaries shall engage as an integrated group in the business of oil and gas exploration, production and related activities and other legal business purposes, and any benefits to the Borrower and its Subsidiaries is a benefit to all of them, both directly or indirectly, inasmuch as the successful operation and condition of the Borrower and its Subsidiaries is partially dependent upon the continued successful performance of the functions of the integrated group as a whole.
+L1771: The Borrower has implemented and maintains in effect policies and procedures designed to ensure compliance by the Borrower, its Subsidiaries and its directors, officers, employees and agents with Anti-Corruption Laws and applicable Sanctions, and the Borrower, its Subsidiaries and their respective officers and employees and to the knowledge of the Authorized Officers of the Borrower, its directors and agents, are in compliance with Anti-Corruption Laws and applicable Sanctions in all material respects and are not knowingly engaged in any activity that would reasonably be expected to result in the Borrower being designated as a Sanctioned Person.
+L1773: 73
+L1774: 
+L1775: * * *
+L1776: 
+L1777: of their respective directors, officers or employees, or (b) to the knowledge of the Authorized Officers of the Borrower any agent of the Borrower or any of its Subsidiaries that will act in any capacity in connection with or benefit from the Facilities, is a Sanctioned Person. No Borrowing or Letter of Credit, use of proceeds or other Transactions will violate Anti-Corruption Laws or applicable Sanctions.
+L1778: 
+L1779: 9.23    [Reserved].
+L1792: As soon as available and in any event within five (5) Business Days after the date on which such financial statements are required to be filed with the SEC (after giving effect to any permitted extensions) (or, if such financial statements are not required to be filed with the SEC, on or before the date that is 90 days after the end of each such fiscal year), the audited consolidated balance sheets of the Borrower and the Subsidiaries and, if different, the Borrower and the Subsidiaries, in each case as at the end of such fiscal year, and the related consolidated statements of operations, shareholders’ equity and cash flows for such fiscal year, setting forth comparative consolidated figures for the preceding fiscal years (or, in lieu of such audited financial statements of the Borrower and the Subsidiaries, a detailed reconciliation, reflecting such financial information for the Borrower and the Subsidiaries, on the one hand, and the Borrower and the Subsidiaries, on the other hand), all in reasonable detail and prepared in accordance with GAAP, and, except with respect to such reconciliation, certified by independent certified public accountants of recognized national standing, together in any event with a certificate of such accounting firm stating that in the course of either (i) its regular audit of the business of the Borrower and its consolidated Subsidiaries, which audit was conducted in accordance with generally accepted auditing standards or (ii) performing certain other procedures permitted by professional standards, such accounting firm has obtained no knowledge of any Event of Default relating to the Financial Performance Covenants that has occurred and is continuing or, if in the opinion of such accounting firm such an Event of Default has occurred and is continuing, a statement as to the nature thereof, together with, if not otherwise required to be filed with the SEC, a customary management discussion and analysis describing the financial condition and results of operations of the Borrower and its Subsidiaries.
+L1888: (a)    Subject to the applicable limitations set forth in the Security Documents, the Borrower will, and will cause each other Credit Party to, execute any and all further documents, financing statements, agreements and instruments, and take all such further actions (including the filing and recording of financing statements, fixture, filings, assignments of as-extracted collateral, mortgages, deeds of trust and other documents) that may be required under any applicable Requirements of Law, or that the Administrative Agent or the Majority Lenders may reasonably request, in order to grant, preserve, protect and perfect the validity and priority of the security interests created or intended to be created by the applicable Security Documents or to carry out more effectively the purposes of the DIP Order, all at the expense of the Borrower and the Subsidiaries.
+L1892: The May 31^{st} Reserve Report will, at the Borrower’s option, be either (a) prepared by an independent petroleum engineering firm reasonably acceptable to the Administrative Agent or (b) prepared by or under the supervision of the Borrower’s chief engineer and audited or subject to a process review by an independent petroleum engineering firm reasonably acceptable to the Administrative Agent; provided that to the extent the Borrower elects to have such Reserve Report prepared internally and audited or made subject to a process review by an independent petroleum engineer, such audit or process review shall be acceptable so long as the aggregate of the oil and gas volumes audited or reviewed in such Reserve Report (i) equals or exceeds 20% of the aggregate volumes evaluated in such Reserve Report and (ii) when aggregated with all of the other oil and gas volumes audited or reviewed by an independent petroleum engineer over the prior five years, equals or exceeds 80% of the aggregate volumes evaluated in such Reserve Report; provided, further, that such Reserve Report shall be substantially similar to the Borrower’s year-end reserve report filed with the SEC.
+L1899: time to time by each Credit Party (other than the Borrower) in order for such Credit Party to honor its obligations under the Guarantee including obligations with respect to Hedge Agreements (provided, however, that the Borrower shall only be liable under this Section 10.14 for the maximum amount of such liability that can be hereby incurred without rendering its obligations under this Section 10.14, or otherwise under this Agreement or any Credit Document, as it relates to such other Credit Parties, voidable under applicable law relating to fraudulent conveyance or fraudulent transfer, and not for any greater amount).
+L1904: (b)    no later than 14 days after the Petition Date, the Debtors shall have filed the Plan of Reorganization and Disclosure Statement along with a motion seeking approval of the Disclosure Statement;
+L1905: 
+L1906: (c)    no later than 40 days after the Petition Date, the Bankruptcy Court shall have entered the Final Order;
+L1907: 
+L1908: (d)    no later than 44 days after the Petition Date, the Bankruptcy Court shall have entered an order approving the Solicitation Materials and the Disclosure Statement;
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn149view2 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"on the Termination Date"}); Total lines: 4735
+L1489: Each Commitment Fee shall be payable by the Borrower (i) quarterly in arrears on the last Business Day of each March, June, September and December (for the three-month period (or portion thereof) ended on such day for which no payment has been received) and (ii) on the Termination Date (for the period ended on such date for which no payment has been received pursuant to clause (i) above), and shall be computed for each day during such period at a rate per annum equal to the Commitment Fee Rate in effect on such day on the Available Commitment in effect on such day.
+L1490: (b)    The Borrower agrees to pay to the Administrative Agent in Dollars for the account of the Lenders pro rata on the basis of their respective Letter of Credit Exposure, a fee in respect of each Letter of Credit (the “Letter of Credit Fee”), for the period from the date of issuance of such Letter of Credit until the termination or expiration date of such Letter of Credit computed at the per annum rate for each day equal to the Applicable Margin for LIBOR Loans under the New Money Facility on the average daily Stated Amount of such Letter of Credit.
+L1491: Such Letter of Credit Fees shall be due and payable (i) quarterly in arrears on the last Business Day of each March, June, September and December and (ii) on the Termination Date (for the period for which no payment has been received pursuant to clause (i) above).
+L1492: (c)    The Borrower agrees to pay to each Letter of Credit Issuer a fee in respect of each Letter of Credit issued by it (the “Fronting Fee”), for the period from the date of issuance of such Letter of Credit to the termination or expiration date of such Letter of Credit, computed at the rate for each day equal to 0.125^{ }% per annum (or such other amount a may be agreed in a separate writing between the Borrower and any Letter of Credit Issuer) on the average daily Stated Amount of such Letter of Credit (or at such other rate per annum as agreed in writing between the Borrower and the Letter of Credit Issuer).
+L1493: Such Fronting
+L1494: 57
+L1495: 
+L1496: * * *
+L1497: 
+L1498: Fees shall be due and payable by the Borrower (i) quarterly in arrears on the last Business Day of each March, June, September and December and (ii) on the Termination Date (for the period for which no payment has been received pursuant to clause (i) above).
+L1499: (d)    The Borrower agrees to pay directly to the Letter of Credit Issuer upon each issuance of, drawing under, and/or amendment of, a Letter of Credit issued by it such amount as the Letter of Credit Issuer and the Borrower shall have agreed upon for issuances of, drawings under or amendments of, letters of credit issued by it.
+L1500: (e)    The Borrower agrees to pay to the Administrative Agent (i) the administrative agent fees and (ii) for the benefit of the Lenders, any upfront fees, in each case, in the amounts and on the dates as set forth in writing from time to time between the Administrative Agent and the Borrower.
+L1501: 
+L1502: 4.2    Voluntary Reduction of Commitments.
+L1503: (a)    Upon at least two Business Days’ prior written notice (or telephonic notice promptly confirmed in writing) to the Administrative Agent at the Administrative Agent’s Office (which notice the Administrative Agent shall promptly transmit to each of the Lenders), the Borrower shall have the right, without premium or penalty, on any day, to permanently terminate or reduce the Commitments, as determined by the Borrower, in whole or in part; provided that (i) any such termination or reduction shall apply ratably to reduce each Lender’s Commitment, (ii) any partial reduction pursuant to this Section 4.2 shall be in the amount of at least $500,000 and in an integral multiple of $100,000 in excess thereof and (iii) after giving effect to such termination or reduction and to any prepayments of Loans or cancellation or Cash Collateralization of Letters of Credit made on the date thereof in accordance with this Agreement, the Total Credit Exposure shall not exceed the Loan Limit.
+L1505: 4.3    Mandatory Termination or Reduction of Commitments.
+L1506: 
+L1507: (a)    The Total Commitment shall terminate at 5:00 p.m. (New York City time) on the Termination Date.
+L1508: 
+L1509: (b)    The Total Commitment shall be permanently reduced in connection with any repayment or prepayment of Rollup Loans and any prepayment of Loans pursuant to Sections 5.2(e) and 5.2(g).
+L1510: 
+L1511: ARTICLE V
+L1512: 
+L1513: PAYMENTS
+--------------------------------------------------------------------------------
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm)
+citeturn149view3 [wordlim: 200] Crawled: last week; Content type: text/html; Source: find({"ref_id":"turn141view0","pattern":"2.4"}); Total lines: 4735
+L64: 1.9    Classification of Loans and Borrowings    37
+L65: 
+L66: 1.10    Divisions    37
+L67: 
+L68: 1.11    Interest Rates; LIBOR Notification    38
+L69: 
+L70: ARTICLE II Amount and Terms of Credit    38
+L71: 
+L72: 2.1    Commitments    38
+L73: 
+L74: 2.2    Minimum Amount of Each Borrowing; Maximum Number of Borrowings    39
+L75: 
+L76: 2.3    Notice of Borrowing    39
+L77: 
+L78: 2.4    Disbursement of Funds    40
+L79: 
+L80: 2.5    Repayment of Loans; Evidence of Debt    40
+L81: 
+L82: 2.6    Conversions and Continuations    41
+L83: 
+L84: 2.7    Pro Rata Borrowings    42
+L85: 
+L86: 2.8    Interest    42
+L1241: (e)    Without in any way limiting the obligation of the Borrower to confirm in writing any notice it may give hereunder by telephone, the Administrative Agent may act prior to receipt of written confirmation without liability upon the basis of such telephonic notice believed by the Administrative Agent in good faith to be from an Authorized Officer of the Borrower.
+L1242: 
+L1243: 2.4    Disbursement of Funds.
+L1250: (c)    Nothing in this Section 2.4 shall be deemed to relieve any Lender from its obligation to fulfill its commitments hereunder or to prejudice any rights that the Borrower may have against any Lender as a result of any default by such Lender hereunder (it being understood, however, that no Lender shall be responsible for the failure of any other Lender to fulfill its commitments hereunder).
+L1251: 
+L1252: 2.5    Repayment of Loans; Evidence of Debt.
+L2805:  | $  | —  |
+L2806:  | $  | 4  |
+L2807:  | $  | —  |
+L2808:  | $  | —  |
+L2809:  | $  | —  |
+L2810:  | $  | 6  |
+L2811:  | $  | —  |
+L2812:  | $  | —  |
+L2813:  | $  | —  |
+L2814:  | $  | 8  |
+L2815:  | $  | —  |
+L2816:  |    |    | $  | 38  |
+L2817:  |
+L2818: Other Disbursements  |    | 31  |
+L2819:  | —  |
+L2820:  | 2  |
+L2821:  | —  |
+L2822:  | 3  |
+L2823:  | 2  |
+L2824:  | 5  |
+L2825:  | —  |
+L2826:  | —  |
+L2827:  | 3  |
+L2828:  | 9  |
+L2829:  | —  |
+L2830:  | 8  |
+L2831:  |    |    | 62  |
+L2832:  |
+L2833: Total Other Cash Flows  |    | $  | 51  |
+L2834:  | $  | —  |
+L2835:  | $  | 2  |
+L2836:  | $  | 4  |
+L2837:  | $  | 3  |
+L2838:  | $  | 2  |
+L2839:  | $  | 5  |
+L2840:  | $  | 7  |
+L2841:  | $  | —  |
+L3441: GUARANTEE
+L3442: 
+L3443: made by
+L3444: 
+L3445: each of the Guarantors
+L3446: 
+L3447: from time to time party hereto,
+L3448: 
+L3449: certain of which are
+L3450: 
+L3451: debtors and debtors-in-possession under Chapter 11 of the Bankruptcy Code
+L3452: 
+L3453: in favor of
+L3454: 
+L3455: JPMORGAN CHASE BANK, N.A.
+L3456: 
+L3457: as Administrative Agent
+L3458: 
+L3459: Dated as of July 23, 2020
+L3460: 
+L3461: 
+L3462: 
+L3463: * * *
+L3464: 
+L3465: TABLE OF CONTENTS
+L3466: 
+L3467: Page
+L3468: 
+L3469: SECTION I
+L3470: 
+L3471: DEFINITIONS
+L3472: 
+L3473: 1.1    Defined Terms    2
+L3474: 
+L3475: SECTION II
+L3476: 
+L3477: GUARANTEE
+L3478: 
+L3479: 2.1    Guarantee    2
+L3480: 
+L3481: 2.2    Right of Contribution    4
+L3482: 
+L3483: 2.3    Right of Set-off    4
+L3484: 
+L3485: 2.4    No Subrogation    4
+L3597: Each Guarantor’s right of contribution shall be subject to the terms and conditions of Section 2.4. The provisions of this Section 2.2 shall in no respect limit the obligations and liabilities of any Guarantor to the Administrative Agent and the other Secured Parties, and each Guarantor shall remain liable to the Administrative Agent and the other Secured Parties for the full amount guaranteed by such Guarantor hereunder.
+L3601: 2.4    No Subrogation.
+

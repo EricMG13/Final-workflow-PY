@@ -1,0 +1,27 @@
+{
+  "kind": "manual_checked_handoff_delivery",
+  "analytical_rerun_for_delivery": false,
+  "production_code_changed": false,
+  "native_accepted_heads_created": false,
+  "no_excel_output": true,
+  "scope": "Manual report from checked current-host-model Markdown handoffs. Historical ARCC pair at 31 December 2024; issuer-evaluated values, conditional price bases and analytical display-precision sensitivity. Actual normalized comparison and downstream challenge; no supported ranking, current trade, full underwriting/all-series/portfolio approval, independent/native or CP-OS qualification. Excel is ingestion-only; no workbook output.",
+  "source_tables": 21,
+  "source_data_rows": 68,
+  "literal_value_cells_checked": 379,
+  "facts_and_exact_line_citations": 379,
+  "missing_null_cells": 0,
+  "front_summary_rows": 5,
+  "files": {
+    "CP-3-attempt-2.md": "9ef2f6e17a2e22fd980c72bf586a3807afdf44ab37043db2581d4ec0e2780bf8",
+    "CP-6-consumer.md": "5f6d862a3bbe44892f8611559e612faf7ebd9e32cf65e564f2fc71eca8692bd6",
+    "view.json": "921a8aa588d270ae3be67f2ddeddecb762d146c8feeceead39788968e5382af7",
+    "report-view.json": "9d495b36c64606232f2a7122d9839a62c171d27c4e6d117b7852171dfe5c20b0",
+    "report.html": "0185215cffa6d10ad1fc43eb7d69c164be6daf8c3f49e5bc86b7e358896e4c86"
+  },
+  "reused_code": {
+    "src/deploy_workflow/handoff_delivery.py": "aa77ae59a2e408f05a3cf2f5c7af92b4dde2b2df635f961545d49fc05bc0e00c",
+    "src/deploy_vii/contracts.py": "b07965cc3907da1911c29a09bfea8b4559fb1c27dfc57c7e89eab97f1a3d0ee3",
+    "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+    "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba"
+  }
+}

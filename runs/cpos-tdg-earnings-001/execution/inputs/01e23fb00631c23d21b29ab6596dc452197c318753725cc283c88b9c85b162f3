@@ -1,0 +1,3 @@
+# CP-1B — reuse checked TDG handoff
+
+Replay the exact retained CP-1B-attempt-1.md from runs/tdg-003. This is presentation/orchestration verification, not new analysis or an original execution receipt. The original instructions are ../tdg-003/CP-1B-instructions.md. Compare retained output with those instructions and the pinned issuer sources before delivery. Keep actual dates, USD millions, source identities, ordinary versus As Defined EBITDA, missing values, and disclosed limitations. The common frozen evaluation context includes later reference aids; it does not claim every earlier module originally saw every aid. Historical workbook references are superseded: Excel is ingestion only. Construct report deliverables from handoffs.

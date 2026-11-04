@@ -1,0 +1,21 @@
+{
+  "kind": "cpos-markdown-delivery/1",
+  "execution": "retained-response-replay",
+  "scope": "Historical consolidated TDG, FY2024/September 30 base; guidance dated November 7, 2024 and separately dated December-quarter context. This retrospective illustration is not an as-of-November-7 backtest or evidence-supported central forecast. USD millions; October\u2013September planning years FY2025\u2013FY2027. Stipulated cash drivers, annual repayments and excluded financing/other uses are assumptions, not a complete issuer plan. Model CFO/cash proxy and mechanical net debt are not issuer CFO/FCF or accessible liquidity. Missing minimum cash/access, quarterly troughs, complete maturities/refinancing, quality earnings and segment-driver mapping remain gaps. Analyst watches are not covenants or probabilities. All nine analytical registers are preserved. Existing native fiscal-wrapper refusal remains unpassed; this report preserves the explicit source planning dates. Retained-response replay, not fresh model/provider/native acceptance. Supplemental handoffs are pinned context, not newly launched native heads. Excel is ingestion-only; historical workbook-readiness language is superseded.",
+  "provider_cap_usd": 0,
+  "modules": {
+    "CP-0": "requests/CP-0/419f7d50b10f2adfb39da362229b3ba4215ca6520600477e78872340671b4f63/1.response.md",
+    "CP-1": "requests/CP-1/c620e33f4c5d40b8e11cc3576664a4343b2eadc6723fec0e5e7082766d2e7f94/1.response.md",
+    "CP-2A": "requests/CP-2A/6b52c2bdeb3804ee5a140d9a6fdf0f4b11de567fac534ad27239d00ac5cb269e/1.response.md",
+    "CP-2G": "requests/CP-2G/5238c93db31b7fea8f248d38d78afeda8c33346dc87fe6d2df34f0f6052e0212/1.response.md"
+  },
+  "module_execution": {
+    "CP-0": "retained-response-replay",
+    "CP-1": "retained-response-replay",
+    "CP-2A": "retained-response-replay",
+    "CP-2G": "retained-response-replay"
+  },
+  "cp_model_published": false,
+  "delivery_manifest_sha256": "29f41b5b97c750ca9534f0176b90166fafe6cc68d0286ecc3ae0800a0b5db15d",
+  "report_sha256": "b1662f6afd17c2e0b287635a1f6690a256adc75562d4ab83c530838c4ad1b2b3"
+}

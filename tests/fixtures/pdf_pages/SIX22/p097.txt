@@ -1,0 +1,91 @@
+16/06/2026, 22:24                                                  sec.gov/Archives/edgar/data/701374/000155837022001971/six-20220102x10k.htm
+
+
+                       Table of Contents
+
+
+
+                                                           SIX FLAGS ENTERTAINMENT CORPORATION
+                                                                     Consolidated Statements of Cash Flows
+
+                                                                                                                                        Year Ended
+                       (Amounts in thousands)                                                                January 2, 2022      December 31, 2020      December 31, 2019
+                       Cash flows from operating activities:
+                       Net income (loss)                                                                     $         171,689    $           (382,092)  $            219,818
+                       Adjustments to reconcile net income (loss) to net cash provided by
+                       operating activities:
+                           Depreciation and amortization                                                               114,434                 120,173                118,230
+                           Stock-based compensation                                                                     21,462                  19,530                  13,274
+                           Interest accretion on notes payable                                                            1,108                  1,157                   1,310
+                           Loss on debt extinguishment                                                                       —                   6,106                   6,484
+                           Amortization of debt issuance costs                                                            7,911                  6,535                   3,563
+                           Other, including loss on disposal of assets                                                  10,567                   (4,028)                (1,029)
+                           Gain on sale of investee                                                                          —                       —                     (724)
+                           Deferred income taxes expense (benefit)                                                      39,618                (134,199)                 78,386
+                           Change in accounts receivable                                                               (61,245)                 71,654                   7,725
+                           Change inventories, prepaid expenses and other current assets                                29,265                 (19,452)                (14,709)
+                           Change in deposits and other assets                                                              924                  5,604                  (1,665)
+                           Change in ROU operating leases                                                                 9,905                  4,477                   7,865
+                           Change in accounts payable, deferred revenue, accrued liabilities and
+                               other long-term liabilities                                                              12,078                  79,075                 (15,472)
+                           Change in operating lease liabilities                                                       (13,181)                     524                 (7,914)
+                           Change in accrued interest payable                                                            (9,630)                34,056                  (4,569)
+                       Net cash provided by (used in) operating activities                                             334,905                (190,880)               410,573
+
+                       Cash flows from investing activities:
+                           Additions to property and equipment                                                        (121,742)               (100,878)              (143,913)
+                           Property insurance recoveries                                                                     —                   2,514                   3,737
+                           Purchase of identifiable intangible assets                                                       (12)                     —                       —
+                           Proceeds from sale of assets                                                                      53                  7,470                   1,050
+                       Net cash used in investing activities                                                          (121,701)                (90,894)              (139,126)
+
+                       Cash flows from financing activities:
+                           Repayment of borrowings                                                                       (2,000)              (526,510)              (802,750)
+                           Proceeds from borrowings                                                                       2,000                884,000                970,000
+                           Payment of debt issuance costs                                                                    —                 (24,987)                  (9,911)
+                           Payment of cash dividends                                                                       (813)               (22,499)              (278,951)
+                           Proceeds from issuance of common stock                                                       14,486                   3,528                  19,627
+                           Stock repurchases                                                                             (5,295)                    (54)                    (52)
+                           Reduction in finance lease liability                                                            (641)                   (493)                     —
+                           Purchase of redeemable noncontrolling interest                                                (1,115)                 (4,976)                   (217)
+                           Distributions to noncontrolling interests                                                   (41,766)                (41,288)                (40,753)
+                       Net cash (used in) provided by financing activities                                             (35,144)                266,721               (143,007)
+
+                       Effect of exchange rate on cash                                                                     (235)                 (1,366)                 1,131
+
+                       Net increase (decrease) in cash and cash equivalents                                            177,825                 (16,419)               129,571
+                       Cash and cash equivalents at beginning of period                                                157,760                 174,179                  44,608
+                       Cash and cash equivalents at end of period                                            $         335,585    $            157,760   $            174,179
+
+                       Supplemental cash flow information
+                           Cash paid for interest                                                            $         147,628    $             99,239   $            114,398
+                           Cash paid for income taxes                                                        $          11,278    $              5,917   $              28,209
+                                                          See accompanying notes to consolidated financial statements.
+
+
+                                                                                                  56
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://www.sec.gov/Archives/edgar/data/701374/000155837022001971/six-20220102x10k.htm                                                                                                          97/170

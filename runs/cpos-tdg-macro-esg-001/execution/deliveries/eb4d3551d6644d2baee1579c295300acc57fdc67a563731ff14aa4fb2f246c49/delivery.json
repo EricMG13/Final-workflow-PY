@@ -1,0 +1,15 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Historical consolidated TDG, September 30, 2024/FY2024 base, USD millions. Later December-quarter context is separately dated. All nine macro and eight ESG registers remain in the full analytical module page/Evidence; selected overview tables use the existing report design. Source-reported approximately30 interest sensitivity, arithmetic gross91.89 and conditional cash illustration are different measures. Neither a complete net hedge/FX/cost sensitivity nor financing outcome is established. Forward-starting collars were not active at the base. Recorded remediation41 is not incremental stress loss or payment evidence; missing sustainability-linked terms, pricing and target assurance remain gaps. The issuer\u2019s contrary cost expectation is preserved. CP-2F is an alias request dispatched once as CP-2E. Supplemental handoffs are frozen context, not newly launched native heads. Retained-response replay, not fresh model/provider/native acceptance. Excel is ingestion-only; no workbook output.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-0.md": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0",
+    "CP-1.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+    "CP-2E.md": "1e9245ff7033e5f8ce9972b3a6ab7fdd1eb70f5a4395af1f7f84ef010ab2fc59",
+    "view.json": "ccc6bc55e2912aa1f27fc9b3326430f17f4b9ef0dc15a6fd88eebec32052ba72",
+    "report-view.json": "05e25093b20b012115ff81579962612333910f85fa34003fed242524a7f499c9",
+    "report.html": "f6c5625cd2cafccef0d15f502d242242d4a21f63488df328614f3ed224886e5d"
+  }
+}

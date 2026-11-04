@@ -1,0 +1,77 @@
+{
+  "base": {
+    "revenue": "7940",
+    "as_defined": "4173",
+    "debt": "24880",
+    "cash": "6261",
+    "reported_cfo": "2045",
+    "capex": "165",
+    "cash_interest": "1158",
+    "cash_tax": "539"
+  },
+  "guidance": {
+    "sales_range": [
+      "8750",
+      "8950"
+    ],
+    "as_defined_range": [
+      "4615",
+      "4755"
+    ],
+    "ordinary_ebitda": "4479",
+    "signed_adjustments": "206",
+    "accrual_interest": "1540",
+    "tax_provision": "616"
+  },
+  "growth": [
+    "0.1146",
+    "0.05",
+    "0.05"
+  ],
+  "reference_margin": "0.5294",
+  "upside_margin": "0.5494",
+  "capex_share": "0.02",
+  "combined_tax_wc_share": "0.10",
+  "cash_interest_rate": "0.06",
+  "repayment": [
+    "1000",
+    "1000",
+    "1000"
+  ],
+  "distributions": [
+    "4348",
+    "0",
+    "0"
+  ],
+  "downside_earnings_reduction": "0.20",
+  "downside_interest_increase": "0.10",
+  "watch_levels": {
+    "coverage": "3",
+    "leverage": "7",
+    "cash_proxy_floor": "0",
+    "coverage_floor": "1",
+    "minimum_liquidity": null
+  },
+  "planning_windows": [
+    [
+      "2024-10-01",
+      "2025-09-30"
+    ],
+    [
+      "2025-10-01",
+      "2026-09-30"
+    ],
+    [
+      "2026-10-01",
+      "2027-09-30"
+    ]
+  ],
+  "source_midpoints": [
+    "8850",
+    "4685"
+  ],
+  "driver_residuals": [
+    "-0.076",
+    "0.1497656"
+  ]
+}

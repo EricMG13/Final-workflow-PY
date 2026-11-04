@@ -1,0 +1,133 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "cpos-ford-funding-2024-1",
+    "issuer_id": "FORD-OTOSAN",
+    "issuer_name": "Ford Otomotiv Sanayi A.S.",
+    "as_of": "2024-04-11",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-3C"
+    ]
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "requests/CP-0/a6a4f057d62f42b1c27b8fff7b6332564cde1753ce22410a80d57dec58023b85/1.response.md",
+      "sha256": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79"
+    },
+    "CP-1": {
+      "path": "requests/CP-1/5e33d7d44f11caaa12db836e585511a5ca0661946915f97b2640724624fba464/1.response.md",
+      "sha256": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af"
+    },
+    "CP-2G": {
+      "path": "requests/CP-2G/b863c6e2910ef6de6db70cc9066e9f66848ab51bd8a6eb09de0167b2faf1a436/1.response.md",
+      "sha256": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931"
+    },
+    "CP-2H": {
+      "path": "requests/CP-2H/df0731c3358aaf5b30942b1bef4ea1c4b6846eb6f2cbcaca886bfbcee619d0b4/1.response.md",
+      "sha256": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72"
+    },
+    "CP-3C": {
+      "path": "requests/CP-3C/44d4ef624d4ad36c9fc0a122b420ff34db4779840cf00ddec42dd1a740d5fc24/1.response.md",
+      "sha256": "4dacb927b491334e57cd01fd848437156975cb0e1b44599e92eeaee490acaed8"
+    }
+  },
+  "model": null,
+  "layout": {
+    "blocks": [
+      "funding-gap",
+      "refinancing-paths"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-3C",
+        "heading": "Findings",
+        "kind": "table",
+        "block_id": "funding-gap",
+        "table_header": null,
+        "prefix": null,
+        "label": "Separate conditional cases · TRY billions"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Findings",
+        "kind": "prose",
+        "block_id": "funding-gap",
+        "table_header": null,
+        "prefix": "The source's 2024 plan",
+        "label": "Plan horizon and rounded components"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Findings",
+        "kind": "prose",
+        "block_id": "funding-gap",
+        "table_header": null,
+        "prefix": "These are separately stipulated cases.",
+        "label": "Conditions on the dividend and capex cases"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Calculations",
+        "kind": "prose",
+        "block_id": "funding-gap",
+        "table_header": null,
+        "prefix": null,
+        "label": "Calculation scope and separate currency scales"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Findings",
+        "kind": "prose",
+        "block_id": "refinancing-paths",
+        "table_header": null,
+        "prefix": "CP-2H changes how",
+        "label": "Funding access remains conditional"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Findings",
+        "kind": "prose",
+        "block_id": "refinancing-paths",
+        "table_header": null,
+        "prefix": "Do not substitute",
+        "label": "Metric definitions remain separate"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Findings",
+        "kind": "prose",
+        "block_id": "refinancing-paths",
+        "table_header": null,
+        "prefix": "The causal risk",
+        "label": "Causal risk and contrary case"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Gaps",
+        "kind": "prose",
+        "block_id": "refinancing-paths",
+        "table_header": null,
+        "prefix": null,
+        "label": "Unassessed legal capacity, feasibility and outcomes"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Next module",
+        "kind": "prose",
+        "block_id": "refinancing-paths",
+        "table_header": null,
+        "prefix": null,
+        "label": "Targeted next-module evidence needs"
+      }
+    ],
+    "scope": "Historical Ford Otomotiv Sanayi A.S. (Ford Otosan), April 11, 2024. Bounded published-plan funding intake from actual retained handoffs. Plan covers 2024 starting January 1; not twelve months from the April review. Displayed rounded TRY-billion components use the full up-to-2 working-capital swing. Proposed bond proceeds and purpose-specific capex facility availability remain conditional; dividend overlay and exactly-15% capex mitigation are separate stipulated cases, not actual failures or the agency working model. TRY-million forecasts remain separate. Complete maturities, operative documents, unrestricted access, refinancing/LME feasibility, creditor treatment and outcomes remain unassessed. Retained-response replay, not fresh model/provider/native acceptance. Excel is an analytical input only; no workbook output.",
+    "title": "Ford Otosan · historical funding review",
+    "question": "What does the April 2024 published funding plan support, and which access and cash-use assumptions change its coverage?",
+    "issuer_aliases": [
+      "Ford Otosan"
+    ]
+  }
+}

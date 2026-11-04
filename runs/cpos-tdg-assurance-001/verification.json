@@ -1,0 +1,581 @@
+{
+  "stage": "complete for this bounded module/alias link; overall module/pathway goal remains active",
+  "request": "runs/cpos-tdg-assurance-001/execution/requests/CP-5/12ca480ab90ce4b124434290566bdb1d67c252dd74b1cd0c2e8acd9753ea35f9/1.request.json",
+  "request_sha256": "4491a77ec1a689222b5dc87fdc684ca839704413670ba5521aa4f8fe7dd0250b",
+  "frozen_source_hashes": {
+    "H1-raw": "7e902c48d87067b4ea96c388ab2ca460c9c1c3c2e2960da09629377a7b359b0d",
+    "H1-text": "191aaf6cc1203f4448060005329f004e2279bb57fce9da63eb832b8a80691340",
+    "H1-xbrl": "e2850aaea64c7611b764f0884196a458804c08c3f13f8a80e6cfe2c28b198630",
+    "H2-raw": "74876b8874a3a396efd700114b280f45fcfcd3f11ceae31adee98c93bfacbf03",
+    "H2-text": "40634987739c484b40c6891c908bf83f45de869f6d07d8482262006e31221053",
+    "H2-xbrl": "9e94555a5133646e0675305ab9abe04c55932a63e8aeea755b2d4a275b06761e",
+    "H3-raw": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+    "H3-text": "d94c5e2a382127f2f016413ad1e7f7837cfd188e4dc3a86f16ef0d4544c557de",
+    "H3-xbrl": "e0daf256ed189fbebf405499f34fc77cf04a126da929f0d7b4969fb69736919b",
+    "H4-raw": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+    "H4-text": "38b4642199a5381aca22f1ff4f5973ecc3430dfb24d068bf8058e962db99db71",
+    "H4-xbrl": "85418fd03517a339b5d54c5bfd1b37769c37a7c0752237f593ff2833d5273448",
+    "annual-CP1-reference": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+    "annual-pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+    "annual-reading-aid": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+    "cp1-annual-original": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+    "cp1-calculations": "f6baddb8bdf35d8cb9c10ca062067cad2e86463e1baad7ade7a18ef5ff6f38eb",
+    "cp1b-calculations": "bb61c12fb934ec3523307954d88b8a16cdf372beda7296ccb43d615c2b346836",
+    "evaluated-delivery/CP-0.md": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+    "evaluated-delivery/CP-1.md": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+    "evaluated-delivery/CP-1B.md": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+    "evaluated-delivery/CP-1D.md": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+    "evaluated-delivery/delivery.json": "53bb291e9cb1ce0ce1d68d414aa4ac19148ef3d5764dcf7801a0e3d8b03ef50f",
+    "evaluated-delivery/report-view.json": "c528399b4bbe86e361f7b12f4b12da37c8456ee136493d070ee97b446342db1e",
+    "evaluated-delivery/report.html": "0935f491fc6c20c1b98c238a2bac89e460ba4d3a6a0b37e569291394a43c1d8f",
+    "evaluated-delivery/view.json": "3798bf7479132f7ecf0dfae7777b489eb4acb6b19cbf680bd2b27c9ded16018f",
+    "expectations": "a6baacb0c184e96735c9516971297a621b42e17b2a995bfc8506a6ecada74022",
+    "later-support-contradiction-method": "81cf6bea9b56ad63fd9cc38c32bf4cef9b9c1e48b750f8c803cb4d8874d64d67",
+    "method/SKILL.md": "7f21c8712cb40e871abaa1f855fdb95dded5df9887e354c39253e0492dd93390",
+    "method/references/CP-5_RUNBOOK.md": "c053b622c63b242364a8e53c1b2e676f6f02c1ce6a4f7e87728c885e9fd68434",
+    "method/references/REF_CP-5A_STEPS.md": "e93781b8055e0c33e744b06fb0706161885400d6f8c7ef07a743497d4a865e8d",
+    "method/references/REF_CP-5_STEPS.md": "0b5beddbc0a5d3c99065379b7110e3b87fbc5392d38ed243ccbf7fdce70e506a",
+    "method/scripts/confidence_score.py": "6e88bc8c70f65cd9478d4e5c7f460c13d4b49f8e3dc5f540e28ec8acc0648b3f",
+    "original-quality-instructions": "6c71bc731480124fca01a5f3aceca94ea5102b1fa09411cefee4c79907aa0a98",
+    "pension-visual": "ecfde5816ead1f994e29e03c7168778974f36ad99c3dbeaf8598edb219e54de2",
+    "quality-calculation-record": "ad7b384c0d962cfd43195c7f2656c6c1f1056065e16e3f2662ff4b20181532fb",
+    "raw-unit-definitions": "43065ea24743ed74c91bf75155e4036b772c6c18b538bd4034ad7cfbf0398dc1",
+    "selected-quality-method": "9682b2da83fe7fd3288cae31fc5d1cf7f6d2daa3de2fac297637fe13d5e8e2ae",
+    "source-preparation-manifest": "b75c003aabd0e05db5bf74f078b84943468c9d06b5609afbcbdbc341b29d310a"
+  },
+  "actual_upstream_hashes": {
+    "CP-0": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+    "CP-1": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+    "CP-1B": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+    "CP-1D": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b"
+  },
+  "source_files_checked": 39,
+  "evaluated_bundle_files_checked": 8,
+  "original_line_citations_checked": 1598,
+  "parity_controls_from_retained_verified_publication": {
+    "eight_populated_blocks": true,
+    "all_thirteen_registers_exact_once": true,
+    "register_rows": 57,
+    "register_cells_including_row_labels": 227,
+    "placements": {
+      "T1D.1": {
+        "block": "ebitda-adjustments",
+        "rows": 7,
+        "cells": 35,
+        "headers": [
+          "ID / period",
+          "Issuer description",
+          "Amount",
+          "Category / management rationale",
+          "Evidence"
+        ]
+      },
+      "T1D.4": {
+        "block": "ebitda-adjustments",
+        "rows": 5,
+        "cells": 20,
+        "headers": [
+          "Step",
+          "Source adjustment",
+          "Cumulative issuer EBITDA",
+          "Quality treatment / cumulative quality value"
+        ]
+      },
+      "T1D.7": {
+        "block": "ebitda-adjustments",
+        "rows": 3,
+        "cells": 9,
+        "headers": [
+          "Gap",
+          "Missing evidence",
+          "Affected conclusion / follow-up"
+        ]
+      },
+      "T1D.2": {
+        "block": "earnings-quality",
+        "rows": 4,
+        "cells": 16,
+        "headers": [
+          "ID",
+          "Evidence of action / realisation",
+          "Assessment and counterevidence",
+          "Accepted normalisation / limitation"
+        ]
+      },
+      "T1D.3": {
+        "block": "earnings-quality",
+        "rows": 4,
+        "cells": 12,
+        "headers": [
+          "Category",
+          "Named prior periods and current evidence",
+          "Verdict / creditor mechanism"
+        ]
+      },
+      "T1D.5": {
+        "block": "restated-leverage",
+        "rows": 3,
+        "cells": 15,
+        "headers": [
+          "Basis / FY2024",
+          "EBITDA",
+          "OCF",
+          "Calculated OCF / EBITDA",
+          "Explanation and creditor consequence"
+        ]
+      },
+      "T1D.6": {
+        "block": "restated-leverage",
+        "rows": 2,
+        "cells": 10,
+        "headers": [
+          "Calculated measure, September 30, 2024",
+          "Ordinary EBITDA",
+          "Issuer As Defined",
+          "Quality-adjusted EBITDA",
+          "Meaning"
+        ]
+      },
+      "T1E.1": {
+        "block": "restated-leverage",
+        "rows": 9,
+        "cells": 36,
+        "headers": [
+          "Item",
+          "Reported amount / date",
+          "Category and disclosure quality",
+          "Evidence"
+        ]
+      },
+      "T1E.2": {
+        "block": "restated-leverage",
+        "rows": 5,
+        "cells": 15,
+        "headers": [
+          "Item",
+          "Treatment / adjustment",
+          "Analytical convention, basis and counterevidence"
+        ]
+      },
+      "T1E.3": {
+        "block": "restated-leverage",
+        "rows": 5,
+        "cells": 20,
+        "headers": [
+          "Step",
+          "Increment",
+          "Cumulative known subtotal",
+          "Basis"
+        ]
+      },
+      "T1E.4": {
+        "block": "restated-leverage",
+        "rows": 3,
+        "cells": 15,
+        "headers": [
+          "Annual denominator",
+          "CP-1 carrying debt",
+          "Known adjusted subtotal",
+          "Delta",
+          "Creditor implication"
+        ]
+      },
+      "T1E.5": {
+        "block": "restated-leverage",
+        "rows": 3,
+        "cells": 12,
+        "headers": [
+          "Item",
+          "This analysis",
+          "Agency / alternative treatment",
+          "Status and reason"
+        ]
+      },
+      "T1E.6": {
+        "block": "restated-leverage",
+        "rows": 4,
+        "cells": 12,
+        "headers": [
+          "Gap",
+          "Missing data / why it matters",
+          "Output effect and follow-up"
+        ]
+      }
+    },
+    "five_existing_blocks_identical": true,
+    "all_original_line_hash_citations": 1598,
+    "facts": 1308,
+    "canonical_module_count": 4,
+    "cp1d_present_once": true,
+    "alias_exposed": true,
+    "requests_retained": 4,
+    "one_completion_after_resume": true,
+    "no_excel_output": true,
+    "replay_not_analytical_execution": true,
+    "exact_publication_verified": true
+  },
+  "independent_numerical_controls": {
+    "debt_december": 25049,
+    "net_debt_december": 22590,
+    "cash_liquidity": 3308,
+    "quarter_bridge": 1061,
+    "quarter_adjustment": -26,
+    "cash_proxy_current": 710,
+    "cash_proxy_prior": 600,
+    "revenue_delta": 217,
+    "organic_delta": 118,
+    "acquisition_delta": 99,
+    "cash_decline_yoy": 1676,
+    "cash_decline_sequential": 3802,
+    "annual_bridge": 4173,
+    "known_debt_subtotal": 24961,
+    "pension_gross": 19,
+    "net_pension": 6,
+    "current_window_days": 89,
+    "prior_window_days": 91
+  },
+  "independent_rounded_controls": {
+    "revenue_growth_percent": "12.13%",
+    "annual_ocf_ordinary": "53.63%",
+    "annual_ocf_as_defined": "49.01%"
+  },
+  "lineage_counts": {
+    "Directly Sourced": 5,
+    "Calculated": 10,
+    "Analyst Inference": 2,
+    "Conflicting": 1,
+    "Insufficient Information": 2
+  },
+  "trace_checklist": {
+    "fields": 9,
+    "claims": 20,
+    "present": 180,
+    "total": 180,
+    "meaning": "Declared claim-trace fields only; not full source/schema/underwriting completeness."
+  },
+  "confidence_helper_sha256": "6e88bc8c70f65cd9478d4e5c7f460c13d4b49f8e3dc5f540e28ec8acc0648b3f",
+  "confidence_helper_output": {
+    "E": 74.0,
+    "C": 100.0,
+    "S": 0.7,
+    "P": 30,
+    "material_claims": 20,
+    "raw_score": 29.08,
+    "confidence_score": 29,
+    "confidence_band": "Insufficient Information",
+    "qa_status": "Restricted",
+    "working": "score = clamp((0.6*74 + 0.4*100) * 0.7 - 30, 0, 100) = 29.08 -> 29"
+  },
+  "independent_score_raw_fraction": "727/25",
+  "actual_material_findings": [
+    {
+      "id": "CP5-001",
+      "scope": "Incomplete selected source review/coverage restricts broader assurance; inherited, not new analytical fabrication."
+    },
+    {
+      "id": "CP5-002",
+      "scope": "Unresolved annual/interim dividend-equivalent disclosure difference; inherited and explicitly qualified."
+    }
+  ],
+  "scope": "Current host-model support judgments follow; context/oracle visible, no independence/provider/native claim.",
+  "fresh_delivery_parity_recheck": {
+    "tables": 13,
+    "matching_once": true,
+    "five_earlier_blocks_equal": true,
+    "method": "Independent regular-table parser versus current ReportView cells; no production calculation oracle."
+  },
+  "semantic_review": [
+    "Twenty qualified assertions reviewed; corrected C04 has Calculated lineage. Insufficient evidence and disclosed conflicts do not become hidden unsupported positives.",
+    "Carrying debt includes separate securitization once; quantity/period families, ordinary/As Defined bridges, OCF/proxy definitions and pension quantities match actual source passages and independent arithmetic.",
+    "Two Material restrictions concern inherited source scope and event disaggregation; neither invalidates reported quarter cash or creates a Critical producer error.",
+    "No incompatible cross-module claim pair found within the explicitly selected set; annual versus quarter/instant differences are not contradictions.",
+    "All five auditability dimensions and eight audit lanes addressed; no operative legal, RV, rating, trading or full-source clearance manufactured.",
+    "The numerical trace score is 29 / Insufficient Information / Restricted; no severity tuned for a preferred score, and no retroactive overwrite of analyst Medium confidence.",
+    "Four false-claim controls use actual contrary evidence, remain explicitly hypothetical and are excluded from actual issue counts, score and production data.",
+    "No producer repair or methodological broadening justified by observed actual output; current host/context-visible execution is not independent/native/provider reliability proof."
+  ],
+  "replay_equivalence_before_explicit_mode_banner": {
+    "report_sha256": "141c80f2e145e5a9e0a0af823f731ce370e4d4d33e1d6180acdb3a35d13392fc",
+    "exact_primary_report_bytes": true
+  },
+  "response_history": [
+    {
+      "path": "runs/cpos-tdg-assurance-001/execution/requests/CP-5/6d57b9943dd8e0b6d365167a69c13eb8e1ad81686883d690d8dedc6d1f647764/1.response.md",
+      "sha256": "ab30010d7ea5e79831fcfa0825ccea93f48b2c5afa2a5ea7f47c4bb76630d82f",
+      "lines": 327,
+      "analytical_tables": 17,
+      "trace_claims": 20,
+      "counterfactual_controls": 4,
+      "actual_issues": {
+        "critical": 0,
+        "material": 2,
+        "minor": 0
+      }
+    }
+  ],
+  "actual_response": {
+    "path": "runs/cpos-tdg-assurance-001/execution/requests/CP-5/12ca480ab90ce4b124434290566bdb1d67c252dd74b1cd0c2e8acd9753ea35f9/1.response.md",
+    "sha256": "dbf8849b2ebcccfd6bd9ae8851cf7ede3f22c1a80b0c13bc271dd62dd76f6ec6",
+    "lines": 333,
+    "analytical_tables": 17,
+    "trace_claims": 20,
+    "counterfactual_controls": 4,
+    "actual_issues": {
+      "critical": 0,
+      "material": 2,
+      "minor": 0
+    }
+  },
+  "observed_repairs": [
+    {
+      "issue": "First actual CP-5 response incorrectly labelled derived C04 debt/net-debt quantities as Directly Sourced.",
+      "root_cause": "Applied the strongest lineage of reported operands to the computed assertion, rather than the assertion’s own derivation.",
+      "refutation": "H4 balance/debt tables supply components; 24,302+98+649 and subtraction of reported cash are necessary to obtain the asserted totals.",
+      "repair": "Targeted new CP-5 instruction revision; C04 Calculated, Directly Sourced 6→5 and Calculated 9→10, E 74.5→74.0, raw 29.29→29.08. Final rounded score/verdict and all financial data remain unchanged.",
+      "request_path": "runs/cpos-tdg-assurance-001/execution/requests/CP-5/12ca480ab90ce4b124434290566bdb1d67c252dd74b1cd0c2e8acd9753ea35f9/1.request.json",
+      "request_sha256": "4491a77ec1a689222b5dc87fdc684ca839704413670ba5521aa4f8fe7dd0250b",
+      "earlier_answer_sha256": "ab30010d7ea5e79831fcfa0825ccea93f48b2c5afa2a5ea7f47c4bb76630d82f"
+    }
+  ],
+  "delivery_history": [
+    {
+      "report": "runs/cpos-tdg-assurance-001/execution/deliveries/a1e14be6020f4eda9d22822312380cd1be9dab8981821d7cbd70ee274fd2643c/report.html",
+      "report_sha256": "03b8ececf686c711e31bd61fe8e6a8174e99f00a5588f427735b953a799bf9b2",
+      "files": {
+        "CP-1B.md": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+        "report-view.json": "380ae3164b2b523a976286fcb20aeab9fb2fb73fee365921790783ed7d90742b",
+        "delivery.json": "4620f4281ae87b5a2e20672d327b0f2b6e42e296cf24e87186f15443f1f1f05a",
+        "view.json": "4e6ebef92f1124ee11088b6af5f2a056589609c51cbed025fb11a874166c3ddf",
+        "CP-0.md": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+        "CP-1.md": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+        "CP-5.md": "ab30010d7ea5e79831fcfa0825ccea93f48b2c5afa2a5ea7f47c4bb76630d82f",
+        "CP-1D.md": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+        "report.html": "03b8ececf686c711e31bd61fe8e6a8174e99f00a5588f427735b953a799bf9b2"
+      },
+      "cp5_tables_matched_exactly": {
+        "T5B.1 — source register and gate": {
+          "rows": 3,
+          "cells": 12
+        },
+        "T5B.2 — five material drivers": {
+          "rows": 5,
+          "cells": 20
+        },
+        "T5B.3 — material support and lineage": {
+          "rows": 20,
+          "cells": 180
+        },
+        "T5B.4 — statement-level source lineage": {
+          "rows": 20,
+          "cells": 60
+        },
+        "T5B.5 — calculations and assumptions": {
+          "rows": 8,
+          "cells": 24
+        },
+        "T5B.6 — weak/conflicting lineage flags": {
+          "rows": 2,
+          "cells": 8
+        },
+        "T5B.7 — five auditability dimensions": {
+          "rows": 5,
+          "cells": 20
+        },
+        "T5B.8 — gaps ledger": {
+          "rows": 5,
+          "cells": 20
+        },
+        "T5.1 — input module register": {
+          "rows": 5,
+          "cells": 15
+        },
+        "T5.2 — citation / support audit": {
+          "rows": 2,
+          "cells": 6
+        },
+        "T5.3 — math / logic / definition audit": {
+          "rows": 2,
+          "cells": 6
+        },
+        "T5.4 — legal / structural audit": {
+          "rows": 1,
+          "cells": 3
+        },
+        "T5.5 — market / relative-value audit": {
+          "rows": 1,
+          "cells": 3
+        },
+        "T5.6 — cross-module consistency / versions": {
+          "rows": 3,
+          "cells": 9
+        },
+        "T5.7 — materiality / presentation audit": {
+          "rows": 1,
+          "cells": 2
+        },
+        "T5.8 — handoff / trace audit": {
+          "rows": 1,
+          "cells": 2
+        },
+        "T5.9 — consolidated issue log": {
+          "rows": 2,
+          "cells": 10
+        }
+      },
+      "eight_analytical_blocks_identical": true,
+      "all_original_line_citations": 2037,
+      "literal_facts": 1669,
+      "cp5_facts": 361,
+      "module_execution": {
+        "CP-0": "retained-response-replay",
+        "CP-1": "retained-response-replay",
+        "CP-1B": "retained-response-replay",
+        "CP-1D": "retained-response-replay",
+        "CP-5": "host-session"
+      },
+      "cp5_actual_host_responses": 1,
+      "no_excel_output": true
+    }
+  ],
+  "delivery": {
+    "report": "runs/cpos-tdg-assurance-001/execution/deliveries/d7e9aed9c0da5d2bc7b91f839456c0a0e449a6f200e82d36d5ba335f5351da66/report.html",
+    "report_sha256": "7aefaafe77068bc6fb066911332e325d0da66dc78a1ae537dbac9258bb577fc7",
+    "files": {
+      "CP-1B.md": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+      "report-view.json": "b5600188a3aad5b175b38b3b0ac4438bca9963fa3232630f25f28a88ef85f9f0",
+      "delivery.json": "b0e5949c5af130d69fe957f1cb81b5fb1e11f1c3106a9700fd6beac125a4d688",
+      "view.json": "6fde78cb48bc8020a99a4f712837845bb3ec5a7df7575ce83149de3cf80eacae",
+      "CP-0.md": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+      "CP-1.md": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+      "CP-5.md": "dbf8849b2ebcccfd6bd9ae8851cf7ede3f22c1a80b0c13bc271dd62dd76f6ec6",
+      "CP-1D.md": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+      "report.html": "7aefaafe77068bc6fb066911332e325d0da66dc78a1ae537dbac9258bb577fc7"
+    },
+    "cp5_tables_matched_exactly": {
+      "T5B.1 — source register and gate": {
+        "rows": 3,
+        "cells": 12
+      },
+      "T5B.2 — five material drivers": {
+        "rows": 5,
+        "cells": 20
+      },
+      "T5B.3 — material support and lineage": {
+        "rows": 20,
+        "cells": 180
+      },
+      "T5B.4 — statement-level source lineage": {
+        "rows": 20,
+        "cells": 60
+      },
+      "T5B.5 — calculations and assumptions": {
+        "rows": 8,
+        "cells": 24
+      },
+      "T5B.6 — weak/conflicting lineage flags": {
+        "rows": 2,
+        "cells": 8
+      },
+      "T5B.7 — five auditability dimensions": {
+        "rows": 5,
+        "cells": 20
+      },
+      "T5B.8 — gaps ledger": {
+        "rows": 5,
+        "cells": 20
+      },
+      "T5.1 — input module register": {
+        "rows": 5,
+        "cells": 15
+      },
+      "T5.2 — citation / support audit": {
+        "rows": 2,
+        "cells": 6
+      },
+      "T5.3 — math / logic / definition audit": {
+        "rows": 2,
+        "cells": 6
+      },
+      "T5.4 — legal / structural audit": {
+        "rows": 1,
+        "cells": 3
+      },
+      "T5.5 — market / relative-value audit": {
+        "rows": 1,
+        "cells": 3
+      },
+      "T5.6 — cross-module consistency / versions": {
+        "rows": 3,
+        "cells": 9
+      },
+      "T5.7 — materiality / presentation audit": {
+        "rows": 1,
+        "cells": 2
+      },
+      "T5.8 — handoff / trace audit": {
+        "rows": 1,
+        "cells": 2
+      },
+      "T5.9 — consolidated issue log": {
+        "rows": 2,
+        "cells": 10
+      }
+    },
+    "eight_analytical_blocks_identical": true,
+    "all_original_line_citations": 2042,
+    "literal_facts": 1670,
+    "cp5_facts": 362,
+    "module_execution": {
+      "CP-0": "retained-response-replay",
+      "CP-1": "retained-response-replay",
+      "CP-1B": "retained-response-replay",
+      "CP-1D": "retained-response-replay",
+      "CP-5": "host-session"
+    },
+    "cp5_actual_host_responses": 2,
+    "no_excel_output": true
+  },
+  "initial_request": {
+    "path": "runs/cpos-tdg-assurance-001/execution/requests/CP-5/6d57b9943dd8e0b6d365167a69c13eb8e1ad81686883d690d8dedc6d1f647764/1.request.json",
+    "sha256": "fc407a36bc1e5c4ce77233a4c8501e51aa022649f055ba08cf83d5bd8b23d4d3"
+  },
+  "publication_label_repair": {
+    "root": "Inherited banner described all work as replay although CP-5 was a new host answer.",
+    "repair": "Mixed origins now explicit; four reused upstreams, actual host CP-5. Explicit replay manifest labels all-five-answer replay.",
+    "model_reexecution_for_label_fix": false
+  },
+  "execution": "Current host with context: actual CP-5 plus one targeted lineage repair; four upstream answers replayed. No provider/native/independence claim.",
+  "fresh_host_responses": 2,
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "subagents_used": false,
+  "production_code_changed": false,
+  "excel_output": false,
+  "workflow_sha256": "de7838ba77b09353b1e75d2eaf22580f049c835a7de624aef456bd81fac7a668",
+  "replay_workflow_sha256": "0ab4e1e5345328f5d710d8fa2647b6b55173e47cd4420f58563f31b9d8e6493c",
+  "production_source_sha256": {
+    "src/deploy_workflow/markdown_delivery.py": "9670707024a4745a889f90e5d0d0aae16b294c5a373ca59ee3009541f30dad42",
+    "src/deploy_workflow/handoff_delivery.py": "4d505fa46029dc975c4ee33d15fae597d52c6819c8754bb8fdede6973fc43cec",
+    "src/deploy_workflow/owners/cpos.py": "bd6b8097aca9b01a42048be6b567a6e167115d54ebca8117bfbec80afc7c14e2",
+    "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+    "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba"
+  },
+  "browser": {
+    "result": "Final DOM confirms C04 Calculated, E74.0/raw29.08/score29 Restricted, exact C04 line101 and dbf884... source hash. Earlier view confirmed two actual Material issue rows, explicit counterfactual exclusion, scoped clearance and mixed execution-origin banner.",
+    "server": "127.0.0.1:8784 stopped"
+  },
+  "replay": {
+    "command": "PYTHONPATH=src .venv/bin/python -m deploy_workflow.owners.cpos --manifest runs/cpos-tdg-assurance-001/workflow-replay.json --state /tmp/final-workflow-cp5-assurance-replay-001",
+    "report": "/tmp/final-workflow-cp5-assurance-replay-001/deliveries/50ac1dd9a3050198e312e00bc71b82ae0ad0f5df555c2136cef0d035aaefcb6b/report.html",
+    "report_sha256": "ef2dba3fd00454d73a44bb3fed2c3781582367db5a0dafe2d031a3822dbd4ffe",
+    "all_handoff_view_reportview_bytes_equal_to_final_host_publication": true,
+    "scope_banner": "Explicitly all-five-answer replay; no new model analysis",
+    "mode": "retained-response-replay"
+  },
+  "verification_scope": "Actual host response and targeted repair, source/instruction/independent calculation review, 17 exact tables/86 rows, all 2,042 source-line citations, unchanged eight analytical blocks, final browser/source check and retained replay. No new production test or model-independence measurement.",
+  "remaining": [
+    "No full current underwriting, source coverage or resolved dividend-equivalent explanation.",
+    "No native/provider reviewer qualification or independent-context reliability claim.",
+    "Other module/pathway integration and full requested deliverables remain active work."
+  ]
+}

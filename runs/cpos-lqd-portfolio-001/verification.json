@@ -1,0 +1,345 @@
+{
+  "status": "All eight Portfolio Decision sections delivered through CP-OS from checked actual retained handoffs; broader goal active",
+  "execution": "retained-response-replay",
+  "source_and_original_method_pins_checked": 19,
+  "full_preset_sections_requested": 8,
+  "production_code_changes": [
+    "src/deploy_workflow/markdown_delivery.py"
+  ],
+  "provider_calls": 0,
+  "excel_output": false,
+  "checks": {
+    "report": "runs/cpos-lqd-portfolio-001/execution/deliveries/827427820e0e5f1d647ef2323182d9a59eb88edb97a4773b838b01e2ed14e5c4/report.html",
+    "sha256": "fc0c1f9b2344f807e0a48961c02fc01b8dc5fdd27c015d8ffeacaf35dba2f94d",
+    "all_preset_sections": 8,
+    "facts": 498,
+    "exact_handoff_citations": 659,
+    "raw_table_values": 466,
+    "source_holding_rows_and_fields": [
+      5,
+      7
+    ],
+    "money_oracle_checks": 12,
+    "ratio_oracle_checks": 7,
+    "old_report_bytes_preserved": {
+      "/Users/ericguei/Documents/final-workflow/runs/cpos-lqd-portfolio-001/execution/deliveries/2336af3e631c4d722bc45adb36f2db3342019ceedbce4193e2b03c0e0c8c5495/report.html": "1a931f58a701c1051e8e49f37dde31a7f694d3ffa5ea0255d362e189bb5cfd8b",
+      "/Users/ericguei/Documents/final-workflow/runs/cpos-lqd-portfolio-001/execution/deliveries/2cf858bf91e26b7e97f267ef880274746ea445024520431026492d980e664654/report.html": "dbc97fbd5cc577e12508f55fc1c5a134aebfd4e5484c1790f3c36eb1fe481696"
+    },
+    "code_files_unchanged_during_verification": 210,
+    "source_context_pins": 19,
+    "case_pins_verified": 219,
+    "negative_controls": [
+      {
+        "kind": "source",
+        "refusal": "cpos_input_changed: context/0"
+      },
+      {
+        "kind": "stale-upstream",
+        "refusal": "cpos_retained_stale: CP-6"
+      },
+      {
+        "kind": "forged-report-and-receipt",
+        "refusal": "delivery_changed: report.html"
+      }
+    ],
+    "call": [
+      {
+        "kind": "fact",
+        "label": "Portfolio posture",
+        "value_text": "Requires More Work",
+        "meter": null,
+        "ref_id": "C233",
+        "direction": null,
+        "line": false
+      }
+    ],
+    "header_source": {
+      "Source": "CP-6",
+      "Locator": "line 142",
+      "Quote": "**Final Sizing Posture: Requires More Work. The decision is driven by real held",
+      "SHA-256": "805f90563c8019d4ed34650011532d5e19e7bf75815b6556b43c7d8295eeb93d"
+    },
+    "no_executor_resume": true,
+    "excel_output": false
+  },
+  "workflow": {
+    "path": "runs/cpos-lqd-portfolio-001/workflow.json",
+    "sha256": "c571c465b9967a464410aa709baf42c4d9ebe197d378b2d267bee38c538a3a32",
+    "requested_aliases": [
+      "CP-3B",
+      "CP-6A",
+      "CP-5A"
+    ],
+    "canonical_order": [
+      "CP-3",
+      "CP-6",
+      "CP-5"
+    ],
+    "source_context": "New evaluation context over frozen actual answers, not reconstructed original native receipts. Earlier CP5 is source context; current CP5 is the post-repair recheck.",
+    "max_attempts": 1,
+    "provider_cap_usd": 0,
+    "scope": "Historical May31 2025 LQD-held ARCC subset, not a current portfolio or complete fund underwriting. CP-OS publishes all eight sections of the existing Portfolio Decision design from actual retained CP-3/CP-3B, CP-6/CP-6A and final CP-5/CP-5A answers. This is checked publication replay; personas were simulated in the original same host, not independent agents. Requires More Work; no supported market preference, numeric new size, mandate clearance, exact binding limit or execution approval. USD holdings and conditional losses retain matching fund NAV; on-loan and July2029 amounts are subsets. Older issuer context is not May2025 underwriting. Current literal inspector preserves quantities/periods in text/citations; no native numeric facets, accepted heads, new analytical run or Excel output. Earlier QA remains frozen context; current CP-5 is the actual final recheck. What Changed identifies the historical debate-attempt1 to attempt2 reasoning repair documented by CP-5; no new financial period or run-to-run financial update is inferred."
+  },
+  "actual_handoffs": {
+    "CP-3": {
+      "path": "../lqd-portfolio-001/CP-3.md",
+      "sha256": "6afd9798ba22956bc98b333a35d8bffddc43e23d04f052767ba427ff70e6e10f",
+      "source_hashes": {
+        "context/0": "b506932e7abb629e5da139f0f049673c4737c662c988f4e0ee69fd799787bafa",
+        "context/1": "c686fbe33f83970fa235e666f66a1caa55b3dbaab6eed2fe87d8bca3de8f640d",
+        "context/2": "9e134207ab85d004174ef27094948bdcbd798601def55cf307b63c5c302c4711",
+        "context/3": "0ae74db02dd569fe7805e62a661f22cd436494183ba5cb928f8be37aa549a96b",
+        "context/4": "f91e1ef62493c6bd734555dc7d4ee8b397a53f939a88f2c0e42b331880ae49e3",
+        "context/5": "9e36ee1bc5ed1b2a99ffb2e8bc1ed2a10e2a3d26b70083a00beb598a8d1c9478",
+        "context/6": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9",
+        "context/7": "ca53528bf1f6d9758a7d9194e76af181eb884e237388fe46e839e601606168b6",
+        "context/8": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1",
+        "context/9": "6094c0aceae47371363fb9aed6906e41feab902268b10f3a347ebdf47e5400e1",
+        "context/10": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa",
+        "context/11": "55f6bdfbe12aa531606003a1896ccfec14b5e687dd94f68dc1f7465b2aa3b91f",
+        "context/12": "9b6083e81376b307408c6c10662bc24543e2f80c039a362420869fee7e3e6bd0",
+        "context/13": "6afd9798ba22956bc98b333a35d8bffddc43e23d04f052767ba427ff70e6e10f",
+        "context/14": "48a1d06dee47d9e793eb74327f040446301cd5707f653c4acb76b19407b2829e",
+        "context/15": "aac4dfcdf87d3800f25f5331aeb6c36dd165655f6af18dbe74f8cd55dd8169a9",
+        "context/16": "7617ce8e9f605035939d57fdf019636510ba08d9cb2388d561be04d574bb11df",
+        "context/17": "f953af594dee58522fc3e9fe92b9872aedce5e59a2a954281aa4fbb6d3ded2cf",
+        "context/18": "f05e02e0f15851d53055cf789fafd09e075c5cc23e9d4f93bce22aaff8f8c1e5"
+      },
+      "upstream": {}
+    },
+    "CP-6": {
+      "path": "../lqd-debate-001/CP-6-attempt-2.md",
+      "sha256": "805f90563c8019d4ed34650011532d5e19e7bf75815b6556b43c7d8295eeb93d",
+      "source_hashes": {
+        "context/0": "b506932e7abb629e5da139f0f049673c4737c662c988f4e0ee69fd799787bafa",
+        "context/1": "c686fbe33f83970fa235e666f66a1caa55b3dbaab6eed2fe87d8bca3de8f640d",
+        "context/2": "9e134207ab85d004174ef27094948bdcbd798601def55cf307b63c5c302c4711",
+        "context/3": "0ae74db02dd569fe7805e62a661f22cd436494183ba5cb928f8be37aa549a96b",
+        "context/4": "f91e1ef62493c6bd734555dc7d4ee8b397a53f939a88f2c0e42b331880ae49e3",
+        "context/5": "9e36ee1bc5ed1b2a99ffb2e8bc1ed2a10e2a3d26b70083a00beb598a8d1c9478",
+        "context/6": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9",
+        "context/7": "ca53528bf1f6d9758a7d9194e76af181eb884e237388fe46e839e601606168b6",
+        "context/8": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1",
+        "context/9": "6094c0aceae47371363fb9aed6906e41feab902268b10f3a347ebdf47e5400e1",
+        "context/10": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa",
+        "context/11": "55f6bdfbe12aa531606003a1896ccfec14b5e687dd94f68dc1f7465b2aa3b91f",
+        "context/12": "9b6083e81376b307408c6c10662bc24543e2f80c039a362420869fee7e3e6bd0",
+        "context/13": "6afd9798ba22956bc98b333a35d8bffddc43e23d04f052767ba427ff70e6e10f",
+        "context/14": "48a1d06dee47d9e793eb74327f040446301cd5707f653c4acb76b19407b2829e",
+        "context/15": "aac4dfcdf87d3800f25f5331aeb6c36dd165655f6af18dbe74f8cd55dd8169a9",
+        "context/16": "7617ce8e9f605035939d57fdf019636510ba08d9cb2388d561be04d574bb11df",
+        "context/17": "f953af594dee58522fc3e9fe92b9872aedce5e59a2a954281aa4fbb6d3ded2cf",
+        "context/18": "f05e02e0f15851d53055cf789fafd09e075c5cc23e9d4f93bce22aaff8f8c1e5"
+      },
+      "upstream": {
+        "CP-3": "6afd9798ba22956bc98b333a35d8bffddc43e23d04f052767ba427ff70e6e10f"
+      }
+    },
+    "CP-5": {
+      "path": "../lqd-debate-001/CP-5-recheck.md",
+      "sha256": "c2e32b4d8292c75aaa37257f1ff626604d983ebf0aa33e0e49d3872424a12d26",
+      "source_hashes": {
+        "context/0": "b506932e7abb629e5da139f0f049673c4737c662c988f4e0ee69fd799787bafa",
+        "context/1": "c686fbe33f83970fa235e666f66a1caa55b3dbaab6eed2fe87d8bca3de8f640d",
+        "context/2": "9e134207ab85d004174ef27094948bdcbd798601def55cf307b63c5c302c4711",
+        "context/3": "0ae74db02dd569fe7805e62a661f22cd436494183ba5cb928f8be37aa549a96b",
+        "context/4": "f91e1ef62493c6bd734555dc7d4ee8b397a53f939a88f2c0e42b331880ae49e3",
+        "context/5": "9e36ee1bc5ed1b2a99ffb2e8bc1ed2a10e2a3d26b70083a00beb598a8d1c9478",
+        "context/6": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9",
+        "context/7": "ca53528bf1f6d9758a7d9194e76af181eb884e237388fe46e839e601606168b6",
+        "context/8": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1",
+        "context/9": "6094c0aceae47371363fb9aed6906e41feab902268b10f3a347ebdf47e5400e1",
+        "context/10": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa",
+        "context/11": "55f6bdfbe12aa531606003a1896ccfec14b5e687dd94f68dc1f7465b2aa3b91f",
+        "context/12": "9b6083e81376b307408c6c10662bc24543e2f80c039a362420869fee7e3e6bd0",
+        "context/13": "6afd9798ba22956bc98b333a35d8bffddc43e23d04f052767ba427ff70e6e10f",
+        "context/14": "48a1d06dee47d9e793eb74327f040446301cd5707f653c4acb76b19407b2829e",
+        "context/15": "aac4dfcdf87d3800f25f5331aeb6c36dd165655f6af18dbe74f8cd55dd8169a9",
+        "context/16": "7617ce8e9f605035939d57fdf019636510ba08d9cb2388d561be04d574bb11df",
+        "context/17": "f953af594dee58522fc3e9fe92b9872aedce5e59a2a954281aa4fbb6d3ded2cf",
+        "context/18": "f05e02e0f15851d53055cf789fafd09e075c5cc23e9d4f93bce22aaff8f8c1e5"
+      },
+      "upstream": {
+        "CP-3": "6afd9798ba22956bc98b333a35d8bffddc43e23d04f052767ba427ff70e6e10f",
+        "CP-6": "805f90563c8019d4ed34650011532d5e19e7bf75815b6556b43c7d8295eeb93d"
+      }
+    }
+  },
+  "source_oracle": {
+    "independent_expectations": "runs/lqd-portfolio-001/expectations.json",
+    "expectations_sha256": "aac4dfcdf87d3800f25f5331aeb6c36dd165655f6af18dbe74f8cd55dd8169a9",
+    "raw_XML": "runs/lqd-portfolio-001/sources/LQD-20250531-NPORT.xml",
+    "raw_sha256": "7617ce8e9f605035939d57fdf019636510ba08d9cb2388d561be04d574bb11df",
+    "basis": "Exact source lexemes and rational arithmetic; no production financial calculation import. Conditional price/recovery inputs remain analyst assumptions.",
+    "source_rows": 5,
+    "money_checks": 12,
+    "ratio_checks": 7,
+    "unknown_lending_status_control": "Refuses missing status; explicit N and Y document forms handled separately."
+  },
+  "observed_failure": {
+    "root": "Literal CP6 is a candidate module with original Markdown rather than the native settled action-bias/confidence facts expected by report_view._call. All eight sections were populated but the header misleadingly said Assessment pending.",
+    "original_report": "runs/cpos-lqd-portfolio-001/execution/deliveries/2cf858bf91e26b7e97f267ef880274746ea445024520431026492d980e664654/report.html",
+    "original_sha256": "dbc97fbd5cc577e12508f55fc1c5a134aebfd4e5484c1790f3c36eb1fe481696",
+    "failing_regression": "test_all_portfolio_sections_and_actual_cited_posture_without_execution failed Assessment pending versus Requires More Work before patch.",
+    "repair": "Delivery adapter copies exactly one cited terminal CP6 posture from its named paragraph, limited to Portfolio Decision. Six declared source values accepted; malformed/duplicate/uncited or foreign records cannot create a call. No decision or confidence inferred.",
+    "changed_file": "src/deploy_workflow/markdown_delivery.py",
+    "before_sha256": "35aabcd41873ef744f9dc71b3feaa0460faa1e01d5117ced612429bbb3f47c25",
+    "after_sha256": "ff0c46c83cb73872f37a7bc2bef9539bc1c10ef8b75e49ca6b805507eb02fdf1",
+    "old_publication_bytes_preserved": true
+  },
+  "verification_command": "PYTHONPATH=src .venv/bin/python runs/cpos-lqd-portfolio-001/verify.py",
+  "verifier_sha256": "073eb371f28d3dc84cdece82f8fd2b9c80c23c384c57a7a6dd8ec94d8ebe2b96",
+  "tests": {
+    "command": "PYTHONPATH=src:tests:tests/prompts .venv/bin/pytest -q tests/test_portfolio_handoff_delivery.py tests/test_markdown_delivery.py tests/test_cpos_handoffs.py tests/test_model_handoff_delivery.py tests/test_retained_planning.py tests/test_cpos_comparison.py tests/test_handoff_delivery.py",
+    "result": "131 passed in 15.85s",
+    "synthetic_transport_controls": "16 targeted cases include one real retained-answer publication; synthetic posture forms test copying/refusal, not investment judgment.",
+    "ruff": "All checks passed for changed production file and new test file.",
+    "mypy": "Success: no issues found in1 source file."
+  },
+  "browser": {
+    "full_eight_section_report_observed": true,
+    "header": "PORTFOLIO POSTURE Requires More Work",
+    "constraint": "Exact Portfolio Constraint [Insufficient Information]",
+    "actual_posture_source": {
+      "reference": "C233",
+      "module": "CP-6",
+      "line": 142,
+      "sha256": "805f90563c8019d4ed34650011532d5e19e7bf75815b6556b43c7d8295eeb93d"
+    },
+    "full_CP6_module_alias_and_debate_content_observed": true,
+    "lending_subsets_visible": true,
+    "server_stopped_exit_code": 0,
+    "limit": "AX inspection of content and source links; no comprehensive physical-layout/accessibility qualification.",
+    "scope_clarification_observed_in_latest_report": true,
+    "report": "runs/cpos-lqd-portfolio-001/execution/deliveries/827427820e0e5f1d647ef2323182d9a59eb88edb97a4773b838b01e2ed14e5c4/report.html",
+    "report_sha256": "fc0c1f9b2344f807e0a48961c02fc01b8dc5fdd27c015d8ffeacaf35dba2f94d"
+  },
+  "confidence_review": {
+    "scope": "Full-preset replay configuration, literal delivery call adapter, changed-function callers, source/financial checks, test fixtures and immutable publication.",
+    "ranked_doubts": [
+      {
+        "point": "Header contradicts actual completed analytical posture",
+        "investigated": "Reproduced on the first actual publication and failing regression. Native call reader expects settled native bias/confidence; literal handoff is candidate. Source paragraph explicitly declares Requires More Work.",
+        "verdict": "Confirmed display defect, repaired at input-adapter boundary",
+        "patch": "Copy cited closed-form terminal posture only in Portfolio Decision; native call reader unchanged."
+      },
+      {
+        "point": "Adapter turns prose, another owner, a conditional or duplicate decision into a call",
+        "investigated": "Only CP6 and the exact Final Sizing Posture prose metadata/marker are read. Strict six-value, sentence-delimited declaration and citation required. Wrong owner/heading, malformed qualifier, duplicate same/different declaration and no reference controls pass.",
+        "verdict": "Verified within explicit source-field transport contract; semantic judgment remains analytical QA responsibility",
+        "patch": "No scoring or free-form classification added."
+      },
+      {
+        "point": "Unintended change to other pathway/native confidence contracts",
+        "investigated": "New branch is restricted to portfolio_decision. Other-preset test retains the existing header contract; no native settlement/status or confidence meter changes.131 focused regressions and mypy pass.",
+        "verdict": "Verified",
+        "patch": "Scoped adapter branch; missing confidence remains absent."
+      },
+      {
+        "point": "Wrong date, NAV denominator, quantity family or double-counted subset",
+        "investigated": "Original NPORT fund series/date/Nav and five exact-LEI PA/USD holdings rechecked.12 money/7 ratio oracles match retained pre-answer independent expectations.2029 and on-loan subsets are not added again; source coupon precision retained. Explicit not-on-loan N differs structurally from Y-with-value; verifier corrected to assert the N form before zero.",
+        "verdict": "Verified; initial verifier structure assumption repaired without source/production arithmetic changes",
+        "patch": "Case verifier handles the two actual XML forms; missing status adversarially refuses."
+      },
+      {
+        "point": "QA order fabricated or alias routing counted as analytical proof",
+        "investigated": "Original portfolio, repaired debate and actual final recheck retain hashes and historical limits. Earlier pre-repair QA is a separate frozen source, not a competing current head. CP3B/CP6A/CP5A each map once and deliver all retained content. New evaluation context is disclosed; no fresh model/native/independent claim.",
+        "verdict": "Verified replay integration; full selection/sizing still open",
+        "patch": "No duplicate analytic owner or native predecessor rebuild."
+      },
+      {
+        "point": "Renderer loses cells, unknowns, rebuttal boundaries or source trace",
+        "investigated": "498 facts/466 raw table values/659 citations match exact original columns and physical lines. Five main rows/35 fields match XML. All eight existing preset blocks populated; full registers remain. Browser confirms actual posture, unknown constraint, same source line/hash and lending values.",
+        "verdict": "Verified literal delivery scope",
+        "patch": "Header mismatch only; no analytical value or source wording changed."
+      },
+      {
+        "point": "Resume, stale data, forged completion or collateral mutation",
+        "investigated": "No-executor resume and reconstruction pass; source/stale-parent/forged HTML+receipt refuse.19 old-context hashes and219 case pins match; initial report bytes remain.210 production Python files unchanged during case verification.",
+        "verdict": "Verified",
+        "patch": "Only one production adapter changed; original runs/issuer files untouched."
+      },
+      {
+        "point": "Review tests accidentally bypass real input contracts",
+        "investigated": "Initial synthetic fixture omitted six headings and used Python-mode JSON coercion; fixed test envelope/JSON parsing, never weakened production contracts. Actual case regression remains source-backed; wrong-source test/refusal checks use temporary copies.",
+        "verdict": "Verified test scope; synthetic tests are not model evidence",
+        "patch": "Test fixtures only."
+      }
+    ]
+  },
+  "rewrite_tournament": {
+    "mode": "inline no-argument post-edit; no agents",
+    "targets": [
+      "src/deploy_workflow/markdown_delivery.py:_portfolio_call",
+      "markdown_files call-adapter integration region"
+    ],
+    "impact_set": [
+      "markdown_files calls _portfolio_call only for Portfolio Decision",
+      "handoff_delivery.delivery_files calls markdown_files",
+      "owners.cpos.run_handoffs publishes/compares the returned files",
+      "existing Markdown delivery tests and new portfolio handoff tests"
+    ],
+    "invariants": [
+      "Only the named CP6 terminal declaration may supply the posture",
+      "One explicit cited source; ambiguity/malformed value fails closed",
+      "No decision inference, numeric score, native acceptance, method mutation or financial recomputation",
+      "Other pathways, handoff bytes, sources, metadata and public signatures remain unchanged"
+    ],
+    "candidates": {
+      "speed": "Generator with early second-record detection;16 passed in0.73s",
+      "memory": "Single-record loop;16 passed in0.73s",
+      "readability": "Separate count/regex/reference guards;16 passed in0.73s"
+    },
+    "bracket": [
+      {
+        "match": "Speed versus Memory",
+        "winner": "Speed",
+        "justification": [
+          "Both preserved the tested interface and refusal cases.",
+          "Iterator avoids manual mutable record state.",
+          "No meaningful runtime gain established; comparison is structural."
+        ]
+      },
+      {
+        "match": "Speed versus Readability",
+        "winner": "Readability",
+        "justification": [
+          "Both passed the same16 targeted cases.",
+          "Named validation stages expose the closed-field contract.",
+          "Early rejection is understandable, although error handling repeats."
+        ]
+      },
+      {
+        "match": "Readability versus Incumbent",
+        "winner": "Incumbent holds",
+        "justification": [
+          "One compact validation guard retains the same closed contract.",
+          "All16 actual/synthetic transport checks pass without a replacement.",
+          "Small source records do not justify added iterator/state/error branches."
+        ]
+      }
+    ],
+    "winner": "Incumbent holds",
+    "justification": [
+      "Exact source copying and citation behavior verified on the real report.",
+      "Alternative rewrites offer no verified practical improvement.",
+      "The existing builder requires only a direct scoped integration branch."
+    ],
+    "final_code": "def _portfolio_call(\n    module: ModuleView | None,\n    metadata: dict[str, tuple[str, str]],\n    refs: dict[tuple[str, str], tuple[str, ...]],\n) -> CallItem | None:\n    \"\"\"Copy CP-6's explicit terminal posture; never infer a decision or confidence.\"\"\"\n    if module is None or module.module_id != \"CP-6\":\n        return None\n    records = [\n        fact\n        for fact in module.facts\n        if metadata.get(fact.table_id) == (\"Final Sizing Posture\", \"prose\")\n        and (fact.text or \"\").startswith(\"Final Sizing Posture:\")\n    ]\n    if not records:\n        return None\n    match = re.match(\n        r\"Final Sizing Posture: (Include|Avoid|Resize-Reduce|Resize-Increase|Maintain-Hold|\"\n        r\"Requires More Work)(?:\\.(?:\\s|$)|$)\",\n        records[0].text or \"\",\n    )\n    source_ref = next(\n        (\n            ref\n            for ref in refs.get((module.module_id, records[0].fact_id), ())\n            if ref.startswith(\"C\")\n        ),\n        None,\n    )\n    if len(records) != 1 or match is None or source_ref is None:\n        raise ValueError(\n            \"markdown_posture: one explicit terminal CP-6 posture with a citation required\"\n        )\n    return CallItem(kind=\"fact\", label=\"Portfolio posture\", value_text=match[1], ref_id=source_ref)\n",
+    "integration_region": "markdown_files existing call construction plus portfolio_decision-only override; signatures and file contract unchanged.",
+    "verification": "Three inline candidate pytest runs16passed each; incumbent full focused suite131passed, Ruff and mypy pass.",
+    "backup": "/tmp/markdown-delivery-before-lqd-posture.py"
+  },
+  "subagents_used": false,
+  "remaining": [
+    "Historical retained replay, not a fresh/provider/native/independent portfolio run.",
+    "No matching market/mandate/budget/ratings/depth/full downside/legal/funding clearance or numeric new position.",
+    "All eight preset sections are populated; this is not a current executable investment decision or complete analytical-method qualification.",
+    "Other pathway/model functions and full-goal acceptance remain open."
+  ],
+  "verification_scope_clarification": {
+    "what_changed_baseline": "Historical debate attempt1→2 assurance repair, explicitly named in report banner; not an invented new financial update.",
+    "publication_view_and_all_handoffs_equal_to_prior_checked_header_version": true,
+    "latest_targeted_test": "16 passed in0.85s after banner clarification; production file unchanged since131-pass suite."
+  }
+}

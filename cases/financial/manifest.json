@@ -1,0 +1,1975 @@
+{
+  "schema_version": "cp1-model-cases/1",
+  "scope": "Full five-stage CP1 over reported FY2025 and its four calendar quarters plus opening PERIOD_END2024; actual promotion, deterministic Model publication and native rendered proof. No FY2024/YoY comparative qualification.",
+  "raw_rule": "Literal UTF-8 LF, no terminal LF per page; U+000C joins pages for source SHA256. Supplied-page representation only.",
+  "run": {
+    "run_id": "slice-cp1-model-positive",
+    "issuer_id": "northbridge-synthetic",
+    "issuer_name": "Northbridge Synthetic Group",
+    "as_of": "2026-01-10",
+    "method_version": "deploy-v-r14",
+    "case_kind": "synthetic",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-1",
+      "CP-MODEL"
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "identity",
+      "name": "Issuer identity and reporting scope note",
+      "status": "ready",
+      "extraction_status": "complete",
+      "pages": [
+        {
+          "locator": "page:1",
+          "text": "NORTHBRIDGE SYNTHETIC GROUP\nIssuer identity and reporting scope note\nPublished January 10, 2026.\nNorthbridge Synthetic Group is the issuer and consolidated group.\nFiscal year end: December 31.\nThis invented case is test data, not evidence about a real issuer.\nNo borrower, guarantor or restricted-group perimeter is established by this source set."
+        }
+      ],
+      "sha256": "74fe2ad422266bc01a43af025fed0aca5fdb5aa952c60c013efbbef0ba816ec4"
+    },
+    {
+      "source_id": "financial",
+      "name": "Unaudited quarterly/FY2025 statements and complete facility schedule",
+      "status": "ready",
+      "extraction_status": "complete",
+      "pages": [
+        {
+          "locator": "page:1",
+          "text": "NORTHBRIDGE SYNTHETIC GROUP\nUnaudited quarterly and reported FY2025 financial statements\nPublished January 10, 2026.\nReporting basis: IFRS; entity perimeter: consolidated group.\nCurrency: USD; amounts in millions. Expenses are presented by function.\nThis source reports four discrete calendar 2025 quarters and independently reported FY2025 annual totals for January 1-December 31, 2025 (365 days). No FY2024 annual income statement or prior-year quarterly series is supplied.\nThe opening balance is December 31, 2024. The quarters are January 1-March 31 (90 days), April 1-June 30 (91 days), July 1-September 30 (92 days), and October 1-December 31 (92 days).\nEach quarter cost of sales is 15, gross profit is 15, and selling/general/administrative operating expenses including depreciation are 8.75 (7.5 excluding depreciation plus 1.25 depreciation). Other operating expenses are zero. Total operating costs including cost of sales and depreciation are 23.75; these totals are distinct from function-only operating expenses of 8.75.\nFY2025 cost of sales is 60, gross profit is 60, selling/general/administrative operating expenses including depreciation are 35, depreciation is 5, and total operating costs including cost of sales and depreciation are 95.\nNo EBITDA adjustments or add-backs occurred in any quarter or FY2025; this disclosure is complete.\nOne operating segment, Consolidated Operations, reports revenue of 30 in each quarter and 120 in FY2025; there are no corporate or elimination segments.\nNo acquisitions, disposals, net equity movements, equity issuance, equity repurchases, leases, operating lease costs, lease cash payments, lease payments in financing, interest paid in financing, or other investing/financing cash flows occurred in any quarter or FY2025. Each such flow is explicitly zero.\nThere were no pro-forma adjustments, subsequent events, FX cash movements, or noncash debt changes through January 10, 2026.\nCash interest and cash taxes are classified in operating cash flows. Capital expenditure is entirely maintenance investment; growth capex is zero.\nOperational KPIs and source-reported unlevered free cash flow are not disclosed.\nOpening and quarterly/FY closing balance sheets are presented on page 4.\nRestricted cash, short-term investments, other current assets, goodwill, other intangibles, short-term debt, current portion of long-term debt, unsecured debt, subordinated debt, pensions, lease obligations and minority interests are each zero at opening and every quarter/FY end.\nThere is no revolving credit facility: RCF commitment and RCF drawings are each zero at opening and every quarter/FY end.\nThe complete equity roll-forward in each quarter consists only of net profit 4 and dividends paid (2.25); FY2025 consists only of net profit 16 and dividends paid (9). Other comprehensive income and every other equity movement were zero throughout these periods: no capital contributions, share issuance, repurchases, revaluations, currency translation, perimeter changes, reserve transfers or other equity adjustments occurred."
+        },
+        {
+          "locator": "page:2",
+          "text": "NORTHBRIDGE SYNTHETIC GROUP\nIFRS; consolidated group; USD; amounts in millions; unaudited; expenses by function.\nCONSOLIDATED INCOME STATEMENT\nPeriod  Q1 2025  Q2 2025  Q3 2025  Q4 2025  FY 2025\nRevenue  30  30  30  30  120\nCost of sales  15  15  15  15  60\nGross profit  15  15  15  15  60\nSelling general and administrative expenses including depreciation  8.75  8.75  8.75  8.75  35\nOperating expenses excluding cost of sales including depreciation  8.75  8.75  8.75  8.75  35\nOther operating expenses  0  0  0  0  0\nTotal operating costs excluding depreciation  22.5  22.5  22.5  22.5  90.0\nTotal operating costs including cost of sales and depreciation  23.75  23.75  23.75  23.75  95.00\nDepreciation and amortization  1.25  1.25  1.25  1.25  5.00\nOperating profit EBIT  6.25  6.25  6.25  6.25  25.00\nReported EBITDA  7.5  7.5  7.5  7.5  30.0\nAdjusted EBITDA  7.5  7.5  7.5  7.5  30.0\nNet interest expense  1.25  1.25  1.25  1.25  5.00\nInterest income  0  0  0  0  0\nOther non-operating income  0  0  0  0  0\nProfit before tax  5  5  5  5  20\nIncome tax expense  1  1  1  1  4\nNet profit  4  4  4  4  16\nExceptionals  0  0  0  0  0\nShare based compensation  0  0  0  0  0\nOperating lease cost  0  0  0  0  0"
+        },
+        {
+          "locator": "page:3",
+          "text": "NORTHBRIDGE SYNTHETIC GROUP\nIFRS; consolidated group; USD; amounts in millions; unaudited; expenses by function.\nCONSOLIDATED CASH FLOW STATEMENT\nPeriod  Q1 2025  Q2 2025  Q3 2025  Q4 2025  FY 2025\nNet profit  4  4  4  4  16\nDepreciation and amortization  1.25  1.25  1.25  1.25  5.00\nOperating cash flow before working capital  5.25  5.25  5.25  5.25  21.00\nWorking capital cash movement  (0.5)  (0.5)  (0.5)  (0.5)  (2.0)\nOperating cash flow  4.75  4.75  4.75  4.75  19.00\nMaintenance capital expenditure  (2.5)  (2.5)  (2.5)  (2.5)  (10.0)\nGrowth capital expenditure  0  0  0  0  0\nTotal capital expenditure  (2.5)  (2.5)  (2.5)  (2.5)  (10.0)\nLevered free cash flow  2.25  2.25  2.25  2.25  9.00\nAcquisitions  0  0  0  0  0\nDisposals  0  0  0  0  0\nNet acquisitions and disposals  0  0  0  0  0\nNet cash used in investing  (2.5)  (2.5)  (2.5)  (2.5)  (10.0)\nDebt issuance  1.25  1.25  1.25  1.25  5.00\nDebt repayment  0  0  0  0  0\nNet debt issuance  1.25  1.25  1.25  1.25  5.00\nEquity issuance  0  0  0  0  0\nEquity repurchases  0  0  0  0  0\nNet equity issuance  0  0  0  0  0\nDividends paid  (2.25)  (2.25)  (2.25)  (2.25)  (9.00)\nOther investing and financing  0  0  0  0  0\nNet cash used in financing  (1)  (1)  (1)  (1)  (4)\nNet change in cash  1.25  1.25  1.25  1.25  5.00\nOpening cash  15.00  16.25  17.50  18.75  15.00\nClosing cash  16.25  17.50  18.75  20.00  20.00\nCash interest paid  1.25  1.25  1.25  1.25  5.00\nCash tax paid  1  1  1  1  4\nCash lease payments  0  0  0  0  0\nLease payments in financing  0  0  0  0  0\nInterest paid in financing  0  0  0  0  0\nFX effect on cash  0  0  0  0  0"
+        },
+        {
+          "locator": "page:4",
+          "text": "NORTHBRIDGE SYNTHETIC GROUP\nIFRS; consolidated group; USD; amounts in millions; unaudited; expenses by function.\nCONSOLIDATED BALANCE SHEET\nPeriod end  Opening 2024-12-31  Q1 2025-03-31  Q2 2025-06-30  Q3 2025-09-30  Q4 2025-12-31  FY 2025-12-31\nCash and cash equivalents  15  16.25  17.50  18.75  20.00  20.00\nTrade receivables  12  12.75  13.50  14.25  15.00  15.00\nInventories  8  8.5  9.0  9.5  10.0  10.0\nTotal current assets  35  37.50  40.00  42.50  45.00  45.00\nProperty plant and equipment  55  56.25  57.50  58.75  60.00  60.00\nOther noncurrent assets  5  5  5  5  5  5\nTotal assets  95  98.75  102.50  106.25  110.00  110.00\nSenior secured term debt  45  46.25  47.50  48.75  50.00  50.00\nTotal debt  45  46.25  47.50  48.75  50.00  50.00\nTrade payables  17  17.75  18.50  19.25  20.00  20.00\nOther current liabilities  10  10  10  10  10  10\nTotal current liabilities  27  27.75  28.50  29.25  30.00  30.00\nTotal liabilities  72  74  76  78  80  80\nShareholders equity  23  24.75  26.50  28.25  30.00  30.00\nTotal equity  23  24.75  26.50  28.25  30.00  30.00\nTotal liabilities and equity  95  98.75  102.50  106.25  110.00  110.00\nRestricted cash  0  0  0  0  0  0\nShort-term investments  0  0  0  0  0  0\nOther current assets  0  0  0  0  0  0\nGoodwill  0  0  0  0  0  0\nOther intangibles  0  0  0  0  0  0\nShort-term debt  0  0  0  0  0  0\nCurrent portion of long-term debt  0  0  0  0  0  0\nUnsecured debt  0  0  0  0  0  0\nSubordinated debt  0  0  0  0  0  0\nPension obligations  0  0  0  0  0  0\nLease obligations  0  0  0  0  0  0\nMinority interests  0  0  0  0  0  0\nRCF commitment  0  0  0  0  0  0\nRCF drawings  0  0  0  0  0  0"
+        },
+        {
+          "locator": "page:5",
+          "text": "NORTHBRIDGE SYNTHETIC GROUP\nComplete facility and classification schedule\nPublished January 10, 2026. USD millions; consolidated group; IFRS carrying values.\nThere is exactly one debt facility: Northbridge Term Loan, facility_id term-loan.\nIt is a senior secured term loan, not a lease. No other debt facilities or debt adjustments exist.\nDate                 Carrying value  Principal  Drawn amount  Commitment\n2024-12-31           45              45         45            50\n2025-03-31           46.25           46.25      46.25         50\n2025-06-30           47.5            47.5       47.5          50\n2025-09-30           48.75           48.75      48.75         50\n2025-12-31           50              50         50            50\nThe carrying value equals principal and drawn amount; there are no fees, unamortized adjustments or other carrying-value adjustments.\nThe facility has floating rate type with SOFR reference rate, spread 0 basis points and floor 0 basis points. Fixed coupon is not applicable. Mandatory annual amortisation is 0; final maturity is December 31, 2029. Cash interest amounts in the quarterly statements are reported cash payments, not a forecast calculation from the terms.\nFY2025 and Q4 share the same December 31, 2025 closing facility balance of 50. No leases, unsecured debt, revolving commitments or revolving drawings exist at any reporting date.\nReported EBITDA equals revenue less cost of sales less function-only operating expenses including depreciation plus depreciation and amortization. Each reported quarter and FY2025 use this definition. Adjusted EBITDA equals reported EBITDA because there are no adjustments.\nCFO equals net profit plus depreciation and amortization plus the signed working-capital cash movement.\nNet cash change equals operating cash flow plus net investing cash flow plus net financing cash flow.\nCash movement equals closing cash less opening cash. Debt movement equals net cash debt issuance with zero noncash change."
+        }
+      ],
+      "sha256": "82d684ccaa230ca1ff5ada477b02b510c193b0deabf7cd749e420508f93c0429"
+    }
+  ],
+  "periods": [
+    {
+      "period_id": "opening-2024",
+      "period_type": "PERIOD_END",
+      "fiscal_year": "2024",
+      "fiscal_quarter": null,
+      "start_date": null,
+      "end_date": "2024-12-31"
+    },
+    {
+      "period_id": "q1-2025",
+      "period_type": "QUARTER",
+      "fiscal_year": "2025",
+      "fiscal_quarter": 1,
+      "start_date": "2025-01-01",
+      "end_date": "2025-03-31",
+      "day_count": 90
+    },
+    {
+      "period_id": "q2-2025",
+      "period_type": "QUARTER",
+      "fiscal_year": "2025",
+      "fiscal_quarter": 2,
+      "start_date": "2025-04-01",
+      "end_date": "2025-06-30",
+      "day_count": 91
+    },
+    {
+      "period_id": "q3-2025",
+      "period_type": "QUARTER",
+      "fiscal_year": "2025",
+      "fiscal_quarter": 3,
+      "start_date": "2025-07-01",
+      "end_date": "2025-09-30",
+      "day_count": 92
+    },
+    {
+      "period_id": "q4-2025",
+      "period_type": "QUARTER",
+      "fiscal_year": "2025",
+      "fiscal_quarter": 4,
+      "start_date": "2025-10-01",
+      "end_date": "2025-12-31",
+      "day_count": 92
+    },
+    {
+      "period_id": "fy-2025",
+      "period_type": "FY",
+      "fiscal_year": "2025",
+      "fiscal_quarter": null,
+      "start_date": "2025-01-01",
+      "end_date": "2025-12-31",
+      "day_count": 365,
+      "component_period_ids": [],
+      "reported": true
+    }
+  ],
+  "source_dimensions": {
+    "currency": "USD",
+    "unit": "MILLIONS",
+    "accounting_basis": "IFRS",
+    "entity_perimeter": "consolidated group",
+    "expense_presentation": "by_function",
+    "evidence_class": "unaudited_without_auditor"
+  },
+  "quarter_observations": {
+    "revenue": "30",
+    "opex_including_da": "8.75",
+    "depreciation_amortization": "1.25",
+    "ebit": "6.25",
+    "ebitda": "7.5",
+    "adjusted_ebitda": "7.5",
+    "pretax_income": "5",
+    "income_tax_expense": "1",
+    "net_income": "4",
+    "cash_interest_paid": "1.25",
+    "cash_taxes_paid": "1",
+    "working_capital_change": "-0.5",
+    "cfo_ncfo": "4.75",
+    "capex_and_intangible_investment": "-2.5",
+    "net_debt_issue_repay": "1.25",
+    "dividends_paid": "-2.25",
+    "net_cash_change": "1.25",
+    "cogs": "15",
+    "gross_profit": "15",
+    "cash_lease_payments": "0",
+    "acquisitions_disposals": "0",
+    "net_equity_issue_repay": "0",
+    "other_investing_financing": "0",
+    "operating_lease_cost": "0",
+    "lease_payments_in_financing": "0",
+    "interest_paid_in_financing": "0"
+  },
+  "explicit_zero_metrics": [
+    "acquisitions_disposals",
+    "net_equity_issue_repay",
+    "other_investing_financing",
+    "cash_lease_payments",
+    "lease_payments_in_financing",
+    "interest_paid_in_financing",
+    "operating_lease_cost",
+    "rcf_commitment",
+    "rcf_drawn",
+    "unsecured_debt"
+  ],
+  "unknown_not_zero": [
+    "operational_kpis",
+    "source-reported unlevered free cash flow",
+    "Q1-Q3 twelve-month leverage/coverage",
+    "prior-year comparable growth"
+  ],
+  "quarter_derived": {
+    "ebit": "6.25",
+    "ebitda": "7.5",
+    "adjusted_ebitda": "7.5",
+    "cfo": "4.75",
+    "ffo": "5.25",
+    "fcf": "2.25",
+    "other_operating": "0"
+  },
+  "q4_ltm_derived_source_units": {
+    "revenue": "120",
+    "ebit": "25",
+    "ebitda": "30",
+    "adjusted_ebitda": "30",
+    "cfo": "19",
+    "ffo": "21",
+    "capex": "-10",
+    "fcf": "9",
+    "cash_change": "5",
+    "total_debt": "50",
+    "net_debt": "30",
+    "cogs": "-60",
+    "gross_profit": "60",
+    "opex_including_da": "-35"
+  },
+  "q4_ltm_metric_oracle": {
+    "total_leverage_reported": {
+      "numerator": "50",
+      "denominator": "30",
+      "fraction": "5/3",
+      "unit": "MULTIPLE"
+    },
+    "total_leverage_adjusted": {
+      "numerator": "50",
+      "denominator": "30",
+      "fraction": "5/3",
+      "unit": "MULTIPLE"
+    },
+    "net_leverage_reported": {
+      "numerator": "30",
+      "denominator": "30",
+      "decimal": "1",
+      "unit": "MULTIPLE"
+    },
+    "interest_coverage_reported": {
+      "numerator": "30",
+      "denominator": "5",
+      "decimal": "6",
+      "unit": "MULTIPLE"
+    },
+    "capex_adjusted_coverage": {
+      "numerator": "20",
+      "denominator": "5",
+      "decimal": "4",
+      "unit": "MULTIPLE"
+    },
+    "ffo_to_debt": {
+      "numerator": "21",
+      "denominator": "50",
+      "decimal": "0.42",
+      "unit": "PERCENT"
+    },
+    "fcf_to_debt": {
+      "numerator": "9",
+      "denominator": "50",
+      "decimal": "0.18",
+      "unit": "PERCENT"
+    }
+  },
+  "unavailable_expectations": [
+    "Q1-Q3 twelve-month leverage and interest coverage unavailable; no forward use of FY2025 EBITDA",
+    "No YoY growth without FY2024 or prior-year quarters",
+    "Unknown source-reported operational KPIs/unlevered free cash flow are not fabricated as zero"
+  ],
+  "reconciliation_kinds_each_quarter": [
+    "SEGMENT_REVENUE",
+    "EBITDA_BRIDGE",
+    "ADJUSTED_EBITDA_BRIDGE",
+    "CFO_IDENTITY",
+    "NCF_IDENTITY",
+    "DEBT_TOTAL_EX_LEASES",
+    "NCF_CASH_MOVEMENT",
+    "BALANCE_MOVEMENT"
+  ],
+  "positive_expectations": {
+    "CP0_status": "restricted",
+    "CP1_authorization": "READY_WITH_LIMITATIONS / Run CP-1",
+    "CP1_stages": [
+      "source_context",
+      "financials",
+      "narrative",
+      "readiness",
+      "quality"
+    ],
+    "source_context_status": "restricted",
+    "model_readiness": "ready",
+    "mandatory_reconciliations": "PASS",
+    "CP1_head": "restricted; exact adopted settlement with honest source/scope restrictions",
+    "QA": "Restricted, not Blocked; score determined by frozen raw claim/materiality/coverage inventory and independent formula before evaluating promotion",
+    "CP_MODEL": "actual publish_cp_model; restricted head consuming selected promoted CP1; verify_cp_model_publication empty issues",
+    "currency_scaling": "Each source-unit million is exactly1000000 USD, so derived revenue120 is120000000 USD",
+    "publication_files": [
+      "model.html",
+      "calculation.json",
+      "receipt.json"
+    ],
+    "historical_anchor": "Actual adopted historical plan anchors on reported fy-2025; display LTM equals FY2025, distinct from rolling four-quarter metric frames."
+  },
+  "negative_case": {
+    "run_id": "slice-cp1-model-gap",
+    "change": "financial source missing: no pages/hash, extraction blocked; limitation Quarterly financial statements were not supplied. Identity unchanged and actually read.",
+    "CP0_status": "restricted",
+    "CP1_authorization": "CONDITIONAL / DO NOT RUN",
+    "CP1_begin": "actual NotAuthorized; no CP1 ticket/output/head",
+    "Model_publication": "actually invoke core publisher: refuses no promoted CP1 before begin/write; no Model head/files",
+    "receipt_refusal": "cp1_not_authorized"
+  },
+  "required_limits": [
+    "Synthetic supplied-page test data; no real issuer/provider/PDF/OCR qualification",
+    "Reported FY2025 plus four-quarter historical financial scope; no FY2024/YoY comparative qualification",
+    "Unaudited without auditor; borrower/guarantor/restricted-group perimeters not established",
+    "Remaining analytical owners, forward projections and production rollout unqualified"
+  ],
+  "twelve_month_aggregate_ratios": {
+    "fcf_to_adjusted_ebitda": {
+      "numerator": "9",
+      "denominator": "30",
+      "decimal": "0.30",
+      "unit": "PERCENT"
+    },
+    "ebitda_margin": {
+      "numerator": "30",
+      "denominator": "120",
+      "decimal": "0.25",
+      "unit": "PERCENT"
+    }
+  },
+  "q4_display_metric_oracle": {
+    "fcf_to_adjusted_ebitda": {
+      "numerator": "2.25",
+      "denominator": "7.5",
+      "decimal": "0.30",
+      "unit": "PERCENT",
+      "scope": "own Q4 period"
+    },
+    "ebitda_margin": {
+      "numerator": "7.5",
+      "denominator": "30",
+      "decimal": "0.25",
+      "unit": "PERCENT",
+      "scope": "own Q4 period"
+    }
+  },
+  "metric_coordinate_rule": "Q4 leverage/coverage/flow-to-debt recipes use twelve-month operands; own-period margin/FCF-to-EBITDA recipes use Q4 operands. Do not use equal result values to conflate basis/operands.",
+  "extraction_expectations": {
+    "page:2": {
+      "caption": "CONSOLIDATED INCOME STATEMENT",
+      "header": "Period  Q1 2025  Q2 2025  Q3 2025  Q4 2025  FY 2025",
+      "column_order": [
+        "q1-2025",
+        "q2-2025",
+        "q3-2025",
+        "q4-2025",
+        "fy-2025"
+      ],
+      "row_count": 21,
+      "rows": [
+        {
+          "line_no": 5,
+          "label": "Revenue",
+          "raw_values": [
+            "30",
+            "30",
+            "30",
+            "30",
+            "120"
+          ],
+          "decimal_values": [
+            "30",
+            "30",
+            "30",
+            "30",
+            "120"
+          ]
+        },
+        {
+          "line_no": 6,
+          "label": "Cost of sales",
+          "raw_values": [
+            "15",
+            "15",
+            "15",
+            "15",
+            "60"
+          ],
+          "decimal_values": [
+            "15",
+            "15",
+            "15",
+            "15",
+            "60"
+          ]
+        },
+        {
+          "line_no": 7,
+          "label": "Gross profit",
+          "raw_values": [
+            "15",
+            "15",
+            "15",
+            "15",
+            "60"
+          ],
+          "decimal_values": [
+            "15",
+            "15",
+            "15",
+            "15",
+            "60"
+          ]
+        },
+        {
+          "line_no": 8,
+          "label": "Selling general and administrative expenses including depreciation",
+          "raw_values": [
+            "8.75",
+            "8.75",
+            "8.75",
+            "8.75",
+            "35"
+          ],
+          "decimal_values": [
+            "8.75",
+            "8.75",
+            "8.75",
+            "8.75",
+            "35"
+          ]
+        },
+        {
+          "line_no": 9,
+          "label": "Operating expenses excluding cost of sales including depreciation",
+          "raw_values": [
+            "8.75",
+            "8.75",
+            "8.75",
+            "8.75",
+            "35"
+          ],
+          "decimal_values": [
+            "8.75",
+            "8.75",
+            "8.75",
+            "8.75",
+            "35"
+          ]
+        },
+        {
+          "line_no": 10,
+          "label": "Other operating expenses",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 11,
+          "label": "Total operating costs excluding depreciation",
+          "raw_values": [
+            "22.5",
+            "22.5",
+            "22.5",
+            "22.5",
+            "90.0"
+          ],
+          "decimal_values": [
+            "22.5",
+            "22.5",
+            "22.5",
+            "22.5",
+            "90.0"
+          ]
+        },
+        {
+          "line_no": 12,
+          "label": "Total operating costs including cost of sales and depreciation",
+          "raw_values": [
+            "23.75",
+            "23.75",
+            "23.75",
+            "23.75",
+            "95.00"
+          ],
+          "decimal_values": [
+            "23.75",
+            "23.75",
+            "23.75",
+            "23.75",
+            "95.00"
+          ]
+        },
+        {
+          "line_no": 13,
+          "label": "Depreciation and amortization",
+          "raw_values": [
+            "1.25",
+            "1.25",
+            "1.25",
+            "1.25",
+            "5.00"
+          ],
+          "decimal_values": [
+            "1.25",
+            "1.25",
+            "1.25",
+            "1.25",
+            "5.00"
+          ]
+        },
+        {
+          "line_no": 14,
+          "label": "Operating profit EBIT",
+          "raw_values": [
+            "6.25",
+            "6.25",
+            "6.25",
+            "6.25",
+            "25.00"
+          ],
+          "decimal_values": [
+            "6.25",
+            "6.25",
+            "6.25",
+            "6.25",
+            "25.00"
+          ]
+        },
+        {
+          "line_no": 15,
+          "label": "Reported EBITDA",
+          "raw_values": [
+            "7.5",
+            "7.5",
+            "7.5",
+            "7.5",
+            "30.0"
+          ],
+          "decimal_values": [
+            "7.5",
+            "7.5",
+            "7.5",
+            "7.5",
+            "30.0"
+          ]
+        },
+        {
+          "line_no": 16,
+          "label": "Adjusted EBITDA",
+          "raw_values": [
+            "7.5",
+            "7.5",
+            "7.5",
+            "7.5",
+            "30.0"
+          ],
+          "decimal_values": [
+            "7.5",
+            "7.5",
+            "7.5",
+            "7.5",
+            "30.0"
+          ]
+        },
+        {
+          "line_no": 17,
+          "label": "Net interest expense",
+          "raw_values": [
+            "1.25",
+            "1.25",
+            "1.25",
+            "1.25",
+            "5.00"
+          ],
+          "decimal_values": [
+            "1.25",
+            "1.25",
+            "1.25",
+            "1.25",
+            "5.00"
+          ]
+        },
+        {
+          "line_no": 18,
+          "label": "Interest income",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 19,
+          "label": "Other non-operating income",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 20,
+          "label": "Profit before tax",
+          "raw_values": [
+            "5",
+            "5",
+            "5",
+            "5",
+            "20"
+          ],
+          "decimal_values": [
+            "5",
+            "5",
+            "5",
+            "5",
+            "20"
+          ]
+        },
+        {
+          "line_no": 21,
+          "label": "Income tax expense",
+          "raw_values": [
+            "1",
+            "1",
+            "1",
+            "1",
+            "4"
+          ],
+          "decimal_values": [
+            "1",
+            "1",
+            "1",
+            "1",
+            "4"
+          ]
+        },
+        {
+          "line_no": 22,
+          "label": "Net profit",
+          "raw_values": [
+            "4",
+            "4",
+            "4",
+            "4",
+            "16"
+          ],
+          "decimal_values": [
+            "4",
+            "4",
+            "4",
+            "4",
+            "16"
+          ]
+        },
+        {
+          "line_no": 23,
+          "label": "Exceptionals",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 24,
+          "label": "Share based compensation",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 25,
+          "label": "Operating lease cost",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        }
+      ]
+    },
+    "page:3": {
+      "caption": "CONSOLIDATED CASH FLOW STATEMENT",
+      "header": "Period  Q1 2025  Q2 2025  Q3 2025  Q4 2025  FY 2025",
+      "column_order": [
+        "q1-2025",
+        "q2-2025",
+        "q3-2025",
+        "q4-2025",
+        "fy-2025"
+      ],
+      "row_count": 31,
+      "rows": [
+        {
+          "line_no": 5,
+          "label": "Net profit",
+          "raw_values": [
+            "4",
+            "4",
+            "4",
+            "4",
+            "16"
+          ],
+          "decimal_values": [
+            "4",
+            "4",
+            "4",
+            "4",
+            "16"
+          ]
+        },
+        {
+          "line_no": 6,
+          "label": "Depreciation and amortization",
+          "raw_values": [
+            "1.25",
+            "1.25",
+            "1.25",
+            "1.25",
+            "5.00"
+          ],
+          "decimal_values": [
+            "1.25",
+            "1.25",
+            "1.25",
+            "1.25",
+            "5.00"
+          ]
+        },
+        {
+          "line_no": 7,
+          "label": "Operating cash flow before working capital",
+          "raw_values": [
+            "5.25",
+            "5.25",
+            "5.25",
+            "5.25",
+            "21.00"
+          ],
+          "decimal_values": [
+            "5.25",
+            "5.25",
+            "5.25",
+            "5.25",
+            "21.00"
+          ]
+        },
+        {
+          "line_no": 8,
+          "label": "Working capital cash movement",
+          "raw_values": [
+            "(0.5)",
+            "(0.5)",
+            "(0.5)",
+            "(0.5)",
+            "(2.0)"
+          ],
+          "decimal_values": [
+            "-0.5",
+            "-0.5",
+            "-0.5",
+            "-0.5",
+            "-2.0"
+          ]
+        },
+        {
+          "line_no": 9,
+          "label": "Operating cash flow",
+          "raw_values": [
+            "4.75",
+            "4.75",
+            "4.75",
+            "4.75",
+            "19.00"
+          ],
+          "decimal_values": [
+            "4.75",
+            "4.75",
+            "4.75",
+            "4.75",
+            "19.00"
+          ]
+        },
+        {
+          "line_no": 10,
+          "label": "Maintenance capital expenditure",
+          "raw_values": [
+            "(2.5)",
+            "(2.5)",
+            "(2.5)",
+            "(2.5)",
+            "(10.0)"
+          ],
+          "decimal_values": [
+            "-2.5",
+            "-2.5",
+            "-2.5",
+            "-2.5",
+            "-10.0"
+          ]
+        },
+        {
+          "line_no": 11,
+          "label": "Growth capital expenditure",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 12,
+          "label": "Total capital expenditure",
+          "raw_values": [
+            "(2.5)",
+            "(2.5)",
+            "(2.5)",
+            "(2.5)",
+            "(10.0)"
+          ],
+          "decimal_values": [
+            "-2.5",
+            "-2.5",
+            "-2.5",
+            "-2.5",
+            "-10.0"
+          ]
+        },
+        {
+          "line_no": 13,
+          "label": "Levered free cash flow",
+          "raw_values": [
+            "2.25",
+            "2.25",
+            "2.25",
+            "2.25",
+            "9.00"
+          ],
+          "decimal_values": [
+            "2.25",
+            "2.25",
+            "2.25",
+            "2.25",
+            "9.00"
+          ]
+        },
+        {
+          "line_no": 14,
+          "label": "Acquisitions",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 15,
+          "label": "Disposals",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 16,
+          "label": "Net acquisitions and disposals",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 17,
+          "label": "Net cash used in investing",
+          "raw_values": [
+            "(2.5)",
+            "(2.5)",
+            "(2.5)",
+            "(2.5)",
+            "(10.0)"
+          ],
+          "decimal_values": [
+            "-2.5",
+            "-2.5",
+            "-2.5",
+            "-2.5",
+            "-10.0"
+          ]
+        },
+        {
+          "line_no": 18,
+          "label": "Debt issuance",
+          "raw_values": [
+            "1.25",
+            "1.25",
+            "1.25",
+            "1.25",
+            "5.00"
+          ],
+          "decimal_values": [
+            "1.25",
+            "1.25",
+            "1.25",
+            "1.25",
+            "5.00"
+          ]
+        },
+        {
+          "line_no": 19,
+          "label": "Debt repayment",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 20,
+          "label": "Net debt issuance",
+          "raw_values": [
+            "1.25",
+            "1.25",
+            "1.25",
+            "1.25",
+            "5.00"
+          ],
+          "decimal_values": [
+            "1.25",
+            "1.25",
+            "1.25",
+            "1.25",
+            "5.00"
+          ]
+        },
+        {
+          "line_no": 21,
+          "label": "Equity issuance",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 22,
+          "label": "Equity repurchases",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 23,
+          "label": "Net equity issuance",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 24,
+          "label": "Dividends paid",
+          "raw_values": [
+            "(2.25)",
+            "(2.25)",
+            "(2.25)",
+            "(2.25)",
+            "(9.00)"
+          ],
+          "decimal_values": [
+            "-2.25",
+            "-2.25",
+            "-2.25",
+            "-2.25",
+            "-9.00"
+          ]
+        },
+        {
+          "line_no": 25,
+          "label": "Other investing and financing",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 26,
+          "label": "Net cash used in financing",
+          "raw_values": [
+            "(1)",
+            "(1)",
+            "(1)",
+            "(1)",
+            "(4)"
+          ],
+          "decimal_values": [
+            "-1",
+            "-1",
+            "-1",
+            "-1",
+            "-4"
+          ]
+        },
+        {
+          "line_no": 27,
+          "label": "Net change in cash",
+          "raw_values": [
+            "1.25",
+            "1.25",
+            "1.25",
+            "1.25",
+            "5.00"
+          ],
+          "decimal_values": [
+            "1.25",
+            "1.25",
+            "1.25",
+            "1.25",
+            "5.00"
+          ]
+        },
+        {
+          "line_no": 28,
+          "label": "Opening cash",
+          "raw_values": [
+            "15.00",
+            "16.25",
+            "17.50",
+            "18.75",
+            "15.00"
+          ],
+          "decimal_values": [
+            "15.00",
+            "16.25",
+            "17.50",
+            "18.75",
+            "15.00"
+          ]
+        },
+        {
+          "line_no": 29,
+          "label": "Closing cash",
+          "raw_values": [
+            "16.25",
+            "17.50",
+            "18.75",
+            "20.00",
+            "20.00"
+          ],
+          "decimal_values": [
+            "16.25",
+            "17.50",
+            "18.75",
+            "20.00",
+            "20.00"
+          ]
+        },
+        {
+          "line_no": 30,
+          "label": "Cash interest paid",
+          "raw_values": [
+            "1.25",
+            "1.25",
+            "1.25",
+            "1.25",
+            "5.00"
+          ],
+          "decimal_values": [
+            "1.25",
+            "1.25",
+            "1.25",
+            "1.25",
+            "5.00"
+          ]
+        },
+        {
+          "line_no": 31,
+          "label": "Cash tax paid",
+          "raw_values": [
+            "1",
+            "1",
+            "1",
+            "1",
+            "4"
+          ],
+          "decimal_values": [
+            "1",
+            "1",
+            "1",
+            "1",
+            "4"
+          ]
+        },
+        {
+          "line_no": 32,
+          "label": "Cash lease payments",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 33,
+          "label": "Lease payments in financing",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 34,
+          "label": "Interest paid in financing",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 35,
+          "label": "FX effect on cash",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        }
+      ]
+    },
+    "page:4": {
+      "caption": "CONSOLIDATED BALANCE SHEET",
+      "header": "Period end  Opening 2024-12-31  Q1 2025-03-31  Q2 2025-06-30  Q3 2025-09-30  Q4 2025-12-31  FY 2025-12-31",
+      "column_order": [
+        "opening-2024",
+        "q1-2025",
+        "q2-2025",
+        "q3-2025",
+        "q4-2025",
+        "fy-2025"
+      ],
+      "row_count": 30,
+      "rows": [
+        {
+          "line_no": 5,
+          "label": "Cash and cash equivalents",
+          "raw_values": [
+            "15",
+            "16.25",
+            "17.50",
+            "18.75",
+            "20.00",
+            "20.00"
+          ],
+          "decimal_values": [
+            "15",
+            "16.25",
+            "17.50",
+            "18.75",
+            "20.00",
+            "20.00"
+          ]
+        },
+        {
+          "line_no": 6,
+          "label": "Trade receivables",
+          "raw_values": [
+            "12",
+            "12.75",
+            "13.50",
+            "14.25",
+            "15.00",
+            "15.00"
+          ],
+          "decimal_values": [
+            "12",
+            "12.75",
+            "13.50",
+            "14.25",
+            "15.00",
+            "15.00"
+          ]
+        },
+        {
+          "line_no": 7,
+          "label": "Inventories",
+          "raw_values": [
+            "8",
+            "8.5",
+            "9.0",
+            "9.5",
+            "10.0",
+            "10.0"
+          ],
+          "decimal_values": [
+            "8",
+            "8.5",
+            "9.0",
+            "9.5",
+            "10.0",
+            "10.0"
+          ]
+        },
+        {
+          "line_no": 8,
+          "label": "Total current assets",
+          "raw_values": [
+            "35",
+            "37.50",
+            "40.00",
+            "42.50",
+            "45.00",
+            "45.00"
+          ],
+          "decimal_values": [
+            "35",
+            "37.50",
+            "40.00",
+            "42.50",
+            "45.00",
+            "45.00"
+          ]
+        },
+        {
+          "line_no": 9,
+          "label": "Property plant and equipment",
+          "raw_values": [
+            "55",
+            "56.25",
+            "57.50",
+            "58.75",
+            "60.00",
+            "60.00"
+          ],
+          "decimal_values": [
+            "55",
+            "56.25",
+            "57.50",
+            "58.75",
+            "60.00",
+            "60.00"
+          ]
+        },
+        {
+          "line_no": 10,
+          "label": "Other noncurrent assets",
+          "raw_values": [
+            "5",
+            "5",
+            "5",
+            "5",
+            "5",
+            "5"
+          ],
+          "decimal_values": [
+            "5",
+            "5",
+            "5",
+            "5",
+            "5",
+            "5"
+          ]
+        },
+        {
+          "line_no": 11,
+          "label": "Total assets",
+          "raw_values": [
+            "95",
+            "98.75",
+            "102.50",
+            "106.25",
+            "110.00",
+            "110.00"
+          ],
+          "decimal_values": [
+            "95",
+            "98.75",
+            "102.50",
+            "106.25",
+            "110.00",
+            "110.00"
+          ]
+        },
+        {
+          "line_no": 12,
+          "label": "Senior secured term debt",
+          "raw_values": [
+            "45",
+            "46.25",
+            "47.50",
+            "48.75",
+            "50.00",
+            "50.00"
+          ],
+          "decimal_values": [
+            "45",
+            "46.25",
+            "47.50",
+            "48.75",
+            "50.00",
+            "50.00"
+          ]
+        },
+        {
+          "line_no": 13,
+          "label": "Total debt",
+          "raw_values": [
+            "45",
+            "46.25",
+            "47.50",
+            "48.75",
+            "50.00",
+            "50.00"
+          ],
+          "decimal_values": [
+            "45",
+            "46.25",
+            "47.50",
+            "48.75",
+            "50.00",
+            "50.00"
+          ]
+        },
+        {
+          "line_no": 14,
+          "label": "Trade payables",
+          "raw_values": [
+            "17",
+            "17.75",
+            "18.50",
+            "19.25",
+            "20.00",
+            "20.00"
+          ],
+          "decimal_values": [
+            "17",
+            "17.75",
+            "18.50",
+            "19.25",
+            "20.00",
+            "20.00"
+          ]
+        },
+        {
+          "line_no": 15,
+          "label": "Other current liabilities",
+          "raw_values": [
+            "10",
+            "10",
+            "10",
+            "10",
+            "10",
+            "10"
+          ],
+          "decimal_values": [
+            "10",
+            "10",
+            "10",
+            "10",
+            "10",
+            "10"
+          ]
+        },
+        {
+          "line_no": 16,
+          "label": "Total current liabilities",
+          "raw_values": [
+            "27",
+            "27.75",
+            "28.50",
+            "29.25",
+            "30.00",
+            "30.00"
+          ],
+          "decimal_values": [
+            "27",
+            "27.75",
+            "28.50",
+            "29.25",
+            "30.00",
+            "30.00"
+          ]
+        },
+        {
+          "line_no": 17,
+          "label": "Total liabilities",
+          "raw_values": [
+            "72",
+            "74",
+            "76",
+            "78",
+            "80",
+            "80"
+          ],
+          "decimal_values": [
+            "72",
+            "74",
+            "76",
+            "78",
+            "80",
+            "80"
+          ]
+        },
+        {
+          "line_no": 18,
+          "label": "Shareholders equity",
+          "raw_values": [
+            "23",
+            "24.75",
+            "26.50",
+            "28.25",
+            "30.00",
+            "30.00"
+          ],
+          "decimal_values": [
+            "23",
+            "24.75",
+            "26.50",
+            "28.25",
+            "30.00",
+            "30.00"
+          ]
+        },
+        {
+          "line_no": 19,
+          "label": "Total equity",
+          "raw_values": [
+            "23",
+            "24.75",
+            "26.50",
+            "28.25",
+            "30.00",
+            "30.00"
+          ],
+          "decimal_values": [
+            "23",
+            "24.75",
+            "26.50",
+            "28.25",
+            "30.00",
+            "30.00"
+          ]
+        },
+        {
+          "line_no": 20,
+          "label": "Total liabilities and equity",
+          "raw_values": [
+            "95",
+            "98.75",
+            "102.50",
+            "106.25",
+            "110.00",
+            "110.00"
+          ],
+          "decimal_values": [
+            "95",
+            "98.75",
+            "102.50",
+            "106.25",
+            "110.00",
+            "110.00"
+          ]
+        },
+        {
+          "line_no": 21,
+          "label": "Restricted cash",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 22,
+          "label": "Short-term investments",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 23,
+          "label": "Other current assets",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 24,
+          "label": "Goodwill",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 25,
+          "label": "Other intangibles",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 26,
+          "label": "Short-term debt",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 27,
+          "label": "Current portion of long-term debt",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 28,
+          "label": "Unsecured debt",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 29,
+          "label": "Subordinated debt",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 30,
+          "label": "Pension obligations",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 31,
+          "label": "Lease obligations",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 32,
+          "label": "Minority interests",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 33,
+          "label": "RCF commitment",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "line_no": 34,
+          "label": "RCF drawings",
+          "raw_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ],
+          "decimal_values": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        }
+      ]
+    }
+  },
+  "source_layout_revision": "v4: reported FY2025 control column added to4quarter IS/CFS and opening+4quarter+FYBS; source-backed functional cost decomposition, explicit all FLOW_METRICS and complete quarter/FY equity disclosure.",
+  "equity_movement_oracle": {
+    "quarters": [
+      "q1-2025",
+      "q2-2025",
+      "q3-2025",
+      "q4-2025"
+    ],
+    "net_income": "4",
+    "dividend_movement": "-2.25",
+    "oci": "0",
+    "other_equity_movements": "0",
+    "disclosure": "complete; cited explicit page:1 statement",
+    "opening_balances": [
+      "23",
+      "24.75",
+      "26.5",
+      "28.25"
+    ],
+    "closing_balances": [
+      "24.75",
+      "26.5",
+      "28.25",
+      "30"
+    ],
+    "formula": "opening total_equity + reported IS net_income + named signed dividend movement = closing total_equity",
+    "required_structures": "one BalanceMovement and complete BalanceMovementBridge(total_equity) perquarter; actual source statement references, no inferred residual plug",
+    "annual": {
+      "period_id": "fy-2025",
+      "opening_balance": "23",
+      "net_income": "16",
+      "dividend_movement": "-9",
+      "closing_balance": "30",
+      "oci": "0",
+      "other_equity_movements": "0",
+      "disclosure": "complete; same explicit page:1 declaration"
+    }
+  },
+  "source_disclosure_revision": "v4 explicitly revises source objective/presentation to satisfy documented FY-based historical display LTM; no core/gate fallback or relabeling of the prior by-nature source. Quarter revenue/EBITDA/cash/debt figures unchanged; COGS/grossprofit and canonical function-only OPEX now genuinely reported.",
+  "fy2025_observations": {
+    "revenue": "120",
+    "opex_including_da": "35.00",
+    "depreciation_amortization": "5.00",
+    "ebit": "25.00",
+    "ebitda": "30.0",
+    "adjusted_ebitda": "30.0",
+    "pretax_income": "20",
+    "income_tax_expense": "4",
+    "net_income": "16",
+    "cash_interest_paid": "5.00",
+    "cash_taxes_paid": "4",
+    "working_capital_change": "-2.0",
+    "cfo_ncfo": "19.00",
+    "capex_and_intangible_investment": "-10.0",
+    "net_debt_issue_repay": "5.00",
+    "dividends_paid": "-9.00",
+    "net_cash_change": "5.00",
+    "cogs": "60",
+    "gross_profit": "60",
+    "cash_lease_payments": "0",
+    "acquisitions_disposals": "0",
+    "net_equity_issue_repay": "0",
+    "other_investing_financing": "0",
+    "operating_lease_cost": "0",
+    "lease_payments_in_financing": "0",
+    "interest_paid_in_financing": "0"
+  }
+}

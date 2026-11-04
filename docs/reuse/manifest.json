@@ -1,0 +1,2739 @@
+{
+  "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+  "source_worktree": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+  "selection_seeds": [
+    "deploy_vii.live.tools",
+    "deploy_vii.live.context",
+    "deploy_vii.cp5_integrity",
+    "deploy_vii.render",
+    "deploy_vii.cp0_workflow",
+    "deploy_vii.cp1_workflow",
+    "deploy_vii.cp_model_workflow",
+    "deploy_vii.delivery"
+  ],
+  "python_modules": 88,
+  "files": [
+    {
+      "destination": "src/deploy_vii/__init__.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/__init__.py",
+      "sha256": "254b4fec52d03e16f748389153058805c71e8b764c0dbf10d3d7f6e4e6689abc",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/audit_basis.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/audit_basis.py",
+      "sha256": "d1284a620c08378b155b9daae44ad85dcc294f8ffad7c7a53881935125101865",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/balance_movement.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/balance_movement.py",
+      "sha256": "e27189f46c9a23698ba6912b460c6f7880cf04f06587c1f876e91afc9c945e1b",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/__init__.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/bindings/__init__.py",
+      "sha256": "6b2c8cc47d32212b3b236ece8df0abbfd6774d22db767cb6f7ea483841b9a7fc",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cp0.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/bindings/cp0.py",
+      "sha256": "c7361b92bda4ce2fcd6a8d8ce4b6ded0cd4a6e306a34a03043266a40efaa3fce",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cp1.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/bindings/cp1.py",
+      "sha256": "d94f6a460f7bb112dd2136d62a25496433dc3085582018d12a3c4091db5ba169",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cp1a.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/bindings/cp1a.py",
+      "sha256": "dfa4ea9a4194adcfc269c4612b6c20b022fd1894e455199bc26774e8cb09231c",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cp2.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/bindings/cp2.py",
+      "sha256": "cff3050de05b40d6b3ac9cd3ec657008cfa4e6311b915873deec7c5b5d3fbeab",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cp3.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/bindings/cp3.py",
+      "sha256": "b4ac94ee6c689e4f18b52b9568a3ae483b6042ea76d19dc6f0a20c3c36d572ee",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cp4.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/bindings/cp4.py",
+      "sha256": "484448f5fbbc81995efa9e8f3e5f1b636c01bbc9d16234a5be44107b6baa7f97",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cp5.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/bindings/cp5.py",
+      "sha256": "5ea9091ba41d911a88bdd282ef21c1f7dbc380eae06a8534b95901273bd45c20",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cp6.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/bindings/cp6.py",
+      "sha256": "d39cac90b76a902d41824130a3ff01f3e86e3ae3646b49b0aa1ce9e886366db9",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cp_model.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/bindings/cp_model.py",
+      "sha256": "4f455b8b2ea3e1a0da1491cc9b7c138f0e23809205dd5e344c8d0a5e0ac09716",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/shipped.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/bindings/shipped.py",
+      "sha256": "304230a5eab8f58cea77e8c00cdd69830d5bd57bd7e549e58e026d8f5655f951",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/business_context.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/business_context.py",
+      "sha256": "1d8f0cc5aeee7ad79ec314300cebeef772abd83dc65e554cd47d638f3abf41a7",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/calculation_trace.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/calculation_trace.py",
+      "sha256": "71783bf0fd1404da59e825ef72365ffc2704745578c8c3d9ffff06f678ca966c",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/canonical_audit.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/canonical_audit.py",
+      "sha256": "e8facdfa23989531f8fadb82c2b6b695b51e51baca2713b38255ba9aa1f34475",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/canonical_gaps.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/canonical_gaps.py",
+      "sha256": "11adbac79a11c8b9c9e4e10fdadd74d99d7d46e45b857276a8d34a8951f94d4f",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/canonical_kpis.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/canonical_kpis.py",
+      "sha256": "9ccf40e52a44ffb983c5dee09e6c0ee7321f8e12860b89e71dc3a8a2922b492e",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/canonical_tables.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/canonical_tables.py",
+      "sha256": "6c1e2a1ce158a381994d9881420e98cddc61f77c8b695299da4fc9b08e2112bd",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/cash_bridge.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/cash_bridge.py",
+      "sha256": "cda9bacb342bb6460e322aff078a61ab993c518604aca30ce99a6ecd1eb6207e",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/charts.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/charts.py",
+      "sha256": "9c10704c8b4707305990a501574602adefc4c5eee2d326c830c77cc281153aef",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/context_binding.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/context_binding.py",
+      "sha256": "ba5d6285985ccbe13c5d89d0192ba7a634067d926b23943a93e581ff9d469fce",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/contracts.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/contracts.py",
+      "sha256": "ee1b27f912804ab81887401a99177f99068247e8c4ba53c000b0d3fde0205e74",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/cp0_workflow.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/cp0_workflow.py",
+      "sha256": "3dc6cff11e54b2485c2b8dec289fbb50a5a1017b623fcd6cffd0610d5a02d52c",
+      "selection_reason": "workflow/tool/render seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/cp1_quality.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/cp1_quality.py",
+      "sha256": "7a26219602c9eae1432f0fac3b6958abed090c4bb068d035f79c34d6e39cf170",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/cp1_render.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/cp1_render.py",
+      "sha256": "dc9b80705e53bfb226e74ceaa00267a1bc419f3f42fd001281bd3a71b0e28a0d",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/cp1_workflow.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/cp1_workflow.py",
+      "sha256": "966a982d4068bd962df47228ded77f1929b79a1e51624fb7c4cfa9470e1878d3",
+      "selection_reason": "workflow/tool/render seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/cp2_synthesis.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/cp2_synthesis.py",
+      "sha256": "26ebc1e38e21b187c8a1876ae33d43525a80171a64f9aecf8c0f6d9ccf6da746",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/cp3_relative_value.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/cp3_relative_value.py",
+      "sha256": "0abc723dfc39554d3f7c26b35d6ed6ad60dce836da5b8e79d9a20821e265924b",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/cp4_legal.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/cp4_legal.py",
+      "sha256": "1b2246ff9b0c0797c25d259c3e408436dfcc874b48be4cf1b2f77566c2bc4128",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/cp5_integrity.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/cp5_integrity.py",
+      "sha256": "84fbe447ab9f1c8598030cf44533072dccdd114d3d34c6c5bb0d20a8d5c3225c",
+      "selection_reason": "workflow/tool/render seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/cp6_committee.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/cp6_committee.py",
+      "sha256": "2854f2a4931102c717652e0b869ba3da07ec78a5bd70ff64d862063008d445df",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/cp_model_workflow.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/cp_model_workflow.py",
+      "sha256": "84b6378c4a3a56a6ca58b717ac4b9ad1f9c406e063979390d70009d93225591a",
+      "selection_reason": "workflow/tool/render seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/delivery.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/delivery.py",
+      "sha256": "0579a58195d8e07dc3a6f3290d3034e397096dde9046c898bed76e3b73f82ed5",
+      "selection_reason": "workflow/tool/render seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/display.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/display.py",
+      "sha256": "efdcd5d60400e47c1210442ed165e0642bcb3770aaaebf526dfcb7b750588398",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/downstream_readiness.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/downstream_readiness.py",
+      "sha256": "29c71a90df07d1eed7df2903b30211377a77588fa7f564d09389d6d47c11dbdd",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/envelope.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/envelope.py",
+      "sha256": "e45587d58cd864e393a576b1ffa2c07adcd76fce847274923c0b7264c80e2291",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/execution.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/execution.py",
+      "sha256": "752ae7c74774f4410db0a24bb49c443d777dac7c8e3e6c8f8a11e088a3c9bff3",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/facility_fx.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/facility_fx.py",
+      "sha256": "b2679587e425f74f4e39724c266a51b4bc008405a137f8d7122cd1129aaf56bf",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/financial_adapter.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/financial_adapter.py",
+      "sha256": "15fadfe762eb923acd5cc09273b5f1ceb4ac81340fc2fd4bcb6767d70f046503",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/financial_contracts.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/financial_contracts.py",
+      "sha256": "5881b5287e8c871c078d7f64cb9c14bb191b107b556930308aa226a5d191d8a9",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/financial_model.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/financial_model.py",
+      "sha256": "eac3a4113a366268f107371cea503508f164655aac8d74b86cca850227793472",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/financial_periods.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/financial_periods.py",
+      "sha256": "f66768991bf394bdf6713e51856ecded97fe50c37bd159b844bc4c55de8475c5",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/financial_reconciliation.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/financial_reconciliation.py",
+      "sha256": "03e6ea036882a6dbcf3df689d4f81b6876244851e253f88a25d568e6da5a54fc",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/financial_validation.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/financial_validation.py",
+      "sha256": "91b5ef7d52ad8cb87c0627c5c794b1f6014ab8257bb3b7cd57ca22f8ff220c28",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/interface_view.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/interface_view.py",
+      "sha256": "6e2275eba2ed3713a3abfd3ea01aad0dadc1527d6fca23e58e325fb53182b45d",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/live/__init__.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/live/__init__.py",
+      "sha256": "e97f383f95f3913d28439509ddc024a945270f9ab7bef8fa2f8c852a878fe759",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/live/context.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/live/context.py",
+      "sha256": "71be7583fae72d5b719ba7167026d46576f5a4e7da4f4be1410417d50bd1a7aa",
+      "selection_reason": "workflow/tool/render seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/live/prompts.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/live/prompts.py",
+      "sha256": "fc291aee064f9f54c837094e5365601b1ee795259d0f81250d68960a428d87b5",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/live/schema.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/live/schema.py",
+      "sha256": "c63744196066a9046e1d3331ee5191f8dc30b2d7f08644ca816c7ae2955e56cb",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/live/settings.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/live/settings.py",
+      "sha256": "4bae24dc685cc090f0c4dc862f74ed59235ddc39c853d6baa18da355cbeba7c5",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/live/submission.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/live/submission.py",
+      "sha256": "6656846fab07c46e7fe60006c965065ccb0aacd6a86164081c0d25eeb3575e4a",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/live/tools.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/live/tools.py",
+      "sha256": "380c20ebf24cac8c5e891726607bd13c04707d1262a0a622b9e9732a68bd5924",
+      "selection_reason": "workflow/tool/render seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/model/__init__.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/model/__init__.py",
+      "sha256": "bbd91a375dd57c02bed421d9f4265b0221d404d186080124a8285685c911439b",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/model/_cells.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/model/_cells.py",
+      "sha256": "38c2ec4493b9b53065361db748a596687c7381eaf91659bc48fd9707ce7f2549",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/model/dates.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/model/dates.py",
+      "sha256": "8dfb65355fcbbb0edf86c7c9480b9de53ad80dc060b44cdfa3774f7535629b1b",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/model/debt.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/model/debt.py",
+      "sha256": "c942ba769a48d20e23abae2e18a86ba8c88beb71d8d743f8e83f309f145134a3",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/model/frame.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/model/frame.py",
+      "sha256": "8856b63569a9165d097ce8d42f5cf32ac9334101232c6a35e4d8b87f257e71b1",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/model/history.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/model/history.py",
+      "sha256": "6f01fc30e643ea32ec2deca8cf0440766de2d7a7396153a2556be75fb187e03d",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/model/metrics.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/model/metrics.py",
+      "sha256": "f3d547ba82a6545987a6f5bbbd80cc890915d4f3714c3f99f18ae21a45cf13eb",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/model/periods.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/model/periods.py",
+      "sha256": "47484914a8b1ccb6a9d107b192a25d144f2df529e65935107c9edd44c53d2c6d",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/model/registers.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/model/registers.py",
+      "sha256": "6fc511c730fd20c83b440bb02de58dcd373eccac203b4f9659115ddc7d49d959",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/model/statements.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/model/statements.py",
+      "sha256": "e22fed242bf47600fc75158b4c24b678bcb26b72041b7f327cae106bd9d80d66",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/model_interface.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/model_interface.py",
+      "sha256": "259982a84d91226a9cb42a3c736506d592a04e0150724973197ac70057d0286c",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/model_readiness.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/model_readiness.py",
+      "sha256": "e226db1b9c130b3cca6eae5b053b95b605945094d71a49ad9dfa0db59bcedc8e",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/narrative.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/narrative.py",
+      "sha256": "f118fe08134511c01c0f30edfe3f6fd21dd8c1a27943865661875fa0f9040583",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/narrative_projection.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/narrative_projection.py",
+      "sha256": "2ea83d34b8a772873dea728b35dd6898d393a36787575256fbada0d6dc733095",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/period_reconciliation.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/period_reconciliation.py",
+      "sha256": "e3c0e5d9f0e91537e7aaeddac0aebcb426a4bdbdc11dac4b2b86716e782302c0",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/preparation.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/preparation.py",
+      "sha256": "047f35778a5c969d7713619d6335b39c33809f7f944b0bd21eb153c42d6ac212",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/prose.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/prose.py",
+      "sha256": "33f4de8945127d4e2af005949c4d560a1b3d6d20629be8c42ce86e684784a74f",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/quality.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/quality.py",
+      "sha256": "79865e93c4928b9bc95ad5f286c1c685d579039689c4f456a8620bb59ebc5ef2",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/quotes.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/quotes.py",
+      "sha256": "4c489fafe178431c8f9941c86105238e7f5c34dd6bf154140cab7e7c9a828a96",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/readiness.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/readiness.py",
+      "sha256": "1038a37a8227f426e4d6e1e79985e986e23e77f9e7cdee763a884477162ccffa",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/register_view.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/register_view.py",
+      "sha256": "4b6a44743567669d74d4935186d45083d38a489392d47cec9126a4bc9216da46",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/registry.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/registry.py",
+      "sha256": "e351d5b917558d4988e582963063dbf8a237f5949ae8a132b9f1c4e5f559995a",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/render.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/render.py",
+      "sha256": "8bad4ede8529232eb243474ce05ac686903a6ae77d433a11467521d44ec5ba5f",
+      "selection_reason": "workflow/tool/render seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/report_view.py",
+      "sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/source_context.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/source_context.py",
+      "sha256": "bef10963d45e2b5e3b25626e3dd2db22ed9156988e7ec79fc43992ada8920a4c",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/statement_extract.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/statement_extract.py",
+      "sha256": "f4b2c224e0b55662704ca6529b46d6ff3b3ae67ed8ebb95518d8cdf3c88a25b1",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/statement_history.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/statement_history.py",
+      "sha256": "8764ff7d839066dd604d9e247d3843a054e164bf351b8c1e5d2853f46b8b1744",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/statement_output.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/statement_output.py",
+      "sha256": "9aa2dbfc9ee82831293bfdb042a4144e2e654dace574b2b9075e5ab02448689f",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/statement_validation.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/statement_validation.py",
+      "sha256": "6c14886cf39fad31cfa2e017f1c6a62051ea26141da1cdfdeb3b02e125987107",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/statement_view.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/statement_view.py",
+      "sha256": "1d6fe0f78710a5ad6c931804c70a3f18e3661b01a350b44e54167b2981bdedbf",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/table_markdown.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/table_markdown.py",
+      "sha256": "6f580838cc2bd3125d2e8a3d7f13c95a58824859a994e57d341588885794c43d",
+      "selection_reason": "static local dependency of selected seed",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/app.css",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/app.css",
+      "sha256": "ea3a8198f9f6f4b4c9a354427460a29cc6b555047a095a916949f8775e75f1ac",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/app.js",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/app.js",
+      "sha256": "0a8da6637b8da73a048ac828a1485d0a3227507b89252d9aabe5e8446813779b",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/brand/provenance.json",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/brand/provenance.json",
+      "sha256": "1de771ef5a8628c8dc5f19da05ff9afedd741f948c3024616849251f53a7374c",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/brand/ssim-logo-stacked-black-trim.png",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/brand/ssim-logo-stacked-black-trim.png",
+      "sha256": "50eecd12d25638558e3b8b398bd02118569980d99b126d98cb4ec71be6d3bd32",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/fonts/OFL.txt",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/fonts/OFL.txt",
+      "sha256": "98eac4800faf2b800dfb11f82e38b779ebe473e05e343c18aeb65eabb74442ae",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/fonts/RedHatDisplay-Bold.woff2",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/fonts/RedHatDisplay-Bold.woff2",
+      "sha256": "a28973642bc0dc1404138a6b32031b5f1bbc131d1b5a92a0214d16cfe8091793",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/fonts/RedHatDisplay-SemiBold.woff2",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/fonts/RedHatDisplay-SemiBold.woff2",
+      "sha256": "5ed4d4d4aa40abda2e2aafd0083e3ee109290c3e86392778e934755a4db67332",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/fonts/RedHatMono-Medium.woff2",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/fonts/RedHatMono-Medium.woff2",
+      "sha256": "ab9f475ace2c1e5ed9ee31d964bbadd72dd84b6ab65e71445be80f1fe95c7a0d",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/fonts/RedHatMono-SemiBold.woff2",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/fonts/RedHatMono-SemiBold.woff2",
+      "sha256": "d3c80dda632cbceb3419ef8c6a54af6bf5139b50b83300f467c3c24cdc8e794c",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/fonts/RedHatText-Medium.woff2",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/fonts/RedHatText-Medium.woff2",
+      "sha256": "abfc3d5ff9e975d487ec295895efdc2e5848f804d0982bee87ce0d8f55c9a3d1",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/fonts/RedHatText-Regular.woff2",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/fonts/RedHatText-Regular.woff2",
+      "sha256": "8b6c947032e889935aeef9d3a987fe4760b5bb029af531f2511e5824602a550a",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/fonts/RedHatText-SemiBold.woff2",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/fonts/RedHatText-SemiBold.woff2",
+      "sha256": "3f3c8935bd6bf319b0b1f3d80b7247646fefa6dd77aca88347d0ab16e7c1e9aa",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/fonts/provenance.json",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/fonts/provenance.json",
+      "sha256": "a6327c8bcc3b050483bad67f2923d3ff440993a7e3fe3daa24d446d6319bc013",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/shell.html",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/shell.html",
+      "sha256": "c3f441e14855ff5e5a3a2361f5c1d97c1ef1e0db168f2286cbc1615b4ac76792",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/assets/tokens.css",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/assets/tokens.css",
+      "sha256": "b7ab135a4bb33247117b65e915eec9d7ebd48fbfb6cdc61e42dbd13ab2bfbc9b",
+      "selection_reason": "renderer resource/license",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp0.md",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/methods/cp0.md",
+      "sha256": "68b7bf93b09625ff5ce7f7e4d0930ed27f09959da587509eba96b06ce9ef2a6f",
+      "selection_reason": "existing analytical step instructions",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp1a.md",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/methods/cp1a.md",
+      "sha256": "075ade1573851dba48e763edacdbe76d3d0ff240302c5e58d7cb5671ae2e3929",
+      "selection_reason": "existing analytical step instructions",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp2.md",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/methods/cp2.md",
+      "sha256": "9ddd2ab22b5aeab99054cf82ebfb7f03ef49422678be08374566b96dc18dcbd1",
+      "selection_reason": "existing analytical step instructions",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp3.md",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/methods/cp3.md",
+      "sha256": "0b3f94694dfb9cde85932a036c3b9a0aec48e1495fee786876767aaa0cc8f571",
+      "selection_reason": "existing analytical step instructions",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp4.md",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/methods/cp4.md",
+      "sha256": "99ec34c7a8257e15325456eb5466388eeb656fa01cf30db91e8474334bb39ff0",
+      "selection_reason": "existing analytical step instructions",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp5.md",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/methods/cp5.md",
+      "sha256": "81cf6bea9b56ad63fd9cc38c32bf4cef9b9c1e48b750f8c803cb4d8874d64d67",
+      "selection_reason": "existing analytical step instructions",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp6.md",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/methods/cp6.md",
+      "sha256": "324595e417e5bf903a27040220e87d1221f9f6d89245cb62f73b9b0ad2182c5d",
+      "selection_reason": "existing analytical step instructions",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/methodology.json",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII/.claude/worktrees/agent-a2b34b93ed9b7ad1a",
+      "source_commit": "6441553936086c834be885e2f3d7cd7f0959aa5c",
+      "source_path": "src/deploy_vii/methodology.json",
+      "sha256": "e52360e409d159aac2943e668962c5afdd218fa3c0b0f22cec717a1f54e618c7",
+      "selection_reason": "registry metadata required by selected modules",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/inputs/__init__.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII",
+      "source_commit": "7260b22c9c908ce6303334400cc67ef970838ba9",
+      "source_path": "src/deploy_vii/inputs/__init__.py",
+      "sha256": "78db891259cf2d2361590d452fa392816a84d71ad1fee17c76ca83c0581aa7e9",
+      "selection_reason": "PD.1 Portfolio Fit and the CP-3B lease: PF-1 portfolio workbook reader (user approval 2026-10-29; Q-C14)",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/inputs/portfolio.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII",
+      "source_commit": "7260b22c9c908ce6303334400cc67ef970838ba9",
+      "source_path": "src/deploy_vii/inputs/portfolio.py",
+      "sha256": "ed239e92269fb550601e76ccaf84aaf05b739428a265781cb07dacc7ffbbe048",
+      "selection_reason": "PD.1 Portfolio Fit and the CP-3B lease: PF-1 portfolio workbook reader (user approval 2026-10-29; Q-C14)",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "src/deploy_vii/inputs/rv_quotes.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII",
+      "source_commit": "7260b22c9c908ce6303334400cc67ef970838ba9",
+      "source_path": "src/deploy_vii/inputs/rv_quotes.py",
+      "sha256": "7ff9213724b331fc0cd2535dc216220ac6965b6d29e634a86c199f6ef4c73f9c",
+      "selection_reason": "PD.1 Portfolio Fit and the CP-3B lease: PF-1 portfolio workbook reader (user approval 2026-10-29; Q-C14)",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "scripts/build_templates.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII",
+      "source_commit": "7260b22c9c908ce6303334400cc67ef970838ba9",
+      "source_path": "scripts/build_templates.py",
+      "sha256": "af1859041c2063707c5baa120775b374b0649125e931c931a1928233c22eac02",
+      "selection_reason": "PD.1 Portfolio Fit and the CP-3B lease: PF-1 portfolio workbook reader (user approval 2026-10-29; Q-C14)",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "docs/templates/portfolio.template.xlsx",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII",
+      "source_commit": "7260b22c9c908ce6303334400cc67ef970838ba9",
+      "source_path": "docs/templates/portfolio.template.xlsx",
+      "sha256": "c3564078644ad6e9ecf4b9559f8f828063d6daef57dc57c636d6e64c405cf97b",
+      "selection_reason": "PD.1 Portfolio Fit and the CP-3B lease: PF-1 portfolio workbook reader (user approval 2026-10-29; Q-C14)",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "tests/product/test_inputs_portfolio.py",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII",
+      "source_commit": "7260b22c9c908ce6303334400cc67ef970838ba9",
+      "source_path": "tests/product/test_inputs_portfolio.py",
+      "sha256": "5f8c08fe2e5e7fdd7c34459e0a9b8ae1bcde8f9d635da2e27541227fe0c4c8fd",
+      "selection_reason": "PD.1 Portfolio Fit and the CP-3B lease: PF-1 portfolio workbook reader (user approval 2026-10-29; Q-C14)",
+      "verification": "byte-preserved; not new-project functional acceptance"
+    },
+    {
+      "destination": "docs/templates/README.md",
+      "source_repository": "/Users/ericguei/Documents/DEPLOY VII",
+      "source_commit": "7260b22c9c908ce6303334400cc67ef970838ba9",
+      "source_path": "docs/templates/README.md",
+      "sha256": "9cec0e896a4ebec4cc3048a890ee0a480c17dacc950277620946685b4ed1de70",
+      "selection_reason": "PD.1 Portfolio Fit and the CP-3B lease: PF-1 portfolio workbook reader (user approval 2026-10-29; Q-C14)",
+      "source_file_sha256": "09fa35e9a787a4fc1ad1fbb2d873d7e9a7445234bf826e7280fc334db7b31550",
+      "excerpt": "lines 112-401 of the source file (the 'Portfolio workbook' section only); sha256 is of the excerpt bytes",
+      "verification": "byte-preserved excerpt; not new-project functional acceptance",
+      "note": "build_templates.py main() also writes the non-imported rv-quotes.template.xlsx"
+    }
+  ],
+  "excluded_python_modules": [
+    "deploy_vii.__main__",
+    "deploy_vii.execution_cli",
+    "deploy_vii.live.catalog",
+    "deploy_vii.live.cli",
+    "deploy_vii.live.client",
+    "deploy_vii.live.cohort",
+    "deploy_vii.live.corpus",
+    "deploy_vii.live.credential",
+    "deploy_vii.live.credit",
+    "deploy_vii.live.draw",
+    "deploy_vii.live.ledger",
+    "deploy_vii.live.loop",
+    "deploy_vii.live.reconcile",
+    "deploy_vii.live.retention",
+    "deploy_vii.live.runner",
+    "deploy_vii.live.schema_check"
+  ],
+  "not_copied": [
+    "Git history",
+    "old AGENTS/CLAUDE instructions",
+    "provider/client/credential/ledger/runner code",
+    "development launchers",
+    "private packs and run artifacts",
+    "bulk tests and old planning tree"
+  ],
+  "hash_interpretation": "source_commit and files[].sha256 record the original byte-preserved import baseline. Post-import changes to imported files are recorded separately in post_import_patches; their sha256 values identify the current patched destination bytes.",
+  "post_import_patches": [
+    {
+      "destination": "src/deploy_vii/live/tools.py",
+      "imported_sha256": "380c20ebf24cac8c5e891726607bd13c04707d1262a0a622b9e9732a68bd5924",
+      "prior_project_sha256": "380c20ebf24cac8c5e891726607bd13c04707d1262a0a622b9e9732a68bd5924",
+      "project_commit": "1668904ffb211fd8a31864e6e1f8345e03a27ada",
+      "sha256": "d4071e59bde16648ab9175e529cce47a5b5e0f456da3a4692e831d0b346b1e48",
+      "reason": "feat: add scoped source sessions and atomic evidence (lane first-parent change to this reused file; reconstructed from git, 2026-10-30).",
+      "review": "docs/rulings/2026-10-30-open-items.md"
+    },
+    {
+      "destination": "src/deploy_vii/live/tools.py",
+      "imported_sha256": "380c20ebf24cac8c5e891726607bd13c04707d1262a0a622b9e9732a68bd5924",
+      "prior_project_sha256": "d4071e59bde16648ab9175e529cce47a5b5e0f456da3a4692e831d0b346b1e48",
+      "project_commit": "ff7b7b2aed6c6e98d4f24a4703b97b600cc049bd",
+      "sha256": "3b84b58b2960ed8898a324cf751d68cf49ac33922cefdbb093bbab15a389edf3",
+      "reason": "Merge G1-X fix 2 and LEAD 0d (857081c) (lane first-parent change to this reused file; reconstructed from git, 2026-10-30).",
+      "review": "docs/rulings/2026-10-30-open-items.md"
+    },
+    {
+      "destination": "src/deploy_vii/live/tools.py",
+      "imported_sha256": "380c20ebf24cac8c5e891726607bd13c04707d1262a0a622b9e9732a68bd5924",
+      "prior_project_sha256": "3b84b58b2960ed8898a324cf751d68cf49ac33922cefdbb093bbab15a389edf3",
+      "project_commit": "128c3ca56a16c703f44e4d9fa6d550961533c3f9",
+      "sha256": "2d607ea225693f3a8c651de84657eca81e9c101e52f80cd86ffc451d0667a681",
+      "reason": "merge: lane (Stage 1 release, Lows, follow-up) into round12 (lane first-parent change to this reused file; reconstructed from git, 2026-10-30).",
+      "review": "docs/rulings/2026-10-30-open-items.md"
+    },
+    {
+      "destination": "src/deploy_vii/live/tools.py",
+      "imported_sha256": "380c20ebf24cac8c5e891726607bd13c04707d1262a0a622b9e9732a68bd5924",
+      "prior_project_sha256": "2d607ea225693f3a8c651de84657eca81e9c101e52f80cd86ffc451d0667a681",
+      "project_commit": "bb4553bb1819e4354c5915345ae0dc7b301e79fe",
+      "sha256": "a50a3f8c14069f16ee6f77610ecfe66d85972390aa8ce203176fc1b1b110bb1c",
+      "reason": "Atomic read/search evidence publication after complete SOURCE rendering; preserve prior successes. Also 0d bounded payload nesting and the non-str discriminator tag; 0d-b added the single storable parse payload_document (refuses lone-surrogate strings) used by json_object, tools._document and compose_payload. Also 0d-c bounded the rule and pre-fill issue text at the producer: absence_issues and unread_citation_issues give at most 20 lines of at most 600 characters through execution.listed_issues, with a tuple _walk.",
+      "review": "work/lead/product-defects-0d/"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "project_commit": "3e5b537a22ae95638273503326a3ede7739f31fb",
+      "sha256": "571ee44cbac0a39c3dd77871e13f7f9cc414c4e6700e9e887a70a64b74b7c4cc",
+      "reason": "Render the leased source-backed CP1 S.1-S.4 series in report and canonical Model destinations through the shared report-view builder.",
+      "review": "docs/handoffs/cp1-chart-rendering.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/shipped.py",
+      "imported_sha256": "304230a5eab8f58cea77e8c00cdd69830d5bd57bd7e549e58e026d8f5655f951",
+      "prior_project_sha256": "304230a5eab8f58cea77e8c00cdd69830d5bd57bd7e549e58e026d8f5655f951",
+      "project_commit": "0d6c714569afdd63e50115c61a268d2530d7df13",
+      "sha256": "4ef3f9ffdc9a6e10461dbe722e8222c8803ccba1ab49f42b9cd9db07bf9d4fec",
+      "reason": "Register the separately leased CP1B A3 report binding map after CP1 while retaining imported binding source provenance.",
+      "review": "docs/reviews/cp1b-render-contract.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "571ee44cbac0a39c3dd77871e13f7f9cc414c4e6700e9e887a70a64b74b7c4cc",
+      "project_commit": "0d6c714569afdd63e50115c61a268d2530d7df13",
+      "sha256": "21dc5c341c85eeb22a372f3c3a97e48b28f0dd37b7f9a62be1d5851e4785808b",
+      "reason": "Add the leased CP1B fact-shape, layout coverage and report projection while preserving the imported source and prior local patch hashes.",
+      "review": "docs/reviews/cp1b-render-contract.md"
+    },
+    {
+      "destination": "src/deploy_vii/registry.py",
+      "imported_sha256": "e351d5b917558d4988e582963063dbf8a237f5949ae8a132b9f1c4e5f559995a",
+      "prior_project_sha256": "e351d5b917558d4988e582963063dbf8a237f5949ae8a132b9f1c4e5f559995a",
+      "project_commit": "266440a5fb050ccdaadca8ab0c4183ec15b4efc5",
+      "sha256": "adf30a0b3f54d2b4d80fa6397507386e49017f7e6ab6d1399a02c393cf33ebbc",
+      "reason": "Register CP1B with an explicit offline/live capability split under the reviewed A2 lease.",
+      "review": "docs/reviews/cp1b-access-registration-contract.md"
+    },
+    {
+      "destination": "src/deploy_vii/methodology.json",
+      "imported_sha256": "e52360e409d159aac2943e668962c5afdd218fa3c0b0f22cec717a1f54e618c7",
+      "prior_project_sha256": "e52360e409d159aac2943e668962c5afdd218fa3c0b0f22cec717a1f54e618c7",
+      "project_commit": "266440a5fb050ccdaadca8ab0c4183ec15b4efc5",
+      "sha256": "348fbc4b877e4f0351ecc238ea005adf815291b15a6267f263459203a08f8d45",
+      "reason": "Declare the CP1B earnings delta method as an offline step without enabling shared-live execution.",
+      "review": "docs/reviews/cp1b-access-registration-contract.md"
+    },
+    {
+      "destination": "src/deploy_vii/live/submission.py",
+      "imported_sha256": "6656846fab07c46e7fe60006c965065ccb0aacd6a86164081c0d25eeb3575e4a",
+      "prior_project_sha256": "6656846fab07c46e7fe60006c965065ccb0aacd6a86164081c0d25eeb3575e4a",
+      "project_commit": "07a41d693c19fe62275c68662f66762efd2acf12",
+      "sha256": "a6b8919e5f10b9dfd541d469a930fd153c3074bbd64ff35f755aed3c9d5a2799",
+      "reason": "feat: register CP1B and bound current financial access (lane first-parent change to this reused file; reconstructed from git, 2026-10-30).",
+      "review": "docs/rulings/2026-10-30-open-items.md"
+    },
+    {
+      "destination": "src/deploy_vii/live/submission.py",
+      "imported_sha256": "6656846fab07c46e7fe60006c965065ccb0aacd6a86164081c0d25eeb3575e4a",
+      "prior_project_sha256": "a6b8919e5f10b9dfd541d469a930fd153c3074bbd64ff35f755aed3c9d5a2799",
+      "project_commit": "ff7b7b2aed6c6e98d4f24a4703b97b600cc049bd",
+      "sha256": "01ea63dfc0e0fb1ede25a0b817a279975d0d632eb9c2bf439512523639cf8970",
+      "reason": "Merge G1-X fix 2 and LEAD 0d (857081c) (lane first-parent change to this reused file; reconstructed from git, 2026-10-30).",
+      "review": "docs/rulings/2026-10-30-open-items.md"
+    },
+    {
+      "destination": "src/deploy_vii/live/submission.py",
+      "imported_sha256": "6656846fab07c46e7fe60006c965065ccb0aacd6a86164081c0d25eeb3575e4a",
+      "prior_project_sha256": "01ea63dfc0e0fb1ede25a0b817a279975d0d632eb9c2bf439512523639cf8970",
+      "project_commit": "128c3ca56a16c703f44e4d9fa6d550961533c3f9",
+      "sha256": "1d92f7d53c7ecc6880054cb40904e0136cd1c2724ba63a0cda3ea47894661963",
+      "reason": "merge: lane (Stage 1 release, Lows, follow-up) into round12 (lane first-parent change to this reused file; reconstructed from git, 2026-10-30).",
+      "review": "docs/rulings/2026-10-30-open-items.md"
+    },
+    {
+      "destination": "src/deploy_vii/live/submission.py",
+      "imported_sha256": "6656846fab07c46e7fe60006c965065ccb0aacd6a86164081c0d25eeb3575e4a",
+      "prior_project_sha256": "1d92f7d53c7ecc6880054cb40904e0136cd1c2724ba63a0cda3ea47894661963",
+      "project_commit": "bb4553bb1819e4354c5915345ae0dc7b301e79fe",
+      "sha256": "1b4aaa0967a5a9308e9061ceea6d365f1f7ee5ab88a8457fa18dffa073312186",
+      "reason": "Refuse offline-only registered steps explicitly at shared-live schema lookup while preserving existing schemas. Also 0d bounded payload nesting and the non-str discriminator tag; 0d-b added the single storable parse payload_document (refuses lone-surrogate strings) used by json_object, tools._document and compose_payload. Also 0d-c made _Resolver.unbound an insertion-ordered dict of issues built by execution.clipped (at most 600 characters each, an id never copied whole), returned by prefill as a tuple.",
+      "review": "work/lead/product-defects-0d/"
+    },
+    {
+      "destination": "src/deploy_vii/live/submission.py",
+      "imported_sha256": "6656846fab07c46e7fe60006c965065ccb0aacd6a86164081c0d25eeb3575e4a",
+      "prior_project_sha256": "1b4aaa0967a5a9308e9061ceea6d365f1f7ee5ab88a8457fa18dffa073312186",
+      "project_commit": "93c1ffca2cd61f7f5a2fec385cd6df62ed95da1e",
+      "sha256": "173547f9a18bc43afaf3acf2ddc569ed398353b672b6856500f29d7f95e75445",
+      "reason": "Refuse offline-only registered steps explicitly at shared-live schema lookup while preserving existing schemas. Also 0d bounded payload nesting and the non-str discriminator tag; 0d-b added the single storable parse payload_document (refuses lone-surrogate strings) used by json_object, tools._document and compose_payload. Also 0d-c made _Resolver.unbound an insertion-ordered dict of issues built by execution.clipped (at most 600 characters each, an id never copied whole), returned by prefill as a tuple. Also 0d-d: the pre-fill _Resolver indexes binding rows, facility rows, the entity's scopes (_Scopes) and the context's source classes and entities once, and parses a matched facility row once; last facility row still wins; output unchanged.",
+      "review": "work/lead/product-defects-0d/"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "21dc5c341c85eeb22a372f3c3a97e48b28f0dd37b7f9a62be1d5851e4785808b",
+      "project_commit": "4e84ffc2657d295259f2577486b1a1c7bac9610a",
+      "sha256": "19705fb05aa84a92f6d321a1afc68de7d3dd6cdd99399ac96e0e7c055fb50073",
+      "reason": "Add the admitted typed CP4/FP04 report projection while preserving the imported baseline and earlier CP1/CP1B local patch history.",
+      "review": "docs/reviews/cp4-fp04-contract.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "19705fb05aa84a92f6d321a1afc68de7d3dd6cdd99399ac96e0e7c055fb50073",
+      "project_commit": "41a8fdb94395d312bce08eef37c6fe939a4bfa35",
+      "sha256": "a1fc47cd8affd47cddb42b429dc1764a2870b9f888afd41c32ef871e53d17a08",
+      "reason": "Say a module of the Pathway preset (or its required producers) left out by a requested_modules override was not requested in this run, not 'Not in this Pathway'; no reachable block-route defect exists, so routes are unchanged.",
+      "review": "docs/reviews/0d-product-defects.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "a1fc47cd8affd47cddb42b429dc1764a2870b9f888afd41c32ef871e53d17a08",
+      "project_commit": "b4ae1874154426c4167bb1a0158101996357b82a",
+      "sha256": "51a6853ec0e80393a50cdf8ed577cddaf2eee8e26246609b85dea01712560e12",
+      "reason": "Call band and navigator say a preset module (or its required producer) left out by a requested_modules override was not requested (Not run), not 'Not in this Pathway'; new CallWithheld value not_requested; dependencies imported at module level.",
+      "review": "docs/reviews/0d-product-defects.md"
+    },
+    {
+      "destination": "src/deploy_vii/render.py",
+      "imported_sha256": "8bad4ede8529232eb243474ce05ac686903a6ae77d433a11467521d44ec5ba5f",
+      "prior_project_sha256": "8bad4ede8529232eb243474ce05ac686903a6ae77d433a11467521d44ec5ba5f",
+      "project_commit": "b4ae1874154426c4167bb1a0158101996357b82a",
+      "sha256": "7bf8d889fb8f5b74d84f0239664c801a1c0fcfbc3a40e32da6ea49f1cd8bf253",
+      "reason": "Module payload status word follows the same rule as the navigator: a preset module left out by a requested_modules override reads Not run, not 'Not in this Pathway'.",
+      "review": "docs/reviews/0d-product-defects.md"
+    },
+    {
+      "destination": "src/deploy_vii/assets/app.js",
+      "imported_sha256": "0a8da6637b8da73a048ac828a1485d0a3227507b89252d9aabe5e8446813779b",
+      "prior_project_sha256": "0a8da6637b8da73a048ac828a1485d0a3227507b89252d9aabe5e8446813779b",
+      "project_commit": "41a8fdb94395d312bce08eef37c6fe939a4bfa35",
+      "sha256": "1d7f0c606b52ca7718df2b3a70f7d7dfa86c5d9218aff577285ccaa74693be86",
+      "reason": "Skip link focuses the main region and cancels its default jump so the hash router never sees #workbench; loading the shell at #workbench is the default Front Page view.",
+      "review": "docs/reviews/0d-product-defects.md"
+    },
+    {
+      "destination": "src/deploy_vii/assets/app.js",
+      "imported_sha256": "0a8da6637b8da73a048ac828a1485d0a3227507b89252d9aabe5e8446813779b",
+      "prior_project_sha256": "1d7f0c606b52ca7718df2b3a70f7d7dfa86c5d9218aff577285ccaa74693be86",
+      "project_commit": "b4ae1874154426c4167bb1a0158101996357b82a",
+      "sha256": "0f0fe30bf97384d46ebfba4d6d09bc1b179918d6c36cba03b7ef8ee149bf7706",
+      "reason": "Call band sentence for the not-requested state says CP-6 was not requested in this run instead of the Pathway not making the call. The same revision groups the navigator footer's outside rows by status word, one summary per word.",
+      "review": "docs/reviews/0d-product-defects.md"
+    },
+    {
+      "destination": "src/deploy_vii/methodology.json",
+      "imported_sha256": "e52360e409d159aac2943e668962c5afdd218fa3c0b0f22cec717a1f54e618c7",
+      "prior_project_sha256": "348fbc4b877e4f0351ecc238ea005adf815291b15a6267f263459203a08f8d45",
+      "project_commit": "ede9ffeaf99b1800a7f4c0c39a7d46b8d6a3f13c",
+      "sha256": "1bb6c0bc6fa13b8e668266cb1aa76dcc8ffe6178bcf403958ce761b94dbb89a6",
+      "reason": "Serialised methodology change: CP-L10 requires CP-1 (D4); CP-L10 registers TL10.5; CP-1C owns T1C.1-T1C.8 and drops the T4.x ids (D8); CP-1D drops the T1E.1-T1E.6 ids; CP-2A drops the T5.1-T5.7 ids that collide with CP-5.",
+      "review": "work/lead/methodology-serialised/review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methodology.json",
+      "imported_sha256": "e52360e409d159aac2943e668962c5afdd218fa3c0b0f22cec717a1f54e618c7",
+      "prior_project_sha256": "1bb6c0bc6fa13b8e668266cb1aa76dcc8ffe6178bcf403958ce761b94dbb89a6",
+      "project_commit": "e22dafee8ea42577d8cf1dd4308644dabba645af",
+      "sha256": "0932d9fbcd9272d62bcb7681e1dd16d9bc944319c64716b41dc79715699796e8",
+      "reason": "Serialised methodology change with the CP-6 half freeze of the CP-3/CP-6 owner lease (ruling Q7, D12): T6-FINAL registered in CP-6 table_ids; it collides with no module table id (CP-0's T6 is a different string) and no product code reads table_ids.",
+      "review": "work/lead/cp6-freeze/"
+    },
+    {
+      "destination": "src/deploy_vii/live/schema.py",
+      "imported_sha256": "c63744196066a9046e1d3331ee5191f8dc30b2d7f08644ca816c7ae2955e56cb",
+      "prior_project_sha256": "c63744196066a9046e1d3331ee5191f8dc30b2d7f08644ca816c7ae2955e56cb",
+      "project_commit": "ff7b7b2aed6c6e98d4f24a4703b97b600cc049bd",
+      "sha256": "9854394f0dc4d23b2db5f93d1e487414d0d4af343cdc3c7bb79b1deaffb26f42",
+      "reason": "Merge G1-X fix 2 and LEAD 0d (857081c) (lane first-parent change to this reused file; reconstructed from git, 2026-10-30).",
+      "review": "docs/rulings/2026-10-30-open-items.md"
+    },
+    {
+      "destination": "src/deploy_vii/live/schema.py",
+      "imported_sha256": "c63744196066a9046e1d3331ee5191f8dc30b2d7f08644ca816c7ae2955e56cb",
+      "prior_project_sha256": "9854394f0dc4d23b2db5f93d1e487414d0d4af343cdc3c7bb79b1deaffb26f42",
+      "project_commit": "1a1a140c26da2fc54fecb9476e8ad5dfef75c91d",
+      "sha256": "68fb91b0db05bdd35a38bda5a590a674498a8a9de7e706bf2de4a6174a4195a9",
+      "reason": "0d bounded payload nesting and the non-str discriminator tag; 0d-b added the single storable parse payload_document (refuses lone-surrogate strings) used by json_object, tools._document and compose_payload.",
+      "review": "work/lead/product-defects-0d/"
+    },
+    {
+      "destination": "src/deploy_vii/execution.py",
+      "imported_sha256": "752ae7c74774f4410db0a24bb49c443d777dac7c8e3e6c8f8a11e088a3c9bff3",
+      "prior_project_sha256": "752ae7c74774f4410db0a24bb49c443d777dac7c8e3e6c8f8a11e088a3c9bff3",
+      "project_commit": "bb4553bb1819e4354c5915345ae0dc7b301e79fe",
+      "sha256": "ab6dba880e09507b6dd8c03d0895bcbd04ca8c9a98f2999475ee4220756434e0",
+      "reason": "0d-c added clipped and listed_issues: a rule or pre-fill issue line is cut as bounded_issues would show it, built without joining more than 601 characters, at most 20 lines per rule.",
+      "review": "work/lead/product-defects-0d/"
+    },
+    {
+      "destination": "src/deploy_vii/prose.py",
+      "imported_sha256": "33f4de8945127d4e2af005949c4d560a1b3d6d20629be8c42ce86e684784a74f",
+      "prior_project_sha256": "33f4de8945127d4e2af005949c4d560a1b3d6d20629be8c42ce86e684784a74f",
+      "project_commit": "cffdf9f47dd4f6bab5269df290d2bcd9b1171618",
+      "sha256": "99c638b6185f34e6bdf82e530f0536b13483e14489325b16816402dfd029edd6",
+      "reason": "Round 12 B10: add prose.is_blank, the one blank-text predicate (whitespace or Unicode Cf).",
+      "review": "work/lead/b10-engines/"
+    },
+    {
+      "destination": "src/deploy_vii/cp2_synthesis.py",
+      "imported_sha256": "26ebc1e38e21b187c8a1876ae33d43525a80171a64f9aecf8c0f6d9ccf6da746",
+      "prior_project_sha256": "26ebc1e38e21b187c8a1876ae33d43525a80171a64f9aecf8c0f6d9ccf6da746",
+      "project_commit": "cffdf9f47dd4f6bab5269df290d2bcd9b1171618",
+      "sha256": "ac8856fddb71e7ddef9715febeffdeaa88ff9aa34526dd299ecb1cbc92d4d04e",
+      "reason": "Round 12 B10: blank analyst text is whitespace or Unicode Cf (prose.is_blank) at the existing empty-text check.",
+      "review": "work/lead/b10-engines/"
+    },
+    {
+      "destination": "src/deploy_vii/cp3_relative_value.py",
+      "imported_sha256": "0abc723dfc39554d3f7c26b35d6ed6ad60dce836da5b8e79d9a20821e265924b",
+      "prior_project_sha256": "0abc723dfc39554d3f7c26b35d6ed6ad60dce836da5b8e79d9a20821e265924b",
+      "project_commit": "cffdf9f47dd4f6bab5269df290d2bcd9b1171618",
+      "sha256": "5811d454e61ca5aabc6fdef8680c382b836f714680b336d4a8b11619e9e8208b",
+      "reason": "Round 12 B10: blank analyst text is whitespace or Unicode Cf (prose.is_blank) at the existing empty-text check.",
+      "review": "work/lead/b10-engines/"
+    },
+    {
+      "destination": "src/deploy_vii/cp3_relative_value.py",
+      "imported_sha256": "0abc723dfc39554d3f7c26b35d6ed6ad60dce836da5b8e79d9a20821e265924b",
+      "prior_project_sha256": "5811d454e61ca5aabc6fdef8680c382b836f714680b336d4a8b11619e9e8208b",
+      "project_commit": "93c1ffca2cd61f7f5a2fec385cd6df62ed95da1e",
+      "sha256": "6c80484307aef1d6c6d3b17d7432f642fdd4b11f0a3db2b26cdb3cbf8f5a9f7f",
+      "reason": "Round 12 B10: blank analyst text is whitespace or Unicode Cf (prose.is_blank) at the existing empty-text check. Also 0d-d: instrument duplicates and the preference ordering checks use Counter and a set built once instead of list.count and list membership per row.",
+      "review": "work/lead/product-defects-0d/"
+    },
+    {
+      "destination": "src/deploy_vii/cp4_legal.py",
+      "imported_sha256": "1b2246ff9b0c0797c25d259c3e408436dfcc874b48be4cf1b2f77566c2bc4128",
+      "prior_project_sha256": "1b2246ff9b0c0797c25d259c3e408436dfcc874b48be4cf1b2f77566c2bc4128",
+      "project_commit": "cffdf9f47dd4f6bab5269df290d2bcd9b1171618",
+      "sha256": "5b005aaf8d496051958fd1c17943a2e226a7ab05f62cad63af8f58a2bad73312",
+      "reason": "Round 12 B10: blank analyst text is whitespace or Unicode Cf (prose.is_blank) at the existing empty-text check.",
+      "review": "work/lead/b10-engines/"
+    },
+    {
+      "destination": "src/deploy_vii/cp4_legal.py",
+      "imported_sha256": "1b2246ff9b0c0797c25d259c3e408436dfcc874b48be4cf1b2f77566c2bc4128",
+      "prior_project_sha256": "5b005aaf8d496051958fd1c17943a2e226a7ab05f62cad63af8f58a2bad73312",
+      "project_commit": "93c1ffca2cd61f7f5a2fec385cd6df62ed95da1e",
+      "sha256": "17c96b6f4c2ccf1eaae18f3bb3b4083ffb6603ae54e59f83b8aa170885b26ec0",
+      "reason": "Round 12 B10: blank analyst text is whitespace or Unicode Cf (prose.is_blank) at the existing empty-text check. Also 0d-d: _shape_issues counts duplicate documents with Counter instead of list.count per row.",
+      "review": "work/lead/product-defects-0d/"
+    },
+    {
+      "destination": "src/deploy_vii/cp5_integrity.py",
+      "imported_sha256": "84fbe447ab9f1c8598030cf44533072dccdd114d3d34c6c5bb0d20a8d5c3225c",
+      "prior_project_sha256": "84fbe447ab9f1c8598030cf44533072dccdd114d3d34c6c5bb0d20a8d5c3225c",
+      "project_commit": "cffdf9f47dd4f6bab5269df290d2bcd9b1171618",
+      "sha256": "eb3a766f5ed1ff5bb856c64d0e5a477855d421ded57b91279d365c1fa03ea901",
+      "reason": "Round 12 B10: blank analyst text is whitespace or Unicode Cf (prose.is_blank) at the existing empty-text check.",
+      "review": "work/lead/b10-engines/"
+    },
+    {
+      "destination": "src/deploy_vii/cp6_committee.py",
+      "imported_sha256": "2854f2a4931102c717652e0b869ba3da07ec78a5bd70ff64d862063008d445df",
+      "prior_project_sha256": "2854f2a4931102c717652e0b869ba3da07ec78a5bd70ff64d862063008d445df",
+      "project_commit": "cffdf9f47dd4f6bab5269df290d2bcd9b1171618",
+      "sha256": "e97d5074292aa29dc93651dedce0dbc734e38d0373a34f769e0cfef65e2196ac",
+      "reason": "Round 12 B10: blank analyst text is whitespace or Unicode Cf (prose.is_blank) at the existing empty-text check.",
+      "review": "work/lead/b10-engines/"
+    },
+    {
+      "destination": "src/deploy_vii/business_context.py",
+      "imported_sha256": "1d8f0cc5aeee7ad79ec314300cebeef772abd83dc65e554cd47d638f3abf41a7",
+      "prior_project_sha256": "1d8f0cc5aeee7ad79ec314300cebeef772abd83dc65e554cd47d638f3abf41a7",
+      "project_commit": "cffdf9f47dd4f6bab5269df290d2bcd9b1171618",
+      "sha256": "1672ba97593aeac7110032599a42ad3e732e3d00ce19a863198ae952ead76280",
+      "reason": "Round 12 B10: blank analyst text is whitespace or Unicode Cf (prose.is_blank) at the existing empty-text check and in _populated.",
+      "review": "work/lead/b10-engines/"
+    },
+    {
+      "destination": "src/deploy_vii/business_context.py",
+      "imported_sha256": "1d8f0cc5aeee7ad79ec314300cebeef772abd83dc65e554cd47d638f3abf41a7",
+      "prior_project_sha256": "1672ba97593aeac7110032599a42ad3e732e3d00ce19a863198ae952ead76280",
+      "project_commit": "93c1ffca2cd61f7f5a2fec385cd6df62ed95da1e",
+      "sha256": "895cab5e09dd4e3eb48ddc41a2928e0441f74f1acb402539e85622934a2c9cde",
+      "reason": "Round 12 B10: blank analyst text is whitespace or Unicode Cf (prose.is_blank) at the existing empty-text check and in _populated. Also 0d-d: duplicate and unknown-id checks count with Counter and a set built once instead of per row.",
+      "review": "work/lead/product-defects-0d/"
+    },
+    {
+      "destination": "src/deploy_vii/narrative.py",
+      "imported_sha256": "f118fe08134511c01c0f30edfe3f6fd21dd8c1a27943865661875fa0f9040583",
+      "prior_project_sha256": "f118fe08134511c01c0f30edfe3f6fd21dd8c1a27943865661875fa0f9040583",
+      "project_commit": "cffdf9f47dd4f6bab5269df290d2bcd9b1171618",
+      "sha256": "d766f0fae83bb40a5cf20b91bbce279c61137177752d9e3bf455544739972ebf",
+      "reason": "Round 12 B10: blank analyst text is whitespace or Unicode Cf (prose.is_blank) at the existing empty-text check.",
+      "review": "work/lead/b10-engines/"
+    },
+    {
+      "destination": "src/deploy_vii/quality.py",
+      "imported_sha256": "79865e93c4928b9bc95ad5f286c1c685d579039689c4f456a8620bb59ebc5ef2",
+      "prior_project_sha256": "79865e93c4928b9bc95ad5f286c1c685d579039689c4f456a8620bb59ebc5ef2",
+      "project_commit": "cffdf9f47dd4f6bab5269df290d2bcd9b1171618",
+      "sha256": "d1934a5902422d22717217c6961f0ea58e34aa0326ce469c28db1eb815e21426",
+      "reason": "Round 12 B10: blank QA explanation (model text) is whitespace or Unicode Cf (prose.is_blank).",
+      "review": "work/lead/b10-engines/"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/shipped.py",
+      "imported_sha256": "304230a5eab8f58cea77e8c00cdd69830d5bd57bd7e549e58e026d8f5655f951",
+      "prior_project_sha256": "4ef3f9ffdc9a6e10461dbe722e8222c8803ccba1ab49f42b9cd9db07bf9d4fec",
+      "project_commit": "e1d06303b5926d04ff2690c91c709a0086556e1f",
+      "sha256": "99fbe495be8d01940cb7ea57a028ac0173c1eb7f0d3f9c18c4901b5ccb7d8c9a",
+      "reason": "Merge e1d0630 (Stage 2 integration) folds the branch records for b22972d, 883a595, 0fa5b4a, b48a3c5, fb7819b and b9d937e into one record (round 5 item 19). Their reasons: Register the CP-DR rails binding map (D12 one-line registration, appended last) with the CP-DR owner core. | Register the CP-3D binding map (D12 one-line registration, directly after CP-3) with the CP-3D owner core. | Register the CP-2E rails binding map (D12 one-line registration, appended last) with the CP-2E owner core. | Merged registration tail: CP-2E appended after CP-DR in SHIPPED_MAPS (CP-3D, CP-DR, CP-2E rows all retained). | Register the CP-8 binding map (D12 one-line registration, appended last after CP-2E) with the CP-8 owner core; merged tail retains CP-3D, CP-DR and CP-2E. | Register the CP-2A binding map (D12 one-line registration, SHIPPED_MAPS += CP2A, appended last after CP-8); merged tail retains CP-3D, CP-DR, CP-2E and CP-8.",
+      "review": "docs/CPDR-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "51a6853ec0e80393a50cdf8ed577cddaf2eee8e26246609b85dea01712560e12",
+      "project_commit": "883a595236a94c02c5dff8375a61e11fedc77423",
+      "sha256": "1a00120d13cfda613fb4561b4237dc396f5a89f60a763558d1c8b87506d184c3",
+      "reason": "Add the CP-3D relative-value mapping and one _spec_of loop entry (D12 registration, rows only).",
+      "review": "docs/CP3D-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "1a00120d13cfda613fb4561b4237dc396f5a89f60a763558d1c8b87506d184c3",
+      "project_commit": "b9d937eb714325bc5e85123d896141fff855f8a0",
+      "sha256": "09ab059d832204059f454e4c9077e0c2d02493717080580a80ab44fcb080acba",
+      "reason": "Add the CP-2A _DISTRESSED composition (two _Spec rows), its _spec_of entry and the two block ids in the distressed_restructuring preset (D12 registration, rows only); retains the CP-3D _RELATIVE_VALUE composition.",
+      "review": "docs/CP2A-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/shipped.py",
+      "imported_sha256": "304230a5eab8f58cea77e8c00cdd69830d5bd57bd7e549e58e026d8f5655f951",
+      "prior_project_sha256": "99fbe495be8d01940cb7ea57a028ac0173c1eb7f0d3f9c18c4901b5ccb7d8c9a",
+      "project_commit": "24f879acb473f4f516b503f417a9739ceec0a46b",
+      "sha256": "f51954d7b2cd4569f1e1ffbe06713a8d2c5c04f828ce8bf8df3737da4583b48a",
+      "reason": "Merged registration tail: CP-2D directly after CP-2 per its lease; CP-3D, CP-DR, CP-2E, CP-8 and CP-2A rows all retained. Folds the branch record for 8aef58d (round 5 item 19): Register the CP-2D binding map after CP-2 (docs/CP2D-OWNER-LEASE.md, Files); new bindings/cp2d.py holds FP block bindings only.",
+      "review": "docs/CP2D-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "09ab059d832204059f454e4c9077e0c2d02493717080580a80ab44fcb080acba",
+      "project_commit": "24f879acb473f4f516b503f417a9739ceec0a46b",
+      "sha256": "8ed326cb7e961ac2244d991dd622991bd1df17a2d194b20b4c6bd573f70ce4a1",
+      "reason": "Merged CP-2D covenant/refinancing _Spec rows with the CP-3D _RELATIVE_VALUE and CP-2A _DISTRESSED compositions (D12 registration, rows only). Folded from 8aef58d (item 19; reconstructed from git, 2026-10-30): the branch record for 8aef58d, whose 51a6853e -> 4edad0a3 change the lane's first-parent history does not pass through: Add the three CP-2D _Spec rows (liquidity-runway, maturity-wall, funding-gap) to _COVENANT_REFINANCING (docs/CP2D-OWNER-LEASE.md, Rendered sections).",
+      "review": "docs/CP2D-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/shipped.py",
+      "imported_sha256": "304230a5eab8f58cea77e8c00cdd69830d5bd57bd7e549e58e026d8f5655f951",
+      "prior_project_sha256": "f51954d7b2cd4569f1e1ffbe06713a8d2c5c04f828ce8bf8df3737da4583b48a",
+      "project_commit": "ab8917343a7b9a3d002a80a519d7c28d29678cad",
+      "sha256": "111850491b3e181127f1df8646e9b8dae4e77a75bf4becfaa823d3743d6946c9",
+      "reason": "Merged registration tail: CP-L10 appended last (D12 one-line registration); all earlier rows retained. Folds the branch record for 6b679ca (round 5 item 19): Register the CP-L10 rails binding map (D12 one-line registration, appended last) with the CP-L10 owner core.",
+      "review": "docs/CPL10-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/shipped.py",
+      "imported_sha256": "304230a5eab8f58cea77e8c00cdd69830d5bd57bd7e549e58e026d8f5655f951",
+      "prior_project_sha256": "111850491b3e181127f1df8646e9b8dae4e77a75bf4becfaa823d3743d6946c9",
+      "project_commit": "7831ef123f6a2cff27b63c2546906dadbcae5426",
+      "sha256": "9e6ee6cd5cbc160f1d47e1be3fdcd5f7fa7eb1f68999156e9249a8139fef8ae2",
+      "reason": "Register the CP-1D binding map (D12 one-line registration, appended last after CP-L10); all earlier rows retained.",
+      "review": "docs/CP1D-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "8ed326cb7e961ac2244d991dd622991bd1df17a2d194b20b4c6bd573f70ce4a1",
+      "project_commit": "7831ef123f6a2cff27b63c2546906dadbcae5426",
+      "sha256": "974e5a5c4e1ad6947f6467061881fbff313d8ad3dbad4aca7b6d92b0ea66f8b0",
+      "reason": "Add the CP-1D _EARNINGS_QUALITY composition (two _Spec rows), its _spec_of entry and the two block ids in the earnings preset (D12 registration, rows only); retains CP-3D, CP-2A and CP-2D rows.",
+      "review": "docs/CP1D-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "974e5a5c4e1ad6947f6467061881fbff313d8ad3dbad4aca7b6d92b0ea66f8b0",
+      "project_commit": "1c512aa7136a504f9e0993e8ae531d3100fb6102",
+      "sha256": "fc9c18280c862c91b3877701f67e1c41f3965f213cdf87ee089db3ced990f1bc",
+      "reason": "CP-1D review M2: the restated-leverage _Spec title equals expected.json FP02 (Cash conversion and restated leverage); one row's text only, all other rows retained.",
+      "review": "work/build/stage2/cp1d/review.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/shipped.py",
+      "imported_sha256": "304230a5eab8f58cea77e8c00cdd69830d5bd57bd7e549e58e026d8f5655f951",
+      "prior_project_sha256": "9e6ee6cd5cbc160f1d47e1be3fdcd5f7fa7eb1f68999156e9249a8139fef8ae2",
+      "project_commit": "8c31a5abd4d74917967d518d580607d13d314d23",
+      "sha256": "0899560e6ece36d469f5f481de8297d7fb7c60048691bca6ff209d6564f1fd08",
+      "reason": "Register the CP-2G binding map (D12 one-line registration, SHIPPED_MAPS += CP2G, appended last after CP-1D); all earlier rows retained.",
+      "review": "docs/CP2G-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "fc9c18280c862c91b3877701f67e1c41f3965f213cdf87ee089db3ced990f1bc",
+      "project_commit": "8c31a5abd4d74917967d518d580607d13d314d23",
+      "sha256": "a073edd7b7fd12af3ce8d8a461151ee58dd459813229906fd9defcc309c5010e",
+      "reason": "Add the two CP-2G _Spec rows (forward-credit-path, forward-breakpoints) to CP-2A's _DISTRESSED composition and the two block ids in the distressed_restructuring preset right after the CP-2A pair (D12 registration, rows only); all other rows retained.",
+      "review": "docs/CP2G-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/shipped.py",
+      "imported_sha256": "304230a5eab8f58cea77e8c00cdd69830d5bd57bd7e549e58e026d8f5655f951",
+      "prior_project_sha256": "0899560e6ece36d469f5f481de8297d7fb7c60048691bca6ff209d6564f1fd08",
+      "project_commit": "b2f230871aa6574bb0c36a335df83eceef7d9b78",
+      "sha256": "1ba090235415a19c9360e0b8729647210e5c7110efa5b3a2dbfb1a52267cd727",
+      "reason": "Register the CP-1C binding map (D12 one-line registration, SHIPPED_MAPS += CP1C, appended last after CP-2G; the lease names no position); all earlier rows retained.",
+      "review": "docs/CP1C-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "a073edd7b7fd12af3ce8d8a461151ee58dd459813229906fd9defcc309c5010e",
+      "project_commit": "b2f230871aa6574bb0c36a335df83eceef7d9b78",
+      "sha256": "3cbf1c08d9117c8282b8f12e271721e24e62aa6c2c06d9ca9a4401a729d18188",
+      "reason": "Add the CP-1C peer-positioning _Spec row to CP-3D's _RELATIVE_VALUE composition after market-against-fundamentals (D12 registration, one row only; _spec_of and the relative_value preset already read the mapping); all other rows retained.",
+      "review": "docs/CP1C-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/shipped.py",
+      "imported_sha256": "304230a5eab8f58cea77e8c00cdd69830d5bd57bd7e549e58e026d8f5655f951",
+      "prior_project_sha256": "1ba090235415a19c9360e0b8729647210e5c7110efa5b3a2dbfb1a52267cd727",
+      "project_commit": "54b3d903b78c987cd968fb91dc46ab5b20182d04",
+      "sha256": "635e25edaf3b3c38a024defd7eca1c0cccf85010cd8a315ab76decd516aa3b4d",
+      "reason": "Register the CP-3C binding map (D12 one-line registration, directly after CP-2D per its lease); all earlier rows retained.",
+      "review": "docs/CP3C-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "3cbf1c08d9117c8282b8f12e271721e24e62aa6c2c06d9ca9a4401a729d18188",
+      "project_commit": "49c586530a6004a3afeb94ed2670f43b7135d099",
+      "sha256": "c68c0587465368b92dde8c2bb2e57c75c47559603ec14fdb70122f78bae41e75",
+      "reason": "Add the CP-3C D7 _Spec rows refinancing-paths and lme-creditor-exposure to the _COVENANT_REFINANCING composition after the CP-2D rows (round 5 item 18; rows only).",
+      "review": "docs/CP3C-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/shipped.py",
+      "imported_sha256": "304230a5eab8f58cea77e8c00cdd69830d5bd57bd7e549e58e026d8f5655f951",
+      "prior_project_sha256": "635e25edaf3b3c38a024defd7eca1c0cccf85010cd8a315ab76decd516aa3b4d",
+      "project_commit": "44596babca4122c90927c045d35817423b170a86",
+      "sha256": "2242fd10310cf881555ed1d2b3db48560bab6c717bea5d8f64c8d8493cc9c3c4",
+      "reason": "Register the CP-2H binding map (D12 one-line registration, SHIPPED_MAPS += CP2H, appended last); all earlier rows retained.",
+      "review": "docs/CP2H-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "c68c0587465368b92dde8c2bb2e57c75c47559603ec14fdb70122f78bae41e75",
+      "project_commit": "44596babca4122c90927c045d35817423b170a86",
+      "sha256": "26e6b5e44fc8c9c51aa038852c066de6035c5d89f49d30e02cbca2010d4c1812",
+      "reason": "Add the CP-2H rating-triggers _Spec row to _DISTRESSED (D12 registration, rows only).",
+      "review": "docs/CP2H-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/shipped.py",
+      "imported_sha256": "304230a5eab8f58cea77e8c00cdd69830d5bd57bd7e549e58e026d8f5655f951",
+      "prior_project_sha256": "2242fd10310cf881555ed1d2b3db48560bab6c717bea5d8f64c8d8493cc9c3c4",
+      "project_commit": "64bf670959ef7bd015079bef683546dd43e5e4ab",
+      "sha256": "8cd0dbc9b7fb8428cd604c30f86d640b66da91a87506ff1a201a41a26790d3fe",
+      "reason": "Register the CP-4C binding map (D12 one-line registration, appended last after CP-2H); all earlier rows retained.",
+      "review": "docs/CP4C-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "26e6b5e44fc8c9c51aa038852c066de6035c5d89f49d30e02cbca2010d4c1812",
+      "project_commit": "64bf670959ef7bd015079bef683546dd43e5e4ab",
+      "sha256": "5c71a3113bd2a739bfeacd3093c82799d3ca492d821e1973f42abc4f3eb35075",
+      "reason": "Add the CP-4C recovery-by-class and value-allocation-claims _Spec rows to _DISTRESSED after rating-triggers (D12 registration, rows only).",
+      "review": "docs/CP4C-OWNER-LEASE.md"
+    },
+    {
+      "destination": "src/deploy_vii/readiness.py",
+      "imported_sha256": "1038a37a8227f426e4d6e1e79985e986e23e77f9e7cdee763a884477162ccffa",
+      "prior_project_sha256": "1038a37a8227f426e4d6e1e79985e986e23e77f9e7cdee763a884477162ccffa",
+      "project_commit": "93c1ffca2cd61f7f5a2fec385cd6df62ed95da1e",
+      "sha256": "119058ff8a238f29aa418da7d43110686ad0ba9d0362d5d77b989f798d088f1f",
+      "reason": "0d-d: shape_issues drops a container echo by one pass over loc prefixes (_echoed), absence_issues bounds a claimed page range by the source's page count (_retains) and validate_review indexes attachment sets and READY consumers once; output and order unchanged.",
+      "review": "work/lead/product-defects-0d/"
+    },
+    {
+      "destination": "src/deploy_vii/source_context.py",
+      "imported_sha256": "bef10963d45e2b5e3b25626e3dd2db22ed9156988e7ec79fc43992ada8920a4c",
+      "prior_project_sha256": "bef10963d45e2b5e3b25626e3dd2db22ed9156988e7ec79fc43992ada8920a4c",
+      "project_commit": "93c1ffca2cd61f7f5a2fec385cd6df62ed95da1e",
+      "sha256": "d9fb02de160c9710378308a3dc2d4f32096cfb90de5680bf8a48e7d50c9bb9d0",
+      "reason": "0d-d: validate_source_context builds each event's cited sources, the scanned (source, event) pairs and the first review per source once instead of per reference; output and order unchanged.",
+      "review": "work/lead/product-defects-0d/"
+    },
+    {
+      "destination": "src/deploy_vii/prose.py",
+      "imported_sha256": "33f4de8945127d4e2af005949c4d560a1b3d6d20629be8c42ce86e684784a74f",
+      "prior_project_sha256": "99c638b6185f34e6bdf82e530f0536b13483e14489325b16816402dfd029edd6",
+      "project_commit": "30a1f7a8c07057e1e17d337a5892e4d448b342d7",
+      "sha256": "8dcb2a51ba1865970fca7c17dba2fb8a8657e4a8bfae4679ffd5c7b6823cbbef",
+      "reason": "is_blank also counts Cc controls, the default-ignorable code points outside Cf (U+034F, U+115F, U+1160, U+17B4, U+17B5, U+180B-U+180F, U+3164, U+FE00-U+FE0F, U+FFA0, U+E0100-U+E01EF) and U+2800 (round 13 addendum 3, B10 beyond Cf); the owners/blank.py re-export inherits it.",
+      "review": "docs/rulings/2026-10-28-stage1.md (round 13 addendum 3)"
+    },
+    {
+      "destination": "src/deploy_vii/readiness.py",
+      "imported_sha256": "1038a37a8227f426e4d6e1e79985e986e23e77f9e7cdee763a884477162ccffa",
+      "prior_project_sha256": "119058ff8a238f29aa418da7d43110686ad0ba9d0362d5d77b989f798d088f1f",
+      "project_commit": "30a1f7a8c07057e1e17d337a5892e4d448b342d7",
+      "sha256": "0161665494f7d71c77476e2852f5f8ff766c0e1f707cb462eae0af8f14164913",
+      "reason": "citation_issues refuses a quote that is_blank as 'Quote/locator mismatch: blank quote under <source> <locator>', before the page match (round 13 addendum 3).",
+      "review": "docs/rulings/2026-10-28-stage1.md (round 13 addendum 3)"
+    },
+    {
+      "destination": "src/deploy_vii/execution.py",
+      "imported_sha256": "752ae7c74774f4410db0a24bb49c443d777dac7c8e3e6c8f8a11e088a3c9bff3",
+      "prior_project_sha256": "ab6dba880e09507b6dd8c03d0895bcbd04ca8c9a98f2999475ee4220756434e0",
+      "project_commit": "30a1f7a8c07057e1e17d337a5892e4d448b342d7",
+      "sha256": "dd81024e407a325415c294467cc5f69db22b4fcc67878b35e245c4cc2682c0b6",
+      "reason": "clipped docstring states it equals shortened only for limit >= 1 (0d-c review Q4); no code change.",
+      "review": "work/lead/product-defects-0d/"
+    },
+    {
+      "destination": "src/deploy_vii/live/tools.py",
+      "imported_sha256": "380c20ebf24cac8c5e891726607bd13c04707d1262a0a622b9e9732a68bd5924",
+      "prior_project_sha256": "a50a3f8c14069f16ee6f77610ecfe66d85972390aa8ce203176fc1b1b110bb1c",
+      "project_commit": "30a1f7a8c07057e1e17d337a5892e4d448b342d7",
+      "sha256": "f03f7d04cf10939859e04208406d7c1f81f540ba4802a67878b7ba967d2fb6af",
+      "reason": "Module docstring states the rule walk costs O(nodes x depth) in time and bounds issue text and memory, not time (0d-c review F3); no code change.",
+      "review": "work/lead/product-defects-0d/"
+    },
+    {
+      "destination": "src/deploy_vii/contracts.py",
+      "imported_sha256": "ee1b27f912804ab81887401a99177f99068247e8c4ba53c000b0d3fde0205e74",
+      "prior_project_sha256": "ee1b27f912804ab81887401a99177f99068247e8c4ba53c000b0d3fde0205e74",
+      "project_commit": "ff1dbce0a392bec50ba44ec13364416dfef4a042",
+      "sha256": "3b33bfc27add489700f101f4672ff5b22fc0c6276d2bc24545ec6a4d2ee4515e",
+      "reason": "FP-04 covenant_refinancing preset gains CP-MODEL (Q-C1: the maturity wall is MODEL-owned).",
+      "review": "work/build/stage2/release/qc1-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "5c71a3113bd2a739bfeacd3093c82799d3ca492d821e1973f42abc4f3eb35075",
+      "project_commit": "ff1dbce0a392bec50ba44ec13364416dfef4a042",
+      "sha256": "c6b5b931ef5ca72c16d41d17463a4e3d7253d63e1046a9b432a155f571ba7483",
+      "reason": "FP-04 maturity-wall _Spec becomes owner MODEL with producer CP-1 (Q-C1).",
+      "review": "work/build/stage2/release/qc1-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/charts.py",
+      "imported_sha256": "9c10704c8b4707305990a501574602adefc4c5eee2d326c830c77cc281153aef",
+      "prior_project_sha256": "9c10704c8b4707305990a501574602adefc4c5eee2d326c830c77cc281153aef",
+      "project_commit": "80ab9f50ed87a2cb2f92460b55b92c963ee7931c",
+      "sha256": "a1805bca3e9bc6aa21383be158cc677b3ea6fbe2b95b8882ac045bfbe985e591",
+      "reason": "Stage 3 chart seam: range and bullet geometry and the hatch flag for analyst-judgment marks; waterfall running total uses a mark's declared decimals.",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "c6b5b931ef5ca72c16d41d17463a4e3d7253d63e1046a9b432a155f571ba7483",
+      "project_commit": "80ab9f50ed87a2cb2f92460b55b92c963ee7931c",
+      "sha256": "ec311130f73ee314ce31c0595cb3238cad340f6f8a24f41e99e23a9e2a4ea14c",
+      "reason": "Stage 3 chart seam: ChartKind range and bullet, ChartMark decimals and hatched, percent and strict-parse text in _chart_fact_cell, build_index gap reference for a rejected strict text, _na_strip reason, per-producer figure registry and the S.5 entry point, no KeyError without CP-1.",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cp1.py",
+      "imported_sha256": "d94f6a460f7bb112dd2136d62a25496433dc3085582018d12a3c4091db5ba169",
+      "prior_project_sha256": "d94f6a460f7bb112dd2136d62a25496433dc3085582018d12a3c4091db5ba169",
+      "project_commit": "65cc9825cca043c6a0ca1103fb244488f8c35b6c",
+      "sha256": "f1d39b51f487a5a960f742007b836fab2fbd0cd00ec509ae7b0a8880d3f0c8d1",
+      "reason": "Stage 3 I3 merge of s3-w2a: the CP-1 binding gains the S.4/S.5 chart rows (group a).",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "ec311130f73ee314ce31c0595cb3238cad340f6f8a24f41e99e23a9e2a4ea14c",
+      "project_commit": "65cc9825cca043c6a0ca1103fb244488f8c35b6c",
+      "sha256": "0812b2c0f01ab5b73cbd154443bbcf512c29155fa11b7fc2bcb1c031e39bce33",
+      "reason": "Stage 3 I3 merge of s3-w2a: the S.5 producer registration for financials-credit-metrics (group a).",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "0812b2c0f01ab5b73cbd154443bbcf512c29155fa11b7fc2bcb1c031e39bce33",
+      "project_commit": "e79d9d81458a2cc2ba16d765f1b155137e1efb51",
+      "sha256": "ac9565d90e1ed3dd08ef34b2cbde4398fccc73507b2d6297fa1c032c00b5da51",
+      "reason": "Stage 3 I3 merge of s3-w2b: RV.3 and CR.1 producers and their registrations (group b).",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "ac9565d90e1ed3dd08ef34b2cbde4398fccc73507b2d6297fa1c032c00b5da51",
+      "project_commit": "70ea110a72c157062bf8ac29fc4558cbafbac923",
+      "sha256": "fedb5fa041508f36e035b750fc96b635bbc483fb4ecb921cb8d8ca100c0d316c",
+      "reason": "Stage 3 I3 merge of s3-w2c: CR.2 and CR.3 producers and registrations; funding-gap gains the CP-3C producer (group c).",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "fedb5fa041508f36e035b750fc96b635bbc483fb4ecb921cb8d8ca100c0d316c",
+      "project_commit": "f5477b431a62c760c4f91ce5541dd06d22ea5724",
+      "sha256": "1f50c7b92de9d7db1aec49a496895893431b5e44b2f721e352ec194843d5cf9e",
+      "reason": "Stage 3 I3 merge of s3-w2d: the DR.2 to DR.6 registration block (group d).",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_extract.py",
+      "imported_sha256": "f4b2c224e0b55662704ca6529b46d6ff3b3ae67ed8ebb95518d8cdf3c88a25b1",
+      "prior_project_sha256": "f4b2c224e0b55662704ca6529b46d6ff3b3ae67ed8ebb95518d8cdf3c88a25b1",
+      "project_commit": "c81932f1d1bb66431da9d7ff66d3cd7e18ad0029",
+      "sha256": "d7e15269089f8d5597586206ba2efa730eaa4694c5c2b285871aa283c15c8ff5",
+      "reason": "Read ` | `-delimited table rows (each pipe as two spaces; separator rows give no line; a pipe line is never a caption or label continuation) for the filed CZR documents; two-space rows extract as before (user-approved Gap 2, rulings 2026-10-29-stage3 item 10).",
+      "review": "work/build/stage3/czr-brief.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "1f50c7b92de9d7db1aec49a496895893431b5e44b2f721e352ec194843d5cf9e",
+      "project_commit": "8abfb0ccbdf0d6bfc593c6041b76c46fc797713a",
+      "sha256": "cbb4c3682a1abf102507084fc63e52940a2fdb2943ebb8f28c1b9749b466be68",
+      "reason": "Stage 4 batch 2 (CP-8 rails, class E): _prose_lines resolves a known text fact that carries [ref] tokens through resolve(), so the window chip shows the page's gap number instead of a Python-spelled placeholder (rulings 2026-10-29-stage3 item 30).",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "cbb4c3682a1abf102507084fc63e52940a2fdb2943ebb8f28c1b9749b466be68",
+      "project_commit": "f1f6bce5b08f599d2e5937c7064c1d3ef9284366",
+      "sha256": "8506ef09e8ac1b5585f664f02bfe2ec50e90b80c328b23532e8d586fb15f01eb",
+      "reason": "Stage 4 batch 2 fix round 1: _carries_reference uses the prose token grammar, so a text holding any reference goes to resolve() and a malformed mix fails closed (rulings 2026-10-29-stage3 item 31).",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/render.py",
+      "imported_sha256": "8bad4ede8529232eb243474ce05ac686903a6ae77d433a11467521d44ec5ba5f",
+      "prior_project_sha256": "7bf8d889fb8f5b74d84f0239664c801a1c0fcfbc3a40e32da6ea49f1cd8bf253",
+      "project_commit": "d394ac1a792984d415fcd1ee1308c593f61dc0cc",
+      "sha256": "1887bcb2e97baf14a44e225238f41a08ead5041db3c846a70c5ef878d7bdcd89",
+      "reason": "Stage 4 batch 2 fix round 2: a known text fact that carries [ref] tokens gets display and table_display from resolve(), so the module table and inspector show the page's gap number, as the what-changed block does (rulings 2026-10-29-stage3 item 45, extending item 30).",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "8506ef09e8ac1b5585f664f02bfe2ec50e90b80c328b23532e8d586fb15f01eb",
+      "project_commit": "c4da4da8e332da1a2f680804085520d98605ddbe",
+      "sha256": "c2040a50d5cb912cc9f9addcd1db9cccc164db143fa57e00974067fbf5d2704b",
+      "reason": "Stage 4 batch 2 fix round 3: _carries_reference takes (module_id, fact) and holds a private _RUN_TEXT_TABLES registry, so only CP-8 cp8.what_changed text goes to resolve() and analyst free text and verbatim quotes holding brackets are shown as written; _token_runs passes the issuer name (rulings 2026-10-29-stage3 items 54 and 56).",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/render.py",
+      "imported_sha256": "8bad4ede8529232eb243474ce05ac686903a6ae77d433a11467521d44ec5ba5f",
+      "prior_project_sha256": "1887bcb2e97baf14a44e225238f41a08ead5041db3c846a70c5ef878d7bdcd89",
+      "project_commit": "c4da4da8e332da1a2f680804085520d98605ddbe",
+      "sha256": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba",
+      "reason": "Stage 4 batch 2 fix round 3: the fact path asks _carries_reference(module_id, fact) and passes the issuer name to resolve(), so free text and verbatim quotes render as written and run text with a digit-bearing issuer name resolves (rulings 2026-10-29-stage3 items 54 and 56).",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "c2040a50d5cb912cc9f9addcd1db9cccc164db143fa57e00974067fbf5d2704b",
+      "project_commit": "759880511daf0932238905bf3b04142b87cff73f",
+      "sha256": "9b152b587f6f32cf3407175127766391291d4f9166725df7f854cadc632983a3",
+      "reason": "Stage 4 batch 2 fix round 4: the run-text registry is keyed by (module, table, field) and adds CP-L10 TL10.3 assessment and credit_transmission and CP-2H T2R.10 gap, why_it_matters, affected_analysis and action, so analyst run text resolves to its figure while free fields in the same tables are shown as written (rulings 2026-10-29-stage3 items 56, 58 and 59).",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/assets/app.css",
+      "imported_sha256": "ea3a8198f9f6f4b4c9a354427460a29cc6b555047a095a916949f8775e75f1ac",
+      "prior_project_sha256": "ea3a8198f9f6f4b4c9a354427460a29cc6b555047a095a916949f8775e75f1ac",
+      "project_commit": "71782af37e5fafb13a840d7655874d2e9c4d5707",
+      "sha256": "14aa4a822ef30a8827a0152b4b7470883967e558dff409aacea4dcc8c0a5cfd4",
+      "reason": "Add flex-shrink:0 to .module-list so a long outline cannot shrink the navigator module rows to 0px and cover them (ruling item 61).",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "9b152b587f6f32cf3407175127766391291d4f9166725df7f854cadc632983a3",
+      "project_commit": "2d12ea5a13872529ff4ef60c3645c6ca3a93fa48",
+      "sha256": "5dc981d72a690f3d0ce04fbd7711b56609bd99b3745a756069c795f84aa99514",
+      "reason": "Add the optional Figure.status_chip field so a producer can carry the design's block-head chip text (open-items ruling OI-13, DR.6 Not computable).",
+      "review": "docs/rulings/2026-10-30-open-items.md"
+    },
+    {
+      "destination": "src/deploy_vii/assets/app.js",
+      "imported_sha256": "0a8da6637b8da73a048ac828a1485d0a3227507b89252d9aabe5e8446813779b",
+      "prior_project_sha256": "0f0fe30bf97384d46ebfba4d6d09bc1b179918d6c36cba03b7ef8ee149bf7706",
+      "project_commit": "2d12ea5a13872529ff4ef60c3645c6ca3a93fa48",
+      "sha256": "d31738e4f7e5f0c80e6a24357e16f0febe2e90ab8d0a5190dbaa4f3b6b0a8549",
+      "reason": "renderBlock appends the existing chip for each figure's status_chip in the block head, after the state chip (open-items ruling OI-13, DR.6 Not computable).",
+      "review": "docs/rulings/2026-10-30-open-items.md"
+    },
+    {
+      "destination": "src/deploy_vii/source_context.py",
+      "imported_sha256": "bef10963d45e2b5e3b25626e3dd2db22ed9156988e7ec79fc43992ada8920a4c",
+      "prior_project_sha256": "d9fb02de160c9710378308a3dc2d4f32096cfb90de5680bf8a48e7d50c9bb9d0",
+      "project_commit": "c34f81ad814525c031a2e79d20934d7807f5a3b6",
+      "sha256": "d50e1bad2ad94af799e9e0f71becba19a37dfa3a37e1caeeec2d936cbf1ac76b",
+      "reason": "OI-14 (B6): validate_source_context refuses a blank scope, source, entity or review limitation (prose.is_blank), one issue per blank limitation; no other rule changes.",
+      "review": "docs/rulings/2026-10-30-open-items.md"
+    },
+    {
+      "destination": "src/deploy_vii/source_context.py",
+      "imported_sha256": "bef10963d45e2b5e3b25626e3dd2db22ed9156988e7ec79fc43992ada8920a4c",
+      "prior_project_sha256": "d50e1bad2ad94af799e9e0f71becba19a37dfa3a37e1caeeec2d936cbf1ac76b",
+      "project_commit": "4b2fcc23d6aba15e6351817c77312895c06a7b5b",
+      "sha256": "bcdcec4119bdccfb5752b6f4ebc41179f132047373c453fff825c705f672517f",
+      "reason": "OI-20 (B7): validate_source_context refuses a blank event_scan_explanation (prose.is_blank), one issue per source whatever the scan state; no other rule changes.",
+      "review": "docs/rulings/2026-10-30-open-items.md"
+    },
+    {
+      "destination": "src/deploy_vii/canonical_audit.py",
+      "imported_sha256": "e8facdfa23989531f8fadb82c2b6b695b51e51baca2713b38255ba9aa1f34475",
+      "prior_project_sha256": "e8facdfa23989531f8fadb82c2b6b695b51e51baca2713b38255ba9aa1f34475",
+      "project_commit": "157dc6d1910e9e83803fbe7506d2c8eae6dcb07a",
+      "sha256": "d93009ef0ba055493d0030ca8d4f1c8c1b10cc5ceb8047c7d4d1b9a8b7c9500f",
+      "reason": "Item 82: ABSENT_INPUT_PREFIX, absent_input_limitation and conflicting_observation_ids; on a public case a BLOCK reconciliation check that only lacks an input (no difference, no conflicting or FX-normalised term) becomes a prefixed WARN gap at the audit hop; no other rule changes.",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/canonical_gaps.py",
+      "imported_sha256": "11adbac79a11c8b9c9e4e10fdadd74d99d7d46e45b857276a8d34a8951f94d4f",
+      "prior_project_sha256": "11adbac79a11c8b9c9e4e10fdadd74d99d7d46e45b857276a8d34a8951f94d4f",
+      "project_commit": "157dc6d1910e9e83803fbe7506d2c8eae6dcb07a",
+      "sha256": "e94f1f17715005213d28093376f42680d295dc2570fdd356533dfd193e62cd55",
+      "reason": "Item 82: _calculation_gaps takes public and conflicting and applies absent_input_limitation to period reconciliation checks; calculation_gate stays BLOCK; no other rule changes.",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/canonical_audit.py",
+      "imported_sha256": "e8facdfa23989531f8fadb82c2b6b695b51e51baca2713b38255ba9aa1f34475",
+      "prior_project_sha256": "d93009ef0ba055493d0030ca8d4f1c8c1b10cc5ceb8047c7d4d1b9a8b7c9500f",
+      "project_commit": "0b6ab8a82710a9ded658e2d7a0758708d921179a",
+      "sha256": "b672260594c312cc68400acc5a255dc317a245b12f1cc4a899607db64b3e493b",
+      "reason": "Item 82 fix 1: shadowed_account_ids and fx_normalised_ids; absent_input_limitation takes shadowed and normalised and also refuses a term citing a shadowing explicit account, a period term fed by FX normalisation and an explanation quoting a child difference; the audit hop passes shadowed; no other rule changes.",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/canonical_gaps.py",
+      "imported_sha256": "11adbac79a11c8b9c9e4e10fdadd74d99d7d46e45b857276a8d34a8951f94d4f",
+      "prior_project_sha256": "e94f1f17715005213d28093376f42680d295dc2570fdd356533dfd193e62cd55",
+      "project_commit": "0b6ab8a82710a9ded658e2d7a0758708d921179a",
+      "sha256": "67ddca4a8419582ea7d452b5527f7497d495d80dbc2e1d7e60143279ecab7a5a",
+      "reason": "Item 82 fix 1: _calculation_gaps also takes shadowed and normalised (from shadowed_account_ids and fx_normalised_ids) and passes them to absent_input_limitation; no other rule changes.",
+      "review": "docs/rulings/2026-10-29-stage3.md"
+    },
+    {
+      "destination": "src/deploy_vii/canonical_audit.py",
+      "imported_sha256": "e8facdfa23989531f8fadb82c2b6b695b51e51baca2713b38255ba9aa1f34475",
+      "prior_project_sha256": "b672260594c312cc68400acc5a255dc317a245b12f1cc4a899607db64b3e493b",
+      "project_commit": "037ae12be912e4e5b19191600bf825323cb236d7",
+      "sha256": "3595cf287f2586e11bb192c0d43998f79d3000efac7aa3c3d1af33b05a228690",
+      "reason": "Item 82 fix 2: CASH_SCOPE_BLOCKER; absent_input_limitation also refuses an explanation carrying the cash-scope blocker (period_reconciliation.py:310 on claude/s8-vii), so it stays BLOCK; no other rule changes.",
+      "review": "docs/rulings/2026-10-29-stage3.md item 88"
+    },
+    {
+      "destination": "src/deploy_vii/contracts.py",
+      "imported_sha256": "ee1b27f912804ab81887401a99177f99068247e8c4ba53c000b0d3fde0205e74",
+      "prior_project_sha256": "3b33bfc27add489700f101f4672ff5b22fc0c6276d2bc24545ec6a4d2ee4515e",
+      "project_commit": "2ded26ca3ff8a81cc952f4dae4f1386d5c999880",
+      "sha256": "618229c6da7db278f1bfa0688da2998bec2c4486a55fe8f1e50258715db76390",
+      "reason": "perf(contracts): group canonical fact ids once in validate_tables",
+      "review": "docs/rulings/2026-10-29-stage3.md item 86"
+    },
+    {
+      "destination": "src/deploy_vii/execution.py",
+      "imported_sha256": "752ae7c74774f4410db0a24bb49c443d777dac7c8e3e6c8f8a11e088a3c9bff3",
+      "prior_project_sha256": "dd81024e407a325415c294467cc5f69db22b4fcc67878b35e245c4cc2682c0b6",
+      "project_commit": "4af08ceb9e41804caa4de81af4fd8637d1f53be7",
+      "sha256": "9c1296f39691c54cbc52fde0f6de764a4c8f328cbb94434d48d431cfbb0206cf",
+      "reason": "perf(execution): parse each verified result blob once per process",
+      "review": "docs/rulings/2026-10-29-stage3.md item 86"
+    },
+    {
+      "destination": "src/deploy_vii/execution.py",
+      "imported_sha256": "752ae7c74774f4410db0a24bb49c443d777dac7c8e3e6c8f8a11e088a3c9bff3",
+      "prior_project_sha256": "9c1296f39691c54cbc52fde0f6de764a4c8f328cbb94434d48d431cfbb0206cf",
+      "project_commit": "66cce2a3293216fd324e0e5f578287acc60bc37b",
+      "sha256": "b2d5396c820c95669dda6afee5aec0e84fb4f6abcbe991b2a4ed99a1041e84d4",
+      "reason": "chore(perf): correct the result-cache memory note; pin validate_tables empty-table default",
+      "review": "docs/rulings/2026-10-29-stage3.md item 86"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "5dc981d72a690f3d0ce04fbd7711b56609bd99b3745a756069c795f84aa99514",
+      "project_commit": "a147d8163c39a4d1752627af8e1a3e7a3222989e",
+      "sha256": "b6c5e3edf84fb80f2dd3f920f0da8627baed778f6cf4fa7c6f474e604f54224c",
+      "reason": "H03 (s8-vii A): _RUN_TEXT_FIELDS adds (\"CP-L10\", \"TL10.4\", \"decision_impact\"), the validated TL10.3 credit_transmission text; user-approved in session s8-vii.",
+      "review": "docs/rulings/2026-10-31-s8-vii.md"
+    },
+    {
+      "destination": "src/deploy_vii/source_context.py",
+      "imported_sha256": "bef10963d45e2b5e3b25626e3dd2db22ed9156988e7ec79fc43992ada8920a4c",
+      "prior_project_sha256": "bcdcec4119bdccfb5752b6f4ebc41179f132047373c453fff825c705f672517f",
+      "project_commit": "a147d8163c39a4d1752627af8e1a3e7a3222989e",
+      "sha256": "d0cf155b79767c4ec70c731a87a3aa77e596c05169d966176d276b199898b4be",
+      "reason": "H09 (s8-vii A): _lacks treats a prose.is_blank scope dimension as missing; _disagreements skips blank values; user-approved in session s8-vii.",
+      "review": "docs/rulings/2026-10-31-s8-vii.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_extract.py",
+      "imported_sha256": "f4b2c224e0b55662704ca6529b46d6ff3b3ae67ed8ebb95518d8cdf3c88a25b1",
+      "prior_project_sha256": "d7e15269089f8d5597586206ba2efa730eaa4694c5c2b285871aa283c15c8ff5",
+      "project_commit": "0a4917edc602a52328ff62d91e2268d4fcb3bcca",
+      "sha256": "d9127518468eb4b7d043f1f642a930b58ac5a0b447c6cd9ae2128ff7d8dc9d9f",
+      "reason": "D1-D3 (s8-vii B): year-valued labelled rows are data unless the label is a period/unit caption (D2); a (n<=2 digits) footnote marker before N+1 values is dropped and flagged (D3); ExtractedTable.omitted records unparsed candidate lines (D1); user-approved in session s8-vii.",
+      "review": "docs/rulings/2026-10-31-s8-vii.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_extract.py",
+      "imported_sha256": "f4b2c224e0b55662704ca6529b46d6ff3b3ae67ed8ebb95518d8cdf3c88a25b1",
+      "prior_project_sha256": "d9127518468eb4b7d043f1f642a930b58ac5a0b447c6cd9ae2128ff7d8dc9d9f",
+      "project_commit": "4ed0f63cc3928290df06d620c050395edd78b474",
+      "sha256": "3fd324ec36dba89b49051d46973f860a8e394524b80a4c4686075da54d2d96de",
+      "reason": "D1-D3 fix 1 (s8-vii B): mypy-strict rename; separator rows of only nil dashes and pipes are not omitted candidates; literal word sets.",
+      "review": "docs/rulings/2026-10-31-s8-vii.md"
+    },
+    {
+      "destination": "src/deploy_vii/cash_bridge.py",
+      "imported_sha256": "cda9bacb342bb6460e322aff078a61ab993c518604aca30ce99a6ecd1eb6207e",
+      "prior_project_sha256": "cda9bacb342bb6460e322aff078a61ab993c518604aca30ce99a6ecd1eb6207e",
+      "project_commit": "d6ca9b631717913fed168d809de9343aeaa35fac",
+      "sha256": "1bae3af59e926a996672376bbb606e126fc932b8201a813370c20f1e2283ffc8",
+      "reason": "CZR cash scope (s8-vii C): CashMovementBridge.cash_scope declares restricted-cash balances in the CFS cash scope (dropped from JSON when None); optional BS item restricted_cash_noncurrent; NCF_CASH_MOVEMENT single and constructed checks sum each declared balance's change; guards in cash_bridge; user-approved in session s8-vii.",
+      "review": "docs/rulings/2026-10-31-s8-vii.md"
+    },
+    {
+      "destination": "src/deploy_vii/financial_contracts.py",
+      "imported_sha256": "5881b5287e8c871c078d7f64cb9c14bb191b107b556930308aa226a5d191d8a9",
+      "prior_project_sha256": "5881b5287e8c871c078d7f64cb9c14bb191b107b556930308aa226a5d191d8a9",
+      "project_commit": "d6ca9b631717913fed168d809de9343aeaa35fac",
+      "sha256": "527090d4c2a6ed38f21eb5e2022d7508a1b2421f07240e31bb58e6a4695a375b",
+      "reason": "CZR cash scope (s8-vii C): CashMovementBridge.cash_scope declares restricted-cash balances in the CFS cash scope (dropped from JSON when None); optional BS item restricted_cash_noncurrent; NCF_CASH_MOVEMENT single and constructed checks sum each declared balance's change; guards in cash_bridge; user-approved in session s8-vii.",
+      "review": "docs/rulings/2026-10-31-s8-vii.md"
+    },
+    {
+      "destination": "src/deploy_vii/financial_reconciliation.py",
+      "imported_sha256": "03e6ea036882a6dbcf3df689d4f81b6876244851e253f88a25d568e6da5a54fc",
+      "prior_project_sha256": "03e6ea036882a6dbcf3df689d4f81b6876244851e253f88a25d568e6da5a54fc",
+      "project_commit": "d6ca9b631717913fed168d809de9343aeaa35fac",
+      "sha256": "11590b9f2efdb73b53d8da73688482bd17dfbe104ea0192958410bc39a1c658a",
+      "reason": "CZR cash scope (s8-vii C): CashMovementBridge.cash_scope declares restricted-cash balances in the CFS cash scope (dropped from JSON when None); optional BS item restricted_cash_noncurrent; NCF_CASH_MOVEMENT single and constructed checks sum each declared balance's change; guards in cash_bridge; user-approved in session s8-vii.",
+      "review": "docs/rulings/2026-10-31-s8-vii.md"
+    },
+    {
+      "destination": "src/deploy_vii/period_reconciliation.py",
+      "imported_sha256": "e3c0e5d9f0e91537e7aaeddac0aebcb426a4bdbdc11dac4b2b86716e782302c0",
+      "prior_project_sha256": "e3c0e5d9f0e91537e7aaeddac0aebcb426a4bdbdc11dac4b2b86716e782302c0",
+      "project_commit": "d6ca9b631717913fed168d809de9343aeaa35fac",
+      "sha256": "c28a050079da88379fd27aa0dd7a314aea42029a11b954ade960d4bb2c87897b",
+      "reason": "CZR cash scope (s8-vii C): CashMovementBridge.cash_scope declares restricted-cash balances in the CFS cash scope (dropped from JSON when None); optional BS item restricted_cash_noncurrent; NCF_CASH_MOVEMENT single and constructed checks sum each declared balance's change; guards in cash_bridge; user-approved in session s8-vii.",
+      "review": "docs/rulings/2026-10-31-s8-vii.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_validation.py",
+      "imported_sha256": "6c14886cf39fad31cfa2e017f1c6a62051ea26141da1cdfdeb3b02e125987107",
+      "prior_project_sha256": "6c14886cf39fad31cfa2e017f1c6a62051ea26141da1cdfdeb3b02e125987107",
+      "project_commit": "d6ca9b631717913fed168d809de9343aeaa35fac",
+      "sha256": "7976f45253e5618c0c39e59f17255fe44285a4b85e89064ac3b24d73e23bfc76",
+      "reason": "CZR cash scope (s8-vii C): CashMovementBridge.cash_scope declares restricted-cash balances in the CFS cash scope (dropped from JSON when None); optional BS item restricted_cash_noncurrent; NCF_CASH_MOVEMENT single and constructed checks sum each declared balance's change; guards in cash_bridge; user-approved in session s8-vii.",
+      "review": "docs/rulings/2026-10-31-s8-vii.md"
+    },
+    {
+      "destination": "src/deploy_vii/cash_bridge.py",
+      "imported_sha256": "cda9bacb342bb6460e322aff078a61ab993c518604aca30ce99a6ecd1eb6207e",
+      "prior_project_sha256": "1bae3af59e926a996672376bbb606e126fc932b8201a813370c20f1e2283ffc8",
+      "project_commit": "1309b27b0aef3208fc6790f769e5049b6418cf61",
+      "sha256": "adbf06c77ff7d8560f4d0d9593f2f827d45b62d77af5c44df90a5084cfbb71d0",
+      "reason": "CZR cash scope fix 1 (s8-vii C): G3 needs a known or conflicting, restricted-labelled row for each declared item at every check date; G2 needs one citation that is the period's CFS cash line and names restricted cash (mx-adversary A1-A4); import order.",
+      "review": "docs/rulings/2026-10-31-s8-vii.md"
+    },
+    {
+      "destination": "src/deploy_vii/period_reconciliation.py",
+      "imported_sha256": "e3c0e5d9f0e91537e7aaeddac0aebcb426a4bdbdc11dac4b2b86716e782302c0",
+      "prior_project_sha256": "c28a050079da88379fd27aa0dd7a314aea42029a11b954ade960d4bb2c87897b",
+      "project_commit": "1309b27b0aef3208fc6790f769e5049b6418cf61",
+      "sha256": "14677c4bb96e342cadbb89997250af9ccee7869fb17f8166adc8a81699815f35",
+      "reason": "CZR cash scope fix 1 (s8-vii C): G3 needs a known or conflicting, restricted-labelled row for each declared item at every check date; G2 needs one citation that is the period's CFS cash line and names restricted cash (mx-adversary A1-A4); import order.",
+      "review": "docs/rulings/2026-10-31-s8-vii.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "b6c5e3edf84fb80f2dd3f920f0da8627baed778f6cf4fa7c6f474e604f54224c",
+      "project_commit": "3f335106363c7713928eb048b1da1debd68ea219",
+      "sha256": "dbf8de0750e9acbe729406c0afd92137ab1c63b8785767f49fb1cc80762e89e2",
+      "reason": "Stage 8-vii Low batch: comment and docstring rewrap only; no behaviour change.",
+      "review": "docs/rulings/2026-10-31-s8-vii.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "dbf8de0750e9acbe729406c0afd92137ab1c63b8785767f49fb1cc80762e89e2",
+      "project_commit": "70e87b53998505b70e3f2e52f982dacb8a89faa0",
+      "sha256": "abf7398518fa989f2fed3c9a7164bb381af37304b6a3d7bb7d1748a7c5be9694",
+      "reason": "B17-9/B18 (docs/rulings/2026-10-31-context-plan.md), Phase 8 Task 6b: CP-1B layout validation reads the money currency from revenue:current (required non-None), checks every money fact (prior, current, delta) against it instead of USD, and compares row labels with cp1b_layouts(scale_label('MILLIONS', currency)); the currency must be three capital letters (fullmatch); USD output unchanged.",
+      "review": ".superpowers/sdd/2026-10-31-phase-8-periods-currency/ (task-6b-brief.md, wave-1-addendum.md, task-6b-report.md)"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cp1b.py",
+      "imported_sha256": "188e84616a69640500e007c87daa7d84a80d3912e528bb91222a2793a4c32e36",
+      "prior_project_sha256": "188e84616a69640500e007c87daa7d84a80d3912e528bb91222a2793a4c32e36",
+      "project_commit": "425e2d397c3081f93704f3a61af30bc15b10e8d8",
+      "sha256": "906d1df2643623f53db096dad415a8377573b07293b90aaa00203f496d837a28",
+      "reason": "repo-authored (not in files[]): B17-9/B18 (docs/rulings/2026-10-31-context-plan.md), Phase 8 Task 6b: the nine money labels take a {unit} placeholder and cp1b_layouts(unit='US$ m') returns them formatted; _CP1B_LAYOUTS = cp1b_layouts() keeps every USD caller unchanged.",
+      "review": ".superpowers/sdd/2026-10-31-phase-8-periods-currency/ (task-6b-brief.md, wave-1-addendum.md, task-6b-report.md)"
+    },
+    {
+      "destination": "src/deploy_vii/source_context.py",
+      "imported_sha256": "bef10963d45e2b5e3b25626e3dd2db22ed9156988e7ec79fc43992ada8920a4c",
+      "prior_project_sha256": "d0cf155b79767c4ec70c731a87a3aa77e596c05169d966176d276b199898b4be",
+      "project_commit": "3f335106363c7713928eb048b1da1debd68ea219",
+      "sha256": "8e866afc0d21116bd2dcb863e6e897b6c076b791223a1816d95084d908bf7371",
+      "reason": "Stage 8-vii Low batch: comment and docstring rewrap only; no behaviour change.",
+      "review": "docs/rulings/2026-10-31-s8-vii.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_extract.py",
+      "imported_sha256": "f4b2c224e0b55662704ca6529b46d6ff3b3ae67ed8ebb95518d8cdf3c88a25b1",
+      "prior_project_sha256": "3fd324ec36dba89b49051d46973f860a8e394524b80a4c4686075da54d2d96de",
+      "project_commit": "6673b51ab9c197e62489e4be5af13481fab4c52e",
+      "sha256": "1afd96ec69b631944314ea829bc8f22c2fbe553ecf97293fa4adf9c2e5a77e53",
+      "reason": "D2/D3 fix 2 (s8-vii B, whole-branch review): a footnote marker must also end left of the leftmost header year column; note/notes are header words.",
+      "review": "docs/rulings/2026-10-31-s8-vii.md"
+    },
+    {
+      "destination": "src/deploy_vii/registry.py",
+      "imported_sha256": "e351d5b917558d4988e582963063dbf8a237f5949ae8a132b9f1c4e5f559995a",
+      "prior_project_sha256": "adf30a0b3f54d2b4d80fa6397507386e49017f7e6ab6d1399a02c393cf33ebbc",
+      "project_commit": "5a00d7be8e50fc54064588c9de7348659547fa55",
+      "sha256": "19ec267dff71aa89cbfdfbece02e1a44f6800306572e15f16029d3bd23dc880a",
+      "reason": "Part B O1 G1a: CP-MODEL joins CP-5's non-fan-in set so CP-MODEL is a stop in the owner walk and CP-5 no longer consumes it.",
+      "review": "work/context-plan/reviews/o1-task1-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/live/tools.py",
+      "imported_sha256": "380c20ebf24cac8c5e891726607bd13c04707d1262a0a622b9e9732a68bd5924",
+      "prior_project_sha256": "f03f7d04cf10939859e04208406d7c1f81f540ba4802a67878b7ba967d2fb6af",
+      "project_commit": "f0cf47c65e561f857838a35bfbdad464a44adc02",
+      "sha256": "40414baabed9af60874c4cf0c9c5bab1d39f133c69c88d8fa66f8f75c8945202",
+      "reason": "B22: read_pages, extract_statements (line:N-M ranges) and seen_tables accept the line:N spans of a prepared text pack; page:N unchanged",
+      "review": "work/context-plan/reviews/b22-tools-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/live/tools.py",
+      "imported_sha256": "380c20ebf24cac8c5e891726607bd13c04707d1262a0a622b9e9732a68bd5924",
+      "prior_project_sha256": "40414baabed9af60874c4cf0c9c5bab1d39f133c69c88d8fa66f8f75c8945202",
+      "project_commit": "fa95b8349605016d328a4d40c746f24971e867dd",
+      "sha256": "a5451e47977f7f57d56c3563dfa7e1ef7f9eef24d59d668b90ea5295aaac3ece",
+      "reason": "B22 Lows: docstrings",
+      "review": "work/context-plan/reviews/b22-tools-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/live/tools.py",
+      "imported_sha256": "380c20ebf24cac8c5e891726607bd13c04707d1262a0a622b9e9732a68bd5924",
+      "prior_project_sha256": "a5451e47977f7f57d56c3563dfa7e1ef7f9eef24d59d668b90ea5295aaac3ece",
+      "project_commit": "5da3f1e316f9923382ba3dd40e6e336424c4968f",
+      "sha256": "ddc00150ae35a42d0307f3bf0eef91041d14dc756da307a7f67c9f1f4d97e98e",
+      "reason": "PF-R7 (B31a, B22 follow-up): read_pages on a line source allows at most 5 lines or 8192 bytes of lines per call; page sources unchanged",
+      "review": "work/context-plan/reviews/pf1-read-window-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/live/tools.py",
+      "imported_sha256": "380c20ebf24cac8c5e891726607bd13c04707d1262a0a622b9e9732a68bd5924",
+      "prior_project_sha256": "ddc00150ae35a42d0307f3bf0eef91041d14dc756da307a7f67c9f1f4d97e98e",
+      "project_commit": "2c7eea57007229328f8cd1f4522197515db335ad",
+      "sha256": "dc5bda3e4d12547713eb4e7be23ff8b6c0fe812983f4e727cb901429447d731e",
+      "reason": "PF-R9 (B31a): a line-source read_pages call naming more than 5 lines names at most 200 before the byte measure",
+      "review": "work/context-plan/reviews/pf1-read-window-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/live/tools.py",
+      "imported_sha256": "380c20ebf24cac8c5e891726607bd13c04707d1262a0a622b9e9732a68bd5924",
+      "prior_project_sha256": "dc5bda3e4d12547713eb4e7be23ff8b6c0fe812983f4e727cb901429447d731e",
+      "project_commit": "3ec8f093fac7c9dcb18f823f3d4ecc541bc7d173",
+      "sha256": "4747b8527ec6e008a0e2085835361a857baf64bf5595389f2dbd54922adec357",
+      "reason": "CP1H-R10 (H7): the line-source read_pages byte bound goes from 8192 to 32768; OR semantics and the 200-line bound unchanged. User approval: \"Approve 32 KB\" (user via MANAGER, 2026-11-02)",
+      "review": "work/build/cp1h/reviews/T6-review-1.md"
+    },
+    {
+      "destination": "src/deploy_vii/cp3_relative_value.py",
+      "imported_sha256": "0abc723dfc39554d3f7c26b35d6ed6ad60dce836da5b8e79d9a20821e265924b",
+      "prior_project_sha256": "6c80484307aef1d6c6d3b17d7432f642fdd4b11f0a3db2b26cdb3cbf8f5a9f7f",
+      "project_commit": "decf34e7ae529a9e2082331ab627fc6471eae54a",
+      "sha256": "212950b3291779ba6f716cdf62f960c34502eaeb087c1eaa42c54a3e2e9320c2",
+      "reason": "B6/B6a (docs/rulings/2026-10-31-context-plan.md): Python builds CP-3 market evidence from the pack's context source (quotes and deal_terms talk): context_evidence reader and citations, Basis.context_rows (omitted from the dump when empty), T3.3 rows c01.., staleness cap, context CONTEXT-block rows.",
+      "review": ".superpowers/sdd/2026-10-31-phase-3-market-evidence/ (task-1 mx-precise a48aede9 and mx-adversary a19a45fe reviews, then fix round 1: task-1-fix1-brief.md, task-1-report.md)"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp2h.md",
+      "imported_sha256": "9e8099872e669f71a1f3ee28dde9d4d24713d2fe26ee0fc88dc054003115d618",
+      "prior_project_sha256": "9e8099872e669f71a1f3ee28dde9d4d24713d2fe26ee0fc88dc054003115d618",
+      "project_commit": "e30c06ba2eab2a813047b72519dc03decaaf39c0",
+      "sha256": "689c7af104f61460539f0d2d7812dd4295b07c0ffe26ead8b1d390ddeaba7d92",
+      "reason": "repo-authored (not in files[]): B9 (docs/rulings/2026-10-31-context-plan.md), Phase 4: wording-only edits so the method text names the context ratings path (ratings and outlooks from the context file's ratings rows, fixed combined-scale table, context in the adapter sources, row citations, register state and source_id); no rule, number or table id added.",
+      "review": ".superpowers/sdd/2026-10-31-phase-4-ratings/ (task-4 mx-feature review)"
+    },
+    {
+      "destination": "src/deploy_vii/live/prompts.py",
+      "imported_sha256": "fc291aee064f9f54c837094e5365601b1ee795259d0f81250d68960a428d87b5",
+      "prior_project_sha256": "fc291aee064f9f54c837094e5365601b1ee795259d0f81250d68960a428d87b5",
+      "project_commit": "f4e1028ac6211358f1d07f86d5bfe56ef6a28829",
+      "sha256": "b9b846432b65db8112b7bc0ba078445b5447b658c4beb00cf7994fcfffaf2c6c",
+      "reason": "B17 item 3 (docs/rulings, user-approved), Phase 3 Task 4: wording-only reword of CP3_EVIDENCE_RULE in the relative_value contract: a basis refers to Python's context rows by id (basis.context_rows) and never copies their figures; basis.quotes still repeats a market_evidence row's quote, for third_party rows only. No other contract text changes.",
+      "review": ".superpowers/sdd/2026-10-31-phase-3-market-evidence/ (task-4-addendum.md P3T4-R1, task-4a-report.md); mx-adversary ac7b8cfa (Phase 3 Task 4 Part A)"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp3.md",
+      "imported_sha256": "0b3f94694dfb9cde85932a036c3b9a0aec48e1495fee786876767aaa0cc8f571",
+      "prior_project_sha256": "0b3f94694dfb9cde85932a036c3b9a0aec48e1495fee786876767aaa0cc8f571",
+      "project_commit": "e7d2c02baba0054c0e591809fe62d05158ff8e76",
+      "sha256": "36d84f1d9985abbf5b141054dd678434c4e6cbabcbecd0e1d12dd98d1436bc83",
+      "reason": "B29 (docs/rulings/2026-10-31-context-plan.md, user-approved): wording-only sentence in the market-evidence paragraph: a run with a context file also offers Python's context rows, which a basis cites by row id in basis.context_rows and never copies; the third_party/basis.quotes sentences are unchanged. No rule, number or table id added.",
+      "review": "mx-adversary ac70b2b7"
+    },
+    {
+      "destination": "src/deploy_vii/live/prompts.py",
+      "imported_sha256": "fc291aee064f9f54c837094e5365601b1ee795259d0f81250d68960a428d87b5",
+      "prior_project_sha256": "b9b846432b65db8112b7bc0ba078445b5447b658c4beb00cf7994fcfffaf2c6c",
+      "project_commit": "e7d2c02baba0054c0e591809fe62d05158ff8e76",
+      "sha256": "eeb599d9b7de576e803eacb6daa216629e469c5b4dd5437ac07fa5cb030feae7",
+      "reason": "B29 (docs/rulings, user-approved): wording-only edit to CP3_BASIS_RULE (rule d): the market basis is a basis.quotes market quote or a context row named in basis.context_rows, as the validator (_basis_issues, _cites_market) accepts. No other contract text changes.",
+      "review": "mx-adversary ac70b2b7"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp3.md",
+      "imported_sha256": "0b3f94694dfb9cde85932a036c3b9a0aec48e1495fee786876767aaa0cc8f571",
+      "prior_project_sha256": "36d84f1d9985abbf5b141054dd678434c4e6cbabcbecd0e1d12dd98d1436bc83",
+      "project_commit": "68ebc369347121ce505488a8808661e643751d52",
+      "sha256": "2d5f12ad5e3688fbd92317046faf9a3dd76b549ab1a6c2f6abe580482b60da5f",
+      "reason": "B30 (docs/rulings/2026-10-31-context-plan.md, user-approved): wording-only: the market_observation sentence says a statement's basis quotes a market_evidence row (basis.quotes) or, in a run with a context file, names a context row in basis.context_rows. No rule, number or table id added.",
+      "review": "mx-adversary a3f74bdc"
+    },
+    {
+      "destination": "src/deploy_vii/live/prompts.py",
+      "imported_sha256": "fc291aee064f9f54c837094e5365601b1ee795259d0f81250d68960a428d87b5",
+      "prior_project_sha256": "eeb599d9b7de576e803eacb6daa216629e469c5b4dd5437ac07fa5cb030feae7",
+      "project_commit": "68ebc369347121ce505488a8808661e643751d52",
+      "sha256": "11a831ab3ecf62a3a650c3133f0dfe72dd0ff0545327a5f4331a146ab67f1fe9",
+      "reason": "B30 (docs/rulings, user-approved): wording-only edits to CP3_BASIS_RULE (rule d, market_observation clause) and CP3_PREFERENCE_RULE (rule e): a market observation or a preference cites a market quote or a context row named in basis.context_rows, as the validator (_cites_market) accepts. No other contract text changes.",
+      "review": "mx-adversary a3f74bdc"
+    },
+    {
+      "destination": "src/deploy_vii/cp3_relative_value.py",
+      "imported_sha256": "0abc723dfc39554d3f7c26b35d6ed6ad60dce836da5b8e79d9a20821e265924b",
+      "prior_project_sha256": "212950b3291779ba6f716cdf62f960c34502eaeb087c1eaa42c54a3e2e9320c2",
+      "project_commit": "68ebc369347121ce505488a8808661e643751d52",
+      "sha256": "d53035f7368704e750ecaded0985ecdfdb18c86acf8aaa8d60cab371df05e24b",
+      "reason": "B30 (docs/rulings, user-approved): wording-only: the Basis docstring names the context-row basis and Basis.context_rows gets a schema description (Python's context market-evidence row ids, cited by id, figures never copied). Default () and the omit-when-empty dump are unchanged, so content hashes are unchanged. No validator logic or refusal message changes.",
+      "review": "mx-adversary a3f74bdc"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp3.md",
+      "imported_sha256": "0b3f94694dfb9cde85932a036c3b9a0aec48e1495fee786876767aaa0cc8f571",
+      "prior_project_sha256": "2d5f12ad5e3688fbd92317046faf9a3dd76b549ab1a6c2f6abe580482b60da5f",
+      "project_commit": "9e8b92dc7fd46b3cf10e1141fc7df9d3a2ab1bf3",
+      "sha256": "6009dcca0feac906bcb8a612a36e16b81552c68aadc280aa25e41af15a1c5bfb",
+      "reason": "B34 (docs/rulings/2026-10-31-context-plan.md, applied recommendation): wording-only: the preference line under 'What to return' says the basis is at least one market evidence quote or a context row named in basis.context_rows, unless the confidence is Insufficient Information, as rule e and the validator (_preference_issues) accept. No rule, number or table id added.",
+      "review": "mx-adversary a491ef81"
+    },
+    {
+      "destination": "src/deploy_vii/readiness.py",
+      "imported_sha256": "1038a37a8227f426e4d6e1e79985e986e23e77f9e7cdee763a884477162ccffa",
+      "prior_project_sha256": "0161665494f7d71c77476e2852f5f8ff766c0e1f707cb462eae0af8f14164913",
+      "project_commit": "eeab0b8fecda6ee1a74b16c66711503e12928583",
+      "sha256": "475d9976caa7d7bcb2aea5e66a840fe027820bb0028c58bb562ace9ef8b34072",
+      "reason": "B7 (draft authority, user-approved) and B17 item 6: SourceAssessment.authority also admits 'draft' (Authority unchanged), validate_review refuses a draft assessment unless the context frozen in the pack declares legal_documents 'draft' (or says 'Draft authority refused, context invalid: <problem>'), and refuses executed, filed or draft authority on the 'context' source.",
+      "review": "mx-adversary a0b90eb1, mx-precise ab4eba86"
+    },
+    {
+      "destination": "src/deploy_vii/cp4_legal.py",
+      "imported_sha256": "1b2246ff9b0c0797c25d259c3e408436dfcc874b48be4cf1b2f77566c2bc4128",
+      "prior_project_sha256": "17c96b6f4c2ccf1eaae18f3bb3b4083ffb6603ae54e59f83b8aa170885b26ec0",
+      "project_commit": "4a5adf9f82c3c7b40e2245c6a6bd71eceb5f5589",
+      "sha256": "025d1f2ee7002ebb95d7c45459e3e20d7b266956409de01198d55195674eadda",
+      "reason": "B7 (draft authority, user-approved): LEGAL_AUTHORITIES also admits 'draft', so a source CP-0 assesses draft is a CP-4 legal source as filed is; DRAFT_LIMITATION (the frozen cases/context-attachments-owner expected.json draft_limitation) is appended once to the module limitations, after the gap and blocked-CP-1 limitations, whenever a legal source is draft. The Q2 refusal wording ('is not an executed or filed source') is unchanged.",
+      "review": "mx-adversary a8ea080a, mx-precise ac10a05d"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp4.md",
+      "imported_sha256": "99ec34c7a8257e15325456eb5466388eeb656fa01cf30db91e8474334bb39ff0",
+      "prior_project_sha256": "99ec34c7a8257e15325456eb5466388eeb656fa01cf30db91e8474334bb39ff0",
+      "project_commit": "a2243308037a6bc6b86536ce5c801b0c73f01271",
+      "sha256": "493f57fd0f4176c757cc310fcaa8809433c7aa6f0c3bee73519edc44effc1118",
+      "reason": "B17 item 4 (user-approved), Phase 5 Task 6: wording-only: the sources paragraph (cp4.md :15-16) and the Sources bullet (:119) say CP-0 classes the cited sources executed, filed or, on a draft-documents run, draft, where they said executed or filed. No other sentence changes.",
+      "review": "mx-adversary ac773829, mx-precise affb28ba"
+    },
+    {
+      "destination": "src/deploy_vii/live/context.py",
+      "imported_sha256": "71be7583fae72d5b719ba7167026d46576f5a4e7da4f4be1410417d50bd1a7aa",
+      "prior_project_sha256": "71be7583fae72d5b719ba7167026d46576f5a4e7da4f4be1410417d50bd1a7aa",
+      "project_commit": "a2243308037a6bc6b86536ce5c801b0c73f01271",
+      "sha256": "346a46375d182cedf003da002379908072e85decc2f4b05d46db197856ea65b5",
+      "reason": "B17 item 4 (user-approved), Phase 5 Task 6: wording-only edit to the module docstring (:33, sent to no model): CP-4 is sent the ready sources CP-0 classes executed, filed or, on a draft-documents run, draft. No code changes.",
+      "review": "mx-adversary ac773829, mx-precise affb28ba"
+    },
+    {
+      "destination": "src/deploy_vii/cp4_legal.py",
+      "imported_sha256": "1b2246ff9b0c0797c25d259c3e408436dfcc874b48be4cf1b2f77566c2bc4128",
+      "prior_project_sha256": "025d1f2ee7002ebb95d7c45459e3e20d7b266956409de01198d55195674eadda",
+      "project_commit": "a2243308037a6bc6b86536ce5c801b0c73f01271",
+      "sha256": "d7c78ba0bdb6cae78053e76dfce08e35f6c545ae53cfdcb1da01861b32c54233",
+      "reason": "P5T6-R2 (applied recommendation, B31a), Phase 5 Task 6: comment and docstring wording only: the Upstream.legal_sources comment, the fail-closed comment in the citation check and the context_block docstring say executed, filed or draft, where they said executed or filed. No code and no frozen text changes; the Q2 refusal wording is byte-identical.",
+      "review": "mx-adversary ac773829, mx-precise affb28ba"
+    },
+    {
+      "destination": "src/deploy_vii/methodology.json",
+      "imported_sha256": "e52360e409d159aac2943e668962c5afdd218fa3c0b0f22cec717a1f54e618c7",
+      "prior_project_sha256": "0932d9fbcd9272d62bcb7681e1dd16d9bc944319c64716b41dc79715699796e8",
+      "project_commit": "9f32bbd3b182f669d4a8ef54e6a1d1c90b0679d4",
+      "sha256": "7d164d11a6bc4589626081fa4d2cc66aad7354e530108b601a0b9ccdad0ec8eb",
+      "reason": "Phase 7 Task 1: CP-1C registers T1C.9-T1C.11 (EV/EBITDA admission, statistics, basis selection) after T1C.8; CP-4C optional gains CP-1C (not required: no new required edge).",
+      "review": "docs/rulings/ruling P7-R4; .superpowers/sdd/2026-10-31-phase-7-valuation/task-1-repin-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/contracts.py",
+      "imported_sha256": "ee1b27f912804ab81887401a99177f99068247e8c4ba53c000b0d3fde0205e74",
+      "prior_project_sha256": "618229c6da7db278f1bfa0688da2998bec2c4486a55fe8f1e50258715db76390",
+      "project_commit": "1c3e60504047494ba5df3710f63ac89bd86fc038",
+      "sha256": "b07965cc3907da1911c29a09bfea8b4559fb1c27dfc57c7e89eab97f1a3d0ee3",
+      "reason": "Phase 7 Task 1: CP-1C added to the distressed_restructuring preset after CP-1A; plan order becomes CP-0, CP-1, CP-1A, CP-1C, CP-2A, CP-4, CP-2, CP-2G, CP-2H, CP-4C, CP-5.",
+      "review": ".superpowers/sdd/2026-10-31-phase-7-valuation/task-1-report.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cp1c.py",
+      "project_commit": "1c3e60504047494ba5df3710f63ac89bd86fc038",
+      "sha256": "e9fb112034d6e35647210c305b0d5396b7836c77ac8904b9855daecbea79125e",
+      "reason": "Phase 7 Task 1: first record (Ruled Q6; the file was project-authored, no import baseline). Binds T1C.9-T1C.11 to the evidence rail as text (slots cp1c-t1c-9..11). Pre-change sha256 229c5d0f129b3ef79a8266a843990e8f7ce03edbbfc37d4abc901d9a6889531c.",
+      "review": ".superpowers/sdd/2026-10-31-phase-7-valuation/task-1-report.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "abf7398518fa989f2fed3c9a7164bb381af37304b6a3d7bb7d1748a7c5be9694",
+      "project_commit": "8a1f8ba22ea9f7be1f3fafb7de8a808cc600461a",
+      "sha256": "920e57d2f5836c79b0aa27c8e840e4b8673a12ac2e1ac378e0f85ee5d5579790",
+      "reason": "Rulings P8T7-R* and P8-R2 (B31a), Phase 8 Task 7: _chart_fact_cell takes the run currency for a CP-1 amount chart point (a three-capital-letter money currency, re.fullmatch, in place of USD only); the unit and scale checks are unchanged and USD output is byte-identical.",
+      "review": ".superpowers/sdd/2026-10-31-phase-8-periods-currency/task-7-review-adversary.md; .superpowers/sdd/2026-10-31-phase-8-periods-currency/task-7-review-precise.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cp1c.py",
+      "prior_project_sha256": "e9fb112034d6e35647210c305b0d5396b7836c77ac8904b9855daecbea79125e",
+      "project_commit": "c55d08dcee091d4346111d2dfb4991a826e56f39",
+      "sha256": "e8dd8a3d86b15f86286929dd5e570885fe03f070709441a2d37334227f82744b",
+      "reason": "Phase 7 Task 1 fix 1 (L1): the T1C.9-T1C.11 binding labels become the Phase 7 oracle titles (EV/EBITDA records, EV/EBITDA statistics, Valuation basis selection); no binding, block, slot or unit changes.",
+      "review": ".superpowers/sdd/2026-10-31-phase-7-valuation/task-1-review.md L1"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp1c.md",
+      "imported_sha256": "8c797c12c236c2e58efa5a4f6fea098866d9811c08798e561c19903a833511e3",
+      "prior_project_sha256": "8c797c12c236c2e58efa5a4f6fea098866d9811c08798e561c19903a833511e3",
+      "project_commit": "12e64f312b30518b5f26ff69939433436ba6d13c",
+      "sha256": "331137e787f48576e2aaceddb1cfc977864b89660a8b8fdacadef1c1467084d4",
+      "reason": "repo-authored (not in files[]): B9: wording only; adds the EV tables T1C.9-T1C.11, user-supplied records, the 12- and 36-month windows, the selection rules, the not-stated currency and period and the O7d gap; the LTM Q4 and mixed-period words follow the run base (Phase 7 Task 5b, B17 item 7; Phase 8 Task 8, B9)",
+      "review": ".superpowers/sdd/2026-10-31-phase-8-periods-currency/methods-batch-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp4c.md",
+      "imported_sha256": "1cd1ff108960fb8c5869b87692bf0047f6edb75fd2c3e0eeac3716c0b1cba10b",
+      "prior_project_sha256": "1cd1ff108960fb8c5869b87692bf0047f6edb75fd2c3e0eeac3716c0b1cba10b",
+      "project_commit": "12e64f312b30518b5f26ff69939433436ba6d13c",
+      "sha256": "aa95d40eaf162614370c8bcc394d7eecd39ef8edf267d2f24b29c2ebdc00d28d",
+      "reason": "repo-authored (not in files[]): B9: wording only; adds the optional CP-1C edge, the multiple binding and the pin precedence; the forecast-year, balance-column and currency words follow the run base (Phase 7 Task 5b, B17 item 7; Phase 8 Task 8, B9)",
+      "review": ".superpowers/sdd/2026-10-31-phase-8-periods-currency/methods-batch-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp2a.md",
+      "imported_sha256": "eb4c5494beb710baccb979b44cb1af1ffdfcc5bfc89ca66abd35389a6ecac132",
+      "prior_project_sha256": "eb4c5494beb710baccb979b44cb1af1ffdfcc5bfc89ca66abd35389a6ecac132",
+      "project_commit": "12e64f312b30518b5f26ff69939433436ba6d13c",
+      "sha256": "28be81bfb97a83e739e4a514612a2db3bf12b72480128f54c66c33fc2ab06236",
+      "reason": "repo-authored (not in files[]): B9: wording only; the units rule names the run's reporting currency (Phase 8 Task 8, B9)",
+      "review": ".superpowers/sdd/2026-10-31-phase-8-periods-currency/methods-batch-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp2d.md",
+      "imported_sha256": "b09c8ac53023bb88b50b9249b70386225b64bc26dec50a055767598f0dc4446f",
+      "prior_project_sha256": "b09c8ac53023bb88b50b9249b70386225b64bc26dec50a055767598f0dc4446f",
+      "project_commit": "12e64f312b30518b5f26ff69939433436ba6d13c",
+      "sha256": "b206dca9f5b17dd29ef161b01858c3ca7b412f4b6d0b6eedd2cf2d67935e7385",
+      "reason": "repo-authored (not in files[]): B9: wording only; the non-summed facility rule names the run's reporting currency (Phase 8 Task 8, B9)",
+      "review": ".superpowers/sdd/2026-10-31-phase-8-periods-currency/methods-batch-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp2g.md",
+      "imported_sha256": "464f3df8b2c05616fc579d9d735c090957398c408a65e33917fbedbeb6095e24",
+      "prior_project_sha256": "464f3df8b2c05616fc579d9d735c090957398c408a65e33917fbedbeb6095e24",
+      "project_commit": "12e64f312b30518b5f26ff69939433436ba6d13c",
+      "sha256": "684374859fd13fe2cfd262dcbbf041f78370367215bc0a0a371752bc78beb63a",
+      "reason": "repo-authored (not in files[]): B9: wording only; the base column, forecast years, \"Not reached by\" year and base-year labels follow the run base (Phase 8 Task 8, B9)",
+      "review": ".superpowers/sdd/2026-10-31-phase-8-periods-currency/methods-batch-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp2h.md",
+      "imported_sha256": "9e8099872e669f71a1f3ee28dde9d4d24713d2fe26ee0fc88dc054003115d618",
+      "prior_project_sha256": "689c7af104f61460539f0d2d7812dd4295b07c0ffe26ead8b1d390ddeaba7d92",
+      "project_commit": "12e64f312b30518b5f26ff69939433436ba6d13c",
+      "sha256": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+      "reason": "B9: wording only, Phase 8 period/currency; the first-year range, \"Not reached by\" year and base-year actual label follow the run base (Phase 8 Task 8, B9)",
+      "review": ".superpowers/sdd/2026-10-31-phase-8-periods-currency/methods-batch-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp3c.md",
+      "imported_sha256": "3dc940c2e3aaba94d120aaf2ff2067a639cb204be7721c43dc543b25f78947f5",
+      "prior_project_sha256": "3dc940c2e3aaba94d120aaf2ff2067a639cb204be7721c43dc543b25f78947f5",
+      "project_commit": "12e64f312b30518b5f26ff69939433436ba6d13c",
+      "sha256": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72",
+      "reason": "repo-authored (not in files[]): B9: wording only; the money-cell currency and unit label follow the run's reporting currency (Phase 8 Task 8, B9)",
+      "review": ".superpowers/sdd/2026-10-31-phase-8-periods-currency/methods-batch-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp1c.md",
+      "imported_sha256": "8c797c12c236c2e58efa5a4f6fea098866d9811c08798e561c19903a833511e3",
+      "prior_project_sha256": "331137e787f48576e2aaceddb1cfc977864b89660a8b8fdacadef1c1467084d4",
+      "project_commit": "69d68664564503e3750750629deeb3d09684b6c5",
+      "sha256": "1308cf6c421bd09eb11eb4988e0667f50fb5c2e8eb59492730a9f6fcedc22ae3",
+      "reason": "repo-authored (not in files[]): B9: wording only; methods fix 1 (P8T8-R1, P8T8-R2): figures date and period wording, omission 5 and the CP-4C reader claim",
+      "review": ".superpowers/sdd/2026-10-31-phase-8-periods-currency/methods-fix1-rereview.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp4c.md",
+      "imported_sha256": "1cd1ff108960fb8c5869b87692bf0047f6edb75fd2c3e0eeac3716c0b1cba10b",
+      "prior_project_sha256": "aa95d40eaf162614370c8bcc394d7eecd39ef8edf267d2f24b29c2ebdc00d28d",
+      "project_commit": "69d68664564503e3750750629deeb3d09684b6c5",
+      "sha256": "5d8f43c53a062b875430d4eef5cfc806d9b32d4a2ebfc595b82e951837218432",
+      "reason": "repo-authored (not in files[]): B9: wording only; methods fix 1 (P8T8-R1, P8T8-R2): the selected_multiple view key in the CP-1C edge",
+      "review": ".superpowers/sdd/2026-10-31-phase-8-periods-currency/methods-fix1-rereview.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp2d.md",
+      "imported_sha256": "b09c8ac53023bb88b50b9249b70386225b64bc26dec50a055767598f0dc4446f",
+      "prior_project_sha256": "b206dca9f5b17dd29ef161b01858c3ca7b412f4b6d0b6eedd2cf2d67935e7385",
+      "project_commit": "69d68664564503e3750750629deeb3d09684b6c5",
+      "sha256": "df8ec4b240315b7837144143b10b4861faf47826612d48f4be0e24f2ea5edcdd",
+      "reason": "B9: wording only; methods fix 1 (P8T8-R1): the adapter's money-fact rule names the run's reporting currency",
+      "review": ".superpowers/sdd/2026-10-31-phase-8-periods-currency/methods-fix1-rereview.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp1c.md",
+      "imported_sha256": "8c797c12c236c2e58efa5a4f6fea098866d9811c08798e561c19903a833511e3",
+      "prior_project_sha256": "1308cf6c421bd09eb11eb4988e0667f50fb5c2e8eb59492730a9f6fcedc22ae3",
+      "project_commit": "f7f252d98497dc767343eed3315628bff78de134",
+      "sha256": "c2675f0f3bc3d1843a4c4cf990e84bfc0d1029abe15ec29438e99e3c2241302c",
+      "reason": "repo-authored (not in files[]): B9: wording only; cp1c.md omission 5 names the run context as the one source of market data (Release 3 end batch, methods fix 1 Low-1)",
+      "review": ".superpowers/sdd/2026-10-31-phase-8-periods-currency/release3-end-batch-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_extract.py",
+      "imported_sha256": "f4b2c224e0b55662704ca6529b46d6ff3b3ae67ed8ebb95518d8cdf3c88a25b1",
+      "prior_project_sha256": "1afd96ec69b631944314ea829bc8f22c2fbe553ecf97293fa4adf9c2e5a77e53",
+      "project_commit": "8c3f523b6542203e0755fac5fb62ddb6bcb7052f",
+      "sha256": "15bb5fa3b6f4519e23e3f5920ab259de1dde4fb3302632543935965404fbec9c",
+      "reason": "CP1H-R23 change 3 (T19), user-approved: GBP and EUR signs fold like the dollar sign; a bare or several-number note reference under a Note header is dropped only when it lies left of the first year column and the row has one more value than the years; leader dots are stripped; a currency sign stuck after a digit, ) or . is split.",
+      "review": "work/build/cp1h/reviews/T19-review-1.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_extract.py",
+      "imported_sha256": "f4b2c224e0b55662704ca6529b46d6ff3b3ae67ed8ebb95518d8cdf3c88a25b1",
+      "prior_project_sha256": "15bb5fa3b6f4519e23e3f5920ab259de1dde4fb3302632543935965404fbec9c",
+      "project_commit": "02c6578628814d59f7508b331c0278f83732e8f9",
+      "sha256": "539b6469f0b71d40c69e2a249219fbf5f89e7feb785f6c2821c4e863524d4472",
+      "reason": "CP1H-R23 change 3 (T19) fix 1: ruff-format form of _NOTE_TAIL and the _note_reference signature; no behaviour change.",
+      "review": "work/build/cp1h/reviews/T19-review-1.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_extract.py",
+      "imported_sha256": "f4b2c224e0b55662704ca6529b46d6ff3b3ae67ed8ebb95518d8cdf3c88a25b1",
+      "prior_project_sha256": "539b6469f0b71d40c69e2a249219fbf5f89e7feb785f6c2821c4e863524d4472",
+      "project_commit": "243895cb60bffb854e61dddac26fe62e88bb55f1",
+      "sha256": "b309414e3b4fe77181ee999be6bf5e6fc82eafbd7114da5a60c568c7e9ad5a2e",
+      "reason": "CP1H-R23 change 3 (T19) fix 2, ruling CP1H-R23.14: leader dots are stripped only between the label and its first value; the Note header word must start left of the leftmost year column.",
+      "review": "work/build/cp1h/reviews/T19-review-1.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_extract.py",
+      "imported_sha256": "f4b2c224e0b55662704ca6529b46d6ff3b3ae67ed8ebb95518d8cdf3c88a25b1",
+      "prior_project_sha256": "b309414e3b4fe77181ee999be6bf5e6fc82eafbd7114da5a60c568c7e9ad5a2e",
+      "project_commit": "99128f43f4fc8a748c4439d2897e1008c41a449e",
+      "sha256": "98a3792a8b360198c1faddc763b56722504fa219566e6fd7105d77755f226230",
+      "reason": "CP1H-R23 change 3 (T19) fix 3, user-approved change 3, ruling R23.21: a dot before a digit ends a leader; a sign splits only after a digit or a digit's ) or .; the Note word must be its own header cell and covers only rows above the next period header; one leader check per line.",
+      "review": "work/build/cp1h/reviews/T19-adversary-1.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_extract.py",
+      "imported_sha256": "f4b2c224e0b55662704ca6529b46d6ff3b3ae67ed8ebb95518d8cdf3c88a25b1",
+      "prior_project_sha256": "98a3792a8b360198c1faddc763b56722504fa219566e6fd7105d77755f226230",
+      "project_commit": "06bf9790d561630ef83cc2098a50365615dd3e74",
+      "sha256": "09400f3b46a733abe791c075e8d71481950605637bd7f509ea176e5913118f2d",
+      "reason": "CP1H-R23 change 3 (T19) fix 3, M2, user-approved (MANAGER relay, ruling R23.21): under a governed Note column, an N-value row whose first cell is an unsigned 1-2 digit number left of the years while a later cell carries a sign keeps that number in its label and is flagged label_ends_numeric.",
+      "review": "work/build/cp1h/reviews/T19-adversary-1.md"
+    },
+    {
+      "destination": "src/deploy_vii/preparation.py",
+      "imported_sha256": "047f35778a5c969d7713619d6335b39c33809f7f944b0bd21eb153c42d6ac212",
+      "prior_project_sha256": "047f35778a5c969d7713619d6335b39c33809f7f944b0bd21eb153c42d6ac212",
+      "project_commit": "afbade922bd716701f156b7cb699a2308a29b4dc",
+      "sha256": "f803182ef32993344d8c425c25ba0a0677a40ce785b72cbd8d04fccac8494f88",
+      "reason": "CP1H-R23 T22, user-approved (MANAGER relay, ruling R23.23): a PDF page with an empty text layer is OCR'd through the installed pdftoppm + tesseract binaries; the page's coverage and the source extractor name OCR; missing binaries or a failure leave the page empty with a logged limitation.",
+      "review": "work/build/cp1h/reviews/T22-adversary-1.md"
+    },
+    {
+      "destination": "src/deploy_vii/preparation.py",
+      "imported_sha256": "047f35778a5c969d7713619d6335b39c33809f7f944b0bd21eb153c42d6ac212",
+      "prior_project_sha256": "f803182ef32993344d8c425c25ba0a0677a40ce785b72cbd8d04fccac8494f88",
+      "project_commit": "79e1c05c75f7e5af6aa209ea257ddfeda47162fd",
+      "sha256": "fa6ae2a0b41232066ae1bdc225778270107027371d18675bf4c1224bd9bf3fb4",
+      "reason": "CP1H-R23 T22 lint fix (ISC004, no behaviour change), ruling R23.23",
+      "review": "work/build/cp1h/reviews/T22-adversary-1.md"
+    },
+    {
+      "destination": "src/deploy_vii/preparation.py",
+      "imported_sha256": "047f35778a5c969d7713619d6335b39c33809f7f944b0bd21eb153c42d6ac212",
+      "prior_project_sha256": "fa6ae2a0b41232066ae1bdc225778270107027371d18675bf4c1224bd9bf3fb4",
+      "project_commit": "a5430c271c45fdbcee71be4aed4d0131b82c3141",
+      "sha256": "56904cdae974c1882c8737bb4d152d0bc552c84ea3111b85a9136d9e7801ee35",
+      "reason": "CP1H-R23 T22 fix 1 (R23.25 psm 4; R23.23.1 huge-page skip), within ruling R23.23",
+      "review": "work/build/cp1h/reviews/T22-adversary-1.md"
+    },
+    {
+      "destination": "src/deploy_vii/preparation.py",
+      "imported_sha256": "047f35778a5c969d7713619d6335b39c33809f7f944b0bd21eb153c42d6ac212",
+      "prior_project_sha256": "56904cdae974c1882c8737bb4d152d0bc552c84ea3111b85a9136d9e7801ee35",
+      "project_commit": "b00b0af7fea80101f748172383cd702b7faf632b",
+      "sha256": "ef054aaf75ed7a3733b4377ee5c0553305c42fc6d1f245099f90592236475be5",
+      "reason": "CP1H-R23 T22 fix 2 (R23.23.1 L3 amended: resolution cap replaces the size skip), within ruling R23.23",
+      "review": "work/build/cp1h/reviews/T22-adversary-1.md"
+    },
+    {
+      "destination": "src/deploy_vii/preparation.py",
+      "imported_sha256": "047f35778a5c969d7713619d6335b39c33809f7f944b0bd21eb153c42d6ac212",
+      "prior_project_sha256": "ef054aaf75ed7a3733b4377ee5c0553305c42fc6d1f245099f90592236475be5",
+      "project_commit": "d95a97c36e23225464ed31c452fb154888d0be2f",
+      "sha256": "d1e698ea0cd29767743046aeeb9efb998164fdf4603eae321bff60b9359a6754",
+      "reason": "CP1H-R23 T22 fix 3 (R23.23.2 L-a absolute box, L-b malformed box fails closed), within ruling R23.23",
+      "review": "work/build/cp1h/reviews/T22-adversary-2.md"
+    },
+    {
+      "destination": "src/deploy_vii/methodology.json",
+      "imported_sha256": "e52360e409d159aac2943e668962c5afdd218fa3c0b0f22cec717a1f54e618c7",
+      "prior_project_sha256": "7d164d11a6bc4589626081fa4d2cc66aad7354e530108b601a0b9ccdad0ec8eb",
+      "project_commit": "8b19c74b426f82b6402c72dbf6929ec936ddc370",
+      "sha256": "e0255a7b0ecb5993e1ebc4f1aef11c59f2555d983d2c7c18b16d79fcb91d606f",
+      "reason": "O7b-1c S3 (M2): the CP-DR LOCAL registry row (required CP-0 and CP-1, purpose names cp-dr/2026-10-31, before CP-1C)",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7b-1c-S3-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cpdr.md",
+      "prior_project_sha256": "524a7542a73a2f6cb27504b5e1e7d9c52291e0eb04e85e3b28b85072b4051a9e",
+      "project_commit": "14fb0c328e028b30eb3ad330a2659ca933f6eb84",
+      "sha256": "bd5d5816e366a01bd55218a98bd09db823dfe020ad4704147fe685fee2109cf2",
+      "reason": "repo-authored (not in files[]): B1: O7b-1c S5 rewrites the CP-DR method as cp-dr/2026-10-31: LOCAL lineage, scope, the R7 tables TDR.1-3, intake caps (MAX_BYTES) and refused locator characters, brief lock, six default questions, rules, readiness ceiling. First D12 record for this file (no import baseline).",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7b-1c-S5-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cpdr.py",
+      "prior_project_sha256": "c85a6433e4ebee9509704c8aa51c7bf097805b57ffe21d93bfedc59303e42aaa",
+      "project_commit": "14fb0c328e028b30eb3ad330a2659ca933f6eb84",
+      "sha256": "aca3194d336b5edeb0b9ae92d3778e8443faaee76a8bb35189f300a9e4df2ae7",
+      "reason": "repo-authored (not in files[]): B1: O7b-1c S5 relabels the three CP-DR bindings to the R7 table titles (Locked questions and recipients; Claims and located evidence; Answers, contrary evidence, uncertainty and downstream use) and updates the docstring; no binding, block, slot or unit changes. First D12 record for this file (no import baseline).",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7b-1c-S5-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cpdr.md",
+      "prior_project_sha256": "bd5d5816e366a01bd55218a98bd09db823dfe020ad4704147fe685fee2109cf2",
+      "project_commit": "b1598c22fd357d72d6e60db953ddf5d11fc2e54e",
+      "sha256": "6f808d3e15278d9bf0484413fbaa9eb3bc4fdd1b86ad3551a81ad0ce8554d985",
+      "reason": "repo-authored (not in files[]): B1: O7-R40 fix round 1 of the O7b-1c S5 review: no run-context cutoff (the cutoff is the as-of date, M1); a refused item's text, not the item, stays out of the pack, prompts and dossier, and the dossier lists it under Rejected items (L1); the prompt carries accepted items' text in UNTRUSTED_EVIDENCE blocks (L2); no module reads CP-DR output until O7d (I1). Chained after the S5 record.",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7b-1c-S5-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/execution.py",
+      "imported_sha256": "752ae7c74774f4410db0a24bb49c443d777dac7c8e3e6c8f8a11e088a3c9bff3",
+      "prior_project_sha256": "b2d5396c820c95669dda6afee5aec0e84fb4f6abcbe991b2a4ed99a1041e84d4",
+      "project_commit": "a7493793eeac15d26e856bc2b1fc55a2a6c9d180",
+      "sha256": "7a03df5a429052ba2f3235e5095a4e8cf29b3577d67a387ce939adcec6eb9177",
+      "reason": "repo-authored (not in files[]): B31a: O7c C1, O7-R47: CONTEXT_PRODUCERS gains CP-1C and CP-2 over CP-DR, so a settled CP-DR head is a bound context input of both consumers (not a dependency edge) and a re-settled CP-DR stales them. One mapping entry pair; nothing else in the file changes.",
+      "review": "work/context-plan/reviews/o7c-c1-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cpdr.md",
+      "prior_project_sha256": "6f808d3e15278d9bf0484413fbaa9eb3bc4fdd1b86ad3551a81ad0ce8554d985",
+      "project_commit": "3415f68213f2930ce1f2098b481b0e4a277026d0",
+      "sha256": "3f36135000f92c3d6d59d116d47f3413231572ed0cdb9975ea6ac8d2267f6ed7",
+      "reason": "repo-authored (not in files[]): B1/B31a: O7b-2 S5: the method states the context cutoff (the earlier of the as-of date and run.cutoff, D9) and the web-retrieval gate (a URL row is fetched only under a user ruling lifting the live-provider pause for web-retrieval; otherwise refused before anything is written). Replaces the as-of-date cutoff and URL-refused lines. Chained after the O7-R40 fix-round record.",
+      "review": "work/context-plan/reviews/o7b2-s5-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cpdr.md",
+      "prior_project_sha256": "3f36135000f92c3d6d59d116d47f3413231572ed0cdb9975ea6ac8d2267f6ed7",
+      "project_commit": "61e335702bfa6ed35dc75644a302b76edaca0b99",
+      "sha256": "06322fe0d92e793ed5990da3c481a37ffd2335554f8aead9ac95c9513b7f92a9",
+      "reason": "repo-authored (not in files[]): B31a: O7b-2 S5 fix round 1: ruling O7-R56 and the S5 review M-1/L-1: line 3 no longer says no web is used (the web is used only to fetch the user's URL rows under the ruling Intake names) and line 26 says an item names a file or an https url. Chained after the S5 record.",
+      "review": "work/context-plan/reviews/o7b2-s5-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methodology.json",
+      "imported_sha256": "e52360e409d159aac2943e668962c5afdd218fa3c0b0f22cec717a1f54e618c7",
+      "prior_project_sha256": "e0255a7b0ecb5993e1ebc4f1aef11c59f2555d983d2c7c18b16d79fcb91d606f",
+      "project_commit": "cffca98b7217f006e0ee60fa8213d17dcf98aaee",
+      "sha256": "aea67de94e90d2c5ce513c5898d9b7afdd10c849a082bb1f61a31bb07baf347e",
+      "reason": "O7d D0b (O7-R59, O7-R47 OD12): the CP-DR registry row gains TDR.4-6 (candidate peers, provisional alignment observations, located peer/transaction figures) for the peer pack; the preparer's change, chained here by the D1b builder after the 8b19c74b record.",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7d-D0b-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cpdr.py",
+      "prior_project_sha256": "aca3194d336b5edeb0b9ae92d3778e8443faaee76a8bb35189f300a9e4df2ae7",
+      "project_commit": "f413cfb0ac044cc460e32c633d5c05e032094a94",
+      "sha256": "48ce9d3aaecf6a4323142f708d785cc7114090f3e03fa47b360a6b104baa9d08",
+      "reason": "repo-authored (not in files[]): B1: O7d D1b adds three Evidence bindings, TDR.4 (Candidate peers), TDR.5 (Provisional alignment observations) and TDR.6 (Located peer/transaction figures), slots cpdr-tdr-4 to cpdr-tdr-6, with the R7 titles; the three S5 bindings are unchanged. Chained after the S5 record.",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7d-D1b-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cpdr.md",
+      "prior_project_sha256": "06322fe0d92e793ed5990da3c481a37ffd2335554f8aead9ac95c9513b7f92a9",
+      "project_commit": "f413cfb0ac044cc460e32c633d5c05e032094a94",
+      "sha256": "e899818c038516068deece464c3f4252621272becc014b5cb89bf9b8906ee493",
+      "reason": "repo-authored (not in files[]): B31a: O7d D1b adds the TDR.4-6 table rows and a The peer pack section (located figures only, no amount typed by the model, no CP-1C ownership field, period end on or before the cutoff, the Q4 opt-in clause: peer_source cp_dr_public with CP-1C requested); every earlier sentence stays. Chained after the O7b-2 S5 fix record.",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7d-D1b-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cpdr.md",
+      "prior_project_sha256": "e899818c038516068deece464c3f4252621272becc014b5cb89bf9b8906ee493",
+      "project_commit": "d287ef16b2d804b8ac21b5b759a9f53c59daaa09",
+      "sha256": "a7fa3c90ad650a0f708706d3c0f34c0bb65eac5ec088242f2399ede69fc8d09a",
+      "reason": "repo-authored (not in files[]): B31a: O7d D1b fix round 1 (review M-1, L-1): the peer_id bullet now states that TDR.4 rows are unique on peer_id and TDR.5/TDR.6 rows on peer_id.dimension / peer_id.operand, and the peer pack section says TDR.4-6 are not in the dossier. Chained after the first O7d D1b record.",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7d-D1b-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp1c.md",
+      "prior_project_sha256": "c2675f0f3bc3d1843a4c4cf990e84bfc0d1029abe15ec29438e99e3c2241302c",
+      "project_commit": "157255c696a8d562ce239a526215fb72e6fa90d4",
+      "sha256": "7a409ea65998636e1e141dc5142ef8bf1c17c3ce865733d904056d7de4985321",
+      "reason": "repo-authored (not in files[]): B9 (O7d D2, B31a): omission 5 (line 22) adds that, when CP-DR's peer pack is bound, its located peer figures are market data the pack carries; the O7d gap paragraph (line 59) now says cp_dr_public peers come from the bound CP-DR head's TDR.6 (a held peers source beside them is a named conflict), that those figures carry no enterprise value so T1C.9 to T1C.11 keep the gap with the amended wording, and that user_list still needs the lookup. Nothing else changes. Chained after the Release 3 end batch record.",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7d-D2-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cpdr.md",
+      "prior_project_sha256": "a7fa3c90ad650a0f708706d3c0f34c0bb65eac5ec088242f2399ede69fc8d09a",
+      "project_commit": "bf5575aef1a9b3a029f280aab9010d035032577a",
+      "sha256": "547dc50efda5a35e2dededbb6f8aac03c32b4dc369a82d3d8fdc91e2f48c8893",
+      "reason": "repo-authored (not in files[]): B31a: O7 end batch (D1b review I4): the Scope and Consumers lines no longer say no module reads CP-DR output until O7d; they say CP-1C and CP-2 read the settled head (each prompt carries the dossier block; CP-1C also reads TDR.6 when the peer pack is bound). Nothing else changes. Chained after the O7d D1b fix record.",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7-end-batch-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/bindings/cpdr.py",
+      "prior_project_sha256": "48ce9d3aaecf6a4323142f708d785cc7114090f3e03fa47b360a6b104baa9d08",
+      "project_commit": "bf5575aef1a9b3a029f280aab9010d035032577a",
+      "sha256": "e9486d074ef14c987d70db2fda556a34dc129352d139b6d8681624e8fb22de9a",
+      "reason": "repo-authored (not in files[]): B1: O7 end batch (D1b review I4): the docstring says the settled head is read by CP-1C and CP-2 (the dossier block; CP-1C also TDR.6), not through a Front Page block; no binding, block, slot or unit changes. Chained after the O7d D1b record.",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7-end-batch-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp1c.md",
+      "prior_project_sha256": "7a409ea65998636e1e141dc5142ef8bf1c17c3ce865733d904056d7de4985321",
+      "project_commit": "77e2650e818cc34dfd275fcff594294d4bb4c738",
+      "sha256": "838878d0cffb6513d6464064d4ee7940659c3972a03e73704de8bc81b4a055ad",
+      "reason": "repo-authored (not in files[]): B9 (O7d D2 fix 1, O7-R65, B31a): wording only; the universe, no-peer-source, definition-restatement, one-adapter and source-quotes lines are true on the CP-DR peer-sheet path as well (no issuer line and not-applicable tie-out cells, the head's TDR.6 amount facts cited by their ev-* quotes, a held peers source beside TDR.6 is the named conflict) and the not-admitted candidates are Python rows in T1C.7. Chained after the O7d D2 record.",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7d-D2-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp1c.md",
+      "prior_project_sha256": "838878d0cffb6513d6464064d4ee7940659c3972a03e73704de8bc81b4a055ad",
+      "project_commit": "7fdb258dd3497477831cb2c320e0c4b348db1051",
+      "sha256": "bf786ddbf10ccbff2d6a6179337b7f4f9c676236614154a89e0bed7230af1600",
+      "reason": "repo-authored (not in files[]): B9 (O7d D2 fix 2, O7-R65, B31a): wording only; the universe sentence (line 20), the definitions clause (line 21) and the one-adapter scope list (line 29) are true on the CP-DR peer-sheet path as well: Python admits the TDR.4 candidates first (currency, unit, period ends, the issuer's name) and lists the rest in T1C.7, the operands are the TDR.6 figures, and the ev-* items the figures cite are in scope. Chained after the O7d D2 fix 1 record.",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7d-D2-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cpdr.md",
+      "prior_project_sha256": "547dc50efda5a35e2dededbb6f8aac03c32b4dc369a82d3d8fdc91e2f48c8893",
+      "project_commit": "4e38b041eb44dd82fb29aaa7240d579a6604dd9f",
+      "sha256": "9cf2bf6dac6a8dac039e0d63a2d5cb6aee444284ec14af7e6cac29c16fce86ec",
+      "reason": "repo-authored (not in files[]): B31a: O7 end batch 2 (end batch review L3): the Consumers line (64) says CP-1C reads the bound head's TDR.6 figures (its read_inputs view and its peer sheet) when the peer pack is bound, not 'through its source session'. Nothing else changes. Chained after the O7 end batch record.",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7-end-batch-2-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/methods/cp1c.md",
+      "prior_project_sha256": "bf786ddbf10ccbff2d6a6179337b7f4f9c676236614154a89e0bed7230af1600",
+      "project_commit": "1e6c56412dbe4802ea501586df317fdb1fee8640",
+      "sha256": "8836094d4ce388c36941d8a1c7e34f6e01e53121e127c3c2c5c077af89a0d1b0",
+      "reason": "repo-authored (not in files[]): B9 (O7 end batch 2, D2 re-review L-a, B31a): line 29 says the scope holds every held ev-* research item, which the analyst and the pack figures may cite, instead of only the items the pack figures cite (cp1c.in_scope and host._OWNER_SCOPES hold every held ev-* item). Nothing else changes. Chained after the O7d D2 fix 2 record.",
+      "review": ".superpowers/sdd/2026-10-31-part-b-o7/task-O7-end-batch-2-review.md"
+    },
+    {
+      "destination": "src/deploy_vii/canonical_audit.py",
+      "imported_sha256": "e8facdfa23989531f8fadb82c2b6b695b51e51baca2713b38255ba9aa1f34475",
+      "prior_project_sha256": "3595cf287f2586e11bb192c0d43998f79d3000efac7aa3c3d1af33b05a228690",
+      "project_commit": "7d650c671971776106ed61713938bfe4aa4141ba",
+      "sha256": "173d5019ecc9476c36c5a909a78d8f3ca4c8b4085dbc03d2ae559c3f7226dbfb",
+      "reason": "Named CP-1 per-cell quantity, source citation, history and rendered unit-scale behavior; approved output/history scope.",
+      "review": "work/cp1-chain/reviews/outputs.md"
+    },
+    {
+      "destination": "src/deploy_vii/canonical_tables.py",
+      "imported_sha256": "6c1e2a1ce158a381994d9881420e98cddc61f77c8b695299da4fc9b08e2112bd",
+      "prior_project_sha256": "6c1e2a1ce158a381994d9881420e98cddc61f77c8b695299da4fc9b08e2112bd",
+      "project_commit": "1dd853018f0d9f6ba9389a2c67a4e0a11bca3fb6",
+      "sha256": "fc109149356ebe09d2adff4f7ccfcb0d95711b0c7c88ec3418407f66679e0ecb",
+      "reason": "Named CP-1 per-cell quantity, source citation, history and rendered unit-scale behavior; approved output/history scope.",
+      "review": "work/cp1-chain/reviews/outputs.md"
+    },
+    {
+      "destination": "src/deploy_vii/cash_bridge.py",
+      "imported_sha256": "cda9bacb342bb6460e322aff078a61ab993c518604aca30ce99a6ecd1eb6207e",
+      "prior_project_sha256": "adbf06c77ff7d8560f4d0d9593f2f827d45b62d77af5c44df90a5084cfbb71d0",
+      "project_commit": "40e03a7c4d4259f92471b6c343cecd221ce144e4",
+      "sha256": "88b5edd66c2ce1eaf9a9596384dc89af10b2d1a8a211a0be07ed494ef8854614",
+      "reason": "Named CP-1 typed statement quantity and financial dimension guards; approved contract/quantity scope.",
+      "review": "work/cp1-chain/reviews/contract.md"
+    },
+    {
+      "destination": "src/deploy_vii/financial_contracts.py",
+      "imported_sha256": "5881b5287e8c871c078d7f64cb9c14bb191b107b556930308aa226a5d191d8a9",
+      "prior_project_sha256": "527090d4c2a6ed38f21eb5e2022d7508a1b2421f07240e31bb58e6a4695a375b",
+      "project_commit": "99660496f24bc8c6017a475719e73048b5a4e8c8",
+      "sha256": "d6096908720bfbfb9ba2d7695e7be9cb3cf083189771b2b3d8916f55a3302892",
+      "reason": "Named CP-1 typed statement quantity and financial dimension guards; approved contract/quantity scope.",
+      "review": "work/cp1-chain/reviews/contract.md"
+    },
+    {
+      "destination": "src/deploy_vii/live/tools.py",
+      "imported_sha256": "380c20ebf24cac8c5e891726607bd13c04707d1262a0a622b9e9732a68bd5924",
+      "prior_project_sha256": "4747b8527ec6e008a0e2085835361a857baf64bf5595389f2dbd54922adec357",
+      "project_commit": "49c69d54f8d92721c5ec3288dea533ab56435c50",
+      "sha256": "05b81bdac4b4b8af84e5a69fd047391d0c2af8ac4b9ddf998814519de95d4ffd",
+      "reason": "Named CP-1 source-bound statement labels, row quantities and producer validation; approved typed-producer scope.",
+      "review": "work/cp1-chain/reviews/producer.md"
+    },
+    {
+      "destination": "src/deploy_vii/model_interface.py",
+      "imported_sha256": "259982a84d91226a9cb42a3c736506d592a04e0150724973197ac70057d0286c",
+      "prior_project_sha256": "259982a84d91226a9cb42a3c736506d592a04e0150724973197ac70057d0286c",
+      "project_commit": "7d650c671971776106ed61713938bfe4aa4141ba",
+      "sha256": "d28292dafb09cc1f3238b005ba966d09114a2b9365c0a006c21d7949d769dfd9",
+      "reason": "Named CP-1 per-cell quantity, source citation, history and rendered unit-scale behavior; approved output/history scope.",
+      "review": "work/cp1-chain/reviews/outputs.md"
+    },
+    {
+      "destination": "src/deploy_vii/report_view.py",
+      "imported_sha256": "c934d50152c06d52d2646031ce76bf961d7e19fbb460f4880ca4bde69392fa98",
+      "prior_project_sha256": "920e57d2f5836c79b0aa27c8e840e4b8673a12ac2e1ac378e0f85ee5d5579790",
+      "project_commit": "7d650c671971776106ed61713938bfe4aa4141ba",
+      "sha256": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+      "reason": "Named CP-1 per-cell quantity, source citation, history and rendered unit-scale behavior; approved output/history scope.",
+      "review": "work/cp1-chain/reviews/outputs.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_extract.py",
+      "imported_sha256": "f4b2c224e0b55662704ca6529b46d6ff3b3ae67ed8ebb95518d8cdf3c88a25b1",
+      "prior_project_sha256": "09400f3b46a733abe791c075e8d71481950605637bd7f509ea176e5913118f2d",
+      "project_commit": "6a6bcc6be97e8e0579fab632cf4e4976c46663df",
+      "sha256": "21b0a4a34818658c446551e5eace3000f7c7151a3f5de84d66c70e9eb000b995",
+      "reason": "Named CP-1 source-bound statement labels, row quantities and producer validation; approved typed-producer scope.",
+      "review": "work/cp1-chain/reviews/producer.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_history.py",
+      "imported_sha256": "8764ff7d839066dd604d9e247d3843a054e164bf351b8c1e5d2853f46b8b1744",
+      "prior_project_sha256": "8764ff7d839066dd604d9e247d3843a054e164bf351b8c1e5d2853f46b8b1744",
+      "project_commit": "1dd853018f0d9f6ba9389a2c67a4e0a11bca3fb6",
+      "sha256": "a6ef0f3d7c28035547b341b5c05e2db6cc41c88e97bfbae0d313be14398e9c99",
+      "reason": "Named CP-1 per-cell quantity, source citation, history and rendered unit-scale behavior; approved output/history scope.",
+      "review": "work/cp1-chain/reviews/outputs.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_output.py",
+      "imported_sha256": "9aa2dbfc9ee82831293bfdb042a4144e2e654dace574b2b9075e5ab02448689f",
+      "prior_project_sha256": "9aa2dbfc9ee82831293bfdb042a4144e2e654dace574b2b9075e5ab02448689f",
+      "project_commit": "1dd853018f0d9f6ba9389a2c67a4e0a11bca3fb6",
+      "sha256": "a0239179efe7c357cdc9943a299a07d56517f631f78ff891a78a1659e22ed2d0",
+      "reason": "Named CP-1 per-cell quantity, source citation, history and rendered unit-scale behavior; approved output/history scope.",
+      "review": "work/cp1-chain/reviews/outputs.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_validation.py",
+      "imported_sha256": "6c14886cf39fad31cfa2e017f1c6a62051ea26141da1cdfdeb3b02e125987107",
+      "prior_project_sha256": "7976f45253e5618c0c39e59f17255fe44285a4b85e89064ac3b24d73e23bfc76",
+      "project_commit": "d0b3f37c7ba81498b06fa1dfcf25ffd32481a7d9",
+      "sha256": "d97aba2e02ddbb95035a2afb441697561349d08231e368a4aac2c4d750763ec6",
+      "reason": "Named CP-1 typed statement quantity and financial dimension guards; approved contract/quantity scope.",
+      "review": "work/cp1-chain/reviews/contract.md"
+    },
+    {
+      "destination": "src/deploy_vii/statement_view.py",
+      "imported_sha256": "1d6fe0f78710a5ad6c931804c70a3f18e3661b01a350b44e54167b2981bdedbf",
+      "prior_project_sha256": "1d6fe0f78710a5ad6c931804c70a3f18e3661b01a350b44e54167b2981bdedbf",
+      "project_commit": "1dd853018f0d9f6ba9389a2c67a4e0a11bca3fb6",
+      "sha256": "f00fbd24ad7c050161196572d0d3de32633d05b2e58046b8237ba073cfd76cbc",
+      "reason": "Named CP-1 per-cell quantity, source citation, history and rendered unit-scale behavior; approved output/history scope.",
+      "review": "work/cp1-chain/reviews/outputs.md"
+    }
+  ],
+  "local_patch_lineage": [
+    {
+      "destination": "src/deploy_workflow/tools/upstream.py",
+      "baseline_commit": "3ebaf4737e6f8c581a53aca09d5aac36bc8a5a4e",
+      "baseline_sha256": "4854ec219bcd646e72b1ec367573df898bafad4d48a1f6e18285c90043b0eebe",
+      "prior_project_commit": "07a41d6",
+      "prior_project_sha256": "7d2b71955ad2d0a59c89822d9d37db659cc7d96a4155fbe78f35381ddcf907cc",
+      "project_commit": "063d380e028d9f618af08b6a20b4b4f291b24dd4",
+      "sha256": "ac7ac2e121faf7a3adda6eab385b8f194d29549979c334b276199b624e0332f7",
+      "companion_test": "tests/test_upstream_tools.py",
+      "companion_test_sha256": "a647782f2e23241e843a526d0c558d278aeccac971683835f9cc560b2706bd3b",
+      "reason": "Complete paged projection transport for the CP1B access contract; preserves baseline and earlier A2 project bytes."
+    },
+    {
+      "destination": "src/deploy_workflow/tools/upstream.py",
+      "baseline_commit": "3ebaf4737e6f8c581a53aca09d5aac36bc8a5a4e",
+      "baseline_sha256": "4854ec219bcd646e72b1ec367573df898bafad4d48a1f6e18285c90043b0eebe",
+      "prior_project_commit": "063d380e028d9f618af08b6a20b4b4f291b24dd4",
+      "prior_project_sha256": "ac7ac2e121faf7a3adda6eab385b8f194d29549979c334b276199b624e0332f7",
+      "project_commit": "9ad5672c6592d2578fb1b9d28146ff6509152b99",
+      "sha256": "5191a770b5aaa6d5b39c51701e4adc1eb930dea49246c6474edbe776e0341f12",
+      "companion_test": "tests/test_upstream_tools.py",
+      "companion_test_sha256": "b95bc0a2816a16fdfe775023af773e232af8872c762e6cb280e6b76f5239b665",
+      "reason": "Add the admitted v2 CP-5 integrity upstream transport over CP-1/CP-1B; preserves baseline, A2 and CP1B pager project bytes."
+    }
+  ]
+}

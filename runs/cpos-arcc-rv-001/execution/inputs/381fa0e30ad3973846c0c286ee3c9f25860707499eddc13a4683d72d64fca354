@@ -1,0 +1,278 @@
+{
+  "case": "Historical Dec31 2024 retrospective two-note comparison, not current quote/backtest",
+  "convention": "Analyst-selected30E/360; semiannual nominal compounding; scheduled coupon dates; no dealer basis asserted",
+  "helper_sha256": "b51b375a1a1c0aff668f85a9550e2d272f5f9a9be142407a68ba7bced0d4bced",
+  "source_principal_and_fair_values": "ARCC annual p94/291, rounded USDm; clean/dirty not disclosed",
+  "securities": {
+    "March2029": {
+      "isin": "US04010LBF94",
+      "principal_usdm": 1000,
+      "fair_usdm": 1010,
+      "coupon_pct": "47/8",
+      "equivalent": "101",
+      "accrued": "5593/2880",
+      "maturity": "2029-03-01",
+      "par_call": "2029-02-01",
+      "makewhole_treasury_bp": 35,
+      "benchmark_interpolated_pct": "4.33419178082191780821917808219178082191780821918",
+      "maturity_flows": [
+        {
+          "t": "61/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "241/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "421/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "601/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "781/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "961/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "1141/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "1321/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "1501/360",
+          "amount": "1647/16"
+        }
+      ],
+      "call_flows": [
+        {
+          "t": "61/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "241/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "421/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "601/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "781/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "961/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "1141/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "1321/360",
+          "amount": "47/16"
+        },
+        {
+          "t": "1471/360",
+          "amount": "9835/96"
+        }
+      ],
+      "cases": {
+        "assume_clean": {
+          "dirty_price_per100": "102.942013888888888888888888888888888888888888889",
+          "maturity_yield_decimal_expected": "0.056002645211725927187488423758070338179052421490",
+          "par_call_yield_decimal_expected": "0.055965546862122593865454774805736588822902591230",
+          "maturity_yield_existing_helper": "0.056002645211750864",
+          "par_call_yield_existing_helper": "0.05596554686218093",
+          "minimum_two_legs_not_full_YTW_pct": "5.59655468621225938654547748057365888229025912300",
+          "maturity_yield_pct": "5.60026452117259271874884237580703381790524214900",
+          "simple_treasury_residual_bp": "126.607274035067491052966429361525299598743392982",
+          "modified_duration_maturity_years": "3.59109022493202084492650322082831117328891307693",
+          "rounding_maturity_yield_bounds_pct": [
+            "5.58674309832070534867103579342311653176556285700",
+            "5.61379395793697960595464882714691772822325471700"
+          ]
+        },
+        "assume_dirty": {
+          "dirty_price_per100": "101",
+          "maturity_yield_decimal_expected": "0.061317289045096095558085261911596439302297405670",
+          "par_call_yield_decimal_expected": "0.061377196414680422680888728153621663629287374750",
+          "maturity_yield_existing_helper": "0.061317289044831066",
+          "par_call_yield_existing_helper": "0.06137719641465391",
+          "minimum_two_legs_not_full_YTW_pct": "6.13172890450960955580852619115964393022974056700",
+          "maturity_yield_pct": "6.13172890450960955580852619115964393022974056700",
+          "simple_treasury_residual_bp": "179.753712368769174758934810896786310831193234782",
+          "modified_duration_maturity_years": "3.57603209179411381366258639703213756237214341075",
+          "rounding_maturity_yield_bounds_pct": [
+            "6.11788954616062977309652446597610406371045445100",
+            "6.14557663334137110444769410012774411779586328700"
+          ]
+        }
+      }
+    },
+    "July2029": {
+      "isin": "US04010LBG77",
+      "principal_usdm": 850,
+      "fair_usdm": 861,
+      "coupon_pct": "119/20",
+      "equivalent": "1722/17",
+      "accrued": "1309/480",
+      "maturity": "2029-07-15",
+      "par_call": "2029-06-15",
+      "makewhole_treasury_bp": 30,
+      "benchmark_interpolated_pct": "4.35468493150684931506849315068493150684931506849",
+      "maturity_flows": [
+        {
+          "t": "1/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "13/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "25/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "37/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "49/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "61/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "73/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "85/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "97/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "109/24",
+          "amount": "4119/40"
+        }
+      ],
+      "call_flows": [
+        {
+          "t": "1/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "13/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "25/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "37/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "49/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "61/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "73/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "85/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "97/24",
+          "amount": "119/40"
+        },
+        {
+          "t": "107/24",
+          "amount": "4919/48"
+        }
+      ],
+      "cases": {
+        "assume_clean": {
+          "dirty_price_per100": "104.021200980392156862745098039215686274509803921",
+          "maturity_yield_decimal_expected": "0.056223660584233230972840822257389914707005888390",
+          "par_call_yield_decimal_expected": "0.056181644803181427625705834559652818533778045170",
+          "maturity_yield_existing_helper": "0.05622366058445431",
+          "par_call_yield_existing_helper": "0.05618164480320495",
+          "minimum_two_legs_not_full_YTW_pct": "5.61816448031814276257058345596528185337780451700",
+          "maturity_yield_pct": "5.62236605842332309728408222573899147070058883900",
+          "simple_treasury_residual_bp": "126.768112691647378221558907505405996385127377051",
+          "modified_duration_maturity_years": "3.83644778669316308838721846326968279592650635316",
+          "rounding_maturity_yield_bounds_pct": [
+            "5.60763109126520983554801595000262122775696598700",
+            "5.63711126131444478285959892262528358959862012700"
+          ]
+        },
+        "assume_dirty": {
+          "dirty_price_per100": "101.294117647058823529411764705882352941176470588",
+          "maturity_yield_decimal_expected": "0.063169490003934736405828288067415469253674908370",
+          "par_call_yield_decimal_expected": "0.063242226285975581075036663104809378726474002730",
+          "maturity_yield_existing_helper": "0.06316949000391184",
+          "par_call_yield_existing_helper": "0.06324222628574597",
+          "minimum_two_legs_not_full_YTW_pct": "6.31694900039347364058282880674154692536749083700",
+          "maturity_yield_pct": "6.31694900039347364058282880674154692536749083700",
+          "simple_treasury_residual_bp": "196.226406888662432551433565605661541851817576851",
+          "modified_duration_maturity_years": "3.81315086227084349403029056135934749993742100428",
+          "rounding_maturity_yield_bounds_pct": [
+            "6.30172503712537969831948559218515249885231528900",
+            "6.33218384700384097030435144655653195363268595100"
+          ]
+        }
+      }
+    }
+  },
+  "comparisons": {
+    "assume_clean": {
+      "July_minus_March_yield_bp": "2.21015372507303785352398499319576527953466900000",
+      "July_minus_March_simple_residual_bp": "0.160838656579887168592478143880696786383984069",
+      "independent_rounding_yield_gap_bounds_bp": [
+        "-0.61628666717697704066328771442965004662887300000",
+        "5.03681629937394341885631292021670578330572700000"
+      ],
+      "point_yield_order": "July>March",
+      "point_residual_order": "July>March"
+    },
+    "assume_dirty": {
+      "July_minus_March_yield_bp": "18.5220095883864084774302615581902995137750270000",
+      "July_minus_March_simple_residual_bp": "16.472694519893257792498754708875231020624342069",
+      "independent_rounding_yield_gap_bounds_bp": [
+        "15.6148403784008593871791492057408381056452002000",
+        "21.4294300843211197207826980580427889922231500000"
+      ],
+      "point_yield_order": "July>March",
+      "point_residual_order": "July>March"
+    }
+  }
+}

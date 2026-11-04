@@ -1,0 +1,20 @@
+{
+  "kind": "cpos-handoff-snapshot/1",
+  "execution": "host-session",
+  "scope": "public five-section snapshot; not full pathway/native Model publication",
+  "provider_cap_usd": 0,
+  "modules": {
+    "CP-0": "requests/CP-0/9f5eb33b4fc8d4cf50797977be7223b9099d9e5e5ecf86f6c680bd3f8df39d66/1.response.md",
+    "CP-1": "requests/CP-1/1cdfe3dda12c115632dae0fe630a30fe82ee9f185fd4809aacd61d60315d7c9c/1.response.md",
+    "CP-1A": "requests/CP-1A/04aa09236f8f06c0a07b51f48945d59db7f58d087fb2fc29989954b332b4473b/1.response.md",
+    "CP-2": "requests/CP-2/4ca1b576eeae591784a10f1ac2401566f430619aed7391b22de5f06f1f56f265/1.response.md"
+  },
+  "module_execution": {
+    "CP-0": "retained-response-replay",
+    "CP-1": "retained-response-replay",
+    "CP-1A": "retained-response-replay",
+    "CP-2": "host-session"
+  },
+  "delivery_manifest_sha256": "7b60336ff2115f4b65f3a663664d0a74988e005293c5a37019ccbbd514ac43ab",
+  "report_sha256": "128027b2625f5ab697c3141c9998f2be6f18ff03115fcddb41a7e682f31282b7"
+}

@@ -1,0 +1,38 @@
+{
+  "brief_canonical_sha256": "sha256:db058f6da03561545fd48825aacb3f44ea22eaac471d82b20170cb1d8d4eaf8a",
+  "execution": "actual public retrieval; no credentials or paid providers",
+  "sources": [
+    {
+      "source_id": "issuer-release",
+      "url": "https://transdigmgroupinc.gcs-web.com/news-releases/news-release-details/transdigm-group-reports-fiscal-2024-fourth-quarter-and-year-end/",
+      "retrieval_error": "HTTP Error 403: Forbidden",
+      "fallback": "Web tool returned original SEC exhibit; no local bytes invented."
+    },
+    {
+      "source_id": "sec-exhibit",
+      "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022124000082/exhibit991tdg2024q4earning.htm",
+      "retrieval_error": "HTTP Error 403: Forbidden",
+      "fallback": "Web tool returned original SEC exhibit; no local bytes invented."
+    }
+  ],
+  "web_tool_captures": [
+    {
+      "path": "runs/tdg-guidance-001/sources/web-retrieval.json",
+      "sha256": "0fdaeab87dae4492256bad814ad7e2075a3182722ba8a6e2713fcf612a1a21e9",
+      "kind": "exact web tool response, not raw HTML",
+      "access_date": "2026-11-04"
+    },
+    {
+      "path": "runs/tdg-guidance-001/sources/web-outlook.json",
+      "sha256": "bfdb6a78692a536346f0fb6644c5fb583000a17522b850519b915d14297435e1",
+      "kind": "exact web tool response, not raw HTML",
+      "access_date": "2026-11-04"
+    }
+  ],
+  "method_sha256": {
+    "skills/cp-dr-deep-research/SKILL.md": "bcf7836d45abd34e15188ed8f580c69079bad62012cb1921fabbdc4bc9372fc3",
+    "skills/cp-dr-deep-research/references/REF_CP-DR_STEPS.md": "a75bd020e039a67e37063b0475718aebac4a9fc3107819b9d2987b4e1f30643c",
+    "src/deploy_vii/methods/cpdr.md": "9cf2bf6dac6a8dac039e0d63a2d5cb6aee444284ec14af7e6cac29c16fce86ec"
+  },
+  "limits": "Direct raw HTML requests refused HTTP 403; retained web-tool responses prove retrieved text/locators only. SEC and IR are one issuer-origin evidence family."
+}

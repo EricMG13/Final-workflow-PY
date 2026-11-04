@@ -1,0 +1,111 @@
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn139view0 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"turn130view2","pattern":"125,000"}); Total lines: 4540
+L1397: As of September 27, 2025, the aggregate amount of the transaction price allocated to the performance obligations that are unsatisfied (or partially unsatisfied) was $6,010,000. We expect to recognize approximately 50% of that amount as sales over the next twelve months and the balance thereafter.
+L1398: 
+L1399: Disaggregation of Revenue
+L1400: 
+L1401: See Note 22 - Segments, for disclosures related to disaggregation of revenue.
+L1402: 
+L1403: 52
+L1404: 
+L1405: * * *
+L1406: 
+L1407: Note 3 - Acquisitions, Divestitures and Assets Held for Sale
+L1408: 
+L1409: Acquisitions
+L1410: On July 1, 2025, we acquired COTSWORKS, Inc. ("COTSWORKS"), based in Ohio for a purchase price, net of cash acquired, of $61,473, which was paid in cash and the issuance of Moog Class A shares valued at $20,294. At September 27, 2025, we have ascribed $12,000 of the purchase price to intangible assets. COTSWORKS designs and manufactures rugged optical components and subsystems for harsh environment applications, primarily serving the commercial, military, aerospace and industrial markets.
+L1411: The purchase price allocation is substantially complete, with the exception of income tax assets and liabilities. This operation is included in our Space and Defense segment. The sales and results of COTSWORKS are immaterial in 2025.
+L1412: On October 20, 2023, we acquired Data Collection Limited ("DCL") based in Auckland, New Zealand for a purchase price, net of acquired cash, of $5,911. DCL specializes in manufacturing and operating pavement surveying equipment and providing innovative solutions for measuring and managing pavements. This operation is included in our Military Aircraft segment. The sales and results of operations of DCL are immaterial in 2025 and 2024.
+L1413: 
+L1414: Divestitures
+L1415: In the fourth quarter of 2024, we recorded losses in Asset impairment and fair value adjustment of $14,897, related to selling a motors business in the Czech Republic and a hydraulic systems business in Luxembourg that were included in our Industrial segment. As a result, we have classified $9,360 in prepaid expenses and other current assets and $5,153 in accrued liabilities and other as held for sale at September 28, 2024.
+L1416: We completed the sale of these businesses on September 30, 2024, which required the release of the associated cumulative translation adjustment. There has been no significant change to the losses recognized as a result of completing the transactions.
+L1417: Assets Held for Sale
+L1418: 
+L1419: As of the third quarter of 2025, we have classified a non-core business within our Space and Defense segment as held for sale. We have classified $61,067 in prepaid expenses and other current assets and $15,524 in accrued liabilities and other as held for sale. See Note 8 - Goodwill and Intangible Assets for additional details.
+L1420: 
+L1421: 53
+L1422: 
+L1423: * * *
+L1424: 
+L1425: Note 4 - Receivables
+L1426: Receivables consist of:
+L1427:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1428:  |  | September 27,
+L1429: 2025  |  | September 28,
+L1430: 2024  |
+L1431: Accounts receivable  |  | $  | 483,872   |  |  | $  | 388,841   |  |
+L1432: Government assistance receivables  |  | 5,643   |  |  | 16,673   |  |
+L1433: Other  |  | 19,856   |  |  | 17,530   |  |
+L1434: Less allowance for credit losses  |  | (2,603)  |  |  | (3,073)  |  |
+L1435: Receivables, net  |  | $  | 506,768   |  |  | $  | 419,971   |  |
+L1436: Moog Receivables LLC (the "Receivables Subsidiary"), a wholly owned bankruptcy remote special purpose subsidiary of Moog Inc. (the "Company"), as seller, the Company, as master servicer, Wells Fargo Bank, N.A., as administrative agent (the "Agent") and certain purchasers (collectively, the "Purchasers") entered into the Third Amendment to the Amended and Restated Receivables Purchase Agreement (the "RPA").
+L1437: The RPA matures on December 11, 2026 and is subject to customary termination events related to transactions of this type.
+L1438: Under the RPA, the Receivables Subsidiary may sell receivables to the Purchasers in amounts up to a $125,000 limit. The receivables will be sold to the Purchasers in consideration for the Purchasers making payments of cash, which is referred to as "capital" for purposes of the RPA, to the Receivables Subsidiary in accordance with the terms of the RPA.
+L1439: The Receivables Subsidiary may sell receivables to the Purchasers so long as certain conditions are satisfied, including that, at any date of determination, the aggregate capital paid to the Receivables Subsidiary does not exceed a "capital coverage amount," equal to an adjusted net receivables pool balance minus a required reserve. Each Purchaser's share of capital accrues yield at a variable rate plus an applicable margin.
+L1440: The parties intend that the conveyance of receivables to the Agent, for the ratable benefit of the Purchasers will constitute a purchase and sale of receivables and not a pledge for security.
+L1441: The Receivables Subsidiary has guaranteed to each Purchaser and Agent the prompt payment of sold receivables, and to secure the prompt payment and performance of such guaranteed obligations, the Receivables Subsidiary has granted a security interest to the Agent, for the benefit of the Purchasers, in all assets of the Receivables Subsidiary. The assets of the Receivables Subsidiary are not available to pay our creditors or any affiliate thereof.
+L1442: In our capacity as master servicer under the RPA, we are responsible for administering and collecting receivables and have made customary representations, warranties, covenants and indemnities.
+L1443: The proceeds of the RPA are classified as operating activities in our Consolidated Statements of Cash Flows. Cash received from collections of sold receivables is used by the Receivables Subsidiary to fund additional purchases of receivables on a revolving basis or to return all or any portion of outstanding capital of the Purchaser. Subsequent collections on the pledged receivables, which have not been sold, will be classified as operating cash flows at the time of collection.
+L1444: Total receivables sold and cash collections under the RPA were $680,709 for the year ended September 27, 2025. The fair value of the sold receivables approximated book value due to their credit quality and short-term nature, and as a result, no gain or loss on sale of receivables was recorded.
+L1445: The amount sold to the Purchasers was $125,000 at September 27, 2025, which was derecognized from the Consolidated Balance Sheets. As collateral against sold receivables, the Receivables Subsidiary maintains a certain level of unsold receivables, which was $668,021 at September 27, 2025.
+L1446: Over-time contract receivables are primarily associated with prime contractors and subcontractors in connection with U.S. Government contracts, as well as commercial aircraft and satellite manufacturers. Amounts billed for over-time contracts to the U.S. Government were $1,668 at September 27, 2025 and $3,952 at September 28, 2024.
+L1447: There are no material amounts of claims or unapproved change orders included in the Consolidated Balance Sheets. There are no material balances billed but not paid by customers under retainage provisions.
+L1448: Concentrations of credit risk on receivables are limited to those from significant customers who are believed to be financially sound. Receivables, both billed and unbilled from Boeing were $263,140 at September 27, 2025 and $242,096 at September 28, 2024 and receivables, both billed and unbilled from Lockheed Martin were $138,246 at September 27, 2025 and $122,816 at September 28, 2024. We perform periodic credit evaluations of our customers’ financial condition and generally do not require collateral.
+L1449: 54
+L1450: 
+L1451: * * *
+L1452: 
+L1453: In 2020 the U.S. government enacted the Coronavirus Aid, Relief and Economics Security Act (the "CARES Act") to provide relief as a result of the COVID-19 pandemic. The CARES Act provides tax relief, along with other stimulus measures, including a provision for an Employee Retention Credit ("ERC"), which allows employers to claim a refundable tax credit against the employer share of Social Security tax equal to 70% of the qualified wages paid to employees.
+L1454: In 2025, an additional $3,320 was received for ERC under the CARES Act and was recorded as contra expense to personnel related costs of $3,084 to Costs of sales and $236 to Selling, general and administrative costs in our Consolidated Statement of Earnings.
+L1455: In 2024, we applied for the ERC under the CARES Act and recorded contra expense to personnel related costs of $13,247 to Costs of sales and $1,012 to Selling, general and administrative costs in our Consolidated Statement of Earnings in 2024 and is included in Receivables on our Consolidated Balance Sheets at September 28, 2024.
+L1456: We qualify for New York State ("NYS") Excelsior Jobs Program tax credits, which relate to increasing and maintaining employee headcount, amounts of capital investments and research and development spending in NYS. The initial program allows us to receive up to $8,500 of refundable tax credits in cash over a nine year period. A second program allows us to receive up to $16,400 of refundable tax credits in cash over a ten year period.
+L1457: As long as the annual requirements are met and maintained, we will receive the credits without any clawback provisions. We have recorded the tax credits for the initial program as a contra expense to personnel related costs and research and development in our Consolidated Statement of Earnings for $1,956, $1,118 and $1,118 in 2025, 2024 and 2023, respectively.
+L1458: We have recorded the tax credits for the second program as a contra expense to personnel related costs in our Consolidated Statement of Earnings for $2,509 in 2025. We have $3,074 and $2,236, recorded as Receivables for the initial program credits on our Consolidated Balance Sheets at September 27, 2025 and September 28, 2024, respectively. We have $2,509, recorded as Receivables for the second program on our Consolidated Balance Sheets at September 27, 2025.
+L1459: As of September 27, 2025 we have future tax credits of $15,289 that we can receive through 2033, if we maintain the annual requirements.
+L1460: The allowance for credit losses is based on our assessment of the collectability of customer accounts. The allowance is determined by considering factors such as historical experience, credit quality, age of the accounts receivable, current economic conditions and reasonable forecasted financial information that may affect a customer’s ability to pay.
+L1461: 
+L1462: Note 5 - Inventories
+L1463: Inventories, net of reserves, consist of:
+L1464:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1465:  |  | September 27,
+L1466: 2025  |  | September 28,
+L1467: 2024  |
+L1468: Raw materials and purchased parts  |  | $  | 301,679   |  |  | $  | 291,969   |  |
+L1469: Work in progress  |  | 520,315   |  |  | 488,342   |  |
+L1470: Finished goods  |  | 92,308   |  |  | 82,230   |  |
+L1471: Inventories, net  |  | $  | 914,302   |  |  | $  | 862,541   |  |
+L1472: There a re no material inventoried costs relating to over-time contracts where revenue is accounted for using the cost-to-cost method of accounting as of September 27, 2025 and September 28, 2024.
+L1473: We have recorded inventory write-downs, primarily as a result of excess and obsolete inventories related to restructuring actions taken to close facilities and transfer remaining production and for the retirement or exiting the business of specific programs. See Note 14 - Restructuring and Note 22 - Segments, for additional disclosures relating to inventory write-downs.
+L1474: 
+L1475: 55
+L1476: 
+L1477: * * *
+L1478: 
+L1479: Note 6 - Property, Plant and Equipment
+L1480: Property, plant and equipment consists of:
+L1481:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1482:  |  | September 27,
+L1483: 2025  |  | September 28,
+L1484: 2024  |  |
+L1485: Land  |  | $  | 33,872   |  |  | $  | 32,270   |  |  |
+L1486: Buildings and improvements  |  | 737,053   |  |  | 698,333   |  |  |
+L1487: Machinery and equipment  |  | 981,157   |  |  | 901,643   |  |  |
+L1488: Computer equipment and software  |  | 253,924   |  |  | 237,604   |  |  |
+L1489: Property, plant and equipment, at cost  |  | 2,006,006   |  |  | 1,869,850   |  |  |
+L1490: Less accumulated depreciation and amortization  |  | (986,100)  |  |  | (941,262)  |  |  |
+L1491: Property, plant and equipment, net  |  | $  | 1,019,906   |  |  | $  | 928,588   |  |  |
+L1492: In 2025, we recorded $2,374 of impairment charges on property and equipment on owned assets that experienced a decline in value, based on expected cash flows over the remaining life of the assets in relation to a decline in the related business in our Industrial segment. In 2024, we recorded $806 of impairment charges on equipment no longer in use.
+L1493: In 2023, we recorded $5,301 of impairment charges on property and equipment on owned assets that experienced a decline in value, based on expected cash flows over the remaining life of the assets in relation to a decline in the related business in our Industrial segment and from the retirement of a program in our Military Aircraft segment.
+L1494: In 2025, we received $2,222 in cash from the US Department of Defense for production equipment to be used on existing contracts and for the construction of a training facility. A total of $1,105 has been recorded as a reduction of property, plant and equipment in 2025 when the expenditures took place and the remaining $1,117 is recorded as an accrued liability on the Consolidated Balance Sheets and will be offset against the capital expenditures when they are incurred.
+L1495: In 2024, we received $6,243 in cash from NYS for capital expenditures in relation to the remediation of a brownfield at our East Aurora facilities. The credit was recorded as a reduction of property, plant and equipment in 2020 when the expenditures were made and the requirements of the tax credit were fulfilled.
+L1496: 
+L1497: 56
+L1498: 
+L1499: * * *
+L1500: 
+L1501: Note 7 - Leases
+L1502: We lease certain manufacturing facilities, office space and machinery and equipment globally. At inception we evaluate whether a contractual arrangement contains a lease. Specifically, we consider whether we control the underlying asset and have the right to obtain substantially all the economic benefits or outputs from the asset. If the contractual arrangement contains a lease, we then determine the classification of the lease, operating or finance, using the classification criteria described in ASC 842.
+L1503: We then determine the term of the lease based on terms and conditions of the contractual arrangement, including whether the options to extend or terminate the lease are reasonably certain to be exercised. We have elected to not separate lease components from non-lease components, such as common area maintenance charges and instead, account for the lease and non-lease components as a single component.
+L1504: Our lease right-of-use ("ROU") assets represent our right to use an underlying asset for the lease term and our lease liabilities represent our obligation to make lease payments. The ROU assets and lease liabilities for both operating and finance leases are recognized as of the commencement date at the net present value of the fixed minimum lease payments over the term of the lease including expected buyouts, using the discount rate described below.
+

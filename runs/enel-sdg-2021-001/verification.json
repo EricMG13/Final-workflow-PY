@@ -1,0 +1,176 @@
+{
+  "status": "Targeted historical sustainability-linked coupon mechanism checked, consumed and delivered; broader goal active",
+  "execution": "host-session",
+  "preflight_context_available": true,
+  "host_exchange": "Actual CP-0 and CP-2E host answers follow retained CP-OS requests. Preflight/context available in the same host. CP-0 checked in original process; exact pending CP-2E response completed after intentional verifier-literal correction and checked on resume. No repeat dispatch or provider call.",
+  "verifier_correction": {
+    "root": "The source-input Fraction oracle was correct; two hand-typed four-decimal phrase checks were inconsistent with it.",
+    "correct_ratio_fraction": "931600/17107",
+    "correct_gap_pp_fraction": "9285/17107",
+    "rounded_values": [
+      "54.4572%",
+      "0.5428 pp"
+    ],
+    "financial_response_existed_when_corrected": false
+  },
+  "provider_calls": 0,
+  "subagents_used": false,
+  "excel_output": false,
+  "production_code_changes": "none",
+  "actual_responses": {
+    "CP-0": {
+      "path": "runs/enel-sdg-2021-001/CP-0-attempt-1.md",
+      "sha256": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+    },
+    "CP-2E": {
+      "path": "runs/enel-sdg-2021-001/CP-2E-attempt-1.md",
+      "sha256": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+    }
+  },
+  "workflow": {
+    "path": "runs/enel-sdg-2021-001/workflow.json",
+    "sha256": "0176e99aa4c236bd38db062fc5fed9cae4137473de08060e051004695fcfa897",
+    "requested": [
+      "CP-2F"
+    ],
+    "ordered_modules": [
+      "CP-0",
+      "CP-2E"
+    ],
+    "alias_task_created": false,
+    "execution": "host-session"
+  },
+  "method_revisions": {
+    "selected-method/SKILL.md": "b931f41bb1ac7630c110f2a8b5d5bd4b5cf07d47232c333ef0a56d26923dfa95",
+    "selected-method/references/REF_CP-2E_STEPS.md": "23ddaf2269f8361e01a301e407b89dbb1ae16a05b8ce7430c9e20a8f83ab15b8",
+    "selected-method/references/REF_CP-2F_STEPS.md": "312301c620990d3810d19125cde30224f9696860c3ef5f04b3f9473652555e08"
+  },
+  "scope": "Historical Enel Finance International N.V. EUR1,000m initial0% notes XS2066706818 due June17 2024; guarantor/KPI Enel S.p.A. under the documented perimeter. Knowledge cutoff August3 2021; June30 KPI observation is not the December31 2021 target outcome. Source programme supplement, issuer financial-note/target disclosures and limited-assurance statement support a conditional pricing test; specific Final Terms/full contract package remain incomplete. Full-year coupon equivalents assume full original principal and an effective step-up; they are not actual accrued payments, net hedged funding cost, a spread forecast or issuer-level materiality. Unknown event/timing/access/market/outcome fields remain gaps. Actual current host with preflight context; no blind/independent/provider/native claim. All eight ESG analytical views remain. Excel is ingestion-only; no workbook output.",
+  "independent_verification": {
+    "report": "runs/enel-sdg-2021-001/execution/deliveries/f6db8cb44acbb3bb57a5257c380e720fba884286e0a20f4c8bdea578bd2906e4/report.html",
+    "report_sha256": "3f158735c83440507deb328be5737593998bd5ec4b847545921c66538600cfcb",
+    "source_phrase_checks": 15,
+    "raw_tables": 8,
+    "raw_table_rows": 42,
+    "exact_table_values": 74,
+    "facts": 104,
+    "exact_citations": 187,
+    "no_executor_resume": true,
+    "source_refusal": "cpos_input_changed: S1-efi-2019",
+    "synthetic_controls": {
+      "equality_is_numeric_pass_only": true,
+      "interim_below_target_not_final_failure": true,
+      "full_condition_with_unknown_notice_not_established": true,
+      "known_zero_distinct_from_missing": true,
+      "wrong_cash_would_fail_oracle": true
+    },
+    "protected_files_unchanged_during_verification": 459,
+    "independent_money_expectations": {
+      "step_decimal": "1/400",
+      "initial_coupon_decimal": "0",
+      "stepped_coupon_decimal": "1/400",
+      "initial_annual_coupon_eur_m": "0",
+      "stepped_annual_coupon_eur_m": "5/2",
+      "increment_eur_m": "5/2",
+      "gross_issue_proceeds_eur_m": "99123/100",
+      "par_less_gross_proceeds_eur_m": "877/100",
+      "displayed_kpi_gap_pp": "1/2"
+    },
+    "ratio_fraction": "931600/17107",
+    "gap_pp_fraction": "9285/17107",
+    "consumer": {
+      "path": "runs/enel-sdg-2021-001/CP-3C-consumer.md",
+      "sha256": "961e2a65d169e20af7e229f96aa64bf481b17428e374d1bd39806b94b6291f3b"
+    },
+    "file_extensions": [
+      ".html",
+      ".json",
+      ".md"
+    ],
+    "excel_output": false
+  },
+  "verification_command": "PYTHONPATH=src .venv/bin/python runs/enel-sdg-2021-001/verify.py",
+  "verifier_sha256": "b6110effb489e66ad19f1a9453c8312a1bdd3c157424f4537c5bed8ebf715e24",
+  "actual_consumer": {
+    "path": "runs/enel-sdg-2021-001/CP-3C-consumer.md",
+    "sha256": "961e2a65d169e20af7e229f96aa64bf481b17428e374d1bd39806b94b6291f3b",
+    "instructions": "runs/enel-sdg-2021-001/CP-3C-instructions.md",
+    "instructions_sha256": "e382904ffc616992c62e6f8720ebe900a201b9bdafe177acaac2c9e56f3e13e3",
+    "mode": "fresh same-host targeted analytical reading; not full CP-3C/runtime execution"
+  },
+  "browser_verification": {
+    "report_and_CP-2E_module_observed": true,
+    "all_eight_ESG_views_present": true,
+    "conditional_amount": "2.5 EURm per fully stepped year, full original principal",
+    "known_initial_zero_preserved": true,
+    "source_inspector": {
+      "module": "CP-2E",
+      "line": 113,
+      "sha256": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181",
+      "exact_conditional_row_observed": true
+    },
+    "alias_label": "Also invoked by CP-2F",
+    "server_stopped_exit_code": 0
+  },
+  "focused_regressions": {
+    "command": "PYTHONPATH=src:tests:tests/prompts .venv/bin/pytest -q tests/test_cpos_handoffs.py tests/test_markdown_delivery.py tests/test_model_handoff_delivery.py",
+    "result": "66 passed in 12.80s",
+    "scope": "Existing CP-OS/delivery regression checks; synthetic controls do not become issuer/model outcomes"
+  },
+  "confidence_review": {
+    "scope": "Current case instructions, actual output, source/arithmetic comparisons, consumer, publication and test-only verifier; no production code changes.",
+    "ranked_doubts": [
+      {
+        "point": "Conditional coupon becomes an observed payment or full funding conclusion",
+        "investigated": "Checked actual response and subsequent consumer against S1 p51 and programme conditions. Original-principal annual equivalence is explicit; final terms, timing, current balance and outcome remain missing. Browser keeps the same basis.",
+        "verdict": "Verified bounded result; full payment/funding proof remains open",
+        "patch": "None"
+      },
+      {
+        "point": "Wrong tranche, issuer or KPI perimeter",
+        "investigated": "S3 p5 identifies XS2066706818 and EUR1bn zero coupon due June17 2024; S1 p51 agrees. USD/GBP/2027 tranches remain excluded; issuer, guarantor and defined group KPI are separated.",
+        "verdict": "Verified",
+        "patch": "None"
+      },
+      {
+        "point": "Source percentage, target date or legal process misread",
+        "investigated": "Primary selected images were viewed; normalized counts and raw lexemes retained. Fraction checks give 54.4572% and 0.5428pp, consistent with source54.5%. June observation predates the target. Equality satisfies only the numeric limb; notice/verification/publication require separate evidence.",
+        "verdict": "Verified with explicit final-document/calendar gaps",
+        "patch": "Two test-only display literals corrected before financial response checking; original oracle unchanged"
+      },
+      {
+        "point": "False zero funding cost, double counted increment or mixed one-off discount",
+        "investigated": "Independent rational arithmetic verifies zero initial coupon, 2.5 conditional increment, 991.23 proceeds and 8.77 par difference. Actual consumer carries 2.5 once, separates historical proceeds/discount and cannot schedule actual cash.",
+        "verdict": "Verified",
+        "patch": "None"
+      },
+      {
+        "point": "Same-host source preflight overstated as independent blind test or full methodology acceptance",
+        "investigated": "Instructions and outputs disclose preceding context. All eight views are retained, with unsupported lanes gated. No complete schemas, numeric shared-method confidence, full legal/ESG, native acceptance or independent-context qualification claimed.",
+        "verdict": "By-design targeted functional scope; broader qualification open",
+        "patch": "None"
+      },
+      {
+        "point": "Retried dispatch, changed source, lost delivery cell or Excel output",
+        "investigated": "Two exact response versions retained; no-executor resume succeeds. Changed source hash refuses.74 table values and187 citations match exact handoff fields/lines; full file set reconstructs. Only HTML/JSON/MD output.66 focused existing regressions pass.",
+        "verdict": "Verified",
+        "patch": "None"
+      },
+      {
+        "point": "Verifier independence or irreversible changes to older evidence",
+        "investigated": "Expected inputs/Fraction oracle retained separately before financial output; Decimal model calculations checked independently. Synthetic controls labelled.459 selected production/prior-case files remain unchanged during verification. No predecessor or historical source directory was written.",
+        "verdict": "Verified within stated protected-file scope; no blind-test claim",
+        "patch": "Retain test-only verifier in this current case for repeatability"
+      }
+    ]
+  },
+  "rewrite_tournament": "Skipped: documentation, case data and test-only verification; no production function changed.",
+  "limitations": [
+    "Historical Aug3 2021 cutoff, not current Enel analysis or later target outcome.",
+    "Missing specific Final Terms/incorporated package, exact payment schedule, current residual principal and final process evidence.",
+    "No issuer-wide materiality, net hedge cost, greenium, spread forecast, liquidity/access or full CP-2F/CP-3C qualification.",
+    "Same host has preflight and earlier context; not independent/provider/native proof.",
+    "Literal report preserves units/dates in text and citations; native numeric inspector facets remain unpopulated.",
+    "CP-3C consumer is a separate actual targeted reading, not launched through this two-module CP-OS plan."
+  ]
+}

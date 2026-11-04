@@ -1,0 +1,156 @@
+{
+  "execution": "current host-model analysis with existing Decimal context and targeted comparator diagnostics; no API/runtime acceptance",
+  "cp1_handoff": {
+    "path": "runs/tdg-003/CP-1-attempt-2.md",
+    "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+  },
+  "original_dates": {
+    "current": [
+      "2024-10-01",
+      "2024-12-28"
+    ],
+    "prior": [
+      "2023-10-01",
+      "2023-12-30"
+    ]
+  },
+  "comparisons": {
+    "revenue": {
+      "current": "2006",
+      "prior": "1789",
+      "delta": "217",
+      "growth_fraction": "0.12129681386249301285634432643935159307"
+    },
+    "cost_of_sales": {
+      "current": "771",
+      "prior": "747",
+      "delta": "24",
+      "growth_fraction": "0.032128514056224899598393574297188755020"
+    },
+    "gross_profit": {
+      "current": "1235",
+      "prior": "1042",
+      "delta": "193",
+      "growth_fraction": "0.18522072936660268714011516314779270633"
+    },
+    "sga": {
+      "current": "211",
+      "prior": "220",
+      "delta": "-9",
+      "growth_fraction": "-0.040909090909090909090909090909090909091"
+    },
+    "intangible_amortization": {
+      "current": "50",
+      "prior": "35",
+      "delta": "15",
+      "growth_fraction": "0.42857142857142857142857142857142857143"
+    },
+    "ebit": {
+      "current": "974",
+      "prior": "787",
+      "delta": "187",
+      "growth_fraction": "0.23761118170266836086404066073697585769"
+    },
+    "interest_expense": {
+      "current": "378",
+      "prior": "300",
+      "delta": "78",
+      "growth_fraction": "0.26"
+    },
+    "tax_provision": {
+      "current": "126",
+      "prior": "106",
+      "delta": "20",
+      "growth_fraction": "0.18867924528301886792452830188679245283"
+    },
+    "net_income": {
+      "current": "493",
+      "prior": "382",
+      "delta": "111",
+      "growth_fraction": "0.29057591623036649214659685863874345550"
+    },
+    "ebitda": {
+      "current": "1087",
+      "prior": "859",
+      "delta": "228",
+      "growth_fraction": "0.26542491268917345750873108265424912689"
+    },
+    "adjusted_ebitda": {
+      "current": "1061",
+      "prior": "912",
+      "delta": "149",
+      "growth_fraction": "0.16337719298245614035087719298245614035"
+    },
+    "cfo_reported": {
+      "current": "752",
+      "prior": "636",
+      "delta": "116",
+      "growth_fraction": "0.18238993710691823899371069182389937107"
+    },
+    "capex_signed": {
+      "current": "-42",
+      "prior": "-36",
+      "delta": "-6",
+      "growth_fraction": "0.16666666666666666666666666666666666667"
+    },
+    "cash_interest": {
+      "current": "162",
+      "prior": "205",
+      "delta": "-43",
+      "growth_fraction": "-0.20975609756097560975609756097560975610"
+    },
+    "cash_taxes": {
+      "current": "37",
+      "prior": "11",
+      "delta": "26",
+      "growth_fraction": "2.3636363636363636363636363636363636364"
+    },
+    "cash_closing": {
+      "current": "2459",
+      "prior": "4135",
+      "delta": "-1676",
+      "growth_fraction": "-0.40532043530834340991535671100362756953"
+    },
+    "cash_after_capex_proxy": {
+      "current": "710",
+      "prior": "600",
+      "delta": "110",
+      "growth_fraction": "0.18333333333333333333333333333333333333"
+    },
+    "reported_gross_margin": {
+      "current": "61.6",
+      "prior": "58.2",
+      "delta_pp": "3.4"
+    },
+    "reported_adjusted_ebitda_margin": {
+      "current": "52.9",
+      "prior": "51.0",
+      "delta_pp": "1.9"
+    }
+  },
+  "legacy_diagnostics": {
+    "actual_period_metadata": {
+      "period_id": "q1-2025",
+      "period_type": "QUARTER",
+      "fiscal_year": "2025",
+      "fiscal_quarter": "1",
+      "start_date": "2024-10-01",
+      "end_date": "2024-12-28",
+      "currency": "USD",
+      "unit": "MILLIONS",
+      "accounting_basis": "U.S. GAAP",
+      "entity_perimeter": "consolidated group"
+    },
+    "dimension_refusal": "incompatible_dimensions",
+    "equal_calendar_duration": false,
+    "owner_comparison_refusal": "unsupported_pair",
+    "scope": "Private pure validation/label functions only, not full build_earnings_delta or owner execution."
+  },
+  "verification": "Every known delta exact with independent Fraction; growth within 1e-35; original source rounded margins use pp, no date adjustment.",
+  "additional_verification": [
+    "Organic/acquisition contribution 118+99=217; both category sums match sales.",
+    "Signed adjustment change -79 explains ordinary-to-adjusted EBITDA growth gap.",
+    "Cash year-on-year -1676 and sequential -3802 independently checked.",
+    "Core metric and all signed adjustment cells cross-checked to separately read raw HTML table cells."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "CP_DR_RESEARCH_BRIEF_V1",
+  "mode": "standalone",
+  "run_id": "enel-final-terms-research-001",
+  "scope_type": "issuer",
+  "scope_key": "ENEL-EFI",
+  "subject_name": "Enel Finance International N.V.",
+  "decision_context": "Resolve the specific Final Terms evidence gap in the retained historical Enel CP-2F coupon test. The receiving analytical module must independently admit any new instrument evidence and control changes.",
+  "as_of_date": "2021-08-03",
+  "time_horizon": "2019 issue terms through the stated June17 2024 maturity; no target-date outcome inference",
+  "source_mode": "web_only",
+  "budget": "standard",
+  "authorization_basis": "User-directed standardised loop over all modules/aliases, with older real sources allowed; public read-only discovery within this issuer/instrument gap.",
+  "exclusions": "No sources issued after August3 2021 as historical evidence, no other ISIN or tranche substituted, no later target result/current market conditions, private inputs, paid calls, agents, investment recommendation, invented documents or legal opinion.",
+  "questions": [
+    {
+      "question_id": "RQ-final-terms",
+      "question": "Can authoritative original Final Terms for Enel Finance International N.V. EUR zero-coupon note XS2066706818 be located and retained, and which instrument-specific coupon calendar, day-count, step-option, reference-date and margin fields do they establish?",
+      "decision_relevance": "Named source gap in runs/enel-sdg-2021-001/CP-2E-attempt-1.md; enables a later analytical assessment of exact elections/timing without inventing actual step occurrence.",
+      "consumer_module_id": "NONE",
+      "after_module_id": "NONE",
+      "evidence_needed": "Primary issuer, exchange or officially hosted Final Terms PDF whose issuer/ISIN/currency/maturity match the target; exact page/field locators and original bytes. Disconfirm with security identity and distinguish programme supplement/adjacent tranches.",
+      "completion_test": "Retain and hash actual primary bytes plus exact instrument terms with boundaries, or retain the bounded unsuccessful searches/access outcomes and an UNRESOLVED finding. Never replace a missing instrument document with a general supplement or later outcome."
+    }
+  ]
+}

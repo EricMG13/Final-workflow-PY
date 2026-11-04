@@ -1,0 +1,179 @@
+{
+  "status": "Bounded document research terminated unresolved; actual consumer rejection and populated report verified; broader goal active",
+  "approved_plan_hash": "sha256:6b92c9ae54647b7246f0bb97fd3907fe6942b957c96f18ecf8db4867bd0b4f32",
+  "method_sources": {
+    "docs/reuse/selected-methods/skills/cp-dr-deep-research/SKILL.md": "bcf7836d45abd34e15188ed8f580c69079bad62012cb1921fabbdc4bc9372fc3",
+    "docs/reuse/selected-methods/skills/cp-dr-deep-research/references/REF_CP-DR_STEPS.md": "a75bd020e039a67e37063b0475718aebac4a9fc3107819b9d2987b4e1f30643c",
+    "/Users/ericguei/Documents/cp-os/skills/cp-os-credit-os/references/CP_DR_RESEARCH_BRIEF_V1.md": "5028a6476cdff812a457bdb994e614b15b73f7c663eaa96b533b64cfd758fbf0"
+  },
+  "advisory_prior_answer": {
+    "path": "runs/enel-sdg-2021-001/CP-2E-attempt-1.md",
+    "sha256": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+  },
+  "preflight": "No new web search performed before this scope lock. Earlier Enel context and four original PDFs already known in this host.",
+  "search_cap": "One initial focused discovery; at most two focused gap loops; stop at supported answer or cap.",
+  "searches": [
+    {
+      "stage": "initial",
+      "queries": [
+        {
+          "q": "\"XS2066706818\" \"Final Terms\"",
+          "domains": [
+            "enel.com"
+          ]
+        }
+      ],
+      "capture": "sources/search-initial.json",
+      "result": "No results"
+    },
+    {
+      "stage": "gap1",
+      "queries": [
+        {
+          "q": "\"XS2066706818\" \"final terms\" pdf"
+        }
+      ],
+      "capture": "sources/search-gap-1.json",
+      "result": "Commercial listing language copies; no primary file"
+    },
+    {
+      "stage": "gap2",
+      "queries": [
+        {
+          "q": "Enel \"1705D\" \"Final Terms\""
+        },
+        {
+          "q": "site:enel.com \"Final Terms\" \"2019\" \"June 2024\""
+        }
+      ],
+      "capture": "sources/search-gap-2.json",
+      "result": "Same origin family and other tranches; no matching primary file"
+    }
+  ],
+  "provider_calls": 0,
+  "subagents_used": false,
+  "excel_output": false,
+  "approved_brief_sha256": "b47f06dc9f4910b837487cc67b9b7f2e112e5a4004bcb63ab7d57aa704aa190e",
+  "instructions_sha256": "0cd7427e53b8df379728334dac49b2b4212c4479fee5e78d5bd1d1b4355157e5",
+  "existing_lead_opened": {
+    "url": "https://cbonds.de/bonds/618585/",
+    "capture": "sources/lead-retrieval.json",
+    "result": "Current commercial listing names Final Terms but retrieved page has no primary body/link; general login/access messaging. No claim that a specific document requires subscription was established."
+  },
+  "capture_hashes": {
+    "search-gap-2.json": "346a7e99a2fa0976f3e8f3f026fdbeca307a1bba668bcd69be05734cc045b858",
+    "search-gap-1.json": "8e2e24e7676ec5e66ce2fb7f3704ca163465969bba0fa0ecebbf83ab9e573366",
+    "search-initial.json": "1048ddaf93c0dfa7b1304db3ffef722f4a37db0018ad2c63d0062118c5d92b42",
+    "lead-retrieval.json": "35cf7a2fa68a971097688646ee8a2b7b50c490e3b5e55f6eb446c7e2eb9be5a2"
+  },
+  "research_outcome": {
+    "questions_locked": 1,
+    "answered": 0,
+    "coverage_pct": 0,
+    "resolution": "UNRESOLVED",
+    "stop_reason": "budget_exhausted",
+    "search_queries": 4,
+    "search_stages": 3,
+    "additional_lead_retrievals": 1,
+    "original_Final_Terms_bytes_retained": false,
+    "positive_document_discovery_proved": false
+  },
+  "actual_host_dossier": {
+    "path": "runs/enel-final-terms-research-001/ENEL-EFI_CP-DR_20261104.md",
+    "sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+    "execution": "same-host actual public web tools and retained answer, earlier Enel context available"
+  },
+  "actual_consumer": {
+    "path": "runs/enel-final-terms-research-001/CP-2E-consumer.md",
+    "sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+    "instructions_sha256": "a2c375fb8157cb19a5d4b561e0390a939777834f8b2859dc510b1c35820cf551",
+    "scope": "targeted same-host source adoption; not complete CP-2E",
+    "disposition": "REJECTED for proving missing terms",
+    "financial_effect": "None: prior original-principal annual2.5 EURm and issue proceeds991.23/discount8.77 EURm unchanged; actual events/principal/payments remain missing"
+  },
+  "CPOS_publication": {
+    "workflow": "runs/enel-final-terms-research-001/workflow.json",
+    "sha256": "8e4803f0b1bfc897652b25c805d23e1ae2a1a9806b8aba8abda7b85ccecba781",
+    "execution": "retained-response-replay of actual answers for publication; did not orchestrate original web search",
+    "order": [
+      "CP-DR",
+      "CP-2E"
+    ],
+    "fabricated_CP0": false,
+    "repeated_analysis": false,
+    "report": "runs/enel-final-terms-research-001/execution/deliveries/fc7a53f00504420860e75c1952220f326781532d4f8b492759bb66f8f5a4bcad/report.html",
+    "report_sha256": "b1576b815994cf40eef0ee63d08ecf2c1ad0a01b97e4b7778fc2954d0046c706",
+    "facts": 72,
+    "exact_line_citations": 121,
+    "all_files_reconstructed_equal": true,
+    "output_extensions": [
+      ".html",
+      ".json",
+      ".md"
+    ]
+  },
+  "verification_command": "PYTHONPATH=src .venv/bin/python runs/enel-final-terms-research-001/verify.py",
+  "verifier_sha256": "ec2324dba07206c7a4441723229ff010084c05f2f90912f16104ccba7feb0f50",
+  "negative_controls": [
+    {
+      "kind": "source",
+      "refusal": "cpos_input_changed: research-brief"
+    },
+    {
+      "kind": "stale-upstream",
+      "refusal": "cpos_retained_stale: CP-2E"
+    }
+  ],
+  "protected_files_unchanged_during_check": {
+    "count": 212,
+    "scope": "all production Python files plus prior actual Enel pricing answer and calculation JSON"
+  },
+  "production_code_changes": "none",
+  "confidence_review": {
+    "scope": "Case-only research control/data/test verifier, actual source/adoption output and retained-answer publication.",
+    "ranked_doubts": [
+      {
+        "point": "Search non-discovery interpreted as proof no document exists",
+        "investigated": "Observed three search stages and listing inspection yield no primary body. Actual dossier distinguishes non-discovery from nonexistence; contrary listing preserved. Finding is UNRESOLVED, coverage0/1.",
+        "verdict": "Verified honest unresolved scope; positive discovery still open",
+        "patch": "None"
+      },
+      {
+        "point": "Current commercial data or duplicate source languages enter historical terms",
+        "investigated": "Source captures have2026 access date; all TDR evidence rows are gaps, one Cbonds family. Later status/other tranches are explicitly excluded. No listed terms are adopted.",
+        "verdict": "Verified",
+        "patch": "None"
+      },
+      {
+        "point": "Search budget or denominator silently resets",
+        "investigated": "Exact pre-search brief hash unchanged; one initial query plus two gap stages containing three queries; one existing-lead open. TDR1 field values exactly match original JSON question;0/1 denominator unchanged.",
+        "verdict": "Verified",
+        "patch": "None"
+      },
+      {
+        "point": "Unavailable research changes the cost or fills missing calendar",
+        "investigated": "Actual consumer reads dossier/hash, records REJECTED, retains prior2.5/991.23/8.77 and missing terms/events/payment. Source pins and unchanged prior files verified.",
+        "verdict": "Verified targeted adoption; no complete method claim",
+        "patch": "None"
+      },
+      {
+        "point": "Retained publication mislabeled fresh orchestration or gap delivery as research completion",
+        "investigated": "CP-OS mode and record explicitly say retained replay for publication only. No fabricated CP0/native lineage; reports preserve UNRESOLVED and missing inputs. Full analytical/provider/runtime qualification is not claimed.",
+        "verdict": "By-design; search orchestration and positive original-byte discovery remain open",
+        "patch": "None"
+      },
+      {
+        "point": "Lost cells, stale lineage, accidental providers/Excel or old-run mutation",
+        "investigated": "All72 facts/121 citations checked to exact handoff lines/columns; full publication reconstructs; no-executor resume passes. Corrupt brief and stale CPDR parent hash refuse in temporary copies.212 selected production/prior files unchanged; only HTML/JSON/MD output.",
+        "verdict": "Verified",
+        "patch": "None"
+      }
+    ]
+  },
+  "rewrite_tournament": "Skipped: documentation, generated case data and test-only verification; no production function changed.",
+  "remaining": [
+    "Positive original-byte source discovery not proved by this run.",
+    "Specific Final Terms/calendar/elections and actual payment evidence remain absent.",
+    "The standardized loop must continue on supported next functions; this is not all-module completion."
+  ]
+}

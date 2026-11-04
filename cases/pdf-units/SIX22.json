@@ -1,0 +1,88 @@
+{
+ "schema": "pdf-units/1",
+ "doc": "SIX22",
+ "document": "Six Flags Entertainment Corporation 10-K for the year ended 2 Jan 2022 (printed from sec.gov HTML)",
+ "source_name": "sec.gov_Archives_edgar_data_701374_000155837022001971_six-20220102x10k.htm.pdf",
+ "source_sha256": "cde003b14559c27e82b30349a127817f9015f8f829f817b7040fdcf68eccda36",
+ "page_numbering": "page N = the intake locator page:N (1-based PDF page index), not the printed folio",
+ "units": [
+  {
+   "kind": "BS",
+   "title_as_printed": "Consolidated Balance Sheets",
+   "title_lines": [
+    "Consolidated Balance Sheets"
+   ],
+   "pages": [
+    93
+   ],
+   "basis": "Title case, after the company name on p93 (folio 52); 'As of' header over January 2, 2022 and December 31, 2020; ends with Total liabilities and stockholders' deficit."
+  },
+  {
+   "kind": "IS",
+   "title_as_printed": "Consolidated Statements of Operations",
+   "title_lines": [
+    "Consolidated Statements of Operations"
+   ],
+   "pages": [
+    94
+   ],
+   "basis": "Title case, p94 (folio 53); three years January 2, 2022, December 31, 2020, December 31, 2019."
+  },
+  {
+   "kind": "CI",
+   "title_as_printed": "Consolidated Statements of Comprehensive Income (Loss)",
+   "title_lines": [
+    "Consolidated Statements of Comprehensive Income (Loss)"
+   ],
+   "pages": [
+    95
+   ],
+   "basis": "Title case, p95 (folio 54); Net income (loss) to Comprehensive income (loss) attributable to Six Flags Entertainment Corporation, then footnotes (1) to (3)."
+  },
+  {
+   "kind": "SE",
+   "title_as_printed": "Consolidated Statements of Equity (Deficit)",
+   "title_lines": [
+    "Consolidated Statements of Equity (Deficit)"
+   ],
+   "pages": [
+    96
+   ],
+   "basis": "Title case, p96 (folio 55); balances at December 31, 2018 through January 2, 2022."
+  },
+  {
+   "kind": "CFS",
+   "title_as_printed": "Consolidated Statements of Cash Flows",
+   "title_lines": [
+    "Consolidated Statements of Cash Flows"
+   ],
+   "pages": [
+    97
+   ],
+   "basis": "Title case, p97 (folio 56); the three sections and the cash roll on the one page."
+  }
+ ],
+ "not_units": [
+  {
+   "page": 86,
+   "looks_like": "BS, IS, CI, SE, CFS titles",
+   "reason": "Item 8 'Index to Consolidated Financial Statements' with folio numbers 52 to 56."
+  },
+  {
+   "page": 92,
+   "looks_like": "none (page before the BS)",
+   "reason": "Tail of the auditor's report (KPMG, tenure line); no data."
+  },
+  {
+   "page": 98,
+   "looks_like": "none (page after the CFS)",
+   "reason": "Note 1 'Description of Business', prose."
+  },
+  {
+   "page": 160,
+   "looks_like": "BS, IS, CI, SE, CFS titles",
+   "reason": "Item 15(a)(1) and (2) list of the financial statements with folio numbers."
+  }
+ ],
+ "fixture_pages_not_listed": []
+}

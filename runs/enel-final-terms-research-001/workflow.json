@@ -1,0 +1,135 @@
+{
+  "run": {
+    "run_id": "enel-final-terms-research-001",
+    "issuer_id": "ENEL-EFI",
+    "issuer_name": "Enel Finance International N.V.",
+    "as_of": "2021-08-03",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-DR",
+      "CP-2E"
+    ]
+  },
+  "execution": "retained-response-replay",
+  "max_attempts": 1,
+  "provider_cap_usd": 0,
+  "sources": {
+    "lead-retrieval": {
+      "path": "sources/lead-retrieval.json",
+      "sha256": "35cf7a2fa68a971097688646ee8a2b7b50c490e3b5e55f6eb446c7e2eb9be5a2"
+    },
+    "search-gap-1": {
+      "path": "sources/search-gap-1.json",
+      "sha256": "8e2e24e7676ec5e66ce2fb7f3704ca163465969bba0fa0ecebbf83ab9e573366"
+    },
+    "search-gap-2": {
+      "path": "sources/search-gap-2.json",
+      "sha256": "346a7e99a2fa0976f3e8f3f026fdbeca307a1bba668bcd69be05734cc045b858"
+    },
+    "search-initial": {
+      "path": "sources/search-initial.json",
+      "sha256": "1048ddaf93c0dfa7b1304db3ffef722f4a37db0018ad2c63d0062118c5d92b42"
+    },
+    "research-brief": {
+      "path": "RESEARCH_enel-final-terms-research-001.json",
+      "sha256": "b47f06dc9f4910b837487cc67b9b7f2e112e5a4004bcb63ab7d57aa704aa190e"
+    },
+    "prior-pricing": {
+      "path": "../enel-sdg-2021-001/CP-2E-attempt-1.md",
+      "sha256": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+    },
+    "prior-calculations": {
+      "path": "../enel-sdg-2021-001/CP-2E-calculations.json",
+      "sha256": "8b6ae446959bca25b84b3dd14810b7e97856c92aa4fd490a5d0cbfacbe6cef50"
+    },
+    "selected-method": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-dr-deep-research/SKILL.md",
+      "sha256": "bcf7836d45abd34e15188ed8f580c69079bad62012cb1921fabbdc4bc9372fc3"
+    },
+    "selected-method-steps": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-dr-deep-research/references/REF_CP-DR_STEPS.md",
+      "sha256": "a75bd020e039a67e37063b0475718aebac4a9fc3107819b9d2987b4e1f30643c"
+    }
+  },
+  "instructions": {
+    "CP-DR": {
+      "path": "instructions.md",
+      "sha256": "0cd7427e53b8df379728334dac49b2b4212c4479fee5e78d5bd1d1b4355157e5"
+    },
+    "CP-2E": {
+      "path": "consumer-instructions.md",
+      "sha256": "a2c375fb8157cb19a5d4b561e0390a939777834f8b2859dc510b1c35820cf551"
+    }
+  },
+  "retained_handoffs": {
+    "CP-DR": {
+      "path": "ENEL-EFI_CP-DR_20261104.md",
+      "sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+      "source_hashes": {
+        "lead-retrieval": "35cf7a2fa68a971097688646ee8a2b7b50c490e3b5e55f6eb446c7e2eb9be5a2",
+        "search-gap-1": "8e2e24e7676ec5e66ce2fb7f3704ca163465969bba0fa0ecebbf83ab9e573366",
+        "search-gap-2": "346a7e99a2fa0976f3e8f3f026fdbeca307a1bba668bcd69be05734cc045b858",
+        "search-initial": "1048ddaf93c0dfa7b1304db3ffef722f4a37db0018ad2c63d0062118c5d92b42",
+        "research-brief": "b47f06dc9f4910b837487cc67b9b7f2e112e5a4004bcb63ab7d57aa704aa190e",
+        "prior-pricing": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181",
+        "prior-calculations": "8b6ae446959bca25b84b3dd14810b7e97856c92aa4fd490a5d0cbfacbe6cef50",
+        "selected-method": "bcf7836d45abd34e15188ed8f580c69079bad62012cb1921fabbdc4bc9372fc3",
+        "selected-method-steps": "a75bd020e039a67e37063b0475718aebac4a9fc3107819b9d2987b4e1f30643c"
+      },
+      "upstream": {}
+    },
+    "CP-2E": {
+      "path": "CP-2E-consumer.md",
+      "sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+      "source_hashes": {
+        "lead-retrieval": "35cf7a2fa68a971097688646ee8a2b7b50c490e3b5e55f6eb446c7e2eb9be5a2",
+        "search-gap-1": "8e2e24e7676ec5e66ce2fb7f3704ca163465969bba0fa0ecebbf83ab9e573366",
+        "search-gap-2": "346a7e99a2fa0976f3e8f3f026fdbeca307a1bba668bcd69be05734cc045b858",
+        "search-initial": "1048ddaf93c0dfa7b1304db3ffef722f4a37db0018ad2c63d0062118c5d92b42",
+        "research-brief": "b47f06dc9f4910b837487cc67b9b7f2e112e5a4004bcb63ab7d57aa704aa190e",
+        "prior-pricing": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181",
+        "prior-calculations": "8b6ae446959bca25b84b3dd14810b7e97856c92aa4fd490a5d0cbfacbe6cef50",
+        "selected-method": "bcf7836d45abd34e15188ed8f580c69079bad62012cb1921fabbdc4bc9372fc3",
+        "selected-method-steps": "a75bd020e039a67e37063b0475718aebac4a9fc3107819b9d2987b4e1f30643c"
+      },
+      "upstream": {
+        "CP-DR": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+      }
+    }
+  },
+  "layout": {
+    "blocks": [
+      "key-findings",
+      "capital-structure"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-DR",
+        "heading": "Request",
+        "kind": "prose",
+        "prefix": "View:",
+        "block_id": "key-findings",
+        "label": "Unresolved document search"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "Request",
+        "kind": "prose",
+        "prefix": "View:",
+        "block_id": "key-findings",
+        "label": "Analytical adoption decision"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "Source adoption outcome",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "Preserved values and unfilled fields"
+      }
+    ],
+    "scope": "Historical Enel Finance International N.V. note XS2066706818; cutoff August3 2021, research access November4 2026. Actual same-host bounded CP-DR search and subsequent targeted CP-2E rejection of missing-term evidence; no primary Final Terms obtained, no positive document-discovery/full-method/provider/native qualification. CP-OS replays checked actual handoffs for publication; it did not perform the original web search. No new financial calculation or source-term change; current listing data and later outcomes excluded. Literal source-line delivery; Excel ingestion only.",
+    "title": "Enel EFI · unresolved document search and source adoption",
+    "question": "Did the new research establish missing instrument terms, and what changes in the analytical answer?"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "frozen_before_extraction": true,
+  "selection": "all supplied sheets, statements, headings and notes",
+  "sources": [
+    {
+      "source_id": "W1",
+      "sha256": "fb6f776a097c94382f21f2287cf2add54f141971d7ab01eadf9947dc2f0dbf29",
+      "decision": "PARSE_FULL",
+      "mode": "SHEET_RANGE + TABLE_FIRST",
+      "scores": {
+        "evidence_value": 4,
+        "authority_uniqueness": 2,
+        "structural_benefit": 1,
+        "duplication_penalty": 0
+      },
+      "total": 7,
+      "reason": "Issuer-linked primary-statement table; retain complementary statement separately and preserve cell/period/format structure. No duplicate hashes, overrides, known drafts or legal amendment set."
+    },
+    {
+      "source_id": "W2",
+      "sha256": "0ed7090071cd2b347e271d841fba75e0b0df74d4fd63ae956bd3de57b4413876",
+      "decision": "PARSE_FULL",
+      "mode": "SHEET_RANGE + TABLE_FIRST",
+      "scores": {
+        "evidence_value": 4,
+        "authority_uniqueness": 2,
+        "structural_benefit": 1,
+        "duplication_penalty": 0
+      },
+      "total": 7,
+      "reason": "Issuer-linked primary-statement table; retain complementary statement separately and preserve cell/period/format structure. No duplicate hashes, overrides, known drafts or legal amendment set."
+    },
+    {
+      "source_id": "W3",
+      "sha256": "a36a4c8bc09f31f2544e9e8eed3d70678b679f4d203d09ca88bec0e9380f690d",
+      "decision": "PARSE_FULL",
+      "mode": "SHEET_RANGE + TABLE_FIRST",
+      "scores": {
+        "evidence_value": 4,
+        "authority_uniqueness": 2,
+        "structural_benefit": 1,
+        "duplication_penalty": 0
+      },
+      "total": 7,
+      "reason": "Issuer-linked primary-statement table; retain complementary statement separately and preserve cell/period/format structure. No duplicate hashes, overrides, known drafts or legal amendment set."
+    },
+    {
+      "source_id": "P1",
+      "sha256": "fcb15a4a4ee76cfd1ae0142bbeaf1b0950bfa35c92626acee8791316ed707087",
+      "decision": "PARSE_TARGETED",
+      "mode": "TABLE_FIRST + LAYOUT_TEXT + source visual check",
+      "scores": {
+        "evidence_value": 5,
+        "authority_uniqueness": 3,
+        "structural_benefit": 2,
+        "duplication_penalty": 0
+      },
+      "total": 10,
+      "selected_pdf_pages": [
+        3,
+        5,
+        8,
+        9
+      ],
+      "reason": "Source statement/basis cross-check for workbook numeric conflicts; other166 PDF pages remain outside this targeted inspection, not discarded as noise."
+    }
+  ],
+  "revision": "Add P1 after observed numeric discrepancy; preserve original three decisions and raw values."
+}

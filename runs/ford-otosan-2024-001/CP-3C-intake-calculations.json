@@ -1,0 +1,84 @@
+{
+  "scope": "CP-3C bounded actual consumption of CP-2H, not full refinancing/LME acceptance",
+  "instructions_sha256": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+  "consumed": {
+    "runs/ford-otosan-2024-001/CP-2H-attempt-2.md": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72",
+    "runs/ford-otosan-2024-001/CP-2G-published-forecast.md": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931",
+    "runs/ford-otosan-2024-001/financial-calculations.json": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+    "runs/ford-otosan-2024-001/sources/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9"
+  },
+  "methods": {
+    "src/deploy_workflow/owners/cp3c.py": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3",
+    "src/deploy_vii/methods/cp3c.md": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72"
+  },
+  "source_basis": "S&P April 11 2024 report, PDF 7-8; source 2024 sources/uses, TRY billions; separate from adjusted forecast table",
+  "source_components_try_bn": {
+    "cash": "15.2",
+    "cash_ffo": "63",
+    "proposed_bond": "16",
+    "capex_facility": "15"
+  },
+  "use_components_try_bn": {
+    "short_maturities": "33.8",
+    "working_capital": "8.6",
+    "extra_wc_swing": "2",
+    "unstressed_reported_capex": "46.3"
+  },
+  "conditional_cases": [
+    {
+      "case": "agency-plan-reproduction",
+      "sources_try_bn": "109.2",
+      "uses_try_bn": "90.7",
+      "source_minus_use_try_bn": "18.5",
+      "ratio_4dp": "1.2040",
+      "meaning": "conditional historical source-plan arithmetic, not an actual funding outcome"
+    },
+    {
+      "case": "no-proposed-bond",
+      "sources_try_bn": "93.2",
+      "uses_try_bn": "90.7",
+      "source_minus_use_try_bn": "2.5",
+      "ratio_4dp": "1.0276",
+      "meaning": "conditional historical source-plan arithmetic, not an actual funding outcome"
+    },
+    {
+      "case": "no-new-capex-facility",
+      "sources_try_bn": "94.2",
+      "uses_try_bn": "90.7",
+      "source_minus_use_try_bn": "3.5",
+      "ratio_4dp": "1.0386",
+      "meaning": "conditional historical source-plan arithmetic, not an actual funding outcome"
+    },
+    {
+      "case": "neither-new-source",
+      "sources_try_bn": "78.2",
+      "uses_try_bn": "90.7",
+      "source_minus_use_try_bn": "-12.5",
+      "ratio_4dp": "0.8622",
+      "meaning": "conditional historical source-plan arithmetic, not an actual funding outcome"
+    },
+    {
+      "case": "unstressed-dividend-overlay",
+      "sources_try_bn": "109.2",
+      "uses_try_bn": "117.8",
+      "source_minus_use_try_bn": "-8.6",
+      "ratio_4dp": "0.9270",
+      "meaning": "conditional historical source-plan arithmetic, not an actual funding outcome"
+    },
+    {
+      "case": "illustrative-15pct-capex-cut",
+      "sources_try_bn": "109.2",
+      "uses_try_bn": "83.755",
+      "source_minus_use_try_bn": "25.445",
+      "ratio_4dp": "1.3038",
+      "meaning": "conditional historical source-plan arithmetic, not an actual funding outcome"
+    }
+  ],
+  "verification": "Two source totals, six ratios and six balances independently verified with Fractions/integer rounding; two missingness propagation assertions. Eleven source-literal presence checks.",
+  "limits": [
+    "Source rounded components; no claim of exact native agency calculation or available cash certification",
+    "Source assessment suspends committed dividends in stress; overlay is a different stipulated cash-use case",
+    "No actual funding failure, refinancing outcome, legal capacity, complete maturity wall or LME score",
+    "No TDG input or current rating used"
+  ]
+}

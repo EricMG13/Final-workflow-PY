@@ -1,0 +1,91 @@
+16/06/2026, 22:24                                                 sec.gov/Archives/edgar/data/701374/000155837022001971/six-20220102x10k.htm
+
+
+                       Table of Contents
+
+
+
+                                                           SIX FLAGS ENTERTAINMENT CORPORATION
+                                                                             Consolidated Balance Sheets
+
+                                                                                                                                                     As of
+                                                                                                                                 January 2, 2022    December 31, 2020
+                       (Amounts in thousands, except share data)
+                       ASSETS
+                         Current assets:
+                           Cash and cash equivalents                                                                             $        335,585      $            157,760
+                           Accounts receivable, net                                                                                        97,722                     36,610
+                           Inventories                                                                                                     27,273                     39,191
+                           Prepaid expenses and other current assets                                                                       55,455                     73,179
+                           Total current assets                                                                                           516,035                   306,740
+                         Property and equipment, net:
+                           Property and equipment, at cost                                                                              2,501,829                 2,408,690
+                           Accumulated depreciation                                                                                    (1,250,902)               (1,157,403)
+                           Total property and equipment, net                                                                            1,250,927                 1,251,287
+                         Other assets:
+                           Right-of-use operating leases, net                                                                             186,754                   196,711
+                           Debt issuance costs                                                                                               4,899                     7,034
+                           Deposits and other assets                                                                                         6,170                     7,103
+                           Goodwill                                                                                                       659,618                   659,618
+                           Intangible assets, net of accumulated amortization                                                             344,187                   344,198
+                           Total other assets                                                                                           1,201,628                 1,214,664
+                         Total assets                                                                                            $      2,968,590      $          2,772,691
+
+                       LIABILITIES AND STOCKHOLDERS' DEFICIT
+                         Current liabilities:
+                           Accounts payable                                                                                      $         38,251      $              26,582
+                           Accrued compensation, payroll taxes and benefits                                                                51,473                     22,031
+                           Accrued insurance reserves                                                                                      32,182                     31,060
+                           Accrued interest payable                                                                                        50,554                     60,184
+                           Other accrued liabilities                                                                                      101,790                     93,369
+                           Deferred revenue                                                                                               177,831                   205,125
+                           Short-term lease liabilities                                                                                     11,158                    14,054
+                           Total current liabilities                                                                                      463,239                   452,405
+                         Noncurrent liabilities:
+                           Long-term debt                                                                                               2,629,524                 2,622,641
+                           Long-term lease liabilities                                                                                    178,200                   187,432
+                           Other long-term liabilities                                                                                       9,469                    43,553
+                           Deferred income taxes                                                                                          148,291                   101,831
+                           Total noncurrent liabilities                                                                                 2,965,484                 2,955,457
+                         Total liabilities                                                                                              3,428,723                 3,407,862
+
+                         Redeemable noncontrolling interests                                                                              522,067                   523,376
+
+                         Stockholders' deficit:
+                           Preferred stock, $1.00 par value                                                                                     —                          —
+                           Common stock, $0.025 par value, 280,000,000 shares authorized; 86,162,879 and
+                               85,075,901 shares issued and outstanding at January 2, 2022 and December 31,
+                               2020, respectively                                                                                            2,154                     2,126
+                           Capital in excess of par value                                                                               1,120,084                 1,089,199
+                           Accumulated deficit                                                                                         (2,023,251)               (2,153,368)
+                           Accumulated other comprehensive loss                                                                            (81,187)                  (96,504)
+                           Total stockholders' deficit                                                                                   (982,200)               (1,158,547)
+                         Total liabilities and stockholders' deficit                                                             $      2,968,590      $          2,772,691
+
+                                                         See accompanying notes to consolidated financial statements.
+
+
+
+
+
+                                                                                                 52
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://www.sec.gov/Archives/edgar/data/701374/000155837022001971/six-20220102x10k.htm                                                                                                        93/170

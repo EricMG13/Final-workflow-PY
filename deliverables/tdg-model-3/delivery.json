@@ -1,0 +1,46 @@
+{
+  "kind": "manual_retained_handoff_model_publication",
+  "scope": "Manual Model publication from actual checked Markdown handoffs. Historical annual FY2022\u2013FY2024, exact quarterly handoff dates/units and conditional FY2025\u2013FY2027 assumptions remain separate. Source tables are copied literally; all raw financial, segment, add-back, facility, quarterly, scenario and gap tables are on the Model page. Operating-based EBITDA is distinct from the issuer ordinary/As Defined bridge; cash proxy is not discretionary FCF, book debt is not all claims and cash is not certified accessible liquidity. No new underwriting, Excel output, provider run or promoted journal head. Charts show selected historical data only; the complete conditional source tables and unchanged exact forecast JSON remain attached. Native CP-OS automation is unqualified.",
+  "analytical_rerun": false,
+  "excel_output": false,
+  "native_accepted_head": false,
+  "sources": {
+    "annual": {
+      "path": "runs/tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "quarter": {
+      "path": "runs/tdg-003/CP-1-attempt-2.md",
+      "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+    },
+    "forecast": {
+      "path": "runs/tdg-003/CP-2G-attempt-2.md",
+      "sha256": "696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928"
+    },
+    "forecast_exact": {
+      "path": "runs/tdg-003/CP-2G-attempt-1-calculations.json",
+      "sha256": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843"
+    },
+    "current_synthesis": {
+      "path": "runs/tdg-run-comparison-001/CP-2-delivery.md",
+      "sha256": "22edd045e3d6f9e0a1e1bfff9fd099064b7f076d32c38e833977a8343e9d662b"
+    }
+  },
+  "files": {
+    "annual.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+    "quarter.md": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+    "forecast.md": "696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928",
+    "forecast_exact.json": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843",
+    "current_synthesis.md": "22edd045e3d6f9e0a1e1bfff9fd099064b7f076d32c38e833977a8343e9d662b",
+    "calculation.json": "9f6af42f291e6a3182295161e40b5cd5c20f7c2922f93ae5f6d498beb059182a",
+    "view.json": "f5d1c7f436f5321517f4f29730f57c6bfa2bfd72ee07565be6b3c34f3d715e17",
+    "report-view.json": "13cfee83d9adb6c4ebb87a0d288061ac6bd764e3e4c1a24ff58e0be82b00a8f7",
+    "model.html": "9f9794ee7a153be56ce5535ca28de2a99e883ddedd609857d519be953e580554"
+  },
+  "raw_source_tables": 43,
+  "facts": 1860,
+  "figures": 3,
+  "input_contract": "Current six-heading handoffs; selected historical monetary calculations only, all raw tables literal.",
+  "presentation_repair": "Ratio block uses the existing dense-table layout to display all three fiscal-year headings; original key-value layout hid the headings. Values, facts, citations, charts and calculation bytes unchanged.",
+  "previous_directory": "deliverables/tdg-model-2"
+}

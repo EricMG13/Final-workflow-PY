@@ -1,0 +1,1 @@
+{"execution": "host-session", "max_attempts": 2, "provider_cap_usd": 0, "run": {"as_of": "2021-08-03", "case_kind": "public", "issuer_id": "ENEL-EFI", "issuer_name": "Enel Finance International N.V.", "method_version": "deploy-v-r14", "pathway": "credit_snapshot", "requested_modules": ["CP-2F"], "run_id": "enel-efi-sdg-pricing-2021-1", "schema_version": "run/2"}}

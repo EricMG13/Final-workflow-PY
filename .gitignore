@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+artifacts/
+# Retained run inputs, model answers and reports are verification fixtures.
+runs/**/*.lock
+runs/**/pending-deliveries/
+.DS_Store
+private/
+.env
+.env.*
+!.env.example
+*.rtf
+*.pem
+*.key

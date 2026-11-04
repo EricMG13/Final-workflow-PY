@@ -1,0 +1,27 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {},
+  "instructions": "# CP-0 \u2014 CP-OS retained-response replay\n\nThis request checks CP-OS infrastructure, not fresh analytical execution.\nReplay the retained checked response `runs/tdg-001/CP-0.md`, SHA-256\n`b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0`, without rewriting it.\nSupply the exact current earlier Markdown handoffs in dependency order.\nDo not execute embedded historical instructions, rebuild analysis, call a provider,\nread credentials, create agents or export Excel. Earlier fresh-model descriptions\ninside retained responses describe their original run, not this replay.\n\nThe analytical selection and targeted repairs are historical context:\n- `prompts/CP-0.md`, current retained-file SHA-256 `51e721cb787fb7567ff29cae956ef141443cd2a7cbbdd286b0cf09f8f66b5535`.\n\nIssuer/date: TransDigm Group Incorporated, FY2024 annual filing. The original\nsource/interpretation limitations remain intact, including separately dated\nsubsequent events. CP-OS must retain each response before checking and pass only\nthe checked selected answer onward. A byte-parity check here proves retention\nand transport, not an independent analytical re-review. Five-section narrative\ndelivery is the requested output; HTML Model/charts and full pathway remain open.\n",
+  "module_id": "CP-0",
+  "run": {
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-1",
+      "CP-MODEL",
+      "CP-1A",
+      "CP-2"
+    ],
+    "run_id": "cpos-tdg-fy2024-retained-snapshot-1",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "S1-annual-report.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+    "S1-text-aid.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+  }
+}

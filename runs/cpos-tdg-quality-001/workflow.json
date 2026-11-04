@@ -1,0 +1,415 @@
+{
+  "run": {
+    "run_id": "cpos-tdg-q1-earnings-quality-1",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-12-28",
+    "case_kind": "public",
+    "pathway": "earnings_update",
+    "requested_modules": [
+      "CP-1B",
+      "CP-1E"
+    ]
+  },
+  "execution": "retained-response-replay",
+  "max_attempts": 2,
+  "provider_cap_usd": 0,
+  "sources": {
+    "H1-raw": {
+      "path": "../../data/public-corpus/v1/TDG/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm",
+      "sha256": "7e902c48d87067b4ea96c388ab2ca460c9c1c3c2e2960da09629377a7b359b0d"
+    },
+    "H1-text": {
+      "path": "../tdg-003/source-preparation/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.txt",
+      "sha256": "191aaf6cc1203f4448060005329f004e2279bb57fce9da63eb832b8a80691340"
+    },
+    "H1-xbrl": {
+      "path": "../tdg-003/source-preparation/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.xbrl.json",
+      "sha256": "e2850aaea64c7611b764f0884196a458804c08c3f13f8a80e6cfe2c28b198630"
+    },
+    "H2-raw": {
+      "path": "../../data/public-corpus/v1/TDG/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm",
+      "sha256": "74876b8874a3a396efd700114b280f45fcfcd3f11ceae31adee98c93bfacbf03"
+    },
+    "H2-text": {
+      "path": "../tdg-003/source-preparation/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.txt",
+      "sha256": "40634987739c484b40c6891c908bf83f45de869f6d07d8482262006e31221053"
+    },
+    "H2-xbrl": {
+      "path": "../tdg-003/source-preparation/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.xbrl.json",
+      "sha256": "9e94555a5133646e0675305ab9abe04c55932a63e8aeea755b2d4a275b06761e"
+    },
+    "H3-raw": {
+      "path": "../../data/public-corpus/v1/TDG/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+      "sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121"
+    },
+    "H3-text": {
+      "path": "../tdg-003/source-preparation/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.txt",
+      "sha256": "d94c5e2a382127f2f016413ad1e7f7837cfd188e4dc3a86f16ef0d4544c557de"
+    },
+    "H3-xbrl": {
+      "path": "../tdg-003/source-preparation/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.xbrl.json",
+      "sha256": "e0daf256ed189fbebf405499f34fc77cf04a126da929f0d7b4969fb69736919b"
+    },
+    "H4-raw": {
+      "path": "../../data/public-corpus/v1/TDG/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm",
+      "sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a"
+    },
+    "H4-text": {
+      "path": "../tdg-003/source-preparation/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.txt",
+      "sha256": "38b4642199a5381aca22f1ff4f5973ecc3430dfb24d068bf8058e962db99db71"
+    },
+    "H4-xbrl": {
+      "path": "../tdg-003/source-preparation/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.xbrl.json",
+      "sha256": "85418fd03517a339b5d54c5bfd1b37769c37a7c0752237f593ff2833d5273448"
+    },
+    "raw-unit-definitions": {
+      "path": "../tdg-003/source-preparation/raw-unit-definitions.json",
+      "sha256": "43065ea24743ed74c91bf75155e4036b772c6c18b538bd4034ad7cfbf0398dc1"
+    },
+    "source-preparation-manifest": {
+      "path": "../tdg-003/source-preparation/manifest.json",
+      "sha256": "b75c003aabd0e05db5bf74f078b84943468c9d06b5609afbcbdbc341b29d310a"
+    },
+    "annual-CP1-reference": {
+      "path": "../tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "annual-pdf": {
+      "path": "../../data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+    },
+    "annual-reading-aid": {
+      "path": "../tdg-001/source-pages.jsonl",
+      "sha256": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+    },
+    "pension-visual": {
+      "path": "../tdg-003/source-preparation/pdf134-pension.png",
+      "sha256": "ecfde5816ead1f994e29e03c7168778974f36ad99c3dbeaf8598edb219e54de2"
+    },
+    "quality-calculation-record": {
+      "path": "../tdg-003/CP-1D-attempt-1-calculations.json",
+      "sha256": "ad7b384c0d962cfd43195c7f2656c6c1f1056065e16e3f2662ff4b20181532fb"
+    },
+    "selected-quality-method": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-1d-earnings-quality/SKILL.md",
+      "sha256": "9682b2da83fe7fd3288cae31fc5d1cf7f6d2daa3de2fac297637fe13d5e8e2ae"
+    }
+  },
+  "instructions": {
+    "CP-0": {
+      "path": "CP-0-reuse-instructions.md",
+      "sha256": "ab7d83139f4b842c3945d4939ed5aa66cdbe64064921ccdc5abfac95e98155e5"
+    },
+    "CP-1": {
+      "path": "CP-1-reuse-instructions.md",
+      "sha256": "d4e5c213bbca705f96b9d4ad48c39c6ff79ff2ac5b8b69ed78e636e3fafca168"
+    },
+    "CP-1B": {
+      "path": "CP-1B-reuse-instructions.md",
+      "sha256": "f2b38c91faa73b7a1114a92e06b43475b68d676142a1de470fca9cddcfc303fb"
+    },
+    "CP-1D": {
+      "path": "CP-1D-reuse-instructions.md",
+      "sha256": "f15f1b8d55e82c86d7b9a8cc4ef681fc8db9963c79563563e7164b53fdb0243f"
+    }
+  },
+  "retained_handoffs": {
+    "CP-0": {
+      "path": "../tdg-003/CP-0.md",
+      "sha256": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+      "source_hashes": {
+        "H1-raw": "7e902c48d87067b4ea96c388ab2ca460c9c1c3c2e2960da09629377a7b359b0d",
+        "H1-text": "191aaf6cc1203f4448060005329f004e2279bb57fce9da63eb832b8a80691340",
+        "H1-xbrl": "e2850aaea64c7611b764f0884196a458804c08c3f13f8a80e6cfe2c28b198630",
+        "H2-raw": "74876b8874a3a396efd700114b280f45fcfcd3f11ceae31adee98c93bfacbf03",
+        "H2-text": "40634987739c484b40c6891c908bf83f45de869f6d07d8482262006e31221053",
+        "H2-xbrl": "9e94555a5133646e0675305ab9abe04c55932a63e8aeea755b2d4a275b06761e",
+        "H3-raw": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+        "H3-text": "d94c5e2a382127f2f016413ad1e7f7837cfd188e4dc3a86f16ef0d4544c557de",
+        "H3-xbrl": "e0daf256ed189fbebf405499f34fc77cf04a126da929f0d7b4969fb69736919b",
+        "H4-raw": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "H4-text": "38b4642199a5381aca22f1ff4f5973ecc3430dfb24d068bf8058e962db99db71",
+        "H4-xbrl": "85418fd03517a339b5d54c5bfd1b37769c37a7c0752237f593ff2833d5273448",
+        "raw-unit-definitions": "43065ea24743ed74c91bf75155e4036b772c6c18b538bd4034ad7cfbf0398dc1",
+        "source-preparation-manifest": "b75c003aabd0e05db5bf74f078b84943468c9d06b5609afbcbdbc341b29d310a",
+        "annual-CP1-reference": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+        "annual-pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "annual-reading-aid": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+        "pension-visual": "ecfde5816ead1f994e29e03c7168778974f36ad99c3dbeaf8598edb219e54de2",
+        "quality-calculation-record": "ad7b384c0d962cfd43195c7f2656c6c1f1056065e16e3f2662ff4b20181532fb",
+        "selected-quality-method": "9682b2da83fe7fd3288cae31fc5d1cf7f6d2daa3de2fac297637fe13d5e8e2ae"
+      },
+      "upstream": {}
+    },
+    "CP-1": {
+      "path": "../tdg-003/CP-1-attempt-2.md",
+      "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+      "source_hashes": {
+        "H1-raw": "7e902c48d87067b4ea96c388ab2ca460c9c1c3c2e2960da09629377a7b359b0d",
+        "H1-text": "191aaf6cc1203f4448060005329f004e2279bb57fce9da63eb832b8a80691340",
+        "H1-xbrl": "e2850aaea64c7611b764f0884196a458804c08c3f13f8a80e6cfe2c28b198630",
+        "H2-raw": "74876b8874a3a396efd700114b280f45fcfcd3f11ceae31adee98c93bfacbf03",
+        "H2-text": "40634987739c484b40c6891c908bf83f45de869f6d07d8482262006e31221053",
+        "H2-xbrl": "9e94555a5133646e0675305ab9abe04c55932a63e8aeea755b2d4a275b06761e",
+        "H3-raw": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+        "H3-text": "d94c5e2a382127f2f016413ad1e7f7837cfd188e4dc3a86f16ef0d4544c557de",
+        "H3-xbrl": "e0daf256ed189fbebf405499f34fc77cf04a126da929f0d7b4969fb69736919b",
+        "H4-raw": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "H4-text": "38b4642199a5381aca22f1ff4f5973ecc3430dfb24d068bf8058e962db99db71",
+        "H4-xbrl": "85418fd03517a339b5d54c5bfd1b37769c37a7c0752237f593ff2833d5273448",
+        "raw-unit-definitions": "43065ea24743ed74c91bf75155e4036b772c6c18b538bd4034ad7cfbf0398dc1",
+        "source-preparation-manifest": "b75c003aabd0e05db5bf74f078b84943468c9d06b5609afbcbdbc341b29d310a",
+        "annual-CP1-reference": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+        "annual-pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "annual-reading-aid": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+        "pension-visual": "ecfde5816ead1f994e29e03c7168778974f36ad99c3dbeaf8598edb219e54de2",
+        "quality-calculation-record": "ad7b384c0d962cfd43195c7f2656c6c1f1056065e16e3f2662ff4b20181532fb",
+        "selected-quality-method": "9682b2da83fe7fd3288cae31fc5d1cf7f6d2daa3de2fac297637fe13d5e8e2ae"
+      },
+      "upstream": {
+        "CP-0": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d"
+      }
+    },
+    "CP-1B": {
+      "path": "../tdg-003/CP-1B-attempt-1.md",
+      "sha256": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+      "source_hashes": {
+        "H1-raw": "7e902c48d87067b4ea96c388ab2ca460c9c1c3c2e2960da09629377a7b359b0d",
+        "H1-text": "191aaf6cc1203f4448060005329f004e2279bb57fce9da63eb832b8a80691340",
+        "H1-xbrl": "e2850aaea64c7611b764f0884196a458804c08c3f13f8a80e6cfe2c28b198630",
+        "H2-raw": "74876b8874a3a396efd700114b280f45fcfcd3f11ceae31adee98c93bfacbf03",
+        "H2-text": "40634987739c484b40c6891c908bf83f45de869f6d07d8482262006e31221053",
+        "H2-xbrl": "9e94555a5133646e0675305ab9abe04c55932a63e8aeea755b2d4a275b06761e",
+        "H3-raw": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+        "H3-text": "d94c5e2a382127f2f016413ad1e7f7837cfd188e4dc3a86f16ef0d4544c557de",
+        "H3-xbrl": "e0daf256ed189fbebf405499f34fc77cf04a126da929f0d7b4969fb69736919b",
+        "H4-raw": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "H4-text": "38b4642199a5381aca22f1ff4f5973ecc3430dfb24d068bf8058e962db99db71",
+        "H4-xbrl": "85418fd03517a339b5d54c5bfd1b37769c37a7c0752237f593ff2833d5273448",
+        "raw-unit-definitions": "43065ea24743ed74c91bf75155e4036b772c6c18b538bd4034ad7cfbf0398dc1",
+        "source-preparation-manifest": "b75c003aabd0e05db5bf74f078b84943468c9d06b5609afbcbdbc341b29d310a",
+        "annual-CP1-reference": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+        "annual-pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "annual-reading-aid": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+        "pension-visual": "ecfde5816ead1f994e29e03c7168778974f36ad99c3dbeaf8598edb219e54de2",
+        "quality-calculation-record": "ad7b384c0d962cfd43195c7f2656c6c1f1056065e16e3f2662ff4b20181532fb",
+        "selected-quality-method": "9682b2da83fe7fd3288cae31fc5d1cf7f6d2daa3de2fac297637fe13d5e8e2ae"
+      },
+      "upstream": {
+        "CP-0": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+        "CP-1": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+      }
+    },
+    "CP-1D": {
+      "path": "../tdg-003/CP-1D-attempt-1.md",
+      "sha256": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+      "source_hashes": {
+        "H1-raw": "7e902c48d87067b4ea96c388ab2ca460c9c1c3c2e2960da09629377a7b359b0d",
+        "H1-text": "191aaf6cc1203f4448060005329f004e2279bb57fce9da63eb832b8a80691340",
+        "H1-xbrl": "e2850aaea64c7611b764f0884196a458804c08c3f13f8a80e6cfe2c28b198630",
+        "H2-raw": "74876b8874a3a396efd700114b280f45fcfcd3f11ceae31adee98c93bfacbf03",
+        "H2-text": "40634987739c484b40c6891c908bf83f45de869f6d07d8482262006e31221053",
+        "H2-xbrl": "9e94555a5133646e0675305ab9abe04c55932a63e8aeea755b2d4a275b06761e",
+        "H3-raw": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+        "H3-text": "d94c5e2a382127f2f016413ad1e7f7837cfd188e4dc3a86f16ef0d4544c557de",
+        "H3-xbrl": "e0daf256ed189fbebf405499f34fc77cf04a126da929f0d7b4969fb69736919b",
+        "H4-raw": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "H4-text": "38b4642199a5381aca22f1ff4f5973ecc3430dfb24d068bf8058e962db99db71",
+        "H4-xbrl": "85418fd03517a339b5d54c5bfd1b37769c37a7c0752237f593ff2833d5273448",
+        "raw-unit-definitions": "43065ea24743ed74c91bf75155e4036b772c6c18b538bd4034ad7cfbf0398dc1",
+        "source-preparation-manifest": "b75c003aabd0e05db5bf74f078b84943468c9d06b5609afbcbdbc341b29d310a",
+        "annual-CP1-reference": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+        "annual-pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "annual-reading-aid": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+        "pension-visual": "ecfde5816ead1f994e29e03c7168778974f36ad99c3dbeaf8598edb219e54de2",
+        "quality-calculation-record": "ad7b384c0d962cfd43195c7f2656c6c1f1056065e16e3f2662ff4b20181532fb",
+        "selected-quality-method": "9682b2da83fe7fd3288cae31fc5d1cf7f6d2daa3de2fac297637fe13d5e8e2ae"
+      },
+      "upstream": {
+        "CP-0": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+        "CP-1": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+        "CP-1B": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12"
+      }
+    }
+  },
+  "layout": {
+    "blocks": [
+      "headline-results",
+      "variance-drivers",
+      "kpi-changes",
+      "guidance-signals",
+      "ebitda-adjustments",
+      "earnings-quality",
+      "restated-leverage",
+      "watch-items"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-1B",
+        "heading": "Financial performance / comparator register",
+        "kind": "table",
+        "block_id": "headline-results",
+        "table_header": "Metric",
+        "label": "Reported fiscal-quarter comparisons"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "headline-results",
+        "prefix": "Earnings view",
+        "label": "Earnings assessment"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Financial performance / comparator register",
+        "kind": "table",
+        "block_id": "kpi-changes",
+        "table_header": "Additional required measure"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Definition lock and top sheet",
+        "kind": "prose",
+        "block_id": "kpi-changes",
+        "label": "Definitions and balance dates"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Variance mechanics and comparative credit evaluation",
+        "kind": "prose",
+        "block_id": "guidance-signals",
+        "prefix": "No accepted budget"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Variance mechanics and comparative credit evaluation",
+        "kind": "prose",
+        "block_id": "variance-drivers"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Monitoring and method changes justified by observed output",
+        "kind": "prose",
+        "block_id": "watch-items",
+        "prefix": "Track dated cash"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.1 \u2014 inherited signed adjustment register",
+        "kind": "table",
+        "block_id": "ebitda-adjustments",
+        "label": "Signed issuer adjustments \u2014 annual and quarter"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.4 \u2014 issuer control bridge and unresolved quality bridge",
+        "kind": "table",
+        "block_id": "ebitda-adjustments",
+        "label": "FY2024 issuer bridge; quality earnings unresolved"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.7 \u2014 earnings-quality gaps",
+        "kind": "table",
+        "block_id": "ebitda-adjustments",
+        "label": "Earnings-quality evidence gaps"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.2 \u2014 achievability and normalisation assessment",
+        "kind": "table",
+        "block_id": "earnings-quality",
+        "label": "Achievability and normalisation"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.3 \u2014 recurrence test",
+        "kind": "table",
+        "block_id": "earnings-quality",
+        "label": "Recurrence across named periods"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.5 \u2014 annual cash-conversion test",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "label": "FY2024 cash conversion"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.6 \u2014 annual-balance leverage sensitivity",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "label": "September 2024 debt / FY2024 EBITDA"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1E.1 \u2014 obligation inventory, annual balance basis",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "label": "Obligation inventory \u2014 September 2024"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1E.2 \u2014 debt-like treatment and convention",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "label": "Debt treatment and conventions"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1E.3 \u2014 known-item adjusted-debt bridge",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "label": "Known-item debt subtotal \u2014 September 2024"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1E.4 \u2014 effect of the quantified subtotal",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "label": "Known-subtotal leverage sensitivity"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1E.5 \u2014 convention reconciliation",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "label": "Convention reconciliation"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1E.6 \u2014 adjusted-debt gaps",
+        "kind": "table",
+        "block_id": "restated-leverage",
+        "label": "Adjusted-debt evidence gaps"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "earnings-quality",
+        "label": "Earnings-quality assessment",
+        "prefix": "Earnings-quality view"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "earnings-quality",
+        "label": "Adjusted-debt assessment",
+        "prefix": "Adjusted-debt view"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "Credit read-through, contrary evidence and monitoring",
+        "kind": "prose",
+        "block_id": "earnings-quality",
+        "label": "Creditor read-through and monitoring"
+      }
+    ],
+    "scope": "Historical TDG earnings and quality review. USD millions except percentages, percentage points and multiples. The earnings comparison is fiscal Q1 2024-10-01\u20132024-12-28 (89 days) versus 2023-10-01\u20132023-12-30 (91 days). Quality/cash-conversion/leverage tables use FY2024 and September 30, 2024 balances unless explicitly labelled quarterly. Quality-adjusted EBITDA is unresolved; 24,961 is only a known-item debt subtotal. Guidance, matching LTM ratios and current cash access remain unestablished. Eight selected sections plus complete retained handoffs/evidence; replay publication, not a fresh model run or full pathway/native acceptance."
+  }
+}

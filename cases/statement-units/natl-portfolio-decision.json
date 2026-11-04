@@ -1,0 +1,86 @@
+{
+ "schema": "statement-units/1",
+ "case": "natl-portfolio-decision",
+ "sources": [
+  {
+   "source_id": "natl-10q-2025-09-30",
+   "file": "NATL/NATL_2025-09-30_10-Q_0001628280-25-050175_natl-20250930.htm",
+   "converted_sha256": "4bb9e39aee34c69f0f3d5222132e3b9cc07aa306ae0334e28822c4a15bcc886a",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:92",
+     "end": "line:139",
+     "heading": "Condensed Consolidated Balance Sheets"
+    },
+    {
+     "kind": "IS",
+     "start": "line:44",
+     "end": "line:70",
+     "heading": "Condensed Consolidated Statements of Operations"
+    },
+    {
+     "kind": "CFS",
+     "start": "line:140",
+     "end": "line:187",
+     "heading": "Condensed Consolidated Statements of Cash Flows"
+    }
+   ],
+   "none": [],
+   "remarks": [
+    "Statement order is IS (44), comprehensive income (71), BS (92), CFS (140), equity (188). IS title is at the tail of line 44 after PART I / ITEM 1 text. Lines 26-30 are the table of contents."
+   ]
+  },
+  {
+   "source_id": "natl-10ka-2024-12-31",
+   "file": "NATL/NATL_2024-12-31_10-K-A_0001628280-25-049577_ncr-20241231.htm",
+   "converted_sha256": "19e250ef13731e73725cfe81a7539967931a75e8b696c3bf3a6ddb5e991c400e",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:868",
+     "end": "line:915",
+     "heading": "Consolidated Balance Sheets"
+    },
+    {
+     "kind": "IS",
+     "start": "line:818",
+     "end": "line:846",
+     "heading": "Consolidated Statements of Operations"
+    },
+    {
+     "kind": "CFS",
+     "start": "line:916",
+     "end": "line:973",
+     "heading": "Consolidated Statements of Cash Flows"
+    }
+   ],
+   "none": [],
+   "remarks": [
+    "Statement order is IS (818), comprehensive income (847), BS (868), CFS (916), equity (974). Lines 767-772 are the table of contents; 797-816 the auditor's report. Line 1033 notes mention is a revision discussion, not a unit."
+   ]
+  },
+  {
+   "source_id": "natl-refinancing-facility-agreement-2025-09-18",
+   "file": "NATL/NATL_legal_event_restated_credit_agreement.html",
+   "converted_sha256": "0f946aa765f66cb7a58026c7be1cbe384925b6e7f9b3f60721ef37ce49d80c5e",
+   "units": [],
+   "none": [
+    {
+     "kind": "BS",
+     "reason": "restated credit agreement (legal exhibit); no financial statements"
+    },
+    {
+     "kind": "IS",
+     "reason": "restated credit agreement (legal exhibit); no financial statements"
+    },
+    {
+     "kind": "CFS",
+     "reason": "restated credit agreement (legal exhibit); no financial statements"
+    }
+   ],
+   "remarks": []
+  }
+ ],
+ "missing": []
+}

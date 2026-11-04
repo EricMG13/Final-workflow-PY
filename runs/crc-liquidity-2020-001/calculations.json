@@ -1,0 +1,260 @@
+{
+  "scope": "Exact arithmetic on real displayed budget data, not a completed/approved forecast or actual cash-access test. Current host read source and oracle; no independent-model assurance.",
+  "methods": {
+    "docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/SKILL.md": "5009ee06f28d739d7ba921299c7d14465b28177ab3fa61372c173028f9c6fd67",
+    "docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/references/REF_CP-2D_STEPS.md": "84bdff527a5575b900fc94d2bf94eb433a508f8c2883ee84f40ca9dcf94ce595",
+    "docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/references/CP-2D_SCHEMA_REFERENCE.md": "efbb5aed687073d59a1862aa8f88b0ac35540dcf823947c68478919dab6dafe5",
+    "src/deploy_vii/methods/cp2d.md": "df8ec4b240315b7837144143b10b4861faf47826612d48f4be0e24f2ea5edcdd",
+    "src/deploy_workflow/owners/cp2d.py": "33efdce39210f5114abdbc629d69f21e3436e48dc2e5549406bb465fc4a0059a"
+  },
+  "input_pins": {
+    "instructions.md": "a5597edea6af2f91086f3b39e6f9577f0508c64ed68514650df5f0af10f63443",
+    "budget-inputs.json": "f39aa7eb9aaa21ac996a9b069fd68ca6bf3ed792f7ad53e393c214a62151dd4e",
+    "sources/filing-captures.txt": "98dc337f9d9bca72dab812f3dcc68e4ce366435bc16f9a12f09c4a971ce56200",
+    "expectations.json": "4ddceee632dc1d156b989714d0fe158717a5ac3c4e79133f90e8f9257be1818e"
+  },
+  "weekly": [
+    {
+      "date": "2020-07-17",
+      "cash": "10",
+      "without_financing_cash": "-21",
+      "draws_recomputed_debt": "31",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "-1",
+      "nominal_cash_plus_availability": "229",
+      "lc_adjusted_liquidity_diagnostic": "198"
+    },
+    {
+      "date": "2020-07-24",
+      "cash": "10",
+      "without_financing_cash": "-8",
+      "draws_recomputed_debt": "18",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "1",
+      "nominal_cash_plus_availability": "242",
+      "lc_adjusted_liquidity_diagnostic": "211"
+    },
+    {
+      "date": "2020-07-31",
+      "cash": "10",
+      "without_financing_cash": "-12",
+      "draws_recomputed_debt": "22",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "0",
+      "nominal_cash_plus_availability": "238",
+      "lc_adjusted_liquidity_diagnostic": "207"
+    },
+    {
+      "date": "2020-08-07",
+      "cash": "10",
+      "without_financing_cash": "-43",
+      "draws_recomputed_debt": "53",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "0",
+      "nominal_cash_plus_availability": "207",
+      "lc_adjusted_liquidity_diagnostic": "176"
+    },
+    {
+      "date": "2020-08-14",
+      "cash": "10",
+      "without_financing_cash": "-90",
+      "draws_recomputed_debt": "100",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "0",
+      "nominal_cash_plus_availability": "160",
+      "lc_adjusted_liquidity_diagnostic": "129"
+    },
+    {
+      "date": "2020-08-21",
+      "cash": "10",
+      "without_financing_cash": "-33",
+      "draws_recomputed_debt": "43",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "-1",
+      "nominal_cash_plus_availability": "217",
+      "lc_adjusted_liquidity_diagnostic": "186"
+    },
+    {
+      "date": "2020-08-28",
+      "cash": "10",
+      "without_financing_cash": "-47",
+      "draws_recomputed_debt": "57",
+      "reported_minus_recomputed_debt": "1",
+      "net_flow_minus_receipts_less_uses": "0",
+      "nominal_cash_plus_availability": "202",
+      "lc_adjusted_liquidity_diagnostic": "171"
+    },
+    {
+      "date": "2020-09-04",
+      "cash": "10",
+      "without_financing_cash": "-56",
+      "draws_recomputed_debt": "66",
+      "reported_minus_recomputed_debt": "1",
+      "net_flow_minus_receipts_less_uses": "0",
+      "nominal_cash_plus_availability": "193",
+      "lc_adjusted_liquidity_diagnostic": "162"
+    },
+    {
+      "date": "2020-09-11",
+      "cash": "10",
+      "without_financing_cash": "-73",
+      "draws_recomputed_debt": "83",
+      "reported_minus_recomputed_debt": "1",
+      "net_flow_minus_receipts_less_uses": "-1",
+      "nominal_cash_plus_availability": "176",
+      "lc_adjusted_liquidity_diagnostic": "145"
+    },
+    {
+      "date": "2020-09-18",
+      "cash": "10",
+      "without_financing_cash": "-110",
+      "draws_recomputed_debt": "120",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "-1",
+      "nominal_cash_plus_availability": "140",
+      "lc_adjusted_liquidity_diagnostic": "109"
+    },
+    {
+      "date": "2020-09-25",
+      "cash": "10",
+      "without_financing_cash": "-47",
+      "draws_recomputed_debt": "57",
+      "reported_minus_recomputed_debt": "1",
+      "net_flow_minus_receipts_less_uses": "0",
+      "nominal_cash_plus_availability": "202",
+      "lc_adjusted_liquidity_diagnostic": "171"
+    },
+    {
+      "date": "2020-10-02",
+      "cash": "10",
+      "without_financing_cash": "-52",
+      "draws_recomputed_debt": "62",
+      "reported_minus_recomputed_debt": "1",
+      "net_flow_minus_receipts_less_uses": "0",
+      "nominal_cash_plus_availability": "197",
+      "lc_adjusted_liquidity_diagnostic": "166"
+    },
+    {
+      "date": "2020-10-09",
+      "cash": "10",
+      "without_financing_cash": "-72",
+      "draws_recomputed_debt": "82",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "-1",
+      "nominal_cash_plus_availability": "178",
+      "lc_adjusted_liquidity_diagnostic": "147"
+    }
+  ],
+  "monthly": [
+    {
+      "period": "Jul-2020 (includes pre/post-petition weeks)",
+      "cash": "10",
+      "without_financing_cash": "-12",
+      "draws_recomputed_debt": "22",
+      "reported_minus_recomputed_debt": "0",
+      "nominal_cash_plus_availability": "238",
+      "lc_adjusted_liquidity_diagnostic": "207"
+    },
+    {
+      "period": "Aug-2020",
+      "cash": "10",
+      "without_financing_cash": "-48",
+      "draws_recomputed_debt": "58",
+      "reported_minus_recomputed_debt": "0",
+      "nominal_cash_plus_availability": "202",
+      "lc_adjusted_liquidity_diagnostic": "171"
+    },
+    {
+      "period": "Sep-2020",
+      "cash": "10",
+      "without_financing_cash": "-48",
+      "draws_recomputed_debt": "58",
+      "reported_minus_recomputed_debt": "0",
+      "nominal_cash_plus_availability": "202",
+      "lc_adjusted_liquidity_diagnostic": "171"
+    },
+    {
+      "period": "Oct-2020",
+      "cash": "10",
+      "without_financing_cash": "-64",
+      "draws_recomputed_debt": "74",
+      "reported_minus_recomputed_debt": "0",
+      "nominal_cash_plus_availability": "186",
+      "lc_adjusted_liquidity_diagnostic": "155"
+    },
+    {
+      "period": "Nov-2020",
+      "cash": "10",
+      "without_financing_cash": "-83",
+      "draws_recomputed_debt": "93",
+      "reported_minus_recomputed_debt": "0",
+      "nominal_cash_plus_availability": "167",
+      "lc_adjusted_liquidity_diagnostic": "136"
+    },
+    {
+      "period": "Dec-2020",
+      "cash": "10",
+      "without_financing_cash": "-141",
+      "draws_recomputed_debt": "151",
+      "reported_minus_recomputed_debt": "0",
+      "nominal_cash_plus_availability": "109",
+      "lc_adjusted_liquidity_diagnostic": "78"
+    },
+    {
+      "period": "Jan-2021 stub through 2021-01-15",
+      "cash": "10",
+      "without_financing_cash": "-239",
+      "draws_recomputed_debt": "249",
+      "reported_minus_recomputed_debt": "0",
+      "nominal_cash_plus_availability": "11",
+      "lc_adjusted_liquidity_diagnostic": "-20"
+    }
+  ],
+  "summary": {
+    "weekly_net_cash_flow_sum": "-119",
+    "weekly_net_dip_draw_sum": "82",
+    "weekly_gross_advances": "215",
+    "weekly_gross_repayments": "133",
+    "weekly_peak_draws_recomputed_debt": "120",
+    "weekly_first_cash_shortage_index": "0",
+    "weekly_first_cash_shortage": "-21",
+    "weekly_peak_cash_shortage": "-110",
+    "weekly_peak_cash_shortage_index": "9",
+    "weekly_peak_target_funding_need": "120",
+    "weekly_end_debt": "82",
+    "weekly_peak_minus_end_debt": "38",
+    "weekly_first_over_interim_limit_index": "4",
+    "weekly_first_over_interim_limit_debt": "100",
+    "weekly_max_over_interim_limit": "35",
+    "weekly_receipts_sum": "409",
+    "weekly_disbursements_sum": "524",
+    "weekly_reported_receipts_minus_sum": "-2",
+    "weekly_reported_disbursements_minus_sum": "3",
+    "weekly_reported_net_total_minus_total_receipts_less_uses": "1",
+    "monthly_net_cash_flow_sum": "-336",
+    "monthly_net_dip_draw_sum": "249",
+    "monthly_end_cash": "10",
+    "nominal_capacity": "250.00",
+    "incremental_lc_adjusted_capacity": "219.00",
+    "monthly_budget_target_funding_gap_under_lc_cap": "30.00",
+    "monthly_end_cash_under_lc_cap": "-20.00",
+    "monthly_nominal_liquidity_at_stub_end": "11",
+    "monthly_nominal_liquidity_headroom_to_daily_floor": "-24",
+    "monthly_lc_adjusted_liquidity_diagnostic_at_stub_end": "-20",
+    "monthly_lc_adjusted_diagnostic_headroom_to_daily_floor": "-55"
+  },
+  "missing": {
+    "unconditional_beginning_accessible_liquidity": null,
+    "formal_months_to_empty": null,
+    "daily_and_all_friday_liquidity_compliance": null,
+    "complete_twelve_month_cash_forecast": null,
+    "approved_updated_budget": null,
+    "final_order_and_actual_draw_access_evidence": null,
+    "complete_maturity_takeout_and_exit_plan": null,
+    "actual_outcomes": null
+  },
+  "independent_fraction_checks": 164,
+  "gap_control": "Actual CP-2D _total propagates Gap, distinguishes a supplied zero. No unestablished accessible capacity enters a numeric balance.",
+  "conditional_capacity_assumptions": "Unchanged full senior commitment, exact senior roll-up and existing LC capacity occupy that same pool; planned31m additional LCs outstanding with no cash-collateral adjustment; cash restriction certification/final order/commitment schedule are not established. Diagnostic headroom is not accessible liquidity or a historical breach.",
+  "units": "USD millions for arithmetic; exact legal USD/cents converted by1000000; source budget numbers are rounded, not exact economic USD amounts."
+}

@@ -1,0 +1,602 @@
+{
+  "scope": "Actual retained-handoff Model publication; existing renderer/Decimal/chart code, not native acceptance or fresh analytical execution. Excel ingestion-only.",
+  "inputs": {
+    "annual": {
+      "path": "runs/tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "quarter": {
+      "path": "runs/tdg-003/CP-1-attempt-2.md",
+      "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+    },
+    "forecast": {
+      "path": "runs/tdg-003/CP-2G-attempt-2.md",
+      "sha256": "696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928"
+    },
+    "forecast_exact": {
+      "path": "runs/tdg-003/CP-2G-attempt-1-calculations.json",
+      "sha256": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843"
+    },
+    "current_synthesis": {
+      "path": "runs/tdg-run-comparison-001/CP-2-delivery.md",
+      "sha256": "22edd045e3d6f9e0a1e1bfff9fd099064b7f076d32c38e833977a8343e9d662b"
+    }
+  },
+  "instructions_sha256": "ab5c85573dd1bb33483f9a32f0b6b287b27e1e6440e2b2f96a3d584bb7f4049f",
+  "independent_pre_output_expectations_sha256": "3150113c0cd005f7daae171852429f85b25766cf778b2aeec0a336443381ad13",
+  "calculation_checks": [
+    {
+      "period": "FY2022",
+      "key": "revenue",
+      "expected_fraction": "5429",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "cogs",
+      "expected_fraction": "2330",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "gross_profit",
+      "expected_fraction": "3099",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "selling_admin",
+      "expected_fraction": "748",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "income_statement_amortization",
+      "expected_fraction": "136",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "ebit_reported",
+      "expected_fraction": "2215",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "depreciation",
+      "expected_fraction": "116",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "cf_amortization",
+      "expected_fraction": "137",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "cfo",
+      "expected_fraction": "948",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "capex_signed",
+      "expected_fraction": "-119",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "cash",
+      "expected_fraction": "3001",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "interest_cash",
+      "expected_fraction": "1057",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "tax_cash",
+      "expected_fraction": "220",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "issuer_ordinary_ebitda",
+      "expected_fraction": null,
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "issuer_as_defined",
+      "expected_fraction": "2646",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "opex_magnitude",
+      "expected_fraction": "884",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "ebit",
+      "expected_fraction": "2215",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "cash_flow_DA",
+      "expected_fraction": "253",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "operating_ebitda",
+      "expected_fraction": "2468",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "cfo_less_capex",
+      "expected_fraction": "829",
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "carrying_debt",
+      "expected_fraction": null,
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "net_carrying_debt",
+      "expected_fraction": null,
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "issuer_bridge_check",
+      "expected_fraction": null,
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "operating_vs_issuer_basis",
+      "expected_fraction": null,
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "gross_carrying_multiple",
+      "expected_fraction": null,
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "net_carrying_multiple",
+      "expected_fraction": null,
+      "passed": true
+    },
+    {
+      "period": "FY2022",
+      "key": "issuer_earnings_cash_interest",
+      "expected_fraction": "378/151",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "revenue",
+      "expected_fraction": "6585",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "cogs",
+      "expected_fraction": "2743",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "gross_profit",
+      "expected_fraction": "3842",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "selling_admin",
+      "expected_fraction": "780",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "income_statement_amortization",
+      "expected_fraction": "139",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "ebit_reported",
+      "expected_fraction": "2923",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "depreciation",
+      "expected_fraction": "129",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "cf_amortization",
+      "expected_fraction": "139",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "cfo",
+      "expected_fraction": "1375",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "capex_signed",
+      "expected_fraction": "-139",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "cash",
+      "expected_fraction": "3472",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "interest_cash",
+      "expected_fraction": "1160",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "tax_cash",
+      "expected_fraction": "260",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "issuer_ordinary_ebitda",
+      "expected_fraction": "3148",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "issuer_as_defined",
+      "expected_fraction": "3395",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "opex_magnitude",
+      "expected_fraction": "919",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "ebit",
+      "expected_fraction": "2923",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "cash_flow_DA",
+      "expected_fraction": "268",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "operating_ebitda",
+      "expected_fraction": "3191",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "cfo_less_capex",
+      "expected_fraction": "1236",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "carrying_debt",
+      "expected_fraction": "19750",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "net_carrying_debt",
+      "expected_fraction": "16278",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "issuer_bridge_check",
+      "expected_fraction": "3395",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "operating_vs_issuer_basis",
+      "expected_fraction": "43",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "gross_carrying_multiple",
+      "expected_fraction": "3950/679",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "net_carrying_multiple",
+      "expected_fraction": "16278/3395",
+      "passed": true
+    },
+    {
+      "period": "FY2023",
+      "key": "issuer_earnings_cash_interest",
+      "expected_fraction": "679/232",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "revenue",
+      "expected_fraction": "7940",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "cogs",
+      "expected_fraction": "3268",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "gross_profit",
+      "expected_fraction": "4672",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "selling_admin",
+      "expected_fraction": "980",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "income_statement_amortization",
+      "expected_fraction": "161",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "ebit_reported",
+      "expected_fraction": "3531",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "depreciation",
+      "expected_fraction": "149",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "cf_amortization",
+      "expected_fraction": "163",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "cfo",
+      "expected_fraction": "2045",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "capex_signed",
+      "expected_fraction": "-165",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "cash",
+      "expected_fraction": "6261",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "interest_cash",
+      "expected_fraction": "1158",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "tax_cash",
+      "expected_fraction": "539",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "issuer_ordinary_ebitda",
+      "expected_fraction": "3813",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "issuer_as_defined",
+      "expected_fraction": "4173",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "opex_magnitude",
+      "expected_fraction": "1141",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "ebit",
+      "expected_fraction": "3531",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "cash_flow_DA",
+      "expected_fraction": "312",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "operating_ebitda",
+      "expected_fraction": "3843",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "cfo_less_capex",
+      "expected_fraction": "1880",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "carrying_debt",
+      "expected_fraction": "24880",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "net_carrying_debt",
+      "expected_fraction": "18619",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "issuer_bridge_check",
+      "expected_fraction": "4173",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "operating_vs_issuer_basis",
+      "expected_fraction": "30",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "gross_carrying_multiple",
+      "expected_fraction": "24880/4173",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "net_carrying_multiple",
+      "expected_fraction": "18619/4173",
+      "passed": true
+    },
+    {
+      "period": "FY2024",
+      "key": "issuer_earnings_cash_interest",
+      "expected_fraction": "1391/386",
+      "passed": true
+    }
+  ],
+  "raw_source_table_checks": {
+    "tables": 43,
+    "cells": 1779,
+    "original_blank_cells_preserved_as_missing": 46,
+    "all_source_cells_quotes_and_labels_passed": true
+  },
+  "numeric_checks": {
+    "cells": 81,
+    "known": 74,
+    "missing": 7,
+    "all_units_families_periods_scales_and_sources_checked": true
+  },
+  "chart_checks": {
+    "figures": 3,
+    "marks": 18,
+    "missing_marks": 1,
+    "all_table_twins_exact": true
+  },
+  "confirmed_repairs": [
+    {
+      "issue": "Initial calculation JSON omitted explicit unit/currency/family/scale per number",
+      "repair": "Add all dimensional metadata without changing amounts; first output preserved."
+    },
+    {
+      "issue": "Initial raw-table adapter represented46 empty cells as known placeholder text",
+      "repair": "Use missing/null with exact source citation, preserving emptiness rather than inventing value."
+    },
+    {
+      "issue": "Browser showed three historical ratios without their fiscal-year headings in the key-value block",
+      "repair": "Use the existing dense-table kind; only presentation data/HTML differ from Model2. Original preserved."
+    }
+  ],
+  "publication": {
+    "directory": "deliverables/tdg-model-3",
+    "manifest_sha256": "748f0d369ab69494475d1f3b2a2f617e37ba7016d444f7bede7ef374bc5139d2",
+    "model_sha256": "9f9794ee7a153be56ce5535ca28de2a99e883ddedd609857d519be953e580554",
+    "calculation_sha256": "9f6af42f291e6a3182295161e40b5cd5c20f7c2922f93ae5f6d498beb059182a",
+    "facts": 1860,
+    "no_excel_output": true
+  },
+  "scope_limits": [
+    "Historical annual calculated register; quarter source tables preserved without forced annualization/LTM",
+    "Conditional scenarios retain actual upstream assumptions and rounded displays, with exact original JSON attached",
+    "No journal promotion, native CP-OS acceptance or independent-context provider reliability claimed"
+  ],
+  "consumer_pending": false,
+  "browser_pending": false,
+  "paid_calls": 0,
+  "agents_spawned": 0,
+  "previous_publication": {
+    "directory": "deliverables/tdg-model-3",
+    "manifest_sha256": "748f0d369ab69494475d1f3b2a2f617e37ba7016d444f7bede7ef374bc5139d2",
+    "model_sha256": "9f9794ee7a153be56ce5535ca28de2a99e883ddedd609857d519be953e580554",
+    "calculation_sha256": "9f6af42f291e6a3182295161e40b5cd5c20f7c2922f93ae5f6d498beb059182a",
+    "facts": 1860,
+    "no_excel_output": true
+  },
+  "consumer": {
+    "path": "/Users/ericguei/Documents/final-workflow/runs/tdg-model-001/CP-2-consumer.md",
+    "sha256": "d828186453fc3f1fbbbcf566bd5cef674d80b73b19d7053ade05edb7ae03f13c"
+  },
+  "consumer_instructions": {
+    "path": "/Users/ericguei/Documents/final-workflow/runs/tdg-model-001/CP-2-consumer-instructions.md",
+    "sha256": "414157dad53f18e4c52686048c1039d71cd5f7037becd4a3c4a08158f14dfb5f"
+  },
+  "consumer_final_recheck": "Actual host-model recheck: final Model3 calculation, View and source files are byte-identical to the Model2 data actually consumed by CP-2. The only ReportView change is dense ratio layout; the final browser shows all fiscal-year labels. The consumer interpretation, Medium historical assessment and creditor-source requests continue unchanged.",
+  "browser_AX_checks": [
+    "Three charts:18 data points with correct source/calculation/gap references",
+    "FY2022 ordinary-EBITDA missing point remains a visible gap",
+    "Final dense ratio table shows FY2022/FY2023/FY2024 beside each value",
+    "Calculated OPEX inspector shows actual formula, fiscal period and basis",
+    "Model rail targets CP-MODEL and opens all43 raw source table headings plus history/ratios",
+    "Historical/candidate scope visible; no accepted journal claim"
+  ],
+  "verification_server_stopped": true,
+  "scope_copy_checks": "Future narrative delivery scope strings exclude workbook output; generated Model folder contains no .xls/.xlsx/.xlsm files. Original historical artifacts remain unchanged.",
+  "focused_code_check": "PYTHONPATH=src .venv/bin/python -m pytest tests/test_handoff_delivery.py -q:12 passed",
+  "rewrite_tournament": "Skipped: two static scope strings, docs and generated presentation data; no production function changed.",
+  "reused_source_revisions": {
+    "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba",
+    "src/deploy_vii/charts.py": "a1805bca3e9bc6aa21383be158cc677b3ea6fbe2b95b8882ac045bfbe985e591",
+    "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+    "src/deploy_vii/model/_cells.py": "38c2ec4493b9b53065361db748a596687c7381eaf91659bc48fd9707ce7f2549",
+    "src/deploy_vii/model/metrics.py": "f3d547ba82a6545987a6f5bbbd80cc890915d4f3714c3f99f18ae21a45cf13eb",
+    "src/deploy_workflow/handoff_delivery.py": "aa77ae59a2e408f05a3cf2f5c7af92b4dde2b2df635f961545d49fc05bc0e00c"
+  },
+  "status": "Historical retained-handoff Model publication checked and actually consumed; general/native CP-OS integration remains separate."
+}

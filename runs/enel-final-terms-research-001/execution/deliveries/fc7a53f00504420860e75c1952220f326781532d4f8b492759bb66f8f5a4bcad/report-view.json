@@ -1,0 +1,2837 @@
+{
+  "schema_version": "report-view/1",
+  "pathway": {
+    "id": "credit_snapshot",
+    "title": "Enel EFI · unresolved document search and source adoption",
+    "question": "Did the new research establish missing instrument terms, and what changes in the analytical answer?",
+    "requested_modules": [
+      "CP-DR",
+      "CP-2E"
+    ],
+    "blocks": [
+      "key-findings",
+      "capital-structure"
+    ]
+  },
+  "call": [
+    {
+      "kind": "na",
+      "label": "Assessment",
+      "value_text": "Assessment pending",
+      "meter": null,
+      "ref_id": null,
+      "direction": null,
+      "line": false
+    }
+  ],
+  "call_withheld": "not_requested",
+  "blocks": [
+    {
+      "block_id": "key-findings",
+      "title": "Key findings",
+      "owner": "CP-DR · CP-2E",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "prose",
+      "scale": null,
+      "row_header": null,
+      "columns": [],
+      "rows": [],
+      "lines": [
+        {
+          "runs": [
+            {
+              "text": "View: no instrument-specific primary Final Terms were retained within this bounded search. A current commercial listing names a Final Terms item, but the retrieved page supplies no document link or body that can establish the missing calendar or elections. This is an unresolved question, not evidence that the document never existed. The existing conditional coupon test remains intact; exact calendar, day-count and actual step/payment conclusions remain withheld.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C17",
+              "kind": "fig",
+              "ref_id": "C17"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "View: reject the new dossier as proof of the missing Final Terms. It records an unresolved document search, so no calendar or election field changes. The conditional original-principal illustration remains EUR2.5m per fully stepped year, with actual step occurrence, current balance and payment timing unknown.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C57",
+              "kind": "fig",
+              "ref_id": "C57"
+            }
+          ],
+          "label": null,
+          "section": null
+        }
+      ],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-DR",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "capital-structure",
+      "title": "Capital structure",
+      "owner": "CP-2E",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Field",
+      "columns": [
+        "Current treatment"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "Historical issuer / security",
+          "cells": [
+            {
+              "text": "Enel Finance International N.V.; EUR note XS2066706818 only",
+              "prov": "cited",
+              "ref_id": "C47",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "Known initial coupon",
+          "cells": [
+            {
+              "text": "0.000%; retained source zero, not an unknown",
+              "prov": "cited",
+              "ref_id": "C48",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r2",
+          "label": "Conditional annual coupon increment",
+          "cells": [
+            {
+              "text": "EUR2.5m on full original EUR1,000m principal if effective; unchanged",
+              "prov": "cited",
+              "ref_id": "C49",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r3",
+          "label": "Issue proceeds / par difference",
+          "cells": [
+            {
+              "text": "EUR991.23m / EUR8.77m; unchanged historical issue calculation, not annual coupon",
+              "prov": "cited",
+              "ref_id": "C50",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r4",
+          "label": "Coupon calendar, day-count and completed elections",
+          "cells": [
+            {
+              "text": "Still missing; no value adopted from a listing or another tranche",
+              "prov": "cited",
+              "ref_id": "C51",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r5",
+          "label": "Actual step occurrence and cash paid",
+          "cells": [
+            {
+              "text": "Still unknown; June2021 observation and absent documents cannot decide the December2021 test",
+              "prov": "cited",
+              "ref_id": "C52",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r6",
+          "label": "Document availability conclusion",
+          "cells": [
+            {
+              "text": "Not obtained within this search; no claim that no Final Terms exist",
+              "prov": "cited",
+              "ref_id": "C53",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-2E",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    }
+  ],
+  "unplaced": [],
+  "passports": [
+    {
+      "ref_id": "C1",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 24"
+        },
+        {
+          "name": "Quote",
+          "value": "| S0 | sources/search-initial.json; exact ISIN plus Final Terms, issuer-domain filter | No results; search outcome only, not issuer evidence |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C2",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 25"
+        },
+        {
+          "name": "Quote",
+          "value": "| S1 | sources/search-gap-1.json; exact ISIN plus Final Terms PDF | Commercial Cbonds language variants; one origin family, not independent corroboration |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C3",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 26"
+        },
+        {
+          "name": "Quote",
+          "value": "| S2 | sources/search-gap-2.json; series1705D and issuer2019/June2024 focused queries | Same family and other-tranche results; no matching primary document |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C4",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 27"
+        },
+        {
+          "name": "Quote",
+          "value": "| S3 | sources/lead-retrieval.json; https://cbonds.de/bonds/618585/ lines231–239,275–279 | Current commercial page lists Final Terms without a retrievable document link/body; login/access messaging. It is not a historical primary instrument document |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C5",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 42"
+        },
+        {
+          "name": "Quote",
+          "value": "| RQ-final-terms | Can authoritative original Final Terms for Enel Finance International N.V. EUR zero-coupon note XS2066706818 be located and retained, and which instrument-specific coupon calendar, day-count, step-option, reference-date and margin fields do they establish? | Named source gap in runs/enel-sdg-2021-001/CP-2E-attempt-1.md; enables a later analytical assessment of exact elections/timing without inventing actual step occurrence. | NONE | NONE | Primary issuer, exchange or officially hosted Final Terms PDF whose issuer/ISIN/currency/maturity match the target; exact page/field locators and original bytes. Disconfirm with security identity and distinguish programme supplement/adjacent tranches. | Retain and hash actual primary bytes plus exact instrument terms with boundaries, or retain the bounded unsuccessful searches/access outcomes and an UNRESOLVED finding. Never replace a missing instrument document with a general supplement or later outcome. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C6",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 55"
+        },
+        {
+          "name": "Quote",
+          "value": "| E1 | RQ-final-terms | Initial issuer-filtered discovery returned no results | source_characterisation | S0 | Exact retained search result | 2026-11-04 | gap | Search operation | XS2066706818 document search; not historical note terms |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C7",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 56"
+        },
+        {
+          "name": "Quote",
+          "value": "| E2 | RQ-final-terms | A commercial page names Final Terms, but the retrieved listing does not provide the primary instrument document | source_characterisation | S1; S2; S3 | S3 lines231–239; access messaging275–279 | 2026-11-04 | gap | Cbonds; language variants deduplicated | Current document lead only; cannot establish August2021 instrument calendar/elections |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C8",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 57"
+        },
+        {
+          "name": "Quote",
+          "value": "| E3 | RQ-final-terms | No primary matching Final Terms bytes were retained in this bounded run | analyst_judgment | S0; S1; S2; S3 | Three retained search stages and final lead retrieval | 2026-11-04 | gap | This research operation | Specific issuer/ISIN only; search non-discovery does not prove nonexistence |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C9",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 65"
+        },
+        {
+          "name": "Quote",
+          "value": "| RQ-final-terms | Matching primary Final Terms not obtained; requested coupon-calendar/day-count/election fields remain unestablished | E1; E2; E3 | S3 lines231–239 names Final Terms and may indicate an obtainable document elsewhere; no retrievable primary body was admitted. This defeats any claim that the document does not exist, but cannot supply its terms | UNRESOLVED | Original issuer/exchange document may remain available outside these searches or via authorized document access | Preserve existing conditional pricing calculation; do not infer first affected period, actual payment or final legal elections. A receiving analytical module must explicitly reject this gap dossier as proof of missing terms |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C10",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 5"
+        },
+        {
+          "name": "Quote",
+          "value": "Resolve the one question in RESEARCH_enel-final-terms-research-001.json."
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C11",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 6"
+        },
+        {
+          "name": "Quote",
+          "value": "Approved plan hash:"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C12",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 7"
+        },
+        {
+          "name": "Quote",
+          "value": "sha256:6b92c9ae54647b7246f0bb97fd3907fe6942b957c96f18ecf8db4867bd0b4f32."
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C13",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 8"
+        },
+        {
+          "name": "Quote",
+          "value": "Standalone historical research; knowledge cutoff August 3, 2021. Search/access"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C14",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 9"
+        },
+        {
+          "name": "Quote",
+          "value": "date November 4, 2026. Actual current host with earlier Enel context; no isolated"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C15",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 10"
+        },
+        {
+          "name": "Quote",
+          "value": "context/provider/native-runtime qualification. The prior pricing answer is"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C16",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 11"
+        },
+        {
+          "name": "Quote",
+          "value": "advisory context, not evidence that the missing Final Terms were supplied."
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C17",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 13"
+        },
+        {
+          "name": "Quote",
+          "value": "View: no instrument-specific primary Final Terms were retained within this"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C18",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 14"
+        },
+        {
+          "name": "Quote",
+          "value": "bounded search. A current commercial listing names a Final Terms item, but the"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C19",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 15"
+        },
+        {
+          "name": "Quote",
+          "value": "retrieved page supplies no document link or body that can establish the missing"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C20",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 16"
+        },
+        {
+          "name": "Quote",
+          "value": "calendar or elections. This is an unresolved question, not evidence that the"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C21",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 17"
+        },
+        {
+          "name": "Quote",
+          "value": "document never existed. The existing conditional coupon test remains intact;"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C22",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 18"
+        },
+        {
+          "name": "Quote",
+          "value": "exact calendar, day-count and actual step/payment conclusions remain withheld."
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C23",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 29"
+        },
+        {
+          "name": "Quote",
+          "value": "These are exact retained web-tool captures, not original HTML or Final Terms"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C24",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 30"
+        },
+        {
+          "name": "Quote",
+          "value": "PDF bytes. Current redeemed status, market figures, other ISINs and language"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C25",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 31"
+        },
+        {
+          "name": "Quote",
+          "value": "copies are excluded from the historical analysis. No credentials, subscription,"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C26",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 32"
+        },
+        {
+          "name": "Quote",
+          "value": "protected download or Excel export was used. Source text cannot alter the brief."
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C27",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 44"
+        },
+        {
+          "name": "Quote",
+          "value": "W1 tested the issuer-document hypothesis and the creditor's need for exact"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C28",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 45"
+        },
+        {
+          "name": "Quote",
+          "value": "security identity. The disconfirming lane rejected other tranches, later status,"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C29",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 46"
+        },
+        {
+          "name": "Quote",
+          "value": "duplicate language pages and listing text as substitutes. Synthesis retains"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C30",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 47"
+        },
+        {
+          "name": "Quote",
+          "value": "the unanswered fields; the denominator remains the original single question."
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C31",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 69"
+        },
+        {
+          "name": "Quote",
+          "value": "Coverage: 0 ANSWERED / 1 locked question = 0%. The search used one initial"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C32",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 70"
+        },
+        {
+          "name": "Quote",
+          "value": "discovery stage and two focused gap stages, then inspected the existing lead;"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C33",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 71"
+        },
+        {
+          "name": "Quote",
+          "value": "no additional query or background search continues. No financial calculation or"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C34",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 72"
+        },
+        {
+          "name": "Quote",
+          "value": "new issuer quantity was made. Research status: Complete with Gaps for the"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C35",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 73"
+        },
+        {
+          "name": "Quote",
+          "value": "terminated operation; question remains UNRESOLVED. Stop reason: budget exhausted."
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C36",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 74"
+        },
+        {
+          "name": "Quote",
+          "value": "This does not qualify positive original-byte discovery or full CP-DR execution."
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C37",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 78"
+        },
+        {
+          "name": "Quote",
+          "value": "The requested original instrument document is still missing. The retrieved"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C38",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 79"
+        },
+        {
+          "name": "Quote",
+          "value": "commercial page cannot establish historical terms, absence of a document,"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C39",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 80"
+        },
+        {
+          "name": "Quote",
+          "value": "event occurrence or actual cash. Existing programme and issuer descriptions"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C40",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 81"
+        },
+        {
+          "name": "Quote",
+          "value": "remain separately admitted in the earlier case; no silent scope reset replaces"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C41",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 82"
+        },
+        {
+          "name": "Quote",
+          "value": "the unanswered question with those already known sources."
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C42",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 86"
+        },
+        {
+          "name": "Quote",
+          "value": "A new CP-2E source-adoption reading must open this actual dossier, record its"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C43",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 87"
+        },
+        {
+          "name": "Quote",
+          "value": "hash and reject it as evidence of the missing calendar/elections. Keep the"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C44",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 88"
+        },
+        {
+          "name": "Quote",
+          "value": "original principal/coupon illustration and all its source gaps. Separate delivery"
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C45",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-DR"
+        },
+        {
+          "name": "Locator",
+          "value": "line 89"
+        },
+        {
+          "name": "Quote",
+          "value": "may publish this research result honestly, without an analytical rerun or Excel."
+        },
+        {
+          "name": "SHA-256",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+        }
+      ]
+    },
+    {
+      "ref_id": "C46",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 30"
+        },
+        {
+          "name": "Quote",
+          "value": "| RQ-final-terms | a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1 | REJECTED | A current commercial listing and unsuccessful bounded searches are not the instrument's primary Final Terms | No new coupon calendar, day-count, elections or actual cash; prior conditional arithmetic and all source gaps remain |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C47",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 36"
+        },
+        {
+          "name": "Quote",
+          "value": "| Historical issuer / security | Enel Finance International N.V.; EUR note XS2066706818 only |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C48",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 37"
+        },
+        {
+          "name": "Quote",
+          "value": "| Known initial coupon | 0.000%; retained source zero, not an unknown |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C49",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 38"
+        },
+        {
+          "name": "Quote",
+          "value": "| Conditional annual coupon increment | EUR2.5m on full original EUR1,000m principal if effective; unchanged |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C50",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 39"
+        },
+        {
+          "name": "Quote",
+          "value": "| Issue proceeds / par difference | EUR991.23m / EUR8.77m; unchanged historical issue calculation, not annual coupon |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C51",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 40"
+        },
+        {
+          "name": "Quote",
+          "value": "| Coupon calendar, day-count and completed elections | Still missing; no value adopted from a listing or another tranche |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C52",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 41"
+        },
+        {
+          "name": "Quote",
+          "value": "| Actual step occurrence and cash paid | Still unknown; June2021 observation and absent documents cannot decide the December2021 test |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C53",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 42"
+        },
+        {
+          "name": "Quote",
+          "value": "| Document availability conclusion | Not obtained within this search; no claim that no Final Terms exist |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C54",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 5"
+        },
+        {
+          "name": "Quote",
+          "value": "Validate the actual Final Terms search result against the historical coupon"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C55",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 6"
+        },
+        {
+          "name": "Quote",
+          "value": "case for XS2066706818. Actual targeted same-host reading with preceding context;"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C56",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 7"
+        },
+        {
+          "name": "Quote",
+          "value": "not a complete CP-2E methodological execution or new payment calculation."
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C57",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 9"
+        },
+        {
+          "name": "Quote",
+          "value": "View: reject the new dossier as proof of the missing Final Terms. It records"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C58",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 10"
+        },
+        {
+          "name": "Quote",
+          "value": "an unresolved document search, so no calendar or election field changes. The"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C59",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 11"
+        },
+        {
+          "name": "Quote",
+          "value": "conditional original-principal illustration remains EUR2.5m per fully stepped"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C60",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 12"
+        },
+        {
+          "name": "Quote",
+          "value": "year, with actual step occurrence, current balance and payment timing unknown."
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C61",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 16"
+        },
+        {
+          "name": "Quote",
+          "value": "Opened ENEL-EFI_CP-DR_20261104.md after retention, SHA-256"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C62",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 17"
+        },
+        {
+          "name": "Quote",
+          "value": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1,"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C63",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 18"
+        },
+        {
+          "name": "Quote",
+          "value": "including the exact locked question and UNRESOLVED finding. Also opened the"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C64",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 19"
+        },
+        {
+          "name": "Quote",
+          "value": "earlier actual CP-2E-attempt-1.md (d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181)"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C65",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 20"
+        },
+        {
+          "name": "Quote",
+          "value": "and its calculation JSON. No new primary Final Terms were supplied."
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C66",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 44"
+        },
+        {
+          "name": "Quote",
+          "value": "The new evidence changes the search record, not the financial answer. A future"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C67",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 45"
+        },
+        {
+          "name": "Quote",
+          "value": "matching primary document could alter the calendar/election assessment after"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C68",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 46"
+        },
+        {
+          "name": "Quote",
+          "value": "admission; even then, dated process and actual principal/payment evidence would"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C69",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 47"
+        },
+        {
+          "name": "Quote",
+          "value": "still be required before reporting realised cash."
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C70",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 51"
+        },
+        {
+          "name": "Quote",
+          "value": "None newly performed. The prior retained output supplies 2.5000, 991.23000 and"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C71",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 52"
+        },
+        {
+          "name": "Quote",
+          "value": "8.77000 EUR millions on its explicit bases. No probability weight, second step,"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C72",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 53"
+        },
+        {
+          "name": "Quote",
+          "value": "annualisation of the issue discount or replacement of an unknown with zero."
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C73",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 57"
+        },
+        {
+          "name": "Quote",
+          "value": "Exact contractual package/calendar and actual target/assurance/notice/payment"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C74",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 58"
+        },
+        {
+          "name": "Quote",
+          "value": "remain absent. No source-backed reason exists to revise the prior conditional"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C75",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 59"
+        },
+        {
+          "name": "Quote",
+          "value": "cost, whole-issuer materiality or financing feasibility. This rejected adoption"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C76",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 60"
+        },
+        {
+          "name": "Quote",
+          "value": "does not qualify positive original-byte discovery or complete research coverage."
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C77",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 64"
+        },
+        {
+          "name": "Quote",
+          "value": "Separate delivery should publish the unresolved research and this explicit"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C78",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 65"
+        },
+        {
+          "name": "Quote",
+          "value": "rejection, preserving the historical analysis and its restrictions. Further"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C79",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 66"
+        },
+        {
+          "name": "Quote",
+          "value": "search is stopped under the locked cap. No analytical rerun, agent, provider or"
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    },
+    {
+      "ref_id": "C80",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 67"
+        },
+        {
+          "name": "Quote",
+          "value": "workbook export is needed; Excel remains input-only."
+        },
+        {
+          "name": "SHA-256",
+          "value": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+        }
+      ]
+    }
+  ],
+  "index": {
+    "facts": [
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-0.r0.c0"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-0.r0.c1"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-DR-0.r1.c0"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-DR-0.r1.c1"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-DR-0.r2.c0"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-DR-0.r2.c1"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-DR-0.r3.c0"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-DR-0.r3.c1"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-1.r0.c0"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-1.r0.c1"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-1.r0.c2"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-1.r0.c3"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-1.r0.c4"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-1.r0.c5"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-2.r0.c0"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-2.r0.c1"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-2.r0.c2"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-2.r0.c3"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-2.r0.c4"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-2.r0.c5"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-2.r0.c6"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-2.r0.c7"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-2.r0.c8"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-DR-2.r1.c0"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-DR-2.r1.c1"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-DR-2.r1.c2"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-DR-2.r1.c3"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-DR-2.r1.c4"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-DR-2.r1.c5"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-DR-2.r1.c6"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-DR-2.r1.c7"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-DR-2.r1.c8"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-DR-2.r2.c0"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-DR-2.r2.c1"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-DR-2.r2.c2"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-DR-2.r2.c3"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-DR-2.r2.c4"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-DR-2.r2.c5"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-DR-2.r2.c6"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-DR-2.r2.c7"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-DR-2.r2.c8"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-3.r0.c0"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-3.r0.c1"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-3.r0.c2"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-3.r0.c3"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-3.r0.c4"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "raw-CP-DR-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-DR-3.r0.c5"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "prose-CP-DR-0",
+          "row_id": "r0",
+          "fact_id": "prose-CP-DR-0.r0.c0"
+        },
+        "ref_ids": [
+          "C10",
+          "C11",
+          "C12",
+          "C13",
+          "C14",
+          "C15",
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "prose-CP-DR-0",
+          "row_id": "r1",
+          "fact_id": "prose-CP-DR-0.r1.c0"
+        },
+        "ref_ids": [
+          "C17",
+          "C18",
+          "C19",
+          "C20",
+          "C21",
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "prose-CP-DR-1",
+          "row_id": "r0",
+          "fact_id": "prose-CP-DR-1.r0.c0"
+        },
+        "ref_ids": [
+          "C23",
+          "C24",
+          "C25",
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "prose-CP-DR-2",
+          "row_id": "r0",
+          "fact_id": "prose-CP-DR-2.r0.c0"
+        },
+        "ref_ids": [
+          "C27",
+          "C28",
+          "C29",
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "prose-CP-DR-3",
+          "row_id": "r0",
+          "fact_id": "prose-CP-DR-3.r0.c0"
+        },
+        "ref_ids": [
+          "C31",
+          "C32",
+          "C33",
+          "C34",
+          "C35",
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "prose-CP-DR-4",
+          "row_id": "r0",
+          "fact_id": "prose-CP-DR-4.r0.c0"
+        },
+        "ref_ids": [
+          "C37",
+          "C38",
+          "C39",
+          "C40",
+          "C41"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-DR",
+          "table_id": "prose-CP-DR-5",
+          "row_id": "r0",
+          "fact_id": "prose-CP-DR-5.r0.c0"
+        },
+        "ref_ids": [
+          "C42",
+          "C43",
+          "C44",
+          "C45"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-0.r0.c0"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-0.r0.c1"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-0.r0.c2"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-0.r0.c3"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-1.r0.c0"
+        },
+        "ref_ids": [
+          "C47"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-1.r1.c0"
+        },
+        "ref_ids": [
+          "C48"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-1.r2.c0"
+        },
+        "ref_ids": [
+          "C49"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-1.r3.c0"
+        },
+        "ref_ids": [
+          "C50"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-1.r4.c0"
+        },
+        "ref_ids": [
+          "C51"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-1.r5.c0"
+        },
+        "ref_ids": [
+          "C52"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r6",
+          "fact_id": "raw-CP-2E-1.r6.c0"
+        },
+        "ref_ids": [
+          "C53"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-0",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-0.r0.c0"
+        },
+        "ref_ids": [
+          "C54",
+          "C55",
+          "C56"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-0",
+          "row_id": "r1",
+          "fact_id": "prose-CP-2E-0.r1.c0"
+        },
+        "ref_ids": [
+          "C57",
+          "C58",
+          "C59",
+          "C60"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-1",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-1.r0.c0"
+        },
+        "ref_ids": [
+          "C61",
+          "C62",
+          "C63",
+          "C64",
+          "C65"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-2",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-2.r0.c0"
+        },
+        "ref_ids": [
+          "C66",
+          "C67",
+          "C68",
+          "C69"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-3",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-3.r0.c0"
+        },
+        "ref_ids": [
+          "C70",
+          "C71",
+          "C72"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-4",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-4.r0.c0"
+        },
+        "ref_ids": [
+          "C73",
+          "C74",
+          "C75",
+          "C76"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-5",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-5.r0.c0"
+        },
+        "ref_ids": [
+          "C77",
+          "C78",
+          "C79",
+          "C80"
+        ]
+      }
+    ]
+  }
+}

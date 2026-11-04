@@ -1,0 +1,20 @@
+{
+  "case": "Historical2025-05-31 LQD-owned ARCC notes; CP6 portfolio debate phase, not current research",
+  "execution": "Actual current host model with prior context; personas simulated inline, not separate/independent agents; no providers/native accepted heads",
+  "input_pins": {
+    "../lqd-portfolio-001/CP-3.md": "6afd9798ba22956bc98b333a35d8bffddc43e23d04f052767ba427ff70e6e10f",
+    "../lqd-portfolio-001/CP-6-portfolio-consumer-attempt-2.md": "48a1d06dee47d9e793eb74327f040446301cd5707f653c4acb76b19407b2829e",
+    "../lqd-portfolio-001/expectations.json": "aac4dfcdf87d3800f25f5331aeb6c36dd165655f6af18dbe74f8cd55dd8169a9",
+    "../lqd-portfolio-001/sources/LQD-20250531-NPORT.xml": "7617ce8e9f605035939d57fdf019636510ba08d9cb2388d561be04d574bb11df",
+    "../lqd-portfolio-001/sources/formn-port.pdf": "f953af594dee58522fc3e9fe92b9872aedce5e59a2a954281aa4fbb6d3ded2cf",
+    "../lqd-portfolio-001/verification.json": "f05e02e0f15851d53055cf789fafd09e075c5cc23e9d4f93bce22aaff8f8c1e5"
+  },
+  "method_pins": {
+    "docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/SKILL.md": "0ae74db02dd569fe7805e62a661f22cd436494183ba5cb928f8be37aa549a96b",
+    "docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/references/CP-6A_SCHEMA_REFERENCE.md": "f91e1ef62493c6bd734555dc7d4ee8b397a53f939a88f2c0e42b331880ae49e3",
+    "docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/references/REF_CP-6A_STEPS.md": "9e36ee1bc5ed1b2a99ffb2e8bc1ed2a10e2a3d26b70083a00beb598a8d1c9478"
+  },
+  "method_selection": "All11 substantive CP6A steps and nine dimensions, compact default. Current project six-H2 Markdown transport governs; no native confidence/envelope or full-run qualification claim. CP6A absorbed into one CP6 handoff.",
+  "source_boundaries": "No December2024 market/credit/legal fields or May2025-source values promoted to current2026. No fresh market observation/mandate supplied. No proposed trade. Actual positive holdings and conditional-loss arithmetic already independently checked in producer; no new underwriting.",
+  "completion": "Check actual output against frozen instructions and source pins; actual CP5 consumption; populated existing Workflow HTML report from handoffs, checked against them; no Excel."
+}

@@ -1,0 +1,33 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {},
+  "instructions": "# CP-0 \u2014 checked historical Ford Otosan reuse\n\nReuse exactly ../ford-otosan-2024-001/CP-0.md. This is retained-answer orchestration/delivery verification of the April 11, 2024 Ford Otomotiv Sanayi A.S. (Ford Otosan) case, not a fresh model run, current rating, native acceptance or completed distress pathway. The legal/brand identity relation is explicitly stated in the original CP-0 Request. Source bodies are retained agency text, not raw PDF or a completed visual audit. New shared evaluation bindings are not original native receipts. CP-2G here admits a published agency forecast; no fabricated CP-2A stress or third forecast year is needed to render it. Preserve calendar actual/forecast years, TRY million versus TRY billion, USD/EUR instrument currencies, S&P preliminary and Fitch expected issue states, gross versus net leverage, source residuals and unresolved exact headroom. The actual source and method obligations remain in the pinned original instructions. Delivery consumes these exact handoffs using existing designs; Excel is input only.\n",
+  "module_id": "CP-0",
+  "retained_response_sha256": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+  "run": {
+    "as_of": "2024-04-11",
+    "case_kind": "public",
+    "issuer_id": "FORD-OTOSAN",
+    "issuer_name": "Ford Otomotiv Sanayi A.S.",
+    "method_version": "deploy-v-r14",
+    "pathway": "distressed_restructuring",
+    "requested_modules": [
+      "CP-2H"
+    ],
+    "run_id": "cpos-ford-ratings-2024-1",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+    "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+    "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+    "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+    "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+    "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+    "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+    "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+    "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+    "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e"
+  }
+}

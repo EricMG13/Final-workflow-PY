@@ -1,0 +1,140 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "cpos-lqd-arcc-portfolio-20250531-1",
+    "issuer_id": "LQD",
+    "issuer_name": "iShares iBoxx $ Investment Grade Corporate Bond ETF",
+    "as_of": "2025-05-31",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "portfolio_decision",
+    "requested_modules": [
+      "CP-3B",
+      "CP-6A",
+      "CP-5A"
+    ]
+  },
+  "handoffs": {
+    "CP-3": {
+      "path": "requests/CP-3/78b925f6f4ed607e522f181f0e384d84bd415f60235e7a769578f0324de4a458/1.response.md",
+      "sha256": "6afd9798ba22956bc98b333a35d8bffddc43e23d04f052767ba427ff70e6e10f"
+    },
+    "CP-6": {
+      "path": "requests/CP-6/650e47c8071e8e42fd0e822d1ec1bb85b3c946f4ea78ac918445a9eb9b1216c8/1.response.md",
+      "sha256": "805f90563c8019d4ed34650011532d5e19e7bf75815b6556b43c7d8295eeb93d"
+    },
+    "CP-5": {
+      "path": "requests/CP-5/bd80f81b63b299c1a5ad07751490ff2f300fb023877c5ea679eb2c5cbb2cacb7/1.response.md",
+      "sha256": "c2e32b4d8292c75aaa37257f1ff626604d983ebf0aa33e0e49d3872424a12d26"
+    }
+  },
+  "model": null,
+  "layout": {
+    "blocks": [
+      "portfolio-recommendation",
+      "portfolio-fit",
+      "instrument-decision",
+      "binding-limitations",
+      "strengths-weaknesses",
+      "thesis-catalysts-challenge",
+      "capital-structure",
+      "what-changed"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-6",
+        "heading": "Final Sizing Posture",
+        "kind": "prose",
+        "block_id": "portfolio-recommendation",
+        "table_header": null,
+        "prefix": null,
+        "label": "Actual terminal posture; no new size"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Overall portfolio fit view",
+        "kind": "prose",
+        "block_id": "portfolio-fit",
+        "table_header": null,
+        "prefix": null,
+        "label": "Named historical holding and portfolio fit"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Pre-Debate Portfolio Thesis Map",
+        "kind": "prose",
+        "block_id": "instrument-decision",
+        "table_header": null,
+        "prefix": null,
+        "label": "What instrument evidence can support"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "The RV Trader's Defense",
+        "kind": "prose",
+        "block_id": "instrument-decision",
+        "table_header": null,
+        "prefix": null,
+        "label": "Actual rebuttal boundary"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Exact Portfolio Constraint",
+        "kind": "prose",
+        "block_id": "binding-limitations",
+        "table_header": null,
+        "prefix": null,
+        "label": "Constraint remains unknown"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Portfolio view",
+        "kind": "prose",
+        "block_id": "strengths-weaknesses",
+        "table_header": null,
+        "prefix": null,
+        "label": "Measured exposure and conditional risk"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "T6E.4 — Compliance cross-examination",
+        "kind": "prose",
+        "block_id": "strengths-weaknesses",
+        "table_header": null,
+        "prefix": null,
+        "label": "What the challenge establishes"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "The RV Trader's Pitch",
+        "kind": "prose",
+        "block_id": "thesis-catalysts-challenge",
+        "table_header": null,
+        "prefix": null,
+        "label": "Three matched analytical pitches and monitoring"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "T3C.0 — Actual held-instrument evidence",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "table_header": null,
+        "prefix": null,
+        "label": "Five held ARCC notes; USD, not USD millions"
+      },
+      {
+        "module_id": "CP-5",
+        "heading": "Current assurance disposition",
+        "kind": "prose",
+        "block_id": "what-changed",
+        "table_header": null,
+        "prefix": null,
+        "label": "Reasoning repairs closed; quantities and posture unchanged"
+      }
+    ],
+    "scope": "Historical May31 2025 LQD-held ARCC subset, not a current portfolio or complete fund underwriting. CP-OS publishes all eight sections of the existing Portfolio Decision design from actual retained CP-3/CP-3B, CP-6/CP-6A and final CP-5/CP-5A answers. This is checked publication replay; personas were simulated in the original same host, not independent agents. Requires More Work; no supported market preference, numeric new size, mandate clearance, exact binding limit or execution approval. USD holdings and conditional losses retain matching fund NAV; on-loan and July2029 amounts are subsets. Older issuer context is not May2025 underwriting. Current literal inspector preserves quantities/periods in text/citations; no native numeric facets, accepted heads, new analytical run or Excel output. Earlier QA remains frozen context; current CP-5 is the actual final recheck. What Changed identifies the historical debate-attempt1 to attempt2 reasoning repair documented by CP-5; no new financial period or run-to-run financial update is inferred.",
+    "title": "LQD · historical ARCC portfolio decision",
+    "question": "What do the historical holdings and debate support, and what must be resolved before implementation?",
+    "issuer_aliases": []
+  }
+}

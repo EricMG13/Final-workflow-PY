@@ -1,0 +1,4479 @@
+{
+  "schema_version": "view/4",
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "enel-final-terms-research-001",
+    "issuer_id": "ENEL-EFI",
+    "issuer_name": "Enel Finance International N.V.",
+    "as_of": "2021-08-03",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-DR",
+      "CP-2E"
+    ]
+  },
+  "mode": "candidate",
+  "modules": [
+    {
+      "module_id": "CP-DR",
+      "title": "Deep research",
+      "aliases": [],
+      "status": "candidate",
+      "artifact_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+      "facts": [
+        {
+          "fact_id": "raw-CP-DR-0.r0.c0",
+          "label": "S0",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "sources/search-initial.json; exact ISIN plus Final Terms, issuer-domain filter",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 24",
+              "quote": "| S0 | sources/search-initial.json; exact ISIN plus Final Terms, issuer-domain filter | No results; search outcome only, not issuer evidence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-0.r0.c1",
+          "label": "S0",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "No results; search outcome only, not issuer evidence",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 24",
+              "quote": "| S0 | sources/search-initial.json; exact ISIN plus Final Terms, issuer-domain filter | No results; search outcome only, not issuer evidence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-0.r1.c0",
+          "label": "S1",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "sources/search-gap-1.json; exact ISIN plus Final Terms PDF",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 25",
+              "quote": "| S1 | sources/search-gap-1.json; exact ISIN plus Final Terms PDF | Commercial Cbonds language variants; one origin family, not independent corroboration |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-0.r1.c1",
+          "label": "S1",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Commercial Cbonds language variants; one origin family, not independent corroboration",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 25",
+              "quote": "| S1 | sources/search-gap-1.json; exact ISIN plus Final Terms PDF | Commercial Cbonds language variants; one origin family, not independent corroboration |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-0.r2.c0",
+          "label": "S2",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "sources/search-gap-2.json; series1705D and issuer2019/June2024 focused queries",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 26",
+              "quote": "| S2 | sources/search-gap-2.json; series1705D and issuer2019/June2024 focused queries | Same family and other-tranche results; no matching primary document |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-0.r2.c1",
+          "label": "S2",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Same family and other-tranche results; no matching primary document",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 26",
+              "quote": "| S2 | sources/search-gap-2.json; series1705D and issuer2019/June2024 focused queries | Same family and other-tranche results; no matching primary document |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-0.r3.c0",
+          "label": "S3",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "sources/lead-retrieval.json; https://cbonds.de/bonds/618585/ lines231–239,275–279",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 27",
+              "quote": "| S3 | sources/lead-retrieval.json; https://cbonds.de/bonds/618585/ lines231–239,275–279 | Current commercial page lists Final Terms without a retrievable document link/body; login/access messaging. It is not a historical primary instrument document |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-0.r3.c1",
+          "label": "S3",
+          "table_id": "raw-CP-DR-0",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Current commercial page lists Final Terms without a retrievable document link/body; login/access messaging. It is not a historical primary instrument document",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 27",
+              "quote": "| S3 | sources/lead-retrieval.json; https://cbonds.de/bonds/618585/ lines231–239,275–279 | Current commercial page lists Final Terms without a retrievable document link/body; login/access messaging. It is not a historical primary instrument document |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-1.r0.c0",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-DR-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Can authoritative original Final Terms for Enel Finance International N.V. EUR zero-coupon note XS2066706818 be located and retained, and which instrument-specific coupon calendar, day-count, step-option, reference-date and margin fields do they establish?",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 42",
+              "quote": "| RQ-final-terms | Can authoritative original Final Terms for Enel Finance International N.V. EUR zero-coupon note XS2066706818 be located and retained, and which instrument-specific coupon calendar, day-count, step-option, reference-date and margin fields do they establish? | Named source gap in runs/enel-sdg-2021-001/CP-2E-attempt-1.md; enables a later analytical assessment of exact elections/timing without inventing actual step occurrence. | NONE | NONE | Primary issuer, exchange or officially hosted Final Terms PDF whose issuer/ISIN/currency/maturity match the target; exact page/field locators and original bytes. Disconfirm with security identity and distinguish programme supplement/adjacent tranches. | Retain and hash actual primary bytes plus exact instrument terms with boundaries, or retain the bounded unsuccessful searches/access outcomes and an UNRESOLVED finding. Never replace a missing instrument document with a general supplement or later outcome. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-1.r0.c1",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-DR-1",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Named source gap in runs/enel-sdg-2021-001/CP-2E-attempt-1.md; enables a later analytical assessment of exact elections/timing without inventing actual step occurrence.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 42",
+              "quote": "| RQ-final-terms | Can authoritative original Final Terms for Enel Finance International N.V. EUR zero-coupon note XS2066706818 be located and retained, and which instrument-specific coupon calendar, day-count, step-option, reference-date and margin fields do they establish? | Named source gap in runs/enel-sdg-2021-001/CP-2E-attempt-1.md; enables a later analytical assessment of exact elections/timing without inventing actual step occurrence. | NONE | NONE | Primary issuer, exchange or officially hosted Final Terms PDF whose issuer/ISIN/currency/maturity match the target; exact page/field locators and original bytes. Disconfirm with security identity and distinguish programme supplement/adjacent tranches. | Retain and hash actual primary bytes plus exact instrument terms with boundaries, or retain the bounded unsuccessful searches/access outcomes and an UNRESOLVED finding. Never replace a missing instrument document with a general supplement or later outcome. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-1.r0.c2",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-DR-1",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "NONE",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 42",
+              "quote": "| RQ-final-terms | Can authoritative original Final Terms for Enel Finance International N.V. EUR zero-coupon note XS2066706818 be located and retained, and which instrument-specific coupon calendar, day-count, step-option, reference-date and margin fields do they establish? | Named source gap in runs/enel-sdg-2021-001/CP-2E-attempt-1.md; enables a later analytical assessment of exact elections/timing without inventing actual step occurrence. | NONE | NONE | Primary issuer, exchange or officially hosted Final Terms PDF whose issuer/ISIN/currency/maturity match the target; exact page/field locators and original bytes. Disconfirm with security identity and distinguish programme supplement/adjacent tranches. | Retain and hash actual primary bytes plus exact instrument terms with boundaries, or retain the bounded unsuccessful searches/access outcomes and an UNRESOLVED finding. Never replace a missing instrument document with a general supplement or later outcome. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-1.r0.c3",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-DR-1",
+          "row_id": "r0",
+          "field": "c3",
+          "amount": null,
+          "text": "NONE",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 42",
+              "quote": "| RQ-final-terms | Can authoritative original Final Terms for Enel Finance International N.V. EUR zero-coupon note XS2066706818 be located and retained, and which instrument-specific coupon calendar, day-count, step-option, reference-date and margin fields do they establish? | Named source gap in runs/enel-sdg-2021-001/CP-2E-attempt-1.md; enables a later analytical assessment of exact elections/timing without inventing actual step occurrence. | NONE | NONE | Primary issuer, exchange or officially hosted Final Terms PDF whose issuer/ISIN/currency/maturity match the target; exact page/field locators and original bytes. Disconfirm with security identity and distinguish programme supplement/adjacent tranches. | Retain and hash actual primary bytes plus exact instrument terms with boundaries, or retain the bounded unsuccessful searches/access outcomes and an UNRESOLVED finding. Never replace a missing instrument document with a general supplement or later outcome. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-1.r0.c4",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-DR-1",
+          "row_id": "r0",
+          "field": "c4",
+          "amount": null,
+          "text": "Primary issuer, exchange or officially hosted Final Terms PDF whose issuer/ISIN/currency/maturity match the target; exact page/field locators and original bytes. Disconfirm with security identity and distinguish programme supplement/adjacent tranches.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 42",
+              "quote": "| RQ-final-terms | Can authoritative original Final Terms for Enel Finance International N.V. EUR zero-coupon note XS2066706818 be located and retained, and which instrument-specific coupon calendar, day-count, step-option, reference-date and margin fields do they establish? | Named source gap in runs/enel-sdg-2021-001/CP-2E-attempt-1.md; enables a later analytical assessment of exact elections/timing without inventing actual step occurrence. | NONE | NONE | Primary issuer, exchange or officially hosted Final Terms PDF whose issuer/ISIN/currency/maturity match the target; exact page/field locators and original bytes. Disconfirm with security identity and distinguish programme supplement/adjacent tranches. | Retain and hash actual primary bytes plus exact instrument terms with boundaries, or retain the bounded unsuccessful searches/access outcomes and an UNRESOLVED finding. Never replace a missing instrument document with a general supplement or later outcome. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-1.r0.c5",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-DR-1",
+          "row_id": "r0",
+          "field": "c5",
+          "amount": null,
+          "text": "Retain and hash actual primary bytes plus exact instrument terms with boundaries, or retain the bounded unsuccessful searches/access outcomes and an UNRESOLVED finding. Never replace a missing instrument document with a general supplement or later outcome.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 42",
+              "quote": "| RQ-final-terms | Can authoritative original Final Terms for Enel Finance International N.V. EUR zero-coupon note XS2066706818 be located and retained, and which instrument-specific coupon calendar, day-count, step-option, reference-date and margin fields do they establish? | Named source gap in runs/enel-sdg-2021-001/CP-2E-attempt-1.md; enables a later analytical assessment of exact elections/timing without inventing actual step occurrence. | NONE | NONE | Primary issuer, exchange or officially hosted Final Terms PDF whose issuer/ISIN/currency/maturity match the target; exact page/field locators and original bytes. Disconfirm with security identity and distinguish programme supplement/adjacent tranches. | Retain and hash actual primary bytes plus exact instrument terms with boundaries, or retain the bounded unsuccessful searches/access outcomes and an UNRESOLVED finding. Never replace a missing instrument document with a general supplement or later outcome. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r0.c0",
+          "label": "E1",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "RQ-final-terms",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 55",
+              "quote": "| E1 | RQ-final-terms | Initial issuer-filtered discovery returned no results | source_characterisation | S0 | Exact retained search result | 2026-11-04 | gap | Search operation | XS2066706818 document search; not historical note terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r0.c1",
+          "label": "E1",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Initial issuer-filtered discovery returned no results",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 55",
+              "quote": "| E1 | RQ-final-terms | Initial issuer-filtered discovery returned no results | source_characterisation | S0 | Exact retained search result | 2026-11-04 | gap | Search operation | XS2066706818 document search; not historical note terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r0.c2",
+          "label": "E1",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "source_characterisation",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 55",
+              "quote": "| E1 | RQ-final-terms | Initial issuer-filtered discovery returned no results | source_characterisation | S0 | Exact retained search result | 2026-11-04 | gap | Search operation | XS2066706818 document search; not historical note terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r0.c3",
+          "label": "E1",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "field": "c3",
+          "amount": null,
+          "text": "S0",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 55",
+              "quote": "| E1 | RQ-final-terms | Initial issuer-filtered discovery returned no results | source_characterisation | S0 | Exact retained search result | 2026-11-04 | gap | Search operation | XS2066706818 document search; not historical note terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r0.c4",
+          "label": "E1",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "field": "c4",
+          "amount": null,
+          "text": "Exact retained search result",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 55",
+              "quote": "| E1 | RQ-final-terms | Initial issuer-filtered discovery returned no results | source_characterisation | S0 | Exact retained search result | 2026-11-04 | gap | Search operation | XS2066706818 document search; not historical note terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r0.c5",
+          "label": "E1",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "field": "c5",
+          "amount": null,
+          "text": "2026-11-04",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 55",
+              "quote": "| E1 | RQ-final-terms | Initial issuer-filtered discovery returned no results | source_characterisation | S0 | Exact retained search result | 2026-11-04 | gap | Search operation | XS2066706818 document search; not historical note terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r0.c6",
+          "label": "E1",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "field": "c6",
+          "amount": null,
+          "text": "gap",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 55",
+              "quote": "| E1 | RQ-final-terms | Initial issuer-filtered discovery returned no results | source_characterisation | S0 | Exact retained search result | 2026-11-04 | gap | Search operation | XS2066706818 document search; not historical note terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r0.c7",
+          "label": "E1",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "field": "c7",
+          "amount": null,
+          "text": "Search operation",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 55",
+              "quote": "| E1 | RQ-final-terms | Initial issuer-filtered discovery returned no results | source_characterisation | S0 | Exact retained search result | 2026-11-04 | gap | Search operation | XS2066706818 document search; not historical note terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r0.c8",
+          "label": "E1",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r0",
+          "field": "c8",
+          "amount": null,
+          "text": "XS2066706818 document search; not historical note terms",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 55",
+              "quote": "| E1 | RQ-final-terms | Initial issuer-filtered discovery returned no results | source_characterisation | S0 | Exact retained search result | 2026-11-04 | gap | Search operation | XS2066706818 document search; not historical note terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r1.c0",
+          "label": "E2",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "RQ-final-terms",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 56",
+              "quote": "| E2 | RQ-final-terms | A commercial page names Final Terms, but the retrieved listing does not provide the primary instrument document | source_characterisation | S1; S2; S3 | S3 lines231–239; access messaging275–279 | 2026-11-04 | gap | Cbonds; language variants deduplicated | Current document lead only; cannot establish August2021 instrument calendar/elections |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r1.c1",
+          "label": "E2",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "A commercial page names Final Terms, but the retrieved listing does not provide the primary instrument document",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 56",
+              "quote": "| E2 | RQ-final-terms | A commercial page names Final Terms, but the retrieved listing does not provide the primary instrument document | source_characterisation | S1; S2; S3 | S3 lines231–239; access messaging275–279 | 2026-11-04 | gap | Cbonds; language variants deduplicated | Current document lead only; cannot establish August2021 instrument calendar/elections |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r1.c2",
+          "label": "E2",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "source_characterisation",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 56",
+              "quote": "| E2 | RQ-final-terms | A commercial page names Final Terms, but the retrieved listing does not provide the primary instrument document | source_characterisation | S1; S2; S3 | S3 lines231–239; access messaging275–279 | 2026-11-04 | gap | Cbonds; language variants deduplicated | Current document lead only; cannot establish August2021 instrument calendar/elections |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r1.c3",
+          "label": "E2",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "field": "c3",
+          "amount": null,
+          "text": "S1; S2; S3",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 56",
+              "quote": "| E2 | RQ-final-terms | A commercial page names Final Terms, but the retrieved listing does not provide the primary instrument document | source_characterisation | S1; S2; S3 | S3 lines231–239; access messaging275–279 | 2026-11-04 | gap | Cbonds; language variants deduplicated | Current document lead only; cannot establish August2021 instrument calendar/elections |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r1.c4",
+          "label": "E2",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "field": "c4",
+          "amount": null,
+          "text": "S3 lines231–239; access messaging275–279",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 56",
+              "quote": "| E2 | RQ-final-terms | A commercial page names Final Terms, but the retrieved listing does not provide the primary instrument document | source_characterisation | S1; S2; S3 | S3 lines231–239; access messaging275–279 | 2026-11-04 | gap | Cbonds; language variants deduplicated | Current document lead only; cannot establish August2021 instrument calendar/elections |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r1.c5",
+          "label": "E2",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "field": "c5",
+          "amount": null,
+          "text": "2026-11-04",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 56",
+              "quote": "| E2 | RQ-final-terms | A commercial page names Final Terms, but the retrieved listing does not provide the primary instrument document | source_characterisation | S1; S2; S3 | S3 lines231–239; access messaging275–279 | 2026-11-04 | gap | Cbonds; language variants deduplicated | Current document lead only; cannot establish August2021 instrument calendar/elections |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r1.c6",
+          "label": "E2",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "field": "c6",
+          "amount": null,
+          "text": "gap",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 56",
+              "quote": "| E2 | RQ-final-terms | A commercial page names Final Terms, but the retrieved listing does not provide the primary instrument document | source_characterisation | S1; S2; S3 | S3 lines231–239; access messaging275–279 | 2026-11-04 | gap | Cbonds; language variants deduplicated | Current document lead only; cannot establish August2021 instrument calendar/elections |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r1.c7",
+          "label": "E2",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "field": "c7",
+          "amount": null,
+          "text": "Cbonds; language variants deduplicated",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 56",
+              "quote": "| E2 | RQ-final-terms | A commercial page names Final Terms, but the retrieved listing does not provide the primary instrument document | source_characterisation | S1; S2; S3 | S3 lines231–239; access messaging275–279 | 2026-11-04 | gap | Cbonds; language variants deduplicated | Current document lead only; cannot establish August2021 instrument calendar/elections |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r1.c8",
+          "label": "E2",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r1",
+          "field": "c8",
+          "amount": null,
+          "text": "Current document lead only; cannot establish August2021 instrument calendar/elections",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 56",
+              "quote": "| E2 | RQ-final-terms | A commercial page names Final Terms, but the retrieved listing does not provide the primary instrument document | source_characterisation | S1; S2; S3 | S3 lines231–239; access messaging275–279 | 2026-11-04 | gap | Cbonds; language variants deduplicated | Current document lead only; cannot establish August2021 instrument calendar/elections |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r2.c0",
+          "label": "E3",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "RQ-final-terms",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 57",
+              "quote": "| E3 | RQ-final-terms | No primary matching Final Terms bytes were retained in this bounded run | analyst_judgment | S0; S1; S2; S3 | Three retained search stages and final lead retrieval | 2026-11-04 | gap | This research operation | Specific issuer/ISIN only; search non-discovery does not prove nonexistence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r2.c1",
+          "label": "E3",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "No primary matching Final Terms bytes were retained in this bounded run",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 57",
+              "quote": "| E3 | RQ-final-terms | No primary matching Final Terms bytes were retained in this bounded run | analyst_judgment | S0; S1; S2; S3 | Three retained search stages and final lead retrieval | 2026-11-04 | gap | This research operation | Specific issuer/ISIN only; search non-discovery does not prove nonexistence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r2.c2",
+          "label": "E3",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "analyst_judgment",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 57",
+              "quote": "| E3 | RQ-final-terms | No primary matching Final Terms bytes were retained in this bounded run | analyst_judgment | S0; S1; S2; S3 | Three retained search stages and final lead retrieval | 2026-11-04 | gap | This research operation | Specific issuer/ISIN only; search non-discovery does not prove nonexistence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r2.c3",
+          "label": "E3",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "field": "c3",
+          "amount": null,
+          "text": "S0; S1; S2; S3",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 57",
+              "quote": "| E3 | RQ-final-terms | No primary matching Final Terms bytes were retained in this bounded run | analyst_judgment | S0; S1; S2; S3 | Three retained search stages and final lead retrieval | 2026-11-04 | gap | This research operation | Specific issuer/ISIN only; search non-discovery does not prove nonexistence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r2.c4",
+          "label": "E3",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "field": "c4",
+          "amount": null,
+          "text": "Three retained search stages and final lead retrieval",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 57",
+              "quote": "| E3 | RQ-final-terms | No primary matching Final Terms bytes were retained in this bounded run | analyst_judgment | S0; S1; S2; S3 | Three retained search stages and final lead retrieval | 2026-11-04 | gap | This research operation | Specific issuer/ISIN only; search non-discovery does not prove nonexistence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r2.c5",
+          "label": "E3",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "field": "c5",
+          "amount": null,
+          "text": "2026-11-04",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 57",
+              "quote": "| E3 | RQ-final-terms | No primary matching Final Terms bytes were retained in this bounded run | analyst_judgment | S0; S1; S2; S3 | Three retained search stages and final lead retrieval | 2026-11-04 | gap | This research operation | Specific issuer/ISIN only; search non-discovery does not prove nonexistence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r2.c6",
+          "label": "E3",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "field": "c6",
+          "amount": null,
+          "text": "gap",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 57",
+              "quote": "| E3 | RQ-final-terms | No primary matching Final Terms bytes were retained in this bounded run | analyst_judgment | S0; S1; S2; S3 | Three retained search stages and final lead retrieval | 2026-11-04 | gap | This research operation | Specific issuer/ISIN only; search non-discovery does not prove nonexistence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r2.c7",
+          "label": "E3",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "field": "c7",
+          "amount": null,
+          "text": "This research operation",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 57",
+              "quote": "| E3 | RQ-final-terms | No primary matching Final Terms bytes were retained in this bounded run | analyst_judgment | S0; S1; S2; S3 | Three retained search stages and final lead retrieval | 2026-11-04 | gap | This research operation | Specific issuer/ISIN only; search non-discovery does not prove nonexistence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-2.r2.c8",
+          "label": "E3",
+          "table_id": "raw-CP-DR-2",
+          "row_id": "r2",
+          "field": "c8",
+          "amount": null,
+          "text": "Specific issuer/ISIN only; search non-discovery does not prove nonexistence",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 57",
+              "quote": "| E3 | RQ-final-terms | No primary matching Final Terms bytes were retained in this bounded run | analyst_judgment | S0; S1; S2; S3 | Three retained search stages and final lead retrieval | 2026-11-04 | gap | This research operation | Specific issuer/ISIN only; search non-discovery does not prove nonexistence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-3.r0.c0",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-DR-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Matching primary Final Terms not obtained; requested coupon-calendar/day-count/election fields remain unestablished",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 65",
+              "quote": "| RQ-final-terms | Matching primary Final Terms not obtained; requested coupon-calendar/day-count/election fields remain unestablished | E1; E2; E3 | S3 lines231–239 names Final Terms and may indicate an obtainable document elsewhere; no retrievable primary body was admitted. This defeats any claim that the document does not exist, but cannot supply its terms | UNRESOLVED | Original issuer/exchange document may remain available outside these searches or via authorized document access | Preserve existing conditional pricing calculation; do not infer first affected period, actual payment or final legal elections. A receiving analytical module must explicitly reject this gap dossier as proof of missing terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-3.r0.c1",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-DR-3",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "E1; E2; E3",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 65",
+              "quote": "| RQ-final-terms | Matching primary Final Terms not obtained; requested coupon-calendar/day-count/election fields remain unestablished | E1; E2; E3 | S3 lines231–239 names Final Terms and may indicate an obtainable document elsewhere; no retrievable primary body was admitted. This defeats any claim that the document does not exist, but cannot supply its terms | UNRESOLVED | Original issuer/exchange document may remain available outside these searches or via authorized document access | Preserve existing conditional pricing calculation; do not infer first affected period, actual payment or final legal elections. A receiving analytical module must explicitly reject this gap dossier as proof of missing terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-3.r0.c2",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-DR-3",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "S3 lines231–239 names Final Terms and may indicate an obtainable document elsewhere; no retrievable primary body was admitted. This defeats any claim that the document does not exist, but cannot supply its terms",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 65",
+              "quote": "| RQ-final-terms | Matching primary Final Terms not obtained; requested coupon-calendar/day-count/election fields remain unestablished | E1; E2; E3 | S3 lines231–239 names Final Terms and may indicate an obtainable document elsewhere; no retrievable primary body was admitted. This defeats any claim that the document does not exist, but cannot supply its terms | UNRESOLVED | Original issuer/exchange document may remain available outside these searches or via authorized document access | Preserve existing conditional pricing calculation; do not infer first affected period, actual payment or final legal elections. A receiving analytical module must explicitly reject this gap dossier as proof of missing terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-3.r0.c3",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-DR-3",
+          "row_id": "r0",
+          "field": "c3",
+          "amount": null,
+          "text": "UNRESOLVED",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 65",
+              "quote": "| RQ-final-terms | Matching primary Final Terms not obtained; requested coupon-calendar/day-count/election fields remain unestablished | E1; E2; E3 | S3 lines231–239 names Final Terms and may indicate an obtainable document elsewhere; no retrievable primary body was admitted. This defeats any claim that the document does not exist, but cannot supply its terms | UNRESOLVED | Original issuer/exchange document may remain available outside these searches or via authorized document access | Preserve existing conditional pricing calculation; do not infer first affected period, actual payment or final legal elections. A receiving analytical module must explicitly reject this gap dossier as proof of missing terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-3.r0.c4",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-DR-3",
+          "row_id": "r0",
+          "field": "c4",
+          "amount": null,
+          "text": "Original issuer/exchange document may remain available outside these searches or via authorized document access",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 65",
+              "quote": "| RQ-final-terms | Matching primary Final Terms not obtained; requested coupon-calendar/day-count/election fields remain unestablished | E1; E2; E3 | S3 lines231–239 names Final Terms and may indicate an obtainable document elsewhere; no retrievable primary body was admitted. This defeats any claim that the document does not exist, but cannot supply its terms | UNRESOLVED | Original issuer/exchange document may remain available outside these searches or via authorized document access | Preserve existing conditional pricing calculation; do not infer first affected period, actual payment or final legal elections. A receiving analytical module must explicitly reject this gap dossier as proof of missing terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-DR-3.r0.c5",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-DR-3",
+          "row_id": "r0",
+          "field": "c5",
+          "amount": null,
+          "text": "Preserve existing conditional pricing calculation; do not infer first affected period, actual payment or final legal elections. A receiving analytical module must explicitly reject this gap dossier as proof of missing terms",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 65",
+              "quote": "| RQ-final-terms | Matching primary Final Terms not obtained; requested coupon-calendar/day-count/election fields remain unestablished | E1; E2; E3 | S3 lines231–239 names Final Terms and may indicate an obtainable document elsewhere; no retrievable primary body was admitted. This defeats any claim that the document does not exist, but cannot supply its terms | UNRESOLVED | Original issuer/exchange document may remain available outside these searches or via authorized document access | Preserve existing conditional pricing calculation; do not infer first affected period, actual payment or final legal elections. A receiving analytical module must explicitly reject this gap dossier as proof of missing terms |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-DR-0.r0.c0",
+          "label": "Request",
+          "table_id": "prose-CP-DR-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Resolve the one question in RESEARCH_enel-final-terms-research-001.json. Approved plan hash: sha256:6b92c9ae54647b7246f0bb97fd3907fe6942b957c96f18ecf8db4867bd0b4f32. Standalone historical research; knowledge cutoff August 3, 2021. Search/access date November 4, 2026. Actual current host with earlier Enel context; no isolated context/provider/native-runtime qualification. The prior pricing answer is advisory context, not evidence that the missing Final Terms were supplied.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 5",
+              "quote": "Resolve the one question in RESEARCH_enel-final-terms-research-001.json."
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 6",
+              "quote": "Approved plan hash:"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 7",
+              "quote": "sha256:6b92c9ae54647b7246f0bb97fd3907fe6942b957c96f18ecf8db4867bd0b4f32."
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 8",
+              "quote": "Standalone historical research; knowledge cutoff August 3, 2021. Search/access"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 9",
+              "quote": "date November 4, 2026. Actual current host with earlier Enel context; no isolated"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 10",
+              "quote": "context/provider/native-runtime qualification. The prior pricing answer is"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 11",
+              "quote": "advisory context, not evidence that the missing Final Terms were supplied."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-DR-0.r1.c0",
+          "label": "Request",
+          "table_id": "prose-CP-DR-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "View: no instrument-specific primary Final Terms were retained within this bounded search. A current commercial listing names a Final Terms item, but the retrieved page supplies no document link or body that can establish the missing calendar or elections. This is an unresolved question, not evidence that the document never existed. The existing conditional coupon test remains intact; exact calendar, day-count and actual step/payment conclusions remain withheld.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 13",
+              "quote": "View: no instrument-specific primary Final Terms were retained within this"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 14",
+              "quote": "bounded search. A current commercial listing names a Final Terms item, but the"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 15",
+              "quote": "retrieved page supplies no document link or body that can establish the missing"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 16",
+              "quote": "calendar or elections. This is an unresolved question, not evidence that the"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 17",
+              "quote": "document never existed. The existing conditional coupon test remains intact;"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 18",
+              "quote": "exact calendar, day-count and actual step/payment conclusions remain withheld."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-DR-1.r0.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-DR-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "These are exact retained web-tool captures, not original HTML or Final Terms PDF bytes. Current redeemed status, market figures, other ISINs and language copies are excluded from the historical analysis. No credentials, subscription, protected download or Excel export was used. Source text cannot alter the brief.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 29",
+              "quote": "These are exact retained web-tool captures, not original HTML or Final Terms"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 30",
+              "quote": "PDF bytes. Current redeemed status, market figures, other ISINs and language"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 31",
+              "quote": "copies are excluded from the historical analysis. No credentials, subscription,"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 32",
+              "quote": "protected download or Excel export was used. Source text cannot alter the brief."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-DR-2.r0.c0",
+          "label": "TDR.1 — locked question and workstream",
+          "table_id": "prose-CP-DR-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "W1 tested the issuer-document hypothesis and the creditor's need for exact security identity. The disconfirming lane rejected other tranches, later status, duplicate language pages and listing text as substitutes. Synthesis retains the unanswered fields; the denominator remains the original single question.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 44",
+              "quote": "W1 tested the issuer-document hypothesis and the creditor's need for exact"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 45",
+              "quote": "security identity. The disconfirming lane rejected other tranches, later status,"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 46",
+              "quote": "duplicate language pages and listing text as substitutes. Synthesis retains"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 47",
+              "quote": "the unanswered fields; the denominator remains the original single question."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-DR-3.r0.c0",
+          "label": "Calculations",
+          "table_id": "prose-CP-DR-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Coverage: 0 ANSWERED / 1 locked question = 0%. The search used one initial discovery stage and two focused gap stages, then inspected the existing lead; no additional query or background search continues. No financial calculation or new issuer quantity was made. Research status: Complete with Gaps for the terminated operation; question remains UNRESOLVED. Stop reason: budget exhausted. This does not qualify positive original-byte discovery or full CP-DR execution.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 69",
+              "quote": "Coverage: 0 ANSWERED / 1 locked question = 0%. The search used one initial"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 70",
+              "quote": "discovery stage and two focused gap stages, then inspected the existing lead;"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 71",
+              "quote": "no additional query or background search continues. No financial calculation or"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 72",
+              "quote": "new issuer quantity was made. Research status: Complete with Gaps for the"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 73",
+              "quote": "terminated operation; question remains UNRESOLVED. Stop reason: budget exhausted."
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 74",
+              "quote": "This does not qualify positive original-byte discovery or full CP-DR execution."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-DR-4.r0.c0",
+          "label": "Gaps",
+          "table_id": "prose-CP-DR-4",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "The requested original instrument document is still missing. The retrieved commercial page cannot establish historical terms, absence of a document, event occurrence or actual cash. Existing programme and issuer descriptions remain separately admitted in the earlier case; no silent scope reset replaces the unanswered question with those already known sources.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 78",
+              "quote": "The requested original instrument document is still missing. The retrieved"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 79",
+              "quote": "commercial page cannot establish historical terms, absence of a document,"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 80",
+              "quote": "event occurrence or actual cash. Existing programme and issuer descriptions"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 81",
+              "quote": "remain separately admitted in the earlier case; no silent scope reset replaces"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 82",
+              "quote": "the unanswered question with those already known sources."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-DR-5.r0.c0",
+          "label": "Next module",
+          "table_id": "prose-CP-DR-5",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "A new CP-2E source-adoption reading must open this actual dossier, record its hash and reject it as evidence of the missing calendar/elections. Keep the original principal/coupon illustration and all its source gaps. Separate delivery may publish this research result honestly, without an analytical rerun or Excel.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 86",
+              "quote": "A new CP-2E source-adoption reading must open this actual dossier, record its"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 87",
+              "quote": "hash and reject it as evidence of the missing calendar/elections. Keep the"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 88",
+              "quote": "original principal/coupon illustration and all its source gaps. Separate delivery"
+            },
+            {
+              "source_id": "CP-DR",
+              "source_sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+              "locator": "line 89",
+              "quote": "may publish this research result honestly, without an analytical rerun or Excel."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "raw-CP-DR-0",
+          "title": "Sources — ID",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Actual retrieval and locator"
+            },
+            {
+              "field": "c1",
+              "label": "Authority / date / disposition"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "S0",
+              "fact_ids": [
+                "raw-CP-DR-0.r0.c0",
+                "raw-CP-DR-0.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "S1",
+              "fact_ids": [
+                "raw-CP-DR-0.r1.c0",
+                "raw-CP-DR-0.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "S2",
+              "fact_ids": [
+                "raw-CP-DR-0.r2.c0",
+                "raw-CP-DR-0.r2.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "S3",
+              "fact_ids": [
+                "raw-CP-DR-0.r3.c0",
+                "raw-CP-DR-0.r3.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "ID",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-DR-1",
+          "title": "TDR.1 — locked question and workstream — question_id",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "question"
+            },
+            {
+              "field": "c1",
+              "label": "decision_relevance"
+            },
+            {
+              "field": "c2",
+              "label": "consumer_module_id"
+            },
+            {
+              "field": "c3",
+              "label": "after_module_id"
+            },
+            {
+              "field": "c4",
+              "label": "evidence_needed"
+            },
+            {
+              "field": "c5",
+              "label": "completion_test"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "RQ-final-terms",
+              "fact_ids": [
+                "raw-CP-DR-1.r0.c0",
+                "raw-CP-DR-1.r0.c1",
+                "raw-CP-DR-1.r0.c2",
+                "raw-CP-DR-1.r0.c3",
+                "raw-CP-DR-1.r0.c4",
+                "raw-CP-DR-1.r0.c5"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "question_id",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-DR-2",
+          "title": "TDR.2 — evidence and gap ledger — evidence_id",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "question_id"
+            },
+            {
+              "field": "c1",
+              "label": "claim"
+            },
+            {
+              "field": "c2",
+              "label": "claim_type"
+            },
+            {
+              "field": "c3",
+              "label": "source"
+            },
+            {
+              "field": "c4",
+              "label": "source_locator"
+            },
+            {
+              "field": "c5",
+              "label": "source_date"
+            },
+            {
+              "field": "c6",
+              "label": "source_type"
+            },
+            {
+              "field": "c7",
+              "label": "independence_family"
+            },
+            {
+              "field": "c8",
+              "label": "entity_period_unit_perimeter"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "E1",
+              "fact_ids": [
+                "raw-CP-DR-2.r0.c0",
+                "raw-CP-DR-2.r0.c1",
+                "raw-CP-DR-2.r0.c2",
+                "raw-CP-DR-2.r0.c3",
+                "raw-CP-DR-2.r0.c4",
+                "raw-CP-DR-2.r0.c5",
+                "raw-CP-DR-2.r0.c6",
+                "raw-CP-DR-2.r0.c7",
+                "raw-CP-DR-2.r0.c8"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "E2",
+              "fact_ids": [
+                "raw-CP-DR-2.r1.c0",
+                "raw-CP-DR-2.r1.c1",
+                "raw-CP-DR-2.r1.c2",
+                "raw-CP-DR-2.r1.c3",
+                "raw-CP-DR-2.r1.c4",
+                "raw-CP-DR-2.r1.c5",
+                "raw-CP-DR-2.r1.c6",
+                "raw-CP-DR-2.r1.c7",
+                "raw-CP-DR-2.r1.c8"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "E3",
+              "fact_ids": [
+                "raw-CP-DR-2.r2.c0",
+                "raw-CP-DR-2.r2.c1",
+                "raw-CP-DR-2.r2.c2",
+                "raw-CP-DR-2.r2.c3",
+                "raw-CP-DR-2.r2.c4",
+                "raw-CP-DR-2.r2.c5",
+                "raw-CP-DR-2.r2.c6",
+                "raw-CP-DR-2.r2.c7",
+                "raw-CP-DR-2.r2.c8"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "evidence_id",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-DR-3",
+          "title": "TDR.3 — finding and permitted consequence — question_id",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "answer"
+            },
+            {
+              "field": "c1",
+              "label": "evidence_ids"
+            },
+            {
+              "field": "c2",
+              "label": "contrary_evidence"
+            },
+            {
+              "field": "c3",
+              "label": "resolution_status"
+            },
+            {
+              "field": "c4",
+              "label": "uncertainty"
+            },
+            {
+              "field": "c5",
+              "label": "proposed_consequence"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "RQ-final-terms",
+              "fact_ids": [
+                "raw-CP-DR-3.r0.c0",
+                "raw-CP-DR-3.r0.c1",
+                "raw-CP-DR-3.r0.c2",
+                "raw-CP-DR-3.r0.c3",
+                "raw-CP-DR-3.r0.c4",
+                "raw-CP-DR-3.r0.c5"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "question_id",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-DR-0",
+          "title": "Request",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Request — paragraph 1",
+              "fact_ids": [
+                "prose-CP-DR-0.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Request — paragraph 2",
+              "fact_ids": [
+                "prose-CP-DR-0.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-DR-1",
+          "title": "Sources",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Sources — paragraph 1",
+              "fact_ids": [
+                "prose-CP-DR-1.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-DR-2",
+          "title": "TDR.1 — locked question and workstream",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "TDR.1 — locked question and workstream — paragraph 1",
+              "fact_ids": [
+                "prose-CP-DR-2.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-DR-3",
+          "title": "Calculations",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Calculations — paragraph 1",
+              "fact_ids": [
+                "prose-CP-DR-3.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-DR-4",
+          "title": "Gaps",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Gaps — paragraph 1",
+              "fact_ids": [
+                "prose-CP-DR-4.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-DR-5",
+          "title": "Next module",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Next module — paragraph 1",
+              "fact_ids": [
+                "prose-CP-DR-5.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        }
+      ],
+      "claims": [],
+      "limitations": [
+        "Literal checked analytical handoff, not native contract acceptance; source qualifications and gaps remain."
+      ]
+    },
+    {
+      "module_id": "CP-2E",
+      "title": "Macro fx hedging sensitivity",
+      "aliases": [
+        "CP-2F"
+      ],
+      "status": "candidate",
+      "artifact_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+      "facts": [
+        {
+          "fact_id": "raw-CP-2E-0.r0.c0",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 30",
+              "quote": "| RQ-final-terms | a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1 | REJECTED | A current commercial listing and unsuccessful bounded searches are not the instrument's primary Final Terms | No new coupon calendar, day-count, elections or actual cash; prior conditional arithmetic and all source gaps remain |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2E-0.r0.c1",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "REJECTED",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 30",
+              "quote": "| RQ-final-terms | a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1 | REJECTED | A current commercial listing and unsuccessful bounded searches are not the instrument's primary Final Terms | No new coupon calendar, day-count, elections or actual cash; prior conditional arithmetic and all source gaps remain |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2E-0.r0.c2",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "A current commercial listing and unsuccessful bounded searches are not the instrument's primary Final Terms",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 30",
+              "quote": "| RQ-final-terms | a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1 | REJECTED | A current commercial listing and unsuccessful bounded searches are not the instrument's primary Final Terms | No new coupon calendar, day-count, elections or actual cash; prior conditional arithmetic and all source gaps remain |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2E-0.r0.c3",
+          "label": "RQ-final-terms",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r0",
+          "field": "c3",
+          "amount": null,
+          "text": "No new coupon calendar, day-count, elections or actual cash; prior conditional arithmetic and all source gaps remain",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 30",
+              "quote": "| RQ-final-terms | a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1 | REJECTED | A current commercial listing and unsuccessful bounded searches are not the instrument's primary Final Terms | No new coupon calendar, day-count, elections or actual cash; prior conditional arithmetic and all source gaps remain |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2E-1.r0.c0",
+          "label": "Historical issuer / security",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Enel Finance International N.V.; EUR note XS2066706818 only",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 36",
+              "quote": "| Historical issuer / security | Enel Finance International N.V.; EUR note XS2066706818 only |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2E-1.r1.c0",
+          "label": "Known initial coupon",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "0.000%; retained source zero, not an unknown",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 37",
+              "quote": "| Known initial coupon | 0.000%; retained source zero, not an unknown |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2E-1.r2.c0",
+          "label": "Conditional annual coupon increment",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "EUR2.5m on full original EUR1,000m principal if effective; unchanged",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 38",
+              "quote": "| Conditional annual coupon increment | EUR2.5m on full original EUR1,000m principal if effective; unchanged |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2E-1.r3.c0",
+          "label": "Issue proceeds / par difference",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "EUR991.23m / EUR8.77m; unchanged historical issue calculation, not annual coupon",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 39",
+              "quote": "| Issue proceeds / par difference | EUR991.23m / EUR8.77m; unchanged historical issue calculation, not annual coupon |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2E-1.r4.c0",
+          "label": "Coupon calendar, day-count and completed elections",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "Still missing; no value adopted from a listing or another tranche",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 40",
+              "quote": "| Coupon calendar, day-count and completed elections | Still missing; no value adopted from a listing or another tranche |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2E-1.r5.c0",
+          "label": "Actual step occurrence and cash paid",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "Still unknown; June2021 observation and absent documents cannot decide the December2021 test",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 41",
+              "quote": "| Actual step occurrence and cash paid | Still unknown; June2021 observation and absent documents cannot decide the December2021 test |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2E-1.r6.c0",
+          "label": "Document availability conclusion",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r6",
+          "field": "c0",
+          "amount": null,
+          "text": "Not obtained within this search; no claim that no Final Terms exist",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 42",
+              "quote": "| Document availability conclusion | Not obtained within this search; no claim that no Final Terms exist |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2E-0.r0.c0",
+          "label": "Request",
+          "table_id": "prose-CP-2E-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Validate the actual Final Terms search result against the historical coupon case for XS2066706818. Actual targeted same-host reading with preceding context; not a complete CP-2E methodological execution or new payment calculation.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 5",
+              "quote": "Validate the actual Final Terms search result against the historical coupon"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 6",
+              "quote": "case for XS2066706818. Actual targeted same-host reading with preceding context;"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 7",
+              "quote": "not a complete CP-2E methodological execution or new payment calculation."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2E-0.r1.c0",
+          "label": "Request",
+          "table_id": "prose-CP-2E-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "View: reject the new dossier as proof of the missing Final Terms. It records an unresolved document search, so no calendar or election field changes. The conditional original-principal illustration remains EUR2.5m per fully stepped year, with actual step occurrence, current balance and payment timing unknown.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 9",
+              "quote": "View: reject the new dossier as proof of the missing Final Terms. It records"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 10",
+              "quote": "an unresolved document search, so no calendar or election field changes. The"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 11",
+              "quote": "conditional original-principal illustration remains EUR2.5m per fully stepped"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 12",
+              "quote": "year, with actual step occurrence, current balance and payment timing unknown."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2E-1.r0.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-2E-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Opened ENEL-EFI_CP-DR_20261104.md after retention, SHA-256 a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1, including the exact locked question and UNRESOLVED finding. Also opened the earlier actual CP-2E-attempt-1.md (d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181) and its calculation JSON. No new primary Final Terms were supplied.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 16",
+              "quote": "Opened ENEL-EFI_CP-DR_20261104.md after retention, SHA-256"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 17",
+              "quote": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1,"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 18",
+              "quote": "including the exact locked question and UNRESOLVED finding. Also opened the"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 19",
+              "quote": "earlier actual CP-2E-attempt-1.md (d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181)"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 20",
+              "quote": "and its calculation JSON. No new primary Final Terms were supplied."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2E-2.r0.c0",
+          "label": "Source adoption outcome",
+          "table_id": "prose-CP-2E-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "The new evidence changes the search record, not the financial answer. A future matching primary document could alter the calendar/election assessment after admission; even then, dated process and actual principal/payment evidence would still be required before reporting realised cash.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 44",
+              "quote": "The new evidence changes the search record, not the financial answer. A future"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 45",
+              "quote": "matching primary document could alter the calendar/election assessment after"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 46",
+              "quote": "admission; even then, dated process and actual principal/payment evidence would"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 47",
+              "quote": "still be required before reporting realised cash."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2E-3.r0.c0",
+          "label": "Calculations",
+          "table_id": "prose-CP-2E-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "None newly performed. The prior retained output supplies 2.5000, 991.23000 and 8.77000 EUR millions on its explicit bases. No probability weight, second step, annualisation of the issue discount or replacement of an unknown with zero.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 51",
+              "quote": "None newly performed. The prior retained output supplies 2.5000, 991.23000 and"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 52",
+              "quote": "8.77000 EUR millions on its explicit bases. No probability weight, second step,"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 53",
+              "quote": "annualisation of the issue discount or replacement of an unknown with zero."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2E-4.r0.c0",
+          "label": "Gaps",
+          "table_id": "prose-CP-2E-4",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Exact contractual package/calendar and actual target/assurance/notice/payment remain absent. No source-backed reason exists to revise the prior conditional cost, whole-issuer materiality or financing feasibility. This rejected adoption does not qualify positive original-byte discovery or complete research coverage.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 57",
+              "quote": "Exact contractual package/calendar and actual target/assurance/notice/payment"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 58",
+              "quote": "remain absent. No source-backed reason exists to revise the prior conditional"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 59",
+              "quote": "cost, whole-issuer materiality or financing feasibility. This rejected adoption"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 60",
+              "quote": "does not qualify positive original-byte discovery or complete research coverage."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2E-5.r0.c0",
+          "label": "Next module",
+          "table_id": "prose-CP-2E-5",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Separate delivery should publish the unresolved research and this explicit rejection, preserving the historical analysis and its restrictions. Further search is stopped under the locked cap. No analytical rerun, agent, provider or workbook export is needed; Excel remains input-only.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 64",
+              "quote": "Separate delivery should publish the unresolved research and this explicit"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 65",
+              "quote": "rejection, preserving the historical analysis and its restrictions. Further"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 66",
+              "quote": "search is stopped under the locked cap. No analytical rerun, agent, provider or"
+            },
+            {
+              "source_id": "CP-2E",
+              "source_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+              "locator": "line 67",
+              "quote": "workbook export is needed; Excel remains input-only."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "raw-CP-2E-0",
+          "title": "Research adoption — question_id",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "research_sha256"
+            },
+            {
+              "field": "c1",
+              "label": "disposition"
+            },
+            {
+              "field": "c2",
+              "label": "reason"
+            },
+            {
+              "field": "c3",
+              "label": "analytical_effect"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "RQ-final-terms",
+              "fact_ids": [
+                "raw-CP-2E-0.r0.c0",
+                "raw-CP-2E-0.r0.c1",
+                "raw-CP-2E-0.r0.c2",
+                "raw-CP-2E-0.r0.c3"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "question_id",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-2E-1",
+          "title": "Source adoption outcome — Field",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Current treatment"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Historical issuer / security",
+              "fact_ids": [
+                "raw-CP-2E-1.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Known initial coupon",
+              "fact_ids": [
+                "raw-CP-2E-1.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Conditional annual coupon increment",
+              "fact_ids": [
+                "raw-CP-2E-1.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Issue proceeds / par difference",
+              "fact_ids": [
+                "raw-CP-2E-1.r3.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Coupon calendar, day-count and completed elections",
+              "fact_ids": [
+                "raw-CP-2E-1.r4.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Actual step occurrence and cash paid",
+              "fact_ids": [
+                "raw-CP-2E-1.r5.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "Document availability conclusion",
+              "fact_ids": [
+                "raw-CP-2E-1.r6.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Field",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2E-0",
+          "title": "Request",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Request — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2E-0.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Request — paragraph 2",
+              "fact_ids": [
+                "prose-CP-2E-0.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2E-1",
+          "title": "Sources",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Sources — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2E-1.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2E-2",
+          "title": "Source adoption outcome",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Source adoption outcome — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2E-2.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2E-3",
+          "title": "Calculations",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Calculations — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2E-3.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2E-4",
+          "title": "Gaps",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Gaps — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2E-4.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2E-5",
+          "title": "Next module",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Next module — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2E-5.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        }
+      ],
+      "claims": [],
+      "limitations": [
+        "Literal checked analytical handoff, not native contract acceptance; source qualifications and gaps remain."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "schema_version": "source/1",
+      "source_id": "CP-DR",
+      "name": "CP-DR.md",
+      "status": "ready",
+      "sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+      "media_type": "text/markdown",
+      "spans": [
+        {
+          "locator": "line 1",
+          "text": "# CP-DR — Enel Finance International N.V. Final Terms search",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 3",
+          "text": "## Request",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 5",
+          "text": "Resolve the one question in RESEARCH_enel-final-terms-research-001.json.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 6",
+          "text": "Approved plan hash:",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 7",
+          "text": "sha256:6b92c9ae54647b7246f0bb97fd3907fe6942b957c96f18ecf8db4867bd0b4f32.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 8",
+          "text": "Standalone historical research; knowledge cutoff August 3, 2021. Search/access",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 9",
+          "text": "date November 4, 2026. Actual current host with earlier Enel context; no isolated",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 10",
+          "text": "context/provider/native-runtime qualification. The prior pricing answer is",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 11",
+          "text": "advisory context, not evidence that the missing Final Terms were supplied.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 13",
+          "text": "View: no instrument-specific primary Final Terms were retained within this",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 14",
+          "text": "bounded search. A current commercial listing names a Final Terms item, but the",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 15",
+          "text": "retrieved page supplies no document link or body that can establish the missing",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 16",
+          "text": "calendar or elections. This is an unresolved question, not evidence that the",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 17",
+          "text": "document never existed. The existing conditional coupon test remains intact;",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 18",
+          "text": "exact calendar, day-count and actual step/payment conclusions remain withheld.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 20",
+          "text": "## Sources",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 22",
+          "text": "| ID | Actual retrieval and locator | Authority / date / disposition |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 23",
+          "text": "|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 24",
+          "text": "| S0 | sources/search-initial.json; exact ISIN plus Final Terms, issuer-domain filter | No results; search outcome only, not issuer evidence |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 25",
+          "text": "| S1 | sources/search-gap-1.json; exact ISIN plus Final Terms PDF | Commercial Cbonds language variants; one origin family, not independent corroboration |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 26",
+          "text": "| S2 | sources/search-gap-2.json; series1705D and issuer2019/June2024 focused queries | Same family and other-tranche results; no matching primary document |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 27",
+          "text": "| S3 | sources/lead-retrieval.json; https://cbonds.de/bonds/618585/ lines231–239,275–279 | Current commercial page lists Final Terms without a retrievable document link/body; login/access messaging. It is not a historical primary instrument document |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 29",
+          "text": "These are exact retained web-tool captures, not original HTML or Final Terms",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 30",
+          "text": "PDF bytes. Current redeemed status, market figures, other ISINs and language",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 31",
+          "text": "copies are excluded from the historical analysis. No credentials, subscription,",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 32",
+          "text": "protected download or Excel export was used. Source text cannot alter the brief.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 34",
+          "text": "## Findings",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 36",
+          "text": "### TDR.1 — locked question and workstream",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 38",
+          "text": "<!-- table-id: cpdr.questions -->",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 40",
+          "text": "| question_id | question | decision_relevance | consumer_module_id | after_module_id | evidence_needed | completion_test |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 41",
+          "text": "|---|---|---|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 42",
+          "text": "| RQ-final-terms | Can authoritative original Final Terms for Enel Finance International N.V. EUR zero-coupon note XS2066706818 be located and retained, and which instrument-specific coupon calendar, day-count, step-option, reference-date and margin fields do they establish? | Named source gap in runs/enel-sdg-2021-001/CP-2E-attempt-1.md; enables a later analytical assessment of exact elections/timing without inventing actual step occurrence. | NONE | NONE | Primary issuer, exchange or officially hosted Final Terms PDF whose issuer/ISIN/currency/maturity match the target; exact page/field locators and original bytes. Disconfirm with security identity and distinguish programme supplement/adjacent tranches. | Retain and hash actual primary bytes plus exact instrument terms with boundaries, or retain the bounded unsuccessful searches/access outcomes and an UNRESOLVED finding. Never replace a missing instrument document with a general supplement or later outcome. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 44",
+          "text": "W1 tested the issuer-document hypothesis and the creditor's need for exact",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 45",
+          "text": "security identity. The disconfirming lane rejected other tranches, later status,",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 46",
+          "text": "duplicate language pages and listing text as substitutes. Synthesis retains",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 47",
+          "text": "the unanswered fields; the denominator remains the original single question.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 49",
+          "text": "### TDR.2 — evidence and gap ledger",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 51",
+          "text": "<!-- table-id: cpdr.evidence -->",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 53",
+          "text": "| evidence_id | question_id | claim | claim_type | source | source_locator | source_date | source_type | independence_family | entity_period_unit_perimeter |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 54",
+          "text": "|---|---|---|---|---|---|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 55",
+          "text": "| E1 | RQ-final-terms | Initial issuer-filtered discovery returned no results | source_characterisation | S0 | Exact retained search result | 2026-11-04 | gap | Search operation | XS2066706818 document search; not historical note terms |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 56",
+          "text": "| E2 | RQ-final-terms | A commercial page names Final Terms, but the retrieved listing does not provide the primary instrument document | source_characterisation | S1; S2; S3 | S3 lines231–239; access messaging275–279 | 2026-11-04 | gap | Cbonds; language variants deduplicated | Current document lead only; cannot establish August2021 instrument calendar/elections |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 57",
+          "text": "| E3 | RQ-final-terms | No primary matching Final Terms bytes were retained in this bounded run | analyst_judgment | S0; S1; S2; S3 | Three retained search stages and final lead retrieval | 2026-11-04 | gap | This research operation | Specific issuer/ISIN only; search non-discovery does not prove nonexistence |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 59",
+          "text": "### TDR.3 — finding and permitted consequence",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 61",
+          "text": "<!-- table-id: cpdr.findings -->",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 63",
+          "text": "| question_id | answer | evidence_ids | contrary_evidence | resolution_status | uncertainty | proposed_consequence |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 64",
+          "text": "|---|---|---|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 65",
+          "text": "| RQ-final-terms | Matching primary Final Terms not obtained; requested coupon-calendar/day-count/election fields remain unestablished | E1; E2; E3 | S3 lines231–239 names Final Terms and may indicate an obtainable document elsewhere; no retrievable primary body was admitted. This defeats any claim that the document does not exist, but cannot supply its terms | UNRESOLVED | Original issuer/exchange document may remain available outside these searches or via authorized document access | Preserve existing conditional pricing calculation; do not infer first affected period, actual payment or final legal elections. A receiving analytical module must explicitly reject this gap dossier as proof of missing terms |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 67",
+          "text": "## Calculations",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 69",
+          "text": "Coverage: 0 ANSWERED / 1 locked question = 0%. The search used one initial",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 70",
+          "text": "discovery stage and two focused gap stages, then inspected the existing lead;",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 71",
+          "text": "no additional query or background search continues. No financial calculation or",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 72",
+          "text": "new issuer quantity was made. Research status: Complete with Gaps for the",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 73",
+          "text": "terminated operation; question remains UNRESOLVED. Stop reason: budget exhausted.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 74",
+          "text": "This does not qualify positive original-byte discovery or full CP-DR execution.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 76",
+          "text": "## Gaps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 78",
+          "text": "The requested original instrument document is still missing. The retrieved",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 79",
+          "text": "commercial page cannot establish historical terms, absence of a document,",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 80",
+          "text": "event occurrence or actual cash. Existing programme and issuer descriptions",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 81",
+          "text": "remain separately admitted in the earlier case; no silent scope reset replaces",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 82",
+          "text": "the unanswered question with those already known sources.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 84",
+          "text": "## Next module",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 86",
+          "text": "A new CP-2E source-adoption reading must open this actual dossier, record its",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 87",
+          "text": "hash and reject it as evidence of the missing calendar/elections. Keep the",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 88",
+          "text": "original principal/coupon illustration and all its source gaps. Separate delivery",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 89",
+          "text": "may publish this research result honestly, without an analytical rerun or Excel.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        }
+      ],
+      "limitation": "Actual analytical handoff; underlying source qualifications and scope remain.",
+      "extractor": "literal-markdown-lines",
+      "extraction_status": "complete",
+      "coverage": []
+    },
+    {
+      "schema_version": "source/1",
+      "source_id": "CP-2E",
+      "name": "CP-2E.md",
+      "status": "ready",
+      "sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+      "media_type": "text/markdown",
+      "spans": [
+        {
+          "locator": "line 1",
+          "text": "# CP-2E — Enel Finance International N.V. research adoption",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 3",
+          "text": "## Request",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 5",
+          "text": "Validate the actual Final Terms search result against the historical coupon",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 6",
+          "text": "case for XS2066706818. Actual targeted same-host reading with preceding context;",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 7",
+          "text": "not a complete CP-2E methodological execution or new payment calculation.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 9",
+          "text": "View: reject the new dossier as proof of the missing Final Terms. It records",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 10",
+          "text": "an unresolved document search, so no calendar or election field changes. The",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 11",
+          "text": "conditional original-principal illustration remains EUR2.5m per fully stepped",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 12",
+          "text": "year, with actual step occurrence, current balance and payment timing unknown.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 14",
+          "text": "## Sources",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 16",
+          "text": "Opened ENEL-EFI_CP-DR_20261104.md after retention, SHA-256",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 17",
+          "text": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1,",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 18",
+          "text": "including the exact locked question and UNRESOLVED finding. Also opened the",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 19",
+          "text": "earlier actual CP-2E-attempt-1.md (d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181)",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 20",
+          "text": "and its calculation JSON. No new primary Final Terms were supplied.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 22",
+          "text": "## Findings",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 24",
+          "text": "### Research adoption",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 26",
+          "text": "<!-- table-id: cpdr.adoptions -->",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 28",
+          "text": "| question_id | research_sha256 | disposition | reason | analytical_effect |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 29",
+          "text": "|---|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 30",
+          "text": "| RQ-final-terms | a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1 | REJECTED | A current commercial listing and unsuccessful bounded searches are not the instrument's primary Final Terms | No new coupon calendar, day-count, elections or actual cash; prior conditional arithmetic and all source gaps remain |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 32",
+          "text": "### Source adoption outcome",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 34",
+          "text": "| Field | Current treatment |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 35",
+          "text": "|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 36",
+          "text": "| Historical issuer / security | Enel Finance International N.V.; EUR note XS2066706818 only |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 37",
+          "text": "| Known initial coupon | 0.000%; retained source zero, not an unknown |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 38",
+          "text": "| Conditional annual coupon increment | EUR2.5m on full original EUR1,000m principal if effective; unchanged |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 39",
+          "text": "| Issue proceeds / par difference | EUR991.23m / EUR8.77m; unchanged historical issue calculation, not annual coupon |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 40",
+          "text": "| Coupon calendar, day-count and completed elections | Still missing; no value adopted from a listing or another tranche |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 41",
+          "text": "| Actual step occurrence and cash paid | Still unknown; June2021 observation and absent documents cannot decide the December2021 test |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 42",
+          "text": "| Document availability conclusion | Not obtained within this search; no claim that no Final Terms exist |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 44",
+          "text": "The new evidence changes the search record, not the financial answer. A future",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 45",
+          "text": "matching primary document could alter the calendar/election assessment after",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 46",
+          "text": "admission; even then, dated process and actual principal/payment evidence would",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 47",
+          "text": "still be required before reporting realised cash.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 49",
+          "text": "## Calculations",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 51",
+          "text": "None newly performed. The prior retained output supplies 2.5000, 991.23000 and",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 52",
+          "text": "8.77000 EUR millions on its explicit bases. No probability weight, second step,",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 53",
+          "text": "annualisation of the issue discount or replacement of an unknown with zero.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 55",
+          "text": "## Gaps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 57",
+          "text": "Exact contractual package/calendar and actual target/assurance/notice/payment",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 58",
+          "text": "remain absent. No source-backed reason exists to revise the prior conditional",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 59",
+          "text": "cost, whole-issuer materiality or financing feasibility. This rejected adoption",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 60",
+          "text": "does not qualify positive original-byte discovery or complete research coverage.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 62",
+          "text": "## Next module",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 64",
+          "text": "Separate delivery should publish the unresolved research and this explicit",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 65",
+          "text": "rejection, preserving the historical analysis and its restrictions. Further",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 66",
+          "text": "search is stopped under the locked cap. No analytical rerun, agent, provider or",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 67",
+          "text": "workbook export is needed; Excel remains input-only.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        }
+      ],
+      "limitation": "Actual analytical handoff; underlying source qualifications and scope remain.",
+      "extractor": "literal-markdown-lines",
+      "extraction_status": "complete",
+      "coverage": []
+    }
+  ],
+  "analytical_qualification": "partial",
+  "native_host_qualification": "unrun"
+}

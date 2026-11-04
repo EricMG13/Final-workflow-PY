@@ -1,0 +1,52 @@
+{
+  "execution": "actual current-host calculation over the admitted source terms; ordinary unchanged Decimal arithmetic",
+  "issuer": "Enel Finance International N.V.",
+  "isin": "XS2066706818",
+  "knowledge_cutoff": "2021-08-03",
+  "upstream_CP-0_sha256": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be",
+  "source_pdf_hashes": {
+    "S1-efi-2019": "c708892b50f0ec8d43e245e127489ecc9a096b31055f02c298f25955f0bb8886",
+    "S2-supplement-2019": "f72083f3810b2d0d8e0948d9317d85558c1c0e41a5b4fd9aece8921efa303d7c",
+    "S3-kpi-june-2021": "4932f80f79801c8eb73761bf87e2e0999daca7e21b15c22e517d99be8eb9bbcd",
+    "S4-issuer-target": "32bd2a80a946a40c5ad0e97304849198b99668563d6e205b6a18c1fd7a64af92"
+  },
+  "inputs": {
+    "principal_eur_m": "1000",
+    "initial_coupon_pct": "0",
+    "step_bp": "25",
+    "issue_price_pct": "99.123",
+    "reported_yield_pct": "0.189",
+    "raw_mw": [
+      "46.580",
+      "85.535"
+    ],
+    "reported_kpi": "54,5%",
+    "comparison_threshold_pct": "55"
+  },
+  "formulae": {
+    "step_decimal": "bp / 10000",
+    "annual_coupon_equivalent": "full original principal EURm * annual coupon decimal",
+    "gross_proceeds": "original principal EURm * issue price percent / 100",
+    "discount": "par minus gross proceeds",
+    "kpi_pct": "reported renewable / total capacity * 100",
+    "gap_pp": "55 minus KPI percentage"
+  },
+  "outputs": {
+    "step_decimal": "0.0025",
+    "initial_coupon_decimal": "0",
+    "stepped_coupon_decimal": "0.0025",
+    "initial_annual_coupon_eur_m": "0",
+    "stepped_annual_coupon_eur_m": "2.5000",
+    "increment_eur_m": "2.5000",
+    "gross_issue_proceeds_eur_m": "991.23000",
+    "par_less_gross_proceeds_eur_m": "8.77000",
+    "recomputed_kpi_pct": "54.457239726427778102531127608581282516",
+    "recomputed_gap_pp": "0.542760273572221897468872391418717484",
+    "displayed_kpi_gap_pp": "0.5"
+  },
+  "limits": [
+    "Conditional full-year equivalents, not observed payments/current outstanding principal or net hedged cost.",
+    "Ratios reconstructed from rounded source MW do not increase measurement precision.",
+    "June observation is not December target outcome; final terms/verification/notice/timing remain separately gated."
+  ]
+}

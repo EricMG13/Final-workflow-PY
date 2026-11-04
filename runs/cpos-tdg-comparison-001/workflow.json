@@ -1,0 +1,28 @@
+{
+  "run": {
+    "run_id": "cpos-tdg-comparison-1",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-8"
+    ]
+  },
+  "prior": {
+    "path": "/Users/ericguei/Documents/final-workflow/runs/cpos-tdg-host-001/execution/deliveries/17e1d418be894f6aeff979f100e87460fc3f9d80ed4f22cb7114e4b1c5c8627d/delivery.json",
+    "sha256": "4216fe746df0e4d46ae384b7abb0f464f8e0b4adfcbc6d2638382da98d440344"
+  },
+  "current": {
+    "path": "/Users/ericguei/Documents/final-workflow/runs/cpos-tdg-model-001/execution/deliveries/de1be08fb3a040d4e4f916cce017b1541b8eaaa8235b6fb50b7c4afb916a2bfc/delivery.json",
+    "sha256": "380a4e5f3835f21104eae5103f39a98d5ec08d5b2e082441d1ecc4d5fb9637d7"
+  },
+  "instructions": {
+    "path": "/Users/ericguei/Documents/final-workflow/runs/cpos-tdg-comparison-001/instructions.md",
+    "sha256": "15c083302007744717f0c0bc5d1a0fed1b26cea59b06f4df52bd02c072283b90"
+  },
+  "execution": "host-session",
+  "max_attempts": 2,
+  "provider_cap_usd": 0
+}

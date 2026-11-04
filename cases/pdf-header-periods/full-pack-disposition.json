@@ -1,0 +1,163 @@
+{
+  "schema": "pdf-header-full-pack-disposition/1",
+  "decision": "R24-C2",
+  "source": {
+    "document": "VMO2Q3",
+    "source_name": "VMO2-IFRS-Quarterly-Bond-Report-Q3-2025.pdf",
+    "source_sha256": "dc1d977f3f6b98e84a93af0c6f6b3bccb32b9a9e2e178b37846871e4b06ac9e9"
+  },
+  "page_text_hashes": {
+    "46": {
+      "extractor": "pypdf 6.21.2 extract_text(extraction_mode=layout)",
+      "utf8_text_sha256": "5af1c290f5ab6e9326954b18deb2a9dc826119fcdb7d1e8d7d8e3b74cbb1571e",
+      "line_count": 63
+    },
+    "48": {
+      "extractor": "pypdf 6.21.2 extract_text(extraction_mode=layout)",
+      "utf8_text_sha256": "26c9fb19c4273be307960733e9d6f24656bb5173ee625117982ed5f62d0afa6a",
+      "line_count": 48
+    }
+  },
+  "units": [
+    {
+      "unit_id": "VMO2Q3-page46-CFS-summary",
+      "locator": "page:46",
+      "kind": "CFS",
+      "printed_title": "Condensed Consolidated Statements of Cash Flows",
+      "title_line": 8,
+      "printed_context_lines": [
+        {
+          "line": 8,
+          "text": "Condensed Consolidated Statements of Cash Flows"
+        },
+        {
+          "line": 10,
+          "text": "Summary"
+        },
+        {
+          "line": 11,
+          "text": "Our summarised condensed consolidated statements of cash flows for the nine months ended 30 September 2025 and 2024 are set"
+        },
+        {
+          "line": 12,
+          "text": "forth below:"
+        },
+        {
+          "line": 14,
+          "text": "                                                                                                                                                                Nine months ended 30 September"
+        },
+        {
+          "line": 15,
+          "text": "                                                                                                                                                                             2025                           2024"
+        },
+        {
+          "line": 16,
+          "text": "                                                                                                                                                                               in millions"
+        }
+      ],
+      "table_rows": [
+        {
+          "line": 17,
+          "label": "Net cash provided by operating activities"
+        },
+        {
+          "line": 18,
+          "label": "Net cash used by investing activities"
+        },
+        {
+          "line": 19,
+          "label": "Net cash used by financing activities"
+        },
+        {
+          "line": 20,
+          "label": "Effect of exchange rate changes on cash and cash equivalents"
+        },
+        {
+          "line": 21,
+          "label": "Net (decrease) increase in cash and cash equivalents"
+        }
+      ],
+      "disposition": "positive_period_mapping",
+      "period_columns": [
+        {
+          "period_id": "VMO2Q3-p46-ytd-2025",
+          "kind": "nine_months",
+          "start_date": "2025-01-01",
+          "end_date": "2025-09-30",
+          "duration_months": 9,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "VMO2Q3-p46-ytd-2024",
+          "kind": "nine_months",
+          "start_date": "2024-01-01",
+          "end_date": "2024-09-30",
+          "duration_months": 9,
+          "fiscal_year": 2024
+        }
+      ],
+      "basis": "The raw page title identifies condensed consolidated cash flows. Its own narrative and printed header both say nine months ended 30 September; the two columns are ordered 2025 then 2024. R24-C2 declares the YTD starts for this period input. A separate capital-expenditure reconciliation schedule later on page 46 is not this cash-flow summary unit."
+    },
+    {
+      "unit_id": "VMO2Q3-page48-IS-entity-summary",
+      "locator": "page:48",
+      "kind": "IS",
+      "printed_title": "Statement of Profit or (Loss)",
+      "title_line": 37,
+      "printed_context_lines": [
+        {
+          "line": 32,
+          "text": "                                                                                                                                                                                               Nine months ended 30 September 2025"
+        },
+        {
+          "line": 34,
+          "text": "                                                                                                                                                                        in millions"
+        },
+        {
+          "line": 35,
+          "text": "                                                                                                                           VMED                        Virgin"
+        },
+        {
+          "line": 36,
+          "text": "                                                                                                             O2 UK Holdings               Media Secured                                                          Non-"
+        },
+        {
+          "line": 37,
+          "text": "  Statement of Profit or (Loss)                                                                                          Limited               Finance plc               Guarantors                    Guarantors                           Total"
+        }
+      ],
+      "entity_columns": [
+        "VMED O2 UK Holdings Limited",
+        "Virgin Media Secured Finance plc",
+        "Guarantors",
+        "Non-Guarantors",
+        "Total"
+      ],
+      "printed_period": {
+        "period_id": "VMO2Q3-p48-ytd-2025",
+        "kind": "nine_months",
+        "start_date": "2025-01-01",
+        "end_date": "2025-09-30",
+        "duration_months": 9,
+        "fiscal_year": 2025
+      },
+      "disposition": "refuse_non_period_mappable",
+      "expected_mapping": "refuse_all_entity_columns",
+      "refusal_rationale": "The five printed columns distinguish entities and a total, while the page supplies one nine-month reporting period. Repeating the same period five times would treat entity dimensions as time periods and create an ambiguous/non-period-mappable map. Do not map balances or entity columns as flows."
+    }
+  ],
+  "co_located_statement_blocks_on_page48": [
+    {
+      "kind": "BS",
+      "title": "Statement of Financial Position",
+      "period_line": "30 September 2025",
+      "status": "not among the two additional production-located units in this disposition; retained here as visible raw-page context"
+    },
+    {
+      "kind": "CI",
+      "title": "Statement of Comprehensive Income (Loss)",
+      "period_line": "Nine months ended 30 September 2025",
+      "status": "not among the two additional production-located units in this disposition; retained here as visible raw-page context"
+    }
+  ]
+}

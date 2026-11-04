@@ -1,0 +1,17 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Historical Ford Otomotiv Sanayi A.S. (Ford Otosan), April 11, 2024. Bounded published-plan funding intake from actual retained handoffs. Plan covers 2024 starting January 1; not twelve months from the April review. Displayed rounded TRY-billion components use the full up-to-2 working-capital swing. Proposed bond proceeds and purpose-specific capex facility availability remain conditional; dividend overlay and exactly-15% capex mitigation are separate stipulated cases, not actual failures or the agency working model. TRY-million forecasts remain separate. Complete maturities, operative documents, unrestricted access, refinancing/LME feasibility, creditor treatment and outcomes remain unassessed. Retained-response replay, not fresh model/provider/native acceptance. Excel is an analytical input only; no workbook output.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-0.md": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+    "CP-1.md": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+    "CP-2G.md": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931",
+    "CP-2H.md": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72",
+    "CP-3C.md": "4dacb927b491334e57cd01fd848437156975cb0e1b44599e92eeaee490acaed8",
+    "view.json": "bbdb46fa3d79c82826aba7908b94cd67c0b0a17e247df72fca61ea766460e41c",
+    "report-view.json": "e81547c190232c35acae72fc60ed3741dd03bec1e3eb08c4ee50589a6aee692c",
+    "report.html": "8229b08484fbe186c0cfc82dd845ae3dfae1de23781e453ddcd1ca531e55a0ab"
+  }
+}

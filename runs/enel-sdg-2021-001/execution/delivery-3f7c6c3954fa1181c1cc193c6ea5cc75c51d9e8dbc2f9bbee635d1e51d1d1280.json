@@ -1,0 +1,101 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "enel-efi-sdg-pricing-2021-1",
+    "issuer_id": "ENEL-EFI",
+    "issuer_name": "Enel Finance International N.V.",
+    "as_of": "2021-08-03",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-2F"
+    ]
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "requests/CP-0/f64bf29c2fa559ef5d0356412c46270316da4cc1f390215a71fcc64986f0bfe0/1.response.md",
+      "sha256": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+    },
+    "CP-2E": {
+      "path": "requests/CP-2E/cba710350803e6877307f0dbbb1e1974354ea8b6e71485baafc3fefe410a8012/1.response.md",
+      "sha256": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+    }
+  },
+  "model": null,
+  "layout": {
+    "blocks": [
+      "key-findings",
+      "capital-structure"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2E",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "key-findings",
+        "table_header": null,
+        "prefix": "View:",
+        "label": "Historical conditional pricing view"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2G.7 — credit implication",
+        "kind": "prose",
+        "block_id": "key-findings",
+        "table_header": null,
+        "prefix": null,
+        "label": "Cash mechanism and contrary case"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2G.5 — instrument mechanics",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "table_header": "Term",
+        "prefix": null,
+        "label": "Specific note and source terms"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2G.5 — instrument mechanics",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "table_header": "Condition",
+        "prefix": null,
+        "label": "Performance, verification and notification"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2G.6 — conditional funding cost",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "table_header": "Scenario",
+        "prefix": null,
+        "label": "Coupon equivalents · EUR millions per full year"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2G.2 — KPI and transition exposure",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "table_header": null,
+        "prefix": null,
+        "label": "June observation · not the December target result"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2G.8 — gaps",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "table_header": null,
+        "prefix": null,
+        "label": "Unproven fields and targeted follow-up"
+      }
+    ],
+    "scope": "Historical Enel Finance International N.V. EUR1,000m initial0% notes XS2066706818 due June17 2024; guarantor/KPI Enel S.p.A. under the documented perimeter. Knowledge cutoff August3 2021; June30 KPI observation is not the December31 2021 target outcome. Source programme supplement, issuer financial-note/target disclosures and limited-assurance statement support a conditional pricing test; specific Final Terms/full contract package remain incomplete. Full-year coupon equivalents assume full original principal and an effective step-up; they are not actual accrued payments, net hedged funding cost, a spread forecast or issuer-level materiality. Unknown event/timing/access/market/outcome fields remain gaps. Actual current host with preflight context; no blind/independent/provider/native claim. All eight ESG analytical views remain. Excel is ingestion-only; no workbook output.",
+    "title": "Enel EFI · historical sustainability-linked coupon test",
+    "question": "What cash coupon could the documented ratchet add, and which conditions remain unproven?",
+    "issuer_aliases": []
+  }
+}

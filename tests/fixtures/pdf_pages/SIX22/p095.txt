@@ -1,0 +1,93 @@
+16/06/2026, 22:24                                                 sec.gov/Archives/edgar/data/701374/000155837022001971/six-20220102x10k.htm
+
+
+                       Table of Contents
+
+
+
+                                                          SIX FLAGS ENTERTAINMENT CORPORATION
+                                                     Consolidated Statements of Comprehensive Income (Loss)
+
+                                                                                                                                      Year Ended
+                       (Amounts in thousands)                                                               January 2, 2022     December 31, 2020      December 31, 2019
+                       Net income (loss)                                                                    $        171,689    $           (382,092)  $            219,818
+                       Other comprehensive income (loss), net of tax:
+                           Foreign currency translation adjustment (1)                                                 (3,691)                (4,053)                  4,081
+                           Defined benefit retirement plan (2)                                                        10,146                  (6,259)                 (6,167)
+                           Change in cash flow hedging (3)                                                              8,862                (11,482)                 (1,126)
+                       Other comprehensive income (loss), net of tax                                                  15,317                 (21,794)                 (3,212)
+                       Comprehensive income (loss)                                                                   187,006                (403,886)               216,606
+                       Less: Comprehensive income attributable to noncontrolling interests                           (41,766)                (41,288)                (40,753)
+                       Comprehensive income (loss) attributable to Six Flags Entertainment                  $        145,240    $           (445,174)  $            175,853
+                       Corporation
+
+                       (1)   Foreign currency translation adjustment is presented net of tax benefit of $0.9 million and $1.2 million for the years ended
+                             January 2, 2022 and December 31, 2020, respectively, and net of tax expense of $1.1 million for the year ended
+                             December 31, 2019.
+                       (2)   Defined benefit retirement plan is presented net of tax expense of $3.4 million for the year ended January 2, 2022, and net of
+                             tax benefit of $2.1 million for the years ended December 31, 2020 and 2019.
+                       (3)   Change in cash flow hedging is presented net of tax expense of $3.0 million for the year ended January 2, 2022, and net of
+                             tax benefit of $3.8 million and $0.4 million for the years ended December 31, 2020 and 2019, respectively.
+
+                                                         See accompanying notes to consolidated financial statements.
+
+
+
+
+
+                                                                                                 54
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://www.sec.gov/Archives/edgar/data/701374/000155837022001971/six-20220102x10k.htm                                                                                                       95/170

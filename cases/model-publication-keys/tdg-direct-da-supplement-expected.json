@@ -1,0 +1,566 @@
+{
+  "schema": "tdg-direct-da-supplement/1",
+  "status": "PREPARATION_COMPLETE_PENDING_INDEPENDENT_MX_PRECISE_REVIEW",
+  "authority": {
+    "case_id": "tdg-credit-snapshot",
+    "issuer_id": "TDG",
+    "pathway": "credit_snapshot",
+    "as_of": "2025-02-04",
+    "source_keys": [
+      {
+        "path": "cases/model-publication-keys/tdg-income-frame-expected.json",
+        "sha256": "c4346d4ad2b0c5f981989e9f053032a05233aee06cc719087104f89163388249",
+        "use": "FY2022 EBIT and distinct income-statement amortization provenance"
+      },
+      {
+        "path": "cases/model-publication-keys/tdg-issuer-reconciliations-expected.json",
+        "sha256": "bbf1f5e429054c9d374b7cf82a78e17352f7d91498bae820d70783b4e2c8fcd8",
+        "use": "FY2024/FY2023 issuer-reconciliation D&A corroboration only"
+      }
+    ],
+    "adopted_method_path": "/Users/ericguei/.codex/worktrees/pretesting-completion/Deploy Workflow/artifacts/pretesting/support-intake/20261104T0150-tdg-adopted/tdg-model-adopted-definitions/method-contract.md",
+    "adopted_method_sha256": "828404b8334d38aa16f200caaa60081e5e6ef7674bdde9394e6698464cfe2164",
+    "primary_raw_source": "/Users/ericguei/Documents/Deploy Workflow/artifacts/public-corpus/v1/TDG/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+    "primary_raw_source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+    "independence": "Direct D&A was keyed from the primary filing table and reconciled to pinned sources; no Product or offline-actor calculation output/code was consulted."
+  },
+  "direct_source_population": {
+    "note": "Note15 SEGMENTS",
+    "table_index_zero_based": 127,
+    "table_fragment_sha256": "f81af3cc7965ab1921a8847c2fd3a36ef2f0191f8243a940d3365196f9494577",
+    "selected_fiscal_years": [
+      2024,
+      2023,
+      2022
+    ],
+    "direct_reported_total_role": "depreciation and amortization total from the native consolidated total row; no component sum is calculated",
+    "reported_totals": [
+      {
+        "fiscal_year": 2024,
+        "reported_positive_amount_usd_millions": "312",
+        "source": {
+          "raw_source_id": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+          "source_file_identity": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "source_table_index_zero_based": 127,
+          "source_table_locator": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm#table[127]",
+          "table_byte_range_in_raw_file": [
+            3233019,
+            3258244
+          ],
+          "table_fragment_sha256": "f81af3cc7965ab1921a8847c2fd3a36ef2f0191f8243a940d3365196f9494577",
+          "note_section": "Note 15 SEGMENTS",
+          "section_label_row_index_zero_based": 9,
+          "section_label": "Depreciation and amortization",
+          "preceding_total_detail_row_index_zero_based": 13,
+          "preceding_total_detail_row_label": "Corporate",
+          "total_row_index_zero_based": 14,
+          "total_row_label_cell_index_zero_based": 0,
+          "total_row_label_cell_visible_text": "",
+          "total_row_is_unlabeled": true,
+          "data_cell_index_zero_based": 2,
+          "data_cell_tag": "td",
+          "data_cell_colspan": null,
+          "data_cell_rowspan": null,
+          "visible_cell_literal": "312 ",
+          "value_grid_column_range": [
+            4,
+            4
+          ],
+          "duration_header": {
+            "row_index_zero_based": 1,
+            "cell_index_zero_based": 1,
+            "literal": "Fiscal Years Ended September 30,",
+            "grid_column_range": [
+              3,
+              17
+            ],
+            "colspan": "15"
+          },
+          "date_header": {
+            "row_index_zero_based": 2,
+            "cell_index_zero_based": 1,
+            "literal": "2024",
+            "grid_column_range": [
+              3,
+              5
+            ],
+            "colspan": "3"
+          },
+          "context": {
+            "context_id": "c-1",
+            "entity_cik": "0001260221",
+            "identifier_scheme": "http://www.sec.gov/CIK",
+            "period_start_date": "2023-10-01",
+            "period_end_date": "2024-09-30",
+            "dimension_elements_present": false,
+            "source_context_xml_sha256": "be132ad324fed042db6d30bb304b57f997149d8936842cd2e9b695daea482f8a"
+          },
+          "source_context_xml": "<xbrli:context id=\"c-1\"><xbrli:entity><xbrli:identifier scheme=\"http://www.sec.gov/CIK\">0001260221</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:startDate>2023-10-01</xbrli:startDate><xbrli:endDate>2024-09-30</xbrli:endDate></xbrli:period></xbrli:context>",
+          "source_context_xml_sha256": "be132ad324fed042db6d30bb304b57f997149d8936842cd2e9b695daea482f8a",
+          "unit": {
+            "unit_id": "usd",
+            "measures": [
+              "iso4217:USD"
+            ],
+            "source_unit_xml": "<xbrli:unit id=\"usd\"><xbrli:measure>iso4217:USD</xbrli:measure></xbrli:unit>",
+            "source_unit_xml_sha256": "85566c0471d66a6a65161f62bd35a84da937efe9bc5974ff2a452eed5669f125"
+          },
+          "inline_fact": {
+            "inline_fact_id": "f-1648",
+            "fact_element": "ix:nonFraction",
+            "concept_qname": "us-gaap:DepreciationDepletionAndAmortization",
+            "context_ref": "c-1",
+            "unit_ref": "usd",
+            "lexeme": "312",
+            "scale_attribute": "6",
+            "decimals_precision_attribute": "-6",
+            "sign_attribute": null,
+            "format_attribute": null,
+            "xsi_nil_attribute": null,
+            "all_inline_attributes": {
+              "unitref": "usd",
+              "contextref": "c-1",
+              "decimals": "-6",
+              "name": "us-gaap:DepreciationDepletionAndAmortization",
+              "scale": "6",
+              "id": "f-1648"
+            },
+            "raw_opening_tag": "<ix:nonFraction unitRef=\"usd\" contextRef=\"c-1\" decimals=\"-6\" name=\"us-gaap:DepreciationDepletionAndAmortization\" scale=\"6\" id=\"f-1648\">",
+            "source_byte_offset": 3255990,
+            "source_id_attribute_byte_offset": 3256113
+          },
+          "source_description": "Capital expenditures and depreciation and amortization by segment (in millions)",
+          "source_id_runtime_alias": "K24"
+        }
+      },
+      {
+        "fiscal_year": 2023,
+        "reported_positive_amount_usd_millions": "268",
+        "source": {
+          "raw_source_id": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+          "source_file_identity": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "source_table_index_zero_based": 127,
+          "source_table_locator": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm#table[127]",
+          "table_byte_range_in_raw_file": [
+            3233019,
+            3258244
+          ],
+          "table_fragment_sha256": "f81af3cc7965ab1921a8847c2fd3a36ef2f0191f8243a940d3365196f9494577",
+          "note_section": "Note 15 SEGMENTS",
+          "section_label_row_index_zero_based": 9,
+          "section_label": "Depreciation and amortization",
+          "preceding_total_detail_row_index_zero_based": 13,
+          "preceding_total_detail_row_label": "Corporate",
+          "total_row_index_zero_based": 14,
+          "total_row_label_cell_index_zero_based": 0,
+          "total_row_label_cell_visible_text": "",
+          "total_row_is_unlabeled": true,
+          "data_cell_index_zero_based": 6,
+          "data_cell_tag": "td",
+          "data_cell_colspan": null,
+          "data_cell_rowspan": null,
+          "visible_cell_literal": "268 ",
+          "value_grid_column_range": [
+            10,
+            10
+          ],
+          "duration_header": {
+            "row_index_zero_based": 1,
+            "cell_index_zero_based": 1,
+            "literal": "Fiscal Years Ended September 30,",
+            "grid_column_range": [
+              3,
+              17
+            ],
+            "colspan": "15"
+          },
+          "date_header": {
+            "row_index_zero_based": 2,
+            "cell_index_zero_based": 3,
+            "literal": "2023",
+            "grid_column_range": [
+              9,
+              11
+            ],
+            "colspan": "3"
+          },
+          "context": {
+            "context_id": "c-13",
+            "entity_cik": "0001260221",
+            "identifier_scheme": "http://www.sec.gov/CIK",
+            "period_start_date": "2022-10-01",
+            "period_end_date": "2023-09-30",
+            "dimension_elements_present": false,
+            "source_context_xml_sha256": "a6771067795d2a098a4f47a2670ecc6290f2eac07955e8184676914f4f16ca41"
+          },
+          "source_context_xml": "<xbrli:context id=\"c-13\"><xbrli:entity><xbrli:identifier scheme=\"http://www.sec.gov/CIK\">0001260221</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:startDate>2022-10-01</xbrli:startDate><xbrli:endDate>2023-09-30</xbrli:endDate></xbrli:period></xbrli:context>",
+          "source_context_xml_sha256": "a6771067795d2a098a4f47a2670ecc6290f2eac07955e8184676914f4f16ca41",
+          "unit": {
+            "unit_id": "usd",
+            "measures": [
+              "iso4217:USD"
+            ],
+            "source_unit_xml": "<xbrli:unit id=\"usd\"><xbrli:measure>iso4217:USD</xbrli:measure></xbrli:unit>",
+            "source_unit_xml_sha256": "85566c0471d66a6a65161f62bd35a84da937efe9bc5974ff2a452eed5669f125"
+          },
+          "inline_fact": {
+            "inline_fact_id": "f-1649",
+            "fact_element": "ix:nonFraction",
+            "concept_qname": "us-gaap:DepreciationDepletionAndAmortization",
+            "context_ref": "c-13",
+            "unit_ref": "usd",
+            "lexeme": "268",
+            "scale_attribute": "6",
+            "decimals_precision_attribute": "-6",
+            "sign_attribute": null,
+            "format_attribute": null,
+            "xsi_nil_attribute": null,
+            "all_inline_attributes": {
+              "unitref": "usd",
+              "contextref": "c-13",
+              "decimals": "-6",
+              "name": "us-gaap:DepreciationDepletionAndAmortization",
+              "scale": "6",
+              "id": "f-1649"
+            },
+            "raw_opening_tag": "<ix:nonFraction unitRef=\"usd\" contextRef=\"c-13\" decimals=\"-6\" name=\"us-gaap:DepreciationDepletionAndAmortization\" scale=\"6\" id=\"f-1649\">",
+            "source_byte_offset": 3256943,
+            "source_id_attribute_byte_offset": 3257067
+          },
+          "source_description": "Capital expenditures and depreciation and amortization by segment (in millions)",
+          "source_id_runtime_alias": "K24"
+        }
+      },
+      {
+        "fiscal_year": 2022,
+        "reported_positive_amount_usd_millions": "253",
+        "source": {
+          "raw_source_id": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+          "source_file_identity": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "source_table_index_zero_based": 127,
+          "source_table_locator": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm#table[127]",
+          "table_byte_range_in_raw_file": [
+            3233019,
+            3258244
+          ],
+          "table_fragment_sha256": "f81af3cc7965ab1921a8847c2fd3a36ef2f0191f8243a940d3365196f9494577",
+          "note_section": "Note 15 SEGMENTS",
+          "section_label_row_index_zero_based": 9,
+          "section_label": "Depreciation and amortization",
+          "preceding_total_detail_row_index_zero_based": 13,
+          "preceding_total_detail_row_label": "Corporate",
+          "total_row_index_zero_based": 14,
+          "total_row_label_cell_index_zero_based": 0,
+          "total_row_label_cell_visible_text": "",
+          "total_row_is_unlabeled": true,
+          "data_cell_index_zero_based": 10,
+          "data_cell_tag": "td",
+          "data_cell_colspan": null,
+          "data_cell_rowspan": null,
+          "visible_cell_literal": "253 ",
+          "value_grid_column_range": [
+            16,
+            16
+          ],
+          "duration_header": {
+            "row_index_zero_based": 1,
+            "cell_index_zero_based": 1,
+            "literal": "Fiscal Years Ended September 30,",
+            "grid_column_range": [
+              3,
+              17
+            ],
+            "colspan": "15"
+          },
+          "date_header": {
+            "row_index_zero_based": 2,
+            "cell_index_zero_based": 5,
+            "literal": "2022",
+            "grid_column_range": [
+              15,
+              17
+            ],
+            "colspan": "3"
+          },
+          "context": {
+            "context_id": "c-14",
+            "entity_cik": "0001260221",
+            "identifier_scheme": "http://www.sec.gov/CIK",
+            "period_start_date": "2021-10-01",
+            "period_end_date": "2022-09-30",
+            "dimension_elements_present": false,
+            "source_context_xml_sha256": "844765b3dc872511922b9e93fd68a2526729d0cad9fb8b30e7d91b8b1d1eb595"
+          },
+          "source_context_xml": "<xbrli:context id=\"c-14\"><xbrli:entity><xbrli:identifier scheme=\"http://www.sec.gov/CIK\">0001260221</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:startDate>2021-10-01</xbrli:startDate><xbrli:endDate>2022-09-30</xbrli:endDate></xbrli:period></xbrli:context>",
+          "source_context_xml_sha256": "844765b3dc872511922b9e93fd68a2526729d0cad9fb8b30e7d91b8b1d1eb595",
+          "unit": {
+            "unit_id": "usd",
+            "measures": [
+              "iso4217:USD"
+            ],
+            "source_unit_xml": "<xbrli:unit id=\"usd\"><xbrli:measure>iso4217:USD</xbrli:measure></xbrli:unit>",
+            "source_unit_xml_sha256": "85566c0471d66a6a65161f62bd35a84da937efe9bc5974ff2a452eed5669f125"
+          },
+          "inline_fact": {
+            "inline_fact_id": "f-1650",
+            "fact_element": "ix:nonFraction",
+            "concept_qname": "us-gaap:DepreciationDepletionAndAmortization",
+            "context_ref": "c-14",
+            "unit_ref": "usd",
+            "lexeme": "253",
+            "scale_attribute": "6",
+            "decimals_precision_attribute": "-6",
+            "sign_attribute": null,
+            "format_attribute": null,
+            "xsi_nil_attribute": null,
+            "all_inline_attributes": {
+              "unitref": "usd",
+              "contextref": "c-14",
+              "decimals": "-6",
+              "name": "us-gaap:DepreciationDepletionAndAmortization",
+              "scale": "6",
+              "id": "f-1650"
+            },
+            "raw_opening_tag": "<ix:nonFraction unitRef=\"usd\" contextRef=\"c-14\" decimals=\"-6\" name=\"us-gaap:DepreciationDepletionAndAmortization\" scale=\"6\" id=\"f-1650\">",
+            "source_byte_offset": 3257897,
+            "source_id_attribute_byte_offset": 3258021
+          },
+          "source_description": "Capital expenditures and depreciation and amortization by segment (in millions)",
+          "source_id_runtime_alias": "K24"
+        }
+      }
+    ]
+  },
+  "corroboration": {
+    "issuer_reconciliation_d_and_a": [
+      {
+        "fiscal_year": 2024,
+        "direct_note15_reported_d_and_a_usd_millions": "312",
+        "issuer_reconciliation_reported_d_and_a_visible_literal": "312",
+        "nominal_direct_minus_issuer_reconciliation_usd_millions": "0",
+        "issuer_reconciliation_source": {
+          "source_key": "cases/model-publication-keys/tdg-issuer-reconciliations-expected.json",
+          "source_key_sha256": "bbf1f5e429054c9d374b7cf82a78e17352f7d91498bae820d70783b4e2c8fcd8",
+          "raw_source_id": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930",
+          "source_id_runtime_alias": "K24",
+          "source_file_identity": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "table_index_zero_based": 34,
+          "table_locator": "HTML table 35",
+          "row_index_zero_based": 5,
+          "row_label": "Depreciation and amortization expense",
+          "cell_index_zero_based": 1,
+          "visible_literal": "312",
+          "source_cell_status": "visible_only_no_inline_fact_descendant",
+          "inline_fact_present": false,
+          "date_header_row_index_zero_based": 2,
+          "date_header_cell_index_zero_based": 1,
+          "date_header_literal": "2024",
+          "unit_basis": {
+            "currency": "USD",
+            "display": "USD millions",
+            "basis": "table caption states (in millions); USD currency shown in native table rows/column headings",
+            "display_scale": "USD millions; each printed unit is 10^6 USD",
+            "inline_xbrl_scale": null
+          },
+          "entity": {
+            "cik": "0001260221",
+            "name": "TransDigm Group Incorporated (TD Group per table wording)"
+          }
+        }
+      },
+      {
+        "fiscal_year": 2023,
+        "direct_note15_reported_d_and_a_usd_millions": "268",
+        "issuer_reconciliation_reported_d_and_a_visible_literal": "268",
+        "nominal_direct_minus_issuer_reconciliation_usd_millions": "0",
+        "issuer_reconciliation_source": {
+          "source_key": "cases/model-publication-keys/tdg-issuer-reconciliations-expected.json",
+          "source_key_sha256": "bbf1f5e429054c9d374b7cf82a78e17352f7d91498bae820d70783b4e2c8fcd8",
+          "raw_source_id": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930",
+          "source_id_runtime_alias": "K24",
+          "source_file_identity": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "table_index_zero_based": 34,
+          "table_locator": "HTML table 35",
+          "row_index_zero_based": 5,
+          "row_label": "Depreciation and amortization expense",
+          "cell_index_zero_based": 4,
+          "visible_literal": "268",
+          "source_cell_status": "visible_only_no_inline_fact_descendant",
+          "inline_fact_present": false,
+          "date_header_row_index_zero_based": 2,
+          "date_header_cell_index_zero_based": 3,
+          "date_header_literal": "2023",
+          "unit_basis": {
+            "currency": "USD",
+            "display": "USD millions",
+            "basis": "table caption states (in millions); USD currency shown in native table rows/column headings",
+            "display_scale": "USD millions; each printed unit is 10^6 USD",
+            "inline_xbrl_scale": null
+          },
+          "entity": {
+            "cik": "0001260221",
+            "name": "TransDigm Group Incorporated (TD Group per table wording)"
+          }
+        }
+      }
+    ],
+    "comparison_policy": "FY2024/FY2023 nominal source-value corroboration only; the existing reconciliation cells are visible-only and no threshold/verdict is applied."
+  },
+  "fy2022_income_frame_completion": {
+    "source_period_occurrence": 11,
+    "source_period": {
+      "source_id_runtime_alias": "K24",
+      "raw_source_id": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+      "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+      "start_date": "2021-10-01",
+      "end_date": "2022-09-30",
+      "duration_header": "Fiscal Years Ended September 30,"
+    },
+    "income_frame_source_key": "cases/model-publication-keys/tdg-income-frame-expected.json",
+    "income_frame_source_key_sha256": "c4346d4ad2b0c5f981989e9f053032a05233aee06cc719087104f89163388249",
+    "calculated_ebit_usd_millions": "2215",
+    "issuer_d_and_a_source_record": {
+      "raw_source_id": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+      "source_file_identity": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+      "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+      "source_table_index_zero_based": 127,
+      "source_table_locator": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm#table[127]",
+      "table_byte_range_in_raw_file": [
+        3233019,
+        3258244
+      ],
+      "table_fragment_sha256": "f81af3cc7965ab1921a8847c2fd3a36ef2f0191f8243a940d3365196f9494577",
+      "note_section": "Note 15 SEGMENTS",
+      "printed_caption": "Capital expenditures and depreciation and amortization by segment (in millions)",
+      "printed_unit_caption": "in millions",
+      "section_label_row_index_zero_based": 9,
+      "section_label": "Depreciation and amortization",
+      "preceding_total_detail_row_index_zero_based": 13,
+      "preceding_total_detail_row_label": "Corporate",
+      "total_row_index_zero_based": 14,
+      "total_row_label_cell_index_zero_based": 0,
+      "total_row_label_cell_visible_text": "",
+      "total_row_is_unlabeled": true,
+      "data_cell_index_zero_based": 10,
+      "data_cell_tag": "td",
+      "data_cell_colspan": null,
+      "data_cell_rowspan": null,
+      "visible_cell_literal": "253 ",
+      "value_grid_column_range": [
+        16,
+        16
+      ],
+      "duration_header": {
+        "row_index_zero_based": 1,
+        "cell_index_zero_based": 1,
+        "literal": "Fiscal Years Ended September 30,",
+        "grid_column_range": [
+          3,
+          17
+        ],
+        "colspan": "15"
+      },
+      "date_header": {
+        "row_index_zero_based": 2,
+        "cell_index_zero_based": 5,
+        "literal": "2022",
+        "grid_column_range": [
+          15,
+          17
+        ],
+        "colspan": "3"
+      },
+      "context": {
+        "context_id": "c-14",
+        "entity_cik": "0001260221",
+        "identifier_scheme": "http://www.sec.gov/CIK",
+        "period_start_date": "2021-10-01",
+        "period_end_date": "2022-09-30",
+        "dimension_elements_present": false,
+        "source_context_xml_sha256": "844765b3dc872511922b9e93fd68a2526729d0cad9fb8b30e7d91b8b1d1eb595"
+      },
+      "source_context_xml": "<xbrli:context id=\"c-14\"><xbrli:entity><xbrli:identifier scheme=\"http://www.sec.gov/CIK\">0001260221</xbrli:identifier></xbrli:entity><xbrli:period><xbrli:startDate>2021-10-01</xbrli:startDate><xbrli:endDate>2022-09-30</xbrli:endDate></xbrli:period></xbrli:context>",
+      "source_context_xml_sha256": "844765b3dc872511922b9e93fd68a2526729d0cad9fb8b30e7d91b8b1d1eb595",
+      "unit": {
+        "unit_id": "usd",
+        "measures": [
+          "iso4217:USD"
+        ],
+        "source_unit_xml": "<xbrli:unit id=\"usd\"><xbrli:measure>iso4217:USD</xbrli:measure></xbrli:unit>",
+        "source_unit_xml_sha256": "85566c0471d66a6a65161f62bd35a84da937efe9bc5974ff2a452eed5669f125"
+      },
+      "inline_fact": {
+        "inline_fact_id": "f-1650",
+        "fact_element": "ix:nonFraction",
+        "concept_qname": "us-gaap:DepreciationDepletionAndAmortization",
+        "context_ref": "c-14",
+        "unit_ref": "usd",
+        "lexeme": "253",
+        "scale_attribute": "6",
+        "decimals_precision_attribute": "-6",
+        "sign_attribute": null,
+        "format_attribute": null,
+        "xsi_nil_attribute": null,
+        "all_inline_attributes": {
+          "unitref": "usd",
+          "contextref": "c-14",
+          "decimals": "-6",
+          "name": "us-gaap:DepreciationDepletionAndAmortization",
+          "scale": "6",
+          "id": "f-1650"
+        },
+        "raw_opening_tag": "<ix:nonFraction unitRef=\"usd\" contextRef=\"c-14\" decimals=\"-6\" name=\"us-gaap:DepreciationDepletionAndAmortization\" scale=\"6\" id=\"f-1650\">",
+        "source_byte_offset": 3257897
+      }
+    },
+    "reported_positive_d_and_a_usd_millions": "253",
+    "signed_d_and_a_usd_millions": "-253",
+    "calculated_ebitda_usd_millions": "2468",
+    "formula": "calculated EBIT - signed D&A",
+    "decimal": {
+      "owner": "Python Decimal",
+      "precision": 38,
+      "rounding": "ROUND_HALF_EVEN",
+      "intermediate_quantization": "none"
+    },
+    "plain_reported_ebitda": {
+      "availability": "UNRESOLVED_NOT_KEYED",
+      "value_usd_millions": null,
+      "comparison_delta": null
+    },
+    "do_not_substitute": "The nearby Total Company EBITDA As Defined value 2646 is a distinct measure and is not a plain reported EBITDA input."
+  },
+  "excluded_component_guardrails": [
+    {
+      "source_basis": "lease-specified distinction; not used as the direct input",
+      "reported_line": "CFS depreciation",
+      "reported_amount_usd_millions": "116"
+    },
+    {
+      "source_basis": "lease-specified distinction; not used as the direct input",
+      "reported_line": "CFS amortization of intangible assets and product certification costs",
+      "reported_amount_usd_millions": "137"
+    },
+    {
+      "source_basis": "pinned income-frame key",
+      "reported_line": "income-statement intangible amortization",
+      "reported_amount_usd_millions": "136",
+      "source_key": "cases/model-publication-keys/tdg-income-frame-expected.json",
+      "source_key_sha256": "c4346d4ad2b0c5f981989e9f053032a05233aee06cc719087104f89163388249",
+      "source_occurrence": 11
+    }
+  ],
+  "scope_limitations": [
+    "Existing income-frame expected key remains unchanged; this supplement only adds direct Note15 D&A source support and the dependent FY2022 calculated EBITDA expected cell.",
+    "The direct Note15 total is reported as a single consolidated total row that is unlabeled at row index 14 and follows the Corporate detail row; no component sum or CFS-to-income-statement bridge is inferred.",
+    "Plain reported FY2022 EBITDA remains unresolved. The Total Company EBITDA As Defined value 2646 is excluded and never substituted; no reported EBITDA delta is computed.",
+    "The CFS and income-statement component lines are distinct as recorded in the lease. No component-sum or interchangeability rule is adopted.",
+    "No tolerance, Verified/reconciliation acceptance, House/Structuring verdict, ratio, product account/binding, runtime use, publication, downstream consumption or rendering is established. No new source was acquired."
+  ],
+  "component_policy": "These lines remain distinct corroborating inputs; no component sum is inferred and CFS 137 is not interchanged with income-statement 136."
+}

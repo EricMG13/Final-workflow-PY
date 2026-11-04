@@ -1,0 +1,116 @@
+=== PDF PAGE 21 ===
+Investments
+
+          Below we list our fifteen common stock investments that at yearend had the largest market value. We
+exclude our Kraft Heinz holding because Berkshire is part of a control group and therefore must account for this
+investment on the “equity” method. The 325,442,152 shares Berkshire owns of Kraft Heinz are carried on our
+balance sheet at a GAAP figure of $15.3 billion and had a yearend market value of $28.4 billion. Our cost basis
+for the shares is $9.8 billion.
+
+                                                                                               12/31/16
+                                                                               Percentage of
+                                                                                 Company
+Shares*                                  Company                                  Owned        Cost**                 Market
+                                                                                                        (in millions)
+  151,610,700      American Express Company .....................                   16.8       $    1,287         $     11,231
+   61,242,652      Apple Inc. .............................................          1.1            6,747                7,093
+    6,789,054      Charter Communications, Inc....................                   2.5            1,210                1,955
+  400,000,000      The Coca-Cola Company .........................                   9.3            1,299               16,584
+   54,934,718      Delta Airlines Inc. ..................................            7.5            2,299                2,702
+   11,390,582      The Goldman Sachs Group, Inc. ................                    2.9              654                2,727
+   81,232,303      International Business Machines Corp. .......                     8.5           13,815               13,484
+   24,669,778      Moody’s Corporation ..............................               12.9              248                2,326
+   74,587,892      Phillips 66 .............................................        14.4            5,841                6,445
+   22,169,930      Sanofi ..................................................         1.7            1,692                1,791
+   43,203,775      Southwest Airlines Co. ............................               7.0            1,757                2,153
+  101,859,335      U.S. Bancorp .........................................            6.0            3,239                5,233
+   26,620,184      United Continental Holdings Inc................                   8.4            1,477                1,940
+   43,387,980      USG Corp. ............................................           29.7              836                1,253
+  500,000,000      Wells Fargo & Company .........................                  10.0           12,730               27,555
+                   Others ..................................................                       10,697               17,560
+                   Total Common Stocks Carried at Market ....                                  $ 65,828           $ 122,032
+
+ *        Excludes shares held by pension funds of Berkshire subsidiaries.
+ **       This is our actual purchase price and also our tax basis; GAAP “cost” differs in a few cases because of
+          write-downs that have been required under GAAP rules.
+
+         Some of the stocks in the table are the responsibility of either Todd Combs or Ted Weschler, who work
+with me in managing Berkshire’s investments. Each, independently, manages more than $10 billion; I usually
+learn about decisions they have made by looking at monthly trade sheets. Included in the $21 billion that the two
+manage is about $7.6 billion of pension trust assets of certain Berkshire subsidiaries. As noted, pension
+investments are not included in the preceding tabulation of Berkshire holdings.
+
+                                                     ************
+
+        Excluded from the table – but important – is our ownership of $5 billion of preferred stock issued by
+Bank of America. This stock, which pays us $300 million per year, also carries with it a valuable warrant
+allowing Berkshire to purchase 700 million common shares of Bank of America for $5 billion at any time before
+September 2, 2021. At yearend, that privilege would have delivered us a profit of $10.5 billion. If it wishes,
+Berkshire can use its preferred shares to satisfy the $5 billion cost of exercising the warrant.
+
+
+
+
+                                                                  19
+
+=== PDF PAGE 51 ===
+Notes to Consolidated Financial Statements (Continued)
+(5)    Other investments
+      Other investments include preferred stock of Bank of America Corporation (“BAC”), warrants to purchase common stock of
+BAC and preferred stock of Restaurant Brands International, Inc. (“RBI”) and in 2015 also included preferred stock of Wm.
+Wrigley Jr. Company (“Wrigley”) and The Dow Chemical Company (“Dow”). Other investments are classified as
+available-for-sale and carried at fair value and are shown in our Consolidated Balance Sheets as follows (in millions).
+
+                                                                                                                   Cost                     Fair Value
+                                                                                                            December 31,               December 31,
+                                                                                                          2016             2015      2016                2015
+
+Insurance and other...................................................................................   $ 6,720          $ 9,690   $14,364        $15,683
+Finance and financial products ....................................................................        1,000            3,052     2,892          5,719
+                                                                                                         $ 7,720          $12,742   $17,256        $21,402
+
+
+      In 2008, we purchased $2.1 billion of Wrigley preferred stock pursuant to a shareholder agreement in conjunction with Mars
+Incorporated’s (“Mars”) acquisition of Wrigley. Pursuant to certain put and call provisions in the shareholder agreement, up to
+50% of our original investment was redeemable over a 90-day period scheduled to begin on October 6, 2016. In September 2016,
+pursuant to an agreement entered into in August 2016, Mars acquired all of our Wrigley preferred stock for approximately
+$4.56 billion, which included a prorated dividend that would have otherwise been payable in October 2016.
+
+      In 2009, we acquired 3,000,000 shares of Series A Cumulative Convertible Perpetual Preferred Stock of Dow (“Dow
+Preferred”) for approximately $3 billion. In December 2016, Dow exercised its option to convert the Dow Preferred into
+72.6 million shares of common stock. As of December 31, 2016, all shares of common stock received upon the conversion had
+been sold. The Dow Preferred was entitled to dividends at a rate of 8.5% per annum.
+
+      We currently own 50,000 shares of 6% Non-Cumulative Perpetual Preferred Stock of BAC (“BAC Preferred”) with a
+liquidation value of $100,000 per share and warrants to purchase 700,000,000 shares of common stock of BAC (“BAC Warrants”).
+The BAC Preferred is redeemable at the option of BAC beginning on May 7, 2019 at a redemption price of $105,000 per share (or
+$5.25 billion in aggregate). The BAC Warrants expire in 2021 and are exercisable for an additional aggregate cost of $5 billion
+($7.142857/share).
+
+       We currently own Class A 9% Cumulative Compounding Perpetual Preferred Shares of RBI (“RBI Preferred”) having a
+stated value of $3 billion. RBI, domiciled in Canada, is the ultimate parent company of Burger King and Tim Hortons. The RBI
+Preferred is entitled to dividends on a cumulative basis of 9% per annum plus an additional amount, if necessary, to produce an
+after-tax yield to Berkshire as if the dividends were paid by a U.S.-based company. The RBI Preferred is redeemable at the option
+of RBI beginning on December 12, 2017. If not redeemed prior to December 12, 2024, we can cause RBI to redeem the RBI
+Preferred. In either case, the redemption price will be 109.9% of the stated value of such shares.
+
+(6)    Investments in The Kraft Heinz Company
+
+      On June 7, 2013, Berkshire and an affiliate of the global investment firm 3G Capital (such affiliate, “3G”), each made equity
+investments in H.J. Heinz Holding Corporation (“Heinz Holding”), which, together with debt financing obtained by Heinz
+Holding, was used to acquire H. J. Heinz Company (“Heinz”). Berkshire’s initial investments consisted of 425 million shares of
+Heinz Holding common stock; warrants, which we exercised in June 2015, to acquire approximately 46 million additional shares of
+common stock at one cent per share; and cumulative compounding preferred stock (“Preferred Stock”) with a liquidation
+preference of $8 billion. The aggregate cost of our investments was $12.25 billion. 3G also acquired 425 million shares of Heinz
+Holding common stock for $4.25 billion. On June 7, 2016, our Preferred Stock investment was redeemed for cash of $8.32 billion.
+Prior to its redemption, the Preferred Stock was entitled to dividends at 9% per annum. Dividends earned on the Preferred Stock
+were $180 million in 2016, $852 million in 2015 and $720 million in 2014 and are included in interest, dividends and other
+investment income.
+
+     On July 1, 2015, Berkshire acquired 262.9 million shares of newly issued common stock of Heinz Holding for $5.26 billion
+and 3G acquired 237.1 million shares of newly issued common stock of Heinz Holding for $4.74 billion. Immediately thereafter,
+Heinz Holding executed a reverse stock split at a rate of 0.443332 of a share for each share. As of that date, Berkshire owned
+52.5% of Heinz Holding’s outstanding common stock.
+
+                                                                                49
+

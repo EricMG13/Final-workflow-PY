@@ -1,0 +1,19 @@
+{
+  "kind": "cpos-markdown-delivery/1",
+  "execution": "retained-response-replay",
+  "scope": "Historical May31 2025 LQD-held ARCC subset, not a current portfolio or complete fund underwriting. CP-OS publishes all eight sections of the existing Portfolio Decision design from actual retained CP-3/CP-3B, CP-6/CP-6A and final CP-5/CP-5A answers. This is checked publication replay; personas were simulated in the original same host, not independent agents. Requires More Work; no supported market preference, numeric new size, mandate clearance, exact binding limit or execution approval. USD holdings and conditional losses retain matching fund NAV; on-loan and July2029 amounts are subsets. Older issuer context is not May2025 underwriting. Current literal inspector preserves quantities/periods in text/citations; no native numeric facets, accepted heads, new analytical run or Excel output. Earlier QA remains frozen context; current CP-5 is the actual final recheck.",
+  "provider_cap_usd": 0,
+  "modules": {
+    "CP-3": "requests/CP-3/78b925f6f4ed607e522f181f0e384d84bd415f60235e7a769578f0324de4a458/1.response.md",
+    "CP-6": "requests/CP-6/650e47c8071e8e42fd0e822d1ec1bb85b3c946f4ea78ac918445a9eb9b1216c8/1.response.md",
+    "CP-5": "requests/CP-5/bd80f81b63b299c1a5ad07751490ff2f300fb023877c5ea679eb2c5cbb2cacb7/1.response.md"
+  },
+  "module_execution": {
+    "CP-3": "retained-response-replay",
+    "CP-6": "retained-response-replay",
+    "CP-5": "retained-response-replay"
+  },
+  "cp_model_published": false,
+  "delivery_manifest_sha256": "3dae9f27036ee24cbea4d440f1f3870c4e5f93568ab7f371751b22ffc33a9c60",
+  "report_sha256": "dbc97fbd5cc577e12508f55fc1c5a134aebfd4e5484c1790f3c36eb1fe481696"
+}

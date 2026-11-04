@@ -1,0 +1,20 @@
+[
+  {
+    "file": "product-page.html",
+    "url": "https://www.ishares.com/us/products/239566/ishares-iboxx-investment-grade-corporate-bond-etf",
+    "sha256": "a13365503443272ac4c4183b27cab29f958438101426e0d49c994cfcf990f02d",
+    "retrieved": "2026-11-04"
+  },
+  {
+    "file": "LQD-20250531-NPORT.xml",
+    "url": "https://www.sec.gov/Archives/edgar/data/1100663/000175272425177725/primary_doc.xml",
+    "sha256": "7617ce8e9f605035939d57fdf019636510ba08d9cb2388d561be04d574bb11df",
+    "retrieved": "2026-11-04"
+  },
+  {
+    "file": "formn-port.pdf",
+    "url": "https://www.sec.gov/files/formn-port.pdf",
+    "sha256": "f953af594dee58522fc3e9fe92b9872aedce5e59a2a954281aa4fbb6d3ded2cf",
+    "retrieved": "2026-11-04"
+  }
+]

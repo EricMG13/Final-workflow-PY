@@ -1,0 +1,97 @@
+{
+  "worksheet_observations": [
+    {
+      "source": "W1",
+      "row": 11,
+      "label": "Fee and commission expenses",
+      "prior": "-464",
+      "current": "-517",
+      "family": "monetary",
+      "unit": "EUR million",
+      "period": "annual"
+    },
+    {
+      "source": "W1",
+      "row": 12,
+      "label": "Dividend income",
+      "prior": "38",
+      "current": "39",
+      "family": "monetary",
+      "unit": "EUR million",
+      "period": "annual"
+    },
+    {
+      "source": "W1",
+      "row": 39,
+      "label": "Earnings per share",
+      "prior": "6.80",
+      "current": "7.20",
+      "family": "currency_per_share",
+      "unit": "EUR/share",
+      "period": "annual",
+      "stored_leading_space": true
+    },
+    {
+      "source": "W2",
+      "row": 11,
+      "label": "Pledged as collateral \u2014 non-trading FVPL financial assets",
+      "prior": "0",
+      "current": "0",
+      "family": "monetary",
+      "unit": "EUR million",
+      "period": "year-end instant"
+    },
+    {
+      "source": "W3",
+      "row": 42,
+      "label": "Acquisition of subsidiaries (net of cash and cash equivalents acquired)",
+      "prior": "0",
+      "current": "-88",
+      "family": "monetary",
+      "unit": "EUR million",
+      "period": "annual"
+    },
+    {
+      "source": "W3",
+      "row": 43,
+      "label": "Disposal of subsidiaries",
+      "prior": "0",
+      "current": "28",
+      "family": "monetary",
+      "unit": "EUR million",
+      "period": "annual"
+    }
+  ],
+  "separate_pdf_observations": [
+    {
+      "page": 3,
+      "printed_page": 236,
+      "label": "Net interest income",
+      "prior": "7228",
+      "current": "7528",
+      "unit": "EUR million",
+      "period": "annual"
+    },
+    {
+      "page": 5,
+      "printed_page": 238,
+      "label": "Total assets",
+      "prior": "337155",
+      "current": "353736",
+      "unit": "EUR million",
+      "period": "year-end instant"
+    },
+    {
+      "page": 8,
+      "printed_page": 241,
+      "label": "Cash flow from operating activities",
+      "prior": "2586",
+      "current": "-9029",
+      "unit": "EUR million",
+      "period": "annual"
+    }
+  ],
+  "basis": "Independently read original PDF page images3/5/8 and worksheet source values before CP-1 answer; no production financial calculations.",
+  "never_rescale_workbook": true,
+  "not_full_underwriting": true
+}

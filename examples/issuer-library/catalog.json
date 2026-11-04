@@ -1,0 +1,783 @@
+{
+  "schema": "issuer-library-example/1",
+  "sources": {
+    "tdg-sector": {
+      "path": "runs/tdg-002/CP-1A-attempt-3.md",
+      "sha256": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+      "line": 46,
+      "quote": "| Sector | **Analyst Interpretation.** Aerospace and defense components are the core sector, with smaller non-aviation activities. | S1 PDF 4–5 and 7. The label synthesizes disclosed product/end-market descriptions. |"
+    },
+    "tdg-base": {
+      "path": "runs/tdg-002/CP-2A-attempt-1.md",
+      "sha256": "6591fd403e775f7e1caefd7ac4de96b95a48df8b364e77a249b2c9eb0f79f199",
+      "line": 32,
+      "quote": "| Base | 4,173.00 | 1,158.00 | 1,880.00 | 5.96x | 4.46x | 3.60x | 7.56% |"
+    },
+    "tdg-revenue": {
+      "path": "runs/tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "line": 246,
+      "quote": "| Net sales | 7,940 | 6,585 | 5,429 | Reported, PDF 106 |"
+    },
+    "tdg-ebitda": {
+      "path": "runs/tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "line": 255,
+      "quote": "| EBITDA As Defined, total company | 4,173 | 3,395 | 2,646 | Non-GAAP issuer metric, PDF 142 |"
+    },
+    "tdg-cash": {
+      "path": "runs/tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "line": 254,
+      "quote": "| Cash closing | 6,261 | 3,472 | 3,001 | Reported, PDF 109 |"
+    },
+    "tdg-cashflow": {
+      "path": "runs/tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "line": 253,
+      "quote": "| Operating cash less capex | 1,880 | 1,236 | 829 | Calculated; simple subtraction only |"
+    },
+    "q-revenue": {
+      "path": "runs/tdg-003/CP-1B-attempt-1.md",
+      "sha256": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+      "line": 71,
+      "quote": "| Revenue | 1789 | 2006 | 217 | 12.13% | Reported sales |"
+    },
+    "q-ebitda": {
+      "path": "runs/tdg-003/CP-1B-attempt-1.md",
+      "sha256": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+      "line": 77,
+      "quote": "| EBITDA As Defined | 912 | 1061 | 149 | 16.34% | Signed issuer adjustments |"
+    },
+    "q-cash": {
+      "path": "runs/tdg-003/CP-1B-attempt-1.md",
+      "sha256": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+      "line": 86,
+      "quote": "| Closing cash | 4135 | 2459 | -1676 | -40.53% | Quarter-end instants; not unrestricted cash |"
+    },
+    "q-cashflow": {
+      "path": "runs/tdg-003/CP-1B-attempt-1.md",
+      "sha256": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+      "line": 84,
+      "quote": "| OCF minus capex proxy | 600 | 710 | 110 | 18.33% | Calculated; not issuer FCF |"
+    },
+    "ford-revenue": {
+      "path": "runs/ford-otosan-2024-001/CP-1-selected-input.md",
+      "sha256": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+      "line": 22,
+      "quote": "| Revenue | 411,906 | 742,742 | 1,056,981 |"
+    },
+    "ford-ebitda": {
+      "path": "runs/ford-otosan-2024-001/CP-1-selected-input.md",
+      "sha256": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+      "line": 26,
+      "quote": "| S&P adjusted EBITDA | 48,214 | 57,370 | 72,052 |"
+    },
+    "ford-leverage": {
+      "path": "runs/ford-otosan-2024-001/CP-1-selected-input.md",
+      "sha256": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+      "line": 35,
+      "quote": "| Source debt/EBITDA | 1.6x | 2.2x | 2.0x |"
+    },
+    "ford-coverage": {
+      "path": "runs/ford-otosan-2024-001/CP-1-selected-input.md",
+      "sha256": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+      "line": 38,
+      "quote": "| Source EBITDA interest coverage | 8.2x | 6.7x | 6.1x |"
+    },
+    "ford-cashflow": {
+      "path": "runs/ford-otosan-2024-001/CP-1-selected-input.md",
+      "sha256": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+      "line": 31,
+      "quote": "| FOCF | 16,425 | 8,611 | 8,834 |"
+    },
+    "ford-ratings": {
+      "path": "runs/ford-otosan-2024-001/CP-2H-attempt-2.md",
+      "sha256": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72",
+      "line": 35,
+      "quote": "| S&P / Ford Otomotiv | BB- **preliminary**, Positive | BB- preliminary | 2024-04-11; S 1, 11 |"
+    },
+    "ford-fitch": {
+      "path": "runs/ford-otosan-2024-001/CP-2H-attempt-2.md",
+      "sha256": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72",
+      "line": 36,
+      "quote": "| Fitch / same company | BB+, Stable | BB+(EXP), RR4 | 2024-04-11; F 1, 7; committee date April 4 is distinct |"
+    },
+    "ford-sector": {
+      "path": "runs/ford-otosan-2024-001/sources/fitch-and-metrics.json",
+      "sha256": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+      "line": 1,
+      "quote": "\"4/11/24, 10:51 AM (https://www.fordotosan.com.tr/documents/Documents/Diger_Duyurular/fitch-publishes-ford-otosans-bb-idr-outlook-stable-rates-proposed-eurobond-bbexp.pdf)\\nciteturn17view0 [wordlim: 200] Crawled: 1.4 years ago; Content type: application/pdf; Source: open({\\\"ref_id\\\":\\\"turn13view0\\\",\\\"lineno\\\":0}); Redirected to URL: https://www.fordotosan.com.tr/documents/Documents/Diger_Duyurular/fitch-publishes-ford-otosans-bb-idr-outlook-stable-rates-proposed-eurobond-bbexp.pdf#page=1; Total lines: 320\\nL0: 4/11/24, 10:51 AM\\nL1: Fitch Publishes Ford Otosan's 'BB+' IDR; Outlook Stable; Rates Proposed Eurobond 'BB+(EXP)'\\nL2: RATING ACTION COMMENTARY\\nL3: Fitch Publishes Ford Otosan's 'BB+' IDR; Outlook Stable; Rates Proposed Eurobond 'BB+(EXP)'\\nL4: Thu 11 Apr, 2024 - 4:43 AM ET\\nL5: Fitch Ratings - Barcelona - 11 Apr 2024: Fitch Ratings has published Ford Otomotiv Sanayi A.S.'s (Ford Otosan) Long-Term Foreign-\\nL6: Currency Issuer Default Rating (IDR) of 'BB+' with a Stable Outlook. Fitch has also assigned the company's proposed Eurobond an\\nL7: expected senior unsecured rating of 'BB+(EXP)/RR4'. Final ratings are subject to the completion of refinancing and final documentation\\nL8: confirming to information already received.\\nL9: The ratings and Outlook consider Ford Otosan's solid through-the-cycle financial profile, which Fitch views as largely in line with\\nL10: investment-grade automotive peers. The investment guarantee scheme embedded in the contract manufacturing agreement with Ford\\nL11: Motor Company (FMC, BBB-/Stable) helps protect Ford Otosan's revenue and margins from a market downturn and ensures complete\\nL12: capex recovery over the planned product cycle. We expect leverage metrics to closely follow the investment cycle and that the\\nL13: deleveraging path after the initial investment spike will be supported by healthy free cash flow (FCF) generation before dividend\\nL14: distribution.\\nL15: Ford Otosan's business profile is characterised by its small scale and limited diversification compared with auto peers, which Fitch views\\nL16: as constraining the rating. The nature of being a contract manufacturer implies little brand value although Ford-branded light\\nL17: commercial vehicles (LCVs) produced by Ford Otosan have a leading market position in Europe. The internal synergy and ability to fund\\nL18: R&D needs without tapping into FMC network is limited.\\nL19: https://www.fitchratings.com/research/corporate-finance/fitch-publishes-ford-otosan-bb-idr-outlook-stable-rates-proposed-eurobond-bb-exp-11-04-2024\\nL20: 1/13\\nL21: 4/11/24, 10:51 AM\\nL22: Fitch Publishes Ford Otosan's 'BB+' IDR; Outlook Stable; Rates Proposed Eurobond 'BB+(EXP)'\\nL23: KEY RATING DRIVERS\\nL24: Leading Europe Segment Market Share: Ford-branded commercial vehicles (CVs) have a leading position in Europe, which is expected\\nL25: to grow together with new product launches. Transit, including its variants, is leading European van unit sales. This translated into Ford\\nL26: Otosan's export revenues significantly increasing between 2015 and 2023. CV registration in Europe has rebounded strongly since the\\nL27: start of 2023 from a low base in 2022, but it remains below the pre-pandemic level.\\nL28: We expect demand for new CVs to remain strong as leisure and business services activities continue to recover, which will support high\\nL29: capacity utilisation levels of 80-90% at Ford Otosan's plants.\\nL30: Solid Through-the-Cycle Financial Profile: Ford Otosan's financial profile is commensurate with Fitch's expectation for low investment-\\nL31: grade automakers. An EBIT margin between 5%-6% places it comfortably against the high investment-grade median (6%) in our rating\\nL32: criteria for auto manufacturers. We forecast the FCF margins to remain negative to neutral over the rating horizon and EBITDA net\\nL33: leverage to hover around 2x, driven by funding needs to roll out a four-year product pipeline. Ford Otosan has a record of healthy cash\\nL34: flow generation, which gives the company deleveraging capacity once mass production starts.\\nL35: Investment Guarantee Scheme: As part of the contract manufacturing agreement, FMC provides Ford Otosan with an investment\\nL36: guarantee that secures a contractual volume despite actual sales volumes and enables Ford Otosan to recover upfront capex over the\\nL37: planned product cycle. The scheme also entails a cost-plus pricing mechanism that incorporates the full pass-through of the production\\nL38: expense and a profit mark-up. The investment guarantee scheme effectively serves as floor for Ford Otosan's revenue and earnings and\\nL39: offers some protection from a market downturn, which was evident by the resilient performance throughout the pandemic.\\nL40: Scale, Diversification Constrain Rating: Ford Otosan is considered small compared with European vehicle manufacturers including\\nL41: Volkswagen AG and Mercedes-Benz Group AG that also feature a much broader spectrum of vehicle types, brands, and models and are\\nL42: well-diversified geographically. With expected production capacity above 900,000 by 2025, Ford Otosan is among the top producers\\nL43: when compared with the LCV/van segments of Renault, Stellantis N.V., and VW.\\nL44: Consequently, we deem Ford Otosan a niche player despite its leading position in the covered markets and its size and scale constrain\\nL45: the rating at the current level. Additionally, Ford Otosan's engineering know-how and own intellectual property rights are largely\\nL46: https://www.fitchratings.com/research/corporate-finance/fitch-publishes-ford-otosan-bb-idr-outlook-stable-rates-proposed-eurobond-bb-exp-11-04-2024\\nL47: 2/13\\nL48: 4/11/24, 10:51 AM\\nL49: Fitch Publishes Ford Otosan's 'BB+' IDR; Outlook Stable; Rates Proposed Eurobond 'BB+(EXP)'\\nL50: associated with Ford branded trucks that do not have a meaningful market share outside Turkiye.\\nL51: Appropriate Funding Structure: Around 10% of Ford Otosan's capital structure relies on short-term debt financing. This is common for\\nL52: Turkish corporates. We expect short-term bank lines will remain available. Ford Otosan has also access to factoring and trade lines that\\nL53: are not utilised. Its largest customer is Ford Deutschland Holding GmbH, which it derives around 80% of its annual sales, keeping\\nL54: receivable turnover to 14 days in Turkiye and 30 days in Romania. The high hard currency (HC) receivable collection rates support euro-\\nL55: denominated interest payments on its international borrowings, mitigating FX risks.\\nL56: Margin Upside from Domestic Sales: Sales to the domestic market where Ford Otosan has discretion over pricing and distribution\\nL57: channels improve its profitability (EBITDA margin) although domestic unit sales have been volatile yoy and can contract fairly quickly in\\nL58: a worsening operating environment. Ford brands make up around 9% of the Turkish auto market share with a leading position in CVs.\\nL59: The passenger car (PC) market remains competitive and will remain dominated by Fiat and Renault, in our view. Despite the good\\nL60: margins from domestic sales, we expect group profitability to be lower as exports represent around 80% of sales.\\nL61: Strategic Importance for Ford: Fitch believes that Ford Otosan is strategically important for its joint venture (JV) parent FMC,\\nL62: producing about two-thirds of Ford's CV unit sales and one-third of PCs in Europe and provides material cost advantage largely due to\\nL63: cheaper labour. Ford Otosan is likely to gain more importance while FMC is ramping down its manufacturing sites in Europe. Ford\\nL64: Otosan also plays a pivotal role in FMC's global CV strategy and electrification roadmap. It will manufacture six out of nine FMC's future\\nL65: electric models, including E-Transit, E-Custom, and the flagship LCVs is set to be a key pillar of its electric vehicle arm.\\nL66: Rating Reflects Standalone Profile: As a JV, Ford Otosan's IDR currently reflects its Standalone Credit Profile (SCP). Fitch views the\\nL67: links between FMC and Ford Otosan as potentially supporting a one-notch rating uplift from Ford Otosan's SCP. This reflects our\\nL68: assessment using Parent and Subsidiary Linkage Rating Criteria (PSL) where we see operational and strategic incentives for FMC to\\nL69: support Ford Otosan, offset by the lack of debt guarantees or cross-default clauses.\\nL70: We have not applied any additional notching to Ford Otosan's IDR under the PSL as this would lead to rating equalisation with FMC,\\nL71: which we do not deem appropriate due to the existing JV structure and proximity of credit profiles. The rating uplift could be applicable\\nL72: if Ford Otosan's SCP weakens, if FMC guarantees bulk of its debt, or if FMC's ratings were upgraded.\\nL73: https://www.fitchratings.com/research/corporate-finance/fitch-publishes-ford-otosan-bb-idr-outlook-stable-rates-proposed-eurobond-bb-exp-11-04-2024\\nL74: 3/13\\nL75: 4/11/24, 10:51 AM\\nL76: Fitch Publishes Ford Otosan's 'BB+' IDR; Outlook Stable; Rates Proposed Eurobond 'BB+(EXP)'\\nL77: Country Ceiling Not Limiting Factor: Ford Otosan's IDR is not limited by a Country Ceiling because we apply the Romanian Country\\nL78: Ceiling of 'BBB+', reflecting its multi-country operations instead of Turkiye (B+) where the issuer is legally based. This stems from our\\nL79: estimate that Romania-originated EBITDA in euros from the contract manufacturing agreement with FMC (euro-denominated export\\nL80: sales) is more than sufficient to cover the HC (euro and US dollar) interest expenses.\\nL81: DERIVATION SUMMARY\\nL82: Ford Otosan's modest business profile is characterised by its comparatively smaller size that does not match higher-rated original\\nL83: equipment manufacturers (OEM) like FMC, or Renault SA, which have higher production volumes driven by their sizeable passenger car\\nL84: production capacities. Nevertheless, mirrored by FMC's leading CV market shares in Europe, Ford Otosan is a sizeable light/medium CV\\nL85: producer in Europe, with production capacity that matches or surpasses peers like Mercedes Vans or Renault CVs.\\nL86: Ford Otosan's heavy/truck manufacturing capacity is smaller than truck manufacturers like AB Volvo (NR) and Iveco Group N.V.\\nL87: (BBB-/Stable). Ford Otosan's product diversification is also deemed limited, with the issuer's revenues dependent on a handful of Ford-\\nL88: branded models. Our forecast revenues for Ford Otosan are concentrated on four models including vans and Puma, which is one of the\\nL89: main reasons its business profile is constrained below investment-grade medians in our rating criteria for auto manufacturers.\\nL90: The issuer has some geographic concentration to European market, with no exposure to APAC or the US. Nevertheless, we do not deem\\nL91: this as a major rating constraint. Its financial profile compares favorably with most investment-grade rated CV manufacturers and\\n--------------------------------------------------------------------------------\\nResearch Update: (https://www.fordotosan.com.tr/documents/Documents/Diger_Duyurular/sp-rating.pdf)\\nciteturn17view1 [wordlim: 200] Crawled: 1.4 years ago; Content type: application/pdf; Source: open({\\\"ref_id\\\":\\\"turn15view0\\\",\\\"lineno\\\":345}); Redirected to URL: https://www.fordotosan.com.tr/documents/Documents/Diger_Duyurular/sp-rating.pdf#page=1; Total lines: 696\\nL186: sustainably. We also base the outlook on our expectation that FO will maintain adequate liquidity\\nL187: and gradually increase its earnings outside its home country.\\nL188: Downside scenario\\nL189: We could revise our outlook on FO to stable following a similar rating action on Turkiye. We could\\nL190: also lower the preliminary rating if the company fails to pass our sovereign default and T&C stress\\nL191: tests. Failed tests could arise from setbacks in ramping up production and profitability at FO's\\nL192: Romania operations or reduced other sources of hard currency cash to cover foreign debt service\\nL193: and hard currency raw material imports.\\nL194: Upside scenario\\nL195: We could raise our preliminary rating if we take a similar action on Turkiye (including a higher T&C\\nL196: assessment), or we estimate that FO can sustainably generate more than 30% of its total earnings\\nL197: www.spglobal.com/ratingsdirect\\nL198: April 11, 2024       5\\nL199: Research Update: Ford Otomotiv Rated Preliminary 'BB-'; Outlook Positive; $500 Million Proposed Unsecured Notes Rated Preliminary 'BB-'\\nL200: outside the country while continuing to pass our hypothetical sovereign default and T&C stress\\nL201: tests. An upgrade would also hinge on the company maintaining an adequate liquidity position and\\nL202: credit metrics in line with our current expectations.\\nL203: Company Description\\nL204: FO is a licensed manufacturer of light commercial vehicles (Transit, Custom, and Courier models)\\nL205: and passenger cars (Puma model) on behalf of U.S.-based FMC for the European market and\\nL206: independently manages the production and sale of Ford heavy-duty trucks for the Turkish and\\nL207: export markets, with total annual production capacity of 746,500 vehicles at year-end 2023. The\\nL208: company is also the exclusive distributor of all Ford models in Turkiye under a licensing agreement\\nL209: with FMC.\\nL210: FO reported revenue of TRY411.9 billion (equivalent to about €11.9 billion) in 2023, of which 73%\\nL211: was from international sales. It operates the Golcuk, Yenikoy, and Eskisehir plants in Turkiye, and\\nL212: the Craiova plant in Romania. The group is equally owned by FMC and Koc Holding, who both own\\nL213: 41% of its equity. The remaining 18% capital is free float on the Turkish stock exchange.\\nL214: Our Base-Case Scenario\\nL215: Assumptions\\nL216: -\\nL217: Real GDP growth of 3.0% in Turkiye in 2024-2025 and of 0.7% and 1.3% in the eurozone.\\nL218: -\\nL219: Average exchange rate increasing to TRY35.0 per U.S. dollar in 2024 and TRY41.3 in 2022, from\\nL220: 24.7 in 2023; and $1.09 per euro in 2024 and $1.14 in 2025, from $1.08 in 2023.\\nL221: -\\nL222: Turkish core inflation of 55.8% in 2024 and 27.3% in 2025, from 53.8% in 2023.\\nL223: -\\nL224: European light vehicle sales rising by 0%-2% in 2024 and 2025 after the 19% growth in 2023.\\nL225: -\\nL226: FO's vehicles sold to increase by about 13% to 691,000 units in 2024 and 4.5% to 723,000 units\\nL227: in 2025 following the capacity expansion at Yenikoy and Craiova.\\nL228: -\\nL229: Revenue growth of 80% in 2024 and 42% in 2024, driven by volume growth and lira devaluation.\\nL230: -\\nL231: Adjusted EBITDA margin declining to about 7.7% in 2024 and 6.8% in 2025 from 11.7% in 2023\\nL232: owing to a less favorable pricing environment across Europe and Turkiye and a progressive\\nL233: dilutive impact from more EV models in the sales mix.\\nL234: -\\nL235: Adjusted capex to sales to stay elevated at about 5.2% in 2024 and 4.9% in 2025 as the\\nL236: company continues to fund its capacity expansion and EV model launches. This translates into\\nL237: planned total capex net of capitalized development costs of about TRY38.9 billion in 2024 and\\nL238: TRY52.0 billion in 2025.\\nL239: -\\nL240: Dividends of about TRY27.1 billion in 2024 and TRY30.4 billion in 2025, from TRY18.4 billion in\\nL241: 2023 and in line with the company's minimum payout ratio of 50%.\\nL242: -\\nL243: No acquisition or share buybacks.\\nL244: -\\nL245: Reported debt figures and the Craiova deferred purchase consideration to increase in Turkish\\nL246: lira terms in line with our lira devaluation assumption. We estimate that about 87% of the\\nL247: company's debt structure will remain denominated in hard currency.\\nL248: www.spglobal.com/ratingsdirect\\nL249: April 11, 2024       6\\nL250: Research Update: Ford Otomotiv Rated Preliminary 'BB-'; Outlook Positive; $500 Million Proposed Unsecured Notes Rated Preliminary 'BB-'\\nL251: Key metrics\\nL252: Ford Otomotiv Sanayi A.S.--Forecast summary\\nL253: Industry sector: Automotive\\nL254: (Mil. TRY)\\nL255: 2018a\\nL256: 2019a\\nL257: 2020a\\nL258: 2021a\\nL259: 2022a\\nL260: 2023a\\nL261: 2024f\\nL262: 2025f\\nL263: Revenue\\nL264: 33,292\\nL265: 39,209\\nL266: 49,451\\nL267: 71,101\\nL268: 171,797\\nL269: 411,906\\nL270: 742,742\\nL271: 1,056,981\\nL272: EBITDA (reported)\\nL273: 2,849\\nL274: 3,196\\nL275: 5,720\\nL276: 10,488\\nL277: 21,031\\nL278: 50,082\\nL279: 64,619\\nL280: 82,445\\nL281: -121\\nL282: -4\\nL283: 0\\nL284: 0\\nL285: -1,962\\nL286: -1,932\\nL287: -7,249\\nL288: -10,393\\nL289: Less: Capitalized development\\nL290: costs\\nL291: 13\\nL292: --\\nL293: --\\nL294: --\\nL295: --\\nL296: --\\nL297: --\\nL298: --\\nL299: Plus: Operating lease adjustment\\nL300: (OLA) rent\\nL301: --\\nL302: --\\nL303: --\\nL304: 2\\nL305: 3\\nL306: --\\nL307: --\\nL308: --\\nL309: Plus: Dividends received from\\nL310: equity investments\\nL311: Plus: Loss on disposals of PP&E\\nL312: --\\nL313: --\\nL314: --\\nL315: 37\\nL316: 17\\nL317: 65\\nL318: --\\nL319: --\\nL320: EBITDA\\nL321: 2,741\\nL322: 3,193\\nL323: 5,720\\nL324: 10,528\\nL325: 19,089\\nL326: 48,214\\nL327: 57,370\\nL328: 72,052\\nL329: Less: Cash interest paid\\nL330: -54\\nL331: -65\\nL332: -164\\nL333: -205\\nL334: -738\\nL335: -4,505\\nL336: -8,310\\nL337: -11,596\\nL338: Less: Cash taxes paid\\nL339: -15\\nL340: -18\\nL341: -34\\nL342: -81\\nL343: -259\\nL344: -1,704\\nL345: -343\\nL346: -5,220\\nL347: Funds from operations (FFO)\\nL348: 2,670\\nL349: 3,110\\nL350: 5,523\\nL351: 10,241\\nL352: 18,092\\nL353: 42,005\\nL354: 48,717\\nL355: 55,236\\nL356: Capital expenditure (capex)\\nL357: 1,004\\nL358: 1,236\\nL359: 946\\nL360: 2,395\\nL361: 7,687\\nL362: 30,128\\nL363: 38,989\\nL364: 52,010\\nL365: Free operating cash flow (FOCF)\\nL366: 1,115\\nL367: 1,833\\nL368: 6,659\\nL369: 6,099\\nL370: 4,858\\nL371: 16,425\\nL372: 8,611\\nL373: 8,834\\nL374: Dividends\\nL375: 1,204\\nL376: 1,284\\nL377: 1,095\\nL378: 3,576\\nL379: 6,562\\nL380: 18,424\\nL381: 27,087\\nL382: 30,378\\nL383: Discretionary cash flow (DCF)\\nL384: -88\\nL385: 549\\nL386: 5,564\\nL387: 2,523\\nL388: -1,704\\nL389: -1,999\\nL390: -18,475\\nL391: -21,544\\nL392: Debt\\nL393: 4,656\\nL394: 6,413\\nL395: 8,331\\nL396: 19,450\\nL397: 39,301\\nL398: 76,904\\nL399: 127,142\\nL400: 144,661\\nL401: Adjusted ratios\\nL402: Annual revenue growth (%)\\nL403: 31.4\\nL404: 17.8\\nL405: 26.1\\nL406: 43.8\\nL407: 141.6\\nL408: 139.8\\nL409: 80.3\\nL410: 42.3\\nL411: EBITDA margin (%)\\nL412: 8.2\\nL413: 8.1\\nL414: 11.6\\nL415: 14.8\\nL416: 11.1\\nL417: 11.7\\nL418: 7.7\\nL419: 6.8\\nL420: Debt/EBITDA (x)\\nL421: 1.7\\nL422: 2.0\\nL423: 1.5\\nL424: 1.8\\nL425: 2.1\\nL426: 1.6\\nL427: 2.2\\nL428: 2.0\\nL429: FFO/debt (%)\\nL430: 57.4\\nL431: 48.5\\nL432: 66.3\\nL433: 52.7\\nL434: 46.0\\nL435: 54.6\\nL436: 38.3\\nL437: 38.2\\nL438: FFO cash interest coverage (x)\\nL439: 49.0\\nL440: 48.8\\nL441: 34.7\\nL442: 50.9\\nL443: 25.5\\nL444: 10.3\\nL445: 6.9\\nL446: 5.8\\nL447: EBITDA interest coverage (x)\\nL448: 39.0\\nL449: 28.2\\nL450: 24.8\\nL451: 37.6\\nL452: 17.7\\nL453: 8.2\\nL454: 6.7\\nL455: 6.1\\nL456: FOCF/debt (%)\\nL457: 24.0\\nL458: 28.6\\nL459: 79.9\\nL460: 31.4\\nL461: 12.4\\nL462: 21.4\\nL463: 6.8\\nL464: 6.1\\nL465: FOCF/sales (%)\\nL466: 3.3\\nL467: 4.7\\nL468: 13.5\\nL469: 8.6\\nL470: 2.8\\nL471: 4.0\\nL472: 1.2\\nL473: 0.8\\nL474: All figures are adjusted by S&P Global Ratings, unless stated as reported. a--Actual. f--Forecast.\\nL475: Liquidity\\nL476: We assess FO's liquidity as adequate based on a sources-to-uses ratio of 1.2x over the 12 months\\nL477: started Jan. 1, 2024. Our assessment includes the successful placement of its unsecured notes of\\nL478: up to $500 million and €435 million available under its capex loan facility in Romania signed in\\nL479: March of this year. FO's high amount of short-term debt maturities and lack of long-term\\nL480: www.spglobal.com/ratingsdirect\\nL481: April 11, 2024       7\\nL482: Research Update: Ford Otomotiv Rated Preliminary 'BB-'; Outlook Positive; $500 Million Proposed Unsecured Notes Rated Preliminary 'BB-'\\nL483: committed revolving credit facility are the main limitations for a stronger liquidity assessment.\\nL484: Principal liquidity sources for 2024 include:\\nL485: -\\nL486: About TRY15.2 billion of cash on the balance sheet on Dec. 31, 2023;\\nL487: -\\nL488: Cash FFO of about TRY63 billion;\\nL489: -\\nL490: About TRY16 billion received from the up to $500 million planned bond issuance; and\\nL491: -\\nL492: About TRY15 billion available under the €435 million capex loan facility in Romania.\\nL493: Principal Liquidity Uses for the same period include:\\nL494: -\\nL495: Short-term debt maturities of about TRY33.8 billion;\\nL496: -\\nL497: Working capital investments of TRY8.6 billion;\\nL498: -\\nL499: Additional intra-year working capital swings of up to TRY2 billion;\\nL500: -\\nL501: Unstressed reported capex of about TRY46.3 billion--we estimate the company could reduce\\nL502: this amount by at least 15% in a stress scenario; and\\nL503: -\\nL504: No committed dividend distributions under a potential stress scenario, compared with TRY27.1\\nL505: billion in our unstressed base case.\\nL506: Covenants\\nL507: FO is subject to a financial covenant under its loan agreements with the European Bank for\\nL508: Reconstruction and Development (EBRD) and the International Finance Corporation (IFC), which\\nL509: stipulates that the group's consolidated reported net debt to EBITDA should not exceed 3.5x. This\\nL510: covenant is tested semi-annually on June 30 and December 31 of each year. The €435 million\\nL511: unsecured capex loan facility in Romania is also subject to a 3.5x reported net debt-to-EBITDA\\nL512: limit, based on the EBITDA generated by the FO Romania entity and debt at this level only. The\\nL513: planned bond issuance of up to $500 million is not subject to financial covenants.\\nL514: We expect comfortable headroom under the 3.5x consolidated net debt-to-EBITDA covenant\\nL515: requirement of the EBRD and IFC loan agreements in the next 12 months, and that FO will adjust\\nL516: the drawings of its Romania capex loan facility according to the EBITDA growth of the FO Romania\\nL517: entity, such that it maintains adequate headroom under the local covenant.\\nL518: Environmental, Social, And Governance\\nL519: Environmental factors are a negative consideration in our credit rating analysis of FO because it\\nL520: faces tight fuel efficiency and emissions targets in its main export European market (73% of 2023\\nL521: sales). We view the group's ability to meet regulatory standards in Europe as in line with that of\\nL522: many of its peers based on its portfolio plans.\\nL523: The company's electrification plans are driven by those of its key industrial shareholder and\\nL524: manufacturing partner, FMC, which targets to offer an all-electric fleet of vehicles in Europe by\\nL525: 2035 and to introduce new PC and CV electric models in 2024. FMC is also committed to achieving\\nL526: carbon neutrality no later than in 2050, and no later than 2035 in Europe.\\nL527: Overall, we believe that consumer acceptance of FO's EV products will be a key credit factor for\\nL528: assessing its competitive advantage, alongside its ability to maintain sound profitability on those\\nL529: products.\\nL530: www.spglobal.com/ratingsdirect\\nL531: April 11, 2024       8\\nL532: Research Update: Ford Otomotiv Rated Preliminary 'BB-'; Outlook Positive; $500 Million Proposed Unsecured Notes Rated Preliminary 'BB-'\\nL533: Issue Ratings--Subordination Risk Analysis\\nL534: Capital structure\\nL535: We do not apply our recovery analysis to FO's capital structure due the material exposure of its\\nL536: operations to Turkey (jurisdiction ranking assessment of 'C').\\nL537: The proposed notes are unsecured and to be issued at parent level, in line with all group debt at\\nL538: Dec. 31, 2023. With the exception of the €435 million capex loan facility raised at FO's Romania\\nL539: subsidiary level, we expect that the vast majority of the company's debt will remain unsecured and\\nL540: outstanding at parent level. As such, we anticipate that its priority debt ratio will remain well\\nL541: below 50% sustainably, in line with the about 20% ratio we estimate pro-forma a full utilization of\\nL542: the capex loan at FO Romania.\\nL543: Analytical conclusions\\nL544: We rate the unsecured notes preliminary 'BB-', in line with our preliminary issuer credit rating,\\nL545: because we do not anticipate any significant subordination risk in the company's capital\\nL546: structure.\\nL547: Ratings Score Snapshot\\nL548: Issuer Credit Rating\\nL549: BB-(prelim)/Positive/--\\nL550: Business risk:\\nL551: Weak\\nL552: Country risk\\nL553: High\\nL554: Industry risk\\nL555: Moderately high\\nL556: Competitive position\\nL557: Fair\\nL558: Financial risk:\\nL559: Significant\\nL560: Cash flow/leverage\\nL561: Significant\\nL562: Anchor\\nL563: bb-\\nL564: Modifiers:\\nL565: Diversification/Portfolio effect\\nL566: Neutral (no impact)\\nL567: Capital structure\\nL568: Neutral (no impact)\\nL569: Financial policy\\nL570: Neutral (no impact)\\nL571: Liquidity\\nL572: Adequate (no impact)\\nL573: Management and governance\\nL574: Neutral (no impact)\\nL575: Comparable rating analysis\\nL576: Positive (+1 notch)\\nL577: Stand-alone credit profile:\\nL578: bb\\nL579: Group credit profile\\nL580: bbb-\\nL581: Entity status within group\\nL582: Strategically important (no impact)\\nL583: Sovereign foreign currency rating\\nL584: B\\nL585: Transfer and convertibility assessment\\nL586: B+\\nL587: www.spglobal.com/ratingsdirect\\nL588: April 11, 2024       9\\nL589: Research Update: Ford Otomotiv Rated Preliminary 'BB-'; Outlook Positive; $500 Million Proposed Unsecured Notes Rated Preliminary 'BB-'\\nL590: Rating above the sovereign\\nL591: +2 notches\\nL592: Related Criteria\\nL593: -\\nL594: Criteria | Corporates | General: Sector-Specific Corporate Methodology, April 4, 2024\\nL595: -\\nL596: Criteria | Corporates | General: Corporate Methodology, Jan. 7, 2024\\nL597: -\\nL598: General Criteria: Environmental, Social, And Governance Principles In Credit Ratings, Oct. 10,\\nL599: 2021\\nL600: -\\nL601: General Criteria: Group Rating Methodology, July 1, 2019\\nL602: -\\nL603: Criteria | Corporates | General: Corporate Methodology: Ratios And Adjustments, April 1, 2019\\nL604: -\\nL605: Criteria | Corporates | General: Reflecting Subordination Risk In Corporate Issue Ratings, March\\nL606: 28, 2018\\nL607: -\\nL608: Criteria | Corporates | Recovery: Methodology: Jurisdiction Ranking Assessments, Jan. 20, 2016\\nL609: -\\nL610: Criteria | Corporates | General: Methodology And Assumptions: Liquidity Descriptors For Global\\nL611: Corporate Issuers, Dec. 16, 2014\\nL612: -\\nL613: General Criteria: Country Risk Assessment Methodology And Assumptions, Nov. 19, 2013\\nL614: -\\nL615: General Criteria: Ratings Above The Sovereign--Corporate And Government Ratings:\\nL616: Methodology And Assumptions, Nov. 19, 2013\\nL617: -\\nL618: General Criteria: Methodology: Industry Risk, Nov. 19, 2013\\nL619: -\\nL620: General Criteria: Principles Of Credit Ratings, Feb. 16, 2011\\nL621: Related Research\\nL622: -\\nL623: Economic Outlook Emerging Markets Q2 2024: Growth Divergence Ahead, March 26, 2024\\nL624: -\\nL625: Ford Motor Co.'s Fourth-Quarter Results And 2024 Guidance Support Adequate Rating Cushion,\\nL626: Feb. 8, 2024\\nL627: -\\nL628: Industry Credit Outlook 2024: Autos, Jan. 9, 2024\\nL629: -\\nL630: Turkiye Outlook Revised To Positive From Stable On Subsiding Twin Deficits; 'B' Ratings\\nL631: Affirmed, Nov. 30, 2023\\nL632: -\\nL633: Credit Outlook: Global Autos, Oct. 31, 2023\\nL634: -\\nL635: Ford Motor Co. And Subsidiary Upgraded To 'BBB-' On Improving Margins And Financial\\nL636: Flexibility; Outlook Stable, Oct. 30, 2023\\nL637: -\\nL638: Global Auto Sales Forecasts: The Pricing Party Is Coming To An End, Oct. 9, 2023\\nL639: Ratings List\\nL640: www.spglobal.com/ratingsdirect\\nL641: April 11, 2024       10\\nL642: Research Update: Ford Otomotiv Rated Preliminary 'BB-'; Outlook Positive; $500 Million Proposed Unsecured Notes Rated Preliminary 'BB-'\\nL643: New Rating\\nL644: Ford Otomotiv Sanayi A.S.\\nL645: Issuer Credit Rating\\nL646: BB-(prelim)/Positive/--\\nL647: Senior Unsecured\\nL648: BB-(prelim)\\nL649: Certain terms used in this report, particularly certain adjectives used to express our view on rating relevant factors,\\nL650: have specific meanings ascribed to them in our criteria, and should therefore be read in conjunction with such\\nL651: criteria. Please see Ratings Criteria at www.spglobal.com/ratings for further information. A description of each of\\nL652: S&P Global Ratings' rating categories is contained in \\\"S&P Global Ratings Definitions\\\" at\\nL653: https://disclosure.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/504352. Complete ratings\\nL654: information is available to RatingsDirect subscribers at www.capitaliq.com. All ratings affected by this rating action\\nL655: can be found on S&P Global Ratings' public website at www.spglobal.com/ratings. Alternatively, call S&P Global\\nL656: Ratings' Global Client Support line (44) 20-7176-7176.\\nL657: www.spglobal.com/ratingsdirect\\nL658: April 11, 2024       11\\n\""
+    },
+    "tdg-guidance": {
+      "path": "runs/tdg-guidance-001/CP-DR-attempt-1.md",
+      "sha256": "e74a0b1f4b30af1ecb761b5833081e99db000b01b64ad2274131b53bc552ff44",
+      "line": 58,
+      "quote": "| C4 midpoint adjustment bridge | E2 Table 6, lines 367–372 | Acquisition adjustments 30 + stock/deferred compensation 180 − Other 4 = 206; As Defined 4,685. |"
+    },
+    "tdg-002-identity": {
+      "path": "runs/tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "line": 1,
+      "quote": "# CP-1 — Annual financial foundation"
+    },
+    "tdg-003-identity": {
+      "path": "runs/tdg-003/CP-1B-attempt-1.md",
+      "sha256": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+      "line": 1,
+      "quote": "# CP-1B — TDG actual first-quarter earnings update"
+    },
+    "ford-otosan-2024-001-identity": {
+      "path": "runs/ford-otosan-2024-001/CP-1-selected-input.md",
+      "sha256": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+      "line": 1,
+      "quote": "# CP-1 — selected historical agency financial input"
+    },
+    "lmi-2014-001-identity": {
+      "path": "runs/lmi-2014-001/CP-0.md",
+      "sha256": "aefd1746676cfbf5a5f3d51f8c93ecaccbed0d3ba6e4ce5e78746a3c0898d1ff",
+      "line": 1,
+      "quote": "# CP-0 — historical LMI Aerospace ICA source admission"
+    },
+    "tdg-004-identity": {
+      "path": "runs/tdg-004/CP-0.md",
+      "sha256": "60902235146ab272998554ab9381cd7e894bfbd3a0b58f46d1a704c337418f27",
+      "line": 1,
+      "quote": "# CP-0 — TDG executed legal-source admission"
+    },
+    "tdg-guidance-001-identity": {
+      "path": "runs/tdg-guidance-001/CP-DR-attempt-1.md",
+      "sha256": "e74a0b1f4b30af1ecb761b5833081e99db000b01b64ad2274131b53bc552ff44",
+      "line": 1,
+      "quote": "# CP-DR — TDG historical guidance evidence"
+    },
+    "tdg-001-identity": {
+      "path": "runs/tdg-001/CP-0.md",
+      "sha256": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0",
+      "line": 1,
+      "quote": "# CP-0 — TDG annual source readiness"
+    }
+  },
+  "real": [
+    {
+      "id": "tdg-002",
+      "issuer": "TDG",
+      "name": "TransDigm Group",
+      "sector": "Aerospace & defense",
+      "sector_source": "tdg-sector",
+      "title": "Annual credit review",
+      "workflow": "Credit review",
+      "date": "2024-09-30",
+      "period": "FY2024",
+      "period_kind": "Annual actual",
+      "currency": "USD",
+      "handoff": "runs/tdg-002/CP-1-attempt-2.md",
+      "identity_source": "tdg-002-identity",
+      "summary": "Historical annual financials and fundamental credit analysis, with a static downside screen.",
+      "gaps": [
+        "Carrying debt is not gross principal; EBITDA is the issuer’s As Defined measure.",
+        "Cash after capex is a proxy, not issuer-defined free cash flow.",
+        "Current liquidity, covenant capacity and full Model publication remain unproven."
+      ],
+      "metrics": {
+        "revenue": {
+          "value": "7940",
+          "unit": "USD m",
+          "basis": "Reported net sales",
+          "period": "FY2024",
+          "source": "tdg-revenue"
+        },
+        "ebitda": {
+          "value": "4173",
+          "unit": "USD m",
+          "basis": "Issuer EBITDA As Defined",
+          "period": "FY2024",
+          "source": "tdg-ebitda"
+        },
+        "leverage": {
+          "value": "5.96",
+          "unit": "x",
+          "basis": "Total carrying debt / EBITDA As Defined",
+          "period": "FY2024",
+          "source": "tdg-base"
+        },
+        "coverage": {
+          "value": "3.60",
+          "unit": "x",
+          "basis": "EBITDA As Defined / cash interest",
+          "period": "FY2024",
+          "source": "tdg-base"
+        },
+        "cash": {
+          "value": "6261",
+          "unit": "USD m",
+          "basis": "Reported closing cash; access unverified",
+          "period": "FY2024",
+          "source": "tdg-cash"
+        },
+        "cashflow": {
+          "value": "1880",
+          "unit": "USD m",
+          "basis": "Operating cash less capex proxy",
+          "period": "FY2024",
+          "source": "tdg-cashflow"
+        }
+      },
+      "artifacts": [
+        {
+          "folder": "deliverables/tdg-fy2024-snapshot-2",
+          "label": "Annual snapshot · revision 2",
+          "relationship": "direct",
+          "state": "candidate"
+        },
+        {
+          "folder": "deliverables/tdg-fy2024-snapshot",
+          "label": "Initial snapshot · date-presentation defect",
+          "relationship": "direct",
+          "state": "superseded"
+        }
+      ],
+      "ratings": [],
+      "completion": null,
+      "checkpoints": null
+    },
+    {
+      "id": "tdg-003",
+      "issuer": "TDG",
+      "name": "TransDigm Group",
+      "sector": "Aerospace & defense",
+      "sector_source": "tdg-sector",
+      "title": "Quarterly update & credit synthesis",
+      "workflow": "Earnings update",
+      "date": "2024-12-28",
+      "period": "Fiscal Q1 2025",
+      "period_kind": "Quarterly actual",
+      "currency": "USD",
+      "handoff": "runs/tdg-003/CP-1B-attempt-1.md",
+      "identity_source": "tdg-003-identity",
+      "summary": "Reported first-quarter earnings increased while distributions and repurchases reduced the cash buffer.",
+      "gaps": [
+        "The 89-day and 91-day fiscal-quarter windows differ.",
+        "No matched LTM leverage or interest-coverage ratio is established.",
+        "The related HTML retains the FY2024 financial base; it combines annual and incremental handoffs."
+      ],
+      "metrics": {
+        "revenue": {
+          "value": "2006",
+          "unit": "USD m",
+          "basis": "Reported sales",
+          "period": "Fiscal Q1 2025",
+          "source": "q-revenue"
+        },
+        "ebitda": {
+          "value": "1061",
+          "unit": "USD m",
+          "basis": "Issuer EBITDA As Defined",
+          "period": "Fiscal Q1 2025",
+          "source": "q-ebitda"
+        },
+        "leverage": null,
+        "coverage": null,
+        "cash": {
+          "value": "2459",
+          "unit": "USD m",
+          "basis": "Reported closing cash; access unverified",
+          "period": "Fiscal Q1 2025",
+          "source": "q-cash"
+        },
+        "cashflow": {
+          "value": "710",
+          "unit": "USD m",
+          "basis": "Operating cash less capex proxy",
+          "period": "Fiscal Q1 2025",
+          "source": "q-cashflow"
+        }
+      },
+      "artifacts": [
+        {
+          "folder": "deliverables/tdg-fy2024-snapshot-3",
+          "label": "Integrated FY2024 snapshot · revision 3",
+          "relationship": "related",
+          "state": "candidate"
+        }
+      ],
+      "ratings": [],
+      "completion": null,
+      "checkpoints": null
+    },
+    {
+      "id": "ford-otosan-2024-001",
+      "issuer": "FROTO",
+      "name": "Ford Otosan",
+      "sector": "Automotive",
+      "sector_source": "ford-sector",
+      "title": "Ratings & funding case",
+      "workflow": "Ratings review",
+      "date": "2024-04-11",
+      "period": "CY2023",
+      "period_kind": "Annual actual",
+      "currency": "TRY",
+      "handoff": "runs/ford-otosan-2024-001/CP-1-selected-input.md",
+      "identity_source": "ford-otosan-2024-001-identity",
+      "summary": "Dated S&P and Fitch evidence supports a bounded ratings-to-funding case. The table uses 2023 actuals.",
+      "gaps": [
+        "S&P adjusted gross leverage cannot substitute for Fitch net leverage.",
+        "The S&P rating was preliminary; these are not current ratings.",
+        "Selected agency data only; source rounding residuals and full issuer-account reconstruction remain open."
+      ],
+      "metrics": {
+        "revenue": {
+          "value": "411906",
+          "unit": "TRY m",
+          "basis": "Agency-supplied revenue",
+          "period": "CY2023",
+          "source": "ford-revenue"
+        },
+        "ebitda": {
+          "value": "48214",
+          "unit": "TRY m",
+          "basis": "S&P adjusted EBITDA",
+          "period": "CY2023",
+          "source": "ford-ebitda"
+        },
+        "leverage": {
+          "value": "1.6",
+          "unit": "x",
+          "basis": "S&P adjusted gross debt / EBITDA",
+          "period": "CY2023",
+          "source": "ford-leverage"
+        },
+        "coverage": {
+          "value": "8.2",
+          "unit": "x",
+          "basis": "S&P EBITDA interest coverage",
+          "period": "CY2023",
+          "source": "ford-coverage"
+        },
+        "cash": null,
+        "cashflow": {
+          "value": "16425",
+          "unit": "TRY m",
+          "basis": "S&P free operating cash flow (FOCF)",
+          "period": "CY2023",
+          "source": "ford-cashflow"
+        }
+      },
+      "artifacts": [],
+      "ratings": [
+        {
+          "label": "S&P BB− · preliminary · Positive",
+          "date": "2024-04-11",
+          "source": "ford-ratings"
+        },
+        {
+          "label": "Fitch BB+ · Stable",
+          "date": "2024-04-11",
+          "source": "ford-fitch"
+        }
+      ],
+      "completion": null,
+      "checkpoints": null
+    },
+    {
+      "id": "lmi-2014-001",
+      "issuer": "LMI",
+      "name": "LMI Aerospace",
+      "sector": "Unclassified",
+      "sector_source": null,
+      "title": "Structural & intercreditor case",
+      "workflow": "Legal review",
+      "date": "2014-06-19",
+      "period": "Document dated Jun 2014",
+      "period_kind": "Legal document",
+      "currency": null,
+      "handoff": "runs/lmi-2014-001/CP-0.md",
+      "identity_source": "lmi-2014-001-identity",
+      "summary": "Historical intercreditor analysis maps creditor control and named entities within the admitted document.",
+      "gaps": [
+        "Entity financials, funded claims and collateral values are not established.",
+        "Sector is unclassified in this catalogue; no tag is inferred from the company name.",
+        "A historical legal case does not establish current credit quality or numerical recovery."
+      ],
+      "metrics": {
+        "revenue": null,
+        "ebitda": null,
+        "leverage": null,
+        "coverage": null,
+        "cash": null,
+        "cashflow": null
+      },
+      "artifacts": [],
+      "ratings": [],
+      "completion": null,
+      "checkpoints": null
+    },
+    {
+      "id": "tdg-004",
+      "issuer": "TDG",
+      "name": "TransDigm Group",
+      "sector": "Aerospace & defense",
+      "sector_source": "tdg-sector",
+      "title": "Executed notes indenture",
+      "workflow": "Legal review",
+      "date": "2024-09-19",
+      "period": "Indenture dated Sep 2024",
+      "period_kind": "Legal document",
+      "currency": null,
+      "handoff": "runs/tdg-004/CP-0.md",
+      "identity_source": "tdg-004-identity",
+      "summary": "Executed 6.000% notes due 2033: admitted legal evidence and a funding-module consumer.",
+      "gaps": [
+        "No current basket usage, covenant certificate or complete security package.",
+        "A 2.0x incurrence condition is not a financial screening observation."
+      ],
+      "metrics": {
+        "revenue": null,
+        "ebitda": null,
+        "leverage": null,
+        "coverage": null,
+        "cash": null,
+        "cashflow": null
+      },
+      "artifacts": [],
+      "ratings": [],
+      "completion": null,
+      "checkpoints": null
+    },
+    {
+      "id": "tdg-guidance-001",
+      "issuer": "TDG",
+      "name": "TransDigm Group",
+      "sector": "Aerospace & defense",
+      "sector_source": "tdg-sector",
+      "title": "Historical FY2025 guidance",
+      "workflow": "Guidance research",
+      "date": "2024-11-07",
+      "period": "FY2025 guidance",
+      "period_kind": "Management guidance",
+      "currency": "USD",
+      "handoff": "runs/tdg-guidance-001/CP-DR-attempt-1.md",
+      "identity_source": "tdg-guidance-001-identity",
+      "summary": "Historical management outlook and a midpoint EBITDA bridge, separately attributed from actual results.",
+      "gaps": [
+        "Management expectations are not realised outcomes or independently validated forecasts.",
+        "No guidance-derived liquidity or leverage ratio is supplied."
+      ],
+      "metrics": {
+        "revenue": null,
+        "ebitda": {
+          "value": "4685",
+          "unit": "USD m",
+          "basis": "Guidance midpoint EBITDA As Defined",
+          "period": "FY2025 guidance",
+          "source": "tdg-guidance"
+        },
+        "leverage": null,
+        "coverage": null,
+        "cash": null,
+        "cashflow": null
+      },
+      "artifacts": [],
+      "ratings": [],
+      "completion": null,
+      "checkpoints": null
+    },
+    {
+      "id": "tdg-001",
+      "issuer": "TDG",
+      "name": "TransDigm Group",
+      "sector": "Aerospace & defense",
+      "sector_source": "tdg-sector",
+      "title": "Annual source intake",
+      "workflow": "Source intake",
+      "date": "2024-09-30",
+      "period": "FY2024 source pack",
+      "period_kind": "Source intake",
+      "currency": "USD",
+      "handoff": "runs/tdg-001/CP-0.md",
+      "identity_source": "tdg-001-identity",
+      "summary": "Source-readiness check and CP-1 intake for the annual PDF.",
+      "gaps": [
+        "Readiness and intake are not a completed financial analysis or final deliverable."
+      ],
+      "metrics": {
+        "revenue": null,
+        "ebitda": null,
+        "leverage": null,
+        "coverage": null,
+        "cash": null,
+        "cashflow": null
+      },
+      "artifacts": [],
+      "ratings": [],
+      "completion": null,
+      "checkpoints": null
+    }
+  ],
+  "illustrative": [
+    {
+      "id": "demo-1",
+      "issuer": "EX01",
+      "name": "Alder Components",
+      "sector": "Aerospace & defense",
+      "sector_source": null,
+      "title": "Illustrative credit review",
+      "workflow": "Credit review",
+      "date": "2026-06-30",
+      "period": "LTM Jun 2026",
+      "period_kind": "Illustrative LTM",
+      "currency": "USD",
+      "handoff": null,
+      "identity_source": null,
+      "summary": "Fictional issuer and screening values for interaction testing only.",
+      "gaps": [
+        "Illustrative data only. No issuer evidence or actual report exists."
+      ],
+      "metrics": {
+        "revenue": null,
+        "ebitda": null,
+        "leverage": {
+          "value": "4.8",
+          "unit": "x",
+          "basis": "Illustrative gross debt / EBITDA",
+          "period": "LTM Jun 2026",
+          "source": null
+        },
+        "coverage": {
+          "value": "3.2",
+          "unit": "x",
+          "basis": "Illustrative EBITDA / interest",
+          "period": "LTM Jun 2026",
+          "source": null
+        },
+        "cash": null,
+        "cashflow": null
+      },
+      "artifacts": [],
+      "ratings": [],
+      "completion": 90.0,
+      "checkpoints": {
+        "done": 18,
+        "total": 20
+      }
+    },
+    {
+      "id": "demo-2",
+      "issuer": "EX02",
+      "name": "Merehaven Packaging",
+      "sector": "Packaging",
+      "sector_source": null,
+      "title": "Illustrative credit review",
+      "workflow": "Credit review",
+      "date": "2026-06-30",
+      "period": "LTM Jun 2026",
+      "period_kind": "Illustrative LTM",
+      "currency": "USD",
+      "handoff": null,
+      "identity_source": null,
+      "summary": "Fictional issuer and screening values for interaction testing only.",
+      "gaps": [
+        "Illustrative data only. No issuer evidence or actual report exists."
+      ],
+      "metrics": {
+        "revenue": null,
+        "ebitda": null,
+        "leverage": {
+          "value": "3.2",
+          "unit": "x",
+          "basis": "Illustrative gross debt / EBITDA",
+          "period": "LTM Jun 2026",
+          "source": null
+        },
+        "coverage": {
+          "value": "4.7",
+          "unit": "x",
+          "basis": "Illustrative EBITDA / interest",
+          "period": "LTM Jun 2026",
+          "source": null
+        },
+        "cash": null,
+        "cashflow": null
+      },
+      "artifacts": [],
+      "ratings": [],
+      "completion": 75.0,
+      "checkpoints": {
+        "done": 15,
+        "total": 20
+      }
+    },
+    {
+      "id": "demo-3",
+      "issuer": "EX03",
+      "name": "Cairn Digital Services",
+      "sector": "Technology",
+      "sector_source": null,
+      "title": "Illustrative credit review",
+      "workflow": "Credit review",
+      "date": "2026-06-30",
+      "period": "LTM Jun 2026",
+      "period_kind": "Illustrative LTM",
+      "currency": "USD",
+      "handoff": null,
+      "identity_source": null,
+      "summary": "Fictional issuer and screening values for interaction testing only.",
+      "gaps": [
+        "Illustrative data only. No issuer evidence or actual report exists."
+      ],
+      "metrics": {
+        "revenue": null,
+        "ebitda": null,
+        "leverage": {
+          "value": "5.4",
+          "unit": "x",
+          "basis": "Illustrative gross debt / EBITDA",
+          "period": "LTM Jun 2026",
+          "source": null
+        },
+        "coverage": {
+          "value": "2.1",
+          "unit": "x",
+          "basis": "Illustrative EBITDA / interest",
+          "period": "LTM Jun 2026",
+          "source": null
+        },
+        "cash": null,
+        "cashflow": null
+      },
+      "artifacts": [],
+      "ratings": [],
+      "completion": 60.0,
+      "checkpoints": {
+        "done": 12,
+        "total": 20
+      }
+    },
+    {
+      "id": "demo-4",
+      "issuer": "EX04",
+      "name": "Solmere Healthcare",
+      "sector": "Healthcare",
+      "sector_source": null,
+      "title": "Illustrative credit review",
+      "workflow": "Credit review",
+      "date": "2026-06-30",
+      "period": "LTM Jun 2026",
+      "period_kind": "Illustrative LTM",
+      "currency": "USD",
+      "handoff": null,
+      "identity_source": null,
+      "summary": "Fictional issuer and screening values for interaction testing only.",
+      "gaps": [
+        "Illustrative data only. No issuer evidence or actual report exists."
+      ],
+      "metrics": {
+        "revenue": null,
+        "ebitda": null,
+        "leverage": {
+          "value": "2.6",
+          "unit": "x",
+          "basis": "Illustrative gross debt / EBITDA",
+          "period": "LTM Jun 2026",
+          "source": null
+        },
+        "coverage": {
+          "value": "5.3",
+          "unit": "x",
+          "basis": "Illustrative EBITDA / interest",
+          "period": "LTM Jun 2026",
+          "source": null
+        },
+        "cash": null,
+        "cashflow": null
+      },
+      "artifacts": [],
+      "ratings": [],
+      "completion": 100.0,
+      "checkpoints": {
+        "done": 20,
+        "total": 20
+      }
+    },
+    {
+      "id": "demo-5",
+      "issuer": "EX05",
+      "name": "Valegrid Energy",
+      "sector": "Energy",
+      "sector_source": null,
+      "title": "Illustrative credit review",
+      "workflow": "Credit review",
+      "date": "2026-06-30",
+      "period": "LTM Jun 2026",
+      "period_kind": "Illustrative LTM",
+      "currency": "USD",
+      "handoff": null,
+      "identity_source": null,
+      "summary": "Fictional issuer and screening values for interaction testing only.",
+      "gaps": [
+        "Illustrative data only. No issuer evidence or actual report exists."
+      ],
+      "metrics": {
+        "revenue": null,
+        "ebitda": null,
+        "leverage": {
+          "value": "6.1",
+          "unit": "x",
+          "basis": "Illustrative gross debt / EBITDA",
+          "period": "LTM Jun 2026",
+          "source": null
+        },
+        "coverage": {
+          "value": "1.8",
+          "unit": "x",
+          "basis": "Illustrative EBITDA / interest",
+          "period": "LTM Jun 2026",
+          "source": null
+        },
+        "cash": null,
+        "cashflow": null
+      },
+      "artifacts": [],
+      "ratings": [],
+      "completion": 40.0,
+      "checkpoints": {
+        "done": 8,
+        "total": 20
+      }
+    },
+    {
+      "id": "demo-6",
+      "issuer": "EX06",
+      "name": "Briar Mobility",
+      "sector": "Automotive",
+      "sector_source": null,
+      "title": "Illustrative credit review",
+      "workflow": "Credit review",
+      "date": "2026-06-30",
+      "period": "LTM Jun 2026",
+      "period_kind": "Illustrative LTM",
+      "currency": "USD",
+      "handoff": null,
+      "identity_source": null,
+      "summary": "Fictional issuer and screening values for interaction testing only.",
+      "gaps": [
+        "Illustrative data only. No issuer evidence or actual report exists."
+      ],
+      "metrics": {
+        "revenue": null,
+        "ebitda": null,
+        "leverage": null,
+        "coverage": null,
+        "cash": null,
+        "cashflow": null
+      },
+      "artifacts": [],
+      "ratings": [],
+      "completion": 15.0,
+      "checkpoints": {
+        "done": 3,
+        "total": 20
+      }
+    }
+  ]
+}

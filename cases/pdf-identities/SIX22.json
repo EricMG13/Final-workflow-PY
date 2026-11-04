@@ -1,0 +1,280 @@
+{
+ "schema": "pdf-identities/1",
+ "doc": "SIX22",
+ "source_name": "sec.gov_Archives_edgar_data_701374_000155837022001971_six-20220102x10k.htm.pdf",
+ "source_sha256": "cde003b14559c27e82b30349a127817f9015f8f829f817b7040fdcf68eccda36",
+ "unit": "USD thousands",
+ "note": "label and page name a row of tests/fixtures/pdf_pages/<doc>/pNNN.txt; printed values are in column order; each identity is lhs sum == rhs sum, exact, per column",
+ "identities": [
+  {
+   "id": "SIX22-BS-1",
+   "kind": "BS",
+   "equation": "total assets = total liabilities + redeemable noncontrolling interests + total stockholders' deficit (the document's own grouping: redeemable NCI is between liabilities and stockholders' deficit)",
+   "lhs": [
+    {
+     "label": "Total assets",
+     "page": 93,
+     "printed": [
+      "2,968,590",
+      "2,772,691"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Total liabilities",
+     "page": 93,
+     "printed": [
+      "3,428,723",
+      "3,407,862"
+     ]
+    },
+    {
+     "label": "Redeemable noncontrolling interests",
+     "page": 93,
+     "printed": [
+      "522,067",
+      "523,376"
+     ]
+    },
+    {
+     "label": "Total stockholders' deficit",
+     "page": 93,
+     "printed": [
+      "(982,200)",
+      "(1,158,547)"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "January 2, 2022",
+     "lhs_sum": "2968590",
+     "rhs_sum": "2968590",
+     "values": {
+      "Total assets": "2968590",
+      "Total liabilities": "3428723",
+      "Redeemable noncontrolling interests": "522067",
+      "Total stockholders' deficit": "-982200"
+     }
+    },
+    {
+     "header_text": "December 31, 2020",
+     "lhs_sum": "2772691",
+     "rhs_sum": "2772691",
+     "values": {
+      "Total assets": "2772691",
+      "Total liabilities": "3407862",
+      "Redeemable noncontrolling interests": "523376",
+      "Total stockholders' deficit": "-1158547"
+     }
+    }
+   ]
+  },
+  {
+   "id": "SIX22-BS-2",
+   "kind": "BS",
+   "equation": "total assets = the printed total of liabilities and stockholders' deficit",
+   "lhs": [
+    {
+     "label": "Total assets",
+     "page": 93,
+     "printed": [
+      "2,968,590",
+      "2,772,691"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Total liabilities and stockholders' deficit",
+     "page": 93,
+     "printed": [
+      "2,968,590",
+      "2,772,691"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "January 2, 2022",
+     "lhs_sum": "2968590",
+     "rhs_sum": "2968590",
+     "values": {
+      "Total assets": "2968590",
+      "Total liabilities and stockholders' deficit": "2968590"
+     }
+    },
+    {
+     "header_text": "December 31, 2020",
+     "lhs_sum": "2772691",
+     "rhs_sum": "2772691",
+     "values": {
+      "Total assets": "2772691",
+      "Total liabilities and stockholders' deficit": "2772691"
+     }
+    }
+   ]
+  },
+  {
+   "id": "SIX22-CFS-1",
+   "kind": "CFS",
+   "equation": "operating + investing + financing + exchange-rate effect = net change in cash",
+   "lhs": [
+    {
+     "label": "Net cash provided by (used in) operating activities",
+     "page": 97,
+     "printed": [
+      "334,905",
+      "(190,880)",
+      "410,573"
+     ]
+    },
+    {
+     "label": "Net cash used in investing activities",
+     "page": 97,
+     "printed": [
+      "(121,701)",
+      "(90,894)",
+      "(139,126)"
+     ]
+    },
+    {
+     "label": "Net cash (used in) provided by financing activities",
+     "page": 97,
+     "printed": [
+      "(35,144)",
+      "266,721",
+      "(143,007)"
+     ]
+    },
+    {
+     "label": "Effect of exchange rate on cash",
+     "page": 97,
+     "printed": [
+      "(235)",
+      "(1,366)",
+      "1,131"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Net increase (decrease) in cash and cash equivalents",
+     "page": 97,
+     "printed": [
+      "177,825",
+      "(16,419)",
+      "129,571"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "January 2, 2022",
+     "lhs_sum": "177825",
+     "rhs_sum": "177825",
+     "values": {
+      "Net cash provided by (used in) operating activities": "334905",
+      "Net cash used in investing activities": "-121701",
+      "Net cash (used in) provided by financing activities": "-35144",
+      "Effect of exchange rate on cash": "-235",
+      "Net increase (decrease) in cash and cash equivalents": "177825"
+     }
+    },
+    {
+     "header_text": "December 31, 2020",
+     "lhs_sum": "-16419",
+     "rhs_sum": "-16419",
+     "values": {
+      "Net cash provided by (used in) operating activities": "-190880",
+      "Net cash used in investing activities": "-90894",
+      "Net cash (used in) provided by financing activities": "266721",
+      "Effect of exchange rate on cash": "-1366",
+      "Net increase (decrease) in cash and cash equivalents": "-16419"
+     }
+    },
+    {
+     "header_text": "December 31, 2019",
+     "lhs_sum": "129571",
+     "rhs_sum": "129571",
+     "values": {
+      "Net cash provided by (used in) operating activities": "410573",
+      "Net cash used in investing activities": "-139126",
+      "Net cash (used in) provided by financing activities": "-143007",
+      "Effect of exchange rate on cash": "1131",
+      "Net increase (decrease) in cash and cash equivalents": "129571"
+     }
+    }
+   ]
+  },
+  {
+   "id": "SIX22-CFS-2",
+   "kind": "CFS",
+   "equation": "cash at beginning + net change = cash at end",
+   "lhs": [
+    {
+     "label": "Cash and cash equivalents at beginning of period",
+     "page": 97,
+     "printed": [
+      "157,760",
+      "174,179",
+      "44,608"
+     ]
+    },
+    {
+     "label": "Net increase (decrease) in cash and cash equivalents",
+     "page": 97,
+     "printed": [
+      "177,825",
+      "(16,419)",
+      "129,571"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Cash and cash equivalents at end of period",
+     "page": 97,
+     "printed": [
+      "335,585",
+      "157,760",
+      "174,179"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "January 2, 2022",
+     "lhs_sum": "335585",
+     "rhs_sum": "335585",
+     "values": {
+      "Cash and cash equivalents at beginning of period": "157760",
+      "Net increase (decrease) in cash and cash equivalents": "177825",
+      "Cash and cash equivalents at end of period": "335585"
+     }
+    },
+    {
+     "header_text": "December 31, 2020",
+     "lhs_sum": "157760",
+     "rhs_sum": "157760",
+     "values": {
+      "Cash and cash equivalents at beginning of period": "174179",
+      "Net increase (decrease) in cash and cash equivalents": "-16419",
+      "Cash and cash equivalents at end of period": "157760"
+     }
+    },
+    {
+     "header_text": "December 31, 2019",
+     "lhs_sum": "174179",
+     "rhs_sum": "174179",
+     "values": {
+      "Cash and cash equivalents at beginning of period": "44608",
+      "Net increase (decrease) in cash and cash equivalents": "129571",
+      "Cash and cash equivalents at end of period": "174179"
+     }
+    }
+   ]
+  }
+ ]
+}

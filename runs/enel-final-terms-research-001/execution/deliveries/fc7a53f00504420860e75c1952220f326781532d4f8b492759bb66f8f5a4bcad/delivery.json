@@ -1,0 +1,14 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Historical Enel Finance International N.V. note XS2066706818; cutoff August3 2021, research access November4 2026. Actual same-host bounded CP-DR search and subsequent targeted CP-2E rejection of missing-term evidence; no primary Final Terms obtained, no positive document-discovery/full-method/provider/native qualification. CP-OS replays checked actual handoffs for publication; it did not perform the original web search. No new financial calculation or source-term change; current listing data and later outcomes excluded. Literal source-line delivery; Excel ingestion only.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-DR.md": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1",
+    "CP-2E.md": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+    "view.json": "507465881079eb1dab81382a1f10d6d1ded72561ed8f9076b3ed69a75a0f98b8",
+    "report-view.json": "6c5b7c70fa968acc24fd94ba5d66c854400b34e6d0536d2b8fae93b42494394c",
+    "report.html": "b1576b815994cf40eef0ee63d08ecf2c1ad0a01b97e4b7778fc2954d0046c706"
+  }
+}

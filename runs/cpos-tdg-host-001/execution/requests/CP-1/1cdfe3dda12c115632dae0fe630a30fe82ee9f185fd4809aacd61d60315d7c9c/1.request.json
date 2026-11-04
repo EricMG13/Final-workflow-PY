@@ -1,0 +1,30 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0"
+  },
+  "instructions": "# CP-1 \u2014 reuse checked upstream handoff\n\nDo not rerun this analysis. Supply the pinned previously checked response\n`runs/tdg-002/CP-1-attempt-2.md`, SHA-256 `301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb`. This is retained-response reuse, not fresh model\nexecution. Preserve source/period/quantity/limitation and original provenance.\nThe original analytical selection and targeted repairs remain those recorded\nin that handoff and VERIFICATION.md. Revalidate its source/upstream bindings\nand retain its exact bytes before sending them to the current CP-2 request.\nNo provider, credential, agent or Excel output.\n",
+  "module_id": "CP-1",
+  "retained_response_sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+  "run": {
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-1",
+      "CP-MODEL",
+      "CP-1A",
+      "CP-2"
+    ],
+    "run_id": "cpos-tdg-fy2024-host-snapshot-1",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "S1-annual-report.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+    "S1-text-aid.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "S1-efi-2019": {
+    "url": "https://www.enel.com/content/dam/enel-com/documenti/investitori/informazioni-finanziarie/2019/annuali/en/annual-report-2019-efi-nv.pdf",
+    "final_url": "https://www.enel.com/content/dam/enel-com/documenti/investitori/informazioni-finanziarie/2019/annuali/en/annual-report-2019-efi-nv.pdf",
+    "content_type": "application/pdf",
+    "path": "runs/enel-sdg-2021-001/sources/S1-efi-2019.pdf",
+    "sha256": "c708892b50f0ec8d43e245e127489ecc9a096b31055f02c298f25955f0bb8886",
+    "size": 2445672,
+    "pages": 78,
+    "text_aid": "runs/enel-sdg-2021-001/sources/S1-efi-2019.jsonl",
+    "text_sha256": "731f40ab8d10163c7cede3fcafda8da130f02dbff0f62be32aa9bf2866ba2a6d",
+    "status": "retained original PDF bytes"
+  },
+  "S2-supplement-2019": {
+    "url": "https://www.enel.com/content/dam/enel-com/documenti/investitori/investire-in-enel/programmi-principali/medium-term-notes/supplement-no-2-to-the-base-prospectus.pdf",
+    "final_url": "https://www.enel.com/content/dam/enel-com/documenti/investitori/investire-in-enel/programmi-principali/medium-term-notes/supplement-no-2-to-the-base-prospectus.pdf",
+    "content_type": "application/pdf",
+    "path": "runs/enel-sdg-2021-001/sources/S2-supplement-2019.pdf",
+    "sha256": "f72083f3810b2d0d8e0948d9317d85558c1c0e41a5b4fd9aece8921efa303d7c",
+    "size": 1471924,
+    "pages": 97,
+    "text_aid": "runs/enel-sdg-2021-001/sources/S2-supplement-2019.jsonl",
+    "text_sha256": "f4a427e06bde2ba5cd6ded5289fa1277e812bb4b097695d4956577b4ca2b2441",
+    "status": "retained original PDF bytes"
+  },
+  "S3-kpi-june-2021": {
+    "url": "https://www.enel.com/content/dam/enel-com/documenti/investitori/investire-in-enel/programmi-principali/sdg-bond/independent-auditors-renewable-installed-capacity-percentage_june2021.pdf",
+    "status": "retained original PDF; Poppler extraction succeeded after pypdf AES dependency failure",
+    "initial_extraction_failure": "DependencyError: cryptography>=3.1 is required for AES algorithm",
+    "path": "runs/enel-sdg-2021-001/sources/S3-kpi-june-2021.pdf",
+    "sha256": "4932f80f79801c8eb73761bf87e2e0999daca7e21b15c22e517d99be8eb9bbcd",
+    "size": 436754,
+    "pages": 6,
+    "text_aid": "runs/enel-sdg-2021-001/sources/S3-kpi-june-2021.jsonl",
+    "text_sha256": "6b0a8c5e9513e7ae870315031ec9589c9d06fe863535cff1f5b4cda53be12a00",
+    "extractor": "pdftotext -layout"
+  },
+  "S4-issuer-target": {
+    "url": "https://www.enel.com/content/dam/enel-common/press/en/2019-December/IFR%20Award%202019%20ENG.pdf",
+    "path": "runs/enel-sdg-2021-001/sources/S4-issuer-target.pdf",
+    "sha256": "32bd2a80a946a40c5ad0e97304849198b99668563d6e205b6a18c1fd7a64af92",
+    "pages": 2,
+    "text_aid": "runs/enel-sdg-2021-001/sources/S4-issuer-target.jsonl",
+    "text_sha256": "58173cde47b8049c001be0ab9f052aeb0fd5538f9502cf551a1cb626ce2b6a1c",
+    "status": "retained original issuer PDF; December16 2019"
+  }
+}

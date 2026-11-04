@@ -1,0 +1,65 @@
+{
+  "source": "Independent controls from the actual issuer/retained analytical evidence, frozen before new publication. Not production-calculation outputs.",
+  "order": [
+    "CP-0",
+    "CP-1",
+    "CP-1B",
+    "CP-1D"
+  ],
+  "requested_alias": "CP-1E",
+  "canonical_module": "CP-1D",
+  "registers": [
+    "T1D.1",
+    "T1D.2",
+    "T1D.3",
+    "T1D.4",
+    "T1D.5",
+    "T1D.6",
+    "T1D.7",
+    "T1E.1",
+    "T1E.2",
+    "T1E.3",
+    "T1E.4",
+    "T1E.5",
+    "T1E.6"
+  ],
+  "annual_bridge": [
+    3813,
+    70,
+    217,
+    58,
+    15,
+    4173
+  ],
+  "quarter_bridge": [
+    1087,
+    13,
+    25,
+    -64,
+    1061
+  ],
+  "known_debt_bridge": [
+    24880,
+    62,
+    19,
+    0,
+    24961
+  ],
+  "gross_pension_liabilities": [
+    3,
+    16,
+    19
+  ],
+  "separate_pension_asset": 13,
+  "net_pension_deficit": 6,
+  "separate_dividend_payable": 4216,
+  "annual_operating_cash": 2045,
+  "annual_denominators": [
+    3813,
+    4173
+  ],
+  "quality_adjusted_ebitda": null,
+  "full_adjusted_debt": null,
+  "excel_output": false,
+  "fresh_model_run": false
+}

@@ -1,0 +1,64 @@
+                                                TRANSDIGM GROUP INCORPORATED
+               CONSOLIDATED STATEMENTS OF CHANGES IN STOCKHOLDERS’ DEFICIT
+                                               (Amounts in millions, except share amounts)
+                                                                                   TD Group Stockholders
+                                                     Common Stock                                    Accumulated         Treasury Stock
+                                                     Number             Additional                       Other          Number                   Non
+                                                        of        Par     Paid-In    Accumulated    Comprehensive          of                 controlling
+                                                      Shares     Value    Capital       Deficit           Loss           Shares      Value     Interests    Total
+BALANCE—September 30, 2021 ......   59,403,100  $    1    $1,830        $(3,705)           $(248)       (4,198,226) $   (794)    $    6      $(2,910)
+Changes in noncontrolling interest of
+  consolidated subsidiaries, net ........       —  —     —       —        —          —     —      1       1
+Special dividends ($18.50 per share) and
+  vested dividend equivalents declared  . . .                —      —           —           (1,045)              —                     —          —         —         (1,045)
+Accrued unvested dividend equivalents
+  and other ........................       —  —     —               (30)              —                     —          —         —              (30)
+Compensation expense recognized for
+  employee stock options ............       —  —     151      —        —          —     —    —      151
+Stock-based compensation activity .....        646,585    —           132              —                 —                     —          —         —              132
+Stock repurchases under repurchase
+  program ........................       —  —     —       —        —         (1,490,413)      (912)      —            (912)
+Net income attributable to TD Group   . . .                —      —           —                866               —                     —          —         —              866
+Foreign currency translation adjustment,
+  netoftax........................       —  —     —       —               (379)                  —          —         —            (379)
+Unrealized gain on derivatives, net of
+  tax.............................       —  —     —       —        352         —     —    —      352
+Pension and post-retirement benefit plans
+  adjustment, net of tax ..............       —  —     —       —          8         —     —    —        8
+BALANCE—September 30, 2022 ......   60,049,685  $    1    $2,113        $(3,914)           $(267)       (5,688,639) $(1,706)    $    7      $(3,766)
+Changes in noncontrolling interest of
+  consolidated subsidiaries, net ........       —  —     —       —        —          —     —      (1)      (1)
+Accrued unvested dividend equivalents
+  and other ........................       —  —     —         (5)       —          —     —    —        (5)
+Compensation expense recognized for
+  employee stock options ............       —  —     112      —        —          —     —    —      112
+Stock-based compensation activity .....        945,828    —           215              —                 —                     —          —         —              215
+Net income attributable to TD Group   . . .                —      —           —             1,298               —                     —          —         —           1,298
+Foreign currency translation adjustment,
+  netoftax........................       —  —     —       —        137         —     —    —      137
+Unrealized gain on derivatives, net of
+  tax.............................       —  —     —       —         20         —     —    —       20
+Pension and post-retirement benefit plans
+  adjustment, net of tax ..............       —  —     —       —         12         —     —    —       12
+BALANCE—September 30, 2023 ......   60,995,513  $    1    $2,440        $(2,621)           $  (98)       (5,688,639) $(1,706)    $    6      $(1,978)
+Changes in noncontrolling interest of
+  consolidated subsidiaries, net ........       —  —     —       —        —          —     —      1       1
+Special dividends ($35.00 and $75.00 per
+  share) and vested dividend equivalents
+  declared ........................       —  —     —          (6,368)              —                     —          —         —         (6,368)
+Accrued unvested dividend equivalents
+  and other ........................       —  —     —               (87)              —                     —          —         —              (87)
+Compensation expense recognized for
+  employee stock options ............       —  —     134      —        —          —     —    —      134
+Stock-based compensation activity .....        909,320    —           245              —                 —                     —          —         —              245
+Net income attributable to TD Group   . . .                —      —           —             1,714               —                     —          —         —           1,714
+Foreign currency translation adjustment,
+  netoftax........................       —  —     —       —        181         —     —    —      181
+Unrealized loss on derivatives, net of tax  . .                —      —           —                —                (124)                  —          —         —            (124)
+Pension and post-retirement benefit plans
+  adjustment, net of tax ..............       —  —     —       —         (1)         —     —    —        (1)
+BALANCE—September 30, 2024 ......   61,904,833  $    1    $2,819        $(7,362)           $  (42)       (5,688,639) $(1,706)    $    7      $(6,283)
+
+                                                See notes to consolidated financial statements
+
+                                                                               F-6

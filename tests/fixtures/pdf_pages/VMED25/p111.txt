@@ -1,0 +1,47 @@
+  Strategic Report                                      Corporate Governance                              Consolidated Financial                                                                                                              VMED O2 UK Limited                                                     111
+                                                     Report                                               Statements                                                                                                                          Annual Report and Consolidated Financial
+                                                                                                                                                                                                                                              Statements 31 December 2025
+
+Consolidated Statements of Changes in Equity
+
+
+
+                                                                                                                                                                                                                                     Accumulated
+                                                                                                                                                                                                                                               other                  Total                                      Total
+                                                                                                                                                   Share                                                                          comprehensive                    owners’                                combined
+                                                                                                                                                  capital                 APIC (a)                 Other reserves (b)       Accumulated profit   loss                equity                 NCI (c)             equity
+                                                                                                                                                                                                                          in millions
+ Balance at 1 January 2025                                                                                               £           —    £     8,223.1    £     322.7    £    4,389.0    £         (336.5)   £   12,598.3    £     209.2    £   12,807.5
+     Net loss                                                                                                                                  —                   —                 —           (1,610.4)                     —           (1,610.4)              (7.2)          (1,617.6)
+     Other comprehensive loss (note 24 and 26)                                                                        —                   —                 —                   —                 (26.3)             (26.3)                —              (26.3)
+     Dividends (note 10)                                                                                                                —                   —                 —            (378.0)                     —            (378.0)          (105.3)           (483.3)
+     Share-based compensation (note 23 and 27)                                                                      —                   —                 —                  0.1                      —                  0.1                 —                  0.1
+     Excess consideration following the consolidation of O2 Daisy (note 30)                             —                   —           338.9                   —                      —             338.9                 —             338.9
+     Initial recognition of Daisy Group NCI (note 30)                                                                    —                   —                 —                   —                      —                   —          (242.9)           (242.9)
+ Balance at 31 December 2025                                                                                        £           —    £     8,223.1    £     661.6    £    2,400.7    £         (362.8)   £   10,922.6    £    (146.2)   £   10,776.4
+
+
+                                                                                                                                                                                                                                    Accumulated
+                                                                                                                                                                                                                                               other                  Total                                      Total
+                                                                                                                                                   Share                                                                          comprehensive                   owners’                                 combined
+                                                                                                                                                  capital                  APIC (a)                Other reserves (b)      Accumulated (loss) profitloss             equity                 NCI (c)             equity
+                                                                                                                                                                                                                           in millions
+ Balance at 1 January 2024                                                                                               £          —    £   15,225.0    £     212.5    £    (1,732.0)   £          (184.8)   £   13,520.7    £      146.6    £  13,667.3
+     Net loss                                                                                                                                 —                   —                —              (33.0)                     —              (33.0)             16.5               (16.5)
+     Other comprehensive loss (note 24 and 26)                                                                        —                   —                —                   —                 (151.7)             (151.7)                —              (151.7)
+     Dividends (note 10)                                                                                                                —                   —                —            (850.0)                     —            (850.0)            (19.9)          (869.9)
+     Share-based compensation (note 23 and 27)                                                                      —                   —                —                  2.1                      —                  2.1                 —                  2.1
+     Capital reduction (a) (note 29)                                                                                                —          (7,001.9)               —           7,001.9                      —                   —                 —                  —
+     Excess consideration over net book value (NBV) upon sale of joint operation
+     (note 30)                                                                                                                                        —                   —            110.2                   —                      —               110.2                 —               110.2
+     NCI on acquisition of subsidiary (note 30)                                                                            —                   —                —                   —                      —                   —             66.0              66.0
+ Balance at 31 December 2024                                                                                        £          —    £     8,223.1    £    322.7    £   4,389.0    £         (336.5)   £   12,598.3    £     209.2    £  12,807.5
+
+(a)APIC consists of the share premium and the merger reserve. On 9 April 2024, VMED O2 UK Limited implemented a capital reduction to reduce the share premium reserve to nil and increase the accumulated (loss) profit by £7,001.9 million. The
+   capital reduction was effective from 10 April 2024.
+(b)Other reserves consist of £338.9 million excess consideration based on the fair value of Virgin Media Business Limited (    VMBL)’s equity contributed over VMBL’s NBV for the year ended 31 December 2025 resulting from the consolidation of O2
+   Daisy, in addition to £322.7 million of excess consideration over NBV resulting from sales of minority stakes in Cornerstone Telecommunications Infrastructure Limited (    Cornerstone) of £110.2 million and £212.5 million in December 2024 and
+   November 2023 respectively. See note 30 for further details.
+(c)NCI resulting from the consolidation of O2 Daisy in August 2025 and the sale of a minority stake in Cornerstone in November 2023 and November 2024, respectively. See note 30 for further details.
+
+The accompanying notes on pages 114 to 170 are an integral part of these Consolidated Financial Statements.

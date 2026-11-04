@@ -1,0 +1,2596 @@
+{
+  "spans": [
+    {
+      "locator": "sheet:Tabelle1!A1",
+      "text": "Consolidated balance sheet",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A2",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A3",
+      "text": "in EUR million",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B3",
+      "text": "Notes",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C3",
+      "text": "Dec 23",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D3",
+      "text": "Dec 24",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A4",
+      "text": "Assets",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B4",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C4",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D4",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A5",
+      "text": "Cash and cash balances",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B5",
+      "text": "15",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C5",
+      "text": "36.685000000000002",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D5",
+      "text": "25.129000000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A6",
+      "text": "Financial assets held for trading",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B6",
+      "text": "21, 22",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C6",
+      "text": "8.7729999999999997",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D6",
+      "text": "11.462999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A7",
+      "text": "Derivatives",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B7",
+      "text": "21",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C7",
+      "text": "1.262",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D7",
+      "text": "1.226",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A8",
+      "text": "Other financial assets held for trading",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B8",
+      "text": "22",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C8",
+      "text": "7.5110000000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D8",
+      "text": "10.236000000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A9",
+      "text": "Pledged as collateral",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B9",
+      "text": "29",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C9",
+      "text": "245",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D9",
+      "text": "483",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A10",
+      "text": "Non-trading financial assets at fair value through profit or loss",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B10",
+      "text": "23",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C10",
+      "text": "3.004",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D10",
+      "text": "3.04",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A11",
+      "text": "Pledged as collateral",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B11",
+      "text": "29",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C11",
+      "text": "0",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D11",
+      "text": "0",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A12",
+      "text": "Equity instruments",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B12",
+      "text": "23",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C12",
+      "text": "415",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D12",
+      "text": "464",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A13",
+      "text": "Debt securities",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B13",
+      "text": "23",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C13",
+      "text": "1.5509999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D13",
+      "text": "1.468",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A14",
+      "text": "Loans and advances to customers",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B14",
+      "text": "23",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C14",
+      "text": "1.038",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D14",
+      "text": "1.1080000000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A15",
+      "text": "Financial assets at fair value through other comprehensive income",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B15",
+      "text": "19, 20",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C15",
+      "text": "8.9049999999999994",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D15",
+      "text": "9.4979999999999993",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A16",
+      "text": "Pledged as collateral",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B16",
+      "text": "29",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C16",
+      "text": "356",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D16",
+      "text": "107",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A17",
+      "text": "Equity instruments",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B17",
+      "text": "20",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C17",
+      "text": "110",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D17",
+      "text": "109",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A18",
+      "text": "Debt securities",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B18",
+      "text": "19",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C18",
+      "text": "8.7940000000000005",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D18",
+      "text": "9.3879999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A19",
+      "text": "Financial assets at amortised cost",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B19",
+      "text": "16",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C19",
+      "text": "264.721",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D19",
+      "text": "288.89400000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A20",
+      "text": "Pledged as collateral",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B20",
+      "text": "29",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C20",
+      "text": "3.125",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D20",
+      "text": "4.0659999999999998",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A21",
+      "text": "Debt securities",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B21",
+      "text": "16",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C21",
+      "text": "44.046999999999997",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D21",
+      "text": "52.889000000000003",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A22",
+      "text": "Loans and advances to banks",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B22",
+      "text": "16",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C22",
+      "text": "21.431999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D22",
+      "text": "26.972000000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A23",
+      "text": "Loans and advances to customers",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B23",
+      "text": "16",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C23",
+      "text": "199.24100000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D23",
+      "text": "209.03399999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A24",
+      "text": "Finance lease receivables",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B24",
+      "text": "50",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C24",
+      "text": "4.97",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D24",
+      "text": "5.2480000000000002",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A25",
+      "text": "Hedge accounting derivatives",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B25",
+      "text": "27",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C25",
+      "text": "183",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D25",
+      "text": "181",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A26",
+      "text": "Fair value changes of hedged items in portfolio hedge of interest rate risk",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B26",
+      "text": "27",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C26",
+      "text": "-25",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D26",
+      "text": "-19",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A27",
+      "text": "Property and equipment",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B27",
+      "text": "47",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C27",
+      "text": "2.605",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D27",
+      "text": "2.754",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A28",
+      "text": "Investment properties",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B28",
+      "text": "47",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C28",
+      "text": "1.524",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D28",
+      "text": "1.6779999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A29",
+      "text": "Intangible assets",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B29",
+      "text": "48",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C29",
+      "text": "1.3129999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D29",
+      "text": "1.3819999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A30",
+      "text": "Investments in associates and joint ventures",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B30",
+      "text": "58",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C30",
+      "text": "241",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D30",
+      "text": "280",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A31",
+      "text": "Current tax assets",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B31",
+      "text": "13",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C31",
+      "text": "72",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D31",
+      "text": "45",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A32",
+      "text": "Deferred tax assets",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B32",
+      "text": "13",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C32",
+      "text": "468",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D32",
+      "text": "266",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A33",
+      "text": "Assets held for sale",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B33",
+      "text": "63",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C33",
+      "text": "163",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D33",
+      "text": "154",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A34",
+      "text": "Trade and other receivables",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B34",
+      "text": "17",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C34",
+      "text": "2.5790000000000002",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D34",
+      "text": "2.677",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A35",
+      "text": "Other assets",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B35",
+      "text": "49",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C35",
+      "text": "976",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D35",
+      "text": "1.0660000000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A36",
+      "text": "Total assets",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B36",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C36",
+      "text": "337.15499999999997",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D36",
+      "text": "353.73599999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A37",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B37",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C37",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D37",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A38",
+      "text": "in EUR million",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B38",
+      "text": "Notes",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C38",
+      "text": "Dec 23",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D38",
+      "text": "Dec 24",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A39",
+      "text": "Liabilities and equity",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B39",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C39",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D39",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A40",
+      "text": "Financial liabilities held for trading",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B40",
+      "text": "21, 24",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C40",
+      "text": "2.3039999999999998",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D40",
+      "text": "1.821",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A41",
+      "text": "Derivatives",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B41",
+      "text": "21",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C41",
+      "text": "1.6140000000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D41",
+      "text": "1.149",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A42",
+      "text": "Other financial liabilities held for trading",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B42",
+      "text": "24",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C42",
+      "text": "690",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D42",
+      "text": "672",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A43",
+      "text": "Financial liabilities at fair value through profit or loss",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B43",
+      "text": "25",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C43",
+      "text": "11.151999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D43",
+      "text": "10.281000000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A44",
+      "text": "Deposits from customers",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B44",
+      "text": "25",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C44",
+      "text": "593",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D44",
+      "text": "115",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A45",
+      "text": "Debt securities issued",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B45",
+      "text": "25",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C45",
+      "text": "10.429",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D45",
+      "text": "10.029999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A46",
+      "text": "Other financial liabilities",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B46",
+      "text": "25",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C46",
+      "text": "130",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D46",
+      "text": "136",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A47",
+      "text": "Financial liabilities at amortised cost",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B47",
+      "text": "18",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C47",
+      "text": "289.84199999999998",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D47",
+      "text": "305.33199999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A48",
+      "text": "Deposits from banks",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B48",
+      "text": "18",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C48",
+      "text": "22.911000000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D48",
+      "text": "21.260999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A49",
+      "text": "Deposits from customers",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B49",
+      "text": "18",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C49",
+      "text": "232.22300000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D49",
+      "text": "241.535",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A50",
+      "text": "Debt securities issued",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B50",
+      "text": "18",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C50",
+      "text": "33.33",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D50",
+      "text": "41.859000000000002",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A51",
+      "text": "Other financial liabilities",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B51",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C51",
+      "text": "1.3779999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D51",
+      "text": "676",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A52",
+      "text": "Lease liabilities",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B52",
+      "text": "51",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C52",
+      "text": "670",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D52",
+      "text": "691",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A53",
+      "text": "Hedge accounting derivatives",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B53",
+      "text": "27",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C53",
+      "text": "286",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D53",
+      "text": "194",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A54",
+      "text": "Provisions",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B54",
+      "text": "53",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C54",
+      "text": "1.6120000000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D54",
+      "text": "1.6259999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A55",
+      "text": "Current tax liabilities",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B55",
+      "text": "13",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C55",
+      "text": "265",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D55",
+      "text": "241",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A56",
+      "text": "Deferred tax liabilities",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B56",
+      "text": "13",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C56",
+      "text": "14",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D56",
+      "text": "31",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A57",
+      "text": "Liabilities associated with assets held for sale",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B57",
+      "text": "63",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C57",
+      "text": "113",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D57",
+      "text": "93",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A58",
+      "text": "Other liabilities",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B58",
+      "text": "52",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C58",
+      "text": "2.3959999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D58",
+      "text": "2.6579999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A59",
+      "text": "Total equity",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B59",
+      "text": "55",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C59",
+      "text": "28.501999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D59",
+      "text": "30.766999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A60",
+      "text": "Equity attributable to non-controlling interests",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B60",
+      "text": "55",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C60",
+      "text": "6.8529999999999998",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D60",
+      "text": "7.633",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A61",
+      "text": "Additional equity instruments",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B61",
+      "text": "55",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C61",
+      "text": "2.4049999999999998",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D61",
+      "text": "2.6880000000000002",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A62",
+      "text": "Equity attributable to owners of the parent",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B62",
+      "text": "55",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C62",
+      "text": "19.242999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D62",
+      "text": "20.446999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A63",
+      "text": "Subscribed capital",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B63",
+      "text": "55",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C63",
+      "text": "843",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D63",
+      "text": "821",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A64",
+      "text": "Additional paid-in capital",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B64",
+      "text": "55",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C64",
+      "text": "1.494",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D64",
+      "text": "1.516",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A65",
+      "text": "Retained earnings and other reserves",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B65",
+      "text": "55",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C65",
+      "text": "16.905999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D65",
+      "text": "18.11",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A66",
+      "text": "Total liabilities and equity",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B66",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C66",
+      "text": "337.15499999999997",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D66",
+      "text": "353.73599999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    }
+  ],
+  "coverage": [
+    {
+      "locator": "sheet:Tabelle1",
+      "status": "retained",
+      "limitation": null
+    }
+  ],
+  "limitations": [
+    "Workbook values are raw stored lexemes, not Excel display values. Formula caches may be absent or stale; no recalculation. Charts, drawings and embedded objects require separate visual review.",
+    "Workbook date system: 1900; date serials are retained without conversion."
+  ],
+  "ocr_version": null
+}

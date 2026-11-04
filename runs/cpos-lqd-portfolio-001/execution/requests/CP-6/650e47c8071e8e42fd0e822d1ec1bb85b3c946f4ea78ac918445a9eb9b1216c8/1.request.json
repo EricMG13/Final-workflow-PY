@@ -1,0 +1,46 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-3": "6afd9798ba22956bc98b333a35d8bffddc43e23d04f052767ba427ff70e6e10f"
+  },
+  "instructions": "# CP-OS \u2014 retained LQD portfolio pathway check\n\nReuse the exact checked CP-3 portfolio answer, repaired CP-6 debate and final\nCP-5 recheck. These are actual historical host answers, not synthetic replies\nor a new model/provider run. The requested aliases CP-3B, CP-6A and CP-5A must\neach select their canonical module once. Do not dispatch a fresh analyst merely\nto rebuild the imported native runtime's unused predecessor contracts.\n\nValidate in order CP-3 \u2192 CP-6 \u2192 CP-5. CP-6 consumed the earlier actual CP-3\nhandoff; the current CP-5 is the post-repair recheck, not the earlier pre-repair\nreview. Preserve that earlier review as source context, not a competing current\nQA head. This manifest is a new publication-evaluation context over retained\nanswers and their frozen sources, not reconstructed original acceptance receipts.\n\nUse the complete existing Portfolio Decision preset, all eight sections in its\noriginal order. Route actual narrative and tables to the appropriate sections,\nretain all three full Markdown handoffs and all original registers/source lines,\nand publish no invented portfolio recommendation. Final posture is Requires\nMore Work; neither side wins; the exact constraint and proposed size remain\nunknown. Preserve USD versus USDm, matching fund NAV, dated holding quantities,\non-loan and July2029 subsets, conditional price/recovery assumptions and the\nlimits of a nine-dimension debate with eight unscored dimensions.\n\nCheck the actual output against original XML and independently retained rational\nexpectations. A reported holding is not permission to own/add, a fund cap, an\nexecutable price or proof of current underwriting. May31 2025 holdings and\nDecember2024 context stay separate; November2026 web figures are excluded.\n\nThe publication must complete through CP-OS, reconstruct byte-for-byte, resume\nwithout execution and refuse changed sources/upstream/report bytes. No new\ncontroller, provider, credentials, Excel output, native acceptance or independent\ncommittee claim. Actual deliverables replace CP-MEMO. Broader all-module/pathway\nqualification remains separate from this full-preset historical publication.\n",
+  "module_id": "CP-6",
+  "retained_response_sha256": "805f90563c8019d4ed34650011532d5e19e7bf75815b6556b43c7d8295eeb93d",
+  "run": {
+    "as_of": "2025-05-31",
+    "case_kind": "public",
+    "issuer_id": "LQD",
+    "issuer_name": "iShares iBoxx $ Investment Grade Corporate Bond ETF",
+    "method_version": "deploy-v-r14",
+    "pathway": "portfolio_decision",
+    "requested_modules": [
+      "CP-3B",
+      "CP-6A",
+      "CP-5A"
+    ],
+    "run_id": "cpos-lqd-arcc-portfolio-20250531-1",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "context/0": "b506932e7abb629e5da139f0f049673c4737c662c988f4e0ee69fd799787bafa",
+    "context/1": "c686fbe33f83970fa235e666f66a1caa55b3dbaab6eed2fe87d8bca3de8f640d",
+    "context/10": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa",
+    "context/11": "55f6bdfbe12aa531606003a1896ccfec14b5e687dd94f68dc1f7465b2aa3b91f",
+    "context/12": "9b6083e81376b307408c6c10662bc24543e2f80c039a362420869fee7e3e6bd0",
+    "context/13": "6afd9798ba22956bc98b333a35d8bffddc43e23d04f052767ba427ff70e6e10f",
+    "context/14": "48a1d06dee47d9e793eb74327f040446301cd5707f653c4acb76b19407b2829e",
+    "context/15": "aac4dfcdf87d3800f25f5331aeb6c36dd165655f6af18dbe74f8cd55dd8169a9",
+    "context/16": "7617ce8e9f605035939d57fdf019636510ba08d9cb2388d561be04d574bb11df",
+    "context/17": "f953af594dee58522fc3e9fe92b9872aedce5e59a2a954281aa4fbb6d3ded2cf",
+    "context/18": "f05e02e0f15851d53055cf789fafd09e075c5cc23e9d4f93bce22aaff8f8c1e5",
+    "context/2": "9e134207ab85d004174ef27094948bdcbd798601def55cf307b63c5c302c4711",
+    "context/3": "0ae74db02dd569fe7805e62a661f22cd436494183ba5cb928f8be37aa549a96b",
+    "context/4": "f91e1ef62493c6bd734555dc7d4ee8b397a53f939a88f2c0e42b331880ae49e3",
+    "context/5": "9e36ee1bc5ed1b2a99ffb2e8bc1ed2a10e2a3d26b70083a00beb598a8d1c9478",
+    "context/6": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9",
+    "context/7": "ca53528bf1f6d9758a7d9194e76af181eb884e237388fe46e839e601606168b6",
+    "context/8": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1",
+    "context/9": "6094c0aceae47371363fb9aed6906e41feab902268b10f3a347ebdf47e5400e1"
+  }
+}

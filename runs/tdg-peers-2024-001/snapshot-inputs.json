@@ -1,0 +1,30 @@
+{
+  "run": {
+    "run_id": "tdg-fy2024-manual-snapshot-4",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-1",
+      "CP-MODEL",
+      "CP-1A",
+      "CP-2"
+    ]
+  },
+  "handoffs": {
+    "CP-1": {
+      "path": "../tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "CP-1A": {
+      "path": "../tdg-002/CP-1A-attempt-3.md",
+      "sha256": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+    },
+    "CP-2": {
+      "path": "CP-2-delivery-input.md",
+      "sha256": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+    }
+  }
+}

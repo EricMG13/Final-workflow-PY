@@ -1,0 +1,145 @@
+{
+  "scope": "Current-host source/instruction/output review, not independent/native issuer assurance",
+  "producer_sha256": "d7373d2f25d8df1730beec56a765ad1966b8df5aa11bbf2c9ccb96830bd9adae",
+  "independent_fraction_checks": 164,
+  "exact_register_schemas_checked": 7,
+  "model_weekly_monthly_numeric_and_date_coordinates_checked": 153,
+  "source_weekly_dates_and_stub_footnote": "pass",
+  "source_dash_and_nonzero_rounding_residuals": "preserved explicitly",
+  "required_missing": "null, not zero",
+  "producer_repairs_required": [
+    {
+      "observed": "T2E.3 all-senior-obligations maturity wording exceeded the retained due-date evidence and conflated payment categories.",
+      "repair": "One row narrowed to loan principal and separately specified fee terms, with LC and complete-takeout gaps and operative source references.",
+      "numeric_or_other_changes": false,
+      "repair_request_sha256": "6c90717b03880d31eddfede0b64080ec9797ce42774f81ad045ea3528af90e58",
+      "source_supplement_sha256": "ead2ce25043c2be4645f23a563b46bd2ebaea97d50c6bf4f61a17e01b1574153"
+    }
+  ],
+  "next": "Advance the next unproven analytical function; CP-OS/native publication and full twelve-month accessible-liquidity/MTE remain open.",
+  "method_before": {
+    "path": "docs/reuse/selected-methods/runtime/cp2d-before-maturity-scope.md",
+    "sha256": "df8ec4b240315b7837144143b10b4861faf47826612d48f4be0e24f2ea5edcdd"
+  },
+  "original_producer_sha256": "6c595ab5da9b322b88136b8f70c8b99679e4426a96d6f3867ed771e4dc7b8016",
+  "method_after": {
+    "path": "src/deploy_vii/methods/cp2d.md",
+    "sha256": "84898421359d4e37ac841477d42e421b7a9a560def6f5bbb1de3d19e95d48fef",
+    "change": "Maturity-date evidence alone does not establish all due-date/obligation amounts; keep principal, fees and LC treatment separate."
+  },
+  "native_prompt_before": {
+    "path": "docs/reuse/selected-methods/runtime/liquidity-bridge-before-maturity-scope.md",
+    "sha256": "7a844da74b1258529dd620d0823a661ef9569e6f67560c4bc568adb22aeac6fe"
+  },
+  "current_prompt_assembly": {
+    "step_id": "liquidity_bridge",
+    "source_path": "src/deploy_workflow/prompts/texts/liquidity_bridge.md",
+    "actual_text_sha256": "bee89ae11e43ec596c935459f2bf7a31500f461eb7ffb422b0f23a887446be01",
+    "correction_present_once": true,
+    "other_assembled_bytes_equal_pre_edit": true,
+    "assembled_body_sha256": "78270eb120992da05232be690ade7af9c414fec3776a998244d56386e95400d0",
+    "observed_root_cause": "The native liquidity step loads prompts/texts/liquidity_bridge.md, not methods/cp2d.md. Method-document-only correction was absent from the actual request. The correction is now in the loaded text as well.",
+    "scope": "Offline synthetic request assembly only; no provider call. Broader ten-step historical method remains explicitly selected by this host case, not newly qualified in the narrower native route."
+  },
+  "focused_tests": {
+    "command": "PYTHONPATH=src:tests:tests/prompts .venv/bin/pytest tests/test_method_cp2d.py tests/test_handoff_delivery.py -q",
+    "result": "325 passed in 1.09s (rerun after the loaded prompt text change)",
+    "scope": "Existing deterministic synthetic core and report-input regressions, not model/issuer acceptance."
+  },
+  "consumer": {
+    "path": "CP-3C-consumer.md",
+    "sha256": "d75fce3ec263bb786ebef4c0db95c875fa6060c7ff2e9fd187a523ed5dd4234d",
+    "request_sha256": "1e4cab93ab02b5abf0f3f281bea983d7f0764bfce6b64c0aacfe0f477fd5ddb4",
+    "findings_checked": 6,
+    "route_rows_checked": 5,
+    "amount_date_and_definition_checks": 19,
+    "scope": "Current host with preceding context; actual handoff consumption, not independent/native assurance or full route feasibility."
+  },
+  "delivery": {
+    "directory": "deliverables/crc-2020-liquidity-1",
+    "kind": "manual_checked_handoff_delivery",
+    "analytical_rerun_for_delivery": false,
+    "production_code_changed": true,
+    "production_python_changed": false,
+    "static_prompt_text_changed": true,
+    "native_accepted_heads_created": false,
+    "no_excel_output": true,
+    "scope": "Historical initial CRC discussion budget dated 9 July 2020, attached to the filed 23 July senior DIP agreement. Thirteen-week Tight assessment is budget-conditional; monthly January forecast is a stub through 15 January 2021 maturity. Planned draws are not certified accessible funding. Complete twelve-month liquidity, formal Months to Empty, actual covenant compliance and maturity takeout remain unproven. Source rounding and conditional capacity differences are retained. Same-host handoffs, not independent assurance or native CP-OS completion.",
+    "source_tables": 25,
+    "source_data_rows": 123,
+    "literal_value_cells_checked": 515,
+    "facts_and_exact_line_citations": 515,
+    "missing_null_cells": 23,
+    "front_summary_rows": 6,
+    "narrative_tables": 12,
+    "call_from_literal_funding_readiness": true,
+    "files": {
+      "CP-2D-attempt-2.md": "d7373d2f25d8df1730beec56a765ad1966b8df5aa11bbf2c9ccb96830bd9adae",
+      "CP-3C-consumer.md": "d75fce3ec263bb786ebef4c0db95c875fa6060c7ff2e9fd187a523ed5dd4234d",
+      "calculations.json": "103aa2ce489cd4b7c490d7208883e5abca95d675fd6f3f72e661c975c8db93d5",
+      "budget-inputs.json": "f39aa7eb9aaa21ac996a9b069fd68ca6bf3ed792f7ad53e393c214a62151dd4e",
+      "view.json": "9e2f715593915e370a7fd9a93bc5aef5057142d4ed6df97638c496170f0d0a7e",
+      "report-view.json": "aa702e05c1a3c7f5a16399ed3823619fb3ca1eecbe14d25257ace86eeeb83fa4",
+      "report.html": "e7d0d92644c9a308641315ce4d88ff536d3ccc619131627fe88403aded8045c4"
+    },
+    "reused_code": {
+      "src/deploy_workflow/handoff_delivery.py": "aa77ae59a2e408f05a3cf2f5c7af92b4dde2b2df635f961545d49fc05bc0e00c",
+      "src/deploy_vii/contracts.py": "b07965cc3907da1911c29a09bfea8b4559fb1c27dfc57c7e89eab97f1a3d0ee3",
+      "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+      "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba"
+    }
+  },
+  "browser_check": {
+    "mode": "Read-only actual browser accessibility/UI inspection of the populated local report",
+    "checks": [
+      "Historical discussion-budget scope and funding-readiness Requires More Work visible.",
+      "Six actual CP-3C findings visible; cash-versus-contractual-liquidity finding opens exact consumer line quote and SHA-256 d75fce3ec263bb786ebef4c0db95c875fa6060c7ff2e9fd187a523ed5dd4234d.",
+      "CP-2D navigator opens producer content; maturity amount inspector shows repaired principal/fee/LC scope, original handoff row and SHA-256 d7373d2f25d8df1730beec56a765ad1966b8df5aa11bbf2c9ccb96830bd9adae.",
+      "Formal Months to Empty opens missing status and explicit never-zero explanation with original handoff quote."
+    ],
+    "temporary_server": "Port8779 process68845 identified as the task local http.server, terminated; session49679 exited143. Browser completion_summary recorded.",
+    "scope_limit": "Literal columns and original quotes preserve units/periods/definitions; every native typed-number inspector facet is not supplied by this manual adapter."
+  },
+  "confidence_review": {
+    "scope": "Two static CP-2D prompt paragraphs, actual repaired host-model handoff, CP-3C consumption and separate literal report delivery.",
+    "ranked_doubts": [
+      {
+        "point": "Would the method change reach the actual native request?",
+        "investigation": "Actual offline compose for liquidity_bridge initially omitted the method-document edit. The step loads prompts/texts/liquidity_bridge.md. Added the same clarification there; assembled correction occurs once and removing it yields the exact previous request bytes.",
+        "verdict": "Confirmed wiring issue repaired; no provider qualification claimed."
+      },
+      {
+        "point": "Did a maturity date prove all senior obligations due together?",
+        "investigation": "Retained operative section2.5(a) and fee section4.1 separately. Attempt2 changes one maturity row only; reverse substitution reproduces attempt1 bytes. No numerical or posture change.",
+        "verdict": "Confirmed evidentiary overreach repaired; full takeout and LC treatment remain gaps."
+      },
+      {
+        "point": "Could financing capacity be counted twice or source rounding silently plugged?",
+        "investigation": "164 exact Fraction comparisons and twenty date/period comparisons passed. Conditional same-pool LC assumptions, senior/junior roll-up distinctions, negative cash and nonzero source-versus-sum residuals remain visible.",
+        "verdict": "Verified within the displayed-budget diagnostic scope; actual approval/access/covenant result remains open."
+      },
+      {
+        "point": "Could absent access/MTE/full-horizon data become zero or a positive sufficiency claim?",
+        "investigation": "All eight calculation gaps remain null. Actual report MTE inspector displays missing, never zero. Final monthly period retains the January15 stub, not a full January or twelve-month forecast.",
+        "verdict": "Verified gap preservation; full twelve-month/access-certified liquidity/MTE unproven."
+      },
+      {
+        "point": "Could delivery change values, omit findings or point to different producer bytes?",
+        "investigation": "Producer, consumer, budget inputs and calculations are byte-identical in delivery. All recorded delivery/reused-code hashes passed. Prior515 literal cell/citation checks and actual browser producer/consumer quotes/hashes confirmed the boundary.",
+        "verdict": "Verified literal delivery; generic typed/native publication remains open."
+      },
+      {
+        "point": "Could this work introduce Excel output, a new controller, credentials or historical mutations?",
+        "investigation": "No XLS/XLSX in the new deliverable. Only static prompt text, new case/archive/delivery data and current documentation changed; parser/renderer/contracts hashes unchanged. No provider/credential/subagent/background integrator used; temporary HTTP server stopped.",
+        "verdict": "Verified current case boundaries; CP-OS integration remains future work."
+      },
+      {
+        "point": "Could passing synthetic tests be misreported as independent live proof?",
+        "investigation": "325 focused deterministic regressions passed after the actual loaded-prompt edit. Host saw source/oracle and preceding context. Case, report and documentation explicitly retain that execution limitation; no accepted native heads created.",
+        "verdict": "Verified labelling; independent/native full-route assurance remains open."
+      }
+    ],
+    "review_check_correction": "Initial direct JSON equality was too strict because production adds date/period labels and preserves Decimal trailing zeros. Field-wise exact Fraction and date/period comparisons passed without artifact changes.",
+    "rewrite_tournament": "Skipped under the skill materiality exception: static prompt text/docs and generated case/delivery data only, no new or changed Python functions."
+  }
+}

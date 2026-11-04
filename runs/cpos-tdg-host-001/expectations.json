@@ -1,0 +1,170 @@
+{
+  "scope": "Independent literal upstream copy/instruction expectations, not independent model assurance or fresh issuer-source audit; no production calculations are involved.",
+  "request_sha256": "0283afb5a674d22bf8850357abaa9f881287ef669e7c9ed3f9302772b83d157e",
+  "financial_rows": [
+    {
+      "measure": "Net sales",
+      "values": {
+        "FY2024": "7,940",
+        "FY2023": "6,585",
+        "FY2022": "5,429"
+      },
+      "unit": "USD millions",
+      "source": "CP-1",
+      "line": 246,
+      "raw": "| Net sales | 7,940 | 6,585 | 5,429 | Reported, PDF 106 |"
+    },
+    {
+      "measure": "Income from operations",
+      "values": {
+        "FY2024": "3,531",
+        "FY2023": "2,923",
+        "FY2022": "2,215"
+      },
+      "unit": "USD millions",
+      "source": "CP-1",
+      "line": 248,
+      "raw": "| Income from operations | 3,531 | 2,923 | 2,215 | Reported, PDF 106 |"
+    },
+    {
+      "measure": "Net cash provided by operating activities",
+      "values": {
+        "FY2024": "2,045",
+        "FY2023": "1,375",
+        "FY2022": "948"
+      },
+      "unit": "USD millions",
+      "source": "CP-1",
+      "line": 251,
+      "raw": "| Net cash provided by operating activities | 2,045 | 1,375 | 948 | Reported, PDF 109 |"
+    },
+    {
+      "measure": "Capital expenditures",
+      "values": {
+        "FY2024": "(165)",
+        "FY2023": "(139)",
+        "FY2022": "(119)"
+      },
+      "unit": "USD millions",
+      "source": "CP-1",
+      "line": 252,
+      "raw": "| Capital expenditures | (165) | (139) | (119) | Reported, PDF 109 |"
+    },
+    {
+      "measure": "Operating cash less capex",
+      "values": {
+        "FY2024": "1,880",
+        "FY2023": "1,236",
+        "FY2022": "829"
+      },
+      "unit": "USD millions",
+      "source": "CP-1",
+      "line": 253,
+      "raw": "| Operating cash less capex | 1,880 | 1,236 | 829 | Calculated; simple subtraction only |"
+    },
+    {
+      "measure": "Cash closing",
+      "values": {
+        "FY2024": "6,261",
+        "FY2023": "3,472",
+        "FY2022": "3,001"
+      },
+      "unit": "USD millions",
+      "source": "CP-1",
+      "line": 254,
+      "raw": "| Cash closing | 6,261 | 3,472 | 3,001 | Reported, PDF 109 |"
+    },
+    {
+      "measure": "EBITDA As Defined, total company",
+      "values": {
+        "FY2024": "4,173",
+        "FY2023": "3,395",
+        "FY2022": "2,646"
+      },
+      "unit": "USD millions",
+      "source": "CP-1",
+      "line": 255,
+      "raw": "| EBITDA As Defined, total company | 4,173 | 3,395 | 2,646 | Non-GAAP issuer metric, PDF 142 |"
+    },
+    {
+      "source": "CP-1",
+      "line": 166,
+      "raw": "| Acquisition of businesses, net of cash acquired | (2,347) | (762) | (437) |"
+    },
+    {
+      "source": "CP-1",
+      "line": 170,
+      "raw": "| Dividends and dividend equivalent payments | (2,038) | (38) | (1,091) |"
+    },
+    {
+      "source": "CP-1",
+      "line": 207,
+      "raw": "| Dividends payable | 4,216 | \u2014 |"
+    },
+    {
+      "source": "CP-1",
+      "line": 390,
+      "raw": "Debt maturity schedule excluding finance leases at Sep 30, 2024 (PDF 133), USD millions: FY2025 93; FY2026 92; FY2027 92; FY2028 6,637; FY2029 4,768; thereafter 12,637; total 24,319. This schedule is principal maturity presentation excluding finance leases and is distinct from carrying value and current classification. Lease maturity table is separately given below."
+    },
+    {
+      "source": "CP-1",
+      "line": 256,
+      "raw": "| Total debt carrying value incl. separately shown securitization | 24,880* | 19,750* | Not reconstructed | *2024: 24,296 long-term + 98 current portion + 486 securitization; 2023: 19,330 + 71 + 349. This classification sum is not gross principal. |"
+    }
+  ],
+  "critical_cp1a_rows": [
+    {
+      "line": 138,
+      "raw": "| Executed debt agreements, indentures and collateral documents are not reviewed; named FY2024 amendments/refinancings are documented in S1 PDF 127\u2013132. | Legal capacity, restricted payments, guarantees, priming/uptiering/drop-down pathways and creditor control remain unknown. | Critical: obtain operative debt documents and full transaction/amendment history; map baskets, collateral, intercreditor terms and creditor effects. The annual filing documents amendments but does not replace operative contracts. |"
+    },
+    {
+      "line": 139,
+      "raw": "| No current covenant certificate, unrestricted-cash schedule or liquidity forecast. Historical debt-plus-cash dividend funding is disclosed, but does not establish current post-payment capacity. | Historical cash and debt facts cannot establish current distribution capacity, covenant headroom or financial feasibility. | Critical: obtain latest covenant certificate, liquidity schedule, cash restrictions and forecast. |"
+    }
+  ],
+  "expected_confidence": "Medium or Low, never High while inherited Critical restrictions persist",
+  "expected_readiness": "Ready with limitations",
+  "source_hashes": {
+    "CP-1": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+    "CP-1A": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+  },
+  "required_financial_profile_dimensions": [
+    "Scale / market position",
+    "Competitive advantage",
+    "Business diversification",
+    "Cost / capex flexibility",
+    "Margin stability",
+    "Free-cash-flow stability",
+    "Refinancing / market access",
+    "Liquidity",
+    "Financial policy / governance"
+  ],
+  "required_issuer_matrix_factors": [
+    "Revenue durability",
+    "Margin resilience",
+    "Cash conversion",
+    "Liquidity buffer",
+    "Refinancing capacity",
+    "Financial policy"
+  ],
+  "required_monitoring_lanes": [
+    "Revenue",
+    "EBITDA margin",
+    "Cash conversion",
+    "Liquidity",
+    "Leverage",
+    "Refinancing",
+    "Shareholder action",
+    "Sector conditions"
+  ],
+  "period_boundary": "Annual FY2024 and two prior annual comparatives; October2024 events remain subsequent. No current2026 cash balance, security action or forecast result follows.",
+  "quantity_boundaries": [
+    "Debt carrying value is not gross principal or a covenant measure",
+    "OCF less capex is not sustainable FCF; operating cash already reflects relevant operating cash interest/taxes",
+    "Available revolver is not cash or proof of current unrestricted access",
+    "Declared/payable/paid dividends differ; October payment not FY2024 cash flow",
+    "Management proprietary/aftermarket estimates are not independently verified pricing power",
+    "Governance rubric High is not CP-2 confidence, default probability or rating"
+  ],
+  "provenance_boundary": "CP-0/CP-1/CP-1A retained; fresh CP-2 current host with preceding context; no provider/subagent/native accepted head."
+}

@@ -1,0 +1,56 @@
+                  Valuation of goodwill
+Description       As disclosed in Note 8, the Company had goodwill of $10.4 billion at September 30, 2024. As
+of the            discussed in Note 1 to the consolidated financial statements, goodwill is tested for impairment
+Matter            annually as of the first day of the fourth fiscal quarter, or more frequently, if an event occurs or
+                  circumstances change that would more likely than not reduce fair value below carrying value. The
+                  Company’s goodwill is initially assigned to its reporting units as of the acquisition date. The
+                  Company first assesses qualitative factors to determine whether it is more likely than not that the
+                  fair value of a reporting unit is less than its carrying value. If the Company determines the
+                  qualitative assessment is not sufficient to conclude on whether it is more likely than not that the
+                  fair value is less than the carrying value, a quantitative impairment test is performed. The
+                  company may also elect to bypass the qualitative assessment and perform a quantitative test for
+                  any or all reporting units. The Company performed a quantitative assessment on the goodwill at
+                  14 of its reporting units. As part of the quantitative assessment, the Company determines the fair
+                  value of the reporting units using a discounted cash flow valuation model.
+
+                  Auditing management’s quantitative impairment assessment was complex and judgmental for
+                  certain of the 14 reporting units due to the significant estimation required to determine fair value.
+                  In particular, the fair value estimates were sensitive to significant assumptions, such as changes in
+                  the discount rate, revenue growth rates and EBITDA margins, which are affected by expectations
+                  about future market or economic conditions.
+
+How We            We obtained an understanding, evaluated the design and tested the operating effectiveness of
+Addressed         controls over the Company’s impairment process, including controls over management’s review
+the Matter        of the valuation model and the significant assumptions underlying the fair value determination, as
+in Our            described above.
+Audit
+                  To test the fair values of the Company’s reporting units, our audit procedures included, among
+                  others, assessing the use of the discounted cash flow valuation model and testing the significant
+                  assumptions discussed above and underlying data used by the Company in its analyses for certain
+                  of the 14 reporting units evaluated using the quantitative assessment. We utilized internal
+                  valuation specialists in assessing the fair value methodologies applied and evaluating the
+                  reasonableness of certain assumptions selected by management in the determination of the fair
+                  values of certain of the 14 reporting units. We compared the significant assumptions used by
+                  management to current industry and economic trends, recent historical performance, and other
+                  relevant factors. We performed sensitivity analyses of significant assumptions to evaluate the
+                  changes in fair values that would result from changes in the assumptions.
+
+/s/ Ernst & Young LLP
+We have served as the Company’s auditor since 2004.
+
+Cleveland, Ohio
+November 7, 2024
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                    F-2

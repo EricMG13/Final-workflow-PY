@@ -1,0 +1,1831 @@
+{
+ "schema": "statement-rows/1",
+ "case": "natl-portfolio-decision",
+ "method": "DVII extract_statement_lines over each unit of cases/statement-units (fc93c39d), on a cell-marked re-conversion of the filing (td/th boundaries joined by ' | '); line-aligned with convert_html's text (asserted). A row's label is its own label cell (review H1: each <tr> is one line, so DVII's continuation merge would glue a heading row on). Headers are not part of the key (review L1). BGS excluded (CP1H-R18 F1).",
+ "sources": [
+  {
+   "source_id": "natl-10q-2025-09-30",
+   "file": "NATL/NATL_2025-09-30_10-Q_0001628280-25-050175_natl-20250930.htm",
+   "converted_sha256": "4bb9e39aee34c69f0f3d5222132e3b9cc07aa306ae0334e28822c4a15bcc886a",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:92",
+     "end": "line:139",
+     "rows": [
+      {
+       "line": 96,
+       "label": "Cash and cash equivalents",
+       "raw_values": [
+        "412",
+        "419"
+       ]
+      },
+      {
+       "line": 97,
+       "label": "Accounts receivable, net of allowances of $12 and $15 as of September 30, 2025 and December 31, 2024, respectively",
+       "raw_values": [
+        "569",
+        "581"
+       ]
+      },
+      {
+       "line": 98,
+       "label": "Inventories",
+       "raw_values": [
+        "383",
+        "307"
+       ]
+      },
+      {
+       "line": 99,
+       "label": "Restricted cash",
+       "raw_values": [
+        "162",
+        "210"
+       ]
+      },
+      {
+       "line": 100,
+       "label": "Other current assets",
+       "raw_values": [
+        "291",
+        "232"
+       ]
+      },
+      {
+       "line": 101,
+       "label": "Total current assets",
+       "raw_values": [
+        "1,817",
+        "1,749"
+       ]
+      },
+      {
+       "line": 102,
+       "label": "Property, plant and equipment, net",
+       "raw_values": [
+        "484",
+        "474"
+       ]
+      },
+      {
+       "line": 103,
+       "label": "Goodwill",
+       "raw_values": [
+        "1,959",
+        "1,950"
+       ]
+      },
+      {
+       "line": 104,
+       "label": "Intangibles, net",
+       "raw_values": [
+        "519",
+        "550"
+       ]
+      },
+      {
+       "line": 105,
+       "label": "Operating lease right of use assets",
+       "raw_values": [
+        "162",
+        "144"
+       ]
+      },
+      {
+       "line": 106,
+       "label": "Prepaid pension cost",
+       "raw_values": [
+        "262",
+        "227"
+       ]
+      },
+      {
+       "line": 107,
+       "label": "Deferred income tax assets",
+       "raw_values": [
+        "290",
+        "285"
+       ]
+      },
+      {
+       "line": 108,
+       "label": "Other assets",
+       "raw_values": [
+        "157",
+        "156"
+       ]
+      },
+      {
+       "line": 109,
+       "label": "Total assets",
+       "raw_values": [
+        "5,650",
+        "5,535"
+       ]
+      },
+      {
+       "line": 112,
+       "label": "Short-term borrowings",
+       "raw_values": [
+        "80",
+        "81"
+       ]
+      },
+      {
+       "line": 113,
+       "label": "Accounts payable",
+       "raw_values": [
+        "530",
+        "564"
+       ]
+      },
+      {
+       "line": 114,
+       "label": "Payroll and benefits liabilities",
+       "raw_values": [
+        "137",
+        "145"
+       ]
+      },
+      {
+       "line": 115,
+       "label": "Contract liabilities",
+       "raw_values": [
+        "358",
+        "328"
+       ]
+      },
+      {
+       "line": 116,
+       "label": "Settlement liabilities",
+       "raw_values": [
+        "161",
+        "171"
+       ]
+      },
+      {
+       "line": 117,
+       "label": "Other current liabilities",
+       "raw_values": [
+        "518",
+        "433"
+       ]
+      },
+      {
+       "line": 118,
+       "label": "Total current liabilities",
+       "raw_values": [
+        "1,784",
+        "1,722"
+       ]
+      },
+      {
+       "line": 119,
+       "label": "Long-term borrowings",
+       "raw_values": [
+        "2,789",
+        "2,859"
+       ]
+      },
+      {
+       "line": 120,
+       "label": "Pension and indemnity plan liabilities",
+       "raw_values": [
+        "330",
+        "343"
+       ]
+      },
+      {
+       "line": 121,
+       "label": "Postretirement and postemployment benefits liabilities",
+       "raw_values": [
+        "80",
+        "81"
+       ]
+      },
+      {
+       "line": 122,
+       "label": "Income tax accruals",
+       "raw_values": [
+        "35",
+        "37"
+       ]
+      },
+      {
+       "line": 123,
+       "label": "Operating lease liabilities",
+       "raw_values": [
+        "127",
+        "110"
+       ]
+      },
+      {
+       "line": 124,
+       "label": "Deferred income tax liabilities",
+       "raw_values": [
+        "53",
+        "40"
+       ]
+      },
+      {
+       "line": 125,
+       "label": "Other liabilities",
+       "raw_values": [
+        "121",
+        "120"
+       ]
+      },
+      {
+       "line": 126,
+       "label": "Total liabilities",
+       "raw_values": [
+        "5,319",
+        "5,312"
+       ]
+      },
+      {
+       "line": 130,
+       "label": "Preferred stock: par value $0.01 per share, 50.0 shares authorized, no shares issued",
+       "raw_values": [
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 131,
+       "label": "Common stock: par value $0.01 per share, 350.0 shares authorized, 73.8 and 72.7 shares issued and outstanding as of September 30, 2025 and December 31, 2024, respectively",
+       "raw_values": [
+        "1",
+        "1"
+       ]
+      },
+      {
+       "line": 132,
+       "label": "Paid-in Capital",
+       "raw_values": [
+        "64",
+        "47"
+       ]
+      },
+      {
+       "line": 133,
+       "label": "Retained earnings",
+       "raw_values": [
+        "268",
+        "188"
+       ]
+      },
+      {
+       "line": 134,
+       "label": "Accumulated other comprehensive income (loss)",
+       "raw_values": [
+        "(3)",
+        "(17)"
+       ]
+      },
+      {
+       "line": 135,
+       "label": "Total Atleos stockholders’ equity",
+       "raw_values": [
+        "330",
+        "219"
+       ]
+      },
+      {
+       "line": 136,
+       "label": "Noncontrolling interests in subsidiaries",
+       "raw_values": [
+        "1",
+        "4"
+       ]
+      },
+      {
+       "line": 137,
+       "label": "Total stockholders’ equity",
+       "raw_values": [
+        "331",
+        "223"
+       ]
+      },
+      {
+       "line": 138,
+       "label": "Total liabilities and stockholders’ equity",
+       "raw_values": [
+        "5,650",
+        "5,535"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "IS",
+     "start": "line:44",
+     "end": "line:70",
+     "rows": [
+      {
+       "line": 47,
+       "label": "Product revenue",
+       "raw_values": [
+        "274",
+        "234",
+        "728",
+        "720"
+       ]
+      },
+      {
+       "line": 48,
+       "label": "Service revenue",
+       "raw_values": [
+        "847",
+        "839",
+        "2,474",
+        "2,477"
+       ]
+      },
+      {
+       "line": 49,
+       "label": "Total revenue",
+       "raw_values": [
+        "1,121",
+        "1,073",
+        "3,202",
+        "3,197"
+       ]
+      },
+      {
+       "line": 50,
+       "label": "Cost of products",
+       "raw_values": [
+        "219",
+        "201",
+        "596",
+        "624"
+       ]
+      },
+      {
+       "line": 51,
+       "label": "Cost of services",
+       "raw_values": [
+        "631",
+        "616",
+        "1,851",
+        "1,851"
+       ]
+      },
+      {
+       "line": 52,
+       "label": "Selling, general and administrative expenses",
+       "raw_values": [
+        "143",
+        "127",
+        "381",
+        "391"
+       ]
+      },
+      {
+       "line": 53,
+       "label": "Research and development expenses",
+       "raw_values": [
+        "18",
+        "15",
+        "52",
+        "43"
+       ]
+      },
+      {
+       "line": 54,
+       "label": "Total operating expenses",
+       "raw_values": [
+        "1,011",
+        "959",
+        "2,880",
+        "2,909"
+       ]
+      },
+      {
+       "line": 55,
+       "label": "Income from operations",
+       "raw_values": [
+        "110",
+        "114",
+        "322",
+        "288"
+       ]
+      },
+      {
+       "line": 56,
+       "label": "Interest expense",
+       "raw_values": [
+        "(68)",
+        "(79)",
+        "(204)",
+        "(237)"
+       ]
+      },
+      {
+       "line": 57,
+       "label": "Other income (expense), net",
+       "raw_values": [
+        "(9)",
+        "(5)",
+        "(6)",
+        "4"
+       ]
+      },
+      {
+       "line": 58,
+       "label": "Income before income taxes",
+       "raw_values": [
+        "33",
+        "30",
+        "112",
+        "55"
+       ]
+      },
+      {
+       "line": 59,
+       "label": "Income tax expense",
+       "raw_values": [
+        "7",
+        "10",
+        "35",
+        "18"
+       ]
+      },
+      {
+       "line": 60,
+       "label": "Net income",
+       "raw_values": [
+        "26",
+        "20",
+        "77",
+        "37"
+       ]
+      },
+      {
+       "line": 61,
+       "label": "Net loss attributable to noncontrolling interests",
+       "raw_values": [
+        "—",
+        "(1)",
+        "(2)",
+        "(2)"
+       ]
+      },
+      {
+       "line": 62,
+       "label": "Net income attributable to Atleos",
+       "raw_values": [
+        "26",
+        "21",
+        "79",
+        "39"
+       ]
+      },
+      {
+       "line": 65,
+       "label": "Basic",
+       "raw_values": [
+        "0.35",
+        "0.29",
+        "1.08",
+        "0.54"
+       ]
+      },
+      {
+       "line": 66,
+       "label": "Diluted",
+       "raw_values": [
+        "0.34",
+        "0.28",
+        "1.05",
+        "0.53"
+       ]
+      },
+      {
+       "line": 68,
+       "label": "Basic",
+       "raw_values": [
+        "73.7",
+        "72.3",
+        "73.4",
+        "72.0"
+       ]
+      },
+      {
+       "line": 69,
+       "label": "Diluted",
+       "raw_values": [
+        "76.0",
+        "74.5",
+        "75.5",
+        "73.7"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "CFS",
+     "start": "line:140",
+     "end": "line:187",
+     "rows": [
+      {
+       "line": 144,
+       "label": "Net income",
+       "raw_values": [
+        "77",
+        "37"
+       ]
+      },
+      {
+       "line": 146,
+       "label": "Depreciation and Amortization expense",
+       "raw_values": [
+        "211",
+        "218"
+       ]
+      },
+      {
+       "line": 147,
+       "label": "Stock-based compensation expense",
+       "raw_values": [
+        "25",
+        "28"
+       ]
+      },
+      {
+       "line": 148,
+       "label": "Deferred income taxes",
+       "raw_values": [
+        "16",
+        "(9)"
+       ]
+      },
+      {
+       "line": 149,
+       "label": "(Gain) loss on divestiture and disposal of assets, net",
+       "raw_values": [
+        "(30)",
+        "5"
+       ]
+      },
+      {
+       "line": 150,
+       "label": "Bargain purchase gain from acquisition",
+       "raw_values": [
+        "—",
+        "(5)"
+       ]
+      },
+      {
+       "line": 151,
+       "label": "Loss (earnings) from equity investments",
+       "raw_values": [
+        "2",
+        "2"
+       ]
+      },
+      {
+       "line": 153,
+       "label": "Receivables",
+       "raw_values": [
+        "29",
+        "80"
+       ]
+      },
+      {
+       "line": 154,
+       "label": "Inventories",
+       "raw_values": [
+        "(108)",
+        "(77)"
+       ]
+      },
+      {
+       "line": 155,
+       "label": "Current payables and accrued expenses",
+       "raw_values": [
+        "(42)",
+        "77"
+       ]
+      },
+      {
+       "line": 156,
+       "label": "Contract liabilities",
+       "raw_values": [
+        "22",
+        "(16)"
+       ]
+      },
+      {
+       "line": 157,
+       "label": "Employee benefit plans",
+       "raw_values": [
+        "(34)",
+        "(23)"
+       ]
+      },
+      {
+       "line": 158,
+       "label": "Settlement assets and liabilities, net",
+       "raw_values": [
+        "(14)",
+        "45"
+       ]
+      },
+      {
+       "line": 159,
+       "label": "Other assets and liabilities",
+       "raw_values": [
+        "(29)",
+        "(98)"
+       ]
+      },
+      {
+       "line": 160,
+       "label": "Net cash provided by operating activities",
+       "raw_values": [
+        "125",
+        "264"
+       ]
+      },
+      {
+       "line": 162,
+       "label": "Capital expenditures",
+       "raw_values": [
+        "(80)",
+        "(69)"
+       ]
+      },
+      {
+       "line": 163,
+       "label": "Additions to capitalized software",
+       "raw_values": [
+        "(39)",
+        "(26)"
+       ]
+      },
+      {
+       "line": 164,
+       "label": "Business acquisitions, net of cash acquired",
+       "raw_values": [
+        "(17)",
+        "—"
+       ]
+      },
+      {
+       "line": 165,
+       "label": "Purchase of intellectual property",
+       "raw_values": [
+        "—",
+        "(13)"
+       ]
+      },
+      {
+       "line": 166,
+       "label": "Proceeds from sale of property, plant and equipment",
+       "raw_values": [
+        "36",
+        "—"
+       ]
+      },
+      {
+       "line": 167,
+       "label": "Proceeds from divestiture",
+       "raw_values": [
+        "11",
+        "—"
+       ]
+      },
+      {
+       "line": 168,
+       "label": "Sale (purchase) of investments, net",
+       "raw_values": [
+        "1",
+        "(1)"
+       ]
+      },
+      {
+       "line": 169,
+       "label": "Other investing activities, net",
+       "raw_values": [
+        "—",
+        "(1)"
+       ]
+      },
+      {
+       "line": 170,
+       "label": "Net cash used in investing activities",
+       "raw_values": [
+        "(88)",
+        "(110)"
+       ]
+      },
+      {
+       "line": 172,
+       "label": "Borrowings on term credit facilities",
+       "raw_values": [
+        "11",
+        "—"
+       ]
+      },
+      {
+       "line": 173,
+       "label": "Payments on term credit facilities",
+       "raw_values": [
+        "(90)",
+        "(55)"
+       ]
+      },
+      {
+       "line": 174,
+       "label": "Borrowings on revolving credit facilities",
+       "raw_values": [
+        "750",
+        "919"
+       ]
+      },
+      {
+       "line": 175,
+       "label": "Payments on revolving credit facilities",
+       "raw_values": [
+        "(750)",
+        "(894)"
+       ]
+      },
+      {
+       "line": 176,
+       "label": "Payments on other financing arrangements",
+       "raw_values": [
+        "(2)",
+        "(2)"
+       ]
+      },
+      {
+       "line": 177,
+       "label": "Proceeds from employee stock plans",
+       "raw_values": [
+        "7",
+        "3"
+       ]
+      },
+      {
+       "line": 178,
+       "label": "Tax withholding payments on behalf of employees",
+       "raw_values": [
+        "(8)",
+        "(14)"
+       ]
+      },
+      {
+       "line": 179,
+       "label": "Payments on acquisition holdback",
+       "raw_values": [
+        "(16)",
+        "(5)"
+       ]
+      },
+      {
+       "line": 180,
+       "label": "Principal payments for finance lease obligations",
+       "raw_values": [
+        "(3)",
+        "(1)"
+       ]
+      },
+      {
+       "line": 181,
+       "label": "Other financing activities",
+       "raw_values": [
+        "(1)",
+        "—"
+       ]
+      },
+      {
+       "line": 182,
+       "label": "Net cash used in financing activities",
+       "raw_values": [
+        "(102)",
+        "(49)"
+       ]
+      },
+      {
+       "line": 183,
+       "label": "Effect of exchange rate changes on cash, cash equivalents, and restricted cash",
+       "raw_values": [
+        "11",
+        "(7)"
+       ]
+      },
+      {
+       "line": 184,
+       "label": "Increase (decrease) in cash, cash equivalents, and restricted cash",
+       "raw_values": [
+        "(54)",
+        "98"
+       ]
+      },
+      {
+       "line": 185,
+       "label": "Cash, cash equivalents, and restricted cash at beginning of period",
+       "raw_values": [
+        "641",
+        "586"
+       ]
+      },
+      {
+       "line": 186,
+       "label": "Cash, cash equivalents, and restricted cash at end of period",
+       "raw_values": [
+        "587",
+        "684"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "source_id": "natl-10ka-2024-12-31",
+   "file": "NATL/NATL_2024-12-31_10-K-A_0001628280-25-049577_ncr-20241231.htm",
+   "converted_sha256": "19e250ef13731e73725cfe81a7539967931a75e8b696c3bf3a6ddb5e991c400e",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:868",
+     "end": "line:915",
+     "rows": [
+      {
+       "line": 872,
+       "label": "Cash and cash equivalents",
+       "raw_values": [
+        "419",
+        "339"
+       ]
+      },
+      {
+       "line": 873,
+       "label": "Accounts receivable, net of allowances of $15 and $14 as of December 31, 2024 and 2023, respectively",
+       "raw_values": [
+        "581",
+        "707"
+       ]
+      },
+      {
+       "line": 874,
+       "label": "Inventories",
+       "raw_values": [
+        "307",
+        "333"
+       ]
+      },
+      {
+       "line": 875,
+       "label": "Restricted cash",
+       "raw_values": [
+        "210",
+        "238"
+       ]
+      },
+      {
+       "line": 876,
+       "label": "Other current assets",
+       "raw_values": [
+        "232",
+        "244"
+       ]
+      },
+      {
+       "line": 877,
+       "label": "Total current assets",
+       "raw_values": [
+        "1,749",
+        "1,861"
+       ]
+      },
+      {
+       "line": 878,
+       "label": "Property, plant and equipment, net",
+       "raw_values": [
+        "474",
+        "468"
+       ]
+      },
+      {
+       "line": 879,
+       "label": "Goodwill",
+       "raw_values": [
+        "1,950",
+        "1,952"
+       ]
+      },
+      {
+       "line": 880,
+       "label": "Intangibles, net",
+       "raw_values": [
+        "550",
+        "635"
+       ]
+      },
+      {
+       "line": 881,
+       "label": "Operating lease right of use assets",
+       "raw_values": [
+        "144",
+        "144"
+       ]
+      },
+      {
+       "line": 882,
+       "label": "Prepaid pension cost",
+       "raw_values": [
+        "227",
+        "219"
+       ]
+      },
+      {
+       "line": 883,
+       "label": "Deferred income tax assets",
+       "raw_values": [
+        "285",
+        "254"
+       ]
+      },
+      {
+       "line": 884,
+       "label": "Other assets",
+       "raw_values": [
+        "156",
+        "169"
+       ]
+      },
+      {
+       "line": 885,
+       "label": "Total assets",
+       "raw_values": [
+        "5,535",
+        "5,702"
+       ]
+      },
+      {
+       "line": 888,
+       "label": "Short-term borrowings",
+       "raw_values": [
+        "81",
+        "76"
+       ]
+      },
+      {
+       "line": 889,
+       "label": "Accounts payable",
+       "raw_values": [
+        "564",
+        "505"
+       ]
+      },
+      {
+       "line": 890,
+       "label": "Payroll and benefits liabilities",
+       "raw_values": [
+        "145",
+        "149"
+       ]
+      },
+      {
+       "line": 891,
+       "label": "Contract liabilities",
+       "raw_values": [
+        "328",
+        "332"
+       ]
+      },
+      {
+       "line": 892,
+       "label": "Settlement liabilities",
+       "raw_values": [
+        "171",
+        "234"
+       ]
+      },
+      {
+       "line": 893,
+       "label": "Other current liabilities",
+       "raw_values": [
+        "433",
+        "477"
+       ]
+      },
+      {
+       "line": 894,
+       "label": "Total current liabilities",
+       "raw_values": [
+        "1,722",
+        "1,773"
+       ]
+      },
+      {
+       "line": 895,
+       "label": "Long-term borrowings",
+       "raw_values": [
+        "2,859",
+        "2,938"
+       ]
+      },
+      {
+       "line": 896,
+       "label": "Pension and indemnity plan liabilities",
+       "raw_values": [
+        "343",
+        "389"
+       ]
+      },
+      {
+       "line": 897,
+       "label": "Postretirement and postemployment benefits liabilities",
+       "raw_values": [
+        "81",
+        "60"
+       ]
+      },
+      {
+       "line": 898,
+       "label": "Income tax accruals",
+       "raw_values": [
+        "37",
+        "36"
+       ]
+      },
+      {
+       "line": 899,
+       "label": "Operating lease liabilities",
+       "raw_values": [
+        "110",
+        "109"
+       ]
+      },
+      {
+       "line": 900,
+       "label": "Deferred income tax liabilities",
+       "raw_values": [
+        "40",
+        "34"
+       ]
+      },
+      {
+       "line": 901,
+       "label": "Other liabilities",
+       "raw_values": [
+        "120",
+        "141"
+       ]
+      },
+      {
+       "line": 902,
+       "label": "Total liabilities",
+       "raw_values": [
+        "5,312",
+        "5,480"
+       ]
+      },
+      {
+       "line": 906,
+       "label": "Preferred stock: par value $0.01 per share, 50.0 shares authorized, no shares issued",
+       "raw_values": [
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 907,
+       "label": "Common stock: par value $0.01 per share, 350.0 shares authorized, 72.7 and 70.9 shares issued and outstanding as of December 31, 2024 and 2023, respectively",
+       "raw_values": [
+        "1",
+        "1"
+       ]
+      },
+      {
+       "line": 908,
+       "label": "Paid-in capital",
+       "raw_values": [
+        "47",
+        "12"
+       ]
+      },
+      {
+       "line": 909,
+       "label": "Retained earnings",
+       "raw_values": [
+        "188",
+        "117"
+       ]
+      },
+      {
+       "line": 910,
+       "label": "Accumulated other comprehensive income (loss)",
+       "raw_values": [
+        "(17)",
+        "89"
+       ]
+      },
+      {
+       "line": 911,
+       "label": "Total Atleos stockholders’ equity",
+       "raw_values": [
+        "219",
+        "219"
+       ]
+      },
+      {
+       "line": 912,
+       "label": "Noncontrolling interests in subsidiaries",
+       "raw_values": [
+        "4",
+        "3"
+       ]
+      },
+      {
+       "line": 913,
+       "label": "Total stockholders’ equity",
+       "raw_values": [
+        "223",
+        "222"
+       ]
+      },
+      {
+       "line": 914,
+       "label": "Total liabilities and stockholders’ equity",
+       "raw_values": [
+        "5,535",
+        "5,702"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "IS",
+     "start": "line:818",
+     "end": "line:846",
+     "rows": [
+      {
+       "line": 820,
+       "label": "Product revenue",
+       "raw_values": [
+        "993",
+        "1,030",
+        "1,095"
+       ]
+      },
+      {
+       "line": 821,
+       "label": "Service revenue",
+       "raw_values": [
+        "3,312",
+        "3,156",
+        "3,027"
+       ]
+      },
+      {
+       "line": 822,
+       "label": "Total revenue",
+       "raw_values": [
+        "4,305",
+        "4,186",
+        "4,122"
+       ]
+      },
+      {
+       "line": 823,
+       "label": "Cost of products",
+       "raw_values": [
+        "840",
+        "845",
+        "972"
+       ]
+      },
+      {
+       "line": 824,
+       "label": "Cost of services",
+       "raw_values": [
+        "2,445",
+        "2,413",
+        "2,242"
+       ]
+      },
+      {
+       "line": 825,
+       "label": "Selling, general and administrative expenses",
+       "raw_values": [
+        "521",
+        "585",
+        "586"
+       ]
+      },
+      {
+       "line": 826,
+       "label": "Research and development expenses",
+       "raw_values": [
+        "62",
+        "80",
+        "64"
+       ]
+      },
+      {
+       "line": 827,
+       "label": "Total operating expenses",
+       "raw_values": [
+        "3,868",
+        "3,923",
+        "3,864"
+       ]
+      },
+      {
+       "line": 828,
+       "label": "Income from operations",
+       "raw_values": [
+        "437",
+        "263",
+        "258"
+       ]
+      },
+      {
+       "line": 829,
+       "label": "Loss on extinguishment of debt",
+       "raw_values": [
+        "(24)",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 830,
+       "label": "Interest expense",
+       "raw_values": [
+        "(309)",
+        "(77)",
+        "—"
+       ]
+      },
+      {
+       "line": 831,
+       "label": "Related party interest expense, net",
+       "raw_values": [
+        "—",
+        "(13)",
+        "(31)"
+       ]
+      },
+      {
+       "line": 832,
+       "label": "Other (expense) income, net",
+       "raw_values": [
+        "21",
+        "(84)",
+        "(81)"
+       ]
+      },
+      {
+       "line": 833,
+       "label": "Income before income taxes",
+       "raw_values": [
+        "125",
+        "89",
+        "146"
+       ]
+      },
+      {
+       "line": 834,
+       "label": "Income tax expense",
+       "raw_values": [
+        "44",
+        "237",
+        "48"
+       ]
+      },
+      {
+       "line": 835,
+       "label": "Net income (loss)",
+       "raw_values": [
+        "81",
+        "(148)",
+        "98"
+       ]
+      },
+      {
+       "line": 836,
+       "label": "Net income (loss) attributable to noncontrolling interests",
+       "raw_values": [
+        "1",
+        "2",
+        "(1)"
+       ]
+      },
+      {
+       "line": 837,
+       "label": "Net income (loss) attributable to Atleos",
+       "raw_values": [
+        "80",
+        "(150)",
+        "99"
+       ]
+      },
+      {
+       "line": 840,
+       "label": "Basic",
+       "raw_values": [
+        "1.11",
+        "(2.12)",
+        "1.40"
+       ]
+      },
+      {
+       "line": 841,
+       "label": "Diluted",
+       "raw_values": [
+        "1.08",
+        "(2.12)",
+        "1.40"
+       ]
+      },
+      {
+       "line": 843,
+       "label": "Basic",
+       "raw_values": [
+        "72.2",
+        "70.6",
+        "70.6"
+       ]
+      },
+      {
+       "line": 844,
+       "label": "Diluted",
+       "raw_values": [
+        "74.2",
+        "70.6",
+        "70.6"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "CFS",
+     "start": "line:916",
+     "end": "line:973",
+     "rows": [
+      {
+       "line": 919,
+       "label": "Net income (loss)",
+       "raw_values": [
+        "81",
+        "(148)",
+        "98"
+       ]
+      },
+      {
+       "line": 921,
+       "label": "Depreciation expense",
+       "raw_values": [
+        "139",
+        "126",
+        "127"
+       ]
+      },
+      {
+       "line": 922,
+       "label": "Amortization expense",
+       "raw_values": [
+        "148",
+        "128",
+        "132"
+       ]
+      },
+      {
+       "line": 923,
+       "label": "Stock-based compensation expense",
+       "raw_values": [
+        "38",
+        "68",
+        "66"
+       ]
+      },
+      {
+       "line": 924,
+       "label": "Deferred income taxes",
+       "raw_values": [
+        "(19)",
+        "74",
+        "(28)"
+       ]
+      },
+      {
+       "line": 925,
+       "label": "Loss on disposal of property, plant and equipment and other assets",
+       "raw_values": [
+        "2",
+        "3",
+        "—"
+       ]
+      },
+      {
+       "line": 926,
+       "label": "Bargain purchase gain from acquisition",
+       "raw_values": [
+        "(5)",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 927,
+       "label": "Loss from equity investments",
+       "raw_values": [
+        "3",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 928,
+       "label": "Loss on debt extinguishment",
+       "raw_values": [
+        "24",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 930,
+       "label": "Receivables",
+       "raw_values": [
+        "106",
+        "(50)",
+        "(74)"
+       ]
+      },
+      {
+       "line": 931,
+       "label": "Related party receivables and payables",
+       "raw_values": [
+        "—",
+        "(22)",
+        "(26)"
+       ]
+      },
+      {
+       "line": 932,
+       "label": "Inventories",
+       "raw_values": [
+        "(77)",
+        "53",
+        "(10)"
+       ]
+      },
+      {
+       "line": 933,
+       "label": "Settlement assets",
+       "raw_values": [
+        "14",
+        "(7)",
+        "(10)"
+       ]
+      },
+      {
+       "line": 934,
+       "label": "Current payables and accrued expenses",
+       "raw_values": [
+        "100",
+        "140",
+        "(78)"
+       ]
+      },
+      {
+       "line": 935,
+       "label": "Contract liabilities",
+       "raw_values": [
+        "—",
+        "2",
+        "48"
+       ]
+      },
+      {
+       "line": 936,
+       "label": "Employee benefit plans",
+       "raw_values": [
+        "(69)",
+        "(170)",
+        "62"
+       ]
+      },
+      {
+       "line": 937,
+       "label": "Other assets and liabilities",
+       "raw_values": [
+        "(141)",
+        "158",
+        "(33)"
+       ]
+      },
+      {
+       "line": 938,
+       "label": "Net cash provided by operating activities",
+       "raw_values": [
+        "344",
+        "355",
+        "274"
+       ]
+      },
+      {
+       "line": 940,
+       "label": "Expenditures for property, plant and equipment",
+       "raw_values": [
+        "(87)",
+        "(108)",
+        "(58)"
+       ]
+      },
+      {
+       "line": 941,
+       "label": "Additions to capitalized software",
+       "raw_values": [
+        "(39)",
+        "(24)",
+        "(39)"
+       ]
+      },
+      {
+       "line": 942,
+       "label": "Business acquisitions, net of cash acquired",
+       "raw_values": [
+        "—",
+        "(1)",
+        "(78)"
+       ]
+      },
+      {
+       "line": 943,
+       "label": "Purchases of investments",
+       "raw_values": [
+        "(1)",
+        "(10)",
+        "—"
+       ]
+      },
+      {
+       "line": 944,
+       "label": "Proceeds from sale of investments",
+       "raw_values": [
+        "5",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 945,
+       "label": "Purchase of intellectual property",
+       "raw_values": [
+        "(13)",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 946,
+       "label": "Proceeds from divestiture",
+       "raw_values": [
+        "1",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 947,
+       "label": "Amounts advanced for related party notes receivable",
+       "raw_values": [
+        "—",
+        "(217)",
+        "(274)"
+       ]
+      },
+      {
+       "line": 948,
+       "label": "Repayments received from related party notes receivable",
+       "raw_values": [
+        "—",
+        "44",
+        "32"
+       ]
+      },
+      {
+       "line": 949,
+       "label": "Other investing activities, net",
+       "raw_values": [
+        "(1)",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 950,
+       "label": "Net cash used in investing activities",
+       "raw_values": [
+        "(135)",
+        "(316)",
+        "(417)"
+       ]
+      },
+      {
+       "line": 952,
+       "label": "Proceeds from related party borrowings",
+       "raw_values": [
+        "—",
+        "412",
+        "68"
+       ]
+      },
+      {
+       "line": 953,
+       "label": "Payments on related party borrowings",
+       "raw_values": [
+        "—",
+        "(314)",
+        "(604)"
+       ]
+      },
+      {
+       "line": 954,
+       "label": "Proceeds from issuance of senior secured notes",
+       "raw_values": [
+        "—",
+        "1,333",
+        "—"
+       ]
+      },
+      {
+       "line": 955,
+       "label": "Proceeds from borrowings on term credit facilities",
+       "raw_values": [
+        "300",
+        "1,561",
+        "—"
+       ]
+      },
+      {
+       "line": 956,
+       "label": "Payments on term credit facilities",
+       "raw_values": [
+        "(473)",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 957,
+       "label": "Borrowings on revolving credit facilities",
+       "raw_values": [
+        "1,104",
+        "330",
+        "—"
+       ]
+      },
+      {
+       "line": 958,
+       "label": "Payments on revolving credit facilities",
+       "raw_values": [
+        "(1,034)",
+        "(175)",
+        "—"
+       ]
+      },
+      {
+       "line": 959,
+       "label": "Payments on other financing arrangements",
+       "raw_values": [
+        "(3)",
+        "(1)",
+        "—"
+       ]
+      },
+      {
+       "line": 960,
+       "label": "Debt issuance costs",
+       "raw_values": [
+        "(2)",
+        "(51)",
+        "—"
+       ]
+      },
+      {
+       "line": 961,
+       "label": "Call premium paid on debt extinguishments",
+       "raw_values": [
+        "(7)",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 962,
+       "label": "Principal payments for finance lease obligations",
+       "raw_values": [
+        "(4)",
+        "(1)",
+        "(2)"
+       ]
+      },
+      {
+       "line": 963,
+       "label": "Tax withholding payments on behalf of employees",
+       "raw_values": [
+        "(14)",
+        "(7)",
+        "—"
+       ]
+      },
+      {
+       "line": 964,
+       "label": "Proceeds from employee stock plans",
+       "raw_values": [
+        "4",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 965,
+       "label": "Payments on acquisition holdback",
+       "raw_values": [
+        "(5)",
+        "—",
+        "—"
+       ]
+      },
+      {
+       "line": 966,
+       "label": "Net transfers from (to) NCR Corporation",
+       "raw_values": [
+        "—",
+        "(60)",
+        "721"
+       ]
+      },
+      {
+       "line": 967,
+       "label": "Consideration paid to NCR Corporation in connection with the Separation",
+       "raw_values": [
+        "—",
+        "(2,996)",
+        "—"
+       ]
+      },
+      {
+       "line": 968,
+       "label": "Net cash provided by (used in) financing activities",
+       "raw_values": [
+        "(134)",
+        "31",
+        "183"
+       ]
+      },
+      {
+       "line": 969,
+       "label": "Effect of exchange rate changes on cash, cash equivalents and restricted cash",
+       "raw_values": [
+        "(20)",
+        "17",
+        "(11)"
+       ]
+      },
+      {
+       "line": 970,
+       "label": "Increase (decrease) in cash, cash equivalents and restricted cash",
+       "raw_values": [
+        "55",
+        "87",
+        "29"
+       ]
+      },
+      {
+       "line": 971,
+       "label": "Cash, cash equivalents and restricted cash at beginning of period",
+       "raw_values": [
+        "586",
+        "499",
+        "470"
+       ]
+      },
+      {
+       "line": 972,
+       "label": "Cash, cash equivalents and restricted cash at end of period",
+       "raw_values": [
+        "641",
+        "586",
+        "499"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

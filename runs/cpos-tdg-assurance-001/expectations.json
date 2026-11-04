@@ -1,0 +1,144 @@
+{
+  "scope": "Independent pre-answer factual/checklist expectations; current host sees these and preceding context, so no blind/independent test claim. Financial statements and qualifiers must be evaluated together.",
+  "trace_claims": [
+    {
+      "id": "C01",
+      "module": "CP-1",
+      "assertion": "Current/prior fiscal-quarter revenue is 2,006/1,789 USDm."
+    },
+    {
+      "id": "C02",
+      "module": "CP-1",
+      "assertion": "Current/prior quarter net income is 493/382 USDm."
+    },
+    {
+      "id": "C03",
+      "module": "CP-1",
+      "assertion": "Current/prior OCF is 752/636 USDm, not discretionary FCF."
+    },
+    {
+      "id": "C04",
+      "module": "CP-1",
+      "assertion": "December carrying debt 25,049 less reported cash 2,459 gives mechanical net carrying debt 22,590."
+    },
+    {
+      "id": "C05",
+      "module": "CP-1",
+      "assertion": "Issuer cash-liquidity measure 3,308 includes revolver availability 849; access is not established."
+    },
+    {
+      "id": "C06",
+      "module": "CP-1B",
+      "assertion": "Quarter ordinary EBITDA 1,087 plus 13 plus 25 minus 64 is issuer As Defined 1,061; the signed adjustment reduces it."
+    },
+    {
+      "id": "C07",
+      "module": "CP-1B",
+      "assertion": "Signed capex -42/-36 yields a 710/600 OCF-after-capex proxy, not issuer FCF."
+    },
+    {
+      "id": "C08",
+      "module": "CP-1B",
+      "assertion": "Revenue difference 217 and displayed growth 12.13% are a fiscal-quarter comparison."
+    },
+    {
+      "id": "C09",
+      "module": "CP-1B",
+      "assertion": "Actual comparative windows have 89/91 inclusive days; no equalisation or annualisation."
+    },
+    {
+      "id": "C10",
+      "module": "CP-1B",
+      "assertion": "December cash 2,459 is below prior December 4,135 and preceding September 6,261 by 1,676 and 3,802 respectively."
+    },
+    {
+      "id": "C11",
+      "module": "CP-1B",
+      "assertion": "December/September debt observations are sequential balances, not prior-year leverage or an LTM ratio."
+    },
+    {
+      "id": "C12",
+      "module": "CP-1B",
+      "assertion": "Management organic +118 and acquisition +99 explain sales difference 217 arithmetically, not an independently validated causal price/volume split."
+    },
+    {
+      "id": "C13",
+      "module": "CP-1D",
+      "assertion": "Annual ordinary EBITDA 3,813 plus 70/217/58/15 equals issuer As Defined 4,173."
+    },
+    {
+      "id": "C14",
+      "module": "CP-1D",
+      "assertion": "Stock/deferred compensation 184/157/217 in FY2022/23/24 is recurring; noncash does not make it a one-off."
+    },
+    {
+      "id": "C15",
+      "module": "CP-1D",
+      "assertion": "Annual OCF 2,045 divided by ordinary/As Defined EBITDA is 53.63%/49.01%, a definition comparison rather than accessible cash."
+    },
+    {
+      "id": "C16",
+      "module": "CP-1D",
+      "assertion": "24,880 carrying debt plus 62 operating leases plus 19 gross pension gives known subtotal 24,961; already-counted obligations have zero second addition."
+    },
+    {
+      "id": "C17",
+      "module": "CP-1D",
+      "assertion": "Gross recognised pension liabilities 3+16=19, separate asset 13 and net deficit 6 are different quantities."
+    },
+    {
+      "id": "C18",
+      "module": "CP-1D",
+      "assertion": "Quality-adjusted EBITDA is unresolved; no accepted fraction, zero or haircut is invented."
+    },
+    {
+      "id": "C19",
+      "module": "CP-1B/CP-1D",
+      "assertion": "Annual/interim October dividend-equivalent disclosures 132/131 remain an unresolved difference, separate from common dividend 4,216 and whole-quarter outflow 4,396."
+    },
+    {
+      "id": "C20",
+      "module": "CP-1D",
+      "assertion": "Full adjusted debt, accessible liquidity and agency/covenant capacity remain unestablished in this evaluated set."
+    }
+  ],
+  "trace_fields": [
+    "ID",
+    "module",
+    "section",
+    "assertion",
+    "lineage",
+    "source",
+    "locator",
+    "support",
+    "limitation"
+  ],
+  "report_receipt_sha256": "53bb291e9cb1ce0ce1d68d414aa4ac19148ef3d5764dcf7801a0e3d8b03ef50f",
+  "report_sha256": "0935f491fc6c20c1b98c238a2bac89e460ba4d3a6a0b37e569291394a43c1d8f",
+  "known_bases": {
+    "USDm": true,
+    "quality_adjusted_ebitda": null,
+    "full_adjusted_debt": null,
+    "quarter_days": [
+      89,
+      91
+    ],
+    "annual_adjustments": [
+      70,
+      217,
+      58,
+      15
+    ],
+    "quarter_adjustments": [
+      13,
+      25,
+      -64
+    ],
+    "pension_gross": 19,
+    "pension_asset": 13,
+    "pension_net_deficit": 6,
+    "known_debt_subtotal": 24961
+  },
+  "counterfactual_controls": 4,
+  "full_committee_or_current_approval_expected": false
+}

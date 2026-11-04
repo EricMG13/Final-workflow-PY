@@ -1,0 +1,55 @@
+ VMED O2 UK Holdings Limited                                    Condensed                  Group Strategic                                                                                                                                     9
+ Quarterly Bond Report and Condensed                            Consolidated               Report
+ Consolidated Financial Statements                              Financial
+ 30 September 2025                                              Statements
+
+Condensed Consolidated Statements
+of Cash Flows (unaudited)
+
+
+                                                                                                                                                                                                        Nine months ended
+                                                                                                                                                                                                            30 September
+                                                                                                                                                                                                                             2025                           2024Note
+                                                                                                                                                                                                                                in millionsReferences
+ Cash flows from operating activities:
+ Net profit                                                                                                                                                                       £           286.3    £           602.9
+ Adjustments to reconcile net profit to net cash provided by operating activities:
+      Share-based compensation expense                                                                                                                                  54.3                   24.5
+      Depreciation and amortisation                                                                                                         6 and 7                   2,270.8               2,143.8
+      Impairment, restructuring and other operating items                                                                    6 and 12                       44.7                   49.8
+      Amortisation of debt premiums, deferred financing costs and non-cash interest                          8                               4.9                       1.7
+      Share of results of equity method investments                                                                                                                   (0.6)                    (1.0)
+      Realised and unrealised losses on derivative instruments                                                           10 and 11                      596.1                 348.5
+      Foreign currency transaction gains                                                                                                      14                            (511.0)               (643.2)
+      Losses (gains) on debt extinguishment                                                                                          8 and 14                          2.6                     (2.5)
+      Deferred income tax (benefit) expense                                                                                               15                            (98.6)                    9.6
+      Interest paid                                                                                                                                                                         (922.0)             (1,049.3)
+      Income taxes paid                                                                                                                                                                  (12.8)                    (9.7)
+      Derivative payments (a)                                                                                                                          10                            (32.9)                  (61.4)
+      (Increase) decrease in trade and other receivables (a)                                                                                                       (89.5)                   81.2
+      Decrease (increase) in contract assets (a)                                                                                                                                                                     13                             199.1                  (153.1)
+      Increase in other assets (a)                                                                                                                                                  (596.0)                (710.5)
+      Decrease in trade payables and accruals (a)                                                                                                                     (393.6)                 (32.4)
+      Decrease in contract liabilities (a)                                                                                                                                                                                               13                             (14.3)                   (5.3)
+      Increase in interest accruals (a)                                                                                                              8                            962.1                1,013.8
+      Increase (decrease) in other liabilities (a)                                                                                                                              86.7                  (93.0)
+          Net cash provided by operating activities                                                                                                          £        1,836.3     £         1,514.4
+
+
+ Cash flows from investing activities:
+      Capital expenditures                                                                                                                         6 and 7         £        (1,023.0)   £          (1,114.3)
+      Repayments of loans to affiliates (related-parties)                                                                             16                           973.3              3,544.8
+      Borrowings of loans from affiliates (related-parties)                                                                          16                            (511.0)            (3,002.4)
+      Cash received from O2 Daisy Transaction                                                                                           4                               5.9                       —
+      Other investing activities                                                                                                                                                        21.6                    22.5
+          Net cash used by investing activities                                                                                                                  £          (533.2)   £         (549.4)
+___________
+(a)       Certain prior year amounts within the details of changes in our operating assets and liabilities have been restated. Refer to note 3.
+
+
+
+
+
+
+
+The accompanying notes are an integral part of these Condensed Consolidated Financial Statements.

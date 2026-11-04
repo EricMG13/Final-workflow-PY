@@ -1,0 +1,731 @@
+{
+  "scope": "Actual host-model absorbed CP-2B historical calendar increment plus source/date/projection checks; not native owner/provider, current outcome or complete issuer-event proof.",
+  "reference_date": "2024-11-07",
+  "horizon_end": "2025-11-07",
+  "execution_as_of": "2026-11-04",
+  "source_balance_as_of": "2024-09-30",
+  "point_in_time_public_access_backtest": false,
+  "consumed": {
+    "runs/tdg-002/CP-2-attempt-2.md": "249d0cbdf1ba8159dcae68d4ff3241c73ea092ff66353c0c2eef08691e0afa57",
+    "runs/tdg-002/CP-2A-attempt-1.md": "6591fd403e775f7e1caefd7ac4de96b95a48df8b364e77a249b2c9eb0f79f199",
+    "runs/tdg-002/CP-1-attempt-2.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+    "runs/tdg-003/CP-2E-attempt-2.md": "488d4a43a22ee8d1282cdf83bec2a57f5d0cefe58b5da40bb8bd9f4d8c1aeeca",
+    "runs/tdg-003/CP-2A-calendar-instructions.md": "54eb213af964a6bb5e0e0885bed97608ffacc7d33d6d13fa0b3152bae05d9881"
+  },
+  "source_pdf": {
+    "data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+  },
+  "methods": {
+    "/Users/ericguei/Documents/cp-os/skills/cp-2a-downside-pathway/SKILL.md": "4c23c05eb697a09ca557a10d922ba4baad6bd0659c953e2d443859df85d5b213",
+    "/Users/ericguei/Documents/cp-os/skills/cp-2a-downside-pathway/references/REF_CP-2B_STEPS.md": "75434b4a5602c97f001d144ee5934a6601105f76aad9ea0ed2d71638726d7415",
+    "/Users/ericguei/Documents/cp-os/skills/cp-2a-downside-pathway/references/CP-2B_SCHEMA_REFERENCE.md": "b65f2fe305958938bc79ce7497d700f17ee5e83fa40b4cf2b856f15c8db84b0b",
+    "src/deploy_vii/methods/cp2a.md": "28be81bfb97a83e739e4a514612a2db3bf12b72480128f54c66c33fc2ab06236"
+  },
+  "visuals_inspected": {
+    "runs/tdg-003/source-preparation/calendar-p130.png": "d000e56b0b76e6cd7e6f5bd94e172c4afa272e44be7e3154fa4da9e063024158",
+    "runs/tdg-003/source-preparation/calendar-p133.png": "bbe6b1fd4ebe1ae6adadea7b21b7678bac99f64abe3e2dc1f2af03d8df830f8c",
+    "runs/tdg-003/source-preparation/calendar-p148.png": "442cc6efb9c3a24d97e36afefac2ec24195254d6dda1389b0543e80b687fcb06"
+  },
+  "existing_hedge_visual_not_reaudited": "runs/tdg-003/source-preparation/pdf151-hedges.png",
+  "source_term_checks": [
+    {
+      "pdf_page": 130,
+      "term": "July 11, 2025",
+      "present_in_fresh_original_pdf_extraction": true
+    },
+    {
+      "pdf_page": 130,
+      "term": "$487 million",
+      "present_in_fresh_original_pdf_extraction": true
+    },
+    {
+      "pdf_page": 130,
+      "term": "$650 million",
+      "present_in_fresh_original_pdf_extraction": true
+    },
+    {
+      "pdf_page": 130,
+      "term": "annual one year extensions",
+      "present_in_fresh_original_pdf_extraction": true
+    },
+    {
+      "pdf_page": 133,
+      "term": "excluding finance leases",
+      "present_in_fresh_original_pdf_extraction": true
+    },
+    {
+      "pdf_page": 133,
+      "term": "$ 93",
+      "present_in_fresh_original_pdf_extraction": true
+    },
+    {
+      "pdf_page": 148,
+      "term": "$22 $20",
+      "present_in_fresh_original_pdf_extraction": true
+    },
+    {
+      "pdf_page": 148,
+      "term": "$62 $262",
+      "present_in_fresh_original_pdf_extraction": true
+    },
+    {
+      "pdf_page": 151,
+      "term": "3/31/2025",
+      "present_in_fresh_original_pdf_extraction": true
+    },
+    {
+      "pdf_page": 151,
+      "term": "9/30/2025",
+      "present_in_fresh_original_pdf_extraction": true
+    },
+    {
+      "pdf_page": 151,
+      "term": "$1,338",
+      "present_in_fresh_original_pdf_extraction": true
+    }
+  ],
+  "registers": {
+    "T5.1": {
+      "headers": [
+        "Event ID",
+        "Source document",
+        "Description / category",
+        "Date/window",
+        "Evidence quality",
+        "Source reliability / limitation"
+      ],
+      "rows": [
+        {
+          "line": 51,
+          "values": [
+            "E01",
+            "S1 PDF151, swap rows 500/1,500 and collar row 1,100",
+            "Two swaps expire; forward collar starts / hedge transition",
+            "2025-03-31",
+            "Explicit dated terms",
+            "Issuer annual disclosure; no proof of realised rollover or distinct covered exposures"
+          ]
+        },
+        {
+          "line": 52,
+          "values": [
+            "E02",
+            "S1 PDF130, trade-receivable securitization paragraphs; annual CP-1",
+            "Facility contractual expiry / financing",
+            "2025-07-11",
+            "Explicit dated term",
+            "September gross borrowing 487 / carrying 486; commitment 650 is a different quantity; extension rights subject to conditions"
+          ]
+        },
+        {
+          "line": 53,
+          "values": [
+            "E03",
+            "S1 PDF151, swap/cap 700 rows and collar 500/1,338 rows",
+            "Swap and cap expire; two collars start / hedge transition",
+            "2025-09-30",
+            "Explicit dated terms",
+            "Separate instrument types/notionals; no sum treated as net coverage"
+          ]
+        },
+        {
+          "line": 54,
+          "values": [
+            "E04",
+            "S1 PDF133, debt repayment schedule, 2025 row",
+            "Long-term debt maturities excluding finance leases / debt service",
+            "FY2025",
+            "Explicit fiscal window",
+            "93 full-year scheduled principal; not all debt/obligations or the remaining amount after reference date"
+          ]
+        },
+        {
+          "line": 55,
+          "values": [
+            "E05",
+            "S1 PDF148, lease maturities, 2025 operating column",
+            "Operating lease payments / leases",
+            "FY2025",
+            "Explicit fiscal window",
+            "22 full-year cash-payment schedule; not operating lease liability 62"
+          ]
+        },
+        {
+          "line": 56,
+          "values": [
+            "E06",
+            "S1 PDF148, lease maturities, 2025 finance column",
+            "Finance lease payments / leases",
+            "FY2025",
+            "Explicit fiscal window",
+            "20 full-year cash-payment schedule, including interest; not principal amortization or liability 262"
+          ]
+        }
+      ]
+    },
+    "T5.2": {
+      "headers": [
+        "Date/window",
+        "Event",
+        "Category",
+        "Credit relevance",
+        "Source"
+      ],
+      "rows": [
+        {
+          "line": 65,
+          "values": [
+            "2025-03-31",
+            "E01: swaps 500 and 1,500 expire; collar 1,100 begins",
+            "Hedge transition",
+            "Change in protection form/strike/covered principal may alter cash interest; net effect unquantified",
+            "S1 PDF151, swap/collar tables"
+          ]
+        },
+        {
+          "line": 66,
+          "values": [
+            "2025-07-11",
+            "E02: securitization facility expiry",
+            "Financing",
+            "Verify extension/repayment/access before relying on that source; no actual expiry failure inferred",
+            "S1 PDF130, facility term"
+          ]
+        },
+        {
+          "line": 67,
+          "values": [
+            "2025-09-30",
+            "E03: swap 700 and cap 700 expire; collars 500 and 1,338 begin",
+            "Hedge transition",
+            "Protection and potential collar cash payments differ; overlap/exposure map needed",
+            "S1 PDF151, swap/cap/collar tables"
+          ]
+        },
+        {
+          "line": 68,
+          "values": [
+            "FY2025; partly elapsed at reference date",
+            "E04: 93 scheduled debt principal",
+            "Debt service",
+            "Full fiscal-year amount excluding finance leases; remaining payment timing/amount not supplied here",
+            "S1 PDF133, 2025 row"
+          ]
+        },
+        {
+          "line": 69,
+          "values": [
+            "FY2025; partly elapsed at reference date",
+            "E05: 22 operating lease payments",
+            "Leases",
+            "Separate cash use; do not add again to a cash measure already including those payments",
+            "S1 PDF148, 2025 operating column"
+          ]
+        },
+        {
+          "line": 70,
+          "values": [
+            "FY2025; partly elapsed at reference date",
+            "E06: 20 finance lease payments",
+            "Leases",
+            "Principal/interest split needed for a debt/cash roll-forward; not another 20 of debt principal",
+            "S1 PDF148, 2025 finance column"
+          ]
+        }
+      ]
+    },
+    "T5.3": {
+      "headers": [
+        "Event",
+        "Description",
+        "Probability",
+        "Credit channel",
+        "Conditional impact",
+        "Affected metric",
+        "Direction / source"
+      ],
+      "rows": [
+        {
+          "line": 85,
+          "values": [
+            "E01",
+            "March protection transition",
+            "High",
+            "Cash interest / liquidity",
+            "Medium",
+            "Effective rate exposure and cash interest",
+            "Uncertain: rates, floors/ceilings and exposure linkage matter; S1 PDF151"
+          ]
+        },
+        {
+          "line": 86,
+          "values": [
+            "E02",
+            "July facility expiry",
+            "High",
+            "Refinancing / liquidity",
+            "High",
+            "Usable availability and repayment funding",
+            "Negative if access ends without replacement; extension is a supported countercase, not an assured outcome; S1 PDF130"
+          ]
+        },
+        {
+          "line": 87,
+          "values": [
+            "E03",
+            "September protection transition",
+            "High",
+            "Cash interest / liquidity",
+            "Medium",
+            "Effective coverage/strike cash flows",
+            "Uncertain; collars can pay or receive depending on rates; S1 PDF151"
+          ]
+        },
+        {
+          "line": 88,
+          "values": [
+            "E04",
+            "Fiscal principal schedule",
+            "High",
+            "Debt service / liquidity",
+            "Medium",
+            "Principal cash uses and funded debt",
+            "Cash outflow if paid; not distress by itself; S1 PDF133"
+          ]
+        },
+        {
+          "line": 89,
+          "values": [
+            "E05",
+            "Operating lease payments",
+            "High",
+            "Cash conversion / liquidity",
+            "Low",
+            "Operating cash and lease cash uses",
+            "Ordinary scheduled cash demand; not an incremental loss; S1 PDF148"
+          ]
+        },
+        {
+          "line": 90,
+          "values": [
+            "E06",
+            "Finance lease payments",
+            "High",
+            "Debt service / liquidity",
+            "Low",
+            "Finance-lease cash, principal and interest",
+            "Ordinary scheduled payment; no principal-only inference; S1 PDF148"
+          ]
+        }
+      ]
+    },
+    "T5.4": {
+      "headers": [
+        "Event",
+        "Description",
+        "Probability",
+        "Impact",
+        "P/I classification"
+      ],
+      "rows": [
+        {
+          "line": 96,
+          "values": [
+            "E02",
+            "Facility expiry",
+            "High",
+            "High",
+            "Critical monitoring cell"
+          ]
+        },
+        {
+          "line": 97,
+          "values": [
+            "E01",
+            "March hedges",
+            "High",
+            "Medium",
+            "High monitoring priority"
+          ]
+        },
+        {
+          "line": 98,
+          "values": [
+            "E03",
+            "September hedges",
+            "High",
+            "Medium",
+            "High monitoring priority"
+          ]
+        },
+        {
+          "line": 99,
+          "values": [
+            "E04",
+            "Fiscal principal",
+            "High",
+            "Medium",
+            "High monitoring priority"
+          ]
+        },
+        {
+          "line": 100,
+          "values": [
+            "E05",
+            "Operating leases",
+            "High",
+            "Low",
+            "Medium monitoring priority"
+          ]
+        },
+        {
+          "line": 101,
+          "values": [
+            "E06",
+            "Finance leases",
+            "High",
+            "Low",
+            "Medium monitoring priority"
+          ]
+        }
+      ]
+    },
+    "T5.5": {
+      "headers": [
+        "Rank / event",
+        "Description",
+        "Priority",
+        "Frequency",
+        "Escalation condition",
+        "Responsible module"
+      ],
+      "rows": [
+        {
+          "line": 121,
+          "values": [
+            "1 / E02",
+            "Facility expiry",
+            "Critical",
+            "Event-driven; monthly readiness review before expiry",
+            "No evidenced extension/replacement/repayment plan, or reported access weakens",
+            "CP-2D / CP-3C / CP-4"
+          ]
+        },
+        {
+          "line": 122,
+          "values": [
+            "2 / E01",
+            "March hedge transition",
+            "High",
+            "Event-driven; quarterly exposure refresh",
+            "Covered exposure/strike or settlement change raises unmitigated cash-interest burden",
+            "CP-2E / CP-2D"
+          ]
+        },
+        {
+          "line": 123,
+          "values": [
+            "3 / E03",
+            "September hedge transition",
+            "High",
+            "Event-driven; quarterly exposure refresh",
+            "Overlap/strike/reset or uncovered principal creates cash pressure",
+            "CP-2E / CP-2D"
+          ]
+        },
+        {
+          "line": 124,
+          "values": [
+            "4 / E04",
+            "Fiscal principal schedule",
+            "High",
+            "Quarterly cash-use reconciliation",
+            "Actual unpaid schedule/access cannot be reconciled to funded resources",
+            "CP-2D / CP-3C"
+          ]
+        },
+        {
+          "line": 125,
+          "values": [
+            "5 / E05",
+            "Operating lease payments",
+            "Medium",
+            "Quarterly cash-use reconciliation",
+            "New leases, changed payments or duplicated cash-use assumptions",
+            "CP-2D"
+          ]
+        },
+        {
+          "line": 126,
+          "values": [
+            "6 / E06",
+            "Finance lease payments",
+            "Medium",
+            "Quarterly cash/debt reconciliation",
+            "Principal/interest split absent or payments double counted against debt/OCF",
+            "CP-2D / CP-MODEL"
+          ]
+        }
+      ]
+    },
+    "T5.6": {
+      "headers": [
+        "Event",
+        "Description",
+        "Priority",
+        "Receiver",
+        "What to carry / when",
+        "Rationale"
+      ],
+      "rows": [
+        {
+          "line": 132,
+          "values": [
+            "E02",
+            "Facility expiry",
+            "Critical",
+            "CP-3C / CP-4 / CP-5 / CP-6",
+            "Date, annual gross/carrying/commitment distinction and conditional extension; before reliance on facility access",
+            "Funding question and operative-document check, not an asserted failure"
+          ]
+        },
+        {
+          "line": 133,
+          "values": [
+            "E01",
+            "March hedge change",
+            "High",
+            "CP-2E / CP-2D / CP-6",
+            "Separate swap expiries and collar start, with exposure/strike gap; at transition review",
+            "Cash-interest risk requires mapping, not a single permanent hedge ratio"
+          ]
+        },
+        {
+          "line": 134,
+          "values": [
+            "E03",
+            "September hedge change",
+            "High",
+            "CP-2E / CP-2D / CP-6",
+            "Separate swap/cap and collar rows; at transition review",
+            "No duplicated notional or automatic net shock"
+          ]
+        },
+        {
+          "line": 135,
+          "values": [
+            "E04",
+            "Fiscal principal",
+            "High",
+            "CP-2D / CP-3C / CP-5",
+            "Full-year 93 excludes finance leases; obtain remaining-period bridge before cash modeling",
+            "No full-year-as-remaining or debt/lease duplication"
+          ]
+        }
+      ]
+    },
+    "T5.7": {
+      "headers": [
+        "Gap / context",
+        "Affected scope",
+        "Downstream impact",
+        "Severity",
+        "Required action"
+      ],
+      "rows": [
+        {
+          "line": 145,
+          "values": [
+            "No actual 2025 renewals, settlements or outcomes checked",
+            "All events",
+            "Historical schedule is not a current status report",
+            "Material",
+            "Obtain separate dated outcomes for an outcome review"
+          ]
+        },
+        {
+          "line": 146,
+          "values": [
+            "No full exposure/reset/overlap map or current access/draw conditions",
+            "E01–03",
+            "No quantified net rate effect or funding failure probability",
+            "Material",
+            "CP-2E exposure and CP-4/CP-3C access evidence"
+          ]
+        },
+        {
+          "line": 147,
+          "values": [
+            "FY2025 windows partly elapsed; full-year cash not remaining need",
+            "E04–06",
+            "No monthly runway or complete remaining funding total",
+            "Material",
+            "Payment bridge and principal/interest/cash-flow classification"
+          ]
+        },
+        {
+          "line": 148,
+          "values": [
+            "Beyond-horizon FY2026–29 debt/lease and 2026–27 collar changes",
+            "Calendar extent",
+            "Important broader maturity context, outside selected dated horizon",
+            "Material",
+            "Extend horizon for refinancing review; preserve source windows"
+          ]
+        },
+        {
+          "line": 149,
+          "values": [
+            "Undated operating/cost/ESG/rating and future distribution risks",
+            "Dated calendar",
+            "No invented calendar entry, earnings date, trigger probability or payment date",
+            "Material",
+            "Keep monitoring questions; admit a date only with evidence"
+          ]
+        },
+        {
+          "line": 150,
+          "values": [
+            "October 2024 securitization draw and distribution already occurred before reference date",
+            "Context only",
+            "Not future catalysts; not added to September source balances",
+            "Material",
+            "Separate dated cash bridge; no look-ahead blend from December balances"
+          ]
+        },
+        {
+          "line": 151,
+          "values": [
+            "Targeted six-object scope, source-version/coverage and operative-document limits",
+            "Whole increment",
+            "Not an exhaustive issuer event audit or native/full CP-2A acceptance",
+            "Material",
+            "Preserve scope; expand only with source-supported events"
+          ]
+        }
+      ]
+    }
+  },
+  "projection": {
+    "headers": [
+      "rank",
+      "event_date_or_window",
+      "event",
+      "credit_relevance",
+      "status",
+      "source_id",
+      "source_locator",
+      "as_of"
+    ],
+    "rows": [
+      {
+        "line": 164,
+        "values": [
+          "1",
+          "2025-07-11",
+          "Historical securitization expiry",
+          "Verify conditional access/extension; no actual failure inferred",
+          "READY",
+          "S1",
+          "PDF130, Trade Receivable Securitization Facility, expiry paragraph",
+          "2026-11-04"
+        ]
+      },
+      {
+        "line": 165,
+        "values": [
+          "2",
+          "2025-03-31",
+          "Historical swap expiry / collar start",
+          "Separate 500/1,500 swap notionals from 1,100 collar; no net coverage sum",
+          "READY",
+          "S1",
+          "PDF151, swap rows 500/1,500 and collar row 1,100",
+          "2026-11-04"
+        ]
+      },
+      {
+        "line": 166,
+        "values": [
+          "3",
+          "2025-09-30",
+          "Historical swap/cap expiry / collars start",
+          "Retain separate instruments, strikes and unknown net cash effect",
+          "READY",
+          "S1",
+          "PDF151, swap/cap 700 and collar 500/1,338 rows",
+          "2026-11-04"
+        ]
+      },
+      {
+        "line": 167,
+        "values": [
+          "4",
+          "FY2025; remaining dates unspecified",
+          "Full-year scheduled debt principal 93 USD m, excluding finance leases",
+          "Not remaining cash need or complete obligations",
+          "READY",
+          "S1",
+          "PDF133, Debt Repayment Schedule, 2025 row and excluding-finance-leases heading",
+          "2026-11-04"
+        ]
+      },
+      {
+        "line": 168,
+        "values": [
+          "5",
+          "FY2025; remaining dates unspecified",
+          "Full-year operating lease payments 22 USD m",
+          "Keep distinct from lease liability and OCF already including payments",
+          "READY",
+          "S1",
+          "PDF148, lease maturities, 2025 row, operating column",
+          "2026-11-04"
+        ]
+      },
+      {
+        "line": 169,
+        "values": [
+          "6",
+          "FY2025; remaining dates unspecified",
+          "Full-year finance lease payments 20 USD m",
+          "Principal/interest split needed; not an extra principal-only debt amount",
+          "READY",
+          "S1",
+          "PDF148, lease maturities, 2025 row, finance column",
+          "2026-11-04"
+        ]
+      }
+    ]
+  },
+  "checks": {
+    "seven_registers": true,
+    "six_source_objects": true,
+    "three_exact_dates_in_horizon_sorted": true,
+    "three_fiscal_windows_not_forced_to_date": true,
+    "six_unique_contiguous_projection_ranks": true,
+    "high_high_critical_event_ids": [
+      "E02"
+    ],
+    "projection_ready_is_historical_presentation_only": true
+  },
+  "output_sha256": "8a8c66676f63f1e95abf8f3fe83573687b584c142aad4ec0e06b316197bcd7c9",
+  "semantic_review": "Actual source/visual and instruction comparison; ordinal impact/priority are model judgments, not source facts or default probabilities. No full-year-as-remaining use, net notional coverage or false zero added.",
+  "actual_consumer": {
+    "path": "runs/tdg-003/CP-2D-calendar-consumer.md",
+    "sha256": "e41fd566bbda1ae8e5c6ba02bc0dff3f8186888475a63885ea445dd093b1573f",
+    "consumed_producer_sha256": "8a8c66676f63f1e95abf8f3fe83573687b584c142aad4ec0e06b316197bcd7c9",
+    "checks": {
+      "six_common_headings": true,
+      "exact_producer_identity": true,
+      "july_access_question_changes_priority": true,
+      "gross_carrying_commitment_kept_distinct": true,
+      "net_hedge_effect_not_inferred": true,
+      "full_year_not_remaining_cash": true,
+      "finance_lease_cash_not_principal_only": true,
+      "scheduled_event_probability_not_pd": true,
+      "no_new_liquidity_total_or_runway": true
+    },
+    "scope": "Actual same-session host-model CP-2D calendar consumption. Structural/source checks do not prove independent-model or full native module acceptance."
+  }
+}

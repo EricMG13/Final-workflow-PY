@@ -1,0 +1,73 @@
+{
+  "scope": "Independent literal and rational-arithmetic checks for the historical published plan only; not a production-calculation oracle or current forecast.",
+  "sources_try_bn": {
+    "cash": "15.2",
+    "cash_ffo": "63",
+    "planned_bond": "16",
+    "capex_facility": "15"
+  },
+  "uses_try_bn": {
+    "short_maturities": "33.8",
+    "working_capital": "8.6",
+    "extra_wc_swing_assumed_at_up_to_max": "2",
+    "unstressed_capex": "46.3"
+  },
+  "separate_dividend_overlay_try_bn": "27.1",
+  "cases": [
+    [
+      "Published-plan component reproduction",
+      "109.2 / 90.7",
+      "18.5",
+      "1.2040x"
+    ],
+    [
+      "Remove planned bond",
+      "93.2 / 90.7",
+      "2.5",
+      "1.0276x"
+    ],
+    [
+      "Assume capex facility unavailable",
+      "94.2 / 90.7",
+      "3.5",
+      "1.0386x"
+    ],
+    [
+      "Remove both sources",
+      "78.2 / 90.7",
+      "(12.5)",
+      "0.8622x"
+    ],
+    [
+      "Add unstressed distribution overlay",
+      "109.2 / 117.8",
+      "(8.6)",
+      "0.9270x"
+    ],
+    [
+      "Illustrative 15% capex reduction",
+      "109.2 / 83.755",
+      "25.445",
+      "1.3038x"
+    ]
+  ],
+  "ordered_modules": [
+    "CP-0",
+    "CP-1",
+    "CP-2G",
+    "CP-2H",
+    "CP-3C"
+  ],
+  "source_locators": [
+    "S&P PDF pages 7–8, captured L475–505",
+    "cash L486",
+    "cash FFO L488",
+    "planned bond L490",
+    "facility L492",
+    "maturities L495",
+    "WC L497",
+    "up-to WC swing L499",
+    "capex L501–502",
+    "dividends L504–505"
+  ]
+}

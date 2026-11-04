@@ -1,0 +1,101 @@
+{
+ "rules": [
+  {
+   "id": "research.1",
+   "statement": "Submit one `answers` entry for every question of the locked brief (`questions` of the research inputs), by its `question_id`: none twice, none for an id the brief does not list, and none left out.",
+   "checks": [
+    "fn:deploy_workflow.research.review:research_issues"
+   ]
+  },
+  {
+   "id": "research.2",
+   "statement": "Every `claim_id` is different from every other in the whole submission, and at most 142 characters, since fact ids are composed from it.",
+   "checks": [
+    "fn:deploy_workflow.research.review:research_issues"
+   ]
+  },
+  {
+   "id": "research.3",
+   "statement": "An `answered` or `partly` answer has at least one claim, each claim with at least one citation; at least one `contrary` entry; and a nonblank `uncertainty`. A `partly` answer also has a nonblank `limitation`.",
+   "checks": [
+    "fn:deploy_workflow.research.review:research_issues"
+   ]
+  },
+  {
+   "id": "research.4",
+   "statement": "A `not_found` answer has no claim, a nonblank `limitation`, and names the items it searched in `searched`.",
+   "checks": [
+    "fn:deploy_workflow.research.review:research_issues"
+   ]
+  },
+  {
+   "id": "research.5",
+   "statement": "Each `contrary` entry is either `cited`, with an `item` that is the source of its citation, or `none_found`, with the items it `searched` and a nonblank `limitation`; every item searched is a held source.",
+   "checks": [
+    "fn:deploy_workflow.research.review:research_issues"
+   ]
+  },
+  {
+   "id": "research.6",
+   "statement": "Cite only a held source (an `ev-*` evidence item or a pack source), under a locator that source has, with a quote that is verbatim under that locator; a cited `page:N`, or a cited `line:N` of an `ev-*` item, that `read_pages` did not return in this step is refused as not read. An evidence block in this prompt is orientation, never a citation.",
+   "checks": [
+    "fn:deploy_workflow.research.review:research_issues",
+    "fn:deploy_workflow.research.steps:research_rules"
+   ]
+  },
+  {
+   "id": "research.7",
+   "statement": "Before you list a source as searched, in an answer's `searched` or in a `none_found` entry, run `search_pack` on it, or the item is refused as an absence claim with no recorded search.",
+   "checks": [
+    "fn:deploy_workflow.research.steps:research_rules"
+   ]
+  },
+  {
+   "id": "research.8",
+   "statement": "A claim's `independent_items` are distinct `ev-*` items, each cited by that claim; two items of one family are not independent, and a claim that lists both is refused.",
+   "checks": [
+    "fn:deploy_workflow.research.review:research_issues",
+    "oracle:cpdr-research:research"
+   ]
+  },
+  {
+   "id": "research.9",
+   "statement": "A claim's `text`, an `uncertainty`, a `limitation` and a cited contrary entry's `text` contain no digit or figure and, in any case, not the word recommend: a word that contains it, such as recommendation, is refused too. Quotes are source text and are not held to this. Each of those texts also holds no block delimiter such as `<<<`, no lookalike of one, no line break and no `|`.",
+   "checks": [
+    "fn:deploy_workflow.research.review:research_issues",
+    "oracle:cpdr-research:research",
+    "fn:deploy_workflow.owners.cpdr:_fence_issues"
+   ]
+  },
+  {
+   "id": "research.10",
+   "statement": "`run_id` is the run's id.",
+   "checks": [
+    "fn:deploy_workflow.owners.cpdr:_run_issues"
+   ]
+  },
+  {
+   "id": "research.11",
+   "statement": "When `read_inputs` shows `peer_pack: true`, also submit `peers` with `candidates`, `observations` and `figures`, each cited to an `ev-*` span that `read_pages` returned; when it shows `peer_pack: false`, submit no `peers`, and a submission that holds `peers` is refused.",
+   "checks": [
+    "fn:deploy_workflow.research.peers:peer_issues"
+   ]
+  },
+  {
+   "id": "research.12",
+   "statement": "A `figures` entry names a `peer_id`, an `operand`, a `unit`, a `currency` and a `period_end`, and cites a quote that states the amount: you type no amount, and no field of inclusion, comparability, normalisation or statistic. The `operand` is one of revenue, ebitda, debt, interest and ffo, and every `peer_id` of an observation or a figure is the `peer_id` of a candidate. A figure whose `period_end` is after the cutoff of `read_inputs`, or whose quote gives no readable amount, is recorded as missing, not accepted.",
+   "checks": [
+    "fn:deploy_workflow.research.peers:peer_issues",
+    "fn:deploy_workflow.owners.cpdr:_parse"
+   ]
+  },
+  {
+   "id": "research.13",
+   "statement": "A peer `name`, `basis_note` and `observation` each hold no block delimiter such as `<<<`, no lookalike of one, no line break and no `|`; a `basis_note` and an `observation` also contain no digit or figure and not the word recommend.",
+   "checks": [
+    "fn:deploy_workflow.research.peers:peer_issues",
+    "fn:deploy_workflow.owners.cpdr:_fence_issues"
+   ]
+  }
+ ]
+}

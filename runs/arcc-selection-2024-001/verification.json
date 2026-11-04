@@ -1,0 +1,290 @@
+{
+  "execution": "Actual current host model, preceding context retained; no agents/providers/native acceptance",
+  "instructions_sha256": "86e1a5c3e7c9ad0481745ec0ef62c548bc26c53d8031958429b79e2ce8a74c42",
+  "final_answer": "CP-3-attempt-2.md",
+  "final_answer_sha256": "9ef2f6e17a2e22fd980c72bf586a3807afdf44ab37043db2581d4ec0e2780bf8",
+  "inputs_and_pre_answer_expectations_pins_passed": true,
+  "raw_html_reconversion_identical": true,
+  "new_contract_locators_checked": [
+    23,
+    25,
+    26,
+    32,
+    33,
+    36,
+    48
+  ],
+  "calendar_to_fraction_flows_accrual_and_partial_call_checks": true,
+  "existing_helper_vs_independent_decimal_roots_passed": true,
+  "same_date_treasury_columns_checked": true,
+  "canonical_schema_column_sets_checked": 18,
+  "tables": [
+    {
+      "heading": "T3.1 / T3B.1 \u2014 Source register and absorbed instrument source gate",
+      "rows": 7,
+      "columns": 8
+    },
+    {
+      "heading": "Inherited definition conflicts \u2014 original H4A rows",
+      "rows": 3,
+      "columns": 4
+    },
+    {
+      "heading": "T3.3 \u2014 Unweighted issuer/security scorecard",
+      "rows": 5,
+      "columns": 9
+    },
+    {
+      "heading": "T3.4 \u2014 Override review",
+      "rows": 2,
+      "columns": 5
+    },
+    {
+      "heading": "T3.5 \u2014 Relative value table",
+      "rows": 2,
+      "columns": 9
+    },
+    {
+      "heading": "T3.6 \u2014 Fundamental value matrix",
+      "rows": 2,
+      "columns": 7
+    },
+    {
+      "heading": "T3.7 \u2014 Final ranking",
+      "rows": 2,
+      "columns": 15
+    },
+    {
+      "heading": "T3B.2 \u2014 Selected capital-structure dashboard",
+      "rows": 3,
+      "columns": 11
+    },
+    {
+      "heading": "T3B.3 \u2014 Instrument and convention matrix",
+      "rows": 2,
+      "columns": 10
+    },
+    {
+      "heading": "T3B.4 \u2014 Structural positioning",
+      "rows": 2,
+      "columns": 10
+    },
+    {
+      "heading": "T3B.5 \u2014 Legal/covenant/refinancing overlay",
+      "rows": 2,
+      "columns": 10
+    },
+    {
+      "heading": "T3B.6 \u2014 Recovery sensitivity by instrument",
+      "rows": 2,
+      "columns": 7
+    },
+    {
+      "heading": "T3B.7 \u2014 Compensation cross-check",
+      "rows": 2,
+      "columns": 8
+    },
+    {
+      "heading": "T3B.8 \u2014 Preference decision",
+      "rows": 2,
+      "columns": 9
+    },
+    {
+      "heading": "T3.9 \u2014 Observable monitoring triggers",
+      "rows": 3,
+      "columns": 5
+    },
+    {
+      "heading": "T3B.10 \u2014 Instrument-specific trigger transmission",
+      "rows": 3,
+      "columns": 6
+    },
+    {
+      "heading": "C1\u2013C5 \u2014 Actual dated pair normalization and uncertainty",
+      "rows": 5,
+      "columns": 4
+    },
+    {
+      "heading": "T3.10 / T3B.11 \u2014 Cumulative gaps and affected decisions",
+      "rows": 5,
+      "columns": 5
+    }
+  ],
+  "inherited_conflict_rows_verbatim": true,
+  "calculated_adversarial_cases": {
+    "clean_sensitivity_crosses_zero": true,
+    "dirty_yield_order_survives_display_sensitivity": true,
+    "cross_basis_July_clean_minus_March_dirty_yield_bp": "-50.93628460862864585244439654"
+  },
+  "manual_source_instruction_review": {
+    "source_fact_assumption_and_inference_distinctions": true,
+    "limited_equivalent_fundamentals_not_full_CP1_CP2": true,
+    "weighted_scores_no_framework_not_scorable": true,
+    "all11_cp3_substantive_steps_and12_cp3a_duties": true,
+    "common_high_level_priority_not_equal_all_covenants": true,
+    "higher_makewhole_discount_spread_reduces_premium_otherwise_equal": true,
+    "no_clean_dirty_choice_or_executable_quote_asserted": true,
+    "no_OAS_DM_full_YTW_PD_recovery_or_trade": true,
+    "dated_portfolio_not_mixed_with_May2025": true,
+    "strongest_countercase_conditions_and_timed_downside_present": true
+  },
+  "repair": {
+    "attempt1": "CP-3-attempt-1.md retained",
+    "confirmed_issue": "Nearest-million\u00b10.5USDm display interval was not explicitly labelled as an assumption; source states USDm but supplies no rounding algorithm/valuation-error bound. Counterexample: truncation/valuation error could exceed interval.",
+    "attempt2_change": "Explicitly label analyst display-precision sensitivity and no confidence interval/error guarantee; numeric results/conclusions unchanged."
+  },
+  "scope": "Actual two-note normalized comparison with decision restriction, not complete issuer/all-series/native/portfolio implementation acceptance.",
+  "production_code_changed": true,
+  "confidence_review": {
+    "ranked_doubts": [
+      "Cashflow calendar/stub/accrual/call terminal error",
+      "Investor coupon versus issuer swapped rate",
+      "Point ranking mistaken for robust compensation",
+      "Precision sensitivity mistaken for valuation-error guarantee",
+      "Wrong benchmark metric/date or structural equivalence",
+      "Invented score/approval/portfolio or full underwriting"
+    ],
+    "outcomes": [
+      "Separate calendar-to-Fraction checks and Decimal root/PV/derivative checks",
+      "Exact executed5.875/5.950 coupons; effective rates kept distinct",
+      "Actual consistent-basis, cross-basis and independent precision cases checked",
+      "CONFIRMED framing issue repaired in attempt2 without changing numbers",
+      "Treasury exact row/columns and different executed indentures inspected",
+      "No weights or trade invented; native/confidence/full underwriting limits visible"
+    ],
+    "open": [
+      "Actual precise matched quotes/conventions and executable depth",
+      "Full matching fundamentals/terms/recovery/funding/portfolio evidence",
+      "Native/independent-context/general integration"
+    ]
+  },
+  "rewrite_tournament": "Completed inline post-edit on _preference_issues; incumbent holds. See runtime_fix.rewrite_tournament for full candidate/final code, invariants, impact set and500-case equivalence.",
+  "runtime_fix": {
+    "root_cause": "Validator and both prompt surfaces required a full permutation even with explicit Insufficient Information; composer already supported No ordering. Actual ARCC comparison requires abstention.",
+    "before_reproduction": "Public owner.compute refused empty ordering with preference.ordering: term-loan is missing; two new positive abstention tests failed before fix.",
+    "changed_production_function": "src/deploy_vii/cp3_relative_value.py:_preference_issues",
+    "impact_set": [
+      "validate_relative_value",
+      "owners.cp3.compute",
+      "submit_cp3_step / _validate_step",
+      "owners.cp3.probe",
+      "context_block cp1_facilities_note",
+      "live.prompts CP3_PREFERENCE_RULE",
+      "methods/cp3.md",
+      "existing _preference composer",
+      "cp6_committee.cp3_catalogue"
+    ],
+    "invariants": [
+      "Empty ordering accepted only with Insufficient Information plus nonblank limitation",
+      "Nonempty ordering must still cover each assessed instrument once; unknown/duplicate/omitted IDs fail",
+      "Instrument evidence rows, basis validation, confidence caps and downstream limitations remain",
+      "Public signatures/return type/stable error order unchanged; existing No ordering renderer used"
+    ],
+    "adversarial_blank_limit_public_refusals": {
+      "''": [
+        "preference: an Insufficient Information preference states its limitation",
+        "preference.limitation: empty text"
+      ],
+      "' '": [
+        "preference.limitation: empty text"
+      ],
+      "'\\t'": [
+        "preference.limitation: empty text"
+      ],
+      "None": [
+        "preference: an Insufficient Information preference states its limitation"
+      ]
+    },
+    "partial_insufficient_order_still_rejected": true,
+    "rewrite_tournament": {
+      "mode": "No-argument post-edit; inline roles, no agents",
+      "scope": "_preference_issues only. context_block/prompt edits are static text; tests are exempt.",
+      "candidate_sources": {
+        "Incumbent": "def _preference_issues(\n    submission: RelativeValueSubmission, upstream: Upstream, evidence: _Evidence\n) -> list[str]:\n    \"\"\"The ordering, the basis and gap propagation on the preference (decision 0007, rulings\n    4 and 5).\"\"\"\n    row = submission.preference\n    insufficient = row.confidence == \"Insufficient Information\"\n    issues = _basis_issues(\"preference\", row.basis, upstream.catalogue, evidence)\n    instruments = [item.facility_id for item in submission.instruments]\n    known = set(instruments)\n    ranked = Counter(row.ordering)\n    for facility_id in dict.fromkeys(row.ordering):\n        if facility_id not in known:\n            issues.append(f\"preference.ordering: {facility_id} is not an instruments row\")\n        elif ranked[facility_id] > 1:\n            issues.append(f\"preference.ordering: {facility_id} appears more than once\")\n    if row.ordering or not insufficient:\n        for facility_id in dict.fromkeys(instruments):\n            if facility_id not in ranked:\n                issues.append(f\"preference.ordering: {facility_id} is missing\")\n    if insufficient and not row.limitation:\n        issues.append(\"preference: an Insufficient Information preference states its limitation\")\n    strength = evidence.strength()\n    if not strength and not insufficient:\n        issues.append(\n            \"preference.confidence: Insufficient Information without observed or indicative \"\n            \"market evidence\"\n        )\n    if not insufficient and not _cites_market(row.basis):\n        issues.append(\"preference: a relative value preference cites a market_evidence quote\")\n    reasons = _cap_reasons(upstream, evidence)\n    if reasons and row.confidence == \"High\":\n        issues.append(f\"preference.confidence: capped below High because {'; '.join(reasons)}\")\n    if _talk_only(row.basis, evidence):\n        issues += _level_issues(\"preference.rationale\", row.rationale)\n    return issues\n",
+        "Speed": "def _preference_issues(\n    submission: RelativeValueSubmission, upstream: Upstream, evidence: _Evidence\n) -> list[str]:\n    \"\"\"The ordering, the basis and gap propagation on the preference (decision 0007, rulings\n    4 and 5).\"\"\"\n    row = submission.preference\n    insufficient = row.confidence == \"Insufficient Information\"\n    issues = _basis_issues(\"preference\", row.basis, upstream.catalogue, evidence)\n    instruments = [item.facility_id for item in submission.instruments]\n    known = set(instruments)\n    ranked = Counter(row.ordering)\n    for facility_id in ranked:\n        if facility_id not in known:\n            issues.append(f\"preference.ordering: {facility_id} is not an instruments row\")\n        elif ranked[facility_id] > 1:\n            issues.append(f\"preference.ordering: {facility_id} appears more than once\")\n    if row.ordering or not insufficient:\n        for facility_id in dict.fromkeys(instruments):\n            if facility_id not in ranked:\n                issues.append(f\"preference.ordering: {facility_id} is missing\")\n    if insufficient and not row.limitation:\n        issues.append(\"preference: an Insufficient Information preference states its limitation\")\n    strength = evidence.strength()\n    if not strength and not insufficient:\n        issues.append(\n            \"preference.confidence: Insufficient Information without observed or indicative \"\n            \"market evidence\"\n        )\n    if not insufficient and not _cites_market(row.basis):\n        issues.append(\"preference: a relative value preference cites a market_evidence quote\")\n    reasons = _cap_reasons(upstream, evidence)\n    if reasons and row.confidence == \"High\":\n        issues.append(f\"preference.confidence: capped below High because {'; '.join(reasons)}\")\n    if _talk_only(row.basis, evidence):\n        issues += _level_issues(\"preference.rationale\", row.rationale)\n    return issues\n",
+        "Memory": "def _preference_issues(\n    submission: RelativeValueSubmission, upstream: Upstream, evidence: _Evidence\n) -> list[str]:\n    \"\"\"The ordering, the basis and gap propagation on the preference (decision 0007, rulings\n    4 and 5).\"\"\"\n    row = submission.preference\n    insufficient = row.confidence == \"Insufficient Information\"\n    issues = _basis_issues(\"preference\", row.basis, upstream.catalogue, evidence)\n    known = dict.fromkeys(item.facility_id for item in submission.instruments)\n    ranked = Counter(row.ordering)\n    for facility_id in dict.fromkeys(row.ordering):\n        if facility_id not in known:\n            issues.append(f\"preference.ordering: {facility_id} is not an instruments row\")\n        elif ranked[facility_id] > 1:\n            issues.append(f\"preference.ordering: {facility_id} appears more than once\")\n    if row.ordering or not insufficient:\n        for facility_id in known:\n            if facility_id not in ranked:\n                issues.append(f\"preference.ordering: {facility_id} is missing\")\n    if insufficient and not row.limitation:\n        issues.append(\"preference: an Insufficient Information preference states its limitation\")\n    strength = evidence.strength()\n    if not strength and not insufficient:\n        issues.append(\n            \"preference.confidence: Insufficient Information without observed or indicative \"\n            \"market evidence\"\n        )\n    if not insufficient and not _cites_market(row.basis):\n        issues.append(\"preference: a relative value preference cites a market_evidence quote\")\n    reasons = _cap_reasons(upstream, evidence)\n    if reasons and row.confidence == \"High\":\n        issues.append(f\"preference.confidence: capped below High because {'; '.join(reasons)}\")\n    if _talk_only(row.basis, evidence):\n        issues += _level_issues(\"preference.rationale\", row.rationale)\n    return issues\n",
+        "Readability": "def _preference_issues(\n    submission: RelativeValueSubmission, upstream: Upstream, evidence: _Evidence\n) -> list[str]:\n    \"\"\"The ordering, the basis and gap propagation on the preference (decision 0007, rulings\n    4 and 5).\"\"\"\n    row = submission.preference\n    insufficient = row.confidence == \"Insufficient Information\"\n    issues = _basis_issues(\"preference\", row.basis, upstream.catalogue, evidence)\n    instruments = [item.facility_id for item in submission.instruments]\n    known = set(instruments)\n    ranked = Counter(row.ordering)\n    for facility_id in dict.fromkeys(row.ordering):\n        if facility_id not in known:\n            issues.append(f\"preference.ordering: {facility_id} is not an instruments row\")\n        elif ranked[facility_id] > 1:\n            issues.append(f\"preference.ordering: {facility_id} appears more than once\")\n    withheld = not row.ordering and insufficient\n    for facility_id in dict.fromkeys(instruments):\n        if not withheld and facility_id not in ranked:\n            issues.append(f\"preference.ordering: {facility_id} is missing\")\n    if insufficient and not row.limitation:\n        issues.append(\"preference: an Insufficient Information preference states its limitation\")\n    strength = evidence.strength()\n    if not strength and not insufficient:\n        issues.append(\n            \"preference.confidence: Insufficient Information without observed or indicative \"\n            \"market evidence\"\n        )\n    if not insufficient and not _cites_market(row.basis):\n        issues.append(\"preference: a relative value preference cites a market_evidence quote\")\n    reasons = _cap_reasons(upstream, evidence)\n    if reasons and row.confidence == \"High\":\n        issues.append(f\"preference.confidence: capped below High because {'; '.join(reasons)}\")\n    if _talk_only(row.basis, evidence):\n        issues += _level_issues(\"preference.rationale\", row.rationale)\n    return issues\n"
+      },
+      "equivalence_cases": 500,
+      "timing_seconds_per3000_calls": {
+        "Incumbent": 0.11141733400290832,
+        "Speed": 0.10966208297759295,
+        "Memory": 0.10904920898610726,
+        "Readability": 0.10896679200232029
+      },
+      "bracket": [
+        "Speed vs Memory: Speed wins on direct Counter iteration clarity; allocation difference immaterial at observed facility counts.",
+        "Speed vs Readability: Speed wins; Readability iterates unnecessarily when ranking withheld and adds a derived Boolean.",
+        "Speed vs Incumbent: Incumbent holds; both linear, sub-millisecond per call, no material runtime benefit; existing explicit order-dedup idiom and smallest behavior diff retained."
+      ],
+      "winner": "Incumbent holds",
+      "justification": [
+        "Smallest verified behavior change preserves established issue ordering and validation boundaries.",
+        "All three challengers match500 shape/evidence cases; none changes asymptotic complexity or provides a material case runtime benefit.",
+        "No additional refactor is needed to represent the actual no-ranking result; existing composer and CP6 catalogue support it."
+      ],
+      "final_code": "def _preference_issues(\n    submission: RelativeValueSubmission, upstream: Upstream, evidence: _Evidence\n) -> list[str]:\n    \"\"\"The ordering, the basis and gap propagation on the preference (decision 0007, rulings\n    4 and 5).\"\"\"\n    row = submission.preference\n    insufficient = row.confidence == \"Insufficient Information\"\n    issues = _basis_issues(\"preference\", row.basis, upstream.catalogue, evidence)\n    instruments = [item.facility_id for item in submission.instruments]\n    known = set(instruments)\n    ranked = Counter(row.ordering)\n    for facility_id in dict.fromkeys(row.ordering):\n        if facility_id not in known:\n            issues.append(f\"preference.ordering: {facility_id} is not an instruments row\")\n        elif ranked[facility_id] > 1:\n            issues.append(f\"preference.ordering: {facility_id} appears more than once\")\n    if row.ordering or not insufficient:\n        for facility_id in dict.fromkeys(instruments):\n            if facility_id not in ranked:\n                issues.append(f\"preference.ordering: {facility_id} is missing\")\n    if insufficient and not row.limitation:\n        issues.append(\"preference: an Insufficient Information preference states its limitation\")\n    strength = evidence.strength()\n    if not strength and not insufficient:\n        issues.append(\n            \"preference.confidence: Insufficient Information without observed or indicative \"\n            \"market evidence\"\n        )\n    if not insufficient and not _cites_market(row.basis):\n        issues.append(\"preference: a relative value preference cites a market_evidence quote\")\n    reasons = _cap_reasons(upstream, evidence)\n    if reasons and row.confidence == \"High\":\n        issues.append(f\"preference.confidence: capped below High because {'; '.join(reasons)}\")\n    if _talk_only(row.basis, evidence):\n        issues += _level_issues(\"preference.rationale\", row.rationale)\n    return issues\n"
+    },
+    "production_signature_unchanged": true,
+    "test_scope": "Synthetic validator/store routing and consumer-catalogue regressions; separate actual ARCC model output remains the analytical proof.",
+    "historical_test_correction": "Replaced absent docs/MODULES.csv static unverified-count assertion with canonical/CP3A/CP3B store-settlement abstention regressions; no historical completion status imported.",
+    "checks": {
+      "focused_pytest": "PYTHONPATH=src .venv/bin/pytest tests/test_method_cp3.py tests/test_cp3_context_evidence.py tests/test_engine_blank_text.py tests/test_connect_cp3.py -q:231 passed,1 skipped,2.74s; includes new CP6 catalogue assertions.",
+      "readiness_linear": "3 passed,26 deselected",
+      "mypy": "Success: no issues found in1source file",
+      "ruff": "Engine/tests clean; live/prompts baseline and current share4 pre-existing ISC004 diagnostics, no new finding."
+    },
+    "files": {
+      "src/deploy_vii/cp3_relative_value.py": "9ae4d81713b932288f0d5405c6fb4be9870aff4b2d5be312d35cfe5328fc5f5e",
+      "src/deploy_vii/live/prompts.py": "13a4049e990053f965771dde2be3d3d20337b3887e25a2ac3d47bc2fb4bf40da",
+      "src/deploy_vii/methods/cp3.md": "dc528dece49d804702cdd05fc5984f9df24dfe93c80deaa8dfaa9c82b624303e",
+      "tests/test_method_cp3.py": "928278210d8ab14b09c48358e85d97203818d8c335db5568c3acb2231d4d4559",
+      "tests/test_connect_cp3.py": "85c20dd313780296b0fa98b3e9c88571fbedbee9e7462c76e49c93153299909e"
+    }
+  },
+  "consumer": {
+    "path": "CP-6-consumer.md",
+    "sha256": "5f6d862a3bbe44892f8611559e612faf7ebd9e32cf65e564f2fc71eca8692bd6",
+    "producer_pin_matches_frozen_instructions": true,
+    "actual_numeric_comparison_vs_independent_expectations": true,
+    "three_required_countercases_plus_makewhole_and_precision_assumption_challenges": true,
+    "actual_next_action_uses_measured_basis_precision_issue": true,
+    "scope_and_no_implementation_restrictions_preserved": true
+  },
+  "delivery": {
+    "directory": "deliverables/arcc-fy2024-rv-1",
+    "kind": "manual_checked_handoff_delivery",
+    "analytical_rerun_for_delivery": false,
+    "production_code_changed": false,
+    "native_accepted_heads_created": false,
+    "no_excel_output": true,
+    "scope": "Manual report from checked current-host-model Markdown handoffs. Historical ARCC pair at 31 December 2024; issuer-evaluated values, conditional price bases and analytical display-precision sensitivity. Actual normalized comparison and downstream challenge; no supported ranking, current trade, full underwriting/all-series/portfolio approval, independent/native or CP-OS qualification. Excel is ingestion-only; no workbook output.",
+    "source_tables": 21,
+    "source_data_rows": 68,
+    "literal_value_cells_checked": 379,
+    "facts_and_exact_line_citations": 379,
+    "missing_null_cells": 0,
+    "front_summary_rows": 5,
+    "files": {
+      "CP-3-attempt-2.md": "9ef2f6e17a2e22fd980c72bf586a3807afdf44ab37043db2581d4ec0e2780bf8",
+      "CP-6-consumer.md": "5f6d862a3bbe44892f8611559e612faf7ebd9e32cf65e564f2fc71eca8692bd6",
+      "view.json": "921a8aa588d270ae3be67f2ddeddecb762d146c8feeceead39788968e5382af7",
+      "report-view.json": "9d495b36c64606232f2a7122d9839a62c171d27c4e6d117b7852171dfe5c20b0",
+      "report.html": "0185215cffa6d10ad1fc43eb7d69c164be6daf8c3f49e5bc86b7e358896e4c86"
+    },
+    "reused_code": {
+      "src/deploy_workflow/handoff_delivery.py": "aa77ae59a2e408f05a3cf2f5c7af92b4dde2b2df635f961545d49fc05bc0e00c",
+      "src/deploy_vii/contracts.py": "b07965cc3907da1911c29a09bfea8b4559fb1c27dfc57c7e89eab97f1a3d0ee3",
+      "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+      "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba"
+    },
+    "browser_AX_checks": [
+      "Historical Dec31 2024 scope, candidate NOT ACCEPTED and no-current-trade/no-Excel banner visible",
+      "Five front-page findings preserve both clean/dirty compensation cases, display-sensitivity limits, duration and Requires More Work decision",
+      "Actual source inspector opens CP6 line28 with complete dirty-case quote and correct5f6d862a... producer hash",
+      "Module navigator opens CP3 with all18 register/source/definition/calculation headings"
+    ],
+    "browser_limit": "AX table cells expose Inspect labels rather than all values;379 literal value cells and68 row labels checked in View against original handoff lines. No physical layout/screenshot or complete accessibility qualification.",
+    "server_stopped": true
+  }
+}

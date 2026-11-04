@@ -1,0 +1,79 @@
+16/06/2026, 22:24                                                                                        f-20251231
+
+
+
+
+                                                           FORD MOTOR COMPANY AND SUBSIDIARIES
+                                                                  CONSOLIDATED BALANCE SHEETS
+                                                                                      (in millions)
+                                                                                                                                                December 31,            December 31,
+                                                                                                                                                     2024                     2025
+   ASSETS
+   Cash and cash equivalents (Note 9)                                                                                                        $            22,935      $            23,356
+   Marketable securities (Note 9)                                                                                                                         15,413                   15,131
+   Ford Credit finance receivables, net of allowance for credit losses of $247 and $261 (Note 10)                                                         51,850                   49,130
+   Trade and other receivables, less allowances of $84 and $108                                                                                           14,723                   15,398
+   Inventories (Note 11)                                                                                                                                  14,951                   15,285
+   Other assets                                                                                                                                             4,602                   5,187
+     Total current assets                                                                                                                                124,474                 123,487
+   Ford Credit finance receivables, net of allowance for credit losses of $617 and $650 (Note 10)                                                         59,786                   61,449
+   Net investment in operating leases (Note 12)                                                                                                           22,947                   28,540
+   Net property (Note 13)                                                                                                                                 41,928                   37,288
+   Equity in net assets of affiliated companies (Note 14 and Note 23)                                                                                       6,821                   2,753
+   Deferred income taxes (Note 7)                                                                                                                         16,375                   21,953
+   Other assets                                                                                                                                           12,865                   13,690
+       Total assets                                                                                                                          $           285,196      $          289,160
+   LIABILITIES
+   Payables                                                                                                                                  $            24,128      $            25,809
+   Other liabilities and deferred revenue (Note 15 and Note 24)                                                                                           27,782                   31,779
+   Debt payable within one year (Note 18)
+     Company excluding Ford Credit                                                                                                                          1,756                   5,550
+     Ford Credit                                                                                                                                          53,193                   51,752
+     Total current liabilities                                                                                                                           106,859                 114,890
+   Other liabilities and deferred revenue (Note 15 and Note 24)                                                                                           28,832                   30,902
+   Long-term debt (Note 18)
+     Company excluding Ford Credit                                                                                                                        18,898                   16,369
+     Ford Credit                                                                                                                                          84,675                   89,665
+   Deferred income taxes (Note 7)                                                                                                                           1,074                   1,354
+       Total liabilities                                                                                                                                 240,338                 253,180
+   EQUITY
+   Common Stock, par value $0.01 per share (4,138 million shares issued of 6 billion authorized)                                                               41                       41
+   Class B Stock, par value $0.01 per share (71 million shares issued of 530 million authorized)                                                                 1                       1
+   Capital in excess of par value of stock                                                                                                                23,502                   23,922
+   Retained earnings                                                                                                                                      33,740                   22,508
+   Accumulated other comprehensive income/(loss) (Note 22)                                                                                                 (9,639)                 (7,710)
+   Treasury stock                                                                                                                                          (2,810)                 (2,810)
+     Total equity attributable to Ford Motor Company                                                                                                      44,835                   35,952
+   Equity attributable to noncontrolling interests                                                                                                             23                       28
+     Total equity                                                                                                                                         44,858                   35,980
+       Total liabilities and equity                                                                                                          $           285,196      $          289,160
+
+
+   The following table includes assets to be used to settle liabilities of the consolidated variable interest entities (“VIEs”).  These assets and liabilities are
+   included in the consolidated balance sheets above.  See Note 23 for additional information on our VIEs.
+                                                                                                                                               December 31,2024         December 31,2025
+
+   ASSETS
+   Cash and cash equivalents                                                                                                                 $             2,494      $             2,523
+   Ford Credit finance receivables, net                                                                                                                   60,717                   55,773
+   Net investment in operating leases                                                                                                                     13,309                   13,572
+   Other assets                                                                                                                                                34                       21
+   LIABILITIES
+   Other liabilities and deferred revenue                                                                                                    $                100     $                 40
+   Debt                                                                                                                                                   50,855                   52,054
+                                                   The accompanying notes are part of the consolidated financial statements.
+
+
+                                                                                             112
+
+
+
+
+
+
+
+
+
+
+
+https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm                                                                                                       116/181

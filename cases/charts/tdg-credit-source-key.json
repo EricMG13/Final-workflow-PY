@@ -1,0 +1,1092 @@
+{
+  "schema": "codex.tdg_credit_chart_source_key.v1",
+  "key_id": "TDG-CHART-01",
+  "status": "SOURCE_POINTS_PARTIALLY_FROZEN_CHARTS_BLOCKED_WHERE_AUTHORITY_OR_COVERAGE_IS_UNRESOLVED",
+  "case": {
+    "case_id": "tdg-credit-snapshot",
+    "issuer": "TransDigm Group Incorporated",
+    "borrower": "TransDigm Inc.",
+    "case_as_of": "2025-02-04",
+    "current_period_id": "FY2025Q1",
+    "current_fiscal_period_end": "2024-12-28",
+    "reporting_currency": "USD",
+    "perimeter_rule": "The Q1 SEC financial statements and selected-data table report TransDigm Group Incorporated consolidated amounts (CIK 0001260221). Facility terms refer to TransDigm Inc. or its facilities where named. Do not treat those perimeters as interchangeable without an adopted consolidation rule.",
+    "source_vintage_eligibility": "Q1 10-Q signature page is dated 2025-02-04, matching case_as_of. The retained HTML does not contain an SEC accepted/filing timestamp field; the exact acceptance timestamp is not independently keyed here. Do not claim an after-cutoff filing is eligible solely from period end."
+  },
+  "pins": {
+    "primary_q1_filing": {
+      "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+      "path": "/Users/ericguei/Documents/Deploy Workflow/artifacts/public-corpus/v1/TDG/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm",
+      "sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "bytes": 1537595,
+      "period_context": "DEI filing focus FY2025Q1, document period end 2024-12-28, fiscal year end 9/30; signature page dated 2025-02-04, equal to case as-of."
+    },
+    "case_context": {
+      "path": "/Users/ericguei/.codex/worktrees/pt-model-publication-keys/cases/goldens/tdg-credit-snapshot/context.json",
+      "sha256": "455444c4707ef9de84dcbcb5b00f662ec3f7fa4f1601b9f3cb381d9cc5ff7646"
+    },
+    "inherited_source_observation_record_scope_only": {
+      "path": "cases/model-publication-keys/tdg-q1-2025-primary-verification.json",
+      "sha256": "056e26bea40776513426a4b3606cd0d680b1876c934c67fe9d06e58641b80da3",
+      "independent_review_path": "work/pretesting-completion/oracles/model-tdg-primary-independent-review.md",
+      "independent_review_sha256": "482de07bb9bfab0442761a9473a2363b4c92fa47e3397974894bf50a1f985b18",
+      "scope": "108 inherited observations: 80 VERIFIED_DIRECT, 18 VERIFIED_DERIVED, 10 UNRESOLVED. Pin only; the positive point records below were read directly from the exact primary filing and do not refer to inherited fact IDs or inherited known status."
+    },
+    "final_deliverable_contract": {
+      "path": "work/pretesting-completion/contracts/final-deliverable-contracts.json",
+      "sha256": "299eb3883ca5161003e0826ac42bca0a59a8c65135f2a6bafe93d6a280ade5ea",
+      "status": "PREPARATION_CANDIDATE_NOT_ROOT_FROZEN_NOT_RUNTIME_ACCEPTANCE"
+    },
+    "method_admission": {
+      "path": "work/pretesting-completion/oracles/model-method-admission.json",
+      "sha256": "d9e618e9ad9d02989e572909f26af5e09e99e72654bc73014024eb9772b49c78"
+    },
+    "adopted_design": [
+      {
+        "path": "docs/design-pack/content/01-credit-snapshot.md",
+        "sha256": "dbe188837bb47d0fb1f5e1dd17032305071f617b66d3650047b6eaf6da3bce0f"
+      },
+      {
+        "path": "docs/design-pack/content/07-model.md",
+        "sha256": "ab1474b690354373474baa1dd23e146919d2dac10eea5e0fa53f24ac768cc115"
+      },
+      {
+        "path": "docs/design-pack/content/provenance-and-states.md",
+        "sha256": "26a2b35297b406115decdcde44341d56e064a3f2eb5d57e1a7da97c9404bad6a"
+      }
+    ]
+  },
+  "source_locator_convention": "HTML table and row numbers are one-based source-local ordinals from the exact pinned SEC document. Table/row cells are visible native filing evidence; inline XBRL IDs are source-local and only used with the same source_id and SHA. USD XBRL has unitRef usd, scale 6, converting raw dollars to USD millions exactly. Table 31/58/62/63/64/67 state USD millions. Period headings are retained verbatim. No OCR, renderer output, illustrative design values or synthetic chart values are used.",
+  "chart_duties": {
+    "pathway_duties": [
+      {
+        "duty_id": "SNAP-06",
+        "surface": "Model chart strip",
+        "required": "Leverage, coverage, liquidity, maturity-wall series and their periods/bases",
+        "producer": "CP-MODEL over settled CP-1",
+        "consumer": "Report reads deterministic model.publication_ref",
+        "positive_and_gap": "Historical/projection states distinct; unsupported series n/a with reason; unresolved source/method is blocked."
+      },
+      {
+        "duty_id": "SNAP-07",
+        "surface": "Capital structure",
+        "required": "Facility, rank, debt, cash, net debt, EV, multiples, EV share; lease obligations apart",
+        "positive_and_gap": "Point-in-time dates explicit; PF interest/LTM missing with reason."
+      },
+      {
+        "duty_id": "SNAP-09",
+        "surface": "Financials/credit metrics",
+        "required": "Period × metric values, basis, status and source/formula passports; historical, YTD, LTM/PF/projection identities distinct."
+      }
+    ],
+    "universal_contract_id": "CHART-01",
+    "universal_duty": "For every required chart preserve cited/calculated versus model-written/illustrative provenance and visible gap marks; provide an exact-value table twin including gap reasons, a one-sentence summary, and source line. Keep chart title; use a titled n/a frame naming a genuinely source-supported missing input. Preserve units, periods, basis, identity and source passport/deep link.",
+    "comparison_requirements": [
+      "series values",
+      "units",
+      "periods",
+      "provenance class",
+      "gaps and reasons",
+      "exact table twin",
+      "summary",
+      "source line",
+      "title",
+      "n/a frame only for a supported data gap"
+    ],
+    "provisional_locator_only": "#model-chart-strip/{chart}/{period}; the contract marks this proposal pending interface reconciliation."
+  },
+  "source_observations": [
+    {
+      "id": "tdg25q1-cash",
+      "kind": "VERIFIED_DIRECT_PRIMARY_OBSERVATION",
+      "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+      "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "locator": {
+        "table": 10,
+        "row": 5,
+        "row_label": "Cash and cash equivalents",
+        "inline_xbrl": {
+          "fact_id": "f-31",
+          "name": "us-gaap:CashAndCashEquivalentsAtCarryingValue",
+          "context_id": "c-3",
+          "unit_ref": "usd",
+          "scale": "6",
+          "sign": null,
+          "lexeme": "2,459",
+          "decimals": "-6"
+        }
+      },
+      "entity": "TransDigm Group Incorporated consolidated filing (CIK 0001260221)",
+      "period": {
+        "kind": "instant",
+        "instant": "2024-12-28",
+        "source_start": null
+      },
+      "amount": {
+        "raw_lexeme": "2,459",
+        "unit": "USD",
+        "scale": "6",
+        "canonical_value": "2459",
+        "canonical_unit": "USD millions"
+      },
+      "role": "Liquidity source component; cash instant, not cash flow.",
+      "source_context": {
+        "entity_identifier": "0001260221",
+        "context_id": "c-3",
+        "kind": "instant",
+        "instant": "2024-12-28",
+        "dimensions": []
+      }
+    },
+    {
+      "id": "tdg25q1-current-debt-carrying",
+      "kind": "VERIFIED_DIRECT_PRIMARY_OBSERVATION",
+      "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+      "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "locator": {
+        "table": 10,
+        "row": 18,
+        "row_label": "Current portion of long-term debt",
+        "inline_xbrl": {
+          "fact_id": "f-51",
+          "name": "us-gaap:LongTermDebtCurrent",
+          "context_id": "c-3",
+          "unit_ref": "usd",
+          "scale": "6",
+          "sign": null,
+          "lexeme": "98",
+          "decimals": "-6"
+        }
+      },
+      "entity": "TransDigm Group Incorporated consolidated filing (CIK 0001260221)",
+      "period": {
+        "kind": "instant",
+        "instant": "2024-12-28",
+        "source_start": null
+      },
+      "amount": {
+        "raw_lexeme": "98",
+        "unit": "USD",
+        "scale": "6",
+        "canonical_value": "98",
+        "canonical_unit": "USD millions"
+      },
+      "role": "Balance-sheet carrying component; not an asserted principal maturity.",
+      "source_context": {
+        "entity_identifier": "0001260221",
+        "context_id": "c-3",
+        "kind": "instant",
+        "instant": "2024-12-28",
+        "dimensions": []
+      }
+    },
+    {
+      "id": "tdg25q1-trade-receivable-facility-carrying",
+      "kind": "VERIFIED_DIRECT_PRIMARY_OBSERVATION",
+      "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+      "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "locator": {
+        "table": 10,
+        "row": 19,
+        "row_label": "Short-term borrowings—trade receivable securitization facility",
+        "inline_xbrl": {
+          "fact_id": "f-53",
+          "name": "us-gaap:ShortTermBankLoansAndNotesPayable",
+          "context_id": "c-3",
+          "unit_ref": "usd",
+          "scale": "6",
+          "sign": null,
+          "lexeme": "649",
+          "decimals": "-6"
+        }
+      },
+      "entity": "TransDigm Group Incorporated consolidated filing (CIK 0001260221); named trade receivable securitization facility",
+      "period": {
+        "kind": "instant",
+        "instant": "2024-12-28",
+        "source_start": null
+      },
+      "amount": {
+        "raw_lexeme": "649",
+        "unit": "USD",
+        "scale": "6",
+        "canonical_value": "649",
+        "canonical_unit": "USD millions"
+      },
+      "role": "Separate reported short-term carrying borrowing; no note maturity date keyed here.",
+      "source_context": {
+        "entity_identifier": "0001260221",
+        "context_id": "c-3",
+        "kind": "instant",
+        "instant": "2024-12-28",
+        "dimensions": []
+      }
+    },
+    {
+      "id": "tdg25q1-long-term-debt-and-capital-lease-carrying",
+      "kind": "VERIFIED_DIRECT_PRIMARY_OBSERVATION",
+      "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+      "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "locator": {
+        "table": 10,
+        "row": 24,
+        "row_label": "LONG-TERM DEBT",
+        "inline_xbrl": {
+          "fact_id": "f-63",
+          "name": "us-gaap:LongTermDebtAndCapitalLeaseObligations",
+          "context_id": "c-3",
+          "unit_ref": "usd",
+          "scale": "6",
+          "sign": null,
+          "lexeme": "24,302",
+          "decimals": "-6"
+        }
+      },
+      "entity": "TransDigm Group Incorporated consolidated filing (CIK 0001260221)",
+      "period": {
+        "kind": "instant",
+        "instant": "2024-12-28",
+        "source_start": null
+      },
+      "amount": {
+        "raw_lexeme": "24,302",
+        "unit": "USD",
+        "scale": "6",
+        "canonical_value": "24302",
+        "canonical_unit": "USD millions"
+      },
+      "role": "Tag explicitly includes capital lease obligations; do not relabel as debt principal.",
+      "source_context": {
+        "entity_identifier": "0001260221",
+        "context_id": "c-3",
+        "kind": "instant",
+        "instant": "2024-12-28",
+        "dimensions": []
+      }
+    },
+    {
+      "id": "tdg25q1-selected-total-debt",
+      "kind": "VERIFIED_DIRECT_PRIMARY_OBSERVATION",
+      "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+      "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "locator": {
+        "table": 58,
+        "row": 7,
+        "row_label": "Total debt (1)",
+        "period_heading": "December 28, 2024 / September 30, 2024",
+        "selected_current_cell": "25,049"
+      },
+      "entity": "TD Group selected balance sheet data; USD millions",
+      "period": {
+        "kind": "instant",
+        "instant": "2024-12-28",
+        "source_start": null
+      },
+      "amount": {
+        "raw_lexeme": "25,049",
+        "unit": "USD millions",
+        "canonical_value": "25049",
+        "canonical_unit": "USD millions"
+      },
+      "role": "Issuer-labeled total debt in Selected Balance Sheet Data. Footnote-defined ratio/debt basis is not adopted as the Model leverage numerator. The visible Q1 statement components 98 + 649 + 24,302 = 25,049 reconcile arithmetically but mix current debt, securitization borrowing and a long-term debt-and-capital-lease tag; this is carrying presentation evidence, not principal.",
+      "source_context": {
+        "entity_identifier": "0001260221",
+        "context_id": null,
+        "kind": "visible_statement_table",
+        "heading": "December 28, 2024 / September 30, 2024",
+        "dimensions": []
+      }
+    },
+    {
+      "id": "tdg25q1-reported-ebitda",
+      "kind": "VERIFIED_DIRECT_VISIBLE_PRIMARY_OBSERVATION",
+      "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+      "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "locator": {
+        "table": 67,
+        "row": 9,
+        "row_label": "EBITDA",
+        "period_heading": "Thirteen Week Periods Ended; December 28, 2024 / December 30, 2023",
+        "current_cell": "1,087"
+      },
+      "entity": "TD Group consolidated; visible table USD millions",
+      "period": {
+        "kind": "duration",
+        "start": "2024-10-01",
+        "end": "2024-12-28",
+        "duration_label": "13 weeks"
+      },
+      "amount": {
+        "raw_lexeme": "1,087",
+        "unit": "USD millions",
+        "canonical_value": "1087",
+        "canonical_unit": "USD millions"
+      },
+      "role": "Issuer-labeled EBITDA value; direct visible table point. Not an LTM value.",
+      "source_context": {
+        "entity_identifier": "0001260221",
+        "context_id": null,
+        "kind": "visible_statement_table",
+        "heading": "Thirteen Week Periods Ended, December 28, 2024 / December 30, 2023",
+        "dimensions": []
+      }
+    },
+    {
+      "id": "tdg25q1-ebitda-as-defined",
+      "kind": "VERIFIED_DIRECT_VISIBLE_PRIMARY_OBSERVATION",
+      "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+      "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "locator": {
+        "table": 67,
+        "row": 14,
+        "row_label": "EBITDA As Defined",
+        "period_heading": "Thirteen Week Periods Ended; December 28, 2024 / December 30, 2023",
+        "current_cell": "1,061"
+      },
+      "entity": "TD Group consolidated; visible table USD millions",
+      "period": {
+        "kind": "duration",
+        "start": "2024-10-01",
+        "end": "2024-12-28",
+        "duration_label": "13 weeks"
+      },
+      "amount": {
+        "raw_lexeme": "1,061",
+        "unit": "USD millions",
+        "canonical_value": "1061",
+        "canonical_unit": "USD millions"
+      },
+      "role": "Issuer-specific EBITDA As Defined. Kept distinct from the table's EBITDA (1,087); no generic adjusted EBITDA alias.",
+      "source_context": {
+        "entity_identifier": "0001260221",
+        "context_id": null,
+        "kind": "visible_statement_table",
+        "heading": "Thirteen Week Periods Ended, December 28, 2024 / December 30, 2023",
+        "dimensions": []
+      }
+    },
+    {
+      "id": "tdg25q1-interest-expense-net",
+      "kind": "VERIFIED_DIRECT_PRIMARY_OBSERVATION",
+      "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+      "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "locator": {
+        "table": 11,
+        "row": 10,
+        "row_label": "INTEREST EXPENSE—NET",
+        "inline_xbrl": {
+          "fact_id": "f-107",
+          "name": "us-gaap:InterestExpenseNonoperating",
+          "context_id": "c-1",
+          "unit_ref": "usd",
+          "scale": "6",
+          "sign": null,
+          "lexeme": "378",
+          "decimals": "-6"
+        }
+      },
+      "entity": "TD Group consolidated; USD millions",
+      "period": {
+        "kind": "duration",
+        "start": "2024-10-01",
+        "end": "2024-12-28",
+        "duration_label": "13 weeks"
+      },
+      "amount": {
+        "raw_lexeme": "378",
+        "unit": "USD",
+        "scale": "6",
+        "canonical_value": "378",
+        "canonical_unit": "USD millions"
+      },
+      "role": "Reported interest expense net for the quarter; not LTM and not facility-allocated.",
+      "source_context": {
+        "entity_identifier": "0001260221",
+        "context_id": "c-1",
+        "kind": "duration",
+        "start": "2024-10-01",
+        "end": "2024-12-28",
+        "dimensions": []
+      }
+    },
+    {
+      "id": "tdg25q1-interest-paid-net",
+      "kind": "VERIFIED_DIRECT_PRIMARY_OBSERVATION",
+      "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+      "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "locator": {
+        "table": 15,
+        "row": 56,
+        "row_label": "Cash paid during the period for interest, net",
+        "inline_xbrl": {
+          "fact_id": "f-293",
+          "name": "us-gaap:InterestPaidNet",
+          "context_id": "c-1",
+          "unit_ref": "usd",
+          "scale": "6",
+          "sign": null,
+          "lexeme": "162",
+          "decimals": "-6"
+        }
+      },
+      "entity": "TD Group consolidated; USD millions",
+      "period": {
+        "kind": "duration",
+        "start": "2024-10-01",
+        "end": "2024-12-28",
+        "duration_label": "13 weeks"
+      },
+      "amount": {
+        "raw_lexeme": "162",
+        "unit": "USD",
+        "scale": "6",
+        "canonical_value": "162",
+        "canonical_unit": "USD millions"
+      },
+      "role": "Cash paid interest, not interchangeable with interest expense net (378).",
+      "source_context": {
+        "entity_identifier": "0001260221",
+        "context_id": "c-1",
+        "kind": "duration",
+        "start": "2024-10-01",
+        "end": "2024-12-28",
+        "dimensions": []
+      }
+    },
+    {
+      "id": "tdg25q1-cash-liquidity-direct",
+      "kind": "VERIFIED_DIRECT_VISIBLE_PRIMARY_OBSERVATION",
+      "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+      "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "locator": {
+        "table": 62,
+        "row": 3,
+        "row_label": "Cash and cash equivalents",
+        "period_heading": "As of December 28, 2024",
+        "cell": "2,459"
+      },
+      "entity": "TD Group consolidated; visible table USD millions",
+      "period": {
+        "kind": "instant",
+        "instant": "2024-12-28",
+        "source_start": null
+      },
+      "amount": {
+        "raw_lexeme": "2,459",
+        "unit": "USD millions",
+        "canonical_value": "2459",
+        "canonical_unit": "USD millions"
+      },
+      "role": "Cash component in issuer-presented cash liquidity.",
+      "source_context": {
+        "entity_identifier": "0001260221",
+        "context_id": null,
+        "kind": "visible_table",
+        "heading": "As of December 28, 2024",
+        "dimensions": []
+      }
+    },
+    {
+      "id": "tdg25q1-revolver-availability",
+      "kind": "VERIFIED_DIRECT_VISIBLE_PRIMARY_OBSERVATION",
+      "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+      "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "locator": {
+        "table": 62,
+        "row": 4,
+        "row_label": "Availability on revolving credit facility",
+        "period_heading": "As of December 28, 2024",
+        "cell": "849"
+      },
+      "entity": "TD Group consolidated; visible table USD millions",
+      "period": {
+        "kind": "instant",
+        "instant": "2024-12-28",
+        "source_start": null
+      },
+      "amount": {
+        "raw_lexeme": "849",
+        "unit": "USD millions",
+        "canonical_value": "849",
+        "canonical_unit": "USD millions"
+      },
+      "role": "Exact issuer label is availability; do not rename as undrawn borrowing or add a facility-drawn amount.",
+      "source_context": {
+        "entity_identifier": "0001260221",
+        "context_id": null,
+        "kind": "visible_table",
+        "heading": "As of December 28, 2024",
+        "dimensions": []
+      }
+    },
+    {
+      "id": "tdg25q1-cash-liquidity",
+      "kind": "VERIFIED_DIRECT_VISIBLE_PRIMARY_OBSERVATION",
+      "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+      "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "locator": {
+        "table": 62,
+        "row": 5,
+        "row_label": "Cash liquidity",
+        "period_heading": "As of December 28, 2024",
+        "cell": "3,308"
+      },
+      "entity": "TD Group consolidated; visible table USD millions",
+      "period": {
+        "kind": "instant",
+        "instant": "2024-12-28",
+        "source_start": null
+      },
+      "amount": {
+        "raw_lexeme": "3,308",
+        "unit": "USD millions",
+        "canonical_value": "3308",
+        "canonical_unit": "USD millions"
+      },
+      "role": "Issuer-reported current cash liquidity point. Arithmetic cross-check: 2,459 cash + 849 availability = 3,308. The source label and components are retained.",
+      "source_context": {
+        "entity_identifier": "0001260221",
+        "context_id": null,
+        "kind": "visible_table",
+        "heading": "As of December 28, 2024",
+        "dimensions": []
+      }
+    }
+  ],
+  "maturity_schedule": {
+    "as_of": "2024-12-28",
+    "basis": "Instrument terms table gives Aggregate Principal, Maturity Date and Interest Rate; visible-only USD millions, directly read. No debt carrying amount or lease is substituted.",
+    "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+    "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+    "observations": [
+      {
+        "id": "tdg25q1-tli",
+        "table": 63,
+        "row": 3,
+        "facility": "Term Loan Tranche I",
+        "principal_lexeme": "1,871",
+        "principal_USD_millions": "1871",
+        "maturity": "2028-08-24",
+        "interest_terms": "Term SOFR plus 2.75%",
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "source_context": {
+          "entity_identifier": "0001260221",
+          "kind": "visible_debt_terms_table",
+          "schedule_as_of": "2024-12-28",
+          "dimensions": []
+        }
+      },
+      {
+        "id": "tdg25q1-tlj",
+        "table": 63,
+        "row": 4,
+        "facility": "Term Loan Tranche J",
+        "principal_lexeme": "3,632",
+        "principal_USD_millions": "3632",
+        "maturity": "2031-02-28",
+        "interest_terms": "Term SOFR plus 2.50%",
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "source_context": {
+          "entity_identifier": "0001260221",
+          "kind": "visible_debt_terms_table",
+          "schedule_as_of": "2024-12-28",
+          "dimensions": []
+        }
+      },
+      {
+        "id": "tdg25q1-tlk",
+        "table": 63,
+        "row": 5,
+        "facility": "Term Loan Tranche K",
+        "principal_lexeme": "1,699",
+        "principal_USD_millions": "1699",
+        "maturity": "2030-03-22",
+        "interest_terms": "Term SOFR plus 2.75%",
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "source_context": {
+          "entity_identifier": "0001260221",
+          "kind": "visible_debt_terms_table",
+          "schedule_as_of": "2024-12-28",
+          "dimensions": []
+        }
+      },
+      {
+        "id": "tdg25q1-tll",
+        "table": 63,
+        "row": 6,
+        "facility": "Term Loan Tranche L",
+        "principal_lexeme": "1,500",
+        "principal_USD_millions": "1500",
+        "maturity": "2032-01-19",
+        "interest_terms": "Term SOFR plus 2.50%",
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "source_context": {
+          "entity_identifier": "0001260221",
+          "kind": "visible_debt_terms_table",
+          "schedule_as_of": "2024-12-28",
+          "dimensions": []
+        }
+      },
+      {
+        "id": "tdg25q1-note-2027",
+        "table": 64,
+        "row": 3,
+        "facility": "5.50% 2027 Notes",
+        "principal_lexeme": "2,650",
+        "principal_USD_millions": "2650",
+        "maturity": "2027-11-15",
+        "interest_terms": "5.50%",
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "source_context": {
+          "entity_identifier": "0001260221",
+          "kind": "visible_debt_terms_table",
+          "schedule_as_of": "2024-12-28",
+          "dimensions": []
+        }
+      },
+      {
+        "id": "tdg25q1-note-2028",
+        "table": 64,
+        "row": 4,
+        "facility": "2028 Secured Notes",
+        "principal_lexeme": "2,100",
+        "principal_USD_millions": "2100",
+        "maturity": "2028-08-15",
+        "interest_terms": "6.75%",
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "source_context": {
+          "entity_identifier": "0001260221",
+          "kind": "visible_debt_terms_table",
+          "schedule_as_of": "2024-12-28",
+          "dimensions": []
+        }
+      },
+      {
+        "id": "tdg25q1-note-2029a",
+        "table": 64,
+        "row": 5,
+        "facility": "4.625% 2029 Notes",
+        "principal_lexeme": "1,200",
+        "principal_USD_millions": "1200",
+        "maturity": "2029-01-15",
+        "interest_terms": "4.625%",
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "source_context": {
+          "entity_identifier": "0001260221",
+          "kind": "visible_debt_terms_table",
+          "schedule_as_of": "2024-12-28",
+          "dimensions": []
+        }
+      },
+      {
+        "id": "tdg25q1-note-2029b",
+        "table": 64,
+        "row": 6,
+        "facility": "2029 Secured Notes",
+        "principal_lexeme": "2,750",
+        "principal_USD_millions": "2750",
+        "maturity": "2029-03-01",
+        "interest_terms": "6.375%",
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "source_context": {
+          "entity_identifier": "0001260221",
+          "kind": "visible_debt_terms_table",
+          "schedule_as_of": "2024-12-28",
+          "dimensions": []
+        }
+      },
+      {
+        "id": "tdg25q1-note-2029c",
+        "table": 64,
+        "row": 7,
+        "facility": "4.875% 2029 Notes",
+        "principal_lexeme": "750",
+        "principal_USD_millions": "750",
+        "maturity": "2029-05-01",
+        "interest_terms": "4.875%",
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "source_context": {
+          "entity_identifier": "0001260221",
+          "kind": "visible_debt_terms_table",
+          "schedule_as_of": "2024-12-28",
+          "dimensions": []
+        }
+      },
+      {
+        "id": "tdg25q1-note-2030",
+        "table": 64,
+        "row": 8,
+        "facility": "2030 Secured Notes",
+        "principal_lexeme": "1,450",
+        "principal_USD_millions": "1450",
+        "maturity": "2030-12-15",
+        "interest_terms": "6.875%",
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "source_context": {
+          "entity_identifier": "0001260221",
+          "kind": "visible_debt_terms_table",
+          "schedule_as_of": "2024-12-28",
+          "dimensions": []
+        }
+      },
+      {
+        "id": "tdg25q1-note-2031",
+        "table": 64,
+        "row": 9,
+        "facility": "2031 Secured Notes",
+        "principal_lexeme": "1,000",
+        "principal_USD_millions": "1000",
+        "maturity": "2031-12-01",
+        "interest_terms": "7.125%",
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "source_context": {
+          "entity_identifier": "0001260221",
+          "kind": "visible_debt_terms_table",
+          "schedule_as_of": "2024-12-28",
+          "dimensions": []
+        }
+      },
+      {
+        "id": "tdg25q1-note-2032",
+        "table": 64,
+        "row": 10,
+        "facility": "2032 Secured Notes",
+        "principal_lexeme": "2,200",
+        "principal_USD_millions": "2200",
+        "maturity": "2032-03-01",
+        "interest_terms": "6.625%",
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "source_context": {
+          "entity_identifier": "0001260221",
+          "kind": "visible_debt_terms_table",
+          "schedule_as_of": "2024-12-28",
+          "dimensions": []
+        }
+      },
+      {
+        "id": "tdg25q1-note-2033",
+        "table": 64,
+        "row": 11,
+        "facility": "2033 Secured Notes",
+        "principal_lexeme": "1,500",
+        "principal_USD_millions": "1500",
+        "maturity": "2033-01-15",
+        "interest_terms": "6.00%",
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "source_context": {
+          "entity_identifier": "0001260221",
+          "kind": "visible_debt_terms_table",
+          "schedule_as_of": "2024-12-28",
+          "dimensions": []
+        }
+      }
+    ],
+    "candidate_calendar_year_totals_USD_millions": {
+      "2027": "2650",
+      "2028": "3971",
+      "2029": "4700",
+      "2030": "3149",
+      "2031": "4632",
+      "2032": "3700",
+      "2033": "1500"
+    },
+    "candidate_grouping": "Exact Decimal sum of the 13 scheduled term-loan/note principal observations by maturity calendar year; 13 rows total 24302. This is an inspectable candidate source series, not a frozen Model chart value: inclusion of non-listed debt-like balances and the adopted maturity-chart aggregation/row definition remain unresolved.",
+    "coverage_limit": "Tables 63/64 list four term-loan tranches and nine note series. Other balance-sheet items include a $649m trade receivable securitization borrowing, $16m refundable advances, and $260m finance-lease obligations (table 31 rows 4, 16, 17); these do not have maturity dates in the listed 13-row schedule. Do not include them in the candidate totals or claim the whole-obligation maturity wall is complete.",
+    "auxiliary_balance_basis_lines": [
+      {
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "table": 31,
+        "row": 16,
+        "label": "Government refundable advances",
+        "raw_cells": [
+          "16",
+          "—",
+          "—",
+          "16"
+        ],
+        "unit": "USD millions",
+        "period": "As of December 28, 2024",
+        "use": "Visible source balance item; no maturity date in the listed loan/note maturity tables."
+      },
+      {
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "table": 31,
+        "row": 17,
+        "label": "Finance lease obligations",
+        "raw_cells": [
+          "260",
+          "—",
+          "—",
+          "260"
+        ],
+        "unit": "USD millions",
+        "period": "As of December 28, 2024",
+        "use": "Visible source carrying amount; no maturity date in the listed loan/note maturity tables."
+      },
+      {
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "table": 47,
+        "row": 6,
+        "label": "Current operating lease liabilities",
+        "value": "18",
+        "unit": "USD millions",
+        "period": "As of December 28, 2024"
+      },
+      {
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "table": 47,
+        "row": 7,
+        "label": "Long-term operating lease liabilities",
+        "value": "40",
+        "unit": "USD millions",
+        "period": "As of December 28, 2024"
+      },
+      {
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "table": 47,
+        "row": 8,
+        "label": "Total operating lease liabilities",
+        "value": "58",
+        "unit": "USD millions",
+        "period": "As of December 28, 2024"
+      },
+      {
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "table": 47,
+        "row": 13,
+        "label": "Current finance lease liabilities",
+        "value": "6",
+        "unit": "USD millions",
+        "period": "As of December 28, 2024"
+      },
+      {
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "table": 47,
+        "row": 14,
+        "label": "Long-term finance lease liabilities",
+        "value": "254",
+        "unit": "USD millions",
+        "period": "As of December 28, 2024"
+      },
+      {
+        "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+        "sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "table": 47,
+        "row": 15,
+        "label": "Total finance lease liabilities",
+        "value": "260",
+        "unit": "USD millions",
+        "period": "As of December 28, 2024"
+      }
+    ]
+  },
+  "chart_keys": [
+    {
+      "duty_id": "SNAP-06-liquidity",
+      "chart_concept": "Liquidity",
+      "status": "ONE_CURRENT_SOURCE_POINT_FROZEN; FULL_TIME_SERIES_CHART_AUTHORING_BLOCKED",
+      "points": [
+        {
+          "observation_id": "tdg25q1-cash-liquidity",
+          "period": "As of 2024-12-28",
+          "value": "3308",
+          "unit": "USD millions",
+          "basis": "Issuer-reported cash liquidity; includes the source-reported cash and RCF availability rows"
+        }
+      ],
+      "component_refs": [
+        "tdg25q1-cash",
+        "tdg25q1-revolver-availability"
+      ],
+      "expected_summary": "At December 28, 2024, reported cash liquidity was $3,308 million: $2,459 million cash and $849 million availability on the revolving credit facility.",
+      "expected_source_line": "TDG Q1 FY2025 10-Q, table 62, rows 3–5; current point as of December 28, 2024.",
+      "expected_table_twin": [
+        {
+          "label": "Cash and cash equivalents",
+          "value": "2459",
+          "unit": "USD millions",
+          "as_of": "2024-12-28",
+          "source_ref": "tdg25q1-cash-liquidity-direct"
+        },
+        {
+          "label": "Availability on revolving credit facility",
+          "value": "849",
+          "unit": "USD millions",
+          "as_of": "2024-12-28",
+          "source_ref": "tdg25q1-revolver-availability"
+        },
+        {
+          "label": "Cash liquidity",
+          "value": "3308",
+          "unit": "USD millions",
+          "as_of": "2024-12-28",
+          "source_ref": "tdg25q1-cash-liquidity"
+        }
+      ],
+      "authoring_block": "Only the as-of 2024-12-28 point is frozen. A historical liquidity series and its period population/continuity are not defined or keyed. The current point is not an n/a/gap."
+    },
+    {
+      "duty_id": "SNAP-06-leverage",
+      "chart_concept": "Leverage",
+      "status": "AUTHORING_BLOCKED",
+      "known_source_inputs": [
+        "tdg25q1-selected-total-debt",
+        "tdg25q1-cash",
+        "tdg25q1-reported-ebitda",
+        "tdg25q1-ebitda-as-defined"
+      ],
+      "blocked_outputs": [
+        "No leverage ratio or historical chart point is frozen."
+      ],
+      "authority_question": "Which debt numerator (issuer Total debt, principal, carrying debt, finance-lease-inclusive, net debt, or another enumerated basis), EBITDA denominator (EBITDA vs EBITDA As Defined), period (13-week Q1 vs LTM), entity perimeter and null behavior apply to this TDG Model chart? The CP1C peer formula is restricted to same-run CP-1 T4.10 LTM Q4 for CP1C and explicitly grants no global Model/CM mapping.",
+      "no_annualization": "FY2025Q1 13-week EBITDA is not multiplied by four. The chart cannot present Q1 as LTM."
+    },
+    {
+      "duty_id": "SNAP-06-interest-cover",
+      "chart_concept": "Interest coverage",
+      "status": "AUTHORING_BLOCKED",
+      "known_source_inputs": [
+        "tdg25q1-reported-ebitda",
+        "tdg25q1-ebitda-as-defined",
+        "tdg25q1-interest-expense-net",
+        "tdg25q1-interest-paid-net"
+      ],
+      "blocked_outputs": [
+        "No coverage ratio or historical chart point is frozen."
+      ],
+      "authority_question": "No adopted TDG Model chart method chooses EBITDA vs EBITDA As Defined, interest expense vs cash paid/other eligible interest, LTM period, calculation timing, perimeter or missing/null rule. Q1 expense 378 and cash paid 162 are separate observed 13-week figures, not interchangeable or annualized."
+    },
+    {
+      "duty_id": "SNAP-06-maturity-wall",
+      "chart_concept": "Maturity wall",
+      "status": "SOURCE_SCHEDULE_POINTS_FROZEN; COMPLETE_CHART_AUTHORING_BLOCKED",
+      "source_points": "maturity_schedule.observations",
+      "candidate_grouped_points": "maturity_schedule.candidate_calendar_year_totals_USD_millions",
+      "expected_summary": "As of December 28, 2024, the filing lists stated principal maturities for four term-loan tranches and nine note series from 2027 through 2033.",
+      "expected_source_line": "TDG Q1 FY2025 10-Q, term-loan maturity table 63 rows 3–6 and note maturity table 64 rows 3–11.",
+      "expected_table_twin": "Exact 13 instrument rows keyed in maturity_schedule.observations, plus dates, stated principal and stated rate. Grouped annual sums are explicitly provisional candidate points only.",
+      "authority_question": "Does the adopted maturity wall plot only term-loan/note stated principal by calendar year, or also trade-receivable facility, government refundable advances and finance leases? What bar grouping and maturity-date convention is required? The filing's listed 13-row schedule is not asserted complete for all debt-like/cash obligations."
+    }
+  ],
+  "open_authority_questions": [
+    {
+      "authority": "MA-02; method-admission unresolved",
+      "question": "Exact TDG leverage/coverage numerator, denominator, debt basis, period, perimeter and null semantics for each chart series.",
+      "result": "AUTHORING_BLOCKED; no ratio invented."
+    },
+    {
+      "authority": "MA-03; method-admission unresolved",
+      "question": "Which issuer EBITDA definition and adjustment basis governs leverage/interest-cover charts? Preserve direct filing labels EBITDA and EBITDA As Defined.",
+      "result": "AUTHORING_BLOCKED; no alias or denominator substitution."
+    },
+    {
+      "authority": "Adopted Model design / SNAP-06; contract does not set a line universe",
+      "question": "Maturity-wall obligation inclusion and date aggregation; full maturity coverage beyond 13 loan/note rows.",
+      "result": "Source schedule points preserved, complete chart blocked."
+    },
+    {
+      "authority": "Adopted Model design / SNAP-06; contract does not set chart period set",
+      "question": "Required history and point count for liquidity series; only current cash-liquidity line is frozen here.",
+      "result": "Current point preserved; full series chart blocked."
+    },
+    {
+      "authority": "CHART-01 candidate interface",
+      "question": "The output chart ID, twin field binding and rendered locator remain proposals until owner implementation/reconciliation; no chart consumer is proven.",
+      "result": "Key duties are frozen, runtime/output binding is not."
+    },
+    {
+      "authority": "Case as-of/vintage eligibility",
+      "question": "The retained Q1 filing signature date is 2025-02-04, but the retained HTML lacks SEC accepted timestamp. Confirm filing acceptance by the case as-of if strict knowledge-cutoff eligibility is required.",
+      "result": "Raw source points retained; strict accepted-time eligibility is explicitly not independently verified."
+    }
+  ],
+  "positive_and_refusal_controls": {
+    "positive": [
+      {
+        "control": "tdg25q1-cash-liquidity",
+        "expected": "Accept one current point 3308 USDm at instant 2024-12-28 with two exact component citations and exact-value table twin; prove arithmetic 2459+849=3308."
+      },
+      {
+        "control": "maturity_schedule.observations",
+        "expected": "Accept each of 13 stated term-loan/note principal/date/rate source points only with exact filing hash and table row; keep annual aggregation candidate explicitly unapproved."
+      }
+    ],
+    "refuse_or_block": [
+      {
+        "control": "wrong-vintage or after-as-of source",
+        "expected": "Reject a point whose source filing date is after 2025-02-04 or whose current-period identity is not FY2025Q1; Q1 source signature date is 2025-02-04, period end 2024-12-28. FY2024 values cannot be silently substituted for the current period."
+      },
+      {
+        "control": "period/entity/unit/basis mutation",
+        "expected": "Reject the 2023-12-30 comparative as current, instant cash as a flow, USD raw/scale as USD millions without conversion, borrower-only facts as consolidated TD Group, cash as debt, carrying debt as principal, or lease-inclusive debt as lease-free."
+      },
+      {
+        "control": "missing LTM",
+        "expected": "Do not annualize a 13-week value or use a quarter as LTM; leverage/interest-cover remain AUTHORING_BLOCKED."
+      },
+      {
+        "control": "source classification",
+        "expected": "A source item marked UNRESOLVED, unknown, inherited-known-only or without exact primary locator is refused as positive evidence. It remains AUTHORING_BLOCKED, not zero, source gap, or an n/a chart frame."
+      },
+      {
+        "control": "n/a versus unresolved",
+        "expected": "Only a separately source-supported missing input may create the CHART-01 titled n/a frame. Unresolved formula, basis, source truth or chart completeness is BLOCKED and cannot pass as n/a."
+      },
+      {
+        "control": "illustrative or renderer substitution",
+        "expected": "Reject values sourced only from design examples, legacy golden, synthetic chart fixture or renderer/composer output as expected truth."
+      }
+    ]
+  },
+  "source_coverage_counts": {
+    "primary_sec_files_read": "1 unique exact Q1 10-Q HTML file; no PDF/OCR or network source.",
+    "distinct_direct_source_occurrences": 25,
+    "distinct_economic_observations_after_deduplicating_cash_row": 24,
+    "breakdown": "12 direct source point occurrences (5 balance-sheet/total-debt rows, 2 EBITDA definition rows, 2 interest duration rows, 3 liquidity rows) plus 13 maturity schedule rows. Cash appears in both balance sheet and liquidity table, yielding 24 distinct economic points. Eight additional directly inspected balance/lease detail rows delimit maturity schedule coverage; they are auxiliary, not counted as chart point outputs.",
+    "maturity_schedule_instrument_rows": 13,
+    "separate_unresolved_or_blocked_chart_concepts": 4,
+    "additional_source_absence_claims": 0,
+    "ratio_outputs_frozen": 0
+  },
+  "limitations": [
+    "No financial ratio, LTM, PF, EV, net debt, or debt-stack total beyond the issuer's labeled source data is calculated.",
+    "No generic reported-versus-adjusted EBITDA mapping is introduced; TDG's visible source labels are EBITDA and EBITDA As Defined.",
+    "Maturity table principal and balance-sheet carrying amounts are distinct even where values coincide. Finance leases remain explicitly separate; table 10 long-term debt tag includes capital lease obligations.",
+    "No debt amount is annualized or projected; no source gap is inferred from the bounded table extraction.",
+    "The prior TDG primary record and its review are pinned for scope/control only. The recent shared guard consumes the SHC fact_identity schema; this key creates no positive reference to those inherited reviewed fact IDs. No source guard execution or TDG reviewed-ID qualification is claimed.",
+    "This is not a complete Model source universe, runtime chart, downstream consumer, table-twin rendering, pathway acceptance, or live test."
+  ],
+  "liquidity_credit_context": {
+    "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+    "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+    "native_source_locator": "Narrative immediately preceding term loan maturity table 63, under “Senior Secured Term Loans Facilities”.",
+    "exact_source_text": "As of December 28, 2024, TransDigm has $8,702 million in fully drawn term loans (the “Term Loans Facility”) and an $910 million revolving credit facility.",
+    "period": "As of 2024-12-28",
+    "use": "Term-loan facility fully drawn status and revolving-facility amount are issuer-stated. Separate table 62 availability is $849 million. Do not interpret the difference as undrawn balance, letters of credit or any other use without further source support."
+  },
+  "source_preservation": {
+    "primary_filing_bytes": "Exact pinned 10-Q is regular file of 1,537,595 bytes; SHA-256 verified by the documented command.",
+    "source_fact_record": "Exact 108-observation source record is retained byte-for-byte; this key neither modifies it nor imports its fact identities into positive points.",
+    "source_record_review": "Independent source review receipt remains pinned by exact hash; no prior source facts or review claims are amended."
+  }
+}

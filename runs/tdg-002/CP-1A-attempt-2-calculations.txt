@@ -1,0 +1,30 @@
+CP-1A governance scoring and source-check transcript — attempt 2
+
+Purpose: audit the grounded model judgments in `CP-1A-attempt-2-governance-inputs.json`; this is not a self-acceptance record.
+
+Input file SHA-256: 8e9c694dc42abc671b741ed45508ffa91358d131f0f3ca637e4bd6fec7053531
+Source function: `deploy_vii.business_context.governance_sponsor_score`
+SHA-256 of Python `inspect.getsource(governance_sponsor_score)` UTF-8 bytes: fa695c59a819cd673e82ea1df38d2def1da64e5846e897127db6c4e3e4dc01ee
+
+Validation and quote audit: Python 3.13 project `.venv`; all eight JSON rows were loaded as `GovernanceItem` via Pydantic JSON validation. The source checker loaded `runs/tdg-001/source-pages.jsonl`, normalized whitespace only, parsed each citation's one-based PDF page from `locator`, then checked whether the exact quote string was a contiguous substring of that page. Result: 20 of 20 citations matched their declared page. No ellipses, inserted labels or page substitutions were used. This syntactic/semantic quote check does not authenticate the PDF; source/version limits remain those stated in CP-0.
+
+The score was computed by calling the existing `governance_sponsor_score` with the eight validated records. No code or formula was changed.
+
+Actual result:
+- Leverage tolerance: Not Scorable
+- Shareholder extraction risk: 5, Adverse
+- Acquisition appetite: 3, Mixed
+- Support behavior: Not Scorable
+- Disclosure transparency: 1, Creditor-favorable
+- Creditor treatment / amendment behavior: 3, Mixed
+- Legal-capacity linkage: Not Scorable
+- Reporting quality: 1, Creditor-favorable
+- Related-party leakage risk: Not Scorable
+- Supported dimensions: 5 of 9
+- Composite: 5
+- Sponsor / Governance Risk Level: High
+- High-quality adverse-action override present: true
+
+The composite follows the existing rule: at least four dimensions are supported, so use the most adverse dimension score. The High result is therefore the composite mapping for shareholder-extraction score 5; the high-quality adverse-action flag is also true but is not needed to reach High at this dimension count. Four dimensions remain explicitly Not Scorable.
+
+The rubric result reflects documented issuer-level actions, including the FY2022 distributions/repurchase and the FY2024 debt-plus-cash-funded September special dividend declaration. It is not a credit rating, default probability, finding of legal breach, individual-quality assessment, recovery estimate or prediction of future behavior. Debt funding is established at the aggregate proceeds-plus-cash level; precise proceeds tracing, legal capacity and resulting liquidity are not established.

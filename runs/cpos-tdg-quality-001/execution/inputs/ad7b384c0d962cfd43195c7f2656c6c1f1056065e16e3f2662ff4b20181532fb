@@ -1,0 +1,145 @@
+{
+  "execution": "fresh current-host-model issuer earnings-quality/adjusted-debt analysis; pure calculation reuse; no owner/runtime/provider execution",
+  "handoffs": {
+    "CP-0": {
+      "path": "runs/tdg-003/CP-0.md",
+      "sha256": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d"
+    },
+    "CP-1-annual": {
+      "path": "runs/tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "CP-1-quarter": {
+      "path": "runs/tdg-003/CP-1-attempt-2.md",
+      "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+    },
+    "CP-1B": {
+      "path": "runs/tdg-003/CP-1B-attempt-1.md",
+      "sha256": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12"
+    }
+  },
+  "method_hashes": {
+    "skills/cp-1d-earnings-quality/SKILL.md": "9682b2da83fe7fd3288cae31fc5d1cf7f6d2daa3de2fac297637fe13d5e8e2ae",
+    "src/deploy_vii/methods/cp1d.md": "47bc1422b52c5b66cf9a766ca0295c01c9292b2e7724aa9a4229514c1174e3da",
+    "src/deploy_workflow/owners/cp1d.py": "f9544b356fd0b7b54fe2d4230958b349092e462c0a3c581b32968b081ab783fb"
+  },
+  "annual_adjustments": {
+    "Acquisition transaction and integration-related expenses": [
+      "70",
+      "18",
+      "18"
+    ],
+    "Non-cash stock and deferred compensation expense": [
+      "217",
+      "157",
+      "184"
+    ],
+    "Refinancing costs": [
+      "58",
+      "56",
+      "1"
+    ],
+    "Other, net": [
+      "15",
+      "16",
+      "-13"
+    ]
+  },
+  "periods": {
+    "annual": "2023-10-01 to 2024-09-30",
+    "quarter": "2024-10-01 to 2024-12-28",
+    "balance": "2024-09-30"
+  },
+  "ordinary_annual_ebitda": "3813",
+  "issuer_annual_ebitda_as_defined": "4173",
+  "quality_adjusted_ebitda": null,
+  "quality_limitation": "Evidence does not settle every heterogeneous adjustment; no default haircut or zero is applied to unresolved treatments.",
+  "quarter_signed_bridge": {
+    "ordinary": "1087",
+    "acquisition": "13",
+    "stock": "25",
+    "other": "-64",
+    "issuer_as_defined": "1061"
+  },
+  "legacy_diagnostic": {
+    "negative_amount": "negative issuer adjustment is outside additional-financing bridge amount grammar",
+    "already_adjusted_start": "4173",
+    "same_adjustments": "360",
+    "double_counted_result": "4533",
+    "scope": "demonstration of scope mismatch, not an actual accepted owner run"
+  },
+  "adjusted_debt_known_subtotal": {
+    "reported_carrying": "24880",
+    "operating_leases": "62",
+    "finance_lease_increment": "0",
+    "finance_lease_treatment": "262 already in reported debt; do not add again",
+    "securitization_increment": "0",
+    "securitization_treatment": "486 already in reported debt; do not add again",
+    "pension_gross_recognised_liabilities": "19",
+    "separate_pension_assets": "13",
+    "net_pension_deficit": "6",
+    "primary_subtotal": "24961",
+    "currency": "USD",
+    "unit": "millions",
+    "convention": "Add operating lease liability and gross recognised pension liabilities; no transferability assumption for pension assets. Subtotal only; unresolved obligation classes remain gaps.",
+    "declared_dividend_payable_separate": "4216",
+    "declared_dividend_treatment": "Separate committed shareholder cash use, not included in the stated funded-debt/lease/pension subtotal; do not ignore it in cash-adjusted debt or liquidity. Equivalents disclosure 131/132 unresolved."
+  },
+  "ratios": {
+    "cfo_to_ordinary_ebitda": {
+      "numerator": "2045",
+      "denominator": "3813",
+      "ratio": "0.53632310516653553632310516653553632311",
+      "meaning": "calculated analytical comparison, not issuer-reported/covenant ratio"
+    },
+    "cfo_to_issuer_ebitda_as_defined": {
+      "numerator": "2045",
+      "denominator": "4173",
+      "ratio": "0.49005511622334052240594296669063024203",
+      "meaning": "calculated analytical comparison, not issuer-reported/covenant ratio"
+    },
+    "reported_debt_to_ordinary_ebitda": {
+      "numerator": "24880",
+      "denominator": "3813",
+      "ratio": "6.5250458956202465250458956202465250459",
+      "meaning": "calculated analytical comparison, not issuer-reported/covenant ratio"
+    },
+    "reported_debt_to_issuer_ebitda_as_defined": {
+      "numerator": "24880",
+      "denominator": "4173",
+      "ratio": "5.9621375509225976515696141864366163432",
+      "meaning": "calculated analytical comparison, not issuer-reported/covenant ratio"
+    },
+    "net_carrying_debt_to_ordinary_ebitda": {
+      "numerator": "18619",
+      "denominator": "3813",
+      "ratio": "4.8830317335431418830317335431418830317",
+      "meaning": "calculated analytical comparison, not issuer-reported/covenant ratio"
+    },
+    "net_carrying_debt_to_issuer_ebitda_as_defined": {
+      "numerator": "18619",
+      "denominator": "4173",
+      "ratio": "4.4617780972921159837047687514977234603",
+      "meaning": "calculated analytical comparison, not issuer-reported/covenant ratio"
+    },
+    "known_adjusted_subtotal_to_ordinary_ebitda": {
+      "numerator": "24961",
+      "denominator": "3813",
+      "ratio": "6.5462890112772095462890112772095462890",
+      "meaning": "calculated analytical comparison, not issuer-reported/covenant ratio"
+    },
+    "known_adjusted_subtotal_to_issuer_ebitda_as_defined": {
+      "numerator": "24961",
+      "denominator": "4173",
+      "ratio": "5.9815480469686077162712676731368320153",
+      "meaning": "calculated analytical comparison, not issuer-reported/covenant ratio"
+    }
+  },
+  "alias_check": "canonical(CP-1E) == CP-1D; broadened debt work included, not inferred from routing",
+  "source_visual_check": {
+    "path": "runs/tdg-003/source-preparation/pdf134-pension.png",
+    "sha256": "ecfde5816ead1f994e29e03c7168778974f36ad99c3dbeaf8598edb219e54de2",
+    "page": "annual PDF 134; visually checked US/non-US FY2024 columns, liabilities 3/16, assets 0/13, net deficits 3/3; source dashes retained"
+  },
+  "checks": "Integer bridge totals and independent Fraction ratios all pass; no quality number or full adjusted-debt total calculated."
+}

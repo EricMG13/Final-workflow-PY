@@ -1,0 +1,1 @@
+{"execution": "retained-response-replay", "max_attempts": 2, "provider_cap_usd": 0, "run": {"as_of": "2024-09-30", "case_kind": "public", "issuer_id": "TDG", "issuer_name": "TransDigm Group Incorporated", "method_version": "deploy-v-r14", "pathway": "credit_snapshot", "requested_modules": ["CP-2F"], "run_id": "cpos-tdg-fy2024-macro-esg-1", "schema_version": "run/2"}}

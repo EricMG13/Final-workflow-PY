@@ -1,0 +1,105 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "cpos-tdg-fy2024-macro-esg-1",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-2F"
+    ]
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "requests/CP-0/04053256fd6e8401604fe8461af1ee8a6639d4c01c9a42aa96d84d0685968bd4/1.response.md",
+      "sha256": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0"
+    },
+    "CP-1": {
+      "path": "requests/CP-1/b6c8c1f7416b8ff7b405b6f0a3c319b66ad5029aad36a0d59411e9e860ba4cb0/1.response.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "CP-2E": {
+      "path": "requests/CP-2E/cbb1754dbec12f1ded3478a0179b2a4862808c84ac1e34171607df2b023f967c/1.response.md",
+      "sha256": "1e9245ff7033e5f8ce9972b3a6ab7fdd1eb70f5a4395af1f7f84ef010ab2fc59"
+    }
+  },
+  "model": null,
+  "layout": {
+    "blocks": [
+      "key-findings",
+      "capital-structure"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2E",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "key-findings",
+        "table_header": null,
+        "prefix": "View:",
+        "label": "Macro view"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "key-findings",
+        "table_header": null,
+        "prefix": "ESG credit view:",
+        "label": "ESG credit view"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "Overall credit implication and CP-6 question",
+        "kind": "prose",
+        "block_id": "key-findings",
+        "table_header": null,
+        "prefix": null,
+        "label": "Credit mechanism, counterevidence and debate question"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2F.2 — debt and rate exposure register",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "table_header": null,
+        "prefix": null,
+        "label": "Source debt principal, rate basis and maturity"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2F.3 — hedge schedule and coverage distinctions",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "table_header": null,
+        "prefix": null,
+        "label": "Historical hedge dates and source terms"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2F.4 — baseline exposure and reconciliation limits",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "table_header": null,
+        "prefix": null,
+        "label": "Exposure bases and unresolved effective coverage"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2F.5 — rate sensitivity and conditional illustration",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "table_header": null,
+        "prefix": null,
+        "label": "Reported, arithmetic and conditional rate cases"
+      }
+    ],
+    "scope": "Historical consolidated TDG, September 30, 2024/FY2024 base, USD millions. Later December-quarter context is separately dated. All nine macro and eight ESG registers remain in the full analytical module page/Evidence; selected overview tables use the existing report design. Source-reported approximately30 interest sensitivity, arithmetic gross91.89 and conditional cash illustration are different measures. Neither a complete net hedge/FX/cost sensitivity nor financing outcome is established. Forward-starting collars were not active at the base. Recorded remediation41 is not incremental stress loss or payment evidence; missing sustainability-linked terms, pricing and target assurance remain gaps. The issuer’s contrary cost expectation is preserved. CP-2F is an alias request dispatched once as CP-2E. Supplemental handoffs are frozen context, not newly launched native heads. Retained-response replay, not fresh model/provider/native acceptance. Excel is ingestion-only; no workbook output.",
+    "title": "TransDigm · historical macro and ESG review",
+    "question": "Which rate, hedge and ESG cash-risk claims are supported, and what cannot yet be quantified?",
+    "issuer_aliases": []
+  }
+}

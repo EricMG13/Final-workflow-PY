@@ -1,0 +1,40 @@
+  Strategic Report                                      Corporate Governance                               Consolidated Financial                                                                                                                  VMED O2 UK Limited                                                     113
+                                                      Report                                               Statements                                                                                                                              Annual Report and Consolidated Financial
+                                                                                                                                                                                                                                                   Statements 31 December 2025
+
+Consolidated Statements of Cash Flows (continued)
+
+
+
+                                                                                                                                                                                                                                                                                   Year ended 31 December
+                                                                                                                                                                                                                                                     Note                                  2025                          2024
+                                                                                                                                                                                                                                                References                                    in millions
+ Cash flows from financing activities:
+     Repayments of third-party debt and lease obligations:
+          Principal payments on operating-related vendor financing                                                                                                                                      16                £       (2,623.0)   £        (3,142.5)
+          Principal payments on debt (excluding vendor financing) (a)                                                                                                                                     16                         (4,326.6)            (2,363.0)
+          Principal payments on capital-related vendor financing                                                                                                                                           16                             (841.5)               (883.4)
+          Principal payments on leases                                                                                                                                                                                    17                              (175.5)                (196.3)
+     Borrowings of third-party debt                                                                                                                                                                                       16                           4,100.3               2,796.3
+     Operating-related vendor financing additions                                                                                                                                                               16                           2,531.9               3,192.0
+     Payment of financing costs and debt premiums                                                                                                                                                           16                               (45.1)                   (11.8)
+     Net cash (paid) received related to derivative instruments                                                                                                                                           20                             (100.5)                     4.1
+     Advances from related-party debt                                                                                                                                                                                                                 27                                   —                    151.1
+     Repayments of related-party debt                                                                                                                                                                                                                 27                                   —                  (129.1)
+     Cash received from sale of joint operation                                                                                                                                                                                                       30                                   —                  176.0
+     Dividends paid to the Shareholders                                                                                                                                                                               10                            (378.0)               (850.0)
+     Dividends paid to non-controlling shareholders                                                                                                                                                      10 and 30                       (105.3)                  (19.9)
+     Other financing activities                                                                                                                                                                                                                                    22.2                    (0.4)
+          Net cash used by financing activities                                                                                                                                                                                                                                        (1,941.1)             (1,276.9)
+
+ Effect of exchange rate changes on cash and cash equivalents                                                                                                                                                                           5.8                     11.9
+ Net (decrease) increase in cash and cash equivalents                                                                                                                                                                                         (554.8)                 252.7
+     Cash and cash equivalents:
+          Beginning of period                                                                                                                                                                                                                                   1,128.3                 875.6
+          End of period                                                                                                                                                                                                                                       £           573.5    £          1,128.3
+
+
+(a)On the Acquisition Date, VMED O2 acquired 70% of O2 Daisy along with the debt amounting to £836.9 million and repaid that debt on this date. The repayment of this debt is shown as a financing cash outflow above. Refer to note 4 which
+   shows the assets and liabilities acquired and included in the cash flow values.
+
+The accompanying notes on pages 114 to 170 are an integral part of these Consolidated Financial Statements.

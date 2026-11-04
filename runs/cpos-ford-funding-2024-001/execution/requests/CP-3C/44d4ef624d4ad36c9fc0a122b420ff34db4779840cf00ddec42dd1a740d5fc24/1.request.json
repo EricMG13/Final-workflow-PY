@@ -1,0 +1,41 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+    "CP-1": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+    "CP-2G": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931",
+    "CP-2H": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72"
+  },
+  "instructions": "# CP-3C \u2014 checked historical Ford Otosan funding reuse\n\nReuse the exact CP-3C-consumer.md from ../ford-otosan-2024-001 after its\nactual CP-0 \u2192 selected CP-1 \u2192 published CP-2G \u2192 CP-2H inputs. Compare its\nRequest, Findings and conditional funding table with the pinned original\ninstructions, captured agency text and independently checked source components.\nThis is retained-response replay and delivery verification, not a fresh model,\nprovider/native run, current underwriting or a complete refinancing/LME pathway.\nNew shared source/upstream bindings describe this evaluation, not original\nnative execution receipts. No CP-2D cash model was consumed by this historical\npublished-plan intake; do not invent one for delivery.\n\nPreserve the January 1, 2024 plan start versus April 11 review date, approximate\nTRY-billion source/uses components, the full up-to-2 working-capital swing used\nin the displayed reproduction, provisional bond access, and purpose-specific\nfacility restrictions. The dividend overlay and exactly-15% capex reduction\nare separate stipulated cases; the source says at least 15% mitigation. Negative\nbalances remain negative and do not establish an actual financing failure.\nDo not substitute adjusted forecast FFO, Fitch cash or another currency/period.\nMissing operative documents/access/outcomes, full maturities, legal capacity,\ncreditor ranking/recoveries and LME feasibility remain explicit gaps.\n\nUse the existing separate report renderer to reproduce this actual handoff.\nNo second analytical execution. Excel is ingestion-only; no workbook output or\nworkbook completion requirement. Applicable original obligations and exact\nmethod revisions are pinned with this manifest.\n",
+  "module_id": "CP-3C",
+  "retained_response_sha256": "4dacb927b491334e57cd01fd848437156975cb0e1b44599e92eeaee490acaed8",
+  "run": {
+    "as_of": "2024-04-11",
+    "case_kind": "public",
+    "issuer_id": "FORD-OTOSAN",
+    "issuer_name": "Ford Otomotiv Sanayi A.S.",
+    "method_version": "deploy-v-r14",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-3C"
+    ],
+    "run_id": "cpos-ford-funding-2024-1",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+    "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+    "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+    "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+    "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+    "funding-calculation-implementation": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3",
+    "funding-calculations": "df4315aa49b67bb1254ea75d1517188af16e6ef09469171a7ecdda20e257dc63",
+    "funding-method": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72",
+    "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+    "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+    "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+    "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+    "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e"
+  }
+}

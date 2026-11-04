@@ -1,0 +1,1999 @@
+{
+  "schema_version": "retained-handoff-model/1",
+  "arithmetic_context": {
+    "precision": 38,
+    "rounding": "ROUND_HALF_EVEN"
+  },
+  "mode": "Separate deterministic publication from checked handoffs",
+  "inputs": {
+    "annual": {
+      "path": "annual.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "current_synthesis": {
+      "path": "current_synthesis.md",
+      "sha256": "f50a11f516267a55ee2b0e25ac8b292639e40c49947d3964dce39a04303f6b0e"
+    },
+    "quarter": {
+      "path": "quarter.md",
+      "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+    },
+    "forecast": {
+      "path": "forecast.md",
+      "sha256": "696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928"
+    },
+    "forecast_exact": {
+      "path": "forecast_exact.json",
+      "sha256": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843"
+    }
+  },
+  "excel_output": false,
+  "scope": "Model publication from checked Markdown handoffs. Selected annual observations, exact quarter windows and conditional scenarios remain separate. Source tables are literal; selected annual values use the existing Decimal helpers. Operating EBIT plus cash-flow D&A is distinct from issuer ordinary and As Defined EBITDA. Cash after capex is a proxy, carrying debt is not all claims and reported cash is not certified accessible liquidity. No analytical rerun, Excel output or native accepted head. Charts show selected annual history only; retained conditional calculations, when supplied, remain unchanged.",
+  "annual_periods": [
+    "FY2022",
+    "FY2023",
+    "FY2024"
+  ],
+  "formulas": {
+    "opex_magnitude": "selling_admin + income_statement_amortization",
+    "ebit": "gross_profit - opex_magnitude",
+    "cash_flow_DA": "depreciation + cf_amortization",
+    "operating_ebitda": "ebit + cash_flow_DA",
+    "cfo_less_capex": "cfo + capex_signed",
+    "carrying_debt": "BS long-term debt + current portion + separate securitization",
+    "net_carrying_debt": "carrying_debt - cash",
+    "issuer_bridge_check": "issuer ordinary EBITDA + acquisition/integration + stock/deferred compensation + refinancing + other net",
+    "operating_vs_issuer_basis": "operating_ebitda - issuer_ordinary_ebitda",
+    "gross_carrying_multiple": "carrying_debt / issuer_as_defined",
+    "net_carrying_multiple": "net_carrying_debt / issuer_as_defined",
+    "issuer_earnings_cash_interest": "issuer_as_defined / interest_cash"
+  },
+  "values": {
+    "FY2022": {
+      "revenue": {
+        "amount": "5429",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 33",
+            "cell_text": "5,429"
+          }
+        ]
+      },
+      "cogs": {
+        "amount": "2330",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 34",
+            "cell_text": "2,330"
+          }
+        ]
+      },
+      "gross_profit": {
+        "amount": "3099",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "3,099"
+          }
+        ]
+      },
+      "selling_admin": {
+        "amount": "748",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "748"
+          }
+        ]
+      },
+      "income_statement_amortization": {
+        "amount": "136",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "136"
+          }
+        ]
+      },
+      "ebit_reported": {
+        "amount": "2215",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 38",
+            "cell_text": "2,215"
+          }
+        ]
+      },
+      "depreciation": {
+        "amount": "116",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "116"
+          }
+        ]
+      },
+      "cf_amortization": {
+        "amount": "137",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "137"
+          }
+        ]
+      },
+      "cfo": {
+        "amount": "948",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 164",
+            "cell_text": "948"
+          }
+        ]
+      },
+      "capex_signed": {
+        "amount": "-119",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 165",
+            "cell_text": "(119)"
+          }
+        ]
+      },
+      "cash": {
+        "amount": "3001",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 184",
+            "cell_text": "3,001"
+          }
+        ]
+      },
+      "interest_cash": {
+        "amount": "1057",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 185",
+            "cell_text": "1,057"
+          }
+        ]
+      },
+      "tax_cash": {
+        "amount": "220",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 186",
+            "cell_text": "220"
+          }
+        ]
+      },
+      "issuer_ordinary_ebitda": {
+        "amount": null,
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": "NOT_SOURCED",
+        "note": "Period is absent from this retained source bridge",
+        "sources": []
+      },
+      "issuer_as_defined": {
+        "amount": "2646",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "2,646"
+          }
+        ]
+      },
+      "opex_magnitude": {
+        "amount": "884",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": "selling_admin + income_statement_amortization",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "748"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "136"
+          }
+        ]
+      },
+      "ebit": {
+        "amount": "2215",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": "gross_profit - opex_magnitude",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "3,099"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "748"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "136"
+          }
+        ]
+      },
+      "cash_flow_DA": {
+        "amount": "253",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": "depreciation + cf_amortization",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "116"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "137"
+          }
+        ]
+      },
+      "operating_ebitda": {
+        "amount": "2468",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": "ebit + cash_flow_DA",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "3,099"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "748"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "136"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "116"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "137"
+          }
+        ]
+      },
+      "cfo_less_capex": {
+        "amount": "829",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": "cfo + capex_signed",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 164",
+            "cell_text": "948"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 165",
+            "cell_text": "(119)"
+          }
+        ]
+      },
+      "carrying_debt": {
+        "amount": null,
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": "BS long-term debt + current portion + separate securitization",
+        "reason": "COMPONENT_MISSING",
+        "note": "Balance-sheet observation not selected for this period",
+        "sources": []
+      },
+      "net_carrying_debt": {
+        "amount": null,
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": "carrying_debt - cash",
+        "reason": "COMPONENT_MISSING",
+        "note": "Balance-sheet observation not selected for this period",
+        "sources": []
+      },
+      "issuer_bridge_check": {
+        "amount": null,
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": "issuer ordinary EBITDA + acquisition/integration + stock/deferred compensation + refinancing + other net",
+        "reason": "COMPONENT_MISSING",
+        "note": "Period is absent from this retained source bridge",
+        "sources": []
+      },
+      "operating_vs_issuer_basis": {
+        "amount": null,
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": "operating_ebitda - issuer_ordinary_ebitda",
+        "reason": "COMPONENT_MISSING",
+        "note": "Period is absent from this retained source bridge",
+        "sources": []
+      },
+      "gross_carrying_multiple": {
+        "amount": null,
+        "unit": "MULTIPLE",
+        "quantity_family": "dimensionless",
+        "currency": null,
+        "scale": "1",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": "carrying_debt / issuer_as_defined",
+        "reason": "COMPONENT_MISSING",
+        "note": "Balance-sheet observation not selected for this period",
+        "sources": []
+      },
+      "net_carrying_multiple": {
+        "amount": null,
+        "unit": "MULTIPLE",
+        "quantity_family": "dimensionless",
+        "currency": null,
+        "scale": "1",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": "net_carrying_debt / issuer_as_defined",
+        "reason": "COMPONENT_MISSING",
+        "note": "Balance-sheet observation not selected for this period",
+        "sources": []
+      },
+      "issuer_earnings_cash_interest": {
+        "amount": "2.5033112582781456953642384105960264901",
+        "unit": "MULTIPLE",
+        "quantity_family": "dimensionless",
+        "currency": null,
+        "scale": "1",
+        "period": "FY2022",
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "formula": "issuer_as_defined / interest_cash",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "2,646"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 185",
+            "cell_text": "1,057"
+          }
+        ]
+      }
+    },
+    "FY2023": {
+      "revenue": {
+        "amount": "6585",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 33",
+            "cell_text": "6,585"
+          }
+        ]
+      },
+      "cogs": {
+        "amount": "2743",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 34",
+            "cell_text": "2,743"
+          }
+        ]
+      },
+      "gross_profit": {
+        "amount": "3842",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "3,842"
+          }
+        ]
+      },
+      "selling_admin": {
+        "amount": "780",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "780"
+          }
+        ]
+      },
+      "income_statement_amortization": {
+        "amount": "139",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "139"
+          }
+        ]
+      },
+      "ebit_reported": {
+        "amount": "2923",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 38",
+            "cell_text": "2,923"
+          }
+        ]
+      },
+      "depreciation": {
+        "amount": "129",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "129"
+          }
+        ]
+      },
+      "cf_amortization": {
+        "amount": "139",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "139"
+          }
+        ]
+      },
+      "cfo": {
+        "amount": "1375",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 164",
+            "cell_text": "1,375"
+          }
+        ]
+      },
+      "capex_signed": {
+        "amount": "-139",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 165",
+            "cell_text": "(139)"
+          }
+        ]
+      },
+      "cash": {
+        "amount": "3472",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 184",
+            "cell_text": "3,472"
+          }
+        ]
+      },
+      "interest_cash": {
+        "amount": "1160",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 185",
+            "cell_text": "1,160"
+          }
+        ]
+      },
+      "tax_cash": {
+        "amount": "260",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 186",
+            "cell_text": "260"
+          }
+        ]
+      },
+      "issuer_ordinary_ebitda": {
+        "amount": "3148",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 310",
+            "cell_text": "3,148"
+          }
+        ]
+      },
+      "issuer_as_defined": {
+        "amount": "3395",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "3,395"
+          }
+        ]
+      },
+      "opex_magnitude": {
+        "amount": "919",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": "selling_admin + income_statement_amortization",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "780"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "139"
+          }
+        ]
+      },
+      "ebit": {
+        "amount": "2923",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": "gross_profit - opex_magnitude",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "3,842"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "780"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "139"
+          }
+        ]
+      },
+      "cash_flow_DA": {
+        "amount": "268",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": "depreciation + cf_amortization",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "129"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "139"
+          }
+        ]
+      },
+      "operating_ebitda": {
+        "amount": "3191",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": "ebit + cash_flow_DA",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "3,842"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "780"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "139"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "129"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "139"
+          }
+        ]
+      },
+      "cfo_less_capex": {
+        "amount": "1236",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": "cfo + capex_signed",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 164",
+            "cell_text": "1,375"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 165",
+            "cell_text": "(139)"
+          }
+        ]
+      },
+      "carrying_debt": {
+        "amount": "19750",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": "BS long-term debt + current portion + separate securitization",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "19,330"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "71"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "349"
+          }
+        ]
+      },
+      "net_carrying_debt": {
+        "amount": "16278",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": "carrying_debt - cash",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "19,330"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "71"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "349"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 184",
+            "cell_text": "3,472"
+          }
+        ]
+      },
+      "issuer_bridge_check": {
+        "amount": "3395",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": "issuer ordinary EBITDA + acquisition/integration + stock/deferred compensation + refinancing + other net",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 310",
+            "cell_text": "3,148"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 311",
+            "cell_text": "18"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 312",
+            "cell_text": "157"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 313",
+            "cell_text": "56"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 314",
+            "cell_text": "16"
+          }
+        ]
+      },
+      "operating_vs_issuer_basis": {
+        "amount": "43",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": "operating_ebitda - issuer_ordinary_ebitda",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "3,842"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "780"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "139"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "129"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "139"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 310",
+            "cell_text": "3,148"
+          }
+        ]
+      },
+      "gross_carrying_multiple": {
+        "amount": "5.8173784977908689248895434462444771723",
+        "unit": "MULTIPLE",
+        "quantity_family": "dimensionless",
+        "currency": null,
+        "scale": "1",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": "carrying_debt / issuer_as_defined",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "19,330"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "71"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "349"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "3,395"
+          }
+        ]
+      },
+      "net_carrying_multiple": {
+        "amount": "4.7946980854197349042709867452135493373",
+        "unit": "MULTIPLE",
+        "quantity_family": "dimensionless",
+        "currency": null,
+        "scale": "1",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": "net_carrying_debt / issuer_as_defined",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "19,330"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "71"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "349"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 184",
+            "cell_text": "3,472"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "3,395"
+          }
+        ]
+      },
+      "issuer_earnings_cash_interest": {
+        "amount": "2.9267241379310344827586206896551724138",
+        "unit": "MULTIPLE",
+        "quantity_family": "dimensionless",
+        "currency": null,
+        "scale": "1",
+        "period": "FY2023",
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "formula": "issuer_as_defined / interest_cash",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "3,395"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 185",
+            "cell_text": "1,160"
+          }
+        ]
+      }
+    },
+    "FY2024": {
+      "revenue": {
+        "amount": "7940",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 33",
+            "cell_text": "7,940"
+          }
+        ]
+      },
+      "cogs": {
+        "amount": "3268",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 34",
+            "cell_text": "3,268"
+          }
+        ]
+      },
+      "gross_profit": {
+        "amount": "4672",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "4,672"
+          }
+        ]
+      },
+      "selling_admin": {
+        "amount": "980",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "980"
+          }
+        ]
+      },
+      "income_statement_amortization": {
+        "amount": "161",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "161"
+          }
+        ]
+      },
+      "ebit_reported": {
+        "amount": "3531",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 38",
+            "cell_text": "3,531"
+          }
+        ]
+      },
+      "depreciation": {
+        "amount": "149",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "149"
+          }
+        ]
+      },
+      "cf_amortization": {
+        "amount": "163",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "163"
+          }
+        ]
+      },
+      "cfo": {
+        "amount": "2045",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 164",
+            "cell_text": "2,045"
+          }
+        ]
+      },
+      "capex_signed": {
+        "amount": "-165",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 165",
+            "cell_text": "(165)"
+          }
+        ]
+      },
+      "cash": {
+        "amount": "6261",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 184",
+            "cell_text": "6,261"
+          }
+        ]
+      },
+      "interest_cash": {
+        "amount": "1158",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 185",
+            "cell_text": "1,158"
+          }
+        ]
+      },
+      "tax_cash": {
+        "amount": "539",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 186",
+            "cell_text": "539"
+          }
+        ]
+      },
+      "issuer_ordinary_ebitda": {
+        "amount": "3813",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 310",
+            "cell_text": "3,813"
+          }
+        ]
+      },
+      "issuer_as_defined": {
+        "amount": "4173",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": null,
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "4,173"
+          }
+        ]
+      },
+      "opex_magnitude": {
+        "amount": "1141",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": "selling_admin + income_statement_amortization",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "980"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "161"
+          }
+        ]
+      },
+      "ebit": {
+        "amount": "3531",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": "gross_profit - opex_magnitude",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "4,672"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "980"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "161"
+          }
+        ]
+      },
+      "cash_flow_DA": {
+        "amount": "312",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": "depreciation + cf_amortization",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "149"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "163"
+          }
+        ]
+      },
+      "operating_ebitda": {
+        "amount": "3843",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": "ebit + cash_flow_DA",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "4,672"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "980"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "161"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "149"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "163"
+          }
+        ]
+      },
+      "cfo_less_capex": {
+        "amount": "1880",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": "cfo + capex_signed",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 164",
+            "cell_text": "2,045"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 165",
+            "cell_text": "(165)"
+          }
+        ]
+      },
+      "carrying_debt": {
+        "amount": "24880",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": "BS long-term debt + current portion + separate securitization",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "24,296"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "98"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "486"
+          }
+        ]
+      },
+      "net_carrying_debt": {
+        "amount": "18619",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": "carrying_debt - cash",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "24,296"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "98"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "486"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 184",
+            "cell_text": "6,261"
+          }
+        ]
+      },
+      "issuer_bridge_check": {
+        "amount": "4173",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": "issuer ordinary EBITDA + acquisition/integration + stock/deferred compensation + refinancing + other net",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 310",
+            "cell_text": "3,813"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 311",
+            "cell_text": "70"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 312",
+            "cell_text": "217"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 313",
+            "cell_text": "58"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 314",
+            "cell_text": "15"
+          }
+        ]
+      },
+      "operating_vs_issuer_basis": {
+        "amount": "30",
+        "unit": "MILLIONS",
+        "quantity_family": "monetary",
+        "currency": "USD",
+        "scale": "1000000",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": "operating_ebitda - issuer_ordinary_ebitda",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "4,672"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "980"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "161"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "149"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "163"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 310",
+            "cell_text": "3,813"
+          }
+        ]
+      },
+      "gross_carrying_multiple": {
+        "amount": "5.9621375509225976515696141864366163432",
+        "unit": "MULTIPLE",
+        "quantity_family": "dimensionless",
+        "currency": null,
+        "scale": "1",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": "carrying_debt / issuer_as_defined",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "24,296"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "98"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "486"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "4,173"
+          }
+        ]
+      },
+      "net_carrying_multiple": {
+        "amount": "4.4617780972921159837047687514977234603",
+        "unit": "MULTIPLE",
+        "quantity_family": "dimensionless",
+        "currency": null,
+        "scale": "1",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": "net_carrying_debt / issuer_as_defined",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "24,296"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "98"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "486"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 184",
+            "cell_text": "6,261"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "4,173"
+          }
+        ]
+      },
+      "issuer_earnings_cash_interest": {
+        "amount": "3.6036269430051813471502590673575129534",
+        "unit": "MULTIPLE",
+        "quantity_family": "dimensionless",
+        "currency": null,
+        "scale": "1",
+        "period": "FY2024",
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "formula": "issuer_as_defined / interest_cash",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "4,173"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 185",
+            "cell_text": "1,158"
+          }
+        ]
+      }
+    }
+  },
+  "forecast_exact_file": "forecast_exact.json",
+  "forecast_exact_sha256": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843"
+}

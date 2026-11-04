@@ -1,0 +1,29 @@
+Exact Decimal calculation transcript (USD millions unless stated)
+Source operands are reported values, not normalized replacements.
+
+Income expense-block reconciliation, PDF 106:
+FY2024: 4,672 gross profit - 980 selling and administrative expenses - 161 amortization of intangible assets = 3,531 income from operations; agrees to reported 3,531.
+FY2023: 3,842 - 780 - 139 = 2,923; agrees to reported 2,923.
+FY2022: 3,099 - 748 - 136 = 2,215; agrees to reported 2,215.
+These are the complete printed rows between gross profit and income from operations. Cost of sales is above gross profit and is excluded from this bridge.
+
+Balance sheet equation, PDF 105:
+FY2024: 31,869 total liabilities + (-6,283) total stockholders' deficit = 25,586, agrees to total assets 25,586.
+FY2023: 21,948 + (-1,978) = 19,970, agrees to total assets 19,970.
+
+Cash movement, PDF 109:
+FY2024: 2,045 operating + (-2,441) investing + 3,171 financing + 14 FX = 2,789 increase; 3,472 opening + 2,789 = 6,261 closing.
+FY2023: 1,375 + (-900) + (-16) + 12 = 471 increase; 3,001 + 471 = 3,472 closing.
+FY2022: 948 + (-553) + (-2,148) + (-33) = -1,786 decrease; 4,787 - 1,786 = 3,001 closing.
+
+EBITDA As Defined reconciliation, PDF 142:
+FY2024: 4,173 total company EBITDA As Defined - 312 D&A - 1,286 interest expense-net - 70 acquisition transaction and integration-related expenses - 217 non-cash stock and deferred compensation expense - 58 refinancing costs - 15 other, net = 2,215 income from continuing operations before income taxes.
+FY2023: 3,395 - 268 - 1,164 - 18 - 157 - 56 - 16 = 1,716.
+FY2022: 2,646 - 253 - 1,076 - 18 - 184 - 1 - (-13) = 1,127.
+These are the issuer's non-GAAP reconciliation, not GAAP EBITDA; the source definition and limitations are in PDF 140-141.
+
+FY2024 operating cash less capex calculation:
+2,045 net cash provided by operating activities - 165 capital expenditures = 1,880. This is a simple derived cash-after-capex measure; it is not a source-reported FCF definition and excludes no other cash uses.
+
+Debt reconciliation, PDF 126 and 132:
+FY2024 gross long-term debt components: term loans 8,702 + 5.50% subordinated notes 2,650 + 2028 secured notes 2,100 + 4.625% subordinated notes 1,200 + 2029 secured notes 2,750 + 4.875% subordinated notes 750 + 2030 secured notes 1,450 + 2031 secured notes 1,000 + 2032 secured notes 2,200 + 2033 secured notes 1,500 + government refundable advances 17 + finance leases 262 = 24,581 gross. Less issuance costs 136 and original issue discount 51 = 24,394 net; less current portion 98 net yields long-term debt carrying amount 24,296. Separately shown securitization borrowing gross 487 less issuance costs 1 = 486 current carrying amount. This aligns with BS long-term debt 24,296, current portion 98, and short-term securitization 486. Principal total including securitization is not a single subtotal printed in the debt table; do not confuse debt's carrying amount, original principal and securitization capacity.

@@ -1,0 +1,146 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "cpos-ford-ratings-2024-1",
+    "issuer_id": "FORD-OTOSAN",
+    "issuer_name": "Ford Otomotiv Sanayi A.S.",
+    "as_of": "2024-04-11",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "distressed_restructuring",
+    "requested_modules": [
+      "CP-2H"
+    ]
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "requests/CP-0/0ec65601a8bb4a5c5165d8ae3312e564e06c8eb6e730ad731b6b306c88315190/1.response.md",
+      "sha256": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79"
+    },
+    "CP-1": {
+      "path": "requests/CP-1/a82dad1585ab5c3560d904b2e9856ba321bf19e6fd110606a8e06ece8d26a2b6/1.response.md",
+      "sha256": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af"
+    },
+    "CP-2G": {
+      "path": "requests/CP-2G/7d0bfda89af6601d0f71eb20294302bee78a9b10d90d8f7bb8055ee580c34041/1.response.md",
+      "sha256": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931"
+    },
+    "CP-2H": {
+      "path": "requests/CP-2H/d4cf251453aea40b6a63ee6a8fbe895f996cec69d595ba5ac1729987a6a2b711/1.response.md",
+      "sha256": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72"
+    }
+  },
+  "model": null,
+  "layout": {
+    "blocks": [
+      "rating-triggers"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.1 — dated rating posture",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "table_header": null,
+        "prefix": null,
+        "label": "Dated issuer and proposed issue ratings"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.2 — applicable historical criteria",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "table_header": null,
+        "prefix": null,
+        "label": "Report-cited historical criteria"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.3 — metric bridge",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "table_header": null,
+        "prefix": null,
+        "label": "Agency metric definitions"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.4 — trigger headroom",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "table_header": null,
+        "prefix": null,
+        "label": "Conditional trigger headroom"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.5 — qualitative modifiers and contrary evidence",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "table_header": null,
+        "prefix": null,
+        "label": "Qualitative modifiers and counterevidence"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.6 — transition cases and timing",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "table_header": null,
+        "prefix": null,
+        "label": "Transition conditions and timing"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.7 — agency divergence",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "table_header": null,
+        "prefix": null,
+        "label": "Agency divergence"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.8 — instrument and notching implications",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "table_header": null,
+        "prefix": null,
+        "label": "Proposed instrument treatment"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.9 — monitoring handoff",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "table_header": null,
+        "prefix": null,
+        "label": "Monitoring handoff"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.10 — gaps",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "table_header": null,
+        "prefix": null,
+        "label": "Unresolved evidence gaps"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "rating-triggers",
+        "table_header": null,
+        "prefix": "View:",
+        "label": "Historical analytical view"
+      }
+    ],
+    "scope": "Historical Ford Otomotiv Sanayi A.S. (Ford Otosan), April 11, 2024. Selected ratings chapter from actual retained handoffs; no distress classification or current rating/underwriting conclusion. S&P issuer/issue ratings are preliminary; Fitch issue rating is expected. Published agency forecasts are not a new stress/management model. Exact aligned headroom, sustained windows, operative terms, later outcomes and raw-PDF/visual verification remain incomplete. Retained-answer replay, not fresh model/provider/native acceptance. TRY millions and billions and USD/EUR instruments retain their distinct source units.",
+    "title": "Ford Otosan · historical ratings review",
+    "question": "Which agency differences and rating triggers are supported by the April 2024 reports?",
+    "issuer_aliases": [
+      "Ford Otosan"
+    ]
+  }
+}

@@ -1,0 +1,1347 @@
+{
+  "schema_version": "retained-handoff-model/1",
+  "mode": "Retained actual current-host-model handoffs; deterministic separate delivery; no providers/agents/native accepted heads",
+  "inputs": {
+    "annual": {
+      "path": "runs/tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "quarter": {
+      "path": "runs/tdg-003/CP-1-attempt-2.md",
+      "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+    },
+    "forecast": {
+      "path": "runs/tdg-003/CP-2G-attempt-2.md",
+      "sha256": "696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928"
+    },
+    "forecast_exact": {
+      "path": "runs/tdg-003/CP-2G-attempt-1-calculations.json",
+      "sha256": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843"
+    },
+    "current_synthesis": {
+      "path": "runs/tdg-run-comparison-001/CP-2-delivery.md",
+      "sha256": "22edd045e3d6f9e0a1e1bfff9fd099064b7f076d32c38e833977a8343e9d662b"
+    }
+  },
+  "excel_output": false,
+  "scope": "Manual Model publication from actual checked Markdown handoffs. Historical annual FY2022\u2013FY2024, exact quarterly handoff dates/units and conditional FY2025\u2013FY2027 assumptions remain separate. Source tables are copied literally; all raw financial, segment, add-back, facility, quarterly, scenario and gap tables are on the Model page. Operating-based EBITDA is distinct from the issuer ordinary/As Defined bridge; cash proxy is not discretionary FCF, book debt is not all claims and cash is not certified accessible liquidity. No new underwriting, Excel output, provider run or promoted journal head. Charts show selected historical data only; the complete conditional source tables and unchanged exact forecast JSON remain attached. Native CP-OS automation is unqualified.",
+  "annual_periods": [
+    "FY2022",
+    "FY2023",
+    "FY2024"
+  ],
+  "formulas": {
+    "gross_carrying_multiple": "carrying_debt / issuer_as_defined",
+    "net_carrying_multiple": "net_carrying_debt / issuer_as_defined",
+    "issuer_earnings_cash_interest": "issuer_as_defined / interest_cash",
+    "opex_magnitude": "selling_admin + income_statement_amortization",
+    "ebit": "gross_profit - opex_magnitude",
+    "cash_flow_DA": "depreciation + cf_amortization",
+    "operating_ebitda": "ebit + cash_flow_DA",
+    "cfo_less_capex": "cfo + capex_signed",
+    "carrying_debt": "BS long-term debt + current portion + separate securitization",
+    "net_carrying_debt": "carrying_debt - cash",
+    "issuer_bridge_check": "issuer ordinary EBITDA + acquisition/integration + stock/deferred compensation + refinancing + other net",
+    "operating_vs_issuer_basis": "operating_ebitda - issuer_ordinary_ebitda"
+  },
+  "values": {
+    "FY2022": {
+      "revenue": {
+        "amount": "5429",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 33",
+            "cell_text": "5,429"
+          }
+        ]
+      },
+      "cogs": {
+        "amount": "2330",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 34",
+            "cell_text": "2,330"
+          }
+        ]
+      },
+      "gross_profit": {
+        "amount": "3099",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "3,099"
+          }
+        ]
+      },
+      "selling_admin": {
+        "amount": "748",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "748"
+          }
+        ]
+      },
+      "income_statement_amortization": {
+        "amount": "136",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "136"
+          }
+        ]
+      },
+      "ebit_reported": {
+        "amount": "2215",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 38",
+            "cell_text": "2,215"
+          }
+        ]
+      },
+      "depreciation": {
+        "amount": "116",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "116"
+          }
+        ]
+      },
+      "cf_amortization": {
+        "amount": "137",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "137"
+          }
+        ]
+      },
+      "cfo": {
+        "amount": "948",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 164",
+            "cell_text": "948"
+          }
+        ]
+      },
+      "capex_signed": {
+        "amount": "-119",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 165",
+            "cell_text": "(119)"
+          }
+        ]
+      },
+      "cash": {
+        "amount": "3001",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 184",
+            "cell_text": "3,001"
+          }
+        ]
+      },
+      "interest_cash": {
+        "amount": "1057",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 185",
+            "cell_text": "1,057"
+          }
+        ]
+      },
+      "tax_cash": {
+        "amount": "220",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 186",
+            "cell_text": "220"
+          }
+        ]
+      },
+      "issuer_ordinary_ebitda": {
+        "amount": null,
+        "reason": "NOT_SOURCED",
+        "note": "Period is absent from this retained source bridge",
+        "sources": []
+      },
+      "issuer_as_defined": {
+        "amount": "2646",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "2,646"
+          }
+        ]
+      },
+      "opex_magnitude": {
+        "amount": "884",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "748"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "136"
+          }
+        ]
+      },
+      "ebit": {
+        "amount": "2215",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "3,099"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "748"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "136"
+          }
+        ]
+      },
+      "cash_flow_DA": {
+        "amount": "253",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "116"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "137"
+          }
+        ]
+      },
+      "operating_ebitda": {
+        "amount": "2468",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "3,099"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "748"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "136"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "116"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "137"
+          }
+        ]
+      },
+      "cfo_less_capex": {
+        "amount": "829",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 164",
+            "cell_text": "948"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 165",
+            "cell_text": "(119)"
+          }
+        ]
+      },
+      "carrying_debt": {
+        "amount": null,
+        "reason": "COMPONENT_MISSING",
+        "note": "Period is absent from this retained source bridge",
+        "sources": []
+      },
+      "net_carrying_debt": {
+        "amount": null,
+        "reason": "COMPONENT_MISSING",
+        "note": "Period is absent from this retained source bridge",
+        "sources": []
+      },
+      "issuer_bridge_check": {
+        "amount": null,
+        "reason": "COMPONENT_MISSING",
+        "note": "Period is absent from this retained source bridge",
+        "sources": []
+      },
+      "operating_vs_issuer_basis": {
+        "amount": null,
+        "reason": "COMPONENT_MISSING",
+        "note": "Period is absent from this retained source bridge",
+        "sources": []
+      },
+      "gross_carrying_multiple": {
+        "amount": null,
+        "reason": "COMPONENT_MISSING",
+        "note": "Period is absent from this retained source bridge",
+        "sources": []
+      },
+      "net_carrying_multiple": {
+        "amount": null,
+        "reason": "COMPONENT_MISSING",
+        "note": "Period is absent from this retained source bridge",
+        "sources": []
+      },
+      "issuer_earnings_cash_interest": {
+        "amount": "2.5033112582781456953642384105960264901",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "2,646"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 185",
+            "cell_text": "1,057"
+          }
+        ]
+      }
+    },
+    "FY2023": {
+      "revenue": {
+        "amount": "6585",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 33",
+            "cell_text": "6,585"
+          }
+        ]
+      },
+      "cogs": {
+        "amount": "2743",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 34",
+            "cell_text": "2,743"
+          }
+        ]
+      },
+      "gross_profit": {
+        "amount": "3842",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "3,842"
+          }
+        ]
+      },
+      "selling_admin": {
+        "amount": "780",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "780"
+          }
+        ]
+      },
+      "income_statement_amortization": {
+        "amount": "139",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "139"
+          }
+        ]
+      },
+      "ebit_reported": {
+        "amount": "2923",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 38",
+            "cell_text": "2,923"
+          }
+        ]
+      },
+      "depreciation": {
+        "amount": "129",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "129"
+          }
+        ]
+      },
+      "cf_amortization": {
+        "amount": "139",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "139"
+          }
+        ]
+      },
+      "cfo": {
+        "amount": "1375",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 164",
+            "cell_text": "1,375"
+          }
+        ]
+      },
+      "capex_signed": {
+        "amount": "-139",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 165",
+            "cell_text": "(139)"
+          }
+        ]
+      },
+      "cash": {
+        "amount": "3472",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 184",
+            "cell_text": "3,472"
+          }
+        ]
+      },
+      "interest_cash": {
+        "amount": "1160",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 185",
+            "cell_text": "1,160"
+          }
+        ]
+      },
+      "tax_cash": {
+        "amount": "260",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 186",
+            "cell_text": "260"
+          }
+        ]
+      },
+      "issuer_ordinary_ebitda": {
+        "amount": "3148",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 310",
+            "cell_text": "3,148"
+          }
+        ]
+      },
+      "issuer_as_defined": {
+        "amount": "3395",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "3,395"
+          }
+        ]
+      },
+      "opex_magnitude": {
+        "amount": "919",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "780"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "139"
+          }
+        ]
+      },
+      "ebit": {
+        "amount": "2923",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "3,842"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "780"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "139"
+          }
+        ]
+      },
+      "cash_flow_DA": {
+        "amount": "268",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "129"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "139"
+          }
+        ]
+      },
+      "operating_ebitda": {
+        "amount": "3191",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "3,842"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "780"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "139"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "129"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "139"
+          }
+        ]
+      },
+      "cfo_less_capex": {
+        "amount": "1236",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 164",
+            "cell_text": "1,375"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 165",
+            "cell_text": "(139)"
+          }
+        ]
+      },
+      "carrying_debt": {
+        "amount": "19750",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "19,330"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "71"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "349"
+          }
+        ]
+      },
+      "net_carrying_debt": {
+        "amount": "16278",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "19,330"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "71"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "349"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 184",
+            "cell_text": "3,472"
+          }
+        ]
+      },
+      "issuer_bridge_check": {
+        "amount": "3395",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 310",
+            "cell_text": "3,148"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 311",
+            "cell_text": "18"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 312",
+            "cell_text": "157"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 313",
+            "cell_text": "56"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 314",
+            "cell_text": "16"
+          }
+        ]
+      },
+      "operating_vs_issuer_basis": {
+        "amount": "43",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "3,842"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "780"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "139"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "129"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "139"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 310",
+            "cell_text": "3,148"
+          }
+        ]
+      },
+      "gross_carrying_multiple": {
+        "amount": "5.8173784977908689248895434462444771723",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "19,330"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "71"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "349"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "3,395"
+          }
+        ]
+      },
+      "net_carrying_multiple": {
+        "amount": "4.7946980854197349042709867452135493373",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "19,330"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "71"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "349"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 184",
+            "cell_text": "3,472"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "3,395"
+          }
+        ]
+      },
+      "issuer_earnings_cash_interest": {
+        "amount": "2.9267241379310344827586206896551724138",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "3,395"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 185",
+            "cell_text": "1,160"
+          }
+        ]
+      }
+    },
+    "FY2024": {
+      "revenue": {
+        "amount": "7940",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 33",
+            "cell_text": "7,940"
+          }
+        ]
+      },
+      "cogs": {
+        "amount": "3268",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 34",
+            "cell_text": "3,268"
+          }
+        ]
+      },
+      "gross_profit": {
+        "amount": "4672",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "4,672"
+          }
+        ]
+      },
+      "selling_admin": {
+        "amount": "980",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "980"
+          }
+        ]
+      },
+      "income_statement_amortization": {
+        "amount": "161",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "161"
+          }
+        ]
+      },
+      "ebit_reported": {
+        "amount": "3531",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 38",
+            "cell_text": "3,531"
+          }
+        ]
+      },
+      "depreciation": {
+        "amount": "149",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "149"
+          }
+        ]
+      },
+      "cf_amortization": {
+        "amount": "163",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "163"
+          }
+        ]
+      },
+      "cfo": {
+        "amount": "2045",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 164",
+            "cell_text": "2,045"
+          }
+        ]
+      },
+      "capex_signed": {
+        "amount": "-165",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 165",
+            "cell_text": "(165)"
+          }
+        ]
+      },
+      "cash": {
+        "amount": "6261",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 184",
+            "cell_text": "6,261"
+          }
+        ]
+      },
+      "interest_cash": {
+        "amount": "1158",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 185",
+            "cell_text": "1,158"
+          }
+        ]
+      },
+      "tax_cash": {
+        "amount": "539",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 186",
+            "cell_text": "539"
+          }
+        ]
+      },
+      "issuer_ordinary_ebitda": {
+        "amount": "3813",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 310",
+            "cell_text": "3,813"
+          }
+        ]
+      },
+      "issuer_as_defined": {
+        "amount": "4173",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "4,173"
+          }
+        ]
+      },
+      "opex_magnitude": {
+        "amount": "1141",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "980"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "161"
+          }
+        ]
+      },
+      "ebit": {
+        "amount": "3531",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "4,672"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "980"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "161"
+          }
+        ]
+      },
+      "cash_flow_DA": {
+        "amount": "312",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "149"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "163"
+          }
+        ]
+      },
+      "operating_ebitda": {
+        "amount": "3843",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "4,672"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "980"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "161"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "149"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "163"
+          }
+        ]
+      },
+      "cfo_less_capex": {
+        "amount": "1880",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 164",
+            "cell_text": "2,045"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 165",
+            "cell_text": "(165)"
+          }
+        ]
+      },
+      "carrying_debt": {
+        "amount": "24880",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "24,296"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "98"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "486"
+          }
+        ]
+      },
+      "net_carrying_debt": {
+        "amount": "18619",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "24,296"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "98"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "486"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 184",
+            "cell_text": "6,261"
+          }
+        ]
+      },
+      "issuer_bridge_check": {
+        "amount": "4173",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 310",
+            "cell_text": "3,813"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 311",
+            "cell_text": "70"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 312",
+            "cell_text": "217"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 313",
+            "cell_text": "58"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 314",
+            "cell_text": "15"
+          }
+        ]
+      },
+      "operating_vs_issuer_basis": {
+        "amount": "30",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 35",
+            "cell_text": "4,672"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 36",
+            "cell_text": "980"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 37",
+            "cell_text": "161"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 145",
+            "cell_text": "149"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 146",
+            "cell_text": "163"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 310",
+            "cell_text": "3,813"
+          }
+        ]
+      },
+      "gross_carrying_multiple": {
+        "amount": "5.9621375509225976515696141864366163432",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "24,296"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "98"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "486"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "4,173"
+          }
+        ]
+      },
+      "net_carrying_multiple": {
+        "amount": "4.4617780972921159837047687514977234603",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 210",
+            "cell_text": "24,296"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 204",
+            "cell_text": "98"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 205",
+            "cell_text": "486"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 184",
+            "cell_text": "6,261"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "4,173"
+          }
+        ]
+      },
+      "issuer_earnings_cash_interest": {
+        "amount": "3.6036269430051813471502590673575129534",
+        "reason": null,
+        "note": null,
+        "sources": [
+          {
+            "source_id": "annual",
+            "locator": "line 255",
+            "cell_text": "4,173"
+          },
+          {
+            "source_id": "annual",
+            "locator": "line 185",
+            "cell_text": "1,158"
+          }
+        ]
+      }
+    }
+  },
+  "forecast_exact_file": "forecast_exact.json",
+  "forecast_exact_sha256": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843"
+}

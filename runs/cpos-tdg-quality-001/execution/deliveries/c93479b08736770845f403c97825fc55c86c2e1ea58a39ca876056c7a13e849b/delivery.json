@@ -1,0 +1,16 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Historical TDG earnings and quality review. USD millions except percentages, percentage points and multiples. The earnings comparison is fiscal Q1 2024-10-01\u20132024-12-28 (89 days) versus 2023-10-01\u20132023-12-30 (91 days). Quality/cash-conversion/leverage tables use FY2024 and September 30, 2024 balances unless explicitly labelled quarterly. Quality-adjusted EBITDA is unresolved; 24,961 is only a known-item debt subtotal. Guidance, matching LTM ratios and current cash access remain unestablished. Eight selected sections plus complete retained handoffs/evidence; replay publication, not a fresh model run or full pathway/native acceptance.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-0.md": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+    "CP-1.md": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+    "CP-1B.md": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+    "CP-1D.md": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+    "view.json": "3798bf7479132f7ecf0dfae7777b489eb4acb6b19cbf680bd2b27c9ded16018f",
+    "report-view.json": "c528399b4bbe86e361f7b12f4b12da37c8456ee136493d070ee97b446342db1e",
+    "report.html": "0935f491fc6c20c1b98c238a2bac89e460ba4d3a6a0b37e569291394a43c1d8f"
+  }
+}

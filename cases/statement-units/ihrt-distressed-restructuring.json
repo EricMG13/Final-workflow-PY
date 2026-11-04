@@ -1,0 +1,128 @@
+{
+ "schema": "statement-units/1",
+ "case": "ihrt-distressed-restructuring",
+ "sources": [
+  {
+   "source_id": "q3",
+   "file": "IHRT/IHRT_2024-09-30_10-Q_0001400891-24-000036_ihrt-20240930.htm",
+   "converted_sha256": "bd9264da8a8657fe6ff092078ba758610147c8242ca849a5a4c20218dc47524a",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:42",
+     "end": "line:88",
+     "heading": "CONSOLIDATED BALANCE SHEETS"
+    },
+    {
+     "kind": "IS",
+     "start": "line:89",
+     "end": "line:121",
+     "heading": "CONSOLIDATED STATEMENTS OF COMPREHENSIVE LOSS"
+    },
+    {
+     "kind": "CFS",
+     "start": "line:210",
+     "end": "line:256",
+     "heading": "CONSOLIDATED STATEMENTS OF CASH FLOWS"
+    }
+   ],
+   "none": [],
+   "remarks": [
+    "IS is the comprehensive loss statement (no separate operations statement). Lines 25-28 are the table of contents. BS title is at the tail of line 42 after PART I / ITEM 1 text. Equity statement appears twice (lines 122, 166), never a unit."
+   ]
+  },
+  {
+   "source_id": "k",
+   "file": "IHRT/IHRT_2023-12-31_10-K_0001400891-24-000008_ihrt-20231231.htm",
+   "converted_sha256": "b29f8a5775c48691e38f709466244bf5477cfd64078e698d702c488e2e979444",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:472",
+     "end": "line:516",
+     "heading": "CONSOLIDATED BALANCE SHEETS"
+    },
+    {
+     "kind": "IS",
+     "start": "line:517",
+     "end": "line:549",
+     "heading": "CONSOLIDATED STATEMENTS OF COMPREHENSIVE LOSS"
+    },
+    {
+     "kind": "CFS",
+     "start": "line:594",
+     "end": "line:639",
+     "heading": "CONSOLIDATED STATEMENTS OF CASH FLOWS"
+    }
+   ],
+   "none": [],
+   "remarks": [
+    "IS is the comprehensive loss statement (no separate operations statement). Line 456 is the auditor's report mention, not a unit. Equity statement at line 550 is never a unit. CFS ends at line 639 because line 640 starts the notes."
+   ]
+  },
+  {
+   "source_id": "8k",
+   "file": "IHRT/IHRT_legal_event_exchange_8k.html",
+   "converted_sha256": "8bdf6fd66df7d17a8c45aa576c627dcb01366468857ba5b9f2300c9e4397404e",
+   "units": [],
+   "none": [
+    {
+     "kind": "BS",
+     "reason": "Form 8-K current report on the exchange transactions; no financial statements"
+    },
+    {
+     "kind": "IS",
+     "reason": "Form 8-K current report on the exchange transactions; no financial statements"
+    },
+    {
+     "kind": "CFS",
+     "reason": "Form 8-K current report on the exchange transactions; no financial statements"
+    }
+   ],
+   "remarks": []
+  },
+  {
+   "source_id": "rel",
+   "file": "IHRT/IHRT_legal_event_exchange_closing_release.html",
+   "converted_sha256": "fe6d04e65bd4c8f6e68d83b1c45b5528c84389efbf17e2da25ddceaf1d795f43",
+   "units": [],
+   "none": [
+    {
+     "kind": "BS",
+     "reason": "press release (EX-99.1); no financial statements"
+    },
+    {
+     "kind": "IS",
+     "reason": "press release (EX-99.1); no financial statements"
+    },
+    {
+     "kind": "CFS",
+     "reason": "press release (EX-99.1); no financial statements"
+    }
+   ],
+   "remarks": []
+  },
+  {
+   "source_id": "ca",
+   "file": "IHRT/IHRT_legal_event_new_credit_agreement.html",
+   "converted_sha256": "2795535a00dcfc00ae3224394f3a1e1a373aeb4c7f1767c59b5c63e009c209f6",
+   "units": [],
+   "none": [
+    {
+     "kind": "BS",
+     "reason": "credit agreement (EX-10.2); definitions mention statements but contain none"
+    },
+    {
+     "kind": "IS",
+     "reason": "credit agreement (EX-10.2); definitions mention statements but contain none"
+    },
+    {
+     "kind": "CFS",
+     "reason": "credit agreement (EX-10.2); definitions mention statements but contain none"
+    }
+   ],
+   "remarks": []
+  }
+ ],
+ "missing": []
+}

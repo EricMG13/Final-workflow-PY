@@ -1,0 +1,246 @@
+{
+  "run": {
+    "run_id": "cpos-ford-ratings-2024-1",
+    "issuer_id": "FORD-OTOSAN",
+    "issuer_name": "Ford Otomotiv Sanayi A.S.",
+    "as_of": "2024-04-11",
+    "case_kind": "public",
+    "pathway": "distressed_restructuring",
+    "requested_modules": [
+      "CP-2H"
+    ]
+  },
+  "execution": "retained-response-replay",
+  "max_attempts": 2,
+  "provider_cap_usd": 0,
+  "sources": {
+    "captured/fitch-and-metrics.json": {
+      "path": "../ford-otosan-2024-001/sources/fitch-and-metrics.json",
+      "sha256": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9"
+    },
+    "captured/fitch-terms.json": {
+      "path": "../ford-otosan-2024-001/sources/fitch-terms.json",
+      "sha256": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf"
+    },
+    "captured/sp-retrieval.json": {
+      "path": "../ford-otosan-2024-001/sources/sp-retrieval.json",
+      "sha256": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839"
+    },
+    "captured/sp-retry.json": {
+      "path": "../ford-otosan-2024-001/sources/sp-retry.json",
+      "sha256": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8"
+    },
+    "financial-calculations": {
+      "path": "../ford-otosan-2024-001/financial-calculations.json",
+      "sha256": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b"
+    },
+    "ratings-calculations": {
+      "path": "../ford-otosan-2024-001/CP-2H-calculations.json",
+      "sha256": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8"
+    },
+    "original-instructions": {
+      "path": "../ford-otosan-2024-001/instructions.md",
+      "sha256": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983"
+    },
+    "selected-method": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/SKILL.md",
+      "sha256": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb"
+    },
+    "step-method": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/references/REF_CP-2H_STEPS.md",
+      "sha256": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e"
+    },
+    "later-method": {
+      "path": "../../src/deploy_vii/methods/cp2h.md",
+      "sha256": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de"
+    }
+  },
+  "instructions": {
+    "CP-0": {
+      "path": "CP-0-reuse-instructions.md",
+      "sha256": "c5469406dd4793b6c44ac0d2e521dc07e86912a6dcce1814b9af48e252c2648e"
+    },
+    "CP-1": {
+      "path": "CP-1-reuse-instructions.md",
+      "sha256": "89313528596967ac577aa1d658303ec0d5f9e492212fd278258d88db28fb8cfb"
+    },
+    "CP-2G": {
+      "path": "CP-2G-reuse-instructions.md",
+      "sha256": "82e1434fce9a10efbc865dcd69d6f80f78e8aab6c8a64d168cf050f80fa241ad"
+    },
+    "CP-2H": {
+      "path": "CP-2H-reuse-instructions.md",
+      "sha256": "4db10963ec69f0d314c2e104c3652d228b5c21abe9c861f624922f4b4f69b993"
+    }
+  },
+  "retained_handoffs": {
+    "CP-0": {
+      "path": "../ford-otosan-2024-001/CP-0.md",
+      "sha256": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+      "source_hashes": {
+        "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+        "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+        "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+        "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+        "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+        "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+        "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+        "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+        "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+        "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de"
+      },
+      "upstream": {}
+    },
+    "CP-1": {
+      "path": "../ford-otosan-2024-001/CP-1-selected-input.md",
+      "sha256": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+      "source_hashes": {
+        "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+        "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+        "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+        "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+        "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+        "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+        "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+        "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+        "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+        "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de"
+      },
+      "upstream": {
+        "CP-0": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79"
+      }
+    },
+    "CP-2G": {
+      "path": "../ford-otosan-2024-001/CP-2G-published-forecast.md",
+      "sha256": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931",
+      "source_hashes": {
+        "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+        "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+        "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+        "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+        "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+        "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+        "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+        "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+        "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+        "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de"
+      },
+      "upstream": {
+        "CP-0": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+        "CP-1": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af"
+      }
+    },
+    "CP-2H": {
+      "path": "../ford-otosan-2024-001/CP-2H-attempt-2.md",
+      "sha256": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72",
+      "source_hashes": {
+        "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+        "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+        "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+        "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+        "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+        "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+        "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+        "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+        "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+        "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de"
+      },
+      "upstream": {
+        "CP-0": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+        "CP-1": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+        "CP-2G": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931"
+      }
+    }
+  },
+  "layout": {
+    "blocks": [
+      "rating-triggers"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.1 \u2014 dated rating posture",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "label": "Dated issuer and proposed issue ratings"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.2 \u2014 applicable historical criteria",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "label": "Report-cited historical criteria"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.3 \u2014 metric bridge",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "label": "Agency metric definitions"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.4 \u2014 trigger headroom",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "label": "Conditional trigger headroom"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.5 \u2014 qualitative modifiers and contrary evidence",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "label": "Qualitative modifiers and counterevidence"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.6 \u2014 transition cases and timing",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "label": "Transition conditions and timing"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.7 \u2014 agency divergence",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "label": "Agency divergence"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.8 \u2014 instrument and notching implications",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "label": "Proposed instrument treatment"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.9 \u2014 monitoring handoff",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "label": "Monitoring handoff"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "T2R.10 \u2014 gaps",
+        "kind": "table",
+        "block_id": "rating-triggers",
+        "label": "Unresolved evidence gaps"
+      },
+      {
+        "module_id": "CP-2H",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "rating-triggers",
+        "prefix": "View:",
+        "label": "Historical analytical view"
+      }
+    ],
+    "title": "Ford Otosan \u00b7 historical ratings review",
+    "question": "Which agency differences and rating triggers are supported by the April 2024 reports?",
+    "issuer_aliases": [
+      "Ford Otosan"
+    ],
+    "scope": "Historical Ford Otomotiv Sanayi A.S. (Ford Otosan), April 11, 2024. Selected ratings chapter from actual retained handoffs; no distress classification or current rating/underwriting conclusion. S&P issuer/issue ratings are preliminary; Fitch issue rating is expected. Published agency forecasts are not a new stress/management model. Exact aligned headroom, sustained windows, operative terms, later outcomes and raw-PDF/visual verification remain incomplete. Retained-answer replay, not fresh model/provider/native acceptance. TRY millions and billions and USD/EUR instruments retain their distinct source units."
+  }
+}

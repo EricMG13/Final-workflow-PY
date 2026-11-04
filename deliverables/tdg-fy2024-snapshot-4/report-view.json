@@ -1,0 +1,4683 @@
+{
+  "schema_version": "report-view/1",
+  "pathway": {
+    "id": "credit_snapshot",
+    "title": "Credit Snapshot",
+    "question": "Should we own this issuer, in which instrument, and why?",
+    "requested_modules": [
+      "CP-1",
+      "CP-MODEL",
+      "CP-1A",
+      "CP-2"
+    ],
+    "blocks": [
+      "key-findings",
+      "company-operating-model",
+      "strengths-weaknesses",
+      "company-profile",
+      "transaction-summary"
+    ]
+  },
+  "call": [
+    {
+      "kind": "na",
+      "label": "Assessment",
+      "value_text": "Assessment pending",
+      "meter": null,
+      "ref_id": null,
+      "direction": null,
+      "line": false
+    }
+  ],
+  "call_withheld": null,
+  "blocks": [
+    {
+      "block_id": "key-findings",
+      "title": "Key findings",
+      "owner": "CP-2",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "prose",
+      "scale": null,
+      "row_header": null,
+      "columns": [],
+      "rows": [],
+      "lines": [
+        {
+          "runs": [
+            {
+              "text": "Assessment — Analyst Interpretation; confidence: Medium. TransDigm's engineered components, reported proprietary/aftermarket exposure, defense sales and positive historical operating cash support the business case. Documented debt-supported distributions and missing accessible-liquidity/legal evidence limit creditor confidence. The checked conditional FY2025 model has 3.14x reference earnings/cash-interest cover versus 2.28x downside, crossing a 3x analyst watch only in the downside; this is not covenant or actual forecast proof. Its assumed growth, margin, cash costs, repayment and excluded extra cash uses are conditions, not an issuer financing plan. Complete cash/access and refinancing sufficiency remain unassessed.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C65",
+              "kind": "fig",
+              "ref_id": "C65"
+            }
+          ],
+          "label": null,
+          "section": null
+        }
+      ],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-2",
+      "route_label": null,
+      "width": "five",
+      "numbered": true,
+      "pinned": true,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "company-operating-model",
+      "title": "Company and operating model",
+      "owner": "CP-1A",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "keyvalue",
+      "scale": null,
+      "row_header": null,
+      "columns": [
+        "Value"
+      ],
+      "rows": [
+        {
+          "row_id": "company_description.company.c0",
+          "label": "Company description",
+          "cells": [
+            {
+              "text": "Documentary Fact. TransDigm Group, through TransDigm Inc., designs, produces and supplies highly engineered aircraft components for commercial and military aviation; its businesses are managed in Power & Control, Airframe and Non-aviation segments.",
+              "prov": "cited",
+              "ref_id": "C20",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "company_description.company.c1",
+          "label": "Company description",
+          "cells": [
+            {
+              "text": "S1 PDF 3–5. Segment descriptions and customer/channel scope are specified in Item 1.",
+              "prov": "cited",
+              "ref_id": "C20",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": "Company",
+      "tabs": [
+        {
+          "label": "Operating model",
+          "scale": null,
+          "row_header": "Area",
+          "columns": [
+            "Finding / classification",
+            "Evidence and credit read-through"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Country",
+              "cells": [
+                {
+                  "text": "Documentary Fact. The registrant is incorporated in Delaware, United States, and lists its principal executive office in Cleveland, Ohio; its operations and sales are global.",
+                  "prov": "cited",
+                  "ref_id": "C25",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S1 PDF 1, 3–8. This identifies issuer country and principal office, not the location of every subsidiary.",
+                  "prov": "cited",
+                  "ref_id": "C25",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Sector",
+              "cells": [
+                {
+                  "text": "Analyst Interpretation. Aerospace and defense components are the core sector, with smaller non-aviation activities.",
+                  "prov": "cited",
+                  "ref_id": "C26",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S1 PDF 4–5 and 7. The label synthesizes disclosed product/end-market descriptions.",
+                  "prov": "cited",
+                  "ref_id": "C26",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Pricing strategy",
+              "cells": [
+                {
+                  "text": "Management Language. Management says it focuses on pricing highly engineered products to reflect the value provided and resources required.",
+                  "prov": "cited",
+                  "ref_id": "C27",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S1 PDF 4 and 6. This is the issuer's strategy description, not independent evidence of pricing power, realized pricing or cost pass-through.",
+                  "prov": "cited",
+                  "ref_id": "C27",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Operating model",
+              "cells": [
+                {
+                  "text": "Documentary Fact. Sales are made through OEM and aftermarket channels; business-unit teams combine product, engineering, operations, quality and sales functions. The issuer reports approximately 120 manufacturing facilities. Revenue is generally recognized at a point in time; limited customized contracts can qualify for over-time recognition.",
+                  "prov": "cited",
+                  "ref_id": "C28",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S1 PDF 5–6, 120–122. This model requires manufacturing capacity, certified products and working capital; the filing does not disclose unit-level capacity utilization, order backlog, price/volume split or customer-level margins.",
+                  "prov": "cited",
+                  "ref_id": "C28",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Operating drivers",
+              "cells": [
+                {
+                  "text": "Insufficient Information where metrics are absent. Disclosed demand drivers include aircraft utilization, worldwide fleet age, RPKs, airline profitability and defense budget trends; raw material, labor and supply-chain costs are also identified as risks.",
+                  "prov": "cited",
+                  "ref_id": "C29",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S1 PDF 3, 7, 10–11. No quantified volume, price realization, organic growth, backlog or input-cost pass-through dataset is supplied in the passages reviewed. Those measures remain null/not disclosed, not zero.",
+                  "prov": "cited",
+                  "ref_id": "C29",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        }
+      ],
+      "note": null,
+      "full_analysis_route": "CP-1A",
+      "route_label": null,
+      "width": "seven",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "strengths-weaknesses",
+      "title": "Strengths and weaknesses",
+      "owner": "CP-2 · CP-6",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "prose",
+      "scale": null,
+      "row_header": null,
+      "columns": [],
+      "rows": [],
+      "lines": [
+        {
+          "runs": [
+            {
+              "text": "Thesis — Analyst Interpretation. Continuing demand and cash conversion can support debt service, but financial policy and dated protection/funding changes determine how much reaches creditors. Better earnings alone do not establish liquidity after distributions. Conditional deleveraging depends on stipulated repayments and cash-use restraint; positive model cash, historical refinancing and reported hedge estimates do not prove current access or future execution.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C66",
+              "kind": "fig",
+              "ref_id": "C66"
+            }
+          ],
+          "label": "Thesis",
+          "section": "thesis"
+        },
+        {
+          "runs": [
+            {
+              "text": "Replacement-demand and channel breadth: actual CP-1A business analysis supports an issuer-estimated aftermarket/proprietary base and defense exposure alongside OEM sales. This can cushion new-build cyclicality; flight activity, customer economics and qualification/supply conditions still matter. Historical mix is not independently measured future pricing power.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C67",
+              "kind": "fig",
+              "ref_id": "C67"
+            }
+          ],
+          "label": "Strengths",
+          "section": "strengths"
+        },
+        {
+          "runs": [
+            {
+              "text": "Observed cash generation and execution: CP-1 and the actual CP-2D quarterly bridge show positive operating cash, while CP-1A documents historical financing. Those are real counterweights to a generic operating-collapse narrative; unrestricted access and future refinancing remain separate questions.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C68",
+              "kind": "fig",
+              "ref_id": "C68"
+            }
+          ],
+          "label": "Strengths",
+          "section": "strengths"
+        },
+        {
+          "runs": [
+            {
+              "text": "Dated rate mitigation: CP-2E preserves reported approximately 77% fixed-rate gross debt and an issuer approximately +30 USDm annual interest estimate for +100 bp at September 2024. Fixed coupons and derivatives mitigate selected repricing; the estimate was not independently rebuilt. Forward collars and expiring swaps/caps cannot be flattened into one permanent hedge ratio.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C69",
+              "kind": "fig",
+              "ref_id": "C69"
+            }
+          ],
+          "label": "Strengths",
+          "section": "strengths"
+        },
+        {
+          "runs": [
+            {
+              "text": "A concrete disconfirming cash case: CP-2G's stipulated 2-percentage-point higher-margin case raises first-year coverage to 3.26x versus reference 3.14x. This supports the positive mechanism if earnings convert and cash uses stay restrained; the higher margin is analyst judgment, not guidance or a probability.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C70",
+              "kind": "fig",
+              "ref_id": "C70"
+            }
+          ],
+          "label": "Strengths",
+          "section": "strengths"
+        },
+        {
+          "runs": [
+            {
+              "text": "Historical peer observations (literal increment): TDG reported group operating margin 44.47%, versus HEICO/CW 16.94–21.37%; N=2, median suppressed — Strengthens the historical reported-profitability observation. Business mix and accounting differences remain; no industry ranking or normalized margin premium is established. Moog segment profit does not fill its missing group subtotal. TDG CFO/sales 25.76%, versus selected peers 5.61–17.44%; N=3, median 17.43% — Adds a real reported-cash counterweight to an operating-weakness narrative. Customer funding and receivable-sale classification prevent treating the whole spread as underlying cash quality. TDG CFO minus gross cash PP&E capex 1,880 USDm, 23.68% of sales; peer ratios 1.28–15.92%, median 15.48%, N=3 — Supports observed cash generation after this specific investment line. It excludes acquisitions, finance-lease principal and other cash uses; it is not discretionary free cash or future debt repayment. The prior 1,880 proxy is unchanged.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C71",
+              "kind": "fig",
+              "ref_id": "C71"
+            }
+          ],
+          "label": "Strengths",
+          "section": "strengths"
+        },
+        {
+          "runs": [
+            {
+              "text": "Cash allocation competes with creditors: documented debt-supported distributions and the observed quarter's financing outflow reduce the buffer despite positive OCF. Declared, payable, single-event paid and quarterly amounts remain distinct. Current legal capacity and future policy are unknown.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C72",
+              "kind": "fig",
+              "ref_id": "C72"
+            }
+          ],
+          "label": "Weaknesses",
+          "section": "weaknesses"
+        },
+        {
+          "runs": [
+            {
+              "text": "Conditional debt-service pressure appears before the tested leverage watch: CP-2G's assumed 20% earnings reduction and 10% interest increase take FY2025 cover to 2.28x versus reference 3.14x, below the 3x analyst watch. The model also stipulates growth 11.46% then 5%/5%, margin 52.94%, cash-interest rate 6%, tax/WC share 10%, capex share 2%, annual repayments 1,000, the approximate October distribution 4,348 and no extra distributions/M&A/buybacks/borrowing. Those cash assumptions and exclusions are not sourced issuer plans; the result is neither a covenant breach nor a calibrated forecast.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C73",
+              "kind": "fig",
+              "ref_id": "C73"
+            }
+          ],
+          "label": "Weaknesses",
+          "section": "weaknesses"
+        },
+        {
+          "runs": [
+            {
+              "text": "Positive model cash does not prove liquidity: CP-2G's FY2025 closing cash is 3,043.36 reference and 1,957.05 downside, but accessible liquidity and minimum cash remain null. Annual endpoints omit troughs, complete maturities/securitization/leases, financing and noncash debt movements. The 7x analyst leverage watch is not reached by FY2027 under assumed repayments; this does not prove obligations are funded.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C74",
+              "kind": "fig",
+              "ref_id": "C74"
+            }
+          ],
+          "label": "Weaknesses",
+          "section": "weaknesses"
+        },
+        {
+          "runs": [
+            {
+              "text": "Earnings and debt definitions constrain comparisons: recurring/heterogeneous adjustments leave quality earnings unresolved. Carrying debt, gross principal and the known lease/pension subtotal differ. Neither issuer EBITDA nor an engine cash proxy is sustainable FCF, covenant or agency capacity; source interest/tax provisions are not cash payments.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C75",
+              "kind": "fig",
+              "ref_id": "C75"
+            }
+          ],
+          "label": "Weaknesses",
+          "section": "weaknesses"
+        },
+        {
+          "runs": [
+            {
+              "text": "Operating and environmental cash risks need targeted monitoring: CP-2E/CP-2F identifies cost recovery, supply/safety, physical/transition and actual environmental liability 41 (prior 44). Estimate/payment changes could consume cash, but the liability is not an incremental loss. Preserve the issuer's contrary expectation about excess costs; no new realised safety event, ESG score, greenium or debt ratchet is established.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C76",
+              "kind": "fig",
+              "ref_id": "C76"
+            }
+          ],
+          "label": "Weaknesses",
+          "section": "weaknesses"
+        },
+        {
+          "runs": [
+            {
+              "text": "Peer comparison restrictions (literal increment): TDG carrying borrowing/finance-lease bridge 24,880 USDm / annual CFO = 12.17x; peers 1.94–4.86x, median 3.32x, N=3 — Keeps the large reported borrowing base visible beside high cash margins. This is not Debt/EBITDA, covenant leverage, years to repay or a normalized rating ratio. Financing/CFO classification differences prohibit an economic-debt credit ranking. Capex/sales TDG 2.08%, peer range 1.51–4.32%; Moog 4.32% — TDG is inside this selected range. Moog's investment/contract cash pattern is a real difference, not a bad datapoint removed to tighten the range. No maintenance-capex advantage is inferred. Three Web-Scraped — Unverified selection judgments; primary financial facts separately checked — Confidence in the literal statements/arithmetic is stronger than confidence that these three form the correct complete peer group. No user-approved/industry-wide conclusion follows.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C77",
+              "kind": "fig",
+              "ref_id": "C77"
+            }
+          ],
+          "label": "Weaknesses",
+          "section": "weaknesses"
+        }
+      ],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-2",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "company-profile",
+      "title": "Company profile",
+      "owner": "CP-1A",
+      "fig_id": null,
+      "tags": [],
+      "state": "collapsed",
+      "kind": "keyvalue",
+      "scale": null,
+      "row_header": "Owner / class",
+      "columns": [
+        "Control and economic interest",
+        "Credit relevance / evidence quality"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "TD Group common shareholders",
+          "cells": [
+            {
+              "text": "Publicly traded issuer with common shares; the reviewed annual report does not establish a controlling shareholder or provide enough evidence here to assign an owner percentage or sponsor. Management and Board have issuer-level roles, but individual directors are not scored.",
+              "prov": "cited",
+              "ref_id": "C30",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Insufficient Information for beneficial ownership concentration, voting agreements, sponsor ownership or controlling-person economics. S1 PDF 61 defers beneficial-ownership information to the incorporated Proxy Statement; CP-1 T4.4/T4.6 share counts and stockholders’ deficit do not establish ownership percentages. Do not infer private-equity ownership. Obtain and review the incorporated Proxy Statement beneficial-ownership table, then any voting/ownership agreements needed to resolve control.",
+              "prov": "cited",
+              "ref_id": "C30",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "Prior ownership / control change",
+          "cells": [
+            {
+              "text": "Not established in the reviewed filing passages. The filing states the company began in 1993 and reports a public-company structure, but this is not a full ownership-change history.",
+              "prov": "cited",
+              "ref_id": "C31",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Insufficient Information. No ownership-change timeline or sponsor-control documentation is inferred from acquisitions, financing or issuer reputation.",
+              "prov": "cited",
+              "ref_id": "C31",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": "Ownership",
+      "tabs": [
+        {
+          "label": "Revenue and business mix",
+          "scale": null,
+          "row_header": "Area",
+          "columns": [
+            "Finding / classification",
+            "Evidence and credit read-through"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Product mix",
+              "cells": [
+                {
+                  "text": "Documentary Fact. The filing reports management's estimate that approximately 90% of FY2024 net sales were generated by proprietary products. This is a reported estimate, not an independently verified calculation.",
+                  "prov": "cited",
+                  "ref_id": "C21",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S1 PDF 4. Proprietary product design can support differentiation; the filing does not quantify price elasticity, competitive wins or price-cost recovery.",
+                  "prov": "cited",
+                  "ref_id": "C21",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Revenue-channel estimate",
+              "cells": [
+                {
+                  "text": "Documentary Fact. The filing reports that approximately 55% of FY2024 net sales came from aftermarket. It estimates a typical platform production period of 20 to 30 years, aircraft life of approximately 25 to 30 years and product life cycle in excess of 50 years. These are issuer estimates.",
+                  "prov": "cited",
+                  "ref_id": "C22",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S1 PDF 4. Installed-base consumption over aircraft life can support replacement demand; the estimate does not establish future demand. Contrary evidence: commercial aftermarket demand depends on flight hours, RPKs, fleet age and airline profitability; defense demand depends on budgets and political factors (PDF 7).",
+                  "prov": "cited",
+                  "ref_id": "C22",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Aftermarket margin/stability characterization",
+              "cells": [
+                {
+                  "text": "Management Language. Management characterizes aftermarket revenues as historically higher gross profit and more stable than OEM net sales.",
+                  "prov": "cited",
+                  "ref_id": "C23",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S1 PDF 4. This historical characterization is not an independent forecast or measured future margin guarantee; demand-cycle exposures in PDF 7 remain.",
+                  "prov": "cited",
+                  "ref_id": "C23",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "End markets / concentration",
+              "cells": [
+                {
+                  "text": "Documentary Fact. FY2024 sales were approximately 31% commercial/regional/business/general aviation aftermarket, 27% commercial aerospace OEM, 40% defense, and 2% non-aerospace. Top ten customers were approximately 42% of sales; no single customer exceeded 10%.",
+                  "prov": "cited",
+                  "ref_id": "C24",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S1 PDF 7. Customer diversification by individual counterparty coexists with end-market concentration and cyclicality. The filing does not supply contract backlog or customer-specific revenue trends here.",
+                  "prov": "cited",
+                  "ref_id": "C24",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        }
+      ],
+      "note": null,
+      "full_analysis_route": "CP-1A",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": "TD Group common shareholders: Publicly traded issuer with common shares; the reviewed annual report does not establish a controlling shareh…",
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "transaction-summary",
+      "title": "Transaction summary and new debt issues",
+      "owner": "Primary",
+      "fig_id": null,
+      "tags": [],
+      "state": "collapsed",
+      "kind": "prose",
+      "scale": null,
+      "row_header": null,
+      "columns": [],
+      "rows": [],
+      "lines": [
+        {
+          "runs": [
+            {
+              "text": "Period / status: July 31, 2024 — Completed; Transaction and parties: Raptor Scientific stock acquisition; acquired by the Company; included in Airframe.; Consideration / funding stated by issuer: Approximately $647 million cash; financed from existing cash on hand (S1 PDF 114).; Credit relevance and limitation: Cash use and integration/purchase-accounting exposure; preliminary allocation may change, perhaps materially. Pro forma sales/results not provided as the acquisition's effect was stated not material (PDF 114).; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C32",
+              "kind": "fig",
+              "ref_id": "C32"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: June 6, 2024 — Completed; Transaction and parties: CPI Electron Device Business stock acquisition; included in Power & Control.; Consideration / funding stated by issuer: Approximately $1,385 million cash; financed from existing cash, including a portion of first-quarter FY2024 long-term debt proceeds (S1 PDF 115).; Credit relevance and limitation: Shows issuer-disclosed debt proceeds partly supported the cash pool used for this purchase. The filing does not allocate exact borrowed dollars to the transaction or supply pro forma leverage. Measurement-period estimates remained subject to adjustment (PDF 116).; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C33",
+              "kind": "fig",
+              "ref_id": "C33"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: May 21, 2024 — Completed; Transaction and parties: SEI Industries stock acquisition; included in Airframe.; Consideration / funding stated by issuer: Approximately $171 million cash, including $1 million working-capital settlement; financed from existing cash on hand (S1 PDF 117).; Credit relevance and limitation: Cash deployment and integration; measurement period remained open; no deal-level post-acquisition results or return analysis supplied.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C34",
+              "kind": "fig",
+              "ref_id": "C34"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: March 1, 2024 — Completed; Transaction and parties: FPT Industries stock acquisition; included in Airframe.; Consideration / funding stated by issuer: Approximately $57 million cash; financed from existing cash on hand (S1 PDF 118).; Credit relevance and limitation: Cash deployment; acquisition measurement period remained open. No pro forma sales/results supplied because stated not material (PDF 118).; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C35",
+              "kind": "fig",
+              "ref_id": "C35"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: FY2024 — Completed; Transaction and parties: Extant Aerospace product-line acquisitions of substantially all assets and technical data rights, included in Power & Control.; Consideration / funding stated by issuer: Total purchase price $86 million (S1 PDF 119–120); funding source not separately stated in the passage reviewed.; Credit relevance and limitation: Disclosed repeated product-line acquisitions, but one year does not establish future appetite. Allocation remained preliminary.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C36",
+              "kind": "fig",
+              "ref_id": "C36"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: May 8, 2023 — Completed; Transaction and parties: Calspan Corporation stock acquisition; included in Airframe.; Consideration / funding stated by issuer: Approximately $730 million cash including $1 million FY2024 working-capital settlement; financed from existing cash (S1 PDF 118).; Credit relevance and limitation: Purchase accounting was adjusted during the measurement period; the filing describes a transonic wind tunnel valuation change. No pro forma sales/results supplied because stated not material (PDF 118–119).; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C37",
+              "kind": "fig",
+              "ref_id": "C37"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: FY2023 — Completed; Transaction and parties: Extant Aerospace product-line acquisitions.; Consideration / funding stated by issuer: Total purchase price $24 million (S1 PDF 120); funding source not separately stated in the passage reviewed.; Credit relevance and limitation: Further documented acquisition activity; does not alone prove appetite or successful integration.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C38",
+              "kind": "fig",
+              "ref_id": "C38"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: November 28, 2023 — Completed financing; Transaction and parties: Amendment No. 13 issued $1,000 million Tranche J loans, fully drawn; $1,000 million 2031 secured notes were also issued.; Consideration / funding stated by issuer: S1 PDF 127–128 says proceeds plus cash were used primarily to fund CPI. CP-1 T4.5 reports FY2024 net term-loan proceeds 6,815 and net senior secured note proceeds 7,373 USD millions for all FY2024 activity; these are not deal-level principal amounts.; Credit relevance and limitation: Funding and maturity profile changed; no current headroom or pro forma leverage calculation is made.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C39",
+              "kind": "fig",
+              "ref_id": "C39"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: February 27, 2024 — Completed Amendment 14; Transaction and parties: Revolving facility refinanced: maturity extended to February 2029, commitments increased and applicable margin decreased (S1 PDF 128).; Consideration / funding stated by issuer: CP-1 T4.5 annual net cash proceeds and repayment rows do not isolate the amendment.; Credit relevance and limitation: Changes available facility term/cost; does not establish current availability beyond reported figures.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C40",
+              "kind": "fig",
+              "ref_id": "C40"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: March 22, 2024 — Completed Amendment 15 / new notes; Transaction and parties: Tranche I term loans repriced; Tranche H repaid and replaced by Tranche K. Additional $550 million 2029 secured notes issued (S1 PDF 129–130).; Consideration / funding stated by issuer: CP-1 T4.5 reports FY2024 net note/term-loan proceeds and repayments as annual inflows/outflows, not gross principal or deal-level funding.; Credit relevance and limitation: Changes pricing/maturity and funding profile; no pro forma leverage or full creditor-class impact is inferred.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C41",
+              "kind": "fig",
+              "ref_id": "C41"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: March 28, 2024 — Completed note redemption; Transaction and parties: $4,400 million 2026 secured notes redeemed using net proceeds of 2029/2032 note offerings plus cash (S1 PDF 129).; Consideration / funding stated by issuer: CP-1 T4.5 reports FY2024 net senior-secured-note proceeds 7,373 and repayments (4,400) USD millions; these are annual cash-flow lines.; Credit relevance and limitation: Refinanced maturity; amounts are not net debt change or proof of future refinancing capacity.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C42",
+              "kind": "fig",
+              "ref_id": "C42"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: April 22, 2024 — Completed note redemption; Transaction and parties: $550 million 2027 senior subordinated notes redeemed using net proceeds from the additional 2029 secured notes plus cash (S1 PDF 130).; Consideration / funding stated by issuer: CP-1 T4.5 aggregates annual proceeds/repayments.; Credit relevance and limitation: Changes debt structure; no class-by-class outcome is inferred.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C43",
+              "kind": "fig",
+              "ref_id": "C43"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: June 4, 2024 — Completed Amendment 16; Transaction and parties: Tranche J repriced; $2,644 million of Tranche I term loans amended and extended into Tranche J maturing February 2031 (S1 PDF 130).; Consideration / funding stated by issuer: CP-1 T4.5 reports FY2024 net term-loan proceeds 6,815 and repayments (4,403) USD millions, not principal amounts for this amendment.; Credit relevance and limitation: Maturity and pricing changed; no creditor-treatment conclusion absent operative terms and effect analysis.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C44",
+              "kind": "fig",
+              "ref_id": "C44"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: September 19, 2024 — Completed financing / dividend funding; Transaction and parties: Issued $1,500 million 2033 secured notes and $1,500 million Tranche L loans, fully drawn; issuer states proceeds from both fourth-quarter issuances plus existing cash funded the $75.00-per-share special dividend declaration.; Consideration / funding stated by issuer: S1 PDF 131; CP-1 T4.5 reports FY2024 net senior-secured-note proceeds 7,373 and net term-loan proceeds 6,815 USD millions across the year. CP-1 T4.18 maturity schedule is historical principal excluding finance leases, not a current refinancing forecast.; Credit relevance and limitation: This directly documents debt proceeds supporting a shareholder distribution; exact tracing, legal capacity and post-distribution liquidity remain unassessed.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C45",
+              "kind": "fig",
+              "ref_id": "C45"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: July 12, 2024 — Completed amendment; Transaction and parties: Securitization facility capacity increased from $450 million to $650 million and maturity extended to July 11, 2025; issuer reported $487 million drawn at September 30, 2024.; Consideration / funding stated by issuer: S1 PDF 130; CP-1 T4.6 separately reports securitization carrying value of 486 USD millions at September 30, 2024. Principal and carrying value differ.; Credit relevance and limitation: Receivables-backed borrowing capacity is financing, not cash on hand; October draw is a subsequent event.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C46",
+              "kind": "fig",
+              "ref_id": "C46"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: FY2024 — Completed, distribution; Transaction and parties: Special cash dividends declared at $35.00 per share in November 2023 and $75.00 per share on September 19, 2024.; Consideration / funding stated by issuer: S1 reports $6,153 million total declared special dividends, with $1,937 million paid during FY2024 and $4,216 million accrued at year-end; the $4,216 million dividend and $132 million equivalents were paid in October 2024 (S1 PDF 146). Proceeds from both fourth-quarter debt issuances plus existing cash funded the September declaration (PDF 131); a separate disclosure says $3,000 million new senior secured debt and cash funded the approximately $4,348 million October payment (PDF 29). The November $35.00 payment was funded by existing cash (PDF 29). CP-1 T4.5 reports FY2024 dividend/equivalent cash payments (2,038) USD millions; T4.6 reports dividends payable 4,216 at September 30, 2024.; Credit relevance and limitation: Debt funding is documented for the September declaration, not November. Exact proceeds tracing, contractual capacity and post-payment liquidity remain unassessed. Declarations, fiscal-year payments and payable are distinct measures.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C47",
+              "kind": "fig",
+              "ref_id": "C47"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Period / status: FY2022 — Completed, distribution / repurchase; Transaction and parties: Statement of changes in stockholders’ deficit reports special dividends and vested equivalents declared (1,045) USD millions and stock repurchases (912) USD millions; CP-1 cash flow reports dividends and equivalents paid (1,091) and repurchases (912) USD millions.; Consideration / funding stated by issuer: S1 PDF 108–109; CP-1 T4.4 and T4.5.; Credit relevance and limitation: Documents earlier cash/equity extraction, but the declaration/payment distinction and FY2022 source-of-funds limitation remains.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C48",
+              "kind": "fig",
+              "ref_id": "C48"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Date / period: 1993; Issuer-level event: Company states it was founded; it reports 93 acquired businesses/product lines since then.; Status and credit significance: Historical statement in S1 PDF 4; not a transaction-by-transaction ownership history.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C49",
+              "kind": "fig",
+              "ref_id": "C49"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Date / period: FY2022; Issuer-level event: Special dividend/equivalent declarations and stock repurchase are reported in equity and cash-flow statements.; Status and credit significance: Completed. Evidence of shareholder extraction; funding source and legal capacity are not established for these FY2022 actions.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C50",
+              "kind": "fig",
+              "ref_id": "C50"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Date / period: May 8, 2023; Issuer-level event: Calspan acquisition completed.; Status and credit significance: Completed; see transaction summary.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C51",
+              "kind": "fig",
+              "ref_id": "C51"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Date / period: FY2024, dates specified by deal in Note 2; Issuer-level event: FPT, SEI, CPI Electron Device Business, Raptor Scientific and Extant product-line acquisitions completed; Extant product-line note states FY2024 only.; Status and credit significance: Completed; see transaction summary. Do not assign Extant acquisitions the dates of other deals.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C52",
+              "kind": "fig",
+              "ref_id": "C52"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Date / period: November 2023 / September 19, 2024; Issuer-level event: $35.00 and $75.00 special dividends per share declared; November payment from existing cash; September declaration funded by proceeds from both fourth-quarter issuances plus existing cash.; Status and credit significance: Completed declarations; October payment is subsequent to year-end. S1 PDF 29, 131, 146.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C53",
+              "kind": "fig",
+              "ref_id": "C53"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Date / period: October 2024; Issuer-level event: The $4,216 million dividend and $132 million equivalents were paid. CP-1 also identifies an October draw of remaining $162.5 million securitization availability.; Status and credit significance: The debt was raised in September and funded the September declaration; cash payment was post-period. S1 PDF 29, 131 and 146.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C54",
+              "kind": "fig",
+              "ref_id": "C54"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Date / period: February 27, March 22, March 28, April 22 and June 4, 2024; Issuer-level event: Amendments 14–16, note issues and redemptions, at the dates stated in the transaction table.; Status and credit significance: Completed financing actions in S1 PDF 128–130; no creditor-class effects are assessed here.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C55",
+              "kind": "fig",
+              "ref_id": "C55"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Date / period: July 12, 2024; Issuer-level event: Securitization facility amendment increased capacity and extended maturity.; Status and credit significance: Completed; S1 PDF 130.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C56",
+              "kind": "fig",
+              "ref_id": "C56"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Date / period: September 19, 2024; Issuer-level event: Issued $1,500 million 2033 secured notes and $1,500 million Tranche L loans; both issuances plus existing cash funded the $75.00 declaration.; Status and credit significance: Debt raised and dividend declared in September; cash distribution occurred in October. S1 PDF 29 and 131.; Category: Documentary Fact",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C57",
+              "kind": "fig",
+              "ref_id": "C57"
+            }
+          ],
+          "label": null,
+          "section": null
+        }
+      ],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": null,
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": "Period / status: July 31, 2024 — Completed; Transaction and parties: Raptor Scientific stock acquisition; acquired by the Company; included…",
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    }
+  ],
+  "unplaced": [],
+  "passports": [
+    {
+      "ref_id": "C1",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 246"
+        },
+        {
+          "name": "Quote",
+          "value": "| Net sales | 7,940 | 6,585 | 5,429 | Reported, PDF 106 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C2",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 247"
+        },
+        {
+          "name": "Quote",
+          "value": "| Gross profit | 4,672 | 3,842 | 3,099 | Reported, PDF 106 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C3",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 248"
+        },
+        {
+          "name": "Quote",
+          "value": "| Income from operations | 3,531 | 2,923 | 2,215 | Reported, PDF 106 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C4",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 249"
+        },
+        {
+          "name": "Quote",
+          "value": "| Pretax continuing income | 2,215 | 1,716 | 1,127 | Reported, PDF 106 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C5",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 250"
+        },
+        {
+          "name": "Quote",
+          "value": "| Net income | 1,715 | 1,299 | 867 | Reported, PDF 106 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C6",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 251"
+        },
+        {
+          "name": "Quote",
+          "value": "| Net cash provided by operating activities | 2,045 | 1,375 | 948 | Reported, PDF 109 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C7",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 252"
+        },
+        {
+          "name": "Quote",
+          "value": "| Capital expenditures | (165) | (139) | (119) | Reported, PDF 109 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C8",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 253"
+        },
+        {
+          "name": "Quote",
+          "value": "| Operating cash less capex | 1,880 | 1,236 | 829 | Calculated; simple subtraction only |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C9",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 254"
+        },
+        {
+          "name": "Quote",
+          "value": "| Cash closing | 6,261 | 3,472 | 3,001 | Reported, PDF 109 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C10",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 255"
+        },
+        {
+          "name": "Quote",
+          "value": "| EBITDA As Defined, total company | 4,173 | 3,395 | 2,646 | Non-GAAP issuer metric, PDF 142 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C11",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 256"
+        },
+        {
+          "name": "Quote",
+          "value": "| Total debt carrying value incl. separately shown securitization | 24,880* | 19,750* | Not reconstructed | *2024: 24,296 long-term + 98 current portion + 486 securitization; 2023: 19,330 + 71 + 349. This classification sum is not gross principal. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C12",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 428"
+        },
+        {
+          "name": "Quote",
+          "value": "| G1 carried: rotated PDF 156 | CP-0 reported rotated non-GAAP supplemental reconciliation lacks text extraction; not reviewed visually here. It may affect supplemental historical adjusted EBITDA/add-back definitions outside PDF 142 bridge. | If that table is needed, inspect the rotated original page and verify each row before use. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C13",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 429"
+        },
+        {
+          "name": "Quote",
+          "value": "| G2 carried: glyph / full-cell validation | Statements 105–109 were extracted and key statement pages cross-checked; not every note schedule or glyph received a visual audit. A text aid can misread a cell/sign. | Targeted PDF visual check where a downstream calculation depends on a disputed or consequential cell. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C14",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 430"
+        },
+        {
+          "name": "Quote",
+          "value": "| G3 carried: source scope | Only supplied annual 10-K, no independent SEC retrieval or competing filing version examined. | Obtain additional filings only for version validation or shorter period history. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C15",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 431"
+        },
+        {
+          "name": "Quote",
+          "value": "| G4 | No quarters, YTD, LTM, transaction-specific pro forma results, covenant calculations, restricted cash schedule or full liquidity forecast in the source extraction. | Do not construct shorter periods; request relevant interim/transaction/covenant/liquidity material for those conclusions. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C16",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 432"
+        },
+        {
+          "name": "Quote",
+          "value": "| G5 | The reviewed facility terms disclose 843 of available borrowings and 67 of letters of credit outstanding against 910 of commitments, but do not identify a funded revolver drawing in that passage or provide a current borrowing-base certificate. The filing’s EBITDA As Defined bridge is not a full independent covenant calculation; definitions and usage are bounded by its cited terms. | Review credit agreement/updated facility certificates if exact availability or covenant headroom is needed. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C17",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 433"
+        },
+        {
+          "name": "Quote",
+          "value": "| G6 | Cash-after-capex is calculable but no issuer maintenance/growth capex split or single universally defined FCF series is supplied by the statements. | Use OCF and capex source rows directly; do not label simple subtraction as issuer FCF. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C18",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 434"
+        },
+        {
+          "name": "Quote",
+          "value": "| G7 | Dividend declared, payable, and cash paid are different; no per-share cash payment allocation by period can be derived from total cash payments. | Keep separate and obtain detailed distribution records if cash dividend per share is required. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C19",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 435"
+        },
+        {
+          "name": "Quote",
+          "value": "| G8 | Complete note coverage was not performed; acquisition purchase-price effects and all add-back eligibility/cash status were not audited here. | Target specific notes and supporting schedules before transaction-adjusted earnings or earnings-quality classification. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+        }
+      ]
+    },
+    {
+      "ref_id": "C20",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 44"
+        },
+        {
+          "name": "Quote",
+          "value": "| Company description | **Documentary Fact.** TransDigm Group, through TransDigm Inc., designs, produces and supplies highly engineered aircraft components for commercial and military aviation; its businesses are managed in Power & Control, Airframe and Non-aviation segments. | S1 PDF 3–5. Segment descriptions and customer/channel scope are specified in Item 1. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C21",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 47"
+        },
+        {
+          "name": "Quote",
+          "value": "| Product mix | **Documentary Fact.** The filing reports management's estimate that approximately 90% of FY2024 net sales were generated by proprietary products. This is a reported estimate, not an independently verified calculation. | S1 PDF 4. Proprietary product design can support differentiation; the filing does not quantify price elasticity, competitive wins or price-cost recovery. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C22",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 49"
+        },
+        {
+          "name": "Quote",
+          "value": "| Revenue-channel estimate | **Documentary Fact.** The filing reports that approximately 55% of FY2024 net sales came from aftermarket. It estimates a typical platform production period of 20 to 30 years, aircraft life of approximately 25 to 30 years and product life cycle in excess of 50 years. These are issuer estimates. | S1 PDF 4. Installed-base consumption over aircraft life can support replacement demand; the estimate does not establish future demand. Contrary evidence: commercial aftermarket demand depends on flight hours, RPKs, fleet age and airline profitability; defense demand depends on budgets and political factors (PDF 7). |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C23",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 50"
+        },
+        {
+          "name": "Quote",
+          "value": "| Aftermarket margin/stability characterization | **Management Language.** Management characterizes aftermarket revenues as historically higher gross profit and more stable than OEM net sales. | S1 PDF 4. This historical characterization is not an independent forecast or measured future margin guarantee; demand-cycle exposures in PDF 7 remain. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C24",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 51"
+        },
+        {
+          "name": "Quote",
+          "value": "| End markets / concentration | **Documentary Fact.** FY2024 sales were approximately 31% commercial/regional/business/general aviation aftermarket, 27% commercial aerospace OEM, 40% defense, and 2% non-aerospace. Top ten customers were approximately 42% of sales; no single customer exceeded 10%. | S1 PDF 7. Customer diversification by individual counterparty coexists with end-market concentration and cyclicality. The filing does not supply contract backlog or customer-specific revenue trends here. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C25",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 45"
+        },
+        {
+          "name": "Quote",
+          "value": "| Country | **Documentary Fact.** The registrant is incorporated in Delaware, United States, and lists its principal executive office in Cleveland, Ohio; its operations and sales are global. | S1 PDF 1, 3–8. This identifies issuer country and principal office, not the location of every subsidiary. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C26",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 46"
+        },
+        {
+          "name": "Quote",
+          "value": "| Sector | **Analyst Interpretation.** Aerospace and defense components are the core sector, with smaller non-aviation activities. | S1 PDF 4–5 and 7. The label synthesizes disclosed product/end-market descriptions. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C27",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 48"
+        },
+        {
+          "name": "Quote",
+          "value": "| Pricing strategy | **Management Language.** Management says it focuses on pricing highly engineered products to reflect the value provided and resources required. | S1 PDF 4 and 6. This is the issuer's strategy description, not independent evidence of pricing power, realized pricing or cost pass-through. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C28",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 52"
+        },
+        {
+          "name": "Quote",
+          "value": "| Operating model | **Documentary Fact.** Sales are made through OEM and aftermarket channels; business-unit teams combine product, engineering, operations, quality and sales functions. The issuer reports approximately 120 manufacturing facilities. Revenue is generally recognized at a point in time; limited customized contracts can qualify for over-time recognition. | S1 PDF 5–6, 120–122. This model requires manufacturing capacity, certified products and working capital; the filing does not disclose unit-level capacity utilization, order backlog, price/volume split or customer-level margins. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C29",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 53"
+        },
+        {
+          "name": "Quote",
+          "value": "| Operating drivers | **Insufficient Information where metrics are absent.** Disclosed demand drivers include aircraft utilization, worldwide fleet age, RPKs, airline profitability and defense budget trends; raw material, labor and supply-chain costs are also identified as risks. | S1 PDF 3, 7, 10–11. No quantified volume, price realization, organic growth, backlog or input-cost pass-through dataset is supplied in the passages reviewed. Those measures remain null/not disclosed, not zero. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C30",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 59"
+        },
+        {
+          "name": "Quote",
+          "value": "| TD Group common shareholders | Publicly traded issuer with common shares; the reviewed annual report does not establish a controlling shareholder or provide enough evidence here to assign an owner percentage or sponsor. Management and Board have issuer-level roles, but individual directors are not scored. | **Insufficient Information** for beneficial ownership concentration, voting agreements, sponsor ownership or controlling-person economics. S1 PDF 61 defers beneficial-ownership information to the incorporated Proxy Statement; CP-1 T4.4/T4.6 share counts and stockholders’ deficit do not establish ownership percentages. Do not infer private-equity ownership. Obtain and review the incorporated Proxy Statement beneficial-ownership table, then any voting/ownership agreements needed to resolve control. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C31",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 60"
+        },
+        {
+          "name": "Quote",
+          "value": "| Prior ownership / control change | Not established in the reviewed filing passages. The filing states the company began in 1993 and reports a public-company structure, but this is not a full ownership-change history. | **Insufficient Information.** No ownership-change timeline or sponsor-control documentation is inferred from acquisitions, financing or issuer reputation. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C32",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 70"
+        },
+        {
+          "name": "Quote",
+          "value": "| July 31, 2024 — Completed | Raptor Scientific stock acquisition; acquired by the Company; included in Airframe. | Approximately $647 million cash; financed from existing cash on hand (S1 PDF 114). | Cash use and integration/purchase-accounting exposure; preliminary allocation may change, perhaps materially. Pro forma sales/results not provided as the acquisition's effect was stated not material (PDF 114). | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C33",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 71"
+        },
+        {
+          "name": "Quote",
+          "value": "| June 6, 2024 — Completed | CPI Electron Device Business stock acquisition; included in Power & Control. | Approximately $1,385 million cash; financed from existing cash, including a portion of first-quarter FY2024 long-term debt proceeds (S1 PDF 115). | Shows issuer-disclosed debt proceeds partly supported the cash pool used for this purchase. The filing does not allocate exact borrowed dollars to the transaction or supply pro forma leverage. Measurement-period estimates remained subject to adjustment (PDF 116). | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C34",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 72"
+        },
+        {
+          "name": "Quote",
+          "value": "| May 21, 2024 — Completed | SEI Industries stock acquisition; included in Airframe. | Approximately $171 million cash, including $1 million working-capital settlement; financed from existing cash on hand (S1 PDF 117). | Cash deployment and integration; measurement period remained open; no deal-level post-acquisition results or return analysis supplied. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C35",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 73"
+        },
+        {
+          "name": "Quote",
+          "value": "| March 1, 2024 — Completed | FPT Industries stock acquisition; included in Airframe. | Approximately $57 million cash; financed from existing cash on hand (S1 PDF 118). | Cash deployment; acquisition measurement period remained open. No pro forma sales/results supplied because stated not material (PDF 118). | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C36",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 74"
+        },
+        {
+          "name": "Quote",
+          "value": "| FY2024 — Completed | Extant Aerospace product-line acquisitions of substantially all assets and technical data rights, included in Power & Control. | Total purchase price $86 million (S1 PDF 119–120); funding source not separately stated in the passage reviewed. | Disclosed repeated product-line acquisitions, but one year does not establish future appetite. Allocation remained preliminary. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C37",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 75"
+        },
+        {
+          "name": "Quote",
+          "value": "| May 8, 2023 — Completed | Calspan Corporation stock acquisition; included in Airframe. | Approximately $730 million cash including $1 million FY2024 working-capital settlement; financed from existing cash (S1 PDF 118). | Purchase accounting was adjusted during the measurement period; the filing describes a transonic wind tunnel valuation change. No pro forma sales/results supplied because stated not material (PDF 118–119). | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C38",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 76"
+        },
+        {
+          "name": "Quote",
+          "value": "| FY2023 — Completed | Extant Aerospace product-line acquisitions. | Total purchase price $24 million (S1 PDF 120); funding source not separately stated in the passage reviewed. | Further documented acquisition activity; does not alone prove appetite or successful integration. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C39",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 77"
+        },
+        {
+          "name": "Quote",
+          "value": "| November 28, 2023 — Completed financing | Amendment No. 13 issued $1,000 million Tranche J loans, fully drawn; $1,000 million 2031 secured notes were also issued. | S1 PDF 127–128 says proceeds plus cash were used primarily to fund CPI. CP-1 T4.5 reports FY2024 net term-loan proceeds 6,815 and net senior secured note proceeds 7,373 USD millions for all FY2024 activity; these are not deal-level principal amounts. | Funding and maturity profile changed; no current headroom or pro forma leverage calculation is made. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C40",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 78"
+        },
+        {
+          "name": "Quote",
+          "value": "| February 27, 2024 — Completed Amendment 14 | Revolving facility refinanced: maturity extended to February 2029, commitments increased and applicable margin decreased (S1 PDF 128). | CP-1 T4.5 annual net cash proceeds and repayment rows do not isolate the amendment. | Changes available facility term/cost; does not establish current availability beyond reported figures. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C41",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 79"
+        },
+        {
+          "name": "Quote",
+          "value": "| March 22, 2024 — Completed Amendment 15 / new notes | Tranche I term loans repriced; Tranche H repaid and replaced by Tranche K. Additional $550 million 2029 secured notes issued (S1 PDF 129–130). | CP-1 T4.5 reports FY2024 net note/term-loan proceeds and repayments as annual inflows/outflows, not gross principal or deal-level funding. | Changes pricing/maturity and funding profile; no pro forma leverage or full creditor-class impact is inferred. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C42",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 80"
+        },
+        {
+          "name": "Quote",
+          "value": "| March 28, 2024 — Completed note redemption | $4,400 million 2026 secured notes redeemed using net proceeds of 2029/2032 note offerings plus cash (S1 PDF 129). | CP-1 T4.5 reports FY2024 net senior-secured-note proceeds 7,373 and repayments (4,400) USD millions; these are annual cash-flow lines. | Refinanced maturity; amounts are not net debt change or proof of future refinancing capacity. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C43",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 81"
+        },
+        {
+          "name": "Quote",
+          "value": "| April 22, 2024 — Completed note redemption | $550 million 2027 senior subordinated notes redeemed using net proceeds from the additional 2029 secured notes plus cash (S1 PDF 130). | CP-1 T4.5 aggregates annual proceeds/repayments. | Changes debt structure; no class-by-class outcome is inferred. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C44",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 82"
+        },
+        {
+          "name": "Quote",
+          "value": "| June 4, 2024 — Completed Amendment 16 | Tranche J repriced; $2,644 million of Tranche I term loans amended and extended into Tranche J maturing February 2031 (S1 PDF 130). | CP-1 T4.5 reports FY2024 net term-loan proceeds 6,815 and repayments (4,403) USD millions, not principal amounts for this amendment. | Maturity and pricing changed; no creditor-treatment conclusion absent operative terms and effect analysis. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C45",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 83"
+        },
+        {
+          "name": "Quote",
+          "value": "| September 19, 2024 — Completed financing / dividend funding | Issued $1,500 million 2033 secured notes and $1,500 million Tranche L loans, fully drawn; issuer states proceeds from both fourth-quarter issuances plus existing cash funded the $75.00-per-share special dividend declaration. | S1 PDF 131; CP-1 T4.5 reports FY2024 net senior-secured-note proceeds 7,373 and net term-loan proceeds 6,815 USD millions across the year. CP-1 T4.18 maturity schedule is historical principal excluding finance leases, not a current refinancing forecast. | This directly documents debt proceeds supporting a shareholder distribution; exact tracing, legal capacity and post-distribution liquidity remain unassessed. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C46",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 84"
+        },
+        {
+          "name": "Quote",
+          "value": "| July 12, 2024 — Completed amendment | Securitization facility capacity increased from $450 million to $650 million and maturity extended to July 11, 2025; issuer reported $487 million drawn at September 30, 2024. | S1 PDF 130; CP-1 T4.6 separately reports securitization carrying value of 486 USD millions at September 30, 2024. Principal and carrying value differ. | Receivables-backed borrowing capacity is financing, not cash on hand; October draw is a subsequent event. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C47",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 85"
+        },
+        {
+          "name": "Quote",
+          "value": "| FY2024 — Completed, distribution | Special cash dividends declared at $35.00 per share in November 2023 and $75.00 per share on September 19, 2024. | S1 reports $6,153 million total declared special dividends, with $1,937 million paid during FY2024 and $4,216 million accrued at year-end; the $4,216 million dividend and $132 million equivalents were paid in October 2024 (S1 PDF 146). Proceeds from both fourth-quarter debt issuances plus existing cash funded the September declaration (PDF 131); a separate disclosure says $3,000 million new senior secured debt and cash funded the approximately $4,348 million October payment (PDF 29). The November $35.00 payment was funded by existing cash (PDF 29). CP-1 T4.5 reports FY2024 dividend/equivalent cash payments (2,038) USD millions; T4.6 reports dividends payable 4,216 at September 30, 2024. | Debt funding is documented for the September declaration, not November. Exact proceeds tracing, contractual capacity and post-payment liquidity remain unassessed. Declarations, fiscal-year payments and payable are distinct measures. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C48",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 86"
+        },
+        {
+          "name": "Quote",
+          "value": "| FY2022 — Completed, distribution / repurchase | Statement of changes in stockholders’ deficit reports special dividends and vested equivalents declared (1,045) USD millions and stock repurchases (912) USD millions; CP-1 cash flow reports dividends and equivalents paid (1,091) and repurchases (912) USD millions. | S1 PDF 108–109; CP-1 T4.4 and T4.5. | Documents earlier cash/equity extraction, but the declaration/payment distinction and FY2022 source-of-funds limitation remains. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C49",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 93"
+        },
+        {
+          "name": "Quote",
+          "value": "| 1993 | Company states it was founded; it reports 93 acquired businesses/product lines since then. | Historical statement in S1 PDF 4; not a transaction-by-transaction ownership history. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C50",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 94"
+        },
+        {
+          "name": "Quote",
+          "value": "| FY2022 | Special dividend/equivalent declarations and stock repurchase are reported in equity and cash-flow statements. | Completed. Evidence of shareholder extraction; funding source and legal capacity are not established for these FY2022 actions. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C51",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 95"
+        },
+        {
+          "name": "Quote",
+          "value": "| May 8, 2023 | Calspan acquisition completed. | Completed; see transaction summary. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C52",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 96"
+        },
+        {
+          "name": "Quote",
+          "value": "| FY2024, dates specified by deal in Note 2 | FPT, SEI, CPI Electron Device Business, Raptor Scientific and Extant product-line acquisitions completed; Extant product-line note states FY2024 only. | Completed; see transaction summary. Do not assign Extant acquisitions the dates of other deals. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C53",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 97"
+        },
+        {
+          "name": "Quote",
+          "value": "| November 2023 / September 19, 2024 | $35.00 and $75.00 special dividends per share declared; November payment from existing cash; September declaration funded by proceeds from both fourth-quarter issuances plus existing cash. | Completed declarations; October payment is subsequent to year-end. S1 PDF 29, 131, 146. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C54",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 98"
+        },
+        {
+          "name": "Quote",
+          "value": "| October 2024 | The $4,216 million dividend and $132 million equivalents were paid. CP-1 also identifies an October draw of remaining $162.5 million securitization availability. | The debt was raised in September and funded the September declaration; cash payment was post-period. S1 PDF 29, 131 and 146. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C55",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 99"
+        },
+        {
+          "name": "Quote",
+          "value": "| February 27, March 22, March 28, April 22 and June 4, 2024 | Amendments 14–16, note issues and redemptions, at the dates stated in the transaction table. | Completed financing actions in S1 PDF 128–130; no creditor-class effects are assessed here. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C56",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 100"
+        },
+        {
+          "name": "Quote",
+          "value": "| July 12, 2024 | Securitization facility amendment increased capacity and extended maturity. | Completed; S1 PDF 130. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C57",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 101"
+        },
+        {
+          "name": "Quote",
+          "value": "| September 19, 2024 | Issued $1,500 million 2033 secured notes and $1,500 million Tranche L loans; both issuances plus existing cash funded the $75.00 declaration. | Debt raised and dividend declared in September; cash distribution occurred in October. S1 PDF 29 and 131. | Documentary Fact |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C58",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 137"
+        },
+        {
+          "name": "Quote",
+          "value": "| Beneficial ownership, voting control, prior ownership and sponsor status are not established here. | Ownership alignment and control rights cannot be assessed. | Material: review the incorporated Proxy Statement ownership tables and any governing/voting agreements needed to resolve control. Do not assume sponsor ownership. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C59",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 138"
+        },
+        {
+          "name": "Quote",
+          "value": "| Executed debt agreements, indentures and collateral documents are not reviewed; named FY2024 amendments/refinancings are documented in S1 PDF 127–132. | Legal capacity, restricted payments, guarantees, priming/uptiering/drop-down pathways and creditor control remain unknown. | Critical: obtain operative debt documents and full transaction/amendment history; map baskets, collateral, intercreditor terms and creditor effects. The annual filing documents amendments but does not replace operative contracts. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C60",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 139"
+        },
+        {
+          "name": "Quote",
+          "value": "| No current covenant certificate, unrestricted-cash schedule or liquidity forecast. Historical debt-plus-cash dividend funding is disclosed, but does not establish current post-payment capacity. | Historical cash and debt facts cannot establish current distribution capacity, covenant headroom or financial feasibility. | Critical: obtain latest covenant certificate, liquidity schedule, cash restrictions and forecast. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C61",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 140"
+        },
+        {
+          "name": "Quote",
+          "value": "| Deal-level pro forma earnings, financing allocation, integration outcomes and returns are incomplete. | Acquisition cash uses cannot be converted to pro forma leverage or synergy conclusions. | Material: request acquisition bridge, source/use by deal, integration milestones and actual-versus-underwritten performance. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C62",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 141"
+        },
+        {
+          "name": "Quote",
+          "value": "| No quantified price/volume split, backlog, utilization, capacity, customer-level trend or input-cost pass-through measure. | Revenue and margin resilience cannot be sensitized from the filing alone. | Material: obtain current operating dashboard and concentration/backlog schedules. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C63",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 142"
+        },
+        {
+          "name": "Quote",
+          "value": "| Related-party activity and recurring lender reporting were not comprehensively assessed. | Leakage and ongoing reporting transparency remain uncertain. | Material: review complete related-party register, agreements and lender reporting package. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C64",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1A-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 143"
+        },
+        {
+          "name": "Quote",
+          "value": "| CP-0 G1–G3 and CP-1 source limits remain as described in Sources. | Rotated supplemental table, incomplete visual verification and external source-version checks are outside this analysis. | Minor for this handoff's selected claims, but relevant if a claim depends on those materials: verify the exact PDF passage, obtain external version/authentication only if scope requires it. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+        }
+      ]
+    },
+    {
+      "ref_id": "C65",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 42"
+        },
+        {
+          "name": "Quote",
+          "value": "**Assessment — Analyst Interpretation; confidence: Medium.** TransDigm's engineered components, reported proprietary/aftermarket exposure, defense sales and positive historical operating cash support the business case. Documented debt-supported distributions and missing accessible-liquidity/legal evidence limit creditor confidence. The checked conditional FY2025 model has 3.14x reference earnings/cash-interest cover versus 2.28x downside, crossing a 3x analyst watch only in the downside; this is not covenant or actual forecast proof. Its assumed growth, margin, cash costs, repayment and excluded extra cash uses are conditions, not an issuer financing plan. Complete cash/access and refinancing sufficiency remain unassessed."
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C66",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 44"
+        },
+        {
+          "name": "Quote",
+          "value": "**Thesis — Analyst Interpretation.** Continuing demand and cash conversion can support debt service, but financial policy and dated protection/funding changes determine how much reaches creditors. Better earnings alone do not establish liquidity after distributions. Conditional deleveraging depends on stipulated repayments and cash-use restraint; positive model cash, historical refinancing and reported hedge estimates do not prove current access or future execution."
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C67",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 67"
+        },
+        {
+          "name": "Quote",
+          "value": "1. **Replacement-demand and channel breadth:** actual CP-1A business analysis supports an issuer-estimated aftermarket/proprietary base and defense exposure alongside OEM sales. This can cushion new-build cyclicality; flight activity, customer economics and qualification/supply conditions still matter. Historical mix is not independently measured future pricing power."
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C68",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 68"
+        },
+        {
+          "name": "Quote",
+          "value": "2. **Observed cash generation and execution:** CP-1 and the actual CP-2D quarterly bridge show positive operating cash, while CP-1A documents historical financing. Those are real counterweights to a generic operating-collapse narrative; unrestricted access and future refinancing remain separate questions."
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C69",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 69"
+        },
+        {
+          "name": "Quote",
+          "value": "3. **Dated rate mitigation:** CP-2E preserves reported approximately 77% fixed-rate gross debt and an issuer approximately +30 USDm annual interest estimate for +100 bp at September 2024. Fixed coupons and derivatives mitigate selected repricing; the estimate was not independently rebuilt. Forward collars and expiring swaps/caps cannot be flattened into one permanent hedge ratio."
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C70",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 70"
+        },
+        {
+          "name": "Quote",
+          "value": "4. **A concrete disconfirming cash case:** CP-2G's stipulated 2-percentage-point higher-margin case raises first-year coverage to 3.26x versus reference 3.14x. This supports the positive mechanism if earnings convert and cash uses stay restrained; the higher margin is analyst judgment, not guidance or a probability."
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C71",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 72"
+        },
+        {
+          "name": "Quote",
+          "value": "5. **Historical peer observations (literal increment):** TDG reported group operating margin 44.47%, versus HEICO/CW 16.94–21.37%; N=2, median suppressed — Strengthens the historical reported-profitability observation. Business mix and accounting differences remain; no industry ranking or normalized margin premium is established. Moog segment profit does not fill its missing group subtotal. TDG CFO/sales 25.76%, versus selected peers 5.61–17.44%; N=3, median 17.43% — Adds a real reported-cash counterweight to an operating-weakness narrative. Customer funding and receivable-sale classification prevent treating the whole spread as underlying cash quality. TDG CFO minus gross cash PP&E capex 1,880 USDm, 23.68% of sales; peer ratios 1.28–15.92%, median 15.48%, N=3 — Supports observed cash generation after this specific investment line. It excludes acquisitions, finance-lease principal and other cash uses; it is not discretionary free cash or future debt repayment. The prior 1,880 proxy is unchanged."
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C72",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 76"
+        },
+        {
+          "name": "Quote",
+          "value": "1. **Cash allocation competes with creditors:** documented debt-supported distributions and the observed quarter's financing outflow reduce the buffer despite positive OCF. Declared, payable, single-event paid and quarterly amounts remain distinct. Current legal capacity and future policy are unknown."
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C73",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 77"
+        },
+        {
+          "name": "Quote",
+          "value": "2. **Conditional debt-service pressure appears before the tested leverage watch:** CP-2G's assumed 20% earnings reduction and 10% interest increase take FY2025 cover to 2.28x versus reference 3.14x, below the 3x analyst watch. The model also stipulates growth 11.46% then 5%/5%, margin 52.94%, cash-interest rate 6%, tax/WC share 10%, capex share 2%, annual repayments 1,000, the approximate October distribution 4,348 and no extra distributions/M&A/buybacks/borrowing. Those cash assumptions and exclusions are not sourced issuer plans; the result is neither a covenant breach nor a calibrated forecast."
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C74",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 78"
+        },
+        {
+          "name": "Quote",
+          "value": "3. **Positive model cash does not prove liquidity:** CP-2G's FY2025 closing cash is 3,043.36 reference and 1,957.05 downside, but accessible liquidity and minimum cash remain null. Annual endpoints omit troughs, complete maturities/securitization/leases, financing and noncash debt movements. The 7x analyst leverage watch is not reached by FY2027 under assumed repayments; this does not prove obligations are funded."
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C75",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 79"
+        },
+        {
+          "name": "Quote",
+          "value": "4. **Earnings and debt definitions constrain comparisons:** recurring/heterogeneous adjustments leave quality earnings unresolved. Carrying debt, gross principal and the known lease/pension subtotal differ. Neither issuer EBITDA nor an engine cash proxy is sustainable FCF, covenant or agency capacity; source interest/tax provisions are not cash payments."
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C76",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 80"
+        },
+        {
+          "name": "Quote",
+          "value": "5. **Operating and environmental cash risks need targeted monitoring:** CP-2E/CP-2F identifies cost recovery, supply/safety, physical/transition and actual environmental liability 41 (prior 44). Estimate/payment changes could consume cash, but the liability is not an incremental loss. Preserve the issuer's contrary expectation about excess costs; no new realised safety event, ESG score, greenium or debt ratchet is established."
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C77",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 82"
+        },
+        {
+          "name": "Quote",
+          "value": "6. **Peer comparison restrictions (literal increment):** TDG carrying borrowing/finance-lease bridge 24,880 USDm / annual CFO = 12.17x; peers 1.94–4.86x, median 3.32x, N=3 — Keeps the large reported borrowing base visible beside high cash margins. This is not Debt/EBITDA, covenant leverage, years to repay or a normalized rating ratio. Financing/CFO classification differences prohibit an economic-debt credit ranking. Capex/sales TDG 2.08%, peer range 1.51–4.32%; Moog 4.32% — TDG is inside this selected range. Moog's investment/contract cash pattern is a real difference, not a bad datapoint removed to tighten the range. No maintenance-capex advantage is inferred. Three Web-Scraped — Unverified selection judgments; primary financial facts separately checked — Confidence in the literal statements/arithmetic is stronger than confidence that these three form the correct complete peer group. No user-approved/industry-wide conclusion follows."
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C78",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 115"
+        },
+        {
+          "name": "Quote",
+          "value": "| No current cash restrictions/location, minimum cash, covenant certificate or complete monthly plan | Liquidity, runway and funding sufficiency remain Insufficient Information; positive reported/model cash is not enough. | Obtain dated accessible resources and full uses through maturities. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C79",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 116"
+        },
+        {
+          "name": "Quote",
+          "value": "| No executed debt/indenture/collateral/intercreditor package reviewed | Legal capacity, guarantees, priority, collateral and covenant headroom remain unassessed. | Check operative documents before CP-4/security/refinancing conclusions. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C80",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 117"
+        },
+        {
+          "name": "Quote",
+          "value": "| Conditional forecast drivers and exclusions | FY2025–FY2027 paths are illustrations; 3x/7x are analyst watches. No extra cash uses/new borrowing is a scenario stipulation, not an absence finding. | Source cash costs, operating plan, financing/distributions, noncash book changes and complete maturities; preserve every assumption beside the figures. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C81",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 118"
+        },
+        {
+          "name": "Quote",
+          "value": "| Quality earnings and complete claims unresolved | No sustainable earnings, full adjusted debt or agency/covenant denominator. | Resolve components, economic treatment and governing definitions; no default haircut or zero substitution. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C82",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 119"
+        },
+        {
+          "name": "Quote",
+          "value": "| Effective hedges, currency/cost exposures and later outcomes incomplete | Reported rate/FX claims are attributed; independent net sensitivity unavailable. | Reconstruct dated exposure/protection and actual cost recovery before a quantitative adequacy claim. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C83",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 120"
+        },
+        {
+          "name": "Quote",
+          "value": "| Environmental/safety/transition quantum and sustainability debt terms incomplete | Baseline remediation is not incremental distress; no ESG score or pricing/capital-access adjustment. | Review payment/estimate changes, event-specific evidence and operative terms. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C84",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 121"
+        },
+        {
+          "name": "Quote",
+          "value": "| Source and period limits | Selected annual/interim review, unequal quarter windows, unreviewed rotated PDF 156 and incomplete visual/full-pack coverage remain. Guidance raw requests were denied; exact retrieved text survives. | Validate affected cells/sources when needed; keep annual, quarter, guidance and conditional paths separate. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    },
+    {
+      "ref_id": "C85",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 122"
+        },
+        {
+          "name": "Quote",
+          "value": "| Distribution discrepancy and other business/control gaps | Annual/interim 132/131 equivalents difference, beneficial ownership/control, complete deal pro formas and price/volume/customer evidence remain unresolved. | Obtain the specific disaggregation/proxy/operating documents; do not infer sponsor support or future actions. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+        }
+      ]
+    }
+  ],
+  "index": {
+    "facts": [
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r0",
+          "fact_id": "evidence-trace.r0.c0"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r0",
+          "fact_id": "evidence-trace.r0.c1"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r0",
+          "fact_id": "evidence-trace.r0.c2"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r0",
+          "fact_id": "evidence-trace.r0.c3"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r1",
+          "fact_id": "evidence-trace.r1.c0"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r1",
+          "fact_id": "evidence-trace.r1.c1"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r1",
+          "fact_id": "evidence-trace.r1.c2"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r1",
+          "fact_id": "evidence-trace.r1.c3"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r2",
+          "fact_id": "evidence-trace.r2.c0"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r2",
+          "fact_id": "evidence-trace.r2.c1"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r2",
+          "fact_id": "evidence-trace.r2.c2"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r2",
+          "fact_id": "evidence-trace.r2.c3"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r3",
+          "fact_id": "evidence-trace.r3.c0"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r3",
+          "fact_id": "evidence-trace.r3.c1"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r3",
+          "fact_id": "evidence-trace.r3.c2"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r3",
+          "fact_id": "evidence-trace.r3.c3"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r4",
+          "fact_id": "evidence-trace.r4.c0"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r4",
+          "fact_id": "evidence-trace.r4.c1"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r4",
+          "fact_id": "evidence-trace.r4.c2"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r4",
+          "fact_id": "evidence-trace.r4.c3"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r5",
+          "fact_id": "evidence-trace.r5.c0"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r5",
+          "fact_id": "evidence-trace.r5.c1"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r5",
+          "fact_id": "evidence-trace.r5.c2"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r5",
+          "fact_id": "evidence-trace.r5.c3"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r6",
+          "fact_id": "evidence-trace.r6.c0"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r6",
+          "fact_id": "evidence-trace.r6.c1"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r6",
+          "fact_id": "evidence-trace.r6.c2"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r6",
+          "fact_id": "evidence-trace.r6.c3"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r7",
+          "fact_id": "evidence-trace.r7.c0"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r7",
+          "fact_id": "evidence-trace.r7.c1"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r7",
+          "fact_id": "evidence-trace.r7.c2"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r7",
+          "fact_id": "evidence-trace.r7.c3"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r8",
+          "fact_id": "evidence-trace.r8.c0"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r8",
+          "fact_id": "evidence-trace.r8.c1"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r8",
+          "fact_id": "evidence-trace.r8.c2"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r8",
+          "fact_id": "evidence-trace.r8.c3"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r9",
+          "fact_id": "evidence-trace.r9.c0"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r9",
+          "fact_id": "evidence-trace.r9.c1"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r9",
+          "fact_id": "evidence-trace.r9.c2"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r9",
+          "fact_id": "evidence-trace.r9.c3"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r10",
+          "fact_id": "evidence-trace.r10.c0"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r10",
+          "fact_id": "evidence-trace.r10.c1"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r10",
+          "fact_id": "evidence-trace.r10.c2"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "evidence-trace",
+          "row_id": "r10",
+          "fact_id": "evidence-trace.r10.c3"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r0",
+          "fact_id": "T4.12.r0.c0"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r0",
+          "fact_id": "T4.12.r0.c1"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r1",
+          "fact_id": "T4.12.r1.c0"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r1",
+          "fact_id": "T4.12.r1.c1"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r2",
+          "fact_id": "T4.12.r2.c0"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r2",
+          "fact_id": "T4.12.r2.c1"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r3",
+          "fact_id": "T4.12.r3.c0"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r3",
+          "fact_id": "T4.12.r3.c1"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r4",
+          "fact_id": "T4.12.r4.c0"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r4",
+          "fact_id": "T4.12.r4.c1"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r5",
+          "fact_id": "T4.12.r5.c0"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r5",
+          "fact_id": "T4.12.r5.c1"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r6",
+          "fact_id": "T4.12.r6.c0"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r6",
+          "fact_id": "T4.12.r6.c1"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r7",
+          "fact_id": "T4.12.r7.c0"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "T4.12",
+          "row_id": "r7",
+          "fact_id": "T4.12.r7.c1"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "company_description",
+          "row_id": "company",
+          "fact_id": "company_description.company.c0"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "company_description",
+          "row_id": "company",
+          "fact_id": "company_description.company.c1"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "revenue_business_mix",
+          "row_id": "r0",
+          "fact_id": "revenue_business_mix.r0.c0"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "revenue_business_mix",
+          "row_id": "r0",
+          "fact_id": "revenue_business_mix.r0.c1"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "revenue_business_mix",
+          "row_id": "r1",
+          "fact_id": "revenue_business_mix.r1.c0"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "revenue_business_mix",
+          "row_id": "r1",
+          "fact_id": "revenue_business_mix.r1.c1"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "revenue_business_mix",
+          "row_id": "r2",
+          "fact_id": "revenue_business_mix.r2.c0"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "revenue_business_mix",
+          "row_id": "r2",
+          "fact_id": "revenue_business_mix.r2.c1"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "revenue_business_mix",
+          "row_id": "r3",
+          "fact_id": "revenue_business_mix.r3.c0"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "revenue_business_mix",
+          "row_id": "r3",
+          "fact_id": "revenue_business_mix.r3.c1"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "operating_model",
+          "row_id": "r0",
+          "fact_id": "operating_model.r0.c0"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "operating_model",
+          "row_id": "r0",
+          "fact_id": "operating_model.r0.c1"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "operating_model",
+          "row_id": "r1",
+          "fact_id": "operating_model.r1.c0"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "operating_model",
+          "row_id": "r1",
+          "fact_id": "operating_model.r1.c1"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "operating_model",
+          "row_id": "r2",
+          "fact_id": "operating_model.r2.c0"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "operating_model",
+          "row_id": "r2",
+          "fact_id": "operating_model.r2.c1"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "operating_model",
+          "row_id": "r3",
+          "fact_id": "operating_model.r3.c0"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "operating_model",
+          "row_id": "r3",
+          "fact_id": "operating_model.r3.c1"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "operating_model",
+          "row_id": "r4",
+          "fact_id": "operating_model.r4.c0"
+        },
+        "ref_ids": [
+          "C29"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "operating_model",
+          "row_id": "r4",
+          "fact_id": "operating_model.r4.c1"
+        },
+        "ref_ids": [
+          "C29"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "ownership_register",
+          "row_id": "r0",
+          "fact_id": "ownership_register.r0.c0"
+        },
+        "ref_ids": [
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "ownership_register",
+          "row_id": "r0",
+          "fact_id": "ownership_register.r0.c1"
+        },
+        "ref_ids": [
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "ownership_register",
+          "row_id": "r1",
+          "fact_id": "ownership_register.r1.c0"
+        },
+        "ref_ids": [
+          "C31"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "ownership_register",
+          "row_id": "r1",
+          "fact_id": "ownership_register.r1.c1"
+        },
+        "ref_ids": [
+          "C31"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r0",
+          "fact_id": "transaction_summary.r0.c0"
+        },
+        "ref_ids": [
+          "C32"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r1",
+          "fact_id": "transaction_summary.r1.c0"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r2",
+          "fact_id": "transaction_summary.r2.c0"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r3",
+          "fact_id": "transaction_summary.r3.c0"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r4",
+          "fact_id": "transaction_summary.r4.c0"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r5",
+          "fact_id": "transaction_summary.r5.c0"
+        },
+        "ref_ids": [
+          "C37"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r6",
+          "fact_id": "transaction_summary.r6.c0"
+        },
+        "ref_ids": [
+          "C38"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r7",
+          "fact_id": "transaction_summary.r7.c0"
+        },
+        "ref_ids": [
+          "C39"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r8",
+          "fact_id": "transaction_summary.r8.c0"
+        },
+        "ref_ids": [
+          "C40"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r9",
+          "fact_id": "transaction_summary.r9.c0"
+        },
+        "ref_ids": [
+          "C41"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r10",
+          "fact_id": "transaction_summary.r10.c0"
+        },
+        "ref_ids": [
+          "C42"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r11",
+          "fact_id": "transaction_summary.r11.c0"
+        },
+        "ref_ids": [
+          "C43"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r12",
+          "fact_id": "transaction_summary.r12.c0"
+        },
+        "ref_ids": [
+          "C44"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r13",
+          "fact_id": "transaction_summary.r13.c0"
+        },
+        "ref_ids": [
+          "C45"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r14",
+          "fact_id": "transaction_summary.r14.c0"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r15",
+          "fact_id": "transaction_summary.r15.c0"
+        },
+        "ref_ids": [
+          "C47"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "transaction_summary",
+          "row_id": "r16",
+          "fact_id": "transaction_summary.r16.c0"
+        },
+        "ref_ids": [
+          "C48"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "events_timeline",
+          "row_id": "r0",
+          "fact_id": "events_timeline.r0.c0"
+        },
+        "ref_ids": [
+          "C49"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "events_timeline",
+          "row_id": "r1",
+          "fact_id": "events_timeline.r1.c0"
+        },
+        "ref_ids": [
+          "C50"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "events_timeline",
+          "row_id": "r2",
+          "fact_id": "events_timeline.r2.c0"
+        },
+        "ref_ids": [
+          "C51"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "events_timeline",
+          "row_id": "r3",
+          "fact_id": "events_timeline.r3.c0"
+        },
+        "ref_ids": [
+          "C52"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "events_timeline",
+          "row_id": "r4",
+          "fact_id": "events_timeline.r4.c0"
+        },
+        "ref_ids": [
+          "C53"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "events_timeline",
+          "row_id": "r5",
+          "fact_id": "events_timeline.r5.c0"
+        },
+        "ref_ids": [
+          "C54"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "events_timeline",
+          "row_id": "r6",
+          "fact_id": "events_timeline.r6.c0"
+        },
+        "ref_ids": [
+          "C55"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "events_timeline",
+          "row_id": "r7",
+          "fact_id": "events_timeline.r7.c0"
+        },
+        "ref_ids": [
+          "C56"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "events_timeline",
+          "row_id": "r8",
+          "fact_id": "events_timeline.r8.c0"
+        },
+        "ref_ids": [
+          "C57"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "gaps_ledger",
+          "row_id": "r0",
+          "fact_id": "gaps_ledger.r0.c0"
+        },
+        "ref_ids": [
+          "C58"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "gaps_ledger",
+          "row_id": "r0",
+          "fact_id": "gaps_ledger.r0.c1"
+        },
+        "ref_ids": [
+          "C58"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "gaps_ledger",
+          "row_id": "r1",
+          "fact_id": "gaps_ledger.r1.c0"
+        },
+        "ref_ids": [
+          "C59"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "gaps_ledger",
+          "row_id": "r1",
+          "fact_id": "gaps_ledger.r1.c1"
+        },
+        "ref_ids": [
+          "C59"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "gaps_ledger",
+          "row_id": "r2",
+          "fact_id": "gaps_ledger.r2.c0"
+        },
+        "ref_ids": [
+          "C60"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "gaps_ledger",
+          "row_id": "r2",
+          "fact_id": "gaps_ledger.r2.c1"
+        },
+        "ref_ids": [
+          "C60"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "gaps_ledger",
+          "row_id": "r3",
+          "fact_id": "gaps_ledger.r3.c0"
+        },
+        "ref_ids": [
+          "C61"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "gaps_ledger",
+          "row_id": "r3",
+          "fact_id": "gaps_ledger.r3.c1"
+        },
+        "ref_ids": [
+          "C61"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "gaps_ledger",
+          "row_id": "r4",
+          "fact_id": "gaps_ledger.r4.c0"
+        },
+        "ref_ids": [
+          "C62"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "gaps_ledger",
+          "row_id": "r4",
+          "fact_id": "gaps_ledger.r4.c1"
+        },
+        "ref_ids": [
+          "C62"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "gaps_ledger",
+          "row_id": "r5",
+          "fact_id": "gaps_ledger.r5.c0"
+        },
+        "ref_ids": [
+          "C63"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "gaps_ledger",
+          "row_id": "r5",
+          "fact_id": "gaps_ledger.r5.c1"
+        },
+        "ref_ids": [
+          "C63"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "gaps_ledger",
+          "row_id": "r6",
+          "fact_id": "gaps_ledger.r6.c0"
+        },
+        "ref_ids": [
+          "C64"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1A",
+          "table_id": "gaps_ledger",
+          "row_id": "r6",
+          "fact_id": "gaps_ledger.r6.c1"
+        },
+        "ref_ids": [
+          "C64"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "cp2.key_findings",
+          "row_id": "r0",
+          "fact_id": "cp2.key_findings.r0.c0"
+        },
+        "ref_ids": [
+          "C65"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "cp2.thesis",
+          "row_id": "r0",
+          "fact_id": "cp2.thesis.r0.c0"
+        },
+        "ref_ids": [
+          "C66"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "cp2.strengths",
+          "row_id": "r0",
+          "fact_id": "cp2.strengths.r0.c0"
+        },
+        "ref_ids": [
+          "C67"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "cp2.strengths",
+          "row_id": "r1",
+          "fact_id": "cp2.strengths.r1.c0"
+        },
+        "ref_ids": [
+          "C68"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "cp2.strengths",
+          "row_id": "r2",
+          "fact_id": "cp2.strengths.r2.c0"
+        },
+        "ref_ids": [
+          "C69"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "cp2.strengths",
+          "row_id": "r3",
+          "fact_id": "cp2.strengths.r3.c0"
+        },
+        "ref_ids": [
+          "C70"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "cp2.strengths",
+          "row_id": "r4",
+          "fact_id": "cp2.strengths.r4.c0"
+        },
+        "ref_ids": [
+          "C71"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "cp2.weaknesses",
+          "row_id": "r0",
+          "fact_id": "cp2.weaknesses.r0.c0"
+        },
+        "ref_ids": [
+          "C72"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "cp2.weaknesses",
+          "row_id": "r1",
+          "fact_id": "cp2.weaknesses.r1.c0"
+        },
+        "ref_ids": [
+          "C73"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "cp2.weaknesses",
+          "row_id": "r2",
+          "fact_id": "cp2.weaknesses.r2.c0"
+        },
+        "ref_ids": [
+          "C74"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "cp2.weaknesses",
+          "row_id": "r3",
+          "fact_id": "cp2.weaknesses.r3.c0"
+        },
+        "ref_ids": [
+          "C75"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "cp2.weaknesses",
+          "row_id": "r4",
+          "fact_id": "cp2.weaknesses.r4.c0"
+        },
+        "ref_ids": [
+          "C76"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "cp2.weaknesses",
+          "row_id": "r5",
+          "fact_id": "cp2.weaknesses.r5.c0"
+        },
+        "ref_ids": [
+          "C77"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r0",
+          "fact_id": "T2.12.r0.c0"
+        },
+        "ref_ids": [
+          "C78"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r0",
+          "fact_id": "T2.12.r0.c1"
+        },
+        "ref_ids": [
+          "C78"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r1",
+          "fact_id": "T2.12.r1.c0"
+        },
+        "ref_ids": [
+          "C79"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r1",
+          "fact_id": "T2.12.r1.c1"
+        },
+        "ref_ids": [
+          "C79"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r2",
+          "fact_id": "T2.12.r2.c0"
+        },
+        "ref_ids": [
+          "C80"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r2",
+          "fact_id": "T2.12.r2.c1"
+        },
+        "ref_ids": [
+          "C80"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r3",
+          "fact_id": "T2.12.r3.c0"
+        },
+        "ref_ids": [
+          "C81"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r3",
+          "fact_id": "T2.12.r3.c1"
+        },
+        "ref_ids": [
+          "C81"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r4",
+          "fact_id": "T2.12.r4.c0"
+        },
+        "ref_ids": [
+          "C82"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r4",
+          "fact_id": "T2.12.r4.c1"
+        },
+        "ref_ids": [
+          "C82"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r5",
+          "fact_id": "T2.12.r5.c0"
+        },
+        "ref_ids": [
+          "C83"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r5",
+          "fact_id": "T2.12.r5.c1"
+        },
+        "ref_ids": [
+          "C83"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r6",
+          "fact_id": "T2.12.r6.c0"
+        },
+        "ref_ids": [
+          "C84"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r6",
+          "fact_id": "T2.12.r6.c1"
+        },
+        "ref_ids": [
+          "C84"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r7",
+          "fact_id": "T2.12.r7.c0"
+        },
+        "ref_ids": [
+          "C85"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "T2.12",
+          "row_id": "r7",
+          "fact_id": "T2.12.r7.c1"
+        },
+        "ref_ids": [
+          "C85"
+        ]
+      }
+    ]
+  }
+}

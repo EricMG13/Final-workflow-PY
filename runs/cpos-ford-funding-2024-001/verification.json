@@ -1,0 +1,358 @@
+{
+  "status": "progress: bounded CP-3C funding intake delivered through CP-OS; full module/pathway objective remains active",
+  "execution": "retained-response-replay",
+  "fresh_model_run": false,
+  "provider_calls": 0,
+  "subagents_used": false,
+  "excel_output": false,
+  "scope": "Historical Ford Otomotiv Sanayi A.S. (Ford Otosan), April 11, 2024. Bounded published-plan funding intake from actual retained handoffs. Plan covers 2024 starting January 1; not twelve months from the April review. Displayed rounded TRY-billion components use the full up-to-2 working-capital swing. Proposed bond proceeds and purpose-specific capex facility availability remain conditional; dividend overlay and exactly-15% capex mitigation are separate stipulated cases, not actual failures or the agency working model. TRY-million forecasts remain separate. Complete maturities, operative documents, unrestricted access, refinancing/LME feasibility, creditor treatment and outcomes remain unassessed. Retained-response replay, not fresh model/provider/native acceptance. Excel is an analytical input only; no workbook output.",
+  "workflow": {
+    "path": "runs/cpos-ford-funding-2024-001/workflow.json",
+    "sha256": "12efe40be0c1a86e001152b0648ef1d4d27a0d9ddcd37cbd8db9e420e2086b06"
+  },
+  "ordered_modules": [
+    "CP-0",
+    "CP-1",
+    "CP-2G",
+    "CP-2H",
+    "CP-3C"
+  ],
+  "retained_handoffs": {
+    "CP-0": {
+      "path": "../ford-otosan-2024-001/CP-0.md",
+      "sha256": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+      "source_hashes": {
+        "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+        "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+        "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+        "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+        "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+        "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+        "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+        "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+        "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+        "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+        "funding-calculations": "df4315aa49b67bb1254ea75d1517188af16e6ef09469171a7ecdda20e257dc63",
+        "funding-method": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72",
+        "funding-calculation-implementation": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3"
+      },
+      "upstream": {}
+    },
+    "CP-1": {
+      "path": "../ford-otosan-2024-001/CP-1-selected-input.md",
+      "sha256": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+      "source_hashes": {
+        "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+        "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+        "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+        "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+        "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+        "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+        "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+        "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+        "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+        "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+        "funding-calculations": "df4315aa49b67bb1254ea75d1517188af16e6ef09469171a7ecdda20e257dc63",
+        "funding-method": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72",
+        "funding-calculation-implementation": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3"
+      },
+      "upstream": {
+        "CP-0": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79"
+      }
+    },
+    "CP-2G": {
+      "path": "../ford-otosan-2024-001/CP-2G-published-forecast.md",
+      "sha256": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931",
+      "source_hashes": {
+        "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+        "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+        "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+        "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+        "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+        "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+        "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+        "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+        "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+        "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+        "funding-calculations": "df4315aa49b67bb1254ea75d1517188af16e6ef09469171a7ecdda20e257dc63",
+        "funding-method": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72",
+        "funding-calculation-implementation": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3"
+      },
+      "upstream": {
+        "CP-0": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+        "CP-1": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af"
+      }
+    },
+    "CP-2H": {
+      "path": "../ford-otosan-2024-001/CP-2H-attempt-2.md",
+      "sha256": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72",
+      "source_hashes": {
+        "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+        "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+        "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+        "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+        "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+        "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+        "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+        "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+        "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+        "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+        "funding-calculations": "df4315aa49b67bb1254ea75d1517188af16e6ef09469171a7ecdda20e257dc63",
+        "funding-method": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72",
+        "funding-calculation-implementation": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3"
+      },
+      "upstream": {
+        "CP-0": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+        "CP-1": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+        "CP-2G": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931"
+      }
+    },
+    "CP-3C": {
+      "path": "../ford-otosan-2024-001/CP-3C-consumer.md",
+      "sha256": "4dacb927b491334e57cd01fd848437156975cb0e1b44599e92eeaee490acaed8",
+      "source_hashes": {
+        "captured/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+        "captured/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+        "captured/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839",
+        "captured/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+        "financial-calculations": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+        "ratings-calculations": "12a99581f3e902d705f899946ac7dc8de2ad2936e036bed6c4ea0ab63c2c43a8",
+        "original-instructions": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983",
+        "selected-method": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+        "step-method": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+        "later-method": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+        "funding-calculations": "df4315aa49b67bb1254ea75d1517188af16e6ef09469171a7ecdda20e257dc63",
+        "funding-method": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72",
+        "funding-calculation-implementation": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3"
+      },
+      "upstream": {
+        "CP-0": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+        "CP-1": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+        "CP-2G": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931",
+        "CP-2H": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72"
+      }
+    }
+  },
+  "method_selection": {
+    "original_instructions": {
+      "path": "../ford-otosan-2024-001/instructions.md",
+      "sha256": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983"
+    },
+    "later_method": {
+      "path": "../../src/deploy_vii/methods/cp3c.md",
+      "sha256": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72"
+    },
+    "arithmetic_implementation": {
+      "path": "../../src/deploy_workflow/owners/cp3c.py",
+      "sha256": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3"
+    },
+    "limitation": "Selected source-plan intake; later native T3D facility/maturity engine is not represented as executed."
+  },
+  "model_output_comparison": {
+    "requested": "Read CP-2H and published forecast, reconcile rounded plan, distinguish cash use and access assumptions, retain gaps.",
+    "observed": "Exact upstream hashes retained; six independent conditional calculations match; no realised failure or complete refinancing conclusion asserted.",
+    "changes_justified": "No analytical/methodology change. A reproduced wrapped-name false refusal justified whitespace normalisation in the existing delivery identity check; exact source bytes/citations remain untouched. Existing layout selectors connect the supported handoff.",
+    "original_downstream_consumption": {
+      "CP-5_verification": "runs/ford-otosan-2024-001/CP-5-verification.json",
+      "consumed_CP-3C_sha256": "4dacb927b491334e57cd01fd848437156975cb0e1b44599e92eeaee490acaed8",
+      "CP-6": "Original actual debate reads the funding plan and its conditional cases."
+    }
+  },
+  "independent_checks": {
+    "source_literal_checks": 14,
+    "source_locators": [
+      "S&P PDF pages 7–8, captured L475–505",
+      "cash L486",
+      "cash FFO L488",
+      "planned bond L490",
+      "facility L492",
+      "maturities L495",
+      "WC L497",
+      "up-to WC swing L499",
+      "capex L501–502",
+      "dividends L504–505"
+    ],
+    "source_total_try_bn": "546/5",
+    "use_total_try_bn": "907/10",
+    "case_ratios_and_balances": [
+      [
+        "Published-plan component reproduction",
+        "109.2 / 90.7",
+        "18.5",
+        "1.2040x"
+      ],
+      [
+        "Remove planned bond",
+        "93.2 / 90.7",
+        "2.5",
+        "1.0276x"
+      ],
+      [
+        "Assume capex facility unavailable",
+        "94.2 / 90.7",
+        "3.5",
+        "1.0386x"
+      ],
+      [
+        "Remove both sources",
+        "78.2 / 90.7",
+        "(12.5)",
+        "0.8622x"
+      ],
+      [
+        "Add unstressed distribution overlay",
+        "109.2 / 117.8",
+        "(8.6)",
+        "0.9270x"
+      ],
+      [
+        "Illustrative 15% capex reduction",
+        "109.2 / 83.755",
+        "25.445",
+        "1.3038x"
+      ]
+    ],
+    "arithmetic": "Fraction/integer four-decimal rounding; no production financial helpers used for expected results.",
+    "all_exported_facts": 179,
+    "all_exact_source_citations": 325,
+    "conditional_table_rows": 6,
+    "conditional_table_cells_including_labels": 24,
+    "upstream_and_source_sha_checks": true,
+    "checked_resume_and_cli_equivalent_replay": true,
+    "prior_publications_original_case_and_production_files_unchanged": 294,
+    "four_current_publications_recomputed_byte_identical": {
+      "cpos-ford-ratings-2024-001": {
+        "publication": "8840802b892e729314078d335ecd5a0965d67e9ad32f5b34468daae73a321f56",
+        "matching_manifest": "delivery-8622cddc1cea7a9418f37093b7395695fa717a2027f5866ae7d1c636b73f41f1.json"
+      },
+      "cpos-tdg-earnings-001": {
+        "publication": "25d29570b506ce5c1536ad3a0b564387598b0f1deed58e702d55e3787238b10f",
+        "matching_manifest": "delivery-9ed34030883a6dd97665988778eb6ebb5619bd6a3bfeebc1cb8aad9026dec956.json"
+      },
+      "cpos-tdg-quality-001": {
+        "publication": "c93479b08736770845f403c97825fc55c86c2e1ea58a39ca876056c7a13e849b",
+        "matching_manifest": "delivery-e460dfd487bbc5b4fd8220d16c4b17ed2ca4f04ee830d321c87c48bf2d989a41.json"
+      },
+      "cpos-tdg-assurance-001": {
+        "publication": "d7e9aed9c0da5d2bc7b91f839456c0a0e449a6f200e82d36d5ba335f5351da66",
+        "matching_manifest": "delivery-8b9fd5b8f04cd6285da90e4b5deb07835a852bb422a7adddf4de33f175afdf98.json"
+      }
+    },
+    "all_prior_manifest_outputs_identical_before_vs_after_whitespace_fix": 7
+  },
+  "delivery": {
+    "path": "runs/cpos-ford-funding-2024-001/execution/deliveries/526e1b1a46636703a009b9652e982f87df45f147643b2bd082285353a8e5bf58/report.html",
+    "sha256": "8229b08484fbe186c0cfc82dd845ae3dfae1de23781e453ddcd1ca531e55a0ab",
+    "receipt_sha256": "91022ea4dc8559038fa1d29a738a97efbb8ba3e0c7b6c0bf35c690bc7dc85323",
+    "all_files_verified": true,
+    "blocks": [
+      "funding-gap",
+      "refinancing-paths"
+    ],
+    "scope": "Existing report HTML/View JSON/actual Markdown; no workbook deliverable."
+  },
+  "confidence_review": {
+    "scope": "Retained case configuration plus whitespace-only identity comparison fix in markdown_files; no new branch, schema, signature or financial calculation.",
+    "ranked_doubts": [
+      {
+        "point": "Issuer identity falsely rejected for a physically wrapped name",
+        "investigated": "Actual CP-3C Request wraps Ford Otosan over two lines; pre-fix run fails markdown_issuer. Six whitespace/name variants also fail. The comparison used physical whitespace literally.",
+        "verdict": "confirmed bug",
+        "patch": "Collapse whitespace separately within title and Request and configured identity names for comparison only; preserve the newline between the two declarations and retain all original bytes/citations."
+      },
+      {
+        "point": "Normalisation could assemble an issuer identity across unrelated title/Request text",
+        "investigated": "Concrete title ending Ford plus Request starting Otosan was accepted by the first repair. Regression failed before the boundary correction and passes afterwards.",
+        "verdict": "confirmed intermediate bug, repaired before completion",
+        "patch": "Keep title and Request as separate normalised declarations. Do not join their boundary with a space."
+      },
+      {
+        "point": "Conditional balances misrepresented as actual shortfall or funding certainty",
+        "investigated": "Original model answer, source L475–505, table labels and new visible scope preserve conditions and gaps. Up-to-2 swing and at-least-15% source mitigation explicitly qualified.",
+        "verdict": "verified within bounded case",
+        "patch": "none"
+      },
+      {
+        "point": "Wrong units/horizon/agency operands",
+        "investigated": "Source TRY-billion rounded plan and January 1 start checked independently; TRY-million adjusted FFO and Fitch cash explicitly excluded.",
+        "verdict": "verified",
+        "patch": "none"
+      },
+      {
+        "point": "Wrong source or predecessor mutation",
+        "investigated": "All pinned source/upstream hashes and original downstream consumed hash agree; protected source/code/publication bytes checked unchanged.",
+        "verdict": "verified",
+        "patch": "none"
+      },
+      {
+        "point": "Delivery changes financial signs, loses qualifiers or emits Excel",
+        "investigated": "Six table rows/cells equal independent expected literals; every fact source line/hash checked; exact file-set limited to MD/JSON/HTML.",
+        "verdict": "verified",
+        "patch": "none"
+      },
+      {
+        "point": "Replay or incomplete analysis overstated as live/native/full proof",
+        "investigated": "Mode, title/question and scope explicitly bounded; five exact retained answers, no fresh executor call. Full legal/access/maturity/feasibility fields remain gaps.",
+        "verdict": "by design; broader scope open",
+        "patch": "none"
+      },
+      {
+        "point": "Resume re-executes or invents an unused cash model",
+        "investigated": "No-executor callback passes initial retained use and checked resume; five modules only, no CP-2D request.",
+        "verdict": "verified",
+        "patch": "none"
+      }
+    ]
+  },
+  "rewrite_tournament": "Post-edit materiality check: skipped per skill, fewer than 15 changed production lines with no new branching; existing comparison string normalisation only. Configuration/docs/test-only work also excluded. No agents.",
+  "browser_verification": {
+    "result": "passed",
+    "title": "Ford Otosan · historical funding review",
+    "scenario_table": "Six rows visible, TRY bn labels, negative differences (12.5) and (8.6) preserved.",
+    "source_inspector": {
+      "locator": "line 43",
+      "quote": "| Remove both sources | 78.2 / 90.7 | (12.5) | 0.8622x |",
+      "sha256": "4dacb927b491334e57cd01fd848437156975cb0e1b44599e92eeaee490acaed8"
+    },
+    "gap_tab": "Full funding need, legal capacity, feasibility, priority/recovery and LME score explicitly unassessed.",
+    "scope": "Historical retained replay, not fresh/native acceptance; no workbook output.",
+    "local_server": "stopped; process exited after SIGINT",
+    "final_html_sha256_unchanged_since_browser_check": "8229b08484fbe186c0cfc82dd845ae3dfae1de23781e453ddcd1ca531e55a0ab"
+  },
+  "limits": [
+    "No fresh isolated/model/provider/native run.",
+    "No raw-PDF/full visual source audit.",
+    "No complete maturity/facility/legal capacity, financing outcome or LME feasibility.",
+    "No current TDG or Ford underwriting.",
+    "Default fresh CP-3C requirements remain unchanged."
+  ],
+  "checks": {
+    "pre_fix_reproduction": "Original actual CP-3C publication refused markdown_issuer. Six whitespace regression cases failed before repair. Cross-title/Request false identity was then reproduced and corrected.",
+    "pytest": {
+      "command": "PYTHONPATH=src:tests:tests/prompts .venv/bin/pytest -q tests/test_retained_planning.py tests/test_markdown_delivery.py tests/test_cpos_handoffs.py tests/test_handoff_delivery.py tests/test_model_handoff_delivery.py tests/test_cpos_comparison.py",
+      "result": "115 passed in 15.79s"
+    },
+    "ruff": "ruff check src/deploy_workflow/markdown_delivery.py tests/test_retained_planning.py — passed; tests formatted.",
+    "mypy": "mypy --follow-imports=silent src/deploy_workflow/markdown_delivery.py — passed",
+    "production_diff": "Against saved pre-edit file: comparison strings only; title/Request boundary retained. No new branch, signature, side effect or financial calculation.",
+    "impact_set": {
+      "function": "markdown_files",
+      "direct_caller": "handoff_delivery.delivery_files",
+      "indirect_processes": [
+        "CP-OS handoff publication/replay/comparison",
+        "manual delivery/verification"
+      ],
+      "interfaces": "unchanged; focused tests and one-file mypy pass"
+    },
+    "excel_boundary": "No runtime Workbook constructor/save, ExcelWriter, to_excel, xlsxwriter or workbook-export implementation found. XLSX remains ingested source data. Publication file set is MD/JSON/HTML.",
+    "pins": ".venv/bin/python -I cases/pins.py --check — cases/PINS.json matches 219 paths"
+  },
+  "revisions": {
+    "src/deploy_workflow/markdown_delivery.py": "35aabcd41873ef744f9dc71b3feaa0460faa1e01d5117ced612429bbb3f47c25",
+    "tests/test_retained_planning.py": "0d69c5e265292c7d3d5a1edfd51880406cb686bcddf97a0c6028ccd0ac658158",
+    "AGENTS.md": "fb690d4ff4bae921dcfc825db0fc6e2ec5259b44fe105aa98815455389034da2",
+    "README.md": "0320bf9c2718094ca85fd77df91184f38a4c1ac59816e8e1d88e2a4478878cba",
+    "VERIFICATION.md": "a1d9ecd6e476aaafb329d221d1ff68faefef5c6a9349ed43f67a4cf70fb0cfa2",
+    "markdown_delivery_before_wrapped_issuer_sha256": "cb3a01998555f9a5054ec0c1f3e575f2770c64f551fcca8bb2189193334fab40"
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "execution": {
+    "date": "2026-11-04",
+    "issuer": "Ares Capital Corporation",
+    "period": "2024-12-31",
+    "mode": "Current host model with prior context; sequential, not independent/isolated provider/native execution",
+    "paid_calls": 0,
+    "agents_spawned": 0,
+    "source_choice": "User permits older/different real issuer; separate cases",
+    "instruction_timing": "Acquisition/preflight before lock; all outputs after lock"
+  },
+  "source_files": {
+    "runs/arcc-2024-001/sources/ARCC-FY2024-10K.pdf": "4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170",
+    "runs/arcc-2024-001/sources/annual-pages.txt": "9e216fdd000f529b4f1c452d5786b2ec9e0cab69e8fcd9659558d87d8b4e1976",
+    "runs/arcc-2024-001/sources/base-lines.txt": "ef8ad4d8a3d5902746726697b6f6fa53058d7445b59d99157cbea6258bf2d459",
+    "runs/arcc-2024-001/sources/legal-retrieval.json": "06afc88ecf898d1107d395cf01072a6006304aef000c52b2aa123ddcff1dc308",
+    "runs/arcc-2024-001/sources/legal-web-captures.json": "53550ae8ebd03dd5c53c5a74586a6bae261c761578a3216fda9b2a801bf301bd",
+    "runs/arcc-2024-001/sources/retrieval.json": "dde226403000f751ac243b8ac1094c4d1b383a5f9be8d7b7117d61397254f3eb",
+    "runs/arcc-2024-001/sources/supplement-lines.txt": "bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c"
+  },
+  "legal_text_coverage": {
+    "base": {
+      "captures": 12,
+      "indexed_lines": 1706,
+      "matching_overlaps": 744,
+      "boundary_truncations": [
+        {
+          "index": 815,
+          "shorter_capture": 720
+        }
+      ],
+      "conflicting_overlaps": [],
+      "missing": []
+    },
+    "supplement": {
+      "captures": 3,
+      "indexed_lines": 525,
+      "matching_overlaps": 359,
+      "boundary_truncations": [],
+      "conflicting_overlaps": [],
+      "missing": []
+    }
+  },
+  "visual_checks": {
+    "pdf_pages_1_based": [
+      65,
+      274
+    ],
+    "scope": "Rendered retained original and viewed both; not all 320 pages"
+  },
+  "instructions": {
+    "path": "runs/arcc-2024-001/instructions.md",
+    "sha256": "303f7e3feb932ae83a1a1dbf17e9b5aa240d3a233ab4c7e58ff1e20da69f60e5"
+  },
+  "methods": [
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-6-ic-debate-challenge/SKILL.md",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/SKILL.md",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-6-ic-debate-challenge/SKILL.md",
+      "sha256": "0ae74db02dd569fe7805e62a661f22cd436494183ba5cb928f8be37aa549a96b",
+      "use": "unchanged selected methodology; historical source is evidence, not inherited authority"
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-6-ic-debate-challenge/references/REF_CP-6_STEPS.md",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/references/REF_CP-6_STEPS.md",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-6-ic-debate-challenge/references/REF_CP-6_STEPS.md",
+      "sha256": "6141d27e800d45d2d0208173f38060c75d97005ee9b93013e24a16a40570f1e1",
+      "use": "unchanged selected methodology; historical source is evidence, not inherited authority"
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/references/CP-4_RUNBOOK.md",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/references/CP-4_RUNBOOK.md",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/references/CP-4_RUNBOOK.md",
+      "sha256": "abe96a72629686818d5697fbf7a9ccedaf90c3f6d80ca8c46fa3dd27b461ad57",
+      "use": "unchanged selected legal interpretation methodology; historical evidence, not inherited authority"
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/references/REF_CP-4_STEPS.md",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/references/REF_CP-4_STEPS.md",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/references/REF_CP-4_STEPS.md",
+      "sha256": "ef5eb569be59ec30dd3a66c1bcc81c5cc0bcc2e9d2ac3909b04caa23339b6b94",
+      "use": "unchanged selected legal interpretation methodology; historical evidence, not inherited authority"
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/references/CP-4A_RUNBOOK.md",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/references/CP-4A_RUNBOOK.md",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/references/CP-4A_RUNBOOK.md",
+      "sha256": "1ca9d2d86d40772d6c4a1df3052af174ab10ee80a27460dfcee0de93a227e5bc",
+      "use": "unchanged selected historical methodology; current project transport/authority governs"
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/references/REF_CP-4A_STEPS.md",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/references/REF_CP-4A_STEPS.md",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/references/REF_CP-4A_STEPS.md",
+      "sha256": "30cf03f343a9153aa85d6492e6bad519ab5d639395dae2b686de4b8276764e98",
+      "use": "unchanged selected historical methodology; current project transport/authority governs"
+    }
+  ],
+  "outputs": {
+    "runs/arcc-2024-001/CP-0.md": "8347534cab302ae92b4e097f7a7d08a0ea69945337a0cadaf575526578ea83e5",
+    "runs/arcc-2024-001/CP-1.md": "ed934cea757dec38962ec99f87e86725e4d10e08a2b4865e0bee1ebd3ab4b240",
+    "runs/arcc-2024-001/CP-4.md": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9",
+    "runs/arcc-2024-001/CP-4A-attempt-1.md": "ca53528bf1f6d9758a7d9194e76af181eb884e237388fe46e839e601606168b6",
+    "runs/arcc-2024-001/CP-6-capacity-consumer.md": "02091a993792739fdb4c0a5ca235be6f80b0f0a3a6e5b27d0b7674d559f18b14"
+  },
+  "source_machine_checks": {
+    "issuer": true,
+    "ratio_minimum_period": true,
+    "per_unit_definition": true,
+    "quantity_roles": true,
+    "conditional_increase": true,
+    "coupon_and_hedge": true,
+    "subsequent_events": true,
+    "base_covenant": true,
+    "conditional_defeasance": true,
+    "repurchase_price_100": true
+  },
+  "transport_checks": {
+    "CP-0.md": [
+      "Request",
+      "Sources",
+      "Findings",
+      "Calculations",
+      "Gaps",
+      "Next module"
+    ],
+    "CP-1.md": [
+      "Request",
+      "Sources",
+      "Findings",
+      "Calculations",
+      "Gaps",
+      "Next module"
+    ],
+    "CP-4.md": [
+      "Request",
+      "Sources",
+      "Findings",
+      "Calculations",
+      "Gaps",
+      "Next module"
+    ],
+    "CP-4A-attempt-1.md": [
+      "Request",
+      "Sources",
+      "Findings",
+      "Calculations",
+      "Gaps",
+      "Next module"
+    ],
+    "CP-6-capacity-consumer.md": [
+      "Request",
+      "Sources",
+      "Findings",
+      "Calculations",
+      "Gaps",
+      "Next module"
+    ]
+  },
+  "calculation": {
+    "helper": "unchanged cp4_legal.parse_threshold / headroom",
+    "per_unit": "1962",
+    "unit_base": "1000",
+    "minimum_ratio": "1.5",
+    "comparison": ">=",
+    "actual_room_ratio": "0.462",
+    "actual_room_pp": "46.200",
+    "independent_expected": "Fraction(462,1000), literal source-derived expectation independent of production arithmetic",
+    "numeric_within": true,
+    "whole_percent_room_pp": "46",
+    "conditional_ceiling_difference_usdm": "2219",
+    "independent_ceiling_expected": "2219",
+    "precision": "Published per-unit / rounded snapshot; no exact unrounded compliance",
+    "dollar_usable_debt_capacity": null,
+    "rp_capacity": null,
+    "leakage_capacity": null
+  },
+  "synthetic_controls": [
+    {
+      "metric": "1.499",
+      "room": "-0.001",
+      "within": false,
+      "scope": "Synthetic helper boundary, not issuer event"
+    },
+    {
+      "metric": "1.500",
+      "room": "0.000",
+      "within": true,
+      "scope": "Synthetic helper boundary, not issuer event"
+    },
+    {
+      "metric": "1.501",
+      "room": "0.001",
+      "within": true,
+      "scope": "Synthetic helper boundary, not issuer event"
+    }
+  ],
+  "output_review": {
+    "result": "First attempt retained; selected instruction/source comparison found no confirmed output defect requiring repair",
+    "review_mode": "Same host model/source review plus independent arithmetic, not independent expert approval",
+    "duties": "All 13 functional duties considered; applicable incurrence cushion positive; other industrial basket families not proven",
+    "confirmed_distinctions": [
+      "after-borrowing incurrence versus maintenance",
+      "separate 100%/24-month default and notice limb",
+      "conditional defeasance",
+      "per-unit versus whole-percent precision",
+      "principal/carrying/cash/commitments",
+      "post-period gross issuance and authorization versus actual usage",
+      "no dollar capacity from rounded ratio"
+    ],
+    "checker_correction": "Initial assertion expected literal T4C.2 instead of combined T4C.1\u20132 heading; corrected checker, no output change",
+    "production_change_justified": false
+  },
+  "downstream_consumption": {
+    "path": "runs/arcc-2024-001/CP-6-capacity-consumer.md",
+    "input_sha256": "ca53528bf1f6d9758a7d9194e76af181eb884e237388fe46e839e601606168b6",
+    "actual": true,
+    "scope": "Focused capacity challenge, not full CP-6 gate",
+    "result": "Published cushion retained; present usable financing inference rejected",
+    "trade_or_sizing_action": false
+  },
+  "claims_not_made": [
+    "current/all-contract compliance",
+    "exact transaction-date headroom",
+    "positive every-basket proof",
+    "full native/provider acceptance",
+    "complete underwriting pathway or final delivery"
+  ]
+}

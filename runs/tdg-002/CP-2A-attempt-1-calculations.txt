@@ -1,0 +1,68 @@
+CP-2A attempt 1 — exact calculation transcript
+
+Input and function identity
+  Method: src/deploy_vii/methods/cp2a.md, SHA-256 28be81bfb97a83e739e4a514612a2db3bf12b72480128f54c66c33fc2ab06236
+  Code: src/deploy_workflow/owners/cp2a.py, SHA-256 b246e5bdcb4622511ac557d4bb3a5afd7aa2f22960f69e00ac4fba235a76b5fe
+  Functions used: BaseOperands, stress, ThresholdSpec, break_points, rank, crossing
+  Adaptation: BaseOperands constructed directly from actual Markdown handoff operands; lineage retained in inputs JSON/Markdown. No Fact records, sources map, runtime, provider or source code modification.
+  Arithmetic uses Decimal operands and the existing function's exact sum/product behavior and 38-digit CONTEXT division. Rankings use required_exact fractions, without rounding.
+
+BaseOperands (USD millions; FY2024, 2023-10-01 through 2024-09-30)
+  EBITDA As Defined E = 4173
+  cash interest I = 1158 (positive magnitude of cash interest paid)
+  cash-after-capex proxy F = OCF 2045 - capex 165 = 1880
+  debt D = carrying-value sum 24296 + 98 + 486 = 24880
+  closing reported cash C = 6261
+  net debt D-C = 18619
+  CP-1 reported-ratio reconciliation inputs: missing; no ratios supplied in accepted CP-1 handoff. No reconciliation is claimed.
+
+Stress equations (existing stress function)
+  E' = E * (1-s)
+  I' = I * (1+k)
+  F' = F - E*s - I*k
+  total leverage = D/E'; net leverage = (D-C)/E'; coverage = E'/I'; proxy/debt = F'/D.
+  Debt and cash fixed. The cash-after-capex proxy changes one-for-one with assumed EBITDA decline; only incremental interest shock is deducted because base OCF already includes base cash interest, taxes and working-capital effects.
+
+Rows: exact function outputs; ratios are unrounded 38-digit Decimal results
+  Base (no stress), s=0, k=0:
+    E'=4173; I'=1158; F'=1880
+    total leverage=5.9621375509225976515696141864366163432
+    net leverage=4.4617780972921159837047687514977234603
+    interest coverage=3.6036269430051813471502590673575129534
+    proxy/debt=0.075562700964630225080385852090032154341
+  Demand and margin pressure, s=0.10, k=0:
+    E'=3755.70; I'=1158; F'=1462.70
+    total leverage=6.6245972788028862795217935404851292702
+    net leverage=4.9575312192134622041164097238863594004
+    interest coverage=3.2432642487046632124352331606217616580
+    proxy/debt=0.058790192926045016077170418006430868167
+  Demand, margin and interest pressure, s=0.20, k=0.10:
+    E'=3338.40; I'=1273.80; F'=929.60
+    total leverage=7.4526719386532470644620177330457704289
+    net leverage=5.5772226216151449796309609393721543254
+    interest coverage=2.6208195949128591615638247762600094206
+    proxy/debt=0.037363344051446945337620578778135048232
+
+Zero-shock control checks: E'=4173, I'=1158, F'=1880, debt=24880, cash=6261 and net debt=18619 reproduce supplied base operands exactly. Ratios computed from these operands are new calculations, not CP-1 reported ratios.
+
+Break points (s is EBITDA decline; interest held at base I=1158 for all break calculations)
+  b01 definition, proxy at/below zero: exact 1880/4173 = 0.45051521687035705727294512341241313204 (45.0515216870%); EBITDA at break=2293; reached.
+  b02 definition, EBITDA no longer covers base cash interest: exact 1005/1391 = 0.72250179726815240833932422717469446441 (72.2501797268%); EBITDA at break=1158; reached.
+  b03 analyst watch, total carrying-debt / EBITDA at/above 7.0x: exact 4331/29211 = 0.14826606415391462120434083050905480812 (14.8266064154%); EBITDA at break=3554.2857142857142857142857142857142857; reached.
+  b04 analyst watch, EBITDA / cash interest at/below 3.0x: exact 233/1391 = 0.16750539180445722501797268152408339324 (16.7505391804%); EBITDA at break=3474; reached.
+  Rank by exact decline: b03 (14.8266%), b04 (16.7505%), b01 (45.0515%), b02 (72.2502%). Earliest calculable watch is the 7.0x total carrying-debt / EBITDA watch, at 14.8266% decline with interest held at base. This is not a default point.
+
+Scenario crossings (actual stressed interest used in each row; metric at scenario and crossing status)
+  Demand and margin pressure (10%, 0%): b01 proxy=1462.70, Not crossed; b02 coverage=3.2432642487046632124352331606217616580, Not crossed; b03 total leverage=6.6245972788028862795217935404851292702, Not crossed; b04 coverage=3.2432642487046632124352331606217616580, Not crossed.
+  Demand, margin and interest pressure (20%, 10%): b01 proxy=929.60, Not crossed; b02 coverage=2.6208195949128591615638247762600094206, Not crossed; b03 total leverage=7.4526719386532470644620177330457704289, Crossed; b04 coverage=2.6208195949128591615638247762600094206, Crossed.
+  Crossings compare stressed metric values against the break levels, not scenario decline against a fixed-interest breakpoint. The 20% scenario remains below the fixed-interest definition breaks for proxy zero and 1.0x coverage, although it crosses both watch levels.
+
+Separate mechanical zero-denominator boundary check (not an issuer scenario)
+  Inputs E=10, I=0, F=3, D=20, C=5; s=0, k=0. Existing stress returns interest coverage=None with reason "Not calculable: stressed cash interest is zero or negative (ZERO_OR_NEGATIVE_DENOMINATOR)"; other calculable ratios: total leverage=2, net leverage=1.5, proxy/debt=0.15. This confirms zero interest is not silently treated as a calculable coverage ratio.
+
+Rounded display ratios (rounded only for presentation):
+  Base: total 5.96x; net 4.46x; coverage 3.60x; proxy/debt 7.56%.
+  10%/0%: total 6.62x; net 4.96x; coverage 3.24x; proxy/debt 5.88%.
+  20%/10%: total 7.45x; net 5.58x; coverage 2.62x; proxy/debt 3.74%.
+
+Interpretation limits: no tax shield or working-capital/capex response is modeled; assumed EBITDA decline reduces the proxy one-for-one; only incremental shocked interest is deducted from proxy; break points hold interest at base while scenario crossings use stressed interest; debt and cash remain fixed at closing balances. No runway, covenant headroom, funding/refinancing execution, recovery or default inference is calculated. Values and thresholds are hypothetical analyst assumptions, not calibrated forecasts, issuer facts or covenant limits.

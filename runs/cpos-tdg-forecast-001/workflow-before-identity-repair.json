@@ -1,0 +1,363 @@
+{
+  "run": {
+    "run_id": "cpos-tdg-fy2024-conditional-forecast-1",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "distressed_restructuring",
+    "requested_modules": [
+      "CP-2G"
+    ]
+  },
+  "execution": "retained-response-replay",
+  "max_attempts": 2,
+  "provider_cap_usd": 0,
+  "sources": {
+    "retained-context/runs/tdg-003/CP-0.md": {
+      "path": "../tdg-003/CP-0.md",
+      "sha256": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d"
+    },
+    "retained-context/runs/tdg-003/CP-1D-attempt-1.md": {
+      "path": "../tdg-003/CP-1D-attempt-1.md",
+      "sha256": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b"
+    },
+    "retained-context/runs/tdg-003/CP-2D-attempt-1.md": {
+      "path": "../tdg-003/CP-2D-attempt-1.md",
+      "sha256": "36978d54a4c6d10dad21e381c8c7351d6e1a4d95aeb58bcc1226aed223ee0196"
+    },
+    "retained-context/runs/tdg-003/CP-2-macro-update.md": {
+      "path": "../tdg-003/CP-2-macro-update.md",
+      "sha256": "3d038a387c0a619f08aee03bf2d59c02c4b53c8d63ec2ce645b4063154d11597"
+    },
+    "retained-context/runs/tdg-guidance-001/CP-DR-attempt-1.md": {
+      "path": "../tdg-guidance-001/CP-DR-attempt-1.md",
+      "sha256": "e74a0b1f4b30af1ecb761b5833081e99db000b01b64ad2274131b53bc552ff44"
+    },
+    "retained-context/runs/tdg-guidance-001/source-record.json": {
+      "path": "../tdg-guidance-001/source-record.json",
+      "sha256": "0fe844a08a205515be5aaa831ef223fa1bec8db55ec82c4352fa121468c5f165"
+    },
+    "retained-context/runs/tdg-guidance-001/sources/web-retrieval.json": {
+      "path": "../tdg-guidance-001/sources/web-retrieval.json",
+      "sha256": "0fdaeab87dae4492256bad814ad7e2075a3182722ba8a6e2713fcf612a1a21e9"
+    },
+    "retained-context/runs/tdg-guidance-001/sources/web-outlook.json": {
+      "path": "../tdg-guidance-001/sources/web-outlook.json",
+      "sha256": "bfdb6a78692a536346f0fb6644c5fb583000a17522b850519b915d14297435e1"
+    },
+    "runs/tdg-002/CP-1A-attempt-3.md": {
+      "path": "../tdg-002/CP-1A-attempt-3.md",
+      "sha256": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+    },
+    "runs/tdg-002/CP-2-attempt-2.md": {
+      "path": "../tdg-002/CP-2-attempt-2.md",
+      "sha256": "249d0cbdf1ba8159dcae68d4ff3241c73ea092ff66353c0c2eef08691e0afa57"
+    },
+    "data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": {
+      "path": "../../data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+    },
+    "runs/tdg-001/source-pages.jsonl": {
+      "path": "../tdg-001/source-pages.jsonl",
+      "sha256": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+    },
+    "runs/tdg-003/CP-2G-instructions.md": {
+      "path": "../tdg-003/CP-2G-instructions.md",
+      "sha256": "73703f8c0b466c774dae67c69d120d9c608f6b420d1286630d94945d8dbe7760"
+    },
+    "runs/tdg-003/CP-2G-attempt-1-calculations.json": {
+      "path": "../tdg-003/CP-2G-attempt-1-calculations.json",
+      "sha256": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843"
+    },
+    "runs/tdg-003/CP-2G-attempt-1.md": {
+      "path": "../tdg-003/CP-2G-attempt-1.md",
+      "sha256": "9cd62468e8ab5b798bb1c17e71bea7e52d024c7751f1a03a9be0de49c36a0c2a"
+    },
+    "runs/tdg-003/CP-2-integrated.md": {
+      "path": "../tdg-003/CP-2-integrated.md",
+      "sha256": "828e78d47cbb8d718ab4ec8522034ff197500af8411b8a61fde0601f2c51c802"
+    },
+    "runs/tdg-003/CP-2-integrated-instructions.md": {
+      "path": "../tdg-003/CP-2-integrated-instructions.md",
+      "sha256": "3e1a4310193bfe4eacde7939f076eab90fe965ce0688e6078085034d842760ed"
+    },
+    "selected-method/skills/cp-2g-forward-credit-model/SKILL.md": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-2g-forward-credit-model/SKILL.md",
+      "sha256": "0337a01d8379f73c3aa9e0697742900c95f8d6b71d286cafe77fa66c8f770207"
+    },
+    "selected-method/skills/cp-2g-forward-credit-model/references/REF_CP-2G_STEPS.md": {
+      "path": "../../docs/reuse/selected-methods/skills/cp-2g-forward-credit-model/references/REF_CP-2G_STEPS.md",
+      "sha256": "b59d94f04dd2b7d4f243856433bdc46896be3765faf9d20acd77e0f56cf57536"
+    },
+    "selected-method/src/deploy_vii/methods/cp2g.md": {
+      "path": "../../src/deploy_vii/methods/cp2g.md",
+      "sha256": "684374859fd13fe2cfd262dcbbf041f78370367215bc0a0a371752bc78beb63a"
+    },
+    "selected-method/src/deploy_workflow/owners/cp2g.py": {
+      "path": "../../src/deploy_workflow/owners/cp2g.py",
+      "sha256": "a17cd2e788a936a3cc911c4e9ee5ebb923c3d20fd82d552befd0fe3f0fa8aed2"
+    }
+  },
+  "instructions": {
+    "CP-0": {
+      "path": "instructions.md",
+      "sha256": "07155c67b697f455a94e5b5aad9288f278fdeb5f0162a1f2a0ce2d8208c77f2d"
+    },
+    "CP-1": {
+      "path": "instructions.md",
+      "sha256": "07155c67b697f455a94e5b5aad9288f278fdeb5f0162a1f2a0ce2d8208c77f2d"
+    },
+    "CP-2A": {
+      "path": "instructions.md",
+      "sha256": "07155c67b697f455a94e5b5aad9288f278fdeb5f0162a1f2a0ce2d8208c77f2d"
+    },
+    "CP-2G": {
+      "path": "instructions.md",
+      "sha256": "07155c67b697f455a94e5b5aad9288f278fdeb5f0162a1f2a0ce2d8208c77f2d"
+    }
+  },
+  "retained_handoffs": {
+    "CP-0": {
+      "path": "../tdg-001/CP-0.md",
+      "sha256": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0",
+      "source_hashes": {
+        "retained-context/runs/tdg-003/CP-0.md": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+        "retained-context/runs/tdg-003/CP-1D-attempt-1.md": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+        "retained-context/runs/tdg-003/CP-2D-attempt-1.md": "36978d54a4c6d10dad21e381c8c7351d6e1a4d95aeb58bcc1226aed223ee0196",
+        "retained-context/runs/tdg-003/CP-2-macro-update.md": "3d038a387c0a619f08aee03bf2d59c02c4b53c8d63ec2ce645b4063154d11597",
+        "retained-context/runs/tdg-guidance-001/CP-DR-attempt-1.md": "e74a0b1f4b30af1ecb761b5833081e99db000b01b64ad2274131b53bc552ff44",
+        "retained-context/runs/tdg-guidance-001/source-record.json": "0fe844a08a205515be5aaa831ef223fa1bec8db55ec82c4352fa121468c5f165",
+        "retained-context/runs/tdg-guidance-001/sources/web-retrieval.json": "0fdaeab87dae4492256bad814ad7e2075a3182722ba8a6e2713fcf612a1a21e9",
+        "retained-context/runs/tdg-guidance-001/sources/web-outlook.json": "bfdb6a78692a536346f0fb6644c5fb583000a17522b850519b915d14297435e1",
+        "runs/tdg-002/CP-1A-attempt-3.md": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+        "runs/tdg-002/CP-2-attempt-2.md": "249d0cbdf1ba8159dcae68d4ff3241c73ea092ff66353c0c2eef08691e0afa57",
+        "data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "runs/tdg-001/source-pages.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+        "runs/tdg-003/CP-2G-instructions.md": "73703f8c0b466c774dae67c69d120d9c608f6b420d1286630d94945d8dbe7760",
+        "runs/tdg-003/CP-2G-attempt-1-calculations.json": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843",
+        "runs/tdg-003/CP-2G-attempt-1.md": "9cd62468e8ab5b798bb1c17e71bea7e52d024c7751f1a03a9be0de49c36a0c2a",
+        "runs/tdg-003/CP-2-integrated.md": "828e78d47cbb8d718ab4ec8522034ff197500af8411b8a61fde0601f2c51c802",
+        "runs/tdg-003/CP-2-integrated-instructions.md": "3e1a4310193bfe4eacde7939f076eab90fe965ce0688e6078085034d842760ed",
+        "selected-method/skills/cp-2g-forward-credit-model/SKILL.md": "0337a01d8379f73c3aa9e0697742900c95f8d6b71d286cafe77fa66c8f770207",
+        "selected-method/skills/cp-2g-forward-credit-model/references/REF_CP-2G_STEPS.md": "b59d94f04dd2b7d4f243856433bdc46896be3765faf9d20acd77e0f56cf57536",
+        "selected-method/src/deploy_vii/methods/cp2g.md": "684374859fd13fe2cfd262dcbbf041f78370367215bc0a0a371752bc78beb63a",
+        "selected-method/src/deploy_workflow/owners/cp2g.py": "a17cd2e788a936a3cc911c4e9ee5ebb923c3d20fd82d552befd0fe3f0fa8aed2"
+      },
+      "upstream": {}
+    },
+    "CP-1": {
+      "path": "../tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "source_hashes": {
+        "retained-context/runs/tdg-003/CP-0.md": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+        "retained-context/runs/tdg-003/CP-1D-attempt-1.md": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+        "retained-context/runs/tdg-003/CP-2D-attempt-1.md": "36978d54a4c6d10dad21e381c8c7351d6e1a4d95aeb58bcc1226aed223ee0196",
+        "retained-context/runs/tdg-003/CP-2-macro-update.md": "3d038a387c0a619f08aee03bf2d59c02c4b53c8d63ec2ce645b4063154d11597",
+        "retained-context/runs/tdg-guidance-001/CP-DR-attempt-1.md": "e74a0b1f4b30af1ecb761b5833081e99db000b01b64ad2274131b53bc552ff44",
+        "retained-context/runs/tdg-guidance-001/source-record.json": "0fe844a08a205515be5aaa831ef223fa1bec8db55ec82c4352fa121468c5f165",
+        "retained-context/runs/tdg-guidance-001/sources/web-retrieval.json": "0fdaeab87dae4492256bad814ad7e2075a3182722ba8a6e2713fcf612a1a21e9",
+        "retained-context/runs/tdg-guidance-001/sources/web-outlook.json": "bfdb6a78692a536346f0fb6644c5fb583000a17522b850519b915d14297435e1",
+        "runs/tdg-002/CP-1A-attempt-3.md": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+        "runs/tdg-002/CP-2-attempt-2.md": "249d0cbdf1ba8159dcae68d4ff3241c73ea092ff66353c0c2eef08691e0afa57",
+        "data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "runs/tdg-001/source-pages.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+        "runs/tdg-003/CP-2G-instructions.md": "73703f8c0b466c774dae67c69d120d9c608f6b420d1286630d94945d8dbe7760",
+        "runs/tdg-003/CP-2G-attempt-1-calculations.json": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843",
+        "runs/tdg-003/CP-2G-attempt-1.md": "9cd62468e8ab5b798bb1c17e71bea7e52d024c7751f1a03a9be0de49c36a0c2a",
+        "runs/tdg-003/CP-2-integrated.md": "828e78d47cbb8d718ab4ec8522034ff197500af8411b8a61fde0601f2c51c802",
+        "runs/tdg-003/CP-2-integrated-instructions.md": "3e1a4310193bfe4eacde7939f076eab90fe965ce0688e6078085034d842760ed",
+        "selected-method/skills/cp-2g-forward-credit-model/SKILL.md": "0337a01d8379f73c3aa9e0697742900c95f8d6b71d286cafe77fa66c8f770207",
+        "selected-method/skills/cp-2g-forward-credit-model/references/REF_CP-2G_STEPS.md": "b59d94f04dd2b7d4f243856433bdc46896be3765faf9d20acd77e0f56cf57536",
+        "selected-method/src/deploy_vii/methods/cp2g.md": "684374859fd13fe2cfd262dcbbf041f78370367215bc0a0a371752bc78beb63a",
+        "selected-method/src/deploy_workflow/owners/cp2g.py": "a17cd2e788a936a3cc911c4e9ee5ebb923c3d20fd82d552befd0fe3f0fa8aed2"
+      },
+      "upstream": {
+        "CP-0": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0"
+      }
+    },
+    "CP-2A": {
+      "path": "../tdg-002/CP-2A-attempt-1.md",
+      "sha256": "6591fd403e775f7e1caefd7ac4de96b95a48df8b364e77a249b2c9eb0f79f199",
+      "source_hashes": {
+        "retained-context/runs/tdg-003/CP-0.md": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+        "retained-context/runs/tdg-003/CP-1D-attempt-1.md": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+        "retained-context/runs/tdg-003/CP-2D-attempt-1.md": "36978d54a4c6d10dad21e381c8c7351d6e1a4d95aeb58bcc1226aed223ee0196",
+        "retained-context/runs/tdg-003/CP-2-macro-update.md": "3d038a387c0a619f08aee03bf2d59c02c4b53c8d63ec2ce645b4063154d11597",
+        "retained-context/runs/tdg-guidance-001/CP-DR-attempt-1.md": "e74a0b1f4b30af1ecb761b5833081e99db000b01b64ad2274131b53bc552ff44",
+        "retained-context/runs/tdg-guidance-001/source-record.json": "0fe844a08a205515be5aaa831ef223fa1bec8db55ec82c4352fa121468c5f165",
+        "retained-context/runs/tdg-guidance-001/sources/web-retrieval.json": "0fdaeab87dae4492256bad814ad7e2075a3182722ba8a6e2713fcf612a1a21e9",
+        "retained-context/runs/tdg-guidance-001/sources/web-outlook.json": "bfdb6a78692a536346f0fb6644c5fb583000a17522b850519b915d14297435e1",
+        "runs/tdg-002/CP-1A-attempt-3.md": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+        "runs/tdg-002/CP-2-attempt-2.md": "249d0cbdf1ba8159dcae68d4ff3241c73ea092ff66353c0c2eef08691e0afa57",
+        "data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "runs/tdg-001/source-pages.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+        "runs/tdg-003/CP-2G-instructions.md": "73703f8c0b466c774dae67c69d120d9c608f6b420d1286630d94945d8dbe7760",
+        "runs/tdg-003/CP-2G-attempt-1-calculations.json": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843",
+        "runs/tdg-003/CP-2G-attempt-1.md": "9cd62468e8ab5b798bb1c17e71bea7e52d024c7751f1a03a9be0de49c36a0c2a",
+        "runs/tdg-003/CP-2-integrated.md": "828e78d47cbb8d718ab4ec8522034ff197500af8411b8a61fde0601f2c51c802",
+        "runs/tdg-003/CP-2-integrated-instructions.md": "3e1a4310193bfe4eacde7939f076eab90fe965ce0688e6078085034d842760ed",
+        "selected-method/skills/cp-2g-forward-credit-model/SKILL.md": "0337a01d8379f73c3aa9e0697742900c95f8d6b71d286cafe77fa66c8f770207",
+        "selected-method/skills/cp-2g-forward-credit-model/references/REF_CP-2G_STEPS.md": "b59d94f04dd2b7d4f243856433bdc46896be3765faf9d20acd77e0f56cf57536",
+        "selected-method/src/deploy_vii/methods/cp2g.md": "684374859fd13fe2cfd262dcbbf041f78370367215bc0a0a371752bc78beb63a",
+        "selected-method/src/deploy_workflow/owners/cp2g.py": "a17cd2e788a936a3cc911c4e9ee5ebb923c3d20fd82d552befd0fe3f0fa8aed2"
+      },
+      "upstream": {
+        "CP-0": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0",
+        "CP-1": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+      }
+    },
+    "CP-2G": {
+      "path": "../tdg-003/CP-2G-attempt-2.md",
+      "sha256": "696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928",
+      "source_hashes": {
+        "retained-context/runs/tdg-003/CP-0.md": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+        "retained-context/runs/tdg-003/CP-1D-attempt-1.md": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+        "retained-context/runs/tdg-003/CP-2D-attempt-1.md": "36978d54a4c6d10dad21e381c8c7351d6e1a4d95aeb58bcc1226aed223ee0196",
+        "retained-context/runs/tdg-003/CP-2-macro-update.md": "3d038a387c0a619f08aee03bf2d59c02c4b53c8d63ec2ce645b4063154d11597",
+        "retained-context/runs/tdg-guidance-001/CP-DR-attempt-1.md": "e74a0b1f4b30af1ecb761b5833081e99db000b01b64ad2274131b53bc552ff44",
+        "retained-context/runs/tdg-guidance-001/source-record.json": "0fe844a08a205515be5aaa831ef223fa1bec8db55ec82c4352fa121468c5f165",
+        "retained-context/runs/tdg-guidance-001/sources/web-retrieval.json": "0fdaeab87dae4492256bad814ad7e2075a3182722ba8a6e2713fcf612a1a21e9",
+        "retained-context/runs/tdg-guidance-001/sources/web-outlook.json": "bfdb6a78692a536346f0fb6644c5fb583000a17522b850519b915d14297435e1",
+        "runs/tdg-002/CP-1A-attempt-3.md": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+        "runs/tdg-002/CP-2-attempt-2.md": "249d0cbdf1ba8159dcae68d4ff3241c73ea092ff66353c0c2eef08691e0afa57",
+        "data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "runs/tdg-001/source-pages.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+        "runs/tdg-003/CP-2G-instructions.md": "73703f8c0b466c774dae67c69d120d9c608f6b420d1286630d94945d8dbe7760",
+        "runs/tdg-003/CP-2G-attempt-1-calculations.json": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843",
+        "runs/tdg-003/CP-2G-attempt-1.md": "9cd62468e8ab5b798bb1c17e71bea7e52d024c7751f1a03a9be0de49c36a0c2a",
+        "runs/tdg-003/CP-2-integrated.md": "828e78d47cbb8d718ab4ec8522034ff197500af8411b8a61fde0601f2c51c802",
+        "runs/tdg-003/CP-2-integrated-instructions.md": "3e1a4310193bfe4eacde7939f076eab90fe965ce0688e6078085034d842760ed",
+        "selected-method/skills/cp-2g-forward-credit-model/SKILL.md": "0337a01d8379f73c3aa9e0697742900c95f8d6b71d286cafe77fa66c8f770207",
+        "selected-method/skills/cp-2g-forward-credit-model/references/REF_CP-2G_STEPS.md": "b59d94f04dd2b7d4f243856433bdc46896be3765faf9d20acd77e0f56cf57536",
+        "selected-method/src/deploy_vii/methods/cp2g.md": "684374859fd13fe2cfd262dcbbf041f78370367215bc0a0a371752bc78beb63a",
+        "selected-method/src/deploy_workflow/owners/cp2g.py": "a17cd2e788a936a3cc911c4e9ee5ebb923c3d20fd82d552befd0fe3f0fa8aed2"
+      },
+      "upstream": {
+        "CP-0": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0",
+        "CP-1": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+        "CP-2A": "6591fd403e775f7e1caefd7ac4de96b95a48df8b364e77a249b2c9eb0f79f199"
+      }
+    }
+  },
+  "layout": {
+    "blocks": [
+      "forward-credit-path",
+      "forward-breakpoints"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.4 — operating paths",
+        "kind": "table",
+        "block_id": "forward-credit-path",
+        "label": "Conditional operating paths · USD millions"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.5 — debt and cash roll-forward",
+        "kind": "table",
+        "block_id": "forward-credit-path",
+        "label": "Debt and cash recurrences · USD millions"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.6 — calculated metrics and definitions",
+        "kind": "table",
+        "block_id": "forward-credit-path",
+        "label": "Calculated metrics · distinct definitions"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.2 — historical-to-conditional bridge and definitions",
+        "kind": "table",
+        "block_id": "forward-credit-path",
+        "label": "Historical anchors and unresolved definitions"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.3 — assumption register",
+        "kind": "table",
+        "block_id": "forward-credit-path",
+        "label": "Explicit assumptions · not an issuer cash plan"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.1 — upstream and research adoption",
+        "kind": "table",
+        "block_id": "forward-credit-path",
+        "label": "Retained input contributions and restrictions",
+        "table_header": "Producer"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.1 — upstream and research adoption",
+        "kind": "table",
+        "block_id": "forward-credit-path",
+        "label": "Qualified historical guidance adoption",
+        "table_header": "question_id"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.8 — deleveraging and disconfirmation",
+        "kind": "prose",
+        "block_id": "forward-credit-path",
+        "label": "Deleveraging dependencies and contrary case"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.7 — first tests and consequences",
+        "kind": "table",
+        "block_id": "forward-breakpoints",
+        "label": "First analyst tests · not covenants"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.9 — gaps and delivery-driver readiness",
+        "kind": "table",
+        "block_id": "forward-breakpoints",
+        "label": "Unresolved evidence and model consequences",
+        "table_header": "Gap"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.9 — gaps and delivery-driver readiness",
+        "kind": "table",
+        "block_id": "forward-breakpoints",
+        "label": "Driver readiness · missing remains missing",
+        "table_header": "Driver family"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "forward-credit-path",
+        "label": "Conditional view and historical scope"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "Calculations",
+        "kind": "prose",
+        "block_id": "forward-breakpoints",
+        "label": "Exact calculation record and fiscal-wrapper limit"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "Gaps",
+        "kind": "prose",
+        "block_id": "forward-breakpoints",
+        "label": "Unproven scope"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "Next module",
+        "kind": "prose",
+        "block_id": "forward-breakpoints",
+        "label": "Next consumer and evidence needs"
+      }
+    ],
+    "title": "TransDigm · historical conditional credit paths",
+    "question": "How do the stated scenarios change debt-service coverage and cash, and what remains unsupported?",
+    "scope": "Historical consolidated TDG, FY2024/September 30 base; guidance dated November 7, 2024 and separately dated December-quarter context. This retrospective illustration is not an as-of-November-7 backtest or evidence-supported central forecast. USD millions; October–September planning years FY2025–FY2027. Stipulated cash drivers, annual repayments and excluded financing/other uses are assumptions, not a complete issuer plan. Model CFO/cash proxy and mechanical net debt are not issuer CFO/FCF or accessible liquidity. Missing minimum cash/access, quarterly troughs, complete maturities/refinancing, quality earnings and segment-driver mapping remain gaps. Analyst watches are not covenants or probabilities. All nine analytical registers are preserved. Existing native fiscal-wrapper refusal remains unpassed; this report preserves the explicit source planning dates. Retained-response replay, not fresh model/provider/native acceptance. Supplemental handoffs are pinned context, not newly launched native heads. Excel is ingestion-only; historical workbook-readiness language is superseded."
+  }
+}

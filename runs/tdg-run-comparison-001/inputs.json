@@ -1,0 +1,109 @@
+{
+  "module": "CP-8",
+  "instruction_authority": "Current user correction: CP-8 compares prior-run deliverables with latest current-run deliverables.",
+  "mode": "Current host model with preceding context; no agents/provider/native accepted heads",
+  "inputs": [
+    {
+      "role": "prior",
+      "directory": "deliverables/tdg-fy2024-snapshot-2",
+      "run": {
+        "schema_version": "run/2",
+        "run_id": "tdg-fy2024-manual-snapshot",
+        "issuer_id": "TDG",
+        "issuer_name": "TransDigm Group Incorporated",
+        "as_of": "2024-09-30",
+        "method_version": "deploy-v-r14",
+        "case_kind": "public",
+        "pathway": "credit_snapshot",
+        "requested_modules": [
+          "CP-1",
+          "CP-MODEL",
+          "CP-1A",
+          "CP-2"
+        ]
+      },
+      "manifest_sha256": "7be752e62fffe98b9f54eb42532dad3e2da77cfc1c7828758e44bf80ecf43918",
+      "files": {
+        "CP-1.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+        "CP-1A.md": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+        "CP-2.md": "249d0cbdf1ba8159dcae68d4ff3241c73ea092ff66353c0c2eef08691e0afa57",
+        "view.json": "7016a43677f1d5d8ed0e465b18bf856d290b19be00df46c47ac4430ce456fe68",
+        "report-view.json": "64498bd0c334942675c7306f4ea20e38ddf77be69dbf3a7a7481aaa87c23a752",
+        "report.html": "324952b09a08ac87c66708c1ed4b9dc4d33dce7567279ab942ae1233d80a8aa6"
+      },
+      "report_blocks": [
+        {
+          "id": "key-findings",
+          "state": "populated"
+        },
+        {
+          "id": "company-operating-model",
+          "state": "populated"
+        },
+        {
+          "id": "strengths-weaknesses",
+          "state": "populated"
+        },
+        {
+          "id": "company-profile",
+          "state": "collapsed"
+        },
+        {
+          "id": "transaction-summary",
+          "state": "collapsed"
+        }
+      ]
+    },
+    {
+      "role": "current",
+      "directory": "deliverables/tdg-fy2024-snapshot-6",
+      "run": {
+        "schema_version": "run/2",
+        "run_id": "tdg-fy2024-manual-snapshot-6",
+        "issuer_id": "TDG",
+        "issuer_name": "TransDigm Group Incorporated",
+        "as_of": "2024-09-30",
+        "method_version": "deploy-v-r14",
+        "case_kind": "public",
+        "pathway": "credit_snapshot",
+        "requested_modules": [
+          "CP-1",
+          "CP-MODEL",
+          "CP-1A",
+          "CP-2"
+        ]
+      },
+      "manifest_sha256": "20a9578699a1959ada69bfd0e9568d76340c10193aeb86f63fa8a2fcec9fa9c5",
+      "files": {
+        "CP-1.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+        "CP-1A.md": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+        "CP-2.md": "ba312d7faa8a7b7a24b17424d5aee667bc479941c210e42d3018b2dd818bc763",
+        "view.json": "49975a243985ed17787f8f52257aaf290878ce26d024b12ac2432673707bcc96",
+        "report-view.json": "020e3fd58e0fbabc2ab730def8534d1665dc38fa9eb55d74edbd98b27f8a514a",
+        "report.html": "6bc718146295fda0ffc4b850a5a5a7c55ccb84d3b7a642cb16c62f7192873081"
+      },
+      "report_blocks": [
+        {
+          "id": "key-findings",
+          "state": "populated"
+        },
+        {
+          "id": "company-operating-model",
+          "state": "populated"
+        },
+        {
+          "id": "strengths-weaknesses",
+          "state": "populated"
+        },
+        {
+          "id": "company-profile",
+          "state": "collapsed"
+        },
+        {
+          "id": "transaction-summary",
+          "state": "collapsed"
+        }
+      ]
+    }
+  ]
+}

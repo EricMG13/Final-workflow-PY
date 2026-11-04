@@ -1,0 +1,8 @@
+{
+  "original_path": "runs/arcc-selection-2024-001/CP-3-attempt-2.md",
+  "original_sha256": "9ef2f6e17a2e22fd980c72bf586a3807afdf44ab37043db2581d4ec0e2780bf8",
+  "new_sha256": "63c56793bbcc8e9e43671a4cdebefdc1a018cb57df8163125c80bd654294ea60",
+  "inserted_block": "### Conditional yield observations\n\n| Instrument | Maturity | Price basis | Yield, % |\n|---|---|---|---:|\n| US04010LBF94 | 2029-03-01 | Assume clean | 5.600264521 |\n| US04010LBF94 | 2029-03-01 | Assume dirty | 6.131728905 |\n| US04010LBG77 | 2029-07-15 | Assume clean | 5.622366058 |\n| US04010LBG77 | 2029-07-15 | Assume dirty | 6.316949000 |\n\nFormat amendment only: these dates and nominal maturity yields are copied from\nC2\u2013C3 above. They are conditional model outputs under two separate unverified\nprice-basis assumptions, not observed investor yields, an executable quote or a\nfitted issuer curve. The raw nine-decimal tokens remain retained; chart labels\nmay show the existing six-decimal display. No prior analysis or value changes.\n\n",
+  "all_other_bytes_equal": true,
+  "execution": "Actual current host format-only output after frozen instructions; no new financial analysis or native run."
+}

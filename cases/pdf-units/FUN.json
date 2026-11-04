@@ -1,0 +1,88 @@
+{
+ "schema": "pdf-units/1",
+ "doc": "FUN",
+ "document": "Ford Motor Company FY2025 10-K (year ended 31 Dec 2025). The brief and the pre-flight call this document 'Six Flags 2025 10-K'; its text is Ford's (f-20251231.pdf, FORD MOTOR COMPANY AND SUBSIDIARIES).",
+ "source_name": "f-20251231.pdf",
+ "source_sha256": "e2868ea611b297c26f5a27f92a1a0c2d0c12fcffbd4e0a3d5c3e3f66031f66e1",
+ "page_numbering": "page N = the intake locator page:N (1-based PDF page index), not the printed folio",
+ "units": [
+  {
+   "kind": "IS",
+   "title_as_printed": "CONSOLIDATED INCOME STATEMENTS",
+   "title_lines": [
+    "CONSOLIDATED INCOME STATEMENTS"
+   ],
+   "pages": [
+    115
+   ],
+   "basis": "Title near the top of p115 (printed 111). Revenues to diluted shares, then the next statement title follows on the same page."
+  },
+  {
+   "kind": "CI",
+   "title_as_printed": "CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME",
+   "title_lines": [
+    "CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME"
+   ],
+   "pages": [
+    115
+   ],
+   "basis": "Second title in the lower half of p115 (about line 39 of the page text), after the income statement's per-share and share rows; from Net income/(loss) to Comprehensive income/(loss) attributable to Ford Motor Company. Two units share this page."
+  },
+  {
+   "kind": "BS",
+   "title_as_printed": "CONSOLIDATED BALANCE SHEETS",
+   "title_lines": [
+    "CONSOLIDATED BALANCE SHEETS"
+   ],
+   "pages": [
+    116
+   ],
+   "basis": "Title near the top of p116 (printed 112). The VIE table below it (assets and liabilities of consolidated variable interest entities) is a memo table, not part of the balance sheet columns."
+  },
+  {
+   "kind": "CFS",
+   "title_as_printed": "CONSOLIDATED STATEMENTS OF CASH FLOWS",
+   "title_lines": [
+    "CONSOLIDATED STATEMENTS OF CASH FLOWS"
+   ],
+   "pages": [
+    117
+   ],
+   "basis": "Title near the top of p117 (printed 113); all three sections and the cash roll on the one page."
+  },
+  {
+   "kind": "SE",
+   "title_as_printed": "CONSOLIDATED STATEMENTS OF EQUITY",
+   "title_lines": [
+    "CONSOLIDATED STATEMENTS OF EQUITY"
+   ],
+   "pages": [
+    118
+   ],
+   "basis": "Title near the top of p118 (printed 114); balances at 31 Dec 2022 to 31 Dec 2025, footnotes (a) and (b), then the 'accompanying notes' line."
+  }
+ ],
+ "not_units": [
+  {
+   "page": 4,
+   "looks_like": "mentions of income statements, balance sheets",
+   "reason": "Table of contents of the 10-K (MD&A items with page numbers). No statement data."
+  },
+  {
+   "page": 104,
+   "looks_like": "list of the five statements",
+   "reason": "Item 15(a)1 bullet list of the financial statements included; titles with period words only."
+  },
+  {
+   "page": 114,
+   "looks_like": "none (page before the income statement)",
+   "reason": "Tail of the auditor's report (critical audit matters, warranty and finance receivables); prose."
+  },
+  {
+   "page": 119,
+   "looks_like": "none (page after the SE)",
+   "reason": "Notes to the Financial Statements, table of contents of the notes; no statement data."
+  }
+ ],
+ "fixture_pages_not_listed": []
+}

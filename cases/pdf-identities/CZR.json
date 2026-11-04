@@ -1,0 +1,338 @@
+{
+ "schema": "pdf-identities/1",
+ "doc": "CZR",
+ "source_name": "caesars-2025-10k.pdf",
+ "source_sha256": "6840cafaafbd84b432c3c6eaeba5642c39b1a87c02f8236ee0ec3177e0c587f5",
+ "unit": "USD millions",
+ "note": "label and page name a row of tests/fixtures/pdf_pages/<doc>/pNNN.txt; printed values are in column order; each identity is lhs sum == rhs sum, exact, per column",
+ "identities": [
+  {
+   "id": "CZR-BS-1",
+   "kind": "BS",
+   "equation": "total assets = total liabilities + total stockholders' equity",
+   "lhs": [
+    {
+     "label": "Total assets",
+     "page": 56,
+     "printed": [
+      "31,639",
+      "32,590"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Total liabilities",
+     "page": 56,
+     "printed": [
+      "27,953",
+      "28,214"
+     ]
+    },
+    {
+     "label": "Total stockholders’ equity",
+     "page": 56,
+     "printed": [
+      "3,686",
+      "4,376"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "2025",
+     "lhs_sum": "31639",
+     "rhs_sum": "31639",
+     "values": {
+      "Total assets": "31639",
+      "Total liabilities": "27953",
+      "Total stockholders’ equity": "3686"
+     }
+    },
+    {
+     "header_text": "2024",
+     "lhs_sum": "32590",
+     "rhs_sum": "32590",
+     "values": {
+      "Total assets": "32590",
+      "Total liabilities": "28214",
+      "Total stockholders’ equity": "4376"
+     }
+    }
+   ]
+  },
+  {
+   "id": "CZR-BS-2",
+   "kind": "BS",
+   "equation": "total assets = the printed total of liabilities and equity",
+   "lhs": [
+    {
+     "label": "Total assets",
+     "page": 56,
+     "printed": [
+      "31,639",
+      "32,590"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Total liabilities and stockholders’ equity",
+     "page": 56,
+     "printed": [
+      "31,639",
+      "32,590"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "2025",
+     "lhs_sum": "31639",
+     "rhs_sum": "31639",
+     "values": {
+      "Total assets": "31639",
+      "Total liabilities and stockholders’ equity": "31639"
+     }
+    },
+    {
+     "header_text": "2024",
+     "lhs_sum": "32590",
+     "rhs_sum": "32590",
+     "values": {
+      "Total assets": "32590",
+      "Total liabilities and stockholders’ equity": "32590"
+     }
+    }
+   ]
+  },
+  {
+   "id": "CZR-CFS-1",
+   "kind": "CFS",
+   "equation": "operating + investing + financing = change in cash (no exchange-rate row is printed)",
+   "lhs": [
+    {
+     "label": "Net cash provided by operating activities",
+     "page": 60,
+     "printed": [
+      "1,302",
+      "1,075",
+      "1,809"
+     ]
+    },
+    {
+     "label": "Net cash used in investing activities",
+     "page": 60,
+     "printed": [
+      "(571)",
+      "(704)",
+      "(1,256)"
+     ]
+    },
+    {
+     "label": "Net cash used in financing activities",
+     "page": 60,
+     "printed": [
+      "(763)",
+      "(498)",
+      "(713)"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Decrease in cash, cash equivalents and restricted cash",
+     "page": 60,
+     "printed": [
+      "(32)",
+      "(127)",
+      "(160)"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "2025",
+     "lhs_sum": "-32",
+     "rhs_sum": "-32",
+     "values": {
+      "Net cash provided by operating activities": "1302",
+      "Net cash used in investing activities": "-571",
+      "Net cash used in financing activities": "-763",
+      "Decrease in cash, cash equivalents and restricted cash": "-32"
+     }
+    },
+    {
+     "header_text": "2024",
+     "lhs_sum": "-127",
+     "rhs_sum": "-127",
+     "values": {
+      "Net cash provided by operating activities": "1075",
+      "Net cash used in investing activities": "-704",
+      "Net cash used in financing activities": "-498",
+      "Decrease in cash, cash equivalents and restricted cash": "-127"
+     }
+    },
+    {
+     "header_text": "2023",
+     "lhs_sum": "-160",
+     "rhs_sum": "-160",
+     "values": {
+      "Net cash provided by operating activities": "1809",
+      "Net cash used in investing activities": "-1256",
+      "Net cash used in financing activities": "-713",
+      "Decrease in cash, cash equivalents and restricted cash": "-160"
+     }
+    }
+   ]
+  },
+  {
+   "id": "CZR-CFS-2",
+   "kind": "CFS",
+   "equation": "cash at beginning + change = cash at end",
+   "lhs": [
+    {
+     "label": "Cash, cash equivalents and restricted cash, beginning of period",
+     "page": 60,
+     "printed": [
+      "1,016",
+      "1,143",
+      "1,303"
+     ]
+    },
+    {
+     "label": "Decrease in cash, cash equivalents and restricted cash",
+     "page": 60,
+     "printed": [
+      "(32)",
+      "(127)",
+      "(160)"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Cash, cash equivalents and restricted cash, end of period",
+     "page": 60,
+     "printed": [
+      "984",
+      "1,016",
+      "1,143"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "2025",
+     "lhs_sum": "984",
+     "rhs_sum": "984",
+     "values": {
+      "Cash, cash equivalents and restricted cash, beginning of period": "1016",
+      "Decrease in cash, cash equivalents and restricted cash": "-32",
+      "Cash, cash equivalents and restricted cash, end of period": "984"
+     }
+    },
+    {
+     "header_text": "2024",
+     "lhs_sum": "1016",
+     "rhs_sum": "1016",
+     "values": {
+      "Cash, cash equivalents and restricted cash, beginning of period": "1143",
+      "Decrease in cash, cash equivalents and restricted cash": "-127",
+      "Cash, cash equivalents and restricted cash, end of period": "1016"
+     }
+    },
+    {
+     "header_text": "2023",
+     "lhs_sum": "1143",
+     "rhs_sum": "1143",
+     "values": {
+      "Cash, cash equivalents and restricted cash, beginning of period": "1303",
+      "Decrease in cash, cash equivalents and restricted cash": "-160",
+      "Cash, cash equivalents and restricted cash, end of period": "1143"
+     }
+    }
+   ]
+  },
+  {
+   "id": "CZR-CFS-3",
+   "kind": "CFS",
+   "equation": "continuation page 61: the reconciliation lines add to the closing cash printed on page 60",
+   "lhs": [
+    {
+     "label": "Cash and cash equivalents",
+     "page": 61,
+     "printed": [
+      "887",
+      "866",
+      "1,005"
+     ]
+    },
+    {
+     "label": "Restricted cash",
+     "page": 61,
+     "printed": [
+      "85",
+      "95",
+      "122"
+     ]
+    },
+    {
+     "label": "Restricted and escrow cash included in other long-term assets, net",
+     "page": 61,
+     "printed": [
+      "12",
+      "55",
+      "16"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Total cash, cash equivalents and restricted cash",
+     "page": 61,
+     "printed": [
+      "984",
+      "1,016",
+      "1,143"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "2025",
+     "lhs_sum": "984",
+     "rhs_sum": "984",
+     "values": {
+      "Cash and cash equivalents": "887",
+      "Restricted cash": "85",
+      "Restricted and escrow cash included in other long-term assets, net": "12",
+      "Total cash, cash equivalents and restricted cash": "984"
+     }
+    },
+    {
+     "header_text": "2024",
+     "lhs_sum": "1016",
+     "rhs_sum": "1016",
+     "values": {
+      "Cash and cash equivalents": "866",
+      "Restricted cash": "95",
+      "Restricted and escrow cash included in other long-term assets, net": "55",
+      "Total cash, cash equivalents and restricted cash": "1016"
+     }
+    },
+    {
+     "header_text": "2023",
+     "lhs_sum": "1143",
+     "rhs_sum": "1143",
+     "values": {
+      "Cash and cash equivalents": "1005",
+      "Restricted cash": "122",
+      "Restricted and escrow cash included in other long-term assets, net": "16",
+      "Total cash, cash equivalents and restricted cash": "1143"
+     }
+    }
+   ]
+  }
+ ]
+}

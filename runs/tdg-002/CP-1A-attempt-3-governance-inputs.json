@@ -1,0 +1,236 @@
+[
+  {
+    "kind": "behaviour_flag",
+    "topic": "FY2024 special dividend declaration and payment timing",
+    "documented_fact": "The issuer disclosed a November 2023 $35.00-per-share special dividend funded from existing cash, and a September 19, 2024 $75.00-per-share special dividend. It states $3,000 million of new senior secured debt plus existing cash funded the October 2024 cash payment related to the September declaration; Note 10 further says proceeds from both fourth-quarter 2024 debt issuances plus existing cash funded that declaration.",
+    "direction": "Extraction-Oriented",
+    "behaviour_type": "dividend recap",
+    "amount_funding_source": "For the November 2023 $35.00 dividend, S1 says the approximately $2,020 million cash payment was funded by existing cash (PDF 29); do not attribute debt funding to that dividend. For the September 2024 $75.00 dividend, S1 states $3,000 million of new senior secured debt plus existing cash funded the approximately $4,348 million October cash payment (PDF 29), and that proceeds of both fourth-quarter issuances plus existing cash funded the declaration (PDF 131). CP-1 T4.5 reports FY2024 dividends/equivalents paid (2,038) USD millions; T4.6 payable at September 30, 2024 is 4,216 USD millions. These are different measures.",
+    "legal_capacity_link": "Documented action: Board declaration and subsequent payment are stated. The supplied annual filing does not establish contractual capacity, covenant restrictions or current legal capacity for future distributions; the disclosed payment timing is not evidence of current liquidity feasibility.",
+    "dimension": "Shareholder extraction risk",
+    "risk_mechanic": "The issuer explicitly links debt proceeds plus existing cash to the September 2024 special dividend declaration. This transfers debt-financed liquidity to shareholders and creates debt service/refinancing demands while consuming cash; the November 2023 dividend is separately reported as funded by existing cash. The $4,216 million accrued liability was a post-year-end cash use.",
+    "credit_implication": "Documented debt-plus-cash financing of the September declaration raises leverage tolerance and liquidity monitoring concerns; it supports heightened scrutiny of post-distribution liquidity, debt service and future distributions, without establishing covenant breach, default or inability to pay.",
+    "evidence_quality": "High",
+    "category": "Documentary Fact",
+    "citations": [
+      {
+        "source_id": "S1",
+        "locator": "PDF 29, Item 5, Dividends",
+        "quote": "On November 27, 2023, the Company paid a special cash dividend of $35.00 on each outstanding share of common stock and cash dividend equivalent payments on eligible vested options outstanding under its stock option plans."
+      },
+      {
+        "source_id": "S1",
+        "locator": "PDF 29, Item 5, Dividends",
+        "quote": "The total cash payment, funded by existing cash on hand, related to the special dividend and dividend equivalent payments was approximately $2,020 million."
+      },
+      {
+        "source_id": "S1",
+        "locator": "PDF 29, Item 5, Dividends",
+        "quote": "On September 19, 2024, the Company’s Board of Directors authorized and declared a special cash dividend of $75.00 on each outstanding share of common stock and cash dividend equivalent payments on eligible vested options outstanding under its stock option plans."
+      },
+      {
+        "source_id": "S1",
+        "locator": "PDF 29, Item 5, Dividends",
+        "quote": "The total cash payment, funded by a combination of $3,000 million in new senior secured debt and existing cash on hand, related to the special dividend and dividend equivalents was approximately $4,348 million in October 2024."
+      },
+      {
+        "source_id": "S1",
+        "locator": "PDF 131, Note 10, Fourth Quarter of Fiscal 2024 Activity",
+        "quote": "The proceeds from both fourth quarter of fiscal 2024 issuances were used, along with existing cash on hand, to fund a $75.00 special dividend declaration on each outstanding share of common stock and cash dividend equivalent payments on eligible vested options outstanding under its stock option plans."
+      },
+      {
+        "source_id": "S1",
+        "locator": "PDF 146, Note 16, Subsequent Event—$75.00 Special Dividend Payment",
+        "quote": "The Company paid $4,216 million and $132 million in special dividend and dividend equivalents, respectively, in October 2024."
+      }
+    ],
+    "limitation": "The issuer discloses debt-plus-cash funding but does not trace exact proceeds or establish contractual capacity, covenant headroom, unrestricted liquidity after payment or forward feasibility. October 2024 payment is subsequent to FY2024."
+  },
+  {
+    "kind": "behaviour_flag",
+    "topic": "FY2022 special dividend and repurchase",
+    "documented_fact": "The FY2022 statement of changes in stockholders’ deficit reports special dividends and vested dividend equivalents declared of (1,045) USD millions and stock repurchases under the repurchase program of (912) USD millions.",
+    "direction": "Extraction-Oriented",
+    "behaviour_type": "distribution",
+    "amount_funding_source": "CP-1 T4.4, statement of changes in stockholders’ deficit, FY2022, USD millions: special dividends and vested dividend equivalents declared (1,045); stock repurchases (912). CP-1 T4.5, cash flows, FY2022 reports dividends/dividend equivalents paid (1,091) and repurchases (912). Declaration and cash payment are distinct measures.",
+    "legal_capacity_link": "The source documents completed declarations and repurchases; it does not establish contractual capacity for future distributions or the financing source for them.",
+    "dimension": "Shareholder extraction risk",
+    "risk_mechanic": "Distributions and repurchases reduce cash or retained equity otherwise available to creditors; the different declared and paid measures require period-specific cash tracing.",
+    "credit_implication": "Together with the later FY2024 special dividend, the history demonstrates recurring issuer-level shareholder distributions that warrant monitoring of future cash allocation and debt funding; it does not prove that these transactions were debt-funded.",
+    "evidence_quality": "High",
+    "category": "Documentary Fact",
+    "citations": [
+      {
+        "source_id": "S1",
+        "locator": "PDF 108, Consolidated Statements of Changes in Stockholders’ Deficit, FY2024 activity",
+        "quote": "Special dividends ($35.00 and $75.00 per share) and vested dividend equivalents declared"
+      },
+      {
+        "source_id": "S1",
+        "locator": "PDF 108, Consolidated Statements of Changes in Stockholders’ Deficit, FY2022 activity",
+        "quote": "Stock repurchases under repurchase program"
+      }
+    ],
+    "limitation": "No source-of-funds tracing or distribution covenant analysis is supplied in the reviewed passages."
+  },
+  {
+    "kind": "governance_topic",
+    "topic": "Acquisition activity and acquisition appetite",
+    "documented_fact": "The filing reports FY2024 completed acquisitions of Raptor Scientific, CPI’s Electron Device Business, SEI Industries, FPT Industries and Extant product lines, plus FY2023 Calspan and Extant product-line acquisitions. It describes cash consideration and funding for selected named deals.",
+    "direction": "Mixed",
+    "behaviour_type": null,
+    "amount_funding_source": null,
+    "legal_capacity_link": null,
+    "dimension": "Acquisition appetite",
+    "risk_mechanic": "Cash consideration and integration can consume liquidity and increase execution and leverage risk, while acquired proprietary products may add aftermarket exposure. Reported purchase prices are not a pro forma debt or return analysis.",
+    "credit_implication": "Material acquisition activity warrants monitoring of funding, integration, purchase accounting and pro forma leverage; the evidence does not establish a future acquisition rate, realized synergies or appetite beyond completed activity.",
+    "evidence_quality": "High",
+    "category": "Documentary Fact",
+    "citations": [
+      {
+        "source_id": "S1",
+        "locator": "PDF 114, Note 2, Raptor Scientific",
+        "quote": "Raptor Scientific—On July 31, 2024, the Company acquired all the outstanding stock of Raptor Scientific for approximately $647 million in cash. The acquisition was financed through existing cash on hand."
+      },
+      {
+        "source_id": "S1",
+        "locator": "PDF 115, Note 2, CPI’s Electron Device Business",
+        "quote": "On June 6, 2024, the Company acquired all the outstanding stock of the Electron Device Business of Communications & Power Industries (“CPI’s Electron Device Business”) for approximately $1,385 million in cash."
+      },
+      {
+        "source_id": "S1",
+        "locator": "PDF 115, Note 2, CPI’s Electron Device Business",
+        "quote": "The acquisition was financed through existing cash on hand, inclusive of a portion of the cash proceeds from the new long-term debt issued during the first quarter of fiscal 2024"
+      },
+      {
+        "source_id": "S1",
+        "locator": "PDF 4, Item 1, The Company",
+        "quote": "Since the inception of our company in 1993, we have acquired 93 businesses and various product lines."
+      }
+    ],
+    "limitation": "Company policy language is management characterization. The filing does not provide deal-level pro forma leverage, returns or integration outcomes for all deals."
+  },
+  {
+    "kind": "governance_topic",
+    "topic": "Disclosure transparency and reporting quality",
+    "documented_fact": "The supplied Form 10-K includes audited consolidated financial statements, acquisition-specific cash consideration and funding descriptions, and a separately identified post-period dividend payment.",
+    "direction": "Supportive",
+    "behaviour_type": null,
+    "amount_funding_source": null,
+    "legal_capacity_link": null,
+    "dimension": "Reporting quality",
+    "risk_mechanic": "Dated, issuer-specific audited reporting and transaction-level descriptions improve creditor ability to distinguish period-end obligations, cash movements and subsequent events. A single public filing does not substitute for covenant reporting or current liquidity data.",
+    "credit_implication": "Supports use of this historical source for annual fact-finding; ongoing creditor monitoring still needs current reporting and underlying debt/covenant documents.",
+    "evidence_quality": "High",
+    "category": "Documentary Fact",
+    "citations": [
+      {
+        "source_id": "S1",
+        "locator": "PDF 103, Independent Auditor’s Report, Opinion on the Financial Statements",
+        "quote": "In our opinion, the consolidated financial statements present fairly, in all material respects, the financial position of the Company at September 30, 2024 and 2023, and the results of its operations and its cash flows for each of the three fiscal years in the period ended September 30, 2024, in conformity with U.S. generally accepted accounting principles."
+      },
+      {
+        "source_id": "S1",
+        "locator": "PDF 146, Note 16, Subsequent Event—$75.00 Special Dividend Payment",
+        "quote": "The Company paid $4,216 million and $132 million in special dividend and dividend equivalents, respectively, in October 2024."
+      }
+    ],
+    "limitation": "Source is the supplied annual filing; external authenticity/latest version was not independently checked (CP-0 G3). No covenant certificate or recurring lender reporting was reviewed."
+  },
+  {
+    "kind": "governance_topic",
+    "topic": "Disclosure of acquisitions, distributions and subsequent event",
+    "documented_fact": "The annual report gives acquisition-level cash consideration/funding statements and separately identifies the October 2024 payment of the year-end accrued special dividend.",
+    "direction": "Supportive",
+    "behaviour_type": null,
+    "amount_funding_source": null,
+    "legal_capacity_link": null,
+    "dimension": "Disclosure transparency",
+    "risk_mechanic": "Specific dates, amounts and funding descriptions make it possible to distinguish documented cash sources, obligations and post-period events, reducing uncertainty in annual historical analysis; they do not establish ongoing lender reporting or covenant compliance.",
+    "credit_implication": "Supports this filing as a historical evidence source and permits targeted monitoring questions; current liquidity and covenant conclusions still require updated information.",
+    "evidence_quality": "High",
+    "category": "Documentary Fact",
+    "citations": [
+      {
+        "source_id": "S1",
+        "locator": "PDF 114, Note 2, Raptor Scientific",
+        "quote": "The acquisition was financed through existing cash on hand."
+      },
+      {
+        "source_id": "S1",
+        "locator": "PDF 131, Note 10, Fourth Quarter of Fiscal 2024 Activity",
+        "quote": "The proceeds from both fourth quarter of fiscal 2024 issuances were used, along with existing cash on hand, to fund a $75.00 special dividend declaration on each outstanding share of common stock and cash dividend equivalent payments on eligible vested options outstanding under its stock option plans."
+      }
+    ],
+    "limitation": "One annual filing does not establish the completeness or timeliness of lender-facing reports and does not give current covenant calculations."
+  },
+  {
+    "kind": "governance_topic",
+    "topic": "Disclosed FY2024 debt amendments and creditor-treatment evidence gap",
+    "documented_fact": "The filing documents Amendments 13–17, term-loan repricing/replacement/extension, note issues/redemptions and a securitization amendment. However, the reviewed evidence does not establish the resulting creditor-class effects needed to categorize treatment behavior.",
+    "direction": "Insufficient Information",
+    "behaviour_type": null,
+    "amount_funding_source": null,
+    "legal_capacity_link": null,
+    "dimension": null,
+    "risk_mechanic": "Pricing, maturity and collateral terms can affect creditor claims, but without the executed agreements and transaction-level effects this module cannot determine priority, consent, relative treatment or whether actions were coercive.",
+    "credit_implication": "Do not draw a positive or adverse creditor-treatment conclusion from amendment activity alone. Preserve the dated financing history for CP-3C and CP-4 and obtain operative agreements and class-level effects.",
+    "evidence_quality": "Insufficient",
+    "category": "Insufficient Information",
+    "citations": [
+      {
+        "source_id": "S1",
+        "locator": "PDF 127, Note 10, Amendment No. 13",
+        "quote": "Under the terms of Amendment No. 13, the Company, among other things, issued $1,000 million in Tranche J term loans maturing February 28, 2031."
+      },
+      {
+        "source_id": "S1",
+        "locator": "PDF 128, Note 10, Amendment No. 14",
+        "quote": "Under the terms of Amendment No. 14, the Company, among other things, refinanced its revolving credit facility to (i) extend the maturity date from May 2026 to February 2029; (ii) increased the total commitments capacity thereunder from $810 million to $910 million; and (iii) decreased the applicable interest rate to Term SOFR plus 2.25% compared to Term SOFR plus 2.50% applicable prior to Amendment No. 14."
+      },
+      {
+        "source_id": "S1",
+        "locator": "PDF 131, Note 10, Amendment No. 17",
+        "quote": "The Tranche L term loans were fully drawn on September 19, 2024 and the other terms and conditions that apply to the Tranche L term loans are substantially the same as the terms and conditions that apply to the term loans immediately prior to Amendment No. 17."
+      },
+      {
+        "source_id": "S1",
+        "locator": "PDF 131, Note 10, Fourth Quarter of Fiscal 2024 Activity",
+        "quote": "The proceeds from both fourth quarter of fiscal 2024 issuances were used, along with existing cash on hand, to fund a $75.00 special dividend declaration on each outstanding share of common stock and cash dividend equivalent payments on eligible vested options outstanding under its stock option plans."
+      }
+    ],
+    "limitation": "Issuer disclosures establish the listed financing events, but not the creditor-class impact or all terms. Insufficient information is a missing analytical basis, not an adverse issuer conclusion."
+  },
+  {
+    "kind": "governance_topic",
+    "topic": "Legal capacity, leverage tolerance and support behavior",
+    "documented_fact": "The annual report identifies debt instruments and reports completed transactions but the reviewed passages do not establish current distribution baskets, restricted-payment capacity, guarantee/collateral capacity, sponsor support commitments or willingness to contribute equity.",
+    "direction": "Insufficient Information",
+    "behaviour_type": null,
+    "amount_funding_source": null,
+    "legal_capacity_link": null,
+    "dimension": "Legal-capacity linkage",
+    "risk_mechanic": "Contractual permission, demonstrated willingness and financial feasibility are distinct. Without operative debt documents and current liquidity/covenant data, none can be substituted for another.",
+    "credit_implication": "Do not infer sponsor support or creditor protections. Obtain agreements, covenant calculations and liquidity evidence to assess legal capacity and feasibility; no support commitment is documented in the reviewed evidence.",
+    "evidence_quality": "Insufficient",
+    "category": "Insufficient Information",
+    "citations": [],
+    "limitation": "Missing current debt agreements, covenant certificate, liquidity forecast and explicit support commitment. Issuer is not assumed to be privately-equity owned."
+  },
+  {
+    "kind": "governance_topic",
+    "topic": "Related-party leakage",
+    "documented_fact": "The reviewed passages do not provide a sufficiently complete related-party transaction register to determine whether material related-party leakage exists.",
+    "direction": "Insufficient Information",
+    "behaviour_type": null,
+    "amount_funding_source": null,
+    "legal_capacity_link": null,
+    "dimension": "Related-party leakage risk",
+    "risk_mechanic": "Undisclosed or unexamined affiliate payments could redirect cash away from creditors, but no such payment is established by the evidence reviewed here.",
+    "credit_implication": "No adverse leakage conclusion is warranted; obtain a complete related-party register and applicable agreements if this risk is material to underwriting.",
+    "evidence_quality": "Insufficient",
+    "category": "Insufficient Information",
+    "citations": [],
+    "limitation": "Targeted annual-report pages were reviewed, not every exhibit and related-party disclosure; no inference of absence is made."
+  }
+]

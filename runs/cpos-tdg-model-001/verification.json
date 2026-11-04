@@ -1,0 +1,367 @@
+{
+  "status": "checked deterministic CP-OS report/Model publication from actual retained handoffs; broader goal active",
+  "scope": "Selected historical TDG annual USD-million layout; five narrative sections plus HTML Model, three charts and calculation JSON. Extra quarter/conditional tables retained literally, no complete current underwriting/full/native claim.",
+  "execution": {
+    "mode": "retained-response-replay",
+    "analytical_answers": {
+      "CP-0": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0",
+      "CP-1": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "CP-1A": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+      "CP-2": "f50a11f516267a55ee2b0e25ac8b292639e40c49947d3964dce39a04303f6b0e"
+    },
+    "fresh_model_calls": 0,
+    "paid_calls": 0,
+    "agents_spawned": 0,
+    "excel": "ingestion only; no output"
+  },
+  "instructions_sha256": "f6b1dd14c1bdba85907c68cb9f1d0c7bcf6e811dc8d097cf814931a3cbc22f15",
+  "workflow_sha256": "29a868543b86f937d7cd0b1aad8085fd8de36996a3e84f535aa41ebf845cad3d",
+  "independent_oracle": {
+    "path": "runs/tdg-model-001/verification.json",
+    "sha256": "5c2c2015978324580c08b5ebecc59de97e5d3ae5ec9515725a7e2b9160932f1d",
+    "scope": "81 frozen source/Fraction expectations from before original Model publication; exact rounded Decimal equality, not derived from new production output"
+  },
+  "publication": {
+    "path": "runs/cpos-tdg-model-001/execution/deliveries/de1be08fb3a040d4e4f916cce017b1541b8eaaa8235b6fb50b7c4afb916a2bfc",
+    "completion": "runs/cpos-tdg-model-001/execution/completed-3bbacda3b2e76db671e0474765336167ff4f02c71ec9b074b3f829cb780c3b77.json",
+    "completion_sha256": "3bbacda3b2e76db671e0474765336167ff4f02c71ec9b074b3f829cb780c3b77",
+    "file_hashes": {
+      "CP-1.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "CP-1A.md": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+      "CP-2.md": "f50a11f516267a55ee2b0e25ac8b292639e40c49947d3964dce39a04303f6b0e",
+      "annual.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "current_synthesis.md": "f50a11f516267a55ee2b0e25ac8b292639e40c49947d3964dce39a04303f6b0e",
+      "quarter.md": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+      "forecast.md": "696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928",
+      "forecast_exact.json": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843",
+      "calculation.json": "356c04c1801c0d48f4a53770b0238a38945266b97e47e0a5ce2d2262eaf3af1d",
+      "model-view.json": "5337c0789c98ad04800f97a2651f0cec25e8871ab03f7c3e95165272f866a183",
+      "model-report-view.json": "34885e89945daafca9cc650a8a7621cf09e3d48a97a21a9b248b8bd1bbf428c8",
+      "model.html": "c673a9b44031e4bde0888dae3950f103b0dbec791aa4428cccc3e86cd2c01bc5",
+      "view.json": "bfab55d0e03616d9107b44d02ab98c119d4743a86be9ea1653e687920fe2d5b1",
+      "report-view.json": "e79ac27b6f61f489c47a0d9cb806f2e6c0b75043a3656bf472604f0c1c7a64fe",
+      "report.html": "cdb682b743990b0484bb51e895a1007973c746510079963f8fc57eb62c3a09b7"
+    },
+    "delivery_json_sha256": "380a4e5f3835f21104eae5103f39a98d5ec08d5b2e082441d1ecc4d5fb9637d7",
+    "numeric_cells": 81,
+    "known_numeric_cells": 74,
+    "missing_numeric_cells": 7,
+    "raw_tables": 51,
+    "raw_value_cells": 1924,
+    "raw_blank_missing": 46,
+    "model_tables": 53,
+    "model_facts": 2005,
+    "charts": 3,
+    "chart_marks": 18
+  },
+  "confidence_review": {
+    "scope": [
+      "src/deploy_workflow/model_handoff_delivery.py",
+      "src/deploy_workflow/handoff_delivery.py optional Model publication",
+      "src/deploy_workflow/owners/cpos.py optional Model configuration/staging/replay"
+    ],
+    "least_confident_about_ranked": [
+      {
+        "rank": 1,
+        "doubt": "A source selector could attach the wrong instant to a fiscal year.",
+        "investigated": "Changing FY2024 balance_column to Sep 30, 2023 originally published 19,750 as FY2024 carrying debt rather than 24,880; source period identity was not checked.",
+        "verdict": "CONFIRMED bug; repaired",
+        "patch": "Validate historical-duration source dates and unique period-end balance row against the selected annual end.",
+        "verification": [
+          "test_balance_selector_must_match_source_instant",
+          "test_annual_dates_must_match_reported_fiscal_window",
+          "test_source_projected_window_cannot_be_published_as_historical"
+        ]
+      },
+      {
+        "rank": 2,
+        "doubt": "A numeric lexeme could be assigned an incorrect quantity family.",
+        "investigated": "An explicit basic EPS selector originally published 25.62 USD millions. A global monetary normalization cannot override an explicit per-share/share unit.",
+        "verdict": "CONFIRMED bug; repaired",
+        "patch": "Refuse explicit per-share/individual/share row selectors in this selected monetary adapter. Arbitrary unlabelled mappings still require source review; no universal semantic inference is claimed.",
+        "verification": [
+          "test_explicit_nonmonetary_source_selector_cannot_be_money (three quantity families)",
+          "test_81_values_against_independent_source_fraction_checks"
+        ]
+      },
+      {
+        "rank": 3,
+        "doubt": "Missing, blank, zero and empty Model states could collapse together.",
+        "investigated": "All selected monetary observations changed to dashes could still force blocks to populated. Earlier builder also represented blank literal cells as known text; old Model3 correction retained here.",
+        "verdict": "CONFIRMED empty-Model bug; repaired; blank/zero behavior verified",
+        "patch": "Refuse a numeric Model with no selected source observations; preserve source blanks as missing, true zero as zero and derived missing operands as gaps.",
+        "verification": [
+          "test_all_missing_observations_cannot_complete_a_populated_model",
+          "test_true_zero_interest_is_retained_while_ratio_is_missing",
+          "test_missing_operand_is_not_backfilled_from_reported_ebit",
+          "test_raw_cells_quotes_blanks_and_attached_sources_are_exact"
+        ]
+      },
+      {
+        "rank": 4,
+        "doubt": "New adapter arithmetic might drift from source-derived expectations or conflate earnings bases.",
+        "investigated": "Promoted explicit original formulas into existing calc/_ratio helpers, with local shared Decimal context. Source EBIT and issuer bridge are reconciled when both sides are known. Existing pre-publication independent Fraction expectations remain the oracle.",
+        "verdict": "fine within selected annual USD-million scope",
+        "patch": "Refuse positive signed capex and source reconciliation mismatches; keep operating, ordinary and As Defined EBITDA separate.",
+        "verification": [
+          "81 exact independent amounts/ratios/missing entries",
+          "test_ambient_decimal_precision_cannot_change_model",
+          "test_invalid_source_mapping_refuses",
+          "18 chart points exactly match their corresponding numeric cells and table twins"
+        ]
+      },
+      {
+        "rank": 5,
+        "doubt": "Optional forecast/quarter inputs might be stale, foreign or reinterpreted.",
+        "investigated": "Actual retained extra handoffs identify TDG in their titles; full corporate-name-only validation rejected them. Extra title checks now accept exact issuer ID or full name, while peer body mentions alone refuse. Exact forecast JSON must be finite and consume this annual handoff.",
+        "verdict": "fine for explicitly pinned reviewed inputs; broader forecast qualification open",
+        "patch": "Hash every input, validate title identity/exact consumed annual hash; retain quarter/conditional data literally and keep original exact forecast JSON byte-identical.",
+        "verification": [
+          "test_changed_forecast_base_and_foreign_extra_issuer_refuse",
+          "test_malformed_retained_forecast_is_not_published",
+          "exact copied quarter/forecast/source bytes"
+        ]
+      },
+      {
+        "rank": 6,
+        "doubt": "CP-OS could repeat analysis, complete partial output or trust forged hashes.",
+        "investigated": "Model config is publication-only. Existing retained response/context checks, immutable staged publication and exact reconstructed delivery-file verification are still in the control path. A write interruption leaves no completed publication; source/config revisions do not silently rebind cached analysis.",
+        "verdict": "fine under existing one-writer local execution contract",
+        "patch": "Extend exact verification to Model files and stage extra pinned inputs; optional replay response map may be omitted only when all analytic answers are already pinned.",
+        "verification": [
+          "test_cp_os_publishes_complete_model_bundle_resumes_and_refuses_tampering",
+          "test_model_config_change_does_not_repeat_analysis",
+          "test_incomplete_model_write_never_completes_and_resume_keeps_analysis",
+          "existing CP-OS retry/tampering/lock/interruption regressions",
+          "actual CLI resume with identical completion and zero executor/provider calls"
+        ]
+      },
+      {
+        "rank": 7,
+        "doubt": "Report navigation, exact source lineage or output ruling could be broken.",
+        "investigated": "Main Model link now targets the generated model.html, its Model route targets CP-MODEL, dense ratio headers show fiscal years, source inspector shows annual line36/hash, and JSON link opens actual retained-handoff-model/1 with excel_output false. Source search found only Excel input references, not a runtime workbook writer.",
+        "verdict": "fine for the checked publication",
+        "patch": "Existing shell destination replaced only at validated unique markers; no renderer source change or workbook output.",
+        "verification": [
+          "actual browser report \u2192 Model \u2192 annual/ratios \u2192 source quote \u2192 report \u2192 calculation JSON",
+          "all 16 delivered files verified, no xlsx/xls/xlsm",
+          "verification browser closed and identified local HTTP server stopped"
+        ]
+      },
+      {
+        "rank": 8,
+        "doubt": "Imported/native compatibility or type-check breadth might be overstated.",
+        "investigated": "All14 pre-existing native navigation function/class ASTs are unchanged; five reused core source hashes match earlier Model verification. Focused tests pass. Broad mypy import following reported11 annotation errors in unchanged inline_xbrl.py; selected-file check with silent import following passes.",
+        "verdict": "selected path fine; broader native/full-pathway/type-check scope remains open",
+        "patch": "No unrelated dependency rewrite or global test rebaseline.",
+        "verification": [
+          "66 focused tests passed",
+          "Ruff passed",
+          "selected three-file mypy --follow-imports=silent passed",
+          "14 AST equivalence checks and five core source hashes"
+        ]
+      }
+    ],
+    "still_open": [
+      "Other handoff layouts/currencies/source definitions need explicit source-reviewed mappings.",
+      "Bounded source selector checks do not infer arbitrary financial meaning from unlabelled rows.",
+      "Extra quarter and conditional forecast data do not establish a source-backed current full forecast.",
+      "Broader pathways/fresh native provider qualification and whole-project type-check remain separate."
+    ],
+    "fixed": [
+      "wrong balance instant binding",
+      "explicit share/per-share monetary selector",
+      "empty Model reported as populated"
+    ],
+    "verified_fine": [
+      "independent exact81 values, dimensional metadata, fiscal dates, missing/zero behavior",
+      "literal raw source tables and46 blank values",
+      "three charts18 exact observations/table twins",
+      "retained input identity, exact delivery verification, retry/resume, failure-before-completion",
+      "no second analysis, workbook output or core engine/renderer rewrite"
+    ]
+  },
+  "rewrite_tournament": {
+    "mode": "no-argument post-edit, inline sequential per project no-agent rule",
+    "material_targets": [
+      "_annual_cells",
+      "build_model"
+    ],
+    "skipped": "Small contracts, source-selector guards and reuse hooks reviewed through confidence regressions; capped at two material targets. Docs/test-only changes skipped.",
+    "impact_set": {
+      "_annual_cells": [
+        "build_model",
+        "prepare",
+        "delivery_files",
+        "verify_delivery",
+        "deliver",
+        "CP-OS run_handoffs"
+      ],
+      "build_model": [
+        "handoff_delivery.prepare",
+        "delivery_files/deliver/verify_delivery",
+        "CP-OS run_handoffs/replay_handoffs",
+        "tests/test_model_handoff_delivery.py"
+      ]
+    },
+    "invariants": [
+      "exact independent amounts and rounding; missing != zero; quantity family/currency/period identity",
+      "byte-pinned sources and forecast basis; raw tables/citations retain scope",
+      "same signatures, ModelPublication fields and pure no-write/no-provider behavior",
+      "no analytical rerun for publication; CP-OS verifies all populated outputs before completion"
+    ],
+    "candidates": {
+      "speed": {
+        "change": "Local aliases for arithmetic/hash functions, same full signatures and output.",
+        "test_result": "24 passed in 6.95s"
+      },
+      "memory": {
+        "change": "Chained issuer adjustment iterator or released final decoded text; existing calc still materializes operands.",
+        "test_result": "24 passed in 6.94s"
+      },
+      "readability": {
+        "change": "Local variable names expanded, same full signatures and output.",
+        "test_result": "24 passed in 7.04s"
+      }
+    },
+    "anonymous_bracket": [
+      {
+        "match": "A(speed) vs B(memory)",
+        "winner": "A",
+        "reasons": [
+          "Same observable contract and focused passes.",
+          "Memory change has no demonstrated end-to-end benefit because calc retains operands.",
+          "Extra cleanup/iterator machinery increases maintenance for bounded data."
+        ]
+      },
+      {
+        "match": "A(previous challenger) vs B(readability)",
+        "winner": "B",
+        "reasons": [
+          "Clearer local names than alias optimization.",
+          "Same O(n) table/output construction and focused pass.",
+          "Avoids a new alias vocabulary in reviewed arithmetic."
+        ]
+      },
+      {
+        "match": "A(challenger) vs B(incumbent)",
+        "winner": "B",
+        "reasons": [
+          "Both preserve tested values/source contracts.",
+          "Renaming does not simplify formulas or eliminate meaningful allocations.",
+          "Incumbent retains direct comparison with the recovered proven builder and smaller change."
+        ]
+      }
+    ],
+    "winner": "Incumbent holds",
+    "justification": [
+      "81 independently checked numeric cells and18 exact chart observations pass.",
+      "Existing explicit formulas use the reviewed shared arithmetic and missingness rules.",
+      "Alternatives add no verified material speed/memory/readability benefit."
+    ],
+    "final_code": [
+      {
+        "symbol": "_annual_cells",
+        "path": "src/deploy_workflow/model_handoff_delivery.py",
+        "lines": [
+          231,
+          274
+        ],
+        "sha256": "e592d2b4a88f7594dd943765ca312bfa0f917d492ff3f140c26653c4510ad2e8",
+        "final_code": "```python\ndef _annual_cells(reader: _AnnualReader) -> dict[str, dict[str, Cell]]:\n    \"\"\"The original checked Model formulas, still calculated by the shared kernel.\"\"\"\n    result = {}\n    for period, dates in reader.layout.periods.items():\n        c = {key: reader.read(key, period) for key in INPUT_KEYS}\n        if c[\"capex_signed\"].value is not None and c[\"capex_signed\"].value > 0:\n            raise ValueError(\n                \"model_capex: select a signed source cash outflow, do not infer its sign\"\n            )\n        with localcontext(CONTEXT):\n            c[\"opex_magnitude\"] = calc(\n                ((c[\"selling_admin\"], 1), (c[\"income_statement_amortization\"], 1))\n            )\n            c[\"ebit\"] = calc(((c[\"gross_profit\"], 1), (c[\"opex_magnitude\"], -1)))\n            c[\"cash_flow_DA\"] = calc(((c[\"depreciation\"], 1), (c[\"cf_amortization\"], 1)))\n            c[\"operating_ebitda\"] = calc(((c[\"ebit\"], 1), (c[\"cash_flow_DA\"], 1)))\n            c[\"cfo_less_capex\"] = calc(((c[\"cfo\"], 1), (c[\"capex_signed\"], 1)))\n            c[\"carrying_debt\"] = calc(\n                (reader.read(key, dates.balance_column), 1) for key in DEBT_KEYS\n            )\n            c[\"net_carrying_debt\"] = calc(((c[\"carrying_debt\"], 1), (c[\"cash\"], -1)))\n            c[\"issuer_bridge_check\"] = calc(\n                (\n                    (c[\"issuer_ordinary_ebitda\"], 1),\n                    *((reader.read(key, period), 1) for key in ADJUSTMENT_KEYS),\n                )\n            )\n            c[\"operating_vs_issuer_basis\"] = calc(\n                ((c[\"operating_ebitda\"], 1), (c[\"issuer_ordinary_ebitda\"], -1))\n            )\n            for key, numerator, denominator in RATIOS:\n                c[key] = _ratio(((c[numerator], 1),), ((c[denominator], 1),))\n        for computed, stated in (\n            (\"ebit\", \"ebit_reported\"),\n            (\"issuer_bridge_check\", \"issuer_as_defined\"),\n        ):\n            if (\n                c[computed].value is not None\n                and c[stated].value is not None\n                and c[computed].value != c[stated].value\n            ):\n                raise ValueError(f\"model_reconciliation: {period} {computed} differs from {stated}\")\n        result[period] = c\n    return result\n```"
+      },
+      {
+        "symbol": "build_model",
+        "path": "src/deploy_workflow/model_handoff_delivery.py",
+        "lines": [
+          367,
+          653
+        ],
+        "sha256": "8d4317e0710dbbee258958a3bec75999f6495a06fcb6cbfcf27d8375fa85eb97",
+        "final_code": "```python\ndef build_model(\n    run: Run,\n    inputs: Mapping[str, HandoffInput],\n    raw_inputs: Mapping[str, bytes],\n    layout: ModelDelivery,\n) -> ModelPublication:\n    \"\"\"Render a current source-bound Model; no providers, journals or output writes.\"\"\"\n    if set(inputs) != set(raw_inputs) or not {\"annual\", \"current_synthesis\"} <= set(inputs):\n        raise ValueError(\"model_inputs: annual and current synthesis are required\")\n    if set(inputs) - {\"annual\", \"current_synthesis\", \"quarter\", \"forecast\", \"forecast_exact\"}:\n        raise ValueError(\"model_inputs: unknown source role\")\n    if (\"forecast\" in inputs) != (\"forecast_exact\" in inputs):\n        raise ValueError(\n            \"model_forecast: handoff and unchanged exact calculation must be supplied together\"\n        )\n    sources = []\n    facts: list[Fact] = []\n    tables: list[ReportTable] = []\n    bindings: list[Binding] = []\n    copies = {}\n    for key, spec in inputs.items():\n        raw = raw_inputs[key]\n        if hashlib.sha256(raw).hexdigest() != spec.sha256:\n            raise ValueError(f\"model_input_changed: {key}\")\n        copies[key + (\".json\" if key == \"forecast_exact\" else \".md\")] = raw\n        if key == \"forecast_exact\":\n            exact = json.loads(raw)\n            json.dumps(exact, allow_nan=False)\n            consumed = exact.get(\"consumed\", {}) if isinstance(exact, dict) else {}\n            if not isinstance(consumed, dict) or inputs[\"annual\"].sha256 not in consumed.values():\n                raise ValueError(\n                    \"model_forecast_basis: exact forecast does not bind this annual handoff\"\n                )\n            continue\n        text = raw.decode(\"utf-8\")\n        name = \" \".join(run.issuer_name.casefold().split())\n        title = \" \".join(text.splitlines()[0].casefold().split())\n        identified = name in \" \".join(text.casefold().split())\n        if key in {\"quarter\", \"forecast\"}:\n            identified = name in title or bool(\n                re.search(\n                    r\"(?<![a-z0-9])\" + re.escape(run.issuer_id.casefold()) + r\"(?![a-z0-9])\", title\n                )\n            )\n        if not name or not identified:\n            raise ValueError(f\"model_issuer: {key}\")\n        source, raw_facts, raw_tables, raw_bindings = _literal_tables(key, raw, spec.sha256)\n        sources.append(source)\n        facts.extend(raw_facts)\n        tables.extend(raw_tables)\n        bindings.extend(raw_bindings)\n    reader = _AnnualReader(raw_inputs[\"annual\"], inputs[\"annual\"], layout)\n    reader.validate()\n    cells = _annual_cells(reader)\n    if not any(row[key].value is not None for row in cells.values() for key in INPUT_KEYS):\n        raise ValueError(\"model_empty: no selected historical monetary observations\")\n    ratio_keys = tuple(key for key, _, _ in RATIOS)\n    for tid, keys, block in (\n        (\n            \"history\",\n            tuple(k for k in next(iter(cells.values())) if k not in ratio_keys),\n            \"financials-credit-metrics\",\n        ),\n        (\"ratios\", ratio_keys, \"company-profile\"),\n    ):\n        layouts = []\n        for key in keys:\n            ids = []\n            for period, row in cells.items():\n                cell = row[key]\n                fid = f\"{tid}.{key}.{period}\"\n                ids.append(fid)\n                quotes = tuple(\n                    dict.fromkeys(reader.citations[s.source_locator] for s in cell.sources)\n                )\n                facts.append(\n                    Fact(\n                        fact_id=fid,\n                        label=LABELS.get(key, key.replace(\"_\", \" \").title()),\n                        table_id=tid,\n                        row_id=key,\n                        field=period,\n                        amount=cell.value,\n                        status=\"known\" if cell.value is not None else \"missing\",\n                        unit=\"MULTIPLE\" if tid == \"ratios\" else \"MILLIONS\",\n                        scale=Decimal(1) if tid == \"ratios\" else Decimal(1000000),\n                        currency=None if tid == \"ratios\" else \"USD\",\n                        period=period,\n                        basis=\"Historical handoff publication. \"\n                        + (\n                            \"Existing Decimal helper: \" + FORMULAS[key]\n                            if key in FORMULAS\n                            else \"Reported source value; exact handoff citation attached.\"\n                        ),\n                        value_class=\"calculated\" if key in FORMULAS else \"source\",\n                        formula=FORMULAS.get(key),\n                        calculation_id=f\"model.{key}.{period}\" if key in FORMULAS else None,\n                        citations=quotes,\n                        limitation=cell.note\n                        if cell.value is not None\n                        else (cell.note or cell.reason or \"Missing source input\"),\n                        decimals=2 if tid == \"ratios\" else 0,\n                    )\n                )\n            layouts.append(\n                TableRow(\n                    row_id=key,\n                    label=LABELS.get(key, key.replace(\"_\", \" \").title()),\n                    fact_ids=tuple(ids),\n                )\n            )\n        tables.append(\n            ReportTable(\n                table_id=tid,\n                title=\"Annual source and computation register\"\n                if tid == \"history\"\n                else \"Defined historical ratios \u2014 not covenant/agency measures\",\n                columns=tuple(TableColumn(field=p, label=p) for p in cells),\n                rows=tuple(layouts),\n                row_header=\"Measure\",\n            )\n        )\n        bindings.append(\n            Binding(\n                fact_coord=FactCoord(module_id=\"CP-MODEL\", table_id=tid),\n                block_id=block,\n                cell_slot=tid,\n                unit_class=\"multiple\" if tid == \"ratios\" else \"amount\",\n                label=tid,\n            )\n        )\n    values = {\n        period: {\n            key: {\n                \"amount\": None if cell.value is None else str(cell.value),\n                \"unit\": \"MULTIPLE\" if key in ratio_keys else \"MILLIONS\",\n                \"quantity_family\": \"dimensionless\" if key in ratio_keys else \"monetary\",\n                \"currency\": None if key in ratio_keys else \"USD\",\n                \"scale\": \"1\" if key in ratio_keys else \"1000000\",\n                \"period\": period,\n                \"start_date\": layout.periods[period].start_date.isoformat(),\n                \"end_date\": layout.periods[period].end_date.isoformat(),\n                \"formula\": FORMULAS.get(key),\n                \"reason\": cell.reason,\n                \"note\": cell.note,\n                \"sources\": [\n                    {\n                        \"source_id\": s.source_id,\n                        \"locator\": s.source_locator,\n                        \"cell_text\": s.cell_text,\n                    }\n                    for s in cell.sources\n                ],\n            }\n            for key, cell in row.items()\n        }\n        for period, row in cells.items()\n    }\n    calculation = {\n        \"schema_version\": \"retained-handoff-model/1\",\n        \"arithmetic_context\": {\"precision\": CONTEXT.prec, \"rounding\": CONTEXT.rounding},\n        \"mode\": \"Separate deterministic publication from checked handoffs\",\n        \"inputs\": {\n            k: {\"path\": k + (\".json\" if k == \"forecast_exact\" else \".md\"), \"sha256\": v.sha256}\n            for k, v in inputs.items()\n        },\n        \"excel_output\": False,\n        \"scope\": SCOPE,\n        \"annual_periods\": list(cells),\n        \"formulas\": FORMULAS,\n        \"values\": values,\n        \"forecast_exact_file\": \"forecast_exact.json\" if \"forecast_exact\" in inputs else None,\n        \"forecast_exact_sha256\": inputs[\"forecast_exact\"].sha256\n        if \"forecast_exact\" in inputs\n        else None,\n    }\n    calcraw = (json.dumps(calculation, indent=2) + \"\\n\").encode()\n    module = ModuleView(\n        module_id=\"CP-MODEL\",\n        title=run.issuer_name + \" historical Model and conditional source tables\",\n        aliases=(),\n        status=\"candidate\",\n        artifact_sha256=hashlib.sha256(calcraw).hexdigest(),\n        facts=tuple(facts),\n        tables=tuple(tables),\n        limitations=(SCOPE,),\n    )\n    model_run = run.model_copy(update={\"requested_modules\": (\"CP-MODEL\",)})\n    view = View(\n        run=model_run,\n        mode=\"candidate\",\n        modules=(module,),\n        sources=tuple(sources),\n        analytical_qualification=\"partial\",\n        native_host_qualification=\"unrun\",\n    )\n    pathway = next(p for p in pathways() if p.id == run.pathway).model_copy(\n        update={\n            \"title\": run.issuer_name + \" \u2014 Model\",\n            \"question\": \"What do the retained handoffs and explicitly defined calculations show?\",\n            \"requested_modules\": (\"CP-MODEL\",),\n            \"blocks\": (\"financials-credit-metrics\", \"company-profile\"),\n        }\n    )\n    report = build(view, pathway, (BindingMap(module_id=\"CP-MODEL\", entries=tuple(bindings)),))\n    refs = {\n        (item.coord.module_id, item.coord.fact_id): item.ref_ids\n        for item in report.index.facts\n        if item.coord.fact_id is not None\n    }\n    figures = []\n    for figid, title, series in (\n        (\n            \"M1\",\n            \"Operating and issuer earnings bases\",\n            (\n                (\"Operating EBIT plus D&A\", \"operating_ebitda\"),\n                (\"Issuer ordinary EBITDA\", \"issuer_ordinary_ebitda\"),\n                (\"Issuer As Defined\", \"issuer_as_defined\"),\n            ),\n        ),\n        (\n            \"M2\",\n            \"Reported operating cash and capex proxy\",\n            ((\"Reported CFO\", \"cfo\"), (\"CFO less gross cash capex\", \"cfo_less_capex\")),\n        ),\n        (\"M3\", \"OPEX below gross profit\", ((\"S&A plus IS amortization\", \"opex_magnitude\"),)),\n    ):\n        figures.append(\n            _figure_of_points(\n                \"financials-credit-metrics\",\n                module,\n                refs,\n                fig_id=figid,\n                title=title,\n                kind=\"line\",\n                unit_class=\"amount\",\n                unit=\"USDm\",\n                series=tuple(name for name, _ in series),\n                points=tuple(\n                    _ChartPoint(name, p, f\"history.{key}.{p}\")\n                    for name, key in series\n                    for p in cells\n                ),\n                placement=\"above\",\n                summary=\"Selected annual history; distinct definitions and missing observations retained.\",\n            )\n        )\n    blocks = tuple(\n        b.model_copy(\n            update={\n                \"owner\": \"CP-MODEL\",\n                \"title\": \"Annual financial Model\"\n                if b.block_id == \"financials-credit-metrics\"\n                else \"Defined historical ratios\",\n                \"kind\": b.kind if b.block_id == \"financials-credit-metrics\" else \"dense\",\n                \"full_analysis_route\": \"CP-MODEL\",\n                \"width\": \"full\",\n                \"figures\": tuple(figures) if b.block_id == \"financials-credit-metrics\" else (),\n                \"state\": \"populated\",\n            }\n        )\n        for b in report.blocks\n    )\n    report = ReportView.model_validate_json(\n        report.model_copy(update={\"blocks\": blocks}).model_dump_json()\n    )\n    rendered = render(view, report)\n    anchor = '<div id=\"call-root\"></div>'\n    model_nav = '[\"model\", \"Model\", \"#CP-1\"]'\n    if rendered.count(anchor) != 1 or rendered.count(model_nav) != 1:\n        raise ValueError(\"model_shell: publication destinations changed\")\n    rendered = rendered.replace(\n        anchor,\n        '<section id=\"delivery-scope-banner\" class=\"banner\" role=\"note\">'\n        + html.escape(SCOPE)\n        + \"</section>\"\n        + anchor,\n    ).replace(model_nav, '[\"model\", \"Model\", \"#CP-MODEL\"]')\n    files = {\n        **copies,\n        \"calculation.json\": calcraw,\n        \"model-view.json\": view.model_dump_json(indent=2).encode(),\n        \"model-report-view.json\": report.model_dump_json(indent=2).encode(),\n        \"model.html\": rendered.encode(),\n    }\n    return ModelPublication(module, tuple(sources), files)\n```"
+      }
+    ],
+    "verification": {
+      "command": "PYTHONPATH=src:tests:tests/prompts .venv/bin/pytest tests/test_model_handoff_delivery.py tests/test_cpos_handoffs.py tests/test_handoff_delivery.py -q",
+      "result": "66 passed in 9.43s",
+      "impact_set_typecheck": ".venv/bin/mypy --follow-imports=silent src/deploy_workflow/model_handoff_delivery.py src/deploy_workflow/handoff_delivery.py src/deploy_workflow/owners/cpos.py \u2192 Success: no issues found in 3 source files",
+      "source_diff": "Reviewed against archived original builder and exact pre-edit delivery/CP-OS sources; no Git metadata in this project."
+    }
+  },
+  "reused_source_revisions": {
+    "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba",
+    "src/deploy_vii/charts.py": "a1805bca3e9bc6aa21383be158cc677b3ea6fbe2b95b8882ac045bfbe985e591",
+    "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+    "src/deploy_vii/model/_cells.py": "38c2ec4493b9b53065361db748a596687c7381eaf91659bc48fd9707ce7f2549",
+    "src/deploy_vii/model/metrics.py": "f3d547ba82a6545987a6f5bbbd80cc890915d4f3714c3f99f18ae21a45cf13eb"
+  },
+  "archived_pre_edit_sources": [
+    {
+      "consumed_path": "src/deploy_workflow/owners/cpos.py",
+      "archive_path": "docs/reuse/selected-methods/runtime/cpos-before-model-publication.py",
+      "sha256": "52eb6f244fc20db6da500a00ce6514c8d8ffe85d1b08c2981c0d7aa739607c08",
+      "use": "Exact pre-edit CP-OS integration source; verified retained analytical identity and unchanged native navigation."
+    },
+    {
+      "consumed_path": "src/deploy_workflow/handoff_delivery.py",
+      "archive_path": "docs/reuse/selected-methods/runtime/handoff-delivery-before-model-publication.py",
+      "sha256": "a9c8971689b25dd93270260cf0ae73d1380385d45e1a84f523ffcb59ab6060fe",
+      "use": "Exact pre-edit separate delivery adapter; optional Model hook preserves previous no-Model behavior."
+    },
+    {
+      "consumed_path": "retained original TDG Model publication script",
+      "archive_path": "docs/reuse/selected-methods/runtime/tdg-model-original-builder.py",
+      "sha256": "a3347373896f2eaab6de38604b31e89432c0a83e88e2480bdc0dc338563affd6",
+      "use": "Recovered original local Model builder promoted into reusable source, with checked missing/period/quantity corrections. Not a new financial engine."
+    }
+  ],
+  "original_native_definitions_ast_unchanged": [
+    "NavigationRow",
+    "NavigationDestination",
+    "NavigationProof",
+    "_refuse",
+    "_sha",
+    "_extract",
+    "_model_link",
+    "_external_links",
+    "_check_links",
+    "_rows",
+    "_destinations",
+    "_derive",
+    "navigation",
+    "verify_navigation"
+  ],
+  "browser": {
+    "report_to_model": true,
+    "historical_year_labels_and_dense_ratios": true,
+    "fy2024_ebitda_bases": [
+      "3843",
+      "3813",
+      "4173"
+    ],
+    "fy2024_opex": "1141",
+    "calculation_inspector": "model.opex_magnitude.FY2024; selling_admin + income_statement_amortization",
+    "source_inspector": "annual line36 | SELLING AND ADMINISTRATIVE EXPENSES | 980 | 780 | 748 | SHA301af0ee...",
+    "report_to_calculation_json": true,
+    "excel_output_false": true,
+    "verification_server_stopped": true,
+    "temporary_tab_closed": true
+  },
+  "checks": {
+    "focused_tests": "66 passed in 9.43s",
+    "ruff": "All checks passed",
+    "selected_file_mypy": "Success: no issues found in 3 source files (--follow-imports=silent)",
+    "unrestricted_mypy": "11 existing annotation errors in unchanged inline_xbrl.py; not a whole-project type-check pass",
+    "cli_replay": "Returned same verified publication, exit0",
+    "exact_file_reconstruction": "all16 files including delivery.json match",
+    "no_excel_files": true
+  },
+  "changed_source_hashes": {
+    "src/deploy_workflow/model_handoff_delivery.py": "14404b80726364fad377a72a9ac1c32cfce5999004e7b0a38f814a4c19b2e0b9",
+    "src/deploy_workflow/handoff_delivery.py": "f992a8ca0e8c13648f19181dd6c6d6f812a2df6c3612b93c39fc331f2204b454",
+    "src/deploy_workflow/owners/cpos.py": "0557929d215f111705e2cf57240c2bc5df14ee5770efe6c410ba4ca59e6debe0",
+    "tests/test_model_handoff_delivery.py": "de379cdd4d06893dca1500e996228dc33e2fd9d0356373934813a33e9b777210",
+    "tests/test_cpos_handoffs.py": "a5281e40363099e715bffa89a33725aaeafc6fb6059e2fa9c66bb657fd7e5a02"
+  },
+  "next_scope": "Continue one module/pathway gap at a time; no completion claim for the overall goal."
+}

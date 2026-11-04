@@ -1,0 +1,1281 @@
+{
+  "issuer": "California Resources Corporation (CRC, historical 2020 debtor)",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1609253/000160925320000118/a20200723exhibit101.htm",
+  "budget_date": "2020-07-09",
+  "agreement_date": "2020-07-23",
+  "kind": "Initial discussion budget included as Form of Budget in filed executed senior DIP agreement, not evidence of approved/achieved budget or complete cash access",
+  "units": {
+    "monthly": "USD millions, explicit at SEC L3057",
+    "weekly": "USD millions derived from same three-page budget and legal roll-up amounts; weekly page does not repeat the scale legend",
+    "rounding": "Displayed whole millions; preserve each reported subtotal/endpoint, never force reconciling plugs",
+    "dash_policy": "Printed financial dashes within populated numeric budget flow cells interpreted as zero at displayed precision, raw lexemes retained. They do not establish exact economic zero. Absent or unestablished input remains null; this is not a global missing-to-zero rule."
+  },
+  "weekly_end_dates": [
+    "2020-07-17",
+    "2020-07-24",
+    "2020-07-31",
+    "2020-08-07",
+    "2020-08-14",
+    "2020-08-21",
+    "2020-08-28",
+    "2020-09-04",
+    "2020-09-11",
+    "2020-09-18",
+    "2020-09-25",
+    "2020-10-02",
+    "2020-10-09"
+  ],
+  "monthly_periods": [
+    "Jul-2020 (includes pre/post-petition weeks)",
+    "Aug-2020",
+    "Sep-2020",
+    "Oct-2020",
+    "Nov-2020",
+    "Dec-2020",
+    "Jan-2021 stub through 2021-01-15"
+  ],
+  "weekly": {
+    "receipts": {
+      "values": [
+        7,
+        98,
+        34,
+        3,
+        7,
+        83,
+        16,
+        23,
+        3,
+        8,
+        100,
+        24,
+        3
+      ],
+      "reported_total_or_endpoint": 407,
+      "raw_lexemes": [
+        "7",
+        "98",
+        "34",
+        "3",
+        "7",
+        "83",
+        "16",
+        "23",
+        "3",
+        "8",
+        "100",
+        "24",
+        "3",
+        "407"
+      ],
+      "source_lines": [
+        2705,
+        2718
+      ]
+    },
+    "operating_disbursements": {
+      "values": [
+        23,
+        86,
+        36,
+        30,
+        51,
+        24,
+        25,
+        26,
+        19,
+        42,
+        28,
+        22,
+        15
+      ],
+      "reported_total_or_endpoint": 427,
+      "raw_lexemes": [
+        "23",
+        "86",
+        "36",
+        "30",
+        "51",
+        "24",
+        "25",
+        "26",
+        "19",
+        "42",
+        "28",
+        "22",
+        "15",
+        "427"
+      ],
+      "source_lines": [
+        2781,
+        2794
+      ]
+    },
+    "operating_cash_flow": {
+      "values": [
+        -17,
+        13,
+        -2,
+        -27,
+        -44,
+        59,
+        -9,
+        -3,
+        -17,
+        -34,
+        71,
+        3,
+        -12
+      ],
+      "reported_total_or_endpoint": -19,
+      "raw_lexemes": [
+        "(17)",
+        "13",
+        "(2)",
+        "(27)",
+        "(44)",
+        "59",
+        "(9)",
+        "(3)",
+        "(17)",
+        "(34)",
+        "71",
+        "3",
+        "(12)",
+        "(19)"
+      ],
+      "source_lines": [
+        2797,
+        2801
+      ]
+    },
+    "interest_fees": {
+      "values": [
+        20,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        6,
+        0,
+        0,
+        0,
+        8,
+        0
+      ],
+      "reported_total_or_endpoint": 38,
+      "raw_lexemes": [
+        "20",
+        "\u2014",
+        "\u2014",
+        "4",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "6",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "8",
+        "\u2014",
+        "38"
+      ],
+      "source_lines": [
+        2803,
+        2816
+      ]
+    },
+    "other_disbursements": {
+      "values": [
+        31,
+        0,
+        2,
+        0,
+        3,
+        2,
+        5,
+        0,
+        0,
+        3,
+        9,
+        0,
+        8
+      ],
+      "reported_total_or_endpoint": 62,
+      "raw_lexemes": [
+        "31",
+        "\u2014",
+        "2",
+        "\u2014",
+        "3",
+        "2",
+        "5",
+        "\u2014",
+        "\u2014",
+        "3",
+        "9",
+        "\u2014",
+        "8",
+        "62"
+      ],
+      "source_lines": [
+        2818,
+        2831
+      ]
+    },
+    "total_other_cash_flows": {
+      "values": [
+        51,
+        0,
+        2,
+        4,
+        3,
+        2,
+        5,
+        7,
+        0,
+        3,
+        9,
+        8,
+        8
+      ],
+      "reported_total_or_endpoint": 100,
+      "raw_lexemes": [
+        "51",
+        "\u2014",
+        "2",
+        "4",
+        "3",
+        "2",
+        "5",
+        "7",
+        "\u2014",
+        "3",
+        "9",
+        "8",
+        "8",
+        "100"
+      ],
+      "source_lines": [
+        2833,
+        2846
+      ]
+    },
+    "total_disbursements": {
+      "values": [
+        74,
+        86,
+        38,
+        34,
+        54,
+        25,
+        30,
+        32,
+        19,
+        44,
+        37,
+        29,
+        22
+      ],
+      "reported_total_or_endpoint": 527,
+      "raw_lexemes": [
+        "74",
+        "86",
+        "38",
+        "34",
+        "54",
+        "25",
+        "30",
+        "32",
+        "19",
+        "44",
+        "37",
+        "29",
+        "22",
+        "527"
+      ],
+      "source_lines": [
+        2849,
+        2862
+      ]
+    },
+    "net_cash_flow": {
+      "values": [
+        -68,
+        13,
+        -4,
+        -31,
+        -47,
+        57,
+        -14,
+        -9,
+        -17,
+        -37,
+        63,
+        -5,
+        -20
+      ],
+      "reported_total_or_endpoint": -119,
+      "raw_lexemes": [
+        "(68)",
+        "13",
+        "(4)",
+        "(31)",
+        "(47)",
+        "57",
+        "(14)",
+        "(9)",
+        "(17)",
+        "(37)",
+        "63",
+        "(5)",
+        "(20)",
+        "(119)"
+      ],
+      "source_lines": [
+        2865,
+        2868
+      ]
+    },
+    "opening_cash": {
+      "values": [
+        47,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "reported_total_or_endpoint": 47,
+      "raw_lexemes": [
+        "47",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "47"
+      ],
+      "source_lines": [
+        2870,
+        2883
+      ]
+    },
+    "rbl_draw_paydown": {
+      "values": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "reported_total_or_endpoint": 0,
+      "raw_lexemes": [
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014"
+      ],
+      "source_lines": [
+        2889,
+        2902
+      ]
+    },
+    "dip_draw_paydown": {
+      "values": [
+        31,
+        -13,
+        4,
+        31,
+        47,
+        -57,
+        14,
+        9,
+        17,
+        37,
+        -63,
+        5,
+        20
+      ],
+      "reported_total_or_endpoint": 82,
+      "raw_lexemes": [
+        "31",
+        "(13)",
+        "4",
+        "31",
+        "47",
+        "(57)",
+        "14",
+        "9",
+        "17",
+        "37",
+        "(63)",
+        "5",
+        "20",
+        "82"
+      ],
+      "source_lines": [
+        2904,
+        2914
+      ]
+    },
+    "closing_cash": {
+      "values": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "reported_total_or_endpoint": 10,
+      "raw_lexemes": [
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "source_lines": [
+        2916,
+        2929
+      ]
+    },
+    "senior_rollup": {
+      "values": [
+        83,
+        83,
+        83,
+        83,
+        83,
+        83,
+        83,
+        83,
+        83,
+        83,
+        83,
+        83,
+        83
+      ],
+      "reported_total_or_endpoint": 83,
+      "raw_lexemes": [
+        "83",
+        "83",
+        "83",
+        "83",
+        "83",
+        "83",
+        "83",
+        "83",
+        "83",
+        "83",
+        "83",
+        "83",
+        "83",
+        "83"
+      ],
+      "source_lines": [
+        2932,
+        2945
+      ]
+    },
+    "junior_rollup": {
+      "values": [
+        650,
+        650,
+        650,
+        650,
+        650,
+        650,
+        650,
+        650,
+        650,
+        650,
+        650,
+        650,
+        650
+      ],
+      "reported_total_or_endpoint": 650,
+      "raw_lexemes": [
+        "650",
+        "650",
+        "650",
+        "650",
+        "650",
+        "650",
+        "650",
+        "650",
+        "650",
+        "650",
+        "650",
+        "650",
+        "650",
+        "650"
+      ],
+      "source_lines": [
+        2947,
+        2960
+      ]
+    },
+    "opening_dip_balance": {
+      "values": [
+        0,
+        31,
+        18,
+        22,
+        53,
+        100,
+        43,
+        58,
+        67,
+        84,
+        120,
+        58,
+        63
+      ],
+      "reported_total_or_endpoint": 0,
+      "raw_lexemes": [
+        "\u2014",
+        "31",
+        "18",
+        "22",
+        "53",
+        "100",
+        "43",
+        "58",
+        "67",
+        "84",
+        "120",
+        "58",
+        "63",
+        "\u2014"
+      ],
+      "source_lines": [
+        2963,
+        2976
+      ]
+    },
+    "closing_dip_balance": {
+      "values": [
+        31,
+        18,
+        22,
+        53,
+        100,
+        43,
+        58,
+        67,
+        84,
+        120,
+        58,
+        63,
+        82
+      ],
+      "reported_total_or_endpoint": 82,
+      "raw_lexemes": [
+        "31",
+        "18",
+        "22",
+        "53",
+        "100",
+        "43",
+        "58",
+        "67",
+        "84",
+        "120",
+        "58",
+        "63",
+        "82",
+        "82"
+      ],
+      "source_lines": [
+        2990,
+        3003
+      ]
+    },
+    "dip_availability": {
+      "values": [
+        219,
+        232,
+        228,
+        197,
+        150,
+        207,
+        192,
+        183,
+        166,
+        130,
+        192,
+        187,
+        168
+      ],
+      "reported_total_or_endpoint": 168,
+      "raw_lexemes": [
+        "219",
+        "232",
+        "228",
+        "197",
+        "150",
+        "207",
+        "192",
+        "183",
+        "166",
+        "130",
+        "192",
+        "187",
+        "168",
+        "168"
+      ],
+      "source_lines": [
+        3005,
+        3018
+      ]
+    },
+    "incremental_lc": {
+      "values": [
+        31,
+        31,
+        31,
+        31,
+        31,
+        31,
+        31,
+        31,
+        31,
+        31,
+        31,
+        31,
+        31
+      ],
+      "reported_total_or_endpoint": 31,
+      "raw_lexemes": [
+        "31",
+        "31",
+        "31",
+        "31",
+        "31",
+        "31",
+        "31",
+        "31",
+        "31",
+        "31",
+        "31",
+        "31",
+        "31",
+        "31"
+      ],
+      "source_lines": [
+        3021,
+        3034
+      ]
+    },
+    "existing_lc": {
+      "values": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "reported_total_or_endpoint": 150,
+      "raw_lexemes": [
+        "150",
+        "150",
+        "150",
+        "150",
+        "150",
+        "150",
+        "150",
+        "150",
+        "150",
+        "150",
+        "150",
+        "150",
+        "150",
+        "150"
+      ],
+      "source_lines": [
+        3036,
+        3049
+      ]
+    }
+  },
+  "monthly": {
+    "receipts": {
+      "values": [
+        158,
+        108,
+        133,
+        150,
+        118,
+        150,
+        13
+      ],
+      "reported_total_or_endpoint": 830,
+      "raw_lexemes": [
+        "158",
+        "108",
+        "133",
+        "150",
+        "118",
+        "150",
+        "13",
+        "830"
+      ],
+      "source_lines": [
+        3061,
+        3068
+      ]
+    },
+    "operating_disbursements": {
+      "values": [
+        178,
+        130,
+        115,
+        125,
+        120,
+        179,
+        56
+      ],
+      "reported_total_or_endpoint": 904,
+      "raw_lexemes": [
+        "178",
+        "130",
+        "115",
+        "125",
+        "120",
+        "179",
+        "56",
+        "904"
+      ],
+      "source_lines": [
+        3107,
+        3114
+      ]
+    },
+    "operating_cash_flow": {
+      "values": [
+        -19,
+        -22,
+        17,
+        25,
+        -2,
+        -29,
+        -43
+      ],
+      "reported_total_or_endpoint": -74,
+      "raw_lexemes": [
+        "(19)",
+        "(22)",
+        "17",
+        "25",
+        "(2)",
+        "(29)",
+        "(43)",
+        "(74)"
+      ],
+      "source_lines": [
+        3117,
+        3119
+      ]
+    },
+    "interest_fees": {
+      "values": [
+        22,
+        4,
+        6,
+        8,
+        6,
+        15,
+        4
+      ],
+      "reported_total_or_endpoint": 65,
+      "raw_lexemes": [
+        "22",
+        "4",
+        "6",
+        "8",
+        "6",
+        "15",
+        "4",
+        "65"
+      ],
+      "source_lines": [
+        3122,
+        3129
+      ]
+    },
+    "other_disbursements": {
+      "values": [
+        67,
+        10,
+        11,
+        33,
+        11,
+        14,
+        51
+      ],
+      "reported_total_or_endpoint": 198,
+      "raw_lexemes": [
+        "67",
+        "10",
+        "11",
+        "33",
+        "11",
+        "14",
+        "51",
+        "198"
+      ],
+      "source_lines": [
+        3131,
+        3138
+      ]
+    },
+    "total_other_cash_flows": {
+      "values": [
+        90,
+        14,
+        18,
+        41,
+        18,
+        28,
+        54
+      ],
+      "reported_total_or_endpoint": 263,
+      "raw_lexemes": [
+        "90",
+        "14",
+        "18",
+        "41",
+        "18",
+        "28",
+        "54",
+        "263"
+      ],
+      "source_lines": [
+        3140,
+        3147
+      ]
+    },
+    "total_disbursements": {
+      "values": [
+        267,
+        144,
+        133,
+        166,
+        138,
+        207,
+        111
+      ],
+      "reported_total_or_endpoint": 1166,
+      "raw_lexemes": [
+        "267",
+        "144",
+        "133",
+        "166",
+        "138",
+        "207",
+        "111",
+        "1,166"
+      ],
+      "source_lines": [
+        3150,
+        3157
+      ]
+    },
+    "net_cash_flow": {
+      "values": [
+        -109,
+        -36,
+        0,
+        -16,
+        -19,
+        -58,
+        -98
+      ],
+      "reported_total_or_endpoint": -336,
+      "raw_lexemes": [
+        "(109)",
+        "(36)",
+        "\u2014",
+        "(16)",
+        "(19)",
+        "(58)",
+        "(98)",
+        "(336)"
+      ],
+      "source_lines": [
+        3159,
+        3160
+      ]
+    },
+    "opening_cash": {
+      "values": [
+        97,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "reported_total_or_endpoint": 97,
+      "raw_lexemes": [
+        "97",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "97"
+      ],
+      "source_lines": [
+        3163,
+        3170
+      ]
+    },
+    "rbl_draw_paydown": {
+      "values": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "reported_total_or_endpoint": 0,
+      "raw_lexemes": [
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014",
+        "\u2014"
+      ],
+      "source_lines": [
+        3174,
+        3181
+      ]
+    },
+    "dip_draw_paydown": {
+      "values": [
+        22,
+        36,
+        0,
+        16,
+        19,
+        58,
+        98
+      ],
+      "reported_total_or_endpoint": 249,
+      "raw_lexemes": [
+        "22",
+        "36",
+        "\u2014",
+        "16",
+        "19",
+        "58",
+        "98",
+        "249"
+      ],
+      "source_lines": [
+        3183,
+        3190
+      ]
+    },
+    "closing_cash": {
+      "values": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "reported_total_or_endpoint": 10,
+      "raw_lexemes": [
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10"
+      ],
+      "source_lines": [
+        3192,
+        3199
+      ]
+    },
+    "senior_rollup": {
+      "values": [
+        83,
+        83,
+        83,
+        83,
+        83,
+        83,
+        83
+      ],
+      "reported_total_or_endpoint": 83,
+      "raw_lexemes": [
+        "83",
+        "83",
+        "83",
+        "83",
+        "83",
+        "83",
+        "83",
+        "83"
+      ],
+      "source_lines": [
+        3202,
+        3209
+      ]
+    },
+    "junior_rollup": {
+      "values": [
+        650,
+        650,
+        650,
+        650,
+        650,
+        650,
+        650
+      ],
+      "reported_total_or_endpoint": 650,
+      "raw_lexemes": [
+        "650",
+        "650",
+        "650",
+        "650",
+        "650",
+        "650",
+        "650",
+        "650"
+      ],
+      "source_lines": [
+        3211,
+        3218
+      ]
+    },
+    "opening_dip_balance": {
+      "values": [
+        0,
+        22,
+        58,
+        58,
+        74,
+        93,
+        151
+      ],
+      "reported_total_or_endpoint": 0,
+      "raw_lexemes": [
+        "\u2014",
+        "22",
+        "58",
+        "58",
+        "74",
+        "93",
+        "151",
+        "\u2014"
+      ],
+      "source_lines": [
+        3221,
+        3228
+      ]
+    },
+    "closing_dip_balance": {
+      "values": [
+        22,
+        58,
+        58,
+        74,
+        93,
+        151,
+        249
+      ],
+      "reported_total_or_endpoint": 249,
+      "raw_lexemes": [
+        "22",
+        "58",
+        "58",
+        "74",
+        "93",
+        "151",
+        "249",
+        "249"
+      ],
+      "source_lines": [
+        3239,
+        3246
+      ]
+    },
+    "dip_availability": {
+      "values": [
+        228,
+        192,
+        192,
+        176,
+        157,
+        99,
+        1
+      ],
+      "reported_total_or_endpoint": 1,
+      "raw_lexemes": [
+        "228",
+        "192",
+        "192",
+        "176",
+        "157",
+        "99",
+        "1",
+        "1"
+      ],
+      "source_lines": [
+        3248,
+        3255
+      ]
+    },
+    "incremental_lc": {
+      "values": [
+        31,
+        31,
+        31,
+        31,
+        31,
+        31,
+        31
+      ],
+      "reported_total_or_endpoint": 31,
+      "raw_lexemes": [
+        "31",
+        "31",
+        "31",
+        "31",
+        "31",
+        "31",
+        "31",
+        "31"
+      ],
+      "source_lines": [
+        3258,
+        3265
+      ]
+    },
+    "existing_lc": {
+      "values": [
+        150,
+        150,
+        150,
+        150,
+        150,
+        150,
+        150
+      ],
+      "reported_total_or_endpoint": 150,
+      "raw_lexemes": [
+        "150",
+        "150",
+        "150",
+        "150",
+        "150",
+        "150",
+        "150",
+        "150"
+      ],
+      "source_lines": [
+        3267,
+        3274
+      ]
+    }
+  },
+  "legal": {
+    "total_commitment_usd": "483010655.62",
+    "new_money_subfacility_usd": "400139598.62",
+    "senior_rollup_usd": "82871057.00",
+    "existing_lc_capacity_usd": "150139598.62",
+    "incremental_lc_budget_usdm": "31",
+    "interim_new_cash_limit_usdm": "85",
+    "daily_liquidity_floor_usdm": "35",
+    "four_friday_average_liquidity_floor_usdm": "50",
+    "maturity_date": "2021-01-15",
+    "unconditional_accessible_capacity": null,
+    "new_money_commitment_schedule": "Schedule1.1(a) not retained; no authority to assume access from nominal facility size",
+    "liquidity_definition": "Total Commitment minus Total Credit Exposure plus defined unrestricted consolidated cash; credit exposure includes loan principal and letter-of-credit exposure. Not a cash-only floor."
+  },
+  "required_missing": [
+    "unconditional_beginning_accessible_liquidity",
+    "formal_months_to_empty",
+    "daily_and_all_friday_liquidity_compliance",
+    "complete_twelve_month_cash_forecast",
+    "approved_updated_budget",
+    "final_order_and_actual_draw_access_evidence",
+    "complete_maturity_takeout_and_exit_plan",
+    "actual_outcomes"
+  ]
+}

@@ -1,0 +1,293 @@
+{
+  "status": "progress: retained macro/ESG analysis and all17 registers delivered through CP-OS; broader goal active",
+  "execution": "retained-response-replay",
+  "initial_failure": {
+    "type": "Invalid Markdown table header",
+    "module": "CP-2E",
+    "register": "T2G.1",
+    "original_path": "runs/tdg-003/CP-2E-attempt-2.md",
+    "original_sha256": "488d4a43a22ee8d1282cdf83bec2a57f5d0cefe58b5da40bb8bd9f4d8c1aeeca",
+    "failed_workflow_sha256": "2099bfe5a34a37377aaaaf4ee9dbfa45766ea7e2f29ea71cfcd474b7fc84e1b5"
+  },
+  "repair": {
+    "path": "runs/cpos-tdg-macro-esg-001/CP-2E-table-repair.md",
+    "sha256": "1e9245ff7033e5f8ce9972b3a6ab7fdd1eb70f5a4395af1f7f84ef010ab2fc59",
+    "change": "Three-to-four-cell delimiter only; all other bytes equal."
+  },
+  "production_code_changes": "none",
+  "excel_output": false,
+  "provider_calls": 0,
+  "subagents_used": false,
+  "fresh_financial_model_run": false,
+  "workflow": {
+    "path": "runs/cpos-tdg-macro-esg-001/workflow.json",
+    "sha256": "b7e7464651b9e78f322234f8b1c1730f86d2082e419438e51c569ecfdef1a828"
+  },
+  "scope": "Historical consolidated TDG, September 30, 2024/FY2024 base, USD millions. Later December-quarter context is separately dated. All nine macro and eight ESG registers remain in the full analytical module page/Evidence; selected overview tables use the existing report design. Source-reported approximately30 interest sensitivity, arithmetic gross91.89 and conditional cash illustration are different measures. Neither a complete net hedge/FX/cost sensitivity nor financing outcome is established. Forward-starting collars were not active at the base. Recorded remediation41 is not incremental stress loss or payment evidence; missing sustainability-linked terms, pricing and target assurance remain gaps. The issuer’s contrary cost expectation is preserved. CP-2F is an alias request dispatched once as CP-2E. Supplemental handoffs are frozen context, not newly launched native heads. Retained-response replay, not fresh model/provider/native acceptance. Excel is ingestion-only; no workbook output.",
+  "method_revisions": {
+    "skills/cp-2e-macro-fx-hedging-sensitivity/SKILL.md": "b931f41bb1ac7630c110f2a8b5d5bd4b5cf07d47232c333ef0a56d26923dfa95",
+    "skills/cp-2e-macro-fx-hedging-sensitivity/references/REF_CP-2E_STEPS.md": "23ddaf2269f8361e01a301e407b89dbb1ae16a05b8ce7430c9e20a8f83ab15b8",
+    "skills/cp-2e-macro-fx-hedging-sensitivity/references/REF_CP-2F_STEPS.md": "312301c620990d3810d19125cde30224f9696860c3ef5f04b3f9473652555e08",
+    "src/deploy_vii/methods/cp2e.md": "f257dc2c8f7884a7a3eb720cdee9292e391d93e0e6301d0a09865588d07ea99b",
+    "src/deploy_workflow/owners/cp2e.py": "b5d87f314e733f7e642fa525340c5201a468e65f5958971858b8f60bfd01b85d"
+  },
+  "source_and_upstream_pins": {
+    "CP-0": {
+      "path": "../tdg-001/CP-0.md",
+      "sha256": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0",
+      "source_hashes": {
+        "retained-context/CP-0": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+        "retained-context/CP-1-quarter": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+        "retained-context/CP-1A": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+        "retained-context/CP-1B": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+        "retained-context/CP-1D": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+        "retained-context/CP-2": "f147a5ad94c83015487f4e254788e8f93d025b643eedf213ba2d6184bf1a443e",
+        "retained-context/CP-2D": "36978d54a4c6d10dad21e381c8c7351d6e1a4d95aeb58bcc1226aed223ee0196",
+        "data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "runs/tdg-001/source-pages.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+        "runs/tdg-003/CP-2E-instructions.md": "de9a6cb9695402df6d81940d00190923f77e35ef49d6eaf20a43e75d510d6ae7",
+        "runs/tdg-003/CP-2E-attempt-1-calculations.json": "5b7c94551da78d59a3a42b0d1045a80052c4a47b7e9b7af4a25a0f3dafe49e6a",
+        "runs/tdg-003/CP-2E-attempt-1.md": "9dda1f5db7330151f7994f5ad9b2495520dec231801288a25388fac8e7bf4674",
+        "runs/tdg-003/CP-2-macro-update.md": "3d038a387c0a619f08aee03bf2d59c02c4b53c8d63ec2ce645b4063154d11597",
+        "selected-method/skills/cp-2e-macro-fx-hedging-sensitivity/SKILL.md": "b931f41bb1ac7630c110f2a8b5d5bd4b5cf07d47232c333ef0a56d26923dfa95",
+        "selected-method/skills/cp-2e-macro-fx-hedging-sensitivity/references/REF_CP-2E_STEPS.md": "23ddaf2269f8361e01a301e407b89dbb1ae16a05b8ce7430c9e20a8f83ab15b8",
+        "selected-method/skills/cp-2e-macro-fx-hedging-sensitivity/references/REF_CP-2F_STEPS.md": "312301c620990d3810d19125cde30224f9696860c3ef5f04b3f9473652555e08",
+        "selected-method/src/deploy_vii/methods/cp2e.md": "f257dc2c8f7884a7a3eb720cdee9292e391d93e0e6301d0a09865588d07ea99b",
+        "selected-method/src/deploy_workflow/owners/cp2e.py": "b5d87f314e733f7e642fa525340c5201a468e65f5958971858b8f60bfd01b85d",
+        "runs/tdg-003/source-preparation/pdf151-hedges.png": "7eda7a0269e7828dad011294c17775aa345dc72bd4fdb8d6dc23f53ac02096db",
+        "runs/tdg-003/source-preparation/pdf139-environment.png": "07c1f5257523620ae95d638cfc38e1abc8a7959d3bd4d680559416ed2f826dfc",
+        "retained-context/original-CP-2E": "488d4a43a22ee8d1282cdf83bec2a57f5d0cefe58b5da40bb8bd9f4d8c1aeeca"
+      },
+      "upstream": {}
+    },
+    "CP-1": {
+      "path": "../tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "source_hashes": {
+        "retained-context/CP-0": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+        "retained-context/CP-1-quarter": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+        "retained-context/CP-1A": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+        "retained-context/CP-1B": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+        "retained-context/CP-1D": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+        "retained-context/CP-2": "f147a5ad94c83015487f4e254788e8f93d025b643eedf213ba2d6184bf1a443e",
+        "retained-context/CP-2D": "36978d54a4c6d10dad21e381c8c7351d6e1a4d95aeb58bcc1226aed223ee0196",
+        "data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "runs/tdg-001/source-pages.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+        "runs/tdg-003/CP-2E-instructions.md": "de9a6cb9695402df6d81940d00190923f77e35ef49d6eaf20a43e75d510d6ae7",
+        "runs/tdg-003/CP-2E-attempt-1-calculations.json": "5b7c94551da78d59a3a42b0d1045a80052c4a47b7e9b7af4a25a0f3dafe49e6a",
+        "runs/tdg-003/CP-2E-attempt-1.md": "9dda1f5db7330151f7994f5ad9b2495520dec231801288a25388fac8e7bf4674",
+        "runs/tdg-003/CP-2-macro-update.md": "3d038a387c0a619f08aee03bf2d59c02c4b53c8d63ec2ce645b4063154d11597",
+        "selected-method/skills/cp-2e-macro-fx-hedging-sensitivity/SKILL.md": "b931f41bb1ac7630c110f2a8b5d5bd4b5cf07d47232c333ef0a56d26923dfa95",
+        "selected-method/skills/cp-2e-macro-fx-hedging-sensitivity/references/REF_CP-2E_STEPS.md": "23ddaf2269f8361e01a301e407b89dbb1ae16a05b8ce7430c9e20a8f83ab15b8",
+        "selected-method/skills/cp-2e-macro-fx-hedging-sensitivity/references/REF_CP-2F_STEPS.md": "312301c620990d3810d19125cde30224f9696860c3ef5f04b3f9473652555e08",
+        "selected-method/src/deploy_vii/methods/cp2e.md": "f257dc2c8f7884a7a3eb720cdee9292e391d93e0e6301d0a09865588d07ea99b",
+        "selected-method/src/deploy_workflow/owners/cp2e.py": "b5d87f314e733f7e642fa525340c5201a468e65f5958971858b8f60bfd01b85d",
+        "runs/tdg-003/source-preparation/pdf151-hedges.png": "7eda7a0269e7828dad011294c17775aa345dc72bd4fdb8d6dc23f53ac02096db",
+        "runs/tdg-003/source-preparation/pdf139-environment.png": "07c1f5257523620ae95d638cfc38e1abc8a7959d3bd4d680559416ed2f826dfc",
+        "retained-context/original-CP-2E": "488d4a43a22ee8d1282cdf83bec2a57f5d0cefe58b5da40bb8bd9f4d8c1aeeca"
+      },
+      "upstream": {
+        "CP-0": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0"
+      }
+    },
+    "CP-2E": {
+      "path": "CP-2E-table-repair.md",
+      "sha256": "1e9245ff7033e5f8ce9972b3a6ab7fdd1eb70f5a4395af1f7f84ef010ab2fc59",
+      "source_hashes": {
+        "retained-context/CP-0": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+        "retained-context/CP-1-quarter": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+        "retained-context/CP-1A": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+        "retained-context/CP-1B": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+        "retained-context/CP-1D": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+        "retained-context/CP-2": "f147a5ad94c83015487f4e254788e8f93d025b643eedf213ba2d6184bf1a443e",
+        "retained-context/CP-2D": "36978d54a4c6d10dad21e381c8c7351d6e1a4d95aeb58bcc1226aed223ee0196",
+        "data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "runs/tdg-001/source-pages.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+        "runs/tdg-003/CP-2E-instructions.md": "de9a6cb9695402df6d81940d00190923f77e35ef49d6eaf20a43e75d510d6ae7",
+        "runs/tdg-003/CP-2E-attempt-1-calculations.json": "5b7c94551da78d59a3a42b0d1045a80052c4a47b7e9b7af4a25a0f3dafe49e6a",
+        "runs/tdg-003/CP-2E-attempt-1.md": "9dda1f5db7330151f7994f5ad9b2495520dec231801288a25388fac8e7bf4674",
+        "runs/tdg-003/CP-2-macro-update.md": "3d038a387c0a619f08aee03bf2d59c02c4b53c8d63ec2ce645b4063154d11597",
+        "selected-method/skills/cp-2e-macro-fx-hedging-sensitivity/SKILL.md": "b931f41bb1ac7630c110f2a8b5d5bd4b5cf07d47232c333ef0a56d26923dfa95",
+        "selected-method/skills/cp-2e-macro-fx-hedging-sensitivity/references/REF_CP-2E_STEPS.md": "23ddaf2269f8361e01a301e407b89dbb1ae16a05b8ce7430c9e20a8f83ab15b8",
+        "selected-method/skills/cp-2e-macro-fx-hedging-sensitivity/references/REF_CP-2F_STEPS.md": "312301c620990d3810d19125cde30224f9696860c3ef5f04b3f9473652555e08",
+        "selected-method/src/deploy_vii/methods/cp2e.md": "f257dc2c8f7884a7a3eb720cdee9292e391d93e0e6301d0a09865588d07ea99b",
+        "selected-method/src/deploy_workflow/owners/cp2e.py": "b5d87f314e733f7e642fa525340c5201a468e65f5958971858b8f60bfd01b85d",
+        "runs/tdg-003/source-preparation/pdf151-hedges.png": "7eda7a0269e7828dad011294c17775aa345dc72bd4fdb8d6dc23f53ac02096db",
+        "runs/tdg-003/source-preparation/pdf139-environment.png": "07c1f5257523620ae95d638cfc38e1abc8a7959d3bd4d680559416ed2f826dfc",
+        "retained-context/original-CP-2E": "488d4a43a22ee8d1282cdf83bec2a57f5d0cefe58b5da40bb8bd9f4d8c1aeeca"
+      },
+      "upstream": {
+        "CP-0": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0",
+        "CP-1": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+      }
+    }
+  },
+  "alias_proof": {
+    "requested": "CP-2F",
+    "canonical": "CP-2E",
+    "ordered_modules": [
+      "CP-0",
+      "CP-1",
+      "CP-2E"
+    ],
+    "canonical_response_count": 1,
+    "total_retained_versions_with_preserved_failure": 2,
+    "alias_task_created": false,
+    "analytical_breadth": "All nine macro and eight distinct ESG register meanings preserved; routing alone is not the proof."
+  },
+  "actual_consumer": {
+    "path": "runs/tdg-003/CP-2-macro-update.md",
+    "sha256": "3d038a387c0a619f08aee03bf2d59c02c4b53c8d63ec2ce645b4063154d11597",
+    "consumed_original_CP-2E_sha256": "488d4a43a22ee8d1282cdf83bec2a57f5d0cefe58b5da40bb8bd9f4d8c1aeeca",
+    "current_delimiter_repair_sha256": "1e9245ff7033e5f8ce9972b3a6ab7fdd1eb70f5a4395af1f7f84ef010ab2fc59",
+    "analytical_cells_equal": true
+  },
+  "independent_checks": {
+    "source_quotes": 9,
+    "visual_source_pages": [
+      151,
+      139
+    ],
+    "rational_expected_quantities": {
+      "identified_floating_principal": "9189",
+      "gross_debt_classification_total": "25068",
+      "carrying_debt_for_other_modules": "24880",
+      "active_swap_notional_only": "2700",
+      "cap_notional_only": "700",
+      "pre_protection_bps_product_only": "9189/100",
+      "issuer_reported_100bp_effect_approx": "30",
+      "environmental_liabilities_current": "5",
+      "environmental_liabilities_noncurrent": "36",
+      "environmental_liabilities_total": "41",
+      "environmental_liabilities_prior_total": "44",
+      "preferred_shares_outstanding_reported": "0"
+    },
+    "conditional_illustration": {
+      "interest": "1188",
+      "cash_proxy": "1850",
+      "coverage_fraction": "1391/396",
+      "source_approximation_retained": true
+    },
+    "unknown_quantities_remain_null": [
+      "qualified_unhedged_floating",
+      "qualified_hedge_ratio",
+      "fx_ebitda_share"
+    ],
+    "unchanged_pure_legacy_diagnostic_reexecuted_equal": true,
+    "active_swaps_and_future_collars_checked": true,
+    "all_raw_macro_esg_tables": 17,
+    "all_raw_table_rows": 84,
+    "exact_CP-2E_table_fact_values": 230,
+    "all_publication_facts": 970,
+    "all_exact_handoff_citations": 1133,
+    "checked_resume_and_replay": true,
+    "source_and_upstream_refusals": [
+      {
+        "kind": "source",
+        "message": "cpos_input_changed: retained-context/CP-0"
+      },
+      {
+        "kind": "upstream",
+        "message": "cpos_retained_stale: CP-2E"
+      }
+    ],
+    "protected_source_code_inputs_and_previous_run_files_unchanged": 531,
+    "all_input_hashes_rechecked_after_browser": true,
+    "exact_one_separator_change_reversible_to_original_bytes": true
+  },
+  "delivery": {
+    "path": "runs/cpos-tdg-macro-esg-001/execution/deliveries/eb4d3551d6644d2baee1579c295300acc57fdc67a563731ff14aa4fb2f246c49/report.html",
+    "sha256": "f6c5625cd2cafccef0d15f502d242242d4a21f63488df328614f3ed224886e5d",
+    "receipt_sha256": "add6242797d3d86eba556b950b71608de064681af5cf86bd53cc56407bb84379",
+    "all_files_verified": true,
+    "blocks": [
+      "key-findings",
+      "capital-structure"
+    ],
+    "full_module_target": "report.html#CP-2E",
+    "all17_registers_in_module_page_and_evidence": true
+  },
+  "analytical_changes": "none; original USDm-versus-bps wording repair preserved; T2G.1 separator corrected to match its four columns",
+  "confidence_review": {
+    "scope": "Case configuration, independent source/calculation checks and literal publication; production functions unchanged.",
+    "ranked_doubts": [
+      {
+        "point": "Malformed table delimiter blocks delivery",
+        "investigated": "Actual publication failed Invalid Markdown table header at T2G.1. Four header/data columns had a three-cell separator. All non-separator lines remain byte-identical in the amended reply.",
+        "verdict": "confirmed response-format defect, repaired",
+        "patch": "New CP-2E copy with four-cell separator; original/failed manifest and requests preserved. Parser unchanged."
+      },
+      {
+        "point": "Reported sensitivity confused with independent net hedge model",
+        "investigated": "Source55 reports approximately30; 9189*1% gives91.89 gross money, not bps or qualified net sensitivity. Conditional1188/1850/3.51x assumptions explicitly retained.",
+        "verdict": "verified bounded definitions",
+        "patch": "none"
+      },
+      {
+        "point": "Future hedges applied early or notionals double counted",
+        "investigated": "Viewed151 source image; all source dates/strikes match; only500+1500+700 active swaps total2700 at Sep2024. Cap and future collars remain separate with no inferred perfect-coverage ratio.",
+        "verdict": "verified",
+        "patch": "none"
+      },
+      {
+        "point": "Environmental liability, target or missing terms misclassified",
+        "investigated": "Viewed139 image and source text:5+36=41, prior3+41=44. Issuer contrary expectation preserved; no cash-payment inference, incremental loss, achieved target or zero ratchet. All eight ESG registers present.",
+        "verdict": "verified with missing terms scope",
+        "patch": "none"
+      },
+      {
+        "point": "Alias treated as broader analytical proof by name alone",
+        "investigated": "Actual CP-2F request creates CP-2E once; all17 source tables/rows/fields checked and actual CP-2 consumer hash retained.",
+        "verdict": "verified within sourced scope",
+        "patch": "none"
+      },
+      {
+        "point": "Legacy quote restriction changes source values or units",
+        "investigated": "Source balances unchanged; pure diagnostic re-executed with missing floor/hedge/FX terms; no artificial zero, unit rescaling or native acceptance asserted.",
+        "verdict": "by design; narrow native admission remains unpassed",
+        "patch": "none"
+      },
+      {
+        "point": "Renderer loses a register or invents table meaning",
+        "investigated": "Compared every table fact to original columns and all main/tab cells; full17 source registers preserved. Period-grid financial template was unsuitable, so existing debt/hedge overview plus native module/Evidence presentation used without renderer edits.",
+        "verdict": "verified",
+        "patch": "configuration only"
+      },
+      {
+        "point": "Stale/corrupt inputs, mutation or accidental workbook/provider output",
+        "investigated": "Exact pins, stale/source mutation refusals, no-executor checked resume, full file set and protected input/code/output checks pass. Only MD/JSON/HTML emitted.",
+        "verdict": "verified",
+        "patch": "none"
+      }
+    ]
+  },
+  "rewrite_tournament": "Skipped: configuration, documentation and test-only verification; no production function changed.",
+  "verification_command": "PYTHONPATH=src .venv/bin/python /tmp/final-workflow-cp2e-cpos-check.py",
+  "browser_verification": {
+    "result": "passed",
+    "full_module_target": "report.html#CP-2E",
+    "all17_register_headings_visible": true,
+    "alias_label_visible": "Also invoked by CP-2F",
+    "source_inspector": {
+      "locator": "line 185",
+      "sha256": "1e9245ff7033e5f8ce9972b3a6ab7fdd1eb70f5a4395af1f7f84ef010ab2fc59",
+      "quote": "| Remediation obligations | E PDF 139: current 5 and non-current 36 at 2024-09-30; prior 3/41 | Actual recorded obligation 41 versus prior 44; timing/estimate changes can affect cash. Decline in accrual is not proof of cash paid or lower future cost. |"
+    },
+    "source_scales": "Dates/units remain in literal text/source quotes and scope. Native numeric inspector facets are not populated by this literal adapter.",
+    "local_server": "stopped; verified process exit after SIGINT"
+  },
+  "limits": [
+    "Retained replay, not fresh financial-model/provider/native execution.",
+    "Full effective hedge/floor/currency/cost data absent; no complete net sensitivity.",
+    "No reviewed TDG sustainability-linked terms or market pricing/target assurance.",
+    "Historical evidence is not current conditions or later outcomes.",
+    "Native numeric inspector period/currency facets are unpopulated; literal source text and citations preserve those meanings."
+  ],
+  "verification_script_sha256": "760466e2b9e4a174162eb66f88cd6dcc09dbb2cfe86f03b58a0cd1fa9bdc055d",
+  "revisions": {
+    "src/deploy_workflow/owners/cpos.py": "a37bfc856ff8858731eac4829e8b14d71aea79312cc4d2dd5484e70b9d90481b",
+    "src/deploy_workflow/markdown_delivery.py": "35aabcd41873ef744f9dc71b3feaa0460faa1e01d5117ced612429bbb3f47c25",
+    "README.md": "3dafbfa47a8cddc035f0d96cfefed3646b0fd88e440cbcde31fa8552e6b9249c",
+    "VERIFICATION.md": "07b112667b4fe1dad9675a59905723084304333287d010e56c429bd5e196db26"
+  }
+}

@@ -1,0 +1,1054 @@
+{
+  "execution": {
+    "date": "2026-11-04",
+    "mode": "Current host model with preceding context; one combined Lite owner, sequential, no agents/providers/native accepted heads",
+    "stage": "Five-screen actual answer, targeted producer repair and actual CP-5 recheck, followed by populated retained-handoff report; bounded historical screening scope checked.",
+    "paid_calls": 0,
+    "agents_spawned": 0
+  },
+  "instructions": {
+    "path": "runs/arcc-lite-2024-001/instructions.md",
+    "sha256": "8406cd590d489d54db56774834b5070014bf2805c5ea4d563927cc1c7a477666"
+  },
+  "source_files": {
+    "runs/arcc-2024-001/sources/ARCC-FY2024-10K.pdf": "4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170",
+    "runs/arcc-2024-001/sources/annual-pages.txt": "9e216fdd000f529b4f1c452d5786b2ec9e0cab69e8fcd9659558d87d8b4e1976",
+    "runs/arcc-2024-001/sources/base-lines.txt": "ef8ad4d8a3d5902746726697b6f6fa53058d7445b59d99157cbea6258bf2d459",
+    "runs/arcc-2024-001/sources/supplement-lines.txt": "bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c",
+    "runs/arcc-2024-001/CP-4.md": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9",
+    "runs/arcc-2024-001/CP-4A-attempt-1.md": "ca53528bf1f6d9758a7d9194e76af181eb884e237388fe46e839e601606168b6",
+    "runs/arcc-market-2024-001/CP-3D-attempt-2.md": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa"
+  },
+  "pre_output_rank_inputs": {
+    "CP-L10": {
+      "SOURCE_BASIS": [
+        3,
+        3,
+        1
+      ],
+      "EARNINGS_MARGIN_CHANGE": [
+        2,
+        2,
+        2
+      ],
+      "CASH_CONVERSION": [
+        3,
+        3,
+        2
+      ],
+      "LEVERAGE_COVERAGE": [
+        3,
+        3,
+        1
+      ],
+      "LIQUIDITY_MATURITIES": [
+        3,
+        3,
+        1
+      ],
+      "KPI_COMPARABILITY": [
+        3,
+        2,
+        1
+      ]
+    },
+    "CP-L20": {
+      "BUSINESS_DURABILITY": [
+        2,
+        3,
+        1
+      ],
+      "MARGIN_FCF_RESILIENCE": [
+        3,
+        3,
+        1
+      ],
+      "LEVERAGE_REFINANCING_CONTEXT": [
+        3,
+        3,
+        1
+      ],
+      "GOVERNANCE_SPONSOR_BEHAVIOR": [
+        2,
+        2,
+        1
+      ],
+      "FINANCIAL_POLICY_CAPITAL_ALLOCATION": [
+        3,
+        3,
+        2
+      ],
+      "ESG_TRANSITION": [
+        2,
+        0,
+        0
+      ]
+    },
+    "CP-L23": {
+      "ACCESSIBLE_LIQUIDITY_USES": [
+        3,
+        3,
+        1
+      ],
+      "WORKING_CAPITAL_CAPEX_CASH_BURN": [
+        3,
+        3,
+        2
+      ],
+      "RATES_HEDGES": [
+        3,
+        2,
+        1
+      ],
+      "FX_COMMODITY_INFLATION": [
+        2,
+        2,
+        1
+      ],
+      "BASE_DOWNSIDE_TRAJECTORY": [
+        3,
+        3,
+        0
+      ],
+      "BREAKPOINTS_REFINANCING": [
+        3,
+        2,
+        1
+      ]
+    },
+    "CP-L30": {
+      "DATED_MARKET_SNAPSHOT": [
+        3,
+        3,
+        2
+      ],
+      "CURVE_COMPARABLE_COMPENSATION": [
+        3,
+        3,
+        1
+      ],
+      "LIQUIDITY_TECHNICALS": [
+        3,
+        3,
+        0
+      ],
+      "STRUCTURAL_RECOVERY_PROTECTION": [
+        3,
+        3,
+        1
+      ],
+      "DOWNSIDE_LME_EXPOSURE": [
+        3,
+        3,
+        0
+      ],
+      "INTEGRATED_SCREENING_POSTURE": [
+        3,
+        2,
+        1
+      ]
+    },
+    "CP-L40": {
+      "CONTROLLING_DOCUMENT_AVAILABILITY": [
+        3,
+        3,
+        2
+      ],
+      "PROTECTION_WEAKNESS_FLAGS": [
+        3,
+        2,
+        1
+      ],
+      "ENTITY_GUARANTEE_COLLATERAL": [
+        3,
+        3,
+        1
+      ],
+      "LEAKAGE_PRIMING_FLAGS": [
+        3,
+        3,
+        0
+      ],
+      "CAPACITY_AVAILABILITY": [
+        3,
+        2,
+        1
+      ],
+      "PRESSURE_POINT_UPGRADE_PRIORITY": [
+        3,
+        2,
+        1
+      ]
+    }
+  },
+  "ranking_scope": "Analyst-assigned attention keys, not calibrated risk scores or security ranks; descending urgency/magnitude/confidence then canonical order. Exact interpretation in frozen instructions.",
+  "source_choice": "Actual historical ARCC FY2024/FY2023, selected executed2024 note and checked historical evaluated-market handoff; alternative/older source ruling applies.",
+  "first_answer_review": {
+    "path": "runs/arcc-lite-2024-001/ARCC_CP-L10_20261104-attempt-1.md",
+    "sha256": "27f88cd8d772db4b9437e554f684eadb5eb6c62c6219d7710c801264080b9ab8",
+    "confirmed_defects": "Human-readable expected-object descriptions, prose full-decision flags and mixed-case/composite confidence labels did not preserve closed transport literals in detailed module payload schemas.",
+    "repair_scope": "Only expected-object IDs, true boolean display and confidence labels; all financial facts, topic/owner/rank decisions and postures unchanged.",
+    "changes": [
+      {
+        "table": "TL10.3",
+        "row": "OVERALL",
+        "previous_confidence": "Medium for sourced screening, Low for full decision",
+        "confidence": "MEDIUM"
+      },
+      {
+        "table": "TL10.3",
+        "row": "CASH_REALIZATION",
+        "previous_confidence": "Medium",
+        "confidence": "MEDIUM"
+      },
+      {
+        "table": "TL10.3",
+        "row": "EARNINGS_COUNTERCASE",
+        "previous_confidence": "Medium",
+        "confidence": "MEDIUM"
+      },
+      {
+        "table": "TL10.4",
+        "topic": "SOURCE_BASIS",
+        "previous_expected_object_and_blocking": [
+          "Financial foundation with source/quantity/period roles",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "canonical_financial_data_kpis",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL10.4",
+        "topic": "EARNINGS_MARGIN_CHANGE",
+        "previous_expected_object_and_blocking": [
+          "Period-specific earnings change",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "earnings_delta",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL10.4",
+        "topic": "CASH_CONVERSION",
+        "previous_expected_object_and_blocking": [
+          "Cash-generation change analysis",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "earnings_delta",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL10.4",
+        "topic": "LEVERAGE_COVERAGE",
+        "previous_expected_object_and_blocking": [
+          "Definition-consistent financing change",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "earnings_delta",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL10.4",
+        "topic": "LIQUIDITY_MATURITIES",
+        "previous_expected_object_and_blocking": [
+          "Liquidity/maturity source foundation",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "canonical_financial_data_kpis",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL10.4",
+        "topic": "KPI_COMPARABILITY",
+        "previous_expected_object_and_blocking": [
+          "KPI comparability and conflict review",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "earnings_delta",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL20.3",
+        "row": "OVERALL",
+        "previous_confidence": "Medium for sourced screening, Low for full decision",
+        "confidence": "MEDIUM"
+      },
+      {
+        "table": "TL20.3",
+        "row": "QUALITY_COUNTERCASE",
+        "previous_confidence": "Medium",
+        "confidence": "MEDIUM"
+      },
+      {
+        "table": "TL20.3",
+        "row": "POLICY_TRANSMISSION",
+        "previous_confidence": "Medium",
+        "confidence": "MEDIUM"
+      },
+      {
+        "table": "TL20.4",
+        "topic": "BUSINESS_DURABILITY",
+        "previous_expected_object_and_blocking": [
+          "Fundamental durability synthesis",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "fundamental_credit_synthesis",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL20.4",
+        "topic": "MARGIN_FCF_RESILIENCE",
+        "previous_expected_object_and_blocking": [
+          "Earnings/cash resilience synthesis",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "fundamental_credit_synthesis",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL20.4",
+        "topic": "LEVERAGE_REFINANCING_CONTEXT",
+        "previous_expected_object_and_blocking": [
+          "Leverage/refinancing context",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "fundamental_credit_synthesis",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL20.4",
+        "topic": "GOVERNANCE_SPONSOR_BEHAVIOR",
+        "previous_expected_object_and_blocking": [
+          "Issuer governance behavior review",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "governance_sponsor_score",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL20.4",
+        "topic": "FINANCIAL_POLICY_CAPITAL_ALLOCATION",
+        "previous_expected_object_and_blocking": [
+          "Capital-allocation behavior review",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "governance_sponsor_score",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL20.4",
+        "topic": "ESG_TRANSITION",
+        "previous_expected_object_and_blocking": [
+          "ESG/cash/terms transmission review",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "esg_credit_risk",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL23.3",
+        "row": "OVERALL",
+        "previous_confidence": "Medium for sourced screening, Low for full decision",
+        "confidence": "MEDIUM"
+      },
+      {
+        "table": "TL23.3",
+        "row": "FUNDING_SCOPE",
+        "previous_confidence": "Medium",
+        "confidence": "MEDIUM"
+      },
+      {
+        "table": "TL23.3",
+        "row": "RATE_CASE_BOUNDARY",
+        "previous_confidence": "Medium",
+        "confidence": "MEDIUM"
+      },
+      {
+        "table": "TL23.4",
+        "topic": "ACCESSIBLE_LIQUIDITY_USES",
+        "previous_expected_object_and_blocking": [
+          "Accessible liquidity and uses review",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "liquidity_cash_flow_bridge",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL23.4",
+        "topic": "WORKING_CAPITAL_CAPEX_CASH_BURN",
+        "previous_expected_object_and_blocking": [
+          "Investment-cash absorption review",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "liquidity_cash_flow_bridge",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL23.4",
+        "topic": "RATES_HEDGES",
+        "previous_expected_object_and_blocking": [
+          "Rate/hedge transmission review",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "macro_fx_hedging_sensitivity",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL23.4",
+        "topic": "FX_COMMODITY_INFLATION",
+        "previous_expected_object_and_blocking": [
+          "FX/cost mismatch review",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "macro_fx_hedging_sensitivity",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL23.4",
+        "topic": "BASE_DOWNSIDE_TRAJECTORY",
+        "previous_expected_object_and_blocking": [
+          "Forward credit model",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "forward_credit_model",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL23.4",
+        "topic": "BREAKPOINTS_REFINANCING",
+        "previous_expected_object_and_blocking": [
+          "Forward funding pressure-point review",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "forward_credit_model",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL30.3",
+        "row": "OVERALL",
+        "previous_confidence": "Medium for sourced screening, Low for full decision",
+        "confidence": "MEDIUM"
+      },
+      {
+        "table": "TL30.3",
+        "row": "BASIS_FIRST",
+        "previous_confidence": "Medium",
+        "confidence": "MEDIUM"
+      },
+      {
+        "table": "TL30.3",
+        "row": "PROTECTION_LIQUIDITY",
+        "previous_confidence": "Low",
+        "confidence": "LOW"
+      },
+      {
+        "table": "TL30.4",
+        "topic": "DATED_MARKET_SNAPSHOT",
+        "previous_expected_object_and_blocking": [
+          "Market-implied risk map",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "market_implied_risk_map",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL30.4",
+        "topic": "CURVE_COMPARABLE_COMPENSATION",
+        "previous_expected_object_and_blocking": [
+          "Comparable market-risk map",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "market_implied_risk_map",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL30.4",
+        "topic": "LIQUIDITY_TECHNICALS",
+        "previous_expected_object_and_blocking": [
+          "Liquidity/technical market map",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "market_implied_risk_map",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL30.4",
+        "topic": "STRUCTURAL_RECOVERY_PROTECTION",
+        "previous_expected_object_and_blocking": [
+          "Instrument protection/downside review",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "recovery_instrument_assessment",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL30.4",
+        "topic": "DOWNSIDE_LME_EXPOSURE",
+        "previous_expected_object_and_blocking": [
+          "Transaction-specific instrument downside review",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "recovery_instrument_assessment",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL30.4",
+        "topic": "INTEGRATED_SCREENING_POSTURE",
+        "previous_expected_object_and_blocking": [
+          "Relative-value/security-selection analysis",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "relative_value_assessment",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL40.3",
+        "row": "OVERALL",
+        "previous_confidence": "Medium for sourced screening, Low for full decision",
+        "confidence": "MEDIUM"
+      },
+      {
+        "table": "TL40.3",
+        "row": "DOCUMENT_READINESS",
+        "previous_confidence": "Medium",
+        "confidence": "MEDIUM"
+      },
+      {
+        "table": "TL40.3",
+        "row": "CAPACITY_BOUNDARY",
+        "previous_confidence": "Medium",
+        "confidence": "MEDIUM"
+      },
+      {
+        "table": "TL40.4",
+        "topic": "CONTROLLING_DOCUMENT_AVAILABILITY",
+        "previous_expected_object_and_blocking": [
+          "Governing-document interpretation",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "legal_covenant_interpretation",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL40.4",
+        "topic": "PROTECTION_WEAKNESS_FLAGS",
+        "previous_expected_object_and_blocking": [
+          "Provision-level creditor-protection review",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "legal_covenant_interpretation",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL40.4",
+        "topic": "ENTITY_GUARANTEE_COLLATERAL",
+        "previous_expected_object_and_blocking": [
+          "Structural perimeter map",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "structural_priority_map",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL40.4",
+        "topic": "LEAKAGE_PRIMING_FLAGS",
+        "previous_expected_object_and_blocking": [
+          "Structural/permission route map",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "structural_priority_map",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL40.4",
+        "topic": "CAPACITY_AVAILABILITY",
+        "previous_expected_object_and_blocking": [
+          "Covenant capacity analysis",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "covenant_capacity_calculation",
+        "blocking_for_full_decision": true
+      },
+      {
+        "table": "TL40.4",
+        "topic": "PRESSURE_POINT_UPGRADE_PRIORITY",
+        "previous_expected_object_and_blocking": [
+          "Capacity pressure-point review",
+          "YES for affected full conclusion; no blocker to valid screening"
+        ],
+        "expected_object": "covenant_capacity_calculation",
+        "blocking_for_full_decision": true
+      }
+    ],
+    "literal_mapping_resolution": "Checked corrected expected-object strings against detailed per-phase payload enums; closed confidence labels and boolean displays now pass. No full native schema claim."
+  },
+  "native_schema_limit": "Detailed payload files reference an absent CP_DEPLOY_V_LITE_MODULE_PAYLOAD_BASE_v1.schema.txt. Native full-payload/profile/invocation validation is not claimed. Selected exact table/topic/owner/closed-literal checks still apply; missing base does not make analytical evidence unavailable.",
+  "analytical_contract_checks": {
+    "schema_source": "Selected table/topic references plus detailed payload closed literals; not full native schema/profile/invocation validation",
+    "tables": 20,
+    "topics": 30,
+    "phase_results": {
+      "CP-L10": {
+        "six_exact_topics_and_owners": true,
+        "four_exact_table_headers": true,
+        "attention_ranks": {
+          "CASH_CONVERSION": 1,
+          "SOURCE_BASIS": 2,
+          "LEVERAGE_COVERAGE": 3,
+          "LIQUIDITY_MATURITIES": 4,
+          "KPI_COMPARABILITY": 5,
+          "EARNINGS_MARGIN_CHANGE": 6
+        },
+        "closed_fields_checked": true,
+        "gap_upgrade_rows": 6,
+        "posture": "MIXED",
+        "dispositions": {
+          "DEEPEN": 5,
+          "SUMMARIZE": 1
+        }
+      },
+      "CP-L20": {
+        "six_exact_topics_and_owners": true,
+        "four_exact_table_headers": true,
+        "attention_ranks": {
+          "FINANCIAL_POLICY_CAPITAL_ALLOCATION": 1,
+          "MARGIN_FCF_RESILIENCE": 2,
+          "LEVERAGE_REFINANCING_CONTEXT": 3,
+          "BUSINESS_DURABILITY": 4,
+          "GOVERNANCE_SPONSOR_BEHAVIOR": 5,
+          "ESG_TRANSITION": 6
+        },
+        "closed_fields_checked": true,
+        "gap_upgrade_rows": 6,
+        "posture": "MIXED",
+        "dispositions": {
+          "DEEPEN": 4,
+          "SUMMARIZE": 1,
+          "GAP_ONLY": 1
+        }
+      },
+      "CP-L23": {
+        "six_exact_topics_and_owners": true,
+        "four_exact_table_headers": true,
+        "attention_ranks": {
+          "WORKING_CAPITAL_CAPEX_CASH_BURN": 1,
+          "ACCESSIBLE_LIQUIDITY_USES": 2,
+          "BASE_DOWNSIDE_TRAJECTORY": 3,
+          "RATES_HEDGES": 4,
+          "BREAKPOINTS_REFINANCING": 5,
+          "FX_COMMODITY_INFLATION": 6
+        },
+        "closed_fields_checked": true,
+        "gap_upgrade_rows": 6,
+        "posture": "WATCH",
+        "dispositions": {
+          "DEEPEN": 4,
+          "SUMMARIZE": 1,
+          "GAP_ONLY": 1
+        }
+      },
+      "CP-L30": {
+        "six_exact_topics_and_owners": true,
+        "four_exact_table_headers": true,
+        "attention_ranks": {
+          "DATED_MARKET_SNAPSHOT": 1,
+          "CURVE_COMPARABLE_COMPENSATION": 2,
+          "STRUCTURAL_RECOVERY_PROTECTION": 3,
+          "LIQUIDITY_TECHNICALS": 4,
+          "DOWNSIDE_LME_EXPOSURE": 5,
+          "INTEGRATED_SCREENING_POSTURE": 6
+        },
+        "closed_fields_checked": true,
+        "gap_upgrade_rows": 6,
+        "posture": "ESCALATE_FOR_FULL_SELECTION",
+        "dispositions": {
+          "DEEPEN": 4,
+          "GAP_ONLY": 2
+        }
+      },
+      "CP-L40": {
+        "six_exact_topics_and_owners": true,
+        "four_exact_table_headers": true,
+        "attention_ranks": {
+          "CONTROLLING_DOCUMENT_AVAILABILITY": 1,
+          "ENTITY_GUARANTEE_COLLATERAL": 2,
+          "LEAKAGE_PRIMING_FLAGS": 3,
+          "PROTECTION_WEAKNESS_FLAGS": 4,
+          "CAPACITY_AVAILABILITY": 5,
+          "PRESSURE_POINT_UPGRADE_PRIORITY": 6
+        },
+        "closed_fields_checked": true,
+        "gap_upgrade_rows": 6,
+        "posture": "WATCH",
+        "dispositions": {
+          "DEEPEN": 5,
+          "GAP_ONLY": 1
+        }
+      }
+    },
+    "actual_alias_resolver": {
+      "CP-L10": "CP-L10",
+      "CP-L20": "CP-L10",
+      "CP-L23": "CP-L10",
+      "CP-L30": "CP-L10",
+      "CP-L40": "CP-L10"
+    },
+    "full_target_canonical_routes": {
+      "CP-1": "CP-1",
+      "CP-1B": "CP-1B",
+      "CP-2": "CP-2",
+      "CP-2C": "CP-1A",
+      "CP-2F": "CP-2E",
+      "CP-2D": "CP-2D",
+      "CP-2E": "CP-2E",
+      "CP-2G": "CP-2G",
+      "CP-3D": "CP-3D",
+      "CP-3A": "CP-3",
+      "CP-3": "CP-3",
+      "CP-4": "CP-4",
+      "CP-4B": "CP-4",
+      "CP-4A": "CP-4"
+    },
+    "passed": true
+  },
+  "literal_source_checks": [
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 115,
+      "exact_row": "Cash and cash equivalents 635 535 ",
+      "independent_literal_expectation": "635 535",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 115,
+      "exact_row": "Restricted cash 225 29 ",
+      "independent_literal_expectation": "225 29",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 115,
+      "exact_row": "Debt $ 13,727 $ 11,884 ",
+      "independent_literal_expectation": "13,727 $ 11,884",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 115,
+      "exact_row": "Secured borrowings 32 34 ",
+      "independent_literal_expectation": "32 34",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 116,
+      "exact_row": "Total investment income 2,990 2,614 2,096 ",
+      "independent_literal_expectation": "2,990 2,614",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 116,
+      "exact_row": "NET INVESTMENT INCOME 1,403 1,266 1,092 ",
+      "independent_literal_expectation": "1,403 1,266",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 116,
+      "exact_row": "NET INCREASE IN STOCKHOLDERS\u2019 EQUITY RESULTING FROM OPERATIONS $ 1,522 $ 1,522 $ 600 ",
+      "independent_literal_expectation": "1,522 $ 1,522",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 116,
+      "exact_row": "Diluted $ 2.44 $ 2.68 $ 1.19 ",
+      "independent_literal_expectation": "2.44 $ 2.68",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 255,
+      "exact_row": "Net cash (used in) provided by operating activities (2,128) 511 (1,359)",
+      "independent_literal_expectation": "(2,128) 511",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 255,
+      "exact_row": "PIK interest (206) (166) (138)",
+      "independent_literal_expectation": "(206) (166)",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 255,
+      "exact_row": "PIK dividends (257) (198) (175)",
+      "independent_literal_expectation": "(257) (198)",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 255,
+      "exact_row": "Collections of PIK interest 109 48 30 ",
+      "independent_literal_expectation": "109 48",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 255,
+      "exact_row": "Collections of PIK dividends 33 11 71 ",
+      "independent_literal_expectation": "33 11",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 255,
+      "exact_row": "Proceeds from sales and repayments of investments and other transactions 9,212 5,315 7,747 ",
+      "independent_literal_expectation": "9,212 5,315",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 255,
+      "exact_row": "Purchases of investments (12,622) (5,804) (9,852)",
+      "independent_literal_expectation": "(12,622) (5,804)",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 255,
+      "exact_row": "Net proceeds from issuance of common stock 1,364 1,155 1,001 ",
+      "independent_literal_expectation": "1,364 1,155",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 255,
+      "exact_row": "Dividends paid (1,139) (1,031) (912)",
+      "independent_literal_expectation": "(1,139) (1,031)",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 255,
+      "exact_row": "CASH, CASH EQUIVALENTS AND RESTRICTED CASH, END OF PERIOD $ 860 $ 564 $ 337 ",
+      "independent_literal_expectation": "860 $ 564",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 100,
+      "exact_row": "Up 100 basis points $ 184 $ 73 $ 111 ",
+      "independent_literal_expectation": "184 $ 73 $ 111",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 100,
+      "exact_row": "Down 100 basis points $ (185) $ (73) $ (112)",
+      "independent_literal_expectation": "(185) $ (73) $ (112)",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 3,
+      "literal": "externally managed by Ares Capital Management",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 73,
+      "literal": "1.7% of the total investments at amortized cost (or 1.0% at fair value) and 1.3%",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 73,
+      "literal": "amortized cost (or 0.6% at fair value)",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 73,
+      "literal": "3.1 and 3.1",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 88,
+      "literal": "Subject to borrowing base and other restrictions",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 88,
+      "literal": "approximately $5.1 billion",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 89,
+      "literal": "we did not repurchase any shares of our common stock in the open market",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 96,
+      "literal": "our board of directors designated our investment adviser as our valuation designee",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 99,
+      "literal": "assuming no changes in our investment and borrowing structure",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 100,
+      "literal": "Excludes the impact of the income based fee",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 283,
+      "literal": "Foreign Currency Forward Contracts",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 300,
+      "literal": "In January 2025",
+      "passed": true
+    },
+    {
+      "source": "runs/arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 300,
+      "literal": "In February 2025",
+      "passed": true
+    }
+  ],
+  "analytical_boundary_checks": {
+    "source_rows_and_passages_checked": 33,
+    "actual_visual_pages": [
+      115,
+      255
+    ],
+    "legal_triage_does_not_repeat_or_compute_exact_headroom": true,
+    "market_screen_does_not_publish_value_or_default_probability": true,
+    "source_numbers_not_new_canonical_history": true,
+    "missing_gap_rows_not_immaterial_or_adverse": true,
+    "periods_and_subsequent_events_separate": true,
+    "PIK_cash_and_finance_company_CFO_distinctions_preserved": true
+  },
+  "checked_handoff": {
+    "path": "runs/arcc-lite-2024-001/ARCC_CP-L10_20261104-attempt-3.md",
+    "sha256": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1",
+    "analytical_scope": "Five screens,30 topics,20 exact analytical tables; screening complete with explicit gaps. Native legacy runtime only implements narrower scope; no full-owner or provider acceptance."
+  },
+  "review_remediation": {
+    "consumer_first_answer": {
+      "path": "runs/arcc-lite-2024-001/CP-5-lite-consumer-attempt-1.md",
+      "sha256": "80ba3ab1bb382194bc76f652f1824c4ee89579581df48ed5c28881022c3121c2"
+    },
+    "producer_repair": {
+      "path": "runs/arcc-lite-2024-001/ARCC_CP-L10_20261104-attempt-3.md",
+      "sha256": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1",
+      "issues": [
+        "CP5-L01",
+        "CP5-L02"
+      ],
+      "scope": "Only five issuer-specific OVERALL transmission cells and five explicit source-linked analyst monitoring rows; source facts, topic/owner/rank/posture and upgrade choices unchanged.",
+      "first_and_second_answers_preserved": true
+    }
+  },
+  "targeted_repair_parity_checks": [
+    {
+      "phase": "CP-L10",
+      "only_overall_transmission_changed": true,
+      "one_analyst_monitoring_row_added": true,
+      "scope_topics_upgrade_tables_byte_equal": true
+    },
+    {
+      "phase": "CP-L20",
+      "only_overall_transmission_changed": true,
+      "one_analyst_monitoring_row_added": true,
+      "scope_topics_upgrade_tables_byte_equal": true
+    },
+    {
+      "phase": "CP-L23",
+      "only_overall_transmission_changed": true,
+      "one_analyst_monitoring_row_added": true,
+      "scope_topics_upgrade_tables_byte_equal": true
+    },
+    {
+      "phase": "CP-L30",
+      "only_overall_transmission_changed": true,
+      "one_analyst_monitoring_row_added": true,
+      "scope_topics_upgrade_tables_byte_equal": true
+    },
+    {
+      "phase": "CP-L40",
+      "only_overall_transmission_changed": true,
+      "one_analyst_monitoring_row_added": true,
+      "scope_topics_upgrade_tables_byte_equal": true
+    }
+  ],
+  "recheck_instructions": {
+    "text": "Open ARCC_CP-L10_20261104-attempt-3.md SHA256 495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1. Recheck actual CP5-L01/L02 repairs, all retained source/alias/table safeguards and the unchanged topic/owner/rank/posture/upgrade data. Use the actual five-screen priorities in the next evidence action. Historical/screening-only scope; no native/full CP-5/5A clearance, new issuer analysis or silently changed producer.",
+    "sha256": "510e04793be3e8b5f53fb4d7b98b0c19e3283b6b80e68657b7a693f1cc5a346b"
+  },
+  "previous_checked_handoff": {
+    "path": "runs/arcc-lite-2024-001/ARCC_CP-L10_20261104.md",
+    "sha256": "8c7edc8d5dac4d3400a5430b6c4191ac6dab6a04e4059edfa2fc2baf30eb3470",
+    "same_bytes_as_second_attempt": true,
+    "analytical_scope": "One combined owner with five screens,30 topics and20 tables; screening complete with explicit gaps, not full owners/native runtime."
+  },
+  "checked_consumer": {
+    "path": "runs/arcc-lite-2024-001/CP-5-lite-consumer-attempt-2.md",
+    "sha256": "dc98fc337835101acb4caf81e9329dead6e2c1f3613a23137fbe198af9b99eff",
+    "scope": "Actual same-session CP-5 screening QA and evidence-escalation use; closes CP5-L01/L02, no independent-context/full/native clearance."
+  },
+  "final_check_results": {
+    "literal_primary_rows_or_passages": 33,
+    "method_archive_hashes_checked": 65,
+    "source_and_instructions_pins_passed": true,
+    "all_final_contract_checks_retained": true,
+    "recheck_instructions_hash_passed": true,
+    "consumer_material_claims_compared_with_unchanged_checked_primary_literals": true,
+    "monitoring_rows_are_procedural_not_outcome_claims": true
+  },
+  "delivery": {
+    "directory": "deliverables/arcc-fy2024-lite-1",
+    "manifest_sha256": "3423ff6cbd3ea588f6af42dd692e140ebf907174dfc7e30ce43e97036d1a88c4",
+    "report_sha256": "212b3cf72d470c44eedd21457f223f8ea89e5487de52a4cd091d748dea64983f",
+    "view_sha256": "8946b15e20258776c48d0f81aee340483d41aafc7d5d4cd67bc18b7f4b1a929a",
+    "report_view_sha256": "f747de7ebaea303a60c5f210c8f1cba5b25917491210a729c12b97ff19069710",
+    "original_tables": 20,
+    "source_table_rows": 85,
+    "literal_source_cells_independently_checked": 630,
+    "front_page_literal_summary_rows": 5,
+    "facts_and_exact_line_citations": 635,
+    "file_hashes_and_byte_copies_passed": true,
+    "call_items_all_na": true,
+    "browser_AX_checks": [
+      "Historical/screening scope visible",
+      "Allfive actual conclusions on front page",
+      "All20 analytical table headings on CP-L10 page",
+      "Monitoring rows and alias list present",
+      "Source inspector opens exact handoff line68, quote and producer SHA256"
+    ],
+    "browser_limit": "AX table cells expose Inspect labels rather than their full values; all cell text/citations independently checked in View against raw Markdown. No physical layout/screenshot or complete UI/accessibility qualification claimed.",
+    "server_stopped": true,
+    "production_adapter_added": false,
+    "analytical_rerun_for_delivery": false,
+    "note": "Case-specific data adaptation to unchanged renderer/binding/view contracts; general Lite ingestion and native runtime integration are not qualified."
+  },
+  "delivery_preflight_corrections": [
+    "Incorrect scratch expected-cell count593 failed before any output write; exact schema count630 then independently reproduced from85 source rows.",
+    "Scratch verification expected call_withheld=not_requested, but actual renderer produces NA Assessment pending with no judgment/reference for this pathway; correct contract checked without changing report."
+  ]
+}

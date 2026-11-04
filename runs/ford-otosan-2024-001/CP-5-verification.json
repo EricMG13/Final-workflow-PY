@@ -1,0 +1,426 @@
+{
+  "scope": "Actual current-host-model CP-5/absorbed CP-5A review of the defined historical case; not independent, native provider/owner or full committee acceptance. Source gate partial.",
+  "consumed": {
+    "runs/ford-otosan-2024-001/CP-0.md": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+    "runs/ford-otosan-2024-001/CP-1-selected-input.md": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+    "runs/ford-otosan-2024-001/CP-2G-published-forecast.md": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931",
+    "runs/ford-otosan-2024-001/CP-2H-attempt-2.md": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72",
+    "runs/ford-otosan-2024-001/CP-3C-consumer.md": "4dacb927b491334e57cd01fd848437156975cb0e1b44599e92eeaee490acaed8",
+    "runs/ford-otosan-2024-001/CP-5-instructions.md": "51c6d71ff4792ca2b24b0f55e9d139df4612d3d62bc1113325a5b9e04941daa3"
+  },
+  "verified_existing_pins": {
+    "runs/ford-otosan-2024-001/CP-0.md": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+    "runs/ford-otosan-2024-001/CP-1-selected-input.md": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+    "runs/ford-otosan-2024-001/CP-2G-published-forecast.md": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931",
+    "runs/ford-otosan-2024-001/financial-calculations.json": "0774f854a6e8eaa166d1dd4be26377547d63cbbee303c01bbc7a207eb127519b",
+    "runs/ford-otosan-2024-001/sources/sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+    "runs/ford-otosan-2024-001/sources/fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+    "runs/ford-otosan-2024-001/sources/fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+    "runs/ford-otosan-2024-001/CP-2H-attempt-2.md": "4f390c0b0e36f2ea91f179ffd4d872d696635d1a06a2a3b3719590c496c74b72",
+    "runs/ford-otosan-2024-001/sources/sp-retrieval.json": "060ab7be6a693cf6a2f411a429ce80afacf49a4b2f35d7a1821f77ab82b67839"
+  },
+  "selected_methods": {
+    "/Users/ericguei/Documents/cp-os/skills/cp-5-evidence-trace-validator/SKILL.md": "7f21c8712cb40e871abaa1f855fdb95dded5df9887e354c39253e0492dd93390",
+    "/Users/ericguei/Documents/cp-os/skills/cp-5-evidence-trace-validator/references/CP-5_RUNBOOK.md": "c053b622c63b242364a8e53c1b2e676f6f02c1ce6a4f7e87728c885e9fd68434",
+    "/Users/ericguei/Documents/cp-os/skills/cp-5-evidence-trace-validator/references/REF_CP-5_STEPS.md": "0b5beddbc0a5d3c99065379b7110e3b87fbc5392d38ed243ccbf7fdce70e506a",
+    "/Users/ericguei/Documents/cp-os/skills/cp-5-evidence-trace-validator/references/REF_CP-5A_STEPS.md": "e93781b8055e0c33e744b06fb0706161885400d6f8c7ef07a743497d4a865e8d",
+    "/Users/ericguei/Documents/cp-os/skills/cp-5-evidence-trace-validator/scripts/confidence_score.py": "6e88bc8c70f65cd9478d4e5c7f460c13d4b49f8e3dc5f540e28ec8acc0648b3f",
+    "src/deploy_vii/methods/cp5.md": "81cf6bea9b56ad63fd9cc38c32bf4cef9b9c1e48b750f8c803cb4d8874d64d67"
+  },
+  "claims": [
+    {
+      "id": "C01",
+      "module": "CP-2H",
+      "section": "T2R.1",
+      "statement": "S&P issuer and proposed issue ratings remain preliminary.",
+      "lineage": "Directly Sourced",
+      "source": "S",
+      "locator": "PDF 1,11; text 2-8,643-656",
+      "support": "Supported",
+      "limitation": "Historical preliminary state, not final/current."
+    },
+    {
+      "id": "C02",
+      "module": "CP-2H",
+      "section": "T2R.1/8",
+      "statement": "Fitch issuer BB+/Stable differs from expected issue BB+(EXP)/RR4.",
+      "lineage": "Directly Sourced",
+      "source": "F",
+      "locator": "PDF 1,7; text 5-8,157-166",
+      "support": "Supported",
+      "limitation": "Expected issue action remains conditional; no recovery percent."
+    },
+    {
+      "id": "C03",
+      "module": "CP-2H",
+      "section": "T2R.4",
+      "statement": "Fitch negative sensitivity names net leverage above 2.0x by 2025.",
+      "lineage": "Directly Sourced",
+      "source": "F",
+      "locator": "PDF 5-6; text 116-124",
+      "support": "Supported",
+      "limitation": "Individually/collectively, not automatic action or gross leverage."
+    },
+    {
+      "id": "C04",
+      "module": "CP-2H",
+      "section": "T2R.4",
+      "statement": "S&P outside-country earnings condition is more than 30%, with continuing tests and adequate liquidity/metrics.",
+      "lineage": "Directly Sourced",
+      "source": "S",
+      "locator": "PDF 5-6; text 194-202",
+      "support": "Supported",
+      "limitation": "Proxy EBITDA location is not the complete earnings test."
+    },
+    {
+      "id": "C05",
+      "module": "CP-2G",
+      "section": "Findings",
+      "statement": "S&P debt includes consideration/pensions and does not deduct available cash.",
+      "lineage": "Directly Sourced",
+      "source": "S",
+      "locator": "PDF 4; text 149-152",
+      "support": "Supported",
+      "limitation": "Agency adjustment basis, not reported carrying debt or Fitch net debt."
+    },
+    {
+      "id": "C06",
+      "module": "CP-2H",
+      "section": "T2R.7",
+      "statement": "BB+ versus preliminary BB- is two ordinal symbol steps.",
+      "lineage": "Calculated",
+      "source": "S+F",
+      "locator": "S PDF 1; F PDF 1; CP-2H-calculations ordinal_symbol_distance",
+      "support": "Supported",
+      "limitation": "Ordinal labels only; no probability, average, error or price signal."
+    },
+    {
+      "id": "C07",
+      "module": "CP-2H",
+      "section": "T2R.3/4",
+      "statement": "S&P gross leverage cannot establish Fitch net-leverage crossing.",
+      "lineage": "Analyst Inference",
+      "source": "S+F",
+      "locator": "S PDF 4; F PDF 4-6; actual financial and ratings handoffs",
+      "support": "Supported",
+      "limitation": "No complete aligned adjustment bridge; crossing remains unknown."
+    },
+    {
+      "id": "C08",
+      "module": "CP-3C",
+      "section": "Findings",
+      "statement": "Source liquidity horizon is twelve months starting January 1, 2024.",
+      "lineage": "Directly Sourced",
+      "source": "S",
+      "locator": "PDF 7; text 475-479",
+      "support": "Supported",
+      "limitation": "Not a new rolling year starting April 11."
+    },
+    {
+      "id": "C09",
+      "module": "CP-3C",
+      "section": "Findings table",
+      "statement": "Displayed source components sum to 109.2 sources and 90.7 uses, TRY bn.",
+      "lineage": "Calculated",
+      "source": "S",
+      "locator": "PDF 8; text 484-505; CP-3C-intake-calculations",
+      "support": "Supported",
+      "limitation": "Rounded source components and mixed stress assumptions are explicit; not actual cash outcome."
+    },
+    {
+      "id": "C10",
+      "module": "CP-3C",
+      "section": "Findings table, neither source",
+      "statement": "Removing both assumed new sources gives a conditional 12.5 TRY bn deficit.",
+      "lineage": "Assumption-Based",
+      "source": "S+analyst",
+      "locator": "PDF 8; text 484-502; explicit separate neither-source case",
+      "support": "Supported",
+      "limitation": "Not evidence that either funding source actually failed."
+    },
+    {
+      "id": "C11",
+      "module": "CP-3C",
+      "section": "Findings table, distribution overlay",
+      "statement": "Adding unstressed distributions yields a conditional 8.6 TRY bn deficit.",
+      "lineage": "Assumption-Based",
+      "source": "S+analyst",
+      "locator": "PDF 8; text 504-505; explicit separate dividend-overlay case",
+      "support": "Supported",
+      "limitation": "Not the published stressed-dividend case or unrestricted facility capacity."
+    },
+    {
+      "id": "C12",
+      "module": "CP-3C",
+      "section": "Findings table, capex reduction",
+      "statement": "An illustrative 15% capex cut gives conditional 83.755 TRY bn uses.",
+      "lineage": "Assumption-Based",
+      "source": "S+analyst",
+      "locator": "PDF 8; text 501-502; explicit capex-cut illustration",
+      "support": "Supported",
+      "limitation": "Not actual capex or reproduction of the disclosed 1.2x working model."
+    },
+    {
+      "id": "C13",
+      "module": "CP-1 selected",
+      "section": "Calculations",
+      "statement": "Selected source displays retain -1/+1 TRY million reconciliation residuals.",
+      "lineage": "Calculated",
+      "source": "S",
+      "locator": "PDF 7; source financial cells and financial-calculations",
+      "support": "Supported",
+      "limitation": "Residual causes unresolved; source -- not zero."
+    },
+    {
+      "id": "C14",
+      "module": "CP-2H",
+      "section": "T2R.7",
+      "statement": "Different outlooks/framework conditions are not identical mechanical predictions.",
+      "lineage": "Analyst Inference",
+      "source": "S+F",
+      "locator": "S PDF 5-6; F PDF 4-6; actual T2R.2/4/7",
+      "support": "Supported",
+      "limitation": "Qualitative explanation does not allocate every symbol difference numerically."
+    }
+  ],
+  "trace_checklist": {
+    "fields": [
+      "id",
+      "module",
+      "section",
+      "statement",
+      "lineage",
+      "source",
+      "locator",
+      "support",
+      "limitation"
+    ],
+    "present": 126,
+    "total": 126,
+    "meaning": "Nine trace metadata fields for fourteen statements; NOT full financial or imported-schema completeness."
+  },
+  "findings": [
+    {
+      "id": "CP5-001",
+      "severity": "MATERIAL",
+      "category": "Source Quality Limitation",
+      "status": "Open, already disclosed",
+      "issue": "Retained web text has no original PDF-byte/visual confirmation; source-display residuals remain unresolved.",
+      "remediation": "Preserve restrictions; obtain original source/visual and adjustment evidence before extending assurance."
+    }
+  ],
+  "score_inputs": {
+    "lineage": {
+      "Directly Sourced": 6,
+      "Calculated": 3,
+      "Analyst Inference": 2,
+      "Assumption-Based": 3
+    },
+    "fields_present": 126,
+    "fields_total": 126,
+    "source_gate": "partial",
+    "findings": {
+      "MATERIAL": 1
+    }
+  },
+  "score_result": {
+    "E": 78.5714,
+    "C": 100.0,
+    "S": 0.7,
+    "P": 15,
+    "material_claims": 14,
+    "raw_score": 46.0,
+    "confidence_score": 46,
+    "confidence_band": "Low",
+    "qa_status": "Restricted",
+    "working": "score = clamp((0.6*78.57 + 0.4*100) * 0.7 - 15, 0, 100) = 46 -> 46"
+  },
+  "independent_score_raw_fraction": "46",
+  "synthetic_score_controls": [
+    {
+      "synthetic": true,
+      "findings": {
+        "CRITICAL": 1
+      },
+      "gate": "pass",
+      "result": {
+        "E": 100.0,
+        "C": 100.0,
+        "S": 1.0,
+        "P": 40,
+        "material_claims": 1,
+        "raw_score": 60.0,
+        "confidence_score": 39,
+        "confidence_band": "Insufficient Information",
+        "qa_status": "Blocked",
+        "working": "score = clamp((0.6*100 + 0.4*100) * 1.0 - 40, 0, 100) = 60 -> 39"
+      }
+    },
+    {
+      "synthetic": true,
+      "findings": {
+        "MATERIAL": 1
+      },
+      "gate": "pass",
+      "result": {
+        "E": 100.0,
+        "C": 100.0,
+        "S": 1.0,
+        "P": 15,
+        "material_claims": 1,
+        "raw_score": 85.0,
+        "confidence_score": 59,
+        "confidence_band": "Low",
+        "qa_status": "Restricted",
+        "working": "score = clamp((0.6*100 + 0.4*100) * 1.0 - 15, 0, 100) = 85 -> 59"
+      }
+    },
+    {
+      "synthetic": true,
+      "findings": {},
+      "gate": "fail",
+      "result": {
+        "E": 100.0,
+        "C": 100.0,
+        "S": 0.0,
+        "P": 0,
+        "material_claims": 1,
+        "raw_score": 0.0,
+        "confidence_score": 0,
+        "confidence_band": "Insufficient Information",
+        "qa_status": "Passed",
+        "working": "score = clamp((0.6*100 + 0.4*100) * 0.0 - 0, 0, 100) = 0 -> 0"
+      }
+    }
+  ],
+  "independent_funding_calculations": [
+    {
+      "case": "agency-plan-reproduction",
+      "exact_ratio": "1092/907",
+      "ratio_4dp": "1.2040",
+      "verified": true
+    },
+    {
+      "case": "no-proposed-bond",
+      "exact_ratio": "932/907",
+      "ratio_4dp": "1.0276",
+      "verified": true
+    },
+    {
+      "case": "no-new-capex-facility",
+      "exact_ratio": "942/907",
+      "ratio_4dp": "1.0386",
+      "verified": true
+    },
+    {
+      "case": "neither-new-source",
+      "exact_ratio": "782/907",
+      "ratio_4dp": "0.8622",
+      "verified": true
+    },
+    {
+      "case": "unstressed-dividend-overlay",
+      "exact_ratio": "546/589",
+      "ratio_4dp": "0.9270",
+      "verified": true
+    },
+    {
+      "case": "illustrative-15pct-capex-cut",
+      "exact_ratio": "3120/2393",
+      "ratio_4dp": "1.3038",
+      "verified": true
+    }
+  ],
+  "independent_residuals_try_m": [
+    "-1",
+    "1"
+  ],
+  "source_term_checks": [
+    {
+      "capture": "sp-retry.json",
+      "term": "preliminary",
+      "present": true
+    },
+    {
+      "capture": "fitch-terms.json",
+      "term": "BB+(EXP)/RR4",
+      "present": true
+    },
+    {
+      "capture": "fitch-terms.json",
+      "term": "above 2.0x by 2025",
+      "present": true
+    },
+    {
+      "capture": "fitch-terms.json",
+      "term": "Individually or Collectively",
+      "present": true
+    },
+    {
+      "capture": "sp-retry.json",
+      "term": "more than 30%",
+      "present": true
+    },
+    {
+      "capture": "sp-retry.json",
+      "term": "excludes",
+      "present": true
+    },
+    {
+      "capture": "sp-retry.json",
+      "term": "available cash",
+      "present": true
+    },
+    {
+      "capture": "fitch-and-metrics.json",
+      "term": "Jan. 1, 2024",
+      "present": true
+    },
+    {
+      "capture": "fitch-and-metrics.json",
+      "term": "March of this year",
+      "present": true
+    },
+    {
+      "capture": "fitch-and-metrics.json",
+      "term": "TRY27.1",
+      "present": true
+    },
+    {
+      "capture": "fitch-and-metrics.json",
+      "term": "at least 15%",
+      "present": true
+    }
+  ],
+  "synthetic_adversarial_claims": [
+    {
+      "claim": "Expected issue rating is final.",
+      "verdict": "Unsupported",
+      "severity": "CRITICAL",
+      "reason": "Provisional issue status and final-document conditions expressly disagree."
+    },
+    {
+      "claim": "S&P gross leverage establishes Fitch net trigger crossing.",
+      "verdict": "Unsupported",
+      "severity": "CRITICAL",
+      "reason": "Unbridged metric definitions; approximate source cannot prove crossing."
+    },
+    {
+      "claim": "The issuer actually has the neither-source deficit.",
+      "verdict": "Unsupported",
+      "severity": "CRITICAL",
+      "reason": "Conditional assumption has been changed into a realised outcome."
+    },
+    {
+      "claim": "RR4 establishes a specific recovery percentage.",
+      "verdict": "Unsupported",
+      "severity": "CRITICAL",
+      "reason": "No criteria/range mapping or case-specific recovery analysis supplied."
+    }
+  ],
+  "limits": [
+    "All synthetic controls are excluded from the real findings count and real claim score.",
+    "Model support/contradiction judgments are authored here; arithmetic checks cannot prove semantic correctness.",
+    "No silent source or producer edits; legal rights/current market/complete underwriting remain unreviewed."
+  ]
+}

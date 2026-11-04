@@ -1,0 +1,37 @@
+{
+ "schema": "statement-units/1",
+ "case": "bgs-relative-value",
+ "sources": [
+  {
+   "source_id": "bgs-10q-2025-06-28",
+   "file": "BGS/BGS_2025-06-28_10-Q_0001558370-25-010103_bgs-20250628x10q.htm",
+   "converted_sha256": "84fd54edd7778d4faaa7a7f7c43ca4794612392b0eafdbc6a0782c6d5e142f0d",
+   "units": [
+    {
+     "kind": "BS",
+     "start": "line:132",
+     "end": "line:258",
+     "heading": "Consolidated Balance Sheets"
+    },
+    {
+     "kind": "IS",
+     "start": "line:259",
+     "end": "line:389",
+     "heading": "Consolidated Statements of Operations"
+    },
+    {
+     "kind": "CFS",
+     "start": "line:781",
+     "end": "line:927",
+     "heading": "Consolidated Statements of Cash Flows"
+    }
+   ],
+   "none": [],
+   "remarks": [
+    "Consolidated Statements of Comprehensive (Loss) Income (line:390) is a separate statement and not the IS because a Statements of Operations exists; equity statement (line:441) is never a unit.",
+    "Lines 55-65 are the table of contents; line:610 repeats the equity statement heading."
+   ]
+  }
+ ],
+ "missing": []
+}

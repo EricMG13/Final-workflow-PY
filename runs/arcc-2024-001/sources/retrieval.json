@@ -1,0 +1,9 @@
+{
+  "url": "https://www.arcc.ares.com/media/document/2d13e49e-cace-422e-9c89-57a907b12dab/assets/Q4_2024_10K.pdf?disposition=inline",
+  "retrieved_on": "2026-11-04",
+  "bytes": 2814269,
+  "pages": 320,
+  "sha256": "4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170",
+  "extraction": "pypdf page text, 1-based PDF page markers",
+  "scope": "Historical FY2024, not current; original issuer-hosted PDF bytes retained"
+}

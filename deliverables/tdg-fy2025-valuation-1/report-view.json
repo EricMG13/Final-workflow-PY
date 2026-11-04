@@ -1,0 +1,3934 @@
+{
+  "schema_version": "report-view/1",
+  "pathway": {
+    "id": "credit_snapshot",
+    "title": "Historical TDG / Moog — valuation context",
+    "question": "What can the dated peer valuation calculation support?",
+    "requested_modules": [
+      "CP-1C",
+      "CP-2"
+    ],
+    "blocks": [
+      "key-findings"
+    ]
+  },
+  "call": [
+    {
+      "kind": "fact",
+      "label": "Valuation use",
+      "value_text": "Provisional",
+      "meter": null,
+      "ref_id": "C18",
+      "direction": null,
+      "line": false
+    }
+  ],
+  "call_withheld": null,
+  "blocks": [
+    {
+      "block_id": "key-findings",
+      "title": "Qualified valuation context and credit consequence",
+      "owner": "CP-2",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "prose",
+      "scale": null,
+      "row_header": null,
+      "columns": [],
+      "rows": [],
+      "lines": [
+        {
+          "runs": [
+            {
+              "text": "Source-grounded equity value: Moog market cap USD6483.777030m as of2025-09-27, from two separately priced outstanding share classes.; Avoids applying one class's price to the whole capital or using annual EPS shares for a dated equity value.; A usable dated equity component is available for the defined bridge; it does not establish borrower debt service or recoveries.; Analyst Interpretation; historical, Stale at2026-11-04.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C48",
+              "kind": "fig",
+              "ref_id": "C48"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "EV construction remains qualified: Known-components principal/finance-lease/cash proxy USD7501.839030m; net-carrying alternative USD7501.525030m; fair-debt alternative USD7488.409030m. Complete EV remains Insufficient Information.; Debt conventions alter the subtotal, while unestablished preferred/minority/investment and economic adjustments prevent a complete claim.; Keep the exact convention and gaps attached to any use. None is a source-backed TDG recovery floor or proof of creditor coverage.; Analyst Interpretation; calculated components, Provisional EV context.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C49",
+              "kind": "fig",
+              "ref_id": "C49"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Revenue indication is margin dependent: Moog proxy/revenue1.943167x applied unrounded to TDG FY2025 sales USD8831.000000m gives USD17160.112063m.; A sales-based transfer imports the peer's earnings economics; TDG's earnings relative to sales differ materially.; Use as sensitivity to the chosen operating analogue. It does not support a standalone value cushion, adverse credit conclusion or trading preference.; Analyst Interpretation; Provisional, N=1, differing business mix.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C50",
+              "kind": "fig",
+              "ref_id": "C50"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "EBITDA indication is definition dependent: Moog proxy/constructed EBITDA15.358427x applied unrounded to TDG ordinary EBITDA USD4568.000000m gives USD70157.294567m. TDG As Defined USD4760.000000m was not substituted.; Expense-labelled versus net interest and other unnormalized earnings differences affect comparability. The larger ordinary-earnings base relative to sales drives a much higher conditional indication.; Do not select it because it is larger, average it with the sales result or treat the separation as a peer valuation range. First resolve earnings/perimeter compatibility.; Analyst Interpretation; Provisional, not normalized or a recovery estimate.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C51",
+              "kind": "fig",
+              "ref_id": "C51"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Missing methods and stale admission remain missing: Both transaction methods, complete EV, sector median/average/range and current native admission are unavailable or excluded.; Unsupported transaction EV or a one-peer distribution cannot provide independent triangulation. A historical case cannot become a current quote by changing the run label.; Preserve the gaps in delivery and future CP-OS completion tracking. Historical function exercised; current/full valuation remains unproven.; Insufficient Information; targeted source/normalization work required.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C52",
+              "kind": "fig",
+              "ref_id": "C52"
+            }
+          ],
+          "label": null,
+          "section": null
+        }
+      ],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-2",
+      "route_label": null,
+      "width": "full",
+      "numbered": true,
+      "pinned": true,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    }
+  ],
+  "unplaced": [],
+  "passports": [
+    {
+      "ref_id": "C1",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 25"
+        },
+        {
+          "name": "Quote",
+          "value": "| CP-1-valuation-inputs.md | FY2025 statement amounts, both share classes, debt/lease/cash identities and missing adjustments. Limited current-host input increment, not full CP-1 acceptance. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C2",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 26"
+        },
+        {
+          "name": "Quote",
+          "value": "| Moog FY2025 SEC filing | Original body: https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm ; p39 earnings, p41 balance sheet, p43 shares, p44 cash flow, p58 leases, p61 debt, p64 fair value, pp75/78 capital/prices. Exact SEC line ranges are in the input handoff and retained capture. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C3",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 27"
+        },
+        {
+          "name": "Quote",
+          "value": "| TDG FY2025 SEC filing | Original body: https://www.sec.gov/Archives/edgar/data/1260221/000126022125000081/tdg-20250930.htm ; net sales L1701–1703, ordinary/As Defined EBITDA p32 L1043–1058. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C4",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 28"
+        },
+        {
+          "name": "Quote",
+          "value": "| Earlier CP-1C peer case | ../tdg-peers-2024-001/CP-1C-attempt-2.md: Moog candidate rationale and business comparability context only. No FY2024 financial values enter this case. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C5",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 42"
+        },
+        {
+          "name": "Quote",
+          "value": "| Quantity family | USD/share × actual shares → USD equity; source USD thousands → USD millions exactly. | Prices and money are not interchangeable, and a share count is not an amount in thousands. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C6",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 43"
+        },
+        {
+          "name": "Quote",
+          "value": "| Equity perimeter | Separate A/B outstanding counts and own prices; treasury/SECT/SERP already excluded. | No issued-share or annual diluted-EPS substitution; no second trust deduction. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C7",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 44"
+        },
+        {
+          "name": "Quote",
+          "value": "| Price / availability date | Filing-disclosed closing prices as of2025-09-27; Saturday as-of label, no claim of a Saturday trade. Filings became available after year-end. | Retrospective matching exercise, not a September2025 tradeable backtest. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C8",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 45"
+        },
+        {
+          "name": "Quote",
+          "value": "| Financial period | Moog FY ended2025-09-27; TDG FY ended2025-09-30, using each filing's own label. | Three-day labelled end-date difference; no pro-rating, LTM/NTM switch or FY2024 import. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C9",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 46"
+        },
+        {
+          "name": "Quote",
+          "value": "| Accounting / revenue | Both reported US GAAP consolidated sales; Moog's program/over-time contracts and broader industrial mix differ from TDG's component/aftermarket economics. | Same revenue family does not establish identical sales quality or margins. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C10",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 47"
+        },
+        {
+          "name": "Quote",
+          "value": "| Debt / leases | Principal946.000000, net carrying945.686000 and fair value932.570000 USDm are alternatives; finance leases134.075000 USDm sit elsewhere. | Chosen bridge uses principal plus finance leases; never sum the alternative debt measures. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C11",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 48"
+        },
+        {
+          "name": "Quote",
+          "value": "| Cash / investments | Deduct reported cash62.013000 USDm; restricted cash0.200000 USDm is excluded. Eligible additional investments and legal cash availability are not independently established. | Known-components proxy, not proof that every cash asset is freely available or every missing adjustment is zero. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C12",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 49"
+        },
+        {
+          "name": "Quote",
+          "value": "| Other capital claims | Preferred/minority market values are not established; no separately reported equity amount proves a precise economic zero. Pension/earn-out and other debt-like adjustments are not fully reviewed. | Complete EV remains Insufficient Information. The known-components bridge omits unquantified adjustments explicitly. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C13",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 50"
+        },
+        {
+          "name": "Quote",
+          "value": "| Earnings definition | Moog proxy = pretax + expense-labelled interest + D&A; TDG ordinary EBITDA adds net interest. | Conditional EBITDA transfer is Provisional. Neither is renamed covenant EBITDA or TDG EBITDA As Defined. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C14",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 51"
+        },
+        {
+          "name": "Quote",
+          "value": "| Currency / scale / precision | Both USD; Moog converted from thousands to millions, TDG already millions. | No FX step. Six-decimal figures expose arithmetic, not six-decimal valuation certainty. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C15",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 52"
+        },
+        {
+          "name": "Quote",
+          "value": "| Statistics / staleness | One candidate; 2025-09-27 prices are older than twelve months on2026-11-04. Native current-date admission control excludes the record. | **Stale** historical context only. No sector mean/median/quartile, peer outlier conclusion or low/median/high range. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C16",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 64"
+        },
+        {
+          "name": "Quote",
+          "value": "| Moog | USD6483.777030m | As of2025-09-27; Stale at run date | USD7501.839030m known-components proxy; complete EV Insufficient Information | 1.943167x on proxy | 15.358427x on proxy | FY ended2025-09-27 | Principal/finance-lease/cash EV subtotal; revenue3860.624000 and pretax-plus-interest-plus-D&A488.451000 USDm. No full economic EV or normalized EBITDA claim. | Comparable with Limitations | Moog p39/41/43/44/58/61/75/78, exact input locators; calculations.json. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "G1",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "No supported transaction in this increment"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "C17",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 73"
+        },
+        {
+          "name": "Quote",
+          "value": "| No supported transaction in this increment | Insufficient Information | Insufficient Information | Insufficient Information | Insufficient Information | Insufficient Information | Insufficient Information | Insufficient Information | Do not turn an announced equity consideration or unrelated forecast into established transaction EV. | Insufficient Information | No qualifying transaction source admitted in this case. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "G2",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "No supported transaction in this increment"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G3",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "No supported transaction in this increment"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G4",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "No supported transaction in this increment"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G5",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "No supported transaction in this increment"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G6",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "No supported transaction in this increment"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G7",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "No supported transaction in this increment"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G8",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "No supported transaction in this increment"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "C18",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 79"
+        },
+        {
+          "name": "Quote",
+          "value": "| EV/Revenue | Moog individual known-components proxy, T4.8 | 1.943167x; unrounded value used | TDG revenue USD8831.000000m | TDG FY ended2025-09-30; peer FY ended2025-09-27 | USD17160.112063m conditional indication | Insufficient Information | Insufficient Information | Insufficient Information | Provisional | N=1, Stale; no complete peer EV; material business/margin differences; not a sector or recovery valuation. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "G9",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "EV/Revenue"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G10",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "EV/Revenue"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G11",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "EV/Revenue"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "C19",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 80"
+        },
+        {
+          "name": "Quote",
+          "value": "| EV/EBITDA | Moog individual known-components proxy, T4.8 | 15.358427x; unrounded value used | TDG ordinary EBITDA USD4568.000000m | TDG FY ended2025-09-30; peer FY ended2025-09-27 | USD70157.294567m conditional indication | Insufficient Information | Insufficient Information | Insufficient Information | Provisional | Expense-labelled versus net interest not normalized; Moog proxy is not TDG As Defined EBITDA; other earnings/perimeter adjustments and full peer EV unestablished. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "G12",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "EV/EBITDA"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G13",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "EV/EBITDA"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G14",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "EV/EBITDA"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G15",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "TV/Revenue"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "C20",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 81"
+        },
+        {
+          "name": "Quote",
+          "value": "| TV/Revenue | Insufficient Information | Insufficient Information | TDG revenue USD8831.000000m | FY ended2025-09-30 | Insufficient Information | Insufficient Information | Insufficient Information | Insufficient Information | Insufficient Information | No qualifying transaction EV and contemporaneous denominator. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "G16",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "TV/Revenue"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G17",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "TV/Revenue"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G18",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "TV/Revenue"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G19",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "TV/Revenue"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G20",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "TV/Revenue"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G21",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "TV/Revenue"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G22",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "TV/EBITDA"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "C21",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 82"
+        },
+        {
+          "name": "Quote",
+          "value": "| TV/EBITDA | Insufficient Information | Insufficient Information | TDG ordinary EBITDA USD4568.000000m | FY ended2025-09-30 | Insufficient Information | Insufficient Information | Insufficient Information | Insufficient Information | Insufficient Information | No qualifying transaction EV and compatible contemporaneous EBITDA. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "G23",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "TV/EBITDA"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G24",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "TV/EBITDA"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G25",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "TV/EBITDA"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G26",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "TV/EBITDA"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G27",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "TV/EBITDA"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "G28",
+      "kind": "gap",
+      "fields": [
+        {
+          "name": "Item",
+          "value": "TV/EBITDA"
+        },
+        {
+          "name": "Status",
+          "value": "missing"
+        },
+        {
+          "name": "Reason",
+          "value": "Not provided: original handoff explicitly states Insufficient Information; never zero."
+        }
+      ]
+    },
+    {
+      "ref_id": "C22",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 100"
+        },
+        {
+          "name": "Quote",
+          "value": "| Class A equity | 28,424,853 × USD204.64/share | USD5,816,861,917.92 | Calculated; outstanding shares, not issued or weighted averages. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C23",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 101"
+        },
+        {
+          "name": "Quote",
+          "value": "| Class B equity | 3,237,452 × USD206.00/share | USD666,915,112.00 | Calculated; separate class price. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C24",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 102"
+        },
+        {
+          "name": "Quote",
+          "value": "| Combined market cap | Sum of class equity values /1000000 | USD6483.777030m | Calculated; exact underlying amount USD6,483,777,029.92. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C25",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 103"
+        },
+        {
+          "name": "Quote",
+          "value": "| Gross borrowings | 195.000000 +250.000000 +1.000000 +500.000000 | USD946.000000m | Calculated from principal components; not commitment availability. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C26",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 104"
+        },
+        {
+          "name": "Quote",
+          "value": "| Net carrying borrowings | 1.563000 +944.123000 =946.000000 −0.314000 | USD945.686000m | Calculated; cost deduction is not extra debt. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C27",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 105"
+        },
+        {
+          "name": "Quote",
+          "value": "| Finance leases | 14.920000 +119.155000 | USD134.075000m | Calculated; not in the borrowing captions. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C28",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 106"
+        },
+        {
+          "name": "Quote",
+          "value": "| Known-components principal proxy | Market cap +946.000000 +134.075000 −62.013000 | USD7501.839030m | Calculated subtotal, Provisional as enterprise-value context; complete EV missing. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C29",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 107"
+        },
+        {
+          "name": "Quote",
+          "value": "| Net-carrying alternative | Replace946.000000 with945.686000 | USD7501.525030m | Calculated; difference −USD0.314000m, not another peer. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C30",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 108"
+        },
+        {
+          "name": "Quote",
+          "value": "| Fair-debt alternative | Replace946.000000 with932.570000 | USD7488.409030m | Calculated; difference −USD13.430000m, not a peer-range low. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C31",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 109"
+        },
+        {
+          "name": "Quote",
+          "value": "| Sold-receivables sensitivity | Principal proxy +125.000000 | USD7626.839030m | Provisional debt-like sensitivity only; no double classification as GAAP borrowing. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C32",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 110"
+        },
+        {
+          "name": "Quote",
+          "value": "| Moog reported-line EBITDA proxy | (312648 +72075 +94013 +9715) /1000 | USD488.451000m | Calculated; no adjusted/covenant/segment-profit substitution. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C33",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 111"
+        },
+        {
+          "name": "Quote",
+          "value": "| EV-proxy/revenue | 7501.83902992 /3860.624 | 1.943167x | Calculated; unrounded38-digit Decimal value retained. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C34",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 112"
+        },
+        {
+          "name": "Quote",
+          "value": "| EV-proxy/earnings proxy | 7501.83902992 /488.451 | 15.358427x | Calculated; explicit constructed definition. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C35",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 113"
+        },
+        {
+          "name": "Quote",
+          "value": "| TDG ordinary EBITDA check | 2074 +555 +1572 +367 | USD4568.000000m | Calculated reconciliation to reported non-GAAP ordinary EBITDA. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C36",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 114"
+        },
+        {
+          "name": "Quote",
+          "value": "| TDG As Defined distinction | 4568 +42 +157 +11 −18 | USD4760.000000m | Calculated cross-check; not the valuation denominator selected here. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C37",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 115"
+        },
+        {
+          "name": "Quote",
+          "value": "| Revenue indication | Unrounded Moog EV-proxy/revenue ×8831 | USD17160.112063m | Provisional transfer; not complete EV. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C38",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 116"
+        },
+        {
+          "name": "Quote",
+          "value": "| Ordinary-EBITDA indication | Unrounded Moog EV-proxy/earnings-proxy ×4568 | USD70157.294567m | Provisional transfer with definition differences. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C39",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 5-12"
+        },
+        {
+          "name": "Quote",
+          "value": "**Ready with Limitations.** Construct a real dated equity value and known-components\nenterprise-value proxy from Moog's FY2025 filing, then demonstrate conditional\nindividual-peer valuation communication to TDG's FY2025 credit synthesis. The\ncurrent host model opened the frozen instructions, input handoff, original SEC\nfiling passages and calculation transcript. Execution2026-11-04 has preceding\ncontext; it is not isolated provider execution, independent assurance or native\nacceptance. The positive calculation does not establish complete EV, normalized\ncomparability or a current sector valuation."
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C40",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 16-21"
+        },
+        {
+          "name": "Quote",
+          "value": "`inputs.json` pins the exact selected archived CP-1C method/reference and later\nDecimal helpers, plus the frozen request, input handoff, source capture and\npre-production independent Fraction expectations. `calculations.json` retains\nthe unchanged production context's unrounded results and21 oracle comparisons.\nThe wider selected method's valuation duties govern this increment; the narrower\nnative user-context route is not substituted for source-grounded analysis."
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C41",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 30-34"
+        },
+        {
+          "name": "Quote",
+          "value": "The retained capture hash identifies web-tool passages, not original HTML/PDF\nbytes. Direct downloads failed; full-document extraction/equivalence is unproven.\nFinancial quantities come from the located primary filing body rather than a\nsearch snippet. Candidate selection remains **Web-Scraped — Unverified**; source\ncorroboration of numbers does not establish an approved peer universe."
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C42",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 54-58"
+        },
+        {
+          "name": "Quote",
+          "value": "The EV identity is equity market value + total debt + minority interests +\npreferred equity − cash/equivalents − eligible liquid available short-term\ninvestments. The calculated subtotal here is equity + gross borrowings + finance\nleases − reported cash. Unestablished additional interests/investments remain\nmissing; they are not mapped to zero to turn this subtotal into complete EV."
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C43",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 66-67"
+        },
+        {
+          "name": "Quote",
+          "value": "This is a calculated individual point. It is not a current quote, a sector\nmultiple, the native controller's selected basis or a full-value valuation."
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C44",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 84-92"
+        },
+        {
+          "name": "Quote",
+          "value": "The approximately USD17.160bn and USD70.157bn indications are different methods,\nnot endpoints of a valuation range. The large separation follows the different\nearnings-to-sales bases: applying the same peer EV per sales dollar implicitly\nimports Moog's much lower reported-line earnings margin. Applying the peer's\nearnings multiple instead values TDG's larger ordinary EBITDA relative to its\nsales. That sensitivity demonstrates why a business-mix and earnings-definition\njudgment is necessary; it does not prove either indication fair. Do not average\nthe results, call the difference an outlier premium, or substitute adjusted\nEBITDA4760.000000 USDm to manufacture a higher indication."
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C45",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 118-123"
+        },
+        {
+          "name": "Quote",
+          "value": "The unchanged existing CP-1C Decimal context computes these operations. The\nindependent Fraction oracle, frozen before this execution and output, agrees\nacross21 monetary/ratio checks. This verifies arithmetic against source literals;\nthe same host saw the oracle, so it is not blind review or independent-model\nassurance. Source numbers are rounded to their reported precision, and unknown\neconomic adjustments could matter more than displayed computational decimals."
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C46",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 127-135"
+        },
+        {
+          "name": "Quote",
+          "value": "Complete economic EV remains Insufficient Information: preferred/minority market\nvalues, eligible investment deduction, cash availability and full debt-like\nadjustments are not established by the retained passages. No missing adjustment\nwas converted to a factual zero. Nor are there supported transaction comps,\nnormalized interest-income/earnings adjustments, an approved broad peer universe,\ncurrent prices or a valid sector statistical distribution. The native current-date\nadmission check excludes this stale record; it is not overridden or promoted.\nFull raw-file retention, full filing inspection and native CP-OS integration\nremain open. A populated historical case is not complete current underwriting."
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C47",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 139-145"
+        },
+        {
+          "name": "Quote",
+          "value": "CP-2 must read this handoff and retain the two conditional indications as\ndefinition-sensitive context only, alongside the complete-EV and transaction\ngaps. Explain the sales/margin dependence and the unresolved interest basis;\ndo not infer debt coverage, recovery, equity upside or a security preference.\nThen the separate delivery process must copy these findings, tables, arithmetic\nand limitations into the existing report design, preserving each handoff's source\nlines and hashes. No further analytical run is needed merely for publication."
+        },
+        {
+          "name": "SHA-256",
+          "value": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8"
+        }
+      ]
+    },
+    {
+      "ref_id": "C48",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 26"
+        },
+        {
+          "name": "Quote",
+          "value": "| Source-grounded equity value | Moog market cap USD6483.777030m as of2025-09-27, from two separately priced outstanding share classes. | Avoids applying one class's price to the whole capital or using annual EPS shares for a dated equity value. | A usable dated equity component is available for the defined bridge; it does not establish borrower debt service or recoveries. | Analyst Interpretation; historical, Stale at2026-11-04. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa"
+        }
+      ]
+    },
+    {
+      "ref_id": "C49",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 27"
+        },
+        {
+          "name": "Quote",
+          "value": "| EV construction remains qualified | Known-components principal/finance-lease/cash proxy USD7501.839030m; net-carrying alternative USD7501.525030m; fair-debt alternative USD7488.409030m. Complete EV remains Insufficient Information. | Debt conventions alter the subtotal, while unestablished preferred/minority/investment and economic adjustments prevent a complete claim. | Keep the exact convention and gaps attached to any use. None is a source-backed TDG recovery floor or proof of creditor coverage. | Analyst Interpretation; calculated components, Provisional EV context. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa"
+        }
+      ]
+    },
+    {
+      "ref_id": "C50",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 28"
+        },
+        {
+          "name": "Quote",
+          "value": "| Revenue indication is margin dependent | Moog proxy/revenue1.943167x applied unrounded to TDG FY2025 sales USD8831.000000m gives USD17160.112063m. | A sales-based transfer imports the peer's earnings economics; TDG's earnings relative to sales differ materially. | Use as sensitivity to the chosen operating analogue. It does not support a standalone value cushion, adverse credit conclusion or trading preference. | Analyst Interpretation; Provisional, N=1, differing business mix. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa"
+        }
+      ]
+    },
+    {
+      "ref_id": "C51",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 29"
+        },
+        {
+          "name": "Quote",
+          "value": "| EBITDA indication is definition dependent | Moog proxy/constructed EBITDA15.358427x applied unrounded to TDG ordinary EBITDA USD4568.000000m gives USD70157.294567m. TDG As Defined USD4760.000000m was not substituted. | Expense-labelled versus net interest and other unnormalized earnings differences affect comparability. The larger ordinary-earnings base relative to sales drives a much higher conditional indication. | Do not select it because it is larger, average it with the sales result or treat the separation as a peer valuation range. First resolve earnings/perimeter compatibility. | Analyst Interpretation; Provisional, not normalized or a recovery estimate. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa"
+        }
+      ]
+    },
+    {
+      "ref_id": "C52",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "line 30"
+        },
+        {
+          "name": "Quote",
+          "value": "| Missing methods and stale admission remain missing | Both transaction methods, complete EV, sector median/average/range and current native admission are unavailable or excluded. | Unsupported transaction EV or a one-peer distribution cannot provide independent triangulation. A historical case cannot become a current quote by changing the run label. | Preserve the gaps in delivery and future CP-OS completion tracking. Historical function exercised; current/full valuation remains unproven. | Insufficient Information; targeted source/normalization work required. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa"
+        }
+      ]
+    },
+    {
+      "ref_id": "C53",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 5-9"
+        },
+        {
+          "name": "Quote",
+          "value": "Consume the checked CP-1C FY2025 handoff without repeating its analysis. This\ncurrent host-model response read the pinned producer, input increment, retained\nsource passages and verification. It has preceding context and is not an\nindependent/native execution. The result is an incremental valuation-context\nassessment, not a complete TDG credit view, rating or security recommendation."
+        },
+        {
+          "name": "SHA-256",
+          "value": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa"
+        }
+      ]
+    },
+    {
+      "ref_id": "C54",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 13-13"
+        },
+        {
+          "name": "Quote",
+          "value": "- CP-1C-attempt-1.md, SHA256 `cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8`."
+        },
+        {
+          "name": "SHA-256",
+          "value": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa"
+        }
+      ]
+    },
+    {
+      "ref_id": "C55",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 14-14"
+        },
+        {
+          "name": "Quote",
+          "value": "- CP-1-valuation-inputs.md: actual located FY2025 source operands and gaps."
+        },
+        {
+          "name": "SHA-256",
+          "value": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa"
+        }
+      ]
+    },
+    {
+      "ref_id": "C56",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 15-16"
+        },
+        {
+          "name": "Quote",
+          "value": "- calculations.json and verification.json: arithmetic/copy/schema checks and\n  the targeted retention repair for the original note4 receivables passage."
+        },
+        {
+          "name": "SHA-256",
+          "value": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa"
+        }
+      ]
+    },
+    {
+      "ref_id": "C57",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 17-18"
+        },
+        {
+          "name": "Quote",
+          "value": "- CP-2-request.md: frozen scope; CP-2's evidence → mechanism → credit consequence\n  discipline is retained without imposing the native runtime's transport rules."
+        },
+        {
+          "name": "SHA-256",
+          "value": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa"
+        }
+      ]
+    },
+    {
+      "ref_id": "C58",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 32-37"
+        },
+        {
+          "name": "Quote",
+          "value": "The two conditional amounts are alternative analytical mappings of the same\nhistorical peer subtotal. They are not independent corroboration of fair value.\nTheir separation changes the weight CP-2 can give valuation support: without\nresolving the operating/earnings basis, valuation contributes a qualified\nsensitivity rather than a stronger credit conclusion. Missing evidence does\nnot itself establish weakness or default risk."
+        },
+        {
+          "name": "SHA-256",
+          "value": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa"
+        }
+      ]
+    },
+    {
+      "ref_id": "C59",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 41-43"
+        },
+        {
+          "name": "Quote",
+          "value": "No new valuation calculation or ranking. CP-2 copies the checked producer's\nfigures and defined alternatives. The unrounded multiple/application record is\nretained in calculations.json; the displayed multiple is not re-multiplied."
+        },
+        {
+          "name": "SHA-256",
+          "value": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa"
+        }
+      ]
+    },
+    {
+      "ref_id": "C60",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 47-53"
+        },
+        {
+          "name": "Quote",
+          "value": "No complete economic EV, current market evidence, qualifying transaction EV and\ncontemporaneous denominator, normalized interest-income/earnings bridge, approved\nbroad comparable set or full FY2025 issuer underwriting. Located web captures\nare retained; full original-document byte equivalence/coverage is unproven.\nSame-host execution does not provide independent assurance. These gaps limit\nthis intake and remain attached to the handoff rather than being replaced by\nzeros, confidence scores, recovery estimates or a fabricated accepted head."
+        },
+        {
+          "name": "SHA-256",
+          "value": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa"
+        }
+      ]
+    },
+    {
+      "ref_id": "C61",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2-handoff"
+        },
+        {
+          "name": "Locator",
+          "value": "lines 57-62"
+        },
+        {
+          "name": "Quote",
+          "value": "The separate delivery process should publish CP-1C's actual tables and material\nnarrative plus this qualified consumption in the existing HTML report design.\nCarry the complete-EV gap, the two Provisional methods, staleness, N=1 and exact\ndefinition/date/unit distinctions into the visible report, not merely hidden\nmetadata. Preserve source-line/hash provenance. CP-OS integration and additional\ntransaction/current/normalized proof remain open; no workbook is required."
+        },
+        {
+          "name": "SHA-256",
+          "value": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa"
+        }
+      ]
+    }
+  ],
+  "index": {
+    "facts": [
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T0",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T0.r0.c0"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T0",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T0.r1.c0"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T0",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T0.r2.c0"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T0",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T0.r3.c0"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T1.r0.c0"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T1.r0.c1"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T1.r1.c0"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T1.r1.c1"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T1.r2.c0"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T1.r2.c1"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T1.r3.c0"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T1.r3.c1"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r4",
+          "fact_id": "CP-1C-T1.r4.c0"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r4",
+          "fact_id": "CP-1C-T1.r4.c1"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r5",
+          "fact_id": "CP-1C-T1.r5.c0"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r5",
+          "fact_id": "CP-1C-T1.r5.c1"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r6",
+          "fact_id": "CP-1C-T1.r6.c0"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r6",
+          "fact_id": "CP-1C-T1.r6.c1"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r7",
+          "fact_id": "CP-1C-T1.r7.c0"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r7",
+          "fact_id": "CP-1C-T1.r7.c1"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r8",
+          "fact_id": "CP-1C-T1.r8.c0"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r8",
+          "fact_id": "CP-1C-T1.r8.c1"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r9",
+          "fact_id": "CP-1C-T1.r9.c0"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r9",
+          "fact_id": "CP-1C-T1.r9.c1"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r10",
+          "fact_id": "CP-1C-T1.r10.c0"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T1",
+          "row_id": "r10",
+          "fact_id": "CP-1C-T1.r10.c1"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T2",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T2.r0.c0"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T2",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T2.r0.c1"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T2",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T2.r0.c2"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T2",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T2.r0.c3"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T2",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T2.r0.c4"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T2",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T2.r0.c5"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T2",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T2.r0.c6"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T2",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T2.r0.c7"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T2",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T2.r0.c8"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T3",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T3.r0.c0"
+        },
+        "ref_ids": [
+          "G1",
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T3",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T3.r0.c1"
+        },
+        "ref_ids": [
+          "G2",
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T3",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T3.r0.c2"
+        },
+        "ref_ids": [
+          "G3",
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T3",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T3.r0.c3"
+        },
+        "ref_ids": [
+          "G4",
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T3",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T3.r0.c4"
+        },
+        "ref_ids": [
+          "G5",
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T3",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T3.r0.c5"
+        },
+        "ref_ids": [
+          "G6",
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T3",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T3.r0.c6"
+        },
+        "ref_ids": [
+          "G7",
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T3",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T3.r0.c7"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T3",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T3.r0.c8"
+        },
+        "ref_ids": [
+          "G8",
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T3",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T3.r0.c9"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T4.r0.c0"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T4.r0.c1"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T4.r0.c2"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T4.r0.c3"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T4.r0.c4"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T4.r0.c5"
+        },
+        "ref_ids": [
+          "G9",
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T4.r0.c6"
+        },
+        "ref_ids": [
+          "G10",
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T4.r0.c7"
+        },
+        "ref_ids": [
+          "G11",
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T4.r0.c8"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T4.r0.c9"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T4.r1.c0"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T4.r1.c1"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T4.r1.c2"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T4.r1.c3"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T4.r1.c4"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T4.r1.c5"
+        },
+        "ref_ids": [
+          "G12",
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T4.r1.c6"
+        },
+        "ref_ids": [
+          "G13",
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T4.r1.c7"
+        },
+        "ref_ids": [
+          "G14",
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T4.r1.c8"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T4.r1.c9"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T4.r2.c0"
+        },
+        "ref_ids": [
+          "G15",
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T4.r2.c1"
+        },
+        "ref_ids": [
+          "G16",
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T4.r2.c2"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T4.r2.c3"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T4.r2.c4"
+        },
+        "ref_ids": [
+          "G17",
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T4.r2.c5"
+        },
+        "ref_ids": [
+          "G18",
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T4.r2.c6"
+        },
+        "ref_ids": [
+          "G19",
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T4.r2.c7"
+        },
+        "ref_ids": [
+          "G20",
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T4.r2.c8"
+        },
+        "ref_ids": [
+          "G21",
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T4.r2.c9"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T4.r3.c0"
+        },
+        "ref_ids": [
+          "G22",
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T4.r3.c1"
+        },
+        "ref_ids": [
+          "G23",
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T4.r3.c2"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T4.r3.c3"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T4.r3.c4"
+        },
+        "ref_ids": [
+          "G24",
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T4.r3.c5"
+        },
+        "ref_ids": [
+          "G25",
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T4.r3.c6"
+        },
+        "ref_ids": [
+          "G26",
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T4.r3.c7"
+        },
+        "ref_ids": [
+          "G27",
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T4.r3.c8"
+        },
+        "ref_ids": [
+          "G28",
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T4",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T4.r3.c9"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T5.r0.c0"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T5.r0.c1"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r0",
+          "fact_id": "CP-1C-T5.r0.c2"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T5.r1.c0"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T5.r1.c1"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r1",
+          "fact_id": "CP-1C-T5.r1.c2"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T5.r2.c0"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T5.r2.c1"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r2",
+          "fact_id": "CP-1C-T5.r2.c2"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T5.r3.c0"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T5.r3.c1"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r3",
+          "fact_id": "CP-1C-T5.r3.c2"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r4",
+          "fact_id": "CP-1C-T5.r4.c0"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r4",
+          "fact_id": "CP-1C-T5.r4.c1"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r4",
+          "fact_id": "CP-1C-T5.r4.c2"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r5",
+          "fact_id": "CP-1C-T5.r5.c0"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r5",
+          "fact_id": "CP-1C-T5.r5.c1"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r5",
+          "fact_id": "CP-1C-T5.r5.c2"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r6",
+          "fact_id": "CP-1C-T5.r6.c0"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r6",
+          "fact_id": "CP-1C-T5.r6.c1"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r6",
+          "fact_id": "CP-1C-T5.r6.c2"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r7",
+          "fact_id": "CP-1C-T5.r7.c0"
+        },
+        "ref_ids": [
+          "C29"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r7",
+          "fact_id": "CP-1C-T5.r7.c1"
+        },
+        "ref_ids": [
+          "C29"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r7",
+          "fact_id": "CP-1C-T5.r7.c2"
+        },
+        "ref_ids": [
+          "C29"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r8",
+          "fact_id": "CP-1C-T5.r8.c0"
+        },
+        "ref_ids": [
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r8",
+          "fact_id": "CP-1C-T5.r8.c1"
+        },
+        "ref_ids": [
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r8",
+          "fact_id": "CP-1C-T5.r8.c2"
+        },
+        "ref_ids": [
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r9",
+          "fact_id": "CP-1C-T5.r9.c0"
+        },
+        "ref_ids": [
+          "C31"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r9",
+          "fact_id": "CP-1C-T5.r9.c1"
+        },
+        "ref_ids": [
+          "C31"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r9",
+          "fact_id": "CP-1C-T5.r9.c2"
+        },
+        "ref_ids": [
+          "C31"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r10",
+          "fact_id": "CP-1C-T5.r10.c0"
+        },
+        "ref_ids": [
+          "C32"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r10",
+          "fact_id": "CP-1C-T5.r10.c1"
+        },
+        "ref_ids": [
+          "C32"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r10",
+          "fact_id": "CP-1C-T5.r10.c2"
+        },
+        "ref_ids": [
+          "C32"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r11",
+          "fact_id": "CP-1C-T5.r11.c0"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r11",
+          "fact_id": "CP-1C-T5.r11.c1"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r11",
+          "fact_id": "CP-1C-T5.r11.c2"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r12",
+          "fact_id": "CP-1C-T5.r12.c0"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r12",
+          "fact_id": "CP-1C-T5.r12.c1"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r12",
+          "fact_id": "CP-1C-T5.r12.c2"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r13",
+          "fact_id": "CP-1C-T5.r13.c0"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r13",
+          "fact_id": "CP-1C-T5.r13.c1"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r13",
+          "fact_id": "CP-1C-T5.r13.c2"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r14",
+          "fact_id": "CP-1C-T5.r14.c0"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r14",
+          "fact_id": "CP-1C-T5.r14.c1"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r14",
+          "fact_id": "CP-1C-T5.r14.c2"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r15",
+          "fact_id": "CP-1C-T5.r15.c0"
+        },
+        "ref_ids": [
+          "C37"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r15",
+          "fact_id": "CP-1C-T5.r15.c1"
+        },
+        "ref_ids": [
+          "C37"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r15",
+          "fact_id": "CP-1C-T5.r15.c2"
+        },
+        "ref_ids": [
+          "C37"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r16",
+          "fact_id": "CP-1C-T5.r16.c0"
+        },
+        "ref_ids": [
+          "C38"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r16",
+          "fact_id": "CP-1C-T5.r16.c1"
+        },
+        "ref_ids": [
+          "C38"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-T5",
+          "row_id": "r16",
+          "fact_id": "CP-1C-T5.r16.c2"
+        },
+        "ref_ids": [
+          "C38"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-N0",
+          "row_id": "r0",
+          "fact_id": "CP-1C-N0.r0.c0"
+        },
+        "ref_ids": [
+          "C39"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-N1",
+          "row_id": "r0",
+          "fact_id": "CP-1C-N1.r0.c0"
+        },
+        "ref_ids": [
+          "C40"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-N1",
+          "row_id": "r1",
+          "fact_id": "CP-1C-N1.r1.c0"
+        },
+        "ref_ids": [
+          "C41"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-N2",
+          "row_id": "r0",
+          "fact_id": "CP-1C-N2.r0.c0"
+        },
+        "ref_ids": [
+          "C42"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-N2",
+          "row_id": "r1",
+          "fact_id": "CP-1C-N2.r1.c0"
+        },
+        "ref_ids": [
+          "C43"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-N2",
+          "row_id": "r2",
+          "fact_id": "CP-1C-N2.r2.c0"
+        },
+        "ref_ids": [
+          "C44"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-N3",
+          "row_id": "r0",
+          "fact_id": "CP-1C-N3.r0.c0"
+        },
+        "ref_ids": [
+          "C45"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-N4",
+          "row_id": "r0",
+          "fact_id": "CP-1C-N4.r0.c0"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "CP-1C-N5",
+          "row_id": "r0",
+          "fact_id": "CP-1C-N5.r0.c0"
+        },
+        "ref_ids": [
+          "C47"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r0",
+          "fact_id": "CP-2-T0.r0.c0"
+        },
+        "ref_ids": [
+          "C48"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r0",
+          "fact_id": "CP-2-T0.r0.c1"
+        },
+        "ref_ids": [
+          "C48"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r0",
+          "fact_id": "CP-2-T0.r0.c2"
+        },
+        "ref_ids": [
+          "C48"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r0",
+          "fact_id": "CP-2-T0.r0.c3"
+        },
+        "ref_ids": [
+          "C48"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r1",
+          "fact_id": "CP-2-T0.r1.c0"
+        },
+        "ref_ids": [
+          "C49"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r1",
+          "fact_id": "CP-2-T0.r1.c1"
+        },
+        "ref_ids": [
+          "C49"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r1",
+          "fact_id": "CP-2-T0.r1.c2"
+        },
+        "ref_ids": [
+          "C49"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r1",
+          "fact_id": "CP-2-T0.r1.c3"
+        },
+        "ref_ids": [
+          "C49"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r2",
+          "fact_id": "CP-2-T0.r2.c0"
+        },
+        "ref_ids": [
+          "C50"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r2",
+          "fact_id": "CP-2-T0.r2.c1"
+        },
+        "ref_ids": [
+          "C50"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r2",
+          "fact_id": "CP-2-T0.r2.c2"
+        },
+        "ref_ids": [
+          "C50"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r2",
+          "fact_id": "CP-2-T0.r2.c3"
+        },
+        "ref_ids": [
+          "C50"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r3",
+          "fact_id": "CP-2-T0.r3.c0"
+        },
+        "ref_ids": [
+          "C51"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r3",
+          "fact_id": "CP-2-T0.r3.c1"
+        },
+        "ref_ids": [
+          "C51"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r3",
+          "fact_id": "CP-2-T0.r3.c2"
+        },
+        "ref_ids": [
+          "C51"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r3",
+          "fact_id": "CP-2-T0.r3.c3"
+        },
+        "ref_ids": [
+          "C51"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r4",
+          "fact_id": "CP-2-T0.r4.c0"
+        },
+        "ref_ids": [
+          "C52"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r4",
+          "fact_id": "CP-2-T0.r4.c1"
+        },
+        "ref_ids": [
+          "C52"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r4",
+          "fact_id": "CP-2-T0.r4.c2"
+        },
+        "ref_ids": [
+          "C52"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-T0",
+          "row_id": "r4",
+          "fact_id": "CP-2-T0.r4.c3"
+        },
+        "ref_ids": [
+          "C52"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-N0",
+          "row_id": "r0",
+          "fact_id": "CP-2-N0.r0.c0"
+        },
+        "ref_ids": [
+          "C53"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-N1",
+          "row_id": "r0",
+          "fact_id": "CP-2-N1.r0.c0"
+        },
+        "ref_ids": [
+          "C54"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-N1",
+          "row_id": "r1",
+          "fact_id": "CP-2-N1.r1.c0"
+        },
+        "ref_ids": [
+          "C55"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-N1",
+          "row_id": "r2",
+          "fact_id": "CP-2-N1.r2.c0"
+        },
+        "ref_ids": [
+          "C56"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-N1",
+          "row_id": "r3",
+          "fact_id": "CP-2-N1.r3.c0"
+        },
+        "ref_ids": [
+          "C57"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-N2",
+          "row_id": "r0",
+          "fact_id": "CP-2-N2.r0.c0"
+        },
+        "ref_ids": [
+          "C58"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-N3",
+          "row_id": "r0",
+          "fact_id": "CP-2-N3.r0.c0"
+        },
+        "ref_ids": [
+          "C59"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-N4",
+          "row_id": "r0",
+          "fact_id": "CP-2-N4.r0.c0"
+        },
+        "ref_ids": [
+          "C60"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2",
+          "table_id": "CP-2-N5",
+          "row_id": "r0",
+          "fact_id": "CP-2-N5.r0.c0"
+        },
+        "ref_ids": [
+          "C61"
+        ]
+      }
+    ]
+  }
+}

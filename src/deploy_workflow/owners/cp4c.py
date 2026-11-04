@@ -1,0 +1,3471 @@
+"""CP-4C (restructuring fulcrum): the module's pure calculation (Stage 1).
+
+Lease: docs/CP4C-OWNER-LEASE.md; oracle cases/cp4c-owner. From the CP-1 twelve-month total debt
+and EBITDA, the term loan's CP-1 T4.18 security and seniority, the CP-2G forecast EBITDA, the
+CP-2A scenario CP-2G applied, three CP-4 legal facts, the cited balance-sheet rows and the
+analyst's ranks, multiples, fulcrum and plan judgments, Python computes the enterprise value of
+three valuations, the strict-priority waterfall by claim rank, recovery per class, attachment
+and detachment multiples, the value break and totals, and composes tables T4E.1-T4E.10, the four
+reference tables, the claims and the own limitations.
+
+Missing is never 0: every value is known, missing (with its root reason), not applicable or
+conflicting. Sums, products and differences of exact values run in the 38-digit half-even context
+with the Inexact trap (exact; more digits fail closed, round 8 A-2 #13); each ratio is one
+division in that context (the correctly rounded rational). A partly paid rank shares its payment
+by exact largest remainder (round 8 A-1) and T4E.9 adds exactly. Where neither the lease, the
+rulings nor the oracle pins the wording an outcome needs, the code fails closed with ValueError.
+
+The Stage 1 core does no I/O and touches no store, host, session or renderer. The Stage 2
+section at the end connects it (G1-X protocol section 2): one store adapter (`_inputs` over
+`cp4c_upstream`) for submit, probe and view, the `read_inputs` view, the tool-use rule and the
+readers.
+"""
+
+import hashlib
+import json
+import math
+import re
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
+from contextlib import contextmanager
+from dataclasses import dataclass, field, replace
+from decimal import Decimal, Inexact, localcontext
+from fractions import Fraction
+from typing import Annotated, Literal, get_args
+
+from pydantic import Field, TypeAdapter, ValidationError
+
+from deploy_vii import prose
+from deploy_vii.business_context import (
+    Category,
+    Confidence,
+    Quote,
+    Severity,
+    prohibited_issues,
+    referencable,
+    spelled,
+)
+from deploy_vii.contracts import (
+    Citation,
+    Contract,
+    Fact,
+    Hash,
+    Input,
+    InputStatus,
+    Module,
+    ReportTable,
+    Run,
+    RunText,
+    TableColumn,
+    TableRow,
+    Text,
+)
+from deploy_vii.contracts import Claim as ModuleClaim
+from deploy_vii.execution import (
+    Attempt,
+    Execution,
+    ExecutionSnapshot,
+    Head,
+    Qualification,
+    StepValidation,
+    bounded_issues,
+    clipped,
+    commands_of,
+    current_inputs,
+    inherited_limitations,
+)
+from deploy_vii.live.schema import exact_json, json_object, normalise
+from deploy_vii.live.submission import Submitted
+from deploy_vii.live.tools import Seen, unread_citation_issues
+from deploy_vii.model._cells import CONTEXT
+from deploy_vii.preparation import PreparedPack
+from deploy_vii.readiness import shape_issues
+from deploy_vii.report_view import fact_spelling, figure_unit
+from deploy_workflow.context import ContextRefused, RunContext, context_facts
+from deploy_workflow.owners import cp2g
+from deploy_workflow.owners.blank import is_blank, one_per_page
+from deploy_workflow.owners.cp1a import probe_one_step
+from deploy_workflow.owners.cp1c import EV_READER_FACTS, Cp1cHead, cp1c_reader
+from deploy_workflow.owners.cp3d import PIN_LABEL_FORGED, _normalised, pin_label_forged
+from deploy_workflow.owners.period_basis import (
+    DEFAULT_BASIS,
+    PeriodBasis,
+    PeriodRefused,
+    run_basis,
+)
+from deploy_workflow.owners.pins import pin_issues, pinned_line, pins_of
+
+MODULE_ID = "CP-4C"
+STEP_ID = "restructuring_fulcrum"
+SCHEMA_VERSION = "restructuring-fulcrum/1"
+
+# --- arithmetic contexts (lease "Decimal composer") -------------------------------------------
+_RATIO = CONTEXT.copy()  # 38 digits, ROUND_HALF_EVEN: one division of exact decimals
+_EXACT = CONTEXT.copy()  # the same context with the Inexact trap: a rounded sum or product raises
+_EXACT.traps[Inexact] = True
+
+# --- the submission schema (lease "Submission schema"; every field required) -----------------
+CLASS_ID_PATTERN = r"^c[0-9]{2}$"
+CASE_ID_PATTERN = r"^v[0-9]{2}$"
+FULCRUM_ID_PATTERN = r"^(c[0-9]{2}|equity)$"
+RANK_PATTERN = r"^[1-9]$"
+MULTIPLE_PATTERN = r"^([0-9]{1,2}(\.[0-9]{1,2})?|not assessed)$"
+NOT_ASSESSED = "not assessed"
+EQUITY = "equity"
+
+ClaimKind = Literal["secured_debt", "unsecured_trade", "other_liability", "administrative_priority"]
+AmountSource = Literal["cp1_total_debt", "source_row", "not_stated"]
+EbitdaCase = Literal["base", "down"]
+# A forecast year label (`FY2027`): which labels a run accepts is its `PeriodBasis.year_labels`,
+# checked in `content_issues` (Phase 8; it was a Literal of the three default years).
+ForecastYear = str
+FORECAST_YEAR_PATTERN = r"^FY[0-9]{4}$"
+TreatmentKind = Literal[
+    "Paid in full",
+    "Receives reorganised equity",
+    "Equity retained",
+    "No recovery",
+    "Not determined",
+]
+
+
+class ClaimClass(Contract):
+    class_id: Annotated[str, Field(pattern=CLASS_ID_PATTERN)]
+    name: str
+    kind: ClaimKind
+    rank: Annotated[str, Field(pattern=RANK_PATTERN)]
+    amount_source: AmountSource
+    amount_quote: Quote | None  # the financial statement row a source_row class reads
+    period_column: str | None  # the column of that row
+    support: tuple[Quote, ...] = Field(max_length=2)  # no default: still required
+    rationale: str
+    category: Category
+    limitation: str | None
+
+
+class Valuation(Contract):
+    case_id: Annotated[str, Field(pattern=CASE_ID_PATTERN)]
+    label: str
+    ebitda_case: EbitdaCase
+    ebitda_year: Annotated[str, Field(pattern=FORECAST_YEAR_PATTERN)]
+    multiple: Annotated[str, Field(pattern=MULTIPLE_PATTERN)]
+    rationale: str
+    category: Category
+    limitation: str | None
+
+
+class FulcrumJudgment(Contract):
+    case_id: str
+    class_ids: tuple[Annotated[str, Field(pattern=FULCRUM_ID_PATTERN)], ...] = Field(max_length=4)
+    rationale: str
+    category: Category
+    limitation: str | None
+
+
+class Treatment(Contract):
+    class_id: str
+    treatment: TreatmentKind
+
+
+class PlanJudgment(Contract):
+    case_id: str
+    treatments: tuple[Treatment, ...] = Field(min_length=2, max_length=7)
+    rationale: str
+    category: Category
+    limitation: str | None
+
+
+class Assessment(Contract):
+    rationale: str
+    category: Category
+    confidence: Confidence
+    limitation: str | None
+
+
+class SynthesisGap(Contract):
+    """CP-4C's own gap row: the CP-2G `SynthesisGap` shape (lease)."""
+
+    gap: str
+    why_it_matters: str
+    affected_analysis: str
+    severity: Severity
+    action: str
+
+
+class RestructuringSubmission(Contract):
+    claims: tuple[ClaimClass, ...] = Field(min_length=2, max_length=6)
+    valuation: tuple[Valuation, ...] = Field(min_length=3, max_length=3)
+    fulcrum: tuple[FulcrumJudgment, ...] = Field(min_length=3, max_length=3)
+    plan: tuple[PlanJudgment, ...] = Field(min_length=3, max_length=3)
+    assessment: Assessment
+    gaps: tuple[SynthesisGap, ...]
+
+
+# --- values ----------------------------------------------------------------------------------
+def _exact(x: Decimal) -> Decimal:
+    """The canonical stored form: the same value, trailing zeros dropped, no exponent and no
+    negative zero (so equal inputs always give byte-equal facts)."""
+    if x == 0:
+        return Decimal(0)
+    with localcontext() as ctx:
+        # normalize() rounds to the context: keep every digit the value has
+        ctx.prec = max(80, len(x.as_tuple().digits))
+        return Decimal(format(x.normalize(), "f"))
+
+
+@dataclass(frozen=True)
+class Val:
+    """A computed value: an exact amount, or None with the root reason it is missing."""
+
+    amount: Decimal | None
+    reason: str | None = None
+
+    def __post_init__(self) -> None:
+        if (self.amount is None) == (self.reason is None):
+            raise ValueError("a value carries an amount or a reason, never both or neither")
+
+
+def _known(x: Decimal) -> Val:
+    return Val(_exact(x))
+
+
+def _div(a: Decimal, b: Decimal) -> Decimal:
+    """One division of exact decimals: the correctly rounded 38-digit quotient."""
+    with localcontext(_RATIO):
+        return _exact(a / b)
+
+
+def _sub38(a: Decimal, b: Decimal) -> Decimal:
+    with localcontext(_RATIO):
+        return _exact(a - b)
+
+
+@contextmanager
+def _exactly(operation: str) -> Iterator[None]:
+    """The 38-digit context with the Inexact trap; a sum, difference or product that needs more
+    digits fails closed as a ValueError naming the operation (round 8 A-2 #13)."""
+    try:
+        with localcontext(_EXACT):
+            yield
+    except Inexact:
+        raise ValueError(
+            f"CP-4C: {operation}: the exact value needs more than 38 significant digits "
+            "(round 8 A-2 #13)"
+        ) from None
+
+
+def _exact_sum(values: Sequence[Decimal]) -> Decimal:
+    """The exact sum at the precision it needs, never under 80 digits (round 8 A-1 #5): shares
+    of different scales add without rounding, so no residue can hide in a rounded total."""
+    if not values:
+        return Decimal(0)
+    span = max(v.adjusted() for v in values) - min(int(v.as_tuple().exponent) for v in values)
+    ctx = _EXACT.copy()
+    ctx.prec = max(80, span + len(values) + 1)
+    with localcontext(ctx):
+        return _exact(sum(values, Decimal(0)))
+
+
+def _allocate(rank: int, claims: Sequence[Decimal], paid: Decimal, group: Decimal) -> list[Decimal]:
+    """The shares of `paid` among one rank's claims, in claims order (round 8 A-1).
+
+    Paid in full, each share is its claim; paid nothing, each is 0. Partly paid, each exact share
+    claim x paid / group is floored to the rank quantum q = 10^(paid.adjusted() - 37), the 38th
+    significant digit of paid, and the (paid - sum of floors) / q leftover units go one each to
+    the largest remainders, ties to the later class. The shares sum to paid exactly, each lies
+    within q of its exact value, and none is negative or above its claim. A paid amount or a
+    claim that is not a multiple of q needs over 38 digits: fail-closed state 14."""
+    if paid == group:
+        return list(claims)
+    if paid == 0:
+        return [Decimal(0)] * len(claims)
+    exponent = paid.adjusted() - 37
+    q = Fraction(10) ** exponent
+    if any(Fraction(x) % q for x in (paid, *claims)):
+        raise ValueError(
+            f"CP-4C: rank {rank} shares {paid} among claims that are not multiples of its quantum "
+            f"1E{exponent}; the allocation needs over 38 digits (round 8 A-1 fail-closed state 14)"
+        )
+    exact = [Fraction(c) * Fraction(paid) / Fraction(group) for c in claims]
+    units = [math.floor(share / q) for share in exact]
+    leftover = int(Fraction(paid) / q) - sum(units)
+    by_remainder = sorted(
+        range(len(claims)), key=lambda i: (exact[i] / q - units[i], i), reverse=True
+    )
+    for i in by_remainder[:leftover]:
+        units[i] += 1
+    return [_exact(Decimal(f"{u}E{exponent}")) for u in units]
+
+
+# --- the waterfall (lease "Decimal composer and missing rules"; expected.waterfall_rules) -------
+@dataclass(frozen=True)
+class ClassClaim:
+    class_id: str
+    name: str
+    rank: int
+    claim: Val
+
+
+@dataclass(frozen=True)
+class ClassAllocation:
+    ahead: Val  # claims of better-ranked classes
+    through: Val  # claims ahead plus the claims of the class's rank
+    available: Val  # value left when the class's rank is paid
+    group: Val  # total claims of the class's rank
+    distribution: Val
+    recovery: Val
+    shortfall: Val
+
+
+@dataclass(frozen=True)
+class Waterfall:
+    classes: Mapping[str, ClassAllocation]
+    residual: Val  # what remains for equity
+    value_break: tuple[str, ...] | None  # the breaking rank's class ids, ("equity",), or None
+    break_reason: str | None  # the root reason when the break is not determinable
+    break_through: Decimal | None  # claims through the breaking rank
+    total_claims: Val
+
+
+def _plus(a: Val, b: Val, operation: str) -> Val:
+    """a + b exactly; the first missing operand when either is missing."""
+    if a.amount is None or b.amount is None:
+        return a if a.amount is None else b
+    with _exactly(operation):
+        return _known(a.amount + b.amount)
+
+
+def _rank_total(rank: int, members: Sequence[ClassClaim]) -> Val:
+    """The claims of one rank: the first missing claim, else their exact sum (above zero)."""
+    missing = next((c.claim for c in members if c.claim.amount is None), None)
+    if missing is not None:
+        return missing
+    with _exactly(f"the claims of rank {rank}"):
+        total = sum((c.claim.amount for c in members if c.claim.amount is not None), Decimal(0))
+    if total <= 0:  # every known claim is above zero (validator, round 8 A-2 #7)
+        raise ValueError(f"CP-4C: the claims of rank {rank} total {total}; invariant broken")
+    return _known(total)
+
+
+def waterfall(*, classes: Sequence[ClassClaim], enterprise_value: Val) -> Waterfall:
+    """Absolute priority by rank number (lowest first); classes of one rank share pro rata.
+
+    paid = min(available, group); recovery = paid / group, one 38-digit division; the
+    distributions are `_allocate`'s exact shares of paid (round 8 A-1); shortfall = claim -
+    distribution at 38 digits (so claim = distribution + shortfall is not an invariant; only the
+    T4E.9 balance is). A missing claim blocks its rank, every lower rank and the residual; a
+    missing enterprise value blocks every allocation. Nothing becomes 0. The composer makes a
+    negative enterprise value missing and the validator refuses a claim at or below zero, so
+    either one here is a broken invariant (round 8 A-2 #7)."""
+    ev = enterprise_value.amount
+    if ev is not None and ev < 0:
+        raise ValueError("CP-4C: the enterprise value is negative; invariant broken")
+    for c in classes:
+        if c.claim.amount is not None and c.claim.amount < 0:
+            raise ValueError(f"CP-4C: the claim of {c.class_id} is negative; invariant broken")
+    out: dict[str, ClassAllocation] = {}
+    available, ahead = enterprise_value, Val(Decimal(0))
+    found = False
+    value_break: tuple[str, ...] | None = None
+    break_reason: str | None = None
+    break_through: Decimal | None = None
+    for rank in sorted({c.rank for c in classes}):
+        members = [c for c in classes if c.rank == rank]
+        group = _rank_total(rank, members)
+        through = _plus(ahead, group, f"the claims through rank {rank}")
+        a, g = available.amount, group.amount
+        if a is None or g is None:  # blocked: every share, the break and the residual
+            cut = available if a is None else group
+            for c in members:
+                out[c.class_id] = ClassAllocation(
+                    ahead=ahead,
+                    through=through,
+                    available=available,
+                    group=group,
+                    distribution=cut,
+                    recovery=cut,
+                    shortfall=cut,
+                )
+            if not found:
+                found, break_reason = True, cut.reason
+            available = cut
+        else:
+            paid = min(a, g)
+            recovery = Val(_div(paid, g))
+            claims = [c.claim.amount for c in members if c.claim.amount is not None]
+            shares = _allocate(rank, claims, paid, g)  # a known rank total has no missing claim
+            for c, claim, share in zip(members, claims, shares, strict=True):
+                out[c.class_id] = ClassAllocation(
+                    ahead=ahead,
+                    through=through,
+                    available=available,
+                    group=group,
+                    distribution=Val(share),
+                    recovery=recovery,
+                    shortfall=Val(_sub38(claim, share)),
+                )
+            if not found and paid < g:
+                found, value_break, break_through = (
+                    True,
+                    tuple(c.class_id for c in members),
+                    through.amount,
+                )
+            with _exactly(f"the value left after rank {rank}"):
+                available = _known(a - paid)
+        ahead = through
+    if not found:
+        value_break = (EQUITY,)
+    return Waterfall(
+        classes=out,
+        residual=available,
+        value_break=value_break,
+        break_reason=break_reason,
+        break_through=break_through,
+        total_claims=ahead,
+    )
+
+
+# --- the inputs (Stage 2 binds them from the settled heads and the pack) ----------------------
+# The no-context basis (Phase 8): a run reads its own `PeriodBasis` through `Cp4cContext.basis`;
+# these names stay for readers of the default.
+LTM_COLUMN = DEFAULT_BASIS.ltm_column
+LTM_PERIOD = DEFAULT_BASIS.ltm_period
+CP1_METRICS = ("total_debt", "ebitda")
+CASE_ROW: Mapping[EbitdaCase, str] = {"base": "b", "down": "d"}
+CASE_WORD: Mapping[EbitdaCase, str] = {"base": "base", "down": "downside"}
+SECURED, SENIOR = "SECURED", "SENIOR"
+CP4_FACILITY_ID = "T4C.11.r01.facility_id"
+CP4_FACILITY = "T4C.11.r01.facility"
+CP4_PERMITS = "T4.10.r02.permits"
+CP4_CONDITIONS = "T4.10.r02.conditions"
+CP4_RATING = "T4.13.rating.rating"
+CP4_FACTS = (CP4_FACILITY_ID, CP4_FACILITY, CP4_PERMITS, CP4_CONDITIONS, CP4_RATING)
+
+
+def select_cp1(facts: Iterable[Fact], basis: PeriodBasis = DEFAULT_BASIS) -> dict[str, Fact]:
+    """metric -> the unique T4.10 fact labelled `<LTM column> · <metric>` of the run's basis
+    (manifest fact_selection_rule.cp1); zero or several fail, and so does another period."""
+    facts = tuple(facts)
+    out: dict[str, Fact] = {}
+    for metric in CP1_METRICS:
+        label = f"{basis.ltm_column} · {metric}"
+        found = [f for f in facts if f.table_id == "T4.10" and f.label == label]
+        if len(found) != 1:
+            raise ValueError(
+                f"CP-4C needs exactly one T4.10 fact labelled {label}, found {len(found)}"
+            )
+        if found[0].period != basis.ltm_period:
+            raise ValueError(f"CP-4C: CP-1 {metric} is not for {basis.ltm_period}")
+        out[metric] = found[0]
+    return out
+
+
+@dataclass(frozen=True)
+class Cp1Head:
+    status: InputStatus
+    t410: tuple[Fact, ...]  # CP-1 facts; the T4.10 LTM total debt and EBITDA are selected
+    facility_id: str  # the secured facility's T4.18 id (manifest fact_selection_rule.cp1_t418)
+    secured_status: Fact  # T4.18 <facility>.secured_status at the quarter period
+    seniority: Fact  # T4.18 <facility>.seniority at the quarter period
+
+
+@dataclass(frozen=True)
+class Cp2gEbitda:
+    case: EbitdaCase
+    year: ForecastYear
+    fact: Fact  # T2H.4.<b|d><26|27|28>.ebitda
+
+
+@dataclass(frozen=True)
+class Cp2gHead:
+    status: InputStatus
+    ebitda: tuple[Cp2gEbitda, ...]
+    base_first: Fact  # T2H.7.b01.base_first
+    down_first: Fact  # T2H.7.b01.down_first
+    down_ebitda_source: Fact  # T2H.3.d01.source: text "CP-2A T2B.1.<row>.ebitda_decline"
+    down_interest_source: Fact  # T2H.3.d02.source: text "CP-2A T2B.1.<row>.interest_increase"
+
+    def of(
+        self, case: EbitdaCase, year: ForecastYear, basis: PeriodBasis = DEFAULT_BASIS
+    ) -> Cp2gEbitda:
+        found = [e for e in self.ebitda if e.case == case and e.year == year]
+        if len(found) != 1 or year not in basis.year_labels:
+            raise ValueError(f"CP-4C needs exactly one CP-2G EBITDA for {case} {year}")
+        e = found[0]
+        want = f"T2H.4.{CASE_ROW[case]}{26 + basis.year_labels.index(year)}.ebitda"
+        if e.fact.fact_id != want or not (e.fact.period or "").startswith(f"{year}:"):
+            raise ValueError(f"CP-4C: the CP-2G EBITDA for {case} {year} is not {want} of {year}")
+        return e
+
+    def first(self, case: EbitdaCase) -> Fact:
+        return self.base_first if case == "base" else self.down_first
+
+
+_SHOCKS = ("ebitda_decline", "interest_increase")
+
+
+@dataclass(frozen=True)
+class Cp2aHead:
+    status: InputStatus
+    facts: tuple[Fact, ...]  # T2B.1 facts
+
+    def fact(self, fact_id: str) -> Fact:
+        found = [f for f in self.facts if f.fact_id == fact_id]
+        if len(found) != 1:
+            raise ValueError(f"CP-4C needs exactly one CP-2A fact {fact_id}")
+        return found[0]
+
+    def base_period(self, row: str) -> str:
+        """The one period the row's `ebitda_decline` and `interest_increase` facts state
+        (round 13 item 5, R1 L2). A shock with no period is not a period conflict (Stage 2
+        round 5 item 16): only stated periods are compared. Two stated periods that differ raise,
+        and so does a row that states none (fail closed, never a default)."""
+        facts = (self.fact(f"T2B.1.{row}.{name}") for name in _SHOCKS)
+        stated = tuple(dict.fromkeys(f.period for f in facts if f.period is not None))
+        if len(stated) > 1:
+            raise ValueError("CP-4C: CP-2A T2B.1 facts differ in period")
+        if not stated:
+            raise ValueError("CP-4C: CP-2A T2B.1 facts state no period")
+        return stated[0]
+
+
+@dataclass(frozen=True)
+class Cp4Head:
+    status: InputStatus
+    facts: tuple[Fact, ...]  # the CP-4 head's facts; T4C.11, T4.10 and T4.13 ones are read
+
+    def fact(self, fact_id: str) -> Fact:
+        found = [f for f in self.facts if f.fact_id == fact_id]
+        if len(found) != 1:
+            raise ValueError(f"CP-4C needs exactly one CP-4 fact {fact_id}")
+        return found[0]
+
+
+@dataclass(frozen=True)
+class SelectedMultiple:
+    """The CP-1C selected multiple of a bound head that selected one (T1C.11, Design 10): the
+    value, the basis it came from, the EBITDA basis it is on and the head it was read from."""
+
+    amount: Decimal
+    basis: str
+    ebitda_basis: str
+    shown: str
+    head_sha256: str
+
+    @property
+    def two_dp(self) -> str:
+        return format(self.amount.quantize(Decimal("0.01")), "f")
+
+
+def selected_multiple(head: Cp1cHead | None) -> SelectedMultiple | None:
+    """The selection of a bound CP-1C head, or None when there is none to apply: no head, a head
+    without T1C.11 (a frozen head, or a blocked one that exposes no facts) or a selection that is
+    not known (a gap, never zero). The EV facts are tested for presence; `Cp1cHead.fact`'s
+    ValueError is never the signal. A known multiple whose basis or EBITDA basis is not text is
+    a contract break and raises."""
+    if head is None:
+        return None
+    held = {f.fact_id: f for f in head.facts}
+    fact = held.get(EV_READER_FACTS[0])
+    if fact is None or fact.status != "known":
+        return None
+    basis, ebitda_basis = head.fact(EV_READER_FACTS[1]), head.fact(EV_READER_FACTS[2])
+    if fact.amount is None or basis.text is None or ebitda_basis.text is None:
+        raise ValueError(f"CP-4C: the CP-1C selected multiple {fact.fact_id} is incomplete")
+    return SelectedMultiple(
+        amount=fact.amount,
+        basis=basis.text,
+        ebitda_basis=ebitda_basis.text,
+        shown=spelled(fact),
+        head_sha256=head.head_sha256,
+    )
+
+
+@dataclass(frozen=True)
+class Cp4cContext:
+    """Everything the step reads besides the submission (lease Public API, D3)."""
+
+    pack: PreparedPack
+    cp1: Cp1Head
+    cp2a: Cp2aHead
+    cp2g: Cp2gHead
+    cp4: Cp4Head
+    cp3c_status: InputStatus | None = None  # a declared optional edge this version never reads
+    # The bound CP-1C head and the pack's frozen context (Phase 7): both stay None for a run that
+    # binds no CP-1C or carries no context, which is every frozen CP-4C case.
+    cp1c: Cp1cHead | None = None
+    context: RunContext | None = None
+    # The run's period and currency basis (Phase 8); every frozen case runs on the default.
+    basis: PeriodBasis = DEFAULT_BASIS
+
+
+@dataclass(frozen=True)
+class Cp4cInputs:
+    context: Cp4cContext
+    submission: RestructuringSubmission
+    # The context file pins the EV multiple, so the limitations state it is user-supplied. The pin
+    # itself is checked by `_pin_lines`, not the core; `restructuring` sets this once the context
+    # is accepted.
+    pinned: bool = False
+
+
+# --- source rows (lease: claims are read from the cited balance-sheet row) --------------------
+SCOPE = ("financial", "legal-covenants")
+_HEADER = "Period end"
+_CELLS = re.compile(r"  +")
+
+
+def _pages(pack: PreparedPack) -> dict[tuple[str, str], str]:
+    return {
+        (s.source_id, span.locator): span.text
+        for s in pack.sources
+        if s.status == "ready"
+        for span in s.spans
+    }
+
+
+def _header(page: str) -> tuple[str, ...]:
+    """The statement's header cells (`Period end  <column>  ...`); none when absent."""
+    for line in page.split("\n"):
+        if line.startswith(_HEADER + "  "):
+            return tuple(_CELLS.split(line))
+    return ()
+
+
+_FIGURE = re.compile(r"-?[0-9]+(\.[0-9]+)?")  # the ASCII cell grammar (round 10; fix 1 Q4)
+
+
+def _row_amount(page: str, quote: str, column: str) -> Decimal | None:
+    """The amount under `column` on the cited row: the one page line that starts with the quote
+    (fix 1 Q1). None, the round 8 A-2 #11 outcome, when no line or several different lines start
+    with the quote, when the row's cells do not line up with the header's (Q2), or when the cell
+    is not an ASCII decimal figure (Q4); also when the quote cuts a cell (Q6: its cells are a
+    prefix of the line's, each one equal) or the line is not one physical line (Q7)."""
+    lines = {x.removesuffix("\r") for x in page.split("\n") if x.startswith(quote)}
+    header = _header(page)
+    if len(lines) != 1 or column not in header[1:]:
+        return None
+    line = lines.pop()
+    cells, quoted = _CELLS.split(line), _CELLS.split(quote)
+    if len(line.splitlines()) != 1 or cells[: len(quoted)] != quoted:
+        return None
+    if len(cells) != len(header):
+        return None
+    cell = cells[header.index(column)]
+    return Decimal(cell) if _FIGURE.fullmatch(cell) else None
+
+
+def _debt_claim(debt: Fact, basis: PeriodBasis) -> Val:
+    """CP-1 total debt as the secured class's claim (round 8 A-2 #6; round 11 B2)."""
+    if debt.status != "known":
+        state = _STATE_WORD[debt.status]
+        return Val(None, f"Not calculable: total debt is {state} in CP-1 for {basis.ltm_period}")
+    if debt.amount is None:
+        raise ValueError(f"CP-4C: CP-1 total debt {debt.fact_id} is known without an amount")
+    return _known(debt.amount)
+
+
+# an unsettled CP-1 fact's state as its reason names it (round 8 A-2 #6, round 11 B2 and B6)
+_STATE_WORD = {
+    "missing": "missing",
+    "conflicting": "conflicting",
+    "not_applicable": "not applicable",
+}
+
+
+def claim_classes(
+    submission: RestructuringSubmission, context: Cp4cContext
+) -> tuple[ClassClaim, ...]:
+    """Each class's claim: CP-1 total debt for the secured class, the cited row's amount for a
+    source_row class, missing for a class no source states (lease: no amount is typed)."""
+    pages = _pages(context.pack)
+    debt = select_cp1(context.cp1.t410, context.basis)["total_debt"]
+    out: list[ClassClaim] = []
+    for c in submission.claims:
+        if c.amount_source == "cp1_total_debt":
+            claim = _debt_claim(debt, context.basis)
+        elif c.amount_source == "source_row":
+            q, column = c.amount_quote, c.period_column
+            amount = None
+            if q is not None and column is not None:
+                amount = _row_amount(pages[(q.source_id, q.locator)], q.quote, column)
+            if amount is None:  # the validator refuses an uncited row or one with no number
+                raise ValueError(f"CP-4C: {c.class_id} reads no number; invariant broken")
+            claim = _known(amount)
+        else:
+            claim = Val(None, f"Not calculable: no supplied source states the claim of {c.name}")
+        out.append(ClassClaim(c.class_id, c.name, int(c.rank), claim))
+    return tuple(out)
+
+
+R_EV_NA = "Not calculable: the EV multiple was not assessed"
+
+
+def _upstream_reason(f: Fact) -> str:
+    if not f.limitation:
+        raise ValueError(f"CP-4C: unsettled upstream fact {f.fact_id} states no limitation")
+    return f.limitation
+
+
+@dataclass(frozen=True)
+class _Value:
+    """One valuation's operands and enterprise value."""
+
+    source: Cp2gEbitda
+    ebitda: Val
+    multiple: Decimal | None
+    ev: Val
+
+
+def _valuation(v: Valuation, cp2g: Cp2gHead, basis: PeriodBasis) -> _Value:
+    source = cp2g.of(v.ebitda_case, v.ebitda_year, basis)
+    f = source.fact
+    if f.status != "known":  # missing, not applicable or conflicting: its own limitation (A-4)
+        ebitda = Val(None, _upstream_reason(f))
+    elif f.amount is None:
+        raise ValueError(f"CP-4C: CP-2G {f.fact_id} is known without an amount")
+    else:
+        ebitda = _known(f.amount)
+    multiple = None if v.multiple == NOT_ASSESSED else Decimal(v.multiple)
+    if ebitda.amount is None:
+        ev = ebitda
+    elif multiple is None:
+        ev = Val(None, R_EV_NA)
+    else:
+        with _exactly(f"the enterprise value of {v.case_id}"):
+            product = ebitda.amount * multiple
+        if product < 0:  # negative EBITDA (round 8 A-2 #7)
+            case = f"{CASE_WORD[v.ebitda_case]} {v.ebitda_year}"
+            ev = Val(None, f"Not calculable: {case} EBITDA is negative in CP-2G")
+        else:
+            ev = _known(product)
+    return _Value(source=source, ebitda=ebitda, multiple=multiple, ev=ev)
+
+
+# --- the phrase guard (lease "Phrase guard (recovery boundary)") ------------------------------
+PRODUCT_GUARD_KINDS = ("peer ranking", "instrument recommendation")
+CORE_GUARD_PHRASES: Mapping[str, tuple[str, ...]] = {
+    "outcome certainty": (
+        "recovery is guaranteed",
+        "recovery is assured",
+        "recovery is certain",
+        "guaranteed recovery",
+        "assured recovery",
+        "plan will be confirmed",
+        "confirmation is assured",
+        "confirmation is certain",
+    ),
+    "probability weighting": (
+        "probability-weighted",
+        "probability weighted",
+        "probability of",
+        "weighted by probability",
+        "expected value",
+        "likelihood-weighted",
+    ),
+}
+_CORE_GUARD = tuple(
+    (kind, phrase, re.compile(rf"(?<![A-Za-z]){re.escape(phrase)}(?![A-Za-z])", re.IGNORECASE))
+    for kind, phrases in CORE_GUARD_PHRASES.items()
+    for phrase in phrases
+)
+
+
+def guard_issues(path: str, text: str) -> tuple[str, ...]:
+    """The product's peer-ranking and instrument-recommendation phrases (recovery conclusions
+    are CP-4C's to state, so that kind is not checked), then the core-local outcome-certainty
+    and probability-weighting phrases, word-bounded and case-insensitive. A phrase guard, not a
+    semantic review."""
+    found = list(prohibited_issues(path, text, kinds=PRODUCT_GUARD_KINDS))
+    found += [
+        f'{path}: prohibited conclusion ({kind}): "{phrase}"'
+        for kind, phrase, pattern in _CORE_GUARD
+        if pattern.search(text)
+    ]
+    return tuple(found)
+
+
+# --- validation (lease "Refusals"; expected.refusal_rules.order) ------------------------------
+HIGH_ISSUE = (
+    "assessment.confidence: High is not allowed: multiples, ranks and plan treatment are uncited "
+    "analyst assumptions"
+)
+
+
+FieldKind = Literal["name", "run", "plain"]
+# The reference delimiters of composed claim text (`{fact_id|token}`, `[fact_id]`): a claim name or
+# valuation label holding one does not compose, so it is refused (round 12 B7). `|` is no
+# delimiter outside a reference.
+_RESERVED = re.compile(r"[{}\[\]]")
+
+
+def _text_fields(sub: RestructuringSubmission) -> list[tuple[str, str | None, FieldKind]]:
+    """(path, text, kind) of every text field, in the pinned order: a class name or valuation
+    label (one line, no bare figure, no reference syntax: round 8 A-2 #9, round 11 B3, round 12
+    B7), run text (the rationales) or plain text. No kind may be blank (`blank.is_blank`)."""
+    out: list[tuple[str, str | None, FieldKind]] = []
+    for i, c in enumerate(sub.claims):
+        out += [(f"claims[{i}].name", c.name, "name")]
+        out += [(f"claims[{i}].rationale", c.rationale, "run")]
+        out += [(f"claims[{i}].limitation", c.limitation, "plain")]
+    rows: tuple[tuple[str, Sequence[Valuation | FulcrumJudgment | PlanJudgment]], ...] = (
+        ("valuation", sub.valuation),
+        ("fulcrum", sub.fulcrum),
+        ("plan", sub.plan),
+    )
+    for key, items in rows:
+        for i, x in enumerate(items):
+            if isinstance(x, Valuation):
+                out += [(f"{key}[{i}].label", x.label, "name")]
+            out += [(f"{key}[{i}].rationale", x.rationale, "run")]
+            out += [(f"{key}[{i}].limitation", x.limitation, "plain")]
+    a = sub.assessment
+    out += [
+        ("assessment.rationale", a.rationale, "run"),
+        ("assessment.limitation", a.limitation, "plain"),
+    ]
+    for i, g in enumerate(sub.gaps):
+        for name in ("gap", "why_it_matters", "affected_analysis", "action"):
+            out.append((f"gaps[{i}].{name}", getattr(g, name), "plain"))
+    return out
+
+
+def _term_loan_secured(cp1: Cp1Head) -> bool:
+    """CP-1 T4.18 shows the secured facility SECURED and SENIOR (lease; round 8 A-2 #2)."""
+    secured, senior = cp1.secured_status, cp1.seniority
+    return (secured.status, secured.text, senior.status, senior.text) == (
+        "known",
+        SECURED,
+        "known",
+        SENIOR,
+    )
+
+
+def _source_row_issues(
+    i: int, c: ClaimClass, pages: Mapping[tuple[str, str], str], basis: PeriodBasis
+) -> list[str]:
+    """A source_row class's cited row: v03, v04, v05, then round 8 A-2 #3, #11 and #7."""
+    q = c.amount_quote
+    if q is None:
+        return [f"claims[{i}].amount_quote: a source_row class cites the row it reads"]
+    if is_blank(q.quote):  # round 13 addendum 3: a quote is analyst text under the blank class
+        return [f"claims[{i}].amount_quote.quote: empty text"]
+    page = pages.get(("financial", q.locator), "")
+    if q.source_id != "financial" or q.quote not in page:
+        where = (f"claims[{i}].amount_quote: quote not found under ", q.source_id, " ", q.locator)
+        return [clipped(where)]
+    column = c.period_column
+    if column not in _header(page)[1:]:
+        what = f"claims[{i}].period_column: not a column of the quoted statement: "
+        return [clipped((what, str(column)))]
+    if column != basis.bs_column:
+        return [
+            (
+                f"claims[{i}].period_column: claims are the {basis.balance_date_text} balances; "
+                f"use {basis.bs_column}"
+            )
+        ]
+    amount = _row_amount(page, q.quote, column)
+    if amount is None:
+        return [f"claims[{i}].amount_quote: the quoted row has no number under {column}"]
+    return _claim_above_zero(i, c, amount)
+
+
+def _claim_above_zero(i: int, c: ClaimClass, amount: Decimal) -> list[str]:
+    if amount > 0:
+        return []
+    parts = (f"claims[{i}]: a claim class needs a claim above zero; ", c.name, " reads ")
+    return [clipped((*parts, str(_exact(amount))))]
+
+
+def _claim_issues(
+    i: int, c: ClaimClass, pages: Mapping[tuple[str, str], str], ctx: Cp4cContext
+) -> list[str]:
+    issues: list[str] = []
+    mismatch = (c.kind == "secured_debt") != (c.amount_source == "cp1_total_debt")
+    if mismatch:
+        issues.append(
+            f"claims[{i}].amount_source: cp1_total_debt is the secured_debt class's source and "
+            "no other class's"
+        )
+    if c.kind == "secured_debt" and not _term_loan_secured(ctx.cp1):
+        issues.append(
+            f"claims[{i}].kind: CP-1 T4.18 does not show {ctx.cp1.facility_id} SECURED and "
+            "SENIOR, so no class can be secured_debt"
+        )
+    if mismatch:
+        pass
+    elif c.amount_source == "source_row":
+        issues += _source_row_issues(i, c, pages, ctx.basis)
+    else:
+        if c.amount_quote is not None:
+            issues.append(f"claims[{i}].amount_quote: only a source_row class cites an amount row")
+        if c.period_column is not None:
+            issues.append(f"claims[{i}].period_column: only a source_row class names a column")
+        if c.amount_source == "cp1_total_debt":
+            debt = select_cp1(ctx.cp1.t410, ctx.basis)["total_debt"].amount
+            issues += [] if debt is None else _claim_above_zero(i, c, debt)
+    for j, q in enumerate(c.support):
+        if is_blank(q.quote):  # round 13 addendum 3: before the page-occurrence check
+            issues.append(f"claims[{i}].support[{j}].quote: empty text")
+        elif q.source_id not in SCOPE:
+            what = f"claims[{i}].support[{j}].source_id: not in this step's source scope: "
+            issues.append(clipped((what, q.source_id)))
+        elif q.quote not in pages.get((q.source_id, q.locator), ""):
+            what = f"claims[{i}].support[{j}]: quote not found under "
+            issues.append(clipped((what, q.source_id, " ", q.locator)))
+    return issues
+
+
+def _fulcrum_issues(
+    sub: RestructuringSubmission, known: set[str], falls: Mapping[str, Waterfall]
+) -> list[str]:
+    issues: list[str] = []
+    for i, f in enumerate(sub.fulcrum):
+        bad = False
+        for cid in f.class_ids:
+            if cid not in known:
+                issues.append(f"fulcrum[{i}].class_ids: not a claim class: {cid}")
+                bad = True
+        if len(set(f.class_ids)) != len(f.class_ids):
+            issues.append(f"fulcrum[{i}].class_ids: duplicate class")
+            bad = True
+        if bad or f.case_id != f"v{i + 1:02d}":
+            continue
+        brk = falls[f.case_id].value_break
+        if brk is None:
+            if f.class_ids:
+                issues.append(
+                    f"fulcrum[{i}].class_ids: the value break is not determinable in {f.case_id}, "
+                    "so no class can be named"
+                )
+        elif sorted(f.class_ids) != sorted(brk):
+            named = ", ".join(f.class_ids) or "no class"
+            issues.append(
+                f"fulcrum[{i}].class_ids: value breaks at {', '.join(brk)} in {f.case_id}; the "
+                f"judgment names {named}"
+            )
+    return issues
+
+
+def _fits(treatment: str, value: Decimal | None, equity: bool) -> bool:
+    """The plan-fit rule (expected.waterfall_rules.plan_fit)."""
+    if value is None:
+        return treatment == "Not determined"
+    if equity:
+        return (value > 0 and treatment == "Equity retained") or (
+            value == 0 and treatment == "No recovery"
+        )
+    return (
+        (value == 1 and treatment == "Paid in full")
+        or (0 < value < 1 and treatment == "Receives reorganised equity")
+        or (value == 0 and treatment == "No recovery")
+    )
+
+
+def _plan_issues(
+    sub: RestructuringSubmission, ids: Sequence[str], falls: Mapping[str, Waterfall]
+) -> list[str]:
+    issues: list[str] = []
+    known = {*ids, EQUITY}
+    for i, p in enumerate(sub.plan):
+        bad = False
+        seen: list[str] = []
+        for j, t in enumerate(p.treatments):
+            if t.class_id not in known:
+                what = f"plan[{i}].treatments[{j}].class_id: not a claim class: "
+                issues.append(clipped((what, t.class_id)))
+                bad = True
+            elif t.class_id in seen:
+                issues.append(f"plan[{i}].treatments[{j}].class_id: duplicate class {t.class_id}")
+                bad = True
+            seen.append(t.class_id)
+        for cid in (*ids, EQUITY):
+            if cid not in seen:
+                issues.append(f"plan[{i}].treatments: no treatment for {cid}")
+                bad = True
+        if bad or p.case_id != f"v{i + 1:02d}":
+            continue
+        w = falls[p.case_id]
+        for j, t in enumerate(p.treatments):
+            equity = t.class_id == EQUITY
+            value = w.residual.amount if equity else w.classes[t.class_id].recovery.amount
+            if not _fits(t.treatment, value, equity):
+                issues.append(
+                    f"plan[{i}].treatments[{j}]: {t.treatment} does not fit the waterfall result "
+                    f"of {t.class_id} in {p.case_id}"
+                )
+    return issues
+
+
+def _reference_facts(sub: RestructuringSubmission, ctx: Cp4cContext) -> tuple[Fact, ...]:
+    """The upstream facts the module carries in its reference tables, which is what its prose
+    resolves through at settlement (expected.references_rule)."""
+    return tuple(r.fact for table in _references(sub, ctx) for r in table.rows)
+
+
+def _secured_issues(sub: RestructuringSubmission) -> list[str]:
+    """Exactly one secured_debt class, ranked ahead of every other class."""
+    secured = [i for i, c in enumerate(sub.claims) if c.kind == "secured_debt"]
+    if len(secured) != 1:
+        return ["claims: exactly one secured_debt class is required"]
+    (k,) = secured
+    top = int(sub.claims[k].rank)
+    if any(int(c.rank) <= top for j, c in enumerate(sub.claims) if j != k):
+        return [f"claims[{k}].rank: the secured_debt class ranks first, ahead of every other class"]
+    return []
+
+
+def _year_issues(sub: RestructuringSubmission, basis: PeriodBasis) -> tuple[str, ...]:
+    """The valuations whose forecast year is not one of the basis's three, in order."""
+    return tuple(
+        _year_issue(i, basis)
+        for i, v in enumerate(sub.valuation)
+        if v.ebitda_year not in basis.year_labels
+    )
+
+
+def _year_issue(i: int, basis: PeriodBasis) -> str:
+    """A forecast year outside the run's three (the base year and earlier are not forecast), in
+    the frozen shape-issue wording of the default years (cases/cp4c-owner refusal r06)."""
+    *head, last = (f"'{label}'" for label in basis.year_labels)
+    return f"valuation.{i}.ebitda_year: Input should be {', '.join(head)} or {last}"
+
+
+def content_issues(inputs: Cp4cInputs) -> tuple[str, ...]:
+    """Content issues of a parsed submission, in the pinned order: claims, valuation case ids,
+    fulcrum and plan case ids, fulcrum and plan against the waterfall (only when claims and
+    valuation are structurally valid), assessment, then per text field prose and guard issues."""
+    sub, ctx = inputs.submission, inputs.context
+    # A year outside the run's forecast years is a shape issue (the frozen r06 frame: it was a
+    # Literal of the default years), so it is returned alone, before any content check.
+    if years := _year_issues(sub, ctx.basis):
+        return years
+    pages = _pages(ctx.pack)
+    issues: list[str] = []
+    ids: list[str] = []
+    structural = True
+    for i, c in enumerate(sub.claims):
+        before = len(issues)
+        if c.class_id in ids:
+            issues.append(f"claims[{i}].class_id: duplicate class {c.class_id}")
+        ids.append(c.class_id)
+        issues += _claim_issues(i, c, pages, ctx)
+        structural = structural and len(issues) == before
+    secured = _secured_issues(sub)
+    issues += secured
+    structural = structural and not secured
+    for i, v in enumerate(sub.valuation):
+        if v.case_id != f"v{i + 1:02d}":
+            issues.append(f"valuation[{i}].case_id: expected v{i + 1:02d}")
+            structural = False
+    judged: tuple[tuple[str, Sequence[FulcrumJudgment | PlanJudgment]], ...] = (
+        ("fulcrum", sub.fulcrum),
+        ("plan", sub.plan),
+    )
+    for key, rows in judged:
+        for i, x in enumerate(rows):
+            if x.case_id != f"v{i + 1:02d}":
+                issues.append(f"{key}[{i}].case_id: expected v{i + 1:02d}")
+    if structural:
+        classes = claim_classes(sub, ctx)
+        falls = {
+            v.case_id: waterfall(
+                classes=classes, enterprise_value=_valuation(v, ctx.cp2g, ctx.basis).ev
+            )
+            for v in sub.valuation
+        }
+        issues += _fulcrum_issues(sub, {*ids, EQUITY}, falls)
+        issues += _plan_issues(sub, ids, falls)
+    if sub.assessment.confidence == "High":
+        issues.append(HIGH_ISSUE)
+    bound = prose.bind(_reference_facts(sub, ctx))
+    names = (ctx.pack.run.issuer_name,)
+    for path, text, kind in _text_fields(sub):
+        if text is None:
+            continue
+        if is_blank(text):  # round 11 blank class and round 12 B10, every kind (R3 M2)
+            issues.append(f"{path}: empty text")
+            continue
+        if kind == "name":  # a name or label is no run text and is not guarded (round 8 A-2 #9)
+            if text.splitlines() != [text]:
+                issues.append(f"{path}: one line only")
+            else:  # round 11 B3: as the claims spell it (a valuation label in lower case)
+                spelt = text.lower() if path.startswith("valuation") else text
+                issues += [
+                    clipped((path, ": Bare figure: ", t))
+                    for t in prose.bare_figures(spelt, names=names)
+                ]
+                if _RESERVED.search(text):  # round 12 B7: CP-8's pinned frame
+                    issues.append(f"{path}: reference syntax is not allowed")
+            continue
+        if kind == "run":  # a rationale becomes `Claim.text` (Stage 2 round 3 item 2)
+            found = prose.issues(text, bound, names=names)
+            issues += [clipped((path, ": ", issue)) for issue in found]
+            if not found:
+                issues += _run_text_issues(path, text)
+        issues += guard_issues(path, text)
+    issues += _gap_label_issues(sub)
+    issues += _multiple_issues(ctx, sub)
+    return tuple(issues)
+
+
+NO_ALIGNMENT = "No alignment is made between an LTM or NTM multiple and a forecast year."
+
+
+def _gap_label_issues(sub: RestructuringSubmission) -> list[str]:
+    """A gap line, a claim name and a valuation label join the own limitations beside Python's
+    pinned line and its CP-1C selection line, so a model-written copy of either in any of them is
+    refused (P6-P13, shared with CP-3D; P7-P5). The valuation label is lowercased there; the
+    normaliser folds case."""
+    fields = (
+        *((f"gaps[{i}].gap", g.gap) for i, g in enumerate(sub.gaps)),
+        *((f"claims[{i}].name", c.name) for i, c in enumerate(sub.claims)),
+        *((f"valuation[{i}].label", v.label) for i, v in enumerate(sub.valuation)),
+    )
+    return [
+        f"{path}: {PIN_LABEL_FORGED if pin_label_forged(MODULE_ID, text) else CP1C_LINE_FORGED}"
+        for path, text in fields
+        if pin_label_forged(MODULE_ID, text) or cp1c_line_forged(text)
+    ]
+
+
+CP1C_LINE_FORGED = "the CP-1C selected multiple line is Python's; do not write it"
+# The fixed words of the two lines `_selection_line` writes, as `cp3d._normalised` folds them.
+_CP1C_LINE_MARKS = (
+    "the ev multiple is the cp-1c selected multiple",
+    "which governs, so the selection is not applied",
+    NO_ALIGNMENT.lower().removesuffix("."),
+)
+
+
+def cp1c_line_forged(text: str | None) -> bool:
+    """True when `text` holds a fixed part of the CP-1C selection limitation, or a near copy that
+    differs only as the shared normaliser folds (the `pin_label_forged` rule)."""
+    folded = _normalised(text or "")
+    return any(mark in folded for mark in _CP1C_LINE_MARKS)
+
+
+def _selection(ctx: Cp4cContext) -> SelectedMultiple | None:
+    """The CP-1C selection this run reads: only over a pack that carries a context."""
+    return selected_multiple(ctx.cp1c) if ctx.context is not None else None
+
+
+def _pinned_multiple(ctx: Cp4cContext) -> str | None:
+    """The context's pinned CP-4C multiple as typed, None when nothing is pinned."""
+    piece = None if ctx.context is None else ctx.context.assumptions.cp4c
+    return None if piece is None else piece.ev_multiple
+
+
+def _multiple_issues(ctx: Cp4cContext, sub: RestructuringSubmission) -> list[str]:
+    """Design 11: when a bound CP-1C head selected a multiple M, every valuation's multiple equals
+    M numerically (`7` equals `7.00`), and `not assessed` does not. One issue per valuation in case
+    order. No rule when nothing is selected; the context pin governs when it is set (Q4)."""
+    selected = _selection(ctx)
+    if selected is None or _pinned_multiple(ctx) is not None:
+        return []
+    return [
+        f"valuation {v.case_id}: multiple {v.multiple} differs from the CP-1C selected multiple "
+        f"{selected.two_dp}"
+        for v in sub.valuation
+        if v.multiple == NOT_ASSESSED or Decimal(v.multiple) != selected.amount
+    ]
+
+
+_RUN_TEXT: TypeAdapter[str] = TypeAdapter(RunText)
+
+
+def _run_text_issues(path: str, text: str) -> list[str]:
+    """Stage 2 round 3 item 2: text built as `Claim.text` is checked with that very type
+    (`RunText`, one `TypeAdapter` built once), so a malformed reference is a journaled issue and
+    composition never raises after the binding write. The message never echoes the input."""
+    try:
+        _RUN_TEXT.validate_python(text)
+    except ValidationError as error:
+        found = error.errors(include_input=False, include_url=False, include_context=False)
+        return [clipped((path, ": ", item["msg"])) for item in found]
+    return []
+
+
+def _parsed(payload: str) -> tuple[RestructuringSubmission | None, tuple[str, ...]]:
+    """The submission, or its shape issues (protocol section 6: model text is read only through
+    `json_object`). The schema validates the bounded document's exact re-serialisation, never the
+    raw text; text `json_object` refuses keeps Pydantic's own shape issue (the frozen r12 frame),
+    and is refused even if Pydantic would parse it (the CP-2G precedent)."""
+    document = json_object(payload)
+    try:
+        if document is None:
+            RestructuringSubmission.model_validate_json(payload)  # for its shape issue only
+            return None, ("(root): not a bounded JSON object",)
+        return RestructuringSubmission.model_validate_json(exact_json(document)), ()
+    except ValidationError as error:
+        return None, shape_issues(error)
+
+
+def payload_issues(payload: str, context: Cp4cContext) -> tuple[str, ...]:
+    """Shape issues alone (a payload that does not parse gets no content check), else the
+    content issues."""
+    submission, shape = _parsed(payload)
+    if submission is None:
+        return shape
+    return content_issues(Cp4cInputs(context=context, submission=submission))
+
+
+def stale_issues(*, bound: Sequence[Input], current: Sequence[Input] | str) -> tuple[str, ...]:
+    """Every bound upstream that changed (CP-2G precedent), in the `cp2_synthesis._stale_issues`
+    form; returned alone, like shape issues (rulings round 5, G-decisions)."""
+    if isinstance(current, str):
+        return (clipped(("Stale inputs: ", current)),)
+    was = {item.input_id: item for item in bound}
+    now = {item.input_id: item for item in current}
+
+    def state(item: Input | None) -> str:
+        return "absent" if item is None else f"{item.status} {item.sha256[:12]}"
+
+    return tuple(
+        f"Stale input {key}: bound {state(was.get(key))}, current {state(now.get(key))}"
+        for key in dict.fromkeys((*was, *now))
+        if was.get(key) != now.get(key)
+    )
+
+
+# --- cells, tables, references, claims -------------------------------------------------------
+UnitKind = Literal["amount", "multiple", "percent", "pp"]
+_UNIT: Mapping[UnitKind, str] = {
+    "amount": "MILLIONS",
+    "multiple": "MULTIPLE",
+    "percent": "PERCENT",
+    "pp": "pp",
+}
+_MILLIONS = Decimal(1000000)
+ValueClass = Literal["source", "normalized", "calculated", "analyst_judgment"]
+CellStatus = Literal["known", "missing", "not_applicable", "conflicting"]
+_UPSTREAM = ("cp1:", "cp2a:", "cp2g:", "cp4:")
+
+
+@dataclass(frozen=True)
+class Cell:
+    """One table cell: the product Fact it settles as, its lineage, the submission quotes that
+    back it (if any) and its display spelling."""
+
+    fact: Fact
+    derives_from: tuple[str, ...]
+    quoted: tuple[Citation, ...]
+    shown: str | None  # report_view.fact_spelling of a known fact; None while unsettled
+
+
+@dataclass(frozen=True)
+class Row:
+    row_id: str
+    label: str
+    fact_ids: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class Table:
+    table_id: str
+    title: str
+    rows: tuple[Row, ...]
+
+
+@dataclass(frozen=True)
+class Reference:
+    row_id: str
+    label: str
+    fact: Fact  # the upstream fact, verbatim
+
+
+@dataclass(frozen=True)
+class RefTable:
+    table_id: str
+    title: str
+    row_header: str
+    rows: tuple[Reference, ...]
+
+
+@dataclass(frozen=True)
+class Claim:
+    claim_id: str
+    text: str  # run text: {fact_id|unit} figures and [fact_id] chips
+    limitation: str | None
+    references: tuple[str, ...]  # upstream fact ids the analyst's text names as figures
+
+
+@dataclass(frozen=True)
+class RestructuringResult:
+    cells: tuple[Cell, ...]
+    tables: tuple[Table, ...]
+    references: tuple[RefTable, RefTable, RefTable, RefTable]  # cp1, cp2g, cp2a, cp4
+    claims: tuple[Claim, ...]
+    own_limitations: tuple[str, ...]
+    waterfalls: Mapping[str, Waterfall]  # by valuation case id
+    enterprise_values: Mapping[str, Val]
+
+
+TABLES = {
+    "T4E.1": "Upstream register",
+    "T4E.2": "Claims register",
+    "T4E.3": "Valuation scenarios",
+    "T4E.4": "Waterfall allocation",
+    "T4E.5": "Recovery by class",
+    "T4E.6": "Attachment and detachment",
+    "T4E.7": "Fulcrum identification",
+    "T4E.8": "Plan treatment",
+    "T4E.9": "Waterfall totals",
+    "T4E.10": "Gaps ledger",
+}
+
+
+@dataclass
+class _Draft:
+    fact: Fact  # citations are settled in `_Book.cells`
+    derives: tuple[str, ...]
+    quoted: tuple[Citation, ...]
+
+
+@dataclass
+class _Book:
+    """The module's cells in creation order, and each table's rows."""
+
+    currency: str  # the run's reporting currency, stated on every amount cell
+    drafts: dict[str, _Draft] = field(default_factory=dict)
+    rows: dict[str, list[Row]] = field(default_factory=lambda: {t: [] for t in TABLES})
+
+    def _add(self, fact: Fact, derives: Sequence[str], quoted: Sequence[Citation] = ()) -> None:
+        if fact.fact_id in self.drafts:
+            raise ValueError(f"CP-4C: duplicate fact {fact.fact_id}")
+        self.drafts[fact.fact_id] = _Draft(fact, tuple(derives), tuple(quoted))
+
+    def num(
+        self,
+        at: tuple[str, str, str],
+        label: str,
+        value: Decimal,
+        unit: UnitKind,
+        formula: str,
+        *,
+        period: str,
+        value_class: ValueClass | None = "calculated",
+        derives: Sequence[str] = (),
+        keep_lineage: bool = False,
+        quoted: Sequence[Citation] = (),
+    ) -> None:
+        table, row, name = at
+        fid = f"{table}.{row}.{name}"
+        calculated = value_class == "calculated"
+        amount_unit = unit == "amount"
+        fact = Fact(
+            fact_id=fid,
+            label=label,
+            table_id=table,
+            row_id=row,
+            field=name,
+            amount=_exact(value),
+            unit=_UNIT[unit],
+            currency=self.currency if amount_unit else None,
+            scale=_MILLIONS if amount_unit else Decimal(1),
+            decimals=2 if amount_unit else None,
+            period=period,
+            calculation_id=f"calc:{fid}" if calculated else None,
+            value_class=value_class,
+            formula=formula,
+        )
+        self._add(fact, derives if calculated or keep_lineage else (), quoted)
+
+    def gap(
+        self,
+        at: tuple[str, str, str],
+        label: str,
+        unit: UnitKind,
+        reason: str,
+        *,
+        period: str,
+        status: CellStatus = "missing",
+    ) -> None:
+        table, row, name = at
+        fact = Fact(
+            fact_id=f"{table}.{row}.{name}",
+            label=label,
+            table_id=table,
+            row_id=row,
+            field=name,
+            status=status,
+            unit=_UNIT[unit],
+            period=period,
+            limitation=reason,
+        )
+        self._add(fact, ())
+
+    def value(
+        self,
+        at: tuple[str, str, str],
+        label: str,
+        v: Val,
+        unit: UnitKind,
+        formula: str,
+        derives: Sequence[str],
+        *,
+        period: str,
+    ) -> None:
+        if v.amount is None:
+            assert v.reason is not None
+            self.gap(at, label, unit, v.reason, period=period)
+        else:
+            self.num(at, label, v.amount, unit, formula, period=period, derives=derives)
+
+    def text(
+        self,
+        at: tuple[str, str, str],
+        label: str,
+        value: str,
+        *,
+        value_class: ValueClass | None = None,
+        derives: Sequence[str] = (),
+        quoted: Sequence[Citation] = (),
+    ) -> None:
+        table, row, name = at
+        fact = Fact(
+            fact_id=f"{table}.{row}.{name}",
+            label=label,
+            table_id=table,
+            row_id=row,
+            field=name,
+            text=value,
+            value_class=value_class,
+            citations=tuple(quoted),
+        )
+        self._add(fact, derives, quoted)
+
+    def unsettled_text(
+        self, at: tuple[str, str, str], label: str, reason: str, status: CellStatus
+    ) -> None:
+        table, row, name = at
+        fact = Fact(
+            fact_id=f"{table}.{row}.{name}",
+            label=label,
+            table_id=table,
+            row_id=row,
+            field=name,
+            status=status,
+            limitation=reason,
+        )
+        self._add(fact, ())
+
+    def copy_text(self, at: tuple[str, str, str], label: str, upstream: Fact, lineage: str) -> None:
+        """A text that restates an upstream fact: known with its lineage, or unsettled with the
+        upstream status and limitation (copies keep the upstream status; rulings round 2 L10-c,
+        round 5 G-decisions)."""
+        if upstream.status == "known" and upstream.text is not None:
+            self.text(at, label, upstream.text, derives=(lineage,))
+        else:
+            self.unsettled_text(at, label, _upstream_reason(upstream), _copy_status(upstream))
+
+    def row(self, table: str, row_id: str, label: str, fields: Sequence[str]) -> None:
+        ids = tuple(f"{table}.{row_id}.{f}" for f in fields)
+        for fid in ids:
+            if fid not in self.drafts:
+                raise ValueError(f"CP-4C: row {table}.{row_id} names no fact {fid}")
+        self.rows[table].append(Row(row_id=row_id, label=label, fact_ids=ids))
+
+    def status(self, fact_id: str) -> str:
+        return self.drafts[fact_id].fact.status
+
+    def cells(self, upstream: Mapping[str, Fact]) -> tuple[Cell, ...]:
+        """Settle the lineage citations (expected.lineage_rule): a quoted cell cites its quotes;
+        a calculated cell has one Citation per (source, page), the first quote on that page among
+        the citations of the facts it derives from, in derives_from order (rulings stage2 round
+        3 item 3). A known fact never derives from a fact that is not known."""
+        memo: dict[str, tuple[Citation, ...]] = {}
+
+        def cited(fid: str, trail: tuple[str, ...]) -> tuple[Citation, ...]:
+            if fid in memo:
+                return memo[fid]
+            if fid in trail:
+                raise ValueError(f"CP-4C: lineage cycle through {fid}")
+            d = self.drafts[fid]
+            out: list[Citation] = list(d.quoted)
+            if not d.quoted and d.fact.value_class == "calculated":
+                for dep in d.derives:
+                    out += (
+                        upstream[dep].citations
+                        if dep.startswith(_UPSTREAM)
+                        else cited(dep, (*trail, fid))
+                    )
+                out = list(one_per_page(out))
+            memo[fid] = tuple(out)
+            return memo[fid]
+
+        out: list[Cell] = []
+        for fid, d in self.drafts.items():
+            if d.fact.status == "known":
+                for dep in d.derives:
+                    source = (
+                        upstream.get(dep) if dep.startswith(_UPSTREAM) else self.drafts[dep].fact
+                    )
+                    if source is None or source.status != "known":
+                        raise ValueError(
+                            f"CP-4C: known {fid} derives from {dep}, which is not known"
+                        )
+            fact = d.fact.model_copy(update={"citations": cited(fid, ())})
+            shown = fact_spelling(fact, None)[2] if fact.status == "known" else None
+            out.append(Cell(fact=fact, derives_from=d.derives, quoted=d.quoted, shown=shown))
+        return tuple(out)
+
+
+def _copy_status(f: Fact) -> CellStatus:
+    """An unsettled upstream fact's status, kept by its copy: missing, not applicable or
+    conflicting (round 8 A-4; round 6g)."""
+    if f.status == "known":
+        raise ValueError(f"CP-4C: upstream fact {f.fact_id} is known; invariant broken")
+    return f.status
+
+
+def _citation(pack: PreparedPack, quote: Quote) -> Citation:
+    """A submission quote as a Citation with the pack's source hash (validated before)."""
+    digest = next(
+        (s.sha256 for s in pack.sources if s.source_id == quote.source_id and s.status == "ready"),
+        None,
+    )
+    if digest is None:
+        raise ValueError(f"CP-4C: quoted source {quote.source_id} is not a ready pack source")
+    return Citation(
+        source_id=quote.source_id, source_sha256=digest, locator=quote.locator, quote=quote.quote
+    )
+
+
+@dataclass(frozen=True)
+class _Run:
+    """What the composer reads, resolved once."""
+
+    sub: RestructuringSubmission
+    ctx: Cp4cContext
+    cp1: Mapping[str, Fact]
+    classes: tuple[ClassClaim, ...]
+    values: Mapping[str, _Value]
+    falls: Mapping[str, Waterfall]
+    scenario_row: str
+    upstream: Mapping[str, Fact]
+    pinned: bool = False
+    selection: SelectedMultiple | None = None  # the CP-1C selection this run reads (Phase 7)
+    pin: str | None = None  # the context's pinned multiple as typed; it governs the selection
+
+    @property
+    def basis(self) -> PeriodBasis:
+        return self.ctx.basis
+
+
+_PINNED_RATING = "Insufficient Information"
+_PINNED_CONDITIONS = (
+    "Prior written consent of every lender; no automatic additional debt basket is provided"
+)
+
+
+_SOURCE_D01 = re.compile(r"CP-2A T2B\.1\.(s[0-9]{2})\.ebitda_decline")
+_SOURCE_D02 = re.compile(r"CP-2A T2B\.1\.(s[0-9]{2})\.interest_increase")
+
+
+def _scenario_row(cp2g: Cp2gHead) -> str:
+    """The CP-2A T2B.1 row CP-2G applied, named by the settled CP-2G `T2H.3.d01.source` and
+    `T2H.3.d02.source` texts (round 13 item 2, R1 M2). CP-2G writes them once for all years."""
+    d01 = _SOURCE_D01.fullmatch(cp2g.down_ebitda_source.text or "")
+    d02 = _SOURCE_D02.fullmatch(cp2g.down_interest_source.text or "")
+    if d01 is None or d02 is None or d01[1] != d02[1]:
+        raise ValueError(
+            "CP-4C: CP-2G T2H.3.d01 and T2H.3.d02 sources name no single CP-2A T2B.1 row"
+        )
+    return d01[1]
+
+
+def _upstream_map(ctx: Cp4cContext, cp1: Mapping[str, Fact]) -> dict[str, Fact]:
+    out = {f"cp1:{metric}": f for metric, f in cp1.items()}
+    for f in (ctx.cp1.secured_status, ctx.cp1.seniority):
+        out[f"cp1:{ctx.cp1.facility_id}.{f.field}"] = f
+    out.update({f"cp2g:{e.fact.fact_id}": e.fact for e in ctx.cp2g.ebitda})
+    out.update({f"cp2g:{f.fact_id}": f for f in (ctx.cp2g.base_first, ctx.cp2g.down_first)})
+    out.update({f"cp2a:{f.fact_id}": f for f in ctx.cp2a.facts})
+    out.update({f"cp4:{f.fact_id}": f for f in ctx.cp4.facts})
+    return out
+
+
+def _check_cp4_head(ctx: Cp4cContext) -> None:
+    """The own limitations state the frozen CP-4 head: rating Insufficient Information and the
+    every-lender consent. Any other head stays fail-closed until Stage 2 words it (round 8 A-2
+    #4)."""
+    rating, conditions = ctx.cp4.fact(CP4_RATING), ctx.cp4.fact(CP4_CONDITIONS)
+    if rating.text != _PINNED_RATING:
+        raise ValueError(
+            f"CP-4C: the CP-4 lender protection rating is {rating.text!r}; the own limitation "
+            f"states {_PINNED_RATING}, so another rating fails closed (round 8 A-2 #4)"
+        )
+    if conditions.text != _PINNED_CONDITIONS:
+        raise ValueError(
+            "CP-4C: the CP-4 additional-debt conditions differ from the every-lender consent the "
+            "new-money limitation states, so they fail closed (round 8 A-2 #4)"
+        )
+
+
+def _resolve(inputs: Cp4cInputs) -> _Run:
+    sub, ctx = inputs.submission, inputs.context
+    found = content_issues(inputs)
+    if found:
+        raise ValueError("CP-4C submission has issues: " + "; ".join(bounded_issues(found)))
+    cp1 = select_cp1(ctx.cp1.t410, ctx.basis)
+    _check_cp4_head(ctx)
+    classes = claim_classes(sub, ctx)
+    values = {v.case_id: _valuation(v, ctx.cp2g, ctx.basis) for v in sub.valuation}
+    falls = {k: waterfall(classes=classes, enterprise_value=v.ev) for k, v in values.items()}
+    return _Run(
+        sub=sub,
+        ctx=ctx,
+        cp1=cp1,
+        classes=classes,
+        values=values,
+        falls=falls,
+        scenario_row=_scenario_row(ctx.cp2g),
+        upstream=_upstream_map(ctx, cp1),
+        pinned=inputs.pinned,
+        selection=_selection(ctx),
+        pin=_pinned_multiple(ctx),
+    )
+
+
+_FIELDS_T4E1 = ("module", "status", "basis", "read", "limitation")
+CP3C_UNREAD = (
+    "CP-3C (refinancing and liability management) is an optional input that this version never "
+    "reads."
+)
+
+
+def _t4e1(b: _Book, run: _Run) -> None:
+    ctx = run.ctx
+    first_year, _, last_year = run.basis.year_labels
+    rows = (
+        (
+            "u_cp1",
+            "CP-1",
+            ctx.cp1.status,
+            f"Base period {run.basis.ltm_period}",
+            "T4.10 total debt and EBITDA; T4.18 term loan security and seniority",
+            "Inherits CP-1's own limitations.",
+        ),
+        (
+            "u_cp2a",
+            "CP-2A",
+            ctx.cp2a.status,
+            f"Base period {ctx.cp2a.base_period(run.scenario_row)}",
+            "T2B.1 name and shock sizes of the downside scenario CP-2G applied",
+            "Shock sizes are analyst assumptions.",
+        ),
+        (
+            "u_cp2g",
+            "CP-2G",
+            ctx.cp2g.status,
+            f"Forecast years {first_year} to {last_year} from the CP-1 twelve-month base",
+            "T2H.4 forecast EBITDA and T2H.7 first year the free cash flow test is reached",
+            "Forecast on analyst-assumed drivers.",
+        ),
+        (
+            "u_cp4",
+            "CP-4",
+            ctx.cp4.status,
+            "Executed term loan terms, current restatement",
+            "T4C.11 facility map, T4.10 additional-debt consent, T4.13 lender protection rating",
+            (
+                "Selected executed terms only; security, guarantees, default, cure and voting terms "
+                "are not supplied."
+            ),
+        ),
+        (  # a bound CP-3C shows its Input status and is still not read (round 8 A-2 #1)
+            "u_cp3c",
+            "CP-3C",
+            ctx.cp3c_status or "not part of this run",
+            "Not applicable",
+            "Nothing read",
+            CP3C_UNREAD,
+        ),
+    )
+    for row, *values in rows:
+        for name, value in zip(_FIELDS_T4E1, values, strict=True):
+            b.text(("T4E.1", row, name), name.capitalize(), value)
+        b.row("T4E.1", row, values[0], _FIELDS_T4E1)
+
+
+_FIELDS_T4E2 = (
+    "name",
+    "kind",
+    "rank",
+    "security",
+    "claim",
+    "basis",
+    "facility",
+    "lender_protection",
+    "additional_debt",
+)
+SECURITY_TEXT = {
+    "unsecured_trade": "UNSECURED",
+    "other_liability": "UNSECURED",
+    "administrative_priority": "PRIORITY",
+}
+NOT_A_FACILITY = "The class is not a facility governed by the legal source"
+_LEGAL = (
+    ("facility", "Facility", CP4_FACILITY),
+    ("lender_protection", "Lender protection", CP4_RATING),
+    ("additional_debt", "Additional debt", CP4_CONDITIONS),
+)
+
+
+def _t4e2(b: _Book, run: _Run) -> None:
+    pack, cp1h = run.ctx.pack, run.ctx.cp1
+    for c, k in zip(run.sub.claims, run.classes, strict=True):
+        r = c.class_id
+        b.text(("T4E.2", r, "name"), "Class", c.name, value_class="analyst_judgment")
+        b.text(("T4E.2", r, "kind"), "Kind", c.kind, value_class="analyst_judgment")
+        b.text(("T4E.2", r, "rank"), "Rank", c.rank, value_class="analyst_judgment")
+        if c.kind == "secured_debt":
+            secured = cp1h.secured_status
+            assert secured.text is not None  # _term_loan_secured (validator)
+            b.text(
+                ("T4E.2", r, "security"),
+                "Security",
+                secured.text,
+                derives=(f"cp1:{cp1h.facility_id}.secured_status",),
+                quoted=tuple(_citation(pack, q) for q in c.support),
+            )
+        else:
+            b.text(
+                ("T4E.2", r, "security"),
+                "Security",
+                SECURITY_TEXT[c.kind],
+                value_class="analyst_judgment",
+            )
+        if k.claim.amount is None:
+            assert k.claim.reason is not None
+            b.gap(
+                ("T4E.2", r, "claim"), "Claim", "amount", k.claim.reason, period=run.basis.bs_period
+            )
+        elif c.amount_source == "cp1_total_debt":
+            b.num(
+                ("T4E.2", r, "claim"),
+                "Claim",
+                k.claim.amount,
+                "amount",
+                "CP-1 total debt",
+                period=run.basis.ltm_period,
+                derives=("cp1:total_debt",),
+            )
+        else:
+            assert c.amount_quote is not None
+            b.num(
+                ("T4E.2", r, "claim"),
+                "Claim",
+                k.claim.amount,
+                "amount",
+                "quoted statement figure",
+                period=run.basis.bs_period,
+                value_class="source",
+                quoted=(_citation(pack, c.amount_quote),),
+            )
+        if c.amount_source == "cp1_total_debt":
+            basis = f"CP-1 T4.10 total debt · {run.basis.ltm_period}"
+        elif c.amount_source == "source_row":
+            assert c.amount_quote is not None
+            q = c.amount_quote
+            basis = f"{q.source_id} {q.locator}, column {c.period_column}"
+        else:
+            basis = "No supplied source states this claim"
+        b.text(("T4E.2", r, "basis"), "Basis", basis)
+        for name, label, fid in _LEGAL:
+            if c.kind == "secured_debt":
+                b.copy_text(("T4E.2", r, name), label, run.ctx.cp4.fact(fid), f"cp4:{fid}")
+            else:
+                b.unsettled_text(("T4E.2", r, name), label, NOT_A_FACILITY, "not_applicable")
+        b.row("T4E.2", r, c.name, _FIELDS_T4E2)
+    b.text(("T4E.2", "eq", "name"), "Class", "Equity")
+    b.text(("T4E.2", "eq", "kind"), "Kind", "equity")
+    b.text(("T4E.2", "eq", "rank"), "Rank", "Residual")
+    b.text(("T4E.2", "eq", "security"), "Security", "RESIDUAL")
+    b.gap(
+        ("T4E.2", "eq", "claim"),
+        "Claim",
+        "amount",
+        "Equity is the residual claimant and has no claim amount",
+        period=run.basis.bs_period,
+        status="not_applicable",
+    )
+    b.text(("T4E.2", "eq", "basis"), "Basis", "Residual after all claims")
+    for name, label, _fid in _LEGAL:
+        b.unsettled_text(("T4E.2", "eq", name), label, NOT_A_FACILITY, "not_applicable")
+    b.row("T4E.2", "eq", "Equity", _FIELDS_T4E2)
+
+
+_FIELDS_T4E3 = (
+    "scenario",
+    "ebitda_basis",
+    "ebitda",
+    "multiple",
+    "ev",
+    "implied_ltm_multiple",
+    "first_break",
+    "cp2a_scenario",
+    "ebitda_decline",
+)
+NO_SCENARIO = "The base valuation uses no CP-2A scenario"
+
+
+def _cp1_ebitda(f: Fact, basis: PeriodBasis) -> Val:
+    """CP-1 EBITDA as the implied multiple's denominator: a known positive amount, else missing
+    with the round 8 A-2 #5 reason naming its state (round 11 B6; no own line)."""
+    if f.status != "known":
+        return Val(
+            None,
+            f"Not calculable: EBITDA is {_STATE_WORD[f.status]} in CP-1 for {basis.ltm_period}",
+        )
+    if f.amount is None:  # an upstream contract break, as for total debt (fix 1 Q3)
+        raise ValueError(f"CP-4C: CP-1 EBITDA {f.fact_id} is known without an amount; invariant")
+    if f.amount <= 0:
+        return Val(
+            None,
+            f"Not calculable: EBITDA is zero or negative in CP-1 for {basis.ltm_period} "
+            "(ZERO_OR_NEGATIVE_DENOMINATOR)",
+        )
+    return _known(f.amount)
+
+
+def _multiple_formula(run: _Run) -> str:
+    """`analyst input`, plus the CP-1C selection the submission was held to (Design 11); a context
+    pin governs instead, so the selection is not a part of the formula then."""
+    if run.selection is None or run.pin is not None:
+        return "analyst input"
+    return (
+        f"analyst input, equal to the CP-1C selected multiple (T1C.11, basis {run.selection.basis})"
+    )
+
+
+def _t4e3(b: _Book, run: _Run) -> None:
+    row = run.scenario_row
+    name = run.ctx.cp2a.fact(f"T2B.1.{row}.name")
+    decline = run.ctx.cp2a.fact(f"T2B.1.{row}.ebitda_decline")
+    cp1_ebitda = _cp1_ebitda(run.cp1["ebitda"], run.basis)
+    for v in run.sub.valuation:
+        r, val = v.case_id, run.values[v.case_id]
+        f = val.source.fact
+        period = str(f.period)
+        b.text(("T4E.3", r, "scenario"), "Valuation", v.label, value_class="analyst_judgment")
+        b.text(
+            ("T4E.3", r, "ebitda_basis"),
+            "EBITDA basis",
+            f"CP-2G {CASE_WORD[v.ebitda_case]} case {v.ebitda_year}",
+        )
+        if val.ebitda.amount is None:
+            assert val.ebitda.reason is not None
+            b.gap(
+                ("T4E.3", r, "ebitda"),
+                "EBITDA",
+                "amount",
+                val.ebitda.reason,
+                period=period,
+                status=_copy_status(f),
+            )
+        else:
+            b.num(
+                ("T4E.3", r, "ebitda"),
+                "EBITDA",
+                val.ebitda.amount,
+                "amount",
+                f"Copy of CP-2G {f.fact_id}",
+                period=period,
+                derives=(f"cp2g:{f.fact_id}",),
+            )
+        if val.multiple is None:
+            b.gap(("T4E.3", r, "multiple"), "EV multiple", "multiple", R_EV_NA, period=period)
+        else:
+            b.num(
+                ("T4E.3", r, "multiple"),
+                "EV multiple",
+                val.multiple,
+                "multiple",
+                _multiple_formula(run),
+                period=period,
+                value_class="analyst_judgment",
+            )
+        b.value(
+            ("T4E.3", r, "ev"),
+            "Enterprise value",
+            val.ev,
+            "amount",
+            "EBITDA x EV multiple",
+            (f"T4E.3.{r}.ebitda", f"T4E.3.{r}.multiple"),
+            period=period,
+        )
+        if val.ev.amount is None or cp1_ebitda.amount is None:
+            implied = val.ev if val.ev.amount is None else cp1_ebitda
+        else:
+            implied = Val(_div(val.ev.amount, cp1_ebitda.amount))
+        b.value(
+            ("T4E.3", r, "implied_ltm_multiple"),
+            "Implied multiple of CP-1 EBITDA",
+            implied,
+            "multiple",
+            "Enterprise value / CP-1 EBITDA",
+            (f"T4E.3.{r}.ev", "cp1:ebitda"),
+            period=run.basis.ltm_period,
+        )
+        first = run.ctx.cp2g.first(v.ebitda_case)
+        b.copy_text(
+            ("T4E.3", r, "first_break"),
+            "First year free cash flow at or below zero (CP-2G)",
+            first,
+            f"cp2g:{first.fact_id}",
+        )
+        if v.ebitda_case == "down":
+            b.copy_text(
+                ("T4E.3", r, "cp2a_scenario"), "CP-2A scenario", name, f"cp2a:{name.fact_id}"
+            )
+            if decline.status == "known" and decline.amount is not None:
+                b.num(
+                    ("T4E.3", r, "ebitda_decline"),
+                    "CP-2A EBITDA decline",
+                    decline.amount,
+                    "percent",
+                    f"Copy of CP-2A {decline.fact_id}",
+                    period=run.basis.ltm_period,
+                    value_class=decline.value_class,
+                    derives=(f"cp2a:{decline.fact_id}",),
+                    keep_lineage=True,
+                )
+            else:
+                b.gap(
+                    ("T4E.3", r, "ebitda_decline"),
+                    "CP-2A EBITDA decline",
+                    "percent",
+                    _upstream_reason(decline),
+                    period=run.basis.ltm_period,
+                    status=_copy_status(decline),
+                )
+        else:
+            b.unsettled_text(
+                ("T4E.3", r, "cp2a_scenario"), "CP-2A scenario", NO_SCENARIO, "not_applicable"
+            )
+            b.gap(
+                ("T4E.3", r, "ebitda_decline"),
+                "CP-2A EBITDA decline",
+                "percent",
+                NO_SCENARIO,
+                period=run.basis.ltm_period,
+                status="not_applicable",
+            )
+        b.row("T4E.3", r, v.label, _FIELDS_T4E3)
+
+
+NC_EBITDA = "Not calculable: EBITDA is zero or negative (ZERO_OR_NEGATIVE_DENOMINATOR)"
+FIRST_BASE = "The first valuation is the comparison base"
+NO_CLAIM = "Equity has no claim amount"
+NO_RECOVERY = "Equity has no claim amount, so no recovery percentage"
+FITS, UNDETERMINED = "Fits the waterfall", "Not determinable"
+
+
+def _pp(a: Decimal, b: Decimal) -> Decimal:
+    """Percent minus percent in percentage points: (a - b) in the 38-digit context, x 100."""
+    with localcontext(_RATIO):
+        return _exact((a - b).scaleb(2))
+
+
+def _multiple_of(
+    at: tuple[str, str, str],
+    label: str,
+    b: _Book,
+    num: Val,
+    ebitda: Val,
+    formula: str,
+    derives: Sequence[str],
+    period: str,
+) -> None:
+    """Claims / EBITDA: missing with the numerator's reason, the EBITDA reason, or NC_EBITDA."""
+    if num.amount is None:
+        assert num.reason is not None
+        b.gap(at, label, "multiple", num.reason, period=period)
+    elif ebitda.amount is None:
+        b.gap(at, label, "multiple", ebitda.reason or NC_EBITDA, period=period)
+    elif ebitda.amount <= 0:
+        b.gap(at, label, "multiple", NC_EBITDA, period=period)
+    else:
+        b.num(
+            at,
+            label,
+            _div(num.amount, ebitda.amount),
+            "multiple",
+            formula,
+            period=period,
+            derives=derives,
+        )
+
+
+def _allocation(b: _Book, run: _Run) -> None:
+    """T4E.4, T4E.5, T4E.6 and T4E.8, valuation by valuation, class by class, then equity."""
+    first_case = run.sub.valuation[0].case_id
+    treat = {p.case_id: {t.class_id: t.treatment for t in p.treatments} for p in run.sub.plan}
+    classes = run.classes
+    for v in run.sub.valuation:
+        r0, w, val = v.case_id, run.falls[v.case_id], run.values[v.case_id]
+        period = str(val.source.fact.period)
+        for c, k in zip(run.sub.claims, classes, strict=True):
+            x = w.classes[k.class_id]
+            r = f"{r0}{k.class_id}"
+            lab = f"{v.label} · {c.name}"
+            better = [o for o in classes if o.rank < k.rank]
+            same = [o for o in classes if o.rank == k.rank]
+            b.value(
+                ("T4E.4", r, "claim"),
+                "Claim",
+                k.claim,
+                "amount",
+                "From T4E.2",
+                (f"T4E.2.{k.class_id}.claim",),
+                period=period,
+            )
+            b.value(
+                ("T4E.4", r, "value_available"),
+                "Value available to the class",
+                x.available,
+                "amount",
+                "Enterprise value less distributions to better-ranked classes",
+                (f"T4E.3.{r0}.ev", *(f"T4E.4.{r0}{o.class_id}.distribution" for o in better)),
+                period=period,
+            )
+            b.value(
+                ("T4E.4", r, "distribution"),
+                "Distribution",
+                x.distribution,
+                "amount",
+                "Claim x value paid to the rank / total claims of the rank",
+                (
+                    f"T4E.4.{r}.claim",
+                    f"T4E.4.{r}.value_available",
+                    *(f"T4E.4.{r0}{o.class_id}.claim" for o in same),
+                ),
+                period=period,
+            )
+            b.value(
+                ("T4E.4", r, "shortfall"),
+                "Shortfall",
+                x.shortfall,
+                "amount",
+                "Claim - distribution",
+                (f"T4E.4.{r}.claim", f"T4E.4.{r}.distribution"),
+                period=period,
+            )
+            b.row("T4E.4", r, lab, ("claim", "value_available", "distribution", "shortfall"))
+            b.value(
+                ("T4E.5", r, "recovery"),
+                "Recovery",
+                x.recovery,
+                "percent",
+                "Value paid to the rank / total claims of the rank",
+                (f"T4E.4.{r}.distribution", f"T4E.4.{r}.claim"),
+                period=period,
+            )
+            base = run.falls[first_case].classes[k.class_id].recovery
+            change = ("T4E.5", r, "vs_first_pp")
+            change_label = "Change from first valuation"
+            if r0 == first_case:
+                b.gap(
+                    change,
+                    change_label,
+                    "pp",
+                    FIRST_BASE,
+                    period=run.basis.ltm_period,
+                    status="not_applicable",
+                )
+            elif x.recovery.amount is None or base.amount is None:
+                reason = x.recovery.reason or base.reason
+                assert reason is not None
+                b.gap(change, change_label, "pp", reason, period=run.basis.ltm_period)
+            else:
+                b.num(
+                    change,
+                    change_label,
+                    _pp(x.recovery.amount, base.amount),
+                    "pp",
+                    "(recovery - first-valuation recovery) x 100, percentage points",
+                    period=period,
+                    derives=(f"T4E.5.{r}.recovery", f"T4E.5.{first_case}{k.class_id}.recovery"),
+                )
+            b.row("T4E.5", r, lab, ("recovery", "vs_first_pp"))
+            b.value(
+                ("T4E.6", r, "claims_ahead"),
+                "Claims ahead",
+                x.ahead,
+                "amount",
+                "Claims of better-ranked classes",
+                tuple(f"T4E.4.{r0}{o.class_id}.claim" for o in better),
+                period=period,
+            )
+            b.value(
+                ("T4E.6", r, "claims_through"),
+                "Claims through the class",
+                x.through,
+                "amount",
+                "Claims ahead + claims of the rank",
+                tuple(f"T4E.4.{r0}{o.class_id}.claim" for o in classes if o.rank <= k.rank),
+                period=period,
+            )
+            _multiple_of(
+                ("T4E.6", r, "attach_multiple"),
+                "Attachment multiple",
+                b,
+                x.ahead,
+                val.ebitda,
+                "Claims ahead / EBITDA",
+                (f"T4E.6.{r}.claims_ahead", f"T4E.3.{r0}.ebitda"),
+                period,
+            )
+            _multiple_of(
+                ("T4E.6", r, "detach_multiple"),
+                "Detachment multiple",
+                b,
+                x.through,
+                val.ebitda,
+                "Claims through the class / EBITDA",
+                (f"T4E.6.{r}.claims_through", f"T4E.3.{r0}.ebitda"),
+                period,
+            )
+            b.row(
+                "T4E.6",
+                r,
+                lab,
+                ("claims_ahead", "claims_through", "attach_multiple", "detach_multiple"),
+            )
+            b.text(
+                ("T4E.8", r, "treatment"),
+                "Treatment",
+                treat[r0][k.class_id],
+                value_class="analyst_judgment",
+            )
+            known = x.recovery.amount is not None
+            b.text(
+                ("T4E.8", r, "fit"),
+                "Fit with the waterfall",
+                FITS if known else UNDETERMINED,
+                derives=(f"T4E.5.{r}.recovery",) if known else (),
+            )
+            b.row("T4E.8", r, lab, ("treatment", "fit"))
+        r = f"{r0}eq"
+        lab = f"{v.label} · Equity"
+        b.gap(
+            ("T4E.4", r, "claim"),
+            "Claim",
+            "amount",
+            NO_CLAIM,
+            period=period,
+            status="not_applicable",
+        )
+        b.value(
+            ("T4E.4", r, "value_available"),
+            "Value available to the class",
+            w.residual,
+            "amount",
+            "Enterprise value less all creditor distributions",
+            (f"T4E.3.{r0}.ev", *(f"T4E.4.{r0}{o.class_id}.distribution" for o in classes)),
+            period=period,
+        )
+        b.value(
+            ("T4E.4", r, "distribution"),
+            "Distribution",
+            w.residual,
+            "amount",
+            "Residual value",
+            (f"T4E.4.{r}.value_available",),
+            period=period,
+        )
+        b.gap(
+            ("T4E.4", r, "shortfall"),
+            "Shortfall",
+            "amount",
+            NO_CLAIM,
+            period=period,
+            status="not_applicable",
+        )
+        b.row("T4E.4", r, lab, ("claim", "value_available", "distribution", "shortfall"))
+        b.gap(
+            ("T4E.5", r, "recovery"),
+            "Recovery",
+            "percent",
+            NO_RECOVERY,
+            period=period,
+            status="not_applicable",
+        )
+        b.gap(
+            ("T4E.5", r, "vs_first_pp"),
+            "Change from first valuation",
+            "pp",
+            NO_RECOVERY,
+            period=period,
+            status="not_applicable",
+        )
+        b.row("T4E.5", r, lab, ("recovery", "vs_first_pp"))
+        b.text(
+            ("T4E.8", r, "treatment"),
+            "Treatment",
+            treat[r0][EQUITY],
+            value_class="analyst_judgment",
+        )
+        known = w.residual.amount is not None
+        b.text(
+            ("T4E.8", r, "fit"),
+            "Fit with the waterfall",
+            FITS if known else UNDETERMINED,
+            derives=(f"T4E.4.{r}.distribution",) if known else (),
+        )
+        b.row("T4E.8", r, lab, ("treatment", "fit"))
+
+
+def _joined(names: Sequence[str]) -> str:
+    return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+
+
+EQUITY_BREAK = "Equity (every creditor class is paid in full)"
+NOT_IMPAIRED = "No creditor class is impaired"
+_FIELDS_T4E7 = ("value_break", "analyst_fulcrum", "agreement", "ev_cover", "break_multiple")
+_FIELDS_T4E9 = ("ev", "total_claims", "creditor_distributions", "equity_residual", "balance")
+
+
+def _fulcrum_and_totals(b: _Book, run: _Run) -> None:
+    names = {c.class_id: c.name for c in run.sub.claims}
+    ids = [k.class_id for k in run.classes]
+    named = {f.case_id: f.class_ids for f in run.sub.fulcrum}
+    for v in run.sub.valuation:
+        r, w, val = v.case_id, run.falls[v.case_id], run.values[v.case_id]
+        period = str(val.source.fact.period)
+        brk = w.value_break
+        if brk is None:
+            assert w.break_reason is not None
+            b.unsettled_text(
+                ("T4E.7", r, "value_break"), "Where value breaks", w.break_reason, "missing"
+            )
+        elif brk == (EQUITY,):
+            b.text(
+                ("T4E.7", r, "value_break"),
+                "Where value breaks",
+                EQUITY_BREAK,
+                derives=tuple(f"T4E.5.{r}{i}.recovery" for i in ids),
+            )
+        else:
+            b.text(
+                ("T4E.7", r, "value_break"),
+                "Where value breaks",
+                _joined([names[i] for i in brk]),
+                derives=tuple(f"T4E.5.{r}{i}.recovery" for i in brk),
+            )
+        judged = named[r]
+        b.text(
+            ("T4E.7", r, "analyst_fulcrum"),
+            "Fulcrum named by the analyst",
+            _joined(["Equity" if i == EQUITY else names[i] for i in judged])
+            if judged
+            else "None named",
+            value_class="analyst_judgment",
+        )
+        agrees = brk is not None and sorted(judged) == sorted(brk)
+        if brk is not None and not agrees:  # content_issues refuses this before composition
+            raise ValueError(f"CP-4C: the analyst's fulcrum of {r} disagrees with the waterfall")
+        b.text(
+            ("T4E.7", r, "agreement"),
+            "Agreement",
+            "Agrees with the waterfall" if agrees else "Value break not determinable",
+            derives=(f"T4E.7.{r}.value_break", f"T4E.7.{r}.analyst_fulcrum")
+            if brk is not None
+            else (),
+        )
+        ev, total = val.ev, w.total_claims
+        if ev.amount is None or total.amount is None:
+            cover = ev if ev.amount is None else total
+        else:
+            cover = Val(_div(ev.amount, total.amount))
+        b.value(
+            ("T4E.7", r, "ev_cover"),
+            "Enterprise value / total claims",
+            cover,
+            "multiple",
+            "Enterprise value / total claims",
+            (f"T4E.3.{r}.ev", f"T4E.9.{r}.total_claims"),
+            period=period,
+        )
+        at, label = (
+            ("T4E.7", r, "break_multiple"),
+            "EBITDA multiple needed to cover the fulcrum class",
+        )
+        if brk == (EQUITY,):
+            b.gap(at, label, "multiple", NOT_IMPAIRED, period=period, status="not_applicable")
+        elif brk is None:
+            assert w.break_reason is not None
+            b.gap(at, label, "multiple", w.break_reason, period=period)
+        else:
+            assert w.break_through is not None
+            _multiple_of(
+                at,
+                label,
+                b,
+                Val(w.break_through),
+                val.ebitda,
+                "Claims through the fulcrum rank / EBITDA",
+                (f"T4E.6.{r}{brk[0]}.detach_multiple",),
+                period,
+            )
+        b.row("T4E.7", r, v.label, _FIELDS_T4E7)
+        dists = [w.classes[i].distribution for i in ids]
+        blocked = next((d for d in dists if d.amount is None), None)
+        if blocked is None:  # summed exactly, never in the rounding context (round 8 A-1 #5)
+            paid = Val(_exact_sum([a for d in dists if (a := d.amount) is not None]))
+        else:
+            paid = blocked
+        b.value(
+            ("T4E.9", r, "ev"),
+            "Enterprise value",
+            ev,
+            "amount",
+            "From T4E.3",
+            (f"T4E.3.{r}.ev",),
+            period=period,
+        )
+        b.value(
+            ("T4E.9", r, "total_claims"),
+            "Total creditor claims",
+            total,
+            "amount",
+            "Sum of the claims of the creditor classes",
+            tuple(f"T4E.2.{i}.claim" for i in ids),
+            period=period,
+        )
+        b.value(
+            ("T4E.9", r, "creditor_distributions"),
+            "Distributions to creditors",
+            paid,
+            "amount",
+            "Sum of creditor distributions",
+            tuple(f"T4E.4.{r}{i}.distribution" for i in ids),
+            period=period,
+        )
+        b.value(
+            ("T4E.9", r, "equity_residual"),
+            "Residual to equity",
+            w.residual,
+            "amount",
+            "From T4E.4",
+            (f"T4E.4.{r}eq.distribution",),
+            period=period,
+        )
+        e, dsum, left = ev.amount, paid.amount, w.residual.amount
+        if e is None or left is None:
+            balance = ev if e is None else w.residual
+        elif dsum is None:  # a blocked share blocks the residual too
+            raise ValueError(f"CP-4C: {r} has a residual but a missing share; invariant broken")
+        else:
+            gap = _exact_sum([e, dsum.copy_negate(), left.copy_negate()])
+            if gap != 0:  # the exact allocation conserves the enterprise value (round 8 A-1 #5)
+                raise AssertionError(f"CP-4C: T4E.9 of {r} is off by {gap}; conservation broken")
+            balance = Val(gap)
+        b.value(
+            ("T4E.9", r, "balance"),
+            "Balance",
+            balance,
+            "amount",
+            "Enterprise value - creditor distributions - residual",
+            (f"T4E.9.{r}.ev", f"T4E.9.{r}.creditor_distributions", f"T4E.9.{r}.equity_residual"),
+            period=period,
+        )
+        b.row("T4E.9", r, v.label, _FIELDS_T4E9)
+
+
+def _t4e10(b: _Book, run: _Run) -> None:
+    for n, gap in enumerate(run.sub.gaps, 1):
+        r = f"g{n:02d}"
+        b.text(("T4E.10", r, "id"), "Gap id", f"CP-4C-GAP-{n:03d}")
+        for name, label in (
+            ("gap", "Gap"),
+            ("why_it_matters", "Why it matters"),
+            ("affected_analysis", "Affected analysis"),
+        ):
+            b.text(("T4E.10", r, name), label, getattr(gap, name), value_class="analyst_judgment")
+        b.text(("T4E.10", r, "severity"), "Severity", gap.severity)
+        b.text(("T4E.10", r, "action"), "Action", gap.action, value_class="analyst_judgment")
+        b.row(
+            "T4E.10",
+            r,
+            f"Gap {n}",
+            ("id", "gap", "why_it_matters", "affected_analysis", "severity", "action"),
+        )
+
+
+def _references(
+    sub: RestructuringSubmission, ctx: Cp4cContext
+) -> tuple[RefTable, RefTable, RefTable, RefTable]:
+    """The four reference tables: the upstream facts verbatim (expected.references_rule)."""
+    cp1 = select_cp1(ctx.cp1.t410, ctx.basis)
+    cp1_rows = [
+        Reference(f"ref{n:02d}", f"{cp1[m].label} · {cp1[m].period}", cp1[m])
+        for n, m in enumerate(CP1_METRICS, 1)
+    ]
+    for f in (ctx.cp1.secured_status, ctx.cp1.seniority):
+        label = f"T4.18 · {ctx.cp1.facility_id} · {f.field} · {f.period}"
+        cp1_rows.append(Reference(f"ref{len(cp1_rows) + 1:02d}", label, f))
+    used: dict[str, Fact] = {}
+    for v in sub.valuation:
+        f = ctx.cp2g.of(v.ebitda_case, v.ebitda_year, ctx.basis).fact
+        used.setdefault(f.fact_id, f)  # one row per distinct fact id
+    cp2g_facts = [*used.values(), ctx.cp2g.base_first, ctx.cp2g.down_first]
+    row = _scenario_row(ctx.cp2g)
+    cp2a_facts = [ctx.cp2a.fact(f"T2B.1.{row}.{name}") for name in ("name", *_SHOCKS)]
+    cp4_facts = [ctx.cp4.fact(fid) for fid in CP4_FACTS]
+
+    def refs(facts: Sequence[Fact]) -> tuple[Reference, ...]:
+        return tuple(Reference(f"ref{n:02d}", f.label, f) for n, f in enumerate(facts, 1))
+
+    return (
+        RefTable(
+            "cp1_references",
+            "CP-1 facts referenced in CP-4C text and copied into T4E.2 and T4E.3",
+            "CP-1 fact",
+            tuple(cp1_rows),
+        ),
+        RefTable(
+            "cp2g_references",
+            "CP-2G facts read by CP-4C (T2H.4 EBITDA, T2H.7 first year of the free cash flow test)",
+            "CP-2G fact",
+            refs(cp2g_facts),
+        ),
+        RefTable(
+            "cp2a_references",
+            "CP-2A facts read by CP-4C (T2B.1 scenario applied by CP-2G)",
+            "CP-2A fact",
+            refs(cp2a_facts),
+        ),
+        RefTable(
+            "cp4_references",
+            "CP-4 facts read by CP-4C (T4C.11, T4.10, T4.13)",
+            "CP-4 fact",
+            refs(cp4_facts),
+        ),
+    )
+
+
+VAL_LIMIT = "Valuation on analyst-assumed multiples"
+
+
+def _figures(text: str) -> list[str]:
+    return [run.text for run in prose.tokenize(text) if run.figure]
+
+
+def _claims(b: _Book, run: _Run, references: Sequence[RefTable]) -> tuple[Claim, ...]:
+    upstream = {r.fact.fact_id for t in references for r in t.rows}
+
+    def ref(fid: str, token: str) -> str:
+        return "{" + fid + "|" + token + "}" if b.status(fid) == "known" else f"[{fid}]"
+
+    def analyst(cid: str, text: str, limitation: str | None) -> Claim:
+        return Claim(cid, text, limitation, tuple(f for f in _figures(text) if f in upstream))
+
+    sub, unit = run.sub, run.basis.money_unit
+    out = [analyst(f"T4E.2.{c.class_id}.rationale", c.rationale, c.limitation) for c in sub.claims]
+    out += [
+        analyst(f"T4E.3.{v.case_id}.rationale", v.rationale, v.limitation) for v in sub.valuation
+    ]
+    for v in sub.valuation:
+        r, lab = v.case_id, v.label.lower()
+        out.append(
+            Claim(
+                f"T4E.3.{r}.ev",
+                f"In the {lab} valuation, enterprise value is {ref(f'T4E.3.{r}.ev', unit)} on "
+                f"EBITDA of {ref(f'T4E.3.{r}.ebitda', unit)}.",
+                VAL_LIMIT,
+                (),
+            )
+        )
+    for v in sub.valuation:
+        r, lab = v.case_id, v.label.lower()
+        parts = "; ".join(
+            f"{c.name} {ref(f'T4E.5.{r}{c.class_id}.recovery', '%')}" for c in sub.claims
+        )
+        out.append(
+            Claim(
+                f"T4E.5.{r}",
+                f"In the {lab} valuation the classes recover as follows: {parts}.",
+                VAL_LIMIT,
+                (),
+            )
+        )
+    out += [analyst(f"T4E.7.{f.case_id}.rationale", f.rationale, f.limitation) for f in sub.fulcrum]
+    names = {c.class_id: c.name for c in sub.claims}
+    for v in sub.valuation:
+        r, lab, brk = v.case_id, v.label.lower(), run.falls[v.case_id].value_break
+        if brk is None:
+            text = (
+                f"In the {lab} valuation the fulcrum cannot be determined: [T4E.7.{r}.value_break]."
+            )
+        elif brk == (EQUITY,):
+            text = (
+                f"In the {lab} valuation every creditor class is paid in full and equity is the "
+                "residual claimant."
+            )
+        else:
+            one = len(brk) == 1
+            text = (
+                f"In the {lab} valuation value breaks at {_joined([names[i] for i in brk])}, which "
+                f"{'is' if one else 'are'} the fulcrum; {'it is' if one else 'they are'} covered "
+                f"in full only at an EBITDA multiple of {ref(f'T4E.7.{r}.break_multiple', 'x')}."
+            )
+        out.append(Claim(f"T4E.7.{r}.fulcrum", text, VAL_LIMIT, ()))
+    out += [analyst(f"T4E.8.{p.case_id}.rationale", p.rationale, p.limitation) for p in sub.plan]
+    a = sub.assessment
+    out.append(analyst("T4E.3.assessment", a.rationale, a.limitation))
+    return tuple(out)
+
+
+def _fixed_limitations(basis: PeriodBasis) -> tuple[str, ...]:
+    """The own limitations every run states; the claims one names the run's balance date."""
+    return (
+        (
+            "Multiples, claim ranks and plan treatment are analyst assumptions without a source "
+            "citation; no market or restructuring-plan source is an input."
+        ),
+        (
+            "Value available to claims is the enterprise value only: balance-sheet cash is not added and "
+            "restructuring, administrative and financing costs are not deducted unless a claim class "
+            "states them."
+        ),
+        (
+            "The waterfall applies strict priority by the analyst's rank number; classes of one rank "
+            "share pro rata. Collateral value, guarantees, structural subordination and intercreditor "
+            "terms are not modelled."
+        ),
+        (
+            f"Claims are the {basis.balance_date_text} balances: accrued interest, fees, make-whole "
+            "amounts, lease and pension claims, contingent and rejection-damage claims are not "
+            "stated in any source and are not modelled; they are not zero."
+        ),
+        (
+            "New-money or priming debt is not modelled: the legal source requires the consent of every "
+            "lender for additional debt, so no debt-in-possession financing is assumed."
+        ),
+        (
+            "Enterprise value is the analyst's multiple applied to a CP-2G forecast EBITDA that rests on "
+            "analyst-assumed drivers; it is not a market or court valuation."
+        ),
+        (
+            "The fulcrum is the first rank whose recovery is below its claim; the analyst's named fulcrum "
+            "is checked against it. Plan treatment is checked for fit with the recovery, not for legal "
+            "feasibility."
+        ),
+        (
+            "Recoveries are not probability-weighted and the valuations are not scenarios of equal "
+            "likelihood."
+        ),
+        CP3C_UNREAD,
+        (
+            "The lender protection rating is read from CP-4 and stays Insufficient Information: security, "
+            "guarantee, default, cure and voting terms are not supplied."
+        ),
+    )
+
+
+_NC = "Not calculable: "
+
+
+def _selection_line(run: _Run) -> list[str]:
+    """The one limitation of the CP-1C selection (Design 11): the multiple, its basis and EBITDA
+    basis, the CP-2G case and year it is applied to, and that no LTM/NTM alignment is made; or,
+    when the context pin governs, that the selection is not applied. Nothing when no multiple was
+    selected."""
+    sel = run.selection
+    if sel is None:
+        return []
+    held = f"{sel.two_dp}x (basis {sel.basis}, EBITDA basis {sel.ebitda_basis})"
+    if run.pin is not None:
+        return [
+            (
+                f"CP-1C selected {held}; the context pins the EV multiple at {run.pin}, which "
+                f"governs, so the selection is not applied. {NO_ALIGNMENT}"
+            )
+        ]
+    first = run.sub.valuation[0]
+    word = CASE_WORD[first.ebitda_case]
+    return [
+        (
+            f"The EV multiple is the CP-1C selected multiple {held}, applied to the CP-2G forecast "
+            f"EBITDA of each valuation case ({word} case {first.ebitda_year} for the {word} "
+            f"valuation); {NO_ALIGNMENT[0].lower()}{NO_ALIGNMENT[1:]}"
+        )
+    ]
+
+
+def _own_limitations(run: _Run) -> tuple[str, ...]:
+    out = list(_fixed_limitations(run.basis))
+    for k in run.classes:
+        if k.claim.amount is None:
+            reason = str(k.claim.reason).replace(_NC, "")
+            out.append(
+                f"The claim of {k.name} is not available: {reason}; every recovery at or below "
+                "its rank is Not calculable."
+            )
+    for v in run.sub.valuation:
+        ev = run.values[v.case_id].ev
+        if ev.amount is None:
+            reason = str(ev.reason).replace(_NC, "")
+            out.append(
+                f"The enterprise value of the {v.label.lower()} valuation is not available: "
+                f"{reason}; every recovery in it is Not calculable."
+            )
+    for v in run.sub.valuation:
+        if run.falls[v.case_id].value_break is None and run.values[v.case_id].ev.amount is not None:
+            out.append(
+                f"The fulcrum of the {v.label.lower()} valuation cannot be determined, so the "
+                "analyst names none."
+            )
+    out += [f"Gap ({g.severity}): {g.gap}" for g in run.sub.gaps]
+    out += _selection_line(run)
+    if run.pinned:
+        out.append(pinned_line(MODULE_ID))
+    return tuple(out)
+
+
+def compute(inputs: Cp4cInputs) -> RestructuringResult:
+    """The restructuring waterfall of one valid submission. Raises ValueError on any issue, on a
+    fail-closed state (round 8 A-2 #4, #13, A-1 state 14) or a broken invariant, and
+    AssertionError if T4E.9 does not balance exactly."""
+    run = _resolve(inputs)
+    b = _Book(currency=run.basis.currency)
+    _t4e1(b, run)
+    _t4e2(b, run)
+    _t4e3(b, run)
+    _allocation(b, run)
+    _fulcrum_and_totals(b, run)
+    _t4e10(b, run)
+    references = _references(run.sub, run.ctx)
+    claims = _claims(b, run, references)
+    cells = b.cells(run.upstream)
+    bound = prose.bind((*(c.fact for c in cells), *(r.fact for t in references for r in t.rows)))
+    names = (run.ctx.pack.run.issuer_name,)
+    for claim in claims:  # Python wording around analyst names (class names, labels) must hold
+        found = prose.issues(claim.text, bound, names=names)
+        if found:
+            raise ValueError(
+                f"CP-4C: claim {claim.claim_id} is not valid run text ({'; '.join(found)}): a "
+                "class name or valuation label carries a figure or a reserved character; an "
+                "invariant raise (round 8 A-2 #9)"
+            )
+    return RestructuringResult(
+        cells=cells,
+        tables=tuple(Table(t, title, tuple(b.rows[t])) for t, title in TABLES.items()),
+        references=references,
+        claims=claims,
+        own_limitations=_own_limitations(run),
+        waterfalls=run.falls,
+        enterprise_values={k: v.ev for k, v in run.values.items()},
+    )
+
+
+# =============================================================================================
+# Stage 2: the connection (docs/CP4C-OWNER-LEASE.md Public API; G1-X protocol section 2). One
+# store adapter (`_inputs` over `cp4c_upstream`) serves submit, probe and view; the readers put
+# each settled head into the Stage 1 type the core reads. Everything above is the Stage 1 core.
+# =============================================================================================
+
+STEP_IDS = (STEP_ID,)
+QUALIFICATION = Qualification(implementation="implemented")
+SCHEMAS: Mapping[str, type[Contract]] = {STEP_ID: RestructuringSubmission}
+SUBMISSION_INPUT = STEP_ID.replace("_", "-") + "-submission"
+CP1, CP1C, CP2A, CP2G, CP4, CP3C = "CP-1", "CP-1C", "CP-2A", "CP-2G", "CP-4", "CP-3C"
+_SETTLED: Mapping[str, InputStatus] = {
+    "accepted": "accepted",
+    "restricted": "restricted",
+    "blocked": "blocked",
+}
+# manifest fact_selection_rule.cp1_t418: the secured facility, the two terms the core reads.
+FACILITY_ID = "term-loan"
+_T418_TERMS = ("secured_status", "seniority")
+# manifest fact_selection_rule.cp2g: the T2H.7 row of the first free cash flow break.
+CP2G_BREAK_ROW = "b01"
+# lease Public API `cp4_reader` (T4C.11, T4.10.r02, T4.13), as (table id, row id or None).
+_CP4_READ = (("T4C.11", None), ("T4.10", "r02"), ("T4.13", None))
+
+
+def _settled_module(store: Execution, head: Head, module_id: str) -> tuple[Module, InputStatus]:
+    """The head's module and its settled status; a stale head or another module's raises."""
+    if head.module_id != module_id:
+        raise ValueError(f"CP-4C: not a {module_id} head: {head.module_id}")
+    status = _SETTLED.get(head.status)
+    if status is None:
+        raise ValueError(f"CP-4C: the {module_id} head is {head.status}")
+    return store.head_module(head), status
+
+
+def _rows(module: Module, table_id: str) -> dict[str, dict[str, Fact]]:
+    rows: dict[str, dict[str, Fact]] = {}
+    for fact in module.facts:
+        if fact.table_id == table_id:
+            row = rows.setdefault(fact.row_id, {})
+            if fact.field in row:
+                raise ValueError(f"CP-4C: duplicate CP-1 coordinate {table_id}/{fact.row_id}")
+            row[fact.field] = fact
+    return rows
+
+
+def _known_text(row: Mapping[str, Fact], field_name: str) -> str | None:
+    fact = row.get(field_name)
+    return fact.text if fact is not None and fact.status == "known" else None
+
+
+def _quarter_period(module: Module) -> tuple[str, tuple[str, ...]]:
+    """The T4.18 period the terms are read at (manifest cp1_t418 rule): the QUARTER period at the
+    latest T4.14 period end wins over its FY alias. Returns it and the other periods ending that
+    day. No period, or no single quarter at the latest end, fails closed."""
+    ends: dict[str, tuple[str, str]] = {}
+    for row in _rows(module, "T4.14").values():
+        pid = _known_text(row, "period_id")
+        kind, end = _known_text(row, "period_type"), _known_text(row, "end_date")
+        if pid is not None and kind is not None and end is not None:
+            ends[pid] = (kind, end)
+    if not ends:
+        raise ValueError("CP-4C: CP-1 states no T4.14 period")
+    latest = max(end for _, end in ends.values())
+    current = tuple(pid for pid, (_, end) in ends.items() if end == latest)
+    quarters = tuple(pid for pid in current if ends[pid][0] == "QUARTER") or current
+    if len(quarters) != 1:
+        raise ValueError(f"CP-4C: CP-1 has no single current T4.18 period at {latest}")
+    (period,) = quarters
+    return period, tuple(pid for pid in current if pid != period)
+
+
+def _facility_terms(module: Module) -> tuple[Fact, Fact]:
+    """The secured facility's T4.18 `secured_status` and `seniority` facts at the quarter period;
+    an alias row of the same period end must state the same terms. A missing row or term, two
+    rows of one period, or an alias that differs fails closed."""
+    period, aliases = _quarter_period(module)
+    by_period: dict[str, dict[str, Fact]] = {}
+    for row in _rows(module, "T4.18").values():
+        if _known_text(row, "facility_id") != FACILITY_ID:
+            continue
+        pid = _known_text(row, "period_id")
+        if pid is None:
+            raise ValueError(f"CP-4C: a CP-1 T4.18 {FACILITY_ID} row states no period_id")
+        if pid in by_period:
+            raise ValueError(f"CP-4C: CP-1 T4.18 has two {FACILITY_ID} rows for {pid}")
+        by_period[pid] = row
+    chosen = by_period.get(period)
+    if chosen is None or any(term not in chosen for term in _T418_TERMS):
+        raise ValueError(f"CP-4C: CP-1 T4.18 states no {FACILITY_ID} terms for {period}")
+    for alias in aliases:
+        other = by_period.get(alias) or {}
+        for term in _T418_TERMS if other else ():
+            mine, theirs = chosen[term], other.get(term)
+            if theirs is None or (mine.status, mine.text) != (theirs.status, theirs.text):
+                raise ValueError(
+                    f"CP-4C: {FACILITY_ID} {term} differs between its {period} row and its "
+                    f"{alias} alias"
+                )
+    return chosen["secured_status"], chosen["seniority"]
+
+
+def _ltm_facts(facts: Iterable[Fact]) -> tuple[Fact, ...]:
+    """The T4.10 LTM total debt and EBITDA facts of every LTM column, in `CP1_METRICS` order. The
+    run's column is chosen later (`select_cp1` on its `PeriodBasis`): the reader has no context,
+    so it cannot tell which year the run is on."""
+    ltm = [f for f in facts if f.table_id == "T4.10" and f.label.startswith("LTM ")]
+    return tuple(f for metric in CP1_METRICS for f in ltm if f.label.endswith(f" · {metric}"))
+
+
+def cp1_of(module: Module, status: InputStatus) -> Cp1Head:
+    """A settled CP-1 module as the core reads it: its T4.10 LTM total debt and EBITDA facts
+    (`_ltm_facts`; `select_cp1` picks the run's column) and the secured facility's T4.18 terms."""
+    if module.module_id != CP1:
+        raise ValueError(f"CP-4C: not a CP-1 head: {module.module_id}")
+    secured, seniority = _facility_terms(module)
+    return Cp1Head(
+        status=status,
+        t410=_ltm_facts(module.facts),
+        facility_id=FACILITY_ID,
+        secured_status=secured,
+        seniority=seniority,
+    )
+
+
+def cp2a_of(module: Module, status: InputStatus) -> Cp2aHead:
+    """A settled CP-2A module: every T2B.1 fact in head order. The row the core reads is named by
+    the CP-2G T2H.3 source texts (lease amendment, round 13 item 2), not here."""
+    if module.module_id != CP2A:
+        raise ValueError(f"CP-4C: not a CP-2A head: {module.module_id}")
+    return Cp2aHead(status=status, facts=tuple(f for f in module.facts if f.table_id == "T2B.1"))
+
+
+def cp4_of(module: Module, status: InputStatus) -> Cp4Head:
+    """A settled CP-4 module: its T4C.11, T4.10 row r02 and T4.13 facts in head order."""
+    if module.module_id != CP4:
+        raise ValueError(f"CP-4C: not a CP-4 head: {module.module_id}")
+    facts = tuple(
+        f
+        for f in module.facts
+        if any(f.table_id == t and r in (None, f.row_id) for t, r in _CP4_READ)
+    )
+    return Cp4Head(status=status, facts=facts)
+
+
+_FORECAST_ROWS = (26, 27, 28)  # the T2H.4 row numbers of the three forecast years, by position
+_YEAR_PERIOD = re.compile(r"(FY[0-9]{4}):")
+
+
+def _year_of(fact: Fact) -> str:
+    """The forecast year a CP-2G EBITDA fact states in its period (`FY2027: 2027-01-01 to ...`).
+    The reader has no context; `Cp2gHead.of` checks the year against the run's basis."""
+    found = _YEAR_PERIOD.match(fact.period or "")
+    if found is None:
+        raise ValueError(f"CP-4C: the CP-2G EBITDA {fact.fact_id} states no forecast year period")
+    return found[1]
+
+
+def cp2g_of(read: cp2g.Cp2gHead) -> Cp2gHead:
+    """The CP-2G reader's output selected into the core's type (rulings stage2 Q6): the six
+    T2H.4 EBITDA facts, the T2H.7.b01 first years and the two T2H.3 source texts. A blocked head
+    is refused: CP-2G is a required edge, so it is never bound blocked."""
+    if read.status == "blocked":
+        raise ValueError("CP-4C: the CP-2G head is blocked")
+    ebitda = tuple(
+        Cp2gEbitda(case=case, year=_year_of(fact), fact=fact)
+        for case in CASE_ROW
+        for fact in (read.fact(f"T2H.4.{CASE_ROW[case]}{n}.ebitda") for n in _FORECAST_ROWS)
+    )
+    return Cp2gHead(
+        status=read.status,
+        ebitda=ebitda,
+        base_first=read.fact(f"T2H.7.{CP2G_BREAK_ROW}.base_first"),
+        down_first=read.fact(f"T2H.7.{CP2G_BREAK_ROW}.down_first"),
+        down_ebitda_source=read.fact("T2H.3.d01.source"),
+        down_interest_source=read.fact("T2H.3.d02.source"),
+    )
+
+
+def _required_module(store: Execution, head: Head, module_id: str) -> tuple[Module, InputStatus]:
+    """`_settled_module` of a required edge (methodology: CP-1, CP-2A, CP-4 and CP-2G, no edge
+    rule), so a blocked head is never bound and is refused here."""
+    module, status = _settled_module(store, head, module_id)
+    if status == "blocked":
+        raise ValueError(f"CP-4C: the {module_id} head is blocked")
+    return module, status
+
+
+def cp2a_reader(store: Execution, head: Head) -> Cp2aHead:
+    """D3: the T2B.1 facts of a settled CP-2A head (`cp2a_of`)."""
+    return cp2a_of(*_required_module(store, head, CP2A))
+
+
+def cp4_reader(store: Execution, head: Head) -> Cp4Head:
+    """D3: the T4C.11, T4.10.r02 and T4.13 facts of a settled CP-4 head (`cp4_of`)."""
+    return cp4_of(*_required_module(store, head, CP4))
+
+
+@dataclass(frozen=True)
+class Upstream:
+    """What one CP-4C attempt binds, read once from the journal (`cp4c_upstream`).
+
+    `bound` is the attempt's input set; `current` is `execution.current_inputs` now, or its
+    refusal text; `cp1`, `cp2a`, `cp2g` and `cp4` are the bound heads as the core reads them;
+    `inherited` is what settlement will carry from the bound heads; `cp1c` is the bound CP-1C head
+    through `cp1c_reader` (Phase 7), None when the attempt binds none."""
+
+    bound: tuple[Input, ...]
+    current: tuple[Input, ...] | str
+    cp1: Cp1Head
+    cp2a: Cp2aHead
+    cp2g: Cp2gHead
+    cp4: Cp4Head
+    inherited: tuple[str, ...] = ()
+    cp1c: Cp1cHead | None = None  # read only when the attempt binds a CP-1C input
+    # The bound CP-1 head's T4.14 period register: what the run's `PeriodBasis` is dated from
+    # (`run_basis`). Empty for an upstream built without one, which only the default basis reads.
+    register: tuple[Fact, ...] = ()
+
+    def status(self, input_id: str) -> InputStatus | None:
+        return next((item.status for item in self.bound if item.input_id == input_id), None)
+
+
+def _bound_head(store: Execution, attempt: Attempt, module_id: str) -> Head:
+    """The head record of the module the attempt bound as `module_id` (its blob checked)."""
+    item = next((i for i in attempt.inputs if i.input_id == module_id), None)
+    if item is None:
+        raise ValueError(f"The CP-4C attempt binds no {module_id} input")
+    module = store.result(item.sha256)
+    if module.module_id != module_id:
+        raise ValueError(f"The CP-4C attempt's {module_id} input is a {module.module_id} module")
+    return Head(
+        module_id=module_id,
+        status=item.status,
+        result_sha256=item.sha256,
+        inputs=module.inputs,
+        commands=commands_of(module),
+    )
+
+
+def _bound_cp1c(store: Execution, attempt: Attempt) -> Cp1cHead | None:
+    """The bound CP-1C head through its reader, None when the attempt binds no CP-1C input (the
+    optional edge binds only when CP-1C is requested)."""
+    if not any(item.input_id == CP1C for item in attempt.inputs):
+        return None
+    return cp1c_reader(store, _bound_head(store, attempt, CP1C))
+
+
+def cp4c_upstream(*, store: Execution, attempt: Attempt) -> Upstream:
+    """The bound CP-1, CP-2A, CP-4 and CP-2G heads through their readers (CP-2G's is
+    `owners.cp2g.cp2g_reader`), the current input set and the inherited limitations. A refusal
+    of `current_inputs` (an upstream gone stale, unrun or blocked, or CP-0 no longer authorizing
+    CP-4C) is kept as text: the validator reports it as a staleness issue."""
+    snapshot = store.read()
+    current: tuple[Input, ...] | str
+    try:
+        current = current_inputs(snapshot, MODULE_ID)
+    except ValueError as error:  # NotAuthorized included: reported, never passed as current
+        current = str(error)
+
+    def head(module_id: str) -> Head:
+        return _bound_head(store, attempt, module_id)
+
+    cp1_module, cp1_status = _required_module(store, head(CP1), CP1)
+    bound_cp1c = _bound_cp1c(store, attempt)
+    return Upstream(
+        bound=attempt.inputs,
+        current=current,
+        cp1=cp1_of(cp1_module, cp1_status),
+        cp2a=cp2a_reader(store, head(CP2A)),
+        cp2g=cp2g_of(cp2g.cp2g_reader(store, head(CP2G))),
+        cp4=cp4_reader(store, head(CP4)),
+        inherited=inherited_limitations(snapshot, attempt, (), store.head_module),
+        cp1c=bound_cp1c,
+        register=tuple(f for f in cp1_module.facts if f.table_id == "T4.14"),
+    )
+
+
+def _frozen_context(pack: PreparedPack) -> RunContext | None:
+    """The pack's frozen context, None when it has none. A context the run refuses is read as
+    None here and is not hidden: `_pin_lines` reports it as the single `Context refused:` line in
+    the same `_lines` call, and `restructuring` raises on that line before it composes."""
+    try:
+        return context_facts(pack)
+    except ContextRefused:
+        return None
+
+
+def _basis_of(pack: PreparedPack, upstream: Upstream) -> PeriodBasis:
+    """The run's period and currency basis: the pack's context read against the bound CP-1 head's
+    T4.14 register (`run_basis`; P8-R3, a blank base under USD keeps the default). A pack without
+    a context, or whose context the run refuses, reads the default basis: the refused context is
+    reported as the single `Context refused:` line (`_pin_lines`, and the view's `context_issue`),
+    never hidden. A period or currency the basis refuses, or a base year that is not a calendar
+    year (CP-2G refuses those too, ruling P8T6-R1), raises `PeriodRefused`."""
+    basis = run_basis(_frozen_context(pack), upstream.register)
+    cp2g.require_calendar(basis)
+    return basis
+
+
+def _inputs(
+    pack: PreparedPack, submission: RestructuringSubmission, upstream: Upstream
+) -> Cp4cInputs:
+    """The store adapter: the bound heads as the Stage 1 `Cp4cInputs` the core reads, with the
+    status of a bound optional CP-3C (never read) and the run's basis. Submit, probe and view
+    reach the core only through this; callers have checked `_view_basis` first."""
+    context = Cp4cContext(
+        pack=pack,
+        cp1=upstream.cp1,
+        cp2a=upstream.cp2a,
+        cp2g=upstream.cp2g,
+        cp4=upstream.cp4,
+        cp3c_status=upstream.status(CP3C),
+        cp1c=upstream.cp1c,
+        context=_frozen_context(pack),
+        basis=_basis_of(pack, upstream),
+    )
+    return Cp4cInputs(context=context, submission=submission)
+
+
+def validate_restructuring(
+    *, pack: PreparedPack, submission: RestructuringSubmission, upstream: Upstream
+) -> tuple[str, ...]:
+    """Every issue of `submission` over the bound `upstream`: staleness alone when a bound
+    upstream changed (no content check runs on a stale upstream), else the core's content issues
+    in their pinned order; empty when it composes. A period or currency the run's basis refuses is
+    the one issue line (P8-R5)."""
+    stale = stale_issues(bound=upstream.bound, current=upstream.current)
+    if stale:
+        return stale
+    basis, issue = _view_basis(pack, upstream)
+    if basis is None:
+        return (str(issue),)
+    return content_issues(_inputs(pack, submission, upstream))
+
+
+def _pin_lines(pack: PreparedPack, submission: RestructuringSubmission) -> tuple[str, ...]:
+    """The lines where a submitted EV multiple differs from the context pin, each as typed (the
+    schema bounds the text: `MULTIPLE_PATTERN`), in case order; a context the run refuses is the
+    single line `Context refused: ...` and no pin line. Empty, and nothing mapped, when nothing
+    is pinned.
+
+    Precedence (controller ruling, Phase 7 Q4): when the pin is set it wins over any multiple
+    CP-1C selected. The check runs on the submitted multiples whatever the prompt or view
+    offered, so a multiple that equals an offer but not the pin is still refused."""
+    try:
+        if pins_of(MODULE_ID, pack) is None:
+            return ()
+        submitted = {"valuation[*].multiple": [v.multiple for v in submission.valuation]}
+        return pin_issues(MODULE_ID, pack, submitted)
+    except ContextRefused as error:
+        return (_context_line(error),)
+
+
+def _context_line(error: ContextRefused) -> str:
+    """The one issue line a refused context becomes."""
+    return clipped(("Context refused: ", str(error)))
+
+
+def _lines(
+    pack: PreparedPack, submission: RestructuringSubmission, upstream: Upstream
+) -> tuple[str, ...]:
+    """The content issues, then the pin lines (also after the stale-only return): the one issue
+    set of the step validator and the composer gate."""
+    content = validate_restructuring(pack=pack, submission=submission, upstream=upstream)
+    if _view_basis(pack, upstream)[0] is None:
+        return content  # a refusal is the one line, with no pin line beside it
+    return tuple(dict.fromkeys((*content, *_pin_lines(pack, submission))))
+
+
+class RestructuringReport(Contract):
+    """The retained step output: the composed content bound to the pack and the submission."""
+
+    schema_version: Literal["restructuring-fulcrum/1"] = "restructuring-fulcrum/1"
+    run: Run
+    pack_sha256: Hash
+    submission_sha256: Hash
+    tables: tuple[ReportTable, ...]
+    facts: tuple[Fact, ...]
+    claims: tuple[ModuleClaim, ...]
+    limitations: tuple[Text, ...]
+
+
+# T4E.10 can be empty (no gap), so its columns are fixed; every other T4E table takes its columns
+# from its first row's facts (one field sequence per table, builder-asserted).
+_GAP_COLUMNS = (
+    ("id", "Gap id"),
+    ("gap", "Gap"),
+    ("why_it_matters", "Why it matters"),
+    ("affected_analysis", "Affected analysis"),
+    ("severity", "Severity"),
+    ("action", "Action"),
+)
+_VALUE_COLUMN = (TableColumn(field="value", label="Value"),)
+
+
+def _report_table(table: Table, facts: Mapping[str, Fact]) -> ReportTable:
+    if table.table_id == "T4E.10":
+        columns = tuple(TableColumn(field=f, label=label) for f, label in _GAP_COLUMNS)
+    else:
+        first = (facts[fid] for fid in table.rows[0].fact_ids)
+        columns = tuple(TableColumn(field=f.field, label=f.label) for f in first)
+    rows = tuple(TableRow(row_id=r.row_id, label=r.label, fact_ids=r.fact_ids) for r in table.rows)
+    return ReportTable(table_id=table.table_id, title=table.title, columns=columns, rows=rows)
+
+
+def _placed_references(ref: RefTable) -> tuple[Fact, ...]:
+    """The upstream facts verbatim under their own ids in the reference table's cells
+    (expected.references_rule): only the table, row and field coordinates change."""
+    return tuple(
+        r.fact.model_copy(update={"table_id": ref.table_id, "row_id": r.row_id, "field": "value"})
+        for r in ref.rows
+    )
+
+
+def _reference_table(ref: RefTable) -> ReportTable:
+    return ReportTable(
+        table_id=ref.table_id,
+        title=ref.title,
+        columns=_VALUE_COLUMN,
+        rows=tuple(
+            TableRow(row_id=r.row_id, label=r.label, fact_ids=(r.fact.fact_id,)) for r in ref.rows
+        ),
+        row_header=ref.row_header,
+    )
+
+
+def restructuring(
+    *, pack: PreparedPack, submission: RestructuringSubmission, upstream: Upstream
+) -> RestructuringReport:
+    """The composed report of a valid submission; raises ValueError on any issue."""
+    issues = _lines(pack, submission, upstream)
+    if issues:
+        raise ValueError("; ".join(bounded_issues(issues)))
+    # `_lines` returns the `Context refused:` line for a refused context and `restructuring`
+    # raises on it above, so `pins_of` cannot raise here.
+    pinned = pins_of(MODULE_ID, pack) is not None
+    result = compute(replace(_inputs(pack, submission, upstream), pinned=pinned))
+    cells = {c.fact.fact_id: c.fact for c in result.cells}
+    return RestructuringReport(
+        run=pack.run,
+        pack_sha256=pack.content_hash(),
+        submission_sha256=submission.content_hash(),
+        tables=(
+            *(_report_table(t, cells) for t in result.tables),
+            *(_reference_table(r) for r in result.references),
+        ),
+        facts=(*cells.values(), *(f for r in result.references for f in _placed_references(r))),
+        claims=tuple(
+            ModuleClaim(claim_id=c.claim_id, text=c.text, citations=(), limitation=c.limitation)
+            for c in result.claims
+        ),
+        limitations=result.own_limitations,
+    )
+
+
+def cp4c_module(report: RestructuringReport, *, inputs: Sequence[Input], attempt: int) -> Module:
+    """The CP-4C candidate: the report's tables and claims bound to `inputs`, then the
+    submission's content hash (the owner-only settled tail, protocol section 2 `SCHEMAS`)."""
+    run = report.run
+    return Module(
+        run_id=run.run_id,
+        issuer_id=run.issuer_id,
+        as_of=run.as_of,
+        module_id=MODULE_ID,
+        inputs=(*inputs, Input(input_id=SUBMISSION_INPUT, sha256=report.submission_sha256)),
+        facts=report.facts,
+        tables=report.tables,
+        claims=report.claims,
+        limitations=report.limitations,
+        attempt=attempt,
+    )
+
+
+# --- the exact `read_inputs` view (lease Tool use; manifest.json tool_use.view_tree_draft) -----
+
+MULTIPLE_BOUNDS: Mapping[str, object] = {"max": "99.99", "places": 2, "may_be_not_assessed": True}
+
+
+def _figure(fact: Fact) -> dict[str, object]:
+    return {
+        "ref": fact.fact_id,
+        "label": fact.label,
+        "period": fact.period,
+        "unit": figure_unit(fact) or fact.unit,
+        "shown": spelled(fact),
+    }
+
+
+def _shown(fact: Fact) -> dict[str, object]:
+    return {"shown": spelled(fact) if fact.status == "known" else None, "status": fact.status}
+
+
+def _text_if_known(fact: Fact) -> str | None:
+    return fact.text if fact.status == "known" else None
+
+
+def _statement_rows(pack: PreparedPack) -> list[dict[str, object]]:
+    """Every row of a ready financial page under a `Period end` header whose cells line up with
+    the header (the rows `_row_amount` can read), as its label and the header's columns. Python
+    offers rows, not amounts, and classifies none: the analyst names the claim row."""
+    out: list[dict[str, object]] = []
+    for (source_id, _locator), page in _pages(pack).items():
+        header = _header(page) if source_id == "financial" else ()
+        for line in page.split("\n") if header else ():
+            cells = _CELLS.split(line)
+            if not line.startswith(_HEADER + "  ") and len(cells) == len(header):
+                out.append({"label": cells[0], "columns": list(header[1:])})
+    return out
+
+
+def _selection_error(upstream: Upstream, basis: PeriodBasis) -> str | None:
+    """`select_cp1`'s own text when CP-1 holds no single fact in the basis's column, else None."""
+    try:
+        select_cp1(upstream.cp1.t410, basis)
+    except ValueError as error:
+        return str(error)
+    return None
+
+
+def _view_basis(pack: PreparedPack, upstream: Upstream) -> tuple[PeriodBasis | None, str | None]:
+    """The run's basis and the issue line, shared by the entry validator and the view (P8-R5: the
+    view never raises on a context, period, currency or CP-1 selection refusal, and its
+    `context_issue` is the validator's text). A refused context keeps the default basis when that
+    selection succeeds (the frozen rendering) and offers nothing when it fails (ruling P8T4-R2);
+    a refused period or currency offers nothing; a failed selection under the run's basis is
+    `select_cp1`'s own text (ruling P8T6-R2, as CP-1C P8T2-I11) and offers nothing."""
+    try:
+        context_facts(pack)
+    except ContextRefused as error:
+        failed = _selection_error(upstream, DEFAULT_BASIS)
+        return (DEFAULT_BASIS if failed is None else None), _context_line(error)
+    try:
+        basis = _basis_of(pack, upstream)
+    except PeriodRefused as error:
+        return None, str(error)
+    failed = _selection_error(upstream, basis)
+    return (basis, None) if failed is None else (None, failed)
+
+
+def context_block(*, pack: PreparedPack, upstream: Upstream) -> dict[str, object]:
+    """What `read_inputs` returns, all Python's (lease Tool use): the upstream statuses, the
+    secured claim and the statement rows a class may read, the six CP-2G EBITDA facts, the CP-2A
+    scenario CP-2G applied, the CP-4 terms, the judgment bounds, the figures a reference may name
+    and the limitations settlement will inherit. Unsettled facts are offered with their status.
+    No quote, citation or record. A refused context, period or currency carries the validator's
+    line as `context_issue`; a refused period or currency, or a context whose default selection
+    fails, offers nothing else."""
+    basis, issue = _view_basis(pack, upstream)
+    if basis is None:
+        return {
+            "upstream": _upstream_rows(upstream),
+            "context_issue": issue,
+            "inherited_limitations": list(upstream.inherited),
+        }
+    block = _offered_block(pack, upstream, basis)
+    return block if issue is None else {**block, "context_issue": issue}
+
+
+def _upstream_rows(upstream: Upstream) -> list[dict[str, object]]:
+    return [
+        {"module_id": item.input_id, "status": item.status}
+        for item in upstream.bound
+        if item.input_id.startswith("CP-")
+    ]
+
+
+def _offered_block(pack: PreparedPack, upstream: Upstream, basis: PeriodBasis) -> dict[str, object]:
+    """The view's offered facts on `basis` (see `context_block`)."""
+    cp1 = select_cp1(upstream.cp1.t410, basis)
+    debt = cp1["total_debt"]
+    cp2g_head, cp2a_head, cp4_head = upstream.cp2g, upstream.cp2a, upstream.cp4
+    row = _scenario_row(cp2g_head)
+    allowed = frozenset(f.fact_id for f in referencable(cp1.values()))
+    ebitda = tuple(e.fact for e in cp2g_head.ebitda)
+    figures = frozenset(f.fact_id for f in referencable(ebitda))
+    return {
+        "upstream": _upstream_rows(upstream),
+        "claims_offered": {
+            "secured": {
+                "ref": debt.fact_id if debt.fact_id in allowed else None,
+                "shown": spelled(debt) if debt.status == "known" else None,
+                "status": debt.status,
+                "limitation": debt.limitation,
+                "secured_status": _text_if_known(upstream.cp1.secured_status),
+                "seniority": _text_if_known(upstream.cp1.seniority),
+                "facility_id": upstream.cp1.facility_id,
+                "facility": _text_if_known(cp4_head.fact(CP4_FACILITY)),
+            },
+            "statement_rows": _statement_rows(pack),
+        },
+        "ebitda_offered": [
+            {
+                "case": e.case,
+                "year": e.year,
+                "ref": e.fact.fact_id if e.fact.fact_id in figures else None,
+                "shown": spelled(e.fact) if e.fact.status == "known" else None,
+                "status": e.fact.status,
+                "limitation": e.fact.limitation,
+            }
+            for e in cp2g_head.ebitda
+        ],
+        "cp2a": {
+            "scenario_row": row,
+            "name": _text_if_known(cp2a_head.fact(f"T2B.1.{row}.name")),
+            **{name: _shown(cp2a_head.fact(f"T2B.1.{row}.{name}")) for name in _SHOCKS},
+        },
+        "cp4": {
+            "facility": _text_if_known(cp4_head.fact(CP4_FACILITY)),
+            "lender_protection": _text_if_known(cp4_head.fact(CP4_RATING)),
+            "additional_debt_conditions": _text_if_known(cp4_head.fact(CP4_CONDITIONS)),
+        },
+        "bounds": {
+            "multiple": dict(MULTIPLE_BOUNDS),
+            "ranks": {"min": 1, "max": 9},
+            "treatments": list(get_args(TreatmentKind)),
+        },
+        "cp1_facts": [_figure(f) for f in cp1.values() if f.fact_id in allowed],
+        "cp2g_facts": [_figure(f) for f in ebitda if f.fact_id in figures],
+        "inherited_limitations": list(upstream.inherited),
+        **_selection_view(upstream.cp1c),
+    }
+
+
+def _selection_view(head: Cp1cHead | None) -> dict[str, object]:
+    """The `selected_multiple` key of the view: offered only when a bound CP-1C head selected one
+    (Phase 7), under a context pin too (the rule then says the pin governs); else no key."""
+    selected = selected_multiple(head)
+    if selected is None:
+        return {}
+    return {
+        "selected_multiple": {
+            "shown": selected.shown,
+            "basis": selected.basis,
+            "ebitda_basis": selected.ebitda_basis,
+            "head_sha256": selected.head_sha256,
+        }
+    }
+
+
+def view(historical: Execution, attempt: Attempt) -> tuple[str, str]:
+    """(sha256, body) of the one `read_inputs` view over the bound heads, as compact JSON."""
+    upstream = cp4c_upstream(store=historical, attempt=attempt)
+    context = context_block(pack=historical.pack(), upstream=upstream)
+    body = json.dumps(context, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
+    return hashlib.sha256(body.encode()).hexdigest(), body
+
+
+# --- the tool-use rule, the validator, submit and the verifier probe ---------------------------
+
+
+def RULES(text: str, seen: Seen) -> tuple[str, ...]:
+    """The tool-use evidence rule (protocol section 2): every cited `page:N` was returned by
+    `read_pages` in the step. The schema holds no `ABSENCE_MARKERS` value, so the product's
+    cited-page rule (`live.tools.unread_citation_issues`, bounded by `listed_issues` and sorted)
+    is the only one; it reads the payload only through the product's bounded parse."""
+    return unread_citation_issues(text, seen)
+
+
+def _validate_step(store: Execution, pack: PreparedPack, attempt: Attempt) -> StepValidation:
+    """The step validator `submit` hands the journal and the verifier replays (its last step is
+    the one under validation)."""
+    submission, shape = _parsed(store.payload(attempt.steps[-1].payload_sha256))
+    if submission is None:
+        return StepValidation(issues=shape)
+    upstream = cp4c_upstream(store=store, attempt=attempt)
+    issues = _lines(pack, submission, upstream)
+    if issues:
+        return StepValidation(issues=issues)
+    report = restructuring(pack=pack, submission=submission, upstream=upstream)
+    return StepValidation(output=report.model_dump_json())
+
+
+ENTRY_VALIDATOR = _validate_step
+
+
+def _candidate(output: str, attempt: Attempt) -> Module:
+    report = RestructuringReport.model_validate_json(output)
+    return cp4c_module(report, inputs=attempt.inputs, attempt=attempt.number)
+
+
+def _with_rules(
+    validate: Callable[[PreparedPack, Attempt], StepValidation],
+    rules: Callable[[str], tuple[str, ...]],
+    payload: str,
+) -> Callable[[PreparedPack, Attempt], StepValidation]:
+    """`validate`, then the tool-use rule issues of the retained payload appended (the order the
+    verifier rebuilds: validator issues, then the journaled rules)."""
+
+    def run(pack: PreparedPack, attempt: Attempt) -> StepValidation:
+        outcome = validate(pack, attempt)
+        found = rules(payload)
+        if not found:
+            return outcome
+        return StepValidation(
+            output=outcome.output, issues=tuple(dict.fromkeys((*outcome.issues, *found)))
+        )
+
+    return run
+
+
+def _submit_step(
+    store: Execution,
+    ticket_id: str,
+    payload: str,
+    rules: Callable[[str], tuple[str, ...]] | None,
+) -> Attempt:
+    """Retain the one `restructuring_fulcrum` response (validator issues, then the tool-use rule
+    issues), then settle CP-4C with the Python candidate when it is valid. An invalid step
+    finishes the attempt rejected (blocked on the repair). A crash after the step resumes from
+    the retained step."""
+    attempt = next((a for a in store.read().attempts if a.ticket_id == ticket_id), None)
+    if attempt is None or attempt.module_id != MODULE_ID or attempt.status != "pending":
+        raise ValueError("Ticket is absent, finished or belongs to another module")
+    if (
+        attempt.steps
+        and attempt.steps[0].payload_sha256 != hashlib.sha256(payload.encode()).hexdigest()
+    ):
+        raise ValueError("Ticket already retains a different response; resume or interrupt")
+    if not attempt.steps or attempt.steps[0].status == "pending":
+        validate: Callable[[PreparedPack, Attempt], StepValidation] = lambda pack, current: (
+            _validate_step(store, pack, current)
+        )
+        if rules is not None:
+            validate = _with_rules(validate, rules, payload)
+        attempt = store.submit_step(ticket_id, MODULE_ID, STEP_IDS, STEP_ID, payload, validate)
+    if attempt.status == "finished":
+        return attempt
+    outcome = _validate_step(store, store.pack(), attempt)
+    if outcome.issues or not outcome.retained_as(attempt.steps[0]):
+        raise ValueError("Retained CP-4C output differs from trusted validation")
+    candidate = _candidate(outcome.output or "", attempt)
+    return store.finish(
+        ticket_id,
+        candidate.model_dump_json(),
+        lambda supplied: () if supplied == candidate else ("CP-4C candidate differs",),
+        qualification=QUALIFICATION,
+    )
+
+
+def submit(
+    store: Execution,
+    ticket_id: str,
+    step_id: str,
+    payload: str,
+    rules: Callable[[str], tuple[str, ...]] | None,
+) -> Submitted:
+    """Journal one `restructuring_fulcrum` payload: null resolution against the model-facing
+    schema, then the validated step (the journaled tool-use rules appended) and, when valid, the
+    settlement."""
+    if step_id != STEP_ID:
+        raise ValueError(f"CP-4C has one step, {STEP_ID}")
+    normalised, resolved = normalise(RestructuringSubmission, payload)
+    journal = _submit_step(store, ticket_id, normalised, rules)
+    return Submitted(journal, normalised, resolved, (), (), None)
+
+
+def probe(store: Execution, snapshot: ExecutionSnapshot, attempt: Attempt) -> None:
+    """Rerun the step validator and settlement over the settled snapshot (nothing is written);
+    `WorkflowError("identity_mismatch")` unless the head rebuilds exactly."""
+    probe_one_step(store, snapshot, attempt, validate=_validate_step, build=_candidate)
+
+
+# --- the consumer reader (lease Public API: for CP-5 and later consumers) ----------------------
+
+
+@dataclass(frozen=True)
+class Cp4cHead:
+    """What a consumer reads from a settled CP-4C head: its status and hash, the enterprise
+    value of each valuation, the recovery of each class and the equity residual row, the value
+    break of each valuation (verbatim), and the settled own limitations (with the synthetic line
+    on a synthetic case). A blocked head gives its status and hash only."""
+
+    status: InputStatus
+    head_sha256: str
+    facts: tuple[Fact, ...] = ()
+    limitations: tuple[str, ...] = ()
+
+    def fact(self, fact_id: str) -> Fact:
+        found = next((f for f in self.facts if f.fact_id == fact_id), None)
+        if found is None:
+            raise ValueError(f"CP-4C: {fact_id} is not exposed by the reader")
+        return found
+
+
+_READ_FIELDS = (("T4E.3", "ev"), ("T4E.5", "recovery"), ("T4E.7", "value_break"))
+
+
+def cp4c_reader(store: Execution, head: Head) -> Cp4cHead:
+    """The consumer reader of a settled CP-4C head (lease Public API): EV (T4E.3), recoveries
+    (T4E.5) and the fulcrum (T4E.7 value break) by the head's own rows. A stale head or another
+    module's head raises."""
+    module, status = _settled_module(store, head, MODULE_ID)
+    if status == "blocked":
+        return Cp4cHead(status=status, head_sha256=head.result_sha256)
+    tables = {t.table_id: t for t in module.tables}
+    facts = {f.fact_id: f for f in module.facts}
+    ids = [f"{t}.{r.row_id}.{name}" for t, name in _READ_FIELDS for r in tables[t].rows]
+    missing = [fid for fid in ids if fid not in facts]
+    if missing:
+        raise ValueError(f"CP-4C: the head has no fact {missing[0]}")
+    return Cp4cHead(
+        status=status,
+        head_sha256=head.result_sha256,
+        facts=tuple(facts[fid] for fid in ids),
+        limitations=module.limitations,
+    )

@@ -1,0 +1,37 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {},
+  "instructions": "# Historical Enel CP-2F pricing increment \u2014 frozen instructions\n\nRun in this host session, one module at a time, using CP-OS. Public original PDF\nbytes and text aids are pinned. Preflight/source selection happened before this\ninstruction lock; the same host has that context. This is not an isolated/blind\nprovider or independent context test. No agents, provider keys or paid calls.\n\nIssuer Enel Finance International N.V.; guarantor/KPI perimeter Enel S.p.A.\nand consolidated group as contractually defined. Target instrument only:\nEUR1,000m initial0.000% notes, ISIN XS2066706818, due June17 2024. Do not copy\nUSD1,500m terms, other EUR/GBP tranches or TDG data. Historical knowledge cutoff\nAugust3 2021: KPI observation June30 2021; target reference December31 2021.\nExclude subsequently observed year-end2021 outcomes, later ratings and today's\nprices/conditions. Source3 is KPMG limited assurance, not reasonable assurance,\nnot a coupon/target-success certificate and not independent source verification\nby this assistant. Retain its special-purpose/reliance limitation.\n\nCP-0: admit the four original sources, their distinct entity/date/purpose,\nselected coverage and limits. S1 contains the issuer's financial-note description\nof issued terms; S2 is the2019 Euro-programme supplement, not the final terms;\nS3 identifies the specific note and KPI definitions/performance; S4 attributes\nthe55% renewable-capacity target to the relevant2019 issues. Incomplete final\nterms/base-prospectus package is a legal/schedule gap, not permission to fabricate\nfields or call every blank zero. Read-only Poppler recovered S3 after pypdf's\nmissing AES dependency; preserve original bytes and this extraction history.\n\nCP-2F (canonical CP-2E): actually consume the CP-0 answer. Apply the selected\nbroader CP-2F methodology, especially Steps4\u20136; retain all eight ESG registers\nand the overall credit implication, with explicit source-limited/unassessed\nfields elsewhere. This is a targeted positive sustainability-linked pricing\nincrement, not full Enel underwriting or a replacement for the separate TDG case.\nNo accepted CP-1 financial history is supplied: issuer-level materiality, coverage,\nliquidity and whole capital-structure judgement are unavailable. Gate those\ninferences; the source principal/coupon/ratchet still permit the local cost test.\n\nUse6 transport headings Request/Sources/Findings/Calculations/Gaps/Next module.\nWithin Findings use T2G.1 through T2G.8 with descriptive titles. T2G.5 contains\nseparate Term and Condition tables; T2G.6 a Scenario table of conditional rates\nand full-year coupon equivalents. Distinguish source facts, calculated values,\nconditions, missing and known zero. Headline must explain the result and limits.\n\nIndependently compute from source inputs with Python:25bp=0.25 percentage point\n=0.0025; initial0% versus conditional0.25%, annual principal-times-coupon values\nand increment. Compare issue price99.123% and attributed effective yield0.189%\nwith the0% cash coupon; zero coupon does not mean zero funding cost. No invented\nfee, actual accrued-payment schedule, day-count, exact first step date, outcome,\nprobability weighting, market spread benefit or automatic covenant default.\n\nCheck June's reported54,5% against55% separately from the ratio of source MW\nlexemes46.580/85.535; preserve both and their rounding. The source locale uses\ndot grouping/comma decimal; retain raw spellings. Do not infer target-date success\nor failure from an interim observation, or apply generic group capacity when the\nbond excludes certain post-issue acquisitions and nuclear energy. Performance,\nexternal verification, publication and written notification are separate tests.\nKeep one-time step direction/size and note the specific Final Terms are missing.\nEquality at55% satisfies only the numerical limb, not the entire condition.\n\nTranslate to funding/monitoring without claiming the coupon-equivalent is net\nhedged group cost, a spread forecast or proof of financing capacity. Explain the\ncredible contrary case of timely target/verification/notification satisfaction;\nmissing certificate is not an observed failure. Distinguish the programme's\nno-automatic-default treatment from unreviewed other defaults. Name what would\nchange the view. Preserve all source locators and exact input/output hashes.\n\nCompare actual model output with sources/instructions before release; repair only\nobserved faults and retain earlier attempts. Require a real subsequent analytical\nreading before declaring the targeted link proven. Use the existing separate\nreport renderer. No new analysis for native internal contracts. Excel input-only;\nno workbook export. One concise verification record; broader goal remains active.\n",
+  "module_id": "CP-0",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2021-08-03",
+    "case_kind": "public",
+    "issuer_id": "ENEL-EFI",
+    "issuer_name": "Enel Finance International N.V.",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-2F"
+    ],
+    "run_id": "enel-efi-sdg-pricing-2021-1",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "S1-efi-2019": "c708892b50f0ec8d43e245e127489ecc9a096b31055f02c298f25955f0bb8886",
+    "S1-efi-2019-text": "731f40ab8d10163c7cede3fcafda8da130f02dbff0f62be32aa9bf2866ba2a6d",
+    "S2-supplement-2019": "f72083f3810b2d0d8e0948d9317d85558c1c0e41a5b4fd9aece8921efa303d7c",
+    "S2-supplement-2019-text": "f4a427e06bde2ba5cd6ded5289fa1277e812bb4b097695d4956577b4ca2b2441",
+    "S3-kpi-june-2021": "4932f80f79801c8eb73761bf87e2e0999daca7e21b15c22e517d99be8eb9bbcd",
+    "S3-kpi-june-2021-text": "6b0a8c5e9513e7ae870315031ec9589c9d06fe863535cff1f5b4cda53be12a00",
+    "S4-issuer-target": "32bd2a80a946a40c5ad0e97304849198b99668563d6e205b6a18c1fd7a64af92",
+    "S4-issuer-target-text": "58173cde47b8049c001be0ab9f052aeb0fd5538f9502cf551a1cb626ce2b6a1c",
+    "selected-method/SKILL.md": "b931f41bb1ac7630c110f2a8b5d5bd4b5cf07d47232c333ef0a56d26923dfa95",
+    "selected-method/references/REF_CP-2E_STEPS.md": "23ddaf2269f8361e01a301e407b89dbb1ae16a05b8ce7430c9e20a8f83ab15b8",
+    "selected-method/references/REF_CP-2F_STEPS.md": "312301c620990d3810d19125cde30224f9696860c3ef5f04b3f9473652555e08",
+    "visual/S1-efi-2019-p51.png": "dd5146daa8d4f35df15551e883a665ab5f4e714130b284a36507c63184c05811",
+    "visual/S2-supplement-2019-p72.png": "6044c10231857b677f8e827ca3cb63b81220535c5e04fdacdc8f7b7ede46bebb",
+    "visual/S3-kpi-june-2021-p4.png": "0c1d543a08b9826a524478b3eb3cc57ee7a5e5eec5d1c342e27e715e79c8eaba"
+  }
+}

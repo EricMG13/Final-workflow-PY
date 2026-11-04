@@ -1,0 +1,41 @@
+{
+  "source_inputs": {
+    "principal_eur_m": "1000",
+    "initial_coupon_pct": "0",
+    "step_bp": "25",
+    "issue_price_pct": "99.123",
+    "source_effective_yield_pct": "0.189",
+    "kpi_raw": [
+      "46.580",
+      "85.535",
+      "54,5%"
+    ],
+    "kpi_ratio_counts": [
+      "46580",
+      "85535"
+    ],
+    "target_pct": "55",
+    "observation": "2021-06-30",
+    "reference_date": "2021-12-31",
+    "knowledge_cutoff": "2021-08-03",
+    "isin": "XS2066706818",
+    "maturity": "2024-06-17"
+  },
+  "independent_expectations": {
+    "initial_annual_coupon_eur_m": "0",
+    "stepped_coupon_pct": "0.25",
+    "stepped_annual_coupon_eur_m": "2.5",
+    "increment_eur_m": "2.5",
+    "gross_issue_proceeds_eur_m": "991.23",
+    "redemption_minus_issue_proceeds_eur_m": "8.77",
+    "kpi_ratio_pct_fraction": "931600/17107",
+    "kpi_gap_pp_fraction": "9285/17107",
+    "reported_kpi_gap_pp": "0.5"
+  },
+  "controls": {
+    "numeric_equality_only": "55% passes >=55; entire condition still needs the other limbs",
+    "interim_observation": "Not a target-date result",
+    "zero_is_known": "Coupon0; unknown whole-issuer materiality remains missing"
+  },
+  "basis": "Independent literal issuer inputs and Fraction/integer arithmetic before model output; not production calculation output."
+}

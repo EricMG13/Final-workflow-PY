@@ -1,0 +1,2776 @@
+{
+  "schema_version": "view/4",
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "cpos-tdg-comparison-1",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-8"
+    ]
+  },
+  "mode": "candidate",
+  "modules": [
+    {
+      "module_id": "CP-8",
+      "title": "Run deliverable comparison",
+      "aliases": [],
+      "status": "candidate",
+      "artifact_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+      "facts": [
+        {
+          "fact_id": "raw-CP-8-0.r0.c0",
+          "label": "P — prior",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "runs/cpos-tdg-host-001/execution/deliveries/17e1d418be894f6aeff979f100e87460fc3f9d80ed4f22cb7114e4b1c5c8627d",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 29",
+              "quote": "| P — prior | runs/cpos-tdg-host-001/execution/deliveries/17e1d418be894f6aeff979f100e87460fc3f9d80ed4f22cb7114e4b1c5c8627d | 4216fe746df0e4d46ae384b7abb0f464f8e0b4adfcbc6d2638382da98d440344 | 128027b2625f5ab697c3141c9998f2be6f18ff03115fcddb41a7e682f31282b7 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r0.c1",
+          "label": "P — prior",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "4216fe746df0e4d46ae384b7abb0f464f8e0b4adfcbc6d2638382da98d440344",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 29",
+              "quote": "| P — prior | runs/cpos-tdg-host-001/execution/deliveries/17e1d418be894f6aeff979f100e87460fc3f9d80ed4f22cb7114e4b1c5c8627d | 4216fe746df0e4d46ae384b7abb0f464f8e0b4adfcbc6d2638382da98d440344 | 128027b2625f5ab697c3141c9998f2be6f18ff03115fcddb41a7e682f31282b7 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r0.c2",
+          "label": "P — prior",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "128027b2625f5ab697c3141c9998f2be6f18ff03115fcddb41a7e682f31282b7",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 29",
+              "quote": "| P — prior | runs/cpos-tdg-host-001/execution/deliveries/17e1d418be894f6aeff979f100e87460fc3f9d80ed4f22cb7114e4b1c5c8627d | 4216fe746df0e4d46ae384b7abb0f464f8e0b4adfcbc6d2638382da98d440344 | 128027b2625f5ab697c3141c9998f2be6f18ff03115fcddb41a7e682f31282b7 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r1.c0",
+          "label": "C — current",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "runs/cpos-tdg-model-001/execution/deliveries/de1be08fb3a040d4e4f916cce017b1541b8eaaa8235b6fb50b7c4afb916a2bfc",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 30",
+              "quote": "| C — current | runs/cpos-tdg-model-001/execution/deliveries/de1be08fb3a040d4e4f916cce017b1541b8eaaa8235b6fb50b7c4afb916a2bfc | 380a4e5f3835f21104eae5103f39a98d5ec08d5b2e082441d1ecc4d5fb9637d7 | cdb682b743990b0484bb51e895a1007973c746510079963f8fc57eb62c3a09b7 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r1.c1",
+          "label": "C — current",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "380a4e5f3835f21104eae5103f39a98d5ec08d5b2e082441d1ecc4d5fb9637d7",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 30",
+              "quote": "| C — current | runs/cpos-tdg-model-001/execution/deliveries/de1be08fb3a040d4e4f916cce017b1541b8eaaa8235b6fb50b7c4afb916a2bfc | 380a4e5f3835f21104eae5103f39a98d5ec08d5b2e082441d1ecc4d5fb9637d7 | cdb682b743990b0484bb51e895a1007973c746510079963f8fc57eb62c3a09b7 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r1.c2",
+          "label": "C — current",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "cdb682b743990b0484bb51e895a1007973c746510079963f8fc57eb62c3a09b7",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 30",
+              "quote": "| C — current | runs/cpos-tdg-model-001/execution/deliveries/de1be08fb3a040d4e4f916cce017b1541b8eaaa8235b6fb50b7c4afb916a2bfc | 380a4e5f3835f21104eae5103f39a98d5ec08d5b2e082441d1ecc4d5fb9637d7 | cdb682b743990b0484bb51e895a1007973c746510079963f8fc57eb62c3a09b7 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r0.c0",
+          "label": "Values",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "156 delivered core facts from CP-1/CP-1A/CP-2; CP-MODEL blocked. No separately published Model numeric register.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 45",
+              "quote": "| Values |156 delivered core facts from CP-1/CP-1A/CP-2; CP-MODEL blocked. No separately published Model numeric register. |Same156 core facts plus2,005 CP-MODEL representation facts, including81 annual numeric cells:74 known and7 missing. FY2024 operating EBIT plus D&A3,843, issuer ordinary EBITDA3,813 and issuer As Defined4,173 USDm remain separate. |Publication addition, not financial growth or a revision of historical figures. Missing prior publication is not a zero baseline; representation counts are not unique new issuer facts. The three earnings bases cannot be subtracted as a time-series change or treated as one definition. |P/C View core modules equal; C calculation.json values/FY2024 and model-view.json CP-MODEL history/ratios. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r0.c1",
+          "label": "Values",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Same156 core facts plus2,005 CP-MODEL representation facts, including81 annual numeric cells:74 known and7 missing. FY2024 operating EBIT plus D&A3,843, issuer ordinary EBITDA3,813 and issuer As Defined4,173 USDm remain separate.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 45",
+              "quote": "| Values |156 delivered core facts from CP-1/CP-1A/CP-2; CP-MODEL blocked. No separately published Model numeric register. |Same156 core facts plus2,005 CP-MODEL representation facts, including81 annual numeric cells:74 known and7 missing. FY2024 operating EBIT plus D&A3,843, issuer ordinary EBITDA3,813 and issuer As Defined4,173 USDm remain separate. |Publication addition, not financial growth or a revision of historical figures. Missing prior publication is not a zero baseline; representation counts are not unique new issuer facts. The three earnings bases cannot be subtracted as a time-series change or treated as one definition. |P/C View core modules equal; C calculation.json values/FY2024 and model-view.json CP-MODEL history/ratios. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r0.c2",
+          "label": "Values",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "Publication addition, not financial growth or a revision of historical figures. Missing prior publication is not a zero baseline; representation counts are not unique new issuer facts. The three earnings bases cannot be subtracted as a time-series change or treated as one definition.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 45",
+              "quote": "| Values |156 delivered core facts from CP-1/CP-1A/CP-2; CP-MODEL blocked. No separately published Model numeric register. |Same156 core facts plus2,005 CP-MODEL representation facts, including81 annual numeric cells:74 known and7 missing. FY2024 operating EBIT plus D&A3,843, issuer ordinary EBITDA3,813 and issuer As Defined4,173 USDm remain separate. |Publication addition, not financial growth or a revision of historical figures. Missing prior publication is not a zero baseline; representation counts are not unique new issuer facts. The three earnings bases cannot be subtracted as a time-series change or treated as one definition. |P/C View core modules equal; C calculation.json values/FY2024 and model-view.json CP-MODEL history/ratios. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r0.c3",
+          "label": "Values",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r0",
+          "field": "c3",
+          "amount": null,
+          "text": "P/C View core modules equal; C calculation.json values/FY2024 and model-view.json CP-MODEL history/ratios.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 45",
+              "quote": "| Values |156 delivered core facts from CP-1/CP-1A/CP-2; CP-MODEL blocked. No separately published Model numeric register. |Same156 core facts plus2,005 CP-MODEL representation facts, including81 annual numeric cells:74 known and7 missing. FY2024 operating EBIT plus D&A3,843, issuer ordinary EBITDA3,813 and issuer As Defined4,173 USDm remain separate. |Publication addition, not financial growth or a revision of historical figures. Missing prior publication is not a zero baseline; representation counts are not unique new issuer facts. The three earnings bases cannot be subtracted as a time-series change or treated as one definition. |P/C View core modules equal; C calculation.json values/FY2024 and model-view.json CP-MODEL history/ratios. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r1.c0",
+          "label": "Periods",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Main historical base2024-09-30; underlying annual FY2022–FY2024 history and separately dated subsequent events in unchanged core handoffs.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 46",
+              "quote": "| Periods |Main historical base2024-09-30; underlying annual FY2022–FY2024 history and separately dated subsequent events in unchanged core handoffs. |Same main financial date. Model annual windows retain exact October-to-September dates. Additional raw quarter tables retain2024-10-01–2024-12-28 versus2023-10-01–2023-12-30, with reported89/91-day durations; conditional annual planning windows remain separately labelled. |More period visibility without advancing the main assessment date. Added quarter evidence is later than the annual base and is not an equal-duration or newly normalized/LTM series. |P/C view.json run.as_of; C calculation.json start_date/end_date; C quarter.md context map lines41–43 and retained source tables. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r1.c1",
+          "label": "Periods",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Same main financial date. Model annual windows retain exact October-to-September dates. Additional raw quarter tables retain2024-10-01–2024-12-28 versus2023-10-01–2023-12-30, with reported89/91-day durations; conditional annual planning windows remain separately labelled.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 46",
+              "quote": "| Periods |Main historical base2024-09-30; underlying annual FY2022–FY2024 history and separately dated subsequent events in unchanged core handoffs. |Same main financial date. Model annual windows retain exact October-to-September dates. Additional raw quarter tables retain2024-10-01–2024-12-28 versus2023-10-01–2023-12-30, with reported89/91-day durations; conditional annual planning windows remain separately labelled. |More period visibility without advancing the main assessment date. Added quarter evidence is later than the annual base and is not an equal-duration or newly normalized/LTM series. |P/C view.json run.as_of; C calculation.json start_date/end_date; C quarter.md context map lines41–43 and retained source tables. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r1.c2",
+          "label": "Periods",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "More period visibility without advancing the main assessment date. Added quarter evidence is later than the annual base and is not an equal-duration or newly normalized/LTM series.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 46",
+              "quote": "| Periods |Main historical base2024-09-30; underlying annual FY2022–FY2024 history and separately dated subsequent events in unchanged core handoffs. |Same main financial date. Model annual windows retain exact October-to-September dates. Additional raw quarter tables retain2024-10-01–2024-12-28 versus2023-10-01–2023-12-30, with reported89/91-day durations; conditional annual planning windows remain separately labelled. |More period visibility without advancing the main assessment date. Added quarter evidence is later than the annual base and is not an equal-duration or newly normalized/LTM series. |P/C view.json run.as_of; C calculation.json start_date/end_date; C quarter.md context map lines41–43 and retained source tables. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r1.c3",
+          "label": "Periods",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r1",
+          "field": "c3",
+          "amount": null,
+          "text": "P/C view.json run.as_of; C calculation.json start_date/end_date; C quarter.md context map lines41–43 and retained source tables.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 46",
+              "quote": "| Periods |Main historical base2024-09-30; underlying annual FY2022–FY2024 history and separately dated subsequent events in unchanged core handoffs. |Same main financial date. Model annual windows retain exact October-to-September dates. Additional raw quarter tables retain2024-10-01–2024-12-28 versus2023-10-01–2023-12-30, with reported89/91-day durations; conditional annual planning windows remain separately labelled. |More period visibility without advancing the main assessment date. Added quarter evidence is later than the annual base and is not an equal-duration or newly normalized/LTM series. |P/C view.json run.as_of; C calculation.json start_date/end_date; C quarter.md context map lines41–43 and retained source tables. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r2.c0",
+          "label": "Assumptions",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "The five-section CP-2 assessment does not contain a newly adopted conditional forecast or a new Model publication. Existing core assumptions/unknowns stay explicit.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 47",
+              "quote": "| Assumptions |The five-section CP-2 assessment does not contain a newly adopted conditional forecast or a new Model publication. Existing core assumptions/unknowns stay explicit. |The same CP-2 assessment, plus literal conditional CP-2G tables and unchanged forecast_exact.json. Reference/downside/upside drivers, exclusions, access/minimum-cash gaps and analyst watches remain stipulated/qualified. |Publishing the retained illustration is not a new source-supported central forecast or evidence that CP-2 adopted these extra scenarios in this run. No new paid or independent analytical execution occurred merely to render them. |P/C CP-2.md byte equality; C forecast.md T2H.3/T2H.7/T2H.9 and Gaps; forecast_exact.json SHA04907444…. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r2.c1",
+          "label": "Assumptions",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "The same CP-2 assessment, plus literal conditional CP-2G tables and unchanged forecast_exact.json. Reference/downside/upside drivers, exclusions, access/minimum-cash gaps and analyst watches remain stipulated/qualified.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 47",
+              "quote": "| Assumptions |The five-section CP-2 assessment does not contain a newly adopted conditional forecast or a new Model publication. Existing core assumptions/unknowns stay explicit. |The same CP-2 assessment, plus literal conditional CP-2G tables and unchanged forecast_exact.json. Reference/downside/upside drivers, exclusions, access/minimum-cash gaps and analyst watches remain stipulated/qualified. |Publishing the retained illustration is not a new source-supported central forecast or evidence that CP-2 adopted these extra scenarios in this run. No new paid or independent analytical execution occurred merely to render them. |P/C CP-2.md byte equality; C forecast.md T2H.3/T2H.7/T2H.9 and Gaps; forecast_exact.json SHA04907444…. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r2.c2",
+          "label": "Assumptions",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "Publishing the retained illustration is not a new source-supported central forecast or evidence that CP-2 adopted these extra scenarios in this run. No new paid or independent analytical execution occurred merely to render them.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 47",
+              "quote": "| Assumptions |The five-section CP-2 assessment does not contain a newly adopted conditional forecast or a new Model publication. Existing core assumptions/unknowns stay explicit. |The same CP-2 assessment, plus literal conditional CP-2G tables and unchanged forecast_exact.json. Reference/downside/upside drivers, exclusions, access/minimum-cash gaps and analyst watches remain stipulated/qualified. |Publishing the retained illustration is not a new source-supported central forecast or evidence that CP-2 adopted these extra scenarios in this run. No new paid or independent analytical execution occurred merely to render them. |P/C CP-2.md byte equality; C forecast.md T2H.3/T2H.7/T2H.9 and Gaps; forecast_exact.json SHA04907444…. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r2.c3",
+          "label": "Assumptions",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r2",
+          "field": "c3",
+          "amount": null,
+          "text": "P/C CP-2.md byte equality; C forecast.md T2H.3/T2H.7/T2H.9 and Gaps; forecast_exact.json SHA04907444….",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 47",
+              "quote": "| Assumptions |The five-section CP-2 assessment does not contain a newly adopted conditional forecast or a new Model publication. Existing core assumptions/unknowns stay explicit. |The same CP-2 assessment, plus literal conditional CP-2G tables and unchanged forecast_exact.json. Reference/downside/upside drivers, exclusions, access/minimum-cash gaps and analyst watches remain stipulated/qualified. |Publishing the retained illustration is not a new source-supported central forecast or evidence that CP-2 adopted these extra scenarios in this run. No new paid or independent analytical execution occurred merely to render them. |P/C CP-2.md byte equality; C forecast.md T2H.3/T2H.7/T2H.9 and Gaps; forecast_exact.json SHA04907444…. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r3.c0",
+          "label": "Conclusions",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Medium fundamental confidence and CP-2 Ready with limitations. The annual operating case is counterbalanced by debt-supported shareholder allocation, cash-access and contractual-control uncertainty.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 48",
+              "quote": "| Conclusions |Medium fundamental confidence and CP-2 Ready with limitations. The annual operating case is counterbalanced by debt-supported shareholder allocation, cash-access and contractual-control uncertainty. |Identical CP-2 text and identical five narrative report blocks. The Model makes selected historical definitions/calculations visible; CP-MODEL is candidate, not native accepted. |No analytical upgrade, adverse issuer event or new security recommendation is established by this delivery revision. New output availability closes the named publication gap only. |P/C report-view.json blocks equal; P/C CP-2.md assessment line42, Critical restrictions lines155–156 and readiness line174; View module statuses. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r3.c1",
+          "label": "Conclusions",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Identical CP-2 text and identical five narrative report blocks. The Model makes selected historical definitions/calculations visible; CP-MODEL is candidate, not native accepted.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 48",
+              "quote": "| Conclusions |Medium fundamental confidence and CP-2 Ready with limitations. The annual operating case is counterbalanced by debt-supported shareholder allocation, cash-access and contractual-control uncertainty. |Identical CP-2 text and identical five narrative report blocks. The Model makes selected historical definitions/calculations visible; CP-MODEL is candidate, not native accepted. |No analytical upgrade, adverse issuer event or new security recommendation is established by this delivery revision. New output availability closes the named publication gap only. |P/C report-view.json blocks equal; P/C CP-2.md assessment line42, Critical restrictions lines155–156 and readiness line174; View module statuses. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r3.c2",
+          "label": "Conclusions",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r3",
+          "field": "c2",
+          "amount": null,
+          "text": "No analytical upgrade, adverse issuer event or new security recommendation is established by this delivery revision. New output availability closes the named publication gap only.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 48",
+              "quote": "| Conclusions |Medium fundamental confidence and CP-2 Ready with limitations. The annual operating case is counterbalanced by debt-supported shareholder allocation, cash-access and contractual-control uncertainty. |Identical CP-2 text and identical five narrative report blocks. The Model makes selected historical definitions/calculations visible; CP-MODEL is candidate, not native accepted. |No analytical upgrade, adverse issuer event or new security recommendation is established by this delivery revision. New output availability closes the named publication gap only. |P/C report-view.json blocks equal; P/C CP-2.md assessment line42, Critical restrictions lines155–156 and readiness line174; View module statuses. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r3.c3",
+          "label": "Conclusions",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r3",
+          "field": "c3",
+          "amount": null,
+          "text": "P/C report-view.json blocks equal; P/C CP-2.md assessment line42, Critical restrictions lines155–156 and readiness line174; View module statuses.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 48",
+              "quote": "| Conclusions |Medium fundamental confidence and CP-2 Ready with limitations. The annual operating case is counterbalanced by debt-supported shareholder allocation, cash-access and contractual-control uncertainty. |Identical CP-2 text and identical five narrative report blocks. The Model makes selected historical definitions/calculations visible; CP-MODEL is candidate, not native accepted. |No analytical upgrade, adverse issuer event or new security recommendation is established by this delivery revision. New output availability closes the named publication gap only. |P/C report-view.json blocks equal; P/C CP-2.md assessment line42, Critical restrictions lines155–156 and readiness line174; View module statuses. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r4.c0",
+          "label": "Sources",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "Same checked annual CP-1, business/governance CP-1A and fundamental CP-2 handoffs copied into the delivery.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 49",
+              "quote": "| Sources |Same checked annual CP-1, business/governance CP-1A and fundamental CP-2 handoffs copied into the delivery. |Those exact inputs remain; Model also copies the checked quarter handoff SHA8be815a5…, conditional forecast handoff SHA696d6c06… and exact forecast JSON SHA04907444…. Model sources have explicit handoff-line/hash citations. |Coverage and presentation expanded through additional retained analytical artifacts. An analytical handoff is not a new primary issuer filing, and duplicate source aliases do not add independent confirmation. Scope and dates remain those of each original handoff. |P/C copied-handoff hashes; C calculation.json inputs; C quarter.md,forecast.md,forecast_exact.json and model-view.json sources. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r4.c1",
+          "label": "Sources",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "Those exact inputs remain; Model also copies the checked quarter handoff SHA8be815a5…, conditional forecast handoff SHA696d6c06… and exact forecast JSON SHA04907444…. Model sources have explicit handoff-line/hash citations.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 49",
+              "quote": "| Sources |Same checked annual CP-1, business/governance CP-1A and fundamental CP-2 handoffs copied into the delivery. |Those exact inputs remain; Model also copies the checked quarter handoff SHA8be815a5…, conditional forecast handoff SHA696d6c06… and exact forecast JSON SHA04907444…. Model sources have explicit handoff-line/hash citations. |Coverage and presentation expanded through additional retained analytical artifacts. An analytical handoff is not a new primary issuer filing, and duplicate source aliases do not add independent confirmation. Scope and dates remain those of each original handoff. |P/C copied-handoff hashes; C calculation.json inputs; C quarter.md,forecast.md,forecast_exact.json and model-view.json sources. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r4.c2",
+          "label": "Sources",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r4",
+          "field": "c2",
+          "amount": null,
+          "text": "Coverage and presentation expanded through additional retained analytical artifacts. An analytical handoff is not a new primary issuer filing, and duplicate source aliases do not add independent confirmation. Scope and dates remain those of each original handoff.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 49",
+              "quote": "| Sources |Same checked annual CP-1, business/governance CP-1A and fundamental CP-2 handoffs copied into the delivery. |Those exact inputs remain; Model also copies the checked quarter handoff SHA8be815a5…, conditional forecast handoff SHA696d6c06… and exact forecast JSON SHA04907444…. Model sources have explicit handoff-line/hash citations. |Coverage and presentation expanded through additional retained analytical artifacts. An analytical handoff is not a new primary issuer filing, and duplicate source aliases do not add independent confirmation. Scope and dates remain those of each original handoff. |P/C copied-handoff hashes; C calculation.json inputs; C quarter.md,forecast.md,forecast_exact.json and model-view.json sources. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r4.c3",
+          "label": "Sources",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r4",
+          "field": "c3",
+          "amount": null,
+          "text": "P/C copied-handoff hashes; C calculation.json inputs; C quarter.md,forecast.md,forecast_exact.json and model-view.json sources.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 49",
+              "quote": "| Sources |Same checked annual CP-1, business/governance CP-1A and fundamental CP-2 handoffs copied into the delivery. |Those exact inputs remain; Model also copies the checked quarter handoff SHA8be815a5…, conditional forecast handoff SHA696d6c06… and exact forecast JSON SHA04907444…. Model sources have explicit handoff-line/hash citations. |Coverage and presentation expanded through additional retained analytical artifacts. An analytical handoff is not a new primary issuer filing, and duplicate source aliases do not add independent confirmation. Scope and dates remain those of each original handoff. |P/C copied-handoff hashes; C calculation.json inputs; C quarter.md,forecast.md,forecast_exact.json and model-view.json sources. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r5.c0",
+          "label": "Limitations",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "No published Model/charts; the two inherited Critical contract/current-liquidity restrictions and other CP-1/CP-1A/CP-2 gaps remain.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 50",
+              "quote": "| Limitations |No published Model/charts; the two inherited Critical contract/current-liquidity restrictions and other CP-1/CP-1A/CP-2 gaps remain. |The named Model/chart/JSON publication now exists. Core creditor restrictions remain unchanged. Seven annual numeric entries remain missing; quarter/source-unit and conditional forecast limitations persist. Native/provider/full-pathway acceptance remains unproven. |A delivered Model does not establish accessible liquidity, covenant/agency measures, complete claims, sustainable FCF or full current underwriting. Old workbook-export wording inside retained historical handoffs is superseded by the user's ingestion-only ruling, not a new work requirement. |P/C delivery.json cp_model_published; P/C CP-2 Gaps; C calculation.json missing amounts; quarter.md G1–G7; forecast.md T2H.9/Gaps; both current publication scope banners. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r5.c1",
+          "label": "Limitations",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "The named Model/chart/JSON publication now exists. Core creditor restrictions remain unchanged. Seven annual numeric entries remain missing; quarter/source-unit and conditional forecast limitations persist. Native/provider/full-pathway acceptance remains unproven.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 50",
+              "quote": "| Limitations |No published Model/charts; the two inherited Critical contract/current-liquidity restrictions and other CP-1/CP-1A/CP-2 gaps remain. |The named Model/chart/JSON publication now exists. Core creditor restrictions remain unchanged. Seven annual numeric entries remain missing; quarter/source-unit and conditional forecast limitations persist. Native/provider/full-pathway acceptance remains unproven. |A delivered Model does not establish accessible liquidity, covenant/agency measures, complete claims, sustainable FCF or full current underwriting. Old workbook-export wording inside retained historical handoffs is superseded by the user's ingestion-only ruling, not a new work requirement. |P/C delivery.json cp_model_published; P/C CP-2 Gaps; C calculation.json missing amounts; quarter.md G1–G7; forecast.md T2H.9/Gaps; both current publication scope banners. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r5.c2",
+          "label": "Limitations",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r5",
+          "field": "c2",
+          "amount": null,
+          "text": "A delivered Model does not establish accessible liquidity, covenant/agency measures, complete claims, sustainable FCF or full current underwriting. Old workbook-export wording inside retained historical handoffs is superseded by the user's ingestion-only ruling, not a new work requirement.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 50",
+              "quote": "| Limitations |No published Model/charts; the two inherited Critical contract/current-liquidity restrictions and other CP-1/CP-1A/CP-2 gaps remain. |The named Model/chart/JSON publication now exists. Core creditor restrictions remain unchanged. Seven annual numeric entries remain missing; quarter/source-unit and conditional forecast limitations persist. Native/provider/full-pathway acceptance remains unproven. |A delivered Model does not establish accessible liquidity, covenant/agency measures, complete claims, sustainable FCF or full current underwriting. Old workbook-export wording inside retained historical handoffs is superseded by the user's ingestion-only ruling, not a new work requirement. |P/C delivery.json cp_model_published; P/C CP-2 Gaps; C calculation.json missing amounts; quarter.md G1–G7; forecast.md T2H.9/Gaps; both current publication scope banners. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r5.c3",
+          "label": "Limitations",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r5",
+          "field": "c3",
+          "amount": null,
+          "text": "P/C delivery.json cp_model_published; P/C CP-2 Gaps; C calculation.json missing amounts; quarter.md G1–G7; forecast.md T2H.9/Gaps; both current publication scope banners.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 50",
+              "quote": "| Limitations |No published Model/charts; the two inherited Critical contract/current-liquidity restrictions and other CP-1/CP-1A/CP-2 gaps remain. |The named Model/chart/JSON publication now exists. Core creditor restrictions remain unchanged. Seven annual numeric entries remain missing; quarter/source-unit and conditional forecast limitations persist. Native/provider/full-pathway acceptance remains unproven. |A delivered Model does not establish accessible liquidity, covenant/agency measures, complete claims, sustainable FCF or full current underwriting. Old workbook-export wording inside retained historical handoffs is superseded by the user's ingestion-only ruling, not a new work requirement. |P/C delivery.json cp_model_published; P/C CP-2 Gaps; C calculation.json missing amounts; quarter.md G1–G7; forecast.md T2H.9/Gaps; both current publication scope banners. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r6.c0",
+          "label": "Output scope",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r6",
+          "field": "c0",
+          "amount": null,
+          "text": "Five populated narrative sections; no Model HTML, chart publication or calculation JSON in that bundle.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 51",
+              "quote": "| Output scope |Five populated narrative sections; no Model HTML, chart publication or calculation JSON in that bundle. |Those same five sections plus model.html,calculation.json,Model views and copied supporting handoffs/exact forecast. Three annual charts contain18 observations;51 raw handoff tables and two numeric tables are retained in CP-MODEL. |A material, bounded delivery gain: report-to-Model/JSON navigation and source-backed presentation are available. It does not qualify all pathways, formats, sources or native analytical runs. No Excel output is added. |P/C delivery.json file lists/scope; C model-report-view.json two blocks and three figures; C model-view.json53 tables; report.html Model/JSON destinations. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r6.c1",
+          "label": "Output scope",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r6",
+          "field": "c1",
+          "amount": null,
+          "text": "Those same five sections plus model.html,calculation.json,Model views and copied supporting handoffs/exact forecast. Three annual charts contain18 observations;51 raw handoff tables and two numeric tables are retained in CP-MODEL.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 51",
+              "quote": "| Output scope |Five populated narrative sections; no Model HTML, chart publication or calculation JSON in that bundle. |Those same five sections plus model.html,calculation.json,Model views and copied supporting handoffs/exact forecast. Three annual charts contain18 observations;51 raw handoff tables and two numeric tables are retained in CP-MODEL. |A material, bounded delivery gain: report-to-Model/JSON navigation and source-backed presentation are available. It does not qualify all pathways, formats, sources or native analytical runs. No Excel output is added. |P/C delivery.json file lists/scope; C model-report-view.json two blocks and three figures; C model-view.json53 tables; report.html Model/JSON destinations. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r6.c2",
+          "label": "Output scope",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r6",
+          "field": "c2",
+          "amount": null,
+          "text": "A material, bounded delivery gain: report-to-Model/JSON navigation and source-backed presentation are available. It does not qualify all pathways, formats, sources or native analytical runs. No Excel output is added.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 51",
+              "quote": "| Output scope |Five populated narrative sections; no Model HTML, chart publication or calculation JSON in that bundle. |Those same five sections plus model.html,calculation.json,Model views and copied supporting handoffs/exact forecast. Three annual charts contain18 observations;51 raw handoff tables and two numeric tables are retained in CP-MODEL. |A material, bounded delivery gain: report-to-Model/JSON navigation and source-backed presentation are available. It does not qualify all pathways, formats, sources or native analytical runs. No Excel output is added. |P/C delivery.json file lists/scope; C model-report-view.json two blocks and three figures; C model-view.json53 tables; report.html Model/JSON destinations. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-1.r6.c3",
+          "label": "Output scope",
+          "table_id": "raw-CP-8-1",
+          "row_id": "r6",
+          "field": "c3",
+          "amount": null,
+          "text": "P/C delivery.json file lists/scope; C model-report-view.json two blocks and three figures; C model-view.json53 tables; report.html Model/JSON destinations.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 51",
+              "quote": "| Output scope |Five populated narrative sections; no Model HTML, chart publication or calculation JSON in that bundle. |Those same five sections plus model.html,calculation.json,Model views and copied supporting handoffs/exact forecast. Three annual charts contain18 observations;51 raw handoff tables and two numeric tables are retained in CP-MODEL. |A material, bounded delivery gain: report-to-Model/JSON navigation and source-backed presentation are available. It does not qualify all pathways, formats, sources or native analytical runs. No Excel output is added. |P/C delivery.json file lists/scope; C model-report-view.json two blocks and three figures; C model-view.json53 tables; report.html Model/JSON destinations. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-2.r0.c0",
+          "label": "Key findings",
+          "table_id": "raw-CP-8-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Exactly equal ReportView block",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 57",
+              "quote": "| Key findings |Exactly equal ReportView block |Same Medium annual fundamental assessment and explicit cash/contract restrictions. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-2.r0.c1",
+          "label": "Key findings",
+          "table_id": "raw-CP-8-2",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Same Medium annual fundamental assessment and explicit cash/contract restrictions.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 57",
+              "quote": "| Key findings |Exactly equal ReportView block |Same Medium annual fundamental assessment and explicit cash/contract restrictions. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-2.r1.c0",
+          "label": "Company and operating model",
+          "table_id": "raw-CP-8-2",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Exactly equal block, including operating-model tab",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 58",
+              "quote": "| Company and operating model |Exactly equal block, including operating-model tab |No new business, ownership or operating-model conclusion. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-2.r1.c1",
+          "label": "Company and operating model",
+          "table_id": "raw-CP-8-2",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "No new business, ownership or operating-model conclusion.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 58",
+              "quote": "| Company and operating model |Exactly equal block, including operating-model tab |No new business, ownership or operating-model conclusion. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-2.r2.c0",
+          "label": "Strengths and weaknesses",
+          "table_id": "raw-CP-8-2",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Exactly equal block and prose lines",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 59",
+              "quote": "| Strengths and weaknesses |Exactly equal block and prose lines |Same operating support, distribution/refinancing concern and evidence limits; no lost or newly resolved prior thesis item. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-2.r2.c1",
+          "label": "Strengths and weaknesses",
+          "table_id": "raw-CP-8-2",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Same operating support, distribution/refinancing concern and evidence limits; no lost or newly resolved prior thesis item.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 59",
+              "quote": "| Strengths and weaknesses |Exactly equal block and prose lines |Same operating support, distribution/refinancing concern and evidence limits; no lost or newly resolved prior thesis item. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-2.r3.c0",
+          "label": "Company profile",
+          "table_id": "raw-CP-8-2",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Exactly equal block and business-mix tab",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 60",
+              "quote": "| Company profile |Exactly equal block and business-mix tab |Historical reported profile/mix unchanged; no new economic inference. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-2.r3.c1",
+          "label": "Company profile",
+          "table_id": "raw-CP-8-2",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Historical reported profile/mix unchanged; no new economic inference.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 60",
+              "quote": "| Company profile |Exactly equal block and business-mix tab |Historical reported profile/mix unchanged; no new economic inference. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-2.r4.c0",
+          "label": "Transaction summary",
+          "table_id": "raw-CP-8-2",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "Exactly equal block and dated transaction prose",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 61",
+              "quote": "| Transaction summary |Exactly equal block and dated transaction prose |No additional funding feasibility, legal permission or transaction execution finding. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-2.r4.c1",
+          "label": "Transaction summary",
+          "table_id": "raw-CP-8-2",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "No additional funding feasibility, legal permission or transaction execution finding.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 61",
+              "quote": "| Transaction summary |Exactly equal block and dated transaction prose |No additional funding feasibility, legal permission or transaction execution finding. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-3.r0.c0",
+          "label": "Historical and mixed dated scope",
+          "table_id": "raw-CP-8-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Shared annual financial base remains2024-09-30; extra quarter/conditional records do not make it current2026 underwriting. Keep their dates and assumptions.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 96",
+              "quote": "| Historical and mixed dated scope |Shared annual financial base remains2024-09-30; extra quarter/conditional records do not make it current2026 underwriting. Keep their dates and assumptions. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-3.r1.c0",
+          "label": "Core creditor evidence",
+          "table_id": "raw-CP-8-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Executed terms, current unrestricted cash, covenant/access evidence, forecast and other inherited gaps remain. A publication addition supplies none of these missing inputs.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 97",
+              "quote": "| Core creditor evidence |Executed terms, current unrestricted cash, covenant/access evidence, forecast and other inherited gaps remain. A publication addition supplies none of these missing inputs. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-3.r2.c0",
+          "label": "Conditional forecast completeness",
+          "table_id": "raw-CP-8-3",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Retained scenario outputs remain conditional; missing source-backed cash drivers, later-year assumptions, intra-year troughs and funding feasibility are not resolved by rendering.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 98",
+              "quote": "| Conditional forecast completeness |Retained scenario outputs remain conditional; missing source-backed cash drivers, later-year assumptions, intra-year troughs and funding feasibility are not resolved by rendering. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-3.r3.c0",
+          "label": "Numeric definitions and missing observations",
+          "table_id": "raw-CP-8-3",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Carry debt is a book borrowing measure; mechanical net debt does not certify cash access. Operating and issuer earnings bases are separate. Retain all seven numeric gaps.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 99",
+              "quote": "| Numeric definitions and missing observations |Carry debt is a book borrowing measure; mechanical net debt does not certify cash access. Operating and issuer earnings bases are separate. Retain all seven numeric gaps. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-3.r4.c0",
+          "label": "Qualification",
+          "table_id": "raw-CP-8-3",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "Actual same-host comparison and source/instruction check, not independent-context/provider/native acceptance or a full-pathway proof. No investment-decision outcomes are required for this user-defined function.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+              "locator": "line 100",
+              "quote": "| Qualification |Actual same-host comparison and source/instruction check, not independent-context/provider/native acceptance or a full-pathway proof. No investment-decision outcomes are required for this user-defined function. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "raw-CP-8-0",
+          "title": "Selected prior and current publications",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Selected publication"
+            },
+            {
+              "field": "c1",
+              "label": "Receipt SHA-256"
+            },
+            {
+              "field": "c2",
+              "label": "Main report SHA-256"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "P — prior",
+              "fact_ids": [
+                "raw-CP-8-0.r0.c0",
+                "raw-CP-8-0.r0.c1",
+                "raw-CP-8-0.r0.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "C — current",
+              "fact_ids": [
+                "raw-CP-8-0.r1.c0",
+                "raw-CP-8-0.r1.c1",
+                "raw-CP-8-0.r1.c2"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Bundle",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-8-1",
+          "title": "Seven requested comparison dimensions",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Prior deliverable"
+            },
+            {
+              "field": "c1",
+              "label": "Current deliverable"
+            },
+            {
+              "field": "c2",
+              "label": "Explanation and material effect"
+            },
+            {
+              "field": "c3",
+              "label": "Evidence"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Values",
+              "fact_ids": [
+                "raw-CP-8-1.r0.c0",
+                "raw-CP-8-1.r0.c1",
+                "raw-CP-8-1.r0.c2",
+                "raw-CP-8-1.r0.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Periods",
+              "fact_ids": [
+                "raw-CP-8-1.r1.c0",
+                "raw-CP-8-1.r1.c1",
+                "raw-CP-8-1.r1.c2",
+                "raw-CP-8-1.r1.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Assumptions",
+              "fact_ids": [
+                "raw-CP-8-1.r2.c0",
+                "raw-CP-8-1.r2.c1",
+                "raw-CP-8-1.r2.c2",
+                "raw-CP-8-1.r2.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Conclusions",
+              "fact_ids": [
+                "raw-CP-8-1.r3.c0",
+                "raw-CP-8-1.r3.c1",
+                "raw-CP-8-1.r3.c2",
+                "raw-CP-8-1.r3.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Sources",
+              "fact_ids": [
+                "raw-CP-8-1.r4.c0",
+                "raw-CP-8-1.r4.c1",
+                "raw-CP-8-1.r4.c2",
+                "raw-CP-8-1.r4.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Limitations",
+              "fact_ids": [
+                "raw-CP-8-1.r5.c0",
+                "raw-CP-8-1.r5.c1",
+                "raw-CP-8-1.r5.c2",
+                "raw-CP-8-1.r5.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "Output scope",
+              "fact_ids": [
+                "raw-CP-8-1.r6.c0",
+                "raw-CP-8-1.r6.c1",
+                "raw-CP-8-1.r6.c2",
+                "raw-CP-8-1.r6.c3"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Dimension",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-8-2",
+          "title": "All five narrative sections",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Actual prior/current comparison"
+            },
+            {
+              "field": "c1",
+              "label": "Consequence"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Key findings",
+              "fact_ids": [
+                "raw-CP-8-2.r0.c0",
+                "raw-CP-8-2.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Company and operating model",
+              "fact_ids": [
+                "raw-CP-8-2.r1.c0",
+                "raw-CP-8-2.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Strengths and weaknesses",
+              "fact_ids": [
+                "raw-CP-8-2.r2.c0",
+                "raw-CP-8-2.r2.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Company profile",
+              "fact_ids": [
+                "raw-CP-8-2.r3.c0",
+                "raw-CP-8-2.r3.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Transaction summary",
+              "fact_ids": [
+                "raw-CP-8-2.r4.c0",
+                "raw-CP-8-2.r4.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Section",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-8-3",
+          "title": "Continuing limitations",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Continuing consequence / next evidence action"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Historical and mixed dated scope",
+              "fact_ids": [
+                "raw-CP-8-3.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Core creditor evidence",
+              "fact_ids": [
+                "raw-CP-8-3.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Conditional forecast completeness",
+              "fact_ids": [
+                "raw-CP-8-3.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Numeric definitions and missing observations",
+              "fact_ids": [
+                "raw-CP-8-3.r3.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Qualification",
+              "fact_ids": [
+                "raw-CP-8-3.r4.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Restriction",
+          "interface_id": null,
+          "limitation": null
+        }
+      ],
+      "claims": [],
+      "limitations": [
+        "Checked deliverable comparison, not investment-decision calibration or fresh issuer underwriting."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "schema_version": "source/1",
+      "source_id": "CP-8",
+      "name": "CP-8.md",
+      "status": "ready",
+      "sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+      "media_type": "text/markdown",
+      "spans": [
+        {
+          "locator": "line 1",
+          "text": "# CP-8 — TDG prior/current deliverable comparison through CP-OS",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 3",
+          "text": "## Request",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 5",
+          "text": "Compare the explicitly selected prior TDG five-section delivery with the current",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 6",
+          "text": "TDG report-plus-Model delivery. Both have a historical financial base of",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 7",
+          "text": "30 September2024. Current means the selected latest local TDG publication,",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 8",
+          "text": "not current2026 issuer information. Actual current host model, with preceding",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 9",
+          "text": "context and access to the pre-output check file. Not a blind, independent-context",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 10",
+          "text": "or provider/native evaluation. No investment-decision history is required.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 12",
+          "text": "**Conclusion:** delivery coverage has expanded; the five narrative sections,",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 13",
+          "text": "their156 core facts and the actual CP-1/CP-1A/CP-2 handoffs are unchanged.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 14",
+          "text": "The current bundle adds a populated historical HTML Model, charts and calculation",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 15",
+          "text": "JSON. This establishes more visible analytical content and definitions, not an",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 16",
+          "text": "improvement in the issuer between report versions or stronger fundamental",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 17",
+          "text": "confidence. No new issuer-analysis repair is supported by this comparison.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 19",
+          "text": "## Sources",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 21",
+          "text": "CP-OS supplied23 frozen files from two complete receipt-checked delivery bundles.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 22",
+          "text": "All23 were opened. Their staged bytes matched the actual request's source hashes.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 23",
+          "text": "Both main HTML payloads match their retained View/ReportView; the current Model",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 24",
+          "text": "has its own consistent View/ReportView/calculation binding. Original deliveries",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 25",
+          "text": "were read without modification. Prefixes P/C below mean these exact bundles:",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 27",
+          "text": "| Bundle | Selected publication | Receipt SHA-256 | Main report SHA-256 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 28",
+          "text": "|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 29",
+          "text": "| P — prior | runs/cpos-tdg-host-001/execution/deliveries/17e1d418be894f6aeff979f100e87460fc3f9d80ed4f22cb7114e4b1c5c8627d | 4216fe746df0e4d46ae384b7abb0f464f8e0b4adfcbc6d2638382da98d440344 | 128027b2625f5ab697c3141c9998f2be6f18ff03115fcddb41a7e682f31282b7 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 30",
+          "text": "| C — current | runs/cpos-tdg-model-001/execution/deliveries/de1be08fb3a040d4e4f916cce017b1541b8eaaa8235b6fb50b7c4afb916a2bfc | 380a4e5f3835f21104eae5103f39a98d5ec08d5b2e082441d1ecc4d5fb9637d7 | cdb682b743990b0484bb51e895a1007973c746510079963f8fc57eb62c3a09b7 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 32",
+          "text": "P/C copied CP-1 SHA301af0ee…, CP-1A SHA6f639631… and CP-2 SHA f50a11f5…",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 33",
+          "text": "are byte-identical. `C/annual.md` is the same annual CP-1 handoff;",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 34",
+          "text": "`C/current_synthesis.md` is the same CP-2 handoff. Those aliases are copies,",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 35",
+          "text": "not new issuer evidence. The complete input hashes are retained in the CP-OS",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 36",
+          "text": "request and eventual comparison-inputs.json. Original issuer references inside",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 37",
+          "text": "the analytical handoffs remain their authority/limitation basis.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 39",
+          "text": "## Findings",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 41",
+          "text": "### Seven requested comparison dimensions",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 43",
+          "text": "| Dimension | Prior deliverable | Current deliverable | Explanation and material effect | Evidence |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 44",
+          "text": "|---|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 45",
+          "text": "| Values |156 delivered core facts from CP-1/CP-1A/CP-2; CP-MODEL blocked. No separately published Model numeric register. |Same156 core facts plus2,005 CP-MODEL representation facts, including81 annual numeric cells:74 known and7 missing. FY2024 operating EBIT plus D&A3,843, issuer ordinary EBITDA3,813 and issuer As Defined4,173 USDm remain separate. |Publication addition, not financial growth or a revision of historical figures. Missing prior publication is not a zero baseline; representation counts are not unique new issuer facts. The three earnings bases cannot be subtracted as a time-series change or treated as one definition. |P/C View core modules equal; C calculation.json values/FY2024 and model-view.json CP-MODEL history/ratios. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 46",
+          "text": "| Periods |Main historical base2024-09-30; underlying annual FY2022–FY2024 history and separately dated subsequent events in unchanged core handoffs. |Same main financial date. Model annual windows retain exact October-to-September dates. Additional raw quarter tables retain2024-10-01–2024-12-28 versus2023-10-01–2023-12-30, with reported89/91-day durations; conditional annual planning windows remain separately labelled. |More period visibility without advancing the main assessment date. Added quarter evidence is later than the annual base and is not an equal-duration or newly normalized/LTM series. |P/C view.json run.as_of; C calculation.json start_date/end_date; C quarter.md context map lines41–43 and retained source tables. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 47",
+          "text": "| Assumptions |The five-section CP-2 assessment does not contain a newly adopted conditional forecast or a new Model publication. Existing core assumptions/unknowns stay explicit. |The same CP-2 assessment, plus literal conditional CP-2G tables and unchanged forecast_exact.json. Reference/downside/upside drivers, exclusions, access/minimum-cash gaps and analyst watches remain stipulated/qualified. |Publishing the retained illustration is not a new source-supported central forecast or evidence that CP-2 adopted these extra scenarios in this run. No new paid or independent analytical execution occurred merely to render them. |P/C CP-2.md byte equality; C forecast.md T2H.3/T2H.7/T2H.9 and Gaps; forecast_exact.json SHA04907444…. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 48",
+          "text": "| Conclusions |Medium fundamental confidence and CP-2 Ready with limitations. The annual operating case is counterbalanced by debt-supported shareholder allocation, cash-access and contractual-control uncertainty. |Identical CP-2 text and identical five narrative report blocks. The Model makes selected historical definitions/calculations visible; CP-MODEL is candidate, not native accepted. |No analytical upgrade, adverse issuer event or new security recommendation is established by this delivery revision. New output availability closes the named publication gap only. |P/C report-view.json blocks equal; P/C CP-2.md assessment line42, Critical restrictions lines155–156 and readiness line174; View module statuses. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 49",
+          "text": "| Sources |Same checked annual CP-1, business/governance CP-1A and fundamental CP-2 handoffs copied into the delivery. |Those exact inputs remain; Model also copies the checked quarter handoff SHA8be815a5…, conditional forecast handoff SHA696d6c06… and exact forecast JSON SHA04907444…. Model sources have explicit handoff-line/hash citations. |Coverage and presentation expanded through additional retained analytical artifacts. An analytical handoff is not a new primary issuer filing, and duplicate source aliases do not add independent confirmation. Scope and dates remain those of each original handoff. |P/C copied-handoff hashes; C calculation.json inputs; C quarter.md,forecast.md,forecast_exact.json and model-view.json sources. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 50",
+          "text": "| Limitations |No published Model/charts; the two inherited Critical contract/current-liquidity restrictions and other CP-1/CP-1A/CP-2 gaps remain. |The named Model/chart/JSON publication now exists. Core creditor restrictions remain unchanged. Seven annual numeric entries remain missing; quarter/source-unit and conditional forecast limitations persist. Native/provider/full-pathway acceptance remains unproven. |A delivered Model does not establish accessible liquidity, covenant/agency measures, complete claims, sustainable FCF or full current underwriting. Old workbook-export wording inside retained historical handoffs is superseded by the user's ingestion-only ruling, not a new work requirement. |P/C delivery.json cp_model_published; P/C CP-2 Gaps; C calculation.json missing amounts; quarter.md G1–G7; forecast.md T2H.9/Gaps; both current publication scope banners. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 51",
+          "text": "| Output scope |Five populated narrative sections; no Model HTML, chart publication or calculation JSON in that bundle. |Those same five sections plus model.html,calculation.json,Model views and copied supporting handoffs/exact forecast. Three annual charts contain18 observations;51 raw handoff tables and two numeric tables are retained in CP-MODEL. |A material, bounded delivery gain: report-to-Model/JSON navigation and source-backed presentation are available. It does not qualify all pathways, formats, sources or native analytical runs. No Excel output is added. |P/C delivery.json file lists/scope; C model-report-view.json two blocks and three figures; C model-view.json53 tables; report.html Model/JSON destinations. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 53",
+          "text": "### All five narrative sections",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 55",
+          "text": "| Section | Actual prior/current comparison | Consequence |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 56",
+          "text": "|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 57",
+          "text": "| Key findings |Exactly equal ReportView block |Same Medium annual fundamental assessment and explicit cash/contract restrictions. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 58",
+          "text": "| Company and operating model |Exactly equal block, including operating-model tab |No new business, ownership or operating-model conclusion. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 59",
+          "text": "| Strengths and weaknesses |Exactly equal block and prose lines |Same operating support, distribution/refinancing concern and evidence limits; no lost or newly resolved prior thesis item. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 60",
+          "text": "| Company profile |Exactly equal block and business-mix tab |Historical reported profile/mix unchanged; no new economic inference. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 61",
+          "text": "| Transaction summary |Exactly equal block and dated transaction prose |No additional funding feasibility, legal permission or transaction execution finding. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 63",
+          "text": "The strongest contrary interpretation is that the richer Model now reveals",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 64",
+          "text": "meaningful figures that the earlier five-section summary did not show. That is",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 65",
+          "text": "correct as a change in delivered visibility. It does not overcome the exact",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 66",
+          "text": "equality of the existing core facts/analysis or establish a later-period change",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 67",
+          "text": "in the issuer. The new ordinary/operating/As Defined earnings presentation",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 68",
+          "text": "improves definition visibility while preserving uncertainty about quality and",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 69",
+          "text": "permitted creditor uses.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 71",
+          "text": "No material narrative visibility regression was found in this pair: all five",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 72",
+          "text": "blocks are equal. This finding applies to these selected publications; it does",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 73",
+          "text": "not undo earlier CP-8 findings on other versions or certify every future revision.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 75",
+          "text": "## Calculations",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 77",
+          "text": "Compared all23 actual input files against the request's frozen hashes; compared",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 78",
+          "text": "the three core handoffs byte-for-byte, their156 View facts and all five structured",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 79",
+          "text": "narrative ReportView blocks. The latter blocks are exactly equal, including tabs,",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 80",
+          "text": "rows, prose and references. Compared publication inventories and CP-MODEL status",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 81",
+          "text": "blocked versus candidate; inspected81 annual numeric cells, their periods, source",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 82",
+          "text": "references and distinct definitions, plus the three chart specifications and",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 83",
+          "text": "additional raw-source/forecast content. Seven annual values remain missing,",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 84",
+          "text": "including FY2022 source/balance-dependent entries; none is filled with zero.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 86",
+          "text": "Counts describe output coverage only. No new issuer-financial arithmetic,",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 87",
+          "text": "performance variance, return, probability, covenant test or confidence score",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 88",
+          "text": "was calculated. Earlier independent source/Fraction verification of the81 Model",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 89",
+          "text": "cells remains the calculation-quality evidence; this comparison is not a second",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 90",
+          "text": "financial model or a new independent validation of every issuer assertion.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 92",
+          "text": "## Gaps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 94",
+          "text": "| Restriction | Continuing consequence / next evidence action |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 95",
+          "text": "|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 96",
+          "text": "| Historical and mixed dated scope |Shared annual financial base remains2024-09-30; extra quarter/conditional records do not make it current2026 underwriting. Keep their dates and assumptions. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 97",
+          "text": "| Core creditor evidence |Executed terms, current unrestricted cash, covenant/access evidence, forecast and other inherited gaps remain. A publication addition supplies none of these missing inputs. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 98",
+          "text": "| Conditional forecast completeness |Retained scenario outputs remain conditional; missing source-backed cash drivers, later-year assumptions, intra-year troughs and funding feasibility are not resolved by rendering. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 99",
+          "text": "| Numeric definitions and missing observations |Carry debt is a book borrowing measure; mechanical net debt does not certify cash access. Operating and issuer earnings bases are separate. Retain all seven numeric gaps. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 100",
+          "text": "| Qualification |Actual same-host comparison and source/instruction check, not independent-context/provider/native acceptance or a full-pathway proof. No investment-decision outcomes are required for this user-defined function. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 102",
+          "text": "## Next module",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 104",
+          "text": "Separate delivery should now read this actual CP-8 response and publish its seven",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 105",
+          "text": "comparison dimensions, source bindings and full continuing gaps. CP-OS must",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 106",
+          "text": "verify the populated output before recording completion. No upstream analytical",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 107",
+          "text": "rerun or correction of the unchanged CP-2 assessment is justified by this pair.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 108",
+          "text": "Preserve both original publications. Continue remaining module/pathway work",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 109",
+          "text": "under the active objective; do not equate this scoped comparison with completion",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 110",
+          "text": "of the entire system.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        }
+      ],
+      "limitation": "Actual analytical handoff; underlying source qualifications and scope remain.",
+      "extractor": "literal-markdown-lines",
+      "extraction_status": "complete",
+      "coverage": []
+    }
+  ],
+  "analytical_qualification": "partial",
+  "native_host_qualification": "unrun"
+}

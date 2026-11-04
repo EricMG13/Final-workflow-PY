@@ -1,0 +1,366 @@
+{
+ "Q2FY24|BS|line:42-line:77": {
+  "source_id": "Q2FY24",
+  "kind": "BS",
+  "start": "line:42",
+  "end": "line:77",
+  "columns": [
+   {
+    "header_text": "March 30, 2024",
+    "period": {
+     "kind": "instant",
+     "start": null,
+     "end": "2024-03-30"
+    }
+   },
+   {
+    "header_text": "September 30, 2023",
+    "period": {
+     "kind": "instant",
+     "start": null,
+     "end": "2023-09-30"
+    }
+   }
+  ],
+  "header_lines": "line 43 'March 30, 2024 September 30, 2023'"
+ },
+ "Q2FY24|IS|line:78-line:100": {
+  "source_id": "Q2FY24",
+  "kind": "IS",
+  "start": "line:78",
+  "end": "line:100",
+  "columns": [
+   {
+    "header_text": "Thirteen Week Periods Ended March 30, 2024",
+    "period": {
+     "kind": "quarter",
+     "start": null,
+     "end": "2024-03-30"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   },
+   {
+    "header_text": "Thirteen Week Periods Ended April 1, 2023",
+    "period": {
+     "kind": "quarter",
+     "start": null,
+     "end": "2023-04-01"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   },
+   {
+    "header_text": "Twenty-Six Week Periods Ended March 30, 2024",
+    "period": {
+     "kind": "half",
+     "start": null,
+     "end": "2024-03-30"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   },
+   {
+    "header_text": "Twenty-Six Week Periods Ended April 1, 2023",
+    "period": {
+     "kind": "half",
+     "start": null,
+     "end": "2023-04-01"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   }
+  ],
+  "header_lines": "line 79 'Thirteen Week Periods Ended Twenty-Six Week Periods Ended'; line 80 'March 30, 2024 April 1, 2023 March 30, 2024 April 1, 2023'"
+ },
+ "Q2FY24|CFS|line:171-line:215": {
+  "source_id": "Q2FY24",
+  "kind": "CFS",
+  "start": "line:171",
+  "end": "line:215",
+  "columns": [
+   {
+    "header_text": "Twenty-Six Week Periods Ended March 30, 2024",
+    "period": {
+     "kind": "half",
+     "start": null,
+     "end": "2024-03-30"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   },
+   {
+    "header_text": "Twenty-Six Week Periods Ended April 1, 2023",
+    "period": {
+     "kind": "half",
+     "start": null,
+     "end": "2023-04-01"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   }
+  ],
+  "header_lines": "line 172 'Twenty-Six Week Periods Ended'; line 173 'March 30, 2024 April 1, 2023'"
+ },
+ "Q3FY24|BS|line:40-line:74": {
+  "source_id": "Q3FY24",
+  "kind": "BS",
+  "start": "line:40",
+  "end": "line:74",
+  "columns": [
+   {
+    "header_text": "June 29, 2024",
+    "period": {
+     "kind": "instant",
+     "start": null,
+     "end": "2024-06-29"
+    }
+   },
+   {
+    "header_text": "September 30, 2023",
+    "period": {
+     "kind": "instant",
+     "start": null,
+     "end": "2023-09-30"
+    }
+   }
+  ],
+  "header_lines": "line 41 'June 29, 2024 September 30, 2023'"
+ },
+ "Q3FY24|IS|line:75-line:97": {
+  "source_id": "Q3FY24",
+  "kind": "IS",
+  "start": "line:75",
+  "end": "line:97",
+  "columns": [
+   {
+    "header_text": "Thirteen Week Periods Ended June 29, 2024",
+    "period": {
+     "kind": "quarter",
+     "start": null,
+     "end": "2024-06-29"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   },
+   {
+    "header_text": "Thirteen Week Periods Ended July 1, 2023",
+    "period": {
+     "kind": "quarter",
+     "start": null,
+     "end": "2023-07-01"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   },
+   {
+    "header_text": "Thirty-Nine Week Periods Ended June 29, 2024",
+    "period": {
+     "kind": "nine_months",
+     "start": null,
+     "end": "2024-06-29"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   },
+   {
+    "header_text": "Thirty-Nine Week Periods Ended July 1, 2023",
+    "period": {
+     "kind": "nine_months",
+     "start": null,
+     "end": "2023-07-01"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   }
+  ],
+  "header_lines": "line 76 'Thirteen Week Periods Ended Thirty-Nine Week Periods Ended'; line 77 'June 29, 2024 July 1, 2023 June 29, 2024 July 1, 2023'"
+ },
+ "Q3FY24|CFS|line:186-line:235": {
+  "source_id": "Q3FY24",
+  "kind": "CFS",
+  "start": "line:186",
+  "end": "line:235",
+  "columns": [
+   {
+    "header_text": "Thirty-Nine Week Periods Ended June 29, 2024",
+    "period": {
+     "kind": "nine_months",
+     "start": null,
+     "end": "2024-06-29"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   },
+   {
+    "header_text": "Thirty-Nine Week Periods Ended July 1, 2023",
+    "period": {
+     "kind": "nine_months",
+     "start": null,
+     "end": "2023-07-01"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   }
+  ],
+  "header_lines": "line 187 'Thirty-Nine Week Periods Ended'; line 188 'June 29, 2024 July 1, 2023'"
+ },
+ "K24|BS|line:898-line:933": {
+  "source_id": "K24",
+  "kind": "BS",
+  "start": "line:898",
+  "end": "line:933",
+  "columns": [
+   {
+    "header_text": "2024",
+    "period": {
+     "kind": "instant",
+     "start": null,
+     "end": "2024-09-30"
+    }
+   },
+   {
+    "header_text": "2023",
+    "period": {
+     "kind": "instant",
+     "start": null,
+     "end": "2023-09-30"
+    }
+   }
+  ],
+  "header_lines": "title line 898 'AS OF SEPTEMBER 30, 2024 AND 2023'; line 899 '2024 2023'"
+ },
+ "K24|IS|line:934-line:960": {
+  "source_id": "K24",
+  "kind": "IS",
+  "start": "line:934",
+  "end": "line:960",
+  "columns": [
+   {
+    "header_text": "Fiscal Years Ended September 30, 2024",
+    "period": {
+     "kind": "year",
+     "start": "2023-10-01",
+     "end": "2024-09-30"
+    }
+   },
+   {
+    "header_text": "Fiscal Years Ended September 30, 2023",
+    "period": {
+     "kind": "year",
+     "start": "2022-10-01",
+     "end": "2023-09-30"
+    }
+   },
+   {
+    "header_text": "Fiscal Years Ended September 30, 2022",
+    "period": {
+     "kind": "year",
+     "start": "2021-10-01",
+     "end": "2022-09-30"
+    }
+   }
+  ],
+  "header_lines": "line 935 'Fiscal Years Ended September 30,'; line 936 '2024 2023 2022'. Fiscal years end on September 30 (the balance sheet dates and the equity roll-forward balances at September 30), so each starts on October 1 of the prior year."
+ },
+ "K24|CFS|line:1015-line:1067": {
+  "source_id": "K24",
+  "kind": "CFS",
+  "start": "line:1015",
+  "end": "line:1067",
+  "columns": [
+   {
+    "header_text": "Fiscal Years Ended September 30, 2024",
+    "period": {
+     "kind": "year",
+     "start": "2023-10-01",
+     "end": "2024-09-30"
+    }
+   },
+   {
+    "header_text": "Fiscal Years Ended September 30, 2023",
+    "period": {
+     "kind": "year",
+     "start": "2022-10-01",
+     "end": "2023-09-30"
+    }
+   },
+   {
+    "header_text": "Fiscal Years Ended September 30, 2022",
+    "period": {
+     "kind": "year",
+     "start": "2021-10-01",
+     "end": "2022-09-30"
+    }
+   }
+  ],
+  "header_lines": "line 1016 'Fiscal Years Ended September 30,'; line 1017 '2024 2023 2022'"
+ },
+ "Q1FY25|BS|line:40-line:75": {
+  "source_id": "Q1FY25",
+  "kind": "BS",
+  "start": "line:40",
+  "end": "line:75",
+  "columns": [
+   {
+    "header_text": "December 28, 2024",
+    "period": {
+     "kind": "instant",
+     "start": null,
+     "end": "2024-12-28"
+    }
+   },
+   {
+    "header_text": "September 30, 2024",
+    "period": {
+     "kind": "instant",
+     "start": null,
+     "end": "2024-09-30"
+    }
+   }
+  ],
+  "header_lines": "line 41 'December 28, 2024 September 30, 2024'"
+ },
+ "Q1FY25|IS|line:76-line:97": {
+  "source_id": "Q1FY25",
+  "kind": "IS",
+  "start": "line:76",
+  "end": "line:97",
+  "columns": [
+   {
+    "header_text": "Thirteen Week Periods Ended December 28, 2024",
+    "period": {
+     "kind": "quarter",
+     "start": null,
+     "end": "2024-12-28"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   },
+   {
+    "header_text": "Thirteen Week Periods Ended December 30, 2023",
+    "period": {
+     "kind": "quarter",
+     "start": null,
+     "end": "2023-12-30"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   }
+  ],
+  "header_lines": "line 77 'Thirteen Week Periods Ended'; line 78 'December 28, 2024 December 30, 2023'"
+ },
+ "Q1FY25|CFS|line:150-line:195": {
+  "source_id": "Q1FY25",
+  "kind": "CFS",
+  "start": "line:150",
+  "end": "line:195",
+  "columns": [
+   {
+    "header_text": "Thirteen Week Periods Ended December 28, 2024",
+    "period": {
+     "kind": "quarter",
+     "start": null,
+     "end": "2024-12-28"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   },
+   {
+    "header_text": "Thirteen Week Periods Ended December 30, 2023",
+    "period": {
+     "kind": "quarter",
+     "start": null,
+     "end": "2023-12-30"
+    },
+    "uncertain": "start not printed; week counts back from the end date conflict with the October 1 fiscal-year start for some columns"
+   }
+  ],
+  "header_lines": "line 151 'Thirteen Week Periods Ended'; line 152 'December 28, 2024 December 30, 2023'"
+ }
+}

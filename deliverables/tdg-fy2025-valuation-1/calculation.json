@@ -1,0 +1,82 @@
+{
+  "scope": "Real located filing operands; independent oracle comparison passed. Exact known-component arithmetic and explicitly conditional single-peer context, not complete normalized EV or a sector valuation. No native accepted head.",
+  "input_pins": {
+    "instructions.md": "2f1543a577caa396417667c8d79cab41f1c26d4b57627d23b78911aef2955fd8",
+    "CP-1-valuation-inputs.md": "2d88e82cea96c83108b53a86dafa27056f35098c786419d25dba0280fe0735df",
+    "sources/filing-captures.txt": "b81f0bc9b1c467086fc7a4c81f1bb40b8b0ae1198fa70b0b17c344902492d331",
+    "expectations.json": "57b877a6b2d4e537f8ac6bcf9d9007bc635252ec60ba87bfbb22f9941e57b425"
+  },
+  "production_calculation_context": "unchanged deploy_workflow.owners.cp1c.CTX, 38-digit half-even Decimal; source values read from the frozen input handoff",
+  "values": {
+    "class_a_equity_usd": "5816861917.92",
+    "class_b_equity_usd": "666915112.00",
+    "market_cap_usdm": "6483.77702992",
+    "borrowing_carrying_usdm": "945.686",
+    "finance_lease_usdm": "134.075",
+    "borrowing_principal_usdm": "946",
+    "proxy_principal_usdm": "7501.83902992",
+    "proxy_carrying_usdm": "7501.52502992",
+    "proxy_fair_debt_usdm": "7488.40902992",
+    "debt_fair_sensitivity_usdm": "-13.43000000",
+    "net_carrying_sensitivity_usdm": "-0.31400000",
+    "proxy_plus_rpa_usdm": "7626.83902992",
+    "moog_ebitda_proxy_usdm": "488.451",
+    "moog_revenue_usdm": "3860.624",
+    "ev_proxy_revenue": "1.9431674853391576076820741931874225514",
+    "ev_proxy_ebitda_proxy": "15.358427006844084667653459610073477176",
+    "tdg_ordinary_ebitda_usdm": "4568",
+    "tdg_as_defined_usdm": "4760",
+    "tdg_revenue_usdm": "8831",
+    "tdg_revenue_indication_usdm": "17160.112063030100833440397200038128551",
+    "tdg_ebitda_indication_usdm": "70157.294567263778761841003498815643740"
+  },
+  "display_6dp": {
+    "class_a_equity_usd": "5816861917.920000",
+    "class_b_equity_usd": "666915112.000000",
+    "market_cap_usdm": "6483.777030",
+    "borrowing_carrying_usdm": "945.686000",
+    "finance_lease_usdm": "134.075000",
+    "borrowing_principal_usdm": "946.000000",
+    "proxy_principal_usdm": "7501.839030",
+    "proxy_carrying_usdm": "7501.525030",
+    "proxy_fair_debt_usdm": "7488.409030",
+    "debt_fair_sensitivity_usdm": "-13.430000",
+    "net_carrying_sensitivity_usdm": "-0.314000",
+    "proxy_plus_rpa_usdm": "7626.839030",
+    "moog_ebitda_proxy_usdm": "488.451000",
+    "moog_revenue_usdm": "3860.624000",
+    "ev_proxy_revenue": "1.943167",
+    "ev_proxy_ebitda_proxy": "15.358427",
+    "tdg_ordinary_ebitda_usdm": "4568.000000",
+    "tdg_as_defined_usdm": "4760.000000",
+    "tdg_revenue_usdm": "8831.000000",
+    "tdg_revenue_indication_usdm": "17160.112063",
+    "tdg_ebitda_indication_usdm": "70157.294567"
+  },
+  "required_missing": {
+    "complete_enterprise_value": null,
+    "minority_market_value": null,
+    "preferred_market_value": null,
+    "eligible_investment_adjustment": null,
+    "transaction_ev_ebitda": null,
+    "transaction_ev_revenue": null,
+    "sector_median": null,
+    "sector_average": null,
+    "sector_range": null
+  },
+  "current_date_native_admission_control": {
+    "included": false,
+    "reason": "Excluded: figures dated 2025-09-27 are before 2025-11-04 (12-month limit)",
+    "stats": {
+      "n_total": 1,
+      "n_admitted": 0,
+      "minimum": null,
+      "median": null,
+      "maximum": null,
+      "outliers": null
+    }
+  },
+  "statistical_policy": "No one-peer sector statistics or range displayed. The debt-basis alternatives are named sensitivities, not peer quantiles.",
+  "oracle_checks": 21,
+  "oracle": "expectations.json independent Fraction source-literal arithmetic, frozen before this execution"
+}

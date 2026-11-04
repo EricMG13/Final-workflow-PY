@@ -1,0 +1,80 @@
+{
+  "module": "CP-8",
+  "selected_method": "Current user 2026-11-04 correction; prior/current deliverable comparison, frozen instructions.md. Imported post-mortem superseded.",
+  "mode": "Actual current host model with preceding context; sequential; no agents/providers/native acceptance",
+  "paid_calls": 0,
+  "agents_spawned": 0,
+  "stage": "CP-8 user-defined prior/current deliverable comparison, actual CP-2 consumption, populated snapshot7 and actual recheck complete for this historical selected case.",
+  "files": {
+    "inputs.json": "c9dc9ba1527260297e4e313cd942b201c9d613ccaf4e70a606f24b4b67df715c",
+    "instructions.md": "063647feaeb6a53eeadb4ab1528210a1a5a389356a1ecf3dd5af16e99e7784b1",
+    "pre-output-expectations.json": "1c3a21d478e554695d78cf46448051eef8a6cd50c13a7d05b4b1e3e807c5e6ea",
+    "CP-2-consumer-instructions.md": "848bcc3dafd5307dffe57e43e09ac2b7a54a9be175b69cdbf59d2cf0ad445a19",
+    "CP-2-consumer.md": "4db9e66d1d906a1fe5fa1beb21977faf87bb38ea5366bd6e34a49218a176ada3",
+    "CP-2-delivery.md": "22edd045e3d6f9e0a1e1bfff9fd099064b7f076d32c38e833977a8343e9d662b",
+    "snapshot-inputs.json": "af78f7b5bdb127f530eece3eb2ee02abadc3c4c33270692528b781d3789dac59",
+    "runs/tdg-run-comparison-001/CP-8-recheck.md": "b2dd2ad41e29950c192b7fb967c77cf1e66cc57aa552fec4cb045bc4c02eb017",
+    "src/deploy_vii/methods/cp8.md": "51aeabbb16f5fabde66f46937f5a3ad0a3e149b3b102843918e3cb2486cc10ed",
+    "src/deploy_vii/methodology.json": "c5117510a20a8377f016e050c7cd7755e273f4c8640198abc36fe8bd34bb64de",
+    "docs/reuse/legacy-cp8-decision-ledger.md": "41252b13b5734319fde4a92b291db0cbb55cd5190c727bb7dbf9a8bc964b9c28"
+  },
+  "comparison_checks": {
+    "identity_and_period_same": true,
+    "prior_and_current_bundles_all_hashes_pass": true,
+    "CP1_and_CP1A_all_facts_tables_artifacts_equal": true,
+    "three_report_blocks_exact_equal": true,
+    "key_findings_and_strengths_weaknesses_revised": true,
+    "actual_strength_weakness_gap_counts_reproduced": true,
+    "Model_blocked_and_candidate_statuses_unchanged": true,
+    "original_source_handoff_locators_rechecked": true,
+    "RC1_missing_from_current_summary_and_dashboard": true,
+    "RC2_missing_from_current_CP2_but_present_CP1A_line142": true,
+    "RC3_severities_present_in_CP1A_lines138_139_but_not_current_CP2_gap_fields": true,
+    "changed_ordinals_and_duplicated_labels_not_semantic_identity": true,
+    "new_scope_not_interperiod_performance_or_gap_resolution": true
+  },
+  "producer": {
+    "path": "runs/tdg-run-comparison-001/CP-8.md",
+    "sha256": "08cde9b6455c7109e43deee8dc4e729be160e025049ddf918873ff2b7f365932"
+  },
+  "unresolved": [],
+  "native_legacy_owner_scope": "Imported cp8.py still implements a different decision-ledger task; its runtime is not qualified for the current user-defined module.",
+  "consumer": {
+    "path": "/Users/ericguei/Documents/final-workflow/runs/tdg-run-comparison-001/CP-2-consumer.md",
+    "sha256": "4db9e66d1d906a1fe5fa1beb21977faf87bb38ea5366bd6e34a49218a176ada3",
+    "adopted": [
+      "RC-1",
+      "RC-2",
+      "RC-3"
+    ]
+  },
+  "delivery": {
+    "directory": "deliverables/tdg-fy2024-snapshot-7",
+    "manifest_sha256": "38920c2ce67ae8c9bc4ba35c637caa21057eb969c95db4a17093ee4b4f63ced8",
+    "report_sha256": "c7c4156e7c2ac98d043ccb76f36a70b33091f0fa57dfc69f3e50aa2033cd2e9d",
+    "facts_and_exact_citations_checked": 166,
+    "new_fields": [
+      "T2.12.r13.c0",
+      "T2.12.r13.c1",
+      "cp2.weaknesses.r6.c0"
+    ],
+    "changed_fields": [
+      "T2.12.r0.c0",
+      "T2.12.r1.c0"
+    ],
+    "all_other_values_roles_statuses_preserved": true,
+    "four_other_report_blocks_exact_equal": true,
+    "strength_weakness_lines": 13,
+    "analytical_rerun_for_rendering": false,
+    "production_code_changed": false,
+    "browser_AX_verified": [
+      "Restored historical maturity figures on front page",
+      "Inherited Critical legal/liquidity labels visible",
+      "Restored Material related-party/lender-reporting restriction visible",
+      "Historical/candidate scope banner remains"
+    ],
+    "verification_server_stopped": true
+  },
+  "catalogue_metadata_and_all_25_plus16_routes_passed": true,
+  "remaining_scope": "Legacy native CP8 owner/schema adaptation belongs to CP-OS integration; remaining whole-goal work is open."
+}

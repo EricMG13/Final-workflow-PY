@@ -1,0 +1,31 @@
+{
+  "kind": "manual_checked_handoff_delivery",
+  "analytical_rerun_for_delivery": false,
+  "production_code_changed": false,
+  "native_accepted_heads_created": false,
+  "no_excel_output": true,
+  "scope": "Historical FY2025 issuer filings; Moog price as of 27 September 2025, TDG year ended 30 September 2025. Stale at the 4 November 2026 run date. N=1; individual known-components EV-proxy indications only. Complete EV, transaction methods and normalized/current sector valuation remain unproven. Alternative methods are not a valuation range. Same-host handoffs, not independent assurance or native CP-OS completion.",
+  "source_tables": 19,
+  "source_data_rows": 61,
+  "literal_value_cells_checked": 174,
+  "facts_and_exact_line_citations": 174,
+  "missing_null_cells": 28,
+  "front_summary_rows": 5,
+  "narrative_tables": 12,
+  "call_from_literal_provisional_status": true,
+  "files": {
+    "CP-1C-attempt-1.md": "cff698eee50739b376748cdb23016cd55d78130045aa734540ef81c26520eac8",
+    "CP-2-consumer.md": "20bc0c23f832eb1eafba7f46e2f157b89cab09b5c5fd3f90f25fbb5217ba65aa",
+    "calculation.json": "f08e324d1c3b60ddd64459d264d18d4eabd8fb1fc626007e7b74f443d8e6be8d",
+    "CP-1-valuation-inputs.md": "2d88e82cea96c83108b53a86dafa27056f35098c786419d25dba0280fe0735df",
+    "view.json": "08e713acf4190edec5fd038e43e9559cc0d88cfd4df8f1402a037d71c08f66ff",
+    "report-view.json": "d5c0d0eb6583b985941d66f909fab3d4c3005e616b45d2d28291064dee1b6506",
+    "report.html": "843d1e58e8027570adf9af2c03ce81505275efb8488eee74c56233443166a424"
+  },
+  "reused_code": {
+    "src/deploy_workflow/handoff_delivery.py": "aa77ae59a2e408f05a3cf2f5c7af92b4dde2b2df635f961545d49fc05bc0e00c",
+    "src/deploy_vii/contracts.py": "b07965cc3907da1911c29a09bfea8b4559fb1c27dfc57c7e89eab97f1a3d0ee3",
+    "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+    "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba"
+  }
+}

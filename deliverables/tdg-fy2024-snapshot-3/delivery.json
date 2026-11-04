@@ -1,0 +1,20 @@
+{
+  "kind": "manual_handoff_delivery",
+  "scope": [
+    "key-findings",
+    "company-operating-model",
+    "strengths-weaknesses",
+    "company-profile",
+    "transaction-summary"
+  ],
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "files": {
+    "CP-1.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+    "CP-1A.md": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+    "CP-2.md": "828e78d47cbb8d718ab4ec8522034ff197500af8411b8a61fde0601f2c51c802",
+    "view.json": "33973c10117ba560528b1e9c97c165f01ab3dc7c556d26cac504f6b94bcb9df6",
+    "report-view.json": "d3cb5b3299140c71447598380985df4ef800db325b65a108d979d3f19bda6faf",
+    "report.html": "00186b0f4bdd9a0b31eb2e2ceaa4b372090acb37bf75487adaca67d8d5b33118"
+  }
+}

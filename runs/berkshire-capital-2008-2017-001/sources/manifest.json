@@ -1,0 +1,68 @@
+[
+  {
+    "file": "GS-decision-20080923.html",
+    "url": "https://www.goldmansachs.com/pressroom/press-releases/2008/berkshire-hathaway-invest",
+    "final_url": "https://www.goldmansachs.com/pressroom/press-releases/2008/berkshire-hathaway-invest",
+    "content_type": "text/html; charset=UTF-8",
+    "bytes": 525525,
+    "sha256": "fe829316b24f4d7098cb451df783cb8f996b3e8d3c321aab5a6280d868b3b506",
+    "retrieved": "2026-11-04",
+    "extracted_file": "GS-decision-20080923.txt",
+    "extracted_sha256": "125fed8ad6e9ee897c0ef93d08746ce33ef2dd3422a32ba701d38d83f2518da9"
+  },
+  {
+    "file": "GE-decision-20081001.html",
+    "url": "https://www.ge.com/news/press-releases/ge-announces-common-stock-offering-warren-buffett-announces-investment-ge",
+    "final_url": "https://www.ge.com/news/press-releases/ge-announces-common-stock-offering-warren-buffett-announces-investment-ge",
+    "content_type": "text/html; charset=UTF-8",
+    "bytes": 48073,
+    "sha256": "37f4a7821013f74cf10b78d57a7ed2034ff6680e6e65e2a8166910f48445ad65",
+    "retrieved": "2026-11-04",
+    "extracted_file": "GE-decision-20081001.txt",
+    "extracted_sha256": "6801ea4b4f3454787fd56bd650784eae4185ec05af75a7819ada6d9ebbd16c1c"
+  },
+  {
+    "file": "BAC-decision-20110825.html",
+    "url": "https://investor.bankofamerica.com/regulatory-and-other-filings/select-sec-filings/content/0001193125-11-232422/dex991.htm",
+    "final_url": "https://investor.bankofamerica.com/regulatory-and-other-filings/select-sec-filings/content/0001193125-11-232422/dex991.htm",
+    "content_type": "text/html; charset=UTF-8",
+    "bytes": 21894,
+    "sha256": "c3a9851632b35875a17e90d5f7e4c8c1c6c8434a1454057bdb64771b341bbdc0",
+    "retrieved": "2026-11-04",
+    "extracted_file": "BAC-decision-20110825.txt",
+    "extracted_sha256": "a99875c0a8e08fcb5e6bcb165bc4462ca84468eeb51d9e6cd80b6f79e6ecd592"
+  },
+  {
+    "file": "BRK-2011-annual.pdf",
+    "url": "https://www.berkshirehathaway.com/2011ar/2011ar.pdf",
+    "final_url": "https://www.berkshirehathaway.com/2011ar/2011ar.pdf",
+    "content_type": "application/pdf",
+    "bytes": 498351,
+    "sha256": "d0e21920a2a2a4a8a2bc19045e2290330a532c76499f70215f0567d764b86836",
+    "retrieved": "2026-11-04",
+    "extracted_file": "BRK-2011-annual.txt",
+    "extracted_sha256": "b66cf27d35ac8c297d5aa1099565e8a2a27cc4beb47e27d4b2c908c02f0793ab"
+  },
+  {
+    "file": "BRK-2016-annual.pdf",
+    "url": "https://www.berkshirehathaway.com/2016ar/2016ar.pdf",
+    "final_url": "https://www.berkshirehathaway.com/2016ar/2016ar.pdf",
+    "content_type": "application/pdf",
+    "bytes": 546227,
+    "sha256": "56a7d1ebce71352241e6de35a7bd2b912c3bf0bf17494dce584d30603c8f688c",
+    "retrieved": "2026-11-04",
+    "extracted_file": "BRK-2016-annual.txt",
+    "extracted_sha256": "0b80ad789856d80a7f1bafe6d5fc0a23dc789aadf2f610b2c635aa2b77fae28b"
+  },
+  {
+    "file": "BRK-2017-annual.pdf",
+    "url": "https://www.berkshirehathaway.com/2017ar/2017ar.pdf",
+    "final_url": "https://www.berkshirehathaway.com/2017ar/2017ar.pdf",
+    "content_type": "application/pdf",
+    "bytes": 603535,
+    "sha256": "89781766afa4890701087a3db92fff2de0670de42d1f6eb06d242e31ed963bd3",
+    "retrieved": "2026-11-04",
+    "extracted_file": "BRK-2017-annual.txt",
+    "extracted_sha256": "8e1effdca74744bea68c0c9ef8afb8bc77817dd7a489fdad36b51adb42b9e2fb"
+  }
+]

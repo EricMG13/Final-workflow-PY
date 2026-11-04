@@ -1,0 +1,92 @@
+Exact Decimal calculation transcript (USD millions unless stated)
+Source operands are reported values, not normalized replacements.
+
+Income expense-block reconciliation, PDF 106:
+FY2024: 4,672 gross profit - 980 selling and administrative expenses - 161 amortization of intangible assets = 3,531 income from operations; agrees to reported 3,531.
+FY2023: 3,842 - 780 - 139 = 2,923; agrees to reported 2,923.
+FY2022: 3,099 - 748 - 136 = 2,215; agrees to reported 2,215.
+These are the complete printed rows between gross profit and income from operations. Cost of sales is above gross profit and is excluded from this bridge.
+
+Balance sheet equation, PDF 105:
+FY2024: 31,869 total liabilities + (-6,283) total stockholders' deficit = 25,586, agrees to total assets 25,586.
+FY2023: 21,948 + (-1,978) = 19,970, agrees to total assets 19,970.
+
+Cash movement, PDF 109:
+FY2024: 2,045 operating + (-2,441) investing + 3,171 financing + 14 FX = 2,789 increase; 3,472 opening + 2,789 = 6,261 closing.
+FY2023: 1,375 + (-900) + (-16) + 12 = 471 increase; 3,001 + 471 = 3,472 closing.
+FY2022: 948 + (-553) + (-2,148) + (-33) = -1,786 decrease; 4,787 - 1,786 = 3,001 closing.
+
+EBITDA As Defined reconciliation, PDF 142:
+FY2024: 4,173 total company EBITDA As Defined - 312 D&A - 1,286 interest expense-net - 70 acquisition transaction and integration-related expenses - 217 non-cash stock and deferred compensation expense - 58 refinancing costs - 15 other, net = 2,215 income from continuing operations before income taxes.
+FY2023: 3,395 - 268 - 1,164 - 18 - 157 - 56 - 16 = 1,716.
+FY2022: 2,646 - 253 - 1,076 - 18 - 184 - 1 - (-13) = 1,127.
+These are the issuer's non-GAAP reconciliation, not GAAP EBITDA; the source definition and limitations are in PDF 140-141.
+
+FY2024 operating cash less capex calculation:
+2,045 net cash provided by operating activities - 165 capital expenditures = 1,880. This is a simple derived cash-after-capex measure; it is not a source-reported FCF definition and excludes no other cash uses.
+
+Debt reconciliation, PDF 126 and 132:
+FY2024 gross long-term debt components: term loans 8,702 + 5.50% subordinated notes 2,650 + 2028 secured notes 2,100 + 4.625% subordinated notes 1,200 + 2029 secured notes 2,750 + 4.875% subordinated notes 750 + 2030 secured notes 1,450 + 2031 secured notes 1,000 + 2032 secured notes 2,200 + 2033 secured notes 1,500 + government refundable advances 17 + finance leases 262 = 24,581 gross. Less issuance costs 136 and original issue discount 51 = 24,394 net; less current portion 98 net yields long-term debt carrying amount 24,296. Separately shown securitization borrowing gross 487 less issuance costs 1 = 486 current carrying amount. This aligns with BS long-term debt 24,296, current portion 98, and short-term securitization 486. Principal total including securitization is not a single subtotal printed in the debt table; do not confuse debt's carrying amount, original principal and securitization capacity.
+
+Attempt-2 targeted review and complete verification transcript
+All calculations below use Python Decimal. Amounts USD millions unless stated. Source operand locators refer to the retained S1 statement/schedule tables and exact row labels in the attempt-2 handoff.
+
+1) Operating expense aggregate and complete expense block (PDF 106; IS rows as reported):
+FY2022 SG&A 748 + amortization of intangible assets 136 = positive expense magnitude 884; signed account form = -748 + -136 = -884. Gross profit 3,099 - 748 - 136 = income from operations 2,215; calculated minus reported operating income residual = 0.
+FY2023 SG&A 780 + intangible amortization 139 = 919; signed account form = -919. Gross profit 3,842 - 780 - 139 = 2,923; residual = 0.
+FY2024 SG&A 980 + intangible amortization 161 = 1,141; signed account form = -1,141. Gross profit 4,672 - 980 - 161 = 3,531; residual = 0.
+This block contains all reported income-statement lines between gross profit and operating income. Cost of sales is upstream of gross profit. The aggregate is calculated and is not represented as a source-reported subtotal.
+
+2) Primary income statement cross-checks (PDF 106; row operands by year):
+FY2022: net sales 5,429 - cost of sales 2,330 = gross profit 3,099; operations 2,215 - interest expense-net 1,076 - refinancing costs 1 - other income/expense 11 = pretax income 1,127; pretax 1,127 - provision 261 = continuing income 866; continuing income 866 + discontinued income 1 = net income 867; net income 867 - NCI 1 = TD Group net income 866. Residuals all 0.
+FY2023: 6,585 - 2,743 = 3,842; 2,923 - 1,164 - 56 - (-13) = 1,716; 1,716 - 417 = 1,299; net income 1,299 - NCI 1 = TD Group net income 1,298. Residuals all 0.
+FY2024: 7,940 - 3,268 = 4,672; 3,531 - 1,286 - 58 - (-28) = 2,215; 2,215 - 500 = 1,715; net income 1,715 - NCI 1 = TD Group net income 1,714. Residuals all 0.
+
+3) Reported issuer net-income to EBITDA / EBITDA As Defined tables (PDF 53):
+FY2024 reported source operands: net income 1,715 + D&A 312 + interest expense-net 1,286 + total income tax provision 500 = EBITDA 3,813; residual 0. EBITDA 3,813 + acquisition/integration 70 + stock/deferred compensation 217 + refinancing 58 + other, net 15 = EBITDA As Defined 4,173; residual 0.
+FY2023: net income 1,299 + D&A 268 + interest expense-net 1,164 + total income tax provision 417 = EBITDA 3,148; residual 0. EBITDA 3,148 + 18 + 157 + 56 + 16 = EBITDA As Defined 3,395; residual 0.
+PDF 53 supplies FY2024/FY2023 only. No FY2022 is fabricated here. Total tax provision 500/417 is distinct from current provision 490/414 used in the cash bridge. D&A 312/268 is the issuer reconciliation row and is not income-statement intangible amortization alone.
+
+4) Reported issuer operating-cash-flow to EBITDA / EBITDA As Defined tables (PDF 54):
+FY2024: OCF 2,045 + issuer change-in-assets/liabilities adjustment 272 + interest excluding debt issuance cost and premium/discount amortization 1,246 + current tax provision 490 + loss-contract amortization 35 - noncash stock/deferred compensation 217 - refinancing costs 58 = EBITDA 3,813; residual 0. 3,813 + acquisition/integration 70 + noncash stock/deferred compensation 217 + refinancing 58 + other, net 15 = EBITDA As Defined 4,173; residual 0.
+FY2023: OCF 1,375 + issuer change-in-assets/liabilities adjustment 415 + interest as defined 1,123 + current provision 414 + loss-contract amortization 34 - noncash stock/deferred compensation 157 - refinancing 56 = EBITDA 3,148; residual 0. 3,148 + acquisition/integration 18 + noncash stock/deferred compensation 157 + refinancing 56 + other, net 16 = EBITDA As Defined 3,395; residual 0.
+These are source-defined adjustments. The 272/415 line is retained exactly as the issuer's net asset/liability adjustment and is not recomputed from an alternate working-capital perimeter. Interest 1,246/1,123 differs from income-statement interest-net 1,286/1,164 because the cash-flow bridge excludes debt issuance cost and debt premium/discount amortization, per footnote 1 on PDF 54. Current tax provision 490/414 differs from total tax provision 500/417 in PDF 53.
+
+5) Three-year segment EBITDA As Defined reconciliation (PDF 142; all residuals):
+FY2024: Power & Control 2,236 + Airframe 1,962 + Non-aviation 81 = segment total 4,279 (0 residual); less unallocated corporate 106 = company 4,173 (0). Company 4,173 - D&A 312 - interest 1,286 - acquisition/integration 70 - stock/deferred compensation 217 - refinancing 58 - other 15 = pretax income 2,215 (0).
+FY2023: 1,866 + 1,547 + 71 = 3,484 (0); less corporate 89 = 3,395 (0). 3,395 - 268 - 1,164 - 18 - 157 - 56 - 16 = 1,716 (0).
+FY2022: 1,531 + 1,121 + 65 = 2,717 (0); less corporate 71 = 2,646 (0). 2,646 - 253 - 1,076 - 18 - 184 - 1 - (-13) = 1,127 (0).
+Segment capex check PDF 142: FY2024 90+73+2+0=165; FY2023 67+65+6+1=139; FY2022 63+52+3+1=119. Segment D&A check: FY2024 133+172+6+1=312; FY2023 110+152+5+1=268; FY2022 109+138+5+1=253. Each residual zero; PDF dash in corporate FY2024 capex is retained as dash, with zero used only for the displayed total reconciliation.
+
+6) Segment revenue check (PDF 141; all sums USD millions):
+FY2024 P&C 840+1,198+1,903=3,941; Airframe 1,280+1,289+1,240=3,809; 3,941+3,809+190 Non-aviation=7,940 consolidated. FY2023: 690+1,057+1,569=3,316; 989+1,112+993=3,094; 3,316+3,094+175=6,585. FY2022: 603+847+1,423=2,873; 715+785+891=2,391; 2,873+2,391+165=5,429. Every subtotal/total residual is zero.
+
+7) Comprehensive income (PDF 107; row operands):
+FY2024: net income 1,715 - NCI 1 + currency translation 181 + derivative loss (-124) + pension adjustment (-1) = comprehensive income attributable to TD Group 1,770; residual zero. FY2023: 1,299-1+137+20+12=1,467; residual zero. FY2022: 867-1-379+352+8=847; residual zero.
+
+8) Full equity roll-forward column checks (PDF 108; USD millions except share counts):
+FY2022 retained earnings/accumulated deficit: opening (3,705) - special dividends 1,045 - accrued equivalents/other 30 + attributable income 866 = closing (3,914). APIC: 1,830 + option compensation 151 + stock-based activity 132 = 2,113. AOCI: (248) -379 +352 +8 = (267). Treasury stock: (794) -912 repurchase = (1,706); treasury share magnitude 4,198,226+1,490,413=5,688,639. NCI: 6+1=7. Total equity column: (2,910)+1-1,045-30+151+132-912+866-379+352+8=(3,766). Each column residual zero; common shares 59,403,100+646,585=60,049,685.
+FY2023: accumulated deficit (3,914)-5+1,298=(2,621); APIC 2,113+112+215=2,440; AOCI (267)+137+20+12=(98); treasury stock remains (1,706); NCI 7-1=6. Total column (3,766)-1-5+112+215+1,298+137+20+12=(1,978). Common shares 60,049,685+945,828=60,995,513. Each column residual zero.
+FY2024: accumulated deficit (2,621)-6,368-87+1,714=(7,362); APIC 2,440+134+245=2,819; AOCI (98)+181-124-1=(42); treasury stock remains (1,706); NCI 6+1=7. Total column (1,978)+1-6,368-87+134+245+1,714+181-124-1=(6,283). Common shares 60,995,513+909,320=61,904,833. Each column residual zero.
+
+9) Cash-flow full line totals (PDF 109; each complete table line was summed, with dashes represented as zero only for the individual subtotal check):
+FY2024 operating lines sum 2,045; investing lines (-165)+(-2,347)+71=(-2,441); financing lines 245-2,038+0+7,373-4,400-550+0+137+6,815-4,403-8=3,171. 2,045-2,441+3,171+FX 14=net cash increase 2,789; opening 3,472+2,789=closing 6,261. All residuals zero.
+FY2023 operating lines sum 1,375; investing (-139)+(-762)+1=(-900); financing 215-38+0+3,504-1,122-1,459+0+0+6,238-7,334-20=(-16). 1,375-900-16+FX 12=471; opening 3,001+471=3,472. All residuals zero.
+FY2022 operating lines sum 948; investing (-119)+(-437)+3=(-553); financing 132-1,091-912+0+0+0-200+0+0-75-2=(-2,148). 948-553-2,148-33=(-1,786); opening 4,787-1,786=3,001. All residuals zero.
+OCF less capex, calculated but not issuer-defined FCF: FY2022 948-119=829; FY2023 1,375-139=1,236; FY2024 2,045-165=1,880.
+
+10) Balance sheet and debt reconciliation:
+PDF 105 balance sheet equation: 2024 liabilities 31,869 + total stockholders' deficit (-6,283)=assets 25,586; 2023 21,948+(-1,978)=19,970. Residuals zero.
+PDF 126 long-term debt rows: term loans 8,702 + subordinated notes 2,650+1,200+750 + secured notes 2,100+2,750+1,450+1,000+2,200+1,500 + government advances 17 + finance leases 262 = 24,581 gross long-term schedule total. Less issuance costs 136 and original discounts 51 = 24,394 net; less current portion 98 = long-term carrying amount 24,296. Separately reported securitization 487 gross less 1 cost = current carrying amount 486. These match the table totals and balance-sheet classifications; residuals zero.
+PDF 127 FY2023 gross long-term table sum = 19,563; less issuance costs 106 and net discount/premium 56 = 19,401; less current portion 71 = long-term carrying 19,330. Separately securitization carrying 349. Residuals zero.
+PDF 133 debt maturity rows excluding finance leases: 93+92+92+6,637+4,768+12,637=24,319, matching reported total; residual zero. This sum is not debt carrying value.
+
+11) Revolver/facility classification (PDF 45, 132): commitment 910; available borrowings 843; letters of credit outstanding 67 as separately reported on PDF 45. Do not describe 67 as a funded drawing. The issuer states term loan tranches are fully drawn, and terms/maturities are listed in T4.18. Facility available borrowings do not mean cash on hand.
+
+9a) Full cash flow subtotal operands with row labels (PDF 109; source table order, with printed dash converted to 0 only for the subtotal calculation):
+Operating FY2024: Net income 1,715; discontinued operations 0; depreciation 149; intangible/product certification amortization 163; debt issuance cost/OID/premium amortization 40; inventory step-up amortization 21; loss-contract reserve amortization (35); refinancing 58; gain on sale (11); noncash compensation 217; deferred taxes 10; FX loss 20; ERP settlement gain/loss 0; ERP cash refund/contribution 0; receivables (84); inventories (104); income taxes receivable/payable (62); other assets (60); accounts payable (11); accrued interest 60; accrued and other liabilities (41). Sum = 2,045.
+Operating FY2023 in same row order: 1,299; 0; 129; 139; 41; 2; (34); 56; 0; 157; 3; 14; (9); 9; (212); (261); 168; (44); 12; (45); (49). Sum = 1,375.
+Operating FY2022 in same row order: 867; (1); 116; 137; 34; 3; (39); 1; (7); 184; (22); (40); 22; (16); (190); (134); 58; (56); 58; (21); (6). Sum = 948.
+Investing row operands by year (capital expenditures; acquisitions net cash acquired; other investing): FY2024 (165), (2,347), 71 = (2,441); FY2023 (139), (762), 1 = (900); FY2022 (119), (437), 3 = (553).
+Financing row operands in order (stock option proceeds; dividends; repurchases; senior secured note proceeds; secured note repayments; subordinated note repayments; revolving repayments; securitization proceeds; term loan proceeds; term loan repayments; financing costs/other): FY2024 245, (2,038), 0, 7,373, (4,400), (550), 0, 137, 6,815, (4,403), (8) = 3,171; FY2023 215, (38), 0, 3,504, (1,122), (1,459), 0, 0, 6,238, (7,334), (20) = (16); FY2022 132, (1,091), (912), 0, 0, 0, (200), 0, 0, (75), (2) = (2,148). These sum checks cover every printed operating, investing and financing row.
+Common stock equity component remained at carrying value 1 in FY2022, FY2023 and FY2024, and treasury shares remained at magnitude 5,688,639 after the FY2022 repurchase activity; the source balance sheet and equity statement par/share-count rows remain separate from USD-million carrying amounts.

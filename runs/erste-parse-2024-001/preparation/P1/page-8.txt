@@ -1,0 +1,77 @@
+Consolidated statement of cash flows
+
+
+
+in EUR million                                                                                                                      Notes             1-12 23             1-12 24
+Net result for the period                                                                                                                               3921                3945
+Non-cash adjustments for items in net profit/loss for the year
+   Depreciation amortisation and net impairment of non-financial assets                                                           47 48                  632                  554
+   Net allocation of credit loss allowances and other provisions                                                                        12                 207                  427
+   Gains/losses from measurement and derecognition of financial assets and financial liabilities                                     9 10                 753                 -876
+   Other adjustments                                                                                                                                      -128                  -43
+Changes in assets and liabilities from operating activities after adjustment for non-cash components
+   Financial assets held for trading                                                                                               21 22                 -905              -2641
+   Non-trading financial assets at fair value through profit or loss                                                                    23
+      Equity instruments                                                                                                                23                  -68                 -50
+      Debt securities                                                                                                                   23                   49                 139
+      Loans and advances to customers                                                                                                   23                  -85                 -54
+   Financial assets at fair value through other comprehensive income debt securities                                                   19                 851                 -581
+   Financial assets at amortised cost                                                                                                   16
+      Debt securities                                                                                                                   16              -3436              -8925
+      Loans and advances to banks                                                                                                       16              -3014              -5556
+      Loans and advances to customers                                                                                                   16              -5185             -10190
+   Finance lease receivables                                                                                                            50                -422                 -277
+   Hedge accounting derivatives - assets                                                                                                27                 142                   26
+   Other assets from operating activities                                                                                          17 49                  285                   61
+   Financial liabilities held for trading                                                                                          21 24               -1359                  542
+   Financial liabilities at fair value through profit or loss                                                                           25                -186              -1075
+   Financial liabilities measured at amortised cost                                                                                     18
+      Deposits from banks                                                                                                               18              -5910              -1649
+      Deposits from customers                                                                                                           18               9591               9313
+      Debt securities issued                                                                                                            18               6737               8529
+      Other financial liabilities                                                                                                                          480                 -672
+   Hedge accounting derivatives - liabilities                                                                                           27                  -87                 -91
+   Other liabilities from operating activities                                                                                          52                -276                  115
+Cash flow from operating activities                                                                                                                     2586               -9029
+Proceeds of disposal
+   Financial assets at fair value through other comprehensive income equity instruments                                                20                   15                    0
+   Investments in associates and joint ventures                                                                                         58                  -12                 -21
+   Property and equipment and intangible assets                                                                                    47 48                    44                  51
+   Investment properties                                                                                                                47                   16                  12
+Acquisition of
+   Property and equipment and intangible assets                                                                                    47 48                 -528                 -746
+   Investment properties                                                                                                                47                -134                  -84
+Acquisition of subsidiaries (net of cash and cash equivalents acquired)                                                                                       0                 -88
+Disposal of subsidiaries                                                                                                                                      0                  28
+Cash flow from investing activities                                                                                                                       -599                -850
+   Capital increase/Capital decrease                                                                                                    55                -107                 -255
+   Changes in ownership interests that do not result in a loss of control                                                               55                   18                  50
+   Dividends paid to equity holders of the parent                                                                                       55                -869              -1217
+   Dividends paid to non-controlling interests                                                                                          55                  -61                -132
+Cash flow from financing activities                                                                                                                    -1020               -1553
+
+Cash and cash equivalents at the beginning of the period                                                                                15             35685              36685
+   Cash flow from operating activities                                                                                                                   2586              -9029
+   Cash flow from investing activities                                                                                                                    -599                 -850
+   Cash flow from financing activities                                                                                                                  -1020              -1553
+   Effect of currency translation                                                                                                                            33                -123
+Cash and cash equivalents at the end of period                                                                                          15             36685              25129
+
+Cash flows related to taxes interest and dividends (included in cash flow from operating activities)                                                    8515               6423
+   Payments for taxes on income                                                                                                         13                -315                 -807
+   Interest received                                                                                                                      2            22697               23003
+   Dividends received                                                                                                                     4                  38                  39
+   Interest paid                                                                                                                          2           -13905              -15812
+
+Cash and cash equivalents are equal to the amount in the balance sheet line item ‘Cash and cash balances’.
+
+
+
+
+
+
+
+
+
+
+                                                                                                                                                                                241

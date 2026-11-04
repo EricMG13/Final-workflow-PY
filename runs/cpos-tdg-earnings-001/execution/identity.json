@@ -1,0 +1,1 @@
+{"execution": "retained-response-replay", "max_attempts": 2, "provider_cap_usd": 0, "run": {"as_of": "2024-12-28", "case_kind": "public", "issuer_id": "TDG", "issuer_name": "TransDigm Group Incorporated", "method_version": "deploy-v-r14", "pathway": "earnings_update", "requested_modules": ["CP-1B"], "run_id": "cpos-tdg-q1-earnings-1", "schema_version": "run/2"}}

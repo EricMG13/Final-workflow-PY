@@ -1,0 +1,3079 @@
+"""Report view model: what the Front Page and inspector display, with Python-owned text.
+
+Mirrors the shape of the design's view model (``design/reference/lib/vm.js``: cells,
+prose runs, blocks, ``C#``/``K#``/``G#`` references) as typed immutable contracts. Every
+displayed string is final text from ``display.format_value``; the HTML only places it.
+Reference ids are report-wide: ``C#`` cited, ``K#`` calculated, ``S#`` synthetic, ``G#``
+gap.
+"""
+
+import re
+from collections import Counter
+from collections.abc import Callable, Iterable, Mapping
+from dataclasses import dataclass
+from datetime import date
+from decimal import Decimal
+from types import MappingProxyType
+from typing import TYPE_CHECKING, Any, Literal, Self
+
+from pydantic import model_validator
+
+from deploy_vii import prose
+from deploy_vii.contracts import (
+    PATHWAY_MODULES,
+    Contract,
+    Fact,
+    Identifier,
+    ModuleView,
+    PathwayId,
+    ReportTable,
+    Status,
+    Text,
+    View,
+)
+from deploy_vii.display import CellState, UnitClass, format_date, format_value
+from deploy_vii.registry import dependencies
+
+if TYPE_CHECKING:
+    from deploy_vii.bindings import Binding, BindingMap
+    from deploy_vii.bindings.cp1b import _Layout
+
+Provenance = Literal["cited", "calculated", "synthetic", "gap"]
+DisplayStatus = Literal[
+    "unrun",
+    "candidate",
+    "accepted",
+    "restricted",
+    "blocked",
+    "stale",
+    "rejected",
+    "not_in_pathway",
+]
+BlockState = Literal[
+    "populated", "collapsed", "condition", "not_run", "not_in_pathway", "absent", "blocked"
+]
+BlockKind = Literal["dense", "keyvalue", "period_grid", "prose", "chart"]
+CallWithheld = Literal["outside_pathway", "not_requested", "blocked"]
+ChartKind = Literal[
+    "line", "grouped", "stacked", "waterfall", "debt_stack", "range", "bullet", "na"
+]
+FigurePlacement = Literal["above", "below", "beside"]
+BlockWidth = Literal["full", "five", "seven"]
+
+_PREFIX: dict[Provenance, str] = {"cited": "C", "calculated": "K", "synthetic": "S", "gap": "G"}
+_KIND_OF_PREFIX: dict[str, Provenance] = {prefix: kind for kind, prefix in _PREFIX.items()}
+_GAP_REF = re.compile(r"G\d+")
+_REF_ID = re.compile(r"[CKSG]\d+")
+_REF_OF_PROV = {kind: re.compile(prefix + r"\d+") for kind, prefix in _PREFIX.items()}
+_FIGURE_REF = re.compile(r"[CKS]\d+")
+_FORBIDDEN_TEXT = {"null", "none", "nan"}
+_FORBIDDEN_IN_TEXT = {"null", "nan"}  # "None" can be a genuine answer in a text value
+# CR.1 threshold (ruling 2026-10-29 item 5.3): a settled text multiple such as "4.00x" is read by
+# this strict parse and nothing else. ASCII digits only; a text it does not accept is a chart gap.
+_MULTIPLE_TEXT = re.compile(r"\d+(\.\d+)?x", re.ASCII)
+_STRICT_MULTIPLE_FIELDS = frozenset({("T4.9", "threshold")})  # (table_id, field) read this way
+
+# Decision 0004 section 6. Icon names are the design system's status glyph keys.
+_STATUS_WORDS: dict[str, tuple[str, str]] = {
+    "accepted": ("pass", "Pass"),
+    "restricted": ("lim", "With limitations"),
+    "blocked": ("blocked", "Blocked"),
+    "unrun": ("unrun", "Not run"),
+    "not_in_pathway": ("not_in_pathway", "Not in this Pathway"),
+    "stale": ("stale", "Stale, rerun required"),
+    "candidate": ("candidate", "Candidate"),
+}
+
+
+# Module family colours and codes: data copied from ``design/reference/lib/shell.js`` lines
+# 26 (``FAMC``) and 27 (``FAMILY``); never loaded from the design file at runtime. A module the
+# design does not code falls back to the neutral grey, as the design's ``|| '#9AA0B4'`` does.
+FAMILY_COLORS: Mapping[str, str] = MappingProxyType(
+    {
+        "sources": "#9AA0B4",
+        "financials": "#0017E5",
+        "business": "#2B8FD6",
+        "earnings": "#C4410C",
+        "synthesis": "#000533",
+        "liquidity": "#0E7A46",
+        "covenants": "#8A5300",
+        "market": "#7A3DB8",
+        "recovery": "#B3261E",
+        "evidence": "#9AA0B4",
+        "portfolio": "#000533",
+    }
+)
+MODULE_FAMILY: Mapping[str, str] = MappingProxyType(
+    {
+        "CP-0": "sources",
+        "CP-1": "financials",
+        "CP-1A": "business",
+        "CP-1B": "earnings",
+        "CP-1C": "market",
+        "CP-1D": "earnings",
+        "CP-2": "synthesis",
+        "CP-2A": "synthesis",
+        "CP-2D": "liquidity",
+        "CP-2E": "synthesis",
+        "CP-2G": "liquidity",
+        "CP-2H": "market",
+        "CP-3": "market",
+        "CP-3C": "liquidity",
+        "CP-3D": "market",
+        "CP-4": "covenants",
+        "CP-4C": "recovery",
+        "CP-5": "evidence",
+        "CP-6": "portfolio",
+    }
+)
+_NEUTRAL_FAMILY_COLOR = "#9AA0B4"
+
+
+def family_color(module_id: str) -> str:
+    return FAMILY_COLORS.get(MODULE_FAMILY.get(module_id, ""), _NEUTRAL_FAMILY_COLOR)
+
+
+def status_word(status: DisplayStatus | Status) -> tuple[str, str]:
+    """Icon name and word for a status; colour is never the only cue."""
+    if status == "rejected":
+        raise ValueError("A rejected attempt is never displayed; it stays in evidence")
+    try:
+        return _STATUS_WORDS[status]
+    except KeyError:
+        raise ValueError(f"Unknown status: {status}") from None
+
+
+def _shown(text: str, *, genuine_text: bool = False) -> str:
+    """Final display text: never blank, and never a null spelling.
+
+    ``genuine_text`` is for values whose content is language, not a figure (a ``text``-class
+    cell, a plain ``text`` run): "None" can be a real answer there, so only blankness,
+    "null" and "nan" are refused. Figure, gap and pen spellings also refuse "none".
+    """
+    if not text.strip():
+        raise ValueError("Displayed text must be non-empty")
+    forbidden = _FORBIDDEN_IN_TEXT if genuine_text else _FORBIDDEN_TEXT
+    if text.strip().lower() in forbidden:
+        raise ValueError("Displayed text must never be a null spelling")
+    return text
+
+
+class FactCoord(Contract):
+    """Fact coordinates; ``None`` parts are wildcards in a binding and set in the index."""
+
+    module_id: Identifier
+    table_id: Identifier | None = None
+    row_id: Identifier | None = None
+    fact_id: Identifier | None = None
+
+
+class Cell(Contract):
+    text: Text
+    prov: Provenance | Literal["none"]
+    ref_id: Identifier | None = None
+    gap_ref: Identifier | None = None
+    unit_class: UnitClass
+    state: CellState
+
+    @model_validator(mode="after")
+    def coherent(self) -> Self:
+        _shown(self.text, genuine_text=self.unit_class == "text")
+        is_gap_state = self.state in {"gap", "not_meaningful"}
+        if is_gap_state != (self.gap_ref is not None):
+            raise ValueError("A gap reference belongs to gap and not-meaningful cells only")
+        if self.gap_ref is not None and not _GAP_REF.fullmatch(self.gap_ref):
+            raise ValueError("Gap reference must be G#")
+        if is_gap_state and self.prov != "gap":
+            raise ValueError("Gap and not-meaningful cells carry gap provenance")
+        if self.prov == "gap" and not is_gap_state:
+            raise ValueError("Gap provenance requires a gap or not-meaningful state")
+        if self.prov in {"cited", "calculated", "synthetic"}:
+            if self.ref_id is None or not _REF_OF_PROV[self.prov].fullmatch(self.ref_id):
+                raise ValueError(f"A {self.prov} cell needs a {_PREFIX[self.prov]}# reference")
+        elif self.ref_id is not None:
+            raise ValueError("Only cited, calculated and synthetic cells carry a ref_id")
+        return self
+
+
+class TextRun(Contract):
+    """One span of a line: plain text, a figure, a gap marker or model-written (pen) prose."""
+
+    text: Text
+    kind: Literal["text", "fig", "gap", "pen"]
+    ref_id: Identifier | None = None
+
+    @model_validator(mode="after")
+    def coherent(self) -> Self:
+        _shown(self.text, genuine_text=self.kind == "text")
+        if self.kind == "fig" and not (self.ref_id and _FIGURE_REF.fullmatch(self.ref_id)):
+            raise ValueError("A figure run needs a C#, K# or S# reference")
+        if self.kind == "gap" and not (self.ref_id and _GAP_REF.fullmatch(self.ref_id)):
+            raise ValueError("A gap run needs a G# reference")
+        if self.kind in {"text", "pen"} and self.ref_id is not None:
+            raise ValueError("Plain and pen runs carry no reference")
+        return self
+
+
+Section = Literal["thesis", "strengths", "weaknesses"]
+
+
+class Line(Contract):
+    runs: tuple[TextRun, ...]
+    # FP 01 Strengths and weaknesses: a bold label before the runs, and the column a line sits in.
+    label: Text | None = None
+    section: Section | None = None
+
+    @model_validator(mode="after")
+    def non_empty(self) -> Self:
+        if not self.runs:
+            raise ValueError("A line needs at least one run")
+        return self
+
+
+RowStyle = Literal["row", "subtotal", "total", "memo"]
+
+
+class Row(Contract):
+    row_id: Identifier
+    label: Text
+    cells: tuple[Cell, ...]
+    style: RowStyle = "row"
+
+
+class ChartMark(Contract):
+    """One data point. ``label`` is its category; ``value`` is None when it cannot be plotted.
+
+    ``text`` is the final display text. When ``value`` is set it must equal
+    ``display.format_value`` of that value, so the chart never carries a second spelling.
+    ``role`` matters to waterfalls only (a running total, or an unexplained residual).
+    ``decimals`` is the fact's declared precision (0 to 6, as ``Fact.decimals``): the text check
+    passes it to ``format_value``; None checks the unit class's own precision. ``hatched`` marks
+    a value whose basis is analyst judgment (it is drawn hatched like a synthetic reference).
+    """
+
+    series: Text
+    label: Text
+    text: Text
+    ref_id: Identifier | None = None
+    value: Decimal | None = None
+    role: Literal["value", "total", "residual"] = "value"
+    decimals: int | None = None
+    hatched: bool = False
+
+    @model_validator(mode="after")
+    def declared_decimals(self) -> Self:
+        if self.decimals is not None and not 0 <= self.decimals <= 6:
+            raise ValueError("decimals must be between 0 and 6")
+        return self
+
+
+class ChartSpec(Contract):
+    """A chart's data, final texts and table twin. Geometry is ``charts.py``'s job.
+
+    A chart with no plottable point is drawn as the n/a frame and says why in ``reason``.
+    ``denominator`` (debt stack) is the amount whose multiples the x axis shows.
+    """
+
+    kind: ChartKind
+    series: tuple[str, ...]
+    table_twin: "Block"
+    marks: tuple[ChartMark, ...]
+    unit: Text | None = None
+    unit_class: UnitClass = "amount"
+    reason: str | None = None
+    denominator: Decimal | None = None
+
+    @model_validator(mode="after")
+    def coherent(self) -> Self:
+        if self.table_twin.kind == "chart":
+            raise ValueError("A chart's table twin must be a table block")
+        if len({(mark.series, mark.label) for mark in self.marks}) != len(self.marks):
+            raise ValueError("A chart point is its series and category; they cannot repeat")
+        for mark in self.marks:
+            if mark.series not in self.series:
+                raise ValueError(f"Mark series {mark.series!r} is not a chart series")
+            if mark.value is None:
+                if mark.ref_id is None or not _GAP_REF.fullmatch(mark.ref_id):
+                    raise ValueError("A mark without a value is a gap and carries a G# reference")
+                spellings = {
+                    format_value(None, self.unit_class, "gap", gap_id=mark.ref_id),
+                    format_value(None, self.unit_class, "not_meaningful", gap_id=mark.ref_id),
+                }
+                if mark.text not in spellings:
+                    raise ValueError("A gap mark's text must be the gap spelling from display")
+                continue
+            if mark.text != format_value(
+                mark.value, self.unit_class, "known", decimals=mark.decimals
+            ):
+                raise ValueError("A mark's text must be the formatted display of its value")
+        twin_texts = [cell.text for row in self.table_twin.rows for cell in row.cells]
+        if twin_texts != [mark.text for mark in self.marks]:
+            raise ValueError("The table twin's cell texts must equal the mark texts, in order")
+        plottable = any(mark.value is not None for mark in self.marks)
+        if self.kind == "debt_stack" and plottable:
+            if self.denominator is None or self.denominator <= 0:
+                raise ValueError("A debt stack needs a positive denominator")
+        return self
+
+
+class ColumnGroup(Contract):
+    label: Text
+    span: int
+
+    @model_validator(mode="after")
+    def positive(self) -> Self:
+        if self.span < 1:
+            raise ValueError("A column group spans at least one column")
+        return self
+
+
+class AbsentColumn(Contract):
+    column: int
+    reason: Text
+
+
+class Figure(Contract):
+    """A chart held by a block: the S.1 to S.4 strip, the debt stack, S.5 beside a table."""
+
+    fig_id: Text | None = None  # FP 01 numbers S.1 to S.6
+    title: Text
+    chart: ChartSpec
+    placement: FigurePlacement = "below"
+    summary: Text | None = None  # the sentence under the caption (FP 01 S.5)
+    status_chip: Text | None = None  # block-head chip the producer asks for (DR.6, OI-13)
+
+    @property
+    def gaps_note(self) -> str | None:
+        """``∅ G15 FY2024, FY2025`` for the marks that are gaps: the chart's own legend line."""
+        gaps: dict[str, list[str]] = {}
+        for item in self.chart.marks:
+            if item.value is None and item.ref_id is not None:
+                gaps.setdefault(item.ref_id, []).append(item.label)
+        return " · ".join(f"∅ {ref} {', '.join(labels)}" for ref, labels in gaps.items()) or None
+
+
+class BlockTab(Contract):
+    """One further register of a tabbed block. A tab with no rows says why in its note."""
+
+    label: Text
+    scale: str | None = None
+    row_header: Text | None = None
+    columns: tuple[str, ...] = ()
+    rows: tuple[Row, ...] = ()
+    note: Text | None = None
+
+    @model_validator(mode="after")
+    def rows_or_reason(self) -> Self:
+        if not self.rows and not self.note:
+            raise ValueError("A tab without rows states why in its note")
+        if self.rows and self.note:
+            raise ValueError("A tab with rows carries no note")
+        if self.columns and any(len(row.cells) != len(self.columns) for row in self.rows):
+            raise ValueError("Row cells do not match the tab's columns")
+        return self
+
+
+class Block(Contract):
+    block_id: Identifier
+    title: Text
+    owner: Text
+    fig_id: str | None = None
+    tags: tuple[str, ...] = ()
+    state: BlockState
+    kind: BlockKind
+    scale: str | None = None
+    row_header: Text | None = None
+    columns: tuple[str, ...] = ()
+    rows: tuple[Row, ...] = ()
+    lines: tuple[Line, ...] = ()
+    chart: ChartSpec | None = None
+    figures: tuple[Figure, ...] = ()
+    # FP 01's Capital structure | EBITDA adjustments | Transaction and new debt: the block's own
+    # rows are the tab named ``tab_label``; ``tabs`` are the further registers.
+    tab_label: Text | None = None
+    tabs: tuple[BlockTab, ...] = ()
+    note: str | None = None
+    full_analysis_route: str | None = None
+    route_label: Text | None = None  # "Open in Model" where the link is not "Full analysis"
+    width: BlockWidth = "full"  # FP 01 sets Key findings (5fr) beside the operating model (7fr)
+    numbered: bool = False  # prose lines are a numbered list
+    pinned: bool = False  # the head says "pinned"
+    meta: Text | None = None  # right-hand head text: as-of date and scale, stated once
+    summary: Text | None = None  # the one line a collapsed block shows
+    # Period grid structure (DS-07): column groups, the tinted base column, greyed absent columns.
+    groups: tuple[ColumnGroup, ...] = ()
+    base_column: int | None = None
+    absent_columns: tuple[AbsentColumn, ...] = ()
+
+    @model_validator(mode="after")
+    def period_grid_structure(self) -> Self:
+        if (self.groups or self.base_column is not None) and self.kind != "period_grid":
+            raise ValueError("Column groups and the base column belong to period grids")
+        if self.absent_columns and self.kind not in {"period_grid", "dense"}:
+            raise ValueError("Absent columns belong to period grids and dense tables")
+        count = len(self.columns)
+        if self.groups and sum(group.span for group in self.groups) != count:
+            raise ValueError("Column groups must cover every column exactly")
+        if self.base_column is not None and not 0 <= self.base_column < count:
+            raise ValueError("The base column must be one of the columns")
+        absent = [item.column for item in self.absent_columns]
+        if len(set(absent)) != len(absent) or any(not 0 <= index < count for index in absent):
+            raise ValueError("Absent columns are distinct columns of the block")
+        if self.base_column in absent:
+            raise ValueError("The base column cannot also be absent")
+        return self
+
+    @model_validator(mode="after")
+    def tab_structure(self) -> Self:
+        if bool(self.tabs) != (self.tab_label is not None):
+            raise ValueError("A tabbed block names its own tab and lists the further tabs")
+        if self.tabs:
+            if self.kind not in {"dense", "keyvalue", "period_grid"}:
+                raise ValueError("Only table blocks carry tabs")
+            if self.state not in {"populated", "collapsed"}:
+                raise ValueError("Only a block with content carries tabs")
+            labels = [self.tab_label, *(tab.label for tab in self.tabs)]
+            if len(set(labels)) != len(labels):
+                raise ValueError("Tab labels are distinct")
+        return self
+
+    @model_validator(mode="after")
+    def state_matches_content(self) -> Self:
+        present = tuple(
+            name
+            for name, value in (("rows", self.rows), ("lines", self.lines), ("chart", self.chart))
+            if value
+        )
+        if self.state in {"populated", "collapsed"}:
+            wants = {"prose": "lines", "chart": "chart"}.get(self.kind, "rows")
+            if self.kind == "chart" and self.figures and not present:
+                pass  # a chart strip holds figures instead of one chart
+            elif present != (wants,):
+                raise ValueError(f"A {self.state} {self.kind} block holds {wants} only")
+            if self.figures and self.chart is not None:
+                raise ValueError("A block holds one chart or a figure strip, not both")
+        else:
+            if present or self.figures or self.tabs:
+                raise ValueError(f"A {self.state} block carries no content")
+            if not self.note:
+                raise ValueError(f"A {self.state} block states why in its note")
+        if self.columns:
+            for row in self.rows:
+                if len(row.cells) != len(self.columns):
+                    raise ValueError("Row cells do not match the block's columns")
+        return self
+
+
+ChartSpec.model_rebuild()
+Figure.model_rebuild()
+
+
+class CallItem(Contract):
+    kind: Literal["scale", "direction", "fact", "na"]
+    label: Text
+    value_text: Text
+    meter: int | None = None
+    ref_id: Identifier | None = None
+    direction: Literal["up", "down", "flat"] | None = None  # a direction item's arrow
+    line: bool = False  # a full-width line under the row (Main risk, Portfolio Fit, Instrument)
+
+    @model_validator(mode="after")
+    def coherent(self) -> Self:
+        _shown(self.value_text)
+        if (self.kind == "scale") != (self.meter is not None):
+            raise ValueError("Only scale items carry a meter")
+        if (self.kind == "direction") != (self.direction is not None):
+            raise ValueError("Only direction items carry a direction")
+        if self.line and self.kind != "fact":
+            raise ValueError("Only a fact item can be a line")
+        if self.meter is not None and not 1 <= self.meter <= 5:
+            raise ValueError("Meter runs from 1 to 5")
+        return self
+
+
+class Pathway(Contract):
+    id: Identifier
+    title: Text
+    question: Text
+    requested_modules: tuple[str, ...]
+    blocks: tuple[Identifier, ...]
+
+
+# Decision 0009. Titles and questions are the cards of ``design/reference/rbot-report.dc.html``;
+# block ids follow each Front Page's outline (``rbot-fp-0N-*.dc.html``), "The call" excluded
+# because the call band is ``ReportView.call``. Ids that existing bindings name
+# (``financials-credit-metrics``, ``capital-structure``) keep those spellings.
+_PRESETS: tuple[tuple[PathwayId, str, str, tuple[str, ...]], ...] = (
+    (
+        "credit_snapshot",
+        "Credit Snapshot",
+        "Should we own this issuer, in which instrument, and why?",
+        (
+            "key-findings",
+            "company-operating-model",
+            "model-chart-strip",
+            "capital-structure",
+            "financials-credit-metrics",
+            "strengths-weaknesses",
+            "relative-value",
+            "company-profile",
+            "transaction-summary",
+            "portfolio-fit",
+            "committee-challenge",
+            "what-changed",
+        ),
+    ),
+    (
+        "earnings_update",
+        "Earnings Update",
+        "What did the period change, and does the credit view move?",
+        (
+            "headline-results",
+            "variance-drivers",
+            "kpi-changes",
+            "guidance-signals",
+            "ebitda-adjustments",
+            "earnings-quality",
+            "restated-leverage",
+            "metric-strip",
+            "watch-items",
+            "financials-credit-metrics",
+            "historical-performance",
+            "company-profile",
+            "portfolio-fit",
+            "what-changed",
+        ),
+    ),
+    (
+        "relative_value",
+        "Relative Value",
+        "Which instrument is best compensated for its risk, and at what level?",
+        (
+            "instrument-levels",
+            "yield-against-maturity",
+            "market-against-fundamentals",
+            "compensation-preference",
+            "peer-positioning",
+            "recommendation-portfolio-fit",
+            "capital-structure",
+            "loan-hy-relative-value",
+            "credit-view",
+            "what-changed",
+        ),
+    ),
+    (
+        "covenant_refinancing",
+        "Covenant & Refinancing",
+        "Which provisions protect creditors, and can the issuer refinance?",
+        (
+            "covenant-tests-headroom",
+            "liquidity-runway",
+            "maturity-wall",
+            "funding-gap",
+            "red-flags",
+            "lender-protection-score",
+            "refinancing-paths",
+            "capacity",
+            "lme-creditor-exposure",
+            "ebitda-definition",
+            "documents-structure",
+        ),
+    ),
+    (
+        "distressed_restructuring",
+        "Distressed & Restructuring",
+        "Is the distress gate met; which path and fulcrum; what recoveries?",
+        (
+            "distress-gate",
+            "downside-stress",
+            "break-points",
+            "forward-credit-path",
+            "forward-breakpoints",
+            "recovery-by-class",
+            "value-allocation-claims",
+            "liquidity-runway",
+            "funding-gap-lme",
+            "covenant-levers",
+            "rating-triggers",
+            "restructuring-paths",
+            "instrument-decision",
+            "portfolio-fit",
+            "what-changed",
+        ),
+    ),
+    (
+        "portfolio_decision",
+        "Portfolio Decision",
+        "Should each portfolio own it, how much, and which instrument?",
+        (
+            "portfolio-recommendation",
+            "portfolio-fit",
+            "instrument-decision",
+            "binding-limitations",
+            "strengths-weaknesses",
+            "thesis-catalysts-challenge",
+            "capital-structure",
+            "what-changed",
+        ),
+    ),
+)
+
+
+def pathways() -> tuple[Pathway, ...]:
+    """The six Pathway presets in Front Page order (FP 01 to FP 06)."""
+    return tuple(
+        Pathway(
+            id=pathway_id,
+            title=title,
+            question=question,
+            requested_modules=PATHWAY_MODULES[pathway_id],
+            blocks=blocks,
+        )
+        for pathway_id, title, question, blocks in _PRESETS
+    )
+
+
+def _pathway_ids() -> frozenset[str]:
+    return frozenset(item.id for item in pathways())
+
+
+class PassportField(Contract):
+    name: Text
+    value: str
+
+
+class Passport(Contract):
+    ref_id: Identifier
+    kind: Provenance
+    fields: tuple[PassportField, ...]
+
+    @model_validator(mode="after")
+    def prefix_matches_kind(self) -> Self:
+        if not _REF_ID.fullmatch(self.ref_id) or _KIND_OF_PREFIX[self.ref_id[0]] != self.kind:
+            raise ValueError("Passport id prefix must match its kind (C cited, K, S, G)")
+        return self
+
+
+class FactRefs(Contract):
+    coord: FactCoord
+    ref_ids: tuple[Identifier, ...]
+
+
+class ReportIndex(Contract):
+    """Reverse index from fact coordinates to the report-wide ids that explain them."""
+
+    facts: tuple[FactRefs, ...]
+
+
+class Unplaced(Contract):
+    """A shown module binding to a block this Pathway does not compose (listed, never dropped)."""
+
+    module_id: Identifier
+    block_id: Identifier
+    title: Text  # the block's head, so the Limitations page names it as the Front Page does
+    state: Literal["absent"] = "absent"
+    note: Text
+
+
+class ReportView(Contract):
+    schema_version: Literal["report-view/1"] = "report-view/1"
+    pathway: Pathway
+    call: tuple[CallItem, ...]
+    # Third call-band state (decision 0004 section 3): the call is withheld, with its words.
+    call_withheld: CallWithheld | None = None
+    blocks: tuple[Block, ...]
+    # Bindings of shown modules to blocks outside this Pathway; the Limitations page lists them.
+    unplaced: tuple[Unplaced, ...] = ()
+    passports: tuple[Passport, ...]
+    index: ReportIndex
+
+    def passport(self, ref_id: str) -> Passport:
+        for item in self.passports:
+            if item.ref_id == ref_id:
+                return item
+        raise KeyError(ref_id)
+
+    @model_validator(mode="after")
+    def closed_references(self) -> Self:
+        if self.call_withheld is not None and (
+            not self.call or any(item.kind != "na" for item in self.call)
+        ):
+            raise ValueError("A withheld call shows only n/a items")
+        known = [item.ref_id for item in self.passports]
+        if len(set(known)) != len(known):
+            raise ValueError("Duplicate passport id")
+        block_ids = [block.block_id for block in self.blocks]
+        if len(set(block_ids)) != len(block_ids):
+            raise ValueError("Duplicate block id")
+        if tuple(block_ids) != self.pathway.blocks:
+            raise ValueError("Blocks must follow the Pathway's block composition")
+        if any(item.block_id in block_ids for item in self.unplaced):
+            raise ValueError("An unplaced binding names a block the Pathway composes")
+        used = _references(self)
+        used.update(ref for entry in self.index.facts for ref in entry.ref_ids)
+        if missing := sorted(used - set(known)):
+            raise ValueError(f"References without a passport: {', '.join(missing)}")
+        return self
+
+
+def _block_references(block: Block) -> set[str]:
+    refs: set[str] = set()
+    for row in block.rows:
+        for item in row.cells:
+            refs.update(r for r in (item.ref_id, item.gap_ref) if r)
+    for line in block.lines:
+        refs.update(run.ref_id for run in line.runs if run.ref_id)
+    for tab in block.tabs:
+        for row in tab.rows:
+            for item in row.cells:
+                refs.update(r for r in (item.ref_id, item.gap_ref) if r)
+    charts = [block.chart] if block.chart is not None else []
+    charts.extend(figure.chart for figure in block.figures)
+    for chart in charts:
+        refs.update(mark.ref_id for mark in chart.marks if mark.ref_id)
+        refs |= _block_references(chart.table_twin)
+    return refs
+
+
+def _references(view: ReportView) -> set[str]:
+    refs = {item.ref_id for item in view.call if item.ref_id}
+    for block in view.blocks:
+        refs |= _block_references(block)
+    return refs
+
+
+def strict_multiple(text: str) -> tuple[Decimal, int] | None:
+    """``(value, decimals)`` of a settled text like ``4.00x``; None when the text is not exactly one.
+
+    The text must be what ``display.format_value`` writes for the value at its own number of
+    fractional digits (at most 6), so a leading zero, a thousands figure, a sign, a space or a
+    different case is refused rather than corrected. No arithmetic: the value is the text.
+    """
+    if not _MULTIPLE_TEXT.fullmatch(text):
+        return None
+    number = text[:-1]
+    places = len(number.partition(".")[2])
+    if places > 6:
+        return None
+    value = Decimal(number)
+    if format_value(value, "multiple", "known", decimals=places) != text:
+        return None
+    return value, places
+
+
+def _strict_text_rejected(fact: Fact) -> bool:
+    """A known text fact of a strict-parse field whose text the parse refuses."""
+    return (
+        fact.status == "known"
+        and fact.text is not None
+        and (fact.table_id, fact.field) in _STRICT_MULTIPLE_FIELDS
+        and strict_multiple(fact.text) is None
+    )
+
+
+def build_index(view: View) -> tuple[tuple[Passport, ...], ReportIndex]:
+    """Allocate report-wide ids for a view's facts, in module then fact order.
+
+    A distinct citation gets one ``C#`` (``S#`` in a synthetic case, whose values are test
+    data), a distinct calculation one ``K#``, and each unsettled fact one ``G#``. A known text
+    fact of a strict-parse field (``_STRICT_MULTIPLE_FIELDS``) whose text the parse refuses also
+    gets a ``G#``: the chart reads it as a gap, and the gap needs its reference.
+    """
+    synthetic = view.run.case_kind == "synthetic"
+    passports: list[Passport] = []
+    allocated: dict[tuple[str, ...], str] = {}
+    counters = {"C": 0, "K": 0, "S": 0, "G": 0}
+
+    def allocate(key: tuple[str, ...], kind: Provenance, fields: dict[str, str | None]) -> str:
+        if key in allocated:
+            return allocated[key]
+        prefix = _PREFIX[kind]
+        counters[prefix] += 1
+        ref_id = f"{prefix}{counters[prefix]}"
+        allocated[key] = ref_id
+        passports.append(
+            Passport(
+                ref_id=ref_id,
+                kind=kind,
+                fields=tuple(
+                    PassportField(name=name, value=value) for name, value in fields.items() if value
+                ),
+            )
+        )
+        return ref_id
+
+    entries: list[FactRefs] = []
+    for module in view.modules:
+        for fact in module.facts:
+            refs: list[str] = []
+            if fact.status != "known":
+                refs.append(
+                    allocate(
+                        ("gap", module.module_id, fact.fact_id),
+                        "gap",
+                        {
+                            "Item": fact.label,
+                            "Status": fact.status.replace("_", " "),
+                            "Reason": fact.limitation,
+                        },
+                    )
+                )
+            elif _strict_text_rejected(fact):
+                refs.append(
+                    allocate(
+                        ("gap", module.module_id, fact.fact_id),
+                        "gap",
+                        {
+                            "Item": fact.label,
+                            "Status": "unreadable text",
+                            "Reason": "The settled text is not a plain multiple such as 4.00x",
+                        },
+                    )
+                )
+            for cite in fact.citations:
+                refs.append(
+                    allocate(
+                        ("cite", cite.source_id, cite.source_sha256, cite.locator, cite.quote),
+                        "synthetic" if synthetic else "cited",
+                        {
+                            "Source": cite.source_id,
+                            "Locator": cite.locator,
+                            "Quote": cite.quote,
+                            "SHA-256": cite.source_sha256,
+                            "Data": "Synthetic test data" if synthetic else None,
+                        },
+                    )
+                )
+            if fact.calculation_id:
+                refs.append(
+                    allocate(
+                        ("calc", fact.calculation_id),
+                        "calculated",
+                        {
+                            "Calculation": fact.calculation_id,
+                            "Formula": fact.formula,
+                            "Status": fact.calculation_status,
+                            "Period": fact.period,
+                            "Basis": fact.basis,
+                        },
+                    )
+                )
+            if refs:
+                entries.append(
+                    FactRefs(
+                        coord=FactCoord(
+                            module_id=module.module_id,
+                            table_id=fact.table_id,
+                            row_id=fact.row_id,
+                            fact_id=fact.fact_id,
+                        ),
+                        ref_ids=tuple(refs),
+                    )
+                )
+    return tuple(passports), ReportIndex(facts=tuple(entries))
+
+
+# The glyph key the shell draws for a status. Distinct from ``status_word``'s icon name only
+# where that name is the internal token, which the HTML must never carry.
+_GLYPH_OF_ICON = {"not_in_pathway": "na"}
+
+
+def status_display(status: DisplayStatus | Status) -> tuple[str, str]:
+    """Glyph key and word for the shell; unlike ``status_word`` it never leaks an internal token."""
+    icon, word = status_word(status)
+    return _GLYPH_OF_ICON.get(icon, icon), word
+
+
+def block_state_display() -> dict[str, tuple[str, str]]:
+    """Glyph and word of each block state that is not plain content (DS-04).
+
+    ``not_run`` and ``blocked`` reuse the status words so one spelling serves both.
+    """
+    return {
+        "collapsed": ("chevron", "Collapsed"),
+        "condition": ("unrun", "Condition"),
+        "not_run": status_display("unrun"),
+        "not_in_pathway": status_display("not_in_pathway"),
+        "absent": ("na", "Absent"),
+        "blocked": status_display("blocked"),
+    }
+
+
+class NavRow(Contract):
+    """One navigator row: Python decides the number, colour and status spelling."""
+
+    module_id: Identifier
+    title: Text
+    aliases: tuple[str, ...]
+    number: int | None
+    in_pathway: bool
+    color: str
+    glyph: str
+    word: Text
+
+
+def module_display(view: View) -> Callable[[ModuleView], tuple[str, str]]:
+    """Glyph and word of a module's status in this run.
+
+    A preset module (or its required producers) that the run's ``requested_modules`` override
+    left out was not requested: it reads "Not run". Only a module outside the preset keeps
+    "Not in this Pathway".
+    """
+    preset = dependencies(PATHWAY_MODULES[view.run.pathway])
+
+    def display(module: ModuleView) -> tuple[str, str]:
+        not_requested = module.status == "not_in_pathway" and module.module_id in preset
+        return status_display("unrun" if not_requested else module.status)
+
+    return display
+
+
+def navigator(view: View) -> tuple[NavRow, ...]:
+    """Rows in registry order. Modules in the Pathway are numbered 1..N; the rest are footer rows.
+
+    A rejected attempt is never displayed, so it has no row.
+    """
+    rows: list[NavRow] = []
+    number = 0
+    display = module_display(view)
+    for module in view.modules:
+        if module.status == "rejected":
+            continue
+        in_pathway = module.status != "not_in_pathway"
+        if in_pathway:
+            number += 1
+        glyph, word = display(module)
+        rows.append(
+            NavRow(
+                module_id=module.module_id,
+                title=module.title,
+                aliases=module.aliases,
+                number=number if in_pathway else None,
+                in_pathway=in_pathway,
+                color=family_color(module.module_id),
+                glyph=glyph,
+                word=word,
+            )
+        )
+    return tuple(rows)
+
+
+# --- Front Page production (M3 task 3.8) ------------------------------------------------------
+
+# Amounts in these units are scaled: the scale is stated once in the block head (decision 0004
+# section 4), so the cells show the bare number. ``currency`` (statement lines) is an
+# amount at 0 dp too; a per-unit amount (a share price) declares ``Fact.decimals`` instead.
+_AMOUNT_UNITS = frozenset({"MILLIONS", "THOUSANDS", "UNITS"})
+_PERCENT_UNITS = frozenset({"PERCENT", "decimal_fraction"})
+# Units that must not be mixed within one table: scaled amounts and unscaled statement lines.
+_MIXABLE_UNITS = _AMOUNT_UNITS | {"currency"}
+_TABLE_KINDS: tuple[BlockKind, ...] = ("dense", "keyvalue", "period_grid")
+# Beyond this the exact decimal is shown as text: fixed-point expansion would be unbounded.
+_EXACT_TEXT_ADJUSTED = 100
+# Exact-text units: the internal token never reaches the page, its label does.
+_UNIT_SUFFIX = {"basis_points": " bp", "decimal_percent": "%"}
+_CURRENCY_LABEL = {"USD": "US$"}
+_SCALE_LABEL = {"MILLIONS": "m", "THOUSANDS": "000", "UNITS": ""}
+_SUMMARY_LIMIT = 140
+
+
+def _unit_class(unit: str | None) -> UnitClass | None:
+    """Display class of a fact unit; ``None`` means exact text plus the unit (no class).
+
+    basis_points, decimal_percent, FX quotes ("USD per EUR") and any other unit keep their
+    exact value: rounding them with a class they do not belong to would change their meaning.
+    """
+    if unit in _AMOUNT_UNITS or unit == "currency":
+        return "amount"
+    if unit in _PERCENT_UNITS:
+        return "percent"
+    if unit == "MULTIPLE":
+        return "multiple"
+    return None
+
+
+def exact_text(amount: Decimal) -> str:
+    """An amount's exact text: fixed-point, or scientific beyond 100 exponent digits (unbounded)."""
+    return str(amount) if abs(amount.adjusted()) > _EXACT_TEXT_ADJUSTED else format(amount, "f")
+
+
+def fact_spelling(fact: Fact, gap_ref: str | None) -> tuple[UnitClass, CellState, str]:
+    """Unit class, cell state and display text of one fact, spelled by ``display.format_value``.
+
+    ``gap_ref`` is the fact's report-wide ``G#``; an unsettled fact without one fails closed.
+    """
+    unit_class = _unit_class(fact.unit)
+    if fact.status != "known":
+        state: CellState = "not_meaningful" if fact.status == "not_applicable" else "gap"
+        shown_class: UnitClass = unit_class or "text"
+        return shown_class, state, format_value(None, shown_class, state, gap_id=gap_ref)
+    if fact.text is not None:
+        return "text", "known", format_value(None, "text", "known", text=fact.text)
+    if fact.amount is None:  # unreachable for a validated Fact; fail closed if it ever is not
+        raise ValueError(f"Known fact {fact.fact_id} has neither an amount nor text")
+    if unit_class is None or abs(fact.amount.adjusted()) > _EXACT_TEXT_ADJUSTED:
+        suffix = _UNIT_SUFFIX.get(fact.unit or "", f" {fact.unit}")
+        text = f"{exact_text(fact.amount)}{suffix}"
+        return "text", "known", format_value(None, "text", "known", text=text)
+    return (
+        unit_class,
+        "known",
+        format_value(fact.amount, unit_class, "known", decimals=fact.decimals),
+    )
+
+
+def scale_label(unit: str, currency: str | None) -> str | None:
+    """``US$ m`` for MILLIONS in USD; ``None`` when there is nothing to state."""
+    label = " ".join(
+        part
+        for part in (_CURRENCY_LABEL.get(currency or "", currency or ""), _SCALE_LABEL[unit])
+        if part
+    )
+    return label or None
+
+
+def _currency_scale_unit(fact: Fact) -> str:
+    """Resolve a currency fact's explicit factor to the renderer's supported scale label."""
+    if fact.currency is None:
+        raise ValueError(f"Currency fact {fact.fact_id} has no currency")
+    unit = {
+        Decimal(1): "UNITS",
+        Decimal(1000): "THOUSANDS",
+        Decimal(1000000): "MILLIONS",
+    }.get(fact.scale)
+    if unit is None:
+        raise ValueError(f"Currency fact {fact.fact_id} has unsupported scale {fact.scale}")
+    return unit
+
+
+# --- Claim run text (decision 0005 MC-2, M6 task 6.2) -------------------------------------------
+
+
+def figure_unit(fact: Fact) -> str | None:
+    """The unit a figure in prose shows with its number, from the fact alone.
+
+    An amount shows its scale label after the number (prose has no block head to state it);
+    a percent, multiple or exact-text spelling already ends in its unit, which this returns.
+    ``None`` for a text fact or an amount whose unit has no label.
+    """
+    if fact.amount is None:
+        return None
+    if fact.unit == "currency":
+        return scale_label(_currency_scale_unit(fact), fact.currency)
+    unit_class = _unit_class(fact.unit)
+    if unit_class is None or abs(fact.amount.adjusted()) > _EXACT_TEXT_ADJUSTED:
+        return _UNIT_SUFFIX.get(fact.unit or "", f" {fact.unit}").strip() or None
+    if unit_class == "percent":
+        return "%"
+    if unit_class == "multiple":
+        return "x"
+    return scale_label(str(fact.unit), fact.currency)
+
+
+class ClaimRun(Contract):
+    """One span of a resolved claim: literal text (spacing kept), a figure or chip, or a gap.
+
+    ``prov`` is the DOM provenance token, as ``block.state`` is for blocks. A chip whose fact has
+    neither a citation nor a calculation is literal text: Python's own spelling, no passport.
+    """
+
+    text: Text
+    kind: Literal["text", "fig", "gap"]
+    ref_id: Identifier | None = None
+    prov: Provenance | Literal["none"] = "none"
+
+    @model_validator(mode="after")
+    def coherent(self) -> Self:
+        if self.kind == "text":
+            if self.ref_id is not None or self.prov != "none":
+                raise ValueError("A literal claim run carries no reference")
+            return self
+        _shown(self.text)
+        if self.kind == "gap" and not (
+            self.prov == "gap" and self.ref_id and _GAP_REF.fullmatch(self.ref_id)
+        ):
+            raise ValueError("A gap claim run needs gap provenance and a G# reference")
+        if self.kind == "fig" and not (
+            self.prov in {"cited", "calculated", "synthetic"}
+            and self.ref_id
+            and _REF_OF_PROV[self.prov].fullmatch(self.ref_id)
+        ):
+            raise ValueError("A figure claim run needs a C#, K# or S# reference of its kind")
+        return self
+
+
+def module_refs(index: ReportIndex, module_id: str) -> dict[str, tuple[str, ...]]:
+    """Report-wide ids of one module's facts, keyed by fact id."""
+    return {
+        fact_id: ids for (owner, fact_id), ids in _refs_by_fact(index).items() if owner == module_id
+    }
+
+
+def resolve(
+    text: str,
+    bound: Mapping[str, Fact],
+    refs: Mapping[str, tuple[str, ...]],
+    *,
+    names: Iterable[str] = (),
+) -> tuple[ClaimRun, ...]:
+    """Resolve run text against one module's bound facts (``prose.bind``) and their
+    report-wide ids (``module_refs``).
+
+    Every figure is spelled by ``fact_spelling`` (the cell's number rule, exact text past
+    the 100-exponent bound) with the unit of ``figure_unit``; the model's unit token is only
+    checked. Fails closed on any ``prose.issues`` finding and on a figure with no report id.
+    """
+    names = tuple(names)
+    found = prose.issues(text, bound, names=names)
+    if found:
+        raise ValueError("Claim run text does not resolve: " + "; ".join(found))
+    gaps = {ref for ref, fact in bound.items() if fact.status != "known"}
+    runs: list[ClaimRun] = []
+    for run in prose.tokenize(text, gaps=gaps):
+        if run.kind == "text":
+            runs.append(ClaimRun(text=run.text, kind="text"))
+            continue
+        fact = bound[run.text]
+        item = _cell(fact, refs.get(fact.fact_id, ()))
+        if run.kind == "gap":
+            runs.append(ClaimRun(text=item.text, kind="gap", ref_id=item.gap_ref, prov="gap"))
+            continue
+        shown = item.text
+        unit = figure_unit(fact) if run.figure and item.unit_class == "amount" else None
+        if unit:
+            shown = f"{shown} {unit}"
+        if item.ref_id is None and run.figure:
+            raise ValueError(f"Figure {run.text} has no report reference")
+        if item.ref_id is None:
+            runs.append(ClaimRun(text=shown, kind="text"))
+        else:
+            runs.append(ClaimRun(text=shown, kind="fig", ref_id=item.ref_id, prov=item.prov))
+    return tuple(runs)
+
+
+@dataclass(frozen=True)
+class _Spec:
+    """A Front Page block's heading, producer modules and layout."""
+
+    title: str
+    owner: str
+    kind: BlockKind
+    producers: tuple[str, ...]
+    collapsed: bool = False
+    width: BlockWidth = "full"
+    numbered: bool = False
+    pinned: bool = False
+    route_label: str | None = None
+    dated: bool = False  # the head states the as-of date beside the scale
+
+
+# Heads and owner codes as FP 01 prints them (``rbot-fp-01-credit-snapshot.dc.html``). The
+# producers are the modules whose status explains a block no binding fills.
+_CREDIT_SNAPSHOT: Mapping[str, _Spec] = MappingProxyType(
+    {
+        "key-findings": _Spec(
+            "Key findings", "CP-2", "prose", ("CP-2",), width="five", numbered=True, pinned=True
+        ),
+        "company-operating-model": _Spec(
+            "Company and operating model", "CP-1A", "keyvalue", ("CP-1A",), width="seven"
+        ),
+        "model-chart-strip": _Spec(
+            "Model chart strip", "MODEL", "chart", ("CP-1",), route_label="Open in Model"
+        ),
+        "capital-structure": _Spec("Capital structure", "MODEL", "dense", ("CP-1",), dated=True),
+        "financials-credit-metrics": _Spec(
+            "Financials and credit metrics",
+            "MODEL",
+            "period_grid",
+            ("CP-1",),
+            route_label="Open in Model",
+        ),
+        "strengths-weaknesses": _Spec(
+            "Strengths and weaknesses", "CP-2 · CP-6", "prose", ("CP-2", "CP-6")
+        ),
+        "relative-value": _Spec("Relative value", "CP-3", "prose", ("CP-3",), collapsed=True),
+        "company-profile": _Spec(
+            "Company profile", "CP-1A", "keyvalue", ("CP-1A",), collapsed=True
+        ),
+        "transaction-summary": _Spec(
+            "Transaction summary and new debt issues", "Primary", "prose", (), collapsed=True
+        ),
+        "portfolio-fit": _Spec("Portfolio Fit", "FIT", "prose", (), collapsed=True),
+        "committee-challenge": _Spec(
+            "Committee challenge", "CP-6", "prose", ("CP-6",), collapsed=True
+        ),
+        "what-changed": _Spec("What changed since the last Report", "CP-8", "prose", ("CP-8",)),
+    }
+)
+# Heads and owner codes as FP 02 prints them (``rbot-fp-02-earnings-update.dc.html``): the two
+# Model-owned blocks the Earnings Update composition adds for CP-1's registers.
+_EARNINGS_UPDATE: Mapping[str, _Spec] = MappingProxyType(
+    {
+        "headline-results": _Spec(
+            "Headline results", "CP-1B", "dense", ("CP-1B",), route_label="Full analysis"
+        ),
+        "variance-drivers": _Spec(
+            "Variance drivers", "CP-1B", "prose", ("CP-1B",), route_label="Full analysis"
+        ),
+        "kpi-changes": _Spec(
+            "KPI changes", "CP-1B", "dense", ("CP-1B",), route_label="Full analysis"
+        ),
+        "guidance-signals": _Spec(
+            "Guidance signals", "CP-1B", "prose", ("CP-1B",), route_label="Full analysis"
+        ),
+        "ebitda-adjustments": _Spec(
+            "EBITDA adjustments", "MODEL", "dense", ("CP-1",), route_label="Open in Model"
+        ),
+        "metric-strip": _Spec("Metric strip", "MODEL", "chart", ("CP-1",)),
+    }
+)
+_COVENANT_REFINANCING: Mapping[str, _Spec] = MappingProxyType(
+    {
+        "covenant-tests-headroom": _Spec(
+            "Covenant tests and headroom", "CP-4", "dense", ("CP-4",), route_label="Full analysis"
+        ),
+        "capacity": _Spec(
+            "Capacity and baskets", "CP-4", "dense", ("CP-4",), route_label="Full analysis"
+        ),
+        "red-flags": _Spec("Red flags", "CP-4", "dense", ("CP-4",), route_label="Full analysis"),
+        "lender-protection-score": _Spec(
+            "Lender protection score", "CP-4", "dense", ("CP-4",), route_label="Full analysis"
+        ),
+        "ebitda-definition": _Spec(
+            "EBITDA definition", "CP-4", "dense", ("CP-4",), route_label="Full analysis"
+        ),
+        "documents-structure": _Spec(
+            "Documents and structure", "CP-4", "dense", ("CP-4",), route_label="Full analysis"
+        ),
+        # CP-2D (docs/CP2D-OWNER-LEASE.md, Rendered sections). `liquidity-runway` is also a block
+        # of distressed_restructuring; `_spec_of` is by block id, so this row serves both.
+        "liquidity-runway": _Spec(
+            "Liquidity and cash runway", "CP-2D", "dense", ("CP-2D",), route_label="Full analysis"
+        ),
+        # Q-C1: Model-owned (approved FP 04 page, "MODEL · Fig. S.4"; no route on its header). A
+        # chart strip drawing S.4 from CP-1's T4.18 (bindings/cp1.py), with CP-2D's T2E.4 bound
+        # as the further tab.
+        "maturity-wall": _Spec("Maturity wall", "MODEL", "chart", ("CP-1",), route_label=None),
+        # CP-3C is a producer too: its T3D.1 register is a tab here and CR.3 draws from it.
+        "funding-gap": _Spec(
+            "Funding gap", "CP-2D", "dense", ("CP-2D", "CP-3C"), route_label="Full analysis"
+        ),
+        # CP-3C (docs/CP3C-OWNER-LEASE.md, Rendered sections (D7)).
+        "refinancing-paths": _Spec(
+            "Refinancing paths", "CP-3C", "dense", ("CP-3C",), route_label="Full analysis"
+        ),
+        "lme-creditor-exposure": _Spec(
+            "LME capacity and creditor exposure",
+            "CP-3C",
+            "dense",
+            ("CP-3C",),
+            collapsed=True,
+            route_label="Full analysis",
+        ),
+    }
+)
+# Heads and owner codes as FP 03 prints them (``rbot-fp-03-relative-value.dc.html``). CP-3D owns
+# the market-implied half; later modules append their rows (CP-1C's ``peer-positioning``).
+_RELATIVE_VALUE: Mapping[str, _Spec] = MappingProxyType(
+    {
+        "instrument-levels": _Spec(
+            "Instrument levels", "CP-3", "dense", ("CP-3",), route_label="Full analysis"
+        ),
+        "yield-against-maturity": _Spec(
+            "Yield against maturity", "CP-3D", "chart", ("CP-3D", "CP-3"), route_label=None
+        ),
+        "market-against-fundamentals": _Spec(
+            "Market against fundamentals",
+            "CP-3D",
+            "dense",
+            ("CP-3D",),
+            route_label="Full analysis",
+        ),
+        # CP-1C (docs/CP1C-OWNER-LEASE.md, D7): the tabs; the Fig. RV.3 range strip is drawn by _rv3_figures.
+        "peer-positioning": _Spec(
+            "Peer positioning", "CP-1C", "dense", ("CP-1C",), route_label="Full analysis"
+        ),
+    }
+)
+# Heads and owner codes of the Distressed & Restructuring Front Page (``rbot-fp-05-*.dc.html``).
+# CP-2A creates the composition with its two downside blocks (lease D7); later owners append rows.
+# CP-2G appends its two forward blocks (docs/CP2G-OWNER-LEASE.md, D7). CP-2H appends
+# ``rating-triggers``, already in the preset (docs/CP2H-OWNER-LEASE.md, D7).
+_DISTRESSED: Mapping[str, _Spec] = MappingProxyType(
+    {
+        "downside-stress": _Spec(
+            "Downside stress", "CP-2A", "dense", ("CP-2A",), route_label="Full analysis"
+        ),
+        "break-points": _Spec(
+            "Break points", "CP-2A", "dense", ("CP-2A",), route_label="Full analysis"
+        ),
+        "forward-credit-path": _Spec(
+            "Forward credit path", "CP-2G", "dense", ("CP-2G",), route_label="Full analysis"
+        ),
+        "forward-breakpoints": _Spec(
+            "Forward break points", "CP-2G", "dense", ("CP-2G",), route_label="Full analysis"
+        ),
+        "rating-triggers": _Spec(
+            "Rating triggers", "CP-2H", "dense", ("CP-2H",), route_label="Full analysis"
+        ),
+        # docs/CP4C-OWNER-LEASE.md D7: both ids already in the preset, specs added here.
+        "recovery-by-class": _Spec(
+            "Recovery by class", "CP-4C", "dense", ("CP-4C",), route_label="Full analysis"
+        ),
+        "value-allocation-claims": _Spec(
+            "Value allocation and claims", "CP-4C", "dense", ("CP-4C",), route_label="Full analysis"
+        ),
+    }
+)
+# Heads and owner codes of the two FP 02 blocks CP-1D owns (docs/CP1D-OWNER-LEASE.md, D7).
+_EARNINGS_QUALITY: Mapping[str, _Spec] = MappingProxyType(
+    {
+        "earnings-quality": _Spec(
+            "Earnings quality", "CP-1D", "dense", ("CP-1D",), route_label="Full analysis"
+        ),
+        "restated-leverage": _Spec(
+            "Cash conversion and restated leverage",
+            "CP-1D",
+            "dense",
+            ("CP-1D",),
+            route_label="Full analysis",
+        ),
+    }
+)
+_NO_PRODUCER = "No module produces this block yet."
+_UNBOUND_OWNER = "Unbound"
+_PERIOD_CLASSES = (
+    (re.compile(r"Q[1-4]\b"), "Quarter"),
+    (re.compile(r"FY"), "Fiscal year"),
+    (re.compile(r"LTM"), "LTM"),
+    (re.compile(r"PF"), "Pro forma"),
+    (re.compile(r"OPEN\b"), "Opening"),
+)
+# The Model chart strip of FP 01 (S.1 to S.4) and the metric strip of FP 02 (S.1 to S.3): the
+# series a producer must supply before a chart can be drawn.
+_STRIP_FIGURES: Mapping[str, tuple[tuple[str, str, str | None], ...]] = MappingProxyType(
+    {
+        "model-chart-strip": (
+            ("S.1", "Leverage", "x"),
+            ("S.2", "Interest cover", "x"),
+            ("S.3", "Liquidity", None),
+            ("S.4", "Maturity wall", None),
+        ),
+        "metric-strip": (
+            ("S.1", "Leverage", "x"),
+            ("S.2", "Interest cover", "x"),
+            ("S.3", "Liquidity", None),
+        ),
+        "maturity-wall": (("S.4", "Maturity wall", None),),
+    }
+)
+# Why a strip's frames are empty where the cause is known (the KPI-register wording otherwise).
+_STRIP_REASONS = MappingProxyType(
+    {
+        "maturity-wall": "CP-1 is not settled in this run, so there is no Model series for the wall",
+    }
+)
+
+
+def _strip_reason(block_id: str) -> str | None:
+    return _STRIP_REASONS.get(block_id)
+
+
+def _strip_note(block_id: str) -> str:
+    figures = _STRIP_FIGURES[block_id]
+    if len(figures) == 1:
+        return f"Chart needs {figures[0][0]} series; register shown as a table"
+    return (
+        f"Charts need {figures[0][0]}\u2013{figures[-1][0]} series; KPI register shown as a table"
+    )
+
+
+_COMPOSITIONS: tuple[Mapping[str, _Spec], ...] = (
+    _CREDIT_SNAPSHOT,
+    _EARNINGS_UPDATE,
+    _COVENANT_REFINANCING,
+    _RELATIVE_VALUE,
+    _DISTRESSED,
+    _EARNINGS_QUALITY,
+)
+
+
+def _spec_of(block_id: str) -> _Spec:
+    for composition in _COMPOSITIONS:
+        if block_id in composition:
+            return composition[block_id]
+    # Blocks only another Pathway lists are not produced yet: they keep the idle view's wording.
+    return _Spec(block_id.replace("-", " ").capitalize(), _UNBOUND_OWNER, "prose", ())
+
+
+def _honest_state(
+    spec: _Spec,
+    statuses: Mapping[str, Status],
+    pathway: Pathway,
+    blocked_because: Mapping[str, str] = MappingProxyType({}),
+) -> tuple[BlockState, str]:
+    """State and words of a block no binding filled, from its producers' statuses.
+
+    A blocked producer's first limitation (``blocked_because``) is quoted, so the block says
+    why it is empty (a refused envelope names its verification failure).
+    """
+    seen = {code: statuses.get(code) for code in spec.producers}
+    codes = " · ".join(spec.producers)
+    if not seen:
+        if spec.owner == _UNBOUND_OWNER:
+            return "not_run", "Not run: no module output is bound to this block yet."
+        return "absent", f"Absent: {_NO_PRODUCER}"
+    if any(status in {"accepted", "restricted", "candidate"} for status in seen.values()):
+        return "absent", f"Absent: {codes} produced no output bound to this block."
+    if any(status == "blocked" for status in seen.values()):
+        why = "; ".join(
+            f"{code}: {blocked_because[code]}"
+            for code, status in seen.items()
+            if status == "blocked" and code in blocked_because
+        )
+        quoted = f" ({why})" if why else ""
+        return (
+            "blocked",
+            f"Blocked: {codes} is blocked{quoted}; the reasons are listed under Limitations.",
+        )
+    outside = [code for code, status in seen.items() if status == "not_in_pathway"]
+    # A module of the preset or its required producers that the run's ``requested_modules``
+    # override left out is in this Pathway; it was only not requested. Only a module outside
+    # both is "not part of" the Pathway.
+    in_pathway = dependencies(pathway.requested_modules)
+    not_requested = [code for code in outside if code in in_pathway]
+    foreign = [code for code in outside if code not in not_requested]
+    if len(foreign) == len(seen):
+        return "not_in_pathway", f"Not in this Pathway: {codes} is not part of {pathway.title}."
+    if len(not_requested) == len(seen):
+        return "not_run", f"Not run: {codes} was not requested in this run."
+    if any(status == "stale" for status in seen.values()):
+        return "not_run", f"Not run: {codes} is stale and must be rerun."
+    if outside:  # some producers have not run, others were not requested or are not in the Pathway
+        pending = " · ".join(code for code in seen if code not in outside)
+        parts = [
+            (pending, "has not run"),
+            (" · ".join(not_requested), "was not requested in this run"),
+            (" · ".join(foreign), f"is not part of {pathway.title}"),
+        ]
+        said = "; ".join(f"{who} {what}" for who, what in parts if who)
+        lead = "Not run · Not in this Pathway" if foreign else "Not run"
+        return "not_run", f"{lead}: {said}."
+    return "not_run", f"Not run: {codes} has not run."
+
+
+def _refs_by_fact(index: ReportIndex) -> dict[tuple[str, str], tuple[str, ...]]:
+    return {
+        (entry.coord.module_id, entry.coord.fact_id): entry.ref_ids
+        for entry in index.facts
+        if entry.coord.fact_id is not None
+    }
+
+
+def gap_refs(index: ReportIndex) -> dict[tuple[str, str], str]:
+    """The ``G#`` of each unsettled fact, keyed by module and fact id."""
+    return {
+        key: next(ref for ref in refs if ref.startswith("G"))
+        for key, refs in _refs_by_fact(index).items()
+        if any(ref.startswith("G") for ref in refs)
+    }
+
+
+def _cell(fact: Fact, refs: tuple[str, ...]) -> Cell:
+    gap = next((ref for ref in refs if ref.startswith("G")), None)
+    unit_class, state, text = fact_spelling(fact, gap)
+    if state != "known":
+        return Cell(text=text, prov="gap", gap_ref=gap, unit_class=unit_class, state=state)
+    ref = next((r for r in refs if r.startswith("K")), None) or next(
+        (r for r in refs if r[0] in "CS"), None
+    )
+    prov: Provenance | Literal["none"] = "none" if ref is None else _KIND_OF_PREFIX[ref[0]]
+    return Cell(text=text, prov=prov, ref_id=ref, unit_class=unit_class, state=state)
+
+
+@dataclass(frozen=True)
+class _Slot:
+    label: str
+    module_id: str
+    columns: tuple[str, ...]
+    rows: tuple[Row, ...]
+    scale: str | None = None
+    row_header: str | None = None
+    limitation: str | None = None
+
+
+def _scale_of(table: str, columns: tuple[str, ...], grid: list[list[Fact | None]]) -> str | None:
+    """The one scale a table's amounts share; a table that mixes amount units cannot state it.
+
+    ``grid[row][column]`` holds each cell's fact. The dominant (unit, currency) pair sets the
+    scale; a column holding any other pair fails closed, naming the column.
+    """
+    pairs: list[tuple[str, str | None, str | None, int]] = []
+    for row in grid:
+        for column, fact in enumerate(row):
+            if fact is None or fact.unit not in _MIXABLE_UNITS:
+                continue
+            if fact.unit == "currency":
+                scale = scale_label(_currency_scale_unit(fact), fact.currency)
+                pairs.append((fact.unit, fact.currency, scale, column))
+            elif fact.status == "known":
+                pairs.append((fact.unit, fact.currency, None, column))
+    if not pairs:
+        return None
+    counts = Counter((unit, currency, scale) for unit, currency, scale, _ in pairs)
+    unit, currency, scale = counts.most_common(1)[0][0]
+    for other_unit, other_currency, other_scale, column in pairs:
+        if (other_unit, other_currency, other_scale) != (unit, currency, scale):
+            raise ValueError(
+                f"{table} column {columns[column]!r} mixes amount units "
+                f"({other_unit} {other_currency} {other_scale or ''} against "
+                f"{unit} {currency} {scale or ''}); "
+                "a block states its scale once"
+            )
+    assert unit is not None
+    return scale if unit == "currency" else scale_label(unit, currency)
+
+
+def _slot(
+    entry: "Binding", module: ModuleView, refs: Mapping[tuple[str, str], tuple[str, ...]]
+) -> _Slot:
+    """One bound register: the module's declared layout when the binding names a whole table,
+    else the matching facts as one value column."""
+    coord = entry.fact_coord
+    facts = {fact.fact_id: fact for fact in module.facts}
+
+    def cell_of(fact_id: str) -> Cell:
+        return _cell(facts[fact_id], refs.get((module.module_id, fact_id), ()))
+
+    layout: ReportTable | None = None
+    if coord.row_id is None and coord.fact_id is None:
+        layout = next((t for t in module.tables if t.table_id == coord.table_id), None)
+    if layout is not None:
+        columns = tuple(c.label for c in layout.columns)
+        rows = tuple(
+            Row(
+                row_id=row.row_id,
+                label=row.label,
+                cells=tuple(cell_of(fact_id) for fact_id in row.fact_ids),
+                style=row.row_kind,
+            )
+            for row in layout.rows
+        )
+        grid: list[list[Fact | None]] = [[facts[i] for i in row.fact_ids] for row in layout.rows]
+        scale = _scale_of(layout.table_id, columns, grid)
+        return _Slot(
+            entry.title,
+            module.module_id,
+            columns,
+            rows,
+            scale,
+            layout.row_header,
+            layout.limitation,
+        )
+    matching = tuple(f for f in module.facts if entry.matches(module.module_id, f))
+    rows = tuple(
+        Row(
+            row_id=fact.fact_id,
+            label=f"{fact.label} · {fact.period}" if fact.period else fact.label,
+            cells=(cell_of(fact.fact_id),),
+        )
+        for fact in matching
+    )
+    scale = _scale_of(str(coord.table_id), ("Value",), [[fact] for fact in matching])
+    return _Slot(entry.title, module.module_id, ("Value",), rows, scale)
+
+
+def _period_class(label: str) -> str | None:
+    return next((name for pattern, name in _PERIOD_CLASSES if pattern.match(label)), None)
+
+
+def _columns_structure(
+    slot: _Slot, *, kind: BlockKind, reasons: Mapping[str, str]
+) -> tuple[tuple[ColumnGroup, ...], int | None, tuple[AbsentColumn, ...]]:
+    """Column groups, the base column and absent columns of a table.
+
+    A period grid groups its columns by period class (quarter, fiscal year, LTM, pro forma,
+    opening); when any label has no class the grid is left ungrouped rather than guessed. The
+    base column is the last LTM column. In any table a column whose every cell is unsettled is
+    absent, with the reason of its first gap.
+    """
+    groups: list[ColumnGroup] = []
+    base: int | None = None
+    classes = [_period_class(label) for label in slot.columns]
+    if kind == "period_grid" and slot.columns and None not in classes:
+        for name in classes:
+            if groups and groups[-1].label == name:
+                groups[-1] = ColumnGroup(label=name, span=groups[-1].span + 1)
+            else:
+                groups.append(ColumnGroup(label=str(name), span=1))
+        ltm = [i for i, name in enumerate(classes) if name == "LTM"]
+        base = ltm[-1] if ltm else None
+    absent: list[AbsentColumn] = []
+    for column in range(len(slot.columns) if kind in {"period_grid", "dense"} else 0):
+        cells = [row.cells[column] for row in slot.rows if row.style == "row"]
+        if cells and all(item.state != "known" for item in cells):
+            reason = reasons.get(cells[0].gap_ref or "") or "Not supplied for any row"
+            absent.append(AbsentColumn(column=column, reason=reason))
+    if base in {item.column for item in absent}:
+        base = None
+    return tuple(groups), base, tuple(absent)
+
+
+def _clip(text: str) -> str:
+    return text if len(text) <= _SUMMARY_LIMIT else text[: _SUMMARY_LIMIT - 1] + "…"
+
+
+#: Fields whose known text facts are producer-composed or analyst run text, checked by the
+#: module's own reference validation before storage and stored with its tokens: CP-8's resolved
+#: claim text (``owners/cp8.py:2145-2186``), CP-L10's TL10.3 analyst text (``cpl10.py:1060-1073``,
+#: stored at :804-826) and CP-2H's T2R.10 gap text (``cp2h.py:1523-1541``, :1608-1614, stored at
+#: :1413-1424). CP-L10's TL10.4 ``decision_impact`` reuses the validated TL10.3
+#: ``credit_transmission`` text (``cpl10.py:860-870``, validated at :1060-1073). Keyed by
+#: (module, table, field): a table mixes run text with free text (TL10.3 ``source_refs``, T2R.10
+#: ``id``), and ``Fact.text`` is a plain string, so free text and verbatim quotes may hold
+#: ``[sic]`` or ``[Reserved]`` and are shown as written.
+_RUN_TEXT_FIELDS = frozenset(
+    {
+        ("CP-8", "cp8.what_changed", "value"),
+        ("CP-L10", "TL10.3", "assessment"),
+        ("CP-L10", "TL10.3", "credit_transmission"),
+        ("CP-L10", "TL10.4", "decision_impact"),
+        ("CP-2H", "T2R.10", "gap"),
+        ("CP-2H", "T2R.10", "why_it_matters"),
+        ("CP-2H", "T2R.10", "affected_analysis"),
+        ("CP-2H", "T2R.10", "action"),
+    }
+)
+
+
+def _carries_reference(module_id: str, fact: Fact) -> bool:
+    """Whether a known text fact is run text that must go through ``resolve``.
+
+    Only a fact in a registered run-text field qualifies, and then any reserved character
+    (``[ ] { }``) sends it to ``resolve``, so a malformed or unbalanced reference fails closed.
+    Every other text fact is shown as written, whatever brackets it holds.
+    """
+    return (
+        (module_id, fact.table_id, fact.field) in _RUN_TEXT_FIELDS
+        and fact.text is not None
+        and prose._RESERVED.search(fact.text) is not None
+    )
+
+
+def _token_runs(
+    text: str,
+    module: ModuleView,
+    refs: Mapping[tuple[str, str], tuple[str, ...]],
+    *,
+    judged: bool,
+    names: tuple[str, ...] = (),
+) -> list[TextRun]:
+    """A known text fact that carries ``[ref]``/``{ref|unit}`` tokens, resolved as a claim is:
+    a known fact becomes its figure, an unsettled one the page's ``G#``; a token that names a
+    fact outside the module fails closed (``resolve``)."""
+    by_fact = {fact_id: ids for (owner, fact_id), ids in refs.items() if owner == module.module_id}
+    out: list[TextRun] = []
+    for run in resolve(text, prose.bind(module.facts), by_fact, names=names):
+        if run.kind == "text":
+            out.append(TextRun(text=run.text, kind="pen" if judged else "text"))
+        else:
+            out.append(TextRun(text=run.text, kind=run.kind, ref_id=run.ref_id))
+    return out
+
+
+def _prose_lines(
+    entries: Iterable["Binding"],
+    view: View,
+    refs: Mapping[tuple[str, str], tuple[str, ...]],
+) -> tuple[Line, ...]:
+    """One line per bound fact: its words, then a mark that opens its passport."""
+    by_id = {module.module_id: module for module in view.modules}
+    lines: list[Line] = []
+    for entry in entries:
+        module = by_id[entry.fact_coord.module_id]
+        for fact in module.facts:
+            if not entry.matches(module.module_id, fact):
+                continue
+            item = _cell(fact, refs.get((module.module_id, fact.fact_id), ()))
+            labelled = (
+                entry.section is not None
+            )  # thesis, strength and weakness lines carry a label
+            runs: list[TextRun] = []
+            if item.gap_ref:
+                if not labelled:
+                    runs.append(TextRun(text=f"{fact.label}:", kind="text"))
+                runs.append(TextRun(text=item.text, kind="gap", ref_id=item.gap_ref))
+            elif fact.text is not None:
+                judged = fact.value_class == "analyst_judgment"
+                if _carries_reference(module.module_id, fact):
+                    runs += _token_runs(
+                        fact.text, module, refs, judged=judged, names=(view.run.issuer_name,)
+                    )
+                else:
+                    runs.append(TextRun(text=item.text, kind="pen" if judged else "text"))
+                if item.ref_id:
+                    runs.append(TextRun(text=item.ref_id, kind="fig", ref_id=item.ref_id))
+            elif item.ref_id:
+                runs += [
+                    TextRun(text=f"{fact.label}:", kind="text"),
+                    TextRun(text=item.text, kind="fig", ref_id=item.ref_id),
+                ]
+            else:
+                runs.append(TextRun(text=f"{fact.label}: {item.text}", kind="text"))
+            lines.append(
+                Line(
+                    runs=tuple(runs),
+                    section=entry.section,
+                    label=fact.label if labelled else None,
+                )
+            )
+    return tuple(lines)
+
+
+def _summary(lines: tuple[Line, ...], rows: tuple[Row, ...]) -> str | None:
+    """The one line a collapsed block shows: its first line of prose or its first row."""
+    if lines:
+        return _clip(" ".join(run.text for run in lines[0].runs if run.kind != "fig"))
+    if rows:
+        return _clip(f"{rows[0].label}: " + ", ".join(cell.text for cell in rows[0].cells))
+    return None
+
+
+def _meta(spec: _Spec, scale: str | None, as_of: date) -> str | None:
+    """Right-hand head text: the as-of date (where the block is dated) and the scale, once."""
+    parts = [format_date(as_of)] if spec.dated else []
+    if scale:
+        parts.append(scale)
+    if not parts:
+        return None
+    text = " · ".join(parts)
+    return f"{text}; metrics in x; negatives in parentheses" if spec.kind == "period_grid" else text
+
+
+def _na_strip(
+    block_id: str, owner: str, scale: str | None, reason: str | None = None
+) -> tuple[Figure, ...]:
+    """The chart frames of the strip when no producer supplies their series.
+
+    ``reason`` names why the frames are empty (``_strip_reason``); without one the frames say
+    the KPI register carries no series.
+    """
+    shown = reason or "The KPI register carries no series for this chart"
+    figures = []
+    for fig_id, title, unit in _STRIP_FIGURES[block_id]:
+        twin = Block(
+            block_id=f"{block_id}-{fig_id.replace('.', '').lower()}-twin",
+            title=f"{title} table",
+            owner=owner,
+            state="absent",
+            kind="dense",
+            note=f"Absent: {shown}.",
+        )
+        chart = ChartSpec(
+            kind="na",
+            series=(),
+            table_twin=twin,
+            marks=(),
+            unit=unit or scale,
+            reason=shown,
+        )
+        figures.append(Figure(fig_id=fig_id, title=title, chart=chart, placement="above"))
+    return tuple(figures)
+
+
+def _strict_text_cell(fact: Fact, unit_class: UnitClass, refs: tuple[str, ...]) -> Cell:
+    """The cell of a settled text multiple read by the strict parse (CR.1 threshold).
+
+    A text the parse refuses is a gap cell carrying the fact's ``G#`` from ``build_index``; with
+    no ``G#`` there is nothing honest to draw and the read fails closed. Never a zero.
+    """
+    if unit_class != "multiple":
+        raise ValueError("The strict-parse chart path reads the multiple class only")
+    if fact.status != "known":
+        cell = _cell(fact, refs)
+        if cell.gap_ref is None:
+            raise ValueError("A strict-parse chart gap needs its G# reference")
+        return cell
+    if fact.text is None:
+        raise ValueError("The strict-parse chart path reads a text fact")
+    if strict_multiple(fact.text) is not None:
+        ref = next((r for r in refs if r.startswith("K")), None) or next(
+            (r for r in refs if r[0] in "CS"), None
+        )
+        if ref is None:
+            raise ValueError("CP4 chart point has no compatible canonical passport")
+        return Cell(
+            text=fact.text,
+            prov=_KIND_OF_PREFIX[ref[0]],
+            ref_id=ref,
+            unit_class="multiple",
+            state="known",
+        )
+    gap = next((r for r in refs if r.startswith("G")), None)
+    if gap is None:
+        raise ValueError("A strict-parse chart gap needs its G# reference")
+    return Cell(
+        text=format_value(None, "multiple", "gap", gap_id=gap),
+        prov="gap",
+        gap_ref=gap,
+        unit_class="multiple",
+        state="gap",
+    )
+
+
+def _chart_fact_cell(
+    fact: Fact, unit_class: UnitClass, refs: tuple[str, ...], *, strict_text: bool = False
+) -> Cell:
+    """A chart reads the canonical source-native number, never a display-rounded value.
+
+    ``strict_text`` reads a settled text multiple instead (``strict_multiple``).
+    """
+    if strict_text:
+        return _strict_text_cell(fact, unit_class, refs)
+    if unit_class == "multiple":
+        supported = fact.unit == "MULTIPLE" and fact.scale == 1
+    elif unit_class == "percent":
+        supported = fact.unit in _PERCENT_UNITS and fact.scale == 1
+    elif unit_class == "amount":
+        supported = (
+            fact.unit in {"MILLIONS", "currency"}
+            and fact.currency is not None
+            and re.fullmatch(r"[A-Z]{3}", fact.currency) is not None
+            and fact.scale == 1000000
+        )
+    else:
+        supported = False
+    if not supported or (fact.status == "known" and fact.amount is None):
+        raise ValueError("CP1 chart point has unsupported numeric dimensions")
+    cell = _cell(fact, refs)
+    if cell.unit_class != unit_class or not (cell.ref_id or cell.gap_ref):
+        raise ValueError("CP1 chart point has no compatible canonical passport")
+    return cell
+
+
+def _chart_mark(
+    fact: Fact,
+    cell: Cell,
+    *,
+    series: str,
+    label: str,
+    role: Literal["value", "total", "residual"] = "value",
+) -> ChartMark:
+    """The mark of one chart fact: its value, declared decimals and basis, from the fact.
+
+    A gap cell is a mark with no value. A known text multiple takes its value and decimals from
+    the strict parse of its own text. ``hatched`` follows the fact's basis (analyst judgment).
+    """
+    value: Decimal | None = None
+    decimals: int | None = None
+    if cell.state == "known":
+        if fact.amount is not None:
+            value, decimals = fact.amount, fact.decimals
+        else:
+            parsed = strict_multiple(cell.text)
+            if parsed is None:  # unreachable for a cell from _strict_text_cell
+                raise ValueError("A known text chart point must pass the strict parse")
+            value, decimals = parsed
+    return ChartMark(
+        series=series,
+        label=label,
+        text=cell.text,
+        ref_id=cell.gap_ref or cell.ref_id,
+        value=value,
+        role=role,
+        decimals=decimals,
+        hatched=value is not None and fact.value_class == "analyst_judgment",
+    )
+
+
+_CP1_CHART_LABELS = MappingProxyType(
+    {
+        "total_leverage_reported": "Total leverage (reported)",
+        "net_leverage_reported": "Net leverage (reported)",
+        "interest_coverage_reported": "Interest cover (reported)",
+        "cash_closing": "Cash",
+        "undrawn_rcf": "Undrawn RCF",
+        "liquidity": "Total liquidity",
+        "revenue": "Net revenues",
+        "adjusted_ebitda": "Adjusted EBITDA",
+    }
+)
+# What the shared CP1 consumer accepts of each figure the producer supplies: chart kind, unit
+# class, unit spellings and placement. S.5 sits beside the financials table (FP 01).
+_CP1_FORMS: Mapping[str, tuple[str, UnitClass, frozenset[str], FigurePlacement]] = MappingProxyType(
+    {
+        "S.1": ("line", "multiple", frozenset({"x"}), "above"),
+        "S.2": ("line", "multiple", frozenset({"x"}), "above"),
+        "S.3": ("line", "amount", frozenset({"US$m", "US$ m"}), "above"),
+        "S.4": ("grouped", "amount", frozenset({"US$m", "US$ m"}), "above"),
+        "S.5": ("grouped", "amount", frozenset({"US$m", "US$ m"}), "beside"),
+    }
+)
+_CP1_SETTLED: frozenset[Status] = frozenset({"accepted", "restricted"})
+
+
+def _cp1_supplied(module: ModuleView) -> tuple[Any, ...]:
+    """The typed producer's figures for this CP1: S.1 to S.4 in order, then any later figure."""
+    from deploy_workflow.financial_series import cp1_chart_series
+
+    supplied = tuple(cp1_chart_series(module))
+    strip = tuple(fig_id for fig_id, _, _ in _STRIP_FIGURES["model-chart-strip"])
+    if tuple(item.fig_id for item in supplied if item.fig_id in strip) != strip:
+        raise ValueError("CP1 chart producer must supply S.1 through S.4 in order")
+    if any(item.fig_id not in _CP1_FORMS for item in supplied):
+        raise ValueError("CP1 chart producer supplied a figure the consumer does not know")
+    return supplied
+
+
+def _cp1_figures(
+    block_id: str,
+    module: ModuleView,
+    refs: Mapping[tuple[str, str], tuple[str, ...]],
+    supplied: tuple[Any, ...],
+    wanted: frozenset[str],
+) -> tuple[Figure, ...]:
+    """Render the supplied figures named in ``wanted`` against this CP1 and the report index."""
+    facts = {fact.fact_id: fact for fact in module.facts}
+
+    def current(fact_id: str) -> tuple[Fact, tuple[str, ...]]:
+        if fact_id not in facts:
+            raise ValueError("CP1 chart references an unknown selected fact")
+        return facts[fact_id], refs.get((module.module_id, fact_id), ())
+
+    figures = []
+    for spec in supplied:
+        if spec.fig_id not in wanted:
+            continue
+        expected_kind, expected_class, expected_unit, placement = _CP1_FORMS[spec.fig_id]
+        if (
+            spec.kind != expected_kind
+            or spec.unit_class != expected_class
+            or spec.unit not in expected_unit
+            or len(set(spec.series)) != len(spec.series)
+            or (not spec.points and not spec.reason)
+        ):
+            raise ValueError("CP1 chart metadata is inconsistent")
+        captions = {
+            name: _CP1_CHART_LABELS.get(name, name) if spec.fig_id != "S.4" else name
+            for name in spec.series
+        }
+        if len(set(captions.values())) != len(captions):
+            raise ValueError("CP1 chart series captions must be distinct")
+        marks, rows = [], []
+        for index, point in enumerate(spec.points):
+            if point.series not in captions:
+                raise ValueError("CP1 chart point names an undeclared raw series")
+            fact, fact_refs = current(point.fact_id)
+            cell = _chart_fact_cell(fact, spec.unit_class, fact_refs)
+            caption = captions[point.series]
+            labels = [f"{caption} · {point.category}"]
+            for companion_id in point.companion_fact_ids:
+                companion, companion_refs = current(companion_id)
+                companion_cell = _cell(companion, companion_refs)
+                companion_ref = companion_cell.gap_ref or companion_cell.ref_id
+                label = f"{companion.label}: {companion_cell.text}"
+                labels.append(label + (f" [{companion_ref}]" if companion_ref else ""))
+            marks.append(_chart_mark(fact, cell, series=caption, label=point.category))
+            rows.append(
+                Row(row_id=f"{spec.fig_id}.point.{index}", label=" · ".join(labels), cells=(cell,))
+            )
+        plottable = any(mark.value is not None for mark in marks)
+        if plottable and spec.reason:
+            raise ValueError("CP1 unavailable chart metadata carries numeric points")
+        reason = spec.reason
+        if marks and not plottable:
+            limitations = [facts[point.fact_id].limitation for point in spec.points]
+            reasons = [text for text in (reason, *limitations) if text]
+            reason = "; ".join(dict.fromkeys(reasons))
+        twin = Block(
+            block_id=f"{block_id}-{spec.fig_id.replace('.', '').lower()}-twin",
+            title=f"{spec.title} table",
+            owner="MODEL",
+            state="populated" if rows else "absent",
+            kind="dense",
+            scale=spec.unit,
+            columns=("Value",),
+            rows=tuple(rows),
+            note=reason,
+        )
+        figures.append(
+            Figure(
+                fig_id=spec.fig_id,
+                title=spec.title,
+                placement=placement,
+                chart=ChartSpec(
+                    kind=spec.kind,
+                    series=tuple(captions.values()),
+                    table_twin=twin,
+                    marks=tuple(marks),
+                    unit=spec.unit,
+                    unit_class=spec.unit_class,
+                    reason=reason,
+                ),
+            )
+        )
+    return tuple(figures)
+
+
+def _cp1_strip(
+    block_id: str,
+    module: ModuleView,
+    refs: Mapping[tuple[str, str], tuple[str, ...]],
+) -> tuple[Figure, ...]:
+    """Render the typed producer's coordinates against this selected CP1 and its index."""
+    if module.module_id != "CP-1" or module.status not in _CP1_SETTLED:
+        return ()
+    wanted = frozenset(fig_id for fig_id, _, _ in _STRIP_FIGURES[block_id])
+    return _cp1_figures(block_id, module, refs, _cp1_supplied(module), wanted)
+
+
+def _cp1_period_figures(
+    block_id: str,
+    view: View,
+    refs: Mapping[tuple[str, str], tuple[str, ...]],
+) -> tuple[Figure, ...]:
+    """The S.5 entry point: revenue and Adjusted EBITDA beside the financials period grid.
+
+    It has the ``FigureProducer`` signature, so W2 registers it with
+    ``register_figure_producer("financials-credit-metrics", _cp1_period_figures,
+    pathways=frozenset({"credit_snapshot"}))``. No figure while the producer supplies no S.5 or
+    CP-1 is not settled.
+    """
+    module = next((item for item in view.modules if item.module_id == "CP-1"), None)
+    if module is None or module.status not in _CP1_SETTLED:
+        return ()
+    return _cp1_figures(block_id, module, refs, _cp1_supplied(module), frozenset({"S.5"}))
+
+
+# --- Per-producer figure dispatch (Stage 3 chart seam) -------------------------------------------
+
+FigureProducer = Callable[
+    [str, View, Mapping[tuple[str, str], tuple[str, ...]]], tuple[Figure, ...]
+]
+# block id -> (producer, Pathway ids it draws on; None means every Pathway). W2 registers one
+# producer per figure group; the seam itself holds none.
+_FIGURE_PRODUCERS: dict[str, tuple[FigureProducer, frozenset[str] | None]] = {}
+
+
+def register_figure_producer(
+    block_id: str,
+    producer: FigureProducer,
+    pathways: frozenset[str] | None = None,
+) -> None:
+    """Register the producer that draws ``block_id``'s figures, for the given Pathways.
+
+    A chart-kind block draws through the CP1 strip, so only table blocks (dense, keyvalue,
+    period_grid) register. One producer per block; a second registration is refused.
+    """
+    if block_id in _FIGURE_PRODUCERS:
+        raise ValueError(f"Block {block_id} already has a figure producer")
+    if not any(block_id in composition for composition in _COMPOSITIONS):
+        raise ValueError(f"Unknown block {block_id}")
+    if _spec_of(block_id).kind == "chart":
+        raise ValueError(f"Block {block_id} is a chart strip; it draws through the CP1 strip")
+    if pathways is not None and not pathways <= _pathway_ids():
+        raise ValueError("Figure producer names an unknown pathway")
+    _FIGURE_PRODUCERS[block_id] = (producer, pathways)
+
+
+def _registered_figures(
+    block_id: str,
+    pathway_id: str,
+    view: View,
+    refs: Mapping[tuple[str, str], tuple[str, ...]],
+) -> tuple[Figure, ...]:
+    """The figures the block's registered producer draws on this Pathway; none if unregistered."""
+    entry = _FIGURE_PRODUCERS.get(block_id)
+    if entry is None:
+        return ()
+    producer, allowed = entry
+    if allowed is not None and pathway_id not in allowed:
+        return ()
+    figures = tuple(producer(block_id, view, refs))
+    if len({figure.fig_id for figure in figures}) != len(figures):
+        raise ValueError(f"Block {block_id} figures must have distinct figure ids")
+    return figures
+
+
+def _block(
+    block_id: str,
+    pathway: Pathway,
+    view: View,
+    entries: tuple["Binding", ...],
+    refs: Mapping[tuple[str, str], tuple[str, ...]],
+    reasons: Mapping[str, str],
+) -> Block:
+    from deploy_vii.bindings import SHOWN_STATUSES
+
+    spec = _spec_of(block_id)
+    modules = {module.module_id: module for module in view.modules}
+    statuses: dict[str, Status] = {code: module.status for code, module in modules.items()}
+    # A binding whose module has no entry in the view shows nothing (the maturity wall binds CP-1
+    # and CP-2D; a view without CP-1 keeps CP-2D's register and the n/a frame).
+    shown = tuple(
+        e
+        for e in entries
+        if (m := modules.get(e.fact_coord.module_id)) is not None and m.status in SHOWN_STATUSES
+    )
+    synthetic = ("Synthetic",) if view.run.case_kind == "synthetic" else ()
+    state: BlockState = "collapsed" if spec.collapsed else "populated"
+    route = spec.producers[0] if spec.producers else None
+    shape: dict[str, Any] = {
+        "block_id": block_id,
+        "title": spec.title,
+        "owner": spec.owner,
+        "tags": synthetic,
+        "state": state,
+        "full_analysis_route": route,
+        "route_label": spec.route_label,
+        "width": spec.width,
+        "numbered": spec.numbered,
+        "pinned": spec.pinned,
+    }
+    if shown and spec.kind == "prose":
+        lines = _prose_lines(shown, view, refs)
+        if lines:
+            return Block(
+                **{**shape, "summary": _summary(lines, ()) if spec.collapsed else None},
+                kind="prose",
+                lines=lines,
+            )
+    elif shown:
+        slots = [_slot(e, modules[e.fact_coord.module_id], refs) for e in shown]
+        filled = [item for item in slots if item.rows]
+        if filled:
+            primary = filled[0]
+            kind: BlockKind = spec.kind if spec.kind in _TABLE_KINDS else "dense"
+            tabs = tuple(
+                BlockTab(
+                    label=item.label,
+                    scale=item.scale,
+                    row_header=item.row_header,
+                    columns=item.columns,
+                    rows=item.rows,
+                )
+                if item.rows
+                else BlockTab(
+                    label=item.label,
+                    note=item.limitation
+                    or f"{item.module_id} reported an empty {item.label} register in this run.",
+                )
+                for item in slots
+                if item is not primary
+            )
+            groups, base, absent = _columns_structure(primary, kind=kind, reasons=reasons)
+            cp1 = modules.get("CP-1")  # a view without CP-1 takes the degraded path
+            if spec.kind == "chart":
+                figures = _cp1_strip(block_id, cp1, refs) if cp1 is not None else ()
+            else:
+                figures = _registered_figures(block_id, pathway.id, view, refs)
+            degraded = spec.kind == "chart" and not figures
+            chart_note = "; ".join(
+                f"{figure.fig_id}: {figure.chart.reason}"
+                for figure in figures
+                if figure.chart.reason
+            )
+            return Block(
+                **{**shape, "summary": _summary((), primary.rows) if spec.collapsed else None},
+                kind=kind,
+                scale=primary.scale,
+                row_header=primary.row_header,
+                meta=_meta(spec, primary.scale, view.run.as_of),
+                columns=primary.columns,
+                rows=primary.rows,
+                tab_label=primary.label if tabs else None,
+                tabs=tabs,
+                groups=groups,
+                base_column=base,
+                absent_columns=absent,
+                figures=_na_strip(block_id, spec.owner, primary.scale, _strip_reason(block_id))
+                if degraded
+                else figures,
+                note=_strip_note(block_id) if degraded else chart_note or None,
+            )
+    blocked_because = {
+        code: module.limitations[0]
+        for code, module in modules.items()
+        if module.status == "blocked" and module.limitations
+    }
+    words_state, note = _honest_state(spec, statuses, pathway, blocked_because)
+    if shown:
+        words_state = "absent"
+        note = f"Absent: {' · '.join(spec.producers)} supplied no rows for this block."
+    kind = spec.kind if spec.kind != "chart" else "dense"
+    return Block(
+        block_id=block_id,
+        title=spec.title,
+        owner=spec.owner,
+        state=words_state,
+        kind=kind,
+        note=note,
+        width=spec.width,
+    )
+
+
+def _call(
+    modules: Mapping[str, ModuleView], pathway: Pathway
+) -> tuple[tuple[CallItem, ...], CallWithheld | None]:
+    """The call band (task 8.7): CP-6 makes the call. A settled (accepted or restricted) CP-6
+    head shows its final-bias action bias (``cp6_committee.ACTION_BIAS_FACT``) as the "Action
+    bias" fact and its confidence (``cp6_committee.CONFIDENCE_FACT``) as the "Confidence"
+    scale, metered by ``cp6_committee.call_scale`` (user decision, 24 Oct 2026); both texts are
+    the head's facts, never recomputed. CP-6 outside the Pathway withholds the call as not in
+    this Pathway; CP-6 in the Pathway but left out by the run's ``requested_modules`` override
+    withholds it as not requested; CP-6 blocked, or unable to run because a required producer
+    is blocked, withholds it as blocked; otherwise no judgement is recorded and the band says
+    so. A settled head without its action bias and confidence fails closed (ValueError)."""
+    # Function-local: ``cp6_committee`` imports this module (``figure_unit``) at import time.
+    from deploy_vii import cp6_committee
+
+    pending = (CallItem(kind="na", label="Assessment", value_text="Assessment pending"),)
+    cp6 = modules.get(cp6_committee.MODULE_ID)
+    status = cp6.status if cp6 is not None else None
+    if status == "not_in_pathway":
+        if cp6_committee.MODULE_ID in dependencies(pathway.requested_modules):
+            return pending, "not_requested"
+        return pending, "outside_pathway"
+    if cp6 is not None and status in cp6_committee.SETTLED:
+        facts = {fact.fact_id: fact for fact in cp6.facts}
+        bias, confidence = (
+            facts.get(cp6_committee.ACTION_BIAS_FACT),
+            facts.get(cp6_committee.CONFIDENCE_FACT),
+        )
+        if (
+            bias is None
+            or confidence is None
+            or bias.text not in cp6_committee.ACTION_BIASES
+            or confidence.text not in cp6_committee.CONFIDENCES
+        ):
+            raise ValueError("The settled CP-6 head carries no settled action bias and confidence")
+        return (
+            CallItem(kind="fact", label="Action bias", value_text=bias.text),
+            CallItem(
+                kind="scale",
+                label="Confidence",
+                value_text=confidence.text,
+                meter=cp6_committee.CALL_SCALE[confidence.text],
+            ),
+        ), None
+    required = (cp6_committee.MODULE_ID, *cp6_committee.REQUIRED)
+    if any(m.status == "blocked" for code in required if (m := modules.get(code)) is not None):
+        return pending, "blocked"
+    return pending, None
+
+
+def pathway_has_model_block(pathway: Pathway) -> bool:
+    """Whether the composition holds a block the Model destination owns (owner ``MODEL``).
+
+    Such a Pathway requests CP-MODEL after CP-1 (decision 0009); ``contracts`` lists it.
+    """
+    return any(_spec_of(block_id).owner == "MODEL" for block_id in pathway.blocks)
+
+
+def _unplaced(view: View, pathway: Pathway, maps: tuple["BindingMap", ...]) -> tuple[Unplaced, ...]:
+    """One entry per shown module and block it binds to that is neither composed nor a rail page.
+
+    A binding counts when it matches a fact or table the module carries, so an unused wildcard
+    entry does not list a block with nothing behind it.
+    """
+    from deploy_vii.bindings import RAIL_DESTINATIONS, SHOWN_STATUSES
+
+    shown = {m.module_id: m for m in view.modules if m.status in SHOWN_STATUSES}
+    carried = {
+        module_id: {fact.table_id for fact in module.facts}
+        | {table.table_id for table in module.tables}
+        for module_id, module in shown.items()
+    }
+    listed: dict[tuple[str, str], None] = {}
+    for module_map in maps:
+        module = shown.get(module_map.module_id)
+        if module is None:
+            continue
+        composed = {
+            entry.fact_coord for entry in module_map.entries if entry.block_id in pathway.blocks
+        }
+        for entry in module_map.entries:
+            if entry.block_id in pathway.blocks or entry.block_id in RAIL_DESTINATIONS:
+                continue
+            if entry.fact_coord in composed:
+                continue  # a second placement of a register this Pathway shows in another block
+            table_id = entry.fact_coord.table_id
+            if table_id is None or table_id in carried[module.module_id]:
+                listed[(module.module_id, entry.block_id)] = None
+    return tuple(
+        Unplaced(
+            module_id=module_id,
+            block_id=block_id,
+            title=_spec_of(block_id).title,
+            note=f"{module_id} output bound to {block_id}, not in this Pathway.",
+        )
+        for module_id, block_id in listed
+    )
+
+
+def _cp1b_fact_shape(fact: Fact, currency: str) -> None:
+    """Validate role dimensions and value shape without computing financial truth.
+
+    ``currency`` is the run's money currency, read from ``revenue:current``; every money
+    fact (prior, current, delta; known or gap) carries it.
+    """
+    if fact.decimals is not None:
+        raise ValueError("CP1B layout does not permit a precision override")
+    assessment = fact.table_id == "T1B.3"
+    dimensions: tuple[str | None, str | None, Decimal]
+    if assessment:
+        dimensions = (None, None, Decimal(1))
+    elif fact.field == "growth" or (fact.row_id == "ebitda_margin" and fact.field != "delta"):
+        dimensions = ("PERCENT", None, Decimal(1))
+    elif fact.row_id == "ebitda_margin":
+        dimensions = ("pp", None, Decimal(1))
+    else:
+        dimensions = ("MILLIONS", currency, Decimal(1000000))
+    if (fact.unit, fact.currency, fact.scale) != dimensions:
+        raise ValueError("CP1B layout has incompatible native dimensions")
+    if fact.status != "known":
+        valid = (
+            fact.amount is None
+            and fact.text is None
+            and bool(fact.limitation and fact.limitation.strip())
+        )
+    elif assessment:
+        valid = fact.amount is None and bool(fact.text and fact.text.strip())
+    else:
+        valid = fact.text is None and fact.amount is not None and fact.amount.is_finite()
+    if not valid:
+        raise ValueError("CP1B layout has an invalid numeric or assessment value")
+    if not assessment and not (fact.period and fact.period.strip()):
+        raise ValueError("CP1B numeric coordinates require a period descriptor")
+
+
+def _cp1b_unit_layouts(
+    checked: ModuleView,
+) -> "tuple[dict[str, Fact], tuple[_Layout, ...], str]":
+    """The facts by id, the layouts labelled in the run's money unit, and that currency.
+
+    The unit is read from ``revenue:current``, never trusted from the row labels.
+    """
+    from deploy_vii.bindings.cp1b import cp1b_layouts
+
+    # Table ids, row ids and fields do not depend on the unit; only the money labels do.
+    canonical = cp1b_layouts()
+    if tuple(t.table_id for t in checked.tables) != tuple(t.table_id for t in canonical):
+        raise ValueError("CP1B layout requires exactly its three ordered tables")
+    facts = {fact.fact_id: fact for fact in checked.facts}
+    expected_ids = {
+        f"cp1b:{layout.table_id}:{row_id}:{field}"
+        for layout in canonical
+        for row_id, _ in layout.rows
+        for field in layout.fields
+    }
+    if facts.keys() != expected_ids:
+        raise ValueError("CP1B layout requires exact canonical fact coverage")
+    currency = facts["cp1b:T1B.1:revenue:current"].currency
+    if currency is None or not re.fullmatch(r"[A-Z]{3}", currency):
+        raise ValueError("CP1B layout requires a reporting currency on revenue current")
+    layouts = cp1b_layouts(scale_label("MILLIONS", currency) or "")
+    return facts, layouts, currency
+
+
+def _validate_cp1b_layout(module: ModuleView) -> None:
+    """Refuse malformed CP1B layouts before generic table/prose consumption.
+
+    Period headings describe supplied coordinates; dates, values, grants and
+    operand authenticity remain the producer and selected-run verifier's job.
+    """
+    # Reuses canonical Fact/ReportTable validation even for model_copy callers.
+    checked = ModuleView.model_validate(module.model_dump())
+    facts, layouts, currency = _cp1b_unit_layouts(checked)
+    fixed_headings = {
+        "delta": "Change (native unit; margin pp)",
+        "growth": "Growth (%)",
+        "assessment": "Assessment",
+    }
+    paired_headings: tuple[str, str] | None = None
+    for table, layout in zip(checked.tables, layouts, strict=True):
+        if (table.title, table.row_header, table.interface_id) != (
+            layout.title,
+            layout.row_header,
+            None,
+        ):
+            raise ValueError("CP1B layout has an invalid table title, header or interface")
+        if tuple(c.field for c in table.columns) != layout.fields:
+            raise ValueError("CP1B layout has invalid ordered fields")
+        if tuple((r.row_id, r.label, r.row_kind) for r in table.rows) != tuple(
+            (row_id, label, "row") for row_id, label in layout.rows
+        ):
+            raise ValueError("CP1B layout has invalid ordered rows or labels")
+        for column in table.columns:
+            if column.field in fixed_headings and column.label != fixed_headings[column.field]:
+                raise ValueError("CP1B layout has invalid column headings")
+        if table.table_id != "T1B.3":
+            headings = (table.columns[0].label, table.columns[1].label)
+            if paired_headings is not None and headings != paired_headings:
+                raise ValueError("CP1B paired tables must share the same period headings")
+            paired_headings = headings
+            for role, heading in zip(("prior", "current"), headings, strict=True):
+                period = facts[f"cp1b:{table.table_id}:{layout.rows[0][0]}:{role}"].period
+                requested = role == "prior" and heading.startswith("Requested ")
+                prefix = "Requested" if requested else "Prior" if role == "prior" else "Current"
+                start = f"{prefix} {period} ("
+                if (
+                    not heading.startswith(start)
+                    or not heading.endswith(")")
+                    or not heading[len(start) : -1].strip()
+                ):
+                    raise ValueError("CP1B layout has an invalid supplied period heading")
+                if requested and heading[len(start) : -1] != "not supplied":
+                    raise ValueError("CP1B requested period heading must disclose absence")
+        for row in table.rows:
+            identifiers = tuple(
+                f"cp1b:{table.table_id}:{row.row_id}:{field}" for field in layout.fields
+            )
+            if row.fact_ids != identifiers:
+                raise ValueError("CP1B layout cell pointers differ from canonical coordinates")
+            for fact_id in identifiers:
+                _cp1b_fact_shape(facts[fact_id], currency)
+    for row_id, _ in layouts[0].rows:
+        growth = facts[f"cp1b:T1B.1:{row_id}:growth"]
+        if row_id not in {"revenue", "ebitda", "adjusted_ebitda"}:
+            if growth.status != "not_applicable":
+                raise ValueError("CP1B nongrowth rows require reasoned not_applicable")
+        else:
+            prior = facts[f"cp1b:T1B.1:{row_id}:prior"]
+            if (
+                prior.status == "known"
+                and prior.amount == 0
+                and (
+                    growth.status != "missing"
+                    or "ZERO_DENOMINATOR" not in (growth.limitation or "")
+                )
+            ):
+                raise ValueError("CP1B zero prior requires missing growth/ZERO_DENOMINATOR")
+
+
+def _cp4_fact_shape(fact: Fact) -> None:
+    """Check supplied native values without judging legal or financial truth."""
+    if not fact.scale.is_finite() or fact.scale <= 0:
+        raise ValueError("CP4 facts require a finite positive scale")
+    if fact.unit in {"MULTIPLE", "PERCENT", "decimal_fraction", "pp"} and (
+        fact.scale != 1 or fact.currency is not None
+    ):
+        raise ValueError("CP4 dimensionless figures require scale one and no currency")
+    if fact.status != "known":
+        valid = (
+            fact.amount is None
+            and fact.text is None
+            and bool(fact.limitation and fact.limitation.strip())
+        )
+    elif fact.amount is not None:
+        valid = (
+            fact.text is None
+            and fact.amount.is_finite()
+            and bool(fact.unit and fact.unit.strip())
+            and bool(fact.period and fact.period.strip())
+        )
+        if fact.table_id == "T4.9":
+            if fact.field == "headroom" and fact.unit not in {"MULTIPLE", "pp"}:
+                raise ValueError("CP4 headroom has an incompatible native unit")
+            if fact.field == "headroom_share" and fact.unit != "PERCENT":
+                raise ValueError("CP4 headroom share requires a percentage fraction")
+    else:
+        valid = bool(fact.text and fact.text.strip())
+    if not valid:
+        raise ValueError("CP4 fact has an invalid known or nonknown value shape")
+
+
+def _validate_cp4_layout(module: ModuleView) -> None:
+    """Validate canonical CP4 placement before any table fallback or payload carryover."""
+    from deploy_vii.bindings import SHOWN_STATUSES
+
+    checked = ModuleView.model_validate(module.model_dump())
+    if checked.status not in SHOWN_STATUSES:
+        if checked.facts or checked.tables or checked.claims:
+            raise ValueError("Nonshown CP4 cannot carry prior output into Full analysis")
+        return
+
+    # Local: cp4_legal itself imports figure_unit from this module.
+    from deploy_vii.cp4_legal import REGISTERS, REQUIRED_TABLES, UNKEYED
+
+    if tuple(t.table_id for t in checked.tables) != REQUIRED_TABLES:
+        raise ValueError("CP4 requires its exact ordered 31 declared tables")
+    if any(f.table_id not in REGISTERS for f in checked.facts):
+        raise ValueError("CP4 facts cannot belong to undeclared tables")
+    facts = {f.fact_id: f for f in checked.facts}
+    for table in checked.tables:
+        table_id = table.table_id
+        register = REGISTERS[table_id]
+        columns = register.columns if table_id in UNKEYED else register.columns[1:]
+        if (
+            table.title != register.title
+            or tuple((c.field, c.label) for c in table.columns) != columns
+            or table.interface_id is not None
+        ):
+            raise ValueError("CP4 table title, columns or interface differs from canonical layout")
+        if not table.rows or any(
+            not row.label.strip() or row.row_kind != "row" for row in table.rows
+        ):
+            raise ValueError("CP4 requires nonempty labelled ordinary rows")
+        empty_copy = table_id == "T4F.2" and len(table.rows) == 1 and table.rows[0].row_id == "none"
+        populated_copy = table_id == "T4F.2" and not empty_copy
+        expected_header = None if table_id in UNKEYED else register.columns[0][1]
+        if populated_copy:
+            expected_header = "CP-1 figure"
+        if table.row_header != expected_header:
+            raise ValueError("CP4 table has an invalid row header")
+        fields = tuple(c.field for c in table.columns)
+        for position, row in enumerate(table.rows, 1):
+            for field, fact_id in zip(fields, row.fact_ids, strict=True):
+                fact = facts[fact_id]
+                if populated_copy:
+                    if (
+                        row.row_id != f"ref{position:02d}"
+                        or fact.status != "known"
+                        or fact.amount is None
+                    ):
+                        raise ValueError(
+                            "CP4 referenced copies require ordered numeric source rows"
+                        )
+                elif fact_id != f"{table_id}.{row.row_id}.{field}":
+                    raise ValueError("CP4 fact identity differs from its canonical coordinate")
+                if empty_copy and (fact.status, fact.unit, fact.period) != (
+                    "not_applicable",
+                    None,
+                    None,
+                ):
+                    raise ValueError("CP4 empty reference row must remain a reasoned absence")
+                _cp4_fact_shape(fact)
+
+
+def build(view: View, pathway: Pathway, maps: Iterable["BindingMap"]) -> ReportView:
+    """The Front Page of ``pathway`` from a view and its binding maps.
+
+    Fails closed when a fact of an accepted, restricted or candidate module is unbound or
+    doubly bound (``validate_bindings``), or when one table mixes amount units: a value is
+    never placed by guess nor dropped. Bound registers become tables (several registers of one
+    block become tabs), bound text becomes prose lines, and every block no binding fills shows
+    its honest state.
+    """
+    # Function-local: ``bindings`` imports this module's contracts at import time.
+    from deploy_vii.bindings import RAIL_DESTINATIONS, SHOWN_STATUSES, validate_bindings
+
+    maps = tuple(maps)
+    if pathway.id != view.run.pathway:
+        raise ValueError("The Pathway differs from the run's Pathway")
+    for module in view.modules:
+        if module.module_id == "CP-4":
+            _validate_cp4_layout(module)
+        if module.module_id == "CP-1B" and (
+            module.status in SHOWN_STATUSES or module.facts or module.tables or module.claims
+        ):
+            _validate_cp1b_layout(module)
+    if issues := validate_bindings(view, maps):
+        more = f" (and {len(issues) - 3} more)" if len(issues) > 3 else ""
+        raise ValueError("Bindings do not cover the view: " + "; ".join(issues[:3]) + more)
+    passports, index = build_index(view)
+    refs = _refs_by_fact(index)
+    reasons = {
+        item.ref_id: field.value
+        for item in passports
+        if item.kind == "gap"
+        for field in item.fields
+        if field.name == "Reason"
+    }
+    placed = {
+        block_id: tuple(
+            entry
+            for module_map in maps
+            for entry in module_map.entries
+            if entry.block_id == block_id and block_id not in RAIL_DESTINATIONS
+        )
+        for block_id in pathway.blocks
+    }
+    blocks = tuple(
+        _block(block_id, pathway, view, placed[block_id], refs, reasons)
+        for block_id in pathway.blocks
+    )
+    call, withheld = _call({module.module_id: module for module in view.modules}, pathway)
+    return ReportView(
+        pathway=pathway,
+        call=call,
+        call_withheld=withheld,
+        blocks=blocks,
+        unplaced=_unplaced(view, pathway, maps),
+        passports=passports,
+        index=index,
+    )
+
+
+def call_state(report: ReportView) -> tuple[str, tuple[str, str] | None]:
+    """Call band state for the shell and the words of a withheld call (no internal tokens)."""
+    if report.call_withheld == "blocked":
+        return "blocked", status_display("blocked")
+    if report.call_withheld == "outside_pathway":
+        return "outside", status_display("not_in_pathway")
+    if report.call_withheld == "not_requested":
+        return "not-requested", status_display("unrun")
+    if any(item.kind != "na" for item in report.call):
+        return "populated", None
+    return "no-judgement", None
+
+
+# --- Stage 3 figure producer registrations -------------------------------------------------------
+# One block per W2 group; the integration pass merges the groups by appending.
+
+# W2 group a: S.5 beside the financials period grid (Credit Snapshot only; the approved FP 02 page
+# shows no S.5 in this block). The maturity wall (S.4) draws through the CP1 strip, not here.
+register_figure_producer(
+    "financials-credit-metrics",
+    _cp1_period_figures,
+    pathways=frozenset({"credit_snapshot"}),
+)
+
+# --- Stage 3 chart wiring W2, group b: RV.3 (CP-1C) and CR.1 (CP-4) -------------------------------
+# Values come only from the settled module facts: no producer here computes, ranks or rounds.
+
+
+@dataclass(frozen=True)
+class _ChartPoint:
+    """One point of a group b figure: its series, category, fact and the companions beside it."""
+
+    series: str
+    category: str
+    fact_id: str
+    companions: tuple[str, ...] = ()
+    strict_text: bool = False
+
+
+def _settled_cell(
+    fact: Fact, unit_class: UnitClass, refs: tuple[str, ...], *, strict_text: bool = False
+) -> Cell:
+    """``_chart_fact_cell``, except that a fact the module did not settle is a gap in any unit.
+
+    The settled module may carry an unsettled fact with no unit (CP-4's missing headroom). The
+    chart draws it as a gap in the chart's own unit class, with the fact's ``G#``; a fact with no
+    ``G#`` fails closed. Never a zero.
+    """
+    if strict_text or fact.status == "known":
+        return _chart_fact_cell(fact, unit_class, refs, strict_text=strict_text)
+    gap = next((ref for ref in refs if ref.startswith("G")), None)
+    if gap is None:
+        raise ValueError("A chart gap needs its G# reference")
+    _, state, _ = fact_spelling(fact, gap)
+    return Cell(
+        text=format_value(None, unit_class, state, gap_id=gap),
+        prov="gap",
+        gap_ref=gap,
+        unit_class=unit_class,
+        state=state,
+    )
+
+
+def _shown_module(view: View, module_id: str) -> ModuleView | None:
+    """The module when its facts are drawn in blocks (accepted, restricted or candidate)."""
+    from deploy_vii.bindings import SHOWN_STATUSES
+
+    module = next((item for item in view.modules if item.module_id == module_id), None)
+    return module if module is not None and module.status in SHOWN_STATUSES else None
+
+
+def _figure_of_points(
+    block_id: str,
+    module: ModuleView,
+    refs: Mapping[tuple[str, str], tuple[str, ...]],
+    *,
+    fig_id: str,
+    title: str,
+    kind: ChartKind,
+    unit_class: UnitClass,
+    unit: str,
+    series: tuple[str, ...],
+    points: tuple[_ChartPoint, ...],
+    placement: FigurePlacement,
+    summary: str | None = None,
+) -> Figure:
+    """The figure of these points: each mark and twin row is read from its settled fact."""
+    facts = {fact.fact_id: fact for fact in module.facts}
+
+    def current(fact_id: str) -> tuple[Fact, tuple[str, ...]]:
+        if fact_id not in facts:
+            raise ValueError(f"Chart references the unknown fact {fact_id}")
+        return facts[fact_id], refs.get((module.module_id, fact_id), ())
+
+    marks, rows = [], []
+    for index, point in enumerate(points):
+        fact, fact_refs = current(point.fact_id)
+        cell = _settled_cell(fact, unit_class, fact_refs, strict_text=point.strict_text)
+        labels = [f"{point.series} · {point.category}"]
+        for companion_id in point.companions:
+            companion, companion_refs = current(companion_id)
+            companion_cell = _cell(companion, companion_refs)
+            companion_ref = companion_cell.ref_id  # a gap states its G# in its text
+            label = f"{companion.label}: {companion_cell.text}"
+            labels.append(label + (f" [{companion_ref}]" if companion_ref else ""))
+        marks.append(_chart_mark(fact, cell, series=point.series, label=point.category))
+        rows.append(Row(row_id=f"{fig_id}.point.{index}", label=" · ".join(labels), cells=(cell,)))
+    twin = Block(
+        block_id=f"{block_id}-{fig_id.replace('.', '').lower()}-twin",
+        title=f"{title} table",
+        owner=module.module_id,
+        state="populated" if rows else "absent",
+        kind="dense",
+        scale=unit,
+        columns=("Value",),
+        rows=tuple(rows),
+    )
+    return Figure(
+        fig_id=fig_id,
+        title=title,
+        placement=placement,
+        summary=summary,
+        chart=ChartSpec(
+            kind=kind,
+            series=series,
+            table_twin=twin,
+            marks=tuple(marks),
+            unit=unit,
+            unit_class=unit_class,
+        ),
+    )
+
+
+# RV.3: two panels, one unit class each (a ChartSpec has one). (fig_id, unit class, unit, metrics)
+_RV3_PANELS: tuple[tuple[str, UnitClass, str, tuple[str, ...]], ...] = (
+    ("RV.3a", "percent", "%", ("adjusted_ebitda_margin", "ffo_to_debt")),
+    ("RV.3b", "multiple", "x", ("total_leverage_adjusted", "interest_coverage_adjusted")),
+)
+_RV3_INCLUDED = re.compile(r"T1C\.1\.(p\d+)\.included")
+
+
+def _rv3_figures(
+    block_id: str,
+    view: View,
+    refs: Mapping[tuple[str, str], tuple[str, ...]],
+) -> tuple[Figure, ...]:
+    """Peer positioning: Issuer, Peer median and Peers marks per metric, from CP-1C's T1C facts.
+
+    Only peers whose T1C.1 ``included`` fact reads "Included" are drawn; an excluded peer's
+    T1C.3 and T1C.5 facts are never read. No included peer, no figure.
+    """
+    module = _shown_module(view, "CP-1C")
+    if module is None:
+        return ()
+    facts = {fact.fact_id: fact for fact in module.facts}
+    names = {
+        row.row_id: row.label
+        for table in module.tables
+        if table.table_id == "T1C.1"
+        for row in table.rows
+    }
+    peers = []
+    for fact in module.facts:
+        match = _RV3_INCLUDED.fullmatch(fact.fact_id)
+        if match and fact.text == "Included" and match.group(1) in names:
+            peers.append((match.group(1), names[match.group(1)]))
+    if not peers:
+        return ()
+    figures = []
+    for fig_id, unit_class, unit, metrics in _RV3_PANELS:
+        if any(f"T1C.3.issuer.{m}" not in facts for m in metrics):
+            raise ValueError(f"CP-1C lacks an issuer fact for {fig_id}")
+        label = {m: facts[f"T1C.3.issuer.{m}"].label for m in metrics}
+        points = [
+            _ChartPoint(
+                "Issuer",
+                label[m],
+                f"T1C.3.issuer.{m}",
+                (f"T1C.5.issuer.{m}_flag", f"T1C.4.{m}.direction"),
+            )
+            for m in metrics
+        ]
+        points += [
+            _ChartPoint(
+                "Peer median",
+                label[m],
+                f"T1C.4.{m}.median",
+                (f"T1C.4.{m}.direction", f"T1C.4.{m}.n"),
+            )
+            for m in metrics
+        ]
+        points += [
+            _ChartPoint(
+                "Peers",
+                f"{label[m]} · {name}",
+                f"T1C.3.{peer_id}.{m}",
+                (f"T1C.1.{peer_id}.included", f"T1C.5.{peer_id}.{m}_flag"),
+            )
+            for m in metrics
+            for peer_id, name in peers
+        ]
+        figures.append(
+            _figure_of_points(
+                block_id,
+                module,
+                refs,
+                fig_id=fig_id,
+                title="Peer positioning",
+                kind="range",
+                unit_class=unit_class,
+                unit=unit,
+                series=("Issuer", "Peer median", "Peers"),
+                points=tuple(points),
+                placement="above",
+            )
+        )
+    return tuple(figures)
+
+
+def _is_plain_multiple(fact: Fact) -> bool:
+    """A known fact the multiple unit class draws as it is: MULTIPLE, scale 1, with an amount."""
+    return fact.unit == "MULTIPLE" and fact.scale == 1 and fact.amount is not None
+
+
+# CR.1: the comparison texts CP-4 settles for a ceiling and a floor (cp4_legal.py:750-756).
+_CR1_COMPARISONS = frozenset({"Not more than", "Not less than"})
+_CR1_TITLE = "Covenant tests and headroom"
+
+
+def _cr1_figures(
+    block_id: str,
+    view: View,
+    refs: Mapping[tuple[str, str], tuple[str, ...]],
+) -> tuple[Figure, ...]:
+    """Covenant tests and headroom: a Threshold, Current and Headroom bullet row per T4.9 row.
+
+    The threshold is the settled text ("4.00x") read by the strict parse. A row whose comparison
+    text is not a ceiling or a floor is not drawn and the figure names its comparison fact. No
+    legal verdict is drawn: the figure holds the three settled numbers and the companion texts.
+    """
+    module = _shown_module(view, "CP-4")
+    if module is None:
+        return ()
+    table = next((item for item in module.tables if item.table_id == "T4.9"), None)
+    if table is None or not table.rows:
+        return ()
+    facts = {(f.row_id, f.field): f for f in module.facts if f.table_id == "T4.9"}
+
+    def fact_of(row_id: str, field: str) -> Fact:
+        if (row_id, field) not in facts:
+            raise ValueError(f"CP-4 T4.9 row {row_id} lacks the {field} fact")
+        return facts[(row_id, field)]
+
+    def fact_id(row_id: str, field: str) -> str:
+        return fact_of(row_id, field).fact_id
+
+    drawn, skipped = [], []
+    for row in table.rows:
+        comparison = facts.get((row.row_id, "comparison"))
+        if comparison is None or comparison.text not in _CR1_COMPARISONS:
+            skipped.append(
+                f"{fact_id(row.row_id, 'comparison')} is neither 'Not more than' nor 'Not less than'"
+            )
+            continue
+        # A settled number in a unit other than the multiple is not drawn on the x axis; the figure
+        # says which fact (the report still builds, and the table shows the fact in its own unit).
+        numbers = [fact_of(row.row_id, name) for name in ("current", "headroom")]
+        odd = next((f for f in numbers if f.status == "known" and not _is_plain_multiple(f)), None)
+        if odd is not None:
+            skipped.append(f"{odd.fact_id} is not a plain multiple")
+            continue
+        drawn.append(row)
+    note = "Not drawn: " + "; ".join(skipped) if skipped else None
+    if not drawn:
+        twin = Block(
+            block_id=f"{block_id}-cr1-twin",
+            title=f"{_CR1_TITLE} table",
+            owner=module.module_id,
+            state="absent",
+            kind="dense",
+            note=f"Absent: {note}.",
+        )
+        chart = ChartSpec(kind="na", series=(), table_twin=twin, marks=(), unit="x", reason=note)
+        return (Figure(fig_id="CR.1", title=_CR1_TITLE, chart=chart, placement="beside"),)
+    repeated = {label for label, n in Counter(row.label for row in drawn).items() if n > 1}
+    points: list[_ChartPoint] = []
+    for row in drawn:
+        for series, field, companions, strict in (
+            ("Threshold", "threshold", ("comparison",), True),
+            ("Current", "current", ("cp_1_metric", "test_on_cp_1_metric"), False),
+            ("Headroom", "headroom", ("headroom_share", "test_on_cp_1_metric"), False),
+        ):
+            category = f"{row.label} ({row.row_id})" if row.label in repeated else row.label
+            points.append(
+                _ChartPoint(
+                    series,
+                    category,
+                    fact_id(row.row_id, field),
+                    tuple(fact_id(row.row_id, name) for name in companions),
+                    strict_text=strict,
+                )
+            )
+    return (
+        _figure_of_points(
+            block_id,
+            module,
+            refs,
+            fig_id="CR.1",
+            title=_CR1_TITLE,
+            kind="bullet",
+            unit_class="multiple",
+            unit="x",
+            series=("Threshold", "Current", "Headroom"),
+            points=tuple(points),
+            placement="beside",
+            summary=note,
+        ),
+    )
+
+
+# -- group b (RV.3, CR.1) --
+register_figure_producer("peer-positioning", _rv3_figures, pathways=frozenset({"relative_value"}))
+register_figure_producer(
+    "covenant-tests-headroom", _cr1_figures, pathways=frozenset({"covenant_refinancing"})
+)
+
+
+# --- Stage 3 chart wiring W2, group c: CR.2 (CP-2D) and CR.3 (CP-3C) ------------------------------
+
+
+def _liquidity_figure(
+    block_id: str,
+    module: ModuleView,
+    refs: Mapping[tuple[str, str], tuple[str, ...]],
+    record: Any,
+    *,
+    owner: str,
+    row_header: str,
+    placement: FigurePlacement,
+    summary: str | None,
+) -> Figure:
+    """Render one ``LiquidityFigureSeries`` against its settled module and the report index.
+
+    Each mark is its fact's own cell (``_chart_fact_cell``): the record's value and spelling are
+    only checked against it. A gap point takes the ``G#`` the report index allocated for its
+    fact. One table row per category, one cell per series, so the twin reads category-major.
+    """
+    facts = {fact.fact_id: fact for fact in module.facts}
+
+    def current(fact_id: str) -> tuple[Fact, tuple[str, ...]]:
+        if fact_id not in facts:
+            raise ValueError(f"{module.module_id} chart references an unknown fact {fact_id}")
+        return facts[fact_id], refs.get((module.module_id, fact_id), ())
+
+    marks: list[ChartMark] = []
+    by_category: dict[str, list[Cell]] = {}
+    for point in record.points:
+        fact, fact_refs = current(point.fact_id)
+        for companion_id in point.companion_fact_ids:
+            current(companion_id)
+        cell = _chart_fact_cell(fact, record.unit_class, fact_refs)
+        mark = _chart_mark(fact, cell, series=point.series, label=point.category, role=point.role)
+        if mark.value != point.value:
+            raise ValueError(f"{module.module_id} chart value of {point.fact_id} is not the fact's")
+        marks.append(mark)
+        by_category.setdefault(point.category, []).append(cell)
+    rows = tuple(
+        Row(row_id=f"{record.fig_id}.row.{index}", label=category, cells=tuple(cells))
+        for index, (category, cells) in enumerate(by_category.items())
+    )
+    twin = Block(
+        block_id=f"{block_id}-{record.fig_id.replace('.', '').lower()}-twin",
+        title=f"{record.title} table",
+        owner=owner,
+        state="populated" if rows else "absent",
+        kind="dense",
+        scale=record.axis_label,
+        row_header=row_header,
+        columns=(record.axis_label,) if len(record.series) == 1 else tuple(record.series),
+        rows=rows,
+        note=record.reason,
+    )
+    return Figure(
+        fig_id=record.fig_id,
+        title=record.title,
+        placement=placement,
+        summary=summary,
+        chart=ChartSpec(
+            kind=record.kind,
+            series=tuple(record.series),
+            table_twin=twin,
+            marks=tuple(marks),
+            unit=record.axis_label,
+            unit_class=record.unit_class,
+            reason=record.reason,
+        ),
+    )
+
+
+def _settled_module(view: View, module_id: str) -> ModuleView | None:
+    module = next((item for item in view.modules if item.module_id == module_id), None)
+    return module if module is not None and module.status in _CP1_SETTLED else None
+
+
+def _cr2_figures(
+    block_id: str,
+    view: View,
+    refs: Mapping[tuple[str, str], tuple[str, ...]],
+) -> tuple[Figure, ...]:
+    """CR.2: the settled CP-2D cash bridge above the liquidity runway tables (both Pathways)."""
+    from deploy_workflow.liquidity_series import cp2d_chart_series
+
+    module = _settled_module(view, "CP-2D")
+    if module is None:
+        return ()
+    return tuple(
+        _liquidity_figure(
+            block_id,
+            module,
+            refs,
+            record,
+            owner="CP-2D",
+            row_header="Step",
+            placement="above",
+            summary=record.note,
+        )
+        for record in cp2d_chart_series(module)
+    )
+
+
+def _cr3_figures(
+    block_id: str,
+    view: View,
+    refs: Mapping[tuple[str, str], tuple[str, ...]],
+) -> tuple[Figure, ...]:
+    """CR.3: the settled CP-3C need by maturity beside the funding gap tables."""
+    from deploy_workflow.liquidity_series import cp3c_chart_series
+
+    module = _settled_module(view, "CP-3C")
+    if module is None:
+        return ()
+    return tuple(
+        _liquidity_figure(
+            block_id,
+            module,
+            refs,
+            record,
+            owner="CP-3C",
+            row_header="Facility",
+            placement="beside",
+            summary=None,
+        )
+        for record in cp3c_chart_series(module)
+    )
+
+
+# -- group c (CR.2, CR.3) --
+register_figure_producer("liquidity-runway", _cr2_figures)
+register_figure_producer("funding-gap", _cr3_figures)
+
+
+# -- group d (DR.2 to DR.6) --
+def _register_group_d() -> None:
+    from deploy_vii.distressed_figures import PRODUCERS
+
+    for block_id, producer in PRODUCERS:
+        register_figure_producer(
+            block_id, producer, pathways=frozenset({"distressed_restructuring"})
+        )
+
+
+_register_group_d()

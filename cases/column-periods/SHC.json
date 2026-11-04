@@ -1,0 +1,184 @@
+{
+ "SHC_2025-06-30_10-Q_0001822479-25-000044_shc-20250630|BS|line:33-line:81": {
+  "source_id": "SHC_2025-06-30_10-Q_0001822479-25-000044_shc-20250630",
+  "kind": "BS",
+  "start": "line:33",
+  "end": "line:81",
+  "columns": [
+   {
+    "header_text": "June 30, 2025",
+    "period": {
+     "kind": "instant",
+     "start": null,
+     "end": "2025-06-30"
+    }
+   },
+   {
+    "header_text": "December 31, 2024",
+    "period": {
+     "kind": "instant",
+     "start": null,
+     "end": "2024-12-31"
+    }
+   }
+  ],
+  "header_lines": "line 34 'As of'; line 35 'June 30, 2025 December 31, 2024'"
+ },
+ "SHC_2025-06-30_10-Q_0001822479-25-000044_shc-20250630|IS|line:82-line:114": {
+  "source_id": "SHC_2025-06-30_10-Q_0001822479-25-000044_shc-20250630",
+  "kind": "IS",
+  "start": "line:82",
+  "end": "line:114",
+  "columns": [
+   {
+    "header_text": "Three Months Ended June 30, 2025",
+    "period": {
+     "kind": "quarter",
+     "start": "2025-04-01",
+     "end": "2025-06-30"
+    }
+   },
+   {
+    "header_text": "Three Months Ended June 30, 2024",
+    "period": {
+     "kind": "quarter",
+     "start": "2024-04-01",
+     "end": "2024-06-30"
+    }
+   },
+   {
+    "header_text": "Six Months Ended June 30, 2025",
+    "period": {
+     "kind": "half",
+     "start": "2025-01-01",
+     "end": "2025-06-30"
+    }
+   },
+   {
+    "header_text": "Six Months Ended June 30, 2024",
+    "period": {
+     "kind": "half",
+     "start": "2024-01-01",
+     "end": "2024-06-30"
+    }
+   }
+  ],
+  "header_lines": "line 83 'Three Months Ended June 30, Six Months Ended June 30,'; line 84 '2025 2024 2025 2024'"
+ },
+ "SHC_2025-06-30_10-Q_0001822479-25-000044_shc-20250630|CFS|line:115-line:162": {
+  "source_id": "SHC_2025-06-30_10-Q_0001822479-25-000044_shc-20250630",
+  "kind": "CFS",
+  "start": "line:115",
+  "end": "line:162",
+  "columns": [
+   {
+    "header_text": "Six Months Ended June 30, 2025",
+    "period": {
+     "kind": "half",
+     "start": "2025-01-01",
+     "end": "2025-06-30"
+    }
+   },
+   {
+    "header_text": "Six Months Ended June 30, 2024",
+    "period": {
+     "kind": "half",
+     "start": "2024-01-01",
+     "end": "2024-06-30"
+    }
+   }
+  ],
+  "header_lines": "line 116 'Six Months Ended June 30,'; line 117 '2025 2024'"
+ },
+ "SHC_2024-12-31_10-K_0001822479-25-000015_shc-20241231|BS|line:217-line:266": {
+  "source_id": "SHC_2024-12-31_10-K_0001822479-25-000015_shc-20241231",
+  "kind": "BS",
+  "start": "line:217",
+  "end": "line:266",
+  "columns": [
+   {
+    "header_text": "December 31, 2024",
+    "period": {
+     "kind": "instant",
+     "start": null,
+     "end": "2024-12-31"
+    }
+   },
+   {
+    "header_text": "December 31, 2023",
+    "period": {
+     "kind": "instant",
+     "start": null,
+     "end": "2023-12-31"
+    }
+   }
+  ],
+  "header_lines": "line 218 'As of December 31,'; line 219 '2024 2023'"
+ },
+ "SHC_2024-12-31_10-K_0001822479-25-000015_shc-20241231|IS|line:267-line:305": {
+  "source_id": "SHC_2024-12-31_10-K_0001822479-25-000015_shc-20241231",
+  "kind": "IS",
+  "start": "line:267",
+  "end": "line:305",
+  "columns": [
+   {
+    "header_text": "Year Ended December 31, 2024",
+    "period": {
+     "kind": "year",
+     "start": "2024-01-01",
+     "end": "2024-12-31"
+    }
+   },
+   {
+    "header_text": "Year Ended December 31, 2023",
+    "period": {
+     "kind": "year",
+     "start": "2023-01-01",
+     "end": "2023-12-31"
+    }
+   },
+   {
+    "header_text": "Year Ended December 31, 2022",
+    "period": {
+     "kind": "year",
+     "start": "2022-01-01",
+     "end": "2022-12-31"
+    }
+   }
+  ],
+  "header_lines": "line 268 'Year Ended December 31,'; line 269 '2024 2023 2022'"
+ },
+ "SHC_2024-12-31_10-K_0001822479-25-000015_shc-20241231|CFS|line:306-line:357": {
+  "source_id": "SHC_2024-12-31_10-K_0001822479-25-000015_shc-20241231",
+  "kind": "CFS",
+  "start": "line:306",
+  "end": "line:357",
+  "columns": [
+   {
+    "header_text": "Year Ended December 31, 2024",
+    "period": {
+     "kind": "year",
+     "start": "2024-01-01",
+     "end": "2024-12-31"
+    }
+   },
+   {
+    "header_text": "Year Ended December 31, 2023",
+    "period": {
+     "kind": "year",
+     "start": "2023-01-01",
+     "end": "2023-12-31"
+    }
+   },
+   {
+    "header_text": "Year Ended December 31, 2022",
+    "period": {
+     "kind": "year",
+     "start": "2022-01-01",
+     "end": "2022-12-31"
+    }
+   }
+  ],
+  "header_lines": "line 307 'Year Ended December 31,'; line 308 '2024 2023 2022'"
+ }
+}

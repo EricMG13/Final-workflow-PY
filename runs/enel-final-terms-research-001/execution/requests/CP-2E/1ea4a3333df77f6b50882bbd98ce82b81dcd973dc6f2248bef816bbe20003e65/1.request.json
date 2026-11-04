@@ -1,0 +1,35 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-DR": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+  },
+  "instructions": "# CP-2E \u2014 admit or reject the actual document-search result\n\nOpen ENEL-EFI_CP-DR_20261104.md and the retained prior Enel pricing answer and\ncalculation JSON. Decide whether the new research establishes any missing Final\nTerms fields. Record an actual tagged adoption row with the dossier hash, reason\nand effect. Preserve the historical issuer/ISIN/date and all unchanged quantities.\nDo not turn search non-discovery into document nonexistence, a target miss, a zero\nunknown, or a guessed calendar. Use the six current project headings. This is a\ntargeted fresh same-host source-adoption reading, not a full CP-2E rerun.\n",
+  "module_id": "CP-2E",
+  "retained_response_sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d",
+  "run": {
+    "as_of": "2021-08-03",
+    "case_kind": "public",
+    "issuer_id": "ENEL-EFI",
+    "issuer_name": "Enel Finance International N.V.",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-DR",
+      "CP-2E"
+    ],
+    "run_id": "enel-final-terms-research-001",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "lead-retrieval": "35cf7a2fa68a971097688646ee8a2b7b50c490e3b5e55f6eb446c7e2eb9be5a2",
+    "prior-calculations": "8b6ae446959bca25b84b3dd14810b7e97856c92aa4fd490a5d0cbfacbe6cef50",
+    "prior-pricing": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181",
+    "research-brief": "b47f06dc9f4910b837487cc67b9b7f2e112e5a4004bcb63ab7d57aa704aa190e",
+    "search-gap-1": "8e2e24e7676ec5e66ce2fb7f3704ca163465969bba0fa0ecebbf83ab9e573366",
+    "search-gap-2": "346a7e99a2fa0976f3e8f3f026fdbeca307a1bba668bcd69be05734cc045b858",
+    "search-initial": "1048ddaf93c0dfa7b1304db3ffef722f4a37db0018ad2c63d0062118c5d92b42",
+    "selected-method": "bcf7836d45abd34e15188ed8f580c69079bad62012cb1921fabbdc4bc9372fc3",
+    "selected-method-steps": "a75bd020e039a67e37063b0475718aebac4a9fc3107819b9d2987b4e1f30643c"
+  }
+}

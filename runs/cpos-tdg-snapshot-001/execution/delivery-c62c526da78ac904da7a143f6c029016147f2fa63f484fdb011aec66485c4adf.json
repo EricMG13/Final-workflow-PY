@@ -1,0 +1,32 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "cpos-tdg-fy2024-retained-snapshot-1",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-1",
+      "CP-MODEL",
+      "CP-1A",
+      "CP-2"
+    ]
+  },
+  "handoffs": {
+    "CP-1": {
+      "path": "requests/CP-1/5a0820625a8049a44a9306af51990cc1cd2853b3383186244d37e9bbce6d9a5d/1.response.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "CP-1A": {
+      "path": "requests/CP-1A/bb8b5f552cdb964c02927c7043113bf0df902625328fa9825deb0169b6405e83/1.response.md",
+      "sha256": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+    },
+    "CP-2": {
+      "path": "requests/CP-2/14118e066e0e65617cd6366960965ed95ccdb411a04c9ea3a5963ff4baa08c32/1.response.md",
+      "sha256": "249d0cbdf1ba8159dcae68d4ff3241c73ea092ff66353c0c2eef08691e0afa57"
+    }
+  }
+}

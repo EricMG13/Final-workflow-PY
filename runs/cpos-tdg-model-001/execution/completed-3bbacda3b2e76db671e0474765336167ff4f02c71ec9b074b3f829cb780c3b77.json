@@ -1,0 +1,21 @@
+{
+  "kind": "cpos-handoff-snapshot/1",
+  "execution": "retained-response-replay",
+  "scope": "public five-section snapshot plus deterministic HTML Model/charts/calculation JSON; not full pathway/native acceptance",
+  "provider_cap_usd": 0,
+  "modules": {
+    "CP-0": "requests/CP-0/e5d3db98996d1962d9e9591d2f3ea602f90743639b39340f6a81051f2c11dfc3/1.response.md",
+    "CP-1": "requests/CP-1/7400d64aae692aab806d65d5acce83de547369cc5978de9720aa8b005c589c33/1.response.md",
+    "CP-1A": "requests/CP-1A/3c4491277751214c2c4d464925f7a876e79d1518b7fcf2540775c6bd7e8a8bc1/1.response.md",
+    "CP-2": "requests/CP-2/be2e30ae5865248d93c3540e4ef455110350691bf2f701472d5028470d715254/1.response.md"
+  },
+  "module_execution": {
+    "CP-0": "retained-response-replay",
+    "CP-1": "retained-response-replay",
+    "CP-1A": "retained-response-replay",
+    "CP-2": "retained-response-replay"
+  },
+  "cp_model_published": true,
+  "delivery_manifest_sha256": "07ede06e6c4828bde0fb39cd68f14e6f3c154a0837dc28734ac7074bf2b080f5",
+  "report_sha256": "cdb682b743990b0484bb51e895a1007973c746510079963f8fc57eb62c3a09b7"
+}

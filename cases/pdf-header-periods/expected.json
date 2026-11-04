@@ -1,0 +1,1471 @@
+{
+  "schema": "pdf-header-periods/1",
+  "decision": "R24-C1",
+  "periods": [
+    {
+      "case_id": "TDG-p105-BS",
+      "doc": "TDG",
+      "source_name": "TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "source_sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+      "locator": "page:105",
+      "page_number": 105,
+      "page_sha256": "ca5cbb74dfd252410d3083e760ba4a7f373da8426a5e398f4bc90476891c52e1",
+      "manifest_page_sha256": "ca5cbb74dfd252410d3083e760ba4a7f373da8426a5e398f4bc90476891c52e1",
+      "kind": "BS",
+      "unit_title": "CONSOLIDATED BALANCE SHEETS",
+      "header_lines": [
+        {
+          "line": 3,
+          "text": "                                     AS OF SEPTEMBER 30, 2024 AND 2023"
+        },
+        {
+          "line": 6,
+          "text": "                                                                                                       2024       2023"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "TDG-p105-BS-column-1",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2024-09-30",
+          "duration_months": null,
+          "fiscal_year": null
+        },
+        {
+          "period_id": "TDG-p105-BS-column-2",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2023-09-30",
+          "duration_months": null,
+          "fiscal_year": null
+        }
+      ],
+      "expected_header_class": "instant"
+    },
+    {
+      "case_id": "TDG-p106-IS",
+      "doc": "TDG",
+      "source_name": "TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "source_sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+      "locator": "page:106",
+      "page_number": 106,
+      "page_sha256": "818cf7664e590be653536720e9b3e0aac0261379258d9a58d6059188075f478a",
+      "manifest_page_sha256": "818cf7664e590be653536720e9b3e0aac0261379258d9a58d6059188075f478a",
+      "kind": "IS",
+      "unit_title": "CONSOLIDATED STATEMENTS OF INCOME",
+      "header_lines": [
+        {
+          "line": 5,
+          "text": "                                                                                        Fiscal Years Ended September 30,"
+        },
+        {
+          "line": 6,
+          "text": "                                                                                         2024         2023        2022"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "TDG-p106-IS-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2024-09-30",
+          "duration_months": 12,
+          "fiscal_year": 2024
+        },
+        {
+          "period_id": "TDG-p106-IS-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2023-09-30",
+          "duration_months": 12,
+          "fiscal_year": 2023
+        },
+        {
+          "period_id": "TDG-p106-IS-column-3",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2022-09-30",
+          "duration_months": 12,
+          "fiscal_year": 2022
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "TDG-p107-CI",
+      "doc": "TDG",
+      "source_name": "TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "source_sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+      "locator": "page:107",
+      "page_number": 107,
+      "page_sha256": "a1ac387da8f2f99bb2990c8832e30b0b9a0d51feaa540ba4e936678514a8b529",
+      "manifest_page_sha256": "a1ac387da8f2f99bb2990c8832e30b0b9a0d51feaa540ba4e936678514a8b529",
+      "kind": "CI",
+      "unit_title": "CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME",
+      "header_lines": [
+        {
+          "line": 5,
+          "text": "                                                                                                    Fiscal Years Ended"
+        },
+        {
+          "line": 6,
+          "text": "                                                                                                       September 30,"
+        },
+        {
+          "line": 7,
+          "text": "                                                                                                2024       2023        2022"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "TDG-p107-CI-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2024-09-30",
+          "duration_months": 12,
+          "fiscal_year": 2024
+        },
+        {
+          "period_id": "TDG-p107-CI-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2023-09-30",
+          "duration_months": 12,
+          "fiscal_year": 2023
+        },
+        {
+          "period_id": "TDG-p107-CI-column-3",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2022-09-30",
+          "duration_months": 12,
+          "fiscal_year": 2022
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "TDG-p109-CFS",
+      "doc": "TDG",
+      "source_name": "TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "source_sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+      "locator": "page:109",
+      "page_number": 109,
+      "page_sha256": "78a3614c3bf6a424d913eea9416f1e484cf223963bf84939a3fed5ba89d70859",
+      "manifest_page_sha256": "78a3614c3bf6a424d913eea9416f1e484cf223963bf84939a3fed5ba89d70859",
+      "kind": "CFS",
+      "unit_title": "CONSOLIDATED STATEMENTS OF CASH FLOWS",
+      "header_lines": [
+        {
+          "line": 5,
+          "text": "                                                                                                              Fiscal Years Ended September 30,"
+        },
+        {
+          "line": 6,
+          "text": "                                                                                                                 2024          2023          2022"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "TDG-p109-CFS-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2024-09-30",
+          "duration_months": 12,
+          "fiscal_year": 2024
+        },
+        {
+          "period_id": "TDG-p109-CFS-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2023-09-30",
+          "duration_months": 12,
+          "fiscal_year": 2023
+        },
+        {
+          "period_id": "TDG-p109-CFS-column-3",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2022-09-30",
+          "duration_months": 12,
+          "fiscal_year": 2022
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "CZR-p56-BS",
+      "doc": "CZR",
+      "source_name": "caesars-2025-10k.pdf",
+      "source_sha256": "6840cafaafbd84b432c3c6eaeba5642c39b1a87c02f8236ee0ec3177e0c587f5",
+      "locator": "page:56",
+      "page_number": 56,
+      "page_sha256": "8ea96c84da5732d98238257e110153696618aa2ebb12c8ab6925e62e269cfe60",
+      "manifest_page_sha256": "8ea96c84da5732d98238257e110153696618aa2ebb12c8ab6925e62e269cfe60",
+      "kind": "BS",
+      "unit_title": "CONSOLIDATED BALANCE SHEETS",
+      "header_lines": [
+        {
+          "line": 4,
+          "text": "                                                                                                                                                                    December 31,"
+        },
+        {
+          "line": 5,
+          "text": "(Dollars in millions, except par value)                                                                                                                     2025                       2024"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "CZR-p56-BS-column-1",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": null,
+          "fiscal_year": null
+        },
+        {
+          "period_id": "CZR-p56-BS-column-2",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": null,
+          "fiscal_year": null
+        }
+      ],
+      "expected_header_class": "instant"
+    },
+    {
+      "case_id": "CZR-p57-IS",
+      "doc": "CZR",
+      "source_name": "caesars-2025-10k.pdf",
+      "source_sha256": "6840cafaafbd84b432c3c6eaeba5642c39b1a87c02f8236ee0ec3177e0c587f5",
+      "locator": "page:57",
+      "page_number": 57,
+      "page_sha256": "f747065db07b2cb4cd86000ae3ad410ff759d72b1d6418ce8e2e261b59f92d12",
+      "manifest_page_sha256": "f747065db07b2cb4cd86000ae3ad410ff759d72b1d6418ce8e2e261b59f92d12",
+      "kind": "IS",
+      "unit_title": "CONSOLIDATED STATEMENTS OF OPERATIONS",
+      "header_lines": [
+        {
+          "line": 4,
+          "text": "                                                                                                                                             Years Ended December 31,"
+        },
+        {
+          "line": 5,
+          "text": "(In millions, except per share data)                                                                                           2025                       2024                        2023"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "CZR-p57-IS-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "CZR-p57-IS-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2024
+        },
+        {
+          "period_id": "CZR-p57-IS-column-3",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2023-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2023
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "CZR-p58-CI",
+      "doc": "CZR",
+      "source_name": "caesars-2025-10k.pdf",
+      "source_sha256": "6840cafaafbd84b432c3c6eaeba5642c39b1a87c02f8236ee0ec3177e0c587f5",
+      "locator": "page:58",
+      "page_number": 58,
+      "page_sha256": "cd8f3b75552ddba73f7408d20c0ab9c46e278cffad059d0c696d0e55f61f570b",
+      "manifest_page_sha256": "cd8f3b75552ddba73f7408d20c0ab9c46e278cffad059d0c696d0e55f61f570b",
+      "kind": "CI",
+      "unit_title": "CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME (LOSS)",
+      "header_lines": [
+        {
+          "line": 4,
+          "text": "                                                                                                                                       Years Ended December 31,"
+        },
+        {
+          "line": 5,
+          "text": "(In millions)                                                                                                             2025                      2024                      2023"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "CZR-p58-CI-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "CZR-p58-CI-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2024
+        },
+        {
+          "period_id": "CZR-p58-CI-column-3",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2023-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2023
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "CZR-p60-CFS",
+      "doc": "CZR",
+      "source_name": "caesars-2025-10k.pdf",
+      "source_sha256": "6840cafaafbd84b432c3c6eaeba5642c39b1a87c02f8236ee0ec3177e0c587f5",
+      "locator": "page:60",
+      "page_number": 60,
+      "page_sha256": "fce2685337e781c04825302eaeba6c7f7fadaec807f3c0a854b5628df0c0f648",
+      "manifest_page_sha256": "fce2685337e781c04825302eaeba6c7f7fadaec807f3c0a854b5628df0c0f648",
+      "kind": "CFS",
+      "unit_title": "CONSOLIDATED STATEMENTS OF CASH FLOWS",
+      "header_lines": [
+        {
+          "line": 4,
+          "text": "                                                                                                                                                 Years Ended December 31,"
+        },
+        {
+          "line": 5,
+          "text": "(In millions)                                                                                                                      2025                       2024                        2023"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "CZR-p60-CFS-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "CZR-p60-CFS-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2024
+        },
+        {
+          "period_id": "CZR-p60-CFS-column-3",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2023-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2023
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "CZR-p61-CFS",
+      "doc": "CZR",
+      "source_name": "caesars-2025-10k.pdf",
+      "source_sha256": "6840cafaafbd84b432c3c6eaeba5642c39b1a87c02f8236ee0ec3177e0c587f5",
+      "locator": "page:61",
+      "page_number": 61,
+      "page_sha256": "2006e0874850cd0a36b4f3c75025833760c9e436fa88076fb5b8ced14a336e40",
+      "manifest_page_sha256": "2006e0874850cd0a36b4f3c75025833760c9e436fa88076fb5b8ced14a336e40",
+      "kind": "CFS",
+      "unit_title": "CONSOLIDATED STATEMENTS OF CASH FLOWS",
+      "header_lines": [
+        {
+          "line": 1,
+          "text": "                                                                                                                                      Years Ended December 31,"
+        },
+        {
+          "line": 2,
+          "text": "(In millions)                                                                                                            2025                      2024                      2023"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "CZR-p61-CFS-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "CZR-p61-CFS-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2024
+        },
+        {
+          "period_id": "CZR-p61-CFS-column-3",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2023-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2023
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "SIX22-p93-BS",
+      "doc": "SIX22",
+      "source_name": "sec.gov_Archives_edgar_data_701374_000155837022001971_six-20220102x10k.htm.pdf",
+      "source_sha256": "cde003b14559c27e82b30349a127817f9015f8f829f817b7040fdcf68eccda36",
+      "locator": "page:93",
+      "page_number": 93,
+      "page_sha256": "b42d3c67db40f63f2ed93c6672201139bad72acff236d84378d6b826f22a689a",
+      "manifest_page_sha256": "b42d3c67db40f63f2ed93c6672201139bad72acff236d84378d6b826f22a689a",
+      "kind": "BS",
+      "unit_title": "Consolidated Balance Sheets",
+      "header_lines": [
+        {
+          "line": 11,
+          "text": "                                                                                                                                                     As of"
+        },
+        {
+          "line": 12,
+          "text": "                                                                                                                                 January 2, 2022    December 31, 2020"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "SIX22-p93-BS-column-1",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2022-01-02",
+          "duration_months": null,
+          "fiscal_year": null
+        },
+        {
+          "period_id": "SIX22-p93-BS-column-2",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2020-12-31",
+          "duration_months": null,
+          "fiscal_year": null
+        }
+      ],
+      "expected_header_class": "instant"
+    },
+    {
+      "case_id": "SIX22-p94-IS",
+      "doc": "SIX22",
+      "source_name": "sec.gov_Archives_edgar_data_701374_000155837022001971_six-20220102x10k.htm.pdf",
+      "source_sha256": "cde003b14559c27e82b30349a127817f9015f8f829f817b7040fdcf68eccda36",
+      "locator": "page:94",
+      "page_number": 94,
+      "page_sha256": "aa39c483892ddacf45431012f3349a2293b831a380ad32b70d7015acdd371cff",
+      "manifest_page_sha256": "aa39c483892ddacf45431012f3349a2293b831a380ad32b70d7015acdd371cff",
+      "kind": "IS",
+      "unit_title": "Consolidated Statements of Operations",
+      "header_lines": [
+        {
+          "line": 11,
+          "text": "                                                                                                                                       Year Ended"
+        },
+        {
+          "line": 12,
+          "text": "                                                                                                                                     December 31,         December 31,"
+        },
+        {
+          "line": 13,
+          "text": "                      (Amounts in thousands, except per share data)                                             January 2, 2022            2020                2019"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "SIX22-p94-IS-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2022-01-02",
+          "duration_months": 12,
+          "fiscal_year": 2021
+        },
+        {
+          "period_id": "SIX22-p94-IS-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2020-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2020
+        },
+        {
+          "period_id": "SIX22-p94-IS-column-3",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2019-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2019
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "SIX22-p95-CI",
+      "doc": "SIX22",
+      "source_name": "sec.gov_Archives_edgar_data_701374_000155837022001971_six-20220102x10k.htm.pdf",
+      "source_sha256": "cde003b14559c27e82b30349a127817f9015f8f829f817b7040fdcf68eccda36",
+      "locator": "page:95",
+      "page_number": 95,
+      "page_sha256": "b9e0df6fb51d0f9abdcb3b5ec0b0b4561541d449408819f96167debd0a2e4627",
+      "manifest_page_sha256": "b9e0df6fb51d0f9abdcb3b5ec0b0b4561541d449408819f96167debd0a2e4627",
+      "kind": "CI",
+      "unit_title": "Consolidated Statements of Comprehensive Income (Loss)",
+      "header_lines": [
+        {
+          "line": 11,
+          "text": "                                                                                                                                      Year Ended"
+        },
+        {
+          "line": 12,
+          "text": "                       (Amounts in thousands)                                                               January 2, 2022     December 31, 2020      December 31, 2019"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "SIX22-p95-CI-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2022-01-02",
+          "duration_months": 12,
+          "fiscal_year": 2021
+        },
+        {
+          "period_id": "SIX22-p95-CI-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2020-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2020
+        },
+        {
+          "period_id": "SIX22-p95-CI-column-3",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2019-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2019
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "SIX22-p97-CFS",
+      "doc": "SIX22",
+      "source_name": "sec.gov_Archives_edgar_data_701374_000155837022001971_six-20220102x10k.htm.pdf",
+      "source_sha256": "cde003b14559c27e82b30349a127817f9015f8f829f817b7040fdcf68eccda36",
+      "locator": "page:97",
+      "page_number": 97,
+      "page_sha256": "798eff41ff6738458515c546d61121c2ef573a86ffd741f79cf5cc9dcb846e74",
+      "manifest_page_sha256": "798eff41ff6738458515c546d61121c2ef573a86ffd741f79cf5cc9dcb846e74",
+      "kind": "CFS",
+      "unit_title": "Consolidated Statements of Cash Flows",
+      "header_lines": [
+        {
+          "line": 11,
+          "text": "                                                                                                                                        Year Ended"
+        },
+        {
+          "line": 12,
+          "text": "                       (Amounts in thousands)                                                                January 2, 2022      December 31, 2020      December 31, 2019"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "SIX22-p97-CFS-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2022-01-02",
+          "duration_months": 12,
+          "fiscal_year": 2021
+        },
+        {
+          "period_id": "SIX22-p97-CFS-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2020-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2020
+        },
+        {
+          "period_id": "SIX22-p97-CFS-column-3",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2019-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2019
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "FUN-p115-IS",
+      "doc": "FUN",
+      "source_name": "f-20251231.pdf",
+      "source_sha256": "e2868ea611b297c26f5a27f92a1a0c2d0c12fcffbd4e0a3d5c3e3f66031f66e1",
+      "locator": "page:115",
+      "page_number": 115,
+      "page_sha256": "d118d9a104a53dfcec93ec7219c34b215e7189db9a02ea4449b5cbe040c1c224",
+      "manifest_page_sha256": "d118d9a104a53dfcec93ec7219c34b215e7189db9a02ea4449b5cbe040c1c224",
+      "kind": "IS",
+      "unit_title": "CONSOLIDATED INCOME STATEMENTS",
+      "header_lines": [
+        {
+          "line": 9,
+          "text": "                                                                                                                           For the years ended December 31,"
+        },
+        {
+          "line": 10,
+          "text": "                                                                                                                      2023                   2024                   2025"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "FUN-p115-IS-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2023-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2023
+        },
+        {
+          "period_id": "FUN-p115-IS-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2024
+        },
+        {
+          "period_id": "FUN-p115-IS-column-3",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2025
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "FUN-p115-CI",
+      "doc": "FUN",
+      "source_name": "f-20251231.pdf",
+      "source_sha256": "e2868ea611b297c26f5a27f92a1a0c2d0c12fcffbd4e0a3d5c3e3f66031f66e1",
+      "locator": "page:115",
+      "page_number": 115,
+      "page_sha256": "d118d9a104a53dfcec93ec7219c34b215e7189db9a02ea4449b5cbe040c1c224",
+      "manifest_page_sha256": "d118d9a104a53dfcec93ec7219c34b215e7189db9a02ea4449b5cbe040c1c224",
+      "kind": "CI",
+      "unit_title": "CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME",
+      "header_lines": [
+        {
+          "line": 9,
+          "text": "                                                                                                                           For the years ended December 31,"
+        },
+        {
+          "line": 10,
+          "text": "                                                                                                                      2023                   2024                   2025"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "FUN-p115-CI-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2023-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2023
+        },
+        {
+          "period_id": "FUN-p115-CI-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2024
+        },
+        {
+          "period_id": "FUN-p115-CI-column-3",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2025
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "FUN-p116-BS",
+      "doc": "FUN",
+      "source_name": "f-20251231.pdf",
+      "source_sha256": "e2868ea611b297c26f5a27f92a1a0c2d0c12fcffbd4e0a3d5c3e3f66031f66e1",
+      "locator": "page:116",
+      "page_number": 116,
+      "page_sha256": "88aa4ec79cd5a1aab2553017ceaafd4a88f27667d40406ed39d3ebd6f57a3e84",
+      "manifest_page_sha256": "88aa4ec79cd5a1aab2553017ceaafd4a88f27667d40406ed39d3ebd6f57a3e84",
+      "kind": "BS",
+      "unit_title": "CONSOLIDATED BALANCE SHEETS",
+      "header_lines": [
+        {
+          "line": 9,
+          "text": "                                                                                                                                                December 31,            December 31,"
+        },
+        {
+          "line": 10,
+          "text": "                                                                                                                                                     2024                     2025"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "FUN-p116-BS-column-1",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": null,
+          "fiscal_year": null
+        },
+        {
+          "period_id": "FUN-p116-BS-column-2",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": null,
+          "fiscal_year": null
+        }
+      ],
+      "expected_header_class": "instant"
+    },
+    {
+      "case_id": "FUN-p117-CFS",
+      "doc": "FUN",
+      "source_name": "f-20251231.pdf",
+      "source_sha256": "e2868ea611b297c26f5a27f92a1a0c2d0c12fcffbd4e0a3d5c3e3f66031f66e1",
+      "locator": "page:117",
+      "page_number": 117,
+      "page_sha256": "6fedc403b6ea2377f57ce5c9df2c7814f8c871bdfdbf66a352eb99f0dfbba7fe",
+      "manifest_page_sha256": "6fedc403b6ea2377f57ce5c9df2c7814f8c871bdfdbf66a352eb99f0dfbba7fe",
+      "kind": "CFS",
+      "unit_title": "CONSOLIDATED STATEMENTS OF CASH FLOWS",
+      "header_lines": [
+        {
+          "line": 9,
+          "text": "                                                                                                                                  For the years ended December 31,"
+        },
+        {
+          "line": 10,
+          "text": "                                                                                                                             2023                    2024                    2025"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "FUN-p117-CFS-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2023-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2023
+        },
+        {
+          "period_id": "FUN-p117-CFS-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2024
+        },
+        {
+          "period_id": "FUN-p117-CFS-column-3",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2025
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "VMO2Q3-p4-BS",
+      "doc": "VMO2Q3",
+      "source_name": "VMO2-IFRS-Quarterly-Bond-Report-Q3-2025.pdf",
+      "source_sha256": "dc1d977f3f6b98e84a93af0c6f6b3bccb32b9a9e2e178b37846871e4b06ac9e9",
+      "locator": "page:4",
+      "page_number": 4,
+      "page_sha256": "1aa1ff76366e5d7b4d87180806d71a76a9ef8f02ac19b9c320a87abfe4c75e27",
+      "manifest_page_sha256": "1aa1ff76366e5d7b4d87180806d71a76a9ef8f02ac19b9c320a87abfe4c75e27",
+      "kind": "BS",
+      "unit_title": "Condensed Consolidated Statements of Financial Position (unaudited)",
+      "header_lines": [
+        {
+          "line": 9,
+          "text": "                                                                                                                                                                                              30 September                 31 December"
+        },
+        {
+          "line": 10,
+          "text": "                                                                                                                                                                       Note                                2025                       2024"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "VMO2Q3-p4-BS-column-1",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2025-09-30",
+          "duration_months": null,
+          "fiscal_year": null
+        },
+        {
+          "period_id": "VMO2Q3-p4-BS-column-2",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": null,
+          "fiscal_year": null
+        }
+      ],
+      "expected_header_class": "instant"
+    },
+    {
+      "case_id": "VMO2Q3-p5-BS",
+      "doc": "VMO2Q3",
+      "source_name": "VMO2-IFRS-Quarterly-Bond-Report-Q3-2025.pdf",
+      "source_sha256": "dc1d977f3f6b98e84a93af0c6f6b3bccb32b9a9e2e178b37846871e4b06ac9e9",
+      "locator": "page:5",
+      "page_number": 5,
+      "page_sha256": "626172124b9dd31a145c7b5b798d30bdc46f33649e150647fd4efe44ecfcef4b",
+      "manifest_page_sha256": "626172124b9dd31a145c7b5b798d30bdc46f33649e150647fd4efe44ecfcef4b",
+      "kind": "BS",
+      "unit_title": "Condensed Consolidated Statements of Financial Position (unaudited)",
+      "header_lines": [
+        {
+          "line": 9,
+          "text": "                                                                                                                                                                                             30 September                 31 December"
+        },
+        {
+          "line": 10,
+          "text": "                                                                                                                                                                      Note                                2025                       2024"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "VMO2Q3-p5-BS-column-1",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2025-09-30",
+          "duration_months": null,
+          "fiscal_year": null
+        },
+        {
+          "period_id": "VMO2Q3-p5-BS-column-2",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": null,
+          "fiscal_year": null
+        }
+      ],
+      "expected_header_class": "instant"
+    },
+    {
+      "case_id": "VMO2Q3-p6-IS",
+      "doc": "VMO2Q3",
+      "source_name": "VMO2-IFRS-Quarterly-Bond-Report-Q3-2025.pdf",
+      "source_sha256": "dc1d977f3f6b98e84a93af0c6f6b3bccb32b9a9e2e178b37846871e4b06ac9e9",
+      "locator": "page:6",
+      "page_number": 6,
+      "page_sha256": "7896d7bd3f7b78827583be2d4d10a47b158998c0e43b47065314ee5b643ab136",
+      "manifest_page_sha256": "7896d7bd3f7b78827583be2d4d10a47b158998c0e43b47065314ee5b643ab136",
+      "kind": "IS",
+      "unit_title": "Condensed Consolidated Statements of Profit or (Loss) (unaudited)",
+      "header_lines": [
+        {
+          "line": 11,
+          "text": "                                                                                                                                            Three months ended                                      Nine months ended"
+        },
+        {
+          "line": 12,
+          "text": "                                                                                                                                                 30 September                                          30 September"
+        },
+        {
+          "line": 13,
+          "text": "                                                                                                                                                                   2025                           2024                           2025                           2024Note"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "VMO2Q3-p6-IS-column-1",
+          "kind": "quarter",
+          "start_date": "2025-07-01",
+          "end_date": "2025-09-30",
+          "duration_months": 3,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "VMO2Q3-p6-IS-column-2",
+          "kind": "quarter",
+          "start_date": "2024-07-01",
+          "end_date": "2024-09-30",
+          "duration_months": 3,
+          "fiscal_year": 2024
+        },
+        {
+          "period_id": "VMO2Q3-p6-IS-column-3",
+          "kind": "nine_months",
+          "start_date": "2025-01-01",
+          "end_date": "2025-09-30",
+          "duration_months": 9,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "VMO2Q3-p6-IS-column-4",
+          "kind": "nine_months",
+          "start_date": "2024-01-01",
+          "end_date": "2024-09-30",
+          "duration_months": 9,
+          "fiscal_year": 2024
+        }
+      ],
+      "expected_header_class": "mixed"
+    },
+    {
+      "case_id": "VMO2Q3-p7-CI",
+      "doc": "VMO2Q3",
+      "source_name": "VMO2-IFRS-Quarterly-Bond-Report-Q3-2025.pdf",
+      "source_sha256": "dc1d977f3f6b98e84a93af0c6f6b3bccb32b9a9e2e178b37846871e4b06ac9e9",
+      "locator": "page:7",
+      "page_number": 7,
+      "page_sha256": "d92aecb7799875e2d25aa4fb495a3b98a394b9601e33345c3907ea82fb1b11bb",
+      "manifest_page_sha256": "d92aecb7799875e2d25aa4fb495a3b98a394b9601e33345c3907ea82fb1b11bb",
+      "kind": "CI",
+      "unit_title": "Condensed Consolidated Statements of Comprehensive Income (Loss) (unaudited)",
+      "header_lines": [
+        {
+          "line": 12,
+          "text": "                                                                                                                                Three months ended                                Nine months ended"
+        },
+        {
+          "line": 13,
+          "text": "                                                                                                                                    30 September                                     30 September"
+        },
+        {
+          "line": 14,
+          "text": "                                                                                                                                                          2025                           2024                           2025                           2024Note"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "VMO2Q3-p7-CI-column-1",
+          "kind": "quarter",
+          "start_date": "2025-07-01",
+          "end_date": "2025-09-30",
+          "duration_months": 3,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "VMO2Q3-p7-CI-column-2",
+          "kind": "quarter",
+          "start_date": "2024-07-01",
+          "end_date": "2024-09-30",
+          "duration_months": 3,
+          "fiscal_year": 2024
+        },
+        {
+          "period_id": "VMO2Q3-p7-CI-column-3",
+          "kind": "nine_months",
+          "start_date": "2025-01-01",
+          "end_date": "2025-09-30",
+          "duration_months": 9,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "VMO2Q3-p7-CI-column-4",
+          "kind": "nine_months",
+          "start_date": "2024-01-01",
+          "end_date": "2024-09-30",
+          "duration_months": 9,
+          "fiscal_year": 2024
+        }
+      ],
+      "expected_header_class": "mixed"
+    },
+    {
+      "case_id": "VMO2Q3-p9-CFS",
+      "doc": "VMO2Q3",
+      "source_name": "VMO2-IFRS-Quarterly-Bond-Report-Q3-2025.pdf",
+      "source_sha256": "dc1d977f3f6b98e84a93af0c6f6b3bccb32b9a9e2e178b37846871e4b06ac9e9",
+      "locator": "page:9",
+      "page_number": 9,
+      "page_sha256": "b841fe6ab129f3bcf969bf29c75e68e246221c017a42228e2a1b88124b05f088",
+      "manifest_page_sha256": "b841fe6ab129f3bcf969bf29c75e68e246221c017a42228e2a1b88124b05f088",
+      "kind": "CFS",
+      "unit_title": "Condensed Consolidated Statements of Cash Flows (unaudited)",
+      "header_lines": [
+        {
+          "line": 10,
+          "text": "                                                                                                                                                                                                        Nine months ended"
+        },
+        {
+          "line": 11,
+          "text": "                                                                                                                                                                                                            30 September"
+        },
+        {
+          "line": 12,
+          "text": "                                                                                                                                                                                                                             2025                           2024Note"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "VMO2Q3-p9-CFS-column-1",
+          "kind": "nine_months",
+          "start_date": "2025-01-01",
+          "end_date": "2025-09-30",
+          "duration_months": 9,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "VMO2Q3-p9-CFS-column-2",
+          "kind": "nine_months",
+          "start_date": "2024-01-01",
+          "end_date": "2024-09-30",
+          "duration_months": 9,
+          "fiscal_year": 2024
+        }
+      ],
+      "expected_header_class": "nine_months"
+    },
+    {
+      "case_id": "VMO2Q3-p10-CFS",
+      "doc": "VMO2Q3",
+      "source_name": "VMO2-IFRS-Quarterly-Bond-Report-Q3-2025.pdf",
+      "source_sha256": "dc1d977f3f6b98e84a93af0c6f6b3bccb32b9a9e2e178b37846871e4b06ac9e9",
+      "locator": "page:10",
+      "page_number": 10,
+      "page_sha256": "40b59a1283141dd12fb546d24330d8461576d42d7aad08082975cc1256671bff",
+      "manifest_page_sha256": "40b59a1283141dd12fb546d24330d8461576d42d7aad08082975cc1256671bff",
+      "kind": "CFS",
+      "unit_title": "Condensed Consolidated Statements of Cash Flows (unaudited)",
+      "header_lines": [
+        {
+          "line": 10,
+          "text": "                                                                                                                                                                                            Nine months ended"
+        },
+        {
+          "line": 11,
+          "text": "                                                                                                                                                                                               30 September"
+        },
+        {
+          "line": 12,
+          "text": "                                                                                                                                                              Note                              2025                           2024"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "VMO2Q3-p10-CFS-column-1",
+          "kind": "nine_months",
+          "start_date": "2025-01-01",
+          "end_date": "2025-09-30",
+          "duration_months": 9,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "VMO2Q3-p10-CFS-column-2",
+          "kind": "nine_months",
+          "start_date": "2024-01-01",
+          "end_date": "2024-09-30",
+          "duration_months": 9,
+          "fiscal_year": 2024
+        }
+      ],
+      "expected_header_class": "nine_months"
+    },
+    {
+      "case_id": "VMED25-p107-IS",
+      "doc": "VMED25",
+      "source_name": "VMED-O2-UK-Limited-2025-Annual-Report-and-Consolidated-Financial-Statements.pdf",
+      "source_sha256": "9a01f61f83e8c0c1aac943fb08df8fbb6b94d5415521818acc78dd59872b2b47",
+      "locator": "page:107",
+      "page_number": 107,
+      "page_sha256": "82a299db915f0b4a9259a41dbbde881194885f18524f3eca974d2841795d570d",
+      "manifest_page_sha256": "82a299db915f0b4a9259a41dbbde881194885f18524f3eca974d2841795d570d",
+      "kind": "IS",
+      "unit_title": "Consolidated Statements of Profit or (Loss)",
+      "header_lines": [
+        {
+          "line": 9,
+          "text": "                                                                                                                                                                                                                                                                                                        Year ended 31 December"
+        },
+        {
+          "line": 10,
+          "text": "                                                                                                                                                                                                                                                                        Note                                     2025                          2024"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "VMED25-p107-IS-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "VMED25-p107-IS-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2024
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "VMED25-p108-CI",
+      "doc": "VMED25",
+      "source_name": "VMED-O2-UK-Limited-2025-Annual-Report-and-Consolidated-Financial-Statements.pdf",
+      "source_sha256": "9a01f61f83e8c0c1aac943fb08df8fbb6b94d5415521818acc78dd59872b2b47",
+      "locator": "page:108",
+      "page_number": 108,
+      "page_sha256": "8b8a7aa51a43e8946ff0d4c21387a2e8311945d471174de0b7bfa1ec7350e9f8",
+      "manifest_page_sha256": "8b8a7aa51a43e8946ff0d4c21387a2e8311945d471174de0b7bfa1ec7350e9f8",
+      "kind": "CI",
+      "unit_title": "Consolidated Statements of Comprehensive Income (Loss)",
+      "header_lines": [
+        {
+          "line": 9,
+          "text": "                                                                                                                                                                                                                                                                                   Year ended 31 December"
+        },
+        {
+          "line": 10,
+          "text": "                                                                                                                                                                                                                                                     Note                                   2025                          2024"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "VMED25-p108-CI-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "VMED25-p108-CI-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2024
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "VMED25-p109-BS",
+      "doc": "VMED25",
+      "source_name": "VMED-O2-UK-Limited-2025-Annual-Report-and-Consolidated-Financial-Statements.pdf",
+      "source_sha256": "9a01f61f83e8c0c1aac943fb08df8fbb6b94d5415521818acc78dd59872b2b47",
+      "locator": "page:109",
+      "page_number": 109,
+      "page_sha256": "cabf1776d12641edd81030392cf25647f595bcc63571becfbea6505c9df9f3a0",
+      "manifest_page_sha256": "cabf1776d12641edd81030392cf25647f595bcc63571becfbea6505c9df9f3a0",
+      "kind": "BS",
+      "unit_title": "Consolidated Statements of Financial Position",
+      "header_lines": [
+        {
+          "line": 9,
+          "text": "                                                                                                                                                                                                                                                                                                           31 December"
+        },
+        {
+          "line": 10,
+          "text": "                                                                                                                                                                                                                                                                  Note                                     2025                          2024"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "VMED25-p109-BS-column-1",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": null,
+          "fiscal_year": null
+        },
+        {
+          "period_id": "VMED25-p109-BS-column-2",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": null,
+          "fiscal_year": null
+        }
+      ],
+      "expected_header_class": "instant"
+    },
+    {
+      "case_id": "VMED25-p110-BS",
+      "doc": "VMED25",
+      "source_name": "VMED-O2-UK-Limited-2025-Annual-Report-and-Consolidated-Financial-Statements.pdf",
+      "source_sha256": "9a01f61f83e8c0c1aac943fb08df8fbb6b94d5415521818acc78dd59872b2b47",
+      "locator": "page:110",
+      "page_number": 110,
+      "page_sha256": "7b691bb985632e54e95d0a57c130828d4114f3d73cf2bb1f8c061e5ddced7c33",
+      "manifest_page_sha256": "7b691bb985632e54e95d0a57c130828d4114f3d73cf2bb1f8c061e5ddced7c33",
+      "kind": "BS",
+      "unit_title": "Consolidated Statements of Financial Position",
+      "header_lines": [
+        {
+          "line": 9,
+          "text": "                                                                                                                                                                                                                                                                                                           31 December"
+        },
+        {
+          "line": 10,
+          "text": "                                                                                                                                                                                                                                                                  Note                                     2025                          2024"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "VMED25-p110-BS-column-1",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": null,
+          "fiscal_year": null
+        },
+        {
+          "period_id": "VMED25-p110-BS-column-2",
+          "kind": "instant",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": null,
+          "fiscal_year": null
+        }
+      ],
+      "expected_header_class": "instant"
+    },
+    {
+      "case_id": "VMED25-p112-CFS",
+      "doc": "VMED25",
+      "source_name": "VMED-O2-UK-Limited-2025-Annual-Report-and-Consolidated-Financial-Statements.pdf",
+      "source_sha256": "9a01f61f83e8c0c1aac943fb08df8fbb6b94d5415521818acc78dd59872b2b47",
+      "locator": "page:112",
+      "page_number": 112,
+      "page_sha256": "22d594c0450b8b12a19d1b282944c45d2469c5a9dfda6a349d246ba5f3103868",
+      "manifest_page_sha256": "22d594c0450b8b12a19d1b282944c45d2469c5a9dfda6a349d246ba5f3103868",
+      "kind": "CFS",
+      "unit_title": "Consolidated Statements of Cash Flows",
+      "header_lines": [
+        {
+          "line": 9,
+          "text": "                                                                                                                                                                                                                                                                                              Year ended 31 December"
+        },
+        {
+          "line": 10,
+          "text": "                                                                                                                                                                                                                                                              Note                                    2025                          2024"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "VMED25-p112-CFS-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "VMED25-p112-CFS-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2024
+        }
+      ],
+      "expected_header_class": "year"
+    },
+    {
+      "case_id": "VMED25-p113-CFS",
+      "doc": "VMED25",
+      "source_name": "VMED-O2-UK-Limited-2025-Annual-Report-and-Consolidated-Financial-Statements.pdf",
+      "source_sha256": "9a01f61f83e8c0c1aac943fb08df8fbb6b94d5415521818acc78dd59872b2b47",
+      "locator": "page:113",
+      "page_number": 113,
+      "page_sha256": "e9061fab70af24cce83d576809fe9e1c2b97dcf8f9f76034d34b81e97df965b1",
+      "manifest_page_sha256": "e9061fab70af24cce83d576809fe9e1c2b97dcf8f9f76034d34b81e97df965b1",
+      "kind": "CFS",
+      "unit_title": "Consolidated Statements of Cash Flows",
+      "header_lines": [
+        {
+          "line": 9,
+          "text": "                                                                                                                                                                                                                                                                                   Year ended 31 December"
+        },
+        {
+          "line": 10,
+          "text": "                                                                                                                                                                                                                                                     Note                                  2025                          2024"
+        }
+      ],
+      "periods": [
+        {
+          "period_id": "VMED25-p113-CFS-column-1",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2025-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2025
+        },
+        {
+          "period_id": "VMED25-p113-CFS-column-2",
+          "kind": "year",
+          "start_date": null,
+          "end_date": "2024-12-31",
+          "duration_months": 12,
+          "fiscal_year": 2024
+        }
+      ],
+      "expected_header_class": "year"
+    }
+  ],
+  "declared_period_candidates": [
+    {
+      "period_id": "declared-candidate-1",
+      "kind": "year",
+      "start_date": null,
+      "end_date": "2022-01-02",
+      "duration_months": 12,
+      "fiscal_year": 2021
+    },
+    {
+      "period_id": "declared-candidate-2",
+      "kind": "quarter",
+      "start_date": "2021-10-03",
+      "end_date": "2022-01-02",
+      "duration_months": 3,
+      "fiscal_year": 2021
+    },
+    {
+      "period_id": "declared-candidate-3",
+      "kind": "quarter",
+      "start_date": "2025-07-01",
+      "end_date": "2025-09-30",
+      "duration_months": 3,
+      "fiscal_year": 2025
+    },
+    {
+      "period_id": "declared-candidate-4",
+      "kind": "nine_months",
+      "start_date": "2025-01-01",
+      "end_date": "2025-09-30",
+      "duration_months": 9,
+      "fiscal_year": 2025
+    },
+    {
+      "period_id": "declared-candidate-5",
+      "kind": "quarter",
+      "start_date": "2024-07-01",
+      "end_date": "2024-09-30",
+      "duration_months": 3,
+      "fiscal_year": 2024
+    },
+    {
+      "period_id": "declared-candidate-6",
+      "kind": "nine_months",
+      "start_date": "2024-01-01",
+      "end_date": "2024-09-30",
+      "duration_months": 9,
+      "fiscal_year": 2024
+    }
+  ],
+  "refusal_expectations": [
+    {
+      "id": "swap_valid_periods",
+      "expected": "zero_wrong_period_composition"
+    },
+    {
+      "id": "short_long_map",
+      "expected": "nothing_composed_and_width_note"
+    },
+    {
+      "id": "remove_flow_duration_same_end_year_quarter",
+      "expected": "refuse_both_no_balance_fallback"
+    },
+    {
+      "id": "duplicate_same_type_span_end_candidates",
+      "expected": "refuse_ambiguous"
+    },
+    {
+      "id": "duplicate_year_date_columns",
+      "expected": "refuse_ambiguous"
+    },
+    {
+      "id": "invalid_date_31_february",
+      "expected": "refuse"
+    },
+    {
+      "id": "inconsistent_month_day_complete_date",
+      "expected": "refuse"
+    },
+    {
+      "id": "incomplete_span",
+      "expected": "refuse"
+    },
+    {
+      "id": "unequal_span_groups",
+      "expected": "refuse"
+    },
+    {
+      "id": "change_report_date_banner",
+      "expected": "mapping_unchanged"
+    },
+    {
+      "id": "remove_unit_header_keep_report_banner",
+      "expected": "no_substituted_period"
+    },
+    {
+      "id": "date_after_first_data_row",
+      "expected": "ignored"
+    },
+    {
+      "id": "remove_continuation_own_header",
+      "expected": "refuse_no_prior_page_borrowing"
+    },
+    {
+      "id": "unknown_suffix_2024NoteX",
+      "expected": "refuse"
+    },
+    {
+      "id": "unlocated_or_unextracted_unit",
+      "expected": "existing_refusal_unchanged"
+    },
+    {
+      "id": "normalization_raw_objects",
+      "expected": "rows_citations_hashes_flags_byte_or_value_equal"
+    }
+  ]
+}

@@ -1,0 +1,539 @@
+{
+  "execution": {
+    "date": "2026-11-04",
+    "mode": "Current host model with preceding context; sequential; no agents/provider calls/native accepted heads",
+    "stage": "Bounded actual CP-1C historical comparison checked, actually consumed by CP-2 and transported through existing renderer into populated snapshot-6. Valuation, full/current underwriting and CP-OS/Model/pathway remain unproven.",
+    "paid_calls": 0,
+    "agents_spawned": 0
+  },
+  "instruction": {
+    "path": "runs/tdg-peers-2024-001/instructions.md",
+    "sha256": "7f41c3a39de74ded91bc23839d72399971cca75ed4661a4eaaf1d6f85b8a83fd"
+  },
+  "pre_statistics_decisions": {
+    "peer_categories": {
+      "HEICO": "Direct Operating Peer",
+      "CW": "Sector Peer",
+      "Moog": "Sector Peer"
+    },
+    "discovery_provenance": "Web-Scraped \u2014 Unverified peer-selection judgment; audited primary facts separately sourced",
+    "included_metrics": [
+      "reported own-FY sales growth",
+      "CFO/revenue",
+      "gross cash PP&E capex/revenue",
+      "CFO less gross cash PP&E capex/revenue",
+      "borrowing-plus-finance-lease/reported CFO"
+    ],
+    "comparability": "Comparable with Limitations for all admitted FY2024 comparisons; nonmatching dates, business and cash-flow classification differences persist",
+    "reported_operating_margin": {
+      "included": [
+        "HEICO",
+        "CW"
+      ],
+      "excluded": [
+        "Moog: no same reported consolidated subtotal; segment profit not substituted"
+      ]
+    },
+    "gross_margin": "Descriptive only; no aggregate because cost classifications differ",
+    "outlier_policy": "Describe observed positions without industry rank; retain genuine business differences; separately show Moog exclusion sensitivity on capex intensity/cash-after-capex where its source-backed investment/working-capital difference affects the distribution. No automatic outlier removal or statistical significance claim. Known definition/perimeter causes use Non-Comparable direction.",
+    "thresholds": {
+      "range": 2,
+      "median": 3,
+      "quartiles": 4,
+      "average": 5,
+      "stdev": 5
+    },
+    "borrower_excluded_from_N": true,
+    "valuation": "Insufficient Information; no reliable dated equity value/EV or matched multiple inputs; positive function remains open"
+  },
+  "repair": {
+    "first_cp1_path": "runs/tdg-peers-2024-001/CP-1-peer-inputs.md",
+    "first_cp1_sha256": "6f2a04072760f143877b4af5dcc75da34d5722a52f96056f120f23c1c7077315",
+    "second_cp1_path": "runs/tdg-peers-2024-001/CP-1-peer-inputs-attempt-2.md",
+    "second_cp1_sha256": "19d04ee9a66963bdb789aff824d60113bbf46fec0763a6e01e5f4ff761d4caf5",
+    "cause": "First answer included an unnecessarily specific Wencor timing reference not pinned by the inspected excerpts. Replaced only that row with retained primary MD&A L1417\u20131424. No source or production code change."
+  },
+  "literal_source_checks": [
+    {
+      "source": "runs/tdg-peers-2024-001/sources/CW-pages.txt",
+      "pdf_page": 49,
+      "actual_row": "Total net sales 3,121,189 2,845,373 2,557,025",
+      "independent_literal_expectation": "3,121,189 2,845,373",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/CW-pages.txt",
+      "pdf_page": 49,
+      "actual_row": " Operating income 528,597 484,602 423,443",
+      "independent_literal_expectation": "528,597 484,602",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/CW-pages.txt",
+      "pdf_page": 52,
+      "actual_row": "   Net cash provided by operating activities 544,275 448,089 294,776",
+      "independent_literal_expectation": "544,275 448,089",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/CW-pages.txt",
+      "pdf_page": 52,
+      "actual_row": " Additions to property, plant, and equipment (60,974) (44,666) (38,217)",
+      "independent_literal_expectation": "(60,974) (44,666)",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/CW-pages.txt",
+      "pdf_page": 51,
+      "actual_row": " Current portion of long-term and short-term debt $      90,000 $             \u2014",
+      "independent_literal_expectation": "90,000 $             \u2014",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/CW-pages.txt",
+      "pdf_page": 51,
+      "actual_row": "Long-term debt 958,949 1,050,362",
+      "independent_literal_expectation": "958,949 1,050,362",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/CW-pages.txt",
+      "pdf_page": 62,
+      "actual_row": "Other current liabilities $    1,269 $    1,181",
+      "independent_literal_expectation": "1,269 $    1,181",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/CW-pages.txt",
+      "pdf_page": 62,
+      "actual_row": "Other liabilities 5,473 6,742",
+      "independent_literal_expectation": "5,473 6,742",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/CW-pages.txt",
+      "pdf_page": 62,
+      "actual_row": "Total finance lease liabilities $    6,742 $    7,923",
+      "independent_literal_expectation": "6,742 $    7,923",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/MOOG-pages.txt",
+      "pdf_page": 40,
+      "actual_row": "Net sales $ 3,609,160 $ 3,319,122 $ 3,035,783 ",
+      "independent_literal_expectation": "3,609,160 $ 3,319,122",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/MOOG-pages.txt",
+      "pdf_page": 45,
+      "actual_row": "Net cash provided (used) by operating activities 202,344 135,935 246,802 ",
+      "independent_literal_expectation": "202,344 135,935",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/MOOG-pages.txt",
+      "pdf_page": 45,
+      "actual_row": "Purchase of property, plant and equipment (156,018) (173,286) (139,431) ",
+      "independent_literal_expectation": "(156,018) (173,286)",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/MOOG-pages.txt",
+      "pdf_page": 42,
+      "actual_row": "Long-term debt, excluding current installments 874,139 863,092 ",
+      "independent_literal_expectation": "874,139 863,092",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/MOOG-pages.txt",
+      "pdf_page": 58,
+      "actual_row": "Accrued liabilities and other $ 9,198 $ 5,621 ",
+      "independent_literal_expectation": "9,198 $ 5,621",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/MOOG-pages.txt",
+      "pdf_page": 58,
+      "actual_row": "Other long-term liabilities 100,146 71,225 ",
+      "independent_literal_expectation": "100,146 71,225",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/MOOG-pages.txt",
+      "pdf_page": 58,
+      "actual_row": "Total finance lease liabilities $ 109,344 $ 76,846 ",
+      "independent_literal_expectation": "109,344 $ 76,846",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/MOOG-pages.txt",
+      "pdf_page": 61,
+      "actual_row": "Senior debt 876,500 867,500 ",
+      "independent_literal_expectation": "876,500 867,500",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/MOOG-pages.txt",
+      "pdf_page": 61,
+      "actual_row": "Less deferred debt issuance cost (2,361) (4,408) ",
+      "independent_literal_expectation": "(2,361) (4,408)",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/MOOG-pages.txt",
+      "pdf_page": 45,
+      "actual_row": "Contract advances and progress billings (84,296) 79,983 42,097 ",
+      "independent_literal_expectation": "(84,296) 79,983",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/HEICO-clean-lines.txt",
+      "actual_row": "L1386: Net sales $3,857,669 $2,968,105",
+      "independent_literal_expectation": "3,857,669 2,968,105",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/HEICO-clean-lines.txt",
+      "actual_row": "L1390: Operating income $824,455 $625,339",
+      "independent_literal_expectation": "824,455 625,339",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/HEICO-clean-lines.txt",
+      "actual_row": "L2324: Net cash provided by operating activities 672,370 448,735 467,856",
+      "independent_literal_expectation": "672,370 448,735",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/HEICO-clean-lines.txt",
+      "actual_row": "L2327: Capital expenditures (58,261) (49,434) (31,982)",
+      "independent_literal_expectation": "(58,261) (49,434)",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/HEICO-clean-lines.txt",
+      "actual_row": "L2046: Short-term debt and current maturities of long-term debt $4,107 $17,801",
+      "independent_literal_expectation": "4,107 17,801",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/HEICO-clean-lines.txt",
+      "actual_row": "L2051: Long-term debt, net of current maturities 2,225,267 2,460,277",
+      "independent_literal_expectation": "2,225,267",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/HEICO-clean-lines.txt",
+      "actual_row": "L2051: Long-term debt, net of current maturities 2,225,267 2,460,277",
+      "independent_literal_expectation": "2,460,277",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/HEICO-lease-web-capture.txt",
+      "actual_row": "L3735@P99: Current lease liabilities $23,422 $20,503 $4,060 $4,254",
+      "independent_literal_expectation": "4,060",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/HEICO-lease-web-capture.txt",
+      "actual_row": "L3736@P99: Long-term lease liabilities 113,458 104,759 21,800 23,564",
+      "independent_literal_expectation": "21,800",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/HEICO-clean-lines.txt",
+      "actual_row": "L1417: million in net sales of the ETG. The net sales increase in the FSG reflects $643.5 million",
+      "independent_literal_expectation": "643.5",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/HEICO-clean-lines.txt",
+      "actual_row": "L1422: increase in the ETG includes $40.7 million contributed by fiscal 2023 and 2024 acquisitions,",
+      "independent_literal_expectation": "40.7",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/HEICO-clean-lines.txt",
+      "actual_row": "L1418: contributed by fiscal 2023 and 2024 acquisitions as well as strong organic growth of 13%. The",
+      "independent_literal_expectation": "13%",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-peers-2024-001/sources/HEICO-clean-lines.txt",
+      "actual_row": "L1423: partially offset by a 2% organic net sales decline. The ETG's organic net sales decline is mainly",
+      "independent_literal_expectation": "2% organic",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-002/CP-1-attempt-2.md",
+      "literal": "7,940",
+      "scope": "upstream checked handoff re-anchor; not a new original PDF audit",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-002/CP-1-attempt-2.md",
+      "literal": "6,585",
+      "scope": "upstream checked handoff re-anchor; not a new original PDF audit",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-002/CP-1-attempt-2.md",
+      "literal": "3,531",
+      "scope": "upstream checked handoff re-anchor; not a new original PDF audit",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-002/CP-1-attempt-2.md",
+      "literal": "2,923",
+      "scope": "upstream checked handoff re-anchor; not a new original PDF audit",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-002/CP-1-attempt-2.md",
+      "literal": "2,045",
+      "scope": "upstream checked handoff re-anchor; not a new original PDF audit",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-002/CP-1-attempt-2.md",
+      "literal": "1,375",
+      "scope": "upstream checked handoff re-anchor; not a new original PDF audit",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-002/CP-1-attempt-2.md",
+      "literal": "(165)",
+      "scope": "upstream checked handoff re-anchor; not a new original PDF audit",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-002/CP-1-attempt-2.md",
+      "literal": "(139)",
+      "scope": "upstream checked handoff re-anchor; not a new original PDF audit",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-002/CP-1-attempt-2.md",
+      "literal": "24,296",
+      "scope": "upstream checked handoff re-anchor; not a new original PDF audit",
+      "passed": true
+    },
+    {
+      "source": "runs/tdg-002/CP-1-attempt-2.md",
+      "literal": "486",
+      "scope": "upstream checked handoff re-anchor; not a new original PDF audit",
+      "passed": true
+    }
+  ],
+  "method_archive_integrity": {
+    "entries_checked": 42,
+    "passed": true
+  },
+  "extra_source_review": "Moog p61 confirms senior debt 876.500 less 2.361 deferred issuance cost = carrying 874.139 USDm; current caption remains absent, no source dash recast as general zero; FY2025 maturity is printed dash.",
+  "verification_script_corrections": [
+    "First ephemeral CW CFO prefix also matched financing; narrowed to operating.",
+    "Second ephemeral lease-row prefix encountered both operating and finance blocks; explicitly selected Finance Leases section. Neither checker failure changed the model/source figures."
+  ],
+  "first_cp1c_review": {
+    "path": "runs/tdg-peers-2024-001/CP-1C-attempt-1.md",
+    "sha256": "fb0f363776e7140124bcddc2cd77666ca94d337d1bcfeb57afea0f1d9320de99",
+    "confirmed_issue": "Formatting artifact length,+perimeter in alignment narrative; replace only this artifact in second attempt before onward consumption. No numeric/source/calculation change justified."
+  },
+  "retention_repair": {
+    "cause": "HEICO finance-lease passage had been read in preceding context but was absent from the first six retained captures/derived line file. Final literal evidence check exposed it.",
+    "action": "Reopened exact issuer clean filing and retained an additional full tool response with indexed L3723\u20133737. No numerical change.",
+    "path": "runs/tdg-peers-2024-001/sources/HEICO-lease-web-capture.txt",
+    "sha256": "58def220dbd6252308e90256bab28eab5145fa3497bb7c91a4e4b814fa93a1c3",
+    "first_capture_files_preserved": true
+  },
+  "cp1c_checked_answer": {
+    "path": "runs/tdg-peers-2024-001/CP-1C-attempt-2.md",
+    "sha256": "a10b4b23591e3cf3b804c973934772fb352a88fa7a0bd3871460f8c138ae99cc",
+    "scope": "Selected historical operating/cash/borrowing ratios and outliers; valuation remains unproven",
+    "instructions_and_source_review": "All eleven functional views plus discovery considered; positive functions are limited to populated source-backed sections. Current transport, all16 dimensions/AP1-11, explicit dates/provenance, separate lease bridge and strict N checked."
+  },
+  "display_checks": {
+    "financial_display_rows_checked": 11,
+    "ratios_checked_against_independent_exact_fractions": 23,
+    "consumer_exact_findings_and_limit_tokens_checked": 19,
+    "passed": true
+  },
+  "cp2_consumer": {
+    "path": "runs/tdg-peers-2024-001/CP-2-peer-consumer.md",
+    "sha256": "3bd861a20aca31b5996a156bbcfad8ba4a070f4cda152de7505d4e098e851dc7",
+    "instructions_path": "runs/tdg-peers-2024-001/CP-2-instructions.md",
+    "instructions_sha256": "74c5b59260e59f1ebb2d2142cbf0d125e1636ab093a3e652b458bb424fe7db60",
+    "opened_producer": "CP-1C-attempt-2.md",
+    "use": "Actual historical synthesis increment adopts reported operating/cash range facts and preserves unverified selection, N, dates, debt/CFO classification and absent valuation. No input replaced or formal ranking made.",
+    "review": "Six headings, upstream pins and actual values/qualifications checked; first consumer passed within scope."
+  },
+  "confidence_review": [
+    {
+      "doubt": "Peer suitability and causal inference",
+      "root": "Web-selected limited manufacturing universe; uneven business/date/contract/financing profiles",
+      "resolution": "All16 dimensions and AP1-11 considered before aggregates. All populated ratios limited; no universal rating/credit rank. Valuation remains open."
+    },
+    {
+      "doubt": "Lease double counting and CFO basis",
+      "root": "HEICO/TDG include finance leases; CW/Moog place them outside borrowing captions. Moog receivable-sale cash differs from TDG securitization financing.",
+      "resolution": "Primary debt/lease rows checked, raw debt preserved separately; explicit bridge only. Additional retained HEICO lease capture closes evidence-retention gap. No source number changed."
+    },
+    {
+      "doubt": "Small sample and missing fields",
+      "root": "Moog lacks the same group operating-income subtotal; only three peers",
+      "resolution": "N=2 range only for operating margin; N=3 medians elsewhere; no average/quartiles/stdev. Four synthetic refusal/exclusion controls separate from real case."
+    },
+    {
+      "doubt": "Arithmetic/transcription and downstream distortion",
+      "root": "Thousand/million units, rounding and ratios could drift into false leverage/FCF claims",
+      "resolution": "42 literal source re-anchor checks, ten exact independent metric-period results, displayed ratio checks and actual CP-2 consumption; no false EBITDA/FCF/ranking adoption."
+    }
+  ],
+  "delivery_adaptation": {
+    "kind": "literal presentation input adaptation; not another analytical execution",
+    "input_base": {
+      "path": "runs/tdg-003/CP-2-integrated.md",
+      "sha256": "828e78d47cbb8d718ab4ec8522034ff197500af8411b8a61fde0601f2c51c802"
+    },
+    "input_increment": {
+      "path": "runs/tdg-peers-2024-001/CP-2-peer-consumer.md",
+      "sha256": "3bd861a20aca31b5996a156bbcfad8ba4a070f4cda152de7505d4e098e851dc7"
+    },
+    "output": {
+      "path": "runs/tdg-peers-2024-001/CP-2-delivery-input.md",
+      "sha256": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7"
+    },
+    "changes": [
+      "Request/sources explicitly disclose the literal adaptation",
+      "First three actual peer finding/effect rows copied into additional existing strength field",
+      "Last three actual peer finding/effect rows copied into additional existing weakness field",
+      "All five actual peer gap/consequence rows copied into existing gap table; only presentation source pointer added"
+    ],
+    "copied_finding_rows": [
+      "| TDG reported group operating margin 44.47%, versus HEICO/CW 16.94\u201321.37%; N=2, median suppressed | Strengthens the historical reported-profitability observation. Business mix and accounting differences remain; no industry ranking or normalized margin premium is established. Moog segment profit does not fill its missing group subtotal. |",
+      "| TDG CFO/sales 25.76%, versus selected peers 5.61\u201317.44%; N=3, median 17.43% | Adds a real reported-cash counterweight to an operating-weakness narrative. Customer funding and receivable-sale classification prevent treating the whole spread as underlying cash quality. |",
+      "| TDG CFO minus gross cash PP&E capex 1,880 USDm, 23.68% of sales; peer ratios 1.28\u201315.92%, median 15.48%, N=3 | Supports observed cash generation after this specific investment line. It excludes acquisitions, finance-lease principal and other cash uses; it is not discretionary free cash or future debt repayment. The prior 1,880 proxy is unchanged. |",
+      "| TDG carrying borrowing/finance-lease bridge 24,880 USDm / annual CFO = 12.17x; peers 1.94\u20134.86x, median 3.32x, N=3 | Keeps the large reported borrowing base visible beside high cash margins. This is not Debt/EBITDA, covenant leverage, years to repay or a normalized rating ratio. Financing/CFO classification differences prohibit an economic-debt credit ranking. |",
+      "| Capex/sales TDG 2.08%, peer range 1.51\u20134.32%; Moog 4.32% | TDG is inside this selected range. Moog's investment/contract cash pattern is a real difference, not a bad datapoint removed to tighten the range. No maintenance-capex advantage is inferred. |",
+      "| Three Web-Scraped \u2014 Unverified selection judgments; primary financial facts separately checked | Confidence in the literal statements/arithmetic is stronger than confidence that these three form the correct complete peer group. No user-approved/industry-wide conclusion follows. |"
+    ],
+    "copied_gap_rows": [
+      "| Incomplete/unapproved peer universe and unlike annual dates/businesses | Observed ranges only; no industry credit/profitability ranking. | Retain the peer consumer restriction; see linked producer for targeted source needs. |",
+      "| Cash-flow classification and economic-obligation bridges incomplete | No common sustainable FCF, economic leverage, covenant capacity or accessible liquidity. | Retain the peer consumer restriction; see linked producer for targeted source needs. |",
+      "| No dated full EV/trading/transaction multiples | Positive CP-1C valuation function remains unproven; no EV, recovery, security value or trade preference. | Retain the peer consumer restriction; see linked producer for targeted source needs. |",
+      "| Historical source/visual coverage and same-session execution | No current/full-source underwriting, independent-context reliability or native acceptance. | Retain the peer consumer restriction; see linked producer for targeted source needs. |",
+      "| General delivery/CP-OS pathway integration unfinished | This consumed handoff is not the final deliverable or end-to-end completion. | Retain the peer consumer restriction; see linked producer for targeted source needs. |"
+    ],
+    "new_analytical_calculations": 0,
+    "production_code_changed": false,
+    "first_delivery_attempt": {
+      "directory": "deliverables/tdg-fy2024-snapshot-4",
+      "issue": "Copied gap rows separated by blank line from first contiguous gap table were not mapped. Findings and inline caveats survived; full peer gap transport did not.",
+      "preserved": true,
+      "production_code_changed": false
+    },
+    "second_delivery_attempt": {
+      "directory": "deliverables/tdg-fy2024-snapshot-5",
+      "input_sha256": "54247baa99d3464216983b1c96f032a442b45417172f044d7be89033e8f4bca5",
+      "repair": "Single contiguous gap table transports all five rows (ten cells). Browser confirmed peer findings and all five limitations.",
+      "remaining_presentation_issue": "Fiscal date differences were generically qualified, but exact peer dates should appear beside figures rather than only in linked producer."
+    },
+    "checked_output": {
+      "path": "runs/tdg-peers-2024-001/CP-2-delivery-input-final.md",
+      "sha256": "ba312d7faa8a7b7a24b17424d5aee667bc479941c210e42d3018b2dd818bc763",
+      "repair": "Same contiguous gap table plus literal source fiscal dates and the actual consumer no-point-in-time-backtest sentence appended to existing comparison restriction field. No analysis or number recalculated.",
+      "prepare_check": "Five peer gap labels mapped; exact dates and February2025 limitation present in rendered ReportView; CP-2 fact count39."
+    }
+  },
+  "delivery_verification": {
+    "directory": "deliverables/tdg-fy2024-snapshot-6",
+    "report_sha256": "6bc718146295fda0ffc4b850a5a5a7c55ccb84d3b7a642cb16c62f7192873081",
+    "receipt_sha256": "20a9578699a1959ada69bfd0e9568d76340c10193aeb86f63fa8a2fcec9fa9c5",
+    "mapped_facts_checked": 163,
+    "exact_handoff_line_citations_checked": 163,
+    "sections": [
+      "key-findings",
+      "company-operating-model",
+      "strengths-weaknesses",
+      "company-profile",
+      "transaction-summary"
+    ],
+    "producer_row_cells_checked_in_report_view": 12,
+    "explicit_peer_gap_rows_checked": 5,
+    "checks": "Receipt/file hashes and exact source hashes/line quotes; all six actual peer finding/effect rows present in ReportView; all five gap labels and consequences reach limitations; exact fiscal dates and source timing preserved.",
+    "browser": "Actual IAB localhost AX checks: snapshot-5 front displayed peer figures, N and restrictions; Limitations displayed all five peer gaps. Final snapshot-6 front displayed the same figures/definitions/provenance plus exact own-FY dates and February2025 no-point-in-time-backtest limitation. No all-route/responsive/visual-export claim.",
+    "mode": "Existing unchanged manual handoff delivery; no new analytical/provider execution or published Model"
+  },
+  "verification_scope_notes": [
+    "An initial static-HTML check removed script content and therefore found no peer numbers: this renderer builds the DOM from embedded JSON. Replaced that inappropriate check with ReportView inspection plus actual browser AX checks; no production bug inferred.",
+    "Gap row fact-count expectation corrected: five two-cell rows add ten facts, not five. Source values and rendered input were unchanged by this checker correction."
+  ],
+  "source_files": {
+    "runs/tdg-peers-2024-001/sources/CW-FY2024.pdf": "f758203854c323ef4bdcda3650047920b1fa5433f8ab6562c702d3a1d6b94688",
+    "runs/tdg-peers-2024-001/sources/CW-pages.txt": "590480d72e96bfbc1ecacf9c1b92283db670b1bcaba4dd3ca2b2f157c940523d",
+    "runs/tdg-peers-2024-001/sources/HEICO-FY2024.pdf": "523888d4a41351cd7af10556343ae12d5098a3fafaf9cfcde48f8ad0c5071af0",
+    "runs/tdg-peers-2024-001/sources/HEICO-clean-lines.txt": "0494cbde5086b969eef2152a316ba3b07bd4a60941dabae675de8dd507b59056",
+    "runs/tdg-peers-2024-001/sources/HEICO-lease-web-capture.txt": "58def220dbd6252308e90256bab28eab5145fa3497bb7c91a4e4b814fa93a1c3",
+    "runs/tdg-peers-2024-001/sources/HEICO-pages.txt": "16655f92d1d8b5f06860672b59fdfdac8dc28087fb5ef384bdc50ac99b9cde26",
+    "runs/tdg-peers-2024-001/sources/HEICO-web-captures.json": "9558c39f166029f66cfd4374df759f42578853fff4b883be110f717ad5aa937a",
+    "runs/tdg-peers-2024-001/sources/MOOG-FY2024.pdf": "b20e9d309b1fd685953556b08d7007cce326ae48d76d9c1d8f4ecbdbdffd0bc4",
+    "runs/tdg-peers-2024-001/sources/MOOG-pages.txt": "ce69ea2eb64d79c6074c26afa4a53dc4e1ac7a7df6fff0886b44cccbb482d367",
+    "runs/tdg-peers-2024-001/sources/retrieval.json": "bb7174ed578a87a1113173ce38112839cfb35e1cc5232366841ce687a438e795"
+  },
+  "methods": [
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-1c-peer-benchmark/SKILL.md",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/SKILL.md",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-1c-peer-benchmark/SKILL.md",
+      "sha256": "4bd3b130ce0b49571f7b4b97da25a42a81dbed80b03ea752552ea8ae90cd9f71",
+      "use": "Unchanged peer selection/alignment methodology and statistical helper; project transport and current user instructions govern"
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-1c-peer-benchmark/references/REF_CP-1C_STEPS.md",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/references/REF_CP-1C_STEPS.md",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-1c-peer-benchmark/references/REF_CP-1C_STEPS.md",
+      "sha256": "fbbed9bac006c67a04397303c39c684046817cf491ebad6a4fa1302ecfbfd766",
+      "use": "Unchanged peer selection/alignment methodology and statistical helper; project transport and current user instructions govern"
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-1c-peer-benchmark/scripts/peer_statistics.py",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/scripts/peer_statistics.py",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-1c-peer-benchmark/scripts/peer_statistics.py",
+      "sha256": "3073ed168e8f89b422b3421df4255a48a0875b1d44a90a53414ce078c2f7015b",
+      "use": "Unchanged peer selection/alignment methodology and statistical helper; project transport and current user instructions govern"
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-1c-peer-benchmark/scripts/cp_tables.py",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/scripts/cp_tables.py",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-1c-peer-benchmark/scripts/cp_tables.py",
+      "sha256": "02590c0bf151e1e291b72214df3311f686d88e576d60a80a6b5ca73ecc44a8d1",
+      "use": "Unchanged peer selection/alignment methodology and statistical helper; project transport and current user instructions govern"
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-1c-peer-benchmark/scripts/validate_handoff.py",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/scripts/validate_handoff.py",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-1c-peer-benchmark/scripts/validate_handoff.py",
+      "sha256": "c640aaaf579907c63a72d5a5a0df5134ed89dbf273441846ec399353e3bbac9e",
+      "use": "Unchanged peer selection/alignment methodology and statistical helper; project transport and current user instructions govern"
+    }
+  ],
+  "artifacts": {
+    "runs/tdg-peers-2024-001/CP-0.md": "de557f61171c627e43e2f0a9c462d0360f8b4764bed08b5759d87eb25a853bc4",
+    "runs/tdg-peers-2024-001/CP-1-peer-inputs-attempt-2.md": "19d04ee9a66963bdb789aff824d60113bbf46fec0763a6e01e5f4ff761d4caf5",
+    "runs/tdg-peers-2024-001/CP-1-peer-inputs.md": "6f2a04072760f143877b4af5dcc75da34d5722a52f96056f120f23c1c7077315",
+    "runs/tdg-peers-2024-001/CP-1C-attempt-1.md": "fb0f363776e7140124bcddc2cd77666ca94d337d1bcfeb57afea0f1d9320de99",
+    "runs/tdg-peers-2024-001/CP-1C-attempt-2.md": "a10b4b23591e3cf3b804c973934772fb352a88fa7a0bd3871460f8c138ae99cc",
+    "runs/tdg-peers-2024-001/CP-1C-calculations.json": "4f3f5fee1efd85f47424a78daab75e892cb2d13f0ed1f495484b38273fa27288",
+    "runs/tdg-peers-2024-001/CP-2-delivery-input-attempt-2.md": "54247baa99d3464216983b1c96f032a442b45417172f044d7be89033e8f4bca5",
+    "runs/tdg-peers-2024-001/CP-2-delivery-input-final.md": "ba312d7faa8a7b7a24b17424d5aee667bc479941c210e42d3018b2dd818bc763",
+    "runs/tdg-peers-2024-001/CP-2-delivery-input.md": "b88d1dfce706514ba3effe16fc430a5483809514c61b49e22fe16dec400c54e7",
+    "runs/tdg-peers-2024-001/CP-2-instructions.md": "74c5b59260e59f1ebb2d2142cbf0d125e1636ab093a3e652b458bb424fe7db60",
+    "runs/tdg-peers-2024-001/CP-2-peer-consumer.md": "3bd861a20aca31b5996a156bbcfad8ba4a070f4cda152de7505d4e098e851dc7",
+    "runs/tdg-peers-2024-001/instructions.md": "7f41c3a39de74ded91bc23839d72399971cca75ed4661a4eaaf1d6f85b8a83fd",
+    "runs/tdg-peers-2024-001/snapshot-inputs-attempt-2.json": "6f0d28ebfa1e2034cd9d423b899ce91f1bfccca5cc7896656c96779eefc66be8",
+    "runs/tdg-peers-2024-001/snapshot-inputs-final.json": "f08a3e62da7668eb3dc5e2d661e8953244d659509b82ed2620dda54c3c04349d",
+    "runs/tdg-peers-2024-001/snapshot-inputs.json": "187a92ceb15c0e88954a7389e6a00b2548568c3ddd7b152b9fcb517adb1ebf98"
+  },
+  "production_changes": "None. Existing analytical/statistics and delivery code reused; selected archival helper copies unchanged."
+}

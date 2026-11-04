@@ -1,0 +1,10 @@
+{
+  "status": "in progress",
+  "execution": "retained-response-replay",
+  "observed_failure": "markdown_layout: preserve complete table columns in a table block",
+  "source_context_pins_verified": 33,
+  "production_code_changes": [],
+  "provider_calls": 0,
+  "subagents_used": false,
+  "excel_output": false
+}

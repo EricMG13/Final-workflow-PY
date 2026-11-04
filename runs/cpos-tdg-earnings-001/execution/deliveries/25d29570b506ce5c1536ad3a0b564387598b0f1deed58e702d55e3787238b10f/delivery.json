@@ -1,0 +1,15 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Amounts are USD millions except percentages and percentage-point changes. Historical TDG reported fiscal Q1 earnings: 2024-10-01\u20132024-12-28 (89 days) versus 2023-10-01\u20132023-12-30 (91 days). Five selected report sections from actual retained handoffs, plus the complete evidence rail. Guidance, matching LTM ratios and accessible liquidity remain unestablished. Replay publication; not a fresh model run or full pathway acceptance.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-0.md": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+    "CP-1.md": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+    "CP-1B.md": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+    "view.json": "6bbe89ce65b0d122fb8aca2d5fd1df8ddff9229aca6f9bedb204e7d5e00d6241",
+    "report-view.json": "af59ecbed5a6165c0c42ba8051469d0358f0227248c7c5a1bfceaa027bc6c705",
+    "report.html": "7894b41ed7fc14caac209d4d03dfc712bd52d38d7e001bf73baf4ee68bab971e"
+  }
+}

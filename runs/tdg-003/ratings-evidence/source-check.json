@@ -1,0 +1,46 @@
+{
+  "execution": "actual host-model source gate; no full CP-2H acceptance or provider/runtime invocation",
+  "cutoff": "2024-11-07",
+  "access_date": "2026-11-04",
+  "instructions_sha256": "49f6b6dde3a41cb5b11eb8d0a9aafdfc084dbe2a617f042327fb724accebd73c",
+  "consumed": {
+    "runs/tdg-003/CP-0.md": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+    "runs/tdg-002/CP-1-attempt-2.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+    "runs/tdg-003/CP-2G-attempt-2.md": "696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928",
+    "runs/tdg-003/CP-2G-attempt-1-calculations.json": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843",
+    "runs/tdg-003/CP-1D-attempt-1.md": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+    "runs/tdg-003/CP-2-integrated.md": "828e78d47cbb8d718ab4ec8522034ff197500af8411b8a61fde0601f2c51c802"
+  },
+  "methods": {
+    "docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/SKILL.md": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb",
+    "docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/references/REF_CP-2H_STEPS.md": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e",
+    "src/deploy_vii/methods/cp2h.md": "f221e63327c3a72e5c8e8fbcd937b39124e6d12df8f709673eb0e7112d26d8de",
+    "src/deploy_workflow/owners/cp2h.py": "e13c1e1abe984d9f7d926408ce9cc0bce8ed55786470743186a50d12aef7e4ad"
+  },
+  "retrieval_record": {
+    "path": "runs/tdg-003/ratings-evidence/primary-retrieval.json",
+    "sha256": "9ef925acf945cce811effb8b2ffc751ff9726d552db8eb54384be356fa466e65"
+  },
+  "browser_observation": {
+    "url": "https://www.spglobal.com/ratings/en/regulatory/delegate/getPDF?articleId=3223884&type=COMMENTS&defaultFormat=PDF",
+    "title": "U.S. Corporate Credit Outlook Midyear 2024: Steering Toward Sunlight",
+    "publication_date_visible": "2024-08-01",
+    "body_state": "Create a free account to unlock the article.",
+    "scope": "Observed visible DOM; no downloaded source body or raw bytes."
+  },
+  "raw_pdf_attempt": {
+    "url": "https://www.spglobal.com/_assets/documents/ratings/research/101602057.pdf",
+    "result": "HTTP 403; no source bytes retained"
+  },
+  "search_scope": {
+    "web": "Initial agency-specific queries plus two focused gap loops; later actions/equity ratings excluded; excerpts treated as leads.",
+    "local": "TDG/TransDigm filenames across Documents; no identified agency report returned; not exhaustive content search.",
+    "drive": "TransDigm and TDG ratings, metadata-only; issuer-list documents and TEST holdings returned, no identified dated agency report."
+  },
+  "status": "Awaiting actual agency report access/location; independent modules continue",
+  "limitations": [
+    "No source-backed historical issuer/instrument action register",
+    "No reproduced agency metric bridge or trigger headroom",
+    "Search/excerpt and access checks are not full module coverage"
+  ]
+}

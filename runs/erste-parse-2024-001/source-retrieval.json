@@ -1,0 +1,40 @@
+{
+  "landing_page": "https://www.erstegroup.com/en/investors/annualreport2024/downloads",
+  "purpose": "Historical issuer spreadsheet ingestion only, no workbook generation. Identity/period still to be checked from source content.",
+  "sources": [
+    {
+      "source_id": "W1",
+      "source_url": "https://cdn.erstegroup.com/content/dam/at/eh/www_erstegroup_com/en/Investor_Relations/onlinear2024/xlsx/AR24_Statement_of_income.xlsx?forceDownload=1",
+      "local_path": "runs/erste-parse-2024-001/sources/AR24_Statement_of_income.xlsx",
+      "bytes": 16155,
+      "sha256": "fb6f776a097c94382f21f2287cf2add54f141971d7ab01eadf9947dc2f0dbf29",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    },
+    {
+      "source_id": "W2",
+      "source_url": "https://cdn.erstegroup.com/content/dam/at/eh/www_erstegroup_com/en/Investor_Relations/onlinear2024/xlsx/AR24_Balancesheet.xlsx?forceDownload=1",
+      "local_path": "runs/erste-parse-2024-001/sources/AR24_Balancesheet.xlsx",
+      "bytes": 16624,
+      "sha256": "0ed7090071cd2b347e271d841fba75e0b0df74d4fd63ae956bd3de57b4413876",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    },
+    {
+      "source_id": "W3",
+      "source_url": "https://cdn.erstegroup.com/content/dam/at/eh/www_erstegroup_com/en/Investor_Relations/onlinear2024/xlsx/AR24_Cashflows.xlsx?forceDownload=1",
+      "local_path": "runs/erste-parse-2024-001/sources/AR24_Cashflows.xlsx",
+      "bytes": 16763,
+      "sha256": "a36a4c8bc09f31f2544e9e8eed3d70678b679f4d203d09ca88bec0e9380f690d",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    }
+  ],
+  "unused_attempts": [
+    {
+      "issuer": "TDG",
+      "result": "public SEC download403; no bytes retained/used"
+    },
+    {
+      "issuer": "EPD",
+      "result": "search-title suggested.xlsx but web responsePDF; direct download403; no bytes retained/used"
+    }
+  ]
+}

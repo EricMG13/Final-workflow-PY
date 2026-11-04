@@ -1,0 +1,92 @@
+{
+ "schema": "pdf-units/1",
+ "doc": "CZR",
+ "document": "Caesars Entertainment FY2025 10-K (year ended 31 Dec 2025)",
+ "source_name": "caesars-2025-10k.pdf",
+ "source_sha256": "6840cafaafbd84b432c3c6eaeba5642c39b1a87c02f8236ee0ec3177e0c587f5",
+ "page_numbering": "page N = the intake locator page:N (1-based PDF page index), not the printed folio",
+ "units": [
+  {
+   "kind": "BS",
+   "title_as_printed": "CONSOLIDATED BALANCE SHEETS",
+   "title_lines": [
+    "CONSOLIDATED BALANCE SHEETS"
+   ],
+   "pages": [
+    56
+   ],
+   "basis": "Title line 2 of p56 (folio 56) under the company name; assets, liabilities and equity on the one page; ends with Total liabilities and stockholders’ equity."
+  },
+  {
+   "kind": "IS",
+   "title_as_printed": "CONSOLIDATED STATEMENTS OF OPERATIONS",
+   "title_lines": [
+    "CONSOLIDATED STATEMENTS OF OPERATIONS"
+   ],
+   "pages": [
+    57
+   ],
+   "basis": "Title line 2 of p57 (folio 57); NET REVENUES to per-share and share counts on the one page."
+  },
+  {
+   "kind": "CI",
+   "title_as_printed": "CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME (LOSS)",
+   "title_lines": [
+    "CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME (LOSS)"
+   ],
+   "pages": [
+    58
+   ],
+   "basis": "Title line 2 of p58 (folio 58); a short table from Net income (loss) to Comprehensive income (loss) attributable to Caesars. This is the unit the pre-flight said the locator missed."
+  },
+  {
+   "kind": "SE",
+   "title_as_printed": "CONSOLIDATED STATEMENTS OF STOCKHOLDERS’ EQUITY",
+   "title_lines": [
+    "CONSOLIDATED STATEMENTS OF STOCKHOLDERS’ EQUITY"
+   ],
+   "pages": [
+    59
+   ],
+   "basis": "Title line 2 of p59 (folio 59); Balance rows for 1 Jan 2023 through 31 Dec 2025."
+  },
+  {
+   "kind": "CFS",
+   "title_as_printed": "CONSOLIDATED STATEMENTS OF CASH FLOWS",
+   "title_lines": [
+    "CONSOLIDATED STATEMENTS OF CASH FLOWS"
+   ],
+   "pages": [
+    60,
+    61
+   ],
+   "basis": "Title line 2 of p60 (folio 60). The operating, investing and financing sections end on p60 with 'Cash, cash equivalents and restricted cash, end of period'. p61 continues the same table (repeated column header, no new title). p61 belongs to the statement because it repeats the column header, because the 'accompanying notes are an integral part' line appears only on p61 (not on p60), and because p61's reconciliation ties to the closing cash printed on p60 (identity CZR-CFS-3).",
+   "continuation": {
+    "61": "No title. The header 'Years Ended December 31,' and '(In millions) 2025 2024 2023' repeat at the top, then the cash reconciliation and the supplemental and non-cash disclosures, then the folio 61 note line."
+   }
+  }
+ ],
+ "not_units": [
+  {
+   "page": 53,
+   "looks_like": "BS, IS, CI, SE, CFS titles",
+   "reason": "Item 8 index to the consolidated financial statements: titles with page numbers 56 to 60."
+  },
+  {
+   "page": 55,
+   "looks_like": "none (page before the BS)",
+   "reason": "Tail of the auditor's report (critical audit matter, signature); prose."
+  },
+  {
+   "page": 62,
+   "looks_like": "mentions 'Consolidated Balance Sheets', 'Statements of Operations', 'Statements of Cash Flows'",
+   "reason": "Page after the CFS continuation: first page of Notes to Consolidated Financial Statements, defines the terms; no data table."
+  },
+  {
+   "page": 101,
+   "looks_like": "BS, IS, CI, SE, CFS titles",
+   "reason": "Item 15(a)(i) list of the statements included in Item 8; titles and period words only."
+  }
+ ],
+ "fixture_pages_not_listed": []
+}

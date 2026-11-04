@@ -1,0 +1,88 @@
+16/06/2026, 22:24                                                                                  f-20251231
+
+
+
+
+                                                        FORD MOTOR COMPANY AND SUBSIDIARIES
+                                                          CONSOLIDATED STATEMENTS OF EQUITY
+                                                                                  (in millions)
+                                                                   Equity Attributable to Ford Motor Company
+                                                       ExcessCap. in                                Accumulated                                          Equity
+                                                          of                                             Other                                        Attributable
+                                          Capital       Value Par  Earnings/(AccumulatedRetained   ComprehensiveIncome/(Loss)Treasury                 controllingto Non-  Total
+                                           Stock      of Stock               Deficit)                  (Note 22)            Stock         Total         Interests        Equity
+   Balance at December 31, 2022          $      42    $ 22,832     $                   31,754     $           (9,339)    $   (2,047)    $ 43,242     $          (75)   $  43,167
+   Net income/(loss)                            —            —                          4,347                      —              —        4,347                (18)       4,329
+   Other comprehensive
+    income/(loss), net of tax                   —            —                              —                    297              —          297                  1          298
+   Common stock issued (a)                      —           425                             —                      —              —          425                 —           425
+   Treasury stock/other                         —          (129)                            —                      —           (337)        (466)               129         (337)
+   Dividend and dividend
+   equivalents declared (b)                     —            —                         (5,072)                     —              —       (5,072)               (12)      (5,084)
+   Balance at December 31, 2023          $      42    $ 23,128     $                   31,029     $           (9,042)    $   (2,384)    $ 42,773     $           25    $  42,798
+
+
+
+   Balance at December 31, 2023          $      42    $ 23,128     $                   31,029     $           (9,042)    $   (2,384)    $ 42,773     $           25    $  42,798
+   Net income/(loss)                            —            —                          5,879                      —              —        5,879                 15        5,894
+   Other comprehensive
+    income/(loss), net of tax                   —            —                              —                   (597)             —         (597)                (1)        (598)
+   Common stock issued (a)                      —           374                             —                      —              —          374                 —           374
+   Treasury stock/other                         —            —                              —                      —           (426)        (426)                —          (426)
+   Dividend and dividend                        —            —                         (3,168)                     —              —       (3,168)               (16)      (3,184)
+    equivalents declared (b)
+   Balance at December 31, 2024          $      42    $ 23,502     $                   33,740     $           (9,639)    $   (2,810)    $ 44,835     $           23    $  44,858
+
+
+
+   Balance at December 31, 2024          $      42    $ 23,502     $                   33,740     $           (9,639)    $   (2,810)    $ 44,835     $           23    $  44,858
+   Net income/(loss)                            —            —                         (8,182)                     —              —       (8,182)                20       (8,162)
+   Other comprehensive
+    income/(loss), net of tax                   —            —                              —                  1,929              —        1,929                 (1)       1,928
+   Common stock issued (a)                      —           420                             —                      —              —          420                 —           420
+   Treasury stock/other                         —            —                              —                      —              —            —                 —             —
+   Dividend and dividend                        —            —                         (3,050)                     —              —       (3,050)               (14)      (3,064)
+    equivalents declared (b)
+   Balance at December 31, 2025          $      42    $ 23,922     $                   22,508     $           (7,710)    $   (2,810)    $ 35,952     $           28    $  35,980
+
+   __________
+   (a)  Includes impacts of share-based compensation.
+   (b)  We declared dividends per share of Common and Class B Stock of $1.25, $0.78, and $0.75 in 2023, 2024 and 2025, respectively. In the first quarter of
+        2023, 2024, and 2025, in addition to a regular dividend of $0.15 per share, we declared a supplemental dividend of $0.65 per share, $0.18 per share,
+        and $0.15 per share, respectively. On February 2, 2026, we declared a regular dividend of $0.15 per share.
+
+                                                 The accompanying notes are part of the consolidated financial statements.
+
+
+                                                                                        114
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm                                                                                              118/181

@@ -1,0 +1,86 @@
+{
+  "authority": "Current user CP-8 run-to-run deliverable comparison; old decision post-mortem is not the selected task.",
+  "before_model_answer": true,
+  "scope": "Prior snapshot2 to current selected snapshot6, same historical FY2024 base; no financial performance change from report revision alone.",
+  "same_modules": {
+    "CP-1": {
+      "artifact_equal": true,
+      "facts_equal": true,
+      "tables_equal": true,
+      "status_equal": true
+    },
+    "CP-1A": {
+      "artifact_equal": true,
+      "facts_equal": true,
+      "tables_equal": true,
+      "status_equal": true
+    },
+    "CP-2": {
+      "artifact_equal": false,
+      "facts_equal": false,
+      "tables_equal": false,
+      "status_equal": true
+    },
+    "CP-MODEL": {
+      "artifact_equal": true,
+      "facts_equal": true,
+      "tables_equal": true,
+      "status_equal": true
+    }
+  },
+  "report_sections": {
+    "key-findings": {
+      "entire_block_equal": false,
+      "state_unchanged": true,
+      "prior_lines": 1,
+      "current_lines": 1
+    },
+    "company-operating-model": {
+      "entire_block_equal": true,
+      "state_unchanged": true,
+      "prior_lines": 0,
+      "current_lines": 0
+    },
+    "strengths-weaknesses": {
+      "entire_block_equal": false,
+      "state_unchanged": true,
+      "prior_lines": 7,
+      "current_lines": 12
+    },
+    "company-profile": {
+      "entire_block_equal": true,
+      "state_unchanged": true,
+      "prior_lines": 0,
+      "current_lines": 0
+    },
+    "transaction-summary": {
+      "entire_block_equal": true,
+      "state_unchanged": true,
+      "prior_lines": 26,
+      "current_lines": 26
+    }
+  },
+  "report_fact_counts": [
+    159,
+    163
+  ],
+  "CP2_strength_rows": [
+    3,
+    5
+  ],
+  "CP2_weakness_rows": [
+    3,
+    6
+  ],
+  "CP2_gap_rows": [
+    9,
+    13
+  ],
+  "manual_material_observations": [
+    "New scenario/hedge/ESG/peer analysis, not a new FY2024 statement base.",
+    "Prior maturity concentration numbers missing from new summary, not settled.",
+    "Related-party and lender-reporting restriction omitted from new CP2 gap list; source CP1A gap persists.",
+    "Critical severities persist in unchanged CP1A source but are not explicit in new CP2 gap cells.",
+    "Confidence Medium and Model blocked persist; no final recommendation/complete underwriting produced."
+  ]
+}

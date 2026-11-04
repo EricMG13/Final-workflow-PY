@@ -1,0 +1,175 @@
+{
+  "scope": "CP-OS deterministic infrastructure over retained actual TDG handoffs; no fresh/provider/native analytical success",
+  "request_sha256": "ec535aae275eeb19f76731637f70f5cfa53d7c77551604ca57770e8c1f244126",
+  "workflow_sha256": "3fcf92b58bab63b8c3efc7446bd3af1b7117a6fe6a2cd71bd7a97bfdce63f781",
+  "responses_manifest_sha256": "74a118486369fdb9a1e124e0f93629e6e8dd337e04fd83dc655c1238328abedc",
+  "ordered_modules": [
+    "CP-0",
+    "CP-1",
+    "CP-1A",
+    "CP-2"
+  ],
+  "current_upstream_handoff_maps_checked": 4,
+  "resume_executor_calls": 0,
+  "retained_response_copies_checked": 4,
+  "populated_report_sections": 5,
+  "facts_and_exact_line_citations": 159,
+  "report_path": "runs/cpos-tdg-snapshot-001/execution/deliveries/db57f31adc5539190599e8e5068770f7ed65edc42f1bec9e51ee9d8b11e02005/report.html",
+  "report_sha256": "a5f2301f3aad9bd8b0034cfa4159c45d1ace2568b4a4708441f7bef1e77ce4ed",
+  "completion_record": {
+    "kind": "cpos-handoff-snapshot/1",
+    "execution": "retained-response-replay",
+    "scope": "public five-section snapshot; not full pathway/native Model publication",
+    "provider_cap_usd": 0,
+    "modules": {
+      "CP-0": "requests/CP-0/e802582d7c5a78ecc924d933ac123c652af6895b849e5e314fd93d6b29960686/1.response.md",
+      "CP-1": "requests/CP-1/5a0820625a8049a44a9306af51990cc1cd2853b3383186244d37e9bbce6d9a5d/1.response.md",
+      "CP-1A": "requests/CP-1A/bb8b5f552cdb964c02927c7043113bf0df902625328fa9825deb0169b6405e83/1.response.md",
+      "CP-2": "requests/CP-2/14118e066e0e65617cd6366960965ed95ccdb411a04c9ea3a5963ff4baa08c32/1.response.md"
+    },
+    "delivery_manifest_sha256": "c62c526da78ac904da7a143f6c029016147f2fa63f484fdb011aec66485c4adf",
+    "report_sha256": "a5f2301f3aad9bd8b0034cfa4159c45d1ace2568b4a4708441f7bef1e77ce4ed"
+  },
+  "no_excel_output": true,
+  "open": "Fresh host exchange, paid/native owner integration, general module/pathway and HTML Model/chart delivery remain unproven.",
+  "source_code": {
+    "src/deploy_workflow/owners/cpos.py": "0de23e85c466d7d3cc6be4ffbb963808c98e51fe882c9fe8c387c7af71caee7a",
+    "src/deploy_workflow/handoff_delivery.py": "a9c8971689b25dd93270260cf0ae73d1380385d45e1a84f523ffcb59ab6060fe",
+    "tests/test_cpos_handoffs.py": "67b158d69eaeb5eb69fa071268a8b85f31eb012296b471f107d6f711be975372",
+    "tests/test_run_pathway.py": "2b51c5ca7139b38a57729f5caf3cee089bc78c7dfa1303ea13aaebc7611a1819"
+  },
+  "pre_edit_sources": [
+    {
+      "consumed_path": "src/deploy_workflow/owners/cpos.py",
+      "archive_path": "docs/reuse/selected-methods/runtime/cpos-before-handoff-orchestration.py",
+      "sha256": "b9e918663aa8c418701aa6b468b9f6e06aad00bf70b2090e799af6207d74ce02",
+      "use": "Exact local pre-edit source for CP-OS integration diff and isolated baseline regression reproduction; historical navigation/delivery behavior is not selected authority."
+    },
+    {
+      "consumed_path": "src/deploy_workflow/handoff_delivery.py",
+      "archive_path": "docs/reuse/selected-methods/runtime/handoff-delivery-before-cpos-verification.py",
+      "sha256": "aa77ae59a2e408f05a3cf2f5c7af92b4dde2b2df635f961545d49fc05bc0e00c",
+      "use": "Exact local pre-edit source for CP-OS integration diff and isolated baseline regression reproduction; historical navigation/delivery behavior is not selected authority."
+    }
+  ],
+  "confidence_review": {
+    "scope": "CP-OS local handoff execution, replay entry point and exact delivery verification; current project instructions override imported navigation-only role.",
+    "ranked_doubts": [
+      {
+        "doubt": "Could retained replay be represented as a fresh model or native accepted run?",
+        "investigation": "Manifest, completion record, frozen instructions, README and report scope explicitly label retained responses/candidate output. CLI accepts only replay mode and pinned responses. Native OwnerRunReceipt/navigation behavior and all14 pre-existing class/function ASTs are unchanged.",
+        "verdict": "Verified labelling and native API preservation. Fresh/provider/full native proof remains open."
+      },
+      {
+        "doubt": "Could Markdown shape approve incorrect analysis?",
+        "investigation": "Six-heading check precedes a required caller checker. The real-source replay CLI checks exact previously checked response bytes, only. A synthetic wrong1,881 versus expected1,880 is retained, rejected and repaired before downstream consumption; missing/wrong checker return contracts refuse.",
+        "verdict": "Verified transport and verifier invocation. Semantic checker quality remains caller responsibility; no new independent analytical review claimed."
+      },
+      {
+        "doubt": "Could source/instruction/response changes silently reuse stale downstream content?",
+        "investigation": "Pinned source/instruction hashes checked before state writes; task fingerprints include exact instructions, run metadata, all source hashes and current previous handoff hashes. Changed CP-1 response invalidates CP-1A and CP-2; existing CP-0 is retained. Cached response/hash mismatch refuses. All original files remain untouched.",
+        "verdict": "Verified in focused input-change, consumer and tampering regressions and actual four-map/source-pin check."
+      },
+      {
+        "doubt": "Could interruption repeat an unknown call, exceed retries, lose the rejected answer or consume it?",
+        "investigation": "Request written before dispatch, response before checking, immutable review afterward. No response after an already-started request refuses redispatch; retained response can then resume. Check exceptions recheck retained bytes. Two failed attempts stop before consumers/delivery; feedback reaches only the targeted retry.",
+        "verdict": "Verified current local exchange/resume/retry boundaries. Paid executors are outside this API contract and provider cap is fixed0."
+      },
+      {
+        "doubt": "Could partial/forged output pass completion, or a renderer change force analytical reruns?",
+        "investigation": "Initial implementation keyed publication only by input manifest and wrote directly to destination. Review identified two concrete recovery/version seams. Final implementation stages/verifies the separate adapter output, renames only complete publication, fingerprints exact generated bytes, then verifies full reconstruction including receipt. Failed stage remains; resume uses no executor. Changed renderer produces new output, preserving the predecessor. Tampered HTML plus matching forged receipt still refuses, including before a completion record exists.",
+        "verdict": "Confirmed integration seams repaired; adversarial regression cases pass."
+      },
+      {
+        "doubt": "Could concurrent writers, identity changes or executor mutation corrupt a run?",
+        "investigation": "Existing runner directory flock guards the whole drive; immutable existing _put guards recorded identity/attempts. Read-only mapping proxies hold immutable input/handoff bytes. Held-lock and changed-mode tests refuse; attempted callback handoff mutation raises.",
+        "verdict": "Verified cooperating-writer/current exchange contract; not a new cross-machine filesystem-security claim."
+      },
+      {
+        "doubt": "Could publication transform amounts/periods/source identities or introduce Excel, credentials or another controller?",
+        "investigation": "Separate existing adapter reused. Actual report has159 exact line-cited facts and five populated sections; four response copies and source pins match. Browser shows exact CP-2 assessment/limitations and original249d0c... hash. No Excel files/providers/keys/subagents used; temporary localhost server stopped. Only CP-OS gained orchestration; existing planner, lock and renderer reused.",
+        "verdict": "Verified bounded report content and project boundaries. Generic Model/chart/further-pathway publication remains open."
+      },
+      {
+        "doubt": "Did broader runner failures originate here, and were their assertions exercising intended conditions?",
+        "investigation": "Both failures reproduced with the exact pre-edit modules. Followed current pricing computed_usd to max_context_tokens1050000:300000 is priceable, so the old unknown fixture is stale. Retained mocked-live run.json says BudgetExhausted reserving6.724560 passes cap5 before second-reservation injection. Updated only these fixtures to1050001 tokens and10USD test cap, preserving same cap on resume. Three focused cases now pass; no production pricing/budget edits.",
+        "verdict": "Confirmed test-assumption drift repaired, not bypassed production failures. Wider suite remains partially run, not claimed green."
+      }
+    ]
+  },
+  "rewrite_tournament": {
+    "mode": "No-argument post-edit, inline; no agents under project ruling.",
+    "targets": [
+      "deploy_workflow.owners.cpos._handoff",
+      "deploy_workflow.owners.cpos.run_handoffs"
+    ],
+    "impact_set": [
+      "run_handoffs -> _handoff -> local executor/checker",
+      "replay_handoffs -> run_handoffs",
+      "CLI main -> replay_handoffs",
+      "run_handoffs -> delivery_files/deliver/verify_delivery",
+      "existing handoff_delivery CLI and integrity tests",
+      "existing navigation APIs/import callers; AST unchanged"
+    ],
+    "invariants": [
+      "sequential current-byte handoffs",
+      "retain rejected/interrupted evidence",
+      "bounded retries; no unknown dispatch repeat",
+      "same signatures/callback contract",
+      "only zero-cost local/replay mode",
+      "exact source/delivery parity",
+      "separate delivery; no analytical rerun",
+      "native navigation unchanged"
+    ],
+    "handoff_winner": "Readability candidate: dataclasses.replace preserves the task fields without repeated positional reconstruction.",
+    "handoff_justification": [
+      "Same signature, callback inputs, feedback and immutable mappings.",
+      "Forty variant/scenario checks across two invocations each match outputs/errors/calls and exact retained files.",
+      "Shorter and clearer than manually copying all task fields; speed and memory alternatives have no demonstrated performance benefit."
+    ],
+    "run_handoffs_winner": "Incumbent holds.",
+    "run_handoffs_justification": [
+      "The proposed speed rewrite skips exact output reconstruction and admits forged pre-completion publication; rejected by a concrete failing adversarial test.",
+      "Memory-only and renamed-local readability alternatives each pass19 focused CP-OS tests but add no measured benefit sufficient to displace the explicit incumbent flow.",
+      "Separate adapter invocation, staged publication and exact re-verification remain visible in one function."
+    ],
+    "small_helpers": "Pinned-input/check/replay/CLI helpers and extracted delivery_files/verify_delivery covered by their callers and focused integrity tests; two most material functions selected under skill target cap.",
+    "final_code": {
+      "_handoff": {
+        "path": "src/deploy_workflow/owners/cpos.py",
+        "line": 109,
+        "code": "def _handoff(\n    task: HandoffTask,\n    directory: Path,\n    execute: Callable[[HandoffTask], bytes],\n    check: Callable[[HandoffTask, bytes], tuple[str, ...]],\n    max_attempts: int,\n) -> tuple[bytes, str]:\n    \"\"\"Retain before checking; resume checked bytes, never a half-finished call.\"\"\"\n    inputs = {\n        \"run\": task.run.model_dump(mode=\"json\"),\n        \"module_id\": task.module_id,\n        \"instructions\": task.instructions.decode(\"utf-8\"),\n        \"sources\": {k: _sha(v) for k, v in task.sources.items()},\n        \"handoffs\": {k: _sha(v) for k, v in task.handoffs.items()},\n    }\n    encoded = json.dumps(inputs, sort_keys=True).encode()\n    fingerprint = _sha(encoded)\n    folder = directory / \"requests\" / task.module_id / fingerprint\n    feedback: tuple[str, ...] = ()\n    for attempt in range(1, max_attempts + 1):\n        current = replace(task, attempt=attempt, feedback=feedback)\n        request_path = folder / f\"{attempt}.request.json\"\n        response_path = folder / f\"{attempt}.response.md\"\n        review_path = folder / f\"{attempt}.review.json\"\n        request = {**inputs, \"attempt\": attempt, \"feedback\": feedback}\n        raw_request = json.dumps(request, sort_keys=True, indent=2).encode()\n        already_started = request_path.exists()\n        _put(request_path, raw_request)\n        if response_path.exists():\n            response = response_path.read_bytes()\n        elif already_started:\n            raise ValueError(f\"cpos_interrupted: response not retained for {task.module_id}\")\n        else:\n            response = execute(current)\n            if not isinstance(response, bytes):\n                raise ValueError(\"cpos_response: executor must return bytes\")\n            _put(response_path, response)\n        if review_path.exists():\n            previous = json.loads(review_path.read_bytes())\n            if previous[\"response_sha256\"] != _sha(response):\n                raise ValueError(f\"cpos_response_changed: {task.module_id}\")\n        feedback = _checked_handoff(current, response, check)\n        review = {\"response_sha256\": _sha(response), \"issues\": feedback}\n        _put(review_path, json.dumps(review, sort_keys=True, indent=2).encode())\n        if not feedback:\n            return response, str(response_path.relative_to(directory))\n    raise ValueError(f\"cpos_module_failed: {task.module_id}: {'; '.join(feedback)}\")\n"
+      },
+      "run_handoffs": {
+        "path": "src/deploy_workflow/owners/cpos.py",
+        "line": 158,
+        "code": "def run_handoffs(\n    manifest: Path,\n    directory: Path,\n    *,\n    execute: Callable[[HandoffTask], bytes],\n    check: Callable[[HandoffTask, bytes], tuple[str, ...]],\n) -> Path:\n    \"\"\"CP-OS local exchange: plan, retain, check, pass current handoffs, deliver.\n\n    The executor must implement the declared local/replay mode, not call paid\n    providers. The required checker compares output with instructions/evidence;\n    Markdown shape alone is never analytical approval. Reusing this directory\n    rechecks retained answers. Changed instructions/sources invalidate the affected\n    requests and their actual consumers. All revisions remain retained. A crash\n    after dispatch without retained output refuses automatic repeat.\n    \"\"\"\n    request = HandoffPlan.model_validate_json(manifest.read_bytes())\n    if (\n        request.run.pathway != \"credit_snapshot\"\n        or request.run.case_kind != \"public\"\n        or request.run.requested_modules != PUBLIC_S1A_MODULES\n    ):\n        raise ValueError(\"cpos_scope: only the public five-section handoff snapshot is supported\")\n    ordered = tuple(m for m in plan(request.run.requested_modules) if m != \"CP-MODEL\")\n    if set(request.instructions) != set(ordered):\n        raise ValueError(\"cpos_instructions: exactly one pinned instruction per analytical module\")\n    sources = _pinned_inputs(manifest.parent, request.sources)\n    instructions = _pinned_inputs(manifest.parent, request.instructions)\n    for raw in instructions.values():\n        raw.decode(\"utf-8\")\n    identity = request.model_dump(mode=\"json\", exclude={\"sources\", \"instructions\"})\n    directory.mkdir(parents=True, exist_ok=True)\n    with _single_writer(directory):\n        _put(directory / \"identity.json\", json.dumps(identity, sort_keys=True).encode())\n        for raw in (*sources.values(), *instructions.values()):\n            _put(directory / \"inputs\" / _sha(raw), raw)\n        handoffs: dict[str, bytes] = {}\n        selected: dict[str, str] = {}\n        for module_id in ordered:\n            task = HandoffTask(\n                request.run,\n                module_id,\n                instructions[module_id],\n                MappingProxyType(sources),\n                MappingProxyType(dict(handoffs)),\n                1,\n                (),\n            )\n            raw, path = _handoff(task, directory, execute, check, request.max_attempts)\n            handoffs[module_id] = raw\n            selected[module_id] = path\n        delivery_request = DeliveryRequest(\n            run=request.run,\n            handoffs={\n                m: HandoffInput(path=selected[m], sha256=_sha(handoffs[m]))\n                for m in (\"CP-1\", \"CP-1A\", \"CP-2\")\n            },\n        )\n        delivery_raw = delivery_request.model_dump_json(indent=2).encode()\n        manifest_id = _sha(delivery_raw)\n        delivery_manifest = directory / f\"delivery-{manifest_id}.json\"\n        _put(delivery_manifest, delivery_raw)\n        publication = delivery_files(delivery_manifest)\n        delivery_id = _sha(\n            json.dumps(\n                {name: _sha(raw) for name, raw in publication.items()}, sort_keys=True\n            ).encode()\n        )\n        destination = directory / \"deliveries\" / delivery_id\n        if not destination.exists():\n            staging = directory / \"pending-deliveries\" / uuid4().hex\n            deliver(delivery_manifest, staging)\n            verify_delivery(delivery_manifest, staging)\n            destination.parent.mkdir(parents=True, exist_ok=True)\n            staging.rename(destination)\n        report = verify_delivery(delivery_manifest, destination)\n        completion = {\n            \"kind\": \"cpos-handoff-snapshot/1\",\n            \"execution\": request.execution,\n            \"scope\": \"public five-section snapshot; not full pathway/native Model publication\",\n            \"provider_cap_usd\": 0,\n            \"modules\": selected,\n            \"delivery_manifest_sha256\": manifest_id,\n            \"report_sha256\": _sha(report.read_bytes()),\n        }\n        _put(directory / f\"completed-{delivery_id}.json\", json.dumps(completion, indent=2).encode())\n        return report\n"
+      }
+    }
+  },
+  "checks": {
+    "focused_tests": "PYTHONPATH=src:tests:tests/prompts .venv/bin/pytest tests/test_cpos_handoffs.py tests/test_handoff_delivery.py tests/test_run_pathway.py::test_a_money_stop_on_the_call_that_ends_the_walk_stops_the_resume tests/test_run_pathway.py::test_a_live_run_resumed_offline_is_refused -q ->34passed.",
+    "lint": "ruff check on both production files and both affected test files ->passed.",
+    "typecheck": "mypy --follow-imports=silent on both production files ->success, no issues.",
+    "wider_run": "147passed,2failed, interrupted at129.85s while statement validation was active; not a full-suite result.",
+    "pre_edit_baseline": "Both named failures reproduce with exact pre-edit CP-OS/delivery modules:2failed in0.38s.",
+    "open_native_failures": [],
+    "no_running_test_job": "All test handles collected or deliberately interrupted; no background integrator.",
+    "fixture_alignment": {
+      "before_sha256": "c536046d26791463b16cd1172183ca57312f33dbc5fc18faa279b228afffd6c7",
+      "after_sha256": "2b51c5ca7139b38a57729f5caf3cee089bc78c7dfa1303ea13aaebc7611a1819",
+      "confirmed_roots": [
+        "UnknownCharge fixture300000 is now within the selected max_context_tokens1050000 with long-context rates, so current computed_usd correctly returns a charge and budget reports OverrunStop. Use1050001 to test unknown charge beyond priced context.",
+        "Retained run.json from the mocked-live test stops BudgetExhausted reserving6.724560 at cap5 before the injected second reservation. A local10USD test cap reaches the intended kill; the offline resume repeats that cap and tests the mode identity mismatch."
+      ],
+      "patch": "--- test_run_pathway.before.py\n+++ tests/test_run_pathway.py\n@@ -1349,7 +1349,8 @@\n @pytest.mark.parametrize(\n     (\"usage\", \"name\"),\n     [\n-        (pack_helpers.Usage(input_tokens=300_000, output_tokens=10), \"UnknownCharge\"),\n+        # The selected price table covers long context through 1,050,000 tokens.\n+        (pack_helpers.Usage(input_tokens=1_050_001, output_tokens=10), \"UnknownCharge\"),\n         (pack_helpers.Usage(input_tokens=100, output_tokens=10_000_000), \"OverrunStop\"),\n     ],\n     ids=[\"unknown\", \"overrun\"],\n@@ -1453,16 +1454,19 @@\n         raise AssertionError(\"the transport was called\")\n \n     live = adapter_module.live_adapter(MODEL, ruling, transport=transport, environ={})\n+    # Clear the current live worst-case reservation (6.724560 USD) so this test\n+    # reaches its intended second-reservation interruption rather than a cap stop.\n+    live_args = {**args, \"cap_usd\": Decimal(10)}\n     with monkeypatch.context() as m:\n         m.setattr(LiveAdapter, \"complete\", lambda self, request, **k: read_s1())\n         kill_at_reserve(m, 2)\n         with pytest.raises(Kill):\n-            run_pathway(**{**args, \"adapter\": live})\n+            run_pathway(**{**live_args, \"adapter\": live})\n     run_dir: Path = args[\"run_dir\"]\n     assert json.loads((run_dir / \"cap.json\").read_text())[\"mode\"] == \"live\"\n     before = files_under(run_dir)\n     with pytest.raises(rp.ResumeMismatch):\n-        run_pathway(**args, resume=True)\n+        run_pathway(**live_args, resume=True)\n     assert files_under(run_dir) == before\n \n \n",
+      "verification": "Three affected money/resume cases pass, including unchanged overrun case; final combined34tests pass. No pricing/budget production code edited. Confidence review traced both roots before fixture changes; rewrite-tournament exempt for test-only changes."
+    }
+  },
+  "browser": {
+    "result": "Actual browser shows all five requested report sections, candidate/historical limitations, maturity amounts6637/4768USDm and CP-2 assessment source quote/hash249d0cbdf1ba8159dcae68d4ff3241c73ea092ff66353c0c2eef08691e0afa57.",
+    "scope": "Read-only AX checks; not native financial typed-inspector qualification.",
+    "temporary_server": "Identified task http.server on127.0.0.1:8780 (PID84194), terminated; session49226 exited143; CUA completion summary recorded."
+  },
+  "next": "Exercise fresh host-session request/response through CP-OS, then further proven analytical links and requested Model/chart/pathway delivery."
+}

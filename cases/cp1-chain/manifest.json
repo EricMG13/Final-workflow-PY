@@ -1,0 +1,94 @@
+{
+  "schema": "cp1-chain-oracle-manifest/1",
+  "case_id": "public-tdg-fy2024-cp1-chain",
+  "expected_file": "expected.json",
+  "expected_sha256": "b31b0fc8c3828097087d88873526eaf2d5853d3a8577daf77b3add742e595b2b",
+  "reference_file": "tdg-financial-reference.json",
+  "reference_sha256": "b57f652715d10c86a034592f895560cc7373de8af118f5b3edfa363bc444eeb6",
+  "source": {
+    "source_id": "TDG-FY2024-10K",
+    "source_name": "TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+    "source_sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+    "physical_page_count": 160,
+    "page_text_sha256": {
+      "3": "120e071309506ed8c1682388ee2aa7e4a28f079c3a7a0f606849fc2e0c1889cc",
+      "105": "ca5cbb74dfd252410d3083e760ba4a7f373da8426a5e398f4bc90476891c52e1",
+      "106": "818cf7664e590be653536720e9b3e0aac0261379258d9a58d6059188075f478a",
+      "107": "a1ac387da8f2f99bb2990c8832e30b0b9a0d51feaa540ba4e936678514a8b529",
+      "109": "78a3614c3bf6a424d913eea9416f1e484cf223963bf84939a3fed5ba89d70859"
+    },
+    "extractor": "pypdf 6.21.2, layout mode, rotated text retained"
+  },
+  "statement_census": {
+    "BS": {
+      "page": 105,
+      "rows": 29,
+      "cells": 58
+    },
+    "IS": {
+      "page": 106,
+      "rows": 22,
+      "cells": 66
+    },
+    "CI": {
+      "page": 107,
+      "rows": 8,
+      "cells": 24
+    },
+    "CFS": {
+      "page": 109,
+      "rows": 44,
+      "cells": 132
+    },
+    "total_rows": 103,
+    "total_cells": 280
+  },
+  "fixtures": [
+    {
+      "path": "fixtures/allcaps-wrapped-prefix.txt",
+      "sha256": "2ff7d13508382a33ac5dd23bbd5a49860cf61fdc6a22c06d77284131637e9980",
+      "bytes": 246
+    },
+    {
+      "path": "fixtures/ambiguous-caption-row-refusal.txt",
+      "sha256": "2d87a3f0a8456b45d205bf78c0983ea80bdd70f5f7a2bb71db40eefa9e4e6e6c",
+      "bytes": 194
+    },
+    {
+      "path": "fixtures/blank-table-boundary.txt",
+      "sha256": "94025ad74a5aca23f814511d28ba5eb37ad4f4fe186f396ebb4d2c2209594052",
+      "bytes": 148
+    },
+    {
+      "path": "fixtures/digit-bearing-continuation.txt",
+      "sha256": "611a22de32762ad4ee550f1b19bd21a396100f45febf32f3e9523ee432f5be3b",
+      "bytes": 211
+    },
+    {
+      "path": "fixtures/line-citation.txt",
+      "sha256": "2e7910ad4c9ffe12aea50c4d4c2e6c2ce5f45494e57fbb6f12b1d10ebe3ca083",
+      "bytes": 165
+    },
+    {
+      "path": "fixtures/mixed-entity-columns-refusal.txt",
+      "sha256": "84e37ff57090951403c78691a360c270ed617fb70a01c98d72a62f769cd0b3d1",
+      "bytes": 170
+    },
+    {
+      "path": "fixtures/note-column-vs-amount.txt",
+      "sha256": "ae12af9eba1eab6af2cca55df1ef16250ecc34703f9f5af8739b89dbc3f5160d",
+      "bytes": 201
+    },
+    {
+      "path": "fixtures/page-citation.txt",
+      "sha256": "c3912c2c7ef5e4f801c31adc475970f5675e3fbf663812c359e041284f8f159c",
+      "bytes": 137
+    },
+    {
+      "path": "fixtures/true-caption-not-merged.txt",
+      "sha256": "585be99836ba9fb855ed71aacfdf1b5c08f67b813d264839833c52130937dc56",
+      "bytes": 178
+    }
+  ],
+  "privacy": "Offline local public-corpus source read only. No provider, credential, network, install or OCR use."
+}

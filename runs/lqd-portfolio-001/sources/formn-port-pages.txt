@@ -1,0 +1,684 @@
+
+[PDF page 1]
+ 
+UNITED STATES  
+SECURITIES AND EXCHANGE COMMISSION  
+Washington , DC 20549 
+ 
+ 
+FORM N- PORT
+This is a reference copy of Form N-PORT. You may not send a completed printout of this form to the SEC to satisfy a filing obligation. You can 
+only satisfy an SEC filing obligation by submitting the information required by this form to the SEC in electronic format online at 
+https://www.edgarfiling.sec.gov.  
+ 
+This version of Form N-PORT is effective December 11, 2023 and includes amendments pursuant to Investment Company Names, Investment 
+Company Act Release No. 35000 [88 FR 70436 (Oct. 11, 2023)]. More information about compliance dates and the amendments the Commission 
+adopted may be found in this release. 
+
+[PDF page 2]
+Persons who respond to the collection of information contained in this form are not required to 
+respond unless the form displays a currently valid OMB control number.  
+SEC 2940 (12/23) 
+OMB APPROVAL 
+OMB Number: 3235-0730 
+Expires:        Nov. 30, 2027 
+Estimated average burden 
+hours per response 13 
+UNITED
+ STATES 
+SECURITIES AND EXCHANGE COMMISSION 
+Washington, D.C. 20549 
+F
+ORM N -PORT  
+MONTHLY PORTFOLIO INVESTMENTS REPORT  
+Fo
+rm N-PORT is to be used by a registered management investment company, or an 
+exchange-traded fund organized as a unit investment trust, or series thereof (“Fund”), other than 
+a Fund that is regulated as a money market fund (“money market fund”) under rule 2a-7 under 
+the Investment Company Act of 1940 [15 U.S.C. 80a] (“Act”) (17 CFR 270.2a-7) or a small 
+business investment company (“SBIC”) registered on Form N-5 (17 CFR 239.24 and 274.5), to 
+file reports of monthly portfolio holdings pursuant to rule 30b1-9 under the Act (17 CFR 
+270.30b1-9). The Commission may use the information provided on Form N-PORT in its 
+regulatory, enforcement, examination, disclosure review, inspection, and policymaking roles.  
+GENERAL INSTRUCTIONS  
+A. Rule as to Use of Form N-PORT
+Form N-PORT is the reporting form that is to be used for monthly reports of Funds other
+than money market funds and SBICs under section 30(b) of the Act, as required by rule 30b1-9 
+under the Act (17 CFR 270.30b1-9). Funds must report information quarterly about their 
+portfolios and each of their portfolio holdings as of the last business day, or last calendar day, of 
+each month, other than the information reported in Items B.11 and C.2.e, which Funds must 
+report quarterly about their portfolios and each of their portfolio holdings as of the last business 
+day, or calendar day, of the third month of the quarter. A registered investment company that has 
+filed a registration statement with the Commission registering its securities for the first time 
+under the Securities Act of 1933 is relieved of this reporting obligation with respect to any 
+reporting period or portion thereof prior to the date on which that registration statement becomes 
+effective or is withdrawn. 
+Reports on Form N-PORT must disclose portfolio information as calculated by the fund for 
+the reporting period’s ending net asset value (commonly, and as permitted by rule 2a-4, the first 
+business day following the trade date). A Fund must maintain in its records the information that 
+is required to be included on Form N-PORT no later than 30 days after the end of each month, 
+
+[PDF page 3]
+ 
+2 
+other than the information reported in Items B.11 and C.2.e which is required to be maintained 
+no later than 30 days after the end of each quarter. Such information shall be treated as a record 
+under section 31(a)(1) of the Act and rule 31a-1(b) thereunder subject to the requirements of rule 
+31a-2(a)(2). Reports on Form N-PORT for each month in each fiscal quarter of a fund must be 
+filed with the Commission no later than 60 days after the end of such fiscal quarter. If the due 
+date falls on a weekend or holiday, the filing deadline will be the next business day.  
+A Fund may file an amendment to a previously filed report at any time, including an 
+amendment to correct a mistake or error in a previously filed report. A Fund that files an 
+amendment to a previously filed report must provide information in response to all items of 
+Form N-PORT, regardless of why the amendment is filed. 
+B. Application of General Rules and Regulations  
+The General Rules and Regulations under the Act contain certain general requirements that 
+are applicable to reporting on any form under the Act. These general requirements shall be 
+carefully read and observed in the preparation and filing of reports on this Form, except that any 
+provision in the Form or in these instructions shall be controlling.  
+C. Filing of Reports  
+Reports must be filed electronically using the Commission’s Electronic Data Gathering, 
+Analysis, and Retrieval (“EDGAR”) system in accordance with Regulation S-T.  Consult the 
+EDGAR Filer Manual and Appendices for EDGAR filing instructions. 
+D. Paperwork Reduction Act Information  
+A Fund is not required to respond to the collection of information contained in Form N-
+PORT unless the form displays a currently valid Office of Management and Budget (“OMB”) 
+control number.  Please direct comments concerning the accuracy of the information collection 
+burden estimate and any suggestions for reducing the burden to the Secretary, Securities and 
+Exchange Commission, Washington, DC 20549.  OMB has reviewed this collection of 
+information under the clearance requirements of 44 U.S.C. 3507.  
+E. Definitions  
+References to sections and rules in this Form N-PORT are to the Act, unless otherwise 
+indicated.  Terms used in this Form N-PORT have the same meanings as in the Act or related 
+rules (including rule 18f-4 solely for Items B.9 and 10 of the Form), unless otherwise indicated.  
+As used in this Form N-PORT, the terms set out below have the following meanings:  
+“Absolute VaR Test” has the meaning defined in rule 18f-4(a) [17 CFR 270.18f-4(a)]. 
+“Class” means a class of shares issued by a Fund that has more than one class that represents 
+interests in the same portfolio of securities under rule 18f-3 [17 CFR 270.18f-3] or under an 
+order exempting the Fund from provisions of section 18 of the Act [15 U.S.C. 80a-18]. 
+
+[PDF page 4]
+ 
+3 
+“Controlled Foreign Corporation” has the meaning provided in section 957 of the Internal 
+Revenue Code [26 U.S.C. 957]. 
+“Derivatives Exposure” has the meaning defined in rule 18f-4(a) [17 CFR 270.18f-4(a)]. 
+“Designated Index” has the meaning defined in rule 18f-4(a) [17 CFR 270.18f-4(a)]. 
+“Designated Reference Portfolio” has the meaning defined in rule 18f-4(a) [17 CFR 270.18f-
+4(a)] 
+“Exchange-Traded Fund” means an open-end management investment company (or Series or 
+Class thereof) or unit investment trust (or series thereof), the shares of which are listed and 
+traded on a national securities exchange at market prices, and that has formed and operates under 
+an exemptive order under the Act granted by the Commission or in reliance on an exemptive rule 
+under the Act adopted by the Commission.  
+“Fund” means the Registrant or a separate Series of the Registrant.  When an item of Form 
+N-PORT specifically applies to a Registrant or a Series, those terms will be used.  
+“Highly Liquid Investment Minimum” has the meaning defined in rule 22e-4(a)(7) [17 CFR 
+270.22e-4(a)(7)]. 
+“Illiquid Investment” has the meaning defined in rule 22e-4(a)(8) [17 CFR 270.22e-4(a)(8)].  
+“ISIN” means, with respect to any security, the “international securities identification 
+number” assigned by a national numbering agency, partner, or substitute agency that is 
+coordinated by the Association of National Numbering Agencies.  
+“LEI” means, with respect to any company, the “legal entity identifier” as assigned by a 
+utility endorsed by the Global LEI Regulatory Oversight Committee or accredited by the Global 
+LEI Foundation.  In the case of a financial institution, if a “legal entity identifier” has not been 
+assigned, then provide the RSSD ID, if any, assigned by the National Information Center of the 
+Board of Governors of the Federal Reserve System.  
+“Multiple Class Fund” means a Fund that has more than one Class. 
+“Registrant” means a management investment company, or an Exchange-Traded Fund 
+organized as a unit investment trust, registered under the Act. 
+“Relative VaR Test” has the meaning defined in rule 18f-4(a) [17 CFR 270.18f-4(a)]. 
+“Restricted Security” has the meaning defined in rule 144(a)(3) under the Securities Act of 
+1933 [17 CFR 230.144(a)(3)]. 
+“Securities Portfolio” has the meaning defined in rule 18f-4(a) [17 CFR 270.18f-4(a)]. 
+“Series” means shares offered by a Registrant that represent undivided interests in a portfolio 
+of investments and that are preferred over all other series of shares for assets specifically 
+allocated to that series in accordance with rule 18f-2(a) [17 CFR 270.18f-2(a)].  
+
+[PDF page 5]
+ 
+4 
+“Swap” means either a “security-based swap” or a “swap” as defined in sections 3(a)(68) and 
+(69) of the Securities Exchange Act of 1934 [15 U.S.C. 78c(a)(68) and (69)] and any rules, 
+regulations, or interpretations of the Commission with respect to such instruments.  
+“Value-at-Risk” or VaR has the meaning defined in rule 18f-4(a) [17 CFR 270.18f-4(a)]. 
+“VaR Ratio” means the value of the Fund’s portfolio VaR divided by the VaR of the 
+Designated Reference Portfolio. 
+F. Public Availability 
+Information reported on Form N-PORT for the third month of each Fund’s fiscal quarter will 
+be made publicly available upon filing. 
+The SEC does not intend to make public the information reported on Form N-PORT for the 
+first and second months of each Fund’s fiscal quarter that is identifiable to any particular fund or 
+adviser, or any information reported with respect to a Fund’s Highly Liquid Investment 
+Minimum (Item B.7), derivatives transactions (Item B.8), Derivatives Exposure for limited 
+derivatives users (Item B.9), median daily VaR (Item B.10.a), median VaR Ratio (Item 
+B.10.b.iii), VaR backtesting results (Item B.10.c), country of risk and economic exposure (Item 
+C.5.b), delta (Items C.9.f.v, C.11.c.vii, or C.11.g.iv), liquidity classification for portfolio 
+investments (Item C.7), or miscellaneous securities (Part D), or explanatory notes related to any 
+of those topics (Part E) that is identifiable to any particular fund or adviser. However, the SEC 
+may use information reported on this Form in its regulatory programs, including examinations, 
+investigations, and enforcement actions. 
+G. Responses to Questions 
+In responding to the items on this Form, the following guidelines apply unless otherwise 
+specifically indicated:  
+• Funds may respond to this Form using their own internal methodologies and the conventions 
+of their service providers, provided the information is consistent with information that they 
+report internally and to current and prospective investors. However, the methodologies and 
+conventions must be consistently applied and the Fund’s responses must be consistent with 
+any instructions or other guidance relating to this Form. A Fund may explain any of its 
+methodologies, including related assumptions, in Part E. 
+• A Fund is not required to respond to an item that is wholly inapplicable (for example, no 
+response would be required for Item C.11 when reporting information about an investment 
+that is not a derivative).  If a sub-item requests information that is not applicable (for 
+example, an LEI for a counterparty that does not have an LEI), respond N/A; 
+• If an item requests the name of an entity, provide the full name to the extent known, and do 
+not use abbreviations (other than abbreviations that are part of the full name); 
+
+[PDF page 6]
+ 
+5 
+• If an item requests information expressed as a percentage, enter the response as a percentage 
+(not a decimal), (e.g., 5.27%);  
+• For currencies other than U.S. dollars, also report the applicable three-letter alphabetic 
+currency code pursuant to the International Organization for Standardization (“ISO”) 4217 
+standard; 
+• If an item requests a unique identifier, such an identifier may be internally generated by the 
+Fund or provided by a third party, but should be consistently used across the Fund’s filings 
+for reporting that investment so that the Commission, investors, and other users of the 
+information can track the investment from report to report; 
+• If an item requests a date, provide information in yyyy/mm/dd format; and 
+• If an item requests information regarding a “holding” or “investment,” separately report 
+information as to each holding or investment that is recorded in the Fund’s books as part of a 
+larger transaction.  For example, two or more partially offsetting legs of a transaction entered 
+into with the same counterparty under a common master agreement shall each be separately 
+reported.  
+
+[PDF page 7]
+ 
+6 
+UNITED STATES  
+SECURITIES AND EXCHANGE COMMISSION  
+WASHINGTON, DC 20549 
+FORM N -PORT  
+MONTHLY SCHEDULE OF PORTFOLIO INVESTMENTS  
+Part A: General Information  
+Item A.1. Information about the Registrant. 
+a. Name of Registrant. 
+b. Investment Company Act file number for Registrant:  (e.g., 811-___________).  
+c. CIK number of Registrant. 
+d. LEI of Registrant. 
+e. Address and telephone number of Registrant. 
+Item A.2. Information about the Series. 
+a. Name of Series. 
+b. EDGAR series identifier (if any). 
+c. LEI of Series. 
+Item A.3. Reporting period. 
+a. Date of fiscal year-end. 
+b. Date as of which information is reported.  
+Item A.4. Does the Fund anticipate that this will be its final filing on Form N-PORT?  [Y/N]   
+Part B: Information About the Fund  
+Report the following information for the Fund and its consolidated subsidiaries. 
+Item B.1. Assets and liabilities.  Report amounts in U.S. dollars. 
+a. Total assets, including assets attributable to miscellaneous securities reported in Part D.   
+b. Total liabilities. 
+c. Net assets.   
+Item B.2. Certain assets and liabilities.  Report amounts in U.S. dollars. 
+a. Assets attributable to miscellaneous securities reported in Part D. 
+
+[PDF page 8]
+ 
+7 
+b. Assets invested in a Controlled Foreign Corporation for the purpose of investing in 
+certain types of instruments such as, but not limited to, commodities. 
+c. Borrowings attributable to amounts payable for notes payable, bonds, and similar debt, as 
+reported pursuant to rule 6-04(13)(a) of Regulation S-X [17 CFR 210.6-04(13)(a)]. 
+d. Payables for investments purchased either (i) on a delayed delivery, when-issued, or other 
+firm commitment basis, or (ii) on a standby commitment basis. 
+e. Liquidation preference of outstanding preferred stock issued by the Fund. 
+f. Cash and cash equivalents not reported in Parts C and D. 
+Item B.3. Portfolio level risk metrics.  If the average value of the Fund’s debt securities 
+positions for the previous three months, in the aggregate, exceeds 25% or more of 
+the Fund’s net asset value, provide: 
+a. Interest Rate Risk (DV01).  For each currency for which the Fund had a value of 1% or 
+more of the Fund’s net asset value, provide the change in value of the portfolio resulting 
+from a 1 basis point change in interest rates, for each of the following maturities:  3 
+month, 1 year, 5 years, 10 years, and 30 years. 
+b. Interest Rate Risk (DV100).  For each currency for which the Fund had a value of 1% or 
+more of the Fund’s net asset value, provide the change in value of the portfolio resulting 
+from a 100 basis point change in interest rates, for each of the following maturities: 3 
+month, 1 year, 5 years, 10 years, and 30 years. 
+c. Credit Spread Risk (SDV01, CR01 or CS01).  Provide the change in value of the 
+portfolio resulting from a 1 basis point change in credit spreads where the shift is applied 
+to the option adjusted spread, aggregated by investment grade and non-investment grade 
+exposures, for each of the following maturities:  3 month, 1 year, 5 years, 10 years, and 
+30 years. 
+For purposes of Item B.3., calculate value as the sum of the absolute values of:  (i) the value 
+of each debt security, (ii) the notional value of each swap, including, but not limited to, total 
+return swaps, interest rate swaps, and credit default swaps, for which the underlying 
+reference asset or assets are debt securities or an interest rate; (iii) the notional value of each 
+futures contract for which the underlying reference asset or assets are debt securities or an 
+interest rate; and (iv) the delta-adjusted notional value of any option for which the underlying 
+reference asset is an asset described in clause (i),(ii), or (iii).  Report zero for maturities to 
+which the Fund has no exposure.  For exposures that fall between any of the listed maturities 
+in (a) and (b), use linear interpolation to approximate exposure to each maturity listed above. 
+For exposures outside of the range of maturities listed above, include those exposures in the 
+nearest maturity. 
+
+[PDF page 9]
+ 
+8 
+Item B.4. Securities lending.   
+a. For each borrower in any securities lending transaction, provide the following 
+information: 
+i. Name of borrower. 
+ii. LEI (if any) of borrower. 
+iii. Aggregate value of all securities on loan to the borrower. 
+b. Did any securities lending counterparty provide any non-cash collateral?  [Y/N]  If yes, 
+unless the non-cash collateral is included in the Schedule of Portfolio Investments in Part 
+C, provide the following information for each category of non-cash collateral received for 
+loaned securities: 
+i. Aggregate principal amount. 
+ii. Aggregate value of collateral. 
+iii. Category of investments that most closely represents the collateral, selected from 
+among the following (asset-backed securities; agency collateralized mortgage 
+obligations; agency debentures and agency strips; agency mortgage-backed securities; 
+U.S. Treasuries (including strips); other instrument).  If “other instrument,” include a 
+brief description, including, if applicable, whether it is an irrevocable letter of credit. 
+Item B.5. Return information.   
+a. Monthly total returns of the Fund for each of the preceding three months.  If the Fund is a 
+Multiple Class Fund, report returns for each Class.  Such returns shall be calculated in 
+accordance with the methodologies outlined in Item 26(b)(1) of Form N-1A, Instruction 
+13 to sub-Item 1 of Item 4 of Form N-2, or Item 26(b)(i) of Form N-3, as applicable. 
+b. Class identification number(s) (if any) of the Class(es) for which returns are reported.   
+c. For each of the preceding three months, monthly net realized gain (loss) and net change 
+in unrealized appreciation (or depreciation) attributable to derivatives for each of the 
+following asset categories:  commodity contracts, credit contracts, equity contracts, 
+foreign exchange contracts, interest rate contracts, and other contracts.   Within each such 
+asset category, further report the same information for each of the following types of 
+derivatives instrument:  forward, future, option, swaption, swap, warrant, and other.  
+Report in U.S. dollars.  Losses and depreciation shall be reported as negative numbers.  
+d. For each of the preceding three months, monthly net realized gain (loss) and net change 
+in unrealized appreciation (or depreciation) attributable to investments other than 
+derivatives.  Report in U.S. dollars.  Losses and depreciation shall be reported as negative 
+numbers.  
+Item B.6. Flow information.  Provide the aggregate dollar amounts for sales and 
+redemptions/repurchases of Fund shares during each of the preceding three 
+
+[PDF page 10]
+ 
+9 
+months.  If shares of the Fund are held in omnibus accounts, for purposes of 
+calculating the Fund’s sales, redemptions, and repurchases, use net sales or 
+redemptions/repurchases from such omnibus accounts.  The amounts to be 
+reported under this Item should be after any front-end sales load has been 
+deducted and before any deferred or contingent deferred sales load or charge has 
+been deducted.  Shares sold shall include shares sold by the Fund to a registered 
+unit investment trust.  For mergers and other acquisitions, include in the value of 
+shares sold any transaction in which the Fund acquired the assets of another 
+investment company or of a personal holding company in exchange for its own 
+shares.  For liquidations, include in the value of shares redeemed any transaction 
+in which the Fund liquidated all or part of its assets.  Exchanges are defined as the 
+redemption or repurchase of shares of one Fund or series and the investment of all 
+or part of the proceeds in shares of another Fund or series in the same family of 
+investment companies.   
+a. Total net asset value of shares sold (including exchanges but excluding reinvestment of 
+dividends and distributions).   
+b. Total net asset value of shares sold in connection with reinvestments of dividends and 
+distributions.   
+c. Total net asset value of shares redeemed or repurchased, including exchanges.   
+Item B.7. Highly Liquid Investment Minimum information. 
+a. If applicable, provide the Fund’s current Highly Liquid Investment Minimum. 
+b. If applicable, provide the number of days that the Fund’s holdings in Highly Liquid 
+Investments fell below the Fund’s Highly Liquid Investment Minimum during the 
+reporting period. 
+c. Did the Fund’s Highly Liquid Investment Minimum change during the reporting period?  
+[Y/N] 
+i. If yes, provide any Highly Liquid Investment Minimums set by the Fund during the 
+reporting period. 
+Item B.8. Derivatives Transactions. For portfolio investments of open-end management 
+investment companies, provide the percentage of the Fund’s Highly Liquid 
+Investments that it has pledged as margin or collateral in connection with 
+derivatives transactions that are classified among the following categories as 
+specified in rule 22e-4 [17 CFR 270.22e-4]:  
+1. Moderately Liquid Investments  
+2. Less Liquid Investments   
+3. Illiquid Investments 
+
+[PDF page 11]
+ 
+10 
+For purposes of Item B.8, when computing the required percentage, the 
+denominator should only include assets (and exclude liabilities) that are 
+categorized by the Fund as Highly Liquid Investments. 
+Item B.9. Derivatives Exposure for limited derivatives users. If the Fund is excepted 
+from the rule 18f-4 [17 CFR 270.18f-4] program requirement and limit on fund 
+leverage risk under rule 18f-4(c)(4) [17 CFR 270.18f-4(c)(4)], provide the 
+following information: 
+a. Derivatives exposure (as defined in rule 18f-4(a) [17 CFR 270.18f-4(a)]), reported as a 
+percentage of the Fund’s net asset value. 
+b. Exposure from currency derivatives that hedge currency risks, as provided in rule 18f-
+4(c)(4)(i)(B) [17 CFR 270.18f-4(c)(4)(i)(B)], reported as a percentage of the Fund’s net 
+asset value. 
+c. Exposure from interest rate derivatives that hedge interest rate risks, as provided in rule 
+18f-4(c)(4)(i)(B) [17 CFR 270.18f-4(c)(4)(i)(B)], reported as a percentage of the Fund’s 
+net asset value. 
+d. The number of business days, if any, in excess of the five-business-day period described 
+in rule 18f-4(c)(4)(ii) [17 CFR 270.18f-4(c)(4)(ii)], that the Fund’s derivatives exposure 
+exceeded 10 percent of its net assets during the reporting period. 
+Item B.10. VaR information. For Funds subject to the limit on fund leverage risk 
+described in rule 18f-4(c)(2) [17 CFR 270.18f-4(c)(2)], provide the following 
+information, as determined in accordance with the requirement under rule 18f-
+4(c)(2)(ii) to determine the fund’s compliance with the applicable VaR test at 
+least once each business day:  
+a. Median daily VaR during the reporting period, reported as a percentage of the Fund’s net 
+asset value. 
+b. For Funds that were subject to the Relative VaR Test during the reporting period, 
+provide: 
+i. As applicable, the name of the Fund’s Designated Index, or a statement that the 
+Fund’s Designated Reference Portfolio is the Fund’s Securities Portfolio. 
+ii. As applicable, the index identifier for the Fund’s Designated Index. 
+iii. Median VaR Ratio during the reporting period, reported as a percentage of the VaR 
+of the Fund’s Designated Reference Portfolio. 
+c. Backtesting Results. Number of exceptions that the Fund identified as a result of its 
+backtesting of its VaR calculation model (as described in rule 18f-4(c)(1)(iv) [17 CFR 
+270.18f-4(c)(1)(iv)] during the reporting period. 
+
+[PDF page 12]
+ 
+11 
+[Effective December 11, 2023, new Item B.11 appears as follows, pursuant to Investment 
+Company Names, Investment Company Act Release No. 35000 (Sept. 20, 2023) [88 FR 70436 
+(Oct. 11, 2023)]. More information about compliance dates may be found in this release.] 
+Item B.11. Investment Company Act Names Rule Investment Policy. If the Fund is required 
+to adopt a policy as described in rule 35d-1(a)(2)(i) or (a)(3)(i) [17 CFR 270.35d-
+1(a)(2)(i) or (3)(i)], provide the following: 
+a. The definitions of the terms used in the Fund’s name, including the specific criteria the 
+Fund uses to select the investments the term describes, if any; and 
+b. The value of the Fund’ 80% basket, as defined in rule 35d-1(g)(1), as a percentage of the 
+value of the Fund’s assets. 
+Instruction to Item B.11: Consistent with rule 35d-1(g)(2), if the Fund uses a derivatives 
+instrument’s notional amount (which must be converted to 10-year bond equivalents for interest 
+rate derivatives and delta adjusted for options contracts) and/or values a physical short position 
+using the value of the asset sold short, for purposes of determining the fund’s compliance with an 
+investment policy adopted under rule 35d-1(a)(2)(i) or (a)(3)(i)(A), the percentage that the Fund 
+reports in response to Item B.11.b must reflect the use of notional amounts with certain 
+adjustments (and/or the value of the asset sold short) as set forth above. This percentage also 
+must reflect any reduction of the value of the Fund’s assets resulting from, as applicable, the 
+fund’s exclusion of cash and cash equivalents and U.S. Treasury securities with remaining 
+maturities of one year or less, closed-out derivatives positions, and currency derivatives 
+instruments, each as provided in rule 35d-1(g)(2). 
+Part C: Schedule of Portfolio Investments 
+For each investment held by the Fund and its consolidated subsidiaries, disclose the information 
+requested in Part C.  A Fund may report information for securities in an aggregate amount not 
+exceeding five percent of its total assets as miscellaneous securities in Part D in lieu of reporting 
+those securities in Part C, provided that the securities so listed are not restricted, have been held 
+for not more than one year prior to the end of the reporting period covered by this report, and 
+have not been previously reported by name to the shareholders of the Fund or to any exchange, 
+or set forth in any registration statement, application, or report to shareholders  or otherwise 
+made available to the public.   
+Item C.1. Identification of investment. 
+a. Name of issuer (if any).   
+b. LEI (if any) of issuer.  In the case of a holding in a fund that is a series of a series trust, 
+report the LEI of the series. 
+c. Title of the issue or description of the investment. 
+
+[PDF page 13]
+ 
+12 
+d. CUSIP (if any). 
+e. At least one of the following other identifiers: 
+i. ISIN. 
+ii. Ticker (if ISIN is not available). 
+iii. Other unique identifier (if ticker and ISIN are not available).  Indicate the type of 
+identifier used. 
+Item C.2. Amount of each investment. 
+a. Balance.  Indicate whether amount is expressed in number of shares, principal amount, or 
+other units.  For derivatives contracts, as applicable, provide the number of contracts. 
+b. Currency.  Indicate the currency in which the investment is denominated. 
+c. Value.  Report values in U.S. dollars.  If currency of investment is not denominated in 
+U.S. dollars, provide the exchange rate used to calculate value. 
+d. Percentage value compared to net assets of the Fund. 
+[Effective December 11, 2023, new Item C.2.e appears as follows, pursuant to Investment 
+Company Names, Investment Company Act Release No. 35000 (Sept. 20, 2023) [88 FR 70436 
+(Oct. 11, 2023)]. More information about compliance dates may be found in this release.] 
+e. If the Fund is required to adopt a policy as described in rule 35d-1(a)(2)(i) or (a)(3)(i) [17 
+CFR 270.35d-1(a)(2)(i) or (3)(i)], is the investment included in the Fund’s 80% basket, as 
+defined in rule 35d-1(g), as applicable? [Y/N] 
+Item C.3. Indicate payoff profile among the following categories (long, short, N/A).  For 
+derivatives, respond N/A to this Item and respond to the relevant payoff profile 
+question in Item C.11. 
+Item C.4. Asset and issuer type.  Select the category that most closely identifies the 
+instrument among each of the following: 
+a. Asset type (short-term investment vehicle (e.g., money market fund, liquidity pool, or 
+other cash management vehicle), repurchase agreement, equity-common, equity-
+preferred, debt, derivative-commodity, derivative-credit, derivative-equity, derivative-
+foreign exchange, derivative-interest rate, derivatives-other, structured note, loan, ABS-
+mortgage backed security, ABS-asset backed commercial paper, ABS-collateralized 
+bond/debt obligation, ABS-other, commodity, real estate, other).  If “other,” provide a 
+brief description. 
+b. Issuer type (corporate, U.S. Treasury, U.S. government agency, U.S. government 
+sponsored entity, municipal, non-U.S. sovereign, private fund, registered fund, other).  If 
+“other,” provide a brief description.  
+
+[PDF page 14]
+ 
+13 
+Item C.5. Country of investment or issuer.   
+a. Report the ISO country code that corresponds to the country where the issuer is 
+organized.   
+b. If different from the country where the issuer is organized, also report the ISO country 
+code that corresponds to the country of investment or issuer based on the concentrations 
+of the risk and economic exposure of the investments.   
+Item C.6. Is the investment a Restricted Security?  [Y/N] 
+Item C.7.  
+a. Liquidity classification information.  For portfolio investments of open-end management 
+investment companies, provide the liquidity classification(s) for each portfolio 
+investment among the following categories as specified in rule 22e-4 [17 CFR 270.22e-
+4]. For portfolio investments with multiple liquidity classifications, indicate the 
+percentage amount attributable to each classification. 
+i. Highly Liquid Investments  
+ii. Moderately Liquid Investments  
+iii. Less Liquid Investments  
+iv. Illiquid Investments 
+b. If attributing multiple classification categories to the holding, indicate which of the three 
+circumstances listed in the Instructions to Item C.7 is applicable.  
+Instructions to Item C. 7 Funds may choose to indicate the percentage amount of a holding 
+attributable to multiple classification categories only in the following circumstances: (1) if 
+portions of the position have differing liquidity features that justify treating the portions 
+separately; (2) if a fund has multiple sub-advisers with differing liquidity views; or (3) if the 
+fund chooses to classify the position through evaluation of how long it would take to 
+liquidate the entire position (rather than basing it on the sizes it would reasonably anticipated 
+trading). In (1) and (2), a fund would classify using the reasonably anticipated trade size for 
+each portion of the position. 
+Item C.8. Indicate the level within the fair value hierarchy in which the fair value 
+measurements fall pursuant to U.S. Generally Accepted Accounting Principles 
+(ASC 820, Fair Value Measurement).  [1/2/3]  Report “N/A” if the investment 
+does not have a level associated with it (i.e., net asset value used as the practical 
+expedient). 
+Item C.9. For debt securities, also provide: 
+a. Maturity date. 
+b. Coupon. 
+
+[PDF page 15]
+ 
+14 
+i. Select the category that most closely reflects the coupon type among the following 
+(fixed, floating, variable, none). 
+ii. Annualized rate. 
+c. Currently in default?  [Y/N] 
+d. Are there any interest payments in arrears or have any coupon payments been legally 
+deferred by the issuer?  [Y/N]  
+e. Is any portion of the interest paid in kind?  [Y/N]  Enter “N” if the interest may be paid in 
+kind but is not actually paid in kind or if the Fund has the option of electing in-kind 
+payment and has elected to be paid in-kind. 
+f. For convertible securities, also provide: 
+i. Mandatory convertible?  [Y/N] 
+ii. Contingent convertible?  [Y/N] 
+iii. Description of the reference instrument, including the name of issuer, title of issue, 
+and currency in which denominated, as well as CUSIP of reference instrument, ISIN 
+(if CUSIP is not available), ticker (if CUSIP and ISIN are not available), or other 
+identifier (if CUSIP, ISIN, and ticker are not available).  If other identifier provided, 
+indicate the type of identifier used. 
+iv. Conversion ratio per US$1000 notional, or, if bond currency is not in U.S. dollars, per 
+1000 units of the relevant currency, indicating the relevant currency.  If there is more 
+than one conversion ratio, provide each conversion ratio. 
+v. Delta (if applicable). 
+Item C.10. For repurchase and reverse repurchase agreements, also provide: 
+a. Select the category that reflects the transaction (repurchase, reverse repurchase).  Select 
+“repurchase agreement” if the Fund is the cash lender and receives collateral.  Select 
+“reverse repurchase agreement” if the Fund is the cash borrower and posts collateral. 
+b. Counterparty.   
+i. Cleared by central counterparty?  [Y/N]  If Y, provide the name of the central 
+counterparty.   
+ii. If N, provide the name and LEI (if any) of counterparty. 
+c. Tri-party?  [Y/N] 
+d. Repurchase rate. 
+e. Maturity date. 
+f. Provide the following information concerning the securities subject to the repurchase 
+agreement (i.e., collateral).  If multiple securities of an issuer are subject to the 
+
+[PDF page 16]
+ 
+15 
+repurchase agreement, those securities may be aggregated in responding to Items 
+C.10.f.i-iii.  
+i. Principal amount. 
+ii. Value of collateral. 
+iii. Category of investments that most closely represents the collateral, selected from 
+among the following (asset-backed securities; agency collateralized mortgage 
+obligations; agency debentures and agency strips; agency mortgage-backed securities; 
+private label collateralized mortgage obligations; corporate debt securities; equities; 
+money market; U.S. Treasuries (including strips); other instrument).  If “other 
+instrument,” include a brief description, including, if applicable, whether it is a 
+collateralized debt obligation, municipal debt, whole loan, or international debt. 
+Item C.11. For derivatives, also provide: 
+a. Type of derivative instrument that most closely represents the investment, selected from 
+among the following (forward, future, option, swaption, swap (including but not limited 
+to total return swaps, credit default swaps, and interest rate swaps), warrant, other).  If 
+“other,” provide a brief description. 
+b. Counterparty. 
+i. Provide the name and LEI (if any) of counterparty (including a central counterparty). 
+c. For options and warrants, including options on a derivative (e.g., swaptions) provide: 
+i. Type, selected from among the following (put, call).  Respond call for warrants. 
+ii. Payoff profile, selected from among the following (written, purchased).  Respond 
+purchased for warrants. 
+iii. Description of reference instrument.   
+1. If the reference instrument is a derivative, indicate the category of derivative from 
+among the categories listed in sub-Item C.11.a. and provide all information 
+required to be reported on this Form for that category.   
+2. If the reference instrument is an index or custom basket, and if the index’s or 
+custom basket’s components are publicly available on a website and are updated 
+on that website no less frequently than quarterly, identify the index and provide 
+the index identifier, if any.  If the index’s or custom basket’s components are not 
+publicly available in that manner, and the notional amount of the derivative 
+represents 1% or less of the net asset value of the Fund, provide a narrative 
+description of the index.  If the index’s or custom basket’s components are not 
+publicly available in that manner, and the notional amount of the derivative 
+represents more than 5% of the net asset value of the Fund, provide the (i) name, 
+(ii) identifier, (iii) number of shares or notional amount or contract value as of the 
+
+[PDF page 17]
+ 
+16 
+trade date (all of which would be reported as negative for short positions), and 
+(iv) value of every component in the index or custom basket.  The identifier shall 
+include CUSIP of the index’s or custom basket’s components, ISIN (if CUSIP is 
+not available), ticker (if CUSIP and ISIN are not available), or other identifier (if 
+CUSIP, ISIN, and ticker are not available).  If other identifier provided, indicate 
+the type of identifier used.   
+If the index’s or custom basket’s components are not publicly available in that 
+manner, and the notional amount of the derivative represents greater than 1%, but 
+5% or less, of the net asset value of the Fund, Funds shall report the required 
+component information described above, but may limit reporting to the (i) 50 
+largest components in the index and (ii) any other components where the notional 
+value for that components is over 1% of the notional value of the index or custom 
+basket.   
+3. If the reference instrument is neither a derivative, an index, or a custom basket, 
+the description of the reference instrument shall include the name of issuer and 
+title of issue, as well as CUSIP of reference instrument, ISIN (if CUSIP is not 
+available), ticker (if CUSIP and ISIN are not available), or other identifier (if 
+CUSIP, ISIN, and ticker are not available).  If other identifier provided, indicate 
+the type of identifier used. 
+iv. Number of shares or principal amount of underlying reference instrument per 
+contract.  
+v. Exercise price or rate. 
+vi. Expiration date. 
+vii. Delta.  
+viii. Unrealized appreciation or depreciation.  Depreciation shall be reported as a 
+negative number. 
+d. For futures and forwards (other than forward foreign currency contracts), provide: 
+i. Payoff profile, selected from among the following (long, short). 
+ii. Description of reference instrument, as required by sub-Item C.11.c.iii. 
+iii. Expiration date. 
+iv. Aggregate notional amount or contract value on trade date.  
+v. Unrealized appreciation or depreciation.  Depreciation shall be reported as a negative 
+number. 
+e. For forward foreign currency contracts and foreign currency swaps, provide: 
+i. Amount and description of currency sold.  
+
+[PDF page 18]
+ 
+17 
+ii. Amount and description of currency purchased.  
+iii. Settlement date.  
+iv. Unrealized appreciation or depreciation.  Depreciation shall be reported as a negative 
+number. 
+f. For swaps (other than foreign exchange swaps), provide: 
+i. Description and terms of payments necessary for a user of financial information to 
+understand the terms of payments to be paid and received, including, as applicable, 
+description of the reference instrument, obligation, or index (including the 
+information required by sub-Item C.11.c.iii), financing rate, floating coupon rate, 
+fixed coupon rate, and payment frequency. 
+1. Description and terms of payments to be received from another party. 
+2. Description and terms of payments to be paid to another party. 
+ii. Termination or maturity date. 
+iii. Upfront payments or receipts.  
+iv. Notional amount.   
+v. Unrealized appreciation or depreciation.  Depreciation shall be reported as a negative 
+number. 
+g. For other derivatives, provide: 
+i. Description of information sufficient for a user of financial information to understand 
+the nature and terms of the investment, including as applicable, among other things, 
+currency, payment terms, payment rates, call or put feature, exercise price, and 
+information required by sub-Item C.11.c.iii.   
+ii. Termination or maturity (if any). 
+iii. Notional amount(s). 
+iv. Delta (if applicable). 
+v. Unrealized appreciation or depreciation.  Depreciation shall be reported as a negative 
+number. 
+Item C.12. Securities lending. 
+a. Does any amount of this investment represent reinvestment of cash collateral received for 
+loaned securities?  [Y/N]  If Yes, provide the value of the investment representing cash 
+collateral.   
+b. Does any portion of this investment represent non-cash collateral that is treated as a Fund 
+asset and received for loaned securities?  [Y/N]  If yes, provide the value of the securities 
+representing non-cash collateral. 
+
+[PDF page 19]
+ 
+18 
+c. Is any portion of this investment on loan by the Fund? [Y/N]  If Yes, provide the value of 
+the securities on loan.   
+Part D: Miscellaneous Securities 
+For reports filed for the last month of each fiscal quarter, report miscellaneous securities, if any, 
+using the same Item numbers and reporting the same information that would be reported for each 
+investment in Part C if it were not a miscellaneous security.  Information reported in this Item 
+will be nonpublic. 
+Part E: Explanatory Notes (if any) 
+The Fund may provide any information it believes would be helpful in understanding the 
+information reported in response to any Item of this Form.  The Fund may also explain any 
+assumptions that it made in responding to any Item of this Form.  To the extent responses relate 
+to a particular Item, provide the Item number(s), as applicable.   
+Part F: Exhibits 
+For reports filed for the end of the first and third quarters of the Fund’s fiscal year, attach no later 
+than 60 days after the end of the reporting period the Fund’s complete portfolio holdings as of 
+the close of the period covered by the report. These portfolio holdings must be presented in 
+accordance with the schedules set forth in §§210.12-12 – 210.12-14 of Regulation S-X [17 CFR 
+210.12-12 – 210.12-14]. 
+SIGNATURES  
+The Registrant has duly caused this report to be signed on its behalf by the undersigned 
+hereunto duly authorized. 
+Registrant: _________________________ By (Signature): ______________________   
+Name: __________________________________________________ 
+Title: ___________________________________________________ 
+Date: ___________________________________________________ 

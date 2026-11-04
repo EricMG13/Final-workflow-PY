@@ -1,0 +1,142 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "cpos-arcc-relative-value-2024-1",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2024-12-31",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "relative_value",
+    "requested_modules": [
+      "CP-3D",
+      "CP-3A",
+      "CP-6"
+    ]
+  },
+  "handoffs": {
+    "CP-3D": {
+      "path": "requests/CP-3D/4bbc46a20c9a9c4f2493c6f82e8a96fadf4342fb49d5e043faaebdae7d8acdee/1.response.md",
+      "sha256": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa"
+    },
+    "CP-3": {
+      "path": "requests/CP-3/de9accc2d9af3a4605f917c968d53b6529787078493f8ab95cf813712d59141e/1.response.md",
+      "sha256": "63c56793bbcc8e9e43671a4cdebefdc1a018cb57df8163125c80bd654294ea60"
+    },
+    "CP-6": {
+      "path": "requests/CP-6/742e0db90b4a9e3784fe58ad2d4707d555d74fe00fc62205be8a38f8c986e9c2/1.response.md",
+      "sha256": "5f6d862a3bbe44892f8611559e612faf7ebd9e32cf65e564f2fc71eca8692bd6"
+    }
+  },
+  "model": null,
+  "layout": {
+    "blocks": [
+      "instrument-levels",
+      "yield-against-maturity",
+      "market-against-fundamentals",
+      "compensation-preference",
+      "peer-positioning",
+      "recommendation-portfolio-fit",
+      "capital-structure",
+      "loan-hy-relative-value",
+      "credit-view",
+      "what-changed"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-3",
+        "heading": "T3.5 — Relative value table",
+        "kind": "table",
+        "block_id": "instrument-levels",
+        "table_header": null,
+        "prefix": null,
+        "label": "Two actual series; conditional model yields and unknown quote basis"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Conditional yield observations",
+        "kind": "table",
+        "block_id": "yield-against-maturity",
+        "table_header": null,
+        "prefix": null,
+        "label": "Separate clean/dirty assumptions; categorical note maturities"
+      },
+      {
+        "module_id": "CP-3D",
+        "heading": "T3E.7 — fundamental reconciliation and strongest countercase",
+        "kind": "prose",
+        "block_id": "market-against-fundamentals",
+        "table_header": null,
+        "prefix": null,
+        "label": "Asset coverage is not cash or default probability"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Security-selection view",
+        "kind": "prose",
+        "block_id": "compensation-preference",
+        "table_header": null,
+        "prefix": null,
+        "label": "Conditional compensation and strongest contrary case"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "T3.6 — Fundamental value matrix",
+        "kind": "table",
+        "block_id": "peer-positioning",
+        "table_header": null,
+        "prefix": null,
+        "label": "Same-issuer comparison; no independent corporate-peer cohort"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Actual challenge, countercase and changed action",
+        "kind": "prose",
+        "block_id": "recommendation-portfolio-fit",
+        "table_header": null,
+        "prefix": null,
+        "label": "Actual challenge and action restriction"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "T3B.2 — Selected capital-structure dashboard",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "table_header": null,
+        "prefix": null,
+        "label": "Selected pair, not whole issuer obligations"
+      },
+      {
+        "module_id": "CP-3D",
+        "heading": "T3E.1 — instrument, source and freshness gate",
+        "kind": "prose",
+        "block_id": "loan-hy-relative-value",
+        "table_header": null,
+        "prefix": null,
+        "label": "Fixed parent bonds only; loan/cross-market data unavailable"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Fundamental credit summary — actual upstream context used",
+        "kind": "prose",
+        "block_id": "credit-view",
+        "table_header": null,
+        "prefix": null,
+        "label": "Actual limited fundamental context, no full credit grade"
+      },
+      {
+        "module_id": "CP-3D",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "what-changed",
+        "table_header": null,
+        "prefix": "Second attempt:",
+        "label": "Historical narrative repair; no new observation"
+      }
+    ],
+    "scope": "ARCC historical December31 2024 retrospective evaluated-price and two-parent-note comparison; audit/source retrieval later, not an information-availability backtest or current executable market. Actual CP-3D market, CP-3/CP-3A comparison and actual subsequent CP-6 challenge replay through CP-OS. Source price basis is unknown: clean and dirty are separate conditional assumptions, with exact original values and gaps retained. Yield figure is a categorical maturity comparison, not a fitted/observed curve; no new pricing analysis. The added four-row table copies C2/C3 only; original CP-6 consumed the financially identical pre-table version, not a newly invented response. Missing external peers and loan/HY comparisons remain explicit; no corporate peer median, numeric score, current preference, mandate clearance or new size. What Changed names the original historical14-to15.294-point narrative repair, not a new financial/market period. Assessment pending is not a full committee call. Existing renderers only, no Excel output/provider/native acceptance.",
+    "title": "ARCC · historical relative-value comparison",
+    "question": "What compensation survives price-basis, precision, tenor and protection uncertainty?",
+    "issuer_aliases": []
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "run_id": "tdg-model-001",
+  "issuer_id": "TDG",
+  "issuer_name": "TransDigm Group Incorporated",
+  "annual_base": "2024-09-30",
+  "execution": "Retained actual current-host-model handoffs; deterministic separate delivery; no providers/agents/native accepted heads",
+  "excel": "INGESTION_ONLY; no Excel outputs",
+  "inputs": {
+    "annual": {
+      "path": "runs/tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "quarter": {
+      "path": "runs/tdg-003/CP-1-attempt-2.md",
+      "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+    },
+    "forecast": {
+      "path": "runs/tdg-003/CP-2G-attempt-2.md",
+      "sha256": "696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928"
+    },
+    "forecast_exact": {
+      "path": "runs/tdg-003/CP-2G-attempt-1-calculations.json",
+      "sha256": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843"
+    },
+    "current_synthesis": {
+      "path": "runs/tdg-run-comparison-001/CP-2-delivery.md",
+      "sha256": "22edd045e3d6f9e0a1e1bfff9fd099064b7f076d32c38e833977a8343e9d662b"
+    }
+  }
+}

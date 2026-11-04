@@ -1,0 +1,1 @@
+{"execution": "retained-response-replay", "max_attempts": 2, "provider_cap_usd": 0, "run": {"as_of": "2024-04-11", "case_kind": "public", "issuer_id": "FORD-OTOSAN", "issuer_name": "Ford Otomotiv Sanayi A.S.", "method_version": "deploy-v-r14", "pathway": "covenant_refinancing", "requested_modules": ["CP-3C"], "run_id": "cpos-ford-funding-2024-1", "schema_version": "run/2"}}

@@ -1,0 +1,3234 @@
+{
+  "schema_version": "report-view/1",
+  "pathway": {
+    "id": "credit_snapshot",
+    "title": "Historical source intake — Erste",
+    "question": "What can be used from the supplied source files, with which restrictions?",
+    "requested_modules": [
+      "CP-0",
+      "CP-1"
+    ],
+    "blocks": [
+      "capital-structure",
+      "financials-credit-metrics"
+    ]
+  },
+  "call": [
+    {
+      "kind": "na",
+      "label": "Assessment",
+      "value_text": "Assessment pending",
+      "meter": null,
+      "ref_id": null,
+      "direction": null,
+      "line": false
+    }
+  ],
+  "call_withheld": null,
+  "blocks": [
+    {
+      "block_id": "capital-structure",
+      "title": "Source-checked historical observations",
+      "owner": "CP-1",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Observation",
+      "columns": [
+        "Prior2023",
+        "Current2024",
+        "Unit / quantity family",
+        "Period labels",
+        "Source locators and cross-check"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "Fee and commission expenses",
+          "cells": [
+            {
+              "text": "-464",
+              "prov": "cited",
+              "ref_id": "C33",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "-517",
+              "prov": "cited",
+              "ref_id": "C33",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "EUR million; monetary",
+              "prov": "cited",
+              "ref_id": "C33",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "1-12 23 / 1-12 24",
+              "prov": "cited",
+              "ref_id": "C33",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "W1 Tabelle1!C11:D11; P1 PDF3/printed236, fee/commission-expense row.",
+              "prov": "cited",
+              "ref_id": "C33",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "Dividend income",
+          "cells": [
+            {
+              "text": "38",
+              "prov": "cited",
+              "ref_id": "C34",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "39",
+              "prov": "cited",
+              "ref_id": "C34",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "EUR million; monetary",
+              "prov": "cited",
+              "ref_id": "C34",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "1-12 23 / 1-12 24",
+              "prov": "cited",
+              "ref_id": "C34",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "W1 Tabelle1!C12:D12; P1 PDF3/printed236, dividend-income row.",
+              "prov": "cited",
+              "ref_id": "C34",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r2",
+          "label": "Earnings per share",
+          "cells": [
+            {
+              "text": "6.80",
+              "prov": "cited",
+              "ref_id": "C35",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "7.20",
+              "prov": "cited",
+              "ref_id": "C35",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "EUR per share; currency_per_share",
+              "prov": "cited",
+              "ref_id": "C35",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "1-12 23 / 1-12 24",
+              "prov": "cited",
+              "ref_id": "C35",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "W1 Tabelle1!C39:D39; P1 PDF3/printed236, basic EPS row. Raw worksheet strings retain their leading spaces: \" 6.80\" / \" 7.20\".",
+              "prov": "cited",
+              "ref_id": "C35",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r3",
+          "label": "Pledged as collateral — non-trading FVPL financial assets",
+          "cells": [
+            {
+              "text": "0",
+              "prov": "cited",
+              "ref_id": "C36",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "0",
+              "prov": "cited",
+              "ref_id": "C36",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "EUR million; monetary",
+              "prov": "cited",
+              "ref_id": "C36",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Dec 23 / Dec 24 instants",
+              "prov": "cited",
+              "ref_id": "C36",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "W2 Tabelle1!C11:D11, the nested pledged row under non-trading FVPL; P1 PDF5/printed238, same nested row. This is not all pledged collateral.",
+              "prov": "cited",
+              "ref_id": "C36",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r4",
+          "label": "Acquisition of subsidiaries (net of cash and cash equivalents acquired)",
+          "cells": [
+            {
+              "text": "0",
+              "prov": "cited",
+              "ref_id": "C37",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "-88",
+              "prov": "cited",
+              "ref_id": "C37",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "EUR million; monetary",
+              "prov": "cited",
+              "ref_id": "C37",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "1-12 23 / 1-12 24",
+              "prov": "cited",
+              "ref_id": "C37",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "W3 Tabelle1!C42:D42; P1 PDF8/printed241, acquisition-of-subsidiaries row.",
+              "prov": "cited",
+              "ref_id": "C37",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r5",
+          "label": "Disposal of subsidiaries",
+          "cells": [
+            {
+              "text": "0",
+              "prov": "cited",
+              "ref_id": "C38",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "28",
+              "prov": "cited",
+              "ref_id": "C38",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "EUR million; monetary",
+              "prov": "cited",
+              "ref_id": "C38",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "1-12 23 / 1-12 24",
+              "prov": "cited",
+              "ref_id": "C38",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "W3 Tabelle1!C43:D43; P1 PDF8/printed241, disposal-of-subsidiaries row.",
+              "prov": "cited",
+              "ref_id": "C38",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": "Source-checked worksheet observations",
+      "tabs": [
+        {
+          "label": "Separate PDF observations",
+          "scale": null,
+          "row_header": "Observation",
+          "columns": [
+            "Prior2023",
+            "Current2024",
+            "Unit / quantity family",
+            "Period labels",
+            "Source locator and worksheet restriction"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Net interest income",
+              "cells": [
+                {
+                  "text": "7,228",
+                  "prov": "cited",
+                  "ref_id": "C39",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "7,528",
+                  "prov": "cited",
+                  "ref_id": "C39",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "EUR million; monetary",
+                  "prov": "cited",
+                  "ref_id": "C39",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "1-12 23 / 1-12 24",
+                  "prov": "cited",
+                  "ref_id": "C39",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "P1 PDF3/printed236, net-interest-income row. W1 C4/D4 stores 7.2279999999999998 / 7.5279999999999996; those cells were not rescaled or used as these amounts.",
+                  "prov": "cited",
+                  "ref_id": "C39",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Total assets",
+              "cells": [
+                {
+                  "text": "337,155",
+                  "prov": "cited",
+                  "ref_id": "C40",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "353,736",
+                  "prov": "cited",
+                  "ref_id": "C40",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "EUR million; monetary",
+                  "prov": "cited",
+                  "ref_id": "C40",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Dec 23 / Dec 24 instants",
+                  "prov": "cited",
+                  "ref_id": "C40",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "P1 PDF5/printed238, total-assets row. W2 C36/D36 stores 337.15499999999997 / 353.73599999999999; PDF column order was checked visually because the extracted total row runs together.",
+                  "prov": "cited",
+                  "ref_id": "C40",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Cash flow from operating activities",
+              "cells": [
+                {
+                  "text": "2,586",
+                  "prov": "cited",
+                  "ref_id": "C41",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "-9,029",
+                  "prov": "cited",
+                  "ref_id": "C41",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "EUR million; monetary",
+                  "prov": "cited",
+                  "ref_id": "C41",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "1-12 23 / 1-12 24",
+                  "prov": "cited",
+                  "ref_id": "C41",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "P1 PDF8/printed241, operating-cash-flow row. W3 C33/D33 stores 2.5859999999999999 / -9.0289999999999999; sign and source conflict retained.",
+                  "prov": "cited",
+                  "ref_id": "C41",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        }
+      ],
+      "note": null,
+      "full_analysis_route": "CP-1",
+      "route_label": "Full intake",
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": "31 Dec 2024",
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "financials-credit-metrics",
+      "title": "Source restrictions — G1 to G5",
+      "owner": "CP-1",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "ID",
+      "columns": [
+        "Restriction retained from CP-0",
+        "Effect on this output and next use"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "G1",
+          "cells": [
+            {
+              "text": "Workbook decimals conflict with corresponding PDF values",
+              "prov": "cited",
+              "ref_id": "C42",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "No blanket worksheet monetary import or rescaling. Only individually source-checked worksheet observations are shown; separately sourced PDF amounts stay separate.",
+              "prov": "cited",
+              "ref_id": "C42",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "G2",
+          "cells": [
+            {
+              "text": "P1 raw font glyphs need original-image interpretation",
+              "prov": "cited",
+              "ref_id": "C43",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "PDF3/5/8 source images and column order were checked for the selected rows; other raw values need the same check.",
+              "prov": "cited",
+              "ref_id": "C43",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r2",
+          "label": "G3",
+          "cells": [
+            {
+              "text": "Only selected statements/basis examined, not full annual/notes scope",
+              "prov": "cited",
+              "ref_id": "C44",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "No complete statement reconstruction/reconciliation, credit assessment, bank-capital or funding/adequacy conclusion.",
+              "prov": "cited",
+              "ref_id": "C44",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r3",
+          "label": "G4",
+          "cells": [
+            {
+              "text": "Historical evidence; current revisions/approvals not re-established",
+              "prov": "cited",
+              "ref_id": "C45",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "FY2024/comparative2023 only; not a current2026 issuer opinion.",
+              "prov": "cited",
+              "ref_id": "C45",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r4",
+          "label": "G5",
+          "cells": [
+            {
+              "text": "Full native Excel display geometry unverified",
+              "prov": "cited",
+              "ref_id": "C46",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Stored cell/metadata and individual PDF matches support the stated intake scope, not universal workbook display fidelity.",
+              "prov": "cited",
+              "ref_id": "C46",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-1",
+      "route_label": "Full intake",
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    }
+  ],
+  "unplaced": [],
+  "passports": [
+    {
+      "ref_id": "C1",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 39"
+        },
+        {
+          "name": "Quote",
+          "value": "| W1 | AR24_Statement_of_income.xlsx | fb6f776a097c94382f21f2287cf2add54f141971d7ab01eadf9947dc2f0dbf29 | Tabelle1!A1: consolidated income statement; A3: EUR million; C3/D3: 1-12 23 / 1-12 24. EPS subsection has EUR thousand, individual shares and EUR per share. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C2",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 40"
+        },
+        {
+          "name": "Quote",
+          "value": "| W2 | AR24_Balancesheet.xlsx | 0ed7090071cd2b347e271d841fba75e0b0df74d4fd63ae956bd3de57b4413876 | Tabelle1!A1: consolidated balance sheet; A3/A38: EUR million; C3/D3 and C38/D38: Dec 23 / Dec 24 instants. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C3",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 41"
+        },
+        {
+          "name": "Quote",
+          "value": "| W3 | AR24_Cashflows.xlsx | a36a4c8bc09f31f2544e9e8eed3d70678b679f4d203d09ca88bec0e9380f690d | Tabelle1!A1: consolidated cash flows; A3: EUR million; C3/D3: 1-12 23 / 1-12 24. A64 defines its cash-equivalent/balance-sheet relationship. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C4",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 42"
+        },
+        {
+          "name": "Quote",
+          "value": "| P1 | AR2024_Group_Consolidated_Financial_Statements_en.pdf | fcb15a4a4ee76cfd1ae0142bbeaf1b0950bfa35c92626acee8791316ed707087 | PDF p.9/printed242 names Erste Group Bank AG and its group; FY ending31 December2024 and comparatives, EU-adopted IFRS. Selected statement images: PDF3/5/8, printed236/238/241. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C5",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 68"
+        },
+        {
+          "name": "Quote",
+          "value": "| W1 Tabelle1!D4; P1 PDF3/printed236 net interest income,1-12 24 | 7.5279999999999996 | 7,528 under EUR million | Conflicting representations; retain both, do not repair/rescale W1. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C6",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 69"
+        },
+        {
+          "name": "Quote",
+          "value": "| W2 Tabelle1!D36; P1 PDF5/printed238 total assets,Dec 24 | 353.73599999999999 | 353,736 under EUR million | Same restriction; the PDF observation has its own source identity. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C7",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 70"
+        },
+        {
+          "name": "Quote",
+          "value": "| W3 Tabelle1!D33; P1 PDF8/printed241 operating cash flow,1-12 24 | -9.0289999999999999 | -9,029 under EUR million | Preserve sign and conflict; no derived replacement. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C8",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 115"
+        },
+        {
+          "name": "Quote",
+          "value": "| W1 | 4 | 2 | 1 | 0 | 7 | PARSE_FULL; SHEET_RANGE/TABLE_FIRST |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C9",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 116"
+        },
+        {
+          "name": "Quote",
+          "value": "| W2 | 4 | 2 | 1 | 0 | 7 | PARSE_FULL; SHEET_RANGE/TABLE_FIRST |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C10",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 117"
+        },
+        {
+          "name": "Quote",
+          "value": "| W3 | 4 | 2 | 1 | 0 | 7 | PARSE_FULL; SHEET_RANGE/TABLE_FIRST |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C11",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 118"
+        },
+        {
+          "name": "Quote",
+          "value": "| P1 | 5 | 3 | 2 | 0 | 10 | PARSE_TARGETED; TABLE_FIRST/LAYOUT_TEXT plus original-image check |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C12",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 129"
+        },
+        {
+          "name": "Quote",
+          "value": "| W1 | One sheet,Tabelle1!A1:D43;149 cells; merged A32:D32; all headers/notes read | No supplied sheet/range excluded or unreadable; absent cells stay absent | Exact stored data checked; source numeric conflicts; native Excel display geometry unverified. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C13",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 130"
+        },
+        {
+          "name": "Quote",
+          "value": "| W2 | One sheet,Tabelle1!A1:D66;258 cells; no merge; all rows read | None | Same numeric restriction; raw empty is not zero. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C14",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 131"
+        },
+        {
+          "name": "Quote",
+          "value": "| W3 | One sheet,Tabelle1!A1:D64;247 cells; merged A64:D64; all rows/footnote read | None | Same numeric restriction; cash-flow sign/definition retained. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C15",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 132"
+        },
+        {
+          "name": "Quote",
+          "value": "| P1 | Four selected PDF pages:3,5,8,9; text and source images examined |166 pages outside targeted scope:1–2,4,6–7,10–170; no unreadable selected page | Selected statement fidelity checked; raw font glyphs retained; no full annual/notes review. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C16",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 144"
+        },
+        {
+          "name": "Quote",
+          "value": "| W1 | parsed/W1/W1_CP-PARSE_20261104.md |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C17",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 145"
+        },
+        {
+          "name": "Quote",
+          "value": "| W2 | parsed/W2/W2_CP-PARSE_20261104.md |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C18",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 146"
+        },
+        {
+          "name": "Quote",
+          "value": "| W3 | parsed/W3/W3_CP-PARSE_20261104.md |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C19",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 147"
+        },
+        {
+          "name": "Quote",
+          "value": "| P1 | parsed/P1/P1_CP-PARSE_20261104.md |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C20",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 158"
+        },
+        {
+          "name": "Quote",
+          "value": "| W1 | Prepared W1 Markdown | Authority/provenance of stored spreadsheet content | Structure, labels and source quotations; each numeric use needs separate PDF check. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C21",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 159"
+        },
+        {
+          "name": "Quote",
+          "value": "| W2 | Prepared W2 Markdown | Same | Same; preserve instant periods and zeros. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C22",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 160"
+        },
+        {
+          "name": "Quote",
+          "value": "| W3 | Prepared W3 Markdown | Same | Same; preserve signed cash flows and source footnote. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C23",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 161"
+        },
+        {
+          "name": "Quote",
+          "value": "| P1 | Prepared targeted P1 Markdown, with explicit original-image check requirement | Independent report presentation, not workbook fallback | Selected source-verified statements/basis; unreviewed pages cannot support conclusions. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C24",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 194"
+        },
+        {
+          "name": "Quote",
+          "value": "| G1 | Automatic financial import from W1/W2/W3; source decimals conflict with corresponding PDF numbers | Retain raw cells. For each selected financial observation, check the original PDF row/column and cite it separately. Do not apply a blanket multiplier or overwrite workbook cells. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C25",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 195"
+        },
+        {
+          "name": "Quote",
+          "value": "| G2 | P1 raw text contains private-use punctuation glyphs | Use retained original page images and explicit row/column checks. Do not parse the raw glyph text as an unqualified numeric dataset. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C26",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 196"
+        },
+        {
+          "name": "Quote",
+          "value": "| G3 | Complete financial/credit/risk/capital assessment requires other statements and notes | This pass examined only four of170 PDF pages. Read the affected source sections before broader work; no adequacy/credit conclusion. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C27",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 197"
+        },
+        {
+          "name": "Quote",
+          "value": "| G4 | Current status, source revisions and final authorisations not re-established | Preserve historical FY2024/as-at-report status; obtain current and governing evidence when requested. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C28",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 198"
+        },
+        {
+          "name": "Quote",
+          "value": "| G5 | Native Excel display/layout beyond metadata not rendered | Raw exact cells/structures and logos were checked. No unsupported full-screen display fidelity claim; selected financial values instead require the independently inspected PDF. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70"
+        }
+      ]
+    },
+    {
+      "ref_id": "C29",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 27"
+        },
+        {
+          "name": "Quote",
+          "value": "| parsed/W1/W1_CP-PARSE_20261104.md | 287e497930aa6e9cf75e22b3ea636086dd829f6b2e731f94d5751696bde89076 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C30",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 28"
+        },
+        {
+          "name": "Quote",
+          "value": "| parsed/W2/W2_CP-PARSE_20261104.md | 7b1687a4da90c789098161110c7be4ec46e81f369eeda3ac534e3adab68f690e |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C31",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 29"
+        },
+        {
+          "name": "Quote",
+          "value": "| parsed/W3/W3_CP-PARSE_20261104.md | be463db392da8012758980451242d38fbbd0a64bb0fee476441a7bf1adebed80 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C32",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 30"
+        },
+        {
+          "name": "Quote",
+          "value": "| parsed/P1/P1_CP-PARSE_20261104.md | ff469ee53c7a598a895a13cc97a32977c8d9df0f0dc9a529f8c225c0024b615e |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C33",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 50"
+        },
+        {
+          "name": "Quote",
+          "value": "| Fee and commission expenses | -464 | -517 | EUR million; monetary | 1-12 23 / 1-12 24 | W1 Tabelle1!C11:D11; P1 PDF3/printed236, fee/commission-expense row. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C34",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 51"
+        },
+        {
+          "name": "Quote",
+          "value": "| Dividend income | 38 | 39 | EUR million; monetary | 1-12 23 / 1-12 24 | W1 Tabelle1!C12:D12; P1 PDF3/printed236, dividend-income row. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C35",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 52"
+        },
+        {
+          "name": "Quote",
+          "value": "| Earnings per share | 6.80 | 7.20 | EUR per share; currency_per_share | 1-12 23 / 1-12 24 | W1 Tabelle1!C39:D39; P1 PDF3/printed236, basic EPS row. Raw worksheet strings retain their leading spaces: \" 6.80\" / \" 7.20\". |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C36",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 53"
+        },
+        {
+          "name": "Quote",
+          "value": "| Pledged as collateral — non-trading FVPL financial assets | 0 | 0 | EUR million; monetary | Dec 23 / Dec 24 instants | W2 Tabelle1!C11:D11, the nested pledged row under non-trading FVPL; P1 PDF5/printed238, same nested row. This is not all pledged collateral. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C37",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 54"
+        },
+        {
+          "name": "Quote",
+          "value": "| Acquisition of subsidiaries (net of cash and cash equivalents acquired) | 0 | -88 | EUR million; monetary | 1-12 23 / 1-12 24 | W3 Tabelle1!C42:D42; P1 PDF8/printed241, acquisition-of-subsidiaries row. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C38",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 55"
+        },
+        {
+          "name": "Quote",
+          "value": "| Disposal of subsidiaries | 0 | 28 | EUR million; monetary | 1-12 23 / 1-12 24 | W3 Tabelle1!C43:D43; P1 PDF8/printed241, disposal-of-subsidiaries row. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C39",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 68"
+        },
+        {
+          "name": "Quote",
+          "value": "| Net interest income | 7,228 | 7,528 | EUR million; monetary | 1-12 23 / 1-12 24 | P1 PDF3/printed236, net-interest-income row. W1 C4/D4 stores 7.2279999999999998 / 7.5279999999999996; those cells were not rescaled or used as these amounts. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C40",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 69"
+        },
+        {
+          "name": "Quote",
+          "value": "| Total assets | 337,155 | 353,736 | EUR million; monetary | Dec 23 / Dec 24 instants | P1 PDF5/printed238, total-assets row. W2 C36/D36 stores 337.15499999999997 / 353.73599999999999; PDF column order was checked visually because the extracted total row runs together. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C41",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 70"
+        },
+        {
+          "name": "Quote",
+          "value": "| Cash flow from operating activities | 2,586 | -9,029 | EUR million; monetary | 1-12 23 / 1-12 24 | P1 PDF8/printed241, operating-cash-flow row. W3 C33/D33 stores 2.5859999999999999 / -9.0289999999999999; sign and source conflict retained. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C42",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 97"
+        },
+        {
+          "name": "Quote",
+          "value": "| G1 | Workbook decimals conflict with corresponding PDF values | No blanket worksheet monetary import or rescaling. Only individually source-checked worksheet observations are shown; separately sourced PDF amounts stay separate. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C43",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 98"
+        },
+        {
+          "name": "Quote",
+          "value": "| G2 | P1 raw font glyphs need original-image interpretation | PDF3/5/8 source images and column order were checked for the selected rows; other raw values need the same check. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C44",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 99"
+        },
+        {
+          "name": "Quote",
+          "value": "| G3 | Only selected statements/basis examined, not full annual/notes scope | No complete statement reconstruction/reconciliation, credit assessment, bank-capital or funding/adequacy conclusion. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C45",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 100"
+        },
+        {
+          "name": "Quote",
+          "value": "| G4 | Historical evidence; current revisions/approvals not re-established | FY2024/comparative2023 only; not a current2026 issuer opinion. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    },
+    {
+      "ref_id": "C46",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1"
+        },
+        {
+          "name": "Locator",
+          "value": "line 101"
+        },
+        {
+          "name": "Quote",
+          "value": "| G5 | Full native Excel display geometry unverified | Stored cell/metadata and individual PDF matches support the stated intake scope, not universal workbook display fidelity. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53"
+        }
+      ]
+    }
+  ],
+  "index": {
+    "facts": [
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-0.r0.c0"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-0.r0.c1"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-0.r0.c2"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-0.r1.c0"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-0.r1.c1"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-0.r1.c2"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-0.r2.c0"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-0.r2.c1"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-0.r2.c2"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-0.r3.c0"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-0.r3.c1"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-0.r3.c2"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-1.r0.c0"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-1.r0.c1"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-1.r0.c2"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-1.r1.c0"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-1.r1.c1"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-1.r1.c2"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-1.r2.c0"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-1.r2.c1"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-1.r2.c2"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-2.r0.c0"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-2.r0.c1"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-2.r0.c2"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-2.r0.c3"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-2.r0.c4"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-2.r0.c5"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-2.r1.c0"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-2.r1.c1"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-2.r1.c2"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-2.r1.c3"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-2.r1.c4"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-2.r1.c5"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-2.r2.c0"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-2.r2.c1"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-2.r2.c2"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-2.r2.c3"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-2.r2.c4"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-2.r2.c5"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-2.r3.c0"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-2.r3.c1"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-2.r3.c2"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-2.r3.c3"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-2.r3.c4"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-2",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-2.r3.c5"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-3.r0.c0"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-3.r0.c1"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-3.r0.c2"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-3.r1.c0"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-3.r1.c1"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-3.r1.c2"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-3.r2.c0"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-3.r2.c1"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-3.r2.c2"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-3",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-3.r3.c0"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-3",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-3.r3.c1"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-3",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-3.r3.c2"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-4",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-4.r0.c0"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-4",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-4.r1.c0"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-4",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-4.r2.c0"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-4",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-4.r3.c0"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-5",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-5.r0.c0"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-5",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-5.r0.c1"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-5",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-5.r0.c2"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-5",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-5.r1.c0"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-5",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-5.r1.c1"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-5",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-5.r1.c2"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-5",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-5.r2.c0"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-5",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-5.r2.c1"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-5",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-5.r2.c2"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-5",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-5.r3.c0"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-5",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-5.r3.c1"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-5",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-5.r3.c2"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-6",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-6.r0.c0"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-6",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-6.r0.c1"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-6",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-6.r1.c0"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-6",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-6.r1.c1"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-6",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-6.r2.c0"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-6",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-6.r2.c1"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-6",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-6.r3.c0"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-6",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-6.r3.c1"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-6",
+          "row_id": "r4",
+          "fact_id": "raw-CP-0-6.r4.c0"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-6",
+          "row_id": "r4",
+          "fact_id": "raw-CP-0-6.r4.c1"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1-0.r0.c0"
+        },
+        "ref_ids": [
+          "C29"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1-0.r1.c0"
+        },
+        "ref_ids": [
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1-0.r2.c0"
+        },
+        "ref_ids": [
+          "C31"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1-0.r3.c0"
+        },
+        "ref_ids": [
+          "C32"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1-1.r0.c0"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1-1.r0.c1"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1-1.r0.c2"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1-1.r0.c3"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1-1.r0.c4"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1-1.r1.c0"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1-1.r1.c1"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1-1.r1.c2"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1-1.r1.c3"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1-1.r1.c4"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1-1.r2.c0"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1-1.r2.c1"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1-1.r2.c2"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1-1.r2.c3"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1-1.r2.c4"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1-1.r3.c0"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1-1.r3.c1"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1-1.r3.c2"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1-1.r3.c3"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1-1.r3.c4"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-1-1.r4.c0"
+        },
+        "ref_ids": [
+          "C37"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-1-1.r4.c1"
+        },
+        "ref_ids": [
+          "C37"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-1-1.r4.c2"
+        },
+        "ref_ids": [
+          "C37"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-1-1.r4.c3"
+        },
+        "ref_ids": [
+          "C37"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-1-1.r4.c4"
+        },
+        "ref_ids": [
+          "C37"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-1-1.r5.c0"
+        },
+        "ref_ids": [
+          "C38"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-1-1.r5.c1"
+        },
+        "ref_ids": [
+          "C38"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-1-1.r5.c2"
+        },
+        "ref_ids": [
+          "C38"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-1-1.r5.c3"
+        },
+        "ref_ids": [
+          "C38"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-1-1.r5.c4"
+        },
+        "ref_ids": [
+          "C38"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1-2.r0.c0"
+        },
+        "ref_ids": [
+          "C39"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1-2.r0.c1"
+        },
+        "ref_ids": [
+          "C39"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1-2.r0.c2"
+        },
+        "ref_ids": [
+          "C39"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1-2.r0.c3"
+        },
+        "ref_ids": [
+          "C39"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1-2.r0.c4"
+        },
+        "ref_ids": [
+          "C39"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1-2.r1.c0"
+        },
+        "ref_ids": [
+          "C40"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1-2.r1.c1"
+        },
+        "ref_ids": [
+          "C40"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1-2.r1.c2"
+        },
+        "ref_ids": [
+          "C40"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1-2.r1.c3"
+        },
+        "ref_ids": [
+          "C40"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1-2.r1.c4"
+        },
+        "ref_ids": [
+          "C40"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1-2.r2.c0"
+        },
+        "ref_ids": [
+          "C41"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1-2.r2.c1"
+        },
+        "ref_ids": [
+          "C41"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1-2.r2.c2"
+        },
+        "ref_ids": [
+          "C41"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1-2.r2.c3"
+        },
+        "ref_ids": [
+          "C41"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1-2.r2.c4"
+        },
+        "ref_ids": [
+          "C41"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1-3.r0.c0"
+        },
+        "ref_ids": [
+          "C42"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1-3.r0.c1"
+        },
+        "ref_ids": [
+          "C42"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1-3.r1.c0"
+        },
+        "ref_ids": [
+          "C43"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1-3.r1.c1"
+        },
+        "ref_ids": [
+          "C43"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1-3.r2.c0"
+        },
+        "ref_ids": [
+          "C44"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1-3.r2.c1"
+        },
+        "ref_ids": [
+          "C44"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-3",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1-3.r3.c0"
+        },
+        "ref_ids": [
+          "C45"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-3",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1-3.r3.c1"
+        },
+        "ref_ids": [
+          "C45"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-3",
+          "row_id": "r4",
+          "fact_id": "raw-CP-1-3.r4.c0"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1",
+          "table_id": "raw-CP-1-3",
+          "row_id": "r4",
+          "fact_id": "raw-CP-1-3.r4.c1"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      }
+    ]
+  }
+}

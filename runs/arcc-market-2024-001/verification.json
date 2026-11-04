@@ -1,0 +1,498 @@
+{
+  "execution": {
+    "date": "2026-11-04",
+    "mode": "Current host model with preceding context; sequential; no agents/provider/native accepted heads",
+    "stage": "Actual historical CP-3D evaluated-price/convention analysis independently checked and consumed at actual CP-3 market intake; no full CP-3 selection or complete pathway claim.",
+    "paid_calls": 0,
+    "agents_spawned": 0
+  },
+  "instructions": {
+    "path": "runs/arcc-market-2024-001/instructions.md",
+    "sha256": "058cb7677433078089dcb483e773fc857787d4c5a93d6b5da519e2c387677b5a"
+  },
+  "pre_pricing_lock": {
+    "valuation_date": "2024-12-31",
+    "instrument": "US04010LBG77 / 5.950% parent senior unsecured July15 2029",
+    "reported_inputs": {
+      "principal_usdm": 850,
+      "carrying_usdm": 835,
+      "fair_value_usdm": 861,
+      "effective_issuer_rate_pct": "6.040",
+      "noteholder_coupon_pct": "5.950"
+    },
+    "price_source_type": "Issuer estimated Level2 aggregate value; not executable bid/ask or established clean/dirty quote",
+    "scenarios": {
+      "A": "Assume FV/principal*100 is clean; add chosen accrual to price cash flows",
+      "B": "Assume FV/principal*100 is dirty; do not add accrual again"
+    },
+    "convention": "Analyst-selected 30E/360 accrual and cash-flow year fractions, semiannual nominal discounting; not asserted exact dealer/legal EOM convention",
+    "benchmark": "Same-date official USD Treasury par curve; analyst linear maturity interpolation; no OAS/Z/DM equivalence",
+    "terminal_legs": "Full maturity and source-known June15 2029 par call with partial coupon; earlier make-whole contingent so not full YTW",
+    "recovery_assumptions": [
+      "0.20",
+      "0.40",
+      "0.60"
+    ],
+    "default_model": "Yield residual / (1-recovery) simple annual loss break-even; discrete annual compounding over actual/365F residual maturity; not a factual PD or full discounted default valuation",
+    "shocks_bps": [
+      -100,
+      100
+    ],
+    "precision": "Source FV rounding +/-0.5 USDm; price basis/convention ambiguity not solved by more decimals",
+    "helper_scope": "Unchanged low-level yield_to/_pv on supplied explicit flows; preserve refusal of higher-level compute for dated/30E360 inputs"
+  },
+  "literal_source_checks": [
+    {
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "series": "March2025",
+      "literal_values": {
+        "principal_usdm": 600,
+        "carrying_usdm": 600,
+        "estimated_fair_value_usdm": 599
+      },
+      "source_prefix": "March 2025 Notes (principal amount outstanding of $600) 600 (3) 599 599 (3) 587 July 2025 Notes (principal amount outstanding of $1,250) 1,252 (3) 1,238 1,255 (3) 1,198 January 2026 Notes (principal amount outstanding of $1,150) 1,148 (3) 1",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "series": "July2025",
+      "literal_values": {
+        "principal_usdm": 1250,
+        "carrying_usdm": 1252,
+        "estimated_fair_value_usdm": 1238
+      },
+      "source_prefix": "July 2025 Notes (principal amount outstanding of $1,250) 1,252 (3) 1,238 1,255 (3) 1,198 January 2026 Notes (principal amount outstanding of $1,150) 1,148 (3) 1,137 1,146 (3) 1,107 July 2026 Notes (principal amount outstanding of $1,000) 99",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "series": "January2026",
+      "literal_values": {
+        "principal_usdm": 1150,
+        "carrying_usdm": 1148,
+        "estimated_fair_value_usdm": 1137
+      },
+      "source_prefix": "January 2026 Notes (principal amount outstanding of $1,150) 1,148 (3) 1,137 1,146 (3) 1,107 July 2026 Notes (principal amount outstanding of $1,000) 996 (3) 957 993 (3) 913 January 2027 Notes (principal amount outstanding of $900) 891 (3)(4",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "series": "July2026",
+      "literal_values": {
+        "principal_usdm": 1000,
+        "carrying_usdm": 996,
+        "estimated_fair_value_usdm": 957
+      },
+      "source_prefix": "July 2026 Notes (principal amount outstanding of $1,000) 996 (3) 957 993 (3) 913 January 2027 Notes (principal amount outstanding of $900) 891 (3)(4) 933 905 (3)(4) 927 June 2027 Notes (principal amount outstanding of $500) 497 (3) 475 495 ",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "series": "January2027",
+      "literal_values": {
+        "principal_usdm": 900,
+        "carrying_usdm": 891,
+        "estimated_fair_value_usdm": 933
+      },
+      "source_prefix": "January 2027 Notes (principal amount outstanding of $900) 891 (3)(4) 933 905 (3)(4) 927 June 2027 Notes (principal amount outstanding of $500) 497 (3) 475 495 (3) 458 June 2028 Notes (principal amount outstanding of $1,250) 1,248 (3) 1,151 ",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "series": "June2027",
+      "literal_values": {
+        "principal_usdm": 500,
+        "carrying_usdm": 497,
+        "estimated_fair_value_usdm": 475
+      },
+      "source_prefix": "June 2027 Notes (principal amount outstanding of $500) 497 (3) 475 495 (3) 458 June 2028 Notes (principal amount outstanding of $1,250) 1,248 (3) 1,151 1,247 (3) 1,109 March 2029 Notes (principal amount outstanding of $1,000 and $0, respect",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "series": "June2028",
+      "literal_values": {
+        "principal_usdm": 1250,
+        "carrying_usdm": 1248,
+        "estimated_fair_value_usdm": 1151
+      },
+      "source_prefix": "June 2028 Notes (principal amount outstanding of $1,250) 1,248 (3) 1,151 1,247 (3) 1,109 March 2029 Notes (principal amount outstanding of $1,000 and $0, respectively) 985 (3)(4) 1,010 \u2014 \u2014 July 2029 Notes (principal amount outstanding of $8",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "series": "March2029",
+      "literal_values": {
+        "principal_usdm": 1000,
+        "carrying_usdm": 985,
+        "estimated_fair_value_usdm": 1010
+      },
+      "source_prefix": "March 2029 Notes (principal amount outstanding of $1,000 and $0, respectively) 985 (3)(4) 1,010 \u2014 \u2014 July 2029 Notes (principal amount outstanding of $850 and $0, respectively) 835 (3)(4) 861 \u2014 \u2014 November 2031 Notes (principal amount outstan",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "series": "July2029",
+      "literal_values": {
+        "principal_usdm": 850,
+        "carrying_usdm": 835,
+        "estimated_fair_value_usdm": 861
+      },
+      "source_prefix": "July 2029 Notes (principal amount outstanding of $850 and $0, respectively) 835 (3)(4) 861 \u2014 \u2014 November 2031 Notes (principal amount outstanding of $700) 692 (3) 602 691 (3) 586 Total $ 13,727 (5) $ 13,552 $ 11,884 (5) $ 11,447 ____________",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "series": "November2031",
+      "literal_values": {
+        "principal_usdm": 700,
+        "carrying_usdm": 692,
+        "estimated_fair_value_usdm": 602
+      },
+      "source_prefix": "November 2031 Notes (principal amount outstanding of $700) 692 (3) 602 691 (3) 586 Total $ 13,727 (5) $ 13,552 $ 11,884 (5) $ 11,447 ________________________________________ (1) The Revolving Credit Facility, the Revolving Funding Facility,",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/supplement-lines.txt",
+      "index": 73,
+      "literal": "US04010LBG77",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/supplement-lines.txt",
+      "index": 79,
+      "literal": "2029",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/supplement-lines.txt",
+      "index": 80,
+      "literal": "5.950%",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/supplement-lines.txt",
+      "index": 81,
+      "literal": "commencing July",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/supplement-lines.txt",
+      "index": 83,
+      "literal": "360-day",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/supplement-lines.txt",
+      "index": 101,
+      "literal": "June",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/supplement-lines.txt",
+      "index": 102,
+      "literal": "30 basis points",
+      "passed": true
+    },
+    {
+      "source": "../arcc-2024-001/sources/supplement-lines.txt",
+      "index": 111,
+      "literal": "100%",
+      "passed": true
+    }
+  ],
+  "first_model_review": {
+    "path": "runs/arcc-market-2024-001/CP-3D-attempt-1.md",
+    "sha256": "233ecfd06e68129db51d42a8ea3148992df25e5f75781f45fc53aeda2d4073a9",
+    "confirmed_issue": "Narrative14-point vicinity contradicted exact15.294 source-equivalent difference in same cell. Repaired that wording only in second answer; all numerical tables/calculations unchanged."
+  },
+  "checked_model_answer": {
+    "path": "runs/arcc-market-2024-001/CP-3D-attempt-2.md",
+    "sha256": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa"
+  },
+  "ordered_source_row_checks": [
+    {
+      "series": "March2025",
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "exact_source_block": "March 2025 Notes (principal amount outstanding of $600) 600 (3) 599 599 (3) 587 ",
+      "ordered_current_carrying_fair_prior_carrying_fair": [
+        "600",
+        "599",
+        "599",
+        "587"
+      ],
+      "principal_exact": 600,
+      "passed": true
+    },
+    {
+      "series": "July2025",
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "exact_source_block": "July 2025 Notes (principal amount outstanding of $1,250) 1,252 (3) 1,238 1,255 (3) 1,198 ",
+      "ordered_current_carrying_fair_prior_carrying_fair": [
+        "1,252",
+        "1,238",
+        "1,255",
+        "1,198"
+      ],
+      "principal_exact": 1250,
+      "passed": true
+    },
+    {
+      "series": "January2026",
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "exact_source_block": "January 2026 Notes (principal amount outstanding of $1,150) 1,148 (3) 1,137 1,146 (3) 1,107 ",
+      "ordered_current_carrying_fair_prior_carrying_fair": [
+        "1,148",
+        "1,137",
+        "1,146",
+        "1,107"
+      ],
+      "principal_exact": 1150,
+      "passed": true
+    },
+    {
+      "series": "July2026",
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "exact_source_block": "July 2026 Notes (principal amount outstanding of $1,000) 996 (3) 957 993 (3) 913 ",
+      "ordered_current_carrying_fair_prior_carrying_fair": [
+        "996",
+        "957",
+        "993",
+        "913"
+      ],
+      "principal_exact": 1000,
+      "passed": true
+    },
+    {
+      "series": "January2027",
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "exact_source_block": "January 2027 Notes (principal amount outstanding of $900) 891 (3)(4) 933 905 (3)(4) 927 ",
+      "ordered_current_carrying_fair_prior_carrying_fair": [
+        "891",
+        "933",
+        "905",
+        "927"
+      ],
+      "principal_exact": 900,
+      "passed": true
+    },
+    {
+      "series": "June2027",
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "exact_source_block": "June 2027 Notes (principal amount outstanding of $500) 497 (3) 475 495 (3) 458 ",
+      "ordered_current_carrying_fair_prior_carrying_fair": [
+        "497",
+        "475",
+        "495",
+        "458"
+      ],
+      "principal_exact": 500,
+      "passed": true
+    },
+    {
+      "series": "June2028",
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "exact_source_block": "June 2028 Notes (principal amount outstanding of $1,250) 1,248 (3) 1,151 1,247 (3) 1,109 ",
+      "ordered_current_carrying_fair_prior_carrying_fair": [
+        "1,248",
+        "1,151",
+        "1,247",
+        "1,109"
+      ],
+      "principal_exact": 1250,
+      "passed": true
+    },
+    {
+      "series": "March2029",
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "exact_source_block": "March 2029 Notes (principal amount outstanding of $1,000 and $0, respectively) 985 (3)(4) 1,010 \u2014 \u2014 ",
+      "ordered_current_carrying_fair_prior_carrying_fair": [
+        "985",
+        "1,010",
+        "\u2014",
+        "\u2014"
+      ],
+      "principal_exact": 1000,
+      "passed": true
+    },
+    {
+      "series": "July2029",
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "exact_source_block": "July 2029 Notes (principal amount outstanding of $850 and $0, respectively) 835 (3)(4) 861 \u2014 \u2014 ",
+      "ordered_current_carrying_fair_prior_carrying_fair": [
+        "835",
+        "861",
+        "\u2014",
+        "\u2014"
+      ],
+      "principal_exact": 850,
+      "passed": true
+    },
+    {
+      "series": "November2031",
+      "source": "../arcc-2024-001/sources/annual-pages.txt",
+      "pdf_page": 291,
+      "exact_source_block": "November 2031 Notes (principal amount outstanding of $700) 692 (3) 602 691 (3) 586 ",
+      "ordered_current_carrying_fair_prior_carrying_fair": [
+        "692",
+        "602",
+        "691",
+        "586"
+      ],
+      "principal_exact": 700,
+      "passed": true
+    }
+  ],
+  "source_identity_checks": {
+    "annual_sha256": "4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170",
+    "treasury_sha256": "6775840b76cd7fd41121f61d6f6c60184eca6b2ba49954ec7372c463cbeef34d",
+    "annual_original_page291_rendered_and_viewed": true,
+    "prior_sources_not_modified": true
+  },
+  "model_display_verification": {
+    "ten_actual_series_rows_checked": true,
+    "both_conditional_roots_recovery_cases_and_price_shocks_checked": true,
+    "six_h2s_and_all_ten_views_present": true,
+    "source_period_coupon_swap_principal_carrying_fair_and_missing_prior_roles_preserved": true,
+    "passed": true
+  },
+  "confidence_review": [
+    {
+      "doubt": "Price identity, execution and precision",
+      "cause": "Source provides rounded aggregate Level2 estimates without clean/dirty, timestamp or executable two-way convention",
+      "resolution": "No invented quote; evaluated equivalents separate. Both basis cases and +/-0.5 USDm sensitivity retained. Current-market/PD/ranking claims withheld."
+    },
+    {
+      "doubt": "Wrong coupon from swap-adjusted rate",
+      "cause": "Annual effective6.040% differs from fixed5.950% noteholder coupon",
+      "resolution": "Executed supplement and actual receive-leg checked; cashflows use5.950%; source roles stay distinct."
+    },
+    {
+      "doubt": "Dated/call/convention arithmetic outside high-level helper scope",
+      "cause": "High-level helper refuses dated, accrued, nondefault convention/stub inputs",
+      "resolution": "Refusal explicitly executed and retained. Unchanged low-level mathematical solver uses supplied scenario flows only; exact schedule counts/times/amounts and independent48-digit Decimal Newton/PV/shock checks pass. No native/general dated-engine qualification."
+    },
+    {
+      "doubt": "Model-implied probability or raw price dispersion misread as credit stress",
+      "cause": "Coupon/rate/options/liquidity/evaluation effects and recovery assumptions are not default observations",
+      "resolution": "All10 views distinguish sources, case assumptions and mechanism; no factual PD/ranking. One narrative price-difference wording error repaired; no numeric table change."
+    }
+  ],
+  "consumer": {
+    "path": "runs/arcc-market-2024-001/CP-3-market-consumer.md",
+    "sha256": "6094c0aceae47371363fb9aed6906e41feab902268b10f3a347ebdf47e5400e1",
+    "instruction_path": "runs/arcc-market-2024-001/CP-3-intake-instructions.md",
+    "instruction_sha256": "b727671ad0d4072b7ee5f9c48c9d3717ee6bac7dc39526e07c8eec503d451483",
+    "producer_path": "runs/arcc-market-2024-001/CP-3D-attempt-2.md",
+    "producer_sha256": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa",
+    "use": "Actual source-gate consumption adopts evaluated equivalent, both conditional yields/spreads, coupon/swap split, call minimum switch, price shocks and model limits; changes next action to basis plus fundamental/terms completion. Full CP-3 gate remains uncleared, not a pass.",
+    "checked": "Actual source labels, dates, all listed numerical outputs and qualifications retained; first consumer passes bounded intake review, not full CP-3."
+  },
+  "source_files": {
+    "runs/arcc-market-2024-001/sources/retrieval.json": "d71ad1a24f24448e4a20c01464716c37ace271a15bd86477df851618d04f1e58",
+    "runs/arcc-market-2024-001/sources/treasury-2024.csv": "6775840b76cd7fd41121f61d6f6c60184eca6b2ba49954ec7372c463cbeef34d",
+    "runs/arcc-market-2024-001/sources/treasury-web-capture.txt": "202c0857ef29f05cb2bff0725fea3f0fc00e3fc4051581f31c4058c41320f01c",
+    "runs/arcc-2024-001/sources/ARCC-FY2024-10K.pdf": "4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170",
+    "runs/arcc-2024-001/sources/annual-pages.txt": "9e216fdd000f529b4f1c452d5786b2ec9e0cab69e8fcd9659558d87d8b4e1976",
+    "runs/arcc-2024-001/sources/supplement-lines.txt": "bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c",
+    "runs/arcc-2024-001/sources/legal-web-captures.json": "53550ae8ebd03dd5c53c5a74586a6bae261c761578a3216fda9b2a801bf301bd",
+    "runs/arcc-2024-001/CP-4A-attempt-1.md": "ca53528bf1f6d9758a7d9194e76af181eb884e237388fe46e839e601606168b6"
+  },
+  "selected_methods": [
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-3d-market-implied-risk/SKILL.md",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/SKILL.md",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-3d-market-implied-risk/SKILL.md",
+      "sha256": "7b1dcf5967f599a94a6b0c2138a51647a66fd73fc232c385bbec4b20286e02a4",
+      "use": "Selected historical CP-3D market/benchmark/technical questions and unchanged low-level cash-flow PV/yield solver; current project instructions govern transport and scope"
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-3d-market-implied-risk/references/REF_CP-3D_STEPS.md",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/references/REF_CP-3D_STEPS.md",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-3d-market-implied-risk/references/REF_CP-3D_STEPS.md",
+      "sha256": "e1a3dc9584611edcf1e1dac66345aebba01e86b573c3ac7e7f848b7350683545",
+      "use": "Selected historical CP-3D market/benchmark/technical questions and unchanged low-level cash-flow PV/yield solver; current project instructions govern transport and scope"
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-3d-market-implied-risk/scripts/bond_analytics.py",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/scripts/bond_analytics.py",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-3d-market-implied-risk/scripts/bond_analytics.py",
+      "sha256": "b51b375a1a1c0aff668f85a9550e2d272f5f9a9be142407a68ba7bced0d4bced",
+      "use": "Selected historical CP-3D market/benchmark/technical questions and unchanged low-level cash-flow PV/yield solver; current project instructions govern transport and scope"
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-3d-market-implied-risk/scripts/cp_tables.py",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/scripts/cp_tables.py",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-3d-market-implied-risk/scripts/cp_tables.py",
+      "sha256": "02590c0bf151e1e291b72214df3311f686d88e576d60a80a6b5ca73ecc44a8d1",
+      "use": "Selected historical CP-3D market/benchmark/technical questions and unchanged low-level cash-flow PV/yield solver; current project instructions govern transport and scope"
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-3d-market-implied-risk/scripts/validate_handoff.py",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/scripts/validate_handoff.py",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-3d-market-implied-risk/scripts/validate_handoff.py",
+      "sha256": "c640aaaf579907c63a72d5a5a0df5134ed89dbf273441846ec399353e3bbac9e",
+      "use": "Selected historical CP-3D market/benchmark/technical questions and unchanged low-level cash-flow PV/yield solver; current project instructions govern transport and scope"
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-3-relative-value-security-selection/references/REF_CP-3_STEPS.md",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/REF_CP-3_STEPS.md",
+      "exact_copy_found_at": "/Users/ericguei/Documents/cp-os/skills/cp-3-relative-value-security-selection/references/REF_CP-3_STEPS.md",
+      "sha256": "a142dd66006ea876e3abc9166e0184fcb0685b32bc5cff703e9158da22fe8767",
+      "use": "CP-3 market-intake source gate only; full RV/scoring/portfolio phases not claimed"
+    }
+  ],
+  "method_archive_integrity": {
+    "entries": 48,
+    "all_hashes_passed": true,
+    "changed_predecessor_files": false
+  },
+  "source_review_summary": {
+    "evaluated_series": 10,
+    "ordered_source_blocks_checked": 10,
+    "executed_term_literal_checks": 8,
+    "official_selected_curve_values_checked": 5,
+    "original_visual_pdf_page": 291,
+    "scope": "Selected facts and explicit convention controls, not all-source/legal/native certification"
+  },
+  "calculation_review_summary": {
+    "conditional_basis_cases": 2,
+    "terminal_roots_checked_independent_Decimal": 4,
+    "price_shocks_checked_independent_Decimal": 4,
+    "recovery_break_even_cases_checked_independent_Decimal": 6,
+    "controls": 3,
+    "scope": "Actual source inputs; assumed price basis,30E360, recovery/shocks are explicit scenarios, not observed market yields/probabilities. No general high-level dated engine qualification."
+  },
+  "production_changes": "None; unchanged archived low-level solver/method reused. No paid/provider calls, agents or predecessor mutations.",
+  "remaining_goal_scope": "CP-3D exact/executable/current pricing, full option/default calibration and general production dated engine remain open. CP-3 full fundamentals/RV/preference/portfolio, other modules/aliases, general delivery, Model and CP-OS remain explicit obligations.",
+  "artifacts": {
+    "runs/arcc-market-2024-001/CP-0.md": "f61415aa2b3c2d0d6fd79ad6853d49ec96e51d65e3130277e54f18e30b24626a",
+    "runs/arcc-market-2024-001/CP-1-market-inputs.md": "68437034bceb3ebb0d04ad97e0746b255588aef701c8e7a6bcd8c38507b3ae1c",
+    "runs/arcc-market-2024-001/CP-3-intake-instructions.md": "b727671ad0d4072b7ee5f9c48c9d3717ee6bac7dc39526e07c8eec503d451483",
+    "runs/arcc-market-2024-001/CP-3-market-consumer.md": "6094c0aceae47371363fb9aed6906e41feab902268b10f3a347ebdf47e5400e1",
+    "runs/arcc-market-2024-001/CP-3D-attempt-1.md": "233ecfd06e68129db51d42a8ea3148992df25e5f75781f45fc53aeda2d4073a9",
+    "runs/arcc-market-2024-001/CP-3D-attempt-2.md": "1a13358ae2b689a3205d152f34d68ea63520c36c8c82db32452a03a4b2c6c1aa",
+    "runs/arcc-market-2024-001/CP-3D-calculations.json": "6a7189eeb6fa57a80403b0ec47474c3a4108401dc96940965c86d3965b7985a7",
+    "runs/arcc-market-2024-001/instructions.md": "058cb7677433078089dcb483e773fc857787d4c5a93d6b5da519e2c387677b5a"
+  },
+  "pre_pricing_lock_integrity": "Reconstructing the original three-key pre-execution decision record, with its retained original execution-stage text, reproduces the exact SHA recorded by the calculation artifact; decision contents did not drift."
+}

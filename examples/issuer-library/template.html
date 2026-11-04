@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; font-src data:; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Deploy VII · Issuer Library</title>
+<style>/*FONTS*/
+/*STYLE*/</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to issuer runs</a>
+<div class="app-shell library-shell" data-shell="direction-c">
+<nav class="icon-rail" aria-label="Library destinations">
+<div class="brand-mark" aria-hidden="true">VII</div>
+<div class="rail-dests">
+<a class="rail-btn" href="#main" aria-current="page" aria-label="Issuer library" title="Issuer library"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></a>
+<a class="rail-btn" href="#screening" aria-label="Screen issuer runs" title="Screen issuer runs"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h18l-7 8v6l-4 2v-8Z"/></svg></a>
+</div>
+<div class="rail-foot"><a class="rail-btn" href="README.md" target="_blank" rel="noopener" aria-label="About this example" title="About this example"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg></a></div>
+</nav>
+<aside class="navigator sidebar" aria-label="Library navigation">
+<header class="nav-head">
+<div class="logo-block"><img class="logo-img" alt="State Street Investment Management" src="/*LOGO*/"><span class="logo-word">Deploy VII</span></div>
+<h2>Issuer library</h2><p class="muted">Research across issuer runs</p><p class="pathway-chip">Local snapshot</p>
+</header>
+<p class="eyebrow">WORKSPACE</p>
+<button id="all-runs" class="nav-choice active" type="button">All runs <span id="all-count"></span></button>
+<button id="reports-only" class="nav-choice" type="button">Reports available <span id="report-count"></span></button>
+<div class="sidebar-heading"><p class="eyebrow">ISSUERS</p><span id="issuer-count"></span></div>
+<div id="issuer-nav"></div>
+<div class="sidebar-note"><span class="note-mark" aria-hidden="true">i</span><strong>A dated view of the evidence</strong><p>Financial periods stay attached to each run. Historical cases are not current underwriting.</p></div>
+<a class="sidebar-link" href="README.md" target="_blank" rel="noopener">About this example <span aria-hidden="true">↗</span></a>
+</aside>
+<main id="main" class="workbench" tabindex="-1">
+<header class="call-band library-band"><div class="call-top"><h2>Research library</h2><span class="tag">LOCAL EXAMPLE</span><span id="build-date" class="library-build-date num"></span></div><p class="call-note">Screen dated evidence and open the original deliverables.</p></header>
+<div class="view-root">
+<div class="page-head page-heading"><div><p class="eyebrow">DEPLOY VII / CREDIT WORKBENCH</p><h1>Issuer runs</h1><p class="intro">Filter by sector, credit metrics and workflow completeness.</p></div><div class="tabs dataset-switch" role="group" aria-label="Dataset"><button id="real-data" type="button" aria-pressed="true">Existing runs</button><button id="demo-data" type="button" aria-pressed="false">Illustrative screening</button></div></div>
+<div id="dataset-note" class="banner dataset-note"></div>
+<section id="screening" class="block screening" aria-label="Screen issuer runs">
+<header class="block-head"><h2>Screening criteria</h2><span class="meta">Combined filters</span></header>
+<div class="search-row"><div class="search-wrap"><span aria-hidden="true">⌕</span><label class="sr-only" for="search">Search issuer, run or sector</label><input id="search" type="search" placeholder="Search issuer, run or sector…" autocomplete="off"><kbd aria-hidden="true">/</kbd></div><button id="clear" class="text-button" type="button">Reset filters</button></div>
+<div class="filters">
+<label>Sector<select id="sector"><option value="">All sectors</option></select></label>
+<label>Workflow<select id="workflow"><option value="">All workflows</option></select></label>
+<label>Completeness<select id="completion"><option value="">Any completeness</option><option value="75">75% or above</option><option value="50">50% or above</option><option value="100">100% complete</option><option value="unassessed">Not assessed</option></select></label>
+<label>Deliverables<select id="availability"><option value="">All runs</option><option value="report">Report available</option><option value="handoff">No report available</option></select></label>
+</div>
+<details id="metric-filters"><summary>Credit metrics &amp; period <span id="metric-filter-count"></span><span aria-hidden="true">＋</span></summary><div class="metric-filter-grid">
+<label>Leverage basis<select id="basis"><option value="">All bases · definitions differ</option></select></label>
+<label>Financial period<select id="period"><option value="">All period types</option></select></label>
+<label>Leverage, minimum (x)<input id="leverageMin" type="number" step="any" placeholder="No minimum"></label>
+<label>Leverage, maximum (x)<input id="leverageMax" type="number" step="any" placeholder="No maximum"></label>
+<label>Coverage, minimum (x)<input id="coverageMin" type="number" step="any" placeholder="No minimum"></label>
+<label>Coverage, maximum (x)<input id="coverageMax" type="number" step="any" placeholder="No maximum"></label>
+</div><p class="filter-help">Numeric filters exclude unavailable values. Select a leverage basis to keep definitions consistent; coverage definitions remain visible on each row.</p></details>
+</section>
+<section class="block results-panel" aria-label="Run results"><div class="block-head results-bar"><p id="results-count" role="status" aria-live="polite"></p><span>Dates refer to evidence, not execution</span></div>
+<div class="table-scroll" role="region" aria-label="Issuer runs table; scroll horizontally for all columns" tabindex="0"><table><caption class="sr-only">Issuer runs, credit metrics, completeness and report availability</caption><thead><tr>
+<th scope="col" data-sort="name" aria-sort="none"><button type="button">Issuer / run <span aria-hidden="true">↕</span></button></th>
+<th scope="col">Sector</th>
+<th scope="col" data-sort="date" aria-sort="none"><button type="button">Evidence date <span aria-hidden="true">↕</span></button></th>
+<th scope="col" data-sort="leverage" aria-sort="none"><button type="button">Leverage <span aria-hidden="true">↕</span></button></th>
+<th scope="col" data-sort="coverage" aria-sort="none"><button type="button">Coverage <span aria-hidden="true">↕</span></button></th>
+<th scope="col" data-sort="completion" aria-sort="none"><button type="button">Completeness <span aria-hidden="true">↕</span></button></th>
+<th scope="col">Deliverable</th>
+</tr></thead><tbody id="run-rows"></tbody></table></div>
+<div id="empty-state" class="empty-state" hidden><span aria-hidden="true">⌕</span><h2>No runs match these filters</h2><p>Try a wider range or include unavailable values. Real-run completeness is not assessed in this example.</p><button id="empty-reset" type="button" class="primary-button">Reset filters</button></div>
+<p class="table-footnote">Select an issuer to inspect its summary and sources. Ratios retain their original definitions.</p></section>
+<section id="run-detail" class="block run-detail" aria-label="Selected run details" tabindex="-1"></section>
+<footer class="page-footer"><span>DEPLOY VII <span aria-hidden="true">/</span> ISSUER LIBRARY</span><span>Local snapshot · original reports open in a new tab</span></footer>
+</div></main></div>
+<noscript>This screening example requires JavaScript. Existing reports remain in the project's deliverables folder.</noscript>
+<script id="catalog-data" type="application/json">/*DATA*/</script><script>/*LOGIC*/
+/*APP*/</script>
+<!-- Font license: /*LICENSE*/ -->
+</body></html>

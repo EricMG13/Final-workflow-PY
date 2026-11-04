@@ -1,0 +1,289 @@
+{
+  "schema": "pdf-header-periods-manifest/1",
+  "oracle": "expected.json",
+  "sources": {
+    "TDG": {
+      "source_name": "TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "source_sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+      "unit_manifest": "cases/pdf-units/TDG.json",
+      "unit_manifest_sha256": "44e93c8b5022f36c1df9a8dd25c315d7d53711c10ab254ed67633453c002af86",
+      "page_manifest": "tests/fixtures/pdf_pages/TDG/manifest.json",
+      "page_manifest_sha256": "a6b4fc662dea4f819483418d4af82fa65989d1a92994b28f007775b36308eec6"
+    },
+    "CZR": {
+      "source_name": "caesars-2025-10k.pdf",
+      "source_sha256": "6840cafaafbd84b432c3c6eaeba5642c39b1a87c02f8236ee0ec3177e0c587f5",
+      "unit_manifest": "cases/pdf-units/CZR.json",
+      "unit_manifest_sha256": "8e6b6bf06bbf7451f877efd12a8ca183e4fad62551f9b459322a4dd37dbb0c90",
+      "page_manifest": "tests/fixtures/pdf_pages/CZR/manifest.json",
+      "page_manifest_sha256": "1c8182c9a61bdaf4e2981c63e5c933c9f757f8c043800b936a3d6f9af7f88886"
+    },
+    "SIX22": {
+      "source_name": "sec.gov_Archives_edgar_data_701374_000155837022001971_six-20220102x10k.htm.pdf",
+      "source_sha256": "cde003b14559c27e82b30349a127817f9015f8f829f817b7040fdcf68eccda36",
+      "unit_manifest": "cases/pdf-units/SIX22.json",
+      "unit_manifest_sha256": "69d342f11616fa0dd34af69bcb1def69752ca958d638d5b7a69da226db6f262e",
+      "page_manifest": "tests/fixtures/pdf_pages/SIX22/manifest.json",
+      "page_manifest_sha256": "fd023680a863f605a5e0a490b66ef0044f6e5ee2ba098135ec7100f4130bf0bb"
+    },
+    "FUN": {
+      "source_name": "f-20251231.pdf",
+      "source_sha256": "e2868ea611b297c26f5a27f92a1a0c2d0c12fcffbd4e0a3d5c3e3f66031f66e1",
+      "unit_manifest": "cases/pdf-units/FUN.json",
+      "unit_manifest_sha256": "2bf13f66e1096f4148a73e0886e6fb36d4bb571c288b60b15e41dfa1d389c2e6",
+      "page_manifest": "tests/fixtures/pdf_pages/FUN/manifest.json",
+      "page_manifest_sha256": "895fbc4a95e4931fd38aed66b752bc81c41645c0dcc7c54abb6c7d1624a339e0"
+    },
+    "VMO2Q3": {
+      "source_name": "VMO2-IFRS-Quarterly-Bond-Report-Q3-2025.pdf",
+      "source_sha256": "dc1d977f3f6b98e84a93af0c6f6b3bccb32b9a9e2e178b37846871e4b06ac9e9",
+      "unit_manifest": "cases/pdf-units/VMO2Q3.json",
+      "unit_manifest_sha256": "0a143713828fa45e603a3df0f858f1132427ad0f382cf87efc9656c61232cf2d",
+      "page_manifest": "tests/fixtures/pdf_pages/VMO2Q3/manifest.json",
+      "page_manifest_sha256": "f56b29ea517fa28c6b96f825fdacc0b1cbaeab17e7f3bc622f68a06e2b4531bf"
+    },
+    "VMED25": {
+      "source_name": "VMED-O2-UK-Limited-2025-Annual-Report-and-Consolidated-Financial-Statements.pdf",
+      "source_sha256": "9a01f61f83e8c0c1aac943fb08df8fbb6b94d5415521818acc78dd59872b2b47",
+      "unit_manifest": "cases/pdf-units/VMED25.json",
+      "unit_manifest_sha256": "80dc74966e7ae872337dab36f348b117b6ed754e4f6a04f1d006b0b18d4531d3",
+      "page_manifest": "tests/fixtures/pdf_pages/VMED25/manifest.json",
+      "page_manifest_sha256": "37a0eb19c89c0c1c34043740d5be76a64efe1737cc5261ff140a06e579625a5e"
+    }
+  },
+  "pages": [
+    {
+      "case_id": "TDG-p105-BS",
+      "doc": "TDG",
+      "page": 105,
+      "file": "tests/fixtures/pdf_pages/TDG/p105.txt",
+      "sha256": "ca5cbb74dfd252410d3083e760ba4a7f373da8426a5e398f4bc90476891c52e1",
+      "column_count": 2
+    },
+    {
+      "case_id": "TDG-p106-IS",
+      "doc": "TDG",
+      "page": 106,
+      "file": "tests/fixtures/pdf_pages/TDG/p106.txt",
+      "sha256": "818cf7664e590be653536720e9b3e0aac0261379258d9a58d6059188075f478a",
+      "column_count": 3
+    },
+    {
+      "case_id": "TDG-p107-CI",
+      "doc": "TDG",
+      "page": 107,
+      "file": "tests/fixtures/pdf_pages/TDG/p107.txt",
+      "sha256": "a1ac387da8f2f99bb2990c8832e30b0b9a0d51feaa540ba4e936678514a8b529",
+      "column_count": 3
+    },
+    {
+      "case_id": "TDG-p109-CFS",
+      "doc": "TDG",
+      "page": 109,
+      "file": "tests/fixtures/pdf_pages/TDG/p109.txt",
+      "sha256": "78a3614c3bf6a424d913eea9416f1e484cf223963bf84939a3fed5ba89d70859",
+      "column_count": 3
+    },
+    {
+      "case_id": "CZR-p56-BS",
+      "doc": "CZR",
+      "page": 56,
+      "file": "tests/fixtures/pdf_pages/CZR/p056.txt",
+      "sha256": "8ea96c84da5732d98238257e110153696618aa2ebb12c8ab6925e62e269cfe60",
+      "column_count": 2
+    },
+    {
+      "case_id": "CZR-p57-IS",
+      "doc": "CZR",
+      "page": 57,
+      "file": "tests/fixtures/pdf_pages/CZR/p057.txt",
+      "sha256": "f747065db07b2cb4cd86000ae3ad410ff759d72b1d6418ce8e2e261b59f92d12",
+      "column_count": 3
+    },
+    {
+      "case_id": "CZR-p58-CI",
+      "doc": "CZR",
+      "page": 58,
+      "file": "tests/fixtures/pdf_pages/CZR/p058.txt",
+      "sha256": "cd8f3b75552ddba73f7408d20c0ab9c46e278cffad059d0c696d0e55f61f570b",
+      "column_count": 3
+    },
+    {
+      "case_id": "CZR-p60-CFS",
+      "doc": "CZR",
+      "page": 60,
+      "file": "tests/fixtures/pdf_pages/CZR/p060.txt",
+      "sha256": "fce2685337e781c04825302eaeba6c7f7fadaec807f3c0a854b5628df0c0f648",
+      "column_count": 3
+    },
+    {
+      "case_id": "CZR-p61-CFS",
+      "doc": "CZR",
+      "page": 61,
+      "file": "tests/fixtures/pdf_pages/CZR/p061.txt",
+      "sha256": "2006e0874850cd0a36b4f3c75025833760c9e436fa88076fb5b8ced14a336e40",
+      "column_count": 3
+    },
+    {
+      "case_id": "SIX22-p93-BS",
+      "doc": "SIX22",
+      "page": 93,
+      "file": "tests/fixtures/pdf_pages/SIX22/p093.txt",
+      "sha256": "b42d3c67db40f63f2ed93c6672201139bad72acff236d84378d6b826f22a689a",
+      "column_count": 2
+    },
+    {
+      "case_id": "SIX22-p94-IS",
+      "doc": "SIX22",
+      "page": 94,
+      "file": "tests/fixtures/pdf_pages/SIX22/p094.txt",
+      "sha256": "aa39c483892ddacf45431012f3349a2293b831a380ad32b70d7015acdd371cff",
+      "column_count": 3
+    },
+    {
+      "case_id": "SIX22-p95-CI",
+      "doc": "SIX22",
+      "page": 95,
+      "file": "tests/fixtures/pdf_pages/SIX22/p095.txt",
+      "sha256": "b9e0df6fb51d0f9abdcb3b5ec0b0b4561541d449408819f96167debd0a2e4627",
+      "column_count": 3
+    },
+    {
+      "case_id": "SIX22-p97-CFS",
+      "doc": "SIX22",
+      "page": 97,
+      "file": "tests/fixtures/pdf_pages/SIX22/p097.txt",
+      "sha256": "798eff41ff6738458515c546d61121c2ef573a86ffd741f79cf5cc9dcb846e74",
+      "column_count": 3
+    },
+    {
+      "case_id": "FUN-p115-IS",
+      "doc": "FUN",
+      "page": 115,
+      "file": "tests/fixtures/pdf_pages/FUN/p115.txt",
+      "sha256": "d118d9a104a53dfcec93ec7219c34b215e7189db9a02ea4449b5cbe040c1c224",
+      "column_count": 3
+    },
+    {
+      "case_id": "FUN-p115-CI",
+      "doc": "FUN",
+      "page": 115,
+      "file": "tests/fixtures/pdf_pages/FUN/p115.txt",
+      "sha256": "d118d9a104a53dfcec93ec7219c34b215e7189db9a02ea4449b5cbe040c1c224",
+      "column_count": 3
+    },
+    {
+      "case_id": "FUN-p116-BS",
+      "doc": "FUN",
+      "page": 116,
+      "file": "tests/fixtures/pdf_pages/FUN/p116.txt",
+      "sha256": "88aa4ec79cd5a1aab2553017ceaafd4a88f27667d40406ed39d3ebd6f57a3e84",
+      "column_count": 2
+    },
+    {
+      "case_id": "FUN-p117-CFS",
+      "doc": "FUN",
+      "page": 117,
+      "file": "tests/fixtures/pdf_pages/FUN/p117.txt",
+      "sha256": "6fedc403b6ea2377f57ce5c9df2c7814f8c871bdfdbf66a352eb99f0dfbba7fe",
+      "column_count": 3
+    },
+    {
+      "case_id": "VMO2Q3-p4-BS",
+      "doc": "VMO2Q3",
+      "page": 4,
+      "file": "tests/fixtures/pdf_pages/VMO2Q3/p004.txt",
+      "sha256": "1aa1ff76366e5d7b4d87180806d71a76a9ef8f02ac19b9c320a87abfe4c75e27",
+      "column_count": 2
+    },
+    {
+      "case_id": "VMO2Q3-p5-BS",
+      "doc": "VMO2Q3",
+      "page": 5,
+      "file": "tests/fixtures/pdf_pages/VMO2Q3/p005.txt",
+      "sha256": "626172124b9dd31a145c7b5b798d30bdc46f33649e150647fd4efe44ecfcef4b",
+      "column_count": 2
+    },
+    {
+      "case_id": "VMO2Q3-p6-IS",
+      "doc": "VMO2Q3",
+      "page": 6,
+      "file": "tests/fixtures/pdf_pages/VMO2Q3/p006.txt",
+      "sha256": "7896d7bd3f7b78827583be2d4d10a47b158998c0e43b47065314ee5b643ab136",
+      "column_count": 4
+    },
+    {
+      "case_id": "VMO2Q3-p7-CI",
+      "doc": "VMO2Q3",
+      "page": 7,
+      "file": "tests/fixtures/pdf_pages/VMO2Q3/p007.txt",
+      "sha256": "d92aecb7799875e2d25aa4fb495a3b98a394b9601e33345c3907ea82fb1b11bb",
+      "column_count": 4
+    },
+    {
+      "case_id": "VMO2Q3-p9-CFS",
+      "doc": "VMO2Q3",
+      "page": 9,
+      "file": "tests/fixtures/pdf_pages/VMO2Q3/p009.txt",
+      "sha256": "b841fe6ab129f3bcf969bf29c75e68e246221c017a42228e2a1b88124b05f088",
+      "column_count": 2
+    },
+    {
+      "case_id": "VMO2Q3-p10-CFS",
+      "doc": "VMO2Q3",
+      "page": 10,
+      "file": "tests/fixtures/pdf_pages/VMO2Q3/p010.txt",
+      "sha256": "40b59a1283141dd12fb546d24330d8461576d42d7aad08082975cc1256671bff",
+      "column_count": 2
+    },
+    {
+      "case_id": "VMED25-p107-IS",
+      "doc": "VMED25",
+      "page": 107,
+      "file": "tests/fixtures/pdf_pages/VMED25/p107.txt",
+      "sha256": "82a299db915f0b4a9259a41dbbde881194885f18524f3eca974d2841795d570d",
+      "column_count": 2
+    },
+    {
+      "case_id": "VMED25-p108-CI",
+      "doc": "VMED25",
+      "page": 108,
+      "file": "tests/fixtures/pdf_pages/VMED25/p108.txt",
+      "sha256": "8b8a7aa51a43e8946ff0d4c21387a2e8311945d471174de0b7bfa1ec7350e9f8",
+      "column_count": 2
+    },
+    {
+      "case_id": "VMED25-p109-BS",
+      "doc": "VMED25",
+      "page": 109,
+      "file": "tests/fixtures/pdf_pages/VMED25/p109.txt",
+      "sha256": "cabf1776d12641edd81030392cf25647f595bcc63571becfbea6505c9df9f3a0",
+      "column_count": 2
+    },
+    {
+      "case_id": "VMED25-p110-BS",
+      "doc": "VMED25",
+      "page": 110,
+      "file": "tests/fixtures/pdf_pages/VMED25/p110.txt",
+      "sha256": "7b691bb985632e54e95d0a57c130828d4114f3d73cf2bb1f8c061e5ddced7c33",
+      "column_count": 2
+    },
+    {
+      "case_id": "VMED25-p112-CFS",
+      "doc": "VMED25",
+      "page": 112,
+      "file": "tests/fixtures/pdf_pages/VMED25/p112.txt",
+      "sha256": "22d594c0450b8b12a19d1b282944c45d2469c5a9dfda6a349d246ba5f3103868",
+      "column_count": 2
+    },
+    {
+      "case_id": "VMED25-p113-CFS",
+      "doc": "VMED25",
+      "page": 113,
+      "file": "tests/fixtures/pdf_pages/VMED25/p113.txt",
+      "sha256": "e9061fab70af24cce83d576809fe9e1c2b97dcf8f9f76034d34b81e97df965b1",
+      "column_count": 2
+    }
+  ],
+  "expected_sha256": "ae6508365cd536623db0cc47d4bbe0b92fd3594fa53f63a144a3cc910bea17bd"
+}

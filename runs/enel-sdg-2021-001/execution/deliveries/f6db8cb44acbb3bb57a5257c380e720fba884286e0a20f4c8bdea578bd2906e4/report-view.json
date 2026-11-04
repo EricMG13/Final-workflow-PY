@@ -1,0 +1,5423 @@
+{
+  "schema_version": "report-view/1",
+  "pathway": {
+    "id": "credit_snapshot",
+    "title": "Enel EFI · historical sustainability-linked coupon test",
+    "question": "What cash coupon could the documented ratchet add, and which conditions remain unproven?",
+    "requested_modules": [
+      "CP-2F"
+    ],
+    "blocks": [
+      "key-findings",
+      "capital-structure"
+    ]
+  },
+  "call": [
+    {
+      "kind": "na",
+      "label": "Assessment",
+      "value_text": "Assessment pending",
+      "meter": null,
+      "ref_id": null,
+      "direction": null,
+      "line": false
+    }
+  ],
+  "call_withheld": "not_requested",
+  "blocks": [
+    {
+      "block_id": "key-findings",
+      "title": "Key findings",
+      "owner": "CP-2E",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "prose",
+      "scale": null,
+      "row_header": null,
+      "columns": [],
+      "rows": [],
+      "lines": [
+        {
+          "runs": [
+            {
+              "text": "View: the documented 25bp increase changes the annual coupon equivalent on full original principal from EUR0m to EUR2.5m if effective. A known 0% cash coupon does not mean free financing. June's KPI is below the later target, but is not a target-date failure or evidence that the step actually occurred. Verification, publication, notification and timing remain separate conditions.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C94",
+              "kind": "fig",
+              "ref_id": "C94"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "A real coupon incentive can consume cash when effective: on the stipulated original principal, one fully stepped year adds EUR2.5m. It is not net hedged group cost, a market-spread forecast or an established refinancing shortfall. The initial coupon's zero is meaningful, but the issue discount and positive reported yield prevent a claim of costless financing.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C121",
+              "kind": "fig",
+              "ref_id": "C121"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "The contrary case is timely satisfaction of the complete condition, leaving the initial coupon unchanged. No target-date certificate or notification outcome has been admitted. Monitor the final defined KPI and process evidence rather than treating June's shortfall as a realised miss. The programme distinguishes the capacity-linked consequence from automatic default/repurchase; no review of other possible default provisions or recovery protection is claimed.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C126",
+              "kind": "fig",
+              "ref_id": "C126"
+            }
+          ],
+          "label": null,
+          "section": null
+        }
+      ],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-2E",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "capital-structure",
+      "title": "Capital structure",
+      "owner": "CP-2E",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Term",
+      "columns": [
+        "Value / basis"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "Instrument",
+          "cells": [
+            {
+              "text": "XS2066706818; Enel Finance International N.V.",
+              "prov": "cited",
+              "ref_id": "C62",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "Guarantor / KPI perimeter",
+          "cells": [
+            {
+              "text": "Enel S.p.A.; documented group definition, not the finance subsidiary's own generating capacity",
+              "prov": "cited",
+              "ref_id": "C63",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r2",
+          "label": "Original principal",
+          "cells": [
+            {
+              "text": "EUR1,000m; current residual principal is not separately certified here",
+              "prov": "cited",
+              "ref_id": "C64",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r3",
+          "label": "Initial cash coupon",
+          "cells": [
+            {
+              "text": "0.000%; known zero, S1 page 51",
+              "prov": "cited",
+              "ref_id": "C65",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r4",
+          "label": "Reported step",
+          "cells": [
+            {
+              "text": "+25 bp = +0.25 percentage point; one increase under the documented programme",
+              "prov": "cited",
+              "ref_id": "C66",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r5",
+          "label": "Symmetry",
+          "cells": [
+            {
+              "text": "Upward one-time mechanism described; no step-down or recurring compounding assumed",
+              "prov": "cited",
+              "ref_id": "C67",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r6",
+          "label": "Target / reference",
+          "cells": [
+            {
+              "text": "At least 55%; December 31, 2021; S1/S4 target description and S3 definitions",
+              "prov": "cited",
+              "ref_id": "C68",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r7",
+          "label": "Maturity",
+          "cells": [
+            {
+              "text": "June 17, 2024",
+              "prov": "cited",
+              "ref_id": "C69",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r8",
+          "label": "Issue price",
+          "cells": [
+            {
+              "text": "99.123% of par; S1 page 51",
+              "prov": "cited",
+              "ref_id": "C70",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r9",
+          "label": "Reported effective yield",
+          "cells": [
+            {
+              "text": "0.189%; attributed source yield, not an independently solved spread",
+              "prov": "cited",
+              "ref_id": "C71",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": "Specific note and source terms",
+      "tabs": [
+        {
+          "label": "Performance, verification and notification",
+          "scale": null,
+          "row_header": "Condition",
+          "columns": [
+            "Evidence / status"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Performance at reference date",
+              "cells": [
+                {
+                  "text": "Threshold comparison uses December 31, 2021; June's observation cannot decide it",
+                  "prov": "cited",
+                  "ref_id": "C72",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "External confirmation and publication",
+              "cells": [
+                {
+                  "text": "Required separately; the June limited-assurance statement does not prove the target-date result",
+                  "prov": "cited",
+                  "ref_id": "C73",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Written notification",
+              "cells": [
+                {
+                  "text": "Programme condition includes notice to the paying agent and holders; actual compliance is unknown",
+                  "prov": "cited",
+                  "ref_id": "C74",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Timing",
+              "cells": [
+                {
+                  "text": "Programme notification deadline and next-period mechanics require the actual calendar; no January 1, 2022 start is invented",
+                  "prov": "cited",
+                  "ref_id": "C75",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Application",
+              "cells": [
+                {
+                  "text": "S1 describes this note's step; S2 applies where Final Terms elect the option. Completed Final Terms remain a gap",
+                  "prov": "cited",
+                  "ref_id": "C76",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        },
+        {
+          "label": "Coupon equivalents · EUR millions per full year",
+          "scale": null,
+          "row_header": "Scenario",
+          "columns": [
+            "Rate or price",
+            "Amount, EUR m",
+            "Basis"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Initial coupon",
+              "cells": [
+                {
+                  "text": "0.000%",
+                  "prov": "cited",
+                  "ref_id": "C77",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "0",
+                  "prov": "cited",
+                  "ref_id": "C77",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Known source zero; full original principal",
+                  "prov": "cited",
+                  "ref_id": "C77",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Conditional step applied",
+              "cells": [
+                {
+                  "text": "0.250%",
+                  "prov": "cited",
+                  "ref_id": "C78",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "2.5",
+                  "prov": "cited",
+                  "ref_id": "C78",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Full-year equivalent if effective; not an observed payment",
+                  "prov": "cited",
+                  "ref_id": "C78",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Increment",
+              "cells": [
+                {
+                  "text": "25 bp",
+                  "prov": "cited",
+                  "ref_id": "C79",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "2.5",
+                  "prov": "cited",
+                  "ref_id": "C79",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "One step; no compounding or probability weight",
+                  "prov": "cited",
+                  "ref_id": "C79",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Gross issue proceeds",
+              "cells": [
+                {
+                  "text": "99.123% of par",
+                  "prov": "cited",
+                  "ref_id": "C80",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "991.23",
+                  "prov": "cited",
+                  "ref_id": "C80",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Calculated before fees; not coupon",
+                  "prov": "cited",
+                  "ref_id": "C80",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Par less gross proceeds",
+              "cells": [
+                {
+                  "text": "0.877% of par",
+                  "prov": "cited",
+                  "ref_id": "C81",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "8.77",
+                  "prov": "cited",
+                  "ref_id": "C81",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Undiscounted issue discount; not annual coupon",
+                  "prov": "cited",
+                  "ref_id": "C81",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        },
+        {
+          "label": "June observation · not the December target result",
+          "scale": null,
+          "row_header": "Measure",
+          "columns": [
+            "Source or calculation",
+            "Interpretation"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Renewable capacity",
+              "cells": [
+                {
+                  "text": "S3 page 4 prints 46.580 MW; normalized 46,580 MW",
+                  "prov": "cited",
+                  "ref_id": "C50",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Preserve the source's grouping/decimal conventions",
+                  "prov": "cited",
+                  "ref_id": "C50",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Total capacity",
+              "cells": [
+                {
+                  "text": "S3 page 4 prints 85.535 MW; normalized 85,535 MW",
+                  "prov": "cited",
+                  "ref_id": "C51",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Same source perimeter and observation",
+                  "prov": "cited",
+                  "ref_id": "C51",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Reported percentage",
+              "cells": [
+                {
+                  "text": "54,5%, rendered 54.5%",
+                  "prov": "cited",
+                  "ref_id": "C52",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "June 30, 2021; one-decimal source display",
+                  "prov": "cited",
+                  "ref_id": "C52",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Recomputed percentage",
+              "cells": [
+                {
+                  "text": "54.4572% from displayed capacities",
+                  "prov": "cited",
+                  "ref_id": "C53",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Rounds to 54.5%; no correction or extra measurement precision",
+                  "prov": "cited",
+                  "ref_id": "C53",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Displayed shortfall",
+              "cells": [
+                {
+                  "text": "55% minus 54.5% = 0.5 pp",
+                  "prov": "cited",
+                  "ref_id": "C54",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Interim comparison, not a December result",
+                  "prov": "cited",
+                  "ref_id": "C54",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Reconstructed shortfall",
+              "cells": [
+                {
+                  "text": "Approximately 0.5428 pp",
+                  "prov": "cited",
+                  "ref_id": "C55",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Same rounded-input calculation; not a forecast",
+                  "prov": "cited",
+                  "ref_id": "C55",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "Target",
+              "cells": [
+                {
+                  "text": "At least 55% at December 31, 2021",
+                  "prov": "cited",
+                  "ref_id": "C56",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Group contractual capacity KPI, not emissions or a current-status measure",
+                  "prov": "cited",
+                  "ref_id": "C56",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        },
+        {
+          "label": "Unproven fields and targeted follow-up",
+          "scale": null,
+          "row_header": "Missing item",
+          "columns": [
+            "Effect",
+            "Required follow-up"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Specific Final Terms and complete incorporated package",
+              "cells": [
+                {
+                  "text": "Exact elections, coupon calendar, day count and first affected payment not established",
+                  "prov": "cited",
+                  "ref_id": "C82",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Obtain instrument-specific final documents",
+                  "prov": "cited",
+                  "ref_id": "C82",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Target-date KPI, assurance, publication and notice",
+              "cells": [
+                {
+                  "text": "Actual step occurrence and timing unknown",
+                  "prov": "cited",
+                  "ref_id": "C83",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Obtain the required December 2021 process evidence; do not use later outcomes in this historical cutoff",
+                  "prov": "cited",
+                  "ref_id": "C83",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Current residual principal and cash-payment record",
+              "cells": [
+                {
+                  "text": "Actual paid amount and cumulative penalty unavailable",
+                  "prov": "cited",
+                  "ref_id": "C84",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Reconcile outstanding principal and affected interest periods",
+                  "prov": "cited",
+                  "ref_id": "C84",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Current issuer/group financial inputs and hedges",
+              "cells": [
+                {
+                  "text": "Whole-issuer materiality, coverage, liquidity and net funding cost unavailable",
+                  "prov": "cited",
+                  "ref_id": "C85",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Validated financial and derivative cash-flow inputs",
+                  "prov": "cited",
+                  "ref_id": "C85",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Comparable market pricing and target-execution plan",
+              "cells": [
+                {
+                  "text": "No independent greenium, refinancing-access or ambition conclusion",
+                  "prov": "cited",
+                  "ref_id": "C86",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Dated comparable spreads, eligible-capacity plan and execution costs",
+                  "prov": "cited",
+                  "ref_id": "C86",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Other ESG and full contract coverage",
+              "cells": [
+                {
+                  "text": "No complete Enel macro/ESG or legal opinion",
+                  "prov": "cited",
+                  "ref_id": "C87",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Extend only the requested dependent analysis with suitable evidence",
+                  "prov": "cited",
+                  "ref_id": "C87",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        }
+      ],
+      "note": null,
+      "full_analysis_route": "CP-2E",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    }
+  ],
+  "unplaced": [],
+  "passports": [
+    {
+      "ref_id": "C1",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 20"
+        },
+        {
+          "name": "Quote",
+          "value": "| S1 | EFI 2019 annual report, 78 PDF pages; company/issue context on 4–5 and financial-note terms on 51–52 | Actual issuer description of issued principal, initial coupon, maturity, issue price, yield and step size. Other financial statements are not adopted as a current group credit base. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C2",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 21"
+        },
+        {
+          "name": "Quote",
+          "value": "| S2 | October 8, 2019 Euro-programme supplement, 97 pages; cover and selected risk/Condition 5(c)/14A passages on 1, 12, 70–73 and 90–91 | Programme definitions, conditions, one-time adjustment and reporting mechanics. This is not the instrument's completed Final Terms or the entire incorporated contract package. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C3",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 22"
+        },
+        {
+          "name": "Quote",
+          "value": "| S3 | June 30, 2021 KPI statement and KPMG report dated August 3, 2021, six pages | Specific note identity on 5; observation on 4; definitions on 5–6; limited-assurance scope/conclusion on 1–3. It is an interim statement, not a December target-satisfaction certificate. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C4",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 23"
+        },
+        {
+          "name": "Quote",
+          "value": "| S4 | Issuer release dated December 16, 2019, two pages | Attributed renewable-capacity target and link to the EUR issuance. Its promotional pricing claims are not independent market-price evidence. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C5",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 5"
+        },
+        {
+          "name": "Quote",
+          "value": "Admit a separate historical pricing case for Enel Finance International N.V.,"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C6",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 6"
+        },
+        {
+          "name": "Quote",
+          "value": "with Enel S.p.A. as guarantor and the contractually defined group KPI perimeter."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C7",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 7"
+        },
+        {
+          "name": "Quote",
+          "value": "Target only the EUR1,000m initial 0% note XS2066706818 due June 17, 2024."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C8",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 8"
+        },
+        {
+          "name": "Quote",
+          "value": "Knowledge cutoff is August 3, 2021; the KPI observation is June 30, 2021."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C9",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 9"
+        },
+        {
+          "name": "Quote",
+          "value": "This actual host-session answer follows the retained CP-OS request, with"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C10",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 10"
+        },
+        {
+          "name": "Quote",
+          "value": "preflight/context available. No independent-context, provider or native proof."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C11",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 14"
+        },
+        {
+          "name": "Quote",
+          "value": "Original PDF bytes, URLs, hashes and extraction history are in the pinned"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C12",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 15"
+        },
+        {
+          "name": "Quote",
+          "value": "sources/manifest.json. Page numbers below are one-based PDF pages, not printed"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C13",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 16"
+        },
+        {
+          "name": "Quote",
+          "value": "page labels. Text aids are derivative; the PDFs remain the evidence."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C14",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 25"
+        },
+        {
+          "name": "Quote",
+          "value": "The source images for S1 page 51, S2 page 72 and S3 page 4 were actually viewed."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C15",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 26"
+        },
+        {
+          "name": "Quote",
+          "value": "Other cited passages were read as text. No complete visual/legal audit of all"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C16",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 27"
+        },
+        {
+          "name": "Quote",
+          "value": "183 supplied pages is claimed. The source family includes issuer disclosures"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C17",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 28"
+        },
+        {
+          "name": "Quote",
+          "value": "and a specifically limited third-party assurance report, not independent"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C18",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 29"
+        },
+        {
+          "name": "Quote",
+          "value": "verification of every financing or credit conclusion."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C19",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 33"
+        },
+        {
+          "name": "Quote",
+          "value": "Ready with limitations for the targeted sustainability-linked coupon calculation."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C20",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 34"
+        },
+        {
+          "name": "Quote",
+          "value": "The issuer, guarantor, security and KPI perimeter can be kept separate. The EUR"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C21",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 35"
+        },
+        {
+          "name": "Quote",
+          "value": "note's initial 0% coupon is a known value, distinct from missing terms and from"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C22",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 36"
+        },
+        {
+          "name": "Quote",
+          "value": "its positive issue yield. S3 explicitly identifies this note alongside other"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C23",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 37"
+        },
+        {
+          "name": "Quote",
+          "value": "transactions; their different currencies, maturities and target settings must"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C24",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 38"
+        },
+        {
+          "name": "Quote",
+          "value": "not be substituted for the selected security."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C25",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 40"
+        },
+        {
+          "name": "Quote",
+          "value": "Source display uses 46.580 and 85.535 under MW, with 54,5% for the ratio."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C26",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 41"
+        },
+        {
+          "name": "Quote",
+          "value": "Retain those raw spellings and the documented KPI definition. Any normalization"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C27",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 42"
+        },
+        {
+          "name": "Quote",
+          "value": "must be explicit; a generic group capacity number is not an automatic substitute."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C28",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 43"
+        },
+        {
+          "name": "Quote",
+          "value": "The intermediate observation predates the December 31, 2021 reference date."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C29",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 47"
+        },
+        {
+          "name": "Quote",
+          "value": "None. Admission identifies the evidence and the permitted analytical boundary;"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C30",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 48"
+        },
+        {
+          "name": "Quote",
+          "value": "the next module owns the numerical comparison and conditional coupon arithmetic."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C31",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 52"
+        },
+        {
+          "name": "Quote",
+          "value": "The specific completed Final Terms, incorporated base-prospectus package,"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C32",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 53"
+        },
+        {
+          "name": "Quote",
+          "value": "actual notification and target-date assurance/outcome are not admitted. Exact"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C33",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 54"
+        },
+        {
+          "name": "Quote",
+          "value": "first affected payment/accrual dates and aggregate step-up payments remain"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C34",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 55"
+        },
+        {
+          "name": "Quote",
+          "value": "unavailable. Full parent/issuer financial analysis, market spread comparables,"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C35",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 56"
+        },
+        {
+          "name": "Quote",
+          "value": "net hedged cost and broader ESG materiality are outside this source admission."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C36",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 58"
+        },
+        {
+          "name": "Quote",
+          "value": "Pypdf could not extract S3 because its AES dependency was absent. The already"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C37",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 59"
+        },
+        {
+          "name": "Quote",
+          "value": "available read-only Poppler extractor succeeded on the same original bytes;"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C38",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 60"
+        },
+        {
+          "name": "Quote",
+          "value": "no password, credential file, dependency installation or source rewrite was"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C39",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 61"
+        },
+        {
+          "name": "Quote",
+          "value": "used. S1's extraction warning about rotated text is not blanket coverage of"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C40",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 62"
+        },
+        {
+          "name": "Quote",
+          "value": "unexamined schedules. S4's font warning does not replace primary-page checks."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C41",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 66"
+        },
+        {
+          "name": "Quote",
+          "value": "CP-2F, dispatched canonically as CP-2E: use these exact sources and this handoff"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C42",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 67"
+        },
+        {
+          "name": "Quote",
+          "value": "for the targeted pricing increment. Separate performance, verification,"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C43",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 68"
+        },
+        {
+          "name": "Quote",
+          "value": "publication and notification. Keep issuer-wide credit inferences gated where"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C44",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 69"
+        },
+        {
+          "name": "Quote",
+          "value": "their financial inputs are absent. Preserve source gaps through the next"
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C45",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-0"
+        },
+        {
+          "name": "Locator",
+          "value": "line 70"
+        },
+        {
+          "name": "Quote",
+          "value": "analytical reading and separate report delivery. Excel is input-only."
+        },
+        {
+          "name": "SHA-256",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+        }
+      ]
+    },
+    {
+      "ref_id": "C46",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 44"
+        },
+        {
+          "name": "Quote",
+          "value": "| Issuer terms, S1 | Actual issued-note description; EUR principal and initial coupon | Not an August 2021 financial base or full Final Terms |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C47",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 45"
+        },
+        {
+          "name": "Quote",
+          "value": "| Programme, S2 | Applicable-type conditions and definitions | Completed instrument elections/calendar remain unverified |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C48",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 46"
+        },
+        {
+          "name": "Quote",
+          "value": "| KPI, S3 | June observation; report dated August 3, 2021 | KPMG limited assurance; special-purpose report, not target satisfaction or a reasonable-assurance opinion |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C49",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 47"
+        },
+        {
+          "name": "Quote",
+          "value": "| Target link, S4 | Issuer attribution of the renewable target to EUR issuance | Promotional market-pricing claims are not independent corroboration |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C50",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 53"
+        },
+        {
+          "name": "Quote",
+          "value": "| Renewable capacity | S3 page 4 prints 46.580 MW; normalized 46,580 MW | Preserve the source's grouping/decimal conventions |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C51",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 54"
+        },
+        {
+          "name": "Quote",
+          "value": "| Total capacity | S3 page 4 prints 85.535 MW; normalized 85,535 MW | Same source perimeter and observation |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C52",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 55"
+        },
+        {
+          "name": "Quote",
+          "value": "| Reported percentage | 54,5%, rendered 54.5% | June 30, 2021; one-decimal source display |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C53",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 56"
+        },
+        {
+          "name": "Quote",
+          "value": "| Recomputed percentage | 54.4572% from displayed capacities | Rounds to 54.5%; no correction or extra measurement precision |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C54",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 57"
+        },
+        {
+          "name": "Quote",
+          "value": "| Displayed shortfall | 55% minus 54.5% = 0.5 pp | Interim comparison, not a December result |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C55",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 58"
+        },
+        {
+          "name": "Quote",
+          "value": "| Reconstructed shortfall | Approximately 0.5428 pp | Same rounded-input calculation; not a forecast |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C56",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 59"
+        },
+        {
+          "name": "Quote",
+          "value": "| Target | At least 55% at December 31, 2021 | Group contractual capacity KPI, not emissions or a current-status measure |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C57",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 69"
+        },
+        {
+          "name": "Quote",
+          "value": "| Safety, labour and operating events | No event-specific review in this source set | Unassessed; no invented loss, clean record or score |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C58",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 70"
+        },
+        {
+          "name": "Quote",
+          "value": "| Transition investment and operating effects | KPI definition/observation only | No sourced capex, earnings, cash or asset-value sensitivity |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C59",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 76"
+        },
+        {
+          "name": "Quote",
+          "value": "| Note-level coupon incentive | Quantified conditional cash effect | EUR2.5m per full year on original principal if the step applies; monitor final KPI and the required process |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C60",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 77"
+        },
+        {
+          "name": "Quote",
+          "value": "| Issuer/group credit materiality | Insufficient Information | No current financial foundation, net hedged cost or event likelihood; do not label the amount immaterial or infer coverage |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C61",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 78"
+        },
+        {
+          "name": "Quote",
+          "value": "| Target ambition and execution | Watch | One interim observation does not establish difficulty, future achievement, greenwashing or cash cost of meeting the target |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C62",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 84"
+        },
+        {
+          "name": "Quote",
+          "value": "| Instrument | XS2066706818; Enel Finance International N.V. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C63",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 85"
+        },
+        {
+          "name": "Quote",
+          "value": "| Guarantor / KPI perimeter | Enel S.p.A.; documented group definition, not the finance subsidiary's own generating capacity |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C64",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 86"
+        },
+        {
+          "name": "Quote",
+          "value": "| Original principal | EUR1,000m; current residual principal is not separately certified here |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C65",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 87"
+        },
+        {
+          "name": "Quote",
+          "value": "| Initial cash coupon | 0.000%; known zero, S1 page 51 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C66",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 88"
+        },
+        {
+          "name": "Quote",
+          "value": "| Reported step | +25 bp = +0.25 percentage point; one increase under the documented programme |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C67",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 89"
+        },
+        {
+          "name": "Quote",
+          "value": "| Symmetry | Upward one-time mechanism described; no step-down or recurring compounding assumed |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C68",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 90"
+        },
+        {
+          "name": "Quote",
+          "value": "| Target / reference | At least 55%; December 31, 2021; S1/S4 target description and S3 definitions |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C69",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 91"
+        },
+        {
+          "name": "Quote",
+          "value": "| Maturity | June 17, 2024 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C70",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 92"
+        },
+        {
+          "name": "Quote",
+          "value": "| Issue price | 99.123% of par; S1 page 51 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C71",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 93"
+        },
+        {
+          "name": "Quote",
+          "value": "| Reported effective yield | 0.189%; attributed source yield, not an independently solved spread |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C72",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 97"
+        },
+        {
+          "name": "Quote",
+          "value": "| Performance at reference date | Threshold comparison uses December 31, 2021; June's observation cannot decide it |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C73",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 98"
+        },
+        {
+          "name": "Quote",
+          "value": "| External confirmation and publication | Required separately; the June limited-assurance statement does not prove the target-date result |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C74",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 99"
+        },
+        {
+          "name": "Quote",
+          "value": "| Written notification | Programme condition includes notice to the paying agent and holders; actual compliance is unknown |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C75",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 100"
+        },
+        {
+          "name": "Quote",
+          "value": "| Timing | Programme notification deadline and next-period mechanics require the actual calendar; no January 1, 2022 start is invented |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C76",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 101"
+        },
+        {
+          "name": "Quote",
+          "value": "| Application | S1 describes this note's step; S2 applies where Final Terms elect the option. Completed Final Terms remain a gap |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C77",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 112"
+        },
+        {
+          "name": "Quote",
+          "value": "| Initial coupon | 0.000% | 0 | Known source zero; full original principal |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C78",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 113"
+        },
+        {
+          "name": "Quote",
+          "value": "| Conditional step applied | 0.250% | 2.5 | Full-year equivalent if effective; not an observed payment |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C79",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 114"
+        },
+        {
+          "name": "Quote",
+          "value": "| Increment | 25 bp | 2.5 | One step; no compounding or probability weight |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C80",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 115"
+        },
+        {
+          "name": "Quote",
+          "value": "| Gross issue proceeds | 99.123% of par | 991.23 | Calculated before fees; not coupon |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C81",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 116"
+        },
+        {
+          "name": "Quote",
+          "value": "| Par less gross proceeds | 0.877% of par | 8.77 | Undiscounted issue discount; not annual coupon |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C82",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 137"
+        },
+        {
+          "name": "Quote",
+          "value": "| Specific Final Terms and complete incorporated package | Exact elections, coupon calendar, day count and first affected payment not established | Obtain instrument-specific final documents |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C83",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 138"
+        },
+        {
+          "name": "Quote",
+          "value": "| Target-date KPI, assurance, publication and notice | Actual step occurrence and timing unknown | Obtain the required December 2021 process evidence; do not use later outcomes in this historical cutoff |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C84",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 139"
+        },
+        {
+          "name": "Quote",
+          "value": "| Current residual principal and cash-payment record | Actual paid amount and cumulative penalty unavailable | Reconcile outstanding principal and affected interest periods |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C85",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 140"
+        },
+        {
+          "name": "Quote",
+          "value": "| Current issuer/group financial inputs and hedges | Whole-issuer materiality, coverage, liquidity and net funding cost unavailable | Validated financial and derivative cash-flow inputs |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C86",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 141"
+        },
+        {
+          "name": "Quote",
+          "value": "| Comparable market pricing and target-execution plan | No independent greenium, refinancing-access or ambition conclusion | Dated comparable spreads, eligible-capacity plan and execution costs |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C87",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 142"
+        },
+        {
+          "name": "Quote",
+          "value": "| Other ESG and full contract coverage | No complete Enel macro/ESG or legal opinion | Extend only the requested dependent analysis with suitable evidence |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C88",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 5"
+        },
+        {
+          "name": "Quote",
+          "value": "Assess the documented sustainability-linked pricing mechanism for Enel Finance"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C89",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 6"
+        },
+        {
+          "name": "Quote",
+          "value": "International N.V. EUR1,000m notes XS2066706818, initially paying 0%, due June"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C90",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 7"
+        },
+        {
+          "name": "Quote",
+          "value": "17, 2024. Historical knowledge cutoff: August 3, 2021. This fresh current-host"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C91",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 8"
+        },
+        {
+          "name": "Quote",
+          "value": "answer consumes CP-0 and the retained primary sources; preflight context is"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C92",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 9"
+        },
+        {
+          "name": "Quote",
+          "value": "available. It is a targeted CP-2F increment, not full Enel credit underwriting,"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C93",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 10"
+        },
+        {
+          "name": "Quote",
+          "value": "an independent-context/provider test or native owner acceptance."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C94",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 12"
+        },
+        {
+          "name": "Quote",
+          "value": "View: the documented 25bp increase changes the annual coupon equivalent on"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C95",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 13"
+        },
+        {
+          "name": "Quote",
+          "value": "full original principal from EUR0m to EUR2.5m if effective. A known 0% cash"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C96",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 14"
+        },
+        {
+          "name": "Quote",
+          "value": "coupon does not mean free financing. June's KPI is below the later target,"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C97",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 15"
+        },
+        {
+          "name": "Quote",
+          "value": "but is not a target-date failure or evidence that the step actually occurred."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C98",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 16"
+        },
+        {
+          "name": "Quote",
+          "value": "Verification, publication, notification and timing remain separate conditions."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C99",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 20"
+        },
+        {
+          "name": "Quote",
+          "value": "Actually read CP-0-attempt-1.md, SHA-256"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C100",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 21"
+        },
+        {
+          "name": "Quote",
+          "value": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C101",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 22"
+        },
+        {
+          "name": "Quote",
+          "value": "Original PDF identities and hashes remain in sources/manifest.json and the"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C102",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 23"
+        },
+        {
+          "name": "Quote",
+          "value": "CP-OS request. One-based PDF pages below are independent of printed labels."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C103",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 25"
+        },
+        {
+          "name": "Quote",
+          "value": "S1, EFI's 2019 financial report, pages 5/51–52, supplies the note parameters."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C104",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 26"
+        },
+        {
+          "name": "Quote",
+          "value": "S2, the 2019 Euro-programme supplement, Conditions 5(c)/14A on pages 70–73/90–91,"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C105",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 27"
+        },
+        {
+          "name": "Quote",
+          "value": "supplies general mechanics. S3, the June KPI statement, pages 1–6, identifies"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C106",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 28"
+        },
+        {
+          "name": "Quote",
+          "value": "this note, defines the perimeter and provides limited assurance. S4, the issuer's"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C107",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 29"
+        },
+        {
+          "name": "Quote",
+          "value": "December 2019 release, pages 1–2, links the renewable target to the EUR issues."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C108",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 30"
+        },
+        {
+          "name": "Quote",
+          "value": "Specific Final Terms have not been supplied; this evidence does not certify a"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C109",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 31"
+        },
+        {
+          "name": "Quote",
+          "value": "complete contract or exact accrued-payment schedule. No later target outcome,"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C110",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 32"
+        },
+        {
+          "name": "Quote",
+          "value": "TDG input or current market quote enters the case."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C111",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 34"
+        },
+        {
+          "name": "Quote",
+          "value": "The selected broader CP-2F method is pinned by source hash in workflow.json."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C112",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 35"
+        },
+        {
+          "name": "Quote",
+          "value": "The tables retain its eight analytical views. Missing financial/operating data"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C113",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 36"
+        },
+        {
+          "name": "Quote",
+          "value": "gate broader conclusions; they do not become fabricated CP-1 accepted outputs."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C114",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 61"
+        },
+        {
+          "name": "Quote",
+          "value": "The source definition excludes certain post-issue acquisitions and nuclear"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C115",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 62"
+        },
+        {
+          "name": "Quote",
+          "value": "generation. A generic reported group capacity share cannot automatically replace"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C116",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 63"
+        },
+        {
+          "name": "Quote",
+          "value": "this bond KPI. Capacity mix alone does not establish actual emissions reductions."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C117",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 103"
+        },
+        {
+          "name": "Quote",
+          "value": "Equality at 55% satisfies the numerical limb only. It does not establish that"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C118",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 104"
+        },
+        {
+          "name": "Quote",
+          "value": "verification and notification were satisfied. Conversely, missing evidence is"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C119",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 105"
+        },
+        {
+          "name": "Quote",
+          "value": "not evidence that the issuer failed those requirements. The programme describes"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C120",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 106"
+        },
+        {
+          "name": "Quote",
+          "value": "a single upward change; performance is not converted into a probability."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C121",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 120"
+        },
+        {
+          "name": "Quote",
+          "value": "A real coupon incentive can consume cash when effective: on the stipulated"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C122",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 121"
+        },
+        {
+          "name": "Quote",
+          "value": "original principal, one fully stepped year adds EUR2.5m. It is not net hedged"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C123",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 122"
+        },
+        {
+          "name": "Quote",
+          "value": "group cost, a market-spread forecast or an established refinancing shortfall."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C124",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 123"
+        },
+        {
+          "name": "Quote",
+          "value": "The initial coupon's zero is meaningful, but the issue discount and positive"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C125",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 124"
+        },
+        {
+          "name": "Quote",
+          "value": "reported yield prevent a claim of costless financing."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C126",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 126"
+        },
+        {
+          "name": "Quote",
+          "value": "The contrary case is timely satisfaction of the complete condition, leaving the"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C127",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 127"
+        },
+        {
+          "name": "Quote",
+          "value": "initial coupon unchanged. No target-date certificate or notification outcome"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C128",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 128"
+        },
+        {
+          "name": "Quote",
+          "value": "has been admitted. Monitor the final defined KPI and process evidence rather"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C129",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 129"
+        },
+        {
+          "name": "Quote",
+          "value": "than treating June's shortfall as a realised miss. The programme distinguishes"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C130",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 130"
+        },
+        {
+          "name": "Quote",
+          "value": "the capacity-linked consequence from automatic default/repurchase; no review"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C131",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 131"
+        },
+        {
+          "name": "Quote",
+          "value": "of other possible default provisions or recovery protection is claimed."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C132",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 146"
+        },
+        {
+          "name": "Quote",
+          "value": "CP-2E-calculations.json retains actual Decimal outputs and source/CP-0 hashes."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C133",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 147"
+        },
+        {
+          "name": "Quote",
+          "value": "The money calculations use EUR millions: 1000 × 25/10000 = 2.5; initial coupon"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C134",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 148"
+        },
+        {
+          "name": "Quote",
+          "value": "is exactly zero. Issue proceeds are 1000 × 99.123/100 = 991.23 and par less"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C135",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 149"
+        },
+        {
+          "name": "Quote",
+          "value": "gross proceeds is 8.77. Neither is annual interest. No fee, tax, FX, derivative,"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C136",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 150"
+        },
+        {
+          "name": "Quote",
+          "value": "probability weight or borrowing plug is added."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C137",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 152"
+        },
+        {
+          "name": "Quote",
+          "value": "The source-capacity ratio is 931600/17107 percent; the corresponding difference"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C138",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 153"
+        },
+        {
+          "name": "Quote",
+          "value": "from 55% is 9285/17107 percentage points. Displayed 54.4572% and 0.5428 pp"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C139",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 154"
+        },
+        {
+          "name": "Quote",
+          "value": "are rounded calculations from reported capacities; retain the source's 54.5%."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C140",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 155"
+        },
+        {
+          "name": "Quote",
+          "value": "Synthetic equality/missing-process controls belong to verification, not issuer"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C141",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 156"
+        },
+        {
+          "name": "Quote",
+          "value": "performance evidence. Actual paid cash and overall materiality remain missing."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C142",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 160"
+        },
+        {
+          "name": "Quote",
+          "value": "T2G.8 governs. Source pages and assurance purpose remain limited as CP-0 states."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C143",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 161"
+        },
+        {
+          "name": "Quote",
+          "value": "This positive pricing increment neither fills TDG's missing instrument terms"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C144",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 162"
+        },
+        {
+          "name": "Quote",
+          "value": "nor completes Enel underwriting. Do not transfer these parameters across issuers"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C145",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 163"
+        },
+        {
+          "name": "Quote",
+          "value": "or call the original 2019 principal a verified current outstanding balance."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C146",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 167"
+        },
+        {
+          "name": "Quote",
+          "value": "CP-3C should actually read this handoff for a targeted funding-cost intake:"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C147",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 168"
+        },
+        {
+          "name": "Quote",
+          "value": "carry the conditional EUR2.5m annual coupon equivalent once, the maturity and"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C148",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 169"
+        },
+        {
+          "name": "Quote",
+          "value": "the unproven event/calendar/residual-principal fields. Do not net the one-off"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C149",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 170"
+        },
+        {
+          "name": "Quote",
+          "value": "issue discount against annual coupon or infer funding feasibility. Separate"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C150",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 171"
+        },
+        {
+          "name": "Quote",
+          "value": "delivery may publish the checked pricing result and gaps without repeating"
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    },
+    {
+      "ref_id": "C151",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 172"
+        },
+        {
+          "name": "Quote",
+          "value": "analysis. Actual deliverables replace CP-MEMO; no Excel output."
+        },
+        {
+          "name": "SHA-256",
+          "value": "d8ca4e2cc41da9c8dcffc72b2db23f29f629be399d5b4d410f0c6880b4ad1181"
+        }
+      ]
+    }
+  ],
+  "index": {
+    "facts": [
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-0.r0.c0"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-0-0.r0.c1"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-0.r1.c0"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-0-0.r1.c1"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-0.r2.c0"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-0-0.r2.c1"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-0.r3.c0"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "raw-CP-0-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-0-0.r3.c1"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "prose-CP-0-0",
+          "row_id": "r0",
+          "fact_id": "prose-CP-0-0.r0.c0"
+        },
+        "ref_ids": [
+          "C5",
+          "C6",
+          "C7",
+          "C8",
+          "C9",
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "prose-CP-0-1",
+          "row_id": "r0",
+          "fact_id": "prose-CP-0-1.r0.c0"
+        },
+        "ref_ids": [
+          "C11",
+          "C12",
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "prose-CP-0-1",
+          "row_id": "r1",
+          "fact_id": "prose-CP-0-1.r1.c0"
+        },
+        "ref_ids": [
+          "C14",
+          "C15",
+          "C16",
+          "C17",
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "prose-CP-0-2",
+          "row_id": "r0",
+          "fact_id": "prose-CP-0-2.r0.c0"
+        },
+        "ref_ids": [
+          "C19",
+          "C20",
+          "C21",
+          "C22",
+          "C23",
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "prose-CP-0-2",
+          "row_id": "r1",
+          "fact_id": "prose-CP-0-2.r1.c0"
+        },
+        "ref_ids": [
+          "C25",
+          "C26",
+          "C27",
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "prose-CP-0-3",
+          "row_id": "r0",
+          "fact_id": "prose-CP-0-3.r0.c0"
+        },
+        "ref_ids": [
+          "C29",
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "prose-CP-0-4",
+          "row_id": "r0",
+          "fact_id": "prose-CP-0-4.r0.c0"
+        },
+        "ref_ids": [
+          "C31",
+          "C32",
+          "C33",
+          "C34",
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "prose-CP-0-4",
+          "row_id": "r1",
+          "fact_id": "prose-CP-0-4.r1.c0"
+        },
+        "ref_ids": [
+          "C36",
+          "C37",
+          "C38",
+          "C39",
+          "C40"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-0",
+          "table_id": "prose-CP-0-5",
+          "row_id": "r0",
+          "fact_id": "prose-CP-0-5.r0.c0"
+        },
+        "ref_ids": [
+          "C41",
+          "C42",
+          "C43",
+          "C44",
+          "C45"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-0.r0.c0"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-0.r0.c1"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-0.r1.c0"
+        },
+        "ref_ids": [
+          "C47"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-0.r1.c1"
+        },
+        "ref_ids": [
+          "C47"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-0.r2.c0"
+        },
+        "ref_ids": [
+          "C48"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-0.r2.c1"
+        },
+        "ref_ids": [
+          "C48"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-0.r3.c0"
+        },
+        "ref_ids": [
+          "C49"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-0.r3.c1"
+        },
+        "ref_ids": [
+          "C49"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-1.r0.c0"
+        },
+        "ref_ids": [
+          "C50"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-1.r0.c1"
+        },
+        "ref_ids": [
+          "C50"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-1.r1.c0"
+        },
+        "ref_ids": [
+          "C51"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-1.r1.c1"
+        },
+        "ref_ids": [
+          "C51"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-1.r2.c0"
+        },
+        "ref_ids": [
+          "C52"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-1.r2.c1"
+        },
+        "ref_ids": [
+          "C52"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-1.r3.c0"
+        },
+        "ref_ids": [
+          "C53"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-1.r3.c1"
+        },
+        "ref_ids": [
+          "C53"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-1.r4.c0"
+        },
+        "ref_ids": [
+          "C54"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-1.r4.c1"
+        },
+        "ref_ids": [
+          "C54"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-1.r5.c0"
+        },
+        "ref_ids": [
+          "C55"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-1.r5.c1"
+        },
+        "ref_ids": [
+          "C55"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r6",
+          "fact_id": "raw-CP-2E-1.r6.c0"
+        },
+        "ref_ids": [
+          "C56"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r6",
+          "fact_id": "raw-CP-2E-1.r6.c1"
+        },
+        "ref_ids": [
+          "C56"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-2.r0.c0"
+        },
+        "ref_ids": [
+          "C57"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-2.r0.c1"
+        },
+        "ref_ids": [
+          "C57"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-2.r1.c0"
+        },
+        "ref_ids": [
+          "C58"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-2.r1.c1"
+        },
+        "ref_ids": [
+          "C58"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-3.r0.c0"
+        },
+        "ref_ids": [
+          "C59"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-3.r0.c1"
+        },
+        "ref_ids": [
+          "C59"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-3.r1.c0"
+        },
+        "ref_ids": [
+          "C60"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-3.r1.c1"
+        },
+        "ref_ids": [
+          "C60"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-3.r2.c0"
+        },
+        "ref_ids": [
+          "C61"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-3.r2.c1"
+        },
+        "ref_ids": [
+          "C61"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-4.r0.c0"
+        },
+        "ref_ids": [
+          "C62"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-4.r1.c0"
+        },
+        "ref_ids": [
+          "C63"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-4.r2.c0"
+        },
+        "ref_ids": [
+          "C64"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-4.r3.c0"
+        },
+        "ref_ids": [
+          "C65"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-4.r4.c0"
+        },
+        "ref_ids": [
+          "C66"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-4.r5.c0"
+        },
+        "ref_ids": [
+          "C67"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r6",
+          "fact_id": "raw-CP-2E-4.r6.c0"
+        },
+        "ref_ids": [
+          "C68"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r7",
+          "fact_id": "raw-CP-2E-4.r7.c0"
+        },
+        "ref_ids": [
+          "C69"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r8",
+          "fact_id": "raw-CP-2E-4.r8.c0"
+        },
+        "ref_ids": [
+          "C70"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r9",
+          "fact_id": "raw-CP-2E-4.r9.c0"
+        },
+        "ref_ids": [
+          "C71"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-5.r0.c0"
+        },
+        "ref_ids": [
+          "C72"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-5.r1.c0"
+        },
+        "ref_ids": [
+          "C73"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-5.r2.c0"
+        },
+        "ref_ids": [
+          "C74"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-5.r3.c0"
+        },
+        "ref_ids": [
+          "C75"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-5.r4.c0"
+        },
+        "ref_ids": [
+          "C76"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-6.r0.c0"
+        },
+        "ref_ids": [
+          "C77"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-6.r0.c1"
+        },
+        "ref_ids": [
+          "C77"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-6.r0.c2"
+        },
+        "ref_ids": [
+          "C77"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-6.r1.c0"
+        },
+        "ref_ids": [
+          "C78"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-6.r1.c1"
+        },
+        "ref_ids": [
+          "C78"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-6.r1.c2"
+        },
+        "ref_ids": [
+          "C78"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-6.r2.c0"
+        },
+        "ref_ids": [
+          "C79"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-6.r2.c1"
+        },
+        "ref_ids": [
+          "C79"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-6.r2.c2"
+        },
+        "ref_ids": [
+          "C79"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-6.r3.c0"
+        },
+        "ref_ids": [
+          "C80"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-6.r3.c1"
+        },
+        "ref_ids": [
+          "C80"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-6.r3.c2"
+        },
+        "ref_ids": [
+          "C80"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-6.r4.c0"
+        },
+        "ref_ids": [
+          "C81"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-6.r4.c1"
+        },
+        "ref_ids": [
+          "C81"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-6.r4.c2"
+        },
+        "ref_ids": [
+          "C81"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-7.r0.c0"
+        },
+        "ref_ids": [
+          "C82"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-7.r0.c1"
+        },
+        "ref_ids": [
+          "C82"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-7.r1.c0"
+        },
+        "ref_ids": [
+          "C83"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-7.r1.c1"
+        },
+        "ref_ids": [
+          "C83"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-7.r2.c0"
+        },
+        "ref_ids": [
+          "C84"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-7.r2.c1"
+        },
+        "ref_ids": [
+          "C84"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-7.r3.c0"
+        },
+        "ref_ids": [
+          "C85"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-7.r3.c1"
+        },
+        "ref_ids": [
+          "C85"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-7.r4.c0"
+        },
+        "ref_ids": [
+          "C86"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-7.r4.c1"
+        },
+        "ref_ids": [
+          "C86"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-7.r5.c0"
+        },
+        "ref_ids": [
+          "C87"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-7.r5.c1"
+        },
+        "ref_ids": [
+          "C87"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-0",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-0.r0.c0"
+        },
+        "ref_ids": [
+          "C88",
+          "C89",
+          "C90",
+          "C91",
+          "C92",
+          "C93"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-0",
+          "row_id": "r1",
+          "fact_id": "prose-CP-2E-0.r1.c0"
+        },
+        "ref_ids": [
+          "C94",
+          "C95",
+          "C96",
+          "C97",
+          "C98"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-1",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-1.r0.c0"
+        },
+        "ref_ids": [
+          "C99",
+          "C100",
+          "C101",
+          "C102"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-1",
+          "row_id": "r1",
+          "fact_id": "prose-CP-2E-1.r1.c0"
+        },
+        "ref_ids": [
+          "C103",
+          "C104",
+          "C105",
+          "C106",
+          "C107",
+          "C108",
+          "C109",
+          "C110"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-1",
+          "row_id": "r2",
+          "fact_id": "prose-CP-2E-1.r2.c0"
+        },
+        "ref_ids": [
+          "C111",
+          "C112",
+          "C113"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-2",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-2.r0.c0"
+        },
+        "ref_ids": [
+          "C114",
+          "C115",
+          "C116"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-3",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-3.r0.c0"
+        },
+        "ref_ids": [
+          "C117",
+          "C118",
+          "C119",
+          "C120"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-4",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-4.r0.c0"
+        },
+        "ref_ids": [
+          "C121",
+          "C122",
+          "C123",
+          "C124",
+          "C125"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-4",
+          "row_id": "r1",
+          "fact_id": "prose-CP-2E-4.r1.c0"
+        },
+        "ref_ids": [
+          "C126",
+          "C127",
+          "C128",
+          "C129",
+          "C130",
+          "C131"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-5",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-5.r0.c0"
+        },
+        "ref_ids": [
+          "C132",
+          "C133",
+          "C134",
+          "C135",
+          "C136"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-5",
+          "row_id": "r1",
+          "fact_id": "prose-CP-2E-5.r1.c0"
+        },
+        "ref_ids": [
+          "C137",
+          "C138",
+          "C139",
+          "C140",
+          "C141"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-6",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-6.r0.c0"
+        },
+        "ref_ids": [
+          "C142",
+          "C143",
+          "C144",
+          "C145"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-7",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-7.r0.c0"
+        },
+        "ref_ids": [
+          "C146",
+          "C147",
+          "C148",
+          "C149",
+          "C150",
+          "C151"
+        ]
+      }
+    ]
+  }
+}

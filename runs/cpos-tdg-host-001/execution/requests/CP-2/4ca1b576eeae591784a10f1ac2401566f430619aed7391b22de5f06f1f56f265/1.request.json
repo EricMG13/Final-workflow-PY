@@ -1,0 +1,32 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0",
+    "CP-1": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+    "CP-1A": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+  },
+  "instructions": "# CP-2 \u2014 fresh host synthesis through CP-OS\n\n## Execution and inputs\nThis is a new actual answer from the current host model, with preceding session\ncontext. It is not a blind/independent/provider run. CP-OS supplies the exact\ncurrent CP-0, CP-1 and CP-1A Markdown bytes and source hashes in this request.\nUse those handoffs as analytical evidence; the annual PDF is staged for identity,\nnot a request to re-extract financials. Do not copy an earlier CP-2 answer.\nRead the supplied current handoffs. Refer to financial rows, periods and units\nand to business/governance rows for each material conclusion. Historical\nFY2024 and separately dated October events are not current2026 observations.\n\n## Selected method\nKeep the evidence -> risk mechanic -> creditor implication chain of\n`src/deploy_vii/methods/cp2.md` and the wider Deploy V-derived CP-2 checks selected\nin `runs/tdg-002/CP-2-instructions.md`. Current project instructions govern.\nInternal fact chips/typed journal contracts are not required for Markdown.\nUse Documentary Fact, Management Language, Analyst Interpretation or\nInsufficient Information; preserve the separate basis of each.\n\n## Requested analysis\n1. Re-anchor issuer, consolidated perimeter, actual source/handoff identities,\n   annual dates and limitations. Reuse CP-0 readiness rather than redoing it.\n2. Explain business/ownership structure, revenue durability, pricing/volume,\n   cost/capex flexibility and cash conversion from the checked evidence.\n3. Assess supported competitive/sector/political/economic/technology mechanisms\n   without turning a framework label into evidence.\n4. Give the nine-dimension Strong/Average/Weak/Not Assessable financial profile:\n   scale/market position, competitive advantage, diversification, cost/capex\n   flexibility, margin stability, FCF stability, refinancing/market access,\n   liquidity, financial policy/governance. No composite or agency rating.\n5. Show conditional12\u201324month and3\u20135year mechanisms from the historical date,\n   plus one operational -> revenue -> margin -> cash -> liquidity ->\n   leverage/refinancing downside chain. Name management levers and missing inputs.\n6. Give the six-factor issuer matrix: revenue durability, margin resilience,\n   cash conversion, liquidity buffer, refinancing capacity, financial policy.\n   Cross-reference evidence rather than duplicate it.\n7. Rank strengths/weaknesses/key risks, credible counterevidence and what would\n   change the view. State observable monitoring signals for revenue, EBITDA\n   margin, cash conversion, liquidity, leverage, refinancing, shareholder action\n   and sector conditions. Do not invent missing quantitative thresholds.\n8. Conclude with assessment/thesis, inherited gaps and concrete next-module\n   uses. Confidence must remain below High while CP-1A's two Critical CP-2\n   restrictions and Ready with limitations remain. Missing is not adverse/zero.\n\n## Transport and completion boundary\nUse the six headings Request, Sources, Findings, Calculations, Gaps, Next module.\nWithin Findings include single-line **Assessment \u2014 ...** and **Thesis \u2014 ...**;\ninclude `### Ranked strengths, weaknesses and key risks`, then **Strengths** and\n**Weaknesses** with numbered single-paragraph entries. These map to the existing\nfive-section report. Give Gaps as a populated pipe table. Keep all other analysis\nunder the same envelope. No new quantitative calculations required: reproduce\nonly checked exact upstream figures and distinguish reported/calculated amounts,\nprincipal/carrying value, sign, period and quantity family. Do not turn annual\nOCF less capex into sustainable FCF or funding capacity. No peer/security\nrecommendation, default probability or recovery outcome. No rating/covenant\nlimit invention. A handoff is intermediate; CP-OS must invoke separate delivery\nand verify populated outputs. No native accepted head is implied.\n\nRetain the actual response in the pending CP-OS response path. Source/instruction\nreview follows before any subsequent consumer or delivery. No credential files,\nprovider calls, subagents, Excel outputs or historical-file mutation.\n\nSelected method hashes:\n- `src/deploy_vii/methods/cp2.md`: `9ddd2ab22b5aeab99054cf82ebfb7f03ef49422678be08374566b96dc18dcbd1`.\n- `runs/tdg-002/CP-2-instructions.md`: `12e5002a278dd5fdb99f22c17c83742f8768a40d04bee7e1e66f5780ed0ef385`.\n- `AGENTS.md`: `fb690d4ff4bae921dcfc825db0fc6e2ec5259b44fe105aa98815455389034da2`.\n",
+  "module_id": "CP-2",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-1",
+      "CP-MODEL",
+      "CP-1A",
+      "CP-2"
+    ],
+    "run_id": "cpos-tdg-fy2024-host-snapshot-1",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "S1-annual-report.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+    "S1-text-aid.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+  }
+}

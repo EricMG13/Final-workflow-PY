@@ -1,0 +1,13 @@
+# Printed PDF period header oracle
+
+This is an independently authored key for CP1H-R24. It is derived from the frozen page text, the existing PDF unit manifests, the page fixture manifests, and existing independent identity keys. It does not take expected results from the product period mapper or parser.
+
+`expected.json` covers 29 located page-unit entries across 28 physical pages in six actual issuer PDFs; FUN page 115 supplies both IS and CI entries. Each entry retains the exact numbered source header lines, source identity/hash, page fixture hash and ordered expected period columns. The page hash is checked against both its text fixture and the frozen page manifest. `manifest.json` binds the key to those fixture and unit-manifest hashes.
+
+`full-pack-disposition.json` adds the two supplementary units found by the VMO2Q3 full-pack locator under controller ruling R24-C2; it leaves the original 29-entry/75-column key unchanged. Page 46 cash-flow summary maps to the two printed nine-month YTD periods, 2025 then 2024. Page 48 profit-or-loss summary has five entity columns under one nine-month period and is explicitly refused as non-period-mappable. The same page’s co-located balance-sheet and comprehensive-income blocks are recorded as context. The later capital-expenditure reconciliation on page 46 is a separate schedule, not a reason to drop extracted rows. Page hashes fingerprint the raw PDF page text extracted with pypdf 6.21.2 layout mode.
+
+Column candidate periods are independent declared test inputs. A printed duration such as `Fiscal Years Ended` yields a 12-month year kind but does not invent an exact start date; candidate starts are present only where the declared period input calls for them. `FUN` is Ford Motor Company, not Six Flags. SIX22 FY ending 2022-01-02 belongs to fiscal year 2021. Its same-end quarter is included as a negative candidate. VMO2Q3 includes same-end quarter and nine-month candidates to ensure duration distinguishes them.
+
+The answer key uses R24-C1: flow statements need a clear printed duration from their own header; absent or ambiguous duration refuses mapping and never becomes an instant balance period. Balance columns use exact printed dates. No period is borrowed across units or pages. Refusal controls are listed in `expected.json`; original fixtures remain the positive controls.
+
+This is a mapping-only key. It has no product claims, canonical module submission, or rendered section. Therefore canonical table, claim, and render validators do not apply. The applicable checks are source/page/hash integrity, unit/page identity, exact header-line integrity, expected column counts/order, JSON validity, and deterministic key/manifest rebuild comparison.

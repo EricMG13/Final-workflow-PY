@@ -1,0 +1,137 @@
+{
+  "execution": "Actual current host model with prior context; personas simulated inline, not separate/independent agents; no providers/native accepted heads",
+  "instructions_sha256": "c28d92a795a8e8d98b4a35f466389e9a95e75fd813fb7635390a4fd05f8dd859",
+  "pre_answer_independent_expectations_sha256": "7f71d0172cf3a7ec8d3d62d31405924920722f9f241efbe5906ea01f705b6a1d",
+  "input_and_method_sha_checks": true,
+  "raw_xml_date_identity_amount_nav_and_subsets_checked": true,
+  "financial_literals_and_independent_expected_ratios_checked": true,
+  "all11_step_headings_and6_transport_headings": true,
+  "all4_schema_column_sets": true,
+  "three_pitch_attack_defense_ids_match": true,
+  "nine_dimensions_one_scoped3_eight_unscored_no_average": true,
+  "posture_no_winner_unknown_constraint_and9_CIO_elements": true,
+  "gap_ids_sequential": true,
+  "qa_findings": {
+    "CP5-P01": "Identity/value availability does not answer actual mispricing/protection objection; no blanket no-evidence attack was made.",
+    "CP5-P02": "Small measured footprint does not answer unknown limits/budget/execution; no fund-dominance claim was made."
+  },
+  "repair": {
+    "attempt1_sha256": "9b6083e81376b307408c6c10662bc24543e2f80c039a362420869fee7e3e6bd0",
+    "attempt2_sha256": "805f90563c8019d4ed34650011532d5e19e7bf75815b6556b43c7d8295eeb93d",
+    "exact_diff_scope": "4 rebuttal/resolution rows plus one obsolete follow-up clause; no financial literal, score, source, posture or winner changed.",
+    "diff": [
+      "-| RV2 | Exact July2029 identity, held par/value are real | They refute a blanket claim that no instrument evidence exists, but do not establish mispricing/protection/exit | Partially Rebutted for source identity only; mispricing remains unsupported, no new argument or size |",
+      "-| RV3 | Group0.109532894% NAV and stated conditional losses are independently checked | They refute an unquantified claim that the position necessarily dominates fund NAV; they do not demonstrate policy headroom or executable liquidity | Partially Rebutted; provisional posture Requires More Work, exact size [Insufficient Information] |",
+      "+| RV2 | Exact July2029 identity, held par/value are agreed source facts | The attack already accepts those facts; they do not answer missing matched protection, recovery, price convention or execution | Insufficient Information for the actual mispricing/protection attack; no rebuttal established and no new argument or size |",
+      "+| RV3 | Group0.109532894% NAV and stated conditional losses are independently checked and already accepted by the attack | These measurements do not supply the actual limits, budget, correlation capacity or deliverability being challenged | Insufficient Information for implementation; provisional posture Requires More Work, exact size [Insufficient Information] |",
+      "-| RV2 marked note is mispriced/protected | Identity/value available, actual mispricing unproved | Terms/recovery/execution still unverified | Partially Mitigated | H3 July2029 exact identity; RV2 defense only partly answers source-availability concern | Targeted instrument research now possible; no Preferred or protection approval |",
+      "-| RV3 small holding supports implementation | Precise NAV footprint and conditional losses are known | Shared issuer/maturity risks and missing rules/budget/operations prevent capacity finding | Partially Mitigated | H3 C1\u2013C8; actual risk restrictions retained | Measured loss comparison can proceed when policy exists; no numeric size, hold/add/trim authorization or breach |",
+      "+| RV2 marked note is mispriced/protected | Identity/value available, actual mispricing unproved | Terms/recovery/execution still unverified | Insufficient Information | H3 July2029 identity is agreed; it does not answer the actual objection, and RV2 supplies no rebutting evidence | Targeted instrument research is possible; no mispricing, Preferred or protection approval |",
+      "+| RV3 small holding supports implementation | Precise NAV footprint and conditional losses are known | Shared issuer/maturity risks and missing rules/budget/operations prevent capacity finding | Insufficient Information | H3 C1\u2013C8 measure exposure/loss, but no actual rule, budget or execution evidence answers the implementation objection | Measured loss comparison can proceed when policy exists; no supported numeric size, hold/add/trim authorization or breach |",
+      "-capacity, and whether partially rebutted identities are distinct from actual",
+      "+capacity, and whether identity evidence is kept distinct from actual"
+    ]
+  },
+  "method_change": {
+    "path": "src/deploy_vii/methods/cp6.md",
+    "before_sha256": "324595e417e5bf903a27040220e87d1221f9f6d89245cb62f73b9b0ad2182c5d",
+    "after_sha256": "613fb134c0a0767d253f990f496c623ed0f9b51aea42aee85b511235f65aa99f",
+    "prompt_loader_reads_current_file": true,
+    "change": "Exact-proposition rebuttal discipline plus correct absorbed-CP6A/current narrow typed-composer scope; no Python/schema/composer changed.",
+    "scoped_diff_inspected": true
+  },
+  "confidence_review": {
+    "ranked_doubts": [
+      "True facts falsely counted as rebuttal/partial mitigation",
+      "Missing mandate interpreted as actual breach or safe capacity",
+      "One score/partial average/unknown numeric converted to zero",
+      "Mixed date/quantity/denominator or double-counted subsets",
+      "Hidden full-native/independent-committee/memo-owner claim",
+      "Delivery loses posture/limitations/source trace"
+    ],
+    "findings": [
+      "CONFIRMED argument-fidelity defects P01/P02; repaired4 rows and stale follow-up clause",
+      "Actual rule/budget absent, final exact constraint Insufficient Information, Neither wins, no trade",
+      "Only narrowly justified concentration3; eight unscored; aggregate null; literal delivery needs missing handling",
+      "Raw NPORT/independent expected amounts/date/NAV/subsets and repair parity pass",
+      "One host model/three simulated viewpoints, CP6A absorbed, full native scope explicitly open",
+      "CONFIRMED first presentation escaped multiline citations incorrectly; independent physical-slice checks repaired report2, all164 value facts/statuses unchanged. Header copies actual posture; original narrative and all11 steps visible. Browser confirms RV3 full exact source quote/hash."
+    ],
+    "open": [
+      "Matching compensation/peers/mandate/budget/ratings/operations and full downside/legal/funding",
+      "Native/independent/general CPOS path qualification"
+    ]
+  },
+  "production_python_changed": false,
+  "rewrite_tournament": "Skipped per docs/static-prompt/generated-case exception: no production function changed.",
+  "producer_final": "CP-6-attempt-2.md",
+  "producer_final_sha256": "805f90563c8019d4ed34650011532d5e19e7bf75815b6556b43c7d8295eeb93d",
+  "actual_review": "CP-5.md",
+  "actual_review_sha256": "55f6bdfbe12aa531606003a1896ccfec14b5e687dd94f68dc1f7465b2aa3b91f",
+  "scope": "Actual all-step portfolio-debate function using dated real holdings and bounded measurements; no invented binding constraint, full implementation/whole-portfolio or native pass.",
+  "prompt_checks": {
+    "actual_compose_current_method_once": true,
+    "before_after_difference_is_exact_method_text_only": true,
+    "other_messages_byte_equal": true,
+    "current_assembled_sha256": "001219a7968567824508f240e77009247c15750e032c8e30f41467f3c4efb29a",
+    "pre_edit_assembled_sha256": "b8ca83042bad49b4096017bfb9bc699e2be9a91f6ea1f6922328f320c9de6749",
+    "pre_edit_matches_historical_FROZEN": true,
+    "pre_edit_undo_invoke_matches_historical": true,
+    "legacy_suite": "PYTHONPATH=src:tests:tests/prompts .venv/bin/pytest tests/prompts/test_texts_loader.py -q:21failed31passed. Frozen historical prompt hashes include intentional current CP1/CP3/CP6/source wording changes; not analytical result validation. No hashes regenerated to force green. Initial invocation lacked tests helper path and was corrected.",
+    "production_python_or_schema_changed": false,
+    "interpretation": "The pre-edit assembled committee prompt exactly matches the historical FROZEN hash; current prompt differs only by the intentionally revised method text. Two committee-specific historical rollback checks now fail for that expected edit; other legacy hashes already drift from earlier current-project changes. Do not claim the full legacy suite is green."
+  },
+  "delivery": {
+    "directory": "deliverables/lqd-arcc-debate-2",
+    "kind": "manual_checked_handoff_delivery",
+    "analytical_rerun_for_delivery": false,
+    "production_code_changed": false,
+    "native_accepted_heads_created": false,
+    "no_excel_output": true,
+    "scope": "Historical LQD holdings: 31 May 2025. Portfolio debate from checked model handoffs. Market, mandate, loss-budget and execution gaps leave the posture Requires More Work; an exact binding constraint is not established. The figures describe actual holdings and conditional sensitivities, without new position sizing or trade approval.",
+    "source_tables": 22,
+    "source_data_rows": 73,
+    "literal_value_cells_checked": 164,
+    "facts_and_exact_line_citations": 164,
+    "missing_null_cells": 8,
+    "front_summary_rows": 6,
+    "narrative_tables": 11,
+    "call_from_literal_CIO_posture": true,
+    "files": {
+      "CP-6-attempt-2.md": "805f90563c8019d4ed34650011532d5e19e7bf75815b6556b43c7d8295eeb93d",
+      "CP-5-recheck.md": "c2e32b4d8292c75aaa37257f1ff626604d983ebf0aa33e0e49d3872424a12d26",
+      "view.json": "952b30a7ecaa148e6d8c3f902d7f82faefa597f337739708a335ee25bc98b7e3",
+      "report-view.json": "d744e5b2ca624debbbae05039f14297ff24505e0fb1cd4e79d8c10d40c5366d7",
+      "report.html": "52c1bfd8d911e648fb88906062bf8cb9d7a33f350989922a1f0b8b991e628577"
+    },
+    "reused_code": {
+      "src/deploy_workflow/handoff_delivery.py": "aa77ae59a2e408f05a3cf2f5c7af92b4dde2b2df635f961545d49fc05bc0e00c",
+      "src/deploy_vii/contracts.py": "b07965cc3907da1911c29a09bfea8b4559fb1c27dfc57c7e89eab97f1a3d0ee3",
+      "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+      "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba"
+    },
+    "presentation_repair": {
+      "attempt1_directory": "deliverables/lqd-arcc-debate-1",
+      "status": "Rejected before browser/final publication: multiline narrative quotes contained literal slash-n, not physical source newlines. An independent physical-slice check found the builder and first check shared escaping.",
+      "attempt2_directory": "deliverables/lqd-arcc-debate-2",
+      "root_fix": "Build quote with chr(10); independent verifier uses original physical source slice, not same join expression. All15 narrative citations and149 table-value citations now exact.",
+      "all164_value_facts_and_statuses_other_than_citations_unchanged": true,
+      "all15_multiline_quotes_checked_to_physical_source_slices": true
+    },
+    "browser_AX_checks": [
+      "Header displays actual PORTFOLIO POSTURE Requires More Work from cited CIO source; no invented confidence meter",
+      "Six front-page conclusions preserve historical date, neither-winner, measured footprint/loss and unknown constraint",
+      "CP6 module page retains all eleven substantive step headings, canonical tables and analytical narrative",
+      "RV3 narrative inspector opens exact original physical lines69\u201379 with full pitch/evidence/mechanic/implication/monitoring and correct805f9056... producer hash"
+    ],
+    "browser_limit": "AX table values are exposed through Inspect controls;164 literal value/narrative facts and73 row labels independently checked against original source. No physical layout/screenshot or complete accessibility qualification.",
+    "server_stopped": true
+  },
+  "actual_recheck": {
+    "path": "CP-5-recheck.md",
+    "sha256": "c2e32b4d8292c75aaa37257f1ff626604d983ebf0aa33e0e49d3872424a12d26",
+    "producer_and_initial_QA_frozen_pins_match": true,
+    "two_argument_findings_closed_only_with_targeted_changes": true,
+    "current_disposition": "Cleared for delivery within historical restricted scope; actual source gaps/native/independent qualification remain."
+  }
+}

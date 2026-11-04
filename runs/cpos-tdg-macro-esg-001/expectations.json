@@ -1,0 +1,113 @@
+{
+  "scope": "Independent source inputs before publication; no production formula output used for expected arithmetic.",
+  "term_principals": [
+    "1871",
+    "3632",
+    "1699",
+    "1500"
+  ],
+  "securitization_principal": "487",
+  "securitization_carrying": "486",
+  "debt_note_gross_items": "24581",
+  "carrying_debt": "24880",
+  "active_swaps": [
+    [
+      "500",
+      "2023-03-31",
+      "2025-03-31",
+      "3.00%"
+    ],
+    [
+      "1500",
+      "2023-03-31",
+      "2025-03-31",
+      "3.10%"
+    ],
+    [
+      "700",
+      "2023-03-31",
+      "2025-09-30",
+      "1.30%"
+    ]
+  ],
+  "cap": [
+    "700",
+    "2023-03-31",
+    "2025-09-30",
+    "1.25%"
+  ],
+  "forward_collars": [
+    [
+      "1100",
+      "2025-03-31",
+      "2026-09-30",
+      "2.00%",
+      "3.50%"
+    ],
+    [
+      "500",
+      "2025-09-30",
+      "2026-09-30",
+      "2.00%",
+      "3.50%"
+    ],
+    [
+      "1338",
+      "2025-09-30",
+      "2027-09-30",
+      "2.50%",
+      "4.50%"
+    ],
+    [
+      "1550",
+      "2026-09-30",
+      "2027-09-30",
+      "2.50%",
+      "4.50%"
+    ]
+  ],
+  "fx_forward_notional": "120",
+  "base_interest": "1158",
+  "base_proxy": "1880",
+  "base_as_defined": "4173",
+  "source_approximate_added_interest": "30",
+  "shock_bp": "100",
+  "environment_current": [
+    "5",
+    "36"
+  ],
+  "environment_prior": [
+    "3",
+    "41"
+  ],
+  "quantities_missing": [
+    "qualified_unhedged_floating",
+    "qualified_hedge_ratio",
+    "fx_ebitda_share"
+  ],
+  "sustainability_instrument_terms": "unavailable, not zero",
+  "historical_emissions_target": {
+    "reduction": "50%",
+    "baseline": "FY2019",
+    "target_year": "2031"
+  },
+  "canonical_registers": [
+    "T2F.1",
+    "T2F.2",
+    "T2F.3",
+    "T2F.4",
+    "T2F.5",
+    "T2F.6",
+    "T2F.7",
+    "T2F.8",
+    "T2F.9",
+    "T2G.1",
+    "T2G.2",
+    "T2G.3",
+    "T2G.4",
+    "T2G.5",
+    "T2G.6",
+    "T2G.7",
+    "T2G.8"
+  ]
+}

@@ -1,0 +1,4738 @@
+{
+  "checks": [
+    {
+      "source_id": "W1",
+      "exact_cells": 149,
+      "nonempty": 135,
+      "empty_stored_cells": 14,
+      "spans": 150,
+      "merged_ranges": [
+        "A32:D32"
+      ],
+      "independent_reader": "raw XML; read-only openpyxl independently confirms string headers"
+    },
+    {
+      "source_id": "W2",
+      "exact_cells": 258,
+      "nonempty": 244,
+      "empty_stored_cells": 14,
+      "spans": 258,
+      "merged_ranges": [],
+      "independent_reader": "raw XML; read-only openpyxl independently confirms string headers"
+    },
+    {
+      "source_id": "W3",
+      "exact_cells": 247,
+      "nonempty": 203,
+      "empty_stored_cells": 44,
+      "spans": 248,
+      "merged_ranges": [
+        "A64:D64"
+      ],
+      "independent_reader": "raw XML; read-only openpyxl independently confirms string headers"
+    }
+  ],
+  "metadata": {
+    "W1": {
+      "sheet": "Tabelle1",
+      "used_range": "A1:D43",
+      "names": [
+        {
+          "name": "_FLink_1T_L2u3ChSnEx1b6TFZ\u00fcd_1",
+          "reference": "Tabelle1!$A$34"
+        },
+        {
+          "name": "_FLink_1T_rgozr\u00d6kno4dC\u00f67\u00c4Avf_1",
+          "reference": "Tabelle1!$A$3"
+        },
+        {
+          "name": "_Hlk122531309",
+          "reference": "Tabelle1!$A$32"
+        },
+        {
+          "name": "_Toc191592965",
+          "reference": "Tabelle1!$A$1"
+        }
+      ],
+      "columns": [
+        {
+          "min": "1",
+          "max": "1",
+          "width": "76.296875",
+          "customWidth": "1"
+        }
+      ],
+      "merges": [
+        "A32:D32"
+      ],
+      "cells": [
+        {
+          "cell": "A1",
+          "type": "s",
+          "stored_value": "0",
+          "resolved_text": "Consolidated statement of income",
+          "source_style": "19"
+        },
+        {
+          "cell": "A2",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "1"
+        },
+        {
+          "cell": "A3",
+          "type": "s",
+          "stored_value": "1",
+          "resolved_text": "in EUR million",
+          "source_style": "14"
+        },
+        {
+          "cell": "B3",
+          "type": "s",
+          "stored_value": "2",
+          "resolved_text": "Notes",
+          "source_style": "15"
+        },
+        {
+          "cell": "C3",
+          "type": "s",
+          "stored_value": "3",
+          "resolved_text": "1-12 23",
+          "source_style": "15"
+        },
+        {
+          "cell": "D3",
+          "type": "s",
+          "stored_value": "4",
+          "resolved_text": "1-12 24",
+          "source_style": "15"
+        },
+        {
+          "cell": "A4",
+          "type": "s",
+          "stored_value": "5",
+          "resolved_text": "Net interest income",
+          "source_style": "3"
+        },
+        {
+          "cell": "B4",
+          "type": "n",
+          "stored_value": "2",
+          "resolved_text": "2",
+          "source_style": "4"
+        },
+        {
+          "cell": "C4",
+          "type": "n",
+          "stored_value": "7.2279999999999998",
+          "resolved_text": "7.2279999999999998",
+          "source_style": "4"
+        },
+        {
+          "cell": "D4",
+          "type": "n",
+          "stored_value": "7.5279999999999996",
+          "resolved_text": "7.5279999999999996",
+          "source_style": "5"
+        },
+        {
+          "cell": "A5",
+          "type": "s",
+          "stored_value": "6",
+          "resolved_text": "Interest income",
+          "source_style": "6"
+        },
+        {
+          "cell": "B5",
+          "type": "n",
+          "stored_value": "2",
+          "resolved_text": "2",
+          "source_style": "4"
+        },
+        {
+          "cell": "C5",
+          "type": "n",
+          "stored_value": "15.045",
+          "resolved_text": "15.045",
+          "source_style": "4"
+        },
+        {
+          "cell": "D5",
+          "type": "n",
+          "stored_value": "15.353",
+          "resolved_text": "15.353",
+          "source_style": "5"
+        },
+        {
+          "cell": "A6",
+          "type": "s",
+          "stored_value": "7",
+          "resolved_text": "Other similar income",
+          "source_style": "6"
+        },
+        {
+          "cell": "B6",
+          "type": "n",
+          "stored_value": "2",
+          "resolved_text": "2",
+          "source_style": "4"
+        },
+        {
+          "cell": "C6",
+          "type": "n",
+          "stored_value": "4.4459999999999997",
+          "resolved_text": "4.4459999999999997",
+          "source_style": "4"
+        },
+        {
+          "cell": "D6",
+          "type": "n",
+          "stored_value": "3.7559999999999998",
+          "resolved_text": "3.7559999999999998",
+          "source_style": "5"
+        },
+        {
+          "cell": "A7",
+          "type": "s",
+          "stored_value": "8",
+          "resolved_text": "Interest expenses",
+          "source_style": "6"
+        },
+        {
+          "cell": "B7",
+          "type": "n",
+          "stored_value": "2",
+          "resolved_text": "2",
+          "source_style": "4"
+        },
+        {
+          "cell": "C7",
+          "type": "n",
+          "stored_value": "-6.8730000000000002",
+          "resolved_text": "-6.8730000000000002",
+          "source_style": "4"
+        },
+        {
+          "cell": "D7",
+          "type": "n",
+          "stored_value": "-7.5490000000000004",
+          "resolved_text": "-7.5490000000000004",
+          "source_style": "5"
+        },
+        {
+          "cell": "A8",
+          "type": "s",
+          "stored_value": "9",
+          "resolved_text": "Other similar expenses",
+          "source_style": "6"
+        },
+        {
+          "cell": "B8",
+          "type": "n",
+          "stored_value": "2",
+          "resolved_text": "2",
+          "source_style": "4"
+        },
+        {
+          "cell": "C8",
+          "type": "n",
+          "stored_value": "-5.3890000000000002",
+          "resolved_text": "-5.3890000000000002",
+          "source_style": "4"
+        },
+        {
+          "cell": "D8",
+          "type": "n",
+          "stored_value": "-4.032",
+          "resolved_text": "-4.032",
+          "source_style": "5"
+        },
+        {
+          "cell": "A9",
+          "type": "s",
+          "stored_value": "10",
+          "resolved_text": "Net fee and commission income",
+          "source_style": "3"
+        },
+        {
+          "cell": "B9",
+          "type": "n",
+          "stored_value": "3",
+          "resolved_text": "3",
+          "source_style": "4"
+        },
+        {
+          "cell": "C9",
+          "type": "n",
+          "stored_value": "2.64",
+          "resolved_text": "2.64",
+          "source_style": "4"
+        },
+        {
+          "cell": "D9",
+          "type": "n",
+          "stored_value": "2.9380000000000002",
+          "resolved_text": "2.9380000000000002",
+          "source_style": "5"
+        },
+        {
+          "cell": "A10",
+          "type": "s",
+          "stored_value": "11",
+          "resolved_text": "Fee and commission income",
+          "source_style": "6"
+        },
+        {
+          "cell": "B10",
+          "type": "n",
+          "stored_value": "3",
+          "resolved_text": "3",
+          "source_style": "4"
+        },
+        {
+          "cell": "C10",
+          "type": "n",
+          "stored_value": "3.1040000000000001",
+          "resolved_text": "3.1040000000000001",
+          "source_style": "4"
+        },
+        {
+          "cell": "D10",
+          "type": "n",
+          "stored_value": "3.4540000000000002",
+          "resolved_text": "3.4540000000000002",
+          "source_style": "5"
+        },
+        {
+          "cell": "A11",
+          "type": "s",
+          "stored_value": "12",
+          "resolved_text": "Fee and commission expenses",
+          "source_style": "6"
+        },
+        {
+          "cell": "B11",
+          "type": "n",
+          "stored_value": "3",
+          "resolved_text": "3",
+          "source_style": "4"
+        },
+        {
+          "cell": "C11",
+          "type": "n",
+          "stored_value": "-464",
+          "resolved_text": "-464",
+          "source_style": "4"
+        },
+        {
+          "cell": "D11",
+          "type": "n",
+          "stored_value": "-517",
+          "resolved_text": "-517",
+          "source_style": "5"
+        },
+        {
+          "cell": "A12",
+          "type": "s",
+          "stored_value": "13",
+          "resolved_text": "Dividend income",
+          "source_style": "3"
+        },
+        {
+          "cell": "B12",
+          "type": "n",
+          "stored_value": "4",
+          "resolved_text": "4",
+          "source_style": "4"
+        },
+        {
+          "cell": "C12",
+          "type": "n",
+          "stored_value": "38",
+          "resolved_text": "38",
+          "source_style": "4"
+        },
+        {
+          "cell": "D12",
+          "type": "n",
+          "stored_value": "39",
+          "resolved_text": "39",
+          "source_style": "5"
+        },
+        {
+          "cell": "A13",
+          "type": "s",
+          "stored_value": "14",
+          "resolved_text": "Net trading result",
+          "source_style": "3"
+        },
+        {
+          "cell": "B13",
+          "type": "n",
+          "stored_value": "5",
+          "resolved_text": "5",
+          "source_style": "4"
+        },
+        {
+          "cell": "C13",
+          "type": "n",
+          "stored_value": "754",
+          "resolved_text": "754",
+          "source_style": "4"
+        },
+        {
+          "cell": "D13",
+          "type": "n",
+          "stored_value": "519",
+          "resolved_text": "519",
+          "source_style": "5"
+        },
+        {
+          "cell": "A14",
+          "type": "s",
+          "stored_value": "15",
+          "resolved_text": "Gains/losses from financial instruments measured at fair value through profit or loss",
+          "source_style": "3"
+        },
+        {
+          "cell": "B14",
+          "type": "n",
+          "stored_value": "6",
+          "resolved_text": "6",
+          "source_style": "4"
+        },
+        {
+          "cell": "C14",
+          "type": "n",
+          "stored_value": "-306",
+          "resolved_text": "-306",
+          "source_style": "4"
+        },
+        {
+          "cell": "D14",
+          "type": "n",
+          "stored_value": "-82",
+          "resolved_text": "-82",
+          "source_style": "5"
+        },
+        {
+          "cell": "A15",
+          "type": "s",
+          "stored_value": "16",
+          "resolved_text": "Net result from equity method investments",
+          "source_style": "3"
+        },
+        {
+          "cell": "B15",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C15",
+          "type": "n",
+          "stored_value": "23",
+          "resolved_text": "23",
+          "source_style": "4"
+        },
+        {
+          "cell": "D15",
+          "type": "n",
+          "stored_value": "27",
+          "resolved_text": "27",
+          "source_style": "5"
+        },
+        {
+          "cell": "A16",
+          "type": "s",
+          "stored_value": "17",
+          "resolved_text": "Rental income from investment properties & other operating leases",
+          "source_style": "3"
+        },
+        {
+          "cell": "B16",
+          "type": "n",
+          "stored_value": "7",
+          "resolved_text": "7",
+          "source_style": "4"
+        },
+        {
+          "cell": "C16",
+          "type": "n",
+          "stored_value": "175",
+          "resolved_text": "175",
+          "source_style": "4"
+        },
+        {
+          "cell": "D16",
+          "type": "n",
+          "stored_value": "210",
+          "resolved_text": "210",
+          "source_style": "5"
+        },
+        {
+          "cell": "A17",
+          "type": "s",
+          "stored_value": "18",
+          "resolved_text": "Personnel expenses",
+          "source_style": "3"
+        },
+        {
+          "cell": "B17",
+          "type": "n",
+          "stored_value": "8",
+          "resolved_text": "8",
+          "source_style": "4"
+        },
+        {
+          "cell": "C17",
+          "type": "n",
+          "stored_value": "-2.9910000000000001",
+          "resolved_text": "-2.9910000000000001",
+          "source_style": "4"
+        },
+        {
+          "cell": "D17",
+          "type": "n",
+          "stored_value": "-3.202",
+          "resolved_text": "-3.202",
+          "source_style": "5"
+        },
+        {
+          "cell": "A18",
+          "type": "s",
+          "stored_value": "19",
+          "resolved_text": "Other administrative expenses",
+          "source_style": "3"
+        },
+        {
+          "cell": "B18",
+          "type": "n",
+          "stored_value": "8",
+          "resolved_text": "8",
+          "source_style": "4"
+        },
+        {
+          "cell": "C18",
+          "type": "n",
+          "stored_value": "-1.468",
+          "resolved_text": "-1.468",
+          "source_style": "4"
+        },
+        {
+          "cell": "D18",
+          "type": "n",
+          "stored_value": "-1.5289999999999999",
+          "resolved_text": "-1.5289999999999999",
+          "source_style": "5"
+        },
+        {
+          "cell": "A19",
+          "type": "s",
+          "stored_value": "20",
+          "resolved_text": "Depreciation and amortisation",
+          "source_style": "3"
+        },
+        {
+          "cell": "B19",
+          "type": "n",
+          "stored_value": "8",
+          "resolved_text": "8",
+          "source_style": "4"
+        },
+        {
+          "cell": "C19",
+          "type": "n",
+          "stored_value": "-560",
+          "resolved_text": "-560",
+          "source_style": "4"
+        },
+        {
+          "cell": "D19",
+          "type": "n",
+          "stored_value": "-547",
+          "resolved_text": "-547",
+          "source_style": "5"
+        },
+        {
+          "cell": "A20",
+          "type": "s",
+          "stored_value": "21",
+          "resolved_text": "Gains/losses from derecognition of financial assets measured at amortised cost\u00a0",
+          "source_style": "3"
+        },
+        {
+          "cell": "B20",
+          "type": "n",
+          "stored_value": "9",
+          "resolved_text": "9",
+          "source_style": "4"
+        },
+        {
+          "cell": "C20",
+          "type": "n",
+          "stored_value": "-13",
+          "resolved_text": "-13",
+          "source_style": "4"
+        },
+        {
+          "cell": "D20",
+          "type": "n",
+          "stored_value": "-90",
+          "resolved_text": "-90",
+          "source_style": "5"
+        },
+        {
+          "cell": "A21",
+          "type": "s",
+          "stored_value": "22",
+          "resolved_text": "Other gains/losses from derecognition of financial instruments not measured at fair value through profit or loss\u00a0",
+          "source_style": "3"
+        },
+        {
+          "cell": "B21",
+          "type": "n",
+          "stored_value": "10",
+          "resolved_text": "10",
+          "source_style": "4"
+        },
+        {
+          "cell": "C21",
+          "type": "n",
+          "stored_value": "-128",
+          "resolved_text": "-128",
+          "source_style": "4"
+        },
+        {
+          "cell": "D21",
+          "type": "n",
+          "stored_value": "-1",
+          "resolved_text": "-1",
+          "source_style": "5"
+        },
+        {
+          "cell": "A22",
+          "type": "s",
+          "stored_value": "23",
+          "resolved_text": "Impairment result from financial instruments",
+          "source_style": "3"
+        },
+        {
+          "cell": "B22",
+          "type": "n",
+          "stored_value": "11",
+          "resolved_text": "11",
+          "source_style": "4"
+        },
+        {
+          "cell": "C22",
+          "type": "n",
+          "stored_value": "-128",
+          "resolved_text": "-128",
+          "source_style": "4"
+        },
+        {
+          "cell": "D22",
+          "type": "n",
+          "stored_value": "-397",
+          "resolved_text": "-397",
+          "source_style": "5"
+        },
+        {
+          "cell": "A23",
+          "type": "s",
+          "stored_value": "24",
+          "resolved_text": "Other operating result",
+          "source_style": "3"
+        },
+        {
+          "cell": "B23",
+          "type": "n",
+          "stored_value": "12",
+          "resolved_text": "12",
+          "source_style": "4"
+        },
+        {
+          "cell": "C23",
+          "type": "n",
+          "stored_value": "-468",
+          "resolved_text": "-468",
+          "source_style": "4"
+        },
+        {
+          "cell": "D23",
+          "type": "n",
+          "stored_value": "-414",
+          "resolved_text": "-414",
+          "source_style": "5"
+        },
+        {
+          "cell": "A24",
+          "type": "s",
+          "stored_value": "25",
+          "resolved_text": "Levies on banking activities",
+          "source_style": "6"
+        },
+        {
+          "cell": "B24",
+          "type": "n",
+          "stored_value": "12",
+          "resolved_text": "12",
+          "source_style": "4"
+        },
+        {
+          "cell": "C24",
+          "type": "n",
+          "stored_value": "-183",
+          "resolved_text": "-183",
+          "source_style": "4"
+        },
+        {
+          "cell": "D24",
+          "type": "n",
+          "stored_value": "-245",
+          "resolved_text": "-245",
+          "source_style": "5"
+        },
+        {
+          "cell": "A25",
+          "type": "s",
+          "stored_value": "26",
+          "resolved_text": "Pre-tax result from continuing operations",
+          "source_style": "3"
+        },
+        {
+          "cell": "B25",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C25",
+          "type": "n",
+          "stored_value": "4.7949999999999999",
+          "resolved_text": "4.7949999999999999",
+          "source_style": "4"
+        },
+        {
+          "cell": "D25",
+          "type": "n",
+          "stored_value": "4.9969999999999999",
+          "resolved_text": "4.9969999999999999",
+          "source_style": "5"
+        },
+        {
+          "cell": "A26",
+          "type": "s",
+          "stored_value": "27",
+          "resolved_text": "Taxes on income",
+          "source_style": "3"
+        },
+        {
+          "cell": "B26",
+          "type": "n",
+          "stored_value": "13",
+          "resolved_text": "13",
+          "source_style": "4"
+        },
+        {
+          "cell": "C26",
+          "type": "n",
+          "stored_value": "-874",
+          "resolved_text": "-874",
+          "source_style": "4"
+        },
+        {
+          "cell": "D26",
+          "type": "n",
+          "stored_value": "-1.0529999999999999",
+          "resolved_text": "-1.0529999999999999",
+          "source_style": "5"
+        },
+        {
+          "cell": "A27",
+          "type": "s",
+          "stored_value": "28",
+          "resolved_text": "Net result for the period",
+          "source_style": "3"
+        },
+        {
+          "cell": "B27",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C27",
+          "type": "n",
+          "stored_value": "3.9209999999999998",
+          "resolved_text": "3.9209999999999998",
+          "source_style": "4"
+        },
+        {
+          "cell": "D27",
+          "type": "n",
+          "stored_value": "3.9449999999999998",
+          "resolved_text": "3.9449999999999998",
+          "source_style": "5"
+        },
+        {
+          "cell": "A28",
+          "type": "s",
+          "stored_value": "29",
+          "resolved_text": "Net result attributable to non-controlling interests",
+          "source_style": "6"
+        },
+        {
+          "cell": "B28",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "7"
+        },
+        {
+          "cell": "C28",
+          "type": "n",
+          "stored_value": "923",
+          "resolved_text": "923",
+          "source_style": "4"
+        },
+        {
+          "cell": "D28",
+          "type": "n",
+          "stored_value": "819",
+          "resolved_text": "819",
+          "source_style": "5"
+        },
+        {
+          "cell": "A29",
+          "type": "s",
+          "stored_value": "30",
+          "resolved_text": "Net result attributable to owners of the parent",
+          "source_style": "8"
+        },
+        {
+          "cell": "B29",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "9"
+        },
+        {
+          "cell": "C29",
+          "type": "n",
+          "stored_value": "2.9980000000000002",
+          "resolved_text": "2.9980000000000002",
+          "source_style": "10"
+        },
+        {
+          "cell": "D29",
+          "type": "n",
+          "stored_value": "3.125",
+          "resolved_text": "3.125",
+          "source_style": "11"
+        },
+        {
+          "cell": "A30",
+          "type": "s",
+          "stored_value": "31",
+          "resolved_text": "Earnings per share",
+          "source_style": "12"
+        },
+        {
+          "cell": "A32",
+          "type": "s",
+          "stored_value": "32",
+          "resolved_text": "Earnings per share constitute net profit/loss for the year attributable to owners of the parent divided by the average number of ordi-nary shares outstanding. The average number of outstanding shares is net of the average number of treasury shares, considering the shares buyback in the previous year. Diluted earnings per share represent the maximum potential dilution (through an increase in the average number of shares) that would occur if all subscription and conversion rights granted were exercised. The difference between the weighted average number of outstanding shares and the weighted average diluted number of outstanding shares results from share-based payment transactions with employees. For information on share-based payments please refer to Note 61.",
+          "source_style": "20"
+        },
+        {
+          "cell": "B32",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "20"
+        },
+        {
+          "cell": "C32",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "20"
+        },
+        {
+          "cell": "D32",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "20"
+        },
+        {
+          "cell": "A33",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "13"
+        },
+        {
+          "cell": "A34",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "14"
+        },
+        {
+          "cell": "B34",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "15"
+        },
+        {
+          "cell": "C34",
+          "type": "s",
+          "stored_value": "3",
+          "resolved_text": "1-12 23",
+          "source_style": "15"
+        },
+        {
+          "cell": "D34",
+          "type": "s",
+          "stored_value": "4",
+          "resolved_text": "1-12 24",
+          "source_style": "15"
+        },
+        {
+          "cell": "A35",
+          "type": "s",
+          "stored_value": "30",
+          "resolved_text": "Net result attributable to owners of the parent",
+          "source_style": "3"
+        },
+        {
+          "cell": "B35",
+          "type": "s",
+          "stored_value": "33",
+          "resolved_text": "in EUR thousand",
+          "source_style": "4"
+        },
+        {
+          "cell": "C35",
+          "type": "s",
+          "stored_value": "34",
+          "resolved_text": "2,997,576",
+          "source_style": "4"
+        },
+        {
+          "cell": "D35",
+          "type": "s",
+          "stored_value": "35",
+          "resolved_text": "3,125,299",
+          "source_style": "5"
+        },
+        {
+          "cell": "A36",
+          "type": "s",
+          "stored_value": "36",
+          "resolved_text": "Dividend on AT1 capital (after tax effect) ",
+          "source_style": "3"
+        },
+        {
+          "cell": "B36",
+          "type": "s",
+          "stored_value": "33",
+          "resolved_text": "in EUR thousand",
+          "source_style": "4"
+        },
+        {
+          "cell": "C36",
+          "type": "n",
+          "stored_value": "-99.066999999999993",
+          "resolved_text": "-99.066999999999993",
+          "source_style": "4"
+        },
+        {
+          "cell": "D36",
+          "type": "n",
+          "stored_value": "-132.59299999999999",
+          "resolved_text": "-132.59299999999999",
+          "source_style": "5"
+        },
+        {
+          "cell": "A37",
+          "type": "s",
+          "stored_value": "37",
+          "resolved_text": "Net result for the period attributable to owners of the parent after deduction of AT1 capital dividend",
+          "source_style": "3"
+        },
+        {
+          "cell": "B37",
+          "type": "s",
+          "stored_value": "33",
+          "resolved_text": "in EUR thousand",
+          "source_style": "4"
+        },
+        {
+          "cell": "C37",
+          "type": "s",
+          "stored_value": "38",
+          "resolved_text": "2,898,509",
+          "source_style": "4"
+        },
+        {
+          "cell": "D37",
+          "type": "s",
+          "stored_value": "39",
+          "resolved_text": "2,992,706",
+          "source_style": "5"
+        },
+        {
+          "cell": "A38",
+          "type": "s",
+          "stored_value": "40",
+          "resolved_text": "Weighted average undiluted number of outstanding shares",
+          "source_style": "3"
+        },
+        {
+          "cell": "B38",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C38",
+          "type": "s",
+          "stored_value": "41",
+          "resolved_text": "425,951,928",
+          "source_style": "4"
+        },
+        {
+          "cell": "D38",
+          "type": "s",
+          "stored_value": "42",
+          "resolved_text": "415,854,514",
+          "source_style": "5"
+        },
+        {
+          "cell": "A39",
+          "type": "s",
+          "stored_value": "31",
+          "resolved_text": "Earnings per share",
+          "source_style": "3"
+        },
+        {
+          "cell": "B39",
+          "type": "s",
+          "stored_value": "43",
+          "resolved_text": "in EUR",
+          "source_style": "4"
+        },
+        {
+          "cell": "C39",
+          "type": "s",
+          "stored_value": "49",
+          "resolved_text": " 6.80",
+          "source_style": "16"
+        },
+        {
+          "cell": "D39",
+          "type": "s",
+          "stored_value": "50",
+          "resolved_text": " 7.20",
+          "source_style": "17"
+        },
+        {
+          "cell": "A40",
+          "type": "s",
+          "stored_value": "44",
+          "resolved_text": "Weighted average diluted number of outstanding shares",
+          "source_style": "3"
+        },
+        {
+          "cell": "B40",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C40",
+          "type": "s",
+          "stored_value": "45",
+          "resolved_text": "426,324,432",
+          "source_style": "4"
+        },
+        {
+          "cell": "D40",
+          "type": "s",
+          "stored_value": "46",
+          "resolved_text": "416,176,925",
+          "source_style": "5"
+        },
+        {
+          "cell": "A41",
+          "type": "s",
+          "stored_value": "47",
+          "resolved_text": "Diluted earnings per share",
+          "source_style": "3"
+        },
+        {
+          "cell": "B41",
+          "type": "s",
+          "stored_value": "43",
+          "resolved_text": "in EUR",
+          "source_style": "4"
+        },
+        {
+          "cell": "C41",
+          "type": "s",
+          "stored_value": "49",
+          "resolved_text": " 6.80",
+          "source_style": "16"
+        },
+        {
+          "cell": "D41",
+          "type": "s",
+          "stored_value": "51",
+          "resolved_text": " 7.19",
+          "source_style": "17"
+        },
+        {
+          "cell": "A43",
+          "type": "s",
+          "stored_value": "48",
+          "resolved_text": "For details regarding the number of outstanding shares please refer to Note 55 Total equity.",
+          "source_style": "13"
+        }
+      ],
+      "formulas": 0,
+      "comments": 0,
+      "external_parts": [],
+      "macro_parts": [],
+      "hidden_sheets": 0,
+      "hidden_rows": 0,
+      "filter": false,
+      "locale_warning": "Mixed decimal numeric lexemes under EUR-million headings conflict with matching PDF rows. Not a parser transformation."
+    },
+    "W2": {
+      "sheet": "Tabelle1",
+      "used_range": "A1:D66",
+      "names": [
+        {
+          "name": "_FLink_1T_iUDKqYcGMSZ8HzY3\u00d68",
+          "reference": "Tabelle1!$A$3"
+        },
+        {
+          "name": "_Toc191592967",
+          "reference": "Tabelle1!$A$1"
+        }
+      ],
+      "columns": [
+        {
+          "min": "1",
+          "max": "1",
+          "width": "55.8984375",
+          "customWidth": "1"
+        }
+      ],
+      "merges": [],
+      "cells": [
+        {
+          "cell": "A1",
+          "type": "s",
+          "stored_value": "0",
+          "resolved_text": "Consolidated balance sheet",
+          "source_style": "24"
+        },
+        {
+          "cell": "A2",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "1"
+        },
+        {
+          "cell": "A3",
+          "type": "s",
+          "stored_value": "1",
+          "resolved_text": "in EUR million",
+          "source_style": "3"
+        },
+        {
+          "cell": "B3",
+          "type": "s",
+          "stored_value": "2",
+          "resolved_text": "Notes",
+          "source_style": "4"
+        },
+        {
+          "cell": "C3",
+          "type": "s",
+          "stored_value": "3",
+          "resolved_text": "Dec 23",
+          "source_style": "4"
+        },
+        {
+          "cell": "D3",
+          "type": "s",
+          "stored_value": "4",
+          "resolved_text": "Dec 24",
+          "source_style": "4"
+        },
+        {
+          "cell": "A4",
+          "type": "s",
+          "stored_value": "5",
+          "resolved_text": "Assets",
+          "source_style": "17"
+        },
+        {
+          "cell": "B4",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "18"
+        },
+        {
+          "cell": "C4",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "18"
+        },
+        {
+          "cell": "D4",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "19"
+        },
+        {
+          "cell": "A5",
+          "type": "s",
+          "stored_value": "6",
+          "resolved_text": "Cash and cash balances",
+          "source_style": "6"
+        },
+        {
+          "cell": "B5",
+          "type": "n",
+          "stored_value": "15",
+          "resolved_text": "15",
+          "source_style": "7"
+        },
+        {
+          "cell": "C5",
+          "type": "n",
+          "stored_value": "36.685000000000002",
+          "resolved_text": "36.685000000000002",
+          "source_style": "7"
+        },
+        {
+          "cell": "D5",
+          "type": "n",
+          "stored_value": "25.129000000000001",
+          "resolved_text": "25.129000000000001",
+          "source_style": "8"
+        },
+        {
+          "cell": "A6",
+          "type": "s",
+          "stored_value": "7",
+          "resolved_text": "Financial assets held for trading",
+          "source_style": "6"
+        },
+        {
+          "cell": "B6",
+          "type": "s",
+          "stored_value": "8",
+          "resolved_text": "21, 22",
+          "source_style": "7"
+        },
+        {
+          "cell": "C6",
+          "type": "n",
+          "stored_value": "8.7729999999999997",
+          "resolved_text": "8.7729999999999997",
+          "source_style": "7"
+        },
+        {
+          "cell": "D6",
+          "type": "n",
+          "stored_value": "11.462999999999999",
+          "resolved_text": "11.462999999999999",
+          "source_style": "8"
+        },
+        {
+          "cell": "A7",
+          "type": "s",
+          "stored_value": "9",
+          "resolved_text": "Derivatives",
+          "source_style": "9"
+        },
+        {
+          "cell": "B7",
+          "type": "n",
+          "stored_value": "21",
+          "resolved_text": "21",
+          "source_style": "6"
+        },
+        {
+          "cell": "C7",
+          "type": "n",
+          "stored_value": "1.262",
+          "resolved_text": "1.262",
+          "source_style": "7"
+        },
+        {
+          "cell": "D7",
+          "type": "n",
+          "stored_value": "1.226",
+          "resolved_text": "1.226",
+          "source_style": "8"
+        },
+        {
+          "cell": "A8",
+          "type": "s",
+          "stored_value": "10",
+          "resolved_text": "Other financial assets held for trading",
+          "source_style": "9"
+        },
+        {
+          "cell": "B8",
+          "type": "n",
+          "stored_value": "22",
+          "resolved_text": "22",
+          "source_style": "6"
+        },
+        {
+          "cell": "C8",
+          "type": "n",
+          "stored_value": "7.5110000000000001",
+          "resolved_text": "7.5110000000000001",
+          "source_style": "7"
+        },
+        {
+          "cell": "D8",
+          "type": "n",
+          "stored_value": "10.236000000000001",
+          "resolved_text": "10.236000000000001",
+          "source_style": "8"
+        },
+        {
+          "cell": "A9",
+          "type": "s",
+          "stored_value": "11",
+          "resolved_text": "Pledged as collateral",
+          "source_style": "11"
+        },
+        {
+          "cell": "B9",
+          "type": "n",
+          "stored_value": "29",
+          "resolved_text": "29",
+          "source_style": "6"
+        },
+        {
+          "cell": "C9",
+          "type": "n",
+          "stored_value": "245",
+          "resolved_text": "245",
+          "source_style": "7"
+        },
+        {
+          "cell": "D9",
+          "type": "n",
+          "stored_value": "483",
+          "resolved_text": "483",
+          "source_style": "8"
+        },
+        {
+          "cell": "A10",
+          "type": "s",
+          "stored_value": "12",
+          "resolved_text": "Non-trading financial assets at fair value through profit or loss",
+          "source_style": "6"
+        },
+        {
+          "cell": "B10",
+          "type": "n",
+          "stored_value": "23",
+          "resolved_text": "23",
+          "source_style": "6"
+        },
+        {
+          "cell": "C10",
+          "type": "n",
+          "stored_value": "3.004",
+          "resolved_text": "3.004",
+          "source_style": "7"
+        },
+        {
+          "cell": "D10",
+          "type": "n",
+          "stored_value": "3.04",
+          "resolved_text": "3.04",
+          "source_style": "8"
+        },
+        {
+          "cell": "A11",
+          "type": "s",
+          "stored_value": "11",
+          "resolved_text": "Pledged as collateral",
+          "source_style": "11"
+        },
+        {
+          "cell": "B11",
+          "type": "n",
+          "stored_value": "29",
+          "resolved_text": "29",
+          "source_style": "7"
+        },
+        {
+          "cell": "C11",
+          "type": "n",
+          "stored_value": "0",
+          "resolved_text": "0",
+          "source_style": "7"
+        },
+        {
+          "cell": "D11",
+          "type": "n",
+          "stored_value": "0",
+          "resolved_text": "0",
+          "source_style": "8"
+        },
+        {
+          "cell": "A12",
+          "type": "s",
+          "stored_value": "13",
+          "resolved_text": "Equity instruments",
+          "source_style": "9"
+        },
+        {
+          "cell": "B12",
+          "type": "n",
+          "stored_value": "23",
+          "resolved_text": "23",
+          "source_style": "7"
+        },
+        {
+          "cell": "C12",
+          "type": "n",
+          "stored_value": "415",
+          "resolved_text": "415",
+          "source_style": "7"
+        },
+        {
+          "cell": "D12",
+          "type": "n",
+          "stored_value": "464",
+          "resolved_text": "464",
+          "source_style": "8"
+        },
+        {
+          "cell": "A13",
+          "type": "s",
+          "stored_value": "14",
+          "resolved_text": "Debt securities",
+          "source_style": "9"
+        },
+        {
+          "cell": "B13",
+          "type": "n",
+          "stored_value": "23",
+          "resolved_text": "23",
+          "source_style": "7"
+        },
+        {
+          "cell": "C13",
+          "type": "n",
+          "stored_value": "1.5509999999999999",
+          "resolved_text": "1.5509999999999999",
+          "source_style": "7"
+        },
+        {
+          "cell": "D13",
+          "type": "n",
+          "stored_value": "1.468",
+          "resolved_text": "1.468",
+          "source_style": "8"
+        },
+        {
+          "cell": "A14",
+          "type": "s",
+          "stored_value": "15",
+          "resolved_text": "Loans and advances to customers",
+          "source_style": "9"
+        },
+        {
+          "cell": "B14",
+          "type": "n",
+          "stored_value": "23",
+          "resolved_text": "23",
+          "source_style": "7"
+        },
+        {
+          "cell": "C14",
+          "type": "n",
+          "stored_value": "1.038",
+          "resolved_text": "1.038",
+          "source_style": "7"
+        },
+        {
+          "cell": "D14",
+          "type": "n",
+          "stored_value": "1.1080000000000001",
+          "resolved_text": "1.1080000000000001",
+          "source_style": "8"
+        },
+        {
+          "cell": "A15",
+          "type": "s",
+          "stored_value": "16",
+          "resolved_text": "Financial assets at fair value through other comprehensive income",
+          "source_style": "6"
+        },
+        {
+          "cell": "B15",
+          "type": "s",
+          "stored_value": "17",
+          "resolved_text": "19, 20",
+          "source_style": "7"
+        },
+        {
+          "cell": "C15",
+          "type": "n",
+          "stored_value": "8.9049999999999994",
+          "resolved_text": "8.9049999999999994",
+          "source_style": "7"
+        },
+        {
+          "cell": "D15",
+          "type": "n",
+          "stored_value": "9.4979999999999993",
+          "resolved_text": "9.4979999999999993",
+          "source_style": "8"
+        },
+        {
+          "cell": "A16",
+          "type": "s",
+          "stored_value": "11",
+          "resolved_text": "Pledged as collateral",
+          "source_style": "11"
+        },
+        {
+          "cell": "B16",
+          "type": "n",
+          "stored_value": "29",
+          "resolved_text": "29",
+          "source_style": "7"
+        },
+        {
+          "cell": "C16",
+          "type": "n",
+          "stored_value": "356",
+          "resolved_text": "356",
+          "source_style": "7"
+        },
+        {
+          "cell": "D16",
+          "type": "n",
+          "stored_value": "107",
+          "resolved_text": "107",
+          "source_style": "8"
+        },
+        {
+          "cell": "A17",
+          "type": "s",
+          "stored_value": "13",
+          "resolved_text": "Equity instruments",
+          "source_style": "9"
+        },
+        {
+          "cell": "B17",
+          "type": "n",
+          "stored_value": "20",
+          "resolved_text": "20",
+          "source_style": "7"
+        },
+        {
+          "cell": "C17",
+          "type": "n",
+          "stored_value": "110",
+          "resolved_text": "110",
+          "source_style": "7"
+        },
+        {
+          "cell": "D17",
+          "type": "n",
+          "stored_value": "109",
+          "resolved_text": "109",
+          "source_style": "8"
+        },
+        {
+          "cell": "A18",
+          "type": "s",
+          "stored_value": "14",
+          "resolved_text": "Debt securities",
+          "source_style": "9"
+        },
+        {
+          "cell": "B18",
+          "type": "n",
+          "stored_value": "19",
+          "resolved_text": "19",
+          "source_style": "7"
+        },
+        {
+          "cell": "C18",
+          "type": "n",
+          "stored_value": "8.7940000000000005",
+          "resolved_text": "8.7940000000000005",
+          "source_style": "7"
+        },
+        {
+          "cell": "D18",
+          "type": "n",
+          "stored_value": "9.3879999999999999",
+          "resolved_text": "9.3879999999999999",
+          "source_style": "8"
+        },
+        {
+          "cell": "A19",
+          "type": "s",
+          "stored_value": "18",
+          "resolved_text": "Financial assets at amortised cost",
+          "source_style": "6"
+        },
+        {
+          "cell": "B19",
+          "type": "n",
+          "stored_value": "16",
+          "resolved_text": "16",
+          "source_style": "7"
+        },
+        {
+          "cell": "C19",
+          "type": "n",
+          "stored_value": "264.721",
+          "resolved_text": "264.721",
+          "source_style": "7"
+        },
+        {
+          "cell": "D19",
+          "type": "n",
+          "stored_value": "288.89400000000001",
+          "resolved_text": "288.89400000000001",
+          "source_style": "8"
+        },
+        {
+          "cell": "A20",
+          "type": "s",
+          "stored_value": "11",
+          "resolved_text": "Pledged as collateral",
+          "source_style": "11"
+        },
+        {
+          "cell": "B20",
+          "type": "n",
+          "stored_value": "29",
+          "resolved_text": "29",
+          "source_style": "7"
+        },
+        {
+          "cell": "C20",
+          "type": "n",
+          "stored_value": "3.125",
+          "resolved_text": "3.125",
+          "source_style": "7"
+        },
+        {
+          "cell": "D20",
+          "type": "n",
+          "stored_value": "4.0659999999999998",
+          "resolved_text": "4.0659999999999998",
+          "source_style": "8"
+        },
+        {
+          "cell": "A21",
+          "type": "s",
+          "stored_value": "14",
+          "resolved_text": "Debt securities",
+          "source_style": "9"
+        },
+        {
+          "cell": "B21",
+          "type": "n",
+          "stored_value": "16",
+          "resolved_text": "16",
+          "source_style": "7"
+        },
+        {
+          "cell": "C21",
+          "type": "n",
+          "stored_value": "44.046999999999997",
+          "resolved_text": "44.046999999999997",
+          "source_style": "7"
+        },
+        {
+          "cell": "D21",
+          "type": "n",
+          "stored_value": "52.889000000000003",
+          "resolved_text": "52.889000000000003",
+          "source_style": "8"
+        },
+        {
+          "cell": "A22",
+          "type": "s",
+          "stored_value": "19",
+          "resolved_text": "Loans and advances to banks",
+          "source_style": "9"
+        },
+        {
+          "cell": "B22",
+          "type": "n",
+          "stored_value": "16",
+          "resolved_text": "16",
+          "source_style": "7"
+        },
+        {
+          "cell": "C22",
+          "type": "n",
+          "stored_value": "21.431999999999999",
+          "resolved_text": "21.431999999999999",
+          "source_style": "7"
+        },
+        {
+          "cell": "D22",
+          "type": "n",
+          "stored_value": "26.972000000000001",
+          "resolved_text": "26.972000000000001",
+          "source_style": "8"
+        },
+        {
+          "cell": "A23",
+          "type": "s",
+          "stored_value": "15",
+          "resolved_text": "Loans and advances to customers",
+          "source_style": "9"
+        },
+        {
+          "cell": "B23",
+          "type": "n",
+          "stored_value": "16",
+          "resolved_text": "16",
+          "source_style": "7"
+        },
+        {
+          "cell": "C23",
+          "type": "n",
+          "stored_value": "199.24100000000001",
+          "resolved_text": "199.24100000000001",
+          "source_style": "7"
+        },
+        {
+          "cell": "D23",
+          "type": "n",
+          "stored_value": "209.03399999999999",
+          "resolved_text": "209.03399999999999",
+          "source_style": "8"
+        },
+        {
+          "cell": "A24",
+          "type": "s",
+          "stored_value": "20",
+          "resolved_text": "Finance lease receivables",
+          "source_style": "6"
+        },
+        {
+          "cell": "B24",
+          "type": "n",
+          "stored_value": "50",
+          "resolved_text": "50",
+          "source_style": "12"
+        },
+        {
+          "cell": "C24",
+          "type": "n",
+          "stored_value": "4.97",
+          "resolved_text": "4.97",
+          "source_style": "7"
+        },
+        {
+          "cell": "D24",
+          "type": "n",
+          "stored_value": "5.2480000000000002",
+          "resolved_text": "5.2480000000000002",
+          "source_style": "8"
+        },
+        {
+          "cell": "A25",
+          "type": "s",
+          "stored_value": "21",
+          "resolved_text": "Hedge accounting derivatives",
+          "source_style": "6"
+        },
+        {
+          "cell": "B25",
+          "type": "n",
+          "stored_value": "27",
+          "resolved_text": "27",
+          "source_style": "12"
+        },
+        {
+          "cell": "C25",
+          "type": "n",
+          "stored_value": "183",
+          "resolved_text": "183",
+          "source_style": "7"
+        },
+        {
+          "cell": "D25",
+          "type": "n",
+          "stored_value": "181",
+          "resolved_text": "181",
+          "source_style": "8"
+        },
+        {
+          "cell": "A26",
+          "type": "s",
+          "stored_value": "22",
+          "resolved_text": "Fair value changes of hedged items in portfolio hedge of interest rate risk",
+          "source_style": "6"
+        },
+        {
+          "cell": "B26",
+          "type": "n",
+          "stored_value": "27",
+          "resolved_text": "27",
+          "source_style": "12"
+        },
+        {
+          "cell": "C26",
+          "type": "n",
+          "stored_value": "-25",
+          "resolved_text": "-25",
+          "source_style": "7"
+        },
+        {
+          "cell": "D26",
+          "type": "n",
+          "stored_value": "-19",
+          "resolved_text": "-19",
+          "source_style": "8"
+        },
+        {
+          "cell": "A27",
+          "type": "s",
+          "stored_value": "23",
+          "resolved_text": "Property and equipment",
+          "source_style": "6"
+        },
+        {
+          "cell": "B27",
+          "type": "n",
+          "stored_value": "47",
+          "resolved_text": "47",
+          "source_style": "12"
+        },
+        {
+          "cell": "C27",
+          "type": "n",
+          "stored_value": "2.605",
+          "resolved_text": "2.605",
+          "source_style": "7"
+        },
+        {
+          "cell": "D27",
+          "type": "n",
+          "stored_value": "2.754",
+          "resolved_text": "2.754",
+          "source_style": "8"
+        },
+        {
+          "cell": "A28",
+          "type": "s",
+          "stored_value": "24",
+          "resolved_text": "Investment properties",
+          "source_style": "6"
+        },
+        {
+          "cell": "B28",
+          "type": "n",
+          "stored_value": "47",
+          "resolved_text": "47",
+          "source_style": "12"
+        },
+        {
+          "cell": "C28",
+          "type": "n",
+          "stored_value": "1.524",
+          "resolved_text": "1.524",
+          "source_style": "7"
+        },
+        {
+          "cell": "D28",
+          "type": "n",
+          "stored_value": "1.6779999999999999",
+          "resolved_text": "1.6779999999999999",
+          "source_style": "8"
+        },
+        {
+          "cell": "A29",
+          "type": "s",
+          "stored_value": "25",
+          "resolved_text": "Intangible assets",
+          "source_style": "6"
+        },
+        {
+          "cell": "B29",
+          "type": "n",
+          "stored_value": "48",
+          "resolved_text": "48",
+          "source_style": "12"
+        },
+        {
+          "cell": "C29",
+          "type": "n",
+          "stored_value": "1.3129999999999999",
+          "resolved_text": "1.3129999999999999",
+          "source_style": "7"
+        },
+        {
+          "cell": "D29",
+          "type": "n",
+          "stored_value": "1.3819999999999999",
+          "resolved_text": "1.3819999999999999",
+          "source_style": "8"
+        },
+        {
+          "cell": "A30",
+          "type": "s",
+          "stored_value": "26",
+          "resolved_text": "Investments in associates and joint ventures",
+          "source_style": "6"
+        },
+        {
+          "cell": "B30",
+          "type": "n",
+          "stored_value": "58",
+          "resolved_text": "58",
+          "source_style": "12"
+        },
+        {
+          "cell": "C30",
+          "type": "n",
+          "stored_value": "241",
+          "resolved_text": "241",
+          "source_style": "7"
+        },
+        {
+          "cell": "D30",
+          "type": "n",
+          "stored_value": "280",
+          "resolved_text": "280",
+          "source_style": "8"
+        },
+        {
+          "cell": "A31",
+          "type": "s",
+          "stored_value": "27",
+          "resolved_text": "Current tax assets",
+          "source_style": "6"
+        },
+        {
+          "cell": "B31",
+          "type": "n",
+          "stored_value": "13",
+          "resolved_text": "13",
+          "source_style": "12"
+        },
+        {
+          "cell": "C31",
+          "type": "n",
+          "stored_value": "72",
+          "resolved_text": "72",
+          "source_style": "7"
+        },
+        {
+          "cell": "D31",
+          "type": "n",
+          "stored_value": "45",
+          "resolved_text": "45",
+          "source_style": "8"
+        },
+        {
+          "cell": "A32",
+          "type": "s",
+          "stored_value": "28",
+          "resolved_text": "Deferred tax assets",
+          "source_style": "6"
+        },
+        {
+          "cell": "B32",
+          "type": "n",
+          "stored_value": "13",
+          "resolved_text": "13",
+          "source_style": "12"
+        },
+        {
+          "cell": "C32",
+          "type": "n",
+          "stored_value": "468",
+          "resolved_text": "468",
+          "source_style": "7"
+        },
+        {
+          "cell": "D32",
+          "type": "n",
+          "stored_value": "266",
+          "resolved_text": "266",
+          "source_style": "8"
+        },
+        {
+          "cell": "A33",
+          "type": "s",
+          "stored_value": "29",
+          "resolved_text": "Assets held for sale",
+          "source_style": "6"
+        },
+        {
+          "cell": "B33",
+          "type": "n",
+          "stored_value": "63",
+          "resolved_text": "63",
+          "source_style": "12"
+        },
+        {
+          "cell": "C33",
+          "type": "n",
+          "stored_value": "163",
+          "resolved_text": "163",
+          "source_style": "7"
+        },
+        {
+          "cell": "D33",
+          "type": "n",
+          "stored_value": "154",
+          "resolved_text": "154",
+          "source_style": "8"
+        },
+        {
+          "cell": "A34",
+          "type": "s",
+          "stored_value": "30",
+          "resolved_text": "Trade and other receivables",
+          "source_style": "6"
+        },
+        {
+          "cell": "B34",
+          "type": "n",
+          "stored_value": "17",
+          "resolved_text": "17",
+          "source_style": "12"
+        },
+        {
+          "cell": "C34",
+          "type": "n",
+          "stored_value": "2.5790000000000002",
+          "resolved_text": "2.5790000000000002",
+          "source_style": "7"
+        },
+        {
+          "cell": "D34",
+          "type": "n",
+          "stored_value": "2.677",
+          "resolved_text": "2.677",
+          "source_style": "8"
+        },
+        {
+          "cell": "A35",
+          "type": "s",
+          "stored_value": "31",
+          "resolved_text": "Other assets",
+          "source_style": "6"
+        },
+        {
+          "cell": "B35",
+          "type": "n",
+          "stored_value": "49",
+          "resolved_text": "49",
+          "source_style": "12"
+        },
+        {
+          "cell": "C35",
+          "type": "n",
+          "stored_value": "976",
+          "resolved_text": "976",
+          "source_style": "7"
+        },
+        {
+          "cell": "D35",
+          "type": "n",
+          "stored_value": "1.0660000000000001",
+          "resolved_text": "1.0660000000000001",
+          "source_style": "8"
+        },
+        {
+          "cell": "A36",
+          "type": "s",
+          "stored_value": "32",
+          "resolved_text": "Total assets",
+          "source_style": "20"
+        },
+        {
+          "cell": "B36",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "21"
+        },
+        {
+          "cell": "C36",
+          "type": "n",
+          "stored_value": "337.15499999999997",
+          "resolved_text": "337.15499999999997",
+          "source_style": "22"
+        },
+        {
+          "cell": "D36",
+          "type": "n",
+          "stored_value": "353.73599999999999",
+          "resolved_text": "353.73599999999999",
+          "source_style": "23"
+        },
+        {
+          "cell": "A37",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "13"
+        },
+        {
+          "cell": "B37",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "14"
+        },
+        {
+          "cell": "C37",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "14"
+        },
+        {
+          "cell": "D37",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "14"
+        },
+        {
+          "cell": "A38",
+          "type": "s",
+          "stored_value": "1",
+          "resolved_text": "in EUR million",
+          "source_style": "15"
+        },
+        {
+          "cell": "B38",
+          "type": "s",
+          "stored_value": "2",
+          "resolved_text": "Notes",
+          "source_style": "16"
+        },
+        {
+          "cell": "C38",
+          "type": "s",
+          "stored_value": "3",
+          "resolved_text": "Dec 23",
+          "source_style": "16"
+        },
+        {
+          "cell": "D38",
+          "type": "s",
+          "stored_value": "4",
+          "resolved_text": "Dec 24",
+          "source_style": "16"
+        },
+        {
+          "cell": "A39",
+          "type": "s",
+          "stored_value": "33",
+          "resolved_text": "Liabilities and equity",
+          "source_style": "17"
+        },
+        {
+          "cell": "B39",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "18"
+        },
+        {
+          "cell": "C39",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "18"
+        },
+        {
+          "cell": "D39",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "19"
+        },
+        {
+          "cell": "A40",
+          "type": "s",
+          "stored_value": "34",
+          "resolved_text": "Financial liabilities held for trading",
+          "source_style": "6"
+        },
+        {
+          "cell": "B40",
+          "type": "s",
+          "stored_value": "35",
+          "resolved_text": "21, 24",
+          "source_style": "7"
+        },
+        {
+          "cell": "C40",
+          "type": "n",
+          "stored_value": "2.3039999999999998",
+          "resolved_text": "2.3039999999999998",
+          "source_style": "7"
+        },
+        {
+          "cell": "D40",
+          "type": "n",
+          "stored_value": "1.821",
+          "resolved_text": "1.821",
+          "source_style": "8"
+        },
+        {
+          "cell": "A41",
+          "type": "s",
+          "stored_value": "9",
+          "resolved_text": "Derivatives",
+          "source_style": "9"
+        },
+        {
+          "cell": "B41",
+          "type": "n",
+          "stored_value": "21",
+          "resolved_text": "21",
+          "source_style": "6"
+        },
+        {
+          "cell": "C41",
+          "type": "n",
+          "stored_value": "1.6140000000000001",
+          "resolved_text": "1.6140000000000001",
+          "source_style": "7"
+        },
+        {
+          "cell": "D41",
+          "type": "n",
+          "stored_value": "1.149",
+          "resolved_text": "1.149",
+          "source_style": "8"
+        },
+        {
+          "cell": "A42",
+          "type": "s",
+          "stored_value": "36",
+          "resolved_text": "Other financial liabilities held for trading",
+          "source_style": "9"
+        },
+        {
+          "cell": "B42",
+          "type": "n",
+          "stored_value": "24",
+          "resolved_text": "24",
+          "source_style": "6"
+        },
+        {
+          "cell": "C42",
+          "type": "n",
+          "stored_value": "690",
+          "resolved_text": "690",
+          "source_style": "7"
+        },
+        {
+          "cell": "D42",
+          "type": "n",
+          "stored_value": "672",
+          "resolved_text": "672",
+          "source_style": "8"
+        },
+        {
+          "cell": "A43",
+          "type": "s",
+          "stored_value": "37",
+          "resolved_text": "Financial liabilities at fair value through profit or loss",
+          "source_style": "6"
+        },
+        {
+          "cell": "B43",
+          "type": "n",
+          "stored_value": "25",
+          "resolved_text": "25",
+          "source_style": "6"
+        },
+        {
+          "cell": "C43",
+          "type": "n",
+          "stored_value": "11.151999999999999",
+          "resolved_text": "11.151999999999999",
+          "source_style": "7"
+        },
+        {
+          "cell": "D43",
+          "type": "n",
+          "stored_value": "10.281000000000001",
+          "resolved_text": "10.281000000000001",
+          "source_style": "8"
+        },
+        {
+          "cell": "A44",
+          "type": "s",
+          "stored_value": "38",
+          "resolved_text": "Deposits from customers",
+          "source_style": "9"
+        },
+        {
+          "cell": "B44",
+          "type": "n",
+          "stored_value": "25",
+          "resolved_text": "25",
+          "source_style": "6"
+        },
+        {
+          "cell": "C44",
+          "type": "n",
+          "stored_value": "593",
+          "resolved_text": "593",
+          "source_style": "7"
+        },
+        {
+          "cell": "D44",
+          "type": "n",
+          "stored_value": "115",
+          "resolved_text": "115",
+          "source_style": "8"
+        },
+        {
+          "cell": "A45",
+          "type": "s",
+          "stored_value": "39",
+          "resolved_text": "Debt securities issued",
+          "source_style": "9"
+        },
+        {
+          "cell": "B45",
+          "type": "n",
+          "stored_value": "25",
+          "resolved_text": "25",
+          "source_style": "6"
+        },
+        {
+          "cell": "C45",
+          "type": "n",
+          "stored_value": "10.429",
+          "resolved_text": "10.429",
+          "source_style": "7"
+        },
+        {
+          "cell": "D45",
+          "type": "n",
+          "stored_value": "10.029999999999999",
+          "resolved_text": "10.029999999999999",
+          "source_style": "8"
+        },
+        {
+          "cell": "A46",
+          "type": "s",
+          "stored_value": "40",
+          "resolved_text": "Other financial liabilities",
+          "source_style": "9"
+        },
+        {
+          "cell": "B46",
+          "type": "n",
+          "stored_value": "25",
+          "resolved_text": "25",
+          "source_style": "6"
+        },
+        {
+          "cell": "C46",
+          "type": "n",
+          "stored_value": "130",
+          "resolved_text": "130",
+          "source_style": "7"
+        },
+        {
+          "cell": "D46",
+          "type": "n",
+          "stored_value": "136",
+          "resolved_text": "136",
+          "source_style": "8"
+        },
+        {
+          "cell": "A47",
+          "type": "s",
+          "stored_value": "41",
+          "resolved_text": "Financial liabilities at amortised cost",
+          "source_style": "6"
+        },
+        {
+          "cell": "B47",
+          "type": "n",
+          "stored_value": "18",
+          "resolved_text": "18",
+          "source_style": "6"
+        },
+        {
+          "cell": "C47",
+          "type": "n",
+          "stored_value": "289.84199999999998",
+          "resolved_text": "289.84199999999998",
+          "source_style": "7"
+        },
+        {
+          "cell": "D47",
+          "type": "n",
+          "stored_value": "305.33199999999999",
+          "resolved_text": "305.33199999999999",
+          "source_style": "8"
+        },
+        {
+          "cell": "A48",
+          "type": "s",
+          "stored_value": "42",
+          "resolved_text": "Deposits from banks",
+          "source_style": "9"
+        },
+        {
+          "cell": "B48",
+          "type": "n",
+          "stored_value": "18",
+          "resolved_text": "18",
+          "source_style": "6"
+        },
+        {
+          "cell": "C48",
+          "type": "n",
+          "stored_value": "22.911000000000001",
+          "resolved_text": "22.911000000000001",
+          "source_style": "7"
+        },
+        {
+          "cell": "D48",
+          "type": "n",
+          "stored_value": "21.260999999999999",
+          "resolved_text": "21.260999999999999",
+          "source_style": "8"
+        },
+        {
+          "cell": "A49",
+          "type": "s",
+          "stored_value": "38",
+          "resolved_text": "Deposits from customers",
+          "source_style": "9"
+        },
+        {
+          "cell": "B49",
+          "type": "n",
+          "stored_value": "18",
+          "resolved_text": "18",
+          "source_style": "6"
+        },
+        {
+          "cell": "C49",
+          "type": "n",
+          "stored_value": "232.22300000000001",
+          "resolved_text": "232.22300000000001",
+          "source_style": "7"
+        },
+        {
+          "cell": "D49",
+          "type": "n",
+          "stored_value": "241.535",
+          "resolved_text": "241.535",
+          "source_style": "8"
+        },
+        {
+          "cell": "A50",
+          "type": "s",
+          "stored_value": "39",
+          "resolved_text": "Debt securities issued",
+          "source_style": "9"
+        },
+        {
+          "cell": "B50",
+          "type": "n",
+          "stored_value": "18",
+          "resolved_text": "18",
+          "source_style": "6"
+        },
+        {
+          "cell": "C50",
+          "type": "n",
+          "stored_value": "33.33",
+          "resolved_text": "33.33",
+          "source_style": "7"
+        },
+        {
+          "cell": "D50",
+          "type": "n",
+          "stored_value": "41.859000000000002",
+          "resolved_text": "41.859000000000002",
+          "source_style": "8"
+        },
+        {
+          "cell": "A51",
+          "type": "s",
+          "stored_value": "40",
+          "resolved_text": "Other financial liabilities",
+          "source_style": "9"
+        },
+        {
+          "cell": "B51",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "10"
+        },
+        {
+          "cell": "C51",
+          "type": "n",
+          "stored_value": "1.3779999999999999",
+          "resolved_text": "1.3779999999999999",
+          "source_style": "7"
+        },
+        {
+          "cell": "D51",
+          "type": "n",
+          "stored_value": "676",
+          "resolved_text": "676",
+          "source_style": "8"
+        },
+        {
+          "cell": "A52",
+          "type": "s",
+          "stored_value": "43",
+          "resolved_text": "Lease liabilities",
+          "source_style": "6"
+        },
+        {
+          "cell": "B52",
+          "type": "n",
+          "stored_value": "51",
+          "resolved_text": "51",
+          "source_style": "7"
+        },
+        {
+          "cell": "C52",
+          "type": "n",
+          "stored_value": "670",
+          "resolved_text": "670",
+          "source_style": "7"
+        },
+        {
+          "cell": "D52",
+          "type": "n",
+          "stored_value": "691",
+          "resolved_text": "691",
+          "source_style": "8"
+        },
+        {
+          "cell": "A53",
+          "type": "s",
+          "stored_value": "21",
+          "resolved_text": "Hedge accounting derivatives",
+          "source_style": "6"
+        },
+        {
+          "cell": "B53",
+          "type": "n",
+          "stored_value": "27",
+          "resolved_text": "27",
+          "source_style": "7"
+        },
+        {
+          "cell": "C53",
+          "type": "n",
+          "stored_value": "286",
+          "resolved_text": "286",
+          "source_style": "7"
+        },
+        {
+          "cell": "D53",
+          "type": "n",
+          "stored_value": "194",
+          "resolved_text": "194",
+          "source_style": "8"
+        },
+        {
+          "cell": "A54",
+          "type": "s",
+          "stored_value": "44",
+          "resolved_text": "Provisions",
+          "source_style": "6"
+        },
+        {
+          "cell": "B54",
+          "type": "n",
+          "stored_value": "53",
+          "resolved_text": "53",
+          "source_style": "7"
+        },
+        {
+          "cell": "C54",
+          "type": "n",
+          "stored_value": "1.6120000000000001",
+          "resolved_text": "1.6120000000000001",
+          "source_style": "7"
+        },
+        {
+          "cell": "D54",
+          "type": "n",
+          "stored_value": "1.6259999999999999",
+          "resolved_text": "1.6259999999999999",
+          "source_style": "8"
+        },
+        {
+          "cell": "A55",
+          "type": "s",
+          "stored_value": "45",
+          "resolved_text": "Current tax liabilities",
+          "source_style": "6"
+        },
+        {
+          "cell": "B55",
+          "type": "n",
+          "stored_value": "13",
+          "resolved_text": "13",
+          "source_style": "7"
+        },
+        {
+          "cell": "C55",
+          "type": "n",
+          "stored_value": "265",
+          "resolved_text": "265",
+          "source_style": "7"
+        },
+        {
+          "cell": "D55",
+          "type": "n",
+          "stored_value": "241",
+          "resolved_text": "241",
+          "source_style": "8"
+        },
+        {
+          "cell": "A56",
+          "type": "s",
+          "stored_value": "46",
+          "resolved_text": "Deferred tax liabilities",
+          "source_style": "6"
+        },
+        {
+          "cell": "B56",
+          "type": "n",
+          "stored_value": "13",
+          "resolved_text": "13",
+          "source_style": "7"
+        },
+        {
+          "cell": "C56",
+          "type": "n",
+          "stored_value": "14",
+          "resolved_text": "14",
+          "source_style": "7"
+        },
+        {
+          "cell": "D56",
+          "type": "n",
+          "stored_value": "31",
+          "resolved_text": "31",
+          "source_style": "8"
+        },
+        {
+          "cell": "A57",
+          "type": "s",
+          "stored_value": "47",
+          "resolved_text": "Liabilities associated with assets held for sale",
+          "source_style": "6"
+        },
+        {
+          "cell": "B57",
+          "type": "n",
+          "stored_value": "63",
+          "resolved_text": "63",
+          "source_style": "7"
+        },
+        {
+          "cell": "C57",
+          "type": "n",
+          "stored_value": "113",
+          "resolved_text": "113",
+          "source_style": "7"
+        },
+        {
+          "cell": "D57",
+          "type": "n",
+          "stored_value": "93",
+          "resolved_text": "93",
+          "source_style": "8"
+        },
+        {
+          "cell": "A58",
+          "type": "s",
+          "stored_value": "48",
+          "resolved_text": "Other liabilities",
+          "source_style": "6"
+        },
+        {
+          "cell": "B58",
+          "type": "n",
+          "stored_value": "52",
+          "resolved_text": "52",
+          "source_style": "7"
+        },
+        {
+          "cell": "C58",
+          "type": "n",
+          "stored_value": "2.3959999999999999",
+          "resolved_text": "2.3959999999999999",
+          "source_style": "7"
+        },
+        {
+          "cell": "D58",
+          "type": "n",
+          "stored_value": "2.6579999999999999",
+          "resolved_text": "2.6579999999999999",
+          "source_style": "8"
+        },
+        {
+          "cell": "A59",
+          "type": "s",
+          "stored_value": "49",
+          "resolved_text": "Total equity",
+          "source_style": "17"
+        },
+        {
+          "cell": "B59",
+          "type": "n",
+          "stored_value": "55",
+          "resolved_text": "55",
+          "source_style": "18"
+        },
+        {
+          "cell": "C59",
+          "type": "n",
+          "stored_value": "28.501999999999999",
+          "resolved_text": "28.501999999999999",
+          "source_style": "18"
+        },
+        {
+          "cell": "D59",
+          "type": "n",
+          "stored_value": "30.766999999999999",
+          "resolved_text": "30.766999999999999",
+          "source_style": "19"
+        },
+        {
+          "cell": "A60",
+          "type": "s",
+          "stored_value": "50",
+          "resolved_text": "Equity attributable to non-controlling interests",
+          "source_style": "9"
+        },
+        {
+          "cell": "B60",
+          "type": "n",
+          "stored_value": "55",
+          "resolved_text": "55",
+          "source_style": "6"
+        },
+        {
+          "cell": "C60",
+          "type": "n",
+          "stored_value": "6.8529999999999998",
+          "resolved_text": "6.8529999999999998",
+          "source_style": "7"
+        },
+        {
+          "cell": "D60",
+          "type": "n",
+          "stored_value": "7.633",
+          "resolved_text": "7.633",
+          "source_style": "8"
+        },
+        {
+          "cell": "A61",
+          "type": "s",
+          "stored_value": "51",
+          "resolved_text": "Additional equity instruments",
+          "source_style": "9"
+        },
+        {
+          "cell": "B61",
+          "type": "n",
+          "stored_value": "55",
+          "resolved_text": "55",
+          "source_style": "6"
+        },
+        {
+          "cell": "C61",
+          "type": "n",
+          "stored_value": "2.4049999999999998",
+          "resolved_text": "2.4049999999999998",
+          "source_style": "7"
+        },
+        {
+          "cell": "D61",
+          "type": "n",
+          "stored_value": "2.6880000000000002",
+          "resolved_text": "2.6880000000000002",
+          "source_style": "8"
+        },
+        {
+          "cell": "A62",
+          "type": "s",
+          "stored_value": "52",
+          "resolved_text": "Equity attributable to owners of the parent",
+          "source_style": "9"
+        },
+        {
+          "cell": "B62",
+          "type": "n",
+          "stored_value": "55",
+          "resolved_text": "55",
+          "source_style": "6"
+        },
+        {
+          "cell": "C62",
+          "type": "n",
+          "stored_value": "19.242999999999999",
+          "resolved_text": "19.242999999999999",
+          "source_style": "7"
+        },
+        {
+          "cell": "D62",
+          "type": "n",
+          "stored_value": "20.446999999999999",
+          "resolved_text": "20.446999999999999",
+          "source_style": "8"
+        },
+        {
+          "cell": "A63",
+          "type": "s",
+          "stored_value": "53",
+          "resolved_text": "Subscribed capital",
+          "source_style": "11"
+        },
+        {
+          "cell": "B63",
+          "type": "n",
+          "stored_value": "55",
+          "resolved_text": "55",
+          "source_style": "6"
+        },
+        {
+          "cell": "C63",
+          "type": "n",
+          "stored_value": "843",
+          "resolved_text": "843",
+          "source_style": "7"
+        },
+        {
+          "cell": "D63",
+          "type": "n",
+          "stored_value": "821",
+          "resolved_text": "821",
+          "source_style": "8"
+        },
+        {
+          "cell": "A64",
+          "type": "s",
+          "stored_value": "54",
+          "resolved_text": "Additional paid-in capital",
+          "source_style": "11"
+        },
+        {
+          "cell": "B64",
+          "type": "n",
+          "stored_value": "55",
+          "resolved_text": "55",
+          "source_style": "6"
+        },
+        {
+          "cell": "C64",
+          "type": "n",
+          "stored_value": "1.494",
+          "resolved_text": "1.494",
+          "source_style": "7"
+        },
+        {
+          "cell": "D64",
+          "type": "n",
+          "stored_value": "1.516",
+          "resolved_text": "1.516",
+          "source_style": "8"
+        },
+        {
+          "cell": "A65",
+          "type": "s",
+          "stored_value": "55",
+          "resolved_text": "Retained earnings and other reserves",
+          "source_style": "11"
+        },
+        {
+          "cell": "B65",
+          "type": "n",
+          "stored_value": "55",
+          "resolved_text": "55",
+          "source_style": "6"
+        },
+        {
+          "cell": "C65",
+          "type": "n",
+          "stored_value": "16.905999999999999",
+          "resolved_text": "16.905999999999999",
+          "source_style": "7"
+        },
+        {
+          "cell": "D65",
+          "type": "n",
+          "stored_value": "18.11",
+          "resolved_text": "18.11",
+          "source_style": "8"
+        },
+        {
+          "cell": "A66",
+          "type": "s",
+          "stored_value": "56",
+          "resolved_text": "Total liabilities and equity",
+          "source_style": "20"
+        },
+        {
+          "cell": "B66",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "20"
+        },
+        {
+          "cell": "C66",
+          "type": "n",
+          "stored_value": "337.15499999999997",
+          "resolved_text": "337.15499999999997",
+          "source_style": "22"
+        },
+        {
+          "cell": "D66",
+          "type": "n",
+          "stored_value": "353.73599999999999",
+          "resolved_text": "353.73599999999999",
+          "source_style": "23"
+        }
+      ],
+      "formulas": 0,
+      "comments": 0,
+      "external_parts": [],
+      "macro_parts": [],
+      "hidden_sheets": 0,
+      "hidden_rows": 0,
+      "filter": false,
+      "locale_warning": "Mixed decimal numeric lexemes under EUR-million headings conflict with matching PDF rows. Not a parser transformation."
+    },
+    "W3": {
+      "sheet": "Tabelle1",
+      "used_range": "A1:D64",
+      "names": [
+        {
+          "name": "_FLink_1T_0t\u00c45\u00c4mu5aP\u00fcJyCId\u00dc5_1",
+          "reference": "Tabelle1!$A$3"
+        },
+        {
+          "name": "_Toc191592969",
+          "reference": "Tabelle1!$A$1"
+        }
+      ],
+      "columns": [
+        {
+          "min": "1",
+          "max": "1",
+          "width": "63.69921875",
+          "customWidth": "1"
+        },
+        {
+          "min": "2",
+          "max": "2",
+          "width": "11.296875",
+          "customWidth": "1"
+        },
+        {
+          "min": "3",
+          "max": "3",
+          "width": "11.19921875",
+          "customWidth": "1"
+        }
+      ],
+      "merges": [
+        "A64:D64"
+      ],
+      "cells": [
+        {
+          "cell": "A1",
+          "type": "s",
+          "stored_value": "0",
+          "resolved_text": "Consolidated statement of cash flows",
+          "source_style": "16"
+        },
+        {
+          "cell": "A2",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "1"
+        },
+        {
+          "cell": "A3",
+          "type": "s",
+          "stored_value": "1",
+          "resolved_text": "in EUR million",
+          "source_style": "13"
+        },
+        {
+          "cell": "B3",
+          "type": "s",
+          "stored_value": "2",
+          "resolved_text": "Notes",
+          "source_style": "14"
+        },
+        {
+          "cell": "C3",
+          "type": "s",
+          "stored_value": "3",
+          "resolved_text": "1-12 23",
+          "source_style": "14"
+        },
+        {
+          "cell": "D3",
+          "type": "s",
+          "stored_value": "4",
+          "resolved_text": "1-12 24",
+          "source_style": "14"
+        },
+        {
+          "cell": "A4",
+          "type": "s",
+          "stored_value": "5",
+          "resolved_text": "Net result for the period",
+          "source_style": "3"
+        },
+        {
+          "cell": "B4",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C4",
+          "type": "n",
+          "stored_value": "3.9209999999999998",
+          "resolved_text": "3.9209999999999998",
+          "source_style": "4"
+        },
+        {
+          "cell": "D4",
+          "type": "n",
+          "stored_value": "3.9449999999999998",
+          "resolved_text": "3.9449999999999998",
+          "source_style": "5"
+        },
+        {
+          "cell": "A5",
+          "type": "s",
+          "stored_value": "6",
+          "resolved_text": "Non-cash adjustments for items in net profit/loss for the year",
+          "source_style": "3"
+        },
+        {
+          "cell": "B5",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C5",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "D5",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "5"
+        },
+        {
+          "cell": "A6",
+          "type": "s",
+          "stored_value": "7",
+          "resolved_text": "Depreciation, amortisation and net impairment of non-financial assets",
+          "source_style": "6"
+        },
+        {
+          "cell": "B6",
+          "type": "s",
+          "stored_value": "8",
+          "resolved_text": "47, 48",
+          "source_style": "4"
+        },
+        {
+          "cell": "C6",
+          "type": "n",
+          "stored_value": "632",
+          "resolved_text": "632",
+          "source_style": "4"
+        },
+        {
+          "cell": "D6",
+          "type": "n",
+          "stored_value": "554",
+          "resolved_text": "554",
+          "source_style": "5"
+        },
+        {
+          "cell": "A7",
+          "type": "s",
+          "stored_value": "9",
+          "resolved_text": "Net allocation of credit loss allowances and other provisions",
+          "source_style": "6"
+        },
+        {
+          "cell": "B7",
+          "type": "n",
+          "stored_value": "12",
+          "resolved_text": "12",
+          "source_style": "4"
+        },
+        {
+          "cell": "C7",
+          "type": "n",
+          "stored_value": "207",
+          "resolved_text": "207",
+          "source_style": "4"
+        },
+        {
+          "cell": "D7",
+          "type": "n",
+          "stored_value": "427",
+          "resolved_text": "427",
+          "source_style": "5"
+        },
+        {
+          "cell": "A8",
+          "type": "s",
+          "stored_value": "10",
+          "resolved_text": "Gains/losses from measurement and derecognition of financial assets and financial liabilities",
+          "source_style": "6"
+        },
+        {
+          "cell": "B8",
+          "type": "s",
+          "stored_value": "11",
+          "resolved_text": "9, 10",
+          "source_style": "4"
+        },
+        {
+          "cell": "C8",
+          "type": "n",
+          "stored_value": "753",
+          "resolved_text": "753",
+          "source_style": "4"
+        },
+        {
+          "cell": "D8",
+          "type": "n",
+          "stored_value": "-876",
+          "resolved_text": "-876",
+          "source_style": "5"
+        },
+        {
+          "cell": "A9",
+          "type": "s",
+          "stored_value": "12",
+          "resolved_text": "Other adjustments",
+          "source_style": "6"
+        },
+        {
+          "cell": "B9",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C9",
+          "type": "n",
+          "stored_value": "-128",
+          "resolved_text": "-128",
+          "source_style": "4"
+        },
+        {
+          "cell": "D9",
+          "type": "n",
+          "stored_value": "-43",
+          "resolved_text": "-43",
+          "source_style": "5"
+        },
+        {
+          "cell": "A10",
+          "type": "s",
+          "stored_value": "13",
+          "resolved_text": "Changes in assets and liabilities from operating activities after adjustment for non-cash components",
+          "source_style": "20"
+        },
+        {
+          "cell": "B10",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "21"
+        },
+        {
+          "cell": "C10",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "21"
+        },
+        {
+          "cell": "D10",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "22"
+        },
+        {
+          "cell": "A11",
+          "type": "s",
+          "stored_value": "14",
+          "resolved_text": "Financial assets held for trading",
+          "source_style": "6"
+        },
+        {
+          "cell": "B11",
+          "type": "s",
+          "stored_value": "15",
+          "resolved_text": "21, 22",
+          "source_style": "4"
+        },
+        {
+          "cell": "C11",
+          "type": "n",
+          "stored_value": "-905",
+          "resolved_text": "-905",
+          "source_style": "4"
+        },
+        {
+          "cell": "D11",
+          "type": "n",
+          "stored_value": "-2.641",
+          "resolved_text": "-2.641",
+          "source_style": "5"
+        },
+        {
+          "cell": "A12",
+          "type": "s",
+          "stored_value": "16",
+          "resolved_text": "Non-trading financial assets at fair value through profit or loss",
+          "source_style": "6"
+        },
+        {
+          "cell": "B12",
+          "type": "n",
+          "stored_value": "23",
+          "resolved_text": "23",
+          "source_style": "4"
+        },
+        {
+          "cell": "C12",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "D12",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "5"
+        },
+        {
+          "cell": "A13",
+          "type": "s",
+          "stored_value": "17",
+          "resolved_text": "Equity instruments",
+          "source_style": "7"
+        },
+        {
+          "cell": "B13",
+          "type": "n",
+          "stored_value": "23",
+          "resolved_text": "23",
+          "source_style": "4"
+        },
+        {
+          "cell": "C13",
+          "type": "n",
+          "stored_value": "-68",
+          "resolved_text": "-68",
+          "source_style": "4"
+        },
+        {
+          "cell": "D13",
+          "type": "n",
+          "stored_value": "-50",
+          "resolved_text": "-50",
+          "source_style": "5"
+        },
+        {
+          "cell": "A14",
+          "type": "s",
+          "stored_value": "18",
+          "resolved_text": "Debt securities",
+          "source_style": "7"
+        },
+        {
+          "cell": "B14",
+          "type": "n",
+          "stored_value": "23",
+          "resolved_text": "23",
+          "source_style": "4"
+        },
+        {
+          "cell": "C14",
+          "type": "n",
+          "stored_value": "49",
+          "resolved_text": "49",
+          "source_style": "4"
+        },
+        {
+          "cell": "D14",
+          "type": "n",
+          "stored_value": "139",
+          "resolved_text": "139",
+          "source_style": "5"
+        },
+        {
+          "cell": "A15",
+          "type": "s",
+          "stored_value": "19",
+          "resolved_text": "Loans and advances to customers",
+          "source_style": "7"
+        },
+        {
+          "cell": "B15",
+          "type": "n",
+          "stored_value": "23",
+          "resolved_text": "23",
+          "source_style": "4"
+        },
+        {
+          "cell": "C15",
+          "type": "n",
+          "stored_value": "-85",
+          "resolved_text": "-85",
+          "source_style": "4"
+        },
+        {
+          "cell": "D15",
+          "type": "n",
+          "stored_value": "-54",
+          "resolved_text": "-54",
+          "source_style": "5"
+        },
+        {
+          "cell": "A16",
+          "type": "s",
+          "stored_value": "20",
+          "resolved_text": "Financial assets at fair value through other comprehensive income: debt securities",
+          "source_style": "6"
+        },
+        {
+          "cell": "B16",
+          "type": "n",
+          "stored_value": "19",
+          "resolved_text": "19",
+          "source_style": "4"
+        },
+        {
+          "cell": "C16",
+          "type": "n",
+          "stored_value": "851",
+          "resolved_text": "851",
+          "source_style": "4"
+        },
+        {
+          "cell": "D16",
+          "type": "n",
+          "stored_value": "-581",
+          "resolved_text": "-581",
+          "source_style": "5"
+        },
+        {
+          "cell": "A17",
+          "type": "s",
+          "stored_value": "21",
+          "resolved_text": "Financial assets at amortised cost",
+          "source_style": "6"
+        },
+        {
+          "cell": "B17",
+          "type": "n",
+          "stored_value": "16",
+          "resolved_text": "16",
+          "source_style": "4"
+        },
+        {
+          "cell": "C17",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "D17",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "5"
+        },
+        {
+          "cell": "A18",
+          "type": "s",
+          "stored_value": "18",
+          "resolved_text": "Debt securities",
+          "source_style": "7"
+        },
+        {
+          "cell": "B18",
+          "type": "n",
+          "stored_value": "16",
+          "resolved_text": "16",
+          "source_style": "4"
+        },
+        {
+          "cell": "C18",
+          "type": "n",
+          "stored_value": "-3.4359999999999999",
+          "resolved_text": "-3.4359999999999999",
+          "source_style": "4"
+        },
+        {
+          "cell": "D18",
+          "type": "n",
+          "stored_value": "-8.9250000000000007",
+          "resolved_text": "-8.9250000000000007",
+          "source_style": "5"
+        },
+        {
+          "cell": "A19",
+          "type": "s",
+          "stored_value": "22",
+          "resolved_text": "Loans and advances to banks",
+          "source_style": "7"
+        },
+        {
+          "cell": "B19",
+          "type": "n",
+          "stored_value": "16",
+          "resolved_text": "16",
+          "source_style": "4"
+        },
+        {
+          "cell": "C19",
+          "type": "n",
+          "stored_value": "-3.0139999999999998",
+          "resolved_text": "-3.0139999999999998",
+          "source_style": "4"
+        },
+        {
+          "cell": "D19",
+          "type": "n",
+          "stored_value": "-5.556",
+          "resolved_text": "-5.556",
+          "source_style": "5"
+        },
+        {
+          "cell": "A20",
+          "type": "s",
+          "stored_value": "19",
+          "resolved_text": "Loans and advances to customers",
+          "source_style": "7"
+        },
+        {
+          "cell": "B20",
+          "type": "n",
+          "stored_value": "16",
+          "resolved_text": "16",
+          "source_style": "4"
+        },
+        {
+          "cell": "C20",
+          "type": "n",
+          "stored_value": "-5.1849999999999996",
+          "resolved_text": "-5.1849999999999996",
+          "source_style": "4"
+        },
+        {
+          "cell": "D20",
+          "type": "n",
+          "stored_value": "-10.19",
+          "resolved_text": "-10.19",
+          "source_style": "5"
+        },
+        {
+          "cell": "A21",
+          "type": "s",
+          "stored_value": "23",
+          "resolved_text": "Finance lease receivables",
+          "source_style": "6"
+        },
+        {
+          "cell": "B21",
+          "type": "n",
+          "stored_value": "50",
+          "resolved_text": "50",
+          "source_style": "4"
+        },
+        {
+          "cell": "C21",
+          "type": "n",
+          "stored_value": "-422",
+          "resolved_text": "-422",
+          "source_style": "4"
+        },
+        {
+          "cell": "D21",
+          "type": "n",
+          "stored_value": "-277",
+          "resolved_text": "-277",
+          "source_style": "5"
+        },
+        {
+          "cell": "A22",
+          "type": "s",
+          "stored_value": "24",
+          "resolved_text": "Hedge accounting derivatives - assets",
+          "source_style": "6"
+        },
+        {
+          "cell": "B22",
+          "type": "n",
+          "stored_value": "27",
+          "resolved_text": "27",
+          "source_style": "4"
+        },
+        {
+          "cell": "C22",
+          "type": "n",
+          "stored_value": "142",
+          "resolved_text": "142",
+          "source_style": "4"
+        },
+        {
+          "cell": "D22",
+          "type": "n",
+          "stored_value": "26",
+          "resolved_text": "26",
+          "source_style": "5"
+        },
+        {
+          "cell": "A23",
+          "type": "s",
+          "stored_value": "25",
+          "resolved_text": "Other assets from operating activities",
+          "source_style": "6"
+        },
+        {
+          "cell": "B23",
+          "type": "s",
+          "stored_value": "26",
+          "resolved_text": "17, 49",
+          "source_style": "4"
+        },
+        {
+          "cell": "C23",
+          "type": "n",
+          "stored_value": "285",
+          "resolved_text": "285",
+          "source_style": "4"
+        },
+        {
+          "cell": "D23",
+          "type": "n",
+          "stored_value": "61",
+          "resolved_text": "61",
+          "source_style": "5"
+        },
+        {
+          "cell": "A24",
+          "type": "s",
+          "stored_value": "27",
+          "resolved_text": "Financial liabilities held for trading",
+          "source_style": "6"
+        },
+        {
+          "cell": "B24",
+          "type": "s",
+          "stored_value": "28",
+          "resolved_text": "21, 24",
+          "source_style": "4"
+        },
+        {
+          "cell": "C24",
+          "type": "n",
+          "stored_value": "-1.359",
+          "resolved_text": "-1.359",
+          "source_style": "4"
+        },
+        {
+          "cell": "D24",
+          "type": "n",
+          "stored_value": "542",
+          "resolved_text": "542",
+          "source_style": "5"
+        },
+        {
+          "cell": "A25",
+          "type": "s",
+          "stored_value": "29",
+          "resolved_text": "Financial liabilities at fair value through profit or loss",
+          "source_style": "6"
+        },
+        {
+          "cell": "B25",
+          "type": "n",
+          "stored_value": "25",
+          "resolved_text": "25",
+          "source_style": "4"
+        },
+        {
+          "cell": "C25",
+          "type": "n",
+          "stored_value": "-186",
+          "resolved_text": "-186",
+          "source_style": "4"
+        },
+        {
+          "cell": "D25",
+          "type": "n",
+          "stored_value": "-1.075",
+          "resolved_text": "-1.075",
+          "source_style": "5"
+        },
+        {
+          "cell": "A26",
+          "type": "s",
+          "stored_value": "30",
+          "resolved_text": "Financial liabilities measured at amortised cost",
+          "source_style": "6"
+        },
+        {
+          "cell": "B26",
+          "type": "n",
+          "stored_value": "18",
+          "resolved_text": "18",
+          "source_style": "4"
+        },
+        {
+          "cell": "C26",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "D26",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "5"
+        },
+        {
+          "cell": "A27",
+          "type": "s",
+          "stored_value": "31",
+          "resolved_text": "Deposits from banks",
+          "source_style": "7"
+        },
+        {
+          "cell": "B27",
+          "type": "n",
+          "stored_value": "18",
+          "resolved_text": "18",
+          "source_style": "4"
+        },
+        {
+          "cell": "C27",
+          "type": "n",
+          "stored_value": "-5.91",
+          "resolved_text": "-5.91",
+          "source_style": "4"
+        },
+        {
+          "cell": "D27",
+          "type": "n",
+          "stored_value": "-1.649",
+          "resolved_text": "-1.649",
+          "source_style": "5"
+        },
+        {
+          "cell": "A28",
+          "type": "s",
+          "stored_value": "32",
+          "resolved_text": "Deposits from customers",
+          "source_style": "7"
+        },
+        {
+          "cell": "B28",
+          "type": "n",
+          "stored_value": "18",
+          "resolved_text": "18",
+          "source_style": "4"
+        },
+        {
+          "cell": "C28",
+          "type": "n",
+          "stored_value": "9.5909999999999993",
+          "resolved_text": "9.5909999999999993",
+          "source_style": "4"
+        },
+        {
+          "cell": "D28",
+          "type": "n",
+          "stored_value": "9.3130000000000006",
+          "resolved_text": "9.3130000000000006",
+          "source_style": "5"
+        },
+        {
+          "cell": "A29",
+          "type": "s",
+          "stored_value": "33",
+          "resolved_text": "Debt securities issued",
+          "source_style": "7"
+        },
+        {
+          "cell": "B29",
+          "type": "n",
+          "stored_value": "18",
+          "resolved_text": "18",
+          "source_style": "4"
+        },
+        {
+          "cell": "C29",
+          "type": "n",
+          "stored_value": "6.7370000000000001",
+          "resolved_text": "6.7370000000000001",
+          "source_style": "4"
+        },
+        {
+          "cell": "D29",
+          "type": "n",
+          "stored_value": "8.5289999999999999",
+          "resolved_text": "8.5289999999999999",
+          "source_style": "5"
+        },
+        {
+          "cell": "A30",
+          "type": "s",
+          "stored_value": "34",
+          "resolved_text": "Other financial liabilities",
+          "source_style": "7"
+        },
+        {
+          "cell": "B30",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C30",
+          "type": "n",
+          "stored_value": "480",
+          "resolved_text": "480",
+          "source_style": "4"
+        },
+        {
+          "cell": "D30",
+          "type": "n",
+          "stored_value": "-672",
+          "resolved_text": "-672",
+          "source_style": "5"
+        },
+        {
+          "cell": "A31",
+          "type": "s",
+          "stored_value": "35",
+          "resolved_text": "Hedge accounting derivatives - liabilities",
+          "source_style": "6"
+        },
+        {
+          "cell": "B31",
+          "type": "n",
+          "stored_value": "27",
+          "resolved_text": "27",
+          "source_style": "4"
+        },
+        {
+          "cell": "C31",
+          "type": "n",
+          "stored_value": "-87",
+          "resolved_text": "-87",
+          "source_style": "4"
+        },
+        {
+          "cell": "D31",
+          "type": "n",
+          "stored_value": "-91",
+          "resolved_text": "-91",
+          "source_style": "5"
+        },
+        {
+          "cell": "A32",
+          "type": "s",
+          "stored_value": "36",
+          "resolved_text": "Other liabilities from operating activities",
+          "source_style": "6"
+        },
+        {
+          "cell": "B32",
+          "type": "n",
+          "stored_value": "52",
+          "resolved_text": "52",
+          "source_style": "4"
+        },
+        {
+          "cell": "C32",
+          "type": "n",
+          "stored_value": "-276",
+          "resolved_text": "-276",
+          "source_style": "4"
+        },
+        {
+          "cell": "D32",
+          "type": "n",
+          "stored_value": "115",
+          "resolved_text": "115",
+          "source_style": "5"
+        },
+        {
+          "cell": "A33",
+          "type": "s",
+          "stored_value": "37",
+          "resolved_text": "Cash flow from operating activities",
+          "source_style": "3"
+        },
+        {
+          "cell": "B33",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C33",
+          "type": "n",
+          "stored_value": "2.5859999999999999",
+          "resolved_text": "2.5859999999999999",
+          "source_style": "4"
+        },
+        {
+          "cell": "D33",
+          "type": "n",
+          "stored_value": "-9.0289999999999999",
+          "resolved_text": "-9.0289999999999999",
+          "source_style": "5"
+        },
+        {
+          "cell": "A34",
+          "type": "s",
+          "stored_value": "38",
+          "resolved_text": "Proceeds of disposal",
+          "source_style": "3"
+        },
+        {
+          "cell": "B34",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C34",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "D34",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "5"
+        },
+        {
+          "cell": "A35",
+          "type": "s",
+          "stored_value": "39",
+          "resolved_text": "Financial assets at fair value through other comprehensive income: equity instruments",
+          "source_style": "6"
+        },
+        {
+          "cell": "B35",
+          "type": "n",
+          "stored_value": "20",
+          "resolved_text": "20",
+          "source_style": "4"
+        },
+        {
+          "cell": "C35",
+          "type": "n",
+          "stored_value": "15",
+          "resolved_text": "15",
+          "source_style": "4"
+        },
+        {
+          "cell": "D35",
+          "type": "n",
+          "stored_value": "0",
+          "resolved_text": "0",
+          "source_style": "5"
+        },
+        {
+          "cell": "A36",
+          "type": "s",
+          "stored_value": "40",
+          "resolved_text": "Investments in associates and joint ventures",
+          "source_style": "6"
+        },
+        {
+          "cell": "B36",
+          "type": "n",
+          "stored_value": "58",
+          "resolved_text": "58",
+          "source_style": "4"
+        },
+        {
+          "cell": "C36",
+          "type": "n",
+          "stored_value": "-12",
+          "resolved_text": "-12",
+          "source_style": "4"
+        },
+        {
+          "cell": "D36",
+          "type": "n",
+          "stored_value": "-21",
+          "resolved_text": "-21",
+          "source_style": "5"
+        },
+        {
+          "cell": "A37",
+          "type": "s",
+          "stored_value": "41",
+          "resolved_text": "Property and equipment and intangible assets ",
+          "source_style": "6"
+        },
+        {
+          "cell": "B37",
+          "type": "s",
+          "stored_value": "8",
+          "resolved_text": "47, 48",
+          "source_style": "4"
+        },
+        {
+          "cell": "C37",
+          "type": "n",
+          "stored_value": "44",
+          "resolved_text": "44",
+          "source_style": "4"
+        },
+        {
+          "cell": "D37",
+          "type": "n",
+          "stored_value": "51",
+          "resolved_text": "51",
+          "source_style": "5"
+        },
+        {
+          "cell": "A38",
+          "type": "s",
+          "stored_value": "42",
+          "resolved_text": "Investment properties",
+          "source_style": "6"
+        },
+        {
+          "cell": "B38",
+          "type": "n",
+          "stored_value": "47",
+          "resolved_text": "47",
+          "source_style": "4"
+        },
+        {
+          "cell": "C38",
+          "type": "n",
+          "stored_value": "16",
+          "resolved_text": "16",
+          "source_style": "4"
+        },
+        {
+          "cell": "D38",
+          "type": "n",
+          "stored_value": "12",
+          "resolved_text": "12",
+          "source_style": "5"
+        },
+        {
+          "cell": "A39",
+          "type": "s",
+          "stored_value": "43",
+          "resolved_text": "Acquisition of",
+          "source_style": "3"
+        },
+        {
+          "cell": "B39",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C39",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "D39",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "5"
+        },
+        {
+          "cell": "A40",
+          "type": "s",
+          "stored_value": "41",
+          "resolved_text": "Property and equipment and intangible assets ",
+          "source_style": "6"
+        },
+        {
+          "cell": "B40",
+          "type": "s",
+          "stored_value": "8",
+          "resolved_text": "47, 48",
+          "source_style": "4"
+        },
+        {
+          "cell": "C40",
+          "type": "n",
+          "stored_value": "-528",
+          "resolved_text": "-528",
+          "source_style": "4"
+        },
+        {
+          "cell": "D40",
+          "type": "n",
+          "stored_value": "-746",
+          "resolved_text": "-746",
+          "source_style": "5"
+        },
+        {
+          "cell": "A41",
+          "type": "s",
+          "stored_value": "42",
+          "resolved_text": "Investment properties",
+          "source_style": "6"
+        },
+        {
+          "cell": "B41",
+          "type": "n",
+          "stored_value": "47",
+          "resolved_text": "47",
+          "source_style": "4"
+        },
+        {
+          "cell": "C41",
+          "type": "n",
+          "stored_value": "-134",
+          "resolved_text": "-134",
+          "source_style": "4"
+        },
+        {
+          "cell": "D41",
+          "type": "n",
+          "stored_value": "-84",
+          "resolved_text": "-84",
+          "source_style": "5"
+        },
+        {
+          "cell": "A42",
+          "type": "s",
+          "stored_value": "44",
+          "resolved_text": "Acquisition of subsidiaries (net of cash and cash equivalents acquired)",
+          "source_style": "3"
+        },
+        {
+          "cell": "B42",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C42",
+          "type": "n",
+          "stored_value": "0",
+          "resolved_text": "0",
+          "source_style": "4"
+        },
+        {
+          "cell": "D42",
+          "type": "n",
+          "stored_value": "-88",
+          "resolved_text": "-88",
+          "source_style": "5"
+        },
+        {
+          "cell": "A43",
+          "type": "s",
+          "stored_value": "45",
+          "resolved_text": "Disposal of subsidiaries",
+          "source_style": "3"
+        },
+        {
+          "cell": "B43",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C43",
+          "type": "n",
+          "stored_value": "0",
+          "resolved_text": "0",
+          "source_style": "4"
+        },
+        {
+          "cell": "D43",
+          "type": "n",
+          "stored_value": "28",
+          "resolved_text": "28",
+          "source_style": "5"
+        },
+        {
+          "cell": "A44",
+          "type": "s",
+          "stored_value": "46",
+          "resolved_text": "Cash flow from investing activities",
+          "source_style": "20"
+        },
+        {
+          "cell": "B44",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "21"
+        },
+        {
+          "cell": "C44",
+          "type": "n",
+          "stored_value": "-599",
+          "resolved_text": "-599",
+          "source_style": "21"
+        },
+        {
+          "cell": "D44",
+          "type": "n",
+          "stored_value": "-850",
+          "resolved_text": "-850",
+          "source_style": "22"
+        },
+        {
+          "cell": "A45",
+          "type": "s",
+          "stored_value": "47",
+          "resolved_text": "Capital increase/Capital decrease",
+          "source_style": "6"
+        },
+        {
+          "cell": "B45",
+          "type": "n",
+          "stored_value": "55",
+          "resolved_text": "55",
+          "source_style": "4"
+        },
+        {
+          "cell": "C45",
+          "type": "n",
+          "stored_value": "-107",
+          "resolved_text": "-107",
+          "source_style": "4"
+        },
+        {
+          "cell": "D45",
+          "type": "n",
+          "stored_value": "-255",
+          "resolved_text": "-255",
+          "source_style": "5"
+        },
+        {
+          "cell": "A46",
+          "type": "s",
+          "stored_value": "48",
+          "resolved_text": "Changes in ownership interests that do not result in a loss of control",
+          "source_style": "6"
+        },
+        {
+          "cell": "B46",
+          "type": "n",
+          "stored_value": "55",
+          "resolved_text": "55",
+          "source_style": "4"
+        },
+        {
+          "cell": "C46",
+          "type": "n",
+          "stored_value": "18",
+          "resolved_text": "18",
+          "source_style": "4"
+        },
+        {
+          "cell": "D46",
+          "type": "n",
+          "stored_value": "50",
+          "resolved_text": "50",
+          "source_style": "5"
+        },
+        {
+          "cell": "A47",
+          "type": "s",
+          "stored_value": "49",
+          "resolved_text": "Dividends paid to equity holders of the parent",
+          "source_style": "6"
+        },
+        {
+          "cell": "B47",
+          "type": "n",
+          "stored_value": "55",
+          "resolved_text": "55",
+          "source_style": "4"
+        },
+        {
+          "cell": "C47",
+          "type": "n",
+          "stored_value": "-869",
+          "resolved_text": "-869",
+          "source_style": "4"
+        },
+        {
+          "cell": "D47",
+          "type": "n",
+          "stored_value": "-1.2170000000000001",
+          "resolved_text": "-1.2170000000000001",
+          "source_style": "5"
+        },
+        {
+          "cell": "A48",
+          "type": "s",
+          "stored_value": "50",
+          "resolved_text": "Dividends paid to non-controlling interests",
+          "source_style": "6"
+        },
+        {
+          "cell": "B48",
+          "type": "n",
+          "stored_value": "55",
+          "resolved_text": "55",
+          "source_style": "4"
+        },
+        {
+          "cell": "C48",
+          "type": "n",
+          "stored_value": "-61",
+          "resolved_text": "-61",
+          "source_style": "4"
+        },
+        {
+          "cell": "D48",
+          "type": "n",
+          "stored_value": "-132",
+          "resolved_text": "-132",
+          "source_style": "5"
+        },
+        {
+          "cell": "A49",
+          "type": "s",
+          "stored_value": "51",
+          "resolved_text": "Cash flow from financing activities",
+          "source_style": "17"
+        },
+        {
+          "cell": "B49",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "18"
+        },
+        {
+          "cell": "C49",
+          "type": "n",
+          "stored_value": "-1.02",
+          "resolved_text": "-1.02",
+          "source_style": "18"
+        },
+        {
+          "cell": "D49",
+          "type": "n",
+          "stored_value": "-1.5529999999999999",
+          "resolved_text": "-1.5529999999999999",
+          "source_style": "19"
+        },
+        {
+          "cell": "A50",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "8"
+        },
+        {
+          "cell": "B50",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "9"
+        },
+        {
+          "cell": "C50",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "9"
+        },
+        {
+          "cell": "D50",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "10"
+        },
+        {
+          "cell": "A51",
+          "type": "s",
+          "stored_value": "52",
+          "resolved_text": "Cash and cash equivalents at the beginning of the period",
+          "source_style": "20"
+        },
+        {
+          "cell": "B51",
+          "type": "n",
+          "stored_value": "15",
+          "resolved_text": "15",
+          "source_style": "21"
+        },
+        {
+          "cell": "C51",
+          "type": "n",
+          "stored_value": "35.685000000000002",
+          "resolved_text": "35.685000000000002",
+          "source_style": "21"
+        },
+        {
+          "cell": "D51",
+          "type": "n",
+          "stored_value": "36.685000000000002",
+          "resolved_text": "36.685000000000002",
+          "source_style": "22"
+        },
+        {
+          "cell": "A52",
+          "type": "s",
+          "stored_value": "37",
+          "resolved_text": "Cash flow from operating activities",
+          "source_style": "6"
+        },
+        {
+          "cell": "B52",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C52",
+          "type": "n",
+          "stored_value": "2.5859999999999999",
+          "resolved_text": "2.5859999999999999",
+          "source_style": "4"
+        },
+        {
+          "cell": "D52",
+          "type": "n",
+          "stored_value": "-9.0289999999999999",
+          "resolved_text": "-9.0289999999999999",
+          "source_style": "5"
+        },
+        {
+          "cell": "A53",
+          "type": "s",
+          "stored_value": "46",
+          "resolved_text": "Cash flow from investing activities",
+          "source_style": "6"
+        },
+        {
+          "cell": "B53",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C53",
+          "type": "n",
+          "stored_value": "-599",
+          "resolved_text": "-599",
+          "source_style": "4"
+        },
+        {
+          "cell": "D53",
+          "type": "n",
+          "stored_value": "-850",
+          "resolved_text": "-850",
+          "source_style": "5"
+        },
+        {
+          "cell": "A54",
+          "type": "s",
+          "stored_value": "51",
+          "resolved_text": "Cash flow from financing activities",
+          "source_style": "6"
+        },
+        {
+          "cell": "B54",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C54",
+          "type": "n",
+          "stored_value": "-1.02",
+          "resolved_text": "-1.02",
+          "source_style": "4"
+        },
+        {
+          "cell": "D54",
+          "type": "n",
+          "stored_value": "-1.5529999999999999",
+          "resolved_text": "-1.5529999999999999",
+          "source_style": "5"
+        },
+        {
+          "cell": "A55",
+          "type": "s",
+          "stored_value": "53",
+          "resolved_text": "Effect of currency translation",
+          "source_style": "6"
+        },
+        {
+          "cell": "B55",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C55",
+          "type": "n",
+          "stored_value": "33",
+          "resolved_text": "33",
+          "source_style": "4"
+        },
+        {
+          "cell": "D55",
+          "type": "n",
+          "stored_value": "-123",
+          "resolved_text": "-123",
+          "source_style": "5"
+        },
+        {
+          "cell": "A56",
+          "type": "s",
+          "stored_value": "54",
+          "resolved_text": "Cash and cash equivalents at the end of period",
+          "source_style": "20"
+        },
+        {
+          "cell": "B56",
+          "type": "n",
+          "stored_value": "15",
+          "resolved_text": "15",
+          "source_style": "11"
+        },
+        {
+          "cell": "C56",
+          "type": "n",
+          "stored_value": "36.685000000000002",
+          "resolved_text": "36.685000000000002",
+          "source_style": "21"
+        },
+        {
+          "cell": "D56",
+          "type": "n",
+          "stored_value": "25.129000000000001",
+          "resolved_text": "25.129000000000001",
+          "source_style": "22"
+        },
+        {
+          "cell": "A57",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "3"
+        },
+        {
+          "cell": "B57",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "C57",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "4"
+        },
+        {
+          "cell": "D57",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "5"
+        },
+        {
+          "cell": "A58",
+          "type": "s",
+          "stored_value": "55",
+          "resolved_text": "Cash flows related to taxes, interest and dividends (included in cash flow from operating activities)",
+          "source_style": "20"
+        },
+        {
+          "cell": "B58",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "21"
+        },
+        {
+          "cell": "C58",
+          "type": "n",
+          "stored_value": "8.5150000000000006",
+          "resolved_text": "8.5150000000000006",
+          "source_style": "21"
+        },
+        {
+          "cell": "D58",
+          "type": "n",
+          "stored_value": "6.423",
+          "resolved_text": "6.423",
+          "source_style": "22"
+        },
+        {
+          "cell": "A59",
+          "type": "s",
+          "stored_value": "56",
+          "resolved_text": "Payments for taxes on income ",
+          "source_style": "6"
+        },
+        {
+          "cell": "B59",
+          "type": "n",
+          "stored_value": "13",
+          "resolved_text": "13",
+          "source_style": "4"
+        },
+        {
+          "cell": "C59",
+          "type": "n",
+          "stored_value": "-315",
+          "resolved_text": "-315",
+          "source_style": "4"
+        },
+        {
+          "cell": "D59",
+          "type": "n",
+          "stored_value": "-807",
+          "resolved_text": "-807",
+          "source_style": "5"
+        },
+        {
+          "cell": "A60",
+          "type": "s",
+          "stored_value": "57",
+          "resolved_text": "Interest received ",
+          "source_style": "6"
+        },
+        {
+          "cell": "B60",
+          "type": "n",
+          "stored_value": "2",
+          "resolved_text": "2",
+          "source_style": "4"
+        },
+        {
+          "cell": "C60",
+          "type": "n",
+          "stored_value": "22.696999999999999",
+          "resolved_text": "22.696999999999999",
+          "source_style": "4"
+        },
+        {
+          "cell": "D60",
+          "type": "n",
+          "stored_value": "23.003",
+          "resolved_text": "23.003",
+          "source_style": "5"
+        },
+        {
+          "cell": "A61",
+          "type": "s",
+          "stored_value": "58",
+          "resolved_text": "Dividends received ",
+          "source_style": "6"
+        },
+        {
+          "cell": "B61",
+          "type": "n",
+          "stored_value": "4",
+          "resolved_text": "4",
+          "source_style": "4"
+        },
+        {
+          "cell": "C61",
+          "type": "n",
+          "stored_value": "38",
+          "resolved_text": "38",
+          "source_style": "4"
+        },
+        {
+          "cell": "D61",
+          "type": "n",
+          "stored_value": "39",
+          "resolved_text": "39",
+          "source_style": "5"
+        },
+        {
+          "cell": "A62",
+          "type": "s",
+          "stored_value": "59",
+          "resolved_text": "Interest paid ",
+          "source_style": "6"
+        },
+        {
+          "cell": "B62",
+          "type": "n",
+          "stored_value": "2",
+          "resolved_text": "2",
+          "source_style": "4"
+        },
+        {
+          "cell": "C62",
+          "type": "n",
+          "stored_value": "-13.904999999999999",
+          "resolved_text": "-13.904999999999999",
+          "source_style": "4"
+        },
+        {
+          "cell": "D62",
+          "type": "n",
+          "stored_value": "-15.811999999999999",
+          "resolved_text": "-15.811999999999999",
+          "source_style": "5"
+        },
+        {
+          "cell": "A63",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "12"
+        },
+        {
+          "cell": "A64",
+          "type": "s",
+          "stored_value": "60",
+          "resolved_text": "Cash and cash equivalents are equal to the amount in the balance sheet line item \u2018Cash and cash balances\u2019.",
+          "source_style": "23"
+        },
+        {
+          "cell": "B64",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "23"
+        },
+        {
+          "cell": "C64",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "23"
+        },
+        {
+          "cell": "D64",
+          "type": "n",
+          "stored_value": null,
+          "resolved_text": "",
+          "source_style": "23"
+        }
+      ],
+      "formulas": 0,
+      "comments": 0,
+      "external_parts": [],
+      "macro_parts": [],
+      "hidden_sheets": 0,
+      "hidden_rows": 0,
+      "filter": false,
+      "locale_warning": "Mixed decimal numeric lexemes under EUR-million headings conflict with matching PDF rows. Not a parser transformation."
+    }
+  }
+}

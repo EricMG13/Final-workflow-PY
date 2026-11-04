@@ -1,0 +1,33 @@
+{
+  "kind": "manual_checked_handoff_delivery",
+  "analytical_rerun_for_delivery": false,
+  "production_code_changed": true,
+  "production_python_changed": false,
+  "static_prompt_text_changed": true,
+  "native_accepted_heads_created": false,
+  "no_excel_output": true,
+  "scope": "Historical initial CRC discussion budget dated 9 July 2020, attached to the filed 23 July senior DIP agreement. Thirteen-week Tight assessment is budget-conditional; monthly January forecast is a stub through 15 January 2021 maturity. Planned draws are not certified accessible funding. Complete twelve-month liquidity, formal Months to Empty, actual covenant compliance and maturity takeout remain unproven. Source rounding and conditional capacity differences are retained. Same-host handoffs, not independent assurance or native CP-OS completion.",
+  "source_tables": 25,
+  "source_data_rows": 123,
+  "literal_value_cells_checked": 515,
+  "facts_and_exact_line_citations": 515,
+  "missing_null_cells": 23,
+  "front_summary_rows": 6,
+  "narrative_tables": 12,
+  "call_from_literal_funding_readiness": true,
+  "files": {
+    "CP-2D-attempt-2.md": "d7373d2f25d8df1730beec56a765ad1966b8df5aa11bbf2c9ccb96830bd9adae",
+    "CP-3C-consumer.md": "d75fce3ec263bb786ebef4c0db95c875fa6060c7ff2e9fd187a523ed5dd4234d",
+    "calculations.json": "103aa2ce489cd4b7c490d7208883e5abca95d675fd6f3f72e661c975c8db93d5",
+    "budget-inputs.json": "f39aa7eb9aaa21ac996a9b069fd68ca6bf3ed792f7ad53e393c214a62151dd4e",
+    "view.json": "9e2f715593915e370a7fd9a93bc5aef5057142d4ed6df97638c496170f0d0a7e",
+    "report-view.json": "aa702e05c1a3c7f5a16399ed3823619fb3ca1eecbe14d25257ace86eeeb83fa4",
+    "report.html": "e7d0d92644c9a308641315ce4d88ff536d3ccc619131627fe88403aded8045c4"
+  },
+  "reused_code": {
+    "src/deploy_workflow/handoff_delivery.py": "aa77ae59a2e408f05a3cf2f5c7af92b4dde2b2df635f961545d49fc05bc0e00c",
+    "src/deploy_vii/contracts.py": "b07965cc3907da1911c29a09bfea8b4559fb1c27dfc57c7e89eab97f1a3d0ee3",
+    "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+    "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "case": "crc-liquidity-2020-001",
+  "execution": "2026-11-04 current host, preceding context; no subagents/providers/native accepted heads",
+  "pins": {
+    "instructions.md": "a5597edea6af2f91086f3b39e6f9577f0508c64ed68514650df5f0af10f63443",
+    "budget-inputs.json": "f39aa7eb9aaa21ac996a9b069fd68ca6bf3ed792f7ad53e393c214a62151dd4e",
+    "sources/filing-captures.txt": "98dc337f9d9bca72dab812f3dcc68e4ce366435bc16f9a12f09c4a971ce56200",
+    "expectations.json": "4ddceee632dc1d156b989714d0fe158717a5ac3c4e79133f90e8f9257be1818e"
+  },
+  "methods": {
+    "docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/SKILL.md": "5009ee06f28d739d7ba921299c7d14465b28177ab3fa61372c173028f9c6fd67",
+    "docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/references/REF_CP-2D_STEPS.md": "84bdff527a5575b900fc94d2bf94eb433a508f8c2883ee84f40ca9dcf94ce595",
+    "docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/references/CP-2D_SCHEMA_REFERENCE.md": "efbb5aed687073d59a1862aa8f88b0ac35540dcf823947c68478919dab6dafe5",
+    "src/deploy_vii/methods/cp2d.md": "df8ec4b240315b7837144143b10b4861faf47826612d48f4be0e24f2ea5edcdd",
+    "src/deploy_workflow/owners/cp2d.py": "33efdce39210f5114abdbc629d69f21e3436e48dc2e5549406bb465fc4a0059a"
+  },
+  "selection": "Wider ten-step CP-2D source/access/use/bridge/MTE/mitigant/risk/gap/synthesis duties, later exact Decimal and missingness safeguards. Annual-only native run-rate and transport limits are not substituted for the actual dated budget. Historical export/approval instructions are evidence, not authority.",
+  "input_scope": "Original SEC web passages retained as tool-text captures, not full original bytes. Initial discussion budget, not approved/achieved funding. Separate issuer/date from TDG.",
+  "completion_scope": "Positive dated cash/funding function must reach actual CP-3C consumption and a checked populated report; complete twelve-month/current/native issuer proof remains a separate open requirement."
+}

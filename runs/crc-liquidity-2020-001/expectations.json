@@ -1,0 +1,224 @@
+{
+  "kind": "Independent rational arithmetic on original source literals, before production/helper execution and producer output; same host has seen the oracle, not independent-model assurance.",
+  "weekly": [
+    {
+      "cash": "10",
+      "without_financing_cash": "-21",
+      "draws_recomputed_debt": "31",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "-1",
+      "nominal_cash_plus_availability": "229",
+      "lc_adjusted_liquidity_diagnostic": "198"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-8",
+      "draws_recomputed_debt": "18",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "1",
+      "nominal_cash_plus_availability": "242",
+      "lc_adjusted_liquidity_diagnostic": "211"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-12",
+      "draws_recomputed_debt": "22",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "0",
+      "nominal_cash_plus_availability": "238",
+      "lc_adjusted_liquidity_diagnostic": "207"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-43",
+      "draws_recomputed_debt": "53",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "0",
+      "nominal_cash_plus_availability": "207",
+      "lc_adjusted_liquidity_diagnostic": "176"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-90",
+      "draws_recomputed_debt": "100",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "0",
+      "nominal_cash_plus_availability": "160",
+      "lc_adjusted_liquidity_diagnostic": "129"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-33",
+      "draws_recomputed_debt": "43",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "-1",
+      "nominal_cash_plus_availability": "217",
+      "lc_adjusted_liquidity_diagnostic": "186"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-47",
+      "draws_recomputed_debt": "57",
+      "reported_minus_recomputed_debt": "1",
+      "net_flow_minus_receipts_less_uses": "0",
+      "nominal_cash_plus_availability": "202",
+      "lc_adjusted_liquidity_diagnostic": "171"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-56",
+      "draws_recomputed_debt": "66",
+      "reported_minus_recomputed_debt": "1",
+      "net_flow_minus_receipts_less_uses": "0",
+      "nominal_cash_plus_availability": "193",
+      "lc_adjusted_liquidity_diagnostic": "162"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-73",
+      "draws_recomputed_debt": "83",
+      "reported_minus_recomputed_debt": "1",
+      "net_flow_minus_receipts_less_uses": "-1",
+      "nominal_cash_plus_availability": "176",
+      "lc_adjusted_liquidity_diagnostic": "145"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-110",
+      "draws_recomputed_debt": "120",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "-1",
+      "nominal_cash_plus_availability": "140",
+      "lc_adjusted_liquidity_diagnostic": "109"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-47",
+      "draws_recomputed_debt": "57",
+      "reported_minus_recomputed_debt": "1",
+      "net_flow_minus_receipts_less_uses": "0",
+      "nominal_cash_plus_availability": "202",
+      "lc_adjusted_liquidity_diagnostic": "171"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-52",
+      "draws_recomputed_debt": "62",
+      "reported_minus_recomputed_debt": "1",
+      "net_flow_minus_receipts_less_uses": "0",
+      "nominal_cash_plus_availability": "197",
+      "lc_adjusted_liquidity_diagnostic": "166"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-72",
+      "draws_recomputed_debt": "82",
+      "reported_minus_recomputed_debt": "0",
+      "net_flow_minus_receipts_less_uses": "-1",
+      "nominal_cash_plus_availability": "178",
+      "lc_adjusted_liquidity_diagnostic": "147"
+    }
+  ],
+  "monthly": [
+    {
+      "cash": "10",
+      "without_financing_cash": "-12",
+      "draws_recomputed_debt": "22",
+      "reported_minus_recomputed_debt": "0",
+      "nominal_cash_plus_availability": "238",
+      "lc_adjusted_liquidity_diagnostic": "207"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-48",
+      "draws_recomputed_debt": "58",
+      "reported_minus_recomputed_debt": "0",
+      "nominal_cash_plus_availability": "202",
+      "lc_adjusted_liquidity_diagnostic": "171"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-48",
+      "draws_recomputed_debt": "58",
+      "reported_minus_recomputed_debt": "0",
+      "nominal_cash_plus_availability": "202",
+      "lc_adjusted_liquidity_diagnostic": "171"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-64",
+      "draws_recomputed_debt": "74",
+      "reported_minus_recomputed_debt": "0",
+      "nominal_cash_plus_availability": "186",
+      "lc_adjusted_liquidity_diagnostic": "155"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-83",
+      "draws_recomputed_debt": "93",
+      "reported_minus_recomputed_debt": "0",
+      "nominal_cash_plus_availability": "167",
+      "lc_adjusted_liquidity_diagnostic": "136"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-141",
+      "draws_recomputed_debt": "151",
+      "reported_minus_recomputed_debt": "0",
+      "nominal_cash_plus_availability": "109",
+      "lc_adjusted_liquidity_diagnostic": "78"
+    },
+    {
+      "cash": "10",
+      "without_financing_cash": "-239",
+      "draws_recomputed_debt": "249",
+      "reported_minus_recomputed_debt": "0",
+      "nominal_cash_plus_availability": "11",
+      "lc_adjusted_liquidity_diagnostic": "-20"
+    }
+  ],
+  "summary": {
+    "weekly_net_cash_flow_sum": "-119",
+    "weekly_net_dip_draw_sum": "82",
+    "weekly_gross_advances": "215",
+    "weekly_gross_repayments": "133",
+    "weekly_peak_draws_recomputed_debt": "120",
+    "weekly_first_cash_shortage_index": "0",
+    "weekly_first_cash_shortage": "-21",
+    "weekly_peak_cash_shortage": "-110",
+    "weekly_peak_cash_shortage_index": "9",
+    "weekly_peak_target_funding_need": "120",
+    "weekly_end_debt": "82",
+    "weekly_peak_minus_end_debt": "38",
+    "weekly_first_over_interim_limit_index": "4",
+    "weekly_first_over_interim_limit_debt": "100",
+    "weekly_max_over_interim_limit": "35",
+    "weekly_receipts_sum": "409",
+    "weekly_disbursements_sum": "524",
+    "weekly_reported_receipts_minus_sum": "-2",
+    "weekly_reported_disbursements_minus_sum": "3",
+    "weekly_reported_net_total_minus_total_receipts_less_uses": "1",
+    "monthly_net_cash_flow_sum": "-336",
+    "monthly_net_dip_draw_sum": "249",
+    "monthly_end_cash": "10",
+    "nominal_capacity": "250",
+    "incremental_lc_adjusted_capacity": "219",
+    "monthly_budget_target_funding_gap_under_lc_cap": "30",
+    "monthly_end_cash_under_lc_cap": "-20",
+    "monthly_nominal_liquidity_at_stub_end": "11",
+    "monthly_nominal_liquidity_headroom_to_daily_floor": "-24",
+    "monthly_lc_adjusted_liquidity_diagnostic_at_stub_end": "-20",
+    "monthly_lc_adjusted_diagnostic_headroom_to_daily_floor": "-55"
+  },
+  "required_missing": [
+    "unconditional_beginning_accessible_liquidity",
+    "formal_months_to_empty",
+    "daily_and_all_friday_liquidity_compliance",
+    "complete_twelve_month_cash_forecast",
+    "approved_updated_budget",
+    "final_order_and_actual_draw_access_evidence",
+    "complete_maturity_takeout_and_exit_plan",
+    "actual_outcomes"
+  ],
+  "rounding_policy": "Exact arithmetic on displayed budget amounts; retain nonzero displayed residuals rather than adding plugs. Raw dashes interpreted as displayed budget zero only, never an absent-field default."
+}

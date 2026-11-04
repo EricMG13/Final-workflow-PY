@@ -1,0 +1,525 @@
+L0: EX-4.2 4 tm2414194d1_ex4-2.htm EXHIBIT 4.2
+L1: 
+L2: 
+L3: 
+L4: Exhibit 4.2
+L5: 
+L6: 
+L7: 
+L8: FIRST SUPPLEMENTAL INDENTURE
+L9: 
+L10: 
+L11: 
+L12: between
+L13: 
+L14: 
+L15: 
+L16: ARES CAPITAL CORPORATION
+L17: 
+L18: 
+L19: 
+L20: and
+L21: 
+L22: 
+L23: 
+L24: U.S. BANK TRUST COMPANY, NATIONAL ASSOCIATION,
+L25: 
+L26: 
+L27: 
+L28: as Trustee
+L29: 
+L30: 
+L31: 
+L32: Dated as of May 13, 2024
+L33: 
+L34: 
+L35: 
+L36: 
+L37: 
+L38: 
+L39: 
+L40: FIRST SUPPLEMENTAL INDENTURE
+L41: THIS FIRST SUPPLEMENTAL INDENTURE (this “Supplemental Indenture”), dated as of May 13, 2024, is between Ares Capital Corporation, a Maryland corporation (the “Company”), and U.S. Bank Trust Company, National Association, as trustee (the “Trustee”). All capitalized terms used herein shall have the meaning set forth in the Base Indenture (as defined below) unless otherwise defined herein.
+L42: 
+L43: 
+L44: 
+L45: RECITALS OF THE COMPANY
+L46: The Company and the Trustee executed and delivered an Indenture, dated as of May 13, 2024 (the “Base Indenture” and, as supplemented by this First Supplemental Indenture, together, the “Indenture”), to provide for the issuance by the Company from time to time of the Company’s unsecured debentures, notes or other evidences of indebtedness (the “Securities”), to be issued in one or more series as provided in the Indenture.
+L47: The Company desires to issue and sell $850,000,000 aggregate principal amount of the Company’s 5.950% Notes due 2029 (the “Notes”).
+L48: Sections 9.01(v) and 9.01(vii) of the Base Indenture provide that without the consent of Holders of the Securities of any series issued under the Indenture, the Company and the Trustee, at any time and from time to time, may enter into one or more indentures supplemental to the Base Indenture to (i) change or eliminate any of the provisions of the Indenture when there is no Security Outstanding of any series created prior to the execution of a supplemental indenture that is entitled to the benefit of such provision and (ii) establish the form or terms of Securities of any series as permitted by Section 2.01 and Section 3.01 of the Base Indenture or authorize the issuance of additional Securities of a series previously authorized or to add to the conditions, limitations or restrictions on the authorized amount, terms or purposes of issue, authentication or delivery of the Securities of any series as set forth in the Base Indenture or other conditions, limitations or restrictions thereafter to be observed.
+L49: 
+L50: 
+L51: The Company desires to establish the form and terms of the Notes and to modify, alter, supplement and change certain provisions of the Base Indenture for the benefit of the Holders of the Notes (except as may be provided in a future supplemental indenture to the Indenture (“Future Supplemental Indenture”)).
+L52: The Company has duly authorized the execution and delivery of this First Supplemental Indenture to provide for the issuance of the Notes and all acts and things necessary to make this First Supplemental Indenture a valid, binding, and legal obligation of the Company and to constitute a valid agreement of the Company, in accordance with its terms, have been done and performed.
+L53: 
+L54: 
+L55: 
+L56: 
+L57: 
+L58: 
+L59: 
+L60: 
+L61: 
+L62: NOW, THEREFORE, THIS INDENTURE WITNESSETH:
+L63: For and in consideration of the premises and the purchase of the Notes by the Holders thereof, it is mutually agreed, for the equal and proportionate benefit of all Holders of the Notes, as follows:
+L64: 
+L65: 
+L66: 
+L67: ARTICLE ONE
+L68: TERMS OF THE NOTES
+L69: 
+L70: 
+L71: 
+L72: Section 1.01.          Terms of the Notes. The following terms relating to the Notes are hereby established:
+L73: (a)            The Notes shall constitute a series of Securities having the title “5.950% Notes due 2029” and shall be designated as Senior Securities under the Indenture. The Notes shall bear a CUSIP number of 04010L BG7 and an ISIN number of US04010LBG77.
+L74: (b)            The aggregate principal amount of the Notes that may be initially authenticated and delivered under the Indenture (except for Notes authenticated and delivered upon registration of, transfer of, or in exchange for, or in lieu of, other Notes pursuant to Sections 3.04, 3.05, 3.06, 9.06 or 11.07 of the Base Indenture) shall be $850,000,000.
+L75: Under a Board Resolution, Officer’s Certificate pursuant to Board Resolutions or an indenture supplement, the Company may from time to time, without the consent of the Holders of Notes, issue additional Notes (in any such case “Additional Notes”) having the same ranking and the same interest rate, maturity, CUSIP number and other terms as the Notes; provided that such Additional Notes must be part of the same issue as the Notes for U.S. federal income tax purposes.
+L76: Any Additional Notes and the existing Notes will constitute a single series under the Indenture and all references to the relevant Notes herein shall include the Additional Notes unless the context otherwise requires.
+L77: 
+L78: 
+L79: (c)            The entire Outstanding principal amount of the Notes shall be payable on July 15, 2029, unless earlier redeemed or repurchased in accordance with the provisions of this First Supplemental Indenture.
+L80: (d)            The rate at which the Notes shall bear interest shall be 5.950% per annum (the “Applicable Interest Rate”).
+L81: The date from which interest shall accrue on the Notes shall be May 13, 2024, or the most recent Interest Payment Date to which interest has been paid or provided for; the Interest Payment Dates for the Notes shall be January 15 and July 15 of each year, commencing July 15, 2024 (if an Interest Payment Date falls on a day that is not a Business Day, then the applicable interest payment will be made on the next succeeding Business Day and no additional interest will accrue as a result of such delayed payment); the initial interest period will be the period from and including May 13, 2024 (or the most recent Interest Payment Date to which interest has been paid or provided for), to, but excluding, the initial Interest Payment Date, and the subsequent interest periods will be the periods from and including an Interest Payment Date to, but excluding, the next Interest Payment Date or the Stated Maturity, as the case may be; the interest so payable, and punctually paid or duly provided for, on any Interest Payment Date, will be paid to the Person in whose name the Note (or one or more predecessor Notes) is registered at the close of business on the Regular Record Date for such interest, which shall be January 1 or July 1 (whether or not a Business Day), as the case may be, immediately preceding such Interest Payment Date.
+L82: Payment of principal of (and premium, if any) and any such interest on the Notes will be made at the Corporate Trust Office of the Trustee in such coin or currency of the United States of America as at the time of payment is legal tender for payment of public and private debts; provided, however, that at the option of the Company, payment of interest may be made by (i) check mailed to the address of the Person entitled thereto as such address shall appear in the Security Register or (ii) transfer to an account maintained by the payee located in the United States.
+L83: Interest on the Notes will be computed on the basis of a 360-day year of twelve 30-day months.
+L84: 
+L85: 
+L86: 2
+L87: (e)            The Notes shall be initially issuable in global form (each such Note, a “Global Note” and together, the “Global Notes”). The Global Notes and the Trustee’s certificate of authentication thereon shall be substantially in the form of Exhibit A to this First Supplemental Indenture.
+L88: Each Global Note shall represent the Outstanding Notes as shall be specified therein and each shall provide that it shall represent the aggregate amount of Outstanding Notes from time to time endorsed thereon and that the aggregate amount of Outstanding Notes represented thereby may from time to time be reduced or increased, as appropriate, to reflect exchanges and redemptions.
+L89: Any endorsement of a Global Note to reflect the amount of any increase or decrease in the amount of Outstanding Notes represented thereby shall be made by the Trustee or the Security Registrar, in accordance with Sections 2.03 and 3.05 of the Base Indenture.
+L90: 
+L91: 
+L92: (f)            The depositary for such Global Notes shall be the Depositary. The Security Registrar with respect to the Global Notes shall be the Trustee.
+L93: 
+L94: 
+L95: 
+L96: (g)            The Notes shall be defeasible pursuant to Section 14.02 or Section 14.03 of the Base Indenture. Covenant defeasance contained in Section 14.03 of the Base Indenture shall apply to the covenants contained in Sections 10.07 and 10.08 of the Indenture.
+L97: (h)            The Notes shall be redeemable pursuant to Section 11.01 of the Base Indenture and as follows:
+L98: 
+L99: 
+L100: 
+L101: (i)             Prior to June 15, 2029 (one month prior to their maturity date) (the “Par Call Date”), the Company may redeem the Notes at its option, in whole or in part, at any time and from time to time, at a Redemption Price calculated by the Company (expressed as a percentage of principal amount and rounded to three decimal places) equal to the greater of:
+L102: (1) (a) the sum of the present values of the remaining scheduled payments of principal and interest on the Notes to be redeemed discounted to the Redemption Date (assuming the Notes matured on the Par Call Date) on a semi-annual basis (assuming a 360-day year consisting of twelve 30-day months) at the Treasury Rate plus 30 basis points less (b) interest accrued to the Redemption Date, and
+L103: 
+L104: 
+L105: 
+L106: (2) 100% of the principal amount of the Notes to be redeemed.
+L107: plus, in either case, accrued and unpaid interest thereon to the Redemption Date.
+L108: 
+L109: 
+L110: 
+L111: On or after the Par Call Date, the Company may redeem the Notes, in whole or in part, at any time and from time to time, at a Redemption Price equal to 100% of the principal amount of the Notes being redeemed plus accrued and unpaid interest thereon to the Redemption Date.
+L112: 
+L113: 
+L114: 
+L115: “Treasury Rate” means, with respect to any Redemption Date, the yield determined by the Company in accordance with the following two paragraphs.
+L116: 
+L117: 
+L118: 3
+L119: The Treasury Rate shall be determined by the Company after 4:15 p.m., New York City time (or after such time as yields on U.S.
+L120: government securities are posted daily by the Board of Governors of the Federal Reserve System), on the third business day preceding the Redemption Date based upon the yield or yields for the most recent day that appear after such time on such day in the most recent statistical release published by the Board of Governors of the Federal Reserve System designated as “Selected Interest Rates (Daily) - H.15” (or any successor designation or publication) (“H.15”) under the caption “U.S.
+L121: government securities–Treasury constant maturities–Nominal” (or any successor caption or heading).
+L122: In determining the Treasury Rate, the Company shall select, as applicable: (1) the yield for the Treasury constant maturity on H.15 exactly equal to the period from the Redemption Date to the Par Call Date (the “Remaining Life”); or (2) if there is no such Treasury constant maturity on H.15 exactly equal to the Remaining Life, the two yields – one yield corresponding to the Treasury constant maturity on H.15 immediately shorter than and one yield corresponding to the Treasury constant maturity on H.15 immediately longer than the Remaining Life – and shall interpolate to the Par Call Date on a straight-line basis (using the actual number of days) using such yields and rounding the result to three decimal places; or (3) if there is no such Treasury constant maturity on H.15 shorter than or longer than the Remaining Life, the yield for the single Treasury constant maturity on H.15 closest to the Remaining Life.
+L123: For purposes of this paragraph, the applicable Treasury constant maturity or maturities on H.15 shall be deemed to have a maturity date equal to the relevant number of months or years, as applicable, of such Treasury constant maturity from the Redemption Date.
+L124: If on the third business day preceding the Redemption Date H.15 or any successor designation or publication is no longer published, the Company shall calculate the Treasury Rate based on the rate per annum equal to the semi-annual equivalent yield to maturity at 11:00 a.m., New York City time, on the second business day preceding such Redemption Date of the United States Treasury security maturing on, or with a maturity that is closest to, the Par Call Date, as applicable.
+L125: If there is no United States Treasury security maturing on the Par Call Date but there are two or more United States Treasury securities with a maturity date equally distant from the Par Call Date, one with a maturity date preceding the Par Call Date and one with a maturity date following the Par Call Date, the Company shall select the United States Treasury security with a maturity date preceding the Par Call Date.
+L126: If there are two or more United States Treasury securities maturing on the Par Call Date or two or more United States Treasury securities meeting the criteria of the preceding sentence, the Company shall select from among these two or more United States Treasury securities the United States Treasury security that is trading closest to par based upon the average of the bid and asked prices for such United States Treasury securities at 11:00 a.m., New York City time.
+L127: In determining the Treasury Rate in accordance with the terms of this paragraph, the semi-annual yield to maturity of the applicable United States Treasury security shall be based upon the average of the bid and asked prices (expressed as a percentage of principal amount) at 11:00 a.m., New York City time, of such United States Treasury security, and rounded to three decimal places.
+L128: 
+L129: 
+L130: The Company’s actions and determinations in determining the Redemption Price shall be conclusive and binding for all purposes, absent manifest error. The Trustee shall have no obligation to determine the Treasury Rate or the Redemption Price, and shall be entitled to rely upon the determination thereof by the Company.
+L131: (i)             Notice of redemption will be mailed or electronically delivered (or otherwise transmitted in accordance with the Depositary’s procedures) at least 10 calendar days by not more than 60 calendar days before the Redemption Date to each Holder of Notes to be redeemed, at the Holder’s address appearing in the Security Register.
+L132: All notices of redemption shall contain the information set forth in Section 11.04 of the Indenture and may be given subject to the satisfaction of one or more conditions precedent as described in Section 11.04 of the Indenture.
+L133: 
+L134: 
+L135: (ii)            Any exercise of the Company’s option to redeem the Notes will be done in compliance with the Investment Company Act, to the extent applicable.
+L136: 
+L137: 
+L138: 
+L139: 4
+L140: (iii)            If the Company elects to redeem only a portion of the Notes, the particular Notes to be redeemed will be selected in accordance with the applicable procedures of the Trustee and, so long as the Notes are registered to the Depositary or its nominee, the Depositary; provided, however, that no such partial redemption shall reduce the portion of the principal amount of a Note not redeemed to less than $2,000.
+L141: (iv)           Unless the Company defaults in payment of the Redemption Price, on and after the Redemption Date, interest will cease to accrue on the Notes called for redemption hereunder.
+L142: 
+L143: 
+L144: 
+L145: (j)            The Notes shall not be subject to any sinking fund pursuant to Section 12.01 of the Base Indenture.
+L146: 
+L147: 
+L148: 
+L149: (k)           The Notes shall be issuable in denominations of $2,000 and integral multiples of $1,000 in excess thereof.
+L150: (l)            Holders of the Notes will not have the option to have the Notes repaid prior to the Stated Maturity other than in accordance with Article Thirteen of the Base Indenture.
+L151: 
+L152: 
+L153: 
+L154: ARTICLE TWO
+L155: DEFINITIONS AND OTHER PROVISIONS OF GENERAL APPLICATION
+L156: Section 2.01.      Except as may be provided in a Future Supplemental Indenture, for the benefit of the Holders of the Notes but no other series of Securities under the Indenture, whether now or hereafter issued and Outstanding, Article One of the Base Indenture shall be amended by adding the following defined terms to Section 1.01 in appropriate alphabetical sequence, as follows:
+L157: “Below Investment Grade Rating Event” means the Notes are downgraded below Investment Grade by all three Rating Agencies on any date from the date of the public notice of an arrangement that results in a Change of Control until the end of the 60-day period following public notice of the occurrence of a Change of Control (which period shall be extended so long as the rating of the Notes is under publicly announced consideration for possible downgrade by any of the Rating Agencies); provided that a Below Investment Grade Rating Event otherwise arising by virtue of a particular reduction in rating shall not be deemed to have occurred in respect of a particular Change of Control (and thus shall not be deemed a Below Investment Grade Rating Event for purposes of the definition of Change of Control Repurchase Event hereunder) if the Rating Agencies making the reduction in rating to which this definition would otherwise apply do not announce or publicly confirm or inform the Trustee in writing at its request that the reduction was the result, in whole or in part, of any event or circumstance comprised of or arising as a result of, or in respect of, the applicable Change of Control (whether or not the applicable Change of Control shall have occurred at the time of the Below Investment Grade Rating Event).
+L158: 
+L159: 
+L160: “Change of Control” means the occurrence of any of the following:
+L161: (1) the direct or indirect sale, lease, transfer, conveyance or other disposition (other than by way of merger or consolidation) in one or a series of related transactions, of all or substantially all of the assets of the Company and its Controlled Subsidiaries taken as a whole to any “person” or “group” (as those terms are used in Section 13(d)(3) of the Exchange Act), other than to any Permitted Holders; provided that, for the avoidance of doubt, a pledge of assets pursuant to any secured debt instrument of the Company or its Controlled Subsidiaries shall not be deemed to be any such sale, lease, transfer, conveyance or disposition;
+L162: 
+L163: 
+L164: 5
+L165: 
+L166: 
+L167: 
+L168: 
+L169: 
+L170: (2) the consummation of any transaction (including, without limitation, any merger or consolidation) the result of which is that any “person” or “group” (as those terms are used in Section 13(d)(3) of the Exchange Act) (other than any Permitted Holders) becomes the "beneficial owner" (as defined in Rules 13d-3 and 13d-5 under the Exchange Act), directly or indirectly, of more than 50% of the outstanding Voting Stock of the Company, measured by voting power rather than number of shares; or
+L171: (3) the approval by the Company’s stockholders of any plan or proposal relating to the liquidation or dissolution of the Company.
+L172: 
+L173: 
+L174: 
+L175: “Change of Control Repurchase Event” means the occurrence of a Change of Control and a Below Investment Grade Rating Event.
+L176: 
+L177: 
+L178: 
+L179: “Fitch” means Fitch, Inc., also known as Fitch Ratings, or any successor thereto.
+L180: "Investment Grade" means a rating of BBB– or better by Fitch (or its equivalent under any successor rating categories of Fitch), Baa3 or better by Moody's (or its equivalent under any successor rating categories of Moody's) and BBB– or better by S&P (or its equivalent under any successor rating categories of S&P) (or, in each case, if such Rating Agency ceases to rate the Notes for reasons outside of the Company’s control, the equivalent investment grade credit rating from any Rating Agency selected by the Company as a replacement Rating Agency).
+L181: 
+L182: 
+L183: “Moody’s” means Moody’s Investor Services, Inc., or any successor thereof.
+L184: 
+L185: 
+L186: 
+L187: “Permitted Holders” means (i) the Company, (ii) one or more of the Company’s Controlled Subsidiaries and (iii) Ares Capital Management LLC or any Affiliate of Ares Capital Management LLC that is organized under the laws of a jurisdiction located in the United States of America and in the business of managing or advising clients.
+L188: “Rating Agency” means (1) each of Fitch, Moody’s and S&P; and (2) if any of Fitch, Moody’s or S&P ceases to rate the Notes or fails to make a rating of the Notes publicly available for reasons outside of the Company’s control, a “nationally recognized statistical rating organization” as defined in Section 3(a)(62) of the Exchange Act selected by the Company as a replacement agency for Fitch, Moody’s and/or S&P, as the case may be.
+L189: “S&P” means Standard & Poor's Ratings Services, a division of McGraw-Hill, Inc., or any successor thereto.
+L190: “Significant Subsidiary” means any Subsidiary that would be a “significant subsidiary” as defined in Article 1, Rule 1-02 of Regulation S-X under the Exchange Act, as such regulation is in effect on the date of this Indenture (but excluding any Subsidiary which is (a) a non-recourse or limited recourse Subsidiary, (b) a bankruptcy remote special purpose vehicle or (c) is not consolidated with the Company for purposes of GAAP).
+L191: “Voting Stock” as applied to stock of any Person, means shares, interests, participations or other equivalents in the equity interest (however designated) in such Person having ordinary voting power for the election of a majority of the directors (or the equivalent) of such Person, other than shares, interests, participations or other equivalents having such power only by reason of the occurrence of a contingency.
+L192: 
+L193: 
+L194: 
+L195: 6
+L196: 
+L197: 
+L198: 
+L199: 
+L200: 
+L201: ARTICLE THREE
+L202: THE SECURITIES
+L203: Section 3.01.      Except as may be provided in a Future Supplemental Indenture, for the benefit of the Holders of the Notes but no other series of Securities under the Indenture, whether now or hereafter issued and Outstanding, Section 3.05 of the Base Indenture shall be amended by removing the second to last paragraph thereof.
+L204: 
+L205: 
+L206: 
+L207: ARTICLE FOUR
+L208: REMEDIES
+L209: Section 4.01.      Except as may be provided in a Future Supplemental Indenture, for the benefit of the Holders of the Notes but no other series of Securities under the Indenture, whether now or hereafter issued and Outstanding, Section 5.01 of the Base Indenture shall be amended by replacing clause (ii) thereof with the following:
+L210: “(ii)        default in the payment of the principal of (or premium, if any, on) any Note when it becomes due and payable at its Maturity, including upon any Redemption Date or required repurchase date; or”
+L211: Section 4.02.      Except as may be provided in a Future Supplemental Indenture, for the benefit of the Holders of the Notes but no other series of Securities under the Indenture, whether now or hereafter issued and Outstanding, Section 5.01 of the Base Indenture shall be amended by replacing clause (iii) thereof with the following:
+L212: 
+L213: 
+L214: 
+L215: “(iii)        default in the deposit of any sinking fund payment, when and as due by the terms of any Notes, and continuance of such default for a period of 5 days; or”
+L216: Section 4.03.      Except as may be provided in a Future Supplemental Indenture, for the benefit of the Holders of the Notes but no other series of Securities under the Indenture, whether now or hereafter issued and Outstanding, Section 5.01 of the Base Indenture shall be amended by replacing (iv) thereof with the following:
+L217:  | “(iv)  | the Company’s failure for 60 consecutive calendar days after written notice from the Trustee or the Holders of at least 25% in principal amount of the Notes then Outstanding has been received to comply with any of the Company’s other agreements contained in the Notes or this Indenture;”
+L218: Section 4.04.      Except as may be provided in a Future Supplemental Indenture, for the benefit of the Holders of the Notes but no other series of Securities under the Indenture, whether now or hereafter issued and Outstanding, Section 5.01 of the Base Indenture shall be amended by adding the following language as clause (ix):
+L219:  | “(ix):  | default by the Company or any of its Significant Subsidiaries, with respect to any mortgage, agreement or other instrument under which there may be outstanding, or by which there may be secured or evidenced, any indebtedness for money borrowed in excess of $100 million in the aggregate of the Company and/or any such Significant Subsidiary, whether such indebtedness now exists or shall hereafter be created (i) resulting in such indebtedness becoming or being declared due and payable or (ii) constituting a failure to pay the principal or interest of any such debt when due and payable at its stated maturity, upon required repurchase, upon declaration of acceleration or otherwise, unless, in either case, such indebtedness is discharged, or such acceleration is rescinded, stayed or annulled, within a period of 30 calendar days after written notice of such failure is given to the Company by the Trustee or to the Company and the Trustee by the Holders of at least 25% in aggregate principal amount of the Notes then Outstanding.”
+L220: 
+L221: 
+L222: 7
+L223: 
+L224: 
+L225: 
+L226: 
+L227: 
+L228: Section 4.05.      Except as may be provided in a Future Supplemental Indenture, for the benefit of the Holders of the Notes but no other series of Securities under the Indenture, whether now or hereafter issued and Outstanding, Section 5.01 of the Base Indenture shall be amended by removing the final paragraph thereof.
+L229: Section 4.06.      Except as may be provided in a Future Supplemental Indenture, for the benefit of the Holders of the Notes but no other series of Securities under the Indenture, whether now or hereafter issued and Outstanding, Section 5.02 of the Base Indenture shall be amended by replacing the first paragraph of Section 5.02 with the following:
+L230: “If an Event of Default with respect to the Notes occurs and is continuing, then and in every such case (other than an Event of Default specified in Section 5.01(v) or 5.01(vi)), the Trustee or the Holders of not less than 25% in principal amount of the Outstanding Notes may declare the principal of all the Outstanding Notes to be due and payable immediately, by a notice in writing to the Company (and to the Trustee if given by the Holders), and upon any such declaration such principal shall become immediately due and payable; provided that 100% of the principal of, and accrued and unpaid interest on, the Notes will automatically become due and payable in the case of an Event of Default specified in Section 5.01(v) or 5.01(vi) hereof.
+L231: 
+L232: 
+L233: Section 4.07.      Except as may be provided in a Future Supplemental Indenture, for the benefit of the Holders of the Notes but no other series of Securities under the Indenture, whether now or hereafter issued and Outstanding, Section 5.02 of the Base Indenture shall be amended by removing the third, fourth, fifth and sixth paragraphs thereof.
+L234: Section 4.08.      Except as may be provided in a Future Supplemental Indenture, for the benefit of the Holders of the Notes but no other series of Securities under the Indenture, whether now or hereafter issued and Outstanding, Section 5.02 of the Base Indenture shall be amended by removing the last sentence of the seventh paragraph thereof.
+L235: 
+L236: 
+L237: 
+L238: ARTICLE FIVE
+L239: REDEMPTION OF SECURITIES
+L240: Section 5.01.      Except as may be provided in a Future Supplemental Indenture, for the benefit of the Holders of the Notes but no other series of Securities under the Indenture, whether now or hereafter issued and Outstanding, Section 11.04 of the Base Indenture shall be amended by replacing the third paragraph thereof with the following:
+L241: “Any notice of redemption may, in the Company’s discretion, be given subject to the satisfaction of one or more conditions precedent, including, but not limited to, completion of a corporate transaction that is pending (such as an equity or equity-linked offering, an incurrence of indebtedness or an acquisition or other strategic transaction involving a change of control in us or another entity).
+L242: In that case, such notice of redemption shall describe each such condition, and, if applicable, shall state that, in the Company’s discretion, (i) the Redemption Date may be delayed until such time (including by more than 60 calendar days after the date the notice of redemption was mailed or delivered, including by electronic transmission) as any or all such conditions shall be satisfied, or (ii) such redemption may not occur and such notice may be rescinded in the event that any or all such conditions shall not have been satisfied or waived by the Company by the relevant Redemption Date, or by the Redemption Date as so delayed.
+L243: In addition, the Company may provide in such notice that payment of the Redemption Price and performance of the Company’s obligations with respect to such redemption may be performed by another Person.”
+L244: 
+L245: 
+L246: 8
+L247: 
+L248: 
+L249: 
+L250: 
+L251: 
+L252: ARTICLE SIX
+L253: OFFER TO REPURCHASE UPON A CHANGE OF CONTROL REPURCHASE EVENT
+L254: 
+L255: 
+L256: 
+L257: Except as may be provided in a Future Supplemental Indenture, for the benefit of the Holders of the Notes but no other series of Securities under the Indenture, whether now or hereafter issued and Outstanding, Article Thirteen of the Base Indenture shall be amended by replacing Sections 13.01 to 13.05 with the following:
+L258: 
+L259: 
+L260: 
+L261: “Section 13.01      Change of Control.
+L262: If a Change of Control Repurchase Event occurs, unless the Company shall have exercised its right to redeem the Notes in full, the Company shall make an offer to each Holder of the Notes to repurchase all or any part (in minimum denominations of $2,000 and integral multiples of $1,000 in excess thereof) of that Holder’s Notes at a repurchase price in cash equal to 100% of the aggregate principal amount of Notes repurchased plus any accrued and unpaid interest on the Notes repurchased to the date of purchase.
+L263: Within 30 days following any Change of Control Repurchase Event or, at the Company’s option, prior to any Change of Control, but after the public announcement of the Change of Control, the Company will mail a notice to each Holder describing the transaction or transactions that constitute or may constitute the Change of Control Repurchase Event and offering to repurchase Notes on the payment date specified in the notice, which date will be no earlier than 30 days and no later than 60 days from the date such notice is mailed.
+L264: The notice shall, if mailed prior to the date of consummation of the Change of Control, state that the offer to purchase is conditioned on the Change of Control Repurchase Event occurring on or prior to the payment date specified in the notice.
+L265: The Company shall comply with the requirements of Rule 14e-1 under the Exchange Act and any other securities laws and regulations thereunder to the extent those laws and regulations are applicable in connection with the repurchase of the Notes as a result of a Change of Control Repurchase Event.
+L266: 
+L267: 
+L268: To the extent that the provisions of any securities laws or regulations conflict with this Section 13.01, the Company shall comply with the applicable securities laws and regulations and shall not be deemed to have breached its obligations under this Section 13.01 by virtue of such conflict.
+L269: 
+L270: 
+L271: 
+L272: On the Change of Control Repurchase Event payment date, subject to extension if necessary to comply with the provisions of the Investment Company Act, the Company shall, to the extent lawful:
+L273: (1)           accept for payment all Notes or portions of Notes properly tendered pursuant to its offer;
+L274: 
+L275: 
+L276: 
+L277: (2)           deposit with the Paying Agent an amount equal to the aggregate purchase price in respect of all Notes or portions of Notes properly tendered; and
+L278: 
+L279: 
+L280: 
+L281: (3)           deliver or cause to be delivered to the Trustee the Notes properly accepted, together with an Officer’s Certificate stating the aggregate principal amount of Notes being purchased by the Company.
+L282: The Paying Agent will promptly remit to each Holder of Notes properly tendered the purchase price for the Notes, and the Trustee will promptly authenticate and mail (or cause to be transferred by book-entry) to each Holder a new Note equal in principal amount to any unpurchased portion of any Notes surrendered; provided that each new Note will be in a minimum principal amount of $2,000 or an integral multiple of $1,000 in excess thereof.
+L283: If any Repayment Date upon a Change of Control Repurchase Event falls on a day that is not a Business Day, then the required payment will be made on the next succeeding Business Day and no additional interest will accrue as a result of such delayed payment.
+L284: 
+L285: 
+L286: 
+L287: 9
+L288: The Company will not be required to make an offer to repurchase the Notes upon a Change of Control Repurchase Event if a third party makes an offer in respect of the Notes in the manner, at the time and otherwise in compliance with the requirements for an offer made by the Company and such third party purchases all Notes properly tendered and not withdrawn under its offer.”
+L289: 
+L290: 
+L291: 
+L292: ARTICLE SEVEN
+L293: MISCELLANEOUS
+L294: Section 7.01.      This First Supplemental Indenture and the Notes shall be governed by and construed in accordance with the laws of the State of New York, without regard to principles of conflicts of laws that would cause the application of laws of another jurisdiction. This First Supplemental Indenture is subject to the provisions of the Trust Indenture Act that are required to be part of the Indenture and shall, to the extent applicable, be governed by such provisions.
+L295: If any provision of the Indenture limits, qualifies or conflicts with the duties imposed by Section 318(c) of the Trust Indenture Act, the imposed duties will control.
+L296: 
+L297: 
+L298: Section 7.02.      In case any provision in this First Supplemental Indenture or in the Notes shall be invalid, illegal or unenforceable, the validity, legality and enforceability of the remaining provisions shall not in any way be affected or impaired thereby.
+L299: Section 7.03.      This First Supplemental Indenture may be executed in any number of counterparts, each of which will be an original, but such counterparts will together constitute but one and the same First Supplemental Indenture. The exchange of copies of this First Supplemental Indenture and of signature pages by facsimile, .pdf transmission, email or other electronic means shall constitute effective execution and delivery of this First Supplemental Indenture for all purposes.
+L300: Signatures of the parties hereto transmitted by facsimile, .pdf transmission, email or other electronic means shall be deemed to be their original signatures for all purposes.
+L301: The words “execution,” “signed,” “signature,” “delivery,” and words of like import in or relating to this Indenture or any document to be signed in connection with this First Supplemental Indenture shall be deemed to include electronic signatures (including, without limitation, any .pdf file, .jpeg file or any other electronic or image file, or any other “electronic signature” as defined under ESRA, including Orbit, Adobe Fill & Sign, Adobe Sign, DocuSign, or any other similar platform identified by the Company and reasonably available at no undue burden or expense to the Trustee), deliveries or the keeping of records in electronic form, each of which shall be of the same legal effect, validity or enforceability as a manually executed signature, physical delivery thereof or the use of a paper-based recordkeeping system, as the case may be, and the parties hereto consent to conduct the transactions contemplated hereunder by electronic means.
+L302: Section 7.04.      The Base Indenture, as supplemented and amended by this First Supplemental Indenture, is in all respects ratified and confirmed, and the Base Indenture and this First Supplemental Indenture shall be read, taken and construed as one and the same instrument with respect to the Notes. All provisions included in this First Supplemental Indenture supersede any conflicting provisions included in the Base Indenture with respect to the Notes, unless not permitted by law.
+L303: The Trustee accepts the trusts created by the Indenture, as supplemented by this First Supplemental Indenture, and agrees to perform the same upon the terms and conditions of the Indenture, as supplemented by this First Supplemental Indenture.
+L304: 
+L305: 
+L306: 10
+L307: 
+L308: 
+L309: 
+L310: 
+L311: 
+L312: Section 7.05.      The provisions of this First Supplemental Indenture shall become effective as of the date hereof.
+L313: Section 7.06.      Notwithstanding anything else to the contrary herein, the terms and provisions of this First Supplemental Indenture shall apply only to the Notes and shall not apply to any other series of Securities under the Indenture and this First Supplemental Indenture shall not and does not otherwise affect, modify, alter, supplement or change the terms and provisions of any other series of Securities under the Indenture, whether now or hereafter issued and Outstanding.
+L314: Section 7.07.      The recitals contained herein and in the Notes shall be taken as the statements of the Company, and the Trustee assumes no responsibility for their correctness.
+L315: The Trustee makes no representations as to the validity or sufficiency of this First Supplemental Indenture, the Notes or any Additional Notes, except that the Trustee represents that it is duly authorized to execute and deliver this First Supplemental Indenture, authenticate the Notes and any Additional Notes and perform its obligations hereunder. The Trustee shall not be accountable for the use or application by the Company of the Notes or any Additional Notes or the proceeds thereof.
+L316: 
+L317: 
+L318: 11
+L319: 
+L320: 
+L321: 
+L322: 
+L323: 
+L324: IN WITNESS WHEREOF, the parties hereto have caused this Supplemental Indenture to be duly executed as of the date first written above.
+L325: 
+L326: 
+L327: 
+L328:    | ARES CAPITAL CORPORATION
+L329:    |
+L330:    | By:  | /s/ Scott C. Lem
+L331:    | Name:  | Scott C. Lem
+L332:    | Title:  | Chief Financial Officer and Treasurer
+L333:    |
+L334:    | U.S. BANK TRUST COMPANY, NATIONAL ASSOCIATION, as Trustee
+L335:    |
+L336:    | By:  | /s/ Brandon Bonfig
+L337:    | Name:  | Brandon Bonfig
+L338:    | Title:  | Vice President
+L339: [Signature Page to First Supplemental Indenture]
+L340: 
+L341: 
+L342: 
+L343: 
+L344: 
+L345: 
+L346: 
+L347: 
+L348: 
+L349: Exhibit A – Form of Global Note
+L350: This Security is a Global Note within the meaning of the Indenture hereinafter referred to and is registered in the name of The Depository Trust Company or a nominee thereof. This Security may not be exchanged in whole or in part for a Security registered, and no transfer of this Security in whole or in part may be registered, in the name of any Person other than The Depository Trust Company or a nominee thereof, except in the limited circumstances described in the Indenture.
+L351: Unless this certificate is presented by an authorized representative of The Depository Trust Company to the issuer or its agent for registration of transfer, exchange or payment and such certificate issued in exchange for this certificate is registered in the name of Cede & Co., or such other name as requested by an authorized representative of The Depository Trust Company, any transfer, pledge or other use hereof for value or otherwise by or to any person is wrongful, as the registered owner hereof, Cede & Co., has an interest herein.
+L352: 
+L353: 
+L354: Ares Capital Corporation
+L355: 
+L356: 
+L357: 
+L358: No.  | ___      | $____________
+L359:    |    | CUSIP No. 04010L BG7
+L360:    |    |
+L361:    |    | ISIN No. US04010LBG77
+L362: 
+L363: 
+L364: 
+L365: 5.950% Notes due 2029
+L366: Ares Capital Corporation, a corporation duly organized and existing under the laws of Maryland (herein called the “Company”, which term includes any successor Person under the Indenture hereinafter referred to), for value received, hereby promises to pay to Cede & Co., or registered assigns, the principal sum of ________________ (U.S.
+L367: $____________) on July 15, 2029, and to pay interest thereon from May 13, 2024, or from the most recent Interest Payment Date to which interest has been paid or duly provided for, semi-annually on January 15 and July 15 in each year, commencing July 15, 2024, at the rate of 5.950% per annum, until the principal hereof is paid or made available for payment.
+L368: The interest so payable, and punctually paid or duly provided for, on any Interest Payment Date will, as provided in such Indenture, be paid to the Person in whose name this Security is registered at the close of business on the Regular Record Date for such interest, which shall be January 1 or July 1 (whether or not a Business Day), as the case may be, immediately preceding such Interest Payment Date.
+L369: Any such interest not so punctually paid or duly provided for will forthwith cease to be payable to the Holder on such Regular Record Date and may either be paid to the Person in whose name this Security is registered at the close of business on a Special Record Date for the payment of such Defaulted Interest to be fixed by the Trustee, notice whereof shall be given to Holders of Securities of this series not less than 10 calendar days prior to such Special Record Date, or be paid at any time in any other lawful manner not inconsistent with the requirements of any securities exchange on which the Securities of this series may be listed, and upon such notice as may be required by such exchange, all as more fully provided in said Indenture.
+L370: This Security may be issued as part of a series.
+L371: Payment of the principal of (and premium, if any) and any such interest on this Security will be made at the Corporate Trust Office of the Trustee in such coin or currency of the United States of America as at the time of payment is legal tender for payment of public and private debts; provided, however, that at the option of the Company payment of interest may be made by (i) check mailed to the address of the Person entitled thereto as such address shall appear in the Security Register or (ii) transfer to an account maintained by the payee located in the United States.
+L372: 
+L373: 
+L374: 
+L375: 
+L376: 
+L377: 
+L378: 
+L379: 
+L380: Reference is hereby made to the further provisions of this Security set forth on the reverse hereof, which further provisions shall for all purposes have the same effect as if set forth at this place.
+L381: 
+L382: 
+L383: 
+L384: Unless the certificate of authentication hereon has been executed by the Trustee referred to on the reverse hereof by manual signature, this Security shall not be entitled to any benefit under the Indenture or be valid or obligatory for any purpose.
+L385: 
+L386: 
+L387: 
+L388: 2
+L389: IN WITNESS WHEREOF, the Company has caused this instrument to be duly executed.
+L390: 
+L391: 
+L392: 
+L393: Dated: ___________
+L394: 
+L395: 
+L396: 
+L397:    | ARES CAPITAL CORPORATION
+L398:    |
+L399:    | By:  |
+L400:    |    | Name:  |
+L401:    |    | Title:  |
+L402: 
+L403: 
+L404: 
+L405: 3
+L406: 
+L407: 
+L408: 
+L409: 
+L410: 
+L411: This is one of the Securities of the series designated therein referred to in the within-mentioned Indenture.
+L412: 
+L413: 
+L414: 
+L415: Dated: ____________
+L416: 
+L417: 
+L418: 
+L419:    | U.S. BANK TRUST COMPANY, NATIONAL ASSOCIATION,
+L420:    | as Trustee
+L421:    |
+L422:    | By:  |
+L423:    |    | Authorized Signatory
+L424: 4
+L425: 
+L426: 
+L427: 
+L428: 
+L429: 
+L430: Ares Capital Corporation
+L431: 
+L432: 5.950% Notes due 2029
+L433: This Security is one of a duly authorized issue of securities of the Company (herein called the “Securities”), issued and to be issued in one or more series under an Indenture, dated as of May 13, 2024 (herein called the “Base Indenture”, which term shall have the meaning assigned to it in such instrument), between the Company and U.S.
+L434: Bank Trust Company, National Association, as Trustee (herein called the “Trustee”, which term includes any successor trustee under the Base Indenture), and reference is hereby made to the Base Indenture for a statement of the respective rights, limitations of rights, duties and immunities thereunder of the Company, the Trustee, and the Holders of the Securities and of the terms upon which the Securities are, and are to be, authenticated and delivered, as supplemented by the First Supplemental Indenture, relating to the Securities, dated as of May 13, 2024, by and between the Company and the Trustee (herein called the “First Supplemental Indenture”; and the First Supplemental Indenture and the Base Indenture together are herein called the “Indenture”).
+L435: In the event of any conflict between the Base Indenture and the First Supplemental Indenture, the First Supplemental Indenture shall govern and control.
+L436: This Security is one of the series designated on the face hereof, initially limited in aggregate principal amount to $____________.
+L437: Under a Board Resolution, Officer’s Certificate pursuant to Board Resolutions or an indenture supplement, the Company may from time to time, without the consent of the Holders of Securities, issue additional Securities of this series (in any such case “Additional Securities”) having the same ranking and the same interest rate, maturity, CUSIP number and other terms as the Securities, provided that such Additional Securities must be part of the same issue as the Securities for U.S.
+L438: federal income tax purposes. Any Additional Securities and the existing Securities will constitute a single series under the Indenture and all references to the relevant Securities herein shall include the Additional Securities unless the context otherwise requires. The aggregate amount of Outstanding Securities represented hereby may from time to time be reduced or increased, as appropriate, to reflect exchanges and redemptions.
+L439: 
+L440: 
+L441: Prior to June 15, 2029 (one month prior to their maturity date) (the “Par Call Date”), the Company may redeem the Securities of this series at its option, in whole or in part, at any time and from time to time, at a Redemption Price (expressed as a percentage of principal amount and rounded to three decimal places) equal to the greater of:
+L442: (1) (a) the sum of the present values of the remaining scheduled payments of principal and interest on the Securities to be redeemed discounted to the Redemption Date (assuming the Notes matured on the Par Call Date) on a semi-annual basis (assuming a 360-day year consisting of twelve 30-day months) at the Treasury Rate plus 30 basis points less (b) interest accrued to the Redemption Date, and
+L443: 
+L444: 
+L445: 
+L446: (2) 100% of the principal amount of the Securities to be redeemed.
+L447: plus, in either case, accrued and unpaid interest thereon to the Redemption Date.
+L448: 
+L449: 
+L450: 
+L451: On or after the Par Call Date, the Company may redeem the Notes, in whole or in part, at any time and from time to time, at a Redemption Price equal to 100% of the principal amount of the Notes being redeemed plus accrued and unpaid interest thereon to the Redemption Date.
+L452: 
+L453: 
+L454: 
+L455: 5
+L456: “Treasury Rate” means, with respect to any Redemption Date, the yield determined by the Company in accordance with the following two paragraphs.
+L457: The Treasury Rate shall be determined by the Company after 4:15 p.m., New York City time (or after such time as yields on U.S.
+L458: government securities are posted daily by the Board of Governors of the Federal Reserve System), on the third business day preceding the Redemption Date based upon the yield or yields for the most recent day that appear after such time on such day in the most recent statistical release published by the Board of Governors of the Federal Reserve System designated as “Selected Interest Rates (Daily) - H.15” (or any successor designation or publication) (“H.15”) under the caption “U.S.
+L459: government securities–Treasury constant maturities–Nominal” (or any successor caption or heading).
+L460: In determining the Treasury Rate, the Company shall select, as applicable: (1) the yield for the Treasury constant maturity on H.15 exactly equal to the period from the Redemption Date to the Par Call Date (the “Remaining Life”); or (2) if there is no such Treasury constant maturity on H.15 exactly equal to the Remaining Life, the two yields – one yield corresponding to the Treasury constant maturity on H.15 immediately shorter than and one yield corresponding to the Treasury constant maturity on H.15 immediately longer than the Remaining Life – and shall interpolate to the Par Call Date on a straight-line basis (using the actual number of days) using such yields and rounding the result to three decimal places; or (3) if there is no such Treasury constant maturity on H.15 shorter than or longer than the Remaining Life, the yield for the single Treasury constant maturity on H.15 closest to the Remaining Life.
+L461: For purposes of this paragraph, the applicable Treasury constant maturity or maturities on H.15 shall be deemed to have a maturity date equal to the relevant number of months or years, as applicable, of such Treasury constant maturity from the Redemption Date.
+L462: If on the third business day preceding the Redemption Date H.15 or any successor designation or publication is no longer published, the Company shall calculate the Treasury Rate based on the rate per annum equal to the semi-annual equivalent yield to maturity at 11:00 a.m., New York City time, on the second business day preceding such Redemption Date of the United States Treasury security maturing on, or with a maturity that is closest to, the Par Call Date, as applicable.
+L463: If there is no United States Treasury security maturing on the Par Call Date but there are two or more United States Treasury securities with a maturity date equally distant from the Par Call Date, one with a maturity date preceding the Par Call Date and one with a maturity date following the Par Call Date, the Company shall select the United States Treasury security with a maturity date preceding the Par Call Date.
+L464: If there are two or more United States Treasury securities maturing on the Par Call Date or two or more United States Treasury securities meeting the criteria of the preceding sentence, the Company shall select from among these two or more United States Treasury securities the United States Treasury security that is trading closest to par based upon the average of the bid and asked prices for such United States Treasury securities at 11:00 a.m., New York City time.
+L465: In determining the Treasury Rate in accordance with the terms of this paragraph, the semi-annual yield to maturity of the applicable United States Treasury security shall be based upon the average of the bid and asked prices (expressed as a percentage of principal amount) at 11:00 a.m., New York City time, of such United States Treasury security, and rounded to three decimal places.
+L466: 
+L467: 
+L468: The Company’s actions and determinations in determining the Redemption Price shall be conclusive and binding for all purposes, absent manifest error. The Trustee shall have no obligation to determine the Treasury Rate or the Redemption Price, and shall be entitled to rely upon the determination thereof by the Company.
+L469: Notice of redemption will be mailed or electronically delivered (or otherwise transmitted in accordance with the Depositary’s procedures) at least 10 calendar days but not more than 60 calendar days before the Redemption Date to each Holder of Securities to be redeemed, at the Holder’s address appearing in the Security Register.
+L470: All notices of redemption shall contain the information set forth in Section 11.04 of the Indenture and may be given subject to the satisfaction of one or more conditions precedent as described in Section 11.04 of the Indenture.
+L471: 
+L472: 
+L473: 6
+L474: 
+L475: 
+L476: 
+L477: 
+L478: 
+L479: Any exercise of the Company’s option to redeem the Securities will be done in compliance with the Investment Company Act, to the extent applicable.
+L480: If the Company elects to redeem only a portion of the Securities, the particular Securities to be redeemed will be selected in accordance with the applicable procedures of the Trustee and, so long as the Securities are registered to the Depositary or its nominee, the Depositary.
+L481: In the event of redemption of this Security in part only, a new Security or Securities of this series and of like tenor for the unredeemed portion hereof will be issued in the name of the Holder hereof upon the cancellation hereof; provided, however, that no such partial redemption shall reduce the portion of the principal amount of a Security not redeemed to less than $2,000.
+L482: 
+L483: 
+L484: Unless the Company defaults in payment of the Redemption Price, on and after the Redemption Date, interest will cease to accrue on the Securities called for redemption.
+L485: 
+L486: 
+L487: 
+L488: Holders will have the right to require the Company to repurchase their Securities upon the occurrence of a Change of Control Repurchase Event as set forth in the Indenture.
+L489: The Indenture contains provisions for defeasance at any time of the entire indebtedness of this Security or certain restrictive covenants and Events of Default with respect to this Security, in each case upon compliance with certain conditions set forth in the Indenture.
+L490: If an Event of Default with respect to Securities of this series shall occur and be continuing (other than Events of Default related to certain events of bankruptcy, insolvency or reorganization, as set forth in the Indenture), the principal of the Securities of this series may be declared due and payable in the manner and with the effect provided in the Indenture.
+L491: In the case of certain events of bankruptcy, insolvency or reorganization described in the Indenture, 100% of the principal of and accrued and unpaid interest on the Securities will automatically become due and payable.
+L492: The Indenture permits, with certain exceptions as therein provided, the amendment thereof and the modification of the rights and obligations of the Company and the rights of the Holders of the Securities of each series to be affected under the Indenture at any time by the Company and the Trustee with the consent of the Holders of not less than a majority in principal amount of the Securities at the time Outstanding of each series to be affected.
+L493: The Indenture also contains provisions permitting the Holders of specified percentages in principal amount of the Securities of each series at the time Outstanding, on behalf of the Holders of all Securities of such series, to waive compliance by the Company with certain provisions of the Indenture and certain past defaults under the Indenture and their consequences.
+L494: Any such consent or waiver by the Holder of this Security shall be conclusive and binding upon such Holder and upon all future Holders of this Security and of any Security issued upon the registration of transfer hereof or in exchange herefor or in lieu hereof, whether or not notation of such consent or waiver is made upon this Security.
+L495: As provided in and subject to the provisions of the Indenture, the Holder of this Security shall not have the right to institute any proceeding with respect to the Indenture or for the appointment of a receiver or trustee or for any other remedy thereunder, unless such Holder shall have previously given the Trustee written notice of a continuing Event of Default with respect to the Securities of this series, the Holders of not less than 25% in principal amount of the Securities of this series at the time Outstanding shall have made written request to the Trustee to institute proceedings in respect of such Event of Default as Trustee and offered the Trustee reasonable indemnity against the costs, expenses and liabilities to be incurred in compliance with such request, and the Trustee shall not have received from the Holders of a majority in principal amount of Securities of this series at the time Outstanding a direction inconsistent with such request, and shall have failed to institute any such proceeding, for sixty (60) calendar days after receipt of such notice, request and offer of indemnity.
+L496: The foregoing shall not apply to any suit instituted by the Holder of this Security for the enforcement of any payment of principal hereof or any premium or interest hereon on or after the respective due dates expressed herein.
+L497: 
+L498: 
+L499: 7
+L500: 
+L501: 
+L502: 
+L503: 
+L504: 
+L505: No reference herein to the Indenture and no provision of this Security or of the Indenture shall alter or impair the obligation of the Company, which is absolute and unconditional, to pay the principal of and any premium and interest on this Security at the times, place and rate, and in the coin or currency, herein prescribed.
+L506: As provided in the Indenture and subject to certain limitations therein set forth, the transfer of this Security is registrable in the Security Register, upon surrender of this Security for registration of transfer at the office or agency of the Company in any place where the principal of and any premium and interest on this Security are payable, duly endorsed by, or accompanied by a written instrument of transfer in form satisfactory to the Company and the Security Registrar duly executed by, the Holder hereof or his attorney duly authorized in writing, and thereupon one or more new Securities of this series and of like tenor, of authorized denominations and for the same aggregate principal amount, will be issued to the designated transferee or transferees.
+L507: 
+L508: 
+L509: The Securities of this series are issuable only in registered form without coupons in denominations of $2,000 and any integral multiples of $1,000 in excess thereof. As provided in the Indenture and subject to certain limitations therein set forth, Securities of this series are exchangeable for a like aggregate principal amount of Securities of this series and of like tenor of a different authorized denomination, as requested by the Holder surrendering the same.
+L510: No service charge shall be made for any such registration of transfer or exchange, but the Company or Trustee may require payment of a sum sufficient to cover any tax or other governmental charge payable in connection therewith.
+L511: Prior to due presentment of this Security for registration of transfer, the Company, the Trustee and any agent of the Company or the Trustee may treat the Person in whose name this Security is registered as the owner hereof for all purposes, whether or not this Security be overdue, and neither the Company, the Trustee nor any such agent shall be affected by notice to the contrary.
+L512: All terms used in this Security which are defined in the Indenture shall have the meanings assigned to them in the Indenture.
+L513: 
+L514: 
+L515: 
+L516: To the extent any provision of this Security conflicts with the express provisions of the Indenture, the provisions of the Indenture shall govern and be controlling.
+L517: 
+L518: 
+L519: 
+L520: The Indenture and this Security shall be governed by and construed in accordance with the laws of the State of New York, without regard to principles of conflicts of laws.
+L521: 
+L522: 
+L523: 
+L524: 8

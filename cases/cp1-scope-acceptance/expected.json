@@ -1,0 +1,133 @@
+{
+  "schema": "cp1-scope-acceptance-oracle/1",
+  "case_id": "public-tdg-fy2024-cp1-scope-acceptance",
+  "basis": "Independent raw-source facts and the user-approved, independently reviewed scope-wording proposal. This key was not derived from candidate audit output, renderer output, or builder tests.",
+  "source": {
+    "document": "TransDigm Group Incorporated FY2024 Form 10-K",
+    "source_path": "artifacts/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+    "source_sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+    "source_file_kind": "local public-corpus PDF",
+    "extractor": "pypdf 6.21.2 extract_text(extraction_mode=layout, layout_mode_strip_rotated=False)",
+    "page_text_sha256": {
+      "3": "120e071309506ed8c1682388ee2aa7e4a28f079c3a7a0f606849fc2e0c1889cc",
+      "105": "ca5cbb74dfd252410d3083e760ba4a7f373da8426a5e398f4bc90476891c52e1",
+      "106": "818cf7664e590be653536720e9b3e0aac0261379258d9a58d6059188075f478a",
+      "107": "a1ac387da8f2f99bb2990c8832e30b0b9a0d51feaa540ba4e936678514a8b529",
+      "109": "78a3614c3bf6a424d913eea9416f1e484cf223963bf84939a3fed5ba89d70859",
+      "110": "ae514fdedac70744f33527f4e18bdaad26f8297b88d5434e3e6f5d9808e9cf2b"
+    },
+    "citations": [
+      {
+        "purpose": "Independently derive legal-parent spelling from the complete issuer-name line immediately preceding each recognized consolidated statement title.",
+        "pages": [105, 106, 107, 109],
+        "expected_header": "TRANSDIGM GROUP INCORPORATED",
+        "expected_title_by_page": {
+          "105": "CONSOLIDATED BALANCE SHEETS",
+          "106": "CONSOLIDATED STATEMENTS OF INCOME",
+          "107": "CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME",
+          "109": "CONSOLIDATED STATEMENTS OF CASH FLOWS"
+        },
+        "rule": "Each page must have the expected title and a complete issuer-name line immediately before it; normalize only case and whitespace; all four names must be identical. The expected name is TransDigm Group Incorporated."
+      },
+      {
+        "purpose": "Parent identity and consolidated group meaning in the filing's own definitions.",
+        "page": 3,
+        "lines": [41, 46],
+        "page_text_sha256": "120e071309506ed8c1682388ee2aa7e4a28f079c3a7a0f606849fc2e0c1889cc",
+        "source_text": "In this report, the term ‘TD Group’ refers to TransDigm Group Incorporated, which holds all of the outstanding capital stock of TransDigm Inc. The terms ‘Company,’ ‘TransDigm,’ ‘we,’ ‘us,’ ‘our’ and similar terms, unless the context otherwise requires, refer to TD Group, together with TransDigm Inc. and its wholly-owned and majority-owned subsidiaries for which it has a controlling interest.",
+        "source_pointer": "cases/cp1-chain/expected.json#/fiscal_policy/citation and /fiscal_policy/source_lines"
+      },
+      {
+        "purpose": "Consolidation and elimination evidence.",
+        "page": 110,
+        "lines": [17, 23],
+        "page_text_sha256": "ae514fdedac70744f33527f4e18bdaad26f8297b88d5434e3e6f5d9808e9cf2b",
+        "source_text": "‘TD Group’, ‘TransDigm’, ‘we,’ ‘our’ or ‘us’ refer to TransDigm Group Incorporated and its subsidiaries. ... include the accounts of TD Group and subsidiaries. Intercompany balances and transactions have been eliminated.",
+        "rule": "The accepted retained entity citation must be authenticated against the pinned source and its actual quote must contain the complete source-derived parent name. A locator alone, or a genuine but irrelevant quote that does not contain that name, is insufficient."
+      }
+    ]
+  },
+  "normalization": {
+    "allowed": ["case folding", "whitespace normalization", "one optional final period"],
+    "forbidden": ["substring matching", "keyword bags", "reordering", "punctuation changes other than one optional final period", "abbreviation", "extra or omitted semantic text", "negation", "issuer-specific allowlists"],
+    "matching": "Full-string match against exactly one of the two complete ordered templates after allowed normalization. Substitute only the authenticated source-derived parent name."
+  },
+  "accepted_scope_templates": [
+    "<parent> and its consolidated subsidiaries; intercompany balances and transactions eliminated",
+    "<parent> and subsidiaries, consolidated; intercompany balances and transactions eliminated"
+  ],
+  "source_derived_identity": {
+    "parent_name": "TransDigm Group Incorporated",
+    "group_scope": "TransDigm Group Incorporated and its subsidiaries, consolidated",
+    "intercompany_treatment": "Intercompany balances and transactions eliminated",
+    "authenticated_context_requirement": "Use the accepted FinancialSubmission's real historical SourceContextReview and FinancialContextBinding. Verify current-head/step/raw-replay linkage, matching source-context and financial review hashes, exactly one bound entity, a nonempty source-supported name equal to the raw-source-derived parent, a retained authenticated entity citation whose quote contains the complete parent name, and existing validate_financial_context scope validity. Preserve exact book, period, dimension, and date equality. Candidate wording and citation locator alone confer no authority."
+  },
+  "positive_controls": [
+    {
+      "id": "legacy-e424-complete-grammar",
+      "retained_evidence": "existing genuine e424 source-component positive",
+      "expected_scope_form": "<parent> and its consolidated subsidiaries; intercompany balances and transactions eliminated",
+      "expected_scope_text": "TransDigm Group Incorporated and its consolidated subsidiaries; intercompany balances and transactions eliminated",
+      "expected_parent": "TransDigm Group Incorporated",
+      "expected_decision": "accept_scope_component",
+      "limitations": "Component compatibility only; does not establish a head, receipt, consumer, publication, delivered report, native-visible evidence, or complete chain."
+    },
+    {
+      "id": "current-6522-complete-grammar",
+      "retained_evidence": "work/cp1-chain/live-attempt-6522-2026-11-03.md; accepted raw-submit call 5, submission af49b8d3daf386a29def4e35f801b0cef4598502bf94013f7915f4075d432e48; current restricted head 0b931ad5f10ed8b04a8beb743324c5d67909ed211934b31b4d577c8cc1000506",
+      "expected_scope_form": "<parent> and subsidiaries, consolidated; intercompany balances and transactions eliminated",
+      "expected_scope_text": "TransDigm Group Incorporated and subsidiaries, consolidated; intercompany balances and transactions eliminated",
+      "expected_parent": "TransDigm Group Incorporated",
+      "expected_decision": "accept_scope_component",
+      "expected_component_facts": {"rows": 103, "cells": 280, "printed_nil_cells": 21, "periods": 5, "fy2024_revenue": {"value": "7940", "unit": "USD millions"}, "fy2024_closing_cash": {"value": "6261", "unit": "USD millions"}},
+      "limitations": "The retained run stopped and remains unqualified; the source-component diagnostic is not full-chain proof. Preserve unchanged financial comparison rules, including wrong-period, wrong-unit, wrong-entity, and zero-versus-missing refusals/semantics in cases/cp1-chain/expected.json."
+    }
+  ],
+  "negative_controls": [
+    {"id": "parent-only", "input_class": "parent name without complete group and elimination tail", "example_input": "TransDigm Group Incorporated", "expected_decision": "refuse_scope"},
+    {"id": "restricted-only", "input_class": "restricted entity, guarantor-only, or restricted-entity-only perimeter", "example_input": "TransDigm Group Incorporated and guarantors, consolidated; intercompany balances and transactions eliminated", "expected_decision": "refuse_scope"},
+    {"id": "carveout", "input_class": "scope with an excluded subsidiary, carve-out, or omitted entity", "example_input": "TransDigm Group Incorporated and its consolidated subsidiaries excluding TransDigm Inc.; intercompany balances and transactions eliminated", "expected_decision": "refuse_scope"},
+    {"id": "foreign-parent", "input_class": "a different or foreign parent name, even with otherwise correct wording", "example_input": "Foreign Parent Incorporated and subsidiaries, consolidated; intercompany balances and transactions eliminated", "expected_decision": "refuse_scope"},
+    {"id": "negation", "input_class": "negated group, consolidation, or elimination statement", "example_input": "TransDigm Group Incorporated and subsidiaries, consolidated; intercompany balances and transactions not eliminated", "expected_decision": "refuse_scope"},
+    {"id": "extra-text", "input_class": "trailing or embedded text outside either complete template", "example_input": "TransDigm Group Incorporated and subsidiaries, consolidated; intercompany balances and transactions eliminated; prepared for lenders", "expected_decision": "refuse_scope"},
+    {"id": "reordered-keywords", "input_class": "same keywords in a different order", "example_input": "TransDigm Group Incorporated and subsidiaries; intercompany balances and transactions eliminated, consolidated", "expected_decision": "refuse_scope"},
+    {"id": "missing-context", "input_class": "missing historical SourceContextReview or FinancialContextBinding", "expected_decision": "refuse_evidence"},
+    {"id": "conflicting-context", "input_class": "conflicting context identity, source-supported name, or financial scope", "example_input": "context binds to a different parent while candidate text uses TransDigm Group Incorporated", "expected_decision": "refuse_evidence"},
+    {"id": "binding-omission", "input_class": "binding omitted at any relevant caller, including profile, period, and CP2-to-T4.10", "expected_decision": "refuse_evidence"},
+    {"id": "citation-missing", "input_class": "no retained authenticated entity citation", "expected_decision": "refuse_evidence"},
+    {"id": "citation-irrelevant", "input_class": "valid citation locator or genuine quote that does not contain the complete parent name", "example_input": "an authenticated quote discussing subsidiaries but omitting ‘TransDigm Group Incorporated’", "expected_decision": "refuse_evidence"},
+    {"id": "wrong-page-hash", "input_class": "wrong hash for any source title page or cited page", "expected_decision": "refuse_evidence"},
+    {"id": "stale-linkage", "input_class": "stale submission, CP1 head, step, or raw-replay linkage", "example_input": "historical review or binding hash differs from accepted submission/current CP1 head", "expected_decision": "refuse_evidence"},
+    {"id": "guessed-parent", "input_class": "parent supplied from a constant, candidate wording, unrelated state, or unsupported title structure", "example_input": "use TransDigm Group Incorporated without authenticating the four title headers and historical entity binding", "expected_decision": "refuse_evidence"},
+    {"id": "header-disagreement", "input_class": "missing title/header or differing parent name on any of pages 105, 106, 107, 109", "expected_decision": "refuse_evidence"},
+    {"id": "wrong-period-unit-entity", "input_class": "financial or T4.10 fact with wrong period, unit, or entity", "expected_decision": "refuse_financial_comparison"}
+  ],
+  "downstream_contract": {
+    "required_evidence_at_each_caller": ["accepted submission", "authenticated historical context", "validated binding or typed verified result", "source-derived scope acceptance"],
+    "missing_argument_behavior": "Refuse; no optional defaults, direct-helper bypass, keyword bag, or current-state guess.",
+    "t4_10_identity": "Retain exact source, definition, period, entity, unit, and dimension identity; FY2024 source-derived targets are revenue 7940 and closing cash 6261 USD millions.",
+    "full_run_status": "Both retained stopped full runs remain refused/unqualified. No component positive may change or upgrade their status.",
+    "complete_chain_requirements_unchanged": ["actual CP1A", "actual CP2 causal consumption", "authenticated Model publication", "receipt and report delivery", "native-visible evidence", "all original 103-row / 280-cell / 21-nil source comparisons", "all existing zero-versus-missing and period/unit/entity comparisons"]
+  },
+  "unchanged_numeric_key_proofs": {
+    "key_path": "cases/cp1-chain/expected.json",
+    "zero_vs_missing": "#/acceptance_invariants/2: printed dashes remain raw dashes and known zero; absence/missing is distinct.",
+    "fiscal_periods": "#/fiscal_policy/periods and #/acceptance_invariants/4",
+    "entity_dimensions": "#/acceptance_invariants/7 and #/financial_rows[*]/row_dimensions",
+    "units": "#/quantity_rules and #/unit_boundaries",
+    "existing_adversarial_examples": ["#/adversarial_fixtures/quantity-wrong-unit-refusal", "#/adversarial_fixtures/quantity-period-arithmetic-refusal", "#/adversarial_fixtures/mixed-entity-columns-refusal"],
+    "rule": "These existing source-derived expectations remain the sole numerical/cross-dimension oracle; this scope key does not duplicate, modify, or weaken them."
+  },
+  "comparison_instrument_only_fixtures": {
+    "purpose": "Test full-string scope normalization and refusal independently from analytical chain evidence.",
+    "good": ["exact first template", "exact second template", "case-only variation", "whitespace-only variation", "each template with one final period"],
+    "bad": ["all negative_controls input classes", "multiple final periods", "internal punctuation mutation", "inserted text", "deleted required clause", "reordered clauses"],
+    "not_chain_evidence": true
+  },
+  "source_pointers": {
+    "numeric_oracle": "cases/cp1-chain/expected.json",
+    "proposal": "work/cp1-chain/runtime-scope-wording-proposal.md",
+    "frozen_questions": "work/cp1-chain-runtime-round4/questions.md",
+    "frozen_lease": "work/cp1-chain-runtime-round4/lease.md"
+  }
+}

@@ -1,0 +1,284 @@
+{
+  "scope": "Historical Erste Group Bank AG2024/comparative2023; CP-0 absorbed CP-PARSE spreadsheet preparation, source conflict handling, checked Markdown package, actual CP-1 consumption and populated separate HTML. Not full current underwriting, all formats, native qualification or CP-OS pathway proof.",
+  "execution": "actual current host model with preceding context and access to later independent check file; no provider/subagent; not blind or independent-context proof",
+  "agents_spawned": 0,
+  "paid_calls": 0,
+  "workbook_output": false,
+  "source_inputs": {
+    "landing_page": "https://www.erstegroup.com/en/investors/annualreport2024/downloads",
+    "purpose": "Historical issuer spreadsheet ingestion only, no workbook generation. Identity/period still to be checked from source content.",
+    "sources": [
+      {
+        "source_id": "W1",
+        "source_url": "https://cdn.erstegroup.com/content/dam/at/eh/www_erstegroup_com/en/Investor_Relations/onlinear2024/xlsx/AR24_Statement_of_income.xlsx?forceDownload=1",
+        "local_path": "runs/erste-parse-2024-001/sources/AR24_Statement_of_income.xlsx",
+        "bytes": 16155,
+        "sha256": "fb6f776a097c94382f21f2287cf2add54f141971d7ab01eadf9947dc2f0dbf29",
+        "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      },
+      {
+        "source_id": "W2",
+        "source_url": "https://cdn.erstegroup.com/content/dam/at/eh/www_erstegroup_com/en/Investor_Relations/onlinear2024/xlsx/AR24_Balancesheet.xlsx?forceDownload=1",
+        "local_path": "runs/erste-parse-2024-001/sources/AR24_Balancesheet.xlsx",
+        "bytes": 16624,
+        "sha256": "0ed7090071cd2b347e271d841fba75e0b0df74d4fd63ae956bd3de57b4413876",
+        "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      },
+      {
+        "source_id": "W3",
+        "source_url": "https://cdn.erstegroup.com/content/dam/at/eh/www_erstegroup_com/en/Investor_Relations/onlinear2024/xlsx/AR24_Cashflows.xlsx?forceDownload=1",
+        "local_path": "runs/erste-parse-2024-001/sources/AR24_Cashflows.xlsx",
+        "bytes": 16763,
+        "sha256": "a36a4c8bc09f31f2544e9e8eed3d70678b679f4d203d09ca88bec0e9380f690d",
+        "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      },
+      {
+        "source_id": "P1",
+        "source_url": "https://cdn.erstegroup.com/content/dam/at/eh/www_erstegroup_com/en/Investor_Relations/onlinear2024/ar24reports/AR2024_Group_Consolidated_Financial_Statements_en.pdf?forceDownload=1",
+        "local_path": "runs/erste-parse-2024-001/sources/AR2024_Group_Consolidated_Financial_Statements_en.pdf",
+        "bytes": 2048733,
+        "sha256": "fcb15a4a4ee76cfd1ae0142bbeaf1b0950bfa35c92626acee8791316ed707087",
+        "content_type": "application/pdf",
+        "added_because": "Workbook cells use surprising decimal lexemes under EUR-million headings; require independent source-presentation comparison, no inferred correction."
+      }
+    ],
+    "unused_attempts": [
+      {
+        "issuer": "TDG",
+        "result": "public SEC download403; no bytes retained/used"
+      },
+      {
+        "issuer": "EPD",
+        "result": "search-title suggested.xlsx but web responsePDF; direct download403; no bytes retained/used"
+      }
+    ]
+  },
+  "instructions": {
+    "instructions.md": "35141b8650560609ca352c7ffbbf8fcfb42ede855f844999cb5d683986ba1a21",
+    "instructions-2.md": "6f5c6460c590d42927b1500e00023ea6c59643a69d3ca3d1470fb30a58027e41",
+    "CP-1-consumer-instructions.md": "8e33871fad3463f44b305257c86d2822424ebf985b30db12ffbad9e17cdfac9a"
+  },
+  "selected_method_sources": [
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-0-source-readiness/SKILL.md",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-0-source-readiness/SKILL.md",
+      "sha256": "20a3634526648cd4983fcfd412ba68162b9e832781abd7c90b5caa7a236a3e1d",
+      "source_revision": "cp-os e67bf0cda2dc80d7a744bee371c4fb3c7b8b8df7 (selected files clean)",
+      "use": "Preparation/readiness analytical duties and P1-P8 packaging evidence. Current project rules govern transport, Excel input only and no agents; historical approval/export/role machinery is not inherited authority."
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-0-source-readiness/references/REF_CP-PARSE_STEPS.md",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-0-source-readiness/references/REF_CP-PARSE_STEPS.md",
+      "sha256": "bacd9bc112fdef8b7207f5362490bb893d4451fee5075a5b1029f9a7c2fe6b75",
+      "source_revision": "cp-os e67bf0cda2dc80d7a744bee371c4fb3c7b8b8df7 (selected files clean)",
+      "use": "Preparation/readiness analytical duties and P1-P8 packaging evidence. Current project rules govern transport, Excel input only and no agents; historical approval/export/role machinery is not inherited authority."
+    },
+    {
+      "consumed_path": "/Users/ericguei/Documents/cp-os/skills/cp-0-source-readiness/references/CP-PARSE_SCHEMA_REFERENCE.md",
+      "archive_path": "docs/reuse/selected-methods/skills/cp-0-source-readiness/references/CP-PARSE_SCHEMA_REFERENCE.md",
+      "sha256": "1790ab8edd56e1d3cdaa5c357a0acf09fb50fc1ec141a2e12976e9499a3d6d98",
+      "source_revision": "cp-os e67bf0cda2dc80d7a744bee371c4fb3c7b8b8df7 (selected files clean)",
+      "use": "Preparation/readiness analytical duties and P1-P8 packaging evidence. Current project rules govern transport, Excel input only and no agents; historical approval/export/role machinery is not inherited authority."
+    }
+  ],
+  "source_revision_note": "Existing local CP-0 prompt and method also consulted; the broader cp-os CP-PARSE phase supplied preparation/packaging duties. Current project AGENTS.md governs.",
+  "local_methods": {
+    "prompts/CP-0.md": "51e721cb787fb7567ff29cae956ef141443cd2a7cbbdd286b0cf09f8f66b5535",
+    "src/deploy_vii/methods/cp0.md": "9907990b5846ea9a4cd6ec3087ef2048f46219bcb766b5ba5e1835c0f799693a"
+  },
+  "preparation": {
+    "sources": 4,
+    "worksheet_sources": 3,
+    "pdf_sources": 1,
+    "worksheet_checks": [
+      {
+        "source_id": "W1",
+        "exact_cells": 149,
+        "nonempty": 135,
+        "empty_stored_cells": 14,
+        "spans": 150,
+        "merged_ranges": [
+          "A32:D32"
+        ],
+        "independent_reader": "raw XML; read-only openpyxl independently confirms string headers"
+      },
+      {
+        "source_id": "W2",
+        "exact_cells": 258,
+        "nonempty": 244,
+        "empty_stored_cells": 14,
+        "spans": 258,
+        "merged_ranges": [],
+        "independent_reader": "raw XML; read-only openpyxl independently confirms string headers"
+      },
+      {
+        "source_id": "W3",
+        "exact_cells": 247,
+        "nonempty": 203,
+        "empty_stored_cells": 44,
+        "spans": 248,
+        "merged_ranges": [
+          "A64:D64"
+        ],
+        "independent_reader": "raw XML; read-only openpyxl independently confirms string headers"
+      }
+    ],
+    "exact_source_cells_checked": 654,
+    "stored_empty_cells": 72,
+    "merged_metadata_spans": 2,
+    "total_extracted_spans": 656,
+    "formula_cache_macro_external_link_execution": "None; no formulas/caches/macros/external-link parts observed",
+    "coverage": "Three supplied sheets fully read; four selected original PDF pages3/5/8/9 and images read; other166 pages outside scope.",
+    "observed_source_conflicts": [
+      {
+        "source": "W1",
+        "cell": "Tabelle1!D4",
+        "stored": "7.5279999999999996",
+        "pdf_source": "P1",
+        "pdf_page": 3,
+        "printed_page": 236,
+        "displayed": "7,528",
+        "source_unit": "EUR million"
+      },
+      {
+        "source": "W2",
+        "cell": "Tabelle1!D36",
+        "stored": "353.73599999999999",
+        "pdf_source": "P1",
+        "pdf_page": 5,
+        "printed_page": 238,
+        "displayed": "353,736",
+        "source_unit": "EUR million"
+      },
+      {
+        "source": "W3",
+        "cell": "Tabelle1!D33",
+        "stored": "-9.0289999999999999",
+        "pdf_source": "P1",
+        "pdf_page": 8,
+        "printed_page": 241,
+        "displayed": "-9,029",
+        "source_unit": "EUR million"
+      }
+    ],
+    "root_cause_scope": "Conflict exists in the original numeric OOXML lexemes versus corresponding PDF rows. Extraction preserved bytes/strings. The publisher/import history causing that conflict is not established; no arbitrary rescaling or source rewrite.",
+    "font_glyphs": "P1 text has private-use glyphs; original page images visually confirm punctuation/column order. Prepared P1 text retained unchanged."
+  },
+  "package": {
+    "path": "runs/erste-parse-2024-001/ERSTE_CP-PARSE_20261104_BATCH-001-of-001.zip",
+    "sha256": "5160e6f2d2af0dab433586c0213e04695e8f33cddd3a2830b0ada7dd47800516",
+    "members": {
+      "BATCH_INDEX.md": "e40bef68f64c994568cf210120c8c13da9c1aa074c352320cbc29453c3428fcd",
+      "CHECKSUMS.sha256": "82b24f04530694e6dbbde85dfb950cf5040c1baa1d1450ceea83514347e0c033",
+      "PACKAGE_INDEX.md": "1fc88b02364dd4d9ac151a20dc1c62519138afa2fd7f9d62772d2a4840f9c91a",
+      "TRIAGE_REGISTER.md": "7045e32fe61edaa5962c4d99badca06ff429be4b846dcc2af2e2f4deced9b988",
+      "parsed/P1/P1_CP-PARSE_20261104.md": "ff469ee53c7a598a895a13cc97a32977c8d9df0f0dc9a529f8c225c0024b615e",
+      "parsed/W1/W1_CP-PARSE_20261104.md": "287e497930aa6e9cf75e22b3ea636086dd829f6b2e731f94d5751696bde89076",
+      "parsed/W2/W2_CP-PARSE_20261104.md": "7b1687a4da90c789098161110c7be4ec46e81f369eeda3ac534e3adab68f690e",
+      "parsed/W3/W3_CP-PARSE_20261104.md": "be463db392da8012758980451242d38fbbd0a64bb0fee476441a7bf1adebed80"
+    },
+    "uncompressed_bytes": 116303,
+    "originals_included": false,
+    "safe_paths_unique_members_checksums": "PASS"
+  },
+  "model_outputs": {
+    "CP-0": {
+      "path": "runs/erste-parse-2024-001/ERSTE_CP-0_20261104.md",
+      "sha256": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70",
+      "checks": "Six common headings, all P1-P8, source evidence/mapping, source restrictions and G1-G5; no credit/legal opinion or normalization."
+    },
+    "CP-1": {
+      "path": "runs/erste-parse-2024-001/CP-1-consumer.md",
+      "sha256": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53",
+      "consumption": "Actually opened CP-0 and all four ZIP prepared Markdown members; verified checksums; separately read original source images.",
+      "observations": 18,
+      "expectations_path": "runs/erste-parse-2024-001/independent-observation-expectations.json",
+      "expectations_sha256": "fa7f1fb4110d40dee26a9649feea7897bd2326d685d53b3db78c5aaae9ee0edc",
+      "expectations_independence": "Direct literal observations from original source images before CP-1 output, not production calculations. Host could access this file; no blind-model claim.",
+      "restrictions": "G1-G5 retained; raw conflicted decimals not rescaled; monetary versus EUR/share and annual versus instant periods checked; explicit zero versus group-header blanks retained."
+    }
+  },
+  "canonical_alias_check": "Actual deploy_vii.registry.canonical(\"CP-PARSE\") == \"CP-0\"; P1-P8 preparation duties actually exercised in same CP-0 artifact. Alias routing alone is not acceptance.",
+  "delivery": {
+    "directory": "deliverables/erste-source-intake-1",
+    "file_hashes": {
+      "CP-0.md": "70bfdf7d947183d4b7c564faa917e89c89451cd423e4043bb8d1fb06aabf1d70",
+      "CP-1.md": "0655c3253c46e68d6f0ccf27434678140e89bb6952177b345f46a40d525c3f53",
+      "view.json": "7f7174bf9e027c2d1b9b6f7835f96301a1bf74db95448ff0a7c6af39697276f3",
+      "report-view.json": "1d0eb53d5746cd0940911a82f06f4836194006ede5f4359fc4a9b766e55d8a5b",
+      "report.html": "4db65ab0dfd0e224d7c373ef53a108b036e03775186bee4bbceceb5092a119c8"
+    },
+    "delivery_json_sha256": "b2f38cd58ae29efc56a7baaaca14463ff6d998f466331d780ccaa34d0ad02ffe",
+    "facts_and_exact_physical_line_citations": 142,
+    "tables": 11,
+    "front_page": "Six matched worksheet observations; separate tab for three separately sourced PDF observations; five inherited source restrictions.",
+    "full_handoffs_copied_exactly": true,
+    "production_adapter_added": false,
+    "second_analysis_for_delivery": false,
+    "native_accepted_heads_fabricated": false,
+    "CP_OS_execution": false,
+    "browser_checked": [
+      "Historical source/Excel-ingestion-only scope visible",
+      "Six worksheet rows, zero, EUR/share and annual/instant metadata visible",
+      "Separate PDF tab shows7,528/353,736/-9,029 with original worksheet conflict retained",
+      "G1-G5 restriction block present",
+      "C39 inspector exposes exact CP-1 line68, quote and0655c325... handoff hash"
+    ],
+    "browser_tab_closed": true,
+    "verification_server_stopped": true
+  },
+  "confidence_review": {
+    "scope": "Data/source/analytical handoff and manual publication composition; no production functions changed.",
+    "least_confident_about_ranked": [
+      {
+        "doubt": "Could the decimal discrepancy be introduced by our extractor?",
+        "investigation": "Independent raw OOXML numeric cells and General formats contain the same decimals; source PDF images show different financial quantities. All654 cells and formats checked against prepared Markdown.",
+        "verdict": "Confirmed original-source representation conflict; no production parser bug demonstrated.",
+        "action": "No code patch or rescale. P1 explicitly added under retained instruction amendment; source distinctions/G1 carried through consumer/report."
+      },
+      {
+        "doubt": "Could repeated headings, blank cells, merged ranges, notes or quantity families be flattened incorrectly?",
+        "investigation": "All three one-sheet ranges retain source addresses and row/column order.149+258+247 stored cells and72 blanks exact; two merge anchors, named ranges and source units retained. EPS raw leading spaces preserved in preparation and explained in consumer; group blank rows not zero.",
+        "verdict": "Verified for this pack.",
+        "action": "No production patch; native Excel display geometry stays G5."
+      },
+      {
+        "doubt": "Could partial PDF scope or font glyphs falsely certify the whole source?",
+        "investigation": "Inspected original images3/5/8/9; actual table totals/column order checked visually. P1 has170 pages, explicitly4 examined and166 outside scope. Authorisation status quoted only as at report, no later-approval inference.",
+        "verdict": "Selected scope verified; broader source/approval/current evidence open.",
+        "action": "G2-G4 remain visible and no financial/credit opinion."
+      },
+      {
+        "doubt": "Could the ZIP lose a source, contain unsafe paths or lack hash lineage?",
+        "investigation": "Eight unique safe members, seven Markdown hashes, exact archived bytes and four source sets once.116303 uncompressed bytes. Originals and executable/nested/workbook outputs excluded.",
+        "verdict": "Verified current package; not a general arbitrary-ZIP validator qualification.",
+        "action": "No production patch."
+      },
+      {
+        "doubt": "Could downstream or rendered output silently use corrected synthetic numbers?",
+        "investigation": "Actual CP-1 opened all four prepared members;18 observations match independently retained source literals.142 fact values/line quotations/hashes match actual two handoffs. Browser confirms separate worksheet/PDF tabs and all five restrictions.",
+        "verdict": "Verified named same-host intake and manual delivery.",
+        "action": "No invented analysis, rescaling, second analytical execution or code change."
+      }
+    ],
+    "fixed": "No analytical/production-code defect established. One data-composition preflight used a string where strict Run requires date; it failed before writing outputs and was corrected to a date object.",
+    "still_open": [
+      "Other source profiles (scan/OCR, slide/chart, complete legal packs), arbitrary complex workbooks and multi-batch behavior unqualified by this case.",
+      "Native/provider/full CP-0 runtime acceptance and generic CP-OS routing for this new issuer case remain separate.",
+      "Complete current bank underwriting, source revision/approval review and remaining166 PDF pages unreviewed."
+    ]
+  },
+  "rewrite_tournament": {
+    "status": "Skipped: docs/generated data composition only; no production function written or changed. Existing extraction, literal table mapper, binding, report-view and renderer reused unchanged."
+  },
+  "source_hashes": {
+    "src/deploy_vii/preparation.py": "d1e698ea0cd29767743046aeeb9efb998164fdf4603eae321bff60b9359a6754",
+    "src/deploy_vii/registry.py": "19ec267dff71aa89cbfdfbece02e1a44f6800306572e15f16029d3bd23dc880a",
+    "src/deploy_workflow/model_handoff_delivery.py": "14404b80726364fad377a72a9ac1c32cfce5999004e7b0a38f814a4c19b2e0b9",
+    "src/deploy_workflow/handoff_delivery.py": "f992a8ca0e8c13648f19181dd6c6d6f812a2df6c3612b93c39fc331f2204b454",
+    "src/deploy_vii/bindings/__init__.py": "6b2c8cc47d32212b3b236ece8df0abbfd6774d22db767cb6f7ea483841b9a7fc",
+    "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+    "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba"
+  },
+  "state": "Bounded source-preparation/intake/delivery loop checked; broader overall goal remains active."
+}

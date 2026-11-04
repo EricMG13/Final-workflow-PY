@@ -1,0 +1,38 @@
+{
+  "scope": "Independent pre-publication checks from prior issuer/output review; not derived from the presentation adapter.",
+  "revenue": [
+    "1789",
+    "2006",
+    "217",
+    "12.13%"
+  ],
+  "capex": [
+    "-36",
+    "-42",
+    "-6",
+    "16.67%"
+  ],
+  "closing_cash": [
+    "4135",
+    "2459",
+    "-1676",
+    "-40.53%"
+  ],
+  "gross_margin_pp": "3.4",
+  "as_defined_margin_pp": "1.9",
+  "quarter_days": [
+    89,
+    91
+  ],
+  "equivalents_conflict": [
+    "131",
+    "132"
+  ],
+  "expected_output_extensions": [
+    ".html",
+    ".json",
+    ".md"
+  ],
+  "fresh_model_run": false,
+  "excel_output": false
+}

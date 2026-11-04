@@ -1,0 +1,249 @@
+{
+  "scope": "Actual TDG 2033 notes source/interpretation case. Code review artifacts and synthetic controls are separate from issuer headroom. Further analytical evidence is appended after its output.",
+  "code_reviews": {
+    "changed_function": "src/deploy_vii/cp4_legal.py:parse_threshold",
+    "invariants": [
+      "Unsupported fractional percentages never become denominator percentages.",
+      "Exact Decimal values/reasons and strictness retained on supported forms.",
+      "Valid dated percentages survive; no new public interface or side effects."
+    ],
+    "impact_set": [
+      "cp4_legal._threshold_issues",
+      "cp4_legal._test",
+      "tests/test_method_cp4.py",
+      "tests/test_cp4_threshold_source_forms.py"
+    ],
+    "confidence_review": [
+      {
+        "doubt": "Fractional form accepted as a different percentage",
+        "verdict": "confirmed",
+        "evidence": "Five initial formatting controls failed: parsed 3 instead of refusing. Actual web notation was already refused.",
+        "fix": "Fail closed for fractional-percent tokens."
+      },
+      {
+        "doubt": "Initial broad guard rejects valid dated thresholds",
+        "verdict": "confirmed",
+        "evidence": "50% on 1/2/2025 was wrongly refused.",
+        "fix": "Tie the fraction pattern to its own percent suffix."
+      },
+      {
+        "doubt": "Whitespace or signed denominator evades guard",
+        "verdict": "confirmed",
+        "evidence": "Two signed-denominator controls parsed 3.",
+        "fix": "Accept optional ASCII/Unicode sign in the refusal pattern."
+      },
+      {
+        "doubt": "Caller status, Decimal precision, reasons or ratio behavior change",
+        "verdict": "verified within stated scope",
+        "evidence": "37 focused tests, exact-value/reason differential cases for all challengers, mypy on both changed files. No signature/side effect change."
+      },
+      {
+        "doubt": "Fractional percentages falsely become exact Decimal results",
+        "verdict": "by design refused",
+        "evidence": "Exact source consent fraction retained as a clause fact; fraction arithmetic support is not claimed."
+      },
+      {
+        "doubt": "Global lint cleanup introduces unrelated changes",
+        "verdict": "preexisting finding left alone",
+        "evidence": "One unchanged TRY004 in citations validation; scoped ruff excluding that finding passes."
+      }
+    ],
+    "incumbent_complete_source": "def parse_threshold(text: str, unit: str) -> tuple[Decimal | None, str | None]:\n    \"\"\"The one threshold a quoted text states, as written (a ratio N to one is N, a multiple\n    N x is N, a percentage is its number: 12.5 for 12.5%), or None with the reason it cannot be\n    read. A ratio to anything but one is not read: Python would have to divide a number the\n    model never wrote. Only the multiple and percent forms are read.\"\"\"\n    plain = normalise(text)\n    values: list[Decimal] = []\n    issue: str | None = None\n    if unit == \"multiple\":\n        for match in _RATIO.finditer(plain):\n            numerator, denominator = _decimal(match[1]), _decimal(match[2] or match[3])\n            if denominator == 0:\n                issue = \"the ratio has a zero denominator\"\n            elif denominator != 1:\n                issue = \"a ratio to other than one is not read; set threshold_unit to other\"\n            else:  # \"5.00 to 1.00\" keeps its written 5.00\n                values.append(numerator)\n        # A ratio's own numbers are read once: the \"N times\" form is searched outside them.\n        values += [_decimal(m[1]) for m in _TIMES.finditer(_RATIO.sub(\" \", plain))]\n    elif unit == \"percent\":\n        if _FRACTION_PERCENT.search(plain):\n            return None, \"a fractional percentage is not parsed; set threshold_unit to other\"\n        values = [_decimal(m[1]) for m in _PERCENT.finditer(plain)]\n    else:\n        return None, f\"a {unit} threshold is not parsed\"\n    if issue is not None:\n        return None, issue\n    if not values:\n        return None, f\"no {unit} threshold is written in it\"\n    if len(values) > 1:\n        return None, \"it states more than one threshold; quote the one tested\"\n    return values[0], None\n",
+    "challengers": [
+      {
+        "label": "A_speed",
+        "complete_source": "def parse_threshold(text: str, unit: str) -> tuple[Decimal | None, str | None]:\n    \"\"\"The one threshold a quoted text states, as written (a ratio N to one is N, a multiple\n    N x is N, a percentage is its number: 12.5 for 12.5%), or None with the reason it cannot be\n    read. A ratio to anything but one is not read: Python would have to divide a number the\n    model never wrote. Only the multiple and percent forms are read.\"\"\"\n    plain = normalise(text)\n    values: list[Decimal] = []\n    issue: str | None = None\n    if unit == \"multiple\":\n        for match in _RATIO.finditer(plain):\n            numerator, denominator = _decimal(match[1]), _decimal(match[2] or match[3])\n            if denominator == 0:\n                issue = \"the ratio has a zero denominator\"\n            elif denominator != 1:\n                issue = \"a ratio to other than one is not read; set threshold_unit to other\"\n            else:  # \"5.00 to 1.00\" keeps its written 5.00\n                values.append(numerator)\n        # A ratio's own numbers are read once: the \"N times\" form is searched outside them.\n        values += [_decimal(m[1]) for m in _TIMES.finditer(_RATIO.sub(\" \", plain))]\n    elif unit == \"percent\":\n        if _FRACTION_PERCENT.search(plain):\n            return None, \"a fractional percentage is not parsed; set threshold_unit to other\"\n        values = [_decimal(value) for value in _PERCENT.findall(plain)]\n    else:\n        return None, f\"a {unit} threshold is not parsed\"\n    if issue is not None:\n        return None, issue\n    if not values:\n        return None, f\"no {unit} threshold is written in it\"\n    if len(values) > 1:\n        return None, \"it states more than one threshold; quote the one tested\"\n    return values[0], None\n",
+        "differential_cases": 1555,
+        "matches_incumbent": true
+      },
+      {
+        "label": "B_memory",
+        "complete_source": "def parse_threshold(text: str, unit: str) -> tuple[Decimal | None, str | None]:\n    plain = normalise(text)\n    first = None\n    count = 0\n    issue = None\n    if unit == \"multiple\":\n        for match in _RATIO.finditer(plain):\n            numerator, denominator = _decimal(match[1]), _decimal(match[2] or match[3])\n            if denominator == 0:\n                issue = \"the ratio has a zero denominator\"\n            elif denominator != 1:\n                issue = \"a ratio to other than one is not read; set threshold_unit to other\"\n            else:\n                if count == 0:\n                    first = numerator\n                count += 1\n        for match in _TIMES.finditer(_RATIO.sub(\" \", plain)):\n            number = _decimal(match[1])\n            if count == 0:\n                first = number\n            count += 1\n    elif unit == \"percent\":\n        if _FRACTION_PERCENT.search(plain):\n            return None, \"a fractional percentage is not parsed; set threshold_unit to other\"\n        for match in _PERCENT.finditer(plain):\n            number = _decimal(match[1])\n            if count == 0:\n                first = number\n            count += 1\n    else:\n        return None, f\"a {unit} threshold is not parsed\"\n    if issue is not None:\n        return None, issue\n    if count == 0:\n        return None, f\"no {unit} threshold is written in it\"\n    if count > 1:\n        return None, \"it states more than one threshold; quote the one tested\"\n    return first, None\n",
+        "differential_cases": 1555,
+        "matches_incumbent": true
+      },
+      {
+        "label": "C_readability",
+        "complete_source": "def parse_threshold(text: str, unit: str) -> tuple[Decimal | None, str | None]:\n    plain = normalise(text)\n    if unit != \"multiple\" and unit != \"percent\":\n        return None, f\"a {unit} threshold is not parsed\"\n    values = []\n    issue = None\n    if unit == \"percent\":\n        if _FRACTION_PERCENT.search(plain):\n            return None, \"a fractional percentage is not parsed; set threshold_unit to other\"\n        values = [_decimal(match[1]) for match in _PERCENT.finditer(plain)]\n    else:\n        for match in _RATIO.finditer(plain):\n            numerator, denominator = _decimal(match[1]), _decimal(match[2] or match[3])\n            if denominator == 0:\n                issue = \"the ratio has a zero denominator\"\n            elif denominator != 1:\n                issue = \"a ratio to other than one is not read; set threshold_unit to other\"\n            else:\n                values.append(numerator)\n        values += [_decimal(match[1]) for match in _TIMES.finditer(_RATIO.sub(\" \", plain))]\n    if issue is not None:\n        return None, issue\n    if not values:\n        return None, f\"no {unit} threshold is written in it\"\n    if len(values) > 1:\n        return None, \"it states more than one threshold; quote the one tested\"\n    return values[0], None\n",
+        "differential_cases": 1555,
+        "matches_incumbent": true
+      }
+    ],
+    "arbiter": {
+      "bracket": [
+        "A speed versus B memory: A, because bounded numeric lists are simpler than parallel count/first state.",
+        "A versus C readability: A, because C reorders existing control flow for no demonstrated gain.",
+        "A versus incumbent: incumbent holds; finditer is consistent across threshold forms and avoids an extra findall string list."
+      ],
+      "winner": "Incumbent holds",
+      "justification": [
+        "The patch is confined to refusing unsupported fractional-percent tokens.",
+        "All three challengers matched exact values/reasons; none demonstrated a material readability or performance benefit.",
+        "Retaining existing control flow minimizes impact on validator and report-test callers."
+      ],
+      "performance_claim": null
+    },
+    "synthetic_strict_boundary_controls": [
+      {
+        "synthetic_metric": "1.99",
+        "threshold": "2.0",
+        "comparison": ">",
+        "room": "-0.01",
+        "within": false
+      },
+      {
+        "synthetic_metric": "2",
+        "threshold": "2.0",
+        "comparison": ">",
+        "room": "0",
+        "within": false
+      },
+      {
+        "synthetic_metric": "2.01",
+        "threshold": "2.0",
+        "comparison": ">",
+        "room": "0.01",
+        "within": true
+      }
+    ],
+    "final_diff_scope": "One compiled refusal pattern plus a two-line guard; test file only otherwise. No predecessor source touched."
+  },
+  "consumed": {
+    "runs/tdg-004/CP-0.md": "60902235146ab272998554ab9381cd7e894bfbd3a0b58f46d1a704c337418f27",
+    "runs/tdg-004/CP-4-instructions.md": "04b9ade200255d6193c138173de7e2d226c2d661d0f50dd8b26e765c81532277",
+    "runs/tdg-002/CP-1-attempt-2.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+    "runs/tdg-002/CP-1A-attempt-3.md": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+    "runs/tdg-002/CP-2-attempt-2.md": "249d0cbdf1ba8159dcae68d4ff3241c73ea092ff66353c0c2eef08691e0afa57",
+    "runs/tdg-003/CP-2A-calendar-attempt-1.md": "8a8c66676f63f1e95abf8f3fe83573687b584c142aad4ec0e06b316197bcd7c9",
+    "runs/tdg-003/CP-2D-calendar-consumer.md": "e41fd566bbda1ae8e5c6ba02bc0dff3f8186888475a63885ea445dd093b1573f"
+  },
+  "methods": {
+    "src/deploy_vii/methods/cp4.md": "493f57fd0f4176c757cc310fcaa8809433c7aa6f0c3bee73519edc44effc1118",
+    "src/deploy_vii/cp4_legal.py": "4299978f3648aea5a67ecfa56d3678b0eff3eac1a87970d85fa4901cf318a9a5",
+    "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/SKILL.md": "8a3b12f3f37359463434177759febac1ffcf0f8c484aa0508eb7119f7b6548b2",
+    "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/references/CP-4_RUNBOOK.md": "abe96a72629686818d5697fbf7a9ccedaf90c3f6d80ca8c46fa3dd27b461ad57",
+    "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/references/REF_CP-4_STEPS.md": "ef5eb569be59ec30dd3a66c1bcc81c5cc0bcc2e9d2ac3909b04caa23339b6b94"
+  },
+  "source": {
+    "runs/tdg-004/legal-source/source-lines.txt": "cb2c0c77e7ec1f90e5a7117a5df7e16cd2556b02e7be7ca43fbf4d64ed585b05",
+    "runs/tdg-004/legal-source/web-captures.json": "bfad4999c148ec289db694cb1c88b1f51d340ee7823cf3132c32df3e65c2b063",
+    "runs/tdg-004/legal-source/retrieval.json": "1692e2ebb6c6d682553685fef6b54b971c8e71fcab1ec1670cfac6ef8fafece4"
+  },
+  "source_admission": {
+    "origin": "https://www.sec.gov/Archives/edgar/data/1260221/000119312524222468/d887611dex41.htm",
+    "retained_captures": 20,
+    "indexed_lines": 2877,
+    "missing_lines": [],
+    "conflicting_overlaps": 0,
+    "matching_overlaps": 1445,
+    "original_html_bytes": false,
+    "direct_request_status": 403,
+    "status": "filed execution-version indexed text, admitted with limitations",
+    "later_amendments_exhaustively_checked": false
+  },
+  "actual_source_threshold_checks": [
+    {
+      "source_line": 1295,
+      "unit": "multiple",
+      "parsed": "2.0",
+      "reason": null
+    },
+    {
+      "source_line": 1265,
+      "unit": "multiple",
+      "parsed": "2.0",
+      "reason": null
+    },
+    {
+      "source_line": 409,
+      "unit": "percent",
+      "parsed": "35.0",
+      "reason": null
+    }
+  ],
+  "exact_consent_fraction": {
+    "source_line": 1860,
+    "source_literal": "66^{2}⁄_{3}%",
+    "percentage_numerator": 200,
+    "percentage_denominator": 3,
+    "holder_fraction_numerator": 2,
+    "holder_fraction_denominator": 3,
+    "decimal_parser_result": null,
+    "decimal_parser_reason": "no percent threshold is written in it",
+    "current_vote_result": null
+  },
+  "outputs": {
+    "attempt_1": "5c352bb8ca03e31d8725188afaad6fa8bc6694579b6735749e7e596273d8094b",
+    "attempt_2": "2df299b0a2ddeead6035f8edf8f040a8ec3855d5eec043fc2620170013d3dee0"
+  },
+  "observed_response_repair": {
+    "source": "Section 9.02 / L1860",
+    "issue": "Attempt 1 called these special release/ICA matters without spelling out their scope.",
+    "repair": "Attempt 2 limits enhanced consent to the specified all/substantially-all non-permitted release or materially adverse ICA change, preserving affected-holder rights. It also spells out relevant default/exclusion and offer conditions.",
+    "failed_answer_retained": true
+  },
+  "checks": {
+    "six_project_headings": true,
+    "eight_broad_core_registers": true,
+    "fourteen_source_provision_ids": true,
+    "periodic_maintenance_not_inferred": true,
+    "cash_interest_ratio_not_legal_fccr": true,
+    "actual_headroom": null,
+    "current_basket_usage": null,
+    "alias_cp4a_4b_4d_full_scopes_executed": false
+  },
+  "validation": {
+    "pytest_command": ".venv/bin/pytest -q tests/test_cp4_threshold_source_forms.py tests/test_method_cp4.py",
+    "pytest_result": "37 passed in 0.43s after selected incumbent/final test edits",
+    "mypy_command": ".venv/bin/mypy --follow-imports=silent src/deploy_vii/cp4_legal.py tests/test_cp4_threshold_source_forms.py",
+    "mypy_result": "Success: no issues found in 2 source files",
+    "ruff_command": ".venv/bin/ruff check --ignore TRY004 src/deploy_vii/cp4_legal.py tests/test_cp4_threshold_source_forms.py",
+    "ruff_result": "All checks passed; full check retains one preexisting TRY004 in unchanged citations validation."
+  },
+  "cp3c_conditional_offer_calculation": {
+    "scope": "Real source terms with explicitly conditional all-original-principal tender premise. Not an actual change of control, tender, funding need or refinancing outcome.",
+    "consumed": {
+      "runs/tdg-004/CP-4-attempt-2.md": "2df299b0a2ddeead6035f8edf8f040a8ec3855d5eec043fc2620170013d3dee0",
+      "runs/tdg-004/CP-0.md": "60902235146ab272998554ab9381cd7e894bfbd3a0b58f46d1a704c337418f27",
+      "runs/tdg-002/CP-1-attempt-2.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "source_terms": {
+      "principal_usd_m": "1500",
+      "principal_basis": "Original issue / annual gross principal, not carrying amount 1486",
+      "offer_price_percent": "101",
+      "source_locators": [
+        "CP-1 debt register 2033 row, original PDF46",
+        "D1 Section2.02 / L915, Section4.15 / L1345"
+      ]
+    },
+    "assumption": "All original 1500 USD m remains outstanding and is validly tendered under an applicable offer; no actual event asserted.",
+    "existing_helper": "src/deploy_workflow/owners/cp3c.py",
+    "helper_sha256": "c9d2c18c275d5b83b4fb56a2d406873f53f44810cd24661acf8e0e09eb751fd3",
+    "ratio_result": "1.0100",
+    "conditional_principal_component_usd_m": "1515.0000",
+    "independent_fraction_result": "1515",
+    "accrued_interest": null,
+    "complete_cash_requirement": null,
+    "missingness_result": "Accrued interest is not supplied for the unspecified conditional offer date"
+  },
+  "actual_consumer": {
+    "path": "runs/tdg-004/CP-3C-legal-consumer.md",
+    "sha256": "3ea649342cf8cc91f1205591b7d3c3ae4a7f51687117b34ee4ba98bee0bdcb63",
+    "consumed_producer_sha256": "2df299b0a2ddeead6035f8edf8f040a8ec3855d5eec043fc2620170013d3dee0",
+    "additional_consumed": {
+      "runs/tdg-003/CP-2D-calendar-consumer.md": "e41fd566bbda1ae8e5c6ba02bc0dff3f8186888475a63885ea445dd093b1573f"
+    },
+    "checks": {
+      "six_project_headings": true,
+      "five_path_conditions_used": true,
+      "notes_vs_ar_facility_boundary": true,
+      "gross_vs_carrying_offer_basis": true,
+      "conditional_amount_1515_not_actual_funding_need": true,
+      "missing_interest_does_not_default_to_zero": true,
+      "actual_cross_default_or_exemption_not_inferred": true,
+      "exact_consent_fraction_and_protected_rights_preserved": true
+    },
+    "scope": "Actual same-session host-model legal-to-funding use; no native full CP-3C or real transaction result.",
+    "check_repair": "A case-sensitive phrase assertion initially missed capitalized Affected-holder. The assertion now normalizes case; no producer/consumer content changed."
+  }
+}

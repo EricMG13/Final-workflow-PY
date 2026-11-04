@@ -1,0 +1,82 @@
+{
+  "purpose": "Technical source preparation for later CP-0/CP-1 interim extension; no analytical acceptance",
+  "tools": {
+    "convert_html": "deploy_workflow.html_text.convert_html",
+    "parse": "deploy_workflow.inline_xbrl.parse",
+    "period_lines": "deploy_workflow.inline_xbrl.period_lines"
+  },
+  "sources": [
+    {
+      "raw_path": "data/public-corpus/v1/TDG/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm",
+      "raw_sha256": "7e902c48d87067b4ea96c388ab2ca460c9c1c3c2e2960da09629377a7b359b0d",
+      "raw_bytes": 1884215,
+      "text_path": "runs/tdg-003/source-preparation/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.txt",
+      "text_sha256": "191aaf6cc1203f4448060005329f004e2279bb57fce9da63eb832b8a80691340",
+      "visible_text_lines": 762,
+      "appended_context_lines": 16,
+      "xbrl_path": "runs/tdg-003/source-preparation/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.xbrl.json",
+      "xbrl_sha256": "e2850aaea64c7611b764f0884196a458804c08c3f13f8a80e6cfe2c28b198630",
+      "contexts": 336,
+      "units": 5,
+      "inline_facts": 1141,
+      "scope": "Existing parser result only; all context/fact metadata retained without evaluating numeric amounts; raw issuer source controls"
+    },
+    {
+      "raw_path": "data/public-corpus/v1/TDG/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm",
+      "raw_sha256": "74876b8874a3a396efd700114b280f45fcfcd3f11ceae31adee98c93bfacbf03",
+      "raw_bytes": 2051989,
+      "text_path": "runs/tdg-003/source-preparation/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.txt",
+      "text_sha256": "40634987739c484b40c6891c908bf83f45de869f6d07d8482262006e31221053",
+      "visible_text_lines": 831,
+      "appended_context_lines": 20,
+      "xbrl_path": "runs/tdg-003/source-preparation/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.xbrl.json",
+      "xbrl_sha256": "9e94555a5133646e0675305ab9abe04c55932a63e8aeea755b2d4a275b06761e",
+      "contexts": 373,
+      "units": 5,
+      "inline_facts": 1256,
+      "scope": "Existing parser result only; all context/fact metadata retained without evaluating numeric amounts; raw issuer source controls"
+    },
+    {
+      "raw_path": "data/public-corpus/v1/TDG/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+      "raw_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+      "raw_bytes": 3705984,
+      "text_path": "runs/tdg-003/source-preparation/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.txt",
+      "text_sha256": "d94c5e2a382127f2f016413ad1e7f7837cfd188e4dc3a86f16ef0d4544c557de",
+      "visible_text_lines": 1718,
+      "appended_context_lines": 18,
+      "xbrl_path": "runs/tdg-003/source-preparation/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.xbrl.json",
+      "xbrl_sha256": "e0daf256ed189fbebf405499f34fc77cf04a126da929f0d7b4969fb69736919b",
+      "contexts": 477,
+      "units": 5,
+      "inline_facts": 1928,
+      "scope": "Existing parser result only; all context/fact metadata retained without evaluating numeric amounts; raw issuer source controls"
+    },
+    {
+      "raw_path": "data/public-corpus/v1/TDG/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm",
+      "raw_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+      "raw_bytes": 1537595,
+      "text_path": "runs/tdg-003/source-preparation/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.txt",
+      "text_sha256": "38b4642199a5381aca22f1ff4f5973ecc3430dfb24d068bf8058e962db99db71",
+      "visible_text_lines": 700,
+      "appended_context_lines": 7,
+      "xbrl_path": "runs/tdg-003/source-preparation/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.xbrl.json",
+      "xbrl_sha256": "85418fd03517a339b5d54c5bfd1b37769c37a7c0752237f593ff2833d5273448",
+      "contexts": 241,
+      "units": 5,
+      "inline_facts": 974,
+      "scope": "Existing parser result only; all context/fact metadata retained without evaluating numeric amounts; raw issuer source controls"
+    }
+  ],
+  "tool_source_sha256": {
+    "src/deploy_workflow/html_text.py": "141f330d18b8476fcc6aaa66f75604a319a00f865d8c5b9d9227207642c249d9",
+    "src/deploy_workflow/inline_xbrl.py": "4c557f32f73df864875910486b63d7ed215dcc091a8810783f3891bf4cc05cb7"
+  },
+  "raw_unit_definitions": {
+    "path": "runs/tdg-003/source-preparation/raw-unit-definitions.json",
+    "sha256": "43065ea24743ed74c91bf75155e4036b772c6c18b538bd4034ad7cfbf0398dc1",
+    "scope": "Verbatim source elements including compound numerator/denominator; existing xbrl JSON is unchanged."
+  },
+  "known_limitations": [
+    "Existing inline_xbrl parser intentionally stores divide units as empty tuples. All four files have USD/share compound units; do not treat these EPS facts as monetary amounts or infer units from IDs. Refer to retained raw unit definitions and source HTML."
+  ]
+}

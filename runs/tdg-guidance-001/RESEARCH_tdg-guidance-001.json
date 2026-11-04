@@ -1,0 +1,26 @@
+{
+  "schema": "CP_DR_RESEARCH_BRIEF_V1",
+  "mode": "standalone",
+  "run_id": "tdg-guidance-001",
+  "scope_type": "issuer",
+  "scope_key": "TDG",
+  "subject_name": "TransDigm Group Incorporated",
+  "decision_context": "Supply historical management guidance evidence to the CP-2G module proof loop; the receiving owner must validate applicability and retain its limits.",
+  "as_of_date": "2024-11-07",
+  "time_horizon": "Fiscal year ending September 30, 2025",
+  "source_mode": "web_only",
+  "budget": "standard",
+  "authorization_basis": "Current user request to review and test the full workflow one module at a time, reusing existing work; read-only public evidence retrieval is within that scope.",
+  "exclusions": "No sources published after 2024-11-07 in the answer; no later realised results, confidential queries, trade recommendations, current forecast claims or general sector study. No paid providers.",
+  "questions": [
+    {
+      "question_id": "RQ-guidance",
+      "question": "What fiscal 2025 sales and EBITDA As Defined outlook and midpoint earnings bridge did TDG issue on November 7, 2024, and what limits its use as cash-flow forecast evidence?",
+      "decision_relevance": "Replace unsupported forecast revenue/earnings anchors with dated attributed management guidance; distinguish accrual inputs from cash assumptions.",
+      "consumer_module_id": "NONE",
+      "after_module_id": "NONE",
+      "evidence_needed": "Issuer release and original SEC exhibit; dated outlook, fiscal-period labels, midpoint earnings bridge and non-GAAP/forward-looking limitations.",
+      "completion_test": "Locate and retain the primary evidence; preserve amounts, periods, units, definitions, uncertainty and strongest contrary evidence; identify permitted and unsupported downstream uses."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "scope": "Independent pre-publication expectations from the retained actual reports/checked answer. Routing alone is not analytical proof.",
+  "order": [
+    "CP-0",
+    "CP-1",
+    "CP-2G",
+    "CP-2H"
+  ],
+  "unnecessary_module": "CP-2A",
+  "ordinary_fresh_order": [
+    "CP-0",
+    "CP-1",
+    "CP-2A",
+    "CP-2G",
+    "CP-2H"
+  ],
+  "rating_posture": [
+    "BB- preliminary / Positive",
+    "BB+ / Stable",
+    "BB+(EXP) / RR4"
+  ],
+  "ordinal_difference": 2,
+  "exact_fitch_headroom": null,
+  "sustained_window": null,
+  "sp_outside_earnings_proxy_percent": 15,
+  "sp_upside_condition_percent": 30,
+  "proxy_distance_pp": 15,
+  "source_display_residuals_TRY_millions": [
+    -1,
+    1
+  ],
+  "full_criteria_or_current_ratings": false,
+  "raw_pdf_bytes_or_visual_audit": false,
+  "excel_output": false
+}

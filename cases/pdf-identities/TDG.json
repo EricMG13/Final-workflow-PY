@@ -1,0 +1,270 @@
+{
+ "schema": "pdf-identities/1",
+ "doc": "TDG",
+ "source_name": "TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+ "source_sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+ "unit": "USD millions",
+ "note": "label and page name a row of tests/fixtures/pdf_pages/<doc>/pNNN.txt; printed values are in column order; each identity is lhs sum == rhs sum, exact, per column",
+ "identities": [
+  {
+   "id": "TDG-BS-1",
+   "kind": "BS",
+   "equation": "total assets = total liabilities + total equity",
+   "lhs": [
+    {
+     "label": "TOTAL ASSETS",
+     "page": 105,
+     "printed": [
+      "25,586",
+      "19,970"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Total liabilities",
+     "page": 105,
+     "printed": [
+      "31,869",
+      "21,948"
+     ]
+    },
+    {
+     "label": "Total stockholders’ deficit",
+     "page": 105,
+     "printed": [
+      "(6,283)",
+      "(1,978)"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "2024",
+     "lhs_sum": "25586",
+     "rhs_sum": "25586",
+     "values": {
+      "TOTAL ASSETS": "25586",
+      "Total liabilities": "31869",
+      "Total stockholders’ deficit": "-6283"
+     }
+    },
+    {
+     "header_text": "2023",
+     "lhs_sum": "19970",
+     "rhs_sum": "19970",
+     "values": {
+      "TOTAL ASSETS": "19970",
+      "Total liabilities": "21948",
+      "Total stockholders’ deficit": "-1978"
+     }
+    }
+   ]
+  },
+  {
+   "id": "TDG-BS-2",
+   "kind": "BS",
+   "equation": "total assets = the printed total of liabilities and equity",
+   "lhs": [
+    {
+     "label": "TOTAL ASSETS",
+     "page": 105,
+     "printed": [
+      "25,586",
+      "19,970"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "TOTAL LIABILITIES AND STOCKHOLDERS’ DEFICIT",
+     "page": 105,
+     "printed": [
+      "25,586",
+      "19,970"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "2024",
+     "lhs_sum": "25586",
+     "rhs_sum": "25586",
+     "values": {
+      "TOTAL ASSETS": "25586",
+      "TOTAL LIABILITIES AND STOCKHOLDERS’ DEFICIT": "25586"
+     }
+    },
+    {
+     "header_text": "2023",
+     "lhs_sum": "19970",
+     "rhs_sum": "19970",
+     "values": {
+      "TOTAL ASSETS": "19970",
+      "TOTAL LIABILITIES AND STOCKHOLDERS’ DEFICIT": "19970"
+     }
+    }
+   ]
+  },
+  {
+   "id": "TDG-CFS-1",
+   "kind": "CFS",
+   "equation": "operating + investing + financing + exchange-rate effect = net change in cash",
+   "lhs": [
+    {
+     "label": "Net cash provided by operating activities",
+     "page": 109,
+     "printed": [
+      "2,045",
+      "1,375",
+      "948"
+     ]
+    },
+    {
+     "label": "Net cash used in investing activities",
+     "page": 109,
+     "printed": [
+      "(2,441)",
+      "(900)",
+      "(553)"
+     ]
+    },
+    {
+     "label": "Net cash provided by (used in) financing activities",
+     "page": 109,
+     "printed": [
+      "3,171",
+      "(16)",
+      "(2,148)"
+     ]
+    },
+    {
+     "label": "EFFECT OF EXCHANGE RATE CHANGES ON CASH AND CASH EQUIVALENTS",
+     "page": 109,
+     "printed": [
+      "14",
+      "12",
+      "(33)"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "NET INCREASE (DECREASE) IN CASH AND CASH EQUIVALENTS",
+     "page": 109,
+     "printed": [
+      "2,789",
+      "471",
+      "(1,786)"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "2024",
+     "lhs_sum": "2789",
+     "rhs_sum": "2789",
+     "values": {
+      "Net cash provided by operating activities": "2045",
+      "Net cash used in investing activities": "-2441",
+      "Net cash provided by (used in) financing activities": "3171",
+      "EFFECT OF EXCHANGE RATE CHANGES ON CASH AND CASH EQUIVALENTS": "14",
+      "NET INCREASE (DECREASE) IN CASH AND CASH EQUIVALENTS": "2789"
+     }
+    },
+    {
+     "header_text": "2023",
+     "lhs_sum": "471",
+     "rhs_sum": "471",
+     "values": {
+      "Net cash provided by operating activities": "1375",
+      "Net cash used in investing activities": "-900",
+      "Net cash provided by (used in) financing activities": "-16",
+      "EFFECT OF EXCHANGE RATE CHANGES ON CASH AND CASH EQUIVALENTS": "12",
+      "NET INCREASE (DECREASE) IN CASH AND CASH EQUIVALENTS": "471"
+     }
+    },
+    {
+     "header_text": "2022",
+     "lhs_sum": "-1786",
+     "rhs_sum": "-1786",
+     "values": {
+      "Net cash provided by operating activities": "948",
+      "Net cash used in investing activities": "-553",
+      "Net cash provided by (used in) financing activities": "-2148",
+      "EFFECT OF EXCHANGE RATE CHANGES ON CASH AND CASH EQUIVALENTS": "-33",
+      "NET INCREASE (DECREASE) IN CASH AND CASH EQUIVALENTS": "-1786"
+     }
+    }
+   ]
+  },
+  {
+   "id": "TDG-CFS-2",
+   "kind": "CFS",
+   "equation": "cash at beginning + net change = cash at end",
+   "lhs": [
+    {
+     "label": "CASH AND CASH EQUIVALENTS, BEGINNING OF PERIOD",
+     "page": 109,
+     "printed": [
+      "3,472",
+      "3,001",
+      "4,787"
+     ]
+    },
+    {
+     "label": "NET INCREASE (DECREASE) IN CASH AND CASH EQUIVALENTS",
+     "page": 109,
+     "printed": [
+      "2,789",
+      "471",
+      "(1,786)"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "CASH AND CASH EQUIVALENTS, END OF PERIOD",
+     "page": 109,
+     "printed": [
+      "6,261",
+      "3,472",
+      "3,001"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "2024",
+     "lhs_sum": "6261",
+     "rhs_sum": "6261",
+     "values": {
+      "CASH AND CASH EQUIVALENTS, BEGINNING OF PERIOD": "3472",
+      "NET INCREASE (DECREASE) IN CASH AND CASH EQUIVALENTS": "2789",
+      "CASH AND CASH EQUIVALENTS, END OF PERIOD": "6261"
+     }
+    },
+    {
+     "header_text": "2023",
+     "lhs_sum": "3472",
+     "rhs_sum": "3472",
+     "values": {
+      "CASH AND CASH EQUIVALENTS, BEGINNING OF PERIOD": "3001",
+      "NET INCREASE (DECREASE) IN CASH AND CASH EQUIVALENTS": "471",
+      "CASH AND CASH EQUIVALENTS, END OF PERIOD": "3472"
+     }
+    },
+    {
+     "header_text": "2022",
+     "lhs_sum": "3001",
+     "rhs_sum": "3001",
+     "values": {
+      "CASH AND CASH EQUIVALENTS, BEGINNING OF PERIOD": "4787",
+      "NET INCREASE (DECREASE) IN CASH AND CASH EQUIVALENTS": "-1786",
+      "CASH AND CASH EQUIVALENTS, END OF PERIOD": "3001"
+     }
+    }
+   ]
+  }
+ ]
+}

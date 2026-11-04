@@ -1,0 +1,27 @@
+{
+  "execution": "actual handoff consumption in current host context; existing pure Decimal sum; no annual run-rate or provider execution",
+  "handoffs": {
+    "CP-1": {
+      "path": "runs/tdg-003/CP-1-attempt-2.md",
+      "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+    },
+    "CP-1B": {
+      "path": "runs/tdg-003/CP-1B-attempt-1.md",
+      "sha256": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12"
+    }
+  },
+  "period": "2024-10-01 to 2024-12-28",
+  "currency": "USD",
+  "unit": "millions",
+  "inputs": {
+    "opening": "6261",
+    "cfo": "752",
+    "investing": "-24",
+    "financing": "-4516",
+    "fx": "-14",
+    "closing": "2459"
+  },
+  "calculated_close": "2459",
+  "residual": "0",
+  "independent_integer_expected": "2459"
+}

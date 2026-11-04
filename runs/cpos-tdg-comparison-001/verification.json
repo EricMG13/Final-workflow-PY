@@ -1,0 +1,387 @@
+{
+  "status": "Actual current-host CP-8 request/answer/check through CP-OS, separately published and browser checked. Broader goal active.",
+  "scope": "User-defined prior/current deliverable comparison across seven dimensions, selected historical TDG publications; no investment decision/history/outcome gate. Not general pathway/native/provider qualification.",
+  "execution": {
+    "mode": "host-session with preceding context and access to pre-output oracle",
+    "actual_request": "runs/cpos-tdg-comparison-001/execution/requests/CP-8/ed0f4d41d1f0e0ada1fdfe0e526d105d8416d56f27f160ea2506bdd76fac0e4a/1.request.json",
+    "request_sha256": "8160af33a66d4af2960750404e6a56c9c295a9ad5ec253c025214850b9468994",
+    "actual_response": "runs/cpos-tdg-comparison-001/execution/requests/CP-8/ed0f4d41d1f0e0ada1fdfe0e526d105d8416d56f27f160ea2506bdd76fac0e4a/1.response.md",
+    "response_sha256": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+    "retained_response_files": 1,
+    "source_files": 23,
+    "other_analytical_modules_requested": 0,
+    "paid_calls": 0,
+    "agents_spawned": 0,
+    "credential_files_read": 0,
+    "excel_output": false,
+    "resume_executor_calls": 0
+  },
+  "inputs": {
+    "workflow_sha256": "dd65ec59d430221127a4b9d0e1877e7dfa673d0ca994625387862069815eed76",
+    "instructions_sha256": "15c083302007744717f0c0bc5d1a0fed1b26cea59b06f4df52bd02c072283b90",
+    "source_file_hashes": {
+      "current/CP-1.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "current/CP-1A.md": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+      "current/CP-2.md": "f50a11f516267a55ee2b0e25ac8b292639e40c49947d3964dce39a04303f6b0e",
+      "current/annual.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "current/calculation.json": "356c04c1801c0d48f4a53770b0238a38945266b97e47e0a5ce2d2262eaf3af1d",
+      "current/current_synthesis.md": "f50a11f516267a55ee2b0e25ac8b292639e40c49947d3964dce39a04303f6b0e",
+      "current/delivery.json": "380a4e5f3835f21104eae5103f39a98d5ec08d5b2e082441d1ecc4d5fb9637d7",
+      "current/forecast.md": "696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928",
+      "current/forecast_exact.json": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843",
+      "current/model-report-view.json": "34885e89945daafca9cc650a8a7621cf09e3d48a97a21a9b248b8bd1bbf428c8",
+      "current/model-view.json": "5337c0789c98ad04800f97a2651f0cec25e8871ab03f7c3e95165272f866a183",
+      "current/model.html": "c673a9b44031e4bde0888dae3950f103b0dbec791aa4428cccc3e86cd2c01bc5",
+      "current/quarter.md": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+      "current/report-view.json": "e79ac27b6f61f489c47a0d9cb806f2e6c0b75043a3656bf472604f0c1c7a64fe",
+      "current/report.html": "cdb682b743990b0484bb51e895a1007973c746510079963f8fc57eb62c3a09b7",
+      "current/view.json": "bfab55d0e03616d9107b44d02ab98c119d4743a86be9ea1653e687920fe2d5b1",
+      "prior/CP-1.md": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+      "prior/CP-1A.md": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+      "prior/CP-2.md": "f50a11f516267a55ee2b0e25ac8b292639e40c49947d3964dce39a04303f6b0e",
+      "prior/delivery.json": "4216fe746df0e4d46ae384b7abb0f464f8e0b4adfcbc6d2638382da98d440344",
+      "prior/report-view.json": "7d389730d1e2e44340ad0be62b46d553186da6311dbd73f20624b8ec312d7ad3",
+      "prior/report.html": "128027b2625f5ab697c3141c9998f2be6f18ff03115fcddb41a7e682f31282b7",
+      "prior/view.json": "abbbcb0fdbfdc8b469aa7aee96766ef6c61ab216fc062b960e75ed36a5ae2da8"
+    },
+    "pre_output_expectations_sha256": "8cb918fa84b0ad8505b05687173d706809258ade7fc3759dad665599cf0da008",
+    "same_financial_date": "2024-09-30",
+    "original_bundle_hashes_rechecked": true,
+    "active_method_authority": "Current user CP-8 definition in AGENTS.md and actual case instructions; legacy investment-decision ledger is superseded for this route.",
+    "earlier_same_method": "runs/tdg-run-comparison-001/instructions.md",
+    "earlier_same_method_sha256": "063647feaeb6a53eeadb4ab1528210a1a5a389356a1ecf3dd5af16e99e7784b1"
+  },
+  "model_output_vs_instructions": {
+    "dimensions": [
+      "Values",
+      "Periods",
+      "Assumptions",
+      "Conclusions",
+      "Sources",
+      "Limitations",
+      "Output scope"
+    ],
+    "all_five_narrative_blocks": "Exactly equal prior/current structured blocks, including rows, tabs, prose and references.",
+    "core_handoffs": "CP-1,CP-1A,CP-2 byte-identical;156 core facts unchanged.",
+    "observed_change": "Historical Model publication added:2005 representation facts,81 numeric cells(74 known,7 missing),51 raw tables plus two numerical tables,three charts18 observations. Not unique new issuer facts or financial improvement.",
+    "earnings_bases": "FY2024 operating3843 / issuer ordinary3813 / As Defined4173 USDm remain distinct.",
+    "periods": "Same main annual as_of; annual October/September windows, quarter89/91-day exact dates and conditional planning windows kept separate.",
+    "assumptions_conclusions": "Same Medium CP-2 assessment/Ready with limitations. Retained conditional source tables are not a newly adopted central forecast or current underwriting.",
+    "gaps": "Critical cash/contract evidence and all continuing analytical limits retained. Seven numeric missing observations remain missing; obsolete retained workbook-export wording does not reinstate an output requirement.",
+    "material_analytical_repair_needed": false,
+    "assurance_limit": "Same host had source/output history and independent check data available. This is actual model output/consumption, not blind independent-context reliability."
+  },
+  "delivery": {
+    "directory": "runs/cpos-tdg-comparison-001/execution/deliveries/04082614b4fa418445e0d483a3b12e81855decb2ec0b8fd5cfb263c9b47fe20f",
+    "completion": "runs/cpos-tdg-comparison-001/execution/completed-6b073042a2a1d7a1adf0ee7ffbe0fe6b87cdef14e809e79ef94af86eeada70bb.json",
+    "completion_sha256": "6b073042a2a1d7a1adf0ee7ffbe0fe6b87cdef14e809e79ef94af86eeada70bb",
+    "facts": 49,
+    "tables": 4,
+    "main_comparison_rows": 7,
+    "full_handoff_copied_exactly": true,
+    "file_hashes": {
+      "CP-8.md": "8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+      "view.json": "fb1fb6abfdd0858780c05e765a8ce435234dd91ef995f38a2acb10e25e9a8308",
+      "report-view.json": "5d8866fbf4c33b1be356cffbeaa9595a2bb181598a1b567aecfb44cd8cd882af",
+      "report.html": "34b3ee7e209e46c542fe88152ed93e357eec65b04b40dd52fb2d88dd771b7d8e",
+      "comparison-inputs.json": "ca027875af0a48cd95a70d4737c95fba0ad260decf89452c58676988ee37792f"
+    },
+    "delivery_json_sha256": "caebd5235c675ff2c9b87597af580be7904a6ab95dd2a346ce22c785b72b8fb1",
+    "source_citations": "All49 exact physical handoff-line/source hashes; material evidence links retained in table cells.",
+    "source_table_titles": [
+      "Selected prior and current publications",
+      "Seven requested comparison dimensions",
+      "All five narrative sections",
+      "Continuing limitations"
+    ],
+    "historical_revisions_preserved": 2,
+    "analytical_reruns_for_delivery": 0
+  },
+  "confidence_review": {
+    "scope": [
+      "ComparisonPlan/_comparison_bundle/run_comparison/main in owners/cpos.py",
+      "comparison_files/verify_files and verify_delivery delegation in handoff_delivery.py",
+      "tests/test_cpos_comparison.py"
+    ],
+    "least_confident_about_ranked": [
+      {
+        "rank": 1,
+        "doubt": "Could a foreign or stale Model be presented as the current issuer report?",
+        "investigated": "A copied bundle with forged receipt and coherent foreign Model HTML/View initially passed, despite different Model issuer ID. Test failed DID NOT RAISE before patch.",
+        "verdict": "CONFIRMED bug; repaired",
+        "patch": "Bind Model run ID, issuer/name, financial date, complete Model module and calculation artifact hash to the main bundle.",
+        "verification": "test_foreign_model_cannot_be_attached_to_current_issuer_bundle now passes; actual TDG bundle still validates."
+      },
+      {
+        "rank": 2,
+        "doubt": "Could a receipt advertise Model publication while omitting its HTML?",
+        "investigated": "Copied bundle with cp_model_published true, removed Model HTML and updated receipt initially passed. Reproducer failed DID NOT RAISE.",
+        "verdict": "CONFIRMED bug; repaired",
+        "patch": "Require advertised Model HTML and its companion view/calculation files before dispatch.",
+        "verification": "test_declared_model_cannot_silently_omit_its_html passes."
+      },
+      {
+        "rank": 3,
+        "doubt": "Could changed or incomplete artifacts silently reach CP-8?",
+        "investigated": "Receipt SHA, exact file hashes/set and safe flat filenames checked before state/dispatch; embedded main/Model JSON reconstructed from retained View/ReportView. Unsafe/unlisted/tampered files and foreign/as_of selections refuse.",
+        "verdict": "Verified within the selected flat delivery format.",
+        "patch": "Input-byte and embedded-structure checks; no issuer-financial reanalysis.",
+        "verification": "Bad receipt/file/unlisted/unsafe/issuer/as_of/mode regressions and forged main HTML refusal; all23 actual staged files exact."
+      },
+      {
+        "rank": 4,
+        "doubt": "Could an invalid or empty comparison get published or create an unrepairable accepted response?",
+        "investigated": "Seven unique dimensions with explicit populated sides are required. Structure errors initially surfaced after response checking; moved checks into bounded feedback so only corrected content reaches publication.",
+        "verdict": "Repaired integration order; malformed cases refuse/repair as specified.",
+        "patch": "Reuse presentation preflight in CP-8 checker, return only cp8_dimensions failures as targeted model feedback; other infrastructure failures propagate.",
+        "verification": "Duplicate/missing/empty dimension cases and targeted attempt1\u21922 repair pass; shape is still not semantic approval."
+      },
+      {
+        "rank": 5,
+        "doubt": "Could the inherited prose block discard table structure or mislabel gaps?",
+        "investigated": "Direct kind change failed populated-dense validation because the old what-changed composition made prose lines. Reused existing _slot/_refs_by_fact to retain rows/columns. Browser then revealed inherited last-heading table titles on sources/gaps.",
+        "verdict": "CONFIRMED integration defects; repaired",
+        "patch": "Use existing tabular slot rows and clear prose lines; local CP-8 table-title map. Existing Model mapper/renderer unchanged.",
+        "verification": "Seven prior/current/explanation/evidence columns display; final browser sees all four correctly named tables, including Continuing limitations."
+      },
+      {
+        "rank": 6,
+        "doubt": "Could retries, interrupted dispatch or partial publication trigger more analysis or false completion?",
+        "investigated": "Existing _handoff retains before review; source bytes are immutable mappings. Same single-writer lock, immutable writes and staged exact-file verification used. Missing dispatched response refuses automatic repeat.",
+        "verdict": "Verified for local exchange.",
+        "patch": "No new controller or provider adapter.",
+        "verification": "Retry, missing-response, partial-write, resume/tamper tests; actual host answer resumed with0 executors. Two publication revisions retained one response."
+      },
+      {
+        "rank": 7,
+        "doubt": "Could replay masquerade as fresh model evidence or require obsolete decision records?",
+        "investigated": "Host request contained only prior/current delivery source keys and an empty upstream analytical map. CLI replay requires explicit retained-response mode and pinned CP-8-only map; origin is recorded.",
+        "verdict": "Verified correct active CP-8 route.",
+        "patch": "CP-OS --compare/API uses user method; legacy native decision-ledger owner not invoked.",
+        "verification": "Actual host request/retained answer; CLI mode test and actual CLI replay smoke with identical final publication."
+      },
+      {
+        "rank": 8,
+        "doubt": "Could output facts or byte verification differ from the checked answer?",
+        "investigated": "All49 fact texts/quotes/source SHA checked against retained Markdown; every exported file and receipt hash verified. Previous/current input receipts remain unchanged.",
+        "verdict": "Verified named publication.",
+        "patch": "Shared verify_files preserves existing snapshot verification and refuses mismatched sets/content.",
+        "verification": "83 focused tests; exact final artifact checks and browser source inspector line45/SHA8823f66c\u2026."
+      },
+      {
+        "rank": 9,
+        "doubt": "Could unchanged module/native behavior be broken by the integration?",
+        "investigated": "Only two production files edited. Original14 native CP-OS navigation function/class ASTs unchanged. Existing handoff/Model tests still pass; strict selected-file mypy and Ruff pass.",
+        "verdict": "Selected paths verified; no whole-project/native qualification.",
+        "patch": "None beyond typed local optional-header map annotation.",
+        "verification": "Full focused83 tests; two-file mypy with silent import following;14 AST comparisons."
+      }
+    ],
+    "fixed": [
+      "Model/main issuer/content/calculation binding",
+      "advertised Model file presence",
+      "dense comparison table construction",
+      "dimension-feedback ordering",
+      "local source/gap table headings"
+    ],
+    "by_design": [
+      "Exact bundle bytes and embedded content checks are consistency evidence, not an independent audit of all issuer claims.",
+      "User-supplied previous/current selection defines latest; no filesystem timestamp inference.",
+      "Different period content may be compared with explicit limitations; no invented inter-period financial delta.",
+      "Legacy imported native decision-ledger remains historical code and is not this active route."
+    ],
+    "still_open": [
+      "Broader pathways and requested end-to-end workflow coverage.",
+      "General nested/nonstandard delivery formats and independent-context/provider qualification.",
+      "Imported native CP-8 decision-ledger owner is not converted or selected by this route."
+    ]
+  },
+  "rewrite_tournament": {
+    "mode": "No-argument post-edit, inline sequential, no agents; capped at two material symbols.",
+    "targets": [
+      "run_comparison",
+      "comparison_files"
+    ],
+    "skipped": "Small contracts, bundle-validation helper, CLI branch and verify_files extraction reviewed by focused confidence cases; docs/tests and annotation-only edits skipped.",
+    "impact_set": {
+      "run_comparison": [
+        "cpos.main --compare",
+        "tests/test_cpos_comparison.py",
+        "actual host exchange case"
+      ],
+      "comparison_files": [
+        "cpos.run_comparison checked_response and publication",
+        "verify_files and report renderer",
+        "tests/test_cpos_comparison.py"
+      ]
+    },
+    "invariants": [
+      "same callable signatures/return types and output semantics",
+      "actual source/bundle identity, periods, all seven comparison dimensions",
+      "retain/check before onward use, immutable responses, bounded repair, partial output never completed",
+      "no decision ledger, provider, Excel output or upstream analytical rerun"
+    ],
+    "candidates": {
+      "speed": "Single response digest in comparison_files; local digest alias in run_comparison. Full pair16 tests passed in3.77s.",
+      "memory": "Stream prefixed source-map updates; release parsed fact list after module construction. Full pair16 passed in3.75s.",
+      "readability": "Explicit local file/data variable names, unchanged parameters. Full pair16 passed in3.76s."
+    },
+    "bracket": {
+      "run_comparison": [
+        {
+          "A": "speed",
+          "B": "memory",
+          "winner": "B",
+          "reasons": [
+            "Both pass identical contracts.",
+            "Two intermediate23-key maps can be avoided.",
+            "Local alias adds no demonstrated benefit."
+          ]
+        },
+        {
+          "A": "previous challenger",
+          "B": "readability",
+          "winner": "B",
+          "reasons": [
+            "Clearer file-oriented names.",
+            "Same bounded memory/time complexity.",
+            "No explicit lifetime or iteration machinery."
+          ]
+        },
+        {
+          "A": "challenger",
+          "B": "incumbent",
+          "winner": "B",
+          "reasons": [
+            "Current typed names already distinguish views and bytes.",
+            "Proposals do not simplify state/verification ordering.",
+            "No material verified benefit justifies churn."
+          ]
+        }
+      ],
+      "comparison_files": [
+        {
+          "A": "single-digest speed",
+          "B": "memory",
+          "winner": "A",
+          "reasons": [
+            "One response identity computed once.",
+            "Removes duplicate SHA work without dropping checks.",
+            "No manual object-lifetime cleanup."
+          ]
+        },
+        {
+          "A": "previous challenger",
+          "B": "readability",
+          "winner": "A",
+          "reasons": [
+            "Digest name directly expresses shared lineage.",
+            "Variable expansion alone changes no complexity.",
+            "Smaller verified change."
+          ]
+        },
+        {
+          "A": "challenger",
+          "B": "incumbent",
+          "winner": "A",
+          "reasons": [
+            "Same source/artifact SHA by construction.",
+            "One duplicate digest removed.",
+            "All focused behavioral checks pass."
+          ]
+        }
+      ]
+    },
+    "winner": "run_comparison incumbent holds; comparison_files single-digest candidate applied.",
+    "justification": [
+      "Source and artifact identity now share one explicit digest.",
+      "The orchestration state/verification order remains unchanged.",
+      "Alternatives add no other verified material benefit."
+    ],
+    "final_code": [
+      {
+        "symbol": "run_comparison",
+        "winner": "Incumbent holds",
+        "path": "src/deploy_workflow/owners/cpos.py",
+        "lines": [
+          425,
+          509
+        ],
+        "sha256": "45cef45ed67b68ee1e8268d532ed5825db97f0b25af76fe947a27cbfcdfd841c",
+        "final_code": "```python\ndef run_comparison(\n    manifest: Path,\n    directory: Path,\n    *,\n    execute: Callable[[HandoffTask], bytes],\n    check: Callable[[HandoffTask, bytes], tuple[str, ...]],\n) -> Path:\n    \"\"\"CP-OS: verify both deliveries, request/check CP-8, publish its actual handoff.\"\"\"\n    request = ComparisonPlan.model_validate_json(manifest.read_bytes())\n    if request.run.requested_modules != (\"CP-8\",) or request.run.pathway != \"credit_snapshot\":\n        raise ValueError(\"cp8_scope: select CP-8 deliverable comparison on the snapshot shell\")\n    prior_view, prior = _comparison_bundle(manifest.parent, request.prior)\n    current_view, current = _comparison_bundle(manifest.parent, request.current)\n    for view in (prior_view, current_view):\n        if (view.run.issuer_id, view.run.issuer_name) != (\n            request.run.issuer_id,\n            request.run.issuer_name,\n        ):\n            raise ValueError(\"cp8_issuer: both deliveries must identify the selected issuer\")\n    if current_view.run.as_of != request.run.as_of:\n        raise ValueError(\n            \"cp8_as_of: comparison uses the selected current delivery's financial date\"\n        )\n    instructions = _pinned_inputs(manifest.parent, {\"CP-8\": request.instructions})[\"CP-8\"]\n    instructions.decode(\"utf-8\")\n    sources = {\n        **{\"prior/\" + k: v for k, v in prior.items()},\n        **{\"current/\" + k: v for k, v in current.items()},\n    }\n    source_hashes = {name: _sha(raw) for name, raw in sources.items()}\n    identity = request.model_dump(mode=\"json\", exclude={\"prior\", \"current\", \"instructions\"})\n    directory.mkdir(parents=True, exist_ok=True)\n    with _single_writer(directory):\n        _put(directory / \"identity.json\", json.dumps(identity, sort_keys=True).encode())\n        for raw in (*sources.values(), instructions):\n            _put(directory / \"inputs\" / _sha(raw), raw)\n        task = HandoffTask(\n            request.run,\n            \"CP-8\",\n            instructions,\n            MappingProxyType(sources),\n            MappingProxyType({}),\n            1,\n            (),\n        )\n\n        def checked_response(current_task: HandoffTask, raw: bytes) -> tuple[str, ...]:\n            try:\n                comparison_files(current_task.run, raw, source_hashes)\n            except ValueError as error:\n                if str(error).startswith(\"cp8_dimensions:\"):\n                    return (str(error),)\n                raise\n            return check(current_task, raw)\n\n        response, response_path = _handoff(\n            task, directory, execute, checked_response, request.max_attempts\n        )\n        files = comparison_files(request.run, response, source_hashes)\n        delivery_id = _sha(\n            json.dumps({name: _sha(raw) for name, raw in files.items()}, sort_keys=True).encode()\n        )\n        destination = directory / \"deliveries\" / delivery_id\n        if not destination.exists():\n            staging = directory / \"pending-deliveries\" / uuid4().hex\n            for name, raw in files.items():\n                _put(staging / name, raw)\n            verify_files(staging, files)\n            destination.parent.mkdir(parents=True, exist_ok=True)\n            staging.rename(destination)\n        report = verify_files(destination, files)\n        completion = {\n            \"kind\": \"cpos-deliverable-comparison/1\",\n            \"execution\": request.execution,\n            \"scope\": \"Checked CP-8 comparison of selected delivery bundles; not decision calibration or full pathway acceptance\",\n            \"provider_cap_usd\": 0,\n            \"response\": response_path,\n            \"response_sha256\": _sha(response),\n            \"input_files\": source_hashes,\n            \"delivery_id\": delivery_id,\n            \"report_sha256\": _sha(report.read_bytes()),\n        }\n        raw_completion = json.dumps(completion, indent=2).encode()\n        _put(directory / f\"completed-{_sha(raw_completion)}.json\", raw_completion)\n        return report\n```"
+      },
+      {
+        "symbol": "comparison_files",
+        "winner": "Snippet A: single response digest",
+        "path": "src/deploy_workflow/handoff_delivery.py",
+        "lines": [
+          447,
+          580
+        ],
+        "sha256": "6bee0b80032c146ee0c2eb65fc15778fa6d476897f3b04e60d275b7ff62df9d6",
+        "final_code": "```python\ndef comparison_files(run: Run, response: bytes, inputs: dict[str, str]) -> dict[str, bytes]:\n    \"\"\"Publish the checked CP-8 answer; input hashes retain prior/current lineage.\"\"\"\n    response_sha = hashlib.sha256(response).hexdigest()\n    from deploy_vii.report_view import _refs_by_fact, _slot\n    from deploy_workflow.model_handoff_delivery import _literal_tables\n\n    source, facts, tables, _ = _literal_tables(\"CP-8\", response, response_sha)\n    titles: dict[str | None, str] = {\n        \"Bundle\": \"Selected prior and current publications\",\n        \"Dimension\": \"Seven requested comparison dimensions\",\n        \"Section\": \"All five narrative sections\",\n        \"Restriction\": \"Continuing limitations\",\n    }\n    tables = [t.model_copy(update={\"title\": titles.get(t.row_header, t.title)}) for t in tables]\n    comparisons = [t for t in tables if t.row_header == \"Dimension\"]\n    if (\n        len(comparisons) != 1\n        or len(comparisons[0].rows) != 7\n        or {row.label for row in comparisons[0].rows}\n        != {\n            \"Values\",\n            \"Periods\",\n            \"Assumptions\",\n            \"Conclusions\",\n            \"Sources\",\n            \"Limitations\",\n            \"Output scope\",\n        }\n    ):\n        raise ValueError(\n            \"cp8_dimensions: one comparison table must cover the seven requested dimensions\"\n        )\n    if len(comparisons[0].columns) < 2 or any(\n        f.status != \"known\" for f in facts if f.table_id == comparisons[0].table_id\n    ):\n        raise ValueError(\"cp8_dimensions: explain both sides, including explicit absence or gaps\")\n    module = ModuleView(\n        module_id=\"CP-8\",\n        title=\"Run deliverable comparison\",\n        aliases=(),\n        status=\"candidate\",\n        artifact_sha256=response_sha,\n        facts=tuple(facts),\n        tables=tuple(tables),\n        limitations=(\n            \"Checked deliverable comparison, not investment-decision calibration or fresh issuer underwriting.\",\n        ),\n    )\n    view = View(\n        run=run,\n        mode=\"candidate\",\n        modules=(module,),\n        sources=(source,),\n        analytical_qualification=\"partial\",\n        native_host_qualification=\"unrun\",\n    )\n    pathway = next(p for p in pathways() if p.id == run.pathway).model_copy(\n        update={\n            \"title\": \"Run deliverable comparison\",\n            \"question\": \"What changed between the prior and current deliverables?\",\n            \"requested_modules\": (\"CP-8\",),\n            \"blocks\": (\"what-changed\",),\n        }\n    )\n    entries = tuple(\n        Binding(\n            fact_coord=FactCoord(module_id=\"CP-8\", table_id=t.table_id),\n            block_id=\"what-changed\" if t == comparisons[0] else \"evidence\",\n            cell_slot=t.table_id,\n            unit_class=\"text\",\n        )\n        for t in tables\n    )\n    report = build(view, pathway, (BindingMap(module_id=\"CP-8\", entries=entries),))\n    primary = _slot(\n        next(e for e in entries if e.block_id == \"what-changed\"),\n        module,\n        _refs_by_fact(report.index),\n    )\n    report = ReportView.model_validate_json(\n        report.model_copy(\n            update={\n                \"blocks\": tuple(\n                    b.model_copy(\n                        update={\n                            \"kind\": \"dense\",\n                            \"lines\": (),\n                            \"rows\": primary.rows,\n                            \"columns\": primary.columns,\n                            \"row_header\": primary.row_header,\n                            \"title\": \"Changes across the seven requested dimensions\",\n                            \"owner\": \"CP-8\",\n                            \"full_analysis_route\": \"CP-8\",\n                            \"width\": \"full\",\n                        }\n                    )\n                    for b in report.blocks\n                )\n            }\n        ).model_dump_json()\n    )\n    if any(b.state not in {\"populated\", \"collapsed\"} for b in report.blocks):\n        raise ValueError(\"cp8_delivery: comparison must contain actual checked content\")\n    rendered = render(view, report)\n    anchor = '<div id=\"call-root\"></div>'\n    if rendered.count(anchor) != 1:\n        raise ValueError(\"Existing renderer scope-banner location changed\")\n    scope = (\n        \"Comparison of the explicitly selected prior and current delivery bundles. \"\n        \"Latest local publication does not imply current issuer evidence. \"\n        \"No decision history, returns, new issuer analysis or Excel output. \"\n        \"Limitations and exact source bindings remain in the CP-8 handoff.\"\n    )\n    files = {\n        \"CP-8.md\": response,\n        \"view.json\": view.model_dump_json(indent=2).encode(),\n        \"report-view.json\": report.model_dump_json(indent=2).encode(),\n        \"report.html\": rendered.replace(\n            anchor,\n            '<section id=\"delivery-scope-banner\" class=\"banner\" role=\"note\">'\n            + html.escape(scope)\n            + \"</section>\"\n            + anchor,\n        ).encode(),\n        \"comparison-inputs.json\": (json.dumps(inputs, sort_keys=True, indent=2) + \"\\n\").encode(),\n    }\n    receipt = {\n        \"kind\": \"checked_deliverable_comparison\",\n        \"scope\": scope,\n        \"analytical_runtime_executed\": False,\n        \"files\": {name: hashlib.sha256(raw).hexdigest() for name, raw in files.items()},\n    }\n    files[\"delivery.json\"] = (json.dumps(receipt, indent=2) + \"\\n\").encode()\n    return files\n```"
+      }
+    ],
+    "verification": {
+      "command": "PYTHONPATH=src:tests:tests/prompts .venv/bin/pytest tests/test_cpos_comparison.py tests/test_cpos_handoffs.py tests/test_handoff_delivery.py tests/test_model_handoff_delivery.py -q",
+      "result": "83 passed in13.10s",
+      "scope_note": "Final83 includes a new CLI replay test; candidate trials had16 comparison tests before that test was added. Final typed local annotation and docstring are runtime-neutral; selected-file mypy rerun passed.",
+      "caller_typecheck": "Success: no issues found in2 source files (--follow-imports=silent)",
+      "ruff": "All checks passed",
+      "diff": "Compared exact pre-edit archive, final function ASTs and caller references; no Git metadata in final-workflow."
+    }
+  },
+  "browser": {
+    "initial_scope_and_seven_dimension_rows": true,
+    "source_inspector": "CP-8 line45; exact Values row; SHA8823f66c09cfb94cced230d10063d56e9afe9d6c3958ef6cd152de8724d57a42",
+    "final_module_route": "#CP-8 \u00b7 Run deliverable comparison, not decision post-mortem",
+    "final_four_correct_table_titles": true,
+    "continuing_gaps_visible": true,
+    "temporary_tabs": "initial tab explicitly closed; final tab unmarked for automatic cleanup",
+    "local_verification_server_stopped": true
+  },
+  "cli_replay_smoke": {
+    "manifest": "runs/cpos-tdg-comparison-001/workflow-replay.json",
+    "responses": "runs/cpos-tdg-comparison-001/responses.json",
+    "state": "/tmp/final-workflow-cp8-replay-smoke",
+    "result": "exit0; same final publication04082614\u2026; execution retained-response-replay, no new model execution"
+  },
+  "original_native_definitions_ast_unchanged": [
+    "NavigationRow",
+    "NavigationDestination",
+    "NavigationProof",
+    "_refuse",
+    "_sha",
+    "_extract",
+    "_model_link",
+    "_external_links",
+    "_check_links",
+    "_rows",
+    "_destinations",
+    "_derive",
+    "navigation",
+    "verify_navigation"
+  ],
+  "archived_pre_edit_sources": [
+    {
+      "consumed_path": "src/deploy_workflow/owners/cpos.py",
+      "archive_path": "docs/reuse/selected-methods/runtime/cpos-before-deliverable-comparison.py",
+      "sha256": "0557929d215f111705e2cf57240c2bc5df14ee5770efe6c410ba4ca59e6debe0",
+      "use": "Exact pre-edit source for the CP-8 deliverable-comparison integration. Existing native/navigation behavior remains historical evidence, not current CP-8 authority."
+    },
+    {
+      "consumed_path": "src/deploy_workflow/handoff_delivery.py",
+      "archive_path": "docs/reuse/selected-methods/runtime/handoff-delivery-before-comparison.py",
+      "sha256": "f992a8ca0e8c13648f19181dd6c6d6f812a2df6c3612b93c39fc331f2204b454",
+      "use": "Exact pre-edit source for the CP-8 deliverable-comparison integration. Existing native/navigation behavior remains historical evidence, not current CP-8 authority."
+    }
+  ],
+  "source_hashes": {
+    "src/deploy_workflow/owners/cpos.py": "0c14bcd8b61ce4b66b00cdcd130086e7826daca33ebede388ea2fdda4b289158",
+    "src/deploy_workflow/handoff_delivery.py": "d5d7fe76b2cb3c4e1e7ad3bf0b67dd814af0f48e6c3a1c513ef72ea804ca79da",
+    "src/deploy_workflow/owners/cp8.py": "b79e969584902c189fba220c1b26f676bfe001abe38db35e6750444ceb729c6a",
+    "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+    "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba",
+    "tests/test_cpos_comparison.py": "6659591798bc821cf8f60e553dd4553836852aed6be73ec7f22a51483a33f8e3"
+  }
+}

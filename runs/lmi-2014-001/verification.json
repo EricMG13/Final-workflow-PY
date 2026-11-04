@@ -1,0 +1,570 @@
+{
+  "scope": "Actual same-session historical LMI source/structural/control case; no original bytes/visual or current legal status claim. Acquisition and preflight precede instruction lock.",
+  "source": {
+    "url": "https://www.sec.gov/Archives/edgar/data/1059562/000119312514244046/d744045dex46.htm",
+    "captures": 7,
+    "indexed_lines": 708,
+    "missing": [],
+    "conflicting_overlaps": 0,
+    "matching_overlaps": 616,
+    "files": {
+      "runs/lmi-2014-001/sources/source-lines.txt": "79d954d69435bc83728b8bf2f7592fe33712e9c16d465a814ea151510c9bedb7",
+      "runs/lmi-2014-001/sources/web-captures.json": "427359bcfff5768648a0b824c346c665213c4750e4113266b9028d7428994935"
+    }
+  },
+  "instructions_sha256": "8b2113a20c2d14af0190111a170f40b8ba7a8bdcd8298e202d967547c2609d69",
+  "cp0_sha256": "aefd1746676cfbf5a5f3d51f8c93ecaccbed0d3ba6e4ce5e78746a3c0898d1ff",
+  "acknowledging_entities": [
+    {
+      "name": "LMI AEROSPACE, INC.",
+      "source_index": 592,
+      "role": "Company",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "D3 Technologies, Inc.",
+      "source_index": 597,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "Integrated Technologies, Inc.",
+      "source_index": 602,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "Leonard’s Metal, Inc.",
+      "source_index": 607,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "LMI Kitting, LLC",
+      "source_index": 618,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "LMI Finishing, Inc.",
+      "source_index": 623,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "Precise Machine Company",
+      "source_index": 628,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "TASS, Inc.",
+      "source_index": 633,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "TASS Asia Pacific (AP) PTY LTD",
+      "source_index": 638,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "TASS-EU Limited",
+      "source_index": 643,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "Tempco Engineering, Inc.",
+      "source_index": 654,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "Valent Aerostructures, LLC",
+      "source_index": 659,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "Valent Aerostructures – Lenexa, LLC",
+      "source_index": 664,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "Valent Aerostructures – Tulsa, LLC",
+      "source_index": 669,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "Ozark Mountain Technologies, LLC",
+      "source_index": 674,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "Valent Aerostructures – Wichita, LLC",
+      "source_index": 679,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "Valent Aerostructures – St. Louis, Inc.",
+      "source_index": 690,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "Valent Aerostructures – Washington, LLC",
+      "source_index": 695,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    },
+    {
+      "name": "Versaform Corp.",
+      "source_index": 700,
+      "role": "Guarantor acknowledger as described in ICA",
+      "assets": null,
+      "ebitda": null,
+      "carrying_debt": null,
+      "immediate_parent": null,
+      "ownership_percent": null,
+      "jurisdiction": null,
+      "restricted_designation": null
+    }
+  ],
+  "cp4b": {
+    "consumed": {
+      "runs/lmi-2014-001/CP-0.md": "aefd1746676cfbf5a5f3d51f8c93ecaccbed0d3ba6e4ce5e78746a3c0898d1ff",
+      "runs/lmi-2014-001/instructions.md": "8b2113a20c2d14af0190111a170f40b8ba7a8bdcd8298e202d967547c2609d69",
+      "runs/lmi-2014-001/sources/source-lines.txt": "79d954d69435bc83728b8bf2f7592fe33712e9c16d465a814ea151510c9bedb7",
+      "runs/lmi-2014-001/sources/web-captures.json": "427359bcfff5768648a0b824c346c665213c4750e4113266b9028d7428994935"
+    },
+    "methods": {
+      "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/references/CP-4B_RUNBOOK.md": "31ed040b5604c63dac454a87206036f9b9a17f160843232d755cff4e48a019c1",
+      "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/references/REF_CP-4B_STEPS.md": "62c3fc234a4eeab776af3233d5013eb45ce2eebe53d8c612948b00b97cad284e"
+    },
+    "attempt_1_sha256": "3707340e7eec85ac47c87c854eda2e3bccc7ce5fac711242395728b1656724ab",
+    "attempt_2_sha256": "e186678812528929002a854fe19d79f66dbf92c080a2ab096768a40229711665",
+    "repair": {
+      "observed_omission": "Attempt 1 left collateral differences in a general gap without carrying the actual Section2.4 conditions.",
+      "source_indices": [
+        201,
+        208,
+        212
+      ],
+      "fixed": "Attempt 2 carries the conditional equity/local-law/new-asset differences; no unsupported entity classification or amount added.",
+      "failed_answer_retained": true
+    },
+    "checks": {
+      "nineteen_named_rows_exactly_once": true,
+      "nineteen_financial_null_triples": true,
+      "source_description_not_independent_guarantee_perfection_assurance": true,
+      "lien_not_general_payment_or_structural_subordination": true,
+      "no_unusable_capacity_or_recovery_score_invented": true,
+      "combined_matrix_transport_explicit": true
+    },
+    "scope": "Actual partial structural map, not full current perimeter/rights/value or native-schema acceptance."
+  },
+  "cp4d_preparation": {
+    "consumed_cp4b_path": "runs/lmi-2014-001/CP-4B-attempt-2.md",
+    "consumed_cp4b_sha256": "e186678812528929002a854fe19d79f66dbf92c080a2ab096768a40229711665",
+    "synthetic_calendar_controls": [
+      {
+        "synthetic": true,
+        "case": "later-receipt-controls",
+        "declaration_and_demand": "2014-07-01",
+        "first_agent_receipt": "2014-07-10",
+        "action_intention_notice": "2014-12-20",
+        "later_start": "2014-07-10",
+        "elapsed_180_day_marker": "2015-01-06",
+        "elapsed_15_day_notice_marker": "2015-01-04",
+        "calendar_only_marker": "2015-01-06",
+        "legal_or_actual_eligibility": null,
+        "source": "I1 Section3.1(a), L225"
+      },
+      {
+        "synthetic": true,
+        "case": "later-intention-notice-controls",
+        "declaration_and_demand": "2014-07-01",
+        "first_agent_receipt": "2014-07-10",
+        "action_intention_notice": "2014-12-31",
+        "later_start": "2014-07-10",
+        "elapsed_180_day_marker": "2015-01-06",
+        "elapsed_15_day_notice_marker": "2015-01-15",
+        "calendar_only_marker": "2015-01-15",
+        "legal_or_actual_eligibility": null,
+        "source": "I1 Section3.1(a), L225"
+      },
+      {
+        "synthetic": true,
+        "case": "later-declaration-controls",
+        "declaration_and_demand": "2014-07-20",
+        "first_agent_receipt": "2014-07-10",
+        "action_intention_notice": "2014-12-20",
+        "later_start": "2014-07-20",
+        "elapsed_180_day_marker": "2015-01-16",
+        "elapsed_15_day_notice_marker": "2015-01-04",
+        "calendar_only_marker": "2015-01-16",
+        "legal_or_actual_eligibility": null,
+        "source": "I1 Section3.1(a), L225"
+      }
+    ],
+    "actual_issuer_event_dates": {
+      "default_declaration": null,
+      "demand": null,
+      "notice_receipt": null,
+      "action_intention": null
+    },
+    "control_scope": "Elapsed-date arithmetic only, no actual notice/default, legal deadline/time-of-day determination or automatic permission. Diligent senior enforcement/stay and other rights remain independent conditions."
+  },
+  "cp4d": {
+    "consumed": {
+      "runs/lmi-2014-001/CP-4B-attempt-2.md": "e186678812528929002a854fe19d79f66dbf92c080a2ab096768a40229711665",
+      "runs/lmi-2014-001/CP-0.md": "aefd1746676cfbf5a5f3d51f8c93ecaccbed0d3ba6e4ce5e78746a3c0898d1ff",
+      "runs/lmi-2014-001/instructions.md": "8b2113a20c2d14af0190111a170f40b8ba7a8bdcd8298e202d967547c2609d69",
+      "runs/lmi-2014-001/sources/source-lines.txt": "79d954d69435bc83728b8bf2f7592fe33712e9c16d465a814ea151510c9bedb7",
+      "runs/lmi-2014-001/sources/web-captures.json": "427359bcfff5768648a0b824c346c665213c4750e4113266b9028d7428994935"
+    },
+    "methods": {
+      "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/SKILL.md": "8a3b12f3f37359463434177759febac1ffcf0f8c484aa0508eb7119f7b6548b2",
+      "/Users/ericguei/Documents/cp-os/skills/cp-4-legal-covenant-interpreter/references/CP-4D_SCHEMA_REFERENCE.md": "0695f3917d43bba80aafe5e4d29045afbd00acbefd6ad55b3e40913141328cf8"
+    },
+    "output_sha256": "b18a5ede24ce956c7c3fe23d38b099dd2f841eef8d568f9f0c198d15d78f5776",
+    "selected_register_views": {
+      "T4F.1": {
+        "columns": [
+          "Document",
+          "Parties",
+          "Date",
+          "Governing law",
+          "Status",
+          "Source / locator",
+          "Evidence ID"
+        ],
+        "body_rows": 1
+      },
+      "T4F.2": {
+        "columns": [
+          "Creditor class",
+          "Rank",
+          "Security interest",
+          "Enforcement rights",
+          "Voting weight / authority",
+          "Evidence ID"
+        ],
+        "body_rows": 2
+      },
+      "T4F.3": {
+        "columns": [
+          "Provision",
+          "Standstill / trigger",
+          "Controller / affected class",
+          "Mechanic → creditor consequence",
+          "Evidence ID"
+        ],
+        "body_rows": 4
+      },
+      "T4F.4": {
+        "columns": [
+          "Provision",
+          "Turnover / release authority",
+          "Purchase option",
+          "Conditions / contrary protection",
+          "Evidence ID"
+        ],
+        "body_rows": 5
+      },
+      "T4F.5": {
+        "columns": [
+          "Creditor class",
+          "Recovery-control mechanism",
+          "Control limitation",
+          "Severity / inference",
+          "Credit implication",
+          "Evidence ID"
+        ],
+        "body_rows": 2
+      },
+      "T4F.6": {
+        "columns": [
+          "Gap",
+          "Missing data",
+          "Why it matters",
+          "Affected output",
+          "Required follow-up"
+        ],
+        "body_rows": 5
+      }
+    },
+    "checks": {
+      "six_common_headings": true,
+      "six_populated_views_columns_consistent": true,
+      "all_source_terms_checked": true,
+      "actual_map_hash_consumed": true,
+      "all_nineteen_entity_rows_retained_by_reference": true,
+      "lien_payment_structural_distinction": true,
+      "actual_event_dates_or_eligibility": null,
+      "no_numeric_recovery_or_capacity": true
+    },
+    "source_checks": [
+      {
+        "source_index": 225,
+        "terms": [
+          "180 days",
+          "later of:",
+          "15 days",
+          "diligently pursuing",
+          "stay"
+        ],
+        "present": true
+      },
+      {
+        "source_index": 193,
+        "terms": [
+          "does not subordinate",
+          "right of payment"
+        ],
+        "present": true
+      },
+      {
+        "source_index": 243,
+        "terms": [
+          "bid in cash",
+          "credit bid"
+        ],
+        "present": true
+      },
+      {
+        "source_index": 262,
+        "terms": [
+          "held in trust",
+          "paid over"
+        ],
+        "present": true
+      },
+      {
+        "source_index": 271,
+        "terms": [
+          "Enforcement Action"
+        ],
+        "present": true
+      },
+      {
+        "source_index": 278,
+        "terms": [
+          "automatically",
+          "simultaneously released"
+        ],
+        "present": true
+      },
+      {
+        "source_index": 349,
+        "terms": [
+          "$10.0 million",
+          "Maximum First Lien Indebtedness Amount"
+        ],
+        "present": true
+      },
+      {
+        "source_index": 359,
+        "terms": [
+          "prior written consent"
+        ],
+        "present": true
+      },
+      {
+        "source_index": 335,
+        "terms": [
+          "Refinancing",
+          "deemed not to have occurred"
+        ],
+        "present": true
+      },
+      {
+        "source_index": 375,
+        "terms": [
+          "reinstatement"
+        ],
+        "present": true
+      },
+      {
+        "source_index": 486,
+        "terms": [
+          "majority in principal amount",
+          "writing signed"
+        ],
+        "present": true
+      }
+    ],
+    "purchase_term_review": {
+      "hits": [
+        {
+          "source_index": 57,
+          "text": "of electronic funds transfers through the direct Federal Reserve Fedline system), (ii) credit cards, (iii) credit card processing services, (iv) debit cards, (v) stored value cards, (vi) purchase cards and (vii) other cash management arrangements or agreements to provide for such services, in each case that are secured (or purported to be secured) by any collateral under the First Lien Security Documents."
+        },
+        {
+          "source_index": 83,
+          "text": "“Equity Interests” means Capital Stock and all warrants, options or other rights to acquire Capital Stock (but excluding any debt security that is convertible into, or exchangeable for, Capital Stock)."
+        },
+        {
+          "source_index": 111,
+          "text": "“Indebtedness” means, with respect to any specified Person, any indebtedness of such Person (excluding accrued expenses and trade payables), whether or not contingent: (i) in respect of borrowed money; (ii) evidenced by bonds, notes, debentures or similar instruments; (iii) all Obligations for the reimbursement of any obligor on any letter of credit, banker’s acceptance or similar credit transaction, whether or not then due; (iv) representing Capital Lease Obligations; (v) representing the balance deferred and unpaid of the purchase price of any property or services due more than six months after such property is acquired or such services are completed; or (vi) representing net Obligations under any Hedging Obligations, if and to the extent any of the preceding items (other than letters of credit and Hedging Obligations) would appear as a liability upon a balance sheet of the specified Person prepared in accordance with generally accepted accounting principles."
+        },
+        {
+          "source_index": 125,
+          "text": "“Lien” means, with respect to any asset, any mortgage, lien, pledge, charge, security interest or encumbrance of any kind in respect of such asset, whether or not filed, recorded or otherwise perfected under applicable law, including any conditional sale or other title retention agreement, any lease in the nature thereof, any option or other agreement to sell or give a security interest in and any filing of or agreement to give any financing statement under the UCC (or equivalent statutes) of any jurisdiction."
+        },
+        {
+          "source_index": 243,
+          "text": "(e) Section 3.1 hereof shall not be construed to in any way limit or impair the right of (i) any First Lien Secured Party or Second Lien Secured Party to bid in cash for or purchase in cash Collateral at any private or judicial foreclosure upon such Collateral initiated by any of them, it being acknowledged and agreed that the Second Lien Secured Parties may not (but the First Lien Secured Parties may) prior to the Discharge of First Lien Obligations credit bid any of their claims and (ii) any Second Lien Secured Party’s right to receive any remaining proceeds of Collateral after the Discharge of First Lien Obligations."
+        }
+      ],
+      "finding": "Express cash collateral purchase/bid right found; no standalone first-lien debt buyout option identified in these hits and the examined ICA. Additional underlying rights unreviewed."
+    },
+    "synthetic_semantic_controls": [
+      {
+        "premise": "Calendar markers have passed, but senior enforcement is commenced and diligently pursuing material Collateral; no Discharge/waiver assumed.",
+        "model_verdict": "The source override remains; elapsed time is not an automatic junior remedy permission.",
+        "source_index": 225,
+        "actual_event": false
+      },
+      {
+        "premise": "The 180-day marker passes in insolvency, but the proposed action requires stay relief and first-agent prior written consent is absent.",
+        "model_verdict": "Calendar passage does not supply the separate Section6.2 consent.",
+        "source_index": 359,
+        "actual_event": false
+      }
+    ],
+    "semantic_review": "Actual response/instruction/source comparison supports the stated conditions; formatting/hash/term tests do not prove independent legal judgment or current enforceability. Combined selected table columns are explicit functional views, not legacy literal-schema validation."
+  },
+  "cp4c_consumer": {
+    "path": "runs/lmi-2014-001/CP-4C-intake.md",
+    "sha256": "091bdc13d2e335f1e6385a678094b1e2e6da33ad2252f027ac25181128676d7a",
+    "consumed": {
+      "runs/lmi-2014-001/CP-4B-attempt-2.md": "e186678812528929002a854fe19d79f66dbf92c080a2ab096768a40229711665",
+      "runs/lmi-2014-001/CP-4D-attempt-1.md": "b18a5ede24ce956c7c3fe23d38b099dd2f841eef8d568f9f0c198d15d78f5776"
+    },
+    "checks": {
+      "six_common_headings": true,
+      "six_operand_consequences": true,
+      "exact_producer_hashes": true,
+      "no_commitment_as_drawn_claim": true,
+      "no_guarantee_or_asset_double_count": true,
+      "conditional_pool_and_control_rules_carried": true,
+      "positive_numerical_recovery_or_fulcrum_proven": false
+    },
+    "scope": "Actual downstream intake only; unknown claims/value cannot prove the numerical recovery function."
+  }
+}

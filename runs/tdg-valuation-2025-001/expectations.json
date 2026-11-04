@@ -1,0 +1,177 @@
+{
+  "scope": "Independent Fraction arithmetic on located issuer literals, frozen before production-context execution and producer output; current host has seen the source and oracle, so not a blind or independent-model audit. Proxy assumptions do not establish full EV.",
+  "expected": {
+    "class_a_equity_usd": {
+      "fraction": [
+        "145421547948",
+        "25"
+      ],
+      "decimal_6dp": "5816861917.920000"
+    },
+    "class_b_equity_usd": {
+      "fraction": [
+        "666915112",
+        "1"
+      ],
+      "decimal_6dp": "666915112.000000"
+    },
+    "market_cap_usdm": {
+      "fraction": [
+        "40523606437",
+        "6250000"
+      ],
+      "decimal_6dp": "6483.777030"
+    },
+    "borrowing_carrying_usdm": {
+      "fraction": [
+        "472843",
+        "500"
+      ],
+      "decimal_6dp": "945.686000"
+    },
+    "finance_lease_usdm": {
+      "fraction": [
+        "5363",
+        "40"
+      ],
+      "decimal_6dp": "134.075000"
+    },
+    "borrowing_principal_usdm": {
+      "fraction": [
+        "946",
+        "1"
+      ],
+      "decimal_6dp": "946.000000"
+    },
+    "proxy_principal_usdm": {
+      "fraction": [
+        "46886493937",
+        "6250000"
+      ],
+      "decimal_6dp": "7501.839030"
+    },
+    "proxy_carrying_usdm": {
+      "fraction": [
+        "46884531437",
+        "6250000"
+      ],
+      "decimal_6dp": "7501.525030"
+    },
+    "proxy_fair_debt_usdm": {
+      "fraction": [
+        "46802556437",
+        "6250000"
+      ],
+      "decimal_6dp": "7488.409030"
+    },
+    "debt_fair_sensitivity_usdm": {
+      "fraction": [
+        "-1343",
+        "100"
+      ],
+      "decimal_6dp": "-13.430000"
+    },
+    "net_carrying_sensitivity_usdm": {
+      "fraction": [
+        "-157",
+        "500"
+      ],
+      "decimal_6dp": "-0.314000"
+    },
+    "proxy_plus_rpa_usdm": {
+      "fraction": [
+        "47667743937",
+        "6250000"
+      ],
+      "decimal_6dp": "7626.839030"
+    },
+    "moog_ebitda_proxy_usdm": {
+      "fraction": [
+        "488451",
+        "1000"
+      ],
+      "decimal_6dp": "488.451000"
+    },
+    "moog_revenue_usdm": {
+      "fraction": [
+        "482578",
+        "125"
+      ],
+      "decimal_6dp": "3860.624000"
+    },
+    "ev_proxy_revenue": {
+      "fraction": [
+        "46886493937",
+        "24128900000"
+      ],
+      "decimal_6dp": "1.943167"
+    },
+    "ev_proxy_ebitda_proxy": {
+      "fraction": [
+        "46886493937",
+        "3052818750"
+      ],
+      "decimal_6dp": "15.358427"
+    },
+    "tdg_ordinary_ebitda_usdm": {
+      "fraction": [
+        "4568",
+        "1"
+      ],
+      "decimal_6dp": "4568.000000"
+    },
+    "tdg_as_defined_usdm": {
+      "fraction": [
+        "4760",
+        "1"
+      ],
+      "decimal_6dp": "4760.000000"
+    },
+    "tdg_revenue_usdm": {
+      "fraction": [
+        "8831",
+        "1"
+      ],
+      "decimal_6dp": "8831.000000"
+    },
+    "tdg_revenue_indication_usdm": {
+      "fraction": [
+        "414054627957647",
+        "24128900000"
+      ],
+      "decimal_6dp": "17160.112063"
+    },
+    "tdg_ebitda_indication_usdm": {
+      "fraction": [
+        "107088752152108",
+        "1526409375"
+      ],
+      "decimal_6dp": "70157.294567"
+    }
+  },
+  "required_missing": [
+    "complete_enterprise_value",
+    "minority_market_value",
+    "preferred_market_value",
+    "eligible_investment_adjustment",
+    "transaction_ev_ebitda",
+    "transaction_ev_revenue",
+    "sector_median",
+    "sector_average",
+    "sector_range"
+  ],
+  "known_component_assumptions": "Selected debt/finance-lease/cash convention; no automatic zero substitution for unestablished economic adjustments.",
+  "shares": {
+    "a_issued": 43863458,
+    "a_treasury": 15013457,
+    "a_sect": 425148,
+    "a_outstanding": 28424853,
+    "b_issued": 7416255,
+    "b_treasury": 2825989,
+    "b_sect": 526644,
+    "b_serp": 826170,
+    "b_outstanding": 3237452,
+    "basic_weighted": 31680280,
+    "diluted_weighted": 32082601
+  }
+}

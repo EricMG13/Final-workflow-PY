@@ -1,0 +1,181 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "cpos-tdg-fy2024-conditional-forecast-1",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "distressed_restructuring",
+    "requested_modules": [
+      "CP-2G"
+    ]
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "requests/CP-0/419f7d50b10f2adfb39da362229b3ba4215ca6520600477e78872340671b4f63/1.response.md",
+      "sha256": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0"
+    },
+    "CP-1": {
+      "path": "requests/CP-1/c620e33f4c5d40b8e11cc3576664a4343b2eadc6723fec0e5e7082766d2e7f94/1.response.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "CP-2A": {
+      "path": "requests/CP-2A/6b52c2bdeb3804ee5a140d9a6fdf0f4b11de567fac534ad27239d00ac5cb269e/1.response.md",
+      "sha256": "7078175609830c12aaee0d8ab1ead017e5b6a77796856f3cd9f58c34e690c04f"
+    },
+    "CP-2G": {
+      "path": "requests/CP-2G/5238c93db31b7fea8f248d38d78afeda8c33346dc87fe6d2df34f0f6052e0212/1.response.md",
+      "sha256": "696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928"
+    }
+  },
+  "model": null,
+  "layout": {
+    "blocks": [
+      "forward-credit-path",
+      "forward-breakpoints"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.4 — operating paths",
+        "kind": "table",
+        "block_id": "forward-credit-path",
+        "table_header": null,
+        "prefix": null,
+        "label": "Conditional operating paths · USD millions"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.5 — debt and cash roll-forward",
+        "kind": "table",
+        "block_id": "forward-credit-path",
+        "table_header": null,
+        "prefix": null,
+        "label": "Debt and cash recurrences · USD millions"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.6 — calculated metrics and definitions",
+        "kind": "table",
+        "block_id": "forward-credit-path",
+        "table_header": null,
+        "prefix": null,
+        "label": "Calculated metrics · distinct definitions"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.2 — historical-to-conditional bridge and definitions",
+        "kind": "table",
+        "block_id": "forward-credit-path",
+        "table_header": null,
+        "prefix": null,
+        "label": "Historical anchors and unresolved definitions"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.3 — assumption register",
+        "kind": "table",
+        "block_id": "forward-credit-path",
+        "table_header": null,
+        "prefix": null,
+        "label": "Explicit assumptions · not an issuer cash plan"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.1 — upstream and research adoption",
+        "kind": "table",
+        "block_id": "forward-credit-path",
+        "table_header": "Producer",
+        "prefix": null,
+        "label": "Retained input contributions and restrictions"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.1 — upstream and research adoption",
+        "kind": "table",
+        "block_id": "forward-credit-path",
+        "table_header": "question_id",
+        "prefix": null,
+        "label": "Qualified historical guidance adoption"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.8 — deleveraging and disconfirmation",
+        "kind": "prose",
+        "block_id": "forward-credit-path",
+        "table_header": null,
+        "prefix": null,
+        "label": "Deleveraging dependencies and contrary case"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.7 — first tests and consequences",
+        "kind": "table",
+        "block_id": "forward-breakpoints",
+        "table_header": null,
+        "prefix": null,
+        "label": "First analyst tests · not covenants"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.9 — gaps and delivery-driver readiness",
+        "kind": "table",
+        "block_id": "forward-breakpoints",
+        "table_header": "Gap",
+        "prefix": null,
+        "label": "Unresolved evidence and model consequences"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.9 — gaps and delivery-driver readiness",
+        "kind": "table",
+        "block_id": "forward-breakpoints",
+        "table_header": "Driver family",
+        "prefix": null,
+        "label": "Driver readiness · missing remains missing"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "forward-credit-path",
+        "table_header": null,
+        "prefix": null,
+        "label": "Conditional view and historical scope"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "Calculations",
+        "kind": "prose",
+        "block_id": "forward-breakpoints",
+        "table_header": null,
+        "prefix": null,
+        "label": "Exact calculation record and fiscal-wrapper limit"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "Gaps",
+        "kind": "prose",
+        "block_id": "forward-breakpoints",
+        "table_header": null,
+        "prefix": null,
+        "label": "Unproven scope"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "Next module",
+        "kind": "prose",
+        "block_id": "forward-breakpoints",
+        "table_header": null,
+        "prefix": null,
+        "label": "Next consumer and evidence needs"
+      }
+    ],
+    "scope": "Historical consolidated TDG, FY2024/September 30 base; guidance dated November 7, 2024 and separately dated December-quarter context. This retrospective illustration is not an as-of-November-7 backtest or evidence-supported central forecast. USD millions; October–September planning years FY2025–FY2027. Stipulated cash drivers, annual repayments and excluded financing/other uses are assumptions, not a complete issuer plan. Model CFO/cash proxy and mechanical net debt are not issuer CFO/FCF or accessible liquidity. Missing minimum cash/access, quarterly troughs, complete maturities/refinancing, quality earnings and segment-driver mapping remain gaps. Analyst watches are not covenants or probabilities. All nine analytical registers are preserved. Existing native fiscal-wrapper refusal remains unpassed; this report preserves the explicit source planning dates. Retained-response replay, not fresh model/provider/native acceptance. Supplemental handoffs are pinned context, not newly launched native heads. Excel is ingestion-only; historical workbook-readiness language is superseded.",
+    "title": "TransDigm · historical conditional credit paths",
+    "question": "How do the stated scenarios change debt-service coverage and cash, and what remains unsupported?",
+    "issuer_aliases": []
+  }
+}

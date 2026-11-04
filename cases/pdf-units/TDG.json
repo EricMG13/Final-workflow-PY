@@ -1,0 +1,88 @@
+{
+ "schema": "pdf-units/1",
+ "doc": "TDG",
+ "document": "TransDigm Group FY2024 annual report (10-K, fiscal year ended 30 Sep 2024)",
+ "source_name": "TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+ "source_sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+ "page_numbering": "page N = the intake locator page:N (1-based PDF page index), not the printed folio",
+ "units": [
+  {
+   "kind": "BS",
+   "title_as_printed": "CONSOLIDATED BALANCE SHEETS",
+   "title_lines": [
+    "CONSOLIDATED BALANCE SHEETS"
+   ],
+   "pages": [
+    105
+   ],
+   "basis": "Title line 2 of p105 (printed F-3), upper case, followed by 'AS OF SEPTEMBER 30, 2024 AND 2023'; the table ends with TOTAL LIABILITIES AND STOCKHOLDERS' DEFICIT on the same page."
+  },
+  {
+   "kind": "IS",
+   "title_as_printed": "CONSOLIDATED STATEMENTS OF INCOME",
+   "title_lines": [
+    "CONSOLIDATED STATEMENTS OF INCOME"
+   ],
+   "pages": [
+    106
+   ],
+   "basis": "Title line 2 of p106 (F-4); NET SALES through NET INCOME ATTRIBUTABLE TO TD GROUP and per-share data on the one page."
+  },
+  {
+   "kind": "CI",
+   "title_as_printed": "CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME",
+   "title_lines": [
+    "CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME"
+   ],
+   "pages": [
+    107
+   ],
+   "basis": "Title line 2 of p107 (F-5); starts from Net income, ends at TOTAL COMPREHENSIVE INCOME ATTRIBUTABLE TO TD GROUP."
+  },
+  {
+   "kind": "SE",
+   "title_as_printed": "CONSOLIDATED STATEMENTS OF CHANGES IN STOCKHOLDERS’ DEFICIT",
+   "title_lines": [
+    "CONSOLIDATED STATEMENTS OF CHANGES IN STOCKHOLDERS’ DEFICIT"
+   ],
+   "pages": [
+    108
+   ],
+   "basis": "Title line 2 of p108 (F-6); three fiscal years of BALANCE rows, ends at BALANCE—September 30, 2024."
+  },
+  {
+   "kind": "CFS",
+   "title_as_printed": "CONSOLIDATED STATEMENTS OF CASH FLOWS",
+   "title_lines": [
+    "CONSOLIDATED STATEMENTS OF CASH FLOWS"
+   ],
+   "pages": [
+    109
+   ],
+   "basis": "Title line 2 of p109 (F-7); operating, investing and financing sections and the cash roll all on the one page."
+  }
+ ],
+ "not_units": [
+  {
+   "page": 62,
+   "looks_like": "BS, IS, CI, SE, CFS titles",
+   "reason": "Item 15(a)(1) list of the statements with F-page numbers; dot leaders and page numbers, no statement data."
+  },
+  {
+   "page": 101,
+   "looks_like": "BS, IS, CI, SE, CFS titles",
+   "reason": "Item 8 / Item 15(a)(1) index page of the F-pages; titles and page references only."
+  },
+  {
+   "page": 104,
+   "looks_like": "none (page before the BS)",
+   "reason": "Tail of the auditor's report (critical audit matter on goodwill, signature, F-2); prose."
+  },
+  {
+   "page": 110,
+   "looks_like": "mentions 'consolidated statements of income'",
+   "reason": "Notes to the financial statements, Note 1 text (F-8); lower-case references inside sentences."
+  }
+ ],
+ "fixture_pages_not_listed": []
+}

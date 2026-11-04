@@ -1,0 +1,1516 @@
+{
+  "spans": [
+    {
+      "locator": "sheet:Tabelle1!A1",
+      "text": "Consolidated statement of income",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A2",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A3",
+      "text": "in EUR million",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B3",
+      "text": "Notes",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C3",
+      "text": "1-12 23",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D3",
+      "text": "1-12 24",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A4",
+      "text": "Net interest income",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B4",
+      "text": "2",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C4",
+      "text": "7.2279999999999998",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D4",
+      "text": "7.5279999999999996",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A5",
+      "text": "Interest income",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B5",
+      "text": "2",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C5",
+      "text": "15.045",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D5",
+      "text": "15.353",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A6",
+      "text": "Other similar income",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B6",
+      "text": "2",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C6",
+      "text": "4.4459999999999997",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D6",
+      "text": "3.7559999999999998",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A7",
+      "text": "Interest expenses",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B7",
+      "text": "2",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C7",
+      "text": "-6.8730000000000002",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D7",
+      "text": "-7.5490000000000004",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A8",
+      "text": "Other similar expenses",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B8",
+      "text": "2",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C8",
+      "text": "-5.3890000000000002",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D8",
+      "text": "-4.032",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A9",
+      "text": "Net fee and commission income",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B9",
+      "text": "3",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C9",
+      "text": "2.64",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D9",
+      "text": "2.9380000000000002",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A10",
+      "text": "Fee and commission income",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B10",
+      "text": "3",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C10",
+      "text": "3.1040000000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D10",
+      "text": "3.4540000000000002",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A11",
+      "text": "Fee and commission expenses",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B11",
+      "text": "3",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C11",
+      "text": "-464",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D11",
+      "text": "-517",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A12",
+      "text": "Dividend income",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B12",
+      "text": "4",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C12",
+      "text": "38",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D12",
+      "text": "39",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A13",
+      "text": "Net trading result",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B13",
+      "text": "5",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C13",
+      "text": "754",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D13",
+      "text": "519",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A14",
+      "text": "Gains/losses from financial instruments measured at fair value through profit or loss",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B14",
+      "text": "6",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C14",
+      "text": "-306",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D14",
+      "text": "-82",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A15",
+      "text": "Net result from equity method investments",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B15",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C15",
+      "text": "23",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D15",
+      "text": "27",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A16",
+      "text": "Rental income from investment properties & other operating leases",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B16",
+      "text": "7",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C16",
+      "text": "175",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D16",
+      "text": "210",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A17",
+      "text": "Personnel expenses",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B17",
+      "text": "8",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C17",
+      "text": "-2.9910000000000001",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D17",
+      "text": "-3.202",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A18",
+      "text": "Other administrative expenses",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B18",
+      "text": "8",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C18",
+      "text": "-1.468",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D18",
+      "text": "-1.5289999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A19",
+      "text": "Depreciation and amortisation",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B19",
+      "text": "8",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C19",
+      "text": "-560",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D19",
+      "text": "-547",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A20",
+      "text": "Gains/losses from derecognition of financial assets measured at amortised cost ",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B20",
+      "text": "9",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C20",
+      "text": "-13",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D20",
+      "text": "-90",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A21",
+      "text": "Other gains/losses from derecognition of financial instruments not measured at fair value through profit or loss ",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B21",
+      "text": "10",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C21",
+      "text": "-128",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D21",
+      "text": "-1",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A22",
+      "text": "Impairment result from financial instruments",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B22",
+      "text": "11",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C22",
+      "text": "-128",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D22",
+      "text": "-397",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A23",
+      "text": "Other operating result",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B23",
+      "text": "12",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C23",
+      "text": "-468",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D23",
+      "text": "-414",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A24",
+      "text": "Levies on banking activities",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B24",
+      "text": "12",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C24",
+      "text": "-183",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D24",
+      "text": "-245",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A25",
+      "text": "Pre-tax result from continuing operations",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B25",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C25",
+      "text": "4.7949999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D25",
+      "text": "4.9969999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A26",
+      "text": "Taxes on income",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B26",
+      "text": "13",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C26",
+      "text": "-874",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D26",
+      "text": "-1.0529999999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A27",
+      "text": "Net result for the period",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B27",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C27",
+      "text": "3.9209999999999998",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D27",
+      "text": "3.9449999999999998",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A28",
+      "text": "Net result attributable to non-controlling interests",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B28",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C28",
+      "text": "923",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D28",
+      "text": "819",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A29",
+      "text": "Net result attributable to owners of the parent",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B29",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C29",
+      "text": "2.9980000000000002",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D29",
+      "text": "3.125",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A30",
+      "text": "Earnings per share",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A32",
+      "text": "Earnings per share constitute net profit/loss for the year attributable to owners of the parent divided by the average number of ordi-nary shares outstanding. The average number of outstanding shares is net of the average number of treasury shares, considering the shares buyback in the previous year. Diluted earnings per share represent the maximum potential dilution (through an increase in the average number of shares) that would occur if all subscription and conversion rights granted were exercised. The difference between the weighted average number of outstanding shares and the weighted average diluted number of outstanding shares results from share-based payment transactions with employees. For information on share-based payments please refer to Note 61.",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B32",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C32",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D32",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A33",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A34",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B34",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C34",
+      "text": "1-12 23",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D34",
+      "text": "1-12 24",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A35",
+      "text": "Net result attributable to owners of the parent",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B35",
+      "text": "in EUR thousand",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C35",
+      "text": "2,997,576",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D35",
+      "text": "3,125,299",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A36",
+      "text": "Dividend on AT1 capital (after tax effect) ",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B36",
+      "text": "in EUR thousand",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C36",
+      "text": "-99.066999999999993",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D36",
+      "text": "-132.59299999999999",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A37",
+      "text": "Net result for the period attributable to owners of the parent after deduction of AT1 capital dividend",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B37",
+      "text": "in EUR thousand",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C37",
+      "text": "2,898,509",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D37",
+      "text": "2,992,706",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A38",
+      "text": "Weighted average undiluted number of outstanding shares",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B38",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C38",
+      "text": "425,951,928",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D38",
+      "text": "415,854,514",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A39",
+      "text": "Earnings per share",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B39",
+      "text": "in EUR",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C39",
+      "text": " 6.80",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:17",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D39",
+      "text": " 7.20",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:17",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A40",
+      "text": "Weighted average diluted number of outstanding shares",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B40",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "n",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C40",
+      "text": "426,324,432",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D40",
+      "text": "416,176,925",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A41",
+      "text": "Diluted earnings per share",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!B41",
+      "text": "in EUR",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!C41",
+      "text": " 6.80",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:17",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!D41",
+      "text": " 7.19",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:17",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!A43",
+      "text": "For details regarding the number of outstanding shares please refer to Note 55 Total equity.",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "s",
+      "number_format": "builtin:0",
+      "note": null
+    },
+    {
+      "locator": "sheet:Tabelle1!merged:A32:D32",
+      "text": "",
+      "formula": null,
+      "cached_value": null,
+      "hidden": false,
+      "data_type": "metadata",
+      "number_format": null,
+      "note": "Merged range; only anchor cell carries the stored value"
+    }
+  ],
+  "coverage": [
+    {
+      "locator": "sheet:Tabelle1",
+      "status": "retained",
+      "limitation": null
+    }
+  ],
+  "limitations": [
+    "Workbook values are raw stored lexemes, not Excel display values. Formula caches may be absent or stale; no recalculation. Charts, drawings and embedded objects require separate visual review.",
+    "Workbook date system: 1900; date serials are retained without conversion."
+  ],
+  "ocr_version": null
+}

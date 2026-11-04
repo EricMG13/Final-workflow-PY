@@ -1,0 +1,105 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "cpos-tdg-q1-earnings-1",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-12-28",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "earnings_update",
+    "requested_modules": [
+      "CP-1B"
+    ]
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "requests/CP-0/2c1d5b9d12477f41ab0d5168222844a9bd5e001cae5dc8053c95a842be8d15de/1.response.md",
+      "sha256": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d"
+    },
+    "CP-1": {
+      "path": "requests/CP-1/a83419b7e80ecd6972ea3aea469bfd63c213be6e7c20b4b42fe9e7507a15e22c/1.response.md",
+      "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+    },
+    "CP-1B": {
+      "path": "requests/CP-1B/cdb9834d5bc4903c32117cad7e8c3944e279bc133e7c1e2a0020a1c6668eb9fb/1.response.md",
+      "sha256": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12"
+    }
+  },
+  "model": null,
+  "layout": {
+    "blocks": [
+      "headline-results",
+      "variance-drivers",
+      "kpi-changes",
+      "guidance-signals",
+      "watch-items"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-1B",
+        "heading": "Financial performance / comparator register",
+        "kind": "table",
+        "block_id": "headline-results",
+        "table_header": "Metric",
+        "prefix": null,
+        "label": "Reported fiscal-quarter comparisons"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "headline-results",
+        "table_header": null,
+        "prefix": "Earnings view",
+        "label": "Earnings assessment"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Financial performance / comparator register",
+        "kind": "table",
+        "block_id": "kpi-changes",
+        "table_header": "Additional required measure",
+        "prefix": null,
+        "label": null
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Definition lock and top sheet",
+        "kind": "prose",
+        "block_id": "kpi-changes",
+        "table_header": null,
+        "prefix": null,
+        "label": "Definitions and balance dates"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Variance mechanics and comparative credit evaluation",
+        "kind": "prose",
+        "block_id": "guidance-signals",
+        "table_header": null,
+        "prefix": "No accepted budget",
+        "label": null
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Variance mechanics and comparative credit evaluation",
+        "kind": "prose",
+        "block_id": "variance-drivers",
+        "table_header": null,
+        "prefix": null,
+        "label": null
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Monitoring and method changes justified by observed output",
+        "kind": "prose",
+        "block_id": "watch-items",
+        "table_header": null,
+        "prefix": "Track dated cash",
+        "label": null
+      }
+    ],
+    "scope": "Amounts are USD millions except percentages and percentage-point changes. Historical TDG reported fiscal Q1 earnings: 2024-10-01–2024-12-28 (89 days) versus 2023-10-01–2023-12-30 (91 days). Five selected report sections from actual retained handoffs, plus the complete evidence rail. Guidance, matching LTM ratios and accessible liquidity remain unestablished. Replay publication; not a fresh model run or full pathway acceptance."
+  }
+}

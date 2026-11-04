@@ -1,0 +1,1021 @@
+=== Retained browser-tool capture 1 ===
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn132view0 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({"ref_id":"turn130view2","lineno":995}); Total lines: 4540
+L937:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L938:     |  | Fiscal Years Ended
+L939: (dollars in thousands, except share and per share data)  |  | September 27, 2025  |  | September 28, 2024  |  | September 30, 2023
+L940: Net sales  |  | $  | 3,860,624   |  |  | $  | 3,608,960   |  |  | $  | 3,316,190   |
+L941: Cost of sales  |  | 2,794,802   |  |  | 2,589,525   |  |  | 2,414,090   |
+L942: Inventory write-down  |  | 8,474   |  |  | 7,027   |  |  | 4,345   |
+L943: Gross profit  |  | 1,057,348   |  |  | 1,012,408   |  |  | 897,755   |
+L944: Research and development  |  | 93,671   |  |  | 112,773   |  |  | 106,551   |
+L945: Selling, general and administrative  |  | 553,968   |  |  | 501,253   |  |  | 474,937   |
+L946: Interest  |  | 72,075   |  |  | 66,330   |  |  | 59,838   |
+L947: Asset impairment and fair value adjustment  |  | 5,374   |  |  | 22,149   |  |  | 14,628   |
+L948: Restructuring  |  | 10,015   |  |  | 23,788   |  |  | 7,997   |
+L949: Loss on sale of businesses  |  | —   |  |  | —   |  |  | 900   |
+L950: Gain on sale of buildings  |  | —   |  |  | (979)  |  |  | (10,030)  |
+L951: Pension settlement  |  | —   |  |  | —   |  |  | 12,542   |
+L952: Other  |  | 9,597   |  |  | 17,348   |  |  | 8,872   |
+L953: Earnings before income taxes  |  | 312,648   |  |  | 269,746   |  |  | 221,520   |
+L954: Income taxes  |  | 77,620   |  |  | 60,960   |  |  | 46,364   |
+L955: Net earnings  |  | $  | 235,028   |  |  | $  | 208,786   |  |  | $  | 175,156   |
+L956:  |  |  |  |  |  |
+L957: Net earnings per share  |  |  |  |  |  |
+L958: Basic  |  | $  | 7.42   |  |  | $  | 6.53   |  |  | $  | 5.50   |
+L959: Diluted  |  | $  | 7.33   |  |  | $  | 6.45   |  |  | $  | 5.47   |
+L960:  |  |  |  |  |  |
+L961: Weighted average common shares outstanding  |  |  |  |  |  |
+L962: Basic  |  | 31,680,280   |  |  | 31,954,689   |  |  | 31,831,687   |
+L963: Diluted  |  | 32,082,601   |  |  | 32,359,338   |  |  | 32,044,226   |
+L964: See accompanying Notes to Consolidated Financial Statements.
+L965: 
+L966: 39
+L967: 
+L968: * * *
+L969: 
+L970: 【26†Image: Image3.jpg】
+L971: 
+L972: Consolidated Statements of Comprehensive Income
+L973:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L974:  |  | Fiscal Years Ended
+L975: (dollars in thousands)  |  | September 27,
+L976: 2025  |  | September 28,
+L977: 2024  |  | September 30,
+L978: 2023
+L979: Net earnings  |  | $  | 235,028   |  |  | $  | 208,786   |  |  | $  | 175,156   |
+L980: Other comprehensive income (loss) ("OCI"), net of tax:  |  |  |  |  |  |
+L981: Foreign currency translation adjustment  |  | 20,908   |  |  | 44,955   |  |  | 41,547   |
+L982: Retirement liability adjustment  |  | 23,978   |  |  | 6,315   |  |  | 11,626   |
+L983: Change in accumulated gain (loss) on derivatives  |  | 207   |  |  | 518   |  |  | 3,269   |
+L984: Other comprehensive income (loss), net of tax  |  | 45,093   |  |  | 51,788   |  |  | 56,442   |
+L985:  |  |  |  |  |  |
+L986: Comprehensive income  |  | $  | 280,121   |  |  | $  | 260,574   |  |  | $  | 231,598   |
+L987:  |  |  |  |  |  |
+L988:  |  |  |  |  |  |
+L989: See accompanying Notes to Consolidated Financial Statements.
+L990: 
+L991: 40
+L992: 
+L993: * * *
+L994: 
+L995: 【26†Image: Image4.jpg】
+L996: 
+L997: Consolidated Balance Sheets
+L998:  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L999: (dollars in thousands, except per share data)  |  | September 27, 2025  |  | September 28, 2024
+L1000: ASSETS  |  |  |  |
+L1001: Current assets  |  |  |  |
+L1002: Cash and cash equivalents  |  | $  | 62,013   |  |  | $  | 61,694   |
+L1003: Restricted cash  |  | 200   |  |  | 123   |
+L1004: Receivables, net  |  | 506,768   |  |  | 419,971   |
+L1005: Unbilled receivables  |  | 744,352   |  |  | 690,572   |
+L1006: Inventories, net  |  | 914,302   |  |  | 862,541   |
+L1007: Prepaid expenses and other current assets  |  | 142,345   |  |  | 87,745   |
+L1008: Total current assets  |  | 2,369,980   |  |  | 2,122,646   |
+L1009: Property, plant and equipment, net  |  | 1,019,906   |  |  | 928,588   |
+L1010: Operating lease right-of-use assets  |  | 52,799   |  |  | 52,591   |
+L1011: Goodwill  |  | 842,313   |  |  | 833,764   |
+L1012: Intangible assets, net  |  | 66,101   |  |  | 63,479   |
+L1013: Deferred income taxes  |  | 22,459   |  |  | 23,884   |
+L1014: Other assets  |  | 52,497   |  |  | 52,695   |
+L1015: Total assets  |  | $  | 4,426,055   |  |  | $  | 4,077,647   |
+L1016: LIABILITIES AND SHAREHOLDERS’ EQUITY  |  |  |  |
+L1017: Current liabilities  |  |  |  |
+L1018:  |  |  |  |
+L1019: Current installments of long-term debt  |  | $  | 1,563   |  |  | $  | —   |
+L1020: Accounts payable  |  | 318,402   |  |  | 293,888   |
+L1021: Accrued compensation  |  | 106,040   |  |  | 104,027   |
+L1022: Contract advances and progress billings  |  | 372,988   |  |  | 302,126   |
+L1023:  |  |  |  |
+L1024: Accrued liabilities and other  |  | 320,075   |  |  | 313,373   |
+L1025: Total current liabilities  |  | 1,119,068   |  |  | 1,013,414   |
+L1026: Long-term debt, excluding current installments  |  | 944,123   |  |  | 874,139   |
+L1027: Long-term pension and retirement obligations  |  | 157,218   |  |  | 167,161   |
+L1028: Deferred income taxes  |  | 32,600   |  |  | 27,652   |
+L1029: Other long-term liabilities  |  | 180,491   |  |  | 166,464   |
+L1030: Total liabilities  |  | 2,433,500   |  |  | 2,248,830   |
+L1031:  |  |  |  |
+L1032:  |  |  |  |
+L1033: Shareholders’ equity  |  |  |  |
+L1034: Common stock - par value $1.00  |  |  |  |
+L1035:   Class A - Authorized 100,000,000 shares  |  | 43,864   |  |  | 43,835   |
+L1036: Issued 43,863,458 and outstanding 28,424,853 shares at September 27, 2025  |  |  |  |
+L1037: Issued 43,835,149 and outstanding 28,776,489 shares at September 28, 2024  |  |  |  |
+L1038:   Class B - Authorized 20,000,000 shares. Convertible to Class A on a one-for-one basis  |  | 7,416   |  |  | 7,445   |
+L1039: Issued 7,416,255 and outstanding 3,237,452 shares at September 27, 2025  |  |  |  |
+L1040: Issued 7,444,564 and outstanding 3,209,222 shares at September 28, 2024  |  |  |  |
+L1041: Additional paid-in capital  |  | 839,328   |  |  | 784,509   |
+L1042: Retained earnings  |  | 2,834,548   |  |  | 2,635,950   |
+L1043: Treasury shares  |  | (1,209,200)  |  |  | (1,082,240)  |
+L1044: Stock Employee Compensation Trust  |  | (195,491)  |  |  | (194,049)  |
+L1045: Supplemental Retirement Plan Trust  |  | (170,191)  |  |  | (163,821)  |
+L1046: Accumulated other comprehensive loss  |  | (157,719)  |  |  | (202,812)  |
+L1047:  |  |  |  |
+L1048:  |  |  |  |
+L1049: Total shareholders’ equity  |  | 1,992,555   |  |  | 1,828,817   |
+L1050: Total liabilities and shareholders’ equity  |  | $  | 4,426,055   |  |  | $  | 4,077,647   |
+L1051: See accompanying Notes to Consolidated Financial Statements.
+L1052: 
+L1053: 41
+L1054: 
+L1055: * * *
+L1056: 
+L1057: 【26†Image: Image5.jpg】
+L1058: 
+L1059: Consolidated Statements of Shareholders’ Equity
+L1060:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1061:     |  | Fiscal Years Ended  |  |
+L1062: (dollars in thousands)  |  | September 27, 2025  |  | September 28, 2024  |  | September 30, 2023  |  |
+L1063: COMMON STOCK  |  |  |  |  |  |  |  |
+L1064: Beginning and end of year  |  | $  | 51,280   |  |  | $  | 51,280   |  |  | $  | 51,280   |  |  |
+L1065: ADDITIONAL PAID-IN CAPITAL  |  |  |  |  |  |  |  |
+L1066: Beginning of year  |  | 784,509   |  |  | 608,270   |  |  | 516,123   |  |  |
+L1067: Issuance of treasury shares  |  | 30,614   |  |  | 8,572   |  |  | 7,852   |  |  |
+L1068: Equity-based compensation expense  |  | 12,714   |  |  | 11,737   |  |  | 8,119   |  |  |
+L1069:  |  |  |  |  |  |  |  |
+L1070: Adjustment to market - SECT and SERP  |  | 11,491   |  |  | 155,930   |  |  | 76,176   |  |  |
+L1071: End of year  |  | 839,328   |  |  | 784,509   |  |  | 608,270   |  |  |
+L1072: RETAINED EARNINGS  |  |  |  |  |  |  |  |
+L1073: Beginning of year  |  | 2,635,950   |  |  | 2,462,640   |  |  | 2,321,558   |  |  |
+L1074: Net earnings  |  | 235,028   |  |  | 208,786   |  |  | 175,156   |  |  |
+L1075: Dividends (1)  |  | (36,430)  |  |  | (35,476)  |  |  | (34,074)  |  |  |
+L1076:  |  |  |  |  |  |  |  |
+L1077: End of year  |  | 2,834,548   |  |  | 2,635,950   |  |  | 2,462,640   |  |  |
+L1078: TREASURY SHARES AT COST  |  |  |  |  |  |  |  |
+L1079: Beginning of year  |  | (1,082,240)  |  |  | (1,057,938)  |  |  | (1,047,012)  |  |  |
+L1080:  |  |  |  |  |  |  |  |
+L1081: Class A and B shares issued related to compensation and acquisitions  |  | 15,537   |  |  | 12,436   |  |  | 16,107   |  |  |
+L1082: Class A and B shares purchased  |  | (142,497)  |  |  | (36,738)  |  |  | (27,033)  |  |  |
+L1083: End of year  |  | (1,209,200)  |  |  | (1,082,240)  |  |  | (1,057,938)  |  |  |
+L1084: STOCK EMPLOYEE COMPENSATION TRUST ("SECT")  |  |  |  |  |  |  |  |
+L1085: Beginning of year  |  | (194,049)  |  |  | (114,769)  |  |  | (73,602)  |  |  |
+L1086: Issuance of shares  |  | 32,664   |  |  | 28,202   |  |  | 15,713   |  |  |
+L1087: Purchase of shares  |  | (28,985)  |  |  | (22,247)  |  |  | (14,841)  |  |  |
+L1088: Adjustment to market  |  | (5,121)  |  |  | (85,235)  |  |  | (42,039)  |  |  |
+L1089: End of year  |  | (195,491)  |  |  | (194,049)  |  |  | (114,769)  |  |  |
+L1090: SUPPLEMENTAL RETIREMENT PLAN ("SERP") TRUST  |  |  |  |  |  |  |  |
+L1091: Beginning of year  |  | (163,821)  |  |  | (93,126)  |  |  | (58,989)  |  |  |
+L1092:  |  |  |  |  |  |  |  |
+--------------------------------------------------------------------------------
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn132view1 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({"ref_id":"turn130view2","lineno":2310}); Total lines: 4540
+L2264:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L2265:  |  | 2025  |  | 2024  |  | 2023
+L2266: Performance-based restricted stock units  |  | $  | 6,740   |  |  | $  | 5,994   |  |  | $  | 2,479   |
+L2267: Employee stock purchase plan  |  | 4,761   |  |  | 3,718   |  |  | 2,956   |
+L2268: Time vested restricted stock units  |  | 3,994   |  |  | 3,223   |  |  | 2,461   |
+L2269: Restricted stock awards  |  | 1,126   |  |  | 1,151   |  |  | 1,102   |
+L2270: Stock appreciation rights  |  | 88   |  |  | 872   |  |  | 1,584   |
+L2271:  |  |  |  |  |  |
+L2272: Total compensation cost before income taxes  |  | $  | 16,709   |  |  | $  | 14,958   |  |  | $  | 10,582   |
+L2273: Income tax benefit  |  | $  | 1,417   |  |  | $  | 2,091   |  |  | $  | 1,156   |
+L2274: Restricted Stock Units
+L2275: 
+L2276: Performance-Based Awards
+L2277: PSU awards consist of shares of our stock which are payable upon the determination that we achieve certain established performance targets and can range from 0% to 200% of the targeted payout based on the actual results. PSU's granted in 2025 have a performance period of three years. The fair value of each PSU granted is equal to the fair market value of our common stock on the date of grant.
+L2278: PSUs granted generally have a cliff vesting schedule of three years; however, according to the grant agreements, if certain conditions are met, the employee (or beneficiary) may receive an amount of the award based on the terms and conditions of the agreement.
+L2279: PSUs are as follows:
+L2280:  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L2281: Performance-Based Restricted Stock Units  |  | Number of Awards  |  | Weighted-
+L2282: Average
+L2283: Grant Date Fair Value
+L2284: Nonvested at September 28, 2024  |  | 76,771   |  |  | $  | 105.67   |
+L2285: Granted in 2025  |  | 25,728   |  |  | 207.10   |
+L2286: Vested in 2025  |  | (38,596)  |  |  | 86.97   |
+L2287: Forfeited in 2025  |  | (2,973)  |  |  | 111.02   |
+L2288:  |  |  |  |
+L2289: Nonvested at September 27, 2025  |  | 60,930   |  |  | $  | 160.08   |
+L2290: 
+L2291: 76
+L2292: 
+L2293: * * *
+L2294: As of September 27, 2025, total unvested compensation expense associated with nonvested PSUs amounted to $5,201 and will be recognized over a weighted-average period of two years.
+L2295: 
+L2296: The number of Class B shares to be issued for PS U awards granted in 2023 that vested based on the achievement of performance targets in 2025, will be approximately 57,600 share s.
+L2297: 
+L2298: Time Vested Awards
+L2299: TVAs consist of shares of our stock which are payable over a vesting schedule determined at the time the award is granted. TVAs vest in equal fixed dollar tranches over the agreed upon vesting term beginning one year after the date of the grant and will settle using the fair market value of shares on the date of vesting of the tranche. Although it is our intention to settle vested amount in shares, we reserve the right to settle in cash at our discretion.
+L2300: 
+L2301: TVAs are as follows:
+L2302:  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L2303: Time Vested Restricted Stock Units  |  | Number of Awards  |  | Weighted-
+L2304: Average
+L2305: Fair Value
+L2306: Nonvested at September 28, 2024  |  | 39,113   |  |  | $  | 198.29   |
+L2307: Granted in 2025  |  | 24,659   |  |  | 207.10   |
+L2308: Vested in 2025  |  | (15,947)  |  |  | 214.03   |
+L2309: Forfeited in 2025  |  | (2,674)  |  |  | 173.99   |
+L2310: Decrease due to fair value change in 2025  |  | (1,446)  |  |  | n/a
+L2311: Nonvested at September 27, 2025  |  | 43,705   |  |  | $  | 206.00   |
+L2312: As of September 27, 2025, tota l unvested compensation expense associated with nonvested TVAs amounted to $5,559 and will be recognized over a weighted-average period of two years.
+L2313: 
+L2314: The number of Class B shares to be issued for TVAs that are expected to vest in 2025 from time based service conditions is approximately 16,200 sh ares, based on our closing price of Class B common stock of $206.00 as of September 27, 2025.
+L2315: 
+L2316: Restricted Stock Awards
+L2317: The fair value of each RSA granted is equal to the fair market value of our common stock on the date of grant. These shares vest and are issued upon grant. There were 5,436 RSAs granted and vested in 2025 at a price of $207.10 resulting in a fair value of the RSAs vested of $1,126.
+L2318: 
+L2319: Employee Stock Purchase Plan
+L2320: 
+L2321: Shares and the weighted-average price per share associated with the ESPP are as follows:
+L2322:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L2323: Employee Stock Purchase Plan  |  | 2025  |  | 2024  |  | 2023
+L2324: Shares issued  |  | 110,984   |  |  | 126,355   |  |  | 155,704   |
+L2325: Weighted-average price per share  |  | $  | 147.97   |  |  | $  | 105.18   |  |  | $  | 70.91   |
+L2326: 
+L2327: 77
+L2328: 
+L2329: * * *
+L2330: 
+L2331: Stock Appreciation Rights
+L2332: The fair value of SARs granted was estimated on the date of grant using the Black-Scholes option-pricing model. In 2025, there were no SARs granted. The number of shares received upon the exercise of a SAR is equal in value to the difference between the fair market value of the common stock on the exercise date and the exercise price of the SAR. The term of a SAR may not exceed ten years from the grant date.
+L2333: The exercise price of SARs and options, determined by a committee of the Board of Directors, may not be less than the fair value of the common stock on the grant date.
+L2334: SARs are as follows:
+L2335:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L2336: Stock Appreciation Rights  |  | Number of Awards  |  | Weighted-
+L2337: Average
+L2338: Exercise Price  |  | Weighted-
+L2339: Average
+L2340: Remaining Contractual Life  |  | Aggregate
+L2341: Intrinsic
+L2342: Value
+L2343: Outstanding at September 28, 2024  |  | 550,018   |  |  | $  | 78.18   |  |  |  |  |
+L2344: Exercised in 2025  |  | (80,252)  |  |  | 72.44   |  |  |  |  |
+L2345:  |  |  |  |  |  |  |  |
+L2346: Forfeited in 2025  |  | (165)  |  |  | 83.00   |  |  |  |  |
+L2347: Outstanding at September 27, 2025  |  | 469,601   |  |  | $  | 79.16   |  |  | 3.44  |  | $  | 59,547   |
+L2348: Exercisable at September 27, 2025  |  | 469,601   |  |  | $  | 79.16   |  |  | 3.44  |  | $  | 59,547   |
+L2349: The aggregate intrinsic value in the preceding tables represents the total pre-tax intrinsic value, based on our closing price of Class A common stock of $204.64 and Class B common stock of $206.00 as of September 27, 2025. That value would have been effectively received by the SAR holders had all SARs been exercised as of that date.
+L2350: The intrinsic value of awards exercised and fair value of awards vested are as follows:
+L2351:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L2352: Stock Appreciation Rights  |  | 2025  |  | 2024  |  | 2023
+L2353: Intrinsic value of SARs exercised  |  | $  | 10,230   |  |  | $  | 13,413   |  |  | $  | 5,596   |
+L2354: Total fair value of SARs vested  |  | $  | 741   |  |  | $  | 1,511   |  |  | $  | 2,426   |
+L2355:  |  |  |  |  |  |
+L2356:  |  |  |  |  |  |
+L2357:  |  |  |  |  |  |
+L2358: As of September 27, 2025, there is no unvested compensation expense associated with SARs.
+L2359: 
+L2360: Note 20 - Stock Employee Compensation Trust and Supplemental Retirement Plan Trust
+L2361: The SECT assists in administering and provides funding for equity-based compensation plans and benefit programs, including the Moog Inc. Retirement Savings Plan ("RSP"), RSP(+) and the Employee Stock Purchase Plan ("ESPP"). The SERP Trust provides funding for benefits under the SERP provisions of the Moog Inc. Plan to Equalize Retirement Income and Supplemental Retirement Income. Both the SECT and the SERP Trust hold Moog shares as investments.
+L2362: The shares in the SECT and SERP Trust are not considered outstanding for purposes of calculating earnings per share. However, in accordance with the trust agreements governing the SECT and SERP Trust, the trustees vote all shares held by the SECT and SERP Trust on all matters submitted to shareholders.
+L2363: 78
+L2364: 
+L2365: * * *
+L2366: 
+L2367: Note 21 - Accumulated Other Comprehensive Income (Loss)
+L2368: The changes in AOCIL, net of tax, by component are as follows:
+L2369:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L2370:  |  | Accumulated foreign currency translation  |  | Accumulated retirement liability  |  | Accumulated gain (loss) on derivatives  |  | Total
+L2371: AOCIL at September 30, 2023  |  | $  | (140,477)  |  |  | $  | (113,605)  |  |  | $  | (518)  |  |  | $  | (254,600)  |
+L2372: OCI before reclassifications  |  | 44,966   |  |  | (1,811)  |  |  | 69   |  |  | 43,224   |
+L2373: Amounts reclassified from AOCIL  |  | (11)  |  |  | 8,126   |  |  | 449   |  |  | 8,564   |
+L2374: OCI, net of tax  |  | 44,955   |  |  | 6,315   |  |  | 518   |  |  | 51,788   |
+L2375: AOCIL at September 28, 2024  |  | (95,522)  |  |  | (107,290)  |  |  | —   |  |  | (202,812)  |
+L2376: OCI before reclassifications  |  | 8,252   |  |  | 15,334   |  |  | 617   |  |  | 24,203   |
+L2377: Amounts reclassified from AOCIL  |  | 12,656   |  |  | 8,644   |  |  | (410)  |  |  | 20,890   |
+--------------------------------------------------------------------------------
+Internal Error ()
+citeturn132view2 [wordlim: 200] Source: open({"ref_id":"https://transdigmgroupinc.gcs-web.com/static-files/698d8cc1-b8a0-4865-bdc1-15cdff36a88b","lineno":null}); 
+Failed to fetch https://transdigmgroupinc.gcs-web.com/static-files/698d8cc1-b8a0-4865-bdc1-15cdff36a88b: (403) Forbidden
+
+=== Retained browser-tool capture 4 ===
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn135view0 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"turn130view2","pattern":"Finance lease liabilities"}); Total lines: 4540
+L1507: Operating lease cost is included in Cost of sales and Selling, general and administrative on the Consolidated Statements of Earnings. Finance lease cost is included in Cost of sales, Selling, general and administrative and Interest on the Consolidated Statements of Earnings.
+L1508: The discount rate used to calculate the present value of our leases is the rate implicit in the lease. If the information necessary to determine the rate implicit in the lease is not available, we use our incremental borrowing rate for collateralized debt, which is determined using our credit rating and other information available as of the lease commencement date.
+L1509: The components of lease expense were as follows:
+L1510:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1511:  | 2025  |  | 2024  |  | 2023
+L1512: Operating lease cost  | $  | 32,428   |  |  | $  | 31,065   |  |  | $  | 29,982   |
+L1513:  |  |  |  |  |
+L1514: Finance lease cost:  |  |  |  |  |
+L1515: Amortization of right-of-use assets  | $  | 10,909   |  |  | $  | 7,443   |  |  | $  | 4,380   |
+L1516: Interest on lease liabilities  | 7,623   |  |  | 5,963   |  |  | 3,247   |
+L1517: Total finance lease cost  | $  | 18,532   |  |  | $  | 13,406   |  |  | $  | 7,627   |
+L1518: Supplemental cash flow information related to leases was as follows:
+L1519:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1520:  | 2025  |  | 2024  |  | 2023
+L1521: Cash paid for amounts included in the measurement of lease liabilities:  |  |  |  |  |
+L1522: Operating cash flow for operating leases  | $  | 33,495   |  |  | $  | 31,346   |  |  | $  | 30,281   |
+L1523: Operating cash flow for finance leases  | 7,623   |  |  | 5,963   |  |  | 3,247   |
+L1524: Financing cash flow for finance leases  | 10,159   |  |  | 6,037   |  |  | 4,313   |
+L1525: Assets obtained in exchange for lease obligations:  |  |  |  |  |
+L1526: Operating leases  | 13,462   |  |  | 10,162   |  |  | 6,014   |
+L1527: Finance leases  | 33,552   |  |  | 29,221   |  |  | 58,020   |
+L1528: 57
+L1529: 
+L1530: * * *
+L1531: Supplemental balance sheet information related to leases was as follows:
+L1532:  |  |  |  |  |  |  |  |  |  |  |
+L1533:  | September 27, 2025  |  | September 28, 2024
+L1534: Operating Leases:  |  |  |
+L1535: Operating lease right-of-use assets  | $  | 52,799   |  |  | $  | 52,591   |
+L1536:  |  |  |
+L1537: Accrued liabilities and other  | $  | 11,697   |  |  | $  | 11,124   |
+L1538: Other long-term liabilities  | 52,549   |  |  | 53,228   |
+L1539: Total operating lease liabilities  | $  | 64,246   |  |  | $  | 64,352   |
+L1540:  |  |  |
+L1541: Finance Leases:  |  |  |
+L1542: Property, plant, and equipment, at cost  | $  | 157,533   |  |  | $  | 124,770   |
+L1543: Accumulated depreciation  | (27,186)  |  |  | (17,101)  |
+L1544: Property, plant, and equipment, net  | $  | 130,347   |  |  | $  | 107,669   |
+L1545:  |  |  |
+L1546: Accrued liabilities and other  | $  | 14,920   |  |  | $  | 8,713   |
+L1547: Other long-term liabilities  | 119,155   |  |  | 101,683   |
+L1548: Total finance lease liabilities  | $  | 134,075   |  |  | $  | 110,396   |
+L1549:  |  |  |
+L1550: Weighted average remaining lease term in years:  |  |  |
+L1551: Operating leases  | 6.2  |  | 6.2
+L1552: Finance leases  | 17.6  |  | 20.1
+L1553:  |  |  |
+L1554: Weighted average discount rates:  |  |  |
+L1555: Operating leases  | 5.3   | %  |  | 5.2   | %
+L1556: Finance leases  | 6.4   | %  |  | 6.4   | %
+L1557: Maturities of lease liabilities were as follows:
+L1558:  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1559:    |  | September 27, 2025
+L1560:  |  | Operating Leases  |  | Finance Leases
+L1561: 2026  |  | $  | 14,566   |  |  | $  | 22,296   |
+L1562: 2027  |  | 13,698   |  |  | 19,885   |
+L1563: 2028  |  | 11,571   |  |  | 20,801   |
+L1564: 2029  |  | 10,098   |  |  | 21,824   |
+L1565: 2030  |  | 7,467   |  |  | 18,678   |
+L1566: Thereafter  |  | 18,132   |  |  | 143,900   |
+L1567: Total lease payments  |  | 75,532   |  |  | 247,384   |
+L1568: Less: imputed interest  |  | (11,286)  |  |  | (113,309)  |
+L1569: Total  |  | $  | 64,246   |  |  | $  | 134,075   |
+L1570: The operating lease ROU and finance lease disclosures above reflect a write down of $2,849 in 2024, as a result of restructuring actions taken to simplify our business operations through facility closures.
+L1571: 
+L1572: 58
+L1573: 
+L1574: * * *
+L1575: 
+L1576: Note 8 - Goodwill and Intangible Assets
+L1577: The changes in the carrying amount of goodwill are as follows:
+L1578:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1579:  | Space and
+L1580: Defense  | Military Aircraft  | Commercial Aircraft  | Industrial  | Total
+L1581: Balance at October 1, 2022  | $  | 259,407   |  | $  | 106,907   |  | $  | 92,612   |  | $  | 346,394   |  | $  | 805,320   |
+L1582:  |  |  |  |  |
+L1583: Adjustments to prior year acquisitions  | —   |  | 122   |  | —   |  | —   |  | 122   |
+L1584:  |  |  |  |  |
+L1585:  |  |  |  |  |
+L1586:  |  |  |  |  |
+L1587:  |  |  |  |  |
+--------------------------------------------------------------------------------
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn135view1 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"turn130view2","pattern":"Total debt"}); Total lines: 4540
+L836: In the normal course of business, we are exposed to interest rate risk from our long-term debt. To manage these risks, we may enter into derivative instruments such as interest rate swaps which are used to adjust the proportion of total debt that is subject to variable and fixed interest rates.
+--------------------------------------------------------------------------------
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn135view2 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"turn130view2","pattern":"Preferred"}); Total lines: 4540
+L2237: Class A shares and Class B shares reserved for issuance at September 27, 2025 are as follows:
+L2238:  |  |  |  |  |
+L2239:     | Shares
+L2240: Conversion of Class B to Class A shares  | 7,416,255   |
+L2241: Employee Stock Purchase Plan  | 1,073,204   |
+L2242: 2025 Long Term Incentive Plan  | 1,500,000   |
+L2243: 2014 Long Term Incentive Plan  | 1,503,804   |
+L2244: 2008 Stock Appreciation Rights Plan  | 979,995   |
+L2245:  |
+L2246: Class A and B shares reserved for issuance  | 12,473,258   |
+L2247: We are authorized to issue up to 10,000,000 shares of preferred stock. The Board of Directors may authorize, without further shareholder action, the issuance of additional preferred stock which ranks senior to both classes of our common stock with respect to the payment of dividends and the distribution of assets on liquidation.
+L2248: The preferred stock, when issued, would have such designations relative to voting and conversion rights, preferences, privileges and limitations as determined by the Board of Directors.
+L2249: We issue common stock under our equity-based compensation plans from treasury stock or from stock held by the SECT. As of September 27, 2025, in addition to the shares reserved for issuance upon the exercise of outstanding equity awards, there were 1,458,225 shares authorized for awards that may be granted in the future under the 2025 Long Term Incentive Plan, assuming performance-based awards currently outstanding are all settled at the targeted payout.
+L2250: On November 20, 2020, the Board of Directors authorized a new share repurchase program to replace the previously existing share repurchase program. This program authorizes repurchases that includes both Class A and Class B common stock, and allows us to buy up to an aggregate 3,000,000 common shares. Shares acquired by the SECT or the SERP Trust are not included in this program. During 2025, we repurchased 511,974 of our Class A and B common stock for $100,705.
+--------------------------------------------------------------------------------
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn135view3 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"turn130view2","pattern":"Noncontrolling"}); Total lines: 4540
+No matching text found for "Noncontrolling"--------------------------------------------------------------------------------
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn135view4 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"turn130view2","pattern":"Depreciation"}); Total lines: 4540
+L1256: Cost of Sales: Includes costs of products and services sold, which include but are not limited to: purchased product, raw material, direct and engineering labor and related benefits, shipping and handling costs, depreciation and amortization, indirect costs and overhead charges.
+L1257: 
+L1258: Research and Development: Research and development costs are expensed as incurred and include salaries, benefits, consulting, material costs, depreciation and amortization.
+L1259: Selling, General and Administrative Expenses: Selling, general and administrative expenses are expensed as incurred. Such expenses include, but are not limited to advertising, bid and proposal, consulting, depreciation, employee payroll and related benefits, legal and professional costs.
+L1260: Government Assistance: We receive various types of government assistance, primary in the form of grants and refundable tax credits. We recognize government assistance when there is reasonable assurance that it will comply with the relevant conditions and the assistance will be received.
+L1261: Government assistance related to property, plant and equipment is recorded as a reduction to the carrying value of the related asset, which reduces depreciation expense over the expected useful life of the asset on a straight-line basis. See Note 4 – Receivables and Note 6 – Property, Plant and Equipment for additional disclosures related to government assistance.
+L1262: Equity-Based Compensation: Our equity-based compensation plans allow for various types of equity-based incentive awards. The types and mix of these incentive awards are evaluated on an on-going basis and may vary based on our overall strategy regarding compensation. Equity-based compensation expense is based on awards that are ultimately expected to vest over the requisite service periods and are based on the fair value of the award measured on the grant date.
+L1490: Less accumulated depreciation and amortization  |  | (986,100)  |  |  | (941,262)  |  |  |
+L1491: Property, plant and equipment, net  |  | $  | 1,019,906   |  |  | $  | 928,588   |  |  |
+L1492: In 2025, we recorded $2,374 of impairment charges on property and equipment on owned assets that experienced a decline in value, based on expected cash flows over the remaining life of the assets in relation to a decline in the related business in our Industrial segment. In 2024, we recorded $806 of impairment charges on equipment no longer in use.
+L2219: On July 4, 2025, the One Big Beautiful Bill Act (the "Act") was signed into law. The legislation includes a broad range of tax reform provisions affecting businesses including, but not limited to, the expansion of bonus depreciation, immediate expensing of domestic R&D costs, and revisions to the U.S. taxation of profits derived from international operations. The legislation has multiple effective dates, with certain provisions effective in 2025 and others implemented through 2027.
+L2220: The Act allowed the Company to take 100% tax deduction on certain fixed assets that were placed in service after January 19, 2025. Other than accelerated tax depreciation, the Act did not have a material impact on the Company financial position and results of operations as of and for the year ended September 27, 2025.
+L2575: Pension settlement  |  | —   |  |  | —   |  |  | 12,542   |
+L2576: Non-service pension expense  |  | 7,719   |  |  | 12,685   |  |  | 12,324   |
+L2577: Corporate and other expenses, net  |  | 40,456   |  |  | 40,745   |  |  | 27,232   |
+L2578: Earnings before income taxes  |  | $  | 312,648   |  |  | $  | 269,746   |  |  | $  | 221,520   |
+L2579: Depreciation and amortization:  |  |  |  |  |  |
+L2580: Space and Defense  |  | $  | 24,937   |  |  | $  | 21,895   |  |  | $  | 20,067   |
+L2581: Military Aircraft  |  | 34,424   |  |  | 31,327   |  |  | 30,449   |
+L2582: Commercial Aircraft  |  | 18,780   |  |  | 16,116   |  |  | 12,678   |
+L2583: Industrial  |  | 25,420   |  |  | 26,482   |  |  | 25,897   |
+L2584: Corporate  |  | 167   |  |  | 207   |  |  | 213   |
+L2585: Total depreciation and amortization  |  | $  | 103,728   |  |  | $  | 96,027   |  |  | $  | 89,304   |
+L2586: Identifiable assets:  |  |  |  |  |  |
+L2587: Space and Defense  |  | $  | 1,213,618   |  |  | $  | 1,035,716   |  |  | $  | 1,011,724   |
+L2961: Depreciation  |  | 20,927   |  |  | (232)  |  |  | 20,695   |
+L2962: Amortization  |  | 2,720   |  |  | —   |  |  | 2,720   |
+L2963: Deferred income taxes  |  | (4,547)  |  |  | 1,028   |  |  | (3,519)  |
+L2964: Equity-based compensation expense  |  | 4,165   |  |  | —   |  |  | 4,165   |
+L2965:  |  |  |  |  |  |
+L2966:  |  |  |  |  |  |
+L2967:  |  |  |  |  |  |
+L2968:  |  |  |  |  |  |
+L2969: Other  |  | (2,478)  |  |  | —   |  |  | (2,478)  |
+L2970: Changes in assets and liabilities providing (using) cash:  |  |  |  |  |  |
+L3147: Depreciation  |  | 42,276   |  |  | (574)  |  |  | 41,702   |
+L3148: Amortization  |  | 5,296   |  |  | —   |  |  | 5,296   |
+L3149: Deferred income taxes  |  | (17,805)  |  |  | (588)  |  |  | (18,393)  |
+L3150: Equity-based compensation expense  |  | 7,212   |  |  | —   |  |  | 7,212   |
+L3151:  |  |  |  |  |  |
+L3152: Asset impairment and inventory write-down  |  | 6,925   |  |  | —   |  |  | 6,925   |
+L3153:  |  |  |  |  |  |
+L3154:  |  |  |  |  |  |
+L3155: Other  |  | 2,207   |  |  | —   |  |  | 2,207   |
+L3333: Depreciation  |  | 64,302   |  |  | (968)  |  |  | 63,334   |
+L3334: Amortization  |  | 7,677   |  |  | —   |  |  | 7,677   |
+L3335: Deferred income taxes  |  | (26,483)  |  |  | 25   |  |  | (26,458)  |
+L3336: Equity-based compensation expense  |  | 11,301   |  |  | —   |  |  | 11,301   |
+L3337:  |  |  |  |  |  |
+L3338: Asset impairment and inventory write-down  |  | 8,637   |  |  | —   |  |  | 8,637   |
+L3339:  |  |  |  |  |  |
+L3340:  |  |  |  |  |  |
+L3341: Other  |  | 5,374   |  |  | —   |  |  | 5,374   |
+L3515: Depreciation  |  | 82,957   |  |  | 2,921   |  |  | 85,878   |
+L3516: Amortization  |  | 10,149   |  |  | —   |  |  | 10,149   |
+L3517: Deferred income taxes  |  | (31,735)  |  |  | 2,084   |  |  | (29,651)  |
+L3518: Equity-based compensation expense  |  | 14,959   |  |  | —   |  |  | 14,959   |
+L3519:  |  |  |  |  |  |
+L3520: Asset impairment and inventory write-down  |  | 29,176   |  |  | —   |  |  | 29,176   |
+L3521: Gain on sale of buildings  |  | (979)  |  |  | —   |  |  | (979)  |
+L3703: Depreciation  |  | 23,478   |  |  | (1,049)  |  |  | 22,429   |
+L3704: Amortization  |  | 2,323   |  |  | —   |  |  | 2,323   |
+L3705: Deferred income taxes  |  | (3,577)  |  |  | (684)  |  |  | (4,261)  |
+L3706: Equity-based compensation expense  |  | 4,325   |  |  | —   |  |  | 4,325   |
+L3707:  |  |  |  |  |  |
+L3708:  |  |  |  |  |  |
+L3709:  |  |  |  |  |  |
+L3710:  |  |  |  |  |  |
+L3711: Other  |  | 2,708   |  |  | (1,307)  |  |  | 1,401   |
+L3712: Changes in assets and liabilities providing (using) cash:  |  |  |  |  |  |
+L3889: Depreciation  |  | 45,822   |  |  | (1,043)  |  |  | 44,779   |
+L3890: Amortization  |  | 4,629   |  |  | —   |  |  | 4,629   |
+L3891: Deferred income taxes  |  | (12,252)  |  |  | (572)  |  |  | (12,824)  |
+L3892: Equity-based compensation expense  |  | 8,020   |  |  | —   |  |  | 8,020   |
+L3893:  |  |  |  |  |  |
+L3894:  |  |  |  |  |  |
+L3895:  |  |  |  |  |  |
+L3896:  |  |  |  |  |  |
+L3897: Other  |  | 2,997   |  |  | (706)  |  |  | 2,291   |
+L3898: Changes in assets and liabilities providing (using) cash:  |  |  |  |  |  |
+L4075: Depreciation  |  | 69,292   |  |  | (1,040)  |  |  | 68,252   |
+L4076: Amortization  |  | 6,996   |  |  | —   |  |  | 6,996   |
+L4077: Deferred income taxes  |  | (18,645)  |  |  | (997)  |  |  | (19,642)  |
+L4078: Equity-based compensation expense  |  | 12,669   |  |  | —   |  |  | 12,669   |
+L4079:  |  |  |  |  |  |
+L4080: Asset impairment and inventory write-down  |  | 10,988   |  |  | —   |  |  | 10,988   |
+L4081:  |  |  |  |  |  |
+L4082:  |  |  |  |  |  |
+L4083: Other  |  | 4,399   |  |  | (751)  |  |  | 3,648   |
+--------------------------------------------------------------------------------
+tdg-20250930 (https://www.sec.gov/Archives/edgar/data/1260221/000126022125000081/tdg-20250930.htm)
+citeturn135view5 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"turn134view2","pattern":"8,831"}); Total lines: 3012
+L590: For fiscal year 2025, we generated net sales of $8,831 million, gross profit of $5,311 million or 60.1% of net sales, and net income attributable to TD Group of $2,074 million.
+L608:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L609:  | Fiscal Years Ended September 30,
+L610:  | 2025  |  | % of Net Sales  |  | 2024  |  | % of Net Sales
+L611: Net sales  | $  | 8,831   |  |  | 100.0   | %  |  | $  | 7,940   |  |  | 100.0   | %
+L612: Cost of sales  | 3,520   |  |  | 39.9   | %  |  | 3,268   |  |  | 41.2   | %
+L613: Selling and administrative expenses  | 945   |  |  | 10.7   | %  |  | 980   |  |  | 12.3   | %
+L614: Amortization of intangible assets  | 201   |  |  | 2.3   | %  |  | 161   |  |  | 2.0   | %
+L615: Income from operations  | 4,165   |  |  | 47.2   | %  |  | 3,531   |  |  | 44.5   | %
+L616: Interest expense-net  | 1,572   |  |  | 17.8   | %  |  | 1,286   |  |  | 16.2   | %
+L617: Refinancing costs  | 11   |  |  | 0.1   | %  |  | 58   |  |  | 0.7   | %
+L618: Other income  | (47)  |  |  | (0.5)  | %  |  | (28)  |  |  | (0.4)  | %
+L619: Income tax provision  | 555   |  |  | 6.3   | %  |  | 500   |  |  | 6.3   | %
+L653:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L654:  | Fiscal Years Ended  |  |  |  | % Change
+L655: Net Sales
+L656:  | September 30, 2025  |  | September 30, 2024  |  | Change  |
+L657: Organic sales  | $  | 8,510   |  |  | $  | 7,895   |  |  | $  | 615   |  |  | 7.7   | %
+L658: Acquisition sales  | 321   |  |  | 45   |  |  | 276   |  |  | 3.5   | %
+L659: Net sales  | $  | 8,831   |  |  | $  | 7,940   |  |  | $  | 891   |  |  | 11.2   | %
+L660: Organic sales represent net sales from existing businesses owned by the Company, excluding sales from acquisitions. Acquisition sales represent net sales from acquired businesses for the period up to one year from the respective acquisition date. We believe this measure provides investors with a supplemental understanding of underlying sales trends by providing sales growth on a consistent basis.
+L716: Non-aviation  | 160   |  |  | 1.8   | %  |  | 165   |  |  | 2.1   | %  |  | (5)  |  |  | (3.0)  | %
+L717: Net sales  | $  | 8,831   |  |  | 100.0   | %  |  | $  | 7,940   |  |  | 100.0   | %  |  | $  | 891   |  |  | 11.2   | %
+L1700:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1701:    | Fiscal Years Ended September 30,
+L1702:    | 2025  |  | 2024  |  | 2023
+L1703: NET SALES  | $  | 8,831   |  |  | $  | 7,940   |  |  | $  | 6,585   |
+L1704: COST OF SALES  | 3,520   |  |  | 3,268   |  |  | 2,743   |
+L1705: GROSS PROFIT  | 5,311   |  |  | 4,672   |  |  | 3,842   |
+L1706: SELLING AND ADMINISTRATIVE EXPENSES  | 945   |  |  | 980   |  |  | 780   |
+L1707: AMORTIZATION OF INTANGIBLE ASSETS  | 201   |  |  | 161   |  |  | 139   |
+L2558: Non-aviation  |  | —   |  |  | —   |  |  | 160   |  |  | 160   |
+L2559: Net Sales  |  | 4,559   |  |  | 4,112   |  |  | 160   |  |  | 8,831   |
+L2560: Less:  |  |  |  |  |  |  |  |
+L2561: Other segment expenses (1)  |  | 1,964   |  |  | 1,902   |  |  | 93   |  |  |
+L2562: Total segment EBITDA As Defined  |  | 2,595   |  |  | 2,210   |  |  | 67   |  |  | 4,872   |
+L2563: Less: Unallocated corporate EBITDA As Defined  |  |  |  |  |  |  |  | 112   |
+L2564: Depreciation and amortization expense  |  |  |  |  |  |  |  | 367   |
+L2670:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L2671:  | Fiscal Years Ended September 30,
+L2672:  | 2025  |  | 2024  |  | 2023
+L2673: Net sales  |  |  |  |  |
+L2674: United States  | $  | 5,535   |  |  | $  | 5,032   |  |  | $  | 4,265   |
+L2675: Foreign Countries  | 3,296   |  |  | 2,908   |  |  | 2,320   |
+L2676:  | $  | 8,831   |  |  | $  | 7,940   |  |  | $  | 6,585   |
+L2677: 
+L2678: The following table presents long-lived assets by geographic area (in millions):
+
+
+=== Retained browser-tool capture 5 ===
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn136view0 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"turn130view2","pattern":"Interest expense"}); Total lines: 4540
+L699: Gross margin  | 27.4   | %  |  | 28.1   | %  |  | 27.1   | %  |  |  |  |  |  |  |  |
+L700: Research and development expenses  | 94   |  |  | 113   |  |  | 107   |  |  | (19)  |  |  | (17  | %)  |  | 6   |  |  | 6  | %
+L701: Selling, general and administrative expenses as a percentage of sales  | 14.3   | %  |  | 13.9   | %  |  | 14.3   | %  |  |  |  |  |  |  |  |
+L702: Interest expense  | 72   |  |  | 66   |  |  | 60   |  |  | 6   |  |  | 9  | %  |  | 6   |  |  | 11  | %
+L723: Interest expense increased in 2025 compared to 2024, driven by higher outstanding debt balances, partially offset by lower interest rates. Interest expense increased in 2024 compared to 2023, driven by higher interest rates, as well as higher debt balances.
+L735: Operating profit, as presented below, is net sales less cost of sales and other operating expenses, excluding interest expense, equity-based compensation expense, non-service pension expense and other corporate expenses. Cost of sales and other operating expenses are directly identifiable to the respective segment or allocated on the basis of sales, headcount or profit.
+L840: The loan agreement for the U.S. revolving credit facility and term loan contains various covenants. The minimum for the interest coverage ratio, defined as the ratio of EBITDA to interest expense for the most recent four quarters, is 3.0. The maximum for the leverage ratio, defined as the ratio of net debt to EBITDA for the most recent four quarters, is 4.0.
+L841: EBITDA is defined in the loan agreement as (i) the sum of net income, interest expense, income taxes, depreciation expense, amortization expense, other non-cash items reducing consolidated net income and non-cash equity-based compensation expenses minus (ii) other non-cash items increasing consolidated net income.
+L920: At September 27, 2025, we had $446 million of borrowings subject to variable interest rates. At September 27, 2025, we had no outstanding interest rate swaps. During 2025, our average borrowings subject to variable interest rates were $664 million and, therefore, if interest rates had been one percentage point higher during 2025, our interest expense would have been $7 million higher.
+L921: At September 27, 2025, we had $125 million of receivables sold under the RPA subject to variable interest rates. During 2025, our average receivables sold under the RPA subject to variable interest rates were $125 million and, therefore, if interest rates had been one percentage point higher during 2025, our interest expense would have been $1 million higher.
+L1793:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1794:  | Statements of Earnings location  |  | September 27, 2025  |  | September 28, 2024
+L1795: Balance at beginning of period  |  |  | $  | 2,839   |  |  | $  | 3,089   |
+L1796:  |  |  |  |  |
+L1797: Increase in discounted future cash flows  | Interest expense  |  | —   |  |  | 237   |
+L1798: Increase (decrease) in earn out provisions  | Other  |  | 76   |  |  | (487)  |
+L1799: Settlements paid in cash  |  |  | (2,442)  |  |  | —   |
+L2510: The Company’s Chief Operating Decision Maker (“CODM”) is the President and Chief Executive Officer. The CODM is responsible for allocating resources and assessing performance based on the segment’s operating profit or loss, among other considerations. Segment operating profit is net sales less cost of sales and other operating expenses, excluding interest expense, equity-based compensation, non-service pension expense and other corporate expenses.
+L2565:  |  |  |  |  |  |
+L2566: Commercial Aircraft  |  | 111,793   |  |  | 98,877   |  |  | 86,037   |
+L2567:  |  |  |  |  |  |
+L2568: Industrial  |  | 107,919   |  |  | 93,200   |  |  | 101,269   |
+L2569:  |  |  |  |  |  |
+L2570: Total operating profit  |  | 449,606   |  |  | 404,465   |  |  | 344,038   |
+L2571:  |  |  |  |  |  |
+L2572: Deductions from operating profit:  |  |  |  |  |  |
+L2573: Interest expense  |  | 72,075   |  |  | 66,330   |  |  | 59,838   |
+L2574: Equity-based compensation expense  |  | 16,708   |  |  | 14,959   |  |  | 10,582   |
+--------------------------------------------------------------------------------
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn136view1 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"turn130view2","pattern":"interest income"}); Total lines: 4540
+No matching text found for "interest income"--------------------------------------------------------------------------------
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn136view2 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"turn130view2","pattern":"Minority"}); Total lines: 4540
+No matching text found for "Minority"--------------------------------------------------------------------------------
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn136view3 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"turn130view2","pattern":"short-term investments"}); Total lines: 4540
+L159: Raw Materials. Materials, supplies and components are purchased from numerous suppliers. We believe the loss of any one supplier, although potentially disruptive in the short-term, would not materially affect our operations in the long-term.
+L160: 
+L161: Working Capital. See the discussion on operating cycle in Note 1 - Summary of Significant Accounting Policies, of Item 8, Financial Statements and Supplementary Data, of this report.
+L1444: Total receivables sold and cash collections under the RPA were $680,709 for the year ended September 27, 2025. The fair value of the sold receivables approximated book value due to their credit quality and short-term nature, and as a result, no gain or loss on sale of receivables was recorded.
+L1506: For short-term leases that have a term of 12 months or less as of the commencement date, we do not recognize a ROU asset or lease liability on our balance sheet; we recognize expense as the lease payments are made over the lease term.
+L1659: 60
+L1660: 
+L1661: * * *
+L1662: 
+L1663: Note 10 - Indebtedness
+L1664: 
+L1665: We maintain short-term line of credit facilities with banks throughout the world that are principally demand lines subject to revision by the banks.
+L1934: The long-term investment objective of both the domestic and international retirement plans is to maintain the economic value of plan assets and future contributions by producing positive rates of investment return after subtracting inflation, benefit payments and expenses. Each of the plan’s strategic asset allocations is based on this long-term perspective and short-term fluctuations are viewed with appropriate perspective.
+L1961: Equity securities: Traded on national exchanges are valued at the last reported sales price. Investments denominated in foreign currencies are translated into U.S. dollars using the last reported exchange rate.
+L1962: 
+L1963: Fixed income securities: Valued using methods, such as dealer quotes, available trade information, spreads, bids and offers provided by a pricing vendor.
+L1964: 
+L1965: Money market funds: Institutional short-term investment vehicles valued daily.
+L4400: 10.27  | 【58†2023 Management Short Term Incentive Plan.】  | 10-K  | November 14, 2022
+L4401: 10.28  | 【59†Moog Inc. 2025 Short Term Incentive Plan, effective September 29, 2024.】  | 10-K  | November 27, 2024
+L4402: 10.29  | 【60†Moog Inc. Short Term Incentive Plan, effective September 28, 2025】.  |  | X
+L4403: 10.30  | 【61†Moog Inc. Deferred Compensation Plan for Directors and Officers, amended and restated effective January 1, 2005.】  | 10-K  | November 14, 2022
+--------------------------------------------------------------------------------
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn136view4 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"turn130view2","pattern":"Long-term debt consists"}); Total lines: 4540
+L836: In the normal course of business, we are exposed to interest rate risk from our long-term debt. To manage these risks, we may enter into derivative instruments such as interest rate swaps which are used to adjust the proportion of total debt that is subject to variable and fixed interest rates.
+L867: De bt Obligations and Interest Payments - See Note 10 - Indebtedness, for details of our debt and timing of expected future principal and interest payments. Our current and long-term interest obligation on fixed-rate debt is $21 million and $26 mill ion, respectively. Interest on variable-rate long-term debt, assuming the rate and outstanding balances do not change from those at September 27, 2025, would be approximately $28 million annually.
+L1015: Total assets  |  | $  | 4,426,055   |  |  | $  | 4,077,647   |
+L1016: LIABILITIES AND SHAREHOLDERS’ EQUITY  |  |  |  |
+L1017: Current liabilities  |  |  |  |
+L1018:  |  |  |  |
+L1019: Current installments of long-term debt  |  | $  | 1,563   |  |  | $  | —   |
+L1020: Accounts payable  |  | 318,402   |  |  | 293,888   |
+L1021: Accrued compensation  |  | 106,040   |  |  | 104,027   |
+L1022: Contract advances and progress billings  |  | 372,988   |  |  | 302,126   |
+L1023:  |  |  |  |
+L1024: Accrued liabilities and other  |  | 320,075   |  |  | 313,373   |
+L1025: Total current liabilities  |  | 1,119,068   |  |  | 1,013,414   |
+L1026: Long-term debt, excluding current installments  |  | 944,123   |  |  | 874,139   |
+L1027: Long-term pension and retirement obligations  |  | 157,218   |  |  | 167,161   |
+L1028: Deferred income taxes  |  | 32,600   |  |  | 27,652   |
+L1029: Other long-term liabilities  |  | 180,491   |  |  | 166,464   |
+L1030: Total liabilities  |  | 2,433,500   |  |  | 2,248,830   |
+L1031:  |  |  |  |
+L1032:  |  |  |  |
+L1033: Shareholders’ equity  |  |  |  |
+L1666: Long-term debt consists of:
+L1667:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1668:  |  | September 27,
+L1669: 2025  |  | September 28,
+L1670: 2024  |  |
+L1671: U.S. revolving credit facility  |  | $  | 195,000   |  |  | $  | 375,500   |  |  |
+L1672: Term loan  |  | 250,000   |  |  | —   |  |  |
+L1673: SECT revolving credit facility  |  | 1,000   |  |  | 1,000   |  |  |
+L1674: Senior notes 4.25%  |  | 500,000   |  |  | 500,000   |  |  |
+L1675:  |  |  |  |  |  |
+L1676:  |  |  |  |  |  |
+L1677:  |  |  |  |  |  |
+L1678:  |  |  |  |  |  |
+L1679: Senior debt  |  | 946,000   |  |  | 876,500   |  |  |
+L1680: Less deferred debt issuance cost  |  | (314)  |  |  | (2,361)  |  |  |
+L1681: Less current installments  |  | (1,563)  |  |  | —   |  |  |
+L1682: Long-term debt  |  | $  | 944,123   |  |  | $  | 874,139   |  |  |
+L1690: Maturities of long-term debt are:
+L1691:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1692:  | 2026  | 2027  | 2028  | 2029  | 2030  | Thereafter
+L1693: Long-term debt maturities  | $  | 3,125   |  | $  | 10,375   |  | $  | 932,500   |  | $  | —   |  | $  | —   |  | $  | —   |
+L1694: 
+L1695: At September 27, 2025, we had pledged assets with a net book value of $2,163,282 as security for long-term debt.
+L1696: At September 27, 2025, we had $925,388 of unused short and long-term borrowing capacity, including $900,721 from the U.S. revolving credit facility.
+L1697: 
+L1698: Commitment fees are charged on some of these arrangements and on the U.S. revolving credit facility based on a percentage of the unused amounts available and are not material.
+L1699: 
+L1700: 61
+L1701: 
+L1702: * * *
+L1703: 
+L1704: Note 11 - Other Accrued Liabilities
+L1801: Our only financial instrument for which the carrying value differs from its fair value is long-term debt. At September 27, 2025, the fair value of long-term debt was $932,570 compared to its carrying value of $946,000. The fair value of long-term debt is classified as Level 2 within the fair value hierarchy and was estimated based on quoted market prices.
+L1802: 
+L1803: 64
+L1804: 
+L1805: * * *
+L1806: 
+L1807: Note 14 - Restructuring
+L1934: The long-term investment objective of both the domestic and international retirement plans is to maintain the economic value of plan assets and future contributions by producing positive rates of investment return after subtracting inflation, benefit payments and expenses. Each of the plan’s strategic asset allocations is based on this long-term perspective and short-term fluctuations are viewed with appropriate perspective.
+L1935: The U.S. qualified defined benefit plan’s assets are invested for long-term investment results. To accommodate the long-term investment horizon while providing appropriate liquidity, the plan maintains a liquid cash reserve sufficient to allow the plan to meet its benefit payment, fee and expense obligations. Its assets are broadly diversified to help alleviate the risk of adverse returns in any one security or investment class.
+L1936: The international plans’ assets are invested in both low-risk and high-risk investments in order to achieve the long-term investment strategy objective. Investment risks for both domestic and international plans are considered within the context of the entire asset allocation, rather than on a security-by-security basis.
+L2702: Accounts payable  |  | $  | 264,573   |  |  | $  | 900   |  |  | $  | 265,473   |
+L2703: Accrued compensation  |  | 111,154   |  |  | 1,500   |  |  | 112,654   |
+L2704: Contract advances and progress billings  |  | 377,977   |  |  | (40,270)  |  |  | 337,707   |
+L2705: Accrued liabilities and other  |  | 211,769   |  |  | 30,044   |  |  | 241,813   |
+L2706: Total current liabilities  |  | 965,473   |  |  | (7,826)  |  |  | 957,647   |
+L2707: Long-term debt, excluding current installments  |  | 863,092   |  |  | —   |  |  | 863,092   |
+L2888: Accounts payable  |  | $  | 261,155   |  |  | $  | 900   |  |  | $  | 262,055   |
+L2889: Accrued compensation  |  | 64,099   |  |  | 1,850   |  |  | 65,949   |
+L2890: Contract advances and progress billings  |  | 445,706   |  |  | 841   |  |  | 446,547   |
+L2891: Accrued liabilities and other  |  | 238,871   |  |  | 14,272   |  |  | 253,143   |
+L2892: Total current liabilities  |  | 1,009,831   |  |  | 17,863   |  |  | 1,027,694   |
+L2893: Long-term debt, excluding current installments  |  | 920,103   |  |  | —   |  |  | 920,103   |
+L3074: Accounts payable  |  | $  | 267,731   |  |  | $  | 900   |  |  | $  | 268,631   |
+L3075: Accrued compensation  |  | 73,961   |  |  | 2,200   |  |  | 76,161   |
+L3076: Contract advances and progress billings  |  | 404,876   |  |  | 354   |  |  | 405,230   |
+L3077: Accrued liabilities and other  |  | 257,960   |  |  | 23,781   |  |  | 281,741   |
+L3078: Total current liabilities  |  | 1,004,528   |  |  | 27,235   |  |  | 1,031,763   |
+L3079: Long-term debt, excluding current installments  |  | 948,615   |  |  | —   |  |  | 948,615   |
+L3260: Accounts payable  |  | $  | 266,294   |  |  | $  | 900   |  |  | $  | 267,194   |
+L3261: Accrued compensation  |  | 98,981   |  |  | 2,550   |  |  | 101,531   |
+L3262: Contract advances and progress billings  |  | 353,496   |  |  | 240   |  |  | 353,736   |
+L3263: Accrued liabilities and other  |  | 269,633   |  |  | 21,191   |  |  | 290,824   |
+L3264: Total current liabilities  |  | 988,404   |  |  | 24,881   |  |  | 1,013,285   |
+L3265: Long-term debt, excluding current installments  |  | 958,127   |  |  | —   |  |  | 958,127   |
+L3444: Accounts payable  |  | $  | 292,988   |  |  | $  | 900   |  |  | $  | 293,888   |
+L3445: Accrued compensation  |  | 101,127   |  |  | 2,900   |  |  | 104,027   |
+L3446: Contract advances and progress billings  |  | 299,732   |  |  | 2,394   |  |  | 302,126   |
+L3447: Accrued liabilities and other  |  | 305,180   |  |  | 8,193   |  |  | 313,373   |
+L3448: Total current liabilities  |  | 999,027   |  |  | 14,387   |  |  | 1,013,414   |
+L3449: Long-term debt, excluding current installments  |  | 874,139   |  |  | —   |  |  | 874,139   |
+L3630: Accounts payable  |  | $  | 267,054   |  |  | $  | 900   |  |  | $  | 267,954   |
+L3631: Accrued compensation  |  | 68,366   |  |  | —   |  |  | 68,366   |
+L3632: Contract advances and progress billings  |  | 293,550   |  |  | (390)  |  |  | 293,160   |
+L3633: Accrued liabilities and other  |  | 284,849   |  |  | 16,614   |  |  | 301,463   |
+L3634: Total current liabilities  |  | 913,819   |  |  | 17,124   |  |  | 930,943   |
+L3635: Long-term debt, excluding current installments  |  | 1,104,151   |  |  | —   |  |  | 1,104,151   |
+L3816: Accounts payable  |  | $  | 293,052   |  |  | $  | 900   |  |  | $  | 293,952   |
+L3817: Accrued compensation  |  | 69,411   |  |  | —   |  |  | 69,411   |
+L3818: Contract advances and progress billings  |  | 306,772   |  |  | 868   |  |  | 307,640   |
+L3819: Accrued liabilities and other  |  | 282,180   |  |  | 15,457   |  |  | 297,637   |
+L3820: Total current liabilities  |  | 951,415   |  |  | 17,225   |  |  | 968,640   |
+L3821: Long-term debt, excluding current installments  |  | 1,165,662   |  |  | —   |  |  | 1,165,662   |
+L4002: Accounts payable  |  | $  | 289,160   |  |  | $  | —   |  |  | $  | 289,160   |
+L4003: Accrued compensation  |  | 98,292   |  |  | —   |  |  | 98,292   |
+L4004: Contract advances and progress billings  |  | 298,648   |  |  | 2,622   |  |  | 301,270   |
+L4005: Accrued liabilities and other  |  | 302,514   |  |  | 15,529   |  |  | 318,043   |
+L4006: Total current liabilities  |  | 988,614   |  |  | 18,151   |  |  | 1,006,765   |
+L4007: Long-term debt, excluding current installments  |  | 1,081,674   |  |  | —   |  |  | 1,081,674   |
+L4155: To test the accuracy of the Company’s estimated total contract costs at completion for the select long-term production contracts, our audit procedures included, among others, inquiries of key personnel involved in developing the estimates, inspection of historical program costs to support the future estimated costs, sensitivity analyses to evaluate changes in the revenue recognized that would result from changes in the estimated total contract costs at completion, and/or analytical procedures comparing profit rates to similar contracts.
+L4380: 10.11  | 【42†Second Amendment to the Moog Inc. 2008 Stock Appreciation Rights Plan.】  | 8-K  | December 26, 2012
+L4381: 10.12  | 【43†Form of Stock Appreciation Rights Award Agreement under 2008 Stock Appreciation Rights Plan.】  | 10-K  | November 25, 2008
+L4382: 10.13  | 【44†2014 Long Term Incentive Plan.】  | 14A  | December 12, 2014
+L4384: 10.15  | 【46†Second Amendment to the Moog Inc. 2014 Long Term Incentive Plan, effective November 15, 2016.】  | 10-K  | November 14, 2022
+L4385: 10.16  | 【47†Third Amendment to the Moog Inc. 2014 Long Term Incentive Plan, effective November 11, 2019.】  | 10-K  | November 14, 2022
+L4386: 10.17  | 【48†Fourth Amendment to the Moog Inc. 2014 Long Term Incentive Plan, effective November 17, 2020.】  | 10-K  | November 14, 2022
+L4387: 10.18  | 【49†Fifth Amendment to the Moog Inc. 2014 Long Term Incentive Plan, effective November 16, 2021.】  | 10-Q  | January 28, 2022
+L4388: 10.19  | 【50†Form of Stock Appreciation Rights Award Agreement under the 2014 Long Term Incentive Plan.】  | 8-K  | November 20, 2015
+L4389: 10.20  | 【51†Form of Restricted Stock Unit Award Agreement under the 2014 Long Term Incentive Plan.】  | 8-K  | November 20, 2015
+L4390: 10.21  | 【52†Form of Restricted Stock Unit Award Agreement under the 2014 Long Term Incentive Plan (for awards granted on or after November 15, 2021).】  | 10-K  | November 15, 2021
+L4391: 127
+L4392: 
+L4393: * * *
+L4394:  |  |  |  |  |  |  |  |  |  |  |
+L4395: 10.22  | 【53†Form of Stock Appreciation Rights Award Agreement under the 2014 Long Term Incentive Plan (for awards granted on or after November 15, 2021).】  | 10-K  | November 15, 2021
+L4396: 10.23  | 【54†Form of Time Vested Award Agreement under the 2014 Long Term Incentive Plan (for awards granted on or after November 17, 2020).】  | 10-K  | November 15, 2021
+L4397: 10.24  | 【55†Form of Restricted Stock Unit Award Agreement under the 2014 Long Term Incentive Plan (for awards granted on or after November 15, 2022).】  | 10-Q  | February 3, 2023
+L4398: 10.25  | 【56†Form of Restricted Stock Unit Award Agreement under the 2014 Long Term Incentive Plan (for awards granted on or after November 14, 2023).】  | 10-Q  | January 26, 2024
+L4399: 10.26  | 【57†Form of Time Vested Award Agreement under the 2014 Long Term Incentive Plan】.  | 10-Q  | January 24, 2025
+L4412: 10.39  | 【70†First Amendment to the Defined Contribution Supplemental Executive Retirement Plan, dated July 26, 2018.】  | 10-Q  | July 27, 2018
+L4413: 10.40  | 【71†Moog Inc. Retirement Savings Restoration Plan.】  | 10-K  | November 14, 2022
+L4414: 10.41  | 【72†First Amendment to the Moog Inc.Retirement Savings Restoration Plan.】  | 10-K  | November 14, 2022
+L4415: 10.42  | 【73†Moog Inc. 2025 Long Term Incentive Plan】.  | DEF 14A  | December 17, 2024
+L4416: 10.43  | 【74†Form of Restricted Stock Unit Award Agreement under the 2025 Long Term Incentive Plan (for awards granted on or after November 11, 2025).】  |  | X
+L4417: 10.44  | 【75†Form of Stock Bonus Award Agreement under the 2025 Long Term Incentive Plan (for awards granted on or after November 11, 2025).】  |  | X
+L4418: 10.45  | 【76†Form of Other Stock-Based Award Agreement under the 2025 Long Term Incentive Plan (for awards granted on or after November 11, 2025).】  |  | X
+L4419: 10.46  | 【77†Form of Performance Stock Unit Award Agreement under the 2025 Long Term Incentive Plan (for awards granted on or after November 11, 2025).】  |  | X
+L4420: 10.47  | Other Material Contracts  |  |
+L4421:  | 【78†Moog Inc. Supplemental Retirement Plan Trust, as amended and restated, effective January 1, 2015.】  | 10-Q  | May 4, 2015
+L4422: 10.48  | 【79†Moog Inc. Stock Employee Compensation Trust Agreement amended and restated as of August 13, 2014.】  | 10-Q  | February 3, 2015
+--------------------------------------------------------------------------------
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn136view5 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"turn130view2","pattern":"majority-owned"}); Total lines: 4540
+No matching text found for "majority-owned"--------------------------------------------------------------------------------
+tdg-20250930 (https://www.sec.gov/Archives/edgar/data/1260221/000126022125000081/tdg-20250930.htm)
+citeturn136view6 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"turn134view2","pattern":"4,760"}); Total lines: 3012
+L634: EBITDA As Defined  | $  | 4,760   |  | (3)  | 53.9   | %  |  | $  | 4,173   |  | (3)  | 52.6   | %
+L738: Total Company EBITDA As Defined  | $  | 4,760   |  |  | 53.9   | %  | (1)  | $  | 4,173   |  |  | 52.6   | %  | (1)  | $  | 587   |  |  | 14.1   | %
+L1055: Non-cash stock and deferred compensation expense (2)  | 157   |  |  | 217   |
+L1056: Refinancing costs (3)  | 11   |  |  | 58   |
+L1057: Other, net (4)  | (18)  |  |  | 15   |
+L1058: EBITDA As Defined  | $  | 4,760   |  |  | $  | 4,173   |
+L1093: Non-cash stock and deferred compensation expense (3)  | 157   |  |  | 217   |
+L1094: Refinancing costs (2)  | 11   |  |  | 58   |
+L1095: Other, net (5)  | (18)  |  |  | 15   |
+L1096: EBITDA As Defined  | $  | 4,760   |  |  | $  | 4,173   |
+
+
+=== Retained browser-tool capture 6 ===
+tdg-20250930 (https://www.sec.gov/Archives/edgar/data/1260221/000126022125000081/tdg-20250930.htm)
+citeturn137view0 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({"ref_id":"turn134view2","lineno":1039}); Total lines: 3012
+L1027: •neither EBITDA nor EBITDA As Defined reflects the significant interest expense, or the cash requirements, necessary to service interest payments on our indebtedness;
+L1028: 
+L1029: •although depreciation and amortization are non-cash charges, the assets being depreciated and amortized will often have to be replaced in the future, and neither EBITDA nor EBITDA As Defined reflects any cash requirements for such replacements;
+L1030: •the omission of the substantial amortization expense associated with our intangible assets further limits the usefulness of EBITDA and EBITDA As Defined;
+L1031: 
+L1032: •neither EBITDA nor EBITDA As Defined includes the payment of taxes, which is a necessary element of our operations; and
+L1033: 
+L1034: •EBITDA As Defined excludes the cash expense we have incurred to integrate acquired businesses into our operations, which is a necessary element of certain of our acquisitions.
+L1035: Because of these limitations, EBITDA and EBITDA As Defined should not be considered as measures of discretionary cash available to us to invest in the growth of our business. Management compensates for these limitations by not viewing EBITDA or EBITDA As Defined in isolation and specifically by using other U.S. GAAP measures, such as net income, net sales and operating profit, to measure our operating performance. Neither EBITDA nor EBITDA As Defined is a measurement of financial performance under U.S.
+L1036: GAAP, and neither should be considered as an alternative to net income or cash flow from operations determined in accordance with U.S. GAAP. Our calculation of EBITDA and EBITDA As Defined may not be comparable to the calculation of similarly titled measures reported by other companies.
+L1037: 31
+L1038: 
+L1039: * * *
+L1040: 
+L1041: 【0†Table of Contents】
+L1042: 
+L1043: The following table sets forth a reconciliation of net income to EBITDA and EBITDA As Defined (in millions):
+L1044:  |  |  |  |  |  |  |  |  |  |  |
+L1045:  | Fiscal Years Ended September 30,
+L1046:  | 2025  |  | 2024
+L1047: Net Income  | $  | 2,074   |  |  | $  | 1,715   |
+L1048: Adjustments:  |  |  |
+L1049: Depreciation and amortization expense  | 367   |  |  | 312   |
+L1050: Interest expense-net  | 1,572   |  |  | 1,286   |
+L1051: Income tax provision  | 555   |  |  | 500   |
+L1052: EBITDA  | 4,568   |  |  | 3,813   |
+L1053: Adjustments:  |  |  |
+L1054: Acquisition transaction and integration-related expenses (1)  | 42   |  |  | 70   |
+L1055: Non-cash stock and deferred compensation expense (2)  | 157   |  |  | 217   |
+L1056: Refinancing costs (3)  | 11   |  |  | 58   |
+L1057: Other, net (4)  | (18)  |  |  | 15   |
+L1058: EBITDA As Defined  | $  | 4,760   |  |  | $  | 4,173   |
+L1059:  |  |
+L1060:  |  |  |  |  |  |  |  |
+L1061:  |  |
+L1062: (1)  |  | Represents costs incurred to integrate acquired businesses into our operations; facility relocation costs and other acquisition-related costs; transaction and valuation-related costs for acquisitions comprising deal fees, legal, financial and tax due diligence expenses; and amortization expense of inventory step-up recorded in connection with the purchase accounting of acquired businesses.
+L1063:  |  |
+L1064: (2)  |  | Represents the compensation expense recognized under our stock option plans and deferred compensation plans.
+L1065:  |  |
+L1066: (3)  |  | Represents costs expensed related to debt financing activities, including new issuances, extinguishments, refinancings and amendments to existing agreements.
+L1067:  |  |
+L1068: (4)  |  | Primarily represents foreign currency transaction gains or losses, payroll withholding taxes related to dividend equivalent payments and stock option exercises, non-service related pension costs, deferred compensation payments and other miscellaneous income or expense, such as gain on sale of business.
+L1069: 32
+L1070: 
+L1071: * * *
+L1072: 
+L1073: 【0†Table of Contents】
+L1074: 
+L1075: The following table sets forth a reconciliation of net cash provided by operating activities to EBITDA and EBITDA As Defined (in millions):
+L1076:  |  |  |  |  |  |  |  |  |  |  |
+L1077:  | Fiscal Years Ended September 30,
+L1078:  | 2025  |  | 2024
+L1079: Net cash provided by operating activities  | $  | 2,038   |  |  | $  | 2,045   |
+L1080: Adjustments:  |  |  |
+L1081: Changes in assets and liabilities, net of effects from acquisitions and sales of businesses  | 558   |  |  | 302   |
+L1082: Interest expense-net (1)  | 1,534   |  |  | 1,246   |
+L1083: Income tax provision-current  | 565   |  |  | 490   |
+L1084: Amortization of inventory step-up  | (10)  |  |  | (21)  |
+L1085: Loss contract amortization  | 51   |  |  | 35   |
+L1086: Refinancing costs (2)  | (11)  |  |  | (58)  |
+L1087: Gain on sale of businesses, net  | 10   |  |  | 11   |
+L1088: Non-cash stock and deferred compensation expense (3)  | (157)  |  |  | (217)  |
+L1089: Foreign currency exchange losses  | (10)  |  |  | (20)  |
+L1090: EBITDA  | 4,568   |  |  | 3,813   |
+L1091: Adjustments:  |  |  |
+L1092: Acquisition transaction and integration-related expenses (4)  | 42   |  |  | 70   |
+L1093: Non-cash stock and deferred compensation expense (3)  | 157   |  |  | 217   |
+L1094: Refinancing costs (2)  | 11   |  |  | 58   |
+L1095: Other, net (5)  | (18)  |  |  | 15   |
+L1096: EBITDA As Defined  | $  | 4,760   |  |  | $  | 4,173   |
+L1097:  |  |
+L1098:  |  |  |  |  |  |  |  |
+L1099:  |  |
+L1100: (1)  |  | Represents interest expense, net of interest income, excluding the amortization of debt issuance costs and discount on debt.
+L1101:  |  |
+--------------------------------------------------------------------------------
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn137view1 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({"ref_id":"turn130view2","lineno":2220}); Total lines: 4540
+L2216: The statute of limitations in several jurisdictions will expire in the next twelve months and we will have no unrecognized tax benefits recognized if the statute of limitations expires without the relevant taxing authority examining the applicable returns.
+L2217: During October 2021, the Organization for Economic Cooperation and Development ("OECD") passed Pillar Two, an inclusive framework on Base Erosion and Profit Sharing, which would enact a minimum 15% tax for large multinational companies. Many countries are considering changes to their tax laws or proposing new tax laws to align with the recommendations that have been made by the OECD regarding Pillar Two.
+L2218: The Company is closely monitoring developments and evaluating the potential impacts that Pillar Two will have on future periods, including the qualification for safe harbor. As of September 27, 2025, the Company has not recorded a material top-up tax related to Pillar Two.
+L2219: On July 4, 2025, the One Big Beautiful Bill Act (the "Act") was signed into law. The legislation includes a broad range of tax reform provisions affecting businesses including, but not limited to, the expansion of bonus depreciation, immediate expensing of domestic R&D costs, and revisions to the U.S. taxation of profits derived from international operations. The legislation has multiple effective dates, with certain provisions effective in 2025 and others implemented through 2027.
+L2220: The Act allowed the Company to take 100% tax deduction on certain fixed assets that were placed in service after January 19, 2025. Other than accelerated tax depreciation, the Act did not have a material impact on the Company financial position and results of operations as of and for the year ended September 27, 2025.
+L2221: 74
+L2222: 
+L2223: * * *
+L2224: 
+L2225: Note 17 - Earnings per Share
+L2226: 
+L2227: Basic and diluted weighted-average shares outstanding, as well as shares considered to be anti-dilutive, are as follows:
+L2228:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L2229:  |  | 2025  |  | 2024  |  | 2023  |  |
+L2230: Basic weighted-average shares outstanding  |  | 31,680,280   |  |  | 31,954,689   |  |  | 31,831,687   |  |  |
+L2231: Dilutive effect of equity-based awards  |  | 402,321   |  |  | 404,649   |  |  | 212,539   |  |  |
+L2232: Diluted weighted-average shares outstanding  |  | 32,082,601   |  |  | 32,359,338   |  |  | 32,044,226   |  |  |
+L2233: 
+L2234: Note 18 - Shareholders’ Equity
+L2235: Class A and Class B common stock share equally in our earnings and are identical with certain exceptions. Other than on matters relating to the election of directors or as required by law where the holders of Class A and Class B shares vote as separate classes, Class A shares have limited voting rights, with each share of Class A being entitled to one-tenth of a vote on most matters, and each share of Class B being entitled to one vote.
+L2236: Class A shareholders are entitled, subject to certain limitations, to elect at least 25% of the Board of Directors (rounded up to the nearest whole number) with Class B shareholders entitled to elect the balance of the directors. No cash dividend may be paid on Class B shares unless at least an equal cash dividend is paid on Class A shares. Class B shares are convertible at any time into Class A shares on a one-for-one basis at the option of the shareholder.
+L2237: Class A shares and Class B shares reserved for issuance at September 27, 2025 are as follows:
+L2238:  |  |  |  |  |
+L2239:     | Shares
+L2240: Conversion of Class B to Class A shares  | 7,416,255   |
+L2241: Employee Stock Purchase Plan  | 1,073,204   |
+L2242: 2025 Long Term Incentive Plan  | 1,500,000   |
+L2243: 2014 Long Term Incentive Plan  | 1,503,804   |
+L2244: 2008 Stock Appreciation Rights Plan  | 979,995   |
+L2245:  |
+L2246: Class A and B shares reserved for issuance  | 12,473,258   |
+L2247: We are authorized to issue up to 10,000,000 shares of preferred stock. The Board of Directors may authorize, without further shareholder action, the issuance of additional preferred stock which ranks senior to both classes of our common stock with respect to the payment of dividends and the distribution of assets on liquidation.
+L2248: The preferred stock, when issued, would have such designations relative to voting and conversion rights, preferences, privileges and limitations as determined by the Board of Directors.
+L2249: We issue common stock under our equity-based compensation plans from treasury stock or from stock held by the SECT. As of September 27, 2025, in addition to the shares reserved for issuance upon the exercise of outstanding equity awards, there were 1,458,225 shares authorized for awards that may be granted in the future under the 2025 Long Term Incentive Plan, assuming performance-based awards currently outstanding are all settled at the targeted payout.
+--------------------------------------------------------------------------------
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn137view2 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({"ref_id":"turn130view2","lineno":1800}); Total lines: 4540
+L1775: Our derivatives are valued using various pricing models or discounted cash flow analyses that incorporate observable market data, such as interest rate yield curves and currency rates, and are classified as Level 2 within the valuation hierarchy.
+L1776: 
+L1777: The following table presents the fair values and classification of our financial assets and liabilities measured on a recurring basis, all of which are classified as Level 2, except for the acquisition contingent consideration, which is classified as Level 3:
+L1778:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1779:  | Balance Sheets location  |  | September 27, 2025  |  | September 28, 2024
+L1780: Foreign currency contracts  | Other current assets  |  | $  | 250   |  |  | $  | 648   |
+L1781: Foreign currency contracts  | Other assets  |  | 39   |  |  | —   |
+L1782:  |  |  |  |  |
+L1783:  |  |  |  |  |
+L1784:  | Total assets  |  | $  | 289   |  |  | $  | 648   |
+L1785: Foreign currency contracts  | Accrued liabilities and other  |  | $  | 1,502   |  |  | $  | 28   |
+L1786: Foreign currency contracts  | Other long-term liabilities  |  | 8   |  |  | —   |
+L1787:  |  |  |  |  |
+L1788:  |  |  |  |  |
+L1789: Acquisition contingent consideration  | Accrued liabilities and other  |  | 473   |  |  | 2,839   |
+L1790:  |  |  |  |  |
+L1791:  | Total liabilities  |  | $  | 1,983   |  |  | $  | 2,867   |
+L1792: The changes in financial liabilities classified as Level 3 within the fair value hierarchy are as follows:
+L1793:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1794:  | Statements of Earnings location  |  | September 27, 2025  |  | September 28, 2024
+L1795: Balance at beginning of period  |  |  | $  | 2,839   |  |  | $  | 3,089   |
+L1796:  |  |  |  |  |
+L1797: Increase in discounted future cash flows  | Interest expense  |  | —   |  |  | 237   |
+L1798: Increase (decrease) in earn out provisions  | Other  |  | 76   |  |  | (487)  |
+L1799: Settlements paid in cash  |  |  | (2,442)  |  |  | —   |
+L1800: Balance at end of period  |  |  | $  | 473   |  |  | $  | 2,839   |
+L1801: Our only financial instrument for which the carrying value differs from its fair value is long-term debt. At September 27, 2025, the fair value of long-term debt was $932,570 compared to its carrying value of $946,000. The fair value of long-term debt is classified as Level 2 within the fair value hierarchy and was estimated based on quoted market prices.
+L1802: 
+L1803: 64
+L1804: 
+L1805: * * *
+L1806: 
+L1807: Note 14 - Restructuring
+L1808: In 2024, we initiated restructuring actions in relation to portfolio shaping activities. These actions have and will result in workforce reductions, principally in the U.S.and Europe. Total restructuring charges in 2024 include $11,096 for severance, $8,275 of non-cash charges related to intangibles, receivables, ROU assets and property and equipment written off and $4,417 for other costs.
+L1809: In 2023, we initiated restructuring actions in relation to portfolio shaping activities. These actions have and will result in workforce reductions, principally in the U.S. and Europe. The 2023 restructuring charge consists of $6,905 for severance and $1,092 for facility closure and other costs. The 2023 plan has elements, primarily retention agreements, that will continue through 2027 and could result in a dditional costs of up to approximately $3,400.
+L1810: Restructuring activity for severance and other costs by segment and reconciliation to consolidated amounts is as follows:
+L1811:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1812:  | Space and Defense  | Military Aircraft  | Commercial Aircraft  | Industrial  |  | Total
+L1813: Balance at October 1, 2022  | $  | 228   |  | $  | 229   |  | $  | —   |  | $  | 6,678   |  |  | $  | 7,135   |
+L1814: Charged to expense - 2023 plan  | 2,308   |  | 458   |  | —   |  | 5,808   |  |  | 8,574   |
+L1815: Adjustments to provision  | (37)  |  | (15)  |  | —   |  | (525)  |  |  | (577)  |
+L1816: Cash payments - 2023 plan  | (678)  |  | (95)  |  | —   |  | (1,450)  |  |  | (2,223)  |
+L1817: Cash payments - 2022 plan  | (190)  |  | (229)  |  | —   |  | (1885)  |  |  | (2,304)  |
+L1818: Cash payments - 2020 plan  | —   |  | —   |  | —   |  | (372)  |  |  | (372)  |
+L1819: Cash payments - 2018 plan  | —   |  | —   |  | —   |  | (359)  |  |  | (359)  |
+L1820:  |  |  |  |  |  |
+L1821: Foreign currency translation  | (9)  |  | (1)  |  | —   |  | 313   |  |  | 303   |
+L1822: Balance at October 1, 2023  | 1,622   |  | 347   |  | —   |  | 8,208   |  |  | 10,177   |
+L1823: Charged to expense - 2024 plan  | 6,307   |  | 3,973   |  | 1,237   |  | 10,282   |  |  | 21,799   |
+L1824: Charged to expense - 2023 plan  | —   |  | —   |  | —   |  | 3,766   |  |  | 3,766   |
+L1825: Non-cash charges - 2024 plan  | (4,907)  |  | (733)  |  | —   |  | (2,635)  |  |  | (8,275)  |
+L1826: Adjustments to provision  | (178)  |  | (139)  |  | —   |  | (1,638)  |  |  | (1,955)  |
+L1827: Cash payments - 2024 plan  | —   |  | (2,616)  |  | (477)  |  | (3,740)  |  |  | (6,833)  |
+L1828: Cash payments - 2023 plan  | (1444)  |  | (208)  |  | —   |  | (4,014)  |  |  | (5,666)  |
+L1829: Cash payments - 2022 plan  | —   |  | —   |  | —   |  | (464)  |  |  | (464)  |
+L1830: Cash payments - 2020 plan  | —   |  | —   |  | —   |  | (485)  |  |  | (485)  |
+L1831: Cash payments - 2018 plan  | —   |  | —   |  | —   |  | (399)  |  |  | (399)  |
+L1832: Foreign currency translation  | —   |  | —   |  | —   |  | 513   |  |  | 513   |
+--------------------------------------------------------------------------------
+mog-20250927 (https://www.sec.gov/Archives/edgar/data/67887/000162828025054103/mog-20250927.htm)
+citeturn137view3 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({"ref_id":"turn130view2","lineno":1170}); Total lines: 4540
+L1134: Class A shares issued related to compensation and acquisitions  |  | 136,092   |  |  | 44,658   |  |  | 50,057   |
+L1135: Class A shares purchased  |  | (516,037)  |  |  | (20,273)  |  |  | (93,510)  |
+L1136: End of year  |  | (15,013,457)  |  |  | (14,633,512)  |  |  | (14,657,897)  |
+L1137: TREASURY SHARES - CLASS B COMMON STOCK  |  |  |  |  |  |
+L1138: Beginning of year  |  | (2,861,088)  |  |  | (2,896,845)  |  |  | (3,020,291)  |
+L1139: Class B shares issued related to compensation  |  | 245,499   |  |  | 254,853   |  |  | 336,451   |
+L1140: Class B shares purchased  |  | (210,400)  |  |  | (219,096)  |  |  | (213,005)  |
+L1141: End of year  |  | (2,825,989)  |  |  | (2,861,088)  |  |  | (2,896,845)  |
+L1142: SECT - CLASS A COMMON STOCK  |  |  |  |  |  |
+L1143:  |  |  |  |  |  |
+L1144:  |  |  |  |  |  |
+L1145:  |  |  |  |  |  |
+L1146: Beginning and end of year  |  | (425,148)  |  |  | (425,148)  |  |  | (425,148)  |
+L1147: SECT - CLASS B COMMON STOCK  |  |  |  |  |  |
+L1148: Beginning of year  |  | (548,084)  |  |  | (592,128)  |  |  | (611,942)  |
+L1149: Issuance of shares  |  | 170,034   |  |  | 183,403   |  |  | 168,519   |
+L1150: Purchase of shares  |  | (148,594)  |  |  | (139,359)  |  |  | (148,705)  |
+L1151: End of year  |  | (526,644)  |  |  | (548,084)  |  |  | (592,128)  |
+L1152: SERP - CLASS B COMMON STOCK  |  |  |  |  |  |
+L1153:  |  |  |  |  |  |
+L1154:  |  |  |  |  |  |
+L1155:  |  |  |  |  |  |
+L1156: Beginning and end of year  |  | (826,170)  |  |  | (826,170)  |  |  | (826,170)  |
+L1157: See accompanying Notes to Consolidated Financial Statements.
+L1158: 
+L1159: 43
+L1160: 
+L1161: * * *
+L1162: 
+L1163: 【26†Image: Image7.jpg】
+L1164: Consolidated Statements of Cash Flows
+L1165:  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+L1166:    |  | Fiscal Years Ended
+L1167: (dollars in thousands)  |  | September 27, 2025  |  | September 28, 2024  |  | September 30, 2023
+L1168: CASH FLOWS FROM OPERATING ACTIVITIES  |  |  |  |  |  |
+L1169: Net earnings  |  | $  | 235,028   |  |  | $  | 208,786   |  |  | $  | 175,156   |
+L1170: Adjustments to reconcile net earnings to net cash provided (used) by operating activities:  |  |  |  |  |  |
+L1171: Depreciation  |  | 94,013   |  |  | 85,878   |  |  | 77,763   |
+L1172: Amortization  |  | 9,715   |  |  | 10,149   |  |  | 11,541   |
+L1173: Deferred income taxes  |  | (6,545)  |  |  | (29,651)  |  |  | (34,997)  |
+L1174: Equity-based compensation expense  |  | 16,708   |  |  | 14,959   |  |  | 10,582   |
+L1175: Loss on sale of businesses  |  | —   |  |  | —   |  |  | 900   |
+L1176: Asset impairment and inventory write-down  |  | 13,848   |  |  | 29,176   |  |  | 18,973   |
+L1177: Gain on sale of buildings  |  | —   |  |  | (979)  |  |  | (10,030)  |
+L1178: Pension settlement  |  | —   |  |  | —   |  |  | 12,542   |
+L1179: Other  |  | 4,432   |  |  | 6,283   |  |  | 6,244   |
+L1180: Changes in assets and liabilities providing (using) cash:  |  |  |  |  |  |
+L1181: Receivables  |  | (87,070)  |  |  | 35,962   |  |  | (69,275)  |
+L1182: Unbilled receivables  |  | (64,588)  |  |  | (50,474)  |  |  | (35,423)  |
+L1183: Inventories  |  | (51,772)  |  |  | (131,330)  |  |  | (127,442)  |
+L1184: Accounts payable  |  | 24,711   |  |  | 26,446   |  |  | 28,641   |
+L1185: Contract advances and progress billings  |  | 81,597   |  |  | (41,717)  |  |  | 39,448   |
+L1186: Accrued expenses  |  | 3,743   |  |  | 7,900   |  |  | (3,185)  |
+L1187: Accrued income taxes  |  | (20,214)  |  |  | 14,502   |  |  | 23,644   |
+L1188: Net pension and post retirement liabilities  |  | 18,194   |  |  | 11,791   |  |  | 13,940   |
+L1189: Other assets and liabilities  |  | 1,286   |  |  | 181   |  |  | 629   |
+L1190: Net cash provided (used) by operating activities  |  | 273,086   |  |  | 197,862   |  |  | 139,651   |
+L1191: CASH FLOWS FROM INVESTING ACTIVITIES  |  |  |  |  |  |
+L1192: Acquisitions of businesses, net of cash acquired  |  | (41,179)  |  |  | (5,911)  |  |  | —   |
+L1193: Purchase of property, plant and equipment  |  | (144,731)  |  |  | (151,995)  |  |  | (177,309)  |
+L1194: Net proceeds from businesses sold  |  | 13,487   |  |  | 1,627   |  |  | 1,892   |
+L1195: Net proceeds from buildings sold  |  | —   |  |  | 1,453   |  |  | 19,702   |
+L1196: Other investing transactions  |  | (2,833)  |  |  | (766)  |  |  | (11,455)  |
+L1197: Net cash provided (used) by investing activities  |  | (175,256)  |  |  | (155,592)  |  |  | (167,170)  |
+L1198: CASH FLOWS FROM FINANCING ACTIVITIES  |  |  |  |  |  |
+L1199:  |  |  |  |  |  |
+L1200: Proceeds from revolving lines of credit  |  | 1,229,500   |  |  | 1,038,500   |  |  | 1,044,101   |
+L1201: Payments on revolving lines of credit  |  | (1,410,000)  |  |  | (1,029,500)  |  |  | (1,017,420)  |
+L1202: Proceeds from long-term debt  |  | 250,000   |  |  | —   |  |  | —   |
+L1203: Payments on long-term debt  |  | —   |  |  | —   |  |  | (916)  |
+L1204:  |  |  |  |  |  |
+L1205:  |  |  |  |  |  |
+L1206:  |  |  |  |  |  |
+L1207: Payments on finance lease obligations  |  | (10,159)  |  |  | (6,037)  |  |  | (4,313)  |
+L1208: Payment of dividends  |  | (36,430)  |  |  | (35,476)  |  |  | (34,074)  |
+L1209: Proceeds from sale of treasury stock  |  | 19,568   |  |  | 15,685   |  |  | 19,785   |
+L1210: Purchase of outstanding shares for treasury  |  | (142,707)  |  |  | (36,738)  |  |  | (29,306)  |
+L1211: Proceeds from sale of stock held by SECT  |  | 32,664   |  |  | 28,202   |  |  | 15,713   |
+L1212: Purchase of stock held by SECT  |  | (28,985)  |  |  | (22,837)  |  |  | (14,251)  |
+L1213:  |  |  |  |  |  |
+L1214:  |  |  |  |  |  |
+L1215:  |  |  |  |  |  |
+L1216: Other financing transactions  |  | (1,742)  |  |  | —   |  |  | (2,027)  |
+

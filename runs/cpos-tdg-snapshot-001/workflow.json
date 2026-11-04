@@ -1,0 +1,47 @@
+{
+  "run": {
+    "run_id": "cpos-tdg-fy2024-retained-snapshot-1",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-1",
+      "CP-MODEL",
+      "CP-1A",
+      "CP-2"
+    ]
+  },
+  "execution": "retained-response-replay",
+  "max_attempts": 2,
+  "provider_cap_usd": 0,
+  "sources": {
+    "S1-annual-report.pdf": {
+      "path": "../../data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+    },
+    "S1-text-aid.jsonl": {
+      "path": "../tdg-001/source-pages.jsonl",
+      "sha256": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+    }
+  },
+  "instructions": {
+    "CP-0": {
+      "path": "CP-0-replay-instructions.md",
+      "sha256": "7000a48a151d2945bbb31675e90fe4797bb25d5466897c9808aaa37430869178"
+    },
+    "CP-1": {
+      "path": "CP-1-replay-instructions.md",
+      "sha256": "64762de25fe27dea50879ebd426ea6d03e515a7742c5f12dc490a9c91a99a44e"
+    },
+    "CP-1A": {
+      "path": "CP-1A-replay-instructions.md",
+      "sha256": "732a5bd8e7b9dffbe5ee4d61c03051f8859b9561caf1f3e73546685f40b80e13"
+    },
+    "CP-2": {
+      "path": "CP-2-replay-instructions.md",
+      "sha256": "79c02e5efc0435452f4ef1eec1e994dc49231d17af902f1f42efb3ab8be087b1"
+    }
+  }
+}

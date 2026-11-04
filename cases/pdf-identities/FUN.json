@@ -1,0 +1,270 @@
+{
+ "schema": "pdf-identities/1",
+ "doc": "FUN",
+ "source_name": "f-20251231.pdf",
+ "source_sha256": "e2868ea611b297c26f5a27f92a1a0c2d0c12fcffbd4e0a3d5c3e3f66031f66e1",
+ "unit": "USD millions",
+ "note": "label and page name a row of tests/fixtures/pdf_pages/<doc>/pNNN.txt; printed values are in column order; each identity is lhs sum == rhs sum, exact, per column",
+ "identities": [
+  {
+   "id": "FUN-BS-1",
+   "kind": "BS",
+   "equation": "total assets = total liabilities + total equity",
+   "lhs": [
+    {
+     "label": "Total assets",
+     "page": 116,
+     "printed": [
+      "285,196",
+      "289,160"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Total liabilities",
+     "page": 116,
+     "printed": [
+      "240,338",
+      "253,180"
+     ]
+    },
+    {
+     "label": "Total equity",
+     "page": 116,
+     "printed": [
+      "44,858",
+      "35,980"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "December 31, 2024",
+     "lhs_sum": "285196",
+     "rhs_sum": "285196",
+     "values": {
+      "Total assets": "285196",
+      "Total liabilities": "240338",
+      "Total equity": "44858"
+     }
+    },
+    {
+     "header_text": "December 31, 2025",
+     "lhs_sum": "289160",
+     "rhs_sum": "289160",
+     "values": {
+      "Total assets": "289160",
+      "Total liabilities": "253180",
+      "Total equity": "35980"
+     }
+    }
+   ]
+  },
+  {
+   "id": "FUN-BS-2",
+   "kind": "BS",
+   "equation": "total assets = the printed total of liabilities and equity",
+   "lhs": [
+    {
+     "label": "Total assets",
+     "page": 116,
+     "printed": [
+      "285,196",
+      "289,160"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Total liabilities and equity",
+     "page": 116,
+     "printed": [
+      "285,196",
+      "289,160"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "December 31, 2024",
+     "lhs_sum": "285196",
+     "rhs_sum": "285196",
+     "values": {
+      "Total assets": "285196",
+      "Total liabilities and equity": "285196"
+     }
+    },
+    {
+     "header_text": "December 31, 2025",
+     "lhs_sum": "289160",
+     "rhs_sum": "289160",
+     "values": {
+      "Total assets": "289160",
+      "Total liabilities and equity": "289160"
+     }
+    }
+   ]
+  },
+  {
+   "id": "FUN-CFS-1",
+   "kind": "CFS",
+   "equation": "operating + investing + financing + exchange-rate effect = net change in cash",
+   "lhs": [
+    {
+     "label": "Net cash provided by/(used in) operating activities",
+     "page": 117,
+     "printed": [
+      "14,918",
+      "15,423",
+      "21,282"
+     ]
+    },
+    {
+     "label": "Net cash provided by/(used in) investing activities",
+     "page": 117,
+     "printed": [
+      "(17,628)",
+      "(24,370)",
+      "(18,049)"
+     ]
+    },
+    {
+     "label": "Net cash provided by/(used in) financing activities",
+     "page": 117,
+     "printed": [
+      "2,584",
+      "7,485",
+      "(3,205)"
+     ]
+    },
+    {
+     "label": "Effect of exchange rate changes on cash, cash equivalents, and restricted cash",
+     "page": 117,
+     "printed": [
+      "(104)",
+      "(458)",
+      "532"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Net increase/(decrease) in cash, cash equivalents, and restricted cash",
+     "page": 117,
+     "printed": [
+      "(230)",
+      "(1,920)",
+      "560"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "2023",
+     "lhs_sum": "-230",
+     "rhs_sum": "-230",
+     "values": {
+      "Net cash provided by/(used in) operating activities": "14918",
+      "Net cash provided by/(used in) investing activities": "-17628",
+      "Net cash provided by/(used in) financing activities": "2584",
+      "Effect of exchange rate changes on cash, cash equivalents, and restricted cash": "-104",
+      "Net increase/(decrease) in cash, cash equivalents, and restricted cash": "-230"
+     }
+    },
+    {
+     "header_text": "2024",
+     "lhs_sum": "-1920",
+     "rhs_sum": "-1920",
+     "values": {
+      "Net cash provided by/(used in) operating activities": "15423",
+      "Net cash provided by/(used in) investing activities": "-24370",
+      "Net cash provided by/(used in) financing activities": "7485",
+      "Effect of exchange rate changes on cash, cash equivalents, and restricted cash": "-458",
+      "Net increase/(decrease) in cash, cash equivalents, and restricted cash": "-1920"
+     }
+    },
+    {
+     "header_text": "2025",
+     "lhs_sum": "560",
+     "rhs_sum": "560",
+     "values": {
+      "Net cash provided by/(used in) operating activities": "21282",
+      "Net cash provided by/(used in) investing activities": "-18049",
+      "Net cash provided by/(used in) financing activities": "-3205",
+      "Effect of exchange rate changes on cash, cash equivalents, and restricted cash": "532",
+      "Net increase/(decrease) in cash, cash equivalents, and restricted cash": "560"
+     }
+    }
+   ]
+  },
+  {
+   "id": "FUN-CFS-2",
+   "kind": "CFS",
+   "equation": "cash at beginning + net change = cash at end",
+   "lhs": [
+    {
+     "label": "Cash, cash equivalents, and restricted cash at beginning of period",
+     "page": 117,
+     "printed": [
+      "25,340",
+      "25,110",
+      "23,190"
+     ]
+    },
+    {
+     "label": "Net increase/(decrease) in cash, cash equivalents, and restricted cash",
+     "page": 117,
+     "printed": [
+      "(230)",
+      "(1,920)",
+      "560"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Cash, cash equivalents, and restricted cash at end of period",
+     "page": 117,
+     "printed": [
+      "25,110",
+      "23,190",
+      "23,750"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "2023",
+     "lhs_sum": "25110",
+     "rhs_sum": "25110",
+     "values": {
+      "Cash, cash equivalents, and restricted cash at beginning of period": "25340",
+      "Net increase/(decrease) in cash, cash equivalents, and restricted cash": "-230",
+      "Cash, cash equivalents, and restricted cash at end of period": "25110"
+     }
+    },
+    {
+     "header_text": "2024",
+     "lhs_sum": "23190",
+     "rhs_sum": "23190",
+     "values": {
+      "Cash, cash equivalents, and restricted cash at beginning of period": "25110",
+      "Net increase/(decrease) in cash, cash equivalents, and restricted cash": "-1920",
+      "Cash, cash equivalents, and restricted cash at end of period": "23190"
+     }
+    },
+    {
+     "header_text": "2025",
+     "lhs_sum": "23750",
+     "rhs_sum": "23750",
+     "values": {
+      "Cash, cash equivalents, and restricted cash at beginning of period": "23190",
+      "Net increase/(decrease) in cash, cash equivalents, and restricted cash": "560",
+      "Cash, cash equivalents, and restricted cash at end of period": "23750"
+     }
+    }
+   ]
+  }
+ ]
+}

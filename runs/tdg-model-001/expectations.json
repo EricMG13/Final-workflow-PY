@@ -1,0 +1,109 @@
+{
+  "scope": "Independent literal issuer/handoff expectations retained before publication; ratios later checked with exact Fractions, not production calculations.",
+  "annual_periods": [
+    "FY2022",
+    "FY2023",
+    "FY2024"
+  ],
+  "values": {
+    "revenue": [
+      5429,
+      6585,
+      7940
+    ],
+    "cogs": [
+      2330,
+      2743,
+      3268
+    ],
+    "gross_profit": [
+      3099,
+      3842,
+      4672
+    ],
+    "selling_admin": [
+      748,
+      780,
+      980
+    ],
+    "income_statement_amortization": [
+      136,
+      139,
+      161
+    ],
+    "opex_magnitude": [
+      884,
+      919,
+      1141
+    ],
+    "ebit": [
+      2215,
+      2923,
+      3531
+    ],
+    "cash_flow_DA": [
+      253,
+      268,
+      312
+    ],
+    "operating_ebitda": [
+      2468,
+      3191,
+      3843
+    ],
+    "issuer_ordinary_ebitda": [
+      null,
+      3148,
+      3813
+    ],
+    "issuer_as_defined": [
+      2646,
+      3395,
+      4173
+    ],
+    "carrying_debt": [
+      null,
+      19750,
+      24880
+    ],
+    "cash": [
+      3001,
+      3472,
+      6261
+    ],
+    "cfo": [
+      948,
+      1375,
+      2045
+    ],
+    "capex_signed": [
+      -119,
+      -139,
+      -165
+    ],
+    "cfo_less_capex": [
+      829,
+      1236,
+      1880
+    ],
+    "interest_cash": [
+      1057,
+      1160,
+      1158
+    ],
+    "tax_cash": [
+      220,
+      260,
+      539
+    ]
+  },
+  "definition_controls": [
+    "Operating EBITDA is not the issuer ordinary EBITDA base.",
+    "FY2022 ordinary bridge/debt missing, not zero.",
+    "OPEX below gross excludes COGS and uses IS amortization, not total D&A.",
+    "Reported cash is not available liquidity.",
+    "Historical figures do not become the conditional forward engine.",
+    "Scenario tables remain rounded displays with original exact calculation JSON attached.",
+    "No Excel output."
+  ]
+}

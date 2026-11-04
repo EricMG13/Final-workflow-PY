@@ -1,0 +1,46 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0"
+  },
+  "instructions": "# CP-2E / CP-2F \u2014 retained TDG macro and ESG delivery\n\nReuse the pinned actual CP-0 annual readiness and CP-1 annual foundation. Request\nCP-2F explicitly; the registry must dispatch exactly once to its canonical CP-2E.\nCompare the actual CP-2E-attempt-2.md with the pinned original instructions and\nprimary source pages. It carries all nine macro and eight broader ESG analytical\nregisters, rather than only the later native owner's narrower same-ID tables.\nRetain the earlier failed wording, which called a USD91.89m result \u201cbps\u201d. The\nselected repaired reply preserves money units for the +100bp arithmetic control.\n\nThis run is retained-response replay, not a fresh financial model, provider,\nindependent context or native accepted execution. The other previously checked\nCP-0/1-quarter/1A/1B/1D/2/2D handoffs are explicitly supplied as frozen context,\nnot newly launched native heads. New shared context bindings are evaluation\nmetadata, not original receipts. Original method/source/instruction hashes remain\npinned. Use current issuer files and these exact handoffs without reanalysis.\n\nHistorical consolidated TDG: September 30, 2024 balances/FY2024 annual flows, USD\nmillions. Keep the December-quarter observations separately dated and contextual.\nFuture-starting collars were not active at the September base; do not call their\nnow-historical events upcoming today or infer settlement/renewal outcomes.\nIndependently check source amounts, facility principal/carrying distinction,\nactive swap sum, derivative dates/strikes, source reported approximately-30 rate\nestimate and the differently based gross91.89 control. The conditional1188/1850\ncash-interest/proxy illustration holds all other inputs constant and inherits the\nsource estimate's approximation; it is neither a forecast nor a rebuilt net hedge\nsensitivity, covenant ratio, FCF or runway. Unknown floor, effective coverage,\nFX EBITDA share and debt currency stay missing.\n\nESG: check recorded remediation5+36=41 versus prior3+41=44, the issuer's contrary\ncost expectation, physical/transition/product-safety mechanisms, target status\nand missing instrument terms. A booked liability is not an incremental stress\nloss, its decline is not proof of payment, and a2031 emissions target is not\nachieved performance or a sustainability-linked debt ratchet. No greenium, false\nabsence, realised safety event or current regulation is inferred.\n\nThe separate existing renderer supplies a concise overview in its existing\nreport components plus the complete analytical module page/Evidence for all\nseventeen registers. Front-page choices are presentation only; do not remap the\nbroader register meanings into the later native same-ID schema. Preserve exact\nhandoff values, units, dates, source-line citations and limitations. Retain actual\nCP-2 downstream consumption. Excel is ingestion-only; no workbook output or\nexport gate. No new analytical run is required to render checked handoffs.\n",
+  "module_id": "CP-1",
+  "retained_response_sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb",
+  "run": {
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-2F"
+    ],
+    "run_id": "cpos-tdg-fy2024-macro-esg-1",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+    "retained-context/CP-0": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+    "retained-context/CP-1-quarter": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+    "retained-context/CP-1A": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe",
+    "retained-context/CP-1B": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+    "retained-context/CP-1D": "02403f02658abdc5c8ed82fe4a5a8bb12d80f20de8a2dd0ac99a3ac740ccde6b",
+    "retained-context/CP-2": "f147a5ad94c83015487f4e254788e8f93d025b643eedf213ba2d6184bf1a443e",
+    "retained-context/CP-2D": "36978d54a4c6d10dad21e381c8c7351d6e1a4d95aeb58bcc1226aed223ee0196",
+    "retained-context/original-CP-2E": "488d4a43a22ee8d1282cdf83bec2a57f5d0cefe58b5da40bb8bd9f4d8c1aeeca",
+    "runs/tdg-001/source-pages.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+    "runs/tdg-003/CP-2-macro-update.md": "3d038a387c0a619f08aee03bf2d59c02c4b53c8d63ec2ce645b4063154d11597",
+    "runs/tdg-003/CP-2E-attempt-1-calculations.json": "5b7c94551da78d59a3a42b0d1045a80052c4a47b7e9b7af4a25a0f3dafe49e6a",
+    "runs/tdg-003/CP-2E-attempt-1.md": "9dda1f5db7330151f7994f5ad9b2495520dec231801288a25388fac8e7bf4674",
+    "runs/tdg-003/CP-2E-instructions.md": "de9a6cb9695402df6d81940d00190923f77e35ef49d6eaf20a43e75d510d6ae7",
+    "runs/tdg-003/source-preparation/pdf139-environment.png": "07c1f5257523620ae95d638cfc38e1abc8a7959d3bd4d680559416ed2f826dfc",
+    "runs/tdg-003/source-preparation/pdf151-hedges.png": "7eda7a0269e7828dad011294c17775aa345dc72bd4fdb8d6dc23f53ac02096db",
+    "selected-method/skills/cp-2e-macro-fx-hedging-sensitivity/SKILL.md": "b931f41bb1ac7630c110f2a8b5d5bd4b5cf07d47232c333ef0a56d26923dfa95",
+    "selected-method/skills/cp-2e-macro-fx-hedging-sensitivity/references/REF_CP-2E_STEPS.md": "23ddaf2269f8361e01a301e407b89dbb1ae16a05b8ce7430c9e20a8f83ab15b8",
+    "selected-method/skills/cp-2e-macro-fx-hedging-sensitivity/references/REF_CP-2F_STEPS.md": "312301c620990d3810d19125cde30224f9696860c3ef5f04b3f9473652555e08",
+    "selected-method/src/deploy_vii/methods/cp2e.md": "f257dc2c8f7884a7a3eb720cdee9292e391d93e0e6301d0a09865588d07ea99b",
+    "selected-method/src/deploy_workflow/owners/cp2e.py": "b5d87f314e733f7e642fa525340c5201a468e65f5958971858b8f60bfd01b85d"
+  }
+}

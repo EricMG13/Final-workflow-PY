@@ -1,0 +1,418 @@
+{
+  "status": "progress — bounded earnings publication proved; overall module/pathway goal remains active",
+  "execution": "retained-response-replay",
+  "fresh_model_run": false,
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "subagents_used": false,
+  "excel_output": false,
+  "case": {
+    "issuer": "TDG",
+    "as_of": "2024-12-28",
+    "source_availability": "Historical filing set, including the December 2024 report published in 2025; not an information-available-at-2024-12-28 claim.",
+    "scope": "Amounts are USD millions except percentages and percentage-point changes. Historical TDG reported fiscal Q1 earnings: 2024-10-01–2024-12-28 (89 days) versus 2023-10-01–2023-12-30 (91 days). Five selected report sections from actual retained handoffs, plus the complete evidence rail. Guidance, matching LTM ratios and accessible liquidity remain unestablished. Replay publication; not a fresh model run or full pathway acceptance.",
+    "reuse_context": "New frozen evaluation context, not original native execution receipts. Later aids/annual reference are distinguished in reuse instructions."
+  },
+  "workflow": {
+    "path": "runs/cpos-tdg-earnings-001/workflow.json",
+    "sha256": "a98d6a7a3097c2af5db2de7e953392f9ce5b601ba1669086846f45fef2cb74ae"
+  },
+  "original_analytical_inputs": {
+    "runs/tdg-003/CP-0-instructions.md": "f08debd4311c8334603676a4ac61dc220ca39fda1e8f92ae28449fce17aa8f6c",
+    "runs/tdg-003/CP-1-instructions.md": "12e94411700cd3bd4e0a39aab5fe5cb3a09c2d44a1aca135cf77997d0e8863ea",
+    "runs/tdg-003/CP-1B-instructions.md": "412c3dd383807f50d811839c10613b984bd7c889dcd1fbedd0bff5dbaf056c0f",
+    "runs/tdg-003/CP-1B-attempt-1-calculations.json": "bb61c12fb934ec3523307954d88b8a16cdf372beda7296ccb43d615c2b346836",
+    "runs/tdg-003/CP-2D-attempt-1.md": "36978d54a4c6d10dad21e381c8c7351d6e1a4d95aeb58bcc1226aed223ee0196"
+  },
+  "sources": {
+    "H1-raw": {
+      "path": "../../data/public-corpus/v1/TDG/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm",
+      "sha256": "7e902c48d87067b4ea96c388ab2ca460c9c1c3c2e2960da09629377a7b359b0d"
+    },
+    "H1-text": {
+      "path": "../tdg-003/source-preparation/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.txt",
+      "sha256": "191aaf6cc1203f4448060005329f004e2279bb57fce9da63eb832b8a80691340"
+    },
+    "H1-xbrl": {
+      "path": "../tdg-003/source-preparation/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.xbrl.json",
+      "sha256": "e2850aaea64c7611b764f0884196a458804c08c3f13f8a80e6cfe2c28b198630"
+    },
+    "H2-raw": {
+      "path": "../../data/public-corpus/v1/TDG/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm",
+      "sha256": "74876b8874a3a396efd700114b280f45fcfcd3f11ceae31adee98c93bfacbf03"
+    },
+    "H2-text": {
+      "path": "../tdg-003/source-preparation/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.txt",
+      "sha256": "40634987739c484b40c6891c908bf83f45de869f6d07d8482262006e31221053"
+    },
+    "H2-xbrl": {
+      "path": "../tdg-003/source-preparation/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.xbrl.json",
+      "sha256": "9e94555a5133646e0675305ab9abe04c55932a63e8aeea755b2d4a275b06761e"
+    },
+    "H3-raw": {
+      "path": "../../data/public-corpus/v1/TDG/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+      "sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121"
+    },
+    "H3-text": {
+      "path": "../tdg-003/source-preparation/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.txt",
+      "sha256": "d94c5e2a382127f2f016413ad1e7f7837cfd188e4dc3a86f16ef0d4544c557de"
+    },
+    "H3-xbrl": {
+      "path": "../tdg-003/source-preparation/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.xbrl.json",
+      "sha256": "e0daf256ed189fbebf405499f34fc77cf04a126da929f0d7b4969fb69736919b"
+    },
+    "H4-raw": {
+      "path": "../../data/public-corpus/v1/TDG/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm",
+      "sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a"
+    },
+    "H4-text": {
+      "path": "../tdg-003/source-preparation/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.txt",
+      "sha256": "38b4642199a5381aca22f1ff4f5973ecc3430dfb24d068bf8058e962db99db71"
+    },
+    "H4-xbrl": {
+      "path": "../tdg-003/source-preparation/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.xbrl.json",
+      "sha256": "85418fd03517a339b5d54c5bfd1b37769c37a7c0752237f593ff2833d5273448"
+    },
+    "raw-unit-definitions": {
+      "path": "../tdg-003/source-preparation/raw-unit-definitions.json",
+      "sha256": "43065ea24743ed74c91bf75155e4036b772c6c18b538bd4034ad7cfbf0398dc1"
+    },
+    "source-preparation-manifest": {
+      "path": "../tdg-003/source-preparation/manifest.json",
+      "sha256": "b75c003aabd0e05db5bf74f078b84943468c9d06b5609afbcbdbc341b29d310a"
+    },
+    "annual-CP1-reference": {
+      "path": "../tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../tdg-003/CP-0.md",
+      "sha256": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+      "source_hashes": {
+        "H1-raw": "7e902c48d87067b4ea96c388ab2ca460c9c1c3c2e2960da09629377a7b359b0d",
+        "H1-text": "191aaf6cc1203f4448060005329f004e2279bb57fce9da63eb832b8a80691340",
+        "H1-xbrl": "e2850aaea64c7611b764f0884196a458804c08c3f13f8a80e6cfe2c28b198630",
+        "H2-raw": "74876b8874a3a396efd700114b280f45fcfcd3f11ceae31adee98c93bfacbf03",
+        "H2-text": "40634987739c484b40c6891c908bf83f45de869f6d07d8482262006e31221053",
+        "H2-xbrl": "9e94555a5133646e0675305ab9abe04c55932a63e8aeea755b2d4a275b06761e",
+        "H3-raw": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+        "H3-text": "d94c5e2a382127f2f016413ad1e7f7837cfd188e4dc3a86f16ef0d4544c557de",
+        "H3-xbrl": "e0daf256ed189fbebf405499f34fc77cf04a126da929f0d7b4969fb69736919b",
+        "H4-raw": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "H4-text": "38b4642199a5381aca22f1ff4f5973ecc3430dfb24d068bf8058e962db99db71",
+        "H4-xbrl": "85418fd03517a339b5d54c5bfd1b37769c37a7c0752237f593ff2833d5273448",
+        "raw-unit-definitions": "43065ea24743ed74c91bf75155e4036b772c6c18b538bd4034ad7cfbf0398dc1",
+        "source-preparation-manifest": "b75c003aabd0e05db5bf74f078b84943468c9d06b5609afbcbdbc341b29d310a",
+        "annual-CP1-reference": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+      },
+      "upstream": {}
+    },
+    "CP-1": {
+      "path": "../tdg-003/CP-1-attempt-2.md",
+      "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+      "source_hashes": {
+        "H1-raw": "7e902c48d87067b4ea96c388ab2ca460c9c1c3c2e2960da09629377a7b359b0d",
+        "H1-text": "191aaf6cc1203f4448060005329f004e2279bb57fce9da63eb832b8a80691340",
+        "H1-xbrl": "e2850aaea64c7611b764f0884196a458804c08c3f13f8a80e6cfe2c28b198630",
+        "H2-raw": "74876b8874a3a396efd700114b280f45fcfcd3f11ceae31adee98c93bfacbf03",
+        "H2-text": "40634987739c484b40c6891c908bf83f45de869f6d07d8482262006e31221053",
+        "H2-xbrl": "9e94555a5133646e0675305ab9abe04c55932a63e8aeea755b2d4a275b06761e",
+        "H3-raw": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+        "H3-text": "d94c5e2a382127f2f016413ad1e7f7837cfd188e4dc3a86f16ef0d4544c557de",
+        "H3-xbrl": "e0daf256ed189fbebf405499f34fc77cf04a126da929f0d7b4969fb69736919b",
+        "H4-raw": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "H4-text": "38b4642199a5381aca22f1ff4f5973ecc3430dfb24d068bf8058e962db99db71",
+        "H4-xbrl": "85418fd03517a339b5d54c5bfd1b37769c37a7c0752237f593ff2833d5273448",
+        "raw-unit-definitions": "43065ea24743ed74c91bf75155e4036b772c6c18b538bd4034ad7cfbf0398dc1",
+        "source-preparation-manifest": "b75c003aabd0e05db5bf74f078b84943468c9d06b5609afbcbdbc341b29d310a",
+        "annual-CP1-reference": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+      },
+      "upstream": {
+        "CP-0": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d"
+      }
+    },
+    "CP-1B": {
+      "path": "../tdg-003/CP-1B-attempt-1.md",
+      "sha256": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+      "source_hashes": {
+        "H1-raw": "7e902c48d87067b4ea96c388ab2ca460c9c1c3c2e2960da09629377a7b359b0d",
+        "H1-text": "191aaf6cc1203f4448060005329f004e2279bb57fce9da63eb832b8a80691340",
+        "H1-xbrl": "e2850aaea64c7611b764f0884196a458804c08c3f13f8a80e6cfe2c28b198630",
+        "H2-raw": "74876b8874a3a396efd700114b280f45fcfcd3f11ceae31adee98c93bfacbf03",
+        "H2-text": "40634987739c484b40c6891c908bf83f45de869f6d07d8482262006e31221053",
+        "H2-xbrl": "9e94555a5133646e0675305ab9abe04c55932a63e8aeea755b2d4a275b06761e",
+        "H3-raw": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+        "H3-text": "d94c5e2a382127f2f016413ad1e7f7837cfd188e4dc3a86f16ef0d4544c557de",
+        "H3-xbrl": "e0daf256ed189fbebf405499f34fc77cf04a126da929f0d7b4969fb69736919b",
+        "H4-raw": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+        "H4-text": "38b4642199a5381aca22f1ff4f5973ecc3430dfb24d068bf8058e962db99db71",
+        "H4-xbrl": "85418fd03517a339b5d54c5bfd1b37769c37a7c0752237f593ff2833d5273448",
+        "raw-unit-definitions": "43065ea24743ed74c91bf75155e4036b772c6c18b538bd4034ad7cfbf0398dc1",
+        "source-preparation-manifest": "b75c003aabd0e05db5bf74f078b84943468c9d06b5609afbcbdbc341b29d310a",
+        "annual-CP1-reference": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+      },
+      "upstream": {
+        "CP-0": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+        "CP-1": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+      }
+    }
+  },
+  "publication": {
+    "report": "runs/cpos-tdg-earnings-001/execution/deliveries/25d29570b506ce5c1536ad3a0b564387598b0f1deed58e702d55e3787238b10f/report.html",
+    "report_sha256": "7894b41ed7fc14caac209d4d03dfc712bd52d38d7e001bf73baf4ee68bab971e",
+    "files": {
+      "CP-1B.md": "c8fcdda68f74cd7512d15d6603c8aca7e1823e5a32c7bcdec8a5930a01b29a12",
+      "report-view.json": "af59ecbed5a6165c0c42ba8051469d0358f0227248c7c5a1bfceaa027bc6c705",
+      "delivery.json": "65e27455fa3996f459e6e9e0448ca5fd5975de60c0a8ec41dd48e8f2e92472e1",
+      "view.json": "6bbe89ce65b0d122fb8aca2d5fd1df8ddff9229aca6f9bedb204e7d5e00d6241",
+      "CP-0.md": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d",
+      "CP-1.md": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+      "report.html": "7894b41ed7fc14caac209d4d03dfc712bd52d38d7e001bf73baf4ee68bab971e"
+    },
+    "sections": 5,
+    "literal_facts": 1118,
+    "line_citations": 1345,
+    "response_requests": 3,
+    "historical_publication_revisions_retained": 3
+  },
+  "verification": {
+    "command": "PYTHONPATH=src:tests:tests/prompts .venv/bin/pytest -q tests/test_markdown_delivery.py tests/test_cpos_comparison.py tests/test_cpos_handoffs.py tests/test_handoff_delivery.py tests/test_model_handoff_delivery.py",
+    "result": "95 passed in 15.38s on the final code and strengthened destructive-prefix regression.",
+    "ruff": "passed for the three production files and new tests",
+    "mypy": "Success: no issues found in 3 source files; --follow-imports=silent",
+    "independent_math": {
+      "difference_growth_pairs": 17,
+      "source_rounded_margin_pp": 2,
+      "inclusive_days": [
+        89,
+        91
+      ]
+    },
+    "browser": {
+      "result": "Actual final browser DOM: exact Revenue current value and source line 71/hash, Medium-confidence assessment, ordinary/As Defined definitions, balance dates and missing guidance. CP-6 not-requested note corrected.",
+      "server": "127.0.0.1:8784 stopped after verification",
+      "report_sha256": "7894b41ed7fc14caac209d4d03dfc712bd52d38d7e001bf73baf4ee68bab971e"
+    },
+    "cli_resume": "Exact documented command completed; same final report path/hash and three retained response requests, no provider calls."
+  },
+  "legacy_native_fixture": {
+    "status": "failed at setup; broad native suite interrupted after 95 focused passes and one setup error in 203.36s",
+    "test": "tests/test_owner_cpos.py::test_rows_destinations_and_tally_match_oracle[s1a_positive]",
+    "reason": "CP-MODEL publication failed: T4.9 column 'Calculated Value' mixes amount units (currency USD US$ m against MILLIONS USD ); a block states its scale once",
+    "root_trace": "tests/s1a_runs.finish -> OwnerWorkflow.publish -> native CP-MODEL/report_view._scale_of. The handoff adapter is not on this call path. This legacy publication failure is retained as unqualified; no native unit guard or fixture was weakened.",
+    "changed_cpos_definitions": [
+      "HandoffPlan",
+      "run_handoffs"
+    ],
+    "unchanged_cpos_definitions": [
+      "RetainedHandoff",
+      "ComparisonPlan",
+      "HandoffTask",
+      "_pinned_inputs",
+      "_checked_handoff",
+      "_handoff",
+      "replay_handoffs",
+      "_comparison_bundle",
+      "run_comparison",
+      "main",
+      "NavigationRow",
+      "NavigationDestination",
+      "NavigationProof",
+      "_refuse",
+      "_sha",
+      "_extract",
+      "_model_link",
+      "_external_links",
+      "_check_links",
+      "_rows",
+      "_destinations",
+      "_derive",
+      "navigation",
+      "verify_navigation"
+    ]
+  },
+  "confidence_review": [
+    {
+      "rank": 1,
+      "doubt": "Selectors could discard prior/current column meanings or pretend prose was a chart.",
+      "investigated": "An isolated pre-guard reproduction selecting the first-cell prefix 1789 changed the six-column Revenue register into a single Value column via native _slot row fallback.",
+      "verdict": "CONFIRMED bug, repaired",
+      "patch": "Require complete tables in table blocks; prefix selectors are prose-only. Reject literal routing into chart/other unsupported block kinds. Missing/ambiguous/duplicate/empty selections fail closed.",
+      "verification": "Concrete pre-guard reproduction and destructive-selector regression."
+    },
+    {
+      "rank": 2,
+      "doubt": "The native call band might erase the existing earnings judgement.",
+      "investigated": "Browser displayed No judgement is recorded while the actual CP-1B Medium-confidence assessment was present in its tab. Native _call expects absent modules to have idle views; this adapter supplies actual handoffs only.",
+      "verdict": "CONFIRMED bug, repaired",
+      "patch": "Explicitly mark the overall CP-6 call not requested when CP-6 is absent. Preserve CP-1B assessment verbatim.",
+      "verification": "Final browser shows CP-6 was not requested; assessment tab retains Medium confidence; regression checks call_withheld."
+    },
+    {
+      "rank": 3,
+      "doubt": "Text conversion could change figures, units, dates, missingness or source identity.",
+      "investigated": "All 1118 literal facts and 1345 citations retain exact original source lines/hashes; table headers, signed capex, blank versus zero and USD/share are checked. Existing calculation record independently rechecked with Fractions: 17 deltas/growth pairs and two pp changes; inclusive windows independently 89/91 days.",
+      "verdict": "fine within this retained case",
+      "patch": null,
+      "verification": "Actual source-line tests, independent arithmetic probe, browser Revenue line 71 and exact c8fcdda... response hash."
+    },
+    {
+      "rank": 4,
+      "doubt": "Publication could require another analytical run, or reuse stale context.",
+      "investigated": "Three exact CP-0/CP-1/CP-1B answers reused; executor deliberately fails if called. Source/upstream pinning and old validation are unchanged. Layout-only change preserves all three retained response requests and old publication bytes.",
+      "verdict": "fine",
+      "patch": null,
+      "verification": "Focused resume, immutable input, source pin, bounded repair, interrupted-call, lock, publication-tamper and older-route regressions."
+    },
+    {
+      "rank": 5,
+      "doubt": "The presentation bypass could be misrepresented as native analytical acceptance.",
+      "investigated": "Native CP1B validator still refuses this broader Markdown layout. Both view qualifications, receipt and visible banner label candidate/partial/unrun and replay publication; no native head or provider receipt is manufactured.",
+      "verdict": "by-design",
+      "patch": null,
+      "verification": "Native validator refusal regression; final report and delivery receipt inspected."
+    },
+    {
+      "rank": 6,
+      "doubt": "Excel, secret reads, extra controllers or historical writes could enter the path.",
+      "investigated": "Active code path uses pinned bytes, registry planner, existing CP-OS exchange and report renderer. Publication contains exactly three Markdown handoffs, view/report JSON, HTML and receipt. No credential/provider calls or predecessor/historical run writes. Excel dependency retained for ingestion.",
+      "verdict": "fine",
+      "patch": "Receipt explicitly records excel_output=false.",
+      "verification": "Exact file-set verification, output-extension regression and source/caller trace."
+    },
+    {
+      "rank": 7,
+      "doubt": "Generic Markdown and other pathways might appear qualified by a single example.",
+      "investigated": "This proves only selected table/prose sections of the historical TDG Q1 case. Full earnings preset, other layouts, autonomous model launch and native acceptance remain outside this case.",
+      "verdict": "open beyond this bounded case",
+      "patch": null,
+      "verification": "Scope banner, README and module execution origins explicitly restrict the claim."
+    }
+  ],
+  "rewrite_tournament": {
+    "mode": "post-edit, inline, no agents",
+    "targets": {
+      "literal_module": {
+        "Winner": "Snippet B — readability",
+        "path": "src/deploy_workflow/markdown_delivery.py:46-139",
+        "Justification": [
+          "Enumerates lines with a final blank sentinel directly.",
+          "Avoids allocating a list of enumerated tuples.",
+          "Preserves exact paragraphs, citations, signature and error behavior."
+        ],
+        "Final code": "```python\ndef literal_module(\n    module_id: str, raw: bytes\n) -> tuple[ModuleView, Source, dict[str, tuple[str, str]]]:\n    \"\"\"Retain tables and wrapped prose with exact physical-line citations.\"\"\"\n    from deploy_workflow.model_handoff_delivery import _literal_tables\n\n    digest = hashlib.sha256(raw).hexdigest()\n    source, facts, tables, _ = _literal_tables(module_id, raw, digest)\n    lines = raw.decode(\"utf-8\").splitlines()\n    headings = [\n        (n, line.lstrip(\"#\").strip()) for n, line in enumerate(lines, 1) if line.startswith(\"#\")\n    ]\n    metadata: dict[str, tuple[str, str]] = {}\n    fact_map = {f.fact_id: f for f in facts}\n    for i, table in enumerate(tables):\n        first = fact_map[table.rows[0].fact_ids[0]].citations[0]\n        number = int(first.locator.split()[-1])\n        heading = next(title for n, title in reversed(headings) if n < number)\n        tables[i] = table.model_copy(\n            update={\"title\": heading + \" — \" + (table.row_header or \"Table\")}\n        )\n        metadata[table.table_id] = (heading, \"table\")\n    paragraphs: dict[str, list[list[tuple[int, str]]]] = {}\n    heading = \"Document\"\n    pending: list[tuple[int, str]] = []\n    for number, line in enumerate([*lines, \"\"], 1):\n        boundary = not line.strip() or line.startswith((\"#\", \"|\", \"<!--\"))\n        if boundary and pending:\n            paragraphs.setdefault(heading, []).append(pending)\n            pending = []\n        if line.startswith(\"#\"):\n            heading = line.lstrip(\"#\").strip()\n        elif not boundary:\n            pending.append((number, line))\n    for index, (heading, groups) in enumerate(paragraphs.items()):\n        table_id = f\"prose-{module_id}-{index}\"\n        rows = []\n        for number, paragraph in enumerate(groups):\n            fact_id = f\"{table_id}.r{number}.c0\"\n            facts.append(\n                Fact(\n                    fact_id=fact_id,\n                    label=heading,\n                    table_id=table_id,\n                    row_id=f\"r{number}\",\n                    field=\"c0\",\n                    text=plain(\" \".join(line.strip() for _, line in paragraph)),\n                    value_class=\"source\",\n                    basis=\"Literal wrapped paragraph from the model-authored handoff; no new analysis.\",\n                    citations=tuple(\n                        Citation(\n                            source_id=module_id,\n                            source_sha256=digest,\n                            locator=f\"line {n}\",\n                            quote=line,\n                        )\n                        for n, line in paragraph\n                    ),\n                )\n            )\n            rows.append(\n                TableRow(\n                    row_id=f\"r{number}\",\n                    label=f\"{heading} — paragraph {number + 1}\",\n                    fact_ids=(fact_id,),\n                )\n            )\n        tables.append(\n            ReportTable(\n                table_id=table_id,\n                title=heading,\n                row_header=\"Paragraph\",\n                columns=(TableColumn(field=\"c0\", label=\"Text\"),),\n                rows=tuple(rows),\n            )\n        )\n        metadata[table_id] = (heading, \"prose\")\n    descriptor = next(m for m in modules() if m.module_id == module_id)\n    return (\n        ModuleView(\n            module_id=module_id,\n            title=descriptor.title,\n            aliases=descriptor.aliases,\n            status=\"candidate\",\n            artifact_sha256=digest,\n            facts=tuple(facts),\n            tables=tuple(tables),\n            limitations=(\n                \"Literal checked analytical handoff, not native contract acceptance; source qualifications and gaps remain.\",\n            ),\n        ),\n        source,\n        metadata,\n    )\n```",
+        "Verification": "PYTHONPATH=src:tests:tests/prompts .venv/bin/pytest -q tests/test_markdown_delivery.py tests/test_cpos_comparison.py tests/test_cpos_handoffs.py tests/test_handoff_delivery.py tests/test_model_handoff_delivery.py — 95 passed; three-file mypy passed; candidate byte/error parity probes passed."
+      },
+      "markdown_files": {
+        "Winner": "Snippet A — memory",
+        "path": "src/deploy_workflow/markdown_delivery.py:142-352",
+        "Justification": [
+          "One mapping holds retained handoffs and publication files.",
+          "Removes the copies-to-files duplication without caching layers.",
+          "Preserves exact publication byte mapping and caller contracts."
+        ],
+        "Final code": "```python\ndef markdown_files(request: DeliveryRequest, base: Path) -> dict[str, bytes]:\n    \"\"\"Select literal source sections into the existing requested pathway design.\"\"\"\n    layout = request.layout\n    if layout is None or request.model is not None:\n        raise ValueError(\n            \"markdown_layout: select literal presentation without the annual Model adapter\"\n        )\n    preset = next(p for p in pathways() if p.id == request.run.pathway)\n    if len(set(layout.blocks)) != len(layout.blocks) or not set(layout.blocks) <= set(\n        preset.blocks\n    ):\n        raise ValueError(\"markdown_layout: unique blocks must belong to the selected pathway\")\n    if any(\n        r.module_id not in request.handoffs or r.block_id not in layout.blocks\n        for r in layout.routes\n    ):\n        raise ValueError(\"markdown_layout: routes must name supplied modules and selected blocks\")\n    if any(_spec_of(block_id).kind not in {\"dense\", \"prose\"} for block_id in layout.blocks):\n        raise ValueError(\"markdown_layout: literal presentation supports table and prose blocks\")\n    if any(\n        route.kind == \"table\"\n        and (route.prefix is not None or _spec_of(route.block_id).kind == \"prose\")\n        for route in layout.routes\n    ):\n        raise ValueError(\"markdown_layout: preserve complete table columns in a table block\")\n    module_views = []\n    sources = []\n    metadata = {}\n    files = {}\n    for module_id, spec in request.handoffs.items():\n        raw = (base / spec.path).read_bytes()\n        if hashlib.sha256(raw).hexdigest() != spec.sha256:\n            raise ValueError(f\"Changed handoff: {module_id}\")\n        title = raw.decode().splitlines()[0].casefold()\n        if request.run.issuer_name.casefold() not in title and not re.search(\n            r\"(?<![a-z0-9])\" + re.escape(request.run.issuer_id.casefold()) + r\"(?![a-z0-9])\", title\n        ):\n            raise ValueError(\n                f\"markdown_issuer: handoff title must identify the selected issuer: {module_id}\"\n            )\n        module, source, meta = literal_module(module_id, raw)\n        module_views.append(module)\n        sources.append(source)\n        metadata[module_id] = meta\n        files[module_id + \".md\"] = raw\n    entries: dict[str, list[Binding]] = {m.module_id: [] for m in module_views}\n    used: set[tuple[str, str]] = set()\n    for route in layout.routes:\n        module = next(m for m in module_views if m.module_id == route.module_id)\n        tables = [\n            t\n            for t in module.tables\n            if metadata[module.module_id][t.table_id] == (route.heading, route.kind)\n            and (route.table_header is None or t.row_header == route.table_header)\n        ]\n        if len(tables) != 1:\n            raise ValueError(\n                f\"markdown_selector: expected one {route.module_id}/{route.heading}/{route.table_header}\"\n            )\n        table = tables[0]\n        facts = {f.fact_id: f for f in module.facts}\n        selected = [\n            r\n            for r in table.rows\n            if all((module.module_id, fid) not in used for fid in r.fact_ids)\n            and (\n                route.prefix is None\n                or plain(facts[r.fact_ids[0]].text or \"\").startswith(route.prefix)\n            )\n        ]\n        if not selected:\n            raise ValueError(f\"markdown_selector: no unused content for {route.heading}\")\n        groups = [None] if len(selected) == len(table.rows) else [r.row_id for r in selected]\n        for row_id in groups:\n            entries[module.module_id].append(\n                Binding(\n                    fact_coord=FactCoord(\n                        module_id=module.module_id, table_id=table.table_id, row_id=row_id\n                    ),\n                    block_id=route.block_id,\n                    cell_slot=f\"{module.module_id}-{len(entries[module.module_id])}\",\n                    unit_class=\"text\",\n                    label=route.label or table.title,\n                )\n            )\n        used.update((module.module_id, fid) for r in selected for fid in r.fact_ids)\n    for module in module_views:\n        for table in module.tables:\n            remaining = [\n                r\n                for r in table.rows\n                if all((module.module_id, fid) not in used for fid in r.fact_ids)\n            ]\n            groups = [None] if len(remaining) == len(table.rows) else [r.row_id for r in remaining]\n            for row_id in groups:\n                entries[module.module_id].append(\n                    Binding(\n                        fact_coord=FactCoord(\n                            module_id=module.module_id, table_id=table.table_id, row_id=row_id\n                        ),\n                        block_id=\"evidence\",\n                        cell_slot=f\"{module.module_id}-{len(entries[module.module_id])}\",\n                        unit_class=\"text\",\n                    )\n                )\n    view = View(\n        run=request.run,\n        mode=\"candidate\",\n        modules=tuple(module_views),\n        sources=tuple(sources),\n        analytical_qualification=\"partial\",\n        native_host_qualification=\"unrun\",\n    )\n    maps = tuple(\n        BindingMap(module_id=module_id, entries=tuple(items))\n        for module_id, items in entries.items()\n    )\n    if issues := validate_bindings(view, maps):\n        raise ValueError(\"markdown_bindings: \" + \"; \".join(issues))\n    pathway = preset.model_copy(\n        update={\"blocks\": layout.blocks, \"requested_modules\": request.run.requested_modules}\n    )\n    passports, index = build_index(view)\n    refs = _refs_by_fact(index)\n    blocks = []\n    for block_id in layout.blocks:\n        bound = tuple(e for items in entries.values() for e in items if e.block_id == block_id)\n        if not bound:\n            raise ValueError(f\"markdown_content: selected block has no handoff content: {block_id}\")\n        block_spec = _spec_of(block_id)\n        owner = \" · \".join(dict.fromkeys(e.fact_coord.module_id for e in bound))\n        if block_spec.kind == \"prose\":\n            blocks.append(\n                Block(\n                    block_id=block_id,\n                    title=block_spec.title,\n                    kind=\"prose\",\n                    owner=owner,\n                    state=\"populated\",\n                    full_analysis_route=bound[0].fact_coord.module_id,\n                    width=\"full\",\n                    lines=_prose_lines(bound, view, refs),\n                )\n            )\n        else:\n            slots = [\n                _slot(\n                    e, next(m for m in module_views if m.module_id == e.fact_coord.module_id), refs\n                )\n                for e in bound\n            ]\n            primary = slots[0]\n            tabs = tuple(\n                BlockTab(label=s.label, row_header=s.row_header, columns=s.columns, rows=s.rows)\n                for s in slots[1:]\n            )\n            blocks.append(\n                Block(\n                    block_id=block_id,\n                    title=block_spec.title,\n                    kind=\"dense\",\n                    owner=owner,\n                    state=\"populated\",\n                    full_analysis_route=bound[0].fact_coord.module_id,\n                    width=\"full\",\n                    row_header=primary.row_header,\n                    columns=primary.columns,\n                    rows=primary.rows,\n                    tab_label=primary.label if tabs else None,\n                    tabs=tabs,\n                )\n            )\n    call, withheld = _call({m.module_id: m for m in module_views}, pathway)\n    if \"CP-6\" not in request.handoffs:\n        withheld = \"not_requested\"\n    report = ReportView(\n        pathway=pathway,\n        call=call,\n        call_withheld=withheld,\n        blocks=tuple(blocks),\n        passports=passports,\n        index=index,\n        unplaced=_unplaced(view, pathway, maps),\n    )\n    rendered = render(view, report)\n    anchor = '<div id=\"call-root\"></div>'\n    if rendered.count(anchor) != 1:\n        raise ValueError(\"Existing renderer scope-banner location changed\")\n    files.update(\n        {\n            \"view.json\": view.model_dump_json(indent=2).encode(),\n            \"report-view.json\": report.model_dump_json(indent=2).encode(),\n            \"report.html\": rendered.replace(\n                anchor,\n                '<section id=\"delivery-scope-banner\" class=\"banner\" role=\"note\">'\n                + html.escape(layout.scope)\n                + \"</section>\"\n                + anchor,\n            ).encode(),\n        }\n    )\n    record = {\n        \"kind\": \"literal_handoff_delivery\",\n        \"scope\": layout.scope,\n        \"analytical_runtime_executed\": False,\n        \"cp_model_published\": False,\n        \"excel_output\": False,\n        \"files\": {name: hashlib.sha256(raw).hexdigest() for name, raw in files.items()},\n    }\n    files[\"delivery.json\"] = (json.dumps(record, indent=2) + \"\\n\").encode()\n    return files\n```",
+        "Verification": "PYTHONPATH=src:tests:tests/prompts .venv/bin/pytest -q tests/test_markdown_delivery.py tests/test_cpos_comparison.py tests/test_cpos_handoffs.py tests/test_handoff_delivery.py tests/test_model_handoff_delivery.py — 95 passed; three-file mypy passed; candidate byte/error parity probes passed."
+      }
+    },
+    "candidate_verification": {
+      "literal-memory": {
+        "real_handoffs": 3,
+        "all_seven_publication_files_byte_identical": true,
+        "signature_unchanged": true,
+        "selector_error_parity": true,
+        "preamble_behavior": {
+          "incumbent": "StopIteration",
+          "candidate": "StopIteration"
+        },
+        "qualified": true
+      },
+      "literal-readability": {
+        "real_handoffs": 3,
+        "all_seven_publication_files_byte_identical": true,
+        "signature_unchanged": true,
+        "selector_error_parity": true,
+        "preamble_behavior": {
+          "incumbent": "StopIteration",
+          "candidate": "StopIteration"
+        },
+        "qualified": true
+      },
+      "literal-speed": {
+        "real_handoffs": 3,
+        "all_seven_publication_files_byte_identical": true,
+        "signature_unchanged": true,
+        "selector_error_parity": true,
+        "preamble_behavior": {
+          "incumbent": "StopIteration",
+          "candidate": "success"
+        },
+        "qualified": false
+      },
+      "markdown-speed": {
+        "real_handoffs": 3,
+        "all_seven_publication_files_byte_identical": true,
+        "signature_unchanged": true,
+        "selector_error_parity": true
+      },
+      "markdown-memory": {
+        "real_handoffs": 3,
+        "all_seven_publication_files_byte_identical": true,
+        "signature_unchanged": true,
+        "selector_error_parity": true
+      },
+      "markdown-readability": {
+        "real_handoffs": 3,
+        "all_seven_publication_files_byte_identical": true,
+        "signature_unchanged": true,
+        "selector_error_parity": true
+      }
+    },
+    "skipped": "run_handoffs and trivial contract/dispatch changes confidence-reviewed; two-symbol materiality cap selects new literal_module and markdown_files.",
+    "impact_set": {
+      "literal_module": [
+        "markdown_files",
+        "tests/test_markdown_delivery.py"
+      ],
+      "markdown_files": [
+        "handoff_delivery.delivery_files",
+        "deliver / verify_delivery",
+        "cpos.run_handoffs / replay_handoffs / CLI",
+        "old snapshot, Model and comparison consumers through delivery dispatch"
+      ]
+    },
+    "invariants": [
+      "Exact bytes/citations and table columns; no arithmetic or invented analysis",
+      "Missing versus zero and quantity/period meanings preserved",
+      "No Excel output/provider calls/native promotion/second controller",
+      "Same function signatures, return mapping bytes, errors and write-free adapter side effects"
+    ],
+    "brackets": {
+      "literal_module": [
+        "Speed versus memory: memory wins; speed changes preamble refusal to success and is disqualified.",
+        "Memory versus readability: readability wins; one familiar enumerate loop, no import/helper, fewer tuple allocations than incumbent.",
+        "Readability versus incumbent: readability wins; same physical-line/sentinel behavior, no semantic change, byte parity for all actual handoffs."
+      ],
+      "markdown_files": [
+        "Speed versus memory: memory wins; avoids redundant file-map allocation without additional module/fact caches.",
+        "Memory versus readability: memory wins; no local coordinates helper for two expressions.",
+        "Memory versus incumbent: memory wins; one publication map, preserved key order and exact bytes, no extra abstraction."
+      ]
+    },
+    "verification": "PYTHONPATH=src:tests:tests/prompts .venv/bin/pytest -q tests/test_markdown_delivery.py tests/test_cpos_comparison.py tests/test_cpos_handoffs.py tests/test_handoff_delivery.py tests/test_model_handoff_delivery.py — 95 passed; all caller type checks pass; final concrete publication bytes unchanged."
+  },
+  "production_source_sha256": {
+    "src/deploy_workflow/markdown_delivery.py": "9670707024a4745a889f90e5d0d0aae16b294c5a373ca59ee3009541f30dad42",
+    "src/deploy_workflow/handoff_delivery.py": "4d505fa46029dc975c4ee33d15fae597d52c6819c8754bb8fdede6973fc43cec",
+    "src/deploy_workflow/owners/cpos.py": "bd6b8097aca9b01a42048be6b567a6e167115d54ebca8117bfbec80afc7c14e2",
+    "src/deploy_vii/report_view.py": "004db5dee5662f4b1618e5510fe1bcc876f44557902c4d1b63185b5816c0d967",
+    "src/deploy_vii/render.py": "9805c343101a2f1d1de76ca6a6378cc97bf2952fe936e195f2acc4d45bf299ba"
+  },
+  "remaining_scope": [
+    "Full earnings preset and broader pathways remain unproven.",
+    "No fresh model run or isolated provider qualification in this turn.",
+    "Native T4.9 fixture publication remains failed, separately from this route."
+  ]
+}

@@ -1,0 +1,675 @@
+Existing compose_bridge actual output (Decimal/date as exact strings):
+{
+  "horizon_months": 12,
+  "minimum_cash": null,
+  "balance_date": "2024-09-30",
+  "horizon_end": "2025-09-30",
+  "ordered_facilities": [
+    {
+      "facility_id": "securitization",
+      "name": "Trade receivable securitization",
+      "currency": "USD",
+      "principal": "487",
+      "maturity_date": "2025-07-11",
+      "commitment": "650",
+      "drawn_amount": "487",
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "f4",
+      "name": "5.50% subordinated",
+      "currency": "USD",
+      "principal": "2650",
+      "maturity_date": "2027-11-15",
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "f5",
+      "name": "6.75% secured",
+      "currency": "USD",
+      "principal": "2100",
+      "maturity_date": "2028-08-15",
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "f0",
+      "name": "Tranche I",
+      "currency": "USD",
+      "principal": "1871",
+      "maturity_date": "2028-08-24",
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "f6",
+      "name": "4.625% subordinated",
+      "currency": "USD",
+      "principal": "1200",
+      "maturity_date": "2029-01-15",
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "revolver",
+      "name": "Revolving credit facility",
+      "currency": "USD",
+      "principal": null,
+      "maturity_date": "2029-02-27",
+      "commitment": "910",
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "f7",
+      "name": "6.375% secured",
+      "currency": "USD",
+      "principal": "2750",
+      "maturity_date": "2029-03-01",
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "f8",
+      "name": "4.875% subordinated",
+      "currency": "USD",
+      "principal": "750",
+      "maturity_date": "2029-05-01",
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "f2",
+      "name": "Tranche K",
+      "currency": "USD",
+      "principal": "1699",
+      "maturity_date": "2030-03-22",
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "f9",
+      "name": "6.875% secured",
+      "currency": "USD",
+      "principal": "1450",
+      "maturity_date": "2030-12-15",
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "f1",
+      "name": "Tranche J",
+      "currency": "USD",
+      "principal": "3632",
+      "maturity_date": "2031-02-28",
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "f10",
+      "name": "7.125% secured",
+      "currency": "USD",
+      "principal": "1000",
+      "maturity_date": "2031-12-01",
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "f3",
+      "name": "Tranche L",
+      "currency": "USD",
+      "principal": "1500",
+      "maturity_date": "2032-01-19",
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "f11",
+      "name": "6.625% secured",
+      "currency": "USD",
+      "principal": "2200",
+      "maturity_date": "2032-03-01",
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "f12",
+      "name": "6.00% secured",
+      "currency": "USD",
+      "principal": "1500",
+      "maturity_date": "2033-01-15",
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "government",
+      "name": "Government refundable advances",
+      "currency": "USD",
+      "principal": "17",
+      "maturity_date": null,
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    },
+    {
+      "facility_id": "leases",
+      "name": "Finance leases \u2014 gross maturity principal not isolated",
+      "currency": "USD",
+      "principal": null,
+      "maturity_date": null,
+      "commitment": null,
+      "drawn_amount": null,
+      "annual_amortisation": null,
+      "period": "2024-09-30"
+    }
+  ],
+  "run_rate_net_cash_flow_annual": "-2197",
+  "run_rate_net_cash_flow_monthly": "-183.083333333333333333333333333333333333333333333333333333333",
+  "run_rate_net_cash_flow_horizon": "-2197",
+  "maturity_inside_horizon": true,
+  "maturities_in_horizon": {
+    "reason": "Not calculable: facility government maturity date is not stated",
+    "applicable": true
+  },
+  "amortisation_in_horizon": {
+    "reason": "Not calculable: facility f4 annual amortisation is not stated",
+    "applicable": true
+  },
+  "cash_at_horizon_end_before_refinancing": {
+    "reason": "Not calculable: facility f4 annual amortisation is not stated",
+    "applicable": true
+  },
+  "undrawn_revolver": {
+    "reason": "Undrawn revolver not calculable: drawings undisclosed",
+    "applicable": true
+  },
+  "undrawn_term_commitment": {
+    "reason": "Not calculable: facility f4 commitment is not stated",
+    "applicable": true
+  },
+  "available_liquidity": {
+    "reason": "Available liquidity not calculable: revolver drawings undisclosed",
+    "applicable": true
+  },
+  "liquidity_to_total_debt": {
+    "reason": "Available liquidity not calculable: revolver drawings undisclosed",
+    "applicable": true
+  },
+  "resources_at_horizon_end": {
+    "reason": "Not calculable: facility f4 annual amortisation is not stated",
+    "applicable": true
+  },
+  "cash_only_headroom": {
+    "reason": "Not calculable: minimum cash not assessed",
+    "applicable": true
+  },
+  "headroom": {
+    "reason": "Not calculable: minimum cash not assessed",
+    "applicable": true
+  },
+  "funding_gap": {
+    "reason": "Not calculable: minimum cash not assessed",
+    "applicable": true
+  },
+  "runway_state": "missing",
+  "runway_reason": "Not calculable: minimum cash not assessed",
+  "months_to_minimum_cash": null,
+  "sources_and_uses_closing_cash_calculated": "6261",
+  "sources_and_uses_difference": "0",
+  "financing_lines_difference": {
+    "reason": "Not calculable: Equity repurchases are missing",
+    "applicable": true,
+    "status": "missing",
+    "limitation": "Source cell is a dash (\u2014); no numeric surrogate supplied to this check."
+  },
+  "wall": [
+    {
+      "facility": {
+        "facility_id": "securitization",
+        "name": "Trade receivable securitization",
+        "currency": "USD",
+        "principal": "487",
+        "maturity_date": "2025-07-11",
+        "commitment": "650",
+        "drawn_amount": "487",
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "487",
+      "maturity_date": "2025-07-11",
+      "months_to_maturity": 9,
+      "inside_horizon": true,
+      "share_of_total_debt": "0.019573954983922829581993569131832797428",
+      "cumulative_share": "0.019573954983922829581993569131832797428"
+    },
+    {
+      "facility": {
+        "facility_id": "f4",
+        "name": "5.50% subordinated",
+        "currency": "USD",
+        "principal": "2650",
+        "maturity_date": "2027-11-15",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "2650",
+      "maturity_date": "2027-11-15",
+      "months_to_maturity": 37,
+      "inside_horizon": false,
+      "share_of_total_debt": "0.10651125401929260450160771704180064309",
+      "cumulative_share": "0.126085209003215434083601286173633440518"
+    },
+    {
+      "facility": {
+        "facility_id": "f5",
+        "name": "6.75% secured",
+        "currency": "USD",
+        "principal": "2100",
+        "maturity_date": "2028-08-15",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "2100",
+      "maturity_date": "2028-08-15",
+      "months_to_maturity": 46,
+      "inside_horizon": false,
+      "share_of_total_debt": "0.084405144694533762057877813504823151125",
+      "cumulative_share": "0.210490353697749196141479099678456591643"
+    },
+    {
+      "facility": {
+        "facility_id": "f0",
+        "name": "Tranche I",
+        "currency": "USD",
+        "principal": "1871",
+        "maturity_date": "2028-08-24",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "1871",
+      "maturity_date": "2028-08-24",
+      "months_to_maturity": 46,
+      "inside_horizon": false,
+      "share_of_total_debt": "0.075200964630225080385852090032154340836",
+      "cumulative_share": "0.285691318327974276527331189710610932479"
+    },
+    {
+      "facility": {
+        "facility_id": "f6",
+        "name": "4.625% subordinated",
+        "currency": "USD",
+        "principal": "1200",
+        "maturity_date": "2029-01-15",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "1200",
+      "maturity_date": "2029-01-15",
+      "months_to_maturity": 51,
+      "inside_horizon": false,
+      "share_of_total_debt": "0.048231511254019292604501607717041800643",
+      "cumulative_share": "0.333922829581993569131832797427652733122"
+    },
+    {
+      "facility": {
+        "facility_id": "revolver",
+        "name": "Revolving credit facility",
+        "currency": "USD",
+        "principal": null,
+        "maturity_date": "2029-02-27",
+        "commitment": "910",
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": {
+        "reason": "Not calculable: facility revolver principal is not stated",
+        "applicable": true
+      },
+      "maturity_date": "2029-02-27",
+      "months_to_maturity": 52,
+      "inside_horizon": false,
+      "share_of_total_debt": {
+        "reason": "Not calculable: facility revolver principal is not stated",
+        "applicable": true
+      },
+      "cumulative_share": {
+        "reason": "Not calculable: facility revolver principal is not stated",
+        "applicable": true
+      }
+    },
+    {
+      "facility": {
+        "facility_id": "f7",
+        "name": "6.375% secured",
+        "currency": "USD",
+        "principal": "2750",
+        "maturity_date": "2029-03-01",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "2750",
+      "maturity_date": "2029-03-01",
+      "months_to_maturity": 53,
+      "inside_horizon": false,
+      "share_of_total_debt": "0.11053054662379421221864951768488745981",
+      "cumulative_share": {
+        "reason": "Not calculable: facility revolver principal is not stated",
+        "applicable": true
+      }
+    },
+    {
+      "facility": {
+        "facility_id": "f8",
+        "name": "4.875% subordinated",
+        "currency": "USD",
+        "principal": "750",
+        "maturity_date": "2029-05-01",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "750",
+      "maturity_date": "2029-05-01",
+      "months_to_maturity": 55,
+      "inside_horizon": false,
+      "share_of_total_debt": "0.030144694533762057877813504823151125402",
+      "cumulative_share": {
+        "reason": "Not calculable: facility revolver principal is not stated",
+        "applicable": true
+      }
+    },
+    {
+      "facility": {
+        "facility_id": "f2",
+        "name": "Tranche K",
+        "currency": "USD",
+        "principal": "1699",
+        "maturity_date": "2030-03-22",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "1699",
+      "maturity_date": "2030-03-22",
+      "months_to_maturity": 65,
+      "inside_horizon": false,
+      "share_of_total_debt": "0.068287781350482315112540192926045016077",
+      "cumulative_share": {
+        "reason": "Not calculable: facility revolver principal is not stated",
+        "applicable": true
+      }
+    },
+    {
+      "facility": {
+        "facility_id": "f9",
+        "name": "6.875% secured",
+        "currency": "USD",
+        "principal": "1450",
+        "maturity_date": "2030-12-15",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "1450",
+      "maturity_date": "2030-12-15",
+      "months_to_maturity": 74,
+      "inside_horizon": false,
+      "share_of_total_debt": "0.058279742765273311897106109324758842444",
+      "cumulative_share": {
+        "reason": "Not calculable: facility revolver principal is not stated",
+        "applicable": true
+      }
+    },
+    {
+      "facility": {
+        "facility_id": "f1",
+        "name": "Tranche J",
+        "currency": "USD",
+        "principal": "3632",
+        "maturity_date": "2031-02-28",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "3632",
+      "maturity_date": "2031-02-28",
+      "months_to_maturity": 77,
+      "inside_horizon": false,
+      "share_of_total_debt": "0.14598070739549839228295819935691318328",
+      "cumulative_share": {
+        "reason": "Not calculable: facility revolver principal is not stated",
+        "applicable": true
+      }
+    },
+    {
+      "facility": {
+        "facility_id": "f10",
+        "name": "7.125% secured",
+        "currency": "USD",
+        "principal": "1000",
+        "maturity_date": "2031-12-01",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "1000",
+      "maturity_date": "2031-12-01",
+      "months_to_maturity": 86,
+      "inside_horizon": false,
+      "share_of_total_debt": "0.040192926045016077170418006430868167203",
+      "cumulative_share": {
+        "reason": "Not calculable: facility revolver principal is not stated",
+        "applicable": true
+      }
+    },
+    {
+      "facility": {
+        "facility_id": "f3",
+        "name": "Tranche L",
+        "currency": "USD",
+        "principal": "1500",
+        "maturity_date": "2032-01-19",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "1500",
+      "maturity_date": "2032-01-19",
+      "months_to_maturity": 87,
+      "inside_horizon": false,
+      "share_of_total_debt": "0.060289389067524115755627009646302250804",
+      "cumulative_share": {
+        "reason": "Not calculable: facility revolver principal is not stated",
+        "applicable": true
+      }
+    },
+    {
+      "facility": {
+        "facility_id": "f11",
+        "name": "6.625% secured",
+        "currency": "USD",
+        "principal": "2200",
+        "maturity_date": "2032-03-01",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "2200",
+      "maturity_date": "2032-03-01",
+      "months_to_maturity": 89,
+      "inside_horizon": false,
+      "share_of_total_debt": "0.088424437299035369774919614147909967846",
+      "cumulative_share": {
+        "reason": "Not calculable: facility revolver principal is not stated",
+        "applicable": true
+      }
+    },
+    {
+      "facility": {
+        "facility_id": "f12",
+        "name": "6.00% secured",
+        "currency": "USD",
+        "principal": "1500",
+        "maturity_date": "2033-01-15",
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "1500",
+      "maturity_date": "2033-01-15",
+      "months_to_maturity": 99,
+      "inside_horizon": false,
+      "share_of_total_debt": "0.060289389067524115755627009646302250804",
+      "cumulative_share": {
+        "reason": "Not calculable: facility revolver principal is not stated",
+        "applicable": true
+      }
+    },
+    {
+      "facility": {
+        "facility_id": "government",
+        "name": "Government refundable advances",
+        "currency": "USD",
+        "principal": "17",
+        "maturity_date": null,
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": "17",
+      "maturity_date": {
+        "reason": "Not calculable: facility government maturity date is not stated",
+        "applicable": true
+      },
+      "months_to_maturity": {
+        "reason": "Not calculable: facility government maturity date is not stated",
+        "applicable": true
+      },
+      "inside_horizon": {
+        "reason": "Not calculable: facility government maturity date is not stated",
+        "applicable": true
+      },
+      "share_of_total_debt": "0.00068327974276527331189710610932475884244",
+      "cumulative_share": {
+        "reason": "Not calculable: facility revolver principal is not stated",
+        "applicable": true
+      }
+    },
+    {
+      "facility": {
+        "facility_id": "leases",
+        "name": "Finance leases \u2014 gross maturity principal not isolated",
+        "currency": "USD",
+        "principal": null,
+        "maturity_date": null,
+        "commitment": null,
+        "drawn_amount": null,
+        "annual_amortisation": null,
+        "period": "2024-09-30"
+      },
+      "principal": {
+        "reason": "Not calculable: facility leases principal is not stated",
+        "applicable": true
+      },
+      "maturity_date": {
+        "reason": "Not calculable: facility leases maturity date is not stated",
+        "applicable": true
+      },
+      "months_to_maturity": {
+        "reason": "Not calculable: facility leases maturity date is not stated",
+        "applicable": true
+      },
+      "inside_horizon": {
+        "reason": "Not calculable: facility leases maturity date is not stated",
+        "applicable": true
+      },
+      "share_of_total_debt": {
+        "reason": "Not calculable: facility leases principal is not stated",
+        "applicable": true
+      },
+      "cumulative_share": {
+        "reason": "Not calculable: facility revolver principal is not stated",
+        "applicable": true
+      }
+    }
+  ],
+  "basis": {
+    "currency": "USD",
+    "money_unit": "US$ m",
+    "base_year": 2024,
+    "years": [
+      2025,
+      2026,
+      2027
+    ],
+    "ltm_start": "2023-10-01",
+    "ltm_end": "2024-09-30",
+    "q4_start": "2024-07-01",
+    "ltm_tag": "FY2024",
+    "ltm_column": "FY2024: 2023-10-01 to 2024-09-30",
+    "ltm_period": "FY2024: 2023-10-01 to 2024-09-30",
+    "t45_period": "FY2024: 2023-10-01 to 2024-09-30",
+    "t46_period": "2024-09-30",
+    "schedule_period": "2024-09-30",
+    "bs_period": "2024-09-30",
+    "bs_column": "2024-09-30",
+    "bridge_basis_line": "FY2024: 2023-10-01 to 2024-09-30"
+  }
+}
+
+Independent checks passed: source cash reconciliation 6261; residual 0; six numeric debt cash-flow components 4972; historical ex-debt proxy -2197; monthly proxy within 1e-55 of -2197/12; exact Sep-30 horizon; accessibility/runway/funding and incomplete facility schedule remain gaps; removing CFO propagates a gap.
+
+Method identities:
+src/deploy_vii/methods/cp2d.md df8ec4b240315b7837144143b10b4861faf47826612d48f4be0e24f2ea5edcdd
+src/deploy_workflow/owners/cp2d.py 33efdce39210f5114abdbc629d69f21e3436e48dc2e5549406bb465fc4a0059a
+skills/cp-2d-liquidity-cash-flow-bridge/references/REF_CP-2D_STEPS.md 84bdff527a5575b900fc94d2bf94eb433a508f8c2883ee84f40ca9dcf94ce595

@@ -1,0 +1,164 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "cpos-tdg-fy2024-model-1",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-1",
+      "CP-MODEL",
+      "CP-1A",
+      "CP-2"
+    ]
+  },
+  "handoffs": {
+    "CP-1": {
+      "path": "requests/CP-1/7400d64aae692aab806d65d5acce83de547369cc5978de9720aa8b005c589c33/1.response.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "CP-1A": {
+      "path": "requests/CP-1A/3c4491277751214c2c4d464925f7a876e79d1518b7fcf2540775c6bd7e8a8bc1/1.response.md",
+      "sha256": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+    },
+    "CP-2": {
+      "path": "requests/CP-2/be2e30ae5865248d93c3540e4ef455110350691bf2f701472d5028470d715254/1.response.md",
+      "sha256": "f50a11f516267a55ee2b0e25ac8b292639e40c49947d3964dce39a04303f6b0e"
+    }
+  },
+  "model": {
+    "periods": {
+      "FY2022": {
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "balance_column": null
+      },
+      "FY2023": {
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "balance_column": "Sep 30, 2023"
+      },
+      "FY2024": {
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "balance_column": "Sep 30, 2024"
+      }
+    },
+    "anchors": {
+      "normalization": "### T4.1–T4.3 — Source, entity, normalization",
+      "periods": "### T4.8 and T4.14 — Period register",
+      "income": "### T4.4 — Income statement and comprehensive-income/equity supplements",
+      "cash": "### T4.5 — Cash-flow statement",
+      "balance": "### T4.6 — Balance sheet",
+      "dashboard": "### T4.10 — Source-supported dashboard",
+      "issuer_bridge": "**Net income to EBITDA and EBITDA As Defined, reported (PDF 53):**"
+    },
+    "rows": {
+      "revenue": {
+        "table": "income",
+        "label": "NET SALES"
+      },
+      "cogs": {
+        "table": "income",
+        "label": "COST OF SALES"
+      },
+      "gross_profit": {
+        "table": "income",
+        "label": "GROSS PROFIT"
+      },
+      "selling_admin": {
+        "table": "income",
+        "label": "SELLING AND ADMINISTRATIVE EXPENSES"
+      },
+      "income_statement_amortization": {
+        "table": "income",
+        "label": "AMORTIZATION OF INTANGIBLE ASSETS"
+      },
+      "ebit_reported": {
+        "table": "income",
+        "label": "INCOME FROM OPERATIONS"
+      },
+      "depreciation": {
+        "table": "cash",
+        "label": "Depreciation"
+      },
+      "cf_amortization": {
+        "table": "cash",
+        "label": "Amortization of intangible assets and product certification costs"
+      },
+      "cfo": {
+        "table": "cash",
+        "label": "Net cash provided by operating activities"
+      },
+      "capex_signed": {
+        "table": "cash",
+        "label": "Capital expenditures"
+      },
+      "cash": {
+        "table": "cash",
+        "label": "Cash and cash equivalents, end of period"
+      },
+      "interest_cash": {
+        "table": "cash",
+        "label": "Cash paid during period for interest, net"
+      },
+      "tax_cash": {
+        "table": "cash",
+        "label": "Cash paid during period for income taxes, net of refunds"
+      },
+      "issuer_ordinary_ebitda": {
+        "table": "issuer_bridge",
+        "label": "EBITDA"
+      },
+      "issuer_as_defined": {
+        "table": "dashboard",
+        "label": "EBITDA As Defined, total company"
+      },
+      "debt_long_term": {
+        "table": "balance",
+        "label": "Long-term debt"
+      },
+      "debt_current": {
+        "table": "balance",
+        "label": "Current portion of long-term debt"
+      },
+      "debt_securitization": {
+        "table": "balance",
+        "label": "Short-term borrowings—trade receivable securitization facility"
+      },
+      "adjustment_acquisition": {
+        "table": "issuer_bridge",
+        "label": "Acquisition transaction and integration-related expenses"
+      },
+      "adjustment_compensation": {
+        "table": "issuer_bridge",
+        "label": "Non-cash stock and deferred compensation expense"
+      },
+      "adjustment_refinancing": {
+        "table": "issuer_bridge",
+        "label": "Refinancing costs"
+      },
+      "adjustment_other": {
+        "table": "issuer_bridge",
+        "label": "Other, net"
+      }
+    },
+    "extra_handoffs": {
+      "quarter": {
+        "path": "inputs/8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582",
+        "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+      },
+      "forecast": {
+        "path": "inputs/696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928",
+        "sha256": "696d6c06044ef19f7902dcd0c2c90f62796b4577889941b9e16877d726265928"
+      }
+    },
+    "forecast_exact": {
+      "path": "inputs/04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843",
+      "sha256": "04907444cc2b07852bbb6b9f229119cd0d5096af85a14e47cdb0a7bae0ba3843"
+    }
+  }
+}

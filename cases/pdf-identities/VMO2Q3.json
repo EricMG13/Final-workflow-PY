@@ -1,0 +1,240 @@
+{
+ "schema": "pdf-identities/1",
+ "doc": "VMO2Q3",
+ "source_name": "VMO2-IFRS-Quarterly-Bond-Report-Q3-2025.pdf",
+ "source_sha256": "dc1d977f3f6b98e84a93af0c6f6b3bccb32b9a9e2e178b37846871e4b06ac9e9",
+ "unit": "GBP millions",
+ "note": "label and page name a row of tests/fixtures/pdf_pages/<doc>/pNNN.txt; printed values are in column order; each identity is lhs sum == rhs sum, exact, per column",
+ "identities": [
+  {
+   "id": "VMO2Q3-BS-1",
+   "kind": "BS",
+   "equation": "total assets (page 4) = total liabilities + total combined equity (page 5)",
+   "lhs": [
+    {
+     "label": "Total assets",
+     "page": 4,
+     "printed": [
+      "46,576.8",
+      "46,625.8"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Total liabilities",
+     "page": 5,
+     "printed": [
+      "26,938.7",
+      "27,206.3"
+     ]
+    },
+    {
+     "label": "Total combined equity",
+     "page": 5,
+     "printed": [
+      "19,638.1",
+      "19,419.5"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "30 September 2025",
+     "lhs_sum": "46576.8",
+     "rhs_sum": "46576.8",
+     "values": {
+      "Total assets": "46576.8",
+      "Total liabilities": "26938.7",
+      "Total combined equity": "19638.1"
+     }
+    },
+    {
+     "header_text": "31 December 2024",
+     "lhs_sum": "46625.8",
+     "rhs_sum": "46625.8",
+     "values": {
+      "Total assets": "46625.8",
+      "Total liabilities": "27206.3",
+      "Total combined equity": "19419.5"
+     }
+    }
+   ]
+  },
+  {
+   "id": "VMO2Q3-BS-2",
+   "kind": "BS",
+   "equation": "total assets (page 4) = the printed total of equity and liabilities (page 5)",
+   "lhs": [
+    {
+     "label": "Total assets",
+     "page": 4,
+     "printed": [
+      "46,576.8",
+      "46,625.8"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Total equity and liabilities",
+     "page": 5,
+     "printed": [
+      "46,576.8",
+      "46,625.8"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "30 September 2025",
+     "lhs_sum": "46576.8",
+     "rhs_sum": "46576.8",
+     "values": {
+      "Total assets": "46576.8",
+      "Total equity and liabilities": "46576.8"
+     }
+    },
+    {
+     "header_text": "31 December 2024",
+     "lhs_sum": "46625.8",
+     "rhs_sum": "46625.8",
+     "values": {
+      "Total assets": "46625.8",
+      "Total equity and liabilities": "46625.8"
+     }
+    }
+   ]
+  },
+  {
+   "id": "VMO2Q3-CFS-1",
+   "kind": "CFS",
+   "equation": "operating (page 9) + investing (page 9) + financing (page 10) + exchange-rate effect = net change in cash",
+   "lhs": [
+    {
+     "label": "Net cash provided by operating activities",
+     "page": 9,
+     "printed": [
+      "1,836.3",
+      "1,514.4"
+     ]
+    },
+    {
+     "label": "Net cash used by investing activities",
+     "page": 9,
+     "printed": [
+      "(533.2)",
+      "(549.4)"
+     ]
+    },
+    {
+     "label": "Net cash used by financing activities",
+     "page": 10,
+     "printed": [
+      "(1,345.0)",
+      "(850.8)"
+     ]
+    },
+    {
+     "label": "Effect of exchange rate changes on cash and cash equivalents",
+     "page": 10,
+     "printed": [
+      "6.4",
+      "(1.3)"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "Net (decrease) increase in cash and cash equivalents",
+     "page": 10,
+     "printed": [
+      "(35.5)",
+      "112.9"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "Nine months ended 30 September 2025",
+     "lhs_sum": "-35.5",
+     "rhs_sum": "-35.5",
+     "values": {
+      "Net cash provided by operating activities": "1836.3",
+      "Net cash used by investing activities": "-533.2",
+      "Net cash used by financing activities": "-1345.0",
+      "Effect of exchange rate changes on cash and cash equivalents": "6.4",
+      "Net (decrease) increase in cash and cash equivalents": "-35.5"
+     }
+    },
+    {
+     "header_text": "Nine months ended 30 September 2024",
+     "lhs_sum": "112.9",
+     "rhs_sum": "112.9",
+     "values": {
+      "Net cash provided by operating activities": "1514.4",
+      "Net cash used by investing activities": "-549.4",
+      "Net cash used by financing activities": "-850.8",
+      "Effect of exchange rate changes on cash and cash equivalents": "-1.3",
+      "Net (decrease) increase in cash and cash equivalents": "112.9"
+     }
+    }
+   ]
+  },
+  {
+   "id": "VMO2Q3-CFS-2",
+   "kind": "CFS",
+   "equation": "cash at beginning + net change = cash at end",
+   "lhs": [
+    {
+     "label": "Beginning of period",
+     "page": 10,
+     "printed": [
+      "646.2",
+      "243.1"
+     ]
+    },
+    {
+     "label": "Net (decrease) increase in cash and cash equivalents",
+     "page": 10,
+     "printed": [
+      "(35.5)",
+      "112.9"
+     ]
+    }
+   ],
+   "rhs": [
+    {
+     "label": "End of period",
+     "page": 10,
+     "printed": [
+      "610.7",
+      "356.0"
+     ]
+    }
+   ],
+   "columns": [
+    {
+     "header_text": "Nine months ended 30 September 2025",
+     "lhs_sum": "610.7",
+     "rhs_sum": "610.7",
+     "values": {
+      "Beginning of period": "646.2",
+      "Net (decrease) increase in cash and cash equivalents": "-35.5",
+      "End of period": "610.7"
+     }
+    },
+    {
+     "header_text": "Nine months ended 30 September 2024",
+     "lhs_sum": "356.0",
+     "rhs_sum": "356.0",
+     "values": {
+      "Beginning of period": "243.1",
+      "Net (decrease) increase in cash and cash equivalents": "112.9",
+      "End of period": "356.0"
+     }
+    }
+   ]
+  }
+ ]
+}

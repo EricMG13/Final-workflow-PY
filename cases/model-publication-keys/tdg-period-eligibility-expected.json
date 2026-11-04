@@ -1,0 +1,741 @@
+{
+  "schema": "tdg-model-period-eligibility-expected/1",
+  "scope": {
+    "case_id": "tdg-credit-snapshot",
+    "issuer_id": "tdg",
+    "as_of": "2025-02-04",
+    "current_period": "q1-2025",
+    "current_financial_period_id": "FY2025Q1",
+    "current_stock_instant": "2024-12-28",
+    "source_vintage": "original_as_filed",
+    "entity_perimeter": "TransDigm Group Incorporated consolidated registrant; borrower text TransDigm Inc. is context only and is not merged into this perimeter",
+    "amount_unit": "USD millions",
+    "truth_boundary": "Eligibility and population only. No numeric Model cell, formula result, native issued ID, or pathway acceptance is asserted."
+  },
+  "pins": {
+    "primary_verification": {
+      "path": "cases/model-publication-keys/tdg-q1-2025-primary-verification.json",
+      "sha256": "056e26bea40776513426a4b3606cd0d680b1876c934c67fe9d06e58641b80da3",
+      "record_count": 108,
+      "role": "nested reviewed 108 source identities and derivation operands; useful references, not the exhaustive source-window denominator"
+    },
+    "row_map": {
+      "path": "/Users/ericguei/.codex/worktrees/pretesting-completion/Deploy Workflow/artifacts/pretesting/support-intake/20261104T0205-tdg-row-map/row-map.json",
+      "sha256": "a4d9605733fcad8875c6a3d16125820f014d3e453d3e805bafaace0afc90a3c4"
+    },
+    "row_evidence": {
+      "path": "/Users/ericguei/.codex/worktrees/pretesting-completion/Deploy Workflow/artifacts/pretesting/support-intake/20261104T0205-tdg-row-map/row-evidence.json",
+      "sha256": "736b676dc4cc7fa68d0ffd7bf48d250a000be4ac360d6ecc15c4032ec6377e00"
+    },
+    "chart_source_key": {
+      "path": "cases/charts/tdg-credit-source-key.json",
+      "sha256": "a3b383864d6f0aea116564c1dc0f7493877770abb966684ff597afc00738058f"
+    },
+    "adopted_method_contract_sha256": "828404b8334d38aa16f200caaa60081e5e6ef7674bdde9394e6698464cfe2164",
+    "adopted_case_decisions_path": "/Users/ericguei/.codex/worktrees/pretesting-completion/Deploy Workflow/artifacts/pretesting/support-intake/20261104T0150-tdg-adopted/tdg-case-decision-addendum/case-decisions.md",
+    "full_statement_key": {
+      "path": "/Users/ericguei/.codex/worktrees/pt-tdg-statement-key/cases/extraction-port/tdg-four-filing-statements-expected.json",
+      "sha256": "d1c44ea6849569cf874b3efdf1a8717a168eee979fc7e5d044938afaba84d276",
+      "statement_tables": 16,
+      "inline_facts": 993,
+      "role": "complete frozen face-statement source-window universe; not a native Model binding",
+      "source_key_hash_verified_against": "cases/extraction-port/tdg-four-filing-statements-expected.json pinned from owner worktree; source file SHA-256 above"
+    }
+  },
+  "eligibility_rules": {
+    "period_identity": "Bind only by the frozen fact identity and exact source context dates; labels are never sufficient.",
+    "flow": "Duration facts represent only the recorded start_date through end_date; do not sum stock instants or annualize a quarter.",
+    "stock": "Instant facts bind only to the recorded instant and remain point-in-time balances.",
+    "fiscal_year_end": "September 30; source filing context and actual start/end dates govern.",
+    "vintage": "original_as_filed; never mix revised and original vintages.",
+    "entity": "0001260221 consolidated registrant as shown in exact source context; borrower label does not change source entity.",
+    "unresolved": "UNRESOLVED debt identities remain explicit unresolved references, never zero or an eligible debt value.",
+    "unkeyed": "Absence from the frozen fact index means UNKEYED, not source absence.",
+    "q4": "FY2024Q4 entries retain their already reviewed VERIFIED_DERIVED classifications and operand refs; this key does not recompute them.",
+    "source_population": "Source-window availability is assessed against all 993 frozen inline facts across 16 face-statement tables. The reviewed 108-fact primary key supplies nested source identities/operands and classifications, but its top-level identities are not an exhaustive period/source window boundary.",
+    "native_mapping": "Source-window presence, original-as-filed period/vintage eligibility, native input crosswalk, missing components/populations, and Model construction authority are separate findings. Period evidence does not establish complete Model input coverage."
+  },
+  "required_periods": [
+    {
+      "logical_period_key": "FY-2",
+      "period_id": "FY2022",
+      "kind": "historical_completed_fiscal_year",
+      "state": "FROZEN_SOURCE_PERIOD_PRESENT_INPUT_COVERAGE_PARTIAL",
+      "dates": {
+        "flow_start": "2021-10-01",
+        "flow_end": "2022-09-30",
+        "stock_instant": "2022-09-30"
+      },
+      "flow_fact_refs": [],
+      "stock_fact_refs": [],
+      "frozen_statement_fact_refs": [
+        {
+          "source_id": "K24",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "table_index": 81,
+          "row_index": 3,
+          "cell_index": 10,
+          "inline_fact_id": "f-127",
+          "context_id": "c-14",
+          "concept": "us-gaap:Revenues",
+          "period": {
+            "startDate": "2021-10-01",
+            "endDate": "2022-09-30"
+          },
+          "unit": "USD",
+          "source_vintage": "original_as_filed"
+        },
+        {
+          "source_id": "K24",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "table_index": 84,
+          "row_index": 27,
+          "cell_index": 7,
+          "inline_fact_id": "f-389",
+          "context_id": "c-14",
+          "concept": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+          "period": {
+            "startDate": "2021-10-01",
+            "endDate": "2022-09-30"
+          },
+          "unit": "USD",
+          "source_vintage": "original_as_filed"
+        },
+        {
+          "source_id": "K24",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "table_index": 84,
+          "row_index": 49,
+          "cell_index": 10,
+          "inline_fact_id": "f-449",
+          "context_id": "c-34",
+          "concept": "us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+          "period": {
+            "instant": "2022-09-30"
+          },
+          "unit": "USD",
+          "source_vintage": "original_as_filed"
+        }
+      ],
+      "source_population_state": "Period-level flow and at least one closing-stock identity are present in the 993-fact/16-table source key; this is not exhaustive metric, stock, debt, add-back, or native Model input coverage.",
+      "native_input_mapping_state": "Not established by these source coordinates; consult the reviewed row selector and 108 nested identity map separately.",
+      "reason": "Adopted Model 15 historical ladder is FY2022/FY2023/FY2024. K24 original-as-filed source contexts establish the exact dates and representative source refs. Unresolved debt and unkeyed input populations remain unchanged."
+    },
+    {
+      "logical_period_key": "FY-1",
+      "period_id": "FY2023",
+      "kind": "historical_completed_fiscal_year",
+      "state": "FROZEN_SOURCE_PERIOD_PRESENT_INPUT_COVERAGE_PARTIAL",
+      "dates": {
+        "flow_start": "2022-10-01",
+        "flow_end": "2023-09-30",
+        "stock_instant": "2023-09-30"
+      },
+      "flow_fact_refs": [],
+      "stock_fact_refs": [],
+      "frozen_statement_fact_refs": [
+        {
+          "source_id": "K24",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "table_index": 81,
+          "row_index": 3,
+          "cell_index": 6,
+          "inline_fact_id": "f-126",
+          "context_id": "c-13",
+          "concept": "us-gaap:Revenues",
+          "period": {
+            "startDate": "2022-10-01",
+            "endDate": "2023-09-30"
+          },
+          "unit": "USD",
+          "source_vintage": "original_as_filed"
+        },
+        {
+          "source_id": "K24",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "table_index": 84,
+          "row_index": 27,
+          "cell_index": 4,
+          "inline_fact_id": "f-388",
+          "context_id": "c-13",
+          "concept": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+          "period": {
+            "startDate": "2022-10-01",
+            "endDate": "2023-09-30"
+          },
+          "unit": "USD",
+          "source_vintage": "original_as_filed"
+        },
+        {
+          "source_id": "K24",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "table_index": 80,
+          "row_index": 4,
+          "cell_index": 6,
+          "inline_fact_id": "f-61",
+          "context_id": "c-12",
+          "concept": "us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+          "period": {
+            "instant": "2023-09-30"
+          },
+          "unit": "USD",
+          "source_vintage": "original_as_filed"
+        }
+      ],
+      "source_population_state": "Period-level flow and at least one closing-stock identity are present in the 993-fact/16-table source key; this is not exhaustive metric, stock, debt, add-back, or native Model input coverage.",
+      "native_input_mapping_state": "Not established by these source coordinates; consult the reviewed row selector and 108 nested identity map separately.",
+      "reason": "Adopted Model 15 historical ladder is FY2022/FY2023/FY2024. K24 original-as-filed source contexts establish the exact dates and representative source refs. Unresolved debt and unkeyed input populations remain unchanged."
+    },
+    {
+      "logical_period_key": "FY",
+      "period_id": "FY2024",
+      "kind": "historical_completed_fiscal_year",
+      "state": "FROZEN_SOURCE_PERIOD_PRESENT_INPUT_COVERAGE_PARTIAL",
+      "dates": {
+        "flow_start": "2023-10-01",
+        "flow_end": "2024-09-30",
+        "stock_instant": "2024-09-30"
+      },
+      "flow_fact_refs": [],
+      "stock_fact_refs": [],
+      "frozen_statement_fact_refs": [
+        {
+          "source_id": "K24",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "table_index": 81,
+          "row_index": 3,
+          "cell_index": 2,
+          "inline_fact_id": "f-125",
+          "context_id": "c-1",
+          "concept": "us-gaap:Revenues",
+          "period": {
+            "startDate": "2023-10-01",
+            "endDate": "2024-09-30"
+          },
+          "unit": "USD",
+          "source_vintage": "original_as_filed"
+        },
+        {
+          "source_id": "K24",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "table_index": 84,
+          "row_index": 27,
+          "cell_index": 1,
+          "inline_fact_id": "f-387",
+          "context_id": "c-1",
+          "concept": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+          "period": {
+            "startDate": "2023-10-01",
+            "endDate": "2024-09-30"
+          },
+          "unit": "USD",
+          "source_vintage": "original_as_filed"
+        },
+        {
+          "source_id": "K24",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "table_index": 80,
+          "row_index": 4,
+          "cell_index": 2,
+          "inline_fact_id": "f-60",
+          "context_id": "c-11",
+          "concept": "us-gaap:CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
+          "period": {
+            "instant": "2024-09-30"
+          },
+          "unit": "USD",
+          "source_vintage": "original_as_filed"
+        }
+      ],
+      "source_population_state": "Period-level flow and at least one closing-stock identity are present in the 993-fact/16-table source key; this is not exhaustive metric, stock, debt, add-back, or native Model input coverage.",
+      "native_input_mapping_state": "Not established by these source coordinates; consult the reviewed row selector and 108 nested identity map separately.",
+      "reason": "Adopted Model 15 historical ladder is FY2022/FY2023/FY2024. K24 original-as-filed source contexts establish the exact dates and representative source refs. Unresolved debt and unkeyed input populations remain unchanged."
+    },
+    {
+      "logical_period_key": "PYTD",
+      "period_id": "FY2025Q1_comparative_prior_year_YTD",
+      "kind": "prior_year_to_date_flow_and_closing_stock",
+      "state": "SOURCE_WINDOW_PRESENT_INPUT_CROSSWALK_PARTIAL",
+      "flow_fact_refs": [],
+      "stock_fact_refs": [],
+      "reason": "PYTD remains required despite prior_case=false. The Q1 FY2025 filing itself supplies exact prior-year comparative revenue and CFO source facts for 2023-10-01 through 2023-12-30. This establishes source-window presence, not complete native input mapping or every component.",
+      "frozen_statement_fact_refs": [
+        {
+          "source_id": "Q1FY25",
+          "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+          "table_index": 10,
+          "row_index": 3,
+          "cell_index": 10,
+          "inline_fact_id": "f-96",
+          "context_id": "c-5",
+          "concept": "us-gaap:Revenues",
+          "period": {
+            "startDate": "2023-10-01",
+            "endDate": "2023-12-30"
+          },
+          "unit": "USD",
+          "value_lexeme": "1,789",
+          "scale": "6",
+          "entity": "0001260221",
+          "source_vintage": "original_as_filed"
+        },
+        {
+          "source_id": "Q1FY25",
+          "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+          "table_index": 14,
+          "row_index": 28,
+          "cell_index": 4,
+          "inline_fact_id": "f-258",
+          "context_id": "c-5",
+          "concept": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+          "period": {
+            "startDate": "2023-10-01",
+            "endDate": "2023-12-30"
+          },
+          "unit": "USD",
+          "value_lexeme": "636",
+          "scale": "6",
+          "entity": "0001260221",
+          "source_vintage": "original_as_filed"
+        }
+      ],
+      "nested_identity_refs": [
+        {
+          "fact_id": "TDG:CFO:FY2024Q2",
+          "producer_period_id": "FY2024Q2",
+          "nested_operand_fact_id": "f-258",
+          "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+          "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+          "locator": "Inline XBRL f-258 context c-5",
+          "context": {
+            "entity_identifier": "0001260221",
+            "start_date": "2023-10-01",
+            "end_date": "2023-12-30",
+            "instant": null,
+            "dimensions": []
+          },
+          "unit": "USD",
+          "scale": "6",
+          "role": "The exact prior-YTD CFO source fact is retained as an operand in this 108-fact Q2 reported-flow derivation."
+        }
+      ]
+    },
+    {
+      "logical_period_key": "YTD",
+      "period_id": "FY2025YTD",
+      "kind": "current_year_to_date_flow_and_closing_stock",
+      "state": "SOURCE_WINDOW_PRESENT_INPUT_COVERAGE_PARTIAL",
+      "flow_fact_refs": [
+        "TDG:CFO:FY2025Q1",
+        "TDG:DA:FY2025Q1",
+        "TDG:adjusted_EBITDA:FY2025Q1",
+        "TDG:capex_payment_amount:FY2025Q1",
+        "TDG:capex_signed_cashflow:FY2025Q1",
+        "TDG:net_income_attributable_parent:FY2025Q1",
+        "TDG:net_income_total:FY2025Q1",
+        "TDG:operating_profit:FY2025Q1",
+        "TDG:reported_EBITDA:FY2025Q1",
+        "TDG:revenue:FY2025Q1"
+      ],
+      "stock_fact_refs": [
+        "TDG:cash:FY2025Q1",
+        "TDG:current_assets:FY2025Q1",
+        "TDG:current_liabilities:FY2025Q1",
+        "TDG:total_assets:FY2025Q1",
+        "TDG:total_debt:FY2025Q1",
+        "TDG:total_equity:FY2025Q1",
+        "TDG:total_equity_consolidated:FY2025Q1",
+        "TDG:total_liabilities:FY2025Q1"
+      ],
+      "unresolved_fact_refs": [
+        "TDG:principal:FY2025Q1",
+        "TDG:total_financing_debt_including_finance_leases:FY2025Q1"
+      ],
+      "reason": "Q1 FY2025 source window is 2024-10-01 through 2024-12-28. Direct row refs are pinned below; 108-key periods and debt issues remain partial/unresolved, and no complete native input mapping is asserted.",
+      "frozen_statement_fact_refs": [
+        {
+          "source_id": "Q1FY25",
+          "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+          "table_index": 10,
+          "row_index": 3,
+          "cell_index": 6,
+          "inline_fact_id": "f-95",
+          "context_id": "c-1",
+          "concept": "us-gaap:Revenues",
+          "period": {
+            "startDate": "2024-10-01",
+            "endDate": "2024-12-28"
+          },
+          "unit": "USD",
+          "value_lexeme": "2,006",
+          "scale": "6",
+          "entity": "0001260221",
+          "source_vintage": "original_as_filed"
+        },
+        {
+          "source_id": "Q1FY25",
+          "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+          "table_index": 14,
+          "row_index": 28,
+          "cell_index": 1,
+          "inline_fact_id": "f-257",
+          "context_id": "c-1",
+          "concept": "us-gaap:NetCashProvidedByUsedInOperatingActivities",
+          "period": {
+            "startDate": "2024-10-01",
+            "endDate": "2024-12-28"
+          },
+          "unit": "USD",
+          "value_lexeme": "752",
+          "scale": "6",
+          "entity": "0001260221",
+          "source_vintage": "original_as_filed"
+        }
+      ],
+      "nested_identity_refs": []
+    },
+    {
+      "logical_period_key": "LTM",
+      "period_id": "LTM_ending_2024-12-28",
+      "kind": "trailing_twelve_month_flow_and_closing_stock",
+      "state": "SOURCE_WINDOW_ELIGIBLE_INPUT_COVERAGE_PARTIAL",
+      "flow_fact_refs": [
+        "TDG:CFO:FY2024",
+        "TDG:CFO:FY2025Q1"
+      ],
+      "stock_fact_refs": [
+        "TDG:cash:FY2025Q1",
+        "TDG:current_assets:FY2025Q1",
+        "TDG:current_liabilities:FY2025Q1",
+        "TDG:total_assets:FY2025Q1",
+        "TDG:total_debt:FY2025Q1",
+        "TDG:total_equity:FY2025Q1",
+        "TDG:total_equity_consolidated:FY2025Q1",
+        "TDG:total_liabilities:FY2025Q1"
+      ],
+      "reason": "Frozen source contexts establish eligible 364-day LTM candidate windows ending 2024-12-28 for the specifically referenced revenue and CFO flows, and a current closing stock instant. This is not a complete LTM Model basis: other required input populations/crosswalks and unresolved debt records remain distinct; no numeric construction or House eligibility is asserted.",
+      "source_window_refs": [
+        {
+          "role": "annual_base_flow",
+          "source_id": "K24",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "table_index": 84,
+          "row_index": 27,
+          "cell_index": 1,
+          "inline_fact_id": "f-387",
+          "context_id": "c-1",
+          "period": {
+            "startDate": "2023-10-01",
+            "endDate": "2024-09-30"
+          },
+          "unit": "USD",
+          "source_vintage": "original_as_filed"
+        },
+        {
+          "role": "subtract_prior_year_comparable_YTD",
+          "source_id": "Q1FY25",
+          "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+          "table_index": 14,
+          "row_index": 28,
+          "cell_index": 4,
+          "inline_fact_id": "f-258",
+          "context_id": "c-5",
+          "period": {
+            "startDate": "2023-10-01",
+            "endDate": "2023-12-30"
+          },
+          "unit": "USD",
+          "value_lexeme": "636",
+          "scale": "6",
+          "entity": "0001260221",
+          "source_vintage": "original_as_filed"
+        },
+        {
+          "role": "add_current_YTD",
+          "source_id": "Q1FY25",
+          "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+          "table_index": 14,
+          "row_index": 28,
+          "cell_index": 1,
+          "inline_fact_id": "f-257",
+          "context_id": "c-1",
+          "period": {
+            "startDate": "2024-10-01",
+            "endDate": "2024-12-28"
+          },
+          "unit": "USD",
+          "value_lexeme": "752",
+          "scale": "6",
+          "entity": "0001260221",
+          "source_vintage": "original_as_filed"
+        },
+        {
+          "role": "closing_stock_instant",
+          "source_id": "Q1FY25",
+          "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+          "fact_refs": "TDG:cash:FY2025Q1,TDG:current_assets:FY2025Q1,TDG:current_liabilities:FY2025Q1,TDG:total_assets:FY2025Q1,TDG:total_debt:FY2025Q1,TDG:total_equity:FY2025Q1,TDG:total_equity_consolidated:FY2025Q1,TDG:total_liabilities:FY2025Q1",
+          "instant": "2024-12-28",
+          "source_vintage": "original_as_filed"
+        },
+        {
+          "role": "annual_base_flow_revenue",
+          "source_id": "K24",
+          "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+          "table_index": 81,
+          "row_index": 3,
+          "cell_index": 2,
+          "inline_fact_id": "f-125",
+          "context_id": "c-1",
+          "period": {
+            "startDate": "2023-10-01",
+            "endDate": "2024-09-30"
+          },
+          "unit": "USD",
+          "source_vintage": "original_as_filed"
+        },
+        {
+          "role": "subtract_prior_year_comparable_YTD_revenue",
+          "source_id": "Q1FY25",
+          "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+          "table_index": 10,
+          "row_index": 3,
+          "cell_index": 10,
+          "inline_fact_id": "f-96",
+          "context_id": "c-5",
+          "period": {
+            "startDate": "2023-10-01",
+            "endDate": "2023-12-30"
+          },
+          "unit": "USD",
+          "value_lexeme": "1,789",
+          "scale": "6",
+          "entity": "0001260221",
+          "source_vintage": "original_as_filed"
+        },
+        {
+          "role": "add_current_YTD_revenue",
+          "source_id": "Q1FY25",
+          "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+          "table_index": 10,
+          "row_index": 3,
+          "cell_index": 6,
+          "inline_fact_id": "f-95",
+          "context_id": "c-1",
+          "period": {
+            "startDate": "2024-10-01",
+            "endDate": "2024-12-28"
+          },
+          "unit": "USD",
+          "value_lexeme": "2,006",
+          "scale": "6",
+          "entity": "0001260221",
+          "source_vintage": "original_as_filed"
+        }
+      ],
+      "dated_window_assessment": {
+        "source_window_eligible": true,
+        "exact_resulting_window": {
+          "startDate": "2023-12-31",
+          "endDate": "2024-12-28",
+          "length_days": 364
+        },
+        "coverage_basis": "Each demonstrated flow has a FY2024 annual interval (2023-10-01..2024-09-30), a prior-year YTD comparator (2023-10-01..2023-12-30), and current YTD (2024-10-01..2024-12-28). The resulting trailing interval is 2023-12-31..2024-12-28 (364 days). This records exact source-window alignment only; it does not calculate values, authorize native bindings, or establish complete LTM input coverage.",
+        "other_required_flow_populations": "Not claimed complete by these CFO refs; use full 993-fact/16-table source universe and reviewed selector for source availability, then assess native crosswalk/missing components independently.",
+        "scope": "Exact date alignment demonstrated for the referenced revenue and CFO source operands only, not for all Model inputs or complete source populations.",
+        "source_window_eligible_metric_examples": [
+          "revenue",
+          "CFO"
+        ]
+      },
+      "input_coverage_state": "PARTIAL_NOT_COMPLETE",
+      "method_or_construction_authority_state": "Not adjudicated by this source-window key.",
+      "nested_identity_refs": [
+        {
+          "fact_id": "TDG:CFO:FY2024Q2",
+          "producer_period_id": "FY2024Q2",
+          "nested_operand_fact_id": "f-258",
+          "source_id": "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228",
+          "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+          "locator": "Inline XBRL f-258 context c-5",
+          "context": {
+            "entity_identifier": "0001260221",
+            "start_date": "2023-10-01",
+            "end_date": "2023-12-30",
+            "instant": null,
+            "dimensions": []
+          },
+          "unit": "USD",
+          "scale": "6",
+          "role": "The exact prior-YTD CFO source fact is retained as an operand in this 108-fact Q2 reported-flow derivation."
+        }
+      ]
+    },
+    {
+      "logical_period_key": "reported-quarter/FY2024Q2",
+      "period_id": "FY2024Q2",
+      "kind": "reported_fiscal_quarter_flow_and_closing_stock",
+      "state": "PARTIAL_INPUTS_ONLY",
+      "flow_fact_refs": [
+        "TDG:CFO:FY2024Q2",
+        "TDG:DA:FY2024Q2",
+        "TDG:adjusted_EBITDA:FY2024Q2",
+        "TDG:capex_payment_amount:FY2024Q2",
+        "TDG:capex_signed_cashflow:FY2024Q2",
+        "TDG:net_income_attributable_parent:FY2024Q2",
+        "TDG:net_income_total:FY2024Q2",
+        "TDG:operating_profit:FY2024Q2",
+        "TDG:reported_EBITDA:FY2024Q2",
+        "TDG:revenue:FY2024Q2"
+      ],
+      "stock_fact_refs": [
+        "TDG:cash:FY2024Q2",
+        "TDG:current_assets:FY2024Q2",
+        "TDG:current_liabilities:FY2024Q2",
+        "TDG:total_assets:FY2024Q2",
+        "TDG:total_debt:FY2024Q2",
+        "TDG:total_equity:FY2024Q2",
+        "TDG:total_equity_consolidated:FY2024Q2",
+        "TDG:total_liabilities:FY2024Q2"
+      ],
+      "unresolved_fact_refs": [
+        "TDG:principal:FY2024Q2",
+        "TDG:total_financing_debt_including_finance_leases:FY2024Q2"
+      ]
+    },
+    {
+      "logical_period_key": "reported-quarter/FY2024Q3",
+      "period_id": "FY2024Q3",
+      "kind": "reported_fiscal_quarter_flow_and_closing_stock",
+      "state": "PARTIAL_INPUTS_ONLY",
+      "flow_fact_refs": [
+        "TDG:CFO:FY2024Q3",
+        "TDG:DA:FY2024Q3",
+        "TDG:adjusted_EBITDA:FY2024Q3",
+        "TDG:capex_payment_amount:FY2024Q3",
+        "TDG:capex_signed_cashflow:FY2024Q3",
+        "TDG:net_income_attributable_parent:FY2024Q3",
+        "TDG:net_income_total:FY2024Q3",
+        "TDG:operating_profit:FY2024Q3",
+        "TDG:reported_EBITDA:FY2024Q3",
+        "TDG:revenue:FY2024Q3"
+      ],
+      "stock_fact_refs": [
+        "TDG:cash:FY2024Q3",
+        "TDG:current_assets:FY2024Q3",
+        "TDG:current_liabilities:FY2024Q3",
+        "TDG:total_assets:FY2024Q3",
+        "TDG:total_debt:FY2024Q3",
+        "TDG:total_equity:FY2024Q3",
+        "TDG:total_equity_consolidated:FY2024Q3",
+        "TDG:total_liabilities:FY2024Q3"
+      ],
+      "unresolved_fact_refs": [
+        "TDG:principal:FY2024Q3",
+        "TDG:total_financing_debt_including_finance_leases:FY2024Q3"
+      ]
+    },
+    {
+      "logical_period_key": "reported-quarter/FY2024Q4",
+      "period_id": "FY2024Q4",
+      "kind": "reported_fiscal_quarter_flow_and_closing_stock",
+      "state": "PARTIAL_INPUTS_ONLY",
+      "flow_fact_refs": [
+        "TDG:CFO:FY2024Q4",
+        "TDG:DA:FY2024Q4",
+        "TDG:adjusted_EBITDA:FY2024Q4",
+        "TDG:capex_payment_amount:FY2024Q4",
+        "TDG:capex_signed_cashflow:FY2024Q4",
+        "TDG:net_income_attributable_parent:FY2024Q4",
+        "TDG:net_income_total:FY2024Q4",
+        "TDG:operating_profit:FY2024Q4",
+        "TDG:reported_EBITDA:FY2024Q4",
+        "TDG:revenue:FY2024Q4"
+      ],
+      "stock_fact_refs": [
+        "TDG:cash:FY2024Q4",
+        "TDG:current_assets:FY2024Q4",
+        "TDG:current_liabilities:FY2024Q4",
+        "TDG:total_assets:FY2024Q4",
+        "TDG:total_debt:FY2024Q4",
+        "TDG:total_equity:FY2024Q4",
+        "TDG:total_equity_consolidated:FY2024Q4",
+        "TDG:total_liabilities:FY2024Q4"
+      ],
+      "unresolved_fact_refs": [
+        "TDG:principal:FY2024Q4",
+        "TDG:total_financing_debt_including_finance_leases:FY2024Q4"
+      ],
+      "note": "Flow inputs retain source-review VERIFIED_DERIVED status where applicable; there is no new quarter arithmetic here."
+    },
+    {
+      "logical_period_key": "reported-quarter/FY2025Q1",
+      "period_id": "FY2025Q1",
+      "kind": "reported_fiscal_quarter_flow_and_closing_stock",
+      "state": "PARTIAL_INPUTS_ONLY",
+      "flow_fact_refs": [
+        "TDG:CFO:FY2025Q1",
+        "TDG:DA:FY2025Q1",
+        "TDG:adjusted_EBITDA:FY2025Q1",
+        "TDG:capex_payment_amount:FY2025Q1",
+        "TDG:capex_signed_cashflow:FY2025Q1",
+        "TDG:net_income_attributable_parent:FY2025Q1",
+        "TDG:net_income_total:FY2025Q1",
+        "TDG:operating_profit:FY2025Q1",
+        "TDG:reported_EBITDA:FY2025Q1",
+        "TDG:revenue:FY2025Q1"
+      ],
+      "stock_fact_refs": [
+        "TDG:cash:FY2025Q1",
+        "TDG:current_assets:FY2025Q1",
+        "TDG:current_liabilities:FY2025Q1",
+        "TDG:total_assets:FY2025Q1",
+        "TDG:total_debt:FY2025Q1",
+        "TDG:total_equity:FY2025Q1",
+        "TDG:total_equity_consolidated:FY2025Q1",
+        "TDG:total_liabilities:FY2025Q1"
+      ],
+      "unresolved_fact_refs": [
+        "TDG:principal:FY2025Q1",
+        "TDG:total_financing_debt_including_finance_leases:FY2025Q1"
+      ]
+    }
+  ],
+  "special_periods": {
+    "house_snapshot": {
+      "logical_period_key": "HOUSE-SNAPSHOT",
+      "selected_basis_key": "LTM_ending_2024-12-28",
+      "state": "BLOCKED_INPUT_COVERAGE",
+      "eligible_source_basis_refs": [],
+      "reason": "PF-LTM remains conditional/not projected. Adopted House fallback is LTM, never FY. The LTM source-window candidate is eligible for the evidenced CFO intervals but does not establish complete input crosswalk, all components or population; House snapshot therefore remains blocked without claiming LTM source-window absence."
+    },
+    "pf_ltm": {
+      "logical_period_key": "PF-LTM",
+      "state": "CONDITIONAL_NOT_PROJECTED",
+      "eligible_source_basis_refs": [],
+      "reason": "No stated new-issue debt / no admitted PF adjustment register. Do not create a no-PF alias or use historical financing as a new pro-forma case."
+    },
+    "base_downside": {
+      "logical_period_keys": [
+        "BASE",
+        "DOWNSIDE"
+      ],
+      "state": "CONDITIONAL_NOT_PROJECTED",
+      "eligible_source_basis_refs": [],
+      "reason": "No supported Forward Model run or forecast assumptions. Keep conditional/not projected separate from historical LTM source-window eligibility and incomplete Model input coverage."
+    },
+    "fy_projection": {
+      "logical_period_key": "FY2025-projection",
+      "state": "CONDITIONAL_NOT_PROJECTED",
+      "eligible_source_basis_refs": [],
+      "reason": "No supported Forward Model run or forecast assumptions exist."
+    }
+  },
+  "population_scope": {
+    "logical_columns": "Use logical column/band labels only. Native basis/value/calculation/ticket IDs are issued only by the actual publication and are not invented here.",
+    "generic_debt_unresolved_count": 10,
+    "generic_debt_unresolved_rule": "Preserve all five principal and five total_financing_debt_including_finance_leases unresolved records exactly; do not coerce to zero or source absence.",
+    "house_and_addback_populations": "Unkeyed population and realization uncertainty remain unresolved; do not infer an empty population from reported-vs-adjusted EBITDA.",
+    "excluded_forward_finance": "No PF new debt, no forecast assumptions, no forward model, and no requested CP-8 comparator execution.",
+    "source_universe": "993 frozen inline facts in 16 face-statement tables; the reviewed 108 source identities are nested evidence and not the exhaustive window denominator."
+  }
+}

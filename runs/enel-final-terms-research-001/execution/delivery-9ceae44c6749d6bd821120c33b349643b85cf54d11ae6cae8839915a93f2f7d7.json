@@ -1,0 +1,66 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "enel-final-terms-research-001",
+    "issuer_id": "ENEL-EFI",
+    "issuer_name": "Enel Finance International N.V.",
+    "as_of": "2021-08-03",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-DR",
+      "CP-2E"
+    ]
+  },
+  "handoffs": {
+    "CP-DR": {
+      "path": "requests/CP-DR/a6dc1c3eacaf39919f4ddf4bcc3b14151f63fd60e2641894f24c44bd3ed7bc28/1.response.md",
+      "sha256": "a09afab0e8f181cf5800fe49765a8181bde130fbd2b6451fd775e53712e0bbb1"
+    },
+    "CP-2E": {
+      "path": "requests/CP-2E/1ea4a3333df77f6b50882bbd98ce82b81dcd973dc6f2248bef816bbe20003e65/1.response.md",
+      "sha256": "8ef359a8aa94f49d0ae959116684036fec2523c80249be450f474a893849d54d"
+    }
+  },
+  "model": null,
+  "layout": {
+    "blocks": [
+      "key-findings",
+      "capital-structure"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-DR",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "key-findings",
+        "table_header": null,
+        "prefix": "View:",
+        "label": "Unresolved document search"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "key-findings",
+        "table_header": null,
+        "prefix": "View:",
+        "label": "Analytical adoption decision"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "Source adoption outcome",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "table_header": null,
+        "prefix": null,
+        "label": "Preserved values and unfilled fields"
+      }
+    ],
+    "scope": "Historical Enel Finance International N.V. note XS2066706818; cutoff August3 2021, research access November4 2026. Actual same-host bounded CP-DR search and subsequent targeted CP-2E rejection of missing-term evidence; no primary Final Terms obtained, no positive document-discovery/full-method/provider/native qualification. CP-OS replays checked actual handoffs for publication; it did not perform the original web search. No new financial calculation or source-term change; current listing data and later outcomes excluded. Literal source-line delivery; Excel ingestion only.",
+    "title": "Enel EFI · unresolved document search and source adoption",
+    "question": "Did the new research establish missing instrument terms, and what changes in the analytical answer?",
+    "issuer_aliases": []
+  }
+}

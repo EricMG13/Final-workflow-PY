@@ -1,0 +1,54 @@
+=== PDF PAGE 55 ===
+Notes to Consolidated Financial Statements (Continued)
+(17) Fair value measurements (Continued)
+    Reconciliations of assets and liabilities measured and carried at fair value on a recurring basis with the use of significant
+unobservable inputs (Level 3) for each of the three years ending December 31, 2011 follow (in millions).
+
+                                                                                                                        Investments                                  Net
+                                                                                                                          in fixed    Investments                 derivative
+                                                                                                                          maturity      in equity      Other       contract
+                                                                                                                         securities    securities   investments   liabilities
+
+Balance at December 31, 2008 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                  $ 639         $ 328        $10,275      $(14,519)
+Gains (losses) included in:
+    Earnings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .            1              4            —           3,635
+    Other comprehensive income . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                         49             25         4,702             —
+    Regulatory assets and liabilities . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                      —              —             —              47
+Purchases, dispositions and settlements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                       244             (8)        5,637          1,664
+Transfers into (out of) Level 3 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                 (15)           (45)           —             (23)
+Balance at December 31, 2009 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                  $ 918         $ 304        $20,614      $ (9,196)
+Gains (losses) included in:
+    Earnings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .           —             —           1,305            471
+    Other comprehensive income . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                         16            (8)          (358)            —
+    Regulatory assets and liabilities . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                      —             —              —             (33)
+Purchases, dispositions and settlements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                         9            (1)        (3,972)           533
+Transfers into (out of) Level 3 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                (142)         (260)            —               3
+Balance at December 31, 2010 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                  $ 801         $ 35         $17,589      $ (8,222)
+Gains (losses) included in:
+     Earnings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .           —             —             —         (2,035)
+     Other comprehensive income . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                          5           (13)       (2,120)           (3)
+     Regulatory assets and liabilities . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                      —             —             —            144
+Purchases/Issuances . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .               17            —          5,000           (68)
+Dispositions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         (39)           —             —             —
+Settlements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         —             —             —            275
+Transfers into (out of) Level 3 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                   —             —         (8,800)            1
+Balance at December 31, 2011 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                  $ 784         $ 22         $11,669      $ (9,908)
+
+
+     Gains and losses included in net earnings are included as components of investment gains/losses, derivative gains/losses
+and other revenues, as appropriate and are related to changes in valuations of derivative contracts and disposal or settlement
+transactions.
+
+      Other investments with Level 3 measurements over the past three years included our investments in various private
+placement transactions that are summarized in Note 5 to the accompanying Consolidated Financial Statements. As of March 31,
+2011, we transferred our investment in GS Preferred Stock to Level 2 measurements given the then pending redemption of that
+investment which occurred on April 18, 2011. As of September 30, 2011, we transferred our investment in GE Preferred Stock
+from Level 3 to Level 2, as a result of the then pending redemption which occurred on October 17, 2011. Earnings in 2010
+related to other investments were attributable to a gain on the redemption of the Swiss Re 12% convertible perpetual capital
+instrument.
+
+
+
+
+                                                                                             53
+
