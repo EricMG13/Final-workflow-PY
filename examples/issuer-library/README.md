@@ -48,17 +48,17 @@ quality; real scoring needs a scope-specific, verified checklist.
 ## Files and checks
 
 `catalog.json` is the reviewed input snapshot; `index.html` is generated output.
-`test_build.py` verifies admission and transport boundaries. `test_logic.cjs`
-checks numeric filtering, unknowns, definitions, sorting and illustrative scores.
+`test_build.py` verifies admission and transport boundaries.
+`tests/test_issuer_library_example.py` checks numeric filtering, unknowns,
+definitions, sorting, illustrative scores and the page's controls in a real browser.
 No network access, package installation or local server is needed to use the page.
 
 ## Verification scope
 
-The Python admission tests, pure JavaScript screening tests and jsdom interaction
-tests pass. jsdom simulates the DOM; it does not render layout or constitute
-browser acceptance. Visual layout, responsive rendering, real keyboard navigation
-and opening reports in a browser remain unverified because browser security
-policy rejected `file:` navigation. The file still opens directly for the user.
+The Python admission tests and the headless Chromium checks of the screening
+logic and page controls pass. Headless Chromium executes the page's scripts and
+layout but is not a visual acceptance: responsive rendering and opening reports
+from the double-clicked file remain unverified. The file opens directly for the user.
 
 The catalogue's numeric mappings are curated and checked against handoff rows.
 The builder validates pinned source text and literal value presence; it is not
@@ -71,13 +71,10 @@ Run from the project root:
 ```sh
 .venv/bin/python examples/issuer-library/build.py
 .venv/bin/python -m unittest discover -s examples/issuer-library -p test_build.py
-node --test examples/issuer-library/test_logic.cjs
+.venv/bin/pytest -m browser tests/test_issuer_library_example.py
 .venv/bin/ruff check examples/issuer-library/build.py examples/issuer-library/test_build.py
 ```
 
-Optional DOM simulation (test dependency only, not part of the HTML runtime):
-
-```sh
-npm install --prefix /tmp/issuer-library-dom-check --no-audit --no-fund jsdom@26.1.0
-ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom node --test examples/issuer-library/test_dom.cjs
-```
+The browser checks drive the generated page in headless Chromium through Playwright, a
+dev dependency that is not part of the HTML runtime. Run `uv run playwright install
+chromium` once, or set `ISSUER_LIBRARY_CHROMIUM` to an installed Chromium executable.

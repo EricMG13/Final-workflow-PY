@@ -8,6 +8,64 @@ contains the settled CP-6 timeout cost, the corrected TDG annual publication, th
 live CP-8 comparison and checks of the five broader report bundles. The older
 entries below retain their historical case scope.
 
+## 2026-11-05 — Issuer Library: Python/FastAPI server replaces Go; browser checks replace Node
+
+Scope: `apps/issuer-library`, `src/issuer_library`, `tests/test_issuer_library_*.py`, the
+packaging scripts and the two READMEs. No run, deliverable or predecessor folder was edited.
+
+- The Go server (`*.go`, `go.mod`) is replaced by `src/issuer_library`: FastAPI served by uvicorn
+  on loopback only, with the same routes, status codes, refusal texts, response headers,
+  content-security policies, discovery and admission rules, and the same run API (review stages
+  under `intake/<id>`; Start is one-shot and launches `engine/bridge.py start` under the server's
+  own interpreter). `engine/store.py` is imported in process instead of spawned on each page
+  load; `bridge.py` and `store.py` are otherwise unchanged. Windows known folders come from
+  `SHGetKnownFolderPath` through ctypes, the browser from `webbrowser`, launch errors from a
+  message box; none of these Windows paths has been exercised on this Linux host.
+- Deliberate differences: `ISSUER_LIBRARY_PYTHON` and `ISSUER_LIBRARY_ENGINE_ROOT` are gone (the
+  engine is found beside the package and the worker uses the server's interpreter); an empty
+  metric `provenance` is emitted as `""` instead of omitted; one byte range per request; a POST
+  to an unknown `/api/runs/` path answers 405 instead of 404; the report presentation lowercases
+  ASCII only when it looks for `</body>`, so a non-ASCII report cannot shift the insertion point.
+- Node: the jsdom suites (`designs/design.test.cjs`, `web/*.test.cjs`,
+  `examples/issuer-library/test_*.cjs`) are ported to pytest with Playwright over headless
+  Chromium (`tests/test_issuer_library_app.py`, `_design.py`, `_example.py`, marker `browser`).
+  Synthetic API replies are routed inside the browser; the design fixture is built strictly by
+  `designs/build.py`. Two checks changed because a real browser differs from jsdom: the
+  Escape-to-module-toggle step runs at 640 px width, where the toggle is shown, and the
+  remembered-scroll check uses a 400 px tall viewport so the content can scroll. The browser
+  JavaScript in `web/` is unchanged; a browser still executes it.
+- Packaging: no Go toolchain. `packaging/build.py` runs the Python checks, bundles the pinned
+  runtime (FastAPI, starlette, uvicorn, python-multipart, anyio, idna, h11, click, annotated-doc
+  and opentelemetry-api added to PINS, matching `uv.lock`), copies `web/` and writes the launcher
+  `Issuer Library.cmd` (windowless `pythonw.exe -I -B -X utf8 -m issuer_library`;
+  `python313._pth` adds `..\src`). The darwin binary is dropped. No Windows package was built or
+  run here.
+
+Verification on this Linux host (`uv sync --locked`, Python 3.13.18, uv 0.12.5):
+
+- `pytest` over the six Issuer Library files plus `test_issuer_library_store.py` and
+  `test_cpos_app.py`, with `ISSUER_LIBRARY_CHROMIUM=/opt/pw-browsers/chromium`: 198 passed,
+  1 failed. The failure, `test_one_unreadable_run_or_report_does_not_take_the_library_down`,
+  uses `chmod 0` and fails identically on `main` because this session runs as root.
+- `packaging/smoke_test.py` over the repository server: PASS (launch, retained reports,
+  workspace store, second launch reuse, Unicode workspace, offline CP-OS review of a synthetic
+  source, Start refused without a provider key, periodic discovery, settings persistence, quit,
+  restart). No browser acceptance implied.
+- `ruff check` and `ruff format --check` on the new files: clean. `mypy src/issuer_library`:
+  clean; the eight pre-existing `platform_io.py` errors remain.
+- Confidence review: null JSON fields now take Go's zero values through one before-validator;
+  the 512 MiB upload cap is tested by lowering it; path escapes, symlinks, Windows reserved
+  names, concurrent Start, review refusal cleanup, a worker that exits without a result and an
+  unwritable index cache are tested. Repaired during the review: the web folder had been
+  derived from an injected engine; `start_run` required every key where Go only forbade
+  unknown ones.
+- Rewrite tournament, post-edit and inline: `serve_bytes` against Starlette `FileResponse`
+  ranges (serves a path, not the verified bytes) and against no ranges (breaks the 206
+  contract); `review_run` against FastAPI `Form`/`File` parameters (loses the exact refusal
+  texts and the total-size cap). Both incumbents kept.
+- Not verified: Windows launch, known-folder lookup, message box, the packaged runtime, paid
+  execution.
+
 ## 2026-11-05 — repeated source copies removed
 
 At the user's instruction, 20 repeated source copies of 1 MB or more (54.4 MB) were removed from

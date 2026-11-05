@@ -1,7 +1,7 @@
-"""Build the jsdom fixture from the curated retained outputs; strict, so a stale pin fails here.
+"""Build the browser test fixture from the curated retained outputs; strict, so a stale pin fails.
 
-This is test data for design.test.cjs, not a product and not an analysis run. The app itself
-reads a workspace through engine/store.py.
+This is test data for tests/test_issuer_library_design.py, not a product and not an analysis
+run. The app itself reads a workspace through engine/store.py.
 """
 
 import json

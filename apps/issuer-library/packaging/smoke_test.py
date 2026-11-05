@@ -1,4 +1,8 @@
-"""Exercise a compiled launcher over loopback, without a browser or providers."""
+"""Exercise the launcher over loopback, without a browser or providers.
+
+With no argument it starts the repository's own server (the uv environment, PYTHONPATH=src).
+With a package folder it starts that package's pinned runtime, as the Windows launcher does.
+"""
 import json
 import os
 import socket
@@ -10,18 +14,29 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-executable = Path(sys.argv[1]).resolve()
-workspace = Path(__file__).resolve().parents[3]
+ROOT = Path(__file__).resolve().parents[3]
+workspace = ROOT
+environment = os.environ.copy()
+for key in ['OPENAI_API_KEY', 'ANTHROPIC_API_KEY', 'OPENROUTER_API_KEY']:
+    environment.pop(key, None)
+if len(sys.argv) > 1:
+    package = Path(sys.argv[1]).resolve()
+    launcher = [str(package / 'engine/runtime/python.exe'), '-I', '-B', '-X', 'utf8', '-m', 'issuer_library']
+    context = (package / 'engine/smoke-context.json').read_bytes()
+else:
+    launcher = [sys.executable, '-B', '-X', 'utf8', '-m', 'issuer_library']
+    environment['PYTHONPATH'] = str(ROOT / 'src')
+    context = (ROOT / 'cases/context/research-minimal.json').read_bytes()
 opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
 with tempfile.TemporaryDirectory(prefix='issuer-library-smoke-') as temporary:
     state = Path(temporary) / 'state'
-    other = Path(temporary) / 'workspace-\u00e9metteur'
+    other = Path(temporary) / 'workspace-émetteur'
     other.mkdir()
     with socket.socket() as probe:
         probe.bind(('127.0.0.1', 0))
         port = probe.getsockname()[1]
     address = f'http://127.0.0.1:{port}'
-    arguments = [str(executable), '--state-dir', str(state), '--port', str(port), '--no-browser']
+    arguments = [*launcher, '--state-dir', str(state), '--port', str(port), '--no-browser']
 
     def request(endpoint, payload=None, content_type='application/json'):
         headers = {}
@@ -46,9 +61,6 @@ with tempfile.TemporaryDirectory(prefix='issuer-library-smoke-') as temporary:
                 time.sleep(0.1)
         raise AssertionError('Launcher did not become ready')
 
-    environment = os.environ.copy()
-    for key in ['OPENAI_API_KEY', 'ANTHROPIC_API_KEY', 'OPENROUTER_API_KEY']:
-        environment.pop(key, None)
     process = subprocess.Popen(arguments + ['--workspace', str(workspace)], env=environment,
                                stdout=subprocess.DEVNULL)
     try:
@@ -65,11 +77,12 @@ with tempfile.TemporaryDirectory(prefix='issuer-library-smoke-') as temporary:
             list(workspace.glob('runs/*/deliveries/*/report.html')))
         for report in reports:
             assert b'<html' in request(report).lower()
-        subprocess.run(arguments, timeout=5, check=True)
+        store = request('/api/workspace')
+        assert 'tdg-002' in store['runs'] and len(store['reports']) == len(reports)
+        subprocess.run(arguments, timeout=5, check=True, env=environment)
         request('/api/settings', {'workspace': str(other)})
         boundary = 'IssuerLibraryOfflineSmoke'
         parts = []
-        context = (executable.parent / 'engine/smoke-context.json').read_bytes()
         for name, raw in [('context', context), ('config', b'sol-medium'),
                           ('cap_usd', b'10.00'), ('source_paths', b'["annual.txt"]')]:
             parts.append(f'--{boundary}\r\nContent-Disposition: form-data; name="{name}"\r\n\r\n'.encode() + raw + b'\r\n')
@@ -104,7 +117,7 @@ with tempfile.TemporaryDirectory(prefix='issuer-library-smoke-') as temporary:
         assert request('/api/catalogue')['workspace'] == str(other)
         request('/api/quit', {})
         assert process.wait(timeout=5) == 0
-        print('PASS: compiled launch, retained reports, repeat launch, Unicode workspace, offline '
+        print('PASS: launch, retained reports, workspace store, repeat launch, Unicode workspace, offline '
               'CP-OS context/source/budget review and unavailable-provider Start gate, automatic discovery, '
               'settings persistence, shutdown and restart; no browser acceptance implied.')
     finally:

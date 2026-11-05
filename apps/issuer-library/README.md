@@ -7,10 +7,12 @@ delivery folders. Candidate output remains explicitly qualified.
 
 ## Windows: double-click launch
 
-1. Extract the entire Windows ZIP and keep the executable beside its `engine` folder.
-   Choose the appropriate Windows ZIP (amd64 for Intel/AMD, arm64 for Windows on ARM).
-2. Double-click **Issuer Library.exe**. It opens the default browser and runs
-   only on `127.0.0.1`. No Python, Node, installation downloads or internet are needed.
+1. Extract the entire Windows ZIP and keep `Issuer Library.cmd` beside its `engine` and
+   `web` folders. Choose the appropriate Windows ZIP (amd64 for Intel/AMD, arm64 for
+   Windows on ARM).
+2. Double-click **Issuer Library.cmd**. It starts the bundled Python runtime without a
+   console window, opens the default browser and runs only on `127.0.0.1`. No Python
+   installation, Node, downloads or internet are needed.
 3. In **Settings** on the left rail, enter the full folder containing `runs/` and
    `deliverables/`, then choose **Save and reload**. The default is the Windows
    Documents known folder plus `FinalWorkflow`; existing folders are not moved.
@@ -22,13 +24,14 @@ delivery folders. Candidate output remains explicitly qualified.
    Discovery runs every 30 seconds; when it finds a change the app offers **Reload**.
    **Download original HTML** saves the standalone report.
 5. **Quit library** in Settings stops the service. Closing a tab leaves it running.
-   Launching the executable again reopens the same per-user instance. Quitting or
+   Launching the package again reopens the same per-user instance. Quitting or
    changing workspace is refused while a model run is active.
 
-The Windows binaries are cross-compiled pilot builds, not signed enterprise
-releases. Windows execution, browser rendering and enterprise rollout still need
-Windows acceptance. IT can sign the executable and distribute it using its normal
-software deployment process. No firewall opening or Windows service is needed.
+The Windows packages are pilot builds, not signed enterprise releases. Windows
+execution, browser rendering and enterprise rollout still need Windows acceptance.
+IT can sign the launcher script and the bundled runtime, or wrap the launcher in its
+own signed shortcut, and distribute the package using its normal software deployment
+process. No firewall opening or Windows service is needed.
 
 ## New run: context, issuer folder, review, Start
 
@@ -84,8 +87,9 @@ paid model success have not been demonstrated on this macOS build host.
 
 ## Standard locations and enterprise configuration
 
-- Install: IT may place the executable in `%ProgramFiles%\FinalWorkflow\IssuerLibrary`.
-  The executable writes nothing beside itself and can run from a read-only location.
+- Install: IT may place the package in `%ProgramFiles%\FinalWorkflow\IssuerLibrary`.
+  The package writes nothing beside itself (bytecode caching is off) and can run from a
+  read-only location.
 - Managed configuration: `%ProgramData%\FinalWorkflow\IssuerLibrary\settings.json`.
   If present, it takes precedence and locks workspace changes in the UI/CLI.
 - Per-user state: `%LOCALAPPDATA%\FinalWorkflow\IssuerLibrary\settings.json`,
@@ -174,45 +178,57 @@ referenced handoffs exist; incomplete writes remain visible as discovery notices
 
 ## Development and reproducible packaging
 
-Build requires Go 1.26 and Python 3.13. Windows runtime dependencies are bundled.
+The server is Python: `src/issuer_library`, a FastAPI application served by uvicorn on
+loopback only. Build and tests need Python 3.13 and uv 0.12.5; no compiler or Node.
+Windows runtime dependencies are bundled.
 
 ```sh
-cd apps/issuer-library
-go test -race ./...
-go vet ./...
-go run . --workspace /absolute/workspace --no-browser
-python3 packaging/build.py
+uv sync --locked
+uv run pytest tests/test_issuer_library_discovery.py tests/test_issuer_library_server.py tests/test_issuer_library_jobs.py tests/test_issuer_library_store.py
+PYTHONPATH=src uv run python -m issuer_library --workspace /absolute/workspace --no-browser
+uv run python apps/issuer-library/packaging/smoke_test.py
+uv run python apps/issuer-library/packaging/build.py
 ```
 
-Packaging uses the local Go toolchain with module downloads disabled. The runtime
-packager downloads official Python and pinned PyPI wheels into a verified cache;
-rebuilds reuse that cache. No provider execution occurs. Outputs go to
-`artifacts/issuer-library` at the repository root. It copies the deliverables'
-actual design tokens, styles, brand image and licensed fonts, plus the verified legacy adapter. Screening logic extends the existing example
-with exact decimal comparison. Frontend composition lives in `web/`.
-Windows amd64/arm64 executables and a macOS arm64 development binary are produced.
-No issuer runs, uploaded PDFs, provider credentials or complete reports enter the ZIP.
-A clearly fictional context is included only for the explicit offline smoke test.
+The smoke test starts the repository's server over loopback and checks launch, retained
+reports, the workspace store, a second launch, settings, an offline review, the Start gate,
+periodic discovery, quit and restart. With a package folder as its argument it runs the
+same checks against that package's runtime, on Windows. The runtime packager downloads
+official Python and the pinned PyPI wheels, FastAPI and uvicorn among them, into a
+verified cache; rebuilds reuse that cache. No provider execution occurs. Outputs go to
+`artifacts/issuer-library` at the repository root. Each package holds the launcher
+script, the `web/` front end and the `engine/` folder with the pinned runtime, the engine
+scripts and the `src/` packages; `python313._pth` puts `..\src` on the isolated
+interpreter's path. Packaging copies the deliverables' actual design tokens, styles, brand
+image and licensed fonts, plus the verified legacy adapter. Screening logic extends the
+existing example with exact decimal comparison. Frontend composition lives in `web/`.
+Windows amd64/arm64 packages are produced; macOS and Linux development runs the server
+from the repository. No issuer runs, uploaded PDFs, provider credentials or complete
+reports enter the ZIP. A clearly fictional context is included only for the explicit
+offline smoke test.
 
 `--state-dir` provides an isolated state directory for tests. `--port` overrides
 the stable per-user loopback port if another application occupies it. A running
 instance must be quit before changing command-line workspace settings.
 
-DOM simulation tests (existing optional local jsdom installation). `designs/build.py`
-writes their fixture from the curated retained runs and fails if a curated pin goes stale:
+Browser checks run the front end in headless Chromium through Playwright, a dev
+dependency: run `uv run playwright install chromium` once, or set
+`ISSUER_LIBRARY_CHROMIUM` to an installed Chromium executable. `designs/build.py`
+writes their fixture from the curated retained runs and fails if a curated pin goes
+stale; the tests build it themselves:
 
 ```sh
-python3 -B designs/build.py
-ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom node --test designs/design.test.cjs web/new-run.test.cjs web/report-renderer.test.cjs web/context-embed.test.cjs
+uv run pytest -m browser tests/test_issuer_library_app.py tests/test_issuer_library_design.py tests/test_issuer_library_example.py
 ```
 
-DOM simulation and HTTP checks do not establish browser visual or Windows launcher
-acceptance. See the single repository `VERIFICATION.md` record for actual scope.
+These checks execute the page's scripts in a real browser with synthetic API replies,
+but do not establish visual layout or Windows launcher acceptance. See the single
+repository `VERIFICATION.md` record for actual scope.
 
-For macOS development only, set `ISSUER_LIBRARY_PYTHON` to the absolute path of
-this project's Python 3.13 environment; `ISSUER_LIBRARY_ENGINE_ROOT` can point to
-`apps/issuer-library/engine`. Packaged Windows uses the bundled engine automatically.
-Do not turn the loopback application into a remotely exposed multi-user service.
+The server finds the engine beside itself: `apps/issuer-library/engine` in the
+repository, `engine/` in a package. The CP-OS worker runs under the same interpreter as
+the server. Do not turn the loopback application into a remotely exposed multi-user
+service.
 
 ## How the one app is put together
 
@@ -220,15 +236,17 @@ Do not turn the loopback application into a remotely exposed multi-user service.
 loads `views.js`, `actions.js` and `screen.js`. If the store cannot be read the app still
 opens, states the problem and keeps Settings and Help reachable.
 
-`/api/workspace` asks `engine/bridge.py library` for the store. `engine/store.py` parses
-every retained handoff, at the run root or in a run's delivery, for the runs the Go catalogue
-discovered; there is one parser. Labels come from the catalogue and the launcher's
+The server discovers runs and deliveries into the catalogue, serves pinned files and the
+front end, and runs the New run API; `engine/bridge.py` reviews and starts a run in its own
+process. `/api/workspace` imports `engine/store.py`, which parses every retained handoff, at
+the run root or in a run's delivery, for the runs the catalogue discovered; there is one
+parser. Labels come from the catalogue and the launcher's
 `workflow.json`, with hand-written reading labels for the curated runs. `engine/catalog.json`
 pins curated visuals to exact files: a pin that no longer matches is dropped and listed under
 Settings, and that output falls back to its plain sections. A handoff the parser refuses
 stays readable as one flagged block. A file that cannot be read hides its run, also listed.
 
-Reports are served by the Go server under the same sandbox as before and traced to run files
+Reports are served by the server under the same sandbox as before and traced to run files
 by SHA-256; a handoff with no matching run file is named. All resources are local. No new
 analysis is performed, and missing observations are never plotted as zero. See DESIGN.md for
 the screens, and the single repository `VERIFICATION.md` for what has actually been checked.

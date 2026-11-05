@@ -1,0 +1,247 @@
+"""Browser harness for the Issuer Library front end: real Chromium over routed local files.
+
+Every request a page makes is answered from the repository (the web folder, the design
+fixture or a retained deliverable) or by a synthetic API reply; nothing reaches a server
+or a provider. The session browser fixture lives in conftest.py.
+"""
+
+from __future__ import annotations
+
+import json
+import mimetypes
+import subprocess
+import sys
+from collections.abc import Callable
+from pathlib import Path
+from typing import Any
+from urllib.parse import urlsplit
+
+ROOT = Path(__file__).resolve().parents[1]
+APP = ROOT / "apps/issuer-library"
+WEB = APP / "web"
+FIXTURE = ROOT / "artifacts/issuer-library/design-fixture"
+ORIGIN = "http://127.0.0.1:54321"
+EMPTY_STORE: dict[str, Any] = {"runs": {}, "outputs": {}, "inputs": {}, "pins": {}}
+EMPTY_WORKSPACE: dict[str, Any] = {"reports": [], "visuals": []}
+DEFAULT_APP: dict[str, Any] = {
+    "workspace": "/research",
+    "policy_locked": False,
+    "issues": [],
+    "problem": "",
+}
+HELPERS = """
+window.__fragment=(html,selector)=>{const t=document.createElement('template');t.innerHTML=html;
+  return selector?[...t.content.querySelectorAll(selector)].map(e=>e.textContent):t.content.textContent;};
+window.__calls=[];
+const __realFetch=window.fetch;
+window.fetch=async(url,options)=>{window.__calls.push({url:String(url),options});return __realFetch(url,options);};
+"""
+NO_TIMERS = "window.setInterval=()=>1;window.clearInterval=()=>{};"
+Reply = Callable[[Any], Any]
+
+
+def pageerrors(page: Any) -> list[str]:
+    """Collect page errors and console errors; a test asserts the list stays empty."""
+    errors: list[str] = []
+    page.on("pageerror", lambda error: errors.append(str(error)))
+
+    def console(message: Any) -> None:
+        # A synthetic 404 or an aborted request is part of a check, not a script error.
+        if message.type == "error" and not message.text.startswith("Failed to load resource"):
+            errors.append(message.text)
+
+    page.on("console", console)
+    return errors
+
+
+def content_type(path: Path) -> str:
+    guessed = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+    if guessed.startswith(("text/", "application/json", "application/javascript")):
+        guessed += "; charset=utf-8"
+    return guessed
+
+
+def serve(page: Any, api: dict[str, Reply], roots: tuple[Path, ...] = (WEB, FIXTURE)) -> None:
+    """Answer /api/* from the replies and every other path from the first root holding it."""
+
+    def handler(route: Any) -> None:
+        path = urlsplit(route.request.url).path
+        if path.startswith("/api/"):
+            reply = api.get(path)
+            if reply is None:
+                route.fulfill(status=404, body="Not Found")
+                return
+            reply(route)
+            return
+        if path.startswith("/files/"):
+            candidates: tuple[Path, ...] = (ROOT / path.removeprefix("/files/"),)
+        else:
+            candidates = tuple(root / path.removeprefix("/") for root in roots)
+        for file in candidates:
+            if file.is_file():
+                route.fulfill(body=file.read_bytes(), content_type=content_type(file))
+                return
+        route.fulfill(status=404, body="Not Found")
+
+    page.route("**/*", handler)
+
+
+def json_reply(value: Any, status: int = 200) -> Reply:
+    return lambda route: route.fulfill(
+        status=status, body=json.dumps(value), content_type="application/json; charset=utf-8"
+    )
+
+
+def text_reply(text: str, status: int) -> Reply:
+    return lambda route: route.fulfill(
+        status=status, body=text, content_type="text/plain; charset=utf-8"
+    )
+
+
+class Screen:
+    """One open page of the app, with the small operations the DOM checks need."""
+
+    def __init__(self, page: Any) -> None:
+        self.page = page
+        self.errors = pageerrors(page)
+
+    def go(self, hash_route: str) -> None:
+        self.page.evaluate("hash=>{location.hash=hash;renderRoute();}", hash_route)
+
+    def eval(self, script: str) -> Any:
+        return self.page.evaluate(script)
+
+    def text(self, selector: str) -> str:
+        value: str = self.page.evaluate(
+            "s=>{const e=document.querySelector(s);return e?e.textContent:null;}", selector
+        )
+        return value
+
+    def texts(self, selector: str) -> list[str]:
+        values: list[str] = self.page.evaluate(
+            "s=>[...document.querySelectorAll(s)].map(e=>e.textContent)", selector
+        )
+        return values
+
+    def attrs(self, selector: str, name: str) -> list[str | None]:
+        values: list[str | None] = self.page.evaluate(
+            "([s,n])=>[...document.querySelectorAll(s)].map(e=>e.getAttribute(n))",
+            [selector, name],
+        )
+        return values
+
+    def attr(self, selector: str, name: str) -> str | None:
+        value: str | None = self.page.evaluate(
+            "([s,n])=>{const e=document.querySelector(s);return e?e.getAttribute(n):null;}",
+            [selector, name],
+        )
+        return value
+
+    def count(self, selector: str) -> int:
+        value: int = self.page.evaluate("s=>document.querySelectorAll(s).length", selector)
+        return value
+
+    def exists(self, selector: str) -> bool:
+        return self.count(selector) > 0
+
+    def click(self, selector: str) -> None:
+        self.page.evaluate("s=>document.querySelector(s).click()", selector)
+
+    def hidden(self, element_id: str) -> bool:
+        value: bool = self.page.evaluate("i=>document.getElementById(i).hidden", element_id)
+        return value
+
+    def active(self) -> str:
+        value: str = self.page.evaluate("document.activeElement?.id||''")
+        return value
+
+    def hash(self) -> str:
+        value: str = self.page.evaluate("location.hash")
+        return value
+
+    def content(self) -> str:
+        return self.text("#content")
+
+    def inner_html(self, selector: str) -> str:
+        value: str = self.page.evaluate("s=>document.querySelector(s).innerHTML", selector)
+        return value
+
+    def set_value(self, selector: str, value: str, event: str = "input") -> None:
+        self.page.evaluate(
+            "([s,v,e])=>{const el=document.querySelector(s);el.value=v;"
+            "el.dispatchEvent(new Event(e,{bubbles:true}));}",
+            [selector, value, event],
+        )
+
+    def press(self, selector: str, key: str, **extra: bool) -> bool:
+        """Dispatch keydown on the selector, or on the active element when it is empty."""
+        value: bool = self.page.evaluate(
+            "([s,k,x])=>{const t=s?document.querySelector(s):document.activeElement;"
+            "const e=new KeyboardEvent('keydown',{key:k,bubbles:true,cancelable:true,...x});"
+            "t.dispatchEvent(e);return e.defaultPrevented;}",
+            [selector, key, extra],
+        )
+        return value
+
+    def focus(self, selector: str) -> None:
+        self.page.evaluate("s=>document.querySelector(s).focus()", selector)
+
+    def fragment_text(self, html: str) -> str:
+        value: str = self.page.evaluate("h=>window.__fragment(h)", html)
+        return value
+
+    def calls(self) -> list[dict[str, Any]]:
+        values: list[dict[str, Any]] = self.page.evaluate(
+            "window.__calls.map(c=>({url:c.url,method:c.options?.method||'GET',"
+            "headers:c.options?.headers||{}}))"
+        )
+        return values
+
+    def close(self) -> None:
+        self.page.context.close()
+
+
+def open_app(
+    browser: Any,
+    hash_route: str,
+    store: dict[str, Any] = EMPTY_STORE,
+    workspace: dict[str, Any] = EMPTY_WORKSPACE,
+    app: dict[str, Any] = DEFAULT_APP,
+    api: dict[str, Reply] | None = None,
+    viewport: tuple[int, int] = (1280, 720),
+) -> Screen:
+    """The app at a route: boot reads the catalogue and store the way the server would send them."""
+    context = browser.new_context(viewport={"width": viewport[0], "height": viewport[1]})
+    page = context.new_page()
+    screen = Screen(page)
+    page.add_init_script(HELPERS + NO_TIMERS)
+    catalogue = {
+        "workspace": app["workspace"],
+        "policy_locked": app["policy_locked"],
+        "issues": app["issues"],
+        "real": [],
+    }
+    full_store = {**store, **workspace, "issues": app["issues"]}
+    replies: dict[str, Reply] = {
+        "/api/catalogue": json_reply(catalogue),
+        "/api/workspace": (
+            text_reply(app["problem"], 503) if app["problem"] else json_reply(full_store)
+        ),
+        "/api/runs/list": json_reply([]),
+    }
+    replies.update(api or {})
+    serve(page, replies)
+    page.goto(f"{ORIGIN}/index.html#{hash_route}")
+    page.wait_for_function("typeof current!=='undefined'&&current!==null")
+    return screen
+
+
+def design_store() -> tuple[dict[str, Any], dict[str, Any]]:
+    """The curated fixture that designs/build.py writes; built strictly so a stale pin fails."""
+    subprocess.run([sys.executable, "-B", str(APP / "designs/build.py")], check=True, cwd=ROOT)
+
+    def script_value(name: str) -> Any:
+        text = (FIXTURE / name).read_text(encoding="utf-8")
+        return json.loads(text[text.index("=") + 1 :].strip().rstrip(";"))
+
+    return script_value("data.js"), script_value("workspace-data.js")

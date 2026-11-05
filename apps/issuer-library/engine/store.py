@@ -1,7 +1,7 @@
 """The library's store: every retained handoff in a workspace, parsed for reading.
 
 Reads files only. Nothing here runs analysis, calls a provider or changes a workspace.
-Every page load runs this as its own process, so it imports only the standard library.
+The server imports this on each page load, so it imports only the standard library.
 """
 
 import csv

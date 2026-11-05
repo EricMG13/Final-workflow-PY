@@ -3,14 +3,28 @@ name = "deploy-workflow"
 version = "0.1.0"
 description = "Tool-assisted analytical modules and rendered deliverables"
 requires-python = ">=3.13,<3.14"
-dependencies = ["pydantic==2.14.1", "pypdf==6.21.2", "openpyxl==3.1.5"]
+dependencies = [
+    "pydantic==2.14.1",
+    "pypdf==6.21.2",
+    "openpyxl==3.1.5",
+    "fastapi==0.162.0",
+    "uvicorn==0.54.0",
+    "python-multipart==0.0.33",
+]
 
 [tool.uv]
 package = false
 required-version = "==0.12.5"
 
 [dependency-groups]
-dev = ["pytest==9.1.1", "ruff==0.17.1", "mypy==2.4.0", "hypothesis==6.170.5"]
+dev = [
+    "pytest==9.1.1",
+    "ruff==0.17.1",
+    "mypy==2.4.0",
+    "hypothesis==6.170.5",
+    "playwright==1.58.0",
+    "httpx2==2.13.1",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
