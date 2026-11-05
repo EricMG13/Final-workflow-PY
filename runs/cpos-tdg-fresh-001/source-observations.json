@@ -1,0 +1,1009 @@
+{
+  "scope": "New current-host source extraction from the staged annual PDF, not prior model output. Values retain source tokens; PDF pages and renders provide verification. Source capitalization may be normalized in adapter row labels.",
+  "columns": [
+    "FY2024",
+    "FY2023",
+    "FY2022"
+  ],
+  "income": {
+    "page": 106,
+    "rows": [
+      [
+        "NET SALES",
+        "7,940",
+        "6,585",
+        "5,429"
+      ],
+      [
+        "COST OF SALES",
+        "3,268",
+        "2,743",
+        "2,330"
+      ],
+      [
+        "GROSS PROFIT",
+        "4,672",
+        "3,842",
+        "3,099"
+      ],
+      [
+        "SELLING AND ADMINISTRATIVE EXPENSES",
+        "980",
+        "780",
+        "748"
+      ],
+      [
+        "AMORTIZATION OF INTANGIBLE ASSETS",
+        "161",
+        "139",
+        "136"
+      ],
+      [
+        "INCOME FROM OPERATIONS",
+        "3,531",
+        "2,923",
+        "2,215"
+      ],
+      [
+        "INTEREST EXPENSE—NET",
+        "1,286",
+        "1,164",
+        "1,076"
+      ],
+      [
+        "REFINANCING COSTS",
+        "58",
+        "56",
+        "1"
+      ],
+      [
+        "OTHER (INCOME) EXPENSE",
+        "(28)",
+        "(13)",
+        "11"
+      ],
+      [
+        "INCOME FROM CONTINUING OPERATIONS BEFORE INCOME TAXES",
+        "2,215",
+        "1,716",
+        "1,127"
+      ],
+      [
+        "INCOME TAX PROVISION",
+        "500",
+        "417",
+        "261"
+      ],
+      [
+        "INCOME FROM CONTINUING OPERATIONS",
+        "1,715",
+        "1,299",
+        "866"
+      ],
+      [
+        "INCOME FROM DISCONTINUED OPERATIONS, NET OF TAX",
+        "—",
+        "—",
+        "1"
+      ],
+      [
+        "NET INCOME",
+        "1,715",
+        "1,299",
+        "867"
+      ],
+      [
+        "LESS: NET INCOME ATTRIBUTABLE TO NONCONTROLLING INTERESTS",
+        "(1)",
+        "(1)",
+        "(1)"
+      ],
+      [
+        "NET INCOME ATTRIBUTABLE TO TD GROUP",
+        "1,714",
+        "1,298",
+        "866"
+      ],
+      [
+        "NET INCOME APPLICABLE TO TD GROUP COMMON STOCKHOLDERS",
+        "1,481",
+        "1,260",
+        "780"
+      ],
+      [
+        "Earnings per share from continuing operations—basic and diluted",
+        "25.62",
+        "22.03",
+        "13.38"
+      ],
+      [
+        "Earnings per share from discontinued operations—basic and diluted",
+        "—",
+        "—",
+        "0.02"
+      ],
+      [
+        "Earnings per share",
+        "25.62",
+        "22.03",
+        "13.40"
+      ],
+      [
+        "Cash dividends declared per common share",
+        "110.00",
+        "—",
+        "18.50"
+      ],
+      [
+        "Basic and diluted weighted-average shares outstanding",
+        "57.8",
+        "57.2",
+        "58.2"
+      ]
+    ]
+  },
+  "cash": {
+    "page": 109,
+    "rows": [
+      [
+        "Net income",
+        "1,715",
+        "1,299",
+        "867"
+      ],
+      [
+        "Income from discontinued operations, net of tax",
+        "—",
+        "—",
+        "(1)"
+      ],
+      [
+        "Depreciation",
+        "149",
+        "129",
+        "116"
+      ],
+      [
+        "Amortization of intangible assets and product certification costs",
+        "163",
+        "139",
+        "137"
+      ],
+      [
+        "Amortization of debt issuance costs, original issue discount and premium",
+        "40",
+        "41",
+        "34"
+      ],
+      [
+        "Amortization of inventory step-up",
+        "21",
+        "2",
+        "3"
+      ],
+      [
+        "Amortization of loss contract reserves",
+        "(35)",
+        "(34)",
+        "(39)"
+      ],
+      [
+        "Refinancing costs",
+        "58",
+        "56",
+        "1"
+      ],
+      [
+        "Gain on sale of businesses, net",
+        "(11)",
+        "—",
+        "(7)"
+      ],
+      [
+        "Non-cash stock and deferred compensation expense",
+        "217",
+        "157",
+        "184"
+      ],
+      [
+        "Deferred income taxes",
+        "10",
+        "3",
+        "(22)"
+      ],
+      [
+        "Foreign currency exchange losses (gains)",
+        "20",
+        "14",
+        "(40)"
+      ],
+      [
+        "(Gain) loss on settlement of the Esterline Retirement Plan",
+        "—",
+        "(9)",
+        "22"
+      ],
+      [
+        "Cash refund (contribution) for the ERP settlement, net",
+        "—",
+        "9",
+        "(16)"
+      ],
+      [
+        "Trade accounts receivable",
+        "(84)",
+        "(212)",
+        "(190)"
+      ],
+      [
+        "Inventories",
+        "(104)",
+        "(261)",
+        "(134)"
+      ],
+      [
+        "Income taxes (receivable) payable",
+        "(62)",
+        "168",
+        "58"
+      ],
+      [
+        "Other assets",
+        "(60)",
+        "(44)",
+        "(56)"
+      ],
+      [
+        "Accounts payable",
+        "(11)",
+        "12",
+        "58"
+      ],
+      [
+        "Accrued interest",
+        "60",
+        "(45)",
+        "(21)"
+      ],
+      [
+        "Accrued and other liabilities",
+        "(41)",
+        "(49)",
+        "(6)"
+      ],
+      [
+        "Net cash provided by operating activities",
+        "2,045",
+        "1,375",
+        "948"
+      ],
+      [
+        "Capital expenditures",
+        "(165)",
+        "(139)",
+        "(119)"
+      ],
+      [
+        "Acquisition of businesses, net of cash acquired",
+        "(2,347)",
+        "(762)",
+        "(437)"
+      ],
+      [
+        "Other investing transactions",
+        "71",
+        "1",
+        "3"
+      ],
+      [
+        "Net cash used in investing activities",
+        "(2,441)",
+        "(900)",
+        "(553)"
+      ],
+      [
+        "Proceeds from exercise of stock options",
+        "245",
+        "215",
+        "132"
+      ],
+      [
+        "Dividends and dividend equivalent payments",
+        "(2,038)",
+        "(38)",
+        "(1,091)"
+      ],
+      [
+        "Repurchases of common stock",
+        "—",
+        "—",
+        "(912)"
+      ],
+      [
+        "Proceeds from issuance of senior secured notes, net",
+        "7,373",
+        "3,504",
+        "—"
+      ],
+      [
+        "Repayments of senior secured notes",
+        "(4,400)",
+        "(1,122)",
+        "—"
+      ],
+      [
+        "Repayments of senior subordinated notes, net",
+        "(550)",
+        "(1,459)",
+        "—"
+      ],
+      [
+        "Repayment on revolving credit facility",
+        "—",
+        "—",
+        "(200)"
+      ],
+      [
+        "Proceeds from trade receivable securitization facility, net",
+        "137",
+        "—",
+        "—"
+      ],
+      [
+        "Proceeds from term loans, net",
+        "6,815",
+        "6,238",
+        "—"
+      ],
+      [
+        "Repayment on term loans",
+        "(4,403)",
+        "(7,334)",
+        "(75)"
+      ],
+      [
+        "Financing costs and other, net",
+        "(8)",
+        "(20)",
+        "(2)"
+      ],
+      [
+        "Net cash provided by (used in) financing activities",
+        "3,171",
+        "(16)",
+        "(2,148)"
+      ],
+      [
+        "Effect of exchange rate changes on cash and cash equivalents",
+        "14",
+        "12",
+        "(33)"
+      ],
+      [
+        "Net increase (decrease) in cash and cash equivalents",
+        "2,789",
+        "471",
+        "(1,786)"
+      ],
+      [
+        "Cash and cash equivalents, beginning of period",
+        "3,472",
+        "3,001",
+        "4,787"
+      ],
+      [
+        "Cash and cash equivalents, end of period",
+        "6,261",
+        "3,472",
+        "3,001"
+      ],
+      [
+        "Cash paid during period for interest, net",
+        "1,158",
+        "1,160",
+        "1,057"
+      ],
+      [
+        "Cash paid during period for income taxes, net of refunds",
+        "539",
+        "260",
+        "220"
+      ]
+    ]
+  },
+  "balance": {
+    "page": 105,
+    "columns": [
+      "Sep 30, 2024",
+      "Sep 30, 2023"
+    ],
+    "rows": [
+      [
+        "Cash and cash equivalents",
+        "6,261",
+        "3,472"
+      ],
+      [
+        "Trade accounts receivable—Net",
+        "1,381",
+        "1,230"
+      ],
+      [
+        "Inventories—Net",
+        "1,876",
+        "1,616"
+      ],
+      [
+        "Prepaid expenses and other",
+        "511",
+        "420"
+      ],
+      [
+        "Total current assets",
+        "10,029",
+        "6,738"
+      ],
+      [
+        "Property, plant and equipment—Net",
+        "1,488",
+        "1,255"
+      ],
+      [
+        "Goodwill",
+        "10,419",
+        "8,988"
+      ],
+      [
+        "Other intangible assets—Net",
+        "3,446",
+        "2,747"
+      ],
+      [
+        "Other non-current assets",
+        "204",
+        "242"
+      ],
+      [
+        "Total assets",
+        "25,586",
+        "19,970"
+      ],
+      [
+        "Current portion of long-term debt",
+        "98",
+        "71"
+      ],
+      [
+        "Short-term borrowings—trade receivable securitization facility",
+        "486",
+        "349"
+      ],
+      [
+        "Accounts payable",
+        "323",
+        "305"
+      ],
+      [
+        "Dividends payable",
+        "4,216",
+        "—"
+      ],
+      [
+        "Accrued and other current liabilities",
+        "1,216",
+        "854"
+      ],
+      [
+        "Total current liabilities",
+        "6,339",
+        "1,579"
+      ],
+      [
+        "Long-term debt",
+        "24,296",
+        "19,330"
+      ],
+      [
+        "Deferred income taxes",
+        "766",
+        "627"
+      ],
+      [
+        "Other non-current liabilities",
+        "468",
+        "412"
+      ],
+      [
+        "Total liabilities",
+        "31,869",
+        "21,948"
+      ],
+      [
+        "Common stock",
+        "1",
+        "1"
+      ],
+      [
+        "Additional paid-in capital",
+        "2,819",
+        "2,440"
+      ],
+      [
+        "Accumulated deficit",
+        "(7,362)",
+        "(2,621)"
+      ],
+      [
+        "Accumulated other comprehensive loss",
+        "(42)",
+        "(98)"
+      ],
+      [
+        "Treasury stock, at cost",
+        "(1,706)",
+        "(1,706)"
+      ],
+      [
+        "Total TD Group stockholders’ deficit",
+        "(6,290)",
+        "(1,984)"
+      ],
+      [
+        "Noncontrolling interests",
+        "7",
+        "6"
+      ],
+      [
+        "Total stockholders’ deficit",
+        "(6,283)",
+        "(1,978)"
+      ],
+      [
+        "Total liabilities and stockholders’ deficit",
+        "25,586",
+        "19,970"
+      ]
+    ]
+  },
+  "comprehensive": {
+    "page": 107,
+    "rows": [
+      [
+        "Net income",
+        "1,715",
+        "1,299",
+        "867"
+      ],
+      [
+        "Less: Net income attributable to noncontrolling interests",
+        "(1)",
+        "(1)",
+        "(1)"
+      ],
+      [
+        "Net income attributable to TD Group",
+        "1,714",
+        "1,298",
+        "866"
+      ],
+      [
+        "Foreign currency translation adjustment",
+        "181",
+        "137",
+        "(379)"
+      ],
+      [
+        "Unrealized (losses) gains on derivatives",
+        "(124)",
+        "20",
+        "352"
+      ],
+      [
+        "Pension and post-retirement benefit plans adjustment",
+        "(1)",
+        "12",
+        "8"
+      ],
+      [
+        "Other comprehensive income (loss), net of tax, attributable to TD Group",
+        "56",
+        "169",
+        "(19)"
+      ],
+      [
+        "Total comprehensive income attributable to TD Group",
+        "1,770",
+        "1,467",
+        "847"
+      ]
+    ]
+  },
+  "equity": {
+    "page": 108,
+    "columns": [
+      "Issued common shares (individual)",
+      "Par (USDm)",
+      "Paid-in capital (USDm)",
+      "Accumulated deficit (USDm)",
+      "AOCL (USDm)",
+      "Treasury shares (individual)",
+      "Treasury cost (USDm)",
+      "NCI (USDm)",
+      "Total (USDm)"
+    ],
+    "rows": [
+      [
+        "Balance Sep30 2021",
+        "59,403,100",
+        "1",
+        "1,830",
+        "(3,705)",
+        "(248)",
+        "(4,198,226)",
+        "(794)",
+        "6",
+        "(2,910)"
+      ],
+      [
+        "FY2022 changes in NCI",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "1",
+        "1"
+      ],
+      [
+        "FY2022 special dividends and vested equivalents ($18.50/share)",
+        "—",
+        "—",
+        "—",
+        "(1,045)",
+        "—",
+        "—",
+        "—",
+        "—",
+        "(1,045)"
+      ],
+      [
+        "FY2022 accrued unvested equivalents and other",
+        "—",
+        "—",
+        "—",
+        "(30)",
+        "—",
+        "—",
+        "—",
+        "—",
+        "(30)"
+      ],
+      [
+        "FY2022 employee option compensation",
+        "—",
+        "—",
+        "151",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "151"
+      ],
+      [
+        "FY2022 stock-based compensation activity",
+        "646,585",
+        "—",
+        "132",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "132"
+      ],
+      [
+        "FY2022 repurchase program",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "(1,490,413)",
+        "(912)",
+        "—",
+        "(912)"
+      ],
+      [
+        "FY2022 net income attributable to TD Group",
+        "—",
+        "—",
+        "—",
+        "866",
+        "—",
+        "—",
+        "—",
+        "—",
+        "866"
+      ],
+      [
+        "FY2022 FX translation net tax",
+        "—",
+        "—",
+        "—",
+        "—",
+        "(379)",
+        "—",
+        "—",
+        "—",
+        "(379)"
+      ],
+      [
+        "FY2022 derivative gain net tax",
+        "—",
+        "—",
+        "—",
+        "—",
+        "352",
+        "—",
+        "—",
+        "—",
+        "352"
+      ],
+      [
+        "FY2022 pension adjustment net tax",
+        "—",
+        "—",
+        "—",
+        "—",
+        "8",
+        "—",
+        "—",
+        "—",
+        "8"
+      ],
+      [
+        "Balance Sep30 2022",
+        "60,049,685",
+        "1",
+        "2,113",
+        "(3,914)",
+        "(267)",
+        "(5,688,639)",
+        "(1,706)",
+        "7",
+        "(3,766)"
+      ],
+      [
+        "FY2023 changes in NCI",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "(1)",
+        "(1)"
+      ],
+      [
+        "FY2023 accrued unvested equivalents and other",
+        "—",
+        "—",
+        "—",
+        "(5)",
+        "—",
+        "—",
+        "—",
+        "—",
+        "(5)"
+      ],
+      [
+        "FY2023 employee option compensation",
+        "—",
+        "—",
+        "112",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "112"
+      ],
+      [
+        "FY2023 stock-based compensation activity",
+        "945,828",
+        "—",
+        "215",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "215"
+      ],
+      [
+        "FY2023 net income attributable to TD Group",
+        "—",
+        "—",
+        "—",
+        "1,298",
+        "—",
+        "—",
+        "—",
+        "—",
+        "1,298"
+      ],
+      [
+        "FY2023 FX translation net tax",
+        "—",
+        "—",
+        "—",
+        "—",
+        "137",
+        "—",
+        "—",
+        "—",
+        "137"
+      ],
+      [
+        "FY2023 derivative gain net tax",
+        "—",
+        "—",
+        "—",
+        "—",
+        "20",
+        "—",
+        "—",
+        "—",
+        "20"
+      ],
+      [
+        "FY2023 pension adjustment net tax",
+        "—",
+        "—",
+        "—",
+        "—",
+        "12",
+        "—",
+        "—",
+        "—",
+        "12"
+      ],
+      [
+        "Balance Sep30 2023",
+        "60,995,513",
+        "1",
+        "2,440",
+        "(2,621)",
+        "(98)",
+        "(5,688,639)",
+        "(1,706)",
+        "6",
+        "(1,978)"
+      ],
+      [
+        "FY2024 changes in NCI",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "1",
+        "1"
+      ],
+      [
+        "FY2024 special dividends and vested equivalents ($35/$75 per share)",
+        "—",
+        "—",
+        "—",
+        "(6,368)",
+        "—",
+        "—",
+        "—",
+        "—",
+        "(6,368)"
+      ],
+      [
+        "FY2024 accrued unvested equivalents and other",
+        "—",
+        "—",
+        "—",
+        "(87)",
+        "—",
+        "—",
+        "—",
+        "—",
+        "(87)"
+      ],
+      [
+        "FY2024 employee option compensation",
+        "—",
+        "—",
+        "134",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "134"
+      ],
+      [
+        "FY2024 stock-based compensation activity",
+        "909,320",
+        "—",
+        "245",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "245"
+      ],
+      [
+        "FY2024 net income attributable to TD Group",
+        "—",
+        "—",
+        "—",
+        "1,714",
+        "—",
+        "—",
+        "—",
+        "—",
+        "1,714"
+      ],
+      [
+        "FY2024 FX translation net tax",
+        "—",
+        "—",
+        "—",
+        "—",
+        "181",
+        "—",
+        "—",
+        "—",
+        "181"
+      ],
+      [
+        "FY2024 derivative loss net tax",
+        "—",
+        "—",
+        "—",
+        "—",
+        "(124)",
+        "—",
+        "—",
+        "—",
+        "(124)"
+      ],
+      [
+        "FY2024 pension adjustment net tax",
+        "—",
+        "—",
+        "—",
+        "—",
+        "(1)",
+        "—",
+        "—",
+        "—",
+        "(1)"
+      ],
+      [
+        "Balance Sep30 2024",
+        "61,904,833",
+        "1",
+        "2,819",
+        "(7,362)",
+        "(42)",
+        "(5,688,639)",
+        "(1,706)",
+        "7",
+        "(6,283)"
+      ]
+    ]
+  }
+}

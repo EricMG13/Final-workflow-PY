@@ -1,0 +1,17 @@
+{
+  "kind": "ok",
+  "http_status": 200,
+  "error_class": null,
+  "reported_model": "gpt-6.1-sol",
+  "stop_reason": "tool_use",
+  "usage": {
+    "input_tokens": 19473,
+    "output_tokens": 8165,
+    "reasoning_tokens": 429
+  },
+  "computed_cost_usd": "0.13026950",
+  "cost_status": "computed",
+  "reserved_usd": "5.495760",
+  "response_markdown_retained": true,
+  "automatic_retries": 0
+}

@@ -213,6 +213,7 @@ def mapped_module(module_id: str, raw: bytes) -> tuple[ModuleView, Source]:
             )
             ids = []
             for c, value in enumerate(content):
+                cell_text = plain(value)
                 fact_id = f"{table_id}.{row_id}.c{c}"
                 ids.append(fact_id)
                 facts.append(
@@ -222,7 +223,9 @@ def mapped_module(module_id: str, raw: bytes) -> tuple[ModuleView, Source]:
                         table_id=table_id,
                         row_id=row_id,
                         field=f"c{c}",
-                        text=plain(value),
+                        text=cell_text or None,
+                        status="known" if cell_text else "missing",
+                        limitation=None if cell_text else "Original handoff cell is blank; not zero",
                         value_class="source",
                         basis="Literal content of the model-authored handoff; no new analysis or arithmetic.",
                         citations=(

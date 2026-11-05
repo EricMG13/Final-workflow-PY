@@ -106,6 +106,43 @@ def test_actual_handoffs_populate_existing_five_sections_and_exact_sources() -> 
     assert "Date / period: October 2024" in rendered_text
 
 
+@pytest.mark.parametrize("token", ["", "   ", "** **", "0", "—"])
+def test_dashboard_blank_is_missing_and_zero_or_dash_stays_literal(
+    tmp_path: Path, token: str
+) -> None:
+    """Synthetic cell controls over a retained actual handoff, including rendering."""
+    path = copy_job(tmp_path)
+    job = json.loads(path.read_text())
+    source = tmp_path / job["handoffs"]["CP-1"]["path"]
+    raw = source.read_text()
+    row = next(
+        line
+        for line in raw.splitlines()
+        if line.startswith("| Total debt carrying value incl. separately shown securitization |")
+    )
+    cells = row.split("|")
+    cells[4] = " " + token + " "
+    source.write_text(raw.replace(row, "|".join(cells), 1))
+    job["handoffs"]["CP-1"]["sha256"] = hashlib.sha256(source.read_bytes()).hexdigest()
+    path.write_text(json.dumps(job))
+    view, _, _ = prepare(path)
+    fact = next(
+        f
+        for module in view.modules
+        if module.module_id == "CP-1"
+        for f in module.facts
+        if f.label == "Total debt carrying value incl. separately shown securitization"
+        and f.field == "c2"
+    )
+    missing = token in {"", "   ", "** **"}
+    assert fact.status == ("missing" if missing else "known")
+    assert fact.text == (None if missing else token)
+    assert bool(fact.limitation) == missing
+    assert fact.amount is None
+    assert fact.citations[0].quote == "|".join(cells)
+    assert deliver(path, tmp_path / "out").is_file()
+
+
 def test_changed_handoff_and_foreign_issuer_refuse_before_export(tmp_path: Path) -> None:
     path = copy_job(tmp_path)
     job = json.loads(path.read_text())

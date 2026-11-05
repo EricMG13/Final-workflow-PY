@@ -504,7 +504,11 @@ def build_model(
                 "currency": None if key in ratio_keys else "USD",
                 "scale": "1" if key in ratio_keys else "1000000",
                 "period": period,
-                "start_date": layout.periods[period].start_date.isoformat(),
+                "start_date": (
+                    None
+                    if key in {"cash", "carrying_debt", "net_carrying_debt"}
+                    else layout.periods[period].start_date.isoformat()
+                ),
                 "end_date": layout.periods[period].end_date.isoformat(),
                 "formula": FORMULAS.get(key),
                 "reason": cell.reason,

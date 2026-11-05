@@ -1,0 +1,16 @@
+{
+  "source_sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+  "bytes": 4378190,
+  "pages": 160,
+  "pypdf_version": "6.21.2",
+  "mode": "layout",
+  "empty_pages": [
+    156,
+    159,
+    160
+  ],
+  "text_aid_sha256": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+  "authority": "Original retained issuer PDF; derivative is a reading aid, never a second independent source.",
+  "external_authentication": false,
+  "visual_pages": []
+}

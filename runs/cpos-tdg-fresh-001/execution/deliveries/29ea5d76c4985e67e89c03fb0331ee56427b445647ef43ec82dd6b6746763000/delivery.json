@@ -1,0 +1,29 @@
+{
+  "kind": "manual_handoff_delivery",
+  "scope": [
+    "key-findings",
+    "company-operating-model",
+    "strengths-weaknesses",
+    "company-profile",
+    "transaction-summary",
+    "HTML Model",
+    "charts",
+    "calculation JSON"
+  ],
+  "analytical_runtime_executed": false,
+  "cp_model_published": true,
+  "files": {
+    "CP-1.md": "8ad4192861bc705dd7f749eb9a7623ac078a0cfae66817cc064a5afe16a297e1",
+    "CP-1A.md": "18a39c18602d340822a3610f9f2abf39b83982fee5e9e80c1bebc7638b96c8fa",
+    "CP-2.md": "b2070b3b569029f8061349d8f6fe9a3848411b0723a996d03d5ace15bd1458c7",
+    "annual.md": "8ad4192861bc705dd7f749eb9a7623ac078a0cfae66817cc064a5afe16a297e1",
+    "current_synthesis.md": "b2070b3b569029f8061349d8f6fe9a3848411b0723a996d03d5ace15bd1458c7",
+    "calculation.json": "6398aefdc438b4ad4f654e9ce3b5c8ca9188f0549330616dbf3f6662d01a4198",
+    "model-view.json": "e0a6e8b595ffaea754c2922df8425f0c8de3b3e8951bdb20d043a07c3787119e",
+    "model-report-view.json": "7068eee2799a1db6333cef13bb9cb0a54e0bc272603e9531711df980a3591bf7",
+    "model.html": "c42d4e02d2ce2b669a2877eed4ed105d3a4631cb922664d75a5ce15e308bf962",
+    "view.json": "f164bdb046aa71f725f3a0540af4843e6942b923462670b3e04d651d6142fdd6",
+    "report-view.json": "9f6bb2e94de669f664cb1481f57ae40c6e8e53ed73dc8e7b5b2e03062c436cf2",
+    "report.html": "8e19a11868289d857725f38697bd141cb08d8ebefa7e07a456fba666b71f579d"
+  }
+}

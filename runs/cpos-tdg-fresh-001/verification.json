@@ -1,0 +1,356 @@
+{
+  "execution": "Actual current host with preceding context and earlier oracle exposure; not blind, independent, native/provider or replay.",
+  "status": "Live CP-2 bounded analytical function, exact replay and report/HTML Model/chart consumption verified; UI check pending. Broader module functions and orchestration/pathways remain active.",
+  "previous_goal_turn": "progress: verified and pushed Relative Value report/label repair.",
+  "provider_calls": 1,
+  "subagents": true,
+  "approved": {
+    "CP-0": {
+      "sha256": "da6b04e1142edf5fd929894de497b4da8b64c8a0a59b54e4d264742c2392e13e",
+      "source_checks": {
+        "short_quotes": 11,
+        "all_page_indices": 160,
+        "exact_empty_pages": [
+          156,
+          159,
+          160
+        ],
+        "visually_examined": [
+          105,
+          106,
+          109,
+          156
+        ],
+        "required_primary_statement_pages": [
+          105,
+          106,
+          107,
+          108,
+          109
+        ]
+      },
+      "instruction_review": "P1-P8 preparation and T1-T8 readiness duties present; source sufficiency only, explicit retrospective/external-authentication/glyph/rotation/full-pathway limits; source identity, flow versus instant and quantity-family distinctions checked. Same host source/instruction verification, no independent or native approval.",
+      "issues": []
+    },
+    "CP-1": {
+      "sha256": "8ad4192861bc705dd7f749eb9a7623ac078a0cfae66817cc064a5afe16a297e1",
+      "source_checks": {
+        "primary_rows_with_literal_source_matches": 103,
+        "complete_equity_rows": 31,
+        "equity_columns": 9,
+        "fraction_to_existing_decimal_checks": 64,
+        "primary_visual_pages": [
+          105,
+          106,
+          107,
+          108,
+          109
+        ],
+        "targeted_rotated_source_read": 156
+      },
+      "instruction_review": "All18 T4 responsibilities; complete primary statements; source signs/quantity/periods; source-literal debt/leases/segments/non-GAAP;2022 continuing-income base; disclosure classification conflict; five consumer assessments and inherited/targeted gaps reviewed. The annual Model reader validated all selectors/dates/units, including absent2022 balances. Same-host review with pre-existing context, not independent/native assurance.",
+      "issues": []
+    },
+    "CP-1A": {
+      "sha256": "18a39c18602d340822a3610f9f2abf39b83982fee5e9e80c1bebc7638b96c8fa",
+      "source_checks": {
+        "explicit_current_cp1_consumption_rows": 8,
+        "governance_inputs": 4,
+        "rubric_dimensions": 9,
+        "unsupported_dimensions_preserved": 5,
+        "consumers_assessed_once": 5,
+        "quotes_checked_against_source": 4
+      },
+      "instruction_review": "Company, business, operating model, ownership, capital allocation, transaction/timeline, all11 T2D responsibilities and contrary/time-aware credit translations reviewed. Current CP-1 quantities remain exact; distributions/declarations/payables and later cash stay distinct. Explicit two Critical restrictions, source conflict and missingness. Exact existing delivery headings pass mapped_module. Same-host historical scope only.",
+      "issues": []
+    },
+    "CP-2": {
+      "sha256": "b2070b3b569029f8061349d8f6fe9a3848411b0723a996d03d5ace15bd1458c7",
+      "source_checks": {
+        "current_handoff_anchors": 8,
+        "financial_profile_dimensions": 9,
+        "issuer_matrix_factors": 6,
+        "monitoring_lanes": 8,
+        "critical_inherited_restrictions": 2
+      },
+      "instruction_review": "All three exact current handoffs consumed, no financial re-extraction or new arithmetic. Annual/instant/per-share, carrying/principal, availability/cash, ordinary/operating/As Defined and declared/paid/subsequent distinctions reviewed. Conditional12-24month/3-5year horizons, causal downside, contrary evidence, ranked strengths/weaknesses and Medium confidence preserved. Existing report mapping succeeds. Same-host historical bounded scope; no ownership/instrument action, current financials or native/independent claim.",
+      "issues": [],
+      "targeted_identity_repair_verified": true
+    }
+  },
+  "remaining": [
+    "Fresh CP-0 -> CP-1 -> CP-1A -> CP-2 annual-base report/HTML Model sequence.",
+    "Other modules, aliases, substantive branches and full pathways remain active."
+  ],
+  "instruction_correction": {
+    "module": "CP-1A",
+    "before_first_dispatch": true,
+    "finding": "Preflight found that the existing delivery adapter selects exact company/ownership/transaction/timeline headings; initial proposed instruction used other presentation titles. No analytical method change.",
+    "repair": "New instruction revision adds the existing selector headings before any CP-1A response. Original revision remains in this case and staged inputs."
+  },
+  "verification_corrections": [
+    "Offline reader validation initially passed a Python dict with string dates into strict model_validate; using the actual JSON boundary model_validate_json passed without artifact changes.",
+    "Initial consumer check expected CP-MODEL instead of the actual CP-MODEL delivery row label; corrected the check, with no model-response change.",
+    "GovernanceItem strict Python-mode validation rejected JSON list citations; validating the actual JSON boundary passed without changing model judgments or source data."
+  ],
+  "superseded_review": {
+    "CP-2": {
+      "previous_source_check": {
+        "sha256": "c5013a4dfb8f663a2c262377c12e3e30223eab67a9bc5a82cb576969f4ca5fdc",
+        "source_checks": {
+          "current_handoff_anchors": 8,
+          "financial_profile_dimensions": 9,
+          "issuer_matrix_factors": 6,
+          "monitoring_lanes": 8,
+          "critical_inherited_restrictions": 2
+        },
+        "instruction_review": "All three exact current handoffs consumed, no financial re-extraction or new arithmetic. Annual/instant/per-share, carrying/principal, availability/cash, ordinary/operating/As Defined and declared/paid/subsequent distinctions reviewed. Conditional12-24month/3-5year horizons, causal downside, contrary evidence, ranked strengths/weaknesses and Medium confidence preserved. Existing report mapping succeeds. Same-host historical bounded scope; no ownership/instrument action, current financials or native/independent claim.",
+        "issues": []
+      },
+      "actual_publication_refusal": "Issuer name is not established in CP-2",
+      "root_cause": "Actual CP-2 omitted the explicit issuer legal name despite required issuer/perimeter re-anchor; manual review missed the omission. Existing guard correctly refused.",
+      "targeted_repair": "One source-supported identity sentence, every other byte unchanged; new instruction/request revision; original answer and failed manifest retained."
+    }
+  },
+  "targeted_repair": {
+    "original_path": "runs/cpos-tdg-fresh-001/execution/requests/CP-2/cf59655d2a011095e387339ad7f1a9eea6091b5eb6531a0daee879f12356e228/1.response.md",
+    "original_sha256": "c5013a4dfb8f663a2c262377c12e3e30223eab67a9bc5a82cb576969f4ca5fdc",
+    "new_path": "runs/cpos-tdg-fresh-001/execution/requests/CP-2/edf62b1ba8684be83dda503fa8bbaac9c3a60b885e67fb5012ddd8dcbbb894c4/1.response.md",
+    "new_sha256": "b2070b3b569029f8061349d8f6fe9a3848411b0723a996d03d5ace15bd1458c7",
+    "inserted_sentence": "Issuer: TransDigm Group Incorporated (TD Group) and its consolidated\nsubsidiaries, as established by the current CP-0/CP-1 and S1 PDF1/110.\n\n",
+    "all_other_bytes_equal": true,
+    "issuer_evidence": "S1 PDF1 registrant and PDF110 consolidation; original immutable CP-0 and CP-1 current source context."
+  },
+  "confidence_review": {
+    "scope": "mapped_module.add blank literal-cell mapping; current model responses and the actual two publication refusals.",
+    "ranked_doubts": [
+      {
+        "point": "Blank missing cell might be rendered as known empty text",
+        "verdict": "CONFIRMED bug. Actual fresh publication reached format_value and failed; three synthetic empty/whitespace/emphasis-empty cases failed while0/dash passed before repair. Map empty normalized text to missing/None with a reason."
+      },
+      {
+        "point": "Zero or source dash might be silently converted to missing",
+        "verdict": "Verified fine: literal0 and dash stay known text; all five rendering controls pass. No numeric inference or calculation added."
+      },
+      {
+        "point": "Existing nonempty publications or caller contracts could change",
+        "verdict": "Verified fine: legacy actual normalized views, ReportView and copied bytes equal baseline;71 focused regressions and selected-file mypy passed. Signatures, IDs, columns and citations unchanged."
+      },
+      {
+        "point": "Repair could lose exact source evidence or native gap behavior",
+        "verdict": "Verified fine within tests: missing carries the original quote/hash plus explicit reason, and native rendering produces a gap; no zero/amount invented."
+      },
+      {
+        "point": "Actual CP-2 lacked explicit issuer/perimeter and manual review missed it",
+        "verdict": "Existing guard refused. Original response retained; new request/response adds one source-supported sentence, with every other byte identical."
+      },
+      {
+        "point": "Stock values in calculation JSON might silently carry annual duration dates",
+        "verdict": "CONFIRMED bug in build_model metadata: cash, carrying debt and net carrying debt were assigned annual start dates. The baseline fails the strengthened81-cell check. Those three keys now have null start/date-end instants, including missing2022 debt; flows and annual ratios retain durations. No value, source, formula or amount changes."
+      }
+    ]
+  },
+  "rewrite_tournament": {
+    "mode": "No-argument post-edit; inline, no review agents. Source-verification agents do not perform this code review.",
+    "target": "src/deploy_workflow/handoff_delivery.py:mapped_module.add, lines215-229 cell construction",
+    "impact_set": [
+      "mapped_module used by prepare, delivery_files and deliver",
+      "CP-OS run_handoffs invokes separate publication",
+      "model_handoff_delivery reuses handoff parsing/types; existing report/render gap state consumes Fact.status",
+      "tests/test_handoff_delivery.py, test_model_handoff_delivery.py, test_cpos_handoffs.py"
+    ],
+    "invariants": [
+      "Same signatures/row and fact IDs/source hashes/quotes/nonempty literal text",
+      "Blank stays missing,0 and dash remain literal; no financial calculation",
+      "Native rendering gets an explicit gap instead of known empty text"
+    ],
+    "candidates": {
+      "speed": {
+        "result": "6 passed, 11 deselected in 0.25s",
+        "source_sha256": "28ebc2124f4a373851e867af15075eece0cac363ecb615518a9dac11313b1f7a"
+      },
+      "memory": {
+        "result": "6 passed, 11 deselected in 0.27s",
+        "source_sha256": "d04949fde54630ffd8a23724831374282bb55a6da8d2b88e362fc23006ee3787"
+      },
+      "readability": {
+        "result": "6 passed, 11 deselected in 0.34s",
+        "source_sha256": "2aa508ccc852cd48877d8e8d7b80ef1b9c44825bb4c3f42d817022bf70efed53"
+      }
+    },
+    "bracket": [
+      "Speed over Memory: named missing state clearer than assignment inside an argument; equal focused evidence.",
+      "Speed over Readability: avoids per-cell dictionary allocation and a generic keyword expansion.",
+      "Incumbent over Speed: one local string already makes both decisions explicit; extra boolean adds state without verified gain."
+    ],
+    "winner": "Incumbent holds",
+    "justification": [
+      "Single normalization and explicit Fact fields keep the trust boundary visible.",
+      "All challengers pass six focused cases but provide no verified time/space or clarity gain.",
+      "Incumbent preserves existing caller and source identity behavior."
+    ],
+    "final_code": "```python\ncell_text = plain(value)\n# Existing Fact construction:\ntext=cell_text or None,\nstatus=\"known\" if cell_text else \"missing\",\nlimitation=None if cell_text else \"Original handoff cell is blank; not zero\",\n```",
+    "verification": "Three isolated Python challenger runs: pytest -q tests/test_handoff_delivery.py -k \"dashboard_blank or actual_handoffs_populate\"; six passed each. Actual incumbent71-test regression, Ruff and mypy pass. Final fresh publication verification follows."
+  },
+  "actual_publication_failures": [
+    "Issuer name is not established in CP-2: targeted model identity repair.",
+    "Text is displayed from non-empty text alone: blank FY2022 debt cell was incorrectly known; minimal adapter repair."
+  ],
+  "user_steering": "Live analytical modules first, then orchestration, then pathways; OpenAI sol-medium; subagents explicitly requested. No orchestration expansion until module output is checked.",
+  "independent_source_review": {
+    "agent": "fresh_cp1_source_check",
+    "result": "No material discrepancy found in reviewed source statements/schedules. Source-based row checks: income22/22, comprehensive8/8, cash44/44, balance29/29 and equity31/31. Direct debt126-127, EBITDA142 and lease147-148 checks agree; defined operating/ordinary/As Defined differences and lease wording conflict retained.",
+    "scope": "Named source statements/schedules only, not full filing/legal/normalization/current underwriting/provider acceptance."
+  },
+  "live_request": {
+    "path": "runs/cpos-tdg-fresh-001/live/CP-2-request.json",
+    "sha256": "8289aba48dccd92b8a93537b79c28d875384fd20d55fc7ddfbd9e4bd46181e90",
+    "ruling": "docs/rulings/2026-11-04-live-module-tests.md",
+    "config_id": "sol-medium",
+    "run_cap_usd": "10",
+    "status": "One completed actual OpenAI sol-medium call, HTTP200; exact replay and reviewed output, with separate checked delivery."
+  },
+  "host_chain_publication": {
+    "report": "runs/cpos-tdg-fresh-001/execution/deliveries/433b5c4d0c61bf49778e5db71dfdc5cfc4ef07fa973324fb7039077210121ee4/report.html",
+    "sha256": "822b4ab40cfd41fea73b72b3ceb89776ee35e458e4724dee7ca7a6bc29964652",
+    "origin": "Four current-host module responses, plus identity-only CP-2 repair; none declared retained_handoffs. Not four provider calls.",
+    "publication_executor_calls": 0,
+    "numeric_delivery_verification": {
+      "independent_fraction_cells": 81,
+      "missing_never_zero": 4,
+      "stock_instants_and_flow_durations": "pass",
+      "figures": 3,
+      "chart_marks": 18,
+      "raw_value_cells_exact": 1061,
+      "exact_line_citations_checked": 1219,
+      "receipt_and_bundle_reconstruction": "pass",
+      "excel_output": false
+    },
+    "superseded_report_with_stock_start_date": "runs/cpos-tdg-fresh-001/execution/deliveries/29ea5d76c4985e67e89c03fb0331ee56427b445647ef43ec82dd6b6746763000/report.html"
+  },
+  "model_period_rewrite_tournament": {
+    "mode": "Inline no-argument post-edit, no review agents; implementation worker owned only the two model files.",
+    "target": "src/deploy_workflow/model_handoff_delivery.py:build_model calculation JSON dates, lines507-512",
+    "impact_set": [
+      "handoff_delivery.prepare -> build_model",
+      "CP-OS -> separate delivery and Model/calculation JSON",
+      "calculation.json consumers and tests/test_model_handoff_delivery.py"
+    ],
+    "invariants": [
+      "Values, monetary/dimensionless quantity, scale, currency, source identities, formulas and FY grouping unchanged",
+      "Cash and carrying/net borrowing are end-date stocks; no annual start",
+      "Flows and annual mixed stock/flow ratios retain their supported annual duration",
+      "Missing FY2022 borrowing remains missing; no full prior balance invention"
+    ],
+    "candidates": {
+      "baseline": {
+        "result": "1 failed, 23 deselected in 0.62s",
+        "source_sha256": "8d4317e0710dbbee258958a3bec75999f6495a06fcb6cbfcf27d8375fa85eb97"
+      },
+      "speed": {
+        "result": "1 passed, 23 deselected in 0.58s",
+        "source_sha256": "2ca0fb6e9fe3c30288fd34d753f9cbf985d810a963b147cd1642742e9fe79a15"
+      },
+      "memory": {
+        "result": "1 passed, 23 deselected in 0.58s",
+        "source_sha256": "e1a7ee82a896ac75b11ec450d9ff41884b9c44e52f7b19364044ef9d6c432106"
+      },
+      "readability": {
+        "result": "1 passed, 23 deselected in 0.59s",
+        "source_sha256": "0f52e4fdcdd18ca0d7739f334347242553ad74ac7c724ca2a65e6e916e39796b"
+      }
+    },
+    "bracket": [
+      "Memory over Speed: avoids a date cache/dictionary for a tiny table and preserves direct metadata lookup.",
+      "Memory over Readability: simpler positive classification of the three stock meanings.",
+      "Incumbent over Memory: literal set expresses classification directly; no measured practical gain from tuple membership."
+    ],
+    "winner": "Incumbent holds",
+    "justification": [
+      "The change stays at the metadata serialization boundary.",
+      "Existing semantic keys declare exactly which cells are stocks; no new schema or controller.",
+      "All alternatives pass the independent81-cell check; incumbent preserves the reviewed implementation."
+    ],
+    "final_code": "```python\n\"start_date\": (\n    None\n    if key in {\"cash\", \"carrying_debt\", \"net_carrying_debt\"}\n    else layout.periods[period].start_date.isoformat()\n),\n```",
+    "verification": "Baseline fails on stock start_date; all three isolated challengers pass the independent81-value/quantity/date test. Worker24 focused model tests pass. Combined final regression follows."
+  },
+  "live_review": {
+    "module": "CP-2",
+    "response_sha256": "3537951e021fd377494e3eed1edf3ccceea69cc64f9f24185ba2ba2d927faf9d",
+    "actual_provider": "openai",
+    "actual_reported_model": "gpt-6.1-sol",
+    "effort": "medium",
+    "reviewers": [
+      "root source/instruction check",
+      "cp2_live_output_check independent subagent"
+    ],
+    "verdict": "Bounded analytical acceptance; no content repair required.",
+    "verified_scope": "Six-H2 envelope, exact source/upstream identities,9 financial-profile dimensions,6-factor matrix,8 monitoring lanes,12–24month and3–5year mechanisms, full causal downside, counterevidence, graded fact/management/interpretation/gap basis, Medium confidence, exact financial/cash/debt/subsequent-event boundaries and Critical restrictions.",
+    "not_proven": "Full issuer underwriting, native owner acceptance, every module or full pathway.",
+    "provider_calls": 1,
+    "automatic_retries": 0,
+    "computed_cost_usd": "0.13026950",
+    "cost_scope": "Token-computed using existing dated pricing; not an invoice total.",
+    "recording_export_calls": 1,
+    "offline_replay_exact_tool_payload": true
+  },
+  "live_delivery": {
+    "manifest": "runs/cpos-tdg-fresh-001/live/CP-2-delivery.json",
+    "report": "runs/cpos-tdg-fresh-001/live/delivery/report.html",
+    "report_sha256": "45690d0b1003f2aeec2b62db70fd760a450fcce8d15d5d4ccb70c9d6ef94b91d",
+    "consumed_actual_provider_sha256": "3537951e021fd377494e3eed1edf3ccceea69cc64f9f24185ba2ba2d927faf9d",
+    "kind": "Separate manual delivery using existing code; not a new CP-OS/provider orchestration claim.",
+    "model_source": "The same checked new CP-1, no re-extraction or second analytical run for delivery.",
+    "verification": {
+      "independent_fraction_cells": 81,
+      "missing_never_zero": 4,
+      "stock_instants_and_flow_durations": "pass",
+      "figures": 3,
+      "chart_marks": 18,
+      "raw_value_cells_exact": 1143,
+      "exact_line_citations_checked": 1301,
+      "receipt_and_bundle_reconstruction": "pass",
+      "excel_output": false
+    }
+  },
+  "tests": {
+    "focused_regression": "168 passed in17.06s",
+    "ruff": "All checks passed for both changed source files and tests.",
+    "mypy": "Success: no issues found in2 source files with silent import following.",
+    "model_worker": "24 model tests passed; root adversarial baseline reproduces wrong stock dates and all3 rewrite candidates pass."
+  },
+  "commit_review": {
+    "date": "2026-11-05",
+    "stop_state": "User requested stop; Review findings turn completed, goal paused and task-owned processes stopped. No further analytical or provider execution by this committing session.",
+    "scope": "Four changed source/test files and new retained case/ruling artifacts. Existing confidence and inline rewrite reviews retained above.",
+    "ranked_doubts": [
+      {
+        "point": "Commit racing active session writes",
+        "verdict": "Verified session idle/completed after explicit stop; commit follows that confirmation."
+      },
+      {
+        "point": "Blank, whitespace, zero and dash collapse into one state",
+        "verdict": "Existing parametrized rendering regressions verify blanks are missing, zero/dash remain literal and source quotes persist."
+      },
+      {
+        "point": "Stock-date correction changes values or annual flows",
+        "verdict": "Independent 81-cell regression verifies values, units and dates; stocks have no start date, flows retain annual duration."
+      },
+      {
+        "point": "Credentials or unfinished proof misrepresented in saved artifacts",
+        "verdict": "Gitleaks scan of new case artifacts clean. UI and broader pathway qualification explicitly pending; provider CP-2 and host upstream execution remain distinguished."
+      }
+    ],
+    "verification": {
+      "pytest": "158 passed in 17.12s",
+      "scope": "handoff, Model, CP-OS, Markdown, Relative Value, Portfolio, retained planning and comparison focused suites",
+      "ruff": "All checks passed",
+      "mypy": "Success: no issues found in 2 source files",
+      "credential_scan": "No findings in new case artifacts"
+    },
+    "source_sha256": {
+      "src/deploy_workflow/handoff_delivery.py": "a63c3d84e2b97645a65ebb4a4d57243e673d0a5ce762e87b63eab216d5f0dff3",
+      "src/deploy_workflow/model_handoff_delivery.py": "997248f9e66ce5ba1252a7bc15f0f1d15aa5382851d7d75c510e7e9d7c0be971"
+    }
+  }
+}

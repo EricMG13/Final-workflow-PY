@@ -1,0 +1,3467 @@
+{
+  "scope": "Source-literal and preparation expectations frozen before this new response; same host saw earlier work, so not blind or independent model assurance.",
+  "CP-0": {
+    "issuer": "TransDigm Group Incorporated",
+    "perimeter": "TD Group and subsidiaries",
+    "currency": "USD",
+    "accounting_basis": "U.S. GAAP",
+    "pdf_pages": 160,
+    "text_empty_pages": [
+      156,
+      159,
+      160
+    ],
+    "primary_statement_pages": [
+      105,
+      106,
+      107,
+      108,
+      109
+    ],
+    "visual_pages": [
+      105,
+      106,
+      109,
+      156
+    ],
+    "flows": {
+      "FY2024": [
+        "2023-10-01",
+        "2024-09-30"
+      ],
+      "FY2023": [
+        "2022-10-01",
+        "2023-09-30"
+      ],
+      "FY2022": [
+        "2021-10-01",
+        "2022-09-30"
+      ]
+    },
+    "balance_instants": [
+      "2024-09-30",
+      "2023-09-30"
+    ],
+    "source_sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+    "required_inherited_gaps": [
+      "G1",
+      "G2",
+      "G3",
+      "G4"
+    ]
+  },
+  "CP-1": {
+    "source_copy_checks": [
+      {
+        "table": "income",
+        "row": "NET SALES",
+        "page": 106,
+        "literal_source_lines": [
+          "NET SALES .................................................... $   7,940    $    6,585    $    5,429"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "COST OF SALES",
+        "page": 106,
+        "literal_source_lines": [
+          "COST OF SALES ...............................................         3,268          2,743          2,330"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "GROSS PROFIT",
+        "page": 106,
+        "literal_source_lines": [
+          "GROSS PROFIT ................................................         4,672          3,842          3,099"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "SELLING AND ADMINISTRATIVE EXPENSES",
+        "page": 106,
+        "literal_source_lines": [
+          "SELLING AND ADMINISTRATIVE EXPENSES .....................      980      780      748"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "AMORTIZATION OF INTANGIBLE ASSETS",
+        "page": 106,
+        "literal_source_lines": [
+          "AMORTIZATION OF INTANGIBLE ASSETS ........................      161      139      136"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "INCOME FROM OPERATIONS",
+        "page": 106,
+        "literal_source_lines": [
+          "INCOME FROM OPERATIONS ...................................         3,531          2,923          2,215"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "INTEREST EXPENSE—NET",
+        "page": 106,
+        "literal_source_lines": [
+          "INTEREST EXPENSE—NET ......................................         1,286          1,164          1,076"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "REFINANCING COSTS",
+        "page": 106,
+        "literal_source_lines": [
+          "REFINANCING COSTS ..........................................       58       56        1"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "OTHER (INCOME) EXPENSE",
+        "page": 106,
+        "literal_source_lines": [
+          "OTHER (INCOME) EXPENSE .....................................            (28)            (13)             11"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "INCOME FROM CONTINUING OPERATIONS BEFORE INCOME TAXES",
+        "page": 106,
+        "literal_source_lines": [
+          "  TAXES ......................................................         2,215          1,716          1,127"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "INCOME TAX PROVISION",
+        "page": 106,
+        "literal_source_lines": [
+          "INCOME TAX PROVISION .......................................      500      417      261"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "INCOME FROM CONTINUING OPERATIONS",
+        "page": 106,
+        "literal_source_lines": [
+          "INCOME FROM CONTINUING OPERATIONS ......................         1,715          1,299             866"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "INCOME FROM DISCONTINUED OPERATIONS, NET OF TAX",
+        "page": 106,
+        "literal_source_lines": [
+          "INCOME FROM DISCONTINUED OPERATIONS, NET OF TAX .......      —       —         1"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "NET INCOME",
+        "page": 106,
+        "literal_source_lines": [
+          "NET INCOME ..................................................         1,715          1,299             867"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "LESS: NET INCOME ATTRIBUTABLE TO NONCONTROLLING INTERESTS",
+        "page": 106,
+        "literal_source_lines": [
+          "  INTERESTS ..................................................       (1)       (1)       (1)"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "NET INCOME ATTRIBUTABLE TO TD GROUP",
+        "page": 106,
+        "literal_source_lines": [
+          "NET INCOME ATTRIBUTABLE TO TD GROUP ..................... $   1,714    $    1,298    $       866"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "NET INCOME APPLICABLE TO TD GROUP COMMON STOCKHOLDERS",
+        "page": 106,
+        "literal_source_lines": [
+          "  STOCKHOLDERS ............................................ $   1,481    $    1,260    $       780"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "Earnings per share from continuing operations—basic and diluted",
+        "page": 106,
+        "literal_source_lines": [
+          "     Earnings per share from continuing operations—basic and diluted ..... $   25.62    $    22.03    $    13.38"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "Earnings per share from discontinued operations—basic and diluted",
+        "page": 106,
+        "literal_source_lines": [
+          "     Earnings per share from discontinued operations—basic and diluted ....      —       —             0.02"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "Earnings per share",
+        "page": 106,
+        "literal_source_lines": [
+          "     Earnings per share ........................................... $   25.62    $    22.03    $    13.40"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "Cash dividends declared per common share",
+        "page": 106,
+        "literal_source_lines": [
+          "Cash dividends declared per common share ........................... $ 110.00    $       —      $    18.50"
+        ]
+      },
+      {
+        "table": "income",
+        "row": "Basic and diluted weighted-average shares outstanding",
+        "page": 106,
+        "literal_source_lines": [
+          "     Basic and diluted ............................................           57.8            57.2            58.2"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Net income",
+        "page": 109,
+        "literal_source_lines": [
+          "  Net income ................................................................  $1,715       $ 1,299       $    867"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Income from discontinued operations, net of tax",
+        "page": 109,
+        "literal_source_lines": [
+          "  Income from discontinued operations, net of tax ...................................      —       —        (1)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Depreciation",
+        "page": 109,
+        "literal_source_lines": [
+          "           Depreciation .........................................................      149      129      116"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Amortization of intangible assets and product certification costs",
+        "page": 109,
+        "literal_source_lines": [
+          "           Amortization of intangible assets and product certification costs ................      163      139      137"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Amortization of debt issuance costs, original issue discount and premium",
+        "page": 109,
+        "literal_source_lines": [
+          "           Amortization of debt issuance costs, original issue discount and premium ........       40       41       34"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Amortization of inventory step-up",
+        "page": 109,
+        "literal_source_lines": [
+          "           Amortization of inventory step-up ........................................       21        2        3"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Amortization of loss contract reserves",
+        "page": 109,
+        "literal_source_lines": [
+          "           Amortization of loss contract reserves .....................................            (35)            (34)            (39)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Refinancing costs",
+        "page": 109,
+        "literal_source_lines": [
+          "           Refinancing costs .....................................................       58       56        1"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Gain on sale of businesses, net",
+        "page": 109,
+        "literal_source_lines": [
+          "           Gain on sale of businesses, net ...........................................            (11)            —                  (7)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Non-cash stock and deferred compensation expense",
+        "page": 109,
+        "literal_source_lines": [
+          "           Non-cash stock and deferred compensation expense ..........................      217      157      184"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Deferred income taxes",
+        "page": 109,
+        "literal_source_lines": [
+          "           Deferred income taxes .................................................       10        3             (22)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Foreign currency exchange losses (gains)",
+        "page": 109,
+        "literal_source_lines": [
+          "           Foreign currency exchange losses (gains) ..................................       20       14             (40)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "(Gain) loss on settlement of the Esterline Retirement Plan",
+        "page": 109,
+        "literal_source_lines": [
+          "           (Gain) loss on settlement of the Esterline Retirement Plan (the “ERP”) ...........      —        (9)      22"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Cash refund (contribution) for the ERP settlement, net",
+        "page": 109,
+        "literal_source_lines": [
+          "           Cash refund (contribution) for the ERP settlement, net ........................      —         9             (16)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Trade accounts receivable",
+        "page": 109,
+        "literal_source_lines": [
+          "                 Trade accounts receivable ..........................................            (84)           (212)           (190)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Inventories",
+        "page": 109,
+        "literal_source_lines": [
+          "                 Inventories ......................................................          (104)           (261)           (134)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Income taxes (receivable) payable",
+        "page": 109,
+        "literal_source_lines": [
+          "                 Income taxes (receivable) payable ....................................            (62)            168               58"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Other assets",
+        "page": 109,
+        "literal_source_lines": [
+          "                 Other assets .....................................................            (60)            (44)            (56)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Accounts payable",
+        "page": 109,
+        "literal_source_lines": [
+          "                 Accounts payable .................................................            (11)              12               58"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Accrued interest",
+        "page": 109,
+        "literal_source_lines": [
+          "                 Accrued interest ..................................................       60             (45)            (21)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Accrued and other liabilities",
+        "page": 109,
+        "literal_source_lines": [
+          "                 Accrued and other liabilities ........................................            (41)            (49)              (6)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Net cash provided by operating activities",
+        "page": 109,
+        "literal_source_lines": [
+          "           Net cash provided by operating activities ..................................        2,045          1,375             948"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Capital expenditures",
+        "page": 109,
+        "literal_source_lines": [
+          "     Capital expenditures .......................................................          (165)           (139)           (119)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Acquisition of businesses, net of cash acquired",
+        "page": 109,
+        "literal_source_lines": [
+          "     Acquisition of businesses, net of cash acquired ..................................       (2,347)           (762)           (437)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Other investing transactions",
+        "page": 109,
+        "literal_source_lines": [
+          "     Other investing transactions .................................................       71        1        3"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Net cash used in investing activities",
+        "page": 109,
+        "literal_source_lines": [
+          "           Net cash used in investing activities ......................................       (2,441)           (900)           (553)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Proceeds from exercise of stock options",
+        "page": 109,
+        "literal_source_lines": [
+          "     Proceeds from exercise of stock options .......................................      245      215      132"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Dividends and dividend equivalent payments",
+        "page": 109,
+        "literal_source_lines": [
+          "     Dividends and dividend equivalent payments ...................................       (2,038)            (38)        (1,091)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Repurchases of common stock",
+        "page": 109,
+        "literal_source_lines": [
+          "     Repurchases of common stock ...............................................      —       —             (912)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Proceeds from issuance of senior secured notes, net",
+        "page": 109,
+        "literal_source_lines": [
+          "     Proceeds from issuance of senior secured notes, net ..............................        7,373          3,504             —"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Repayments of senior secured notes",
+        "page": 109,
+        "literal_source_lines": [
+          "     Repayments of senior secured notes ..........................................       (4,400)        (1,122)            —"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Repayments of senior subordinated notes, net",
+        "page": 109,
+        "literal_source_lines": [
+          "     Repayments of senior subordinated notes, net ...................................          (550)        (1,459)            —"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Repayment on revolving credit facility",
+        "page": 109,
+        "literal_source_lines": [
+          "     Repayment on revolving credit facility ........................................      —       —             (200)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Proceeds from trade receivable securitization facility, net",
+        "page": 109,
+        "literal_source_lines": [
+          "     Proceeds from trade receivable securitization facility, net .........................      137      —       —"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Proceeds from term loans, net",
+        "page": 109,
+        "literal_source_lines": [
+          "     Proceeds from term loans, net ...............................................        6,815          6,238             —"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Repayment on term loans",
+        "page": 109,
+        "literal_source_lines": [
+          "     Repayment on term loans ...................................................       (4,403)        (7,334)            (75)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Financing costs and other, net",
+        "page": 109,
+        "literal_source_lines": [
+          "     Financing costs and other, net ...............................................       (8)           (20)              (2)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Net cash provided by (used in) financing activities",
+        "page": 109,
+        "literal_source_lines": [
+          "           Net cash provided by (used in) financing activities ...........................        3,171              (16)        (2,148)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Effect of exchange rate changes on cash and cash equivalents",
+        "page": 109,
+        "literal_source_lines": [
+          "EFFECT OF EXCHANGE RATE CHANGES ON CASH AND CASH EQUIVALENTS ....       14       12             (33)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Net increase (decrease) in cash and cash equivalents",
+        "page": 109,
+        "literal_source_lines": [
+          "NET INCREASE (DECREASE) IN CASH AND CASH EQUIVALENTS ...............        2,789             471         (1,786)"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Cash and cash equivalents, beginning of period",
+        "page": 109,
+        "literal_source_lines": [
+          "CASH AND CASH EQUIVALENTS, BEGINNING OF PERIOD ......................        3,472          3,001          4,787"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Cash and cash equivalents, end of period",
+        "page": 109,
+        "literal_source_lines": [
+          "CASH AND CASH EQUIVALENTS, END OF PERIOD .............................  $6,261       $ 3,472       $ 3,001"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Cash paid during period for interest, net",
+        "page": 109,
+        "literal_source_lines": [
+          "     Cash paid during the period for interest, net ....................................  $1,158       $ 1,160       $ 1,057"
+        ]
+      },
+      {
+        "table": "cash",
+        "row": "Cash paid during period for income taxes, net of refunds",
+        "page": 109,
+        "literal_source_lines": [
+          "     Cash paid during the period for income taxes, net of refunds .......................  $  539   $  260   $  220"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Cash and cash equivalents",
+        "page": 105,
+        "literal_source_lines": [
+          "     Cash and cash equivalents ................................................. $ 6,261    $  3,472"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Trade accounts receivable—Net",
+        "page": 105,
+        "literal_source_lines": [
+          "     Trade accounts receivable—Net ............................................       1,381        1,230"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Inventories—Net",
+        "page": 105,
+        "literal_source_lines": [
+          "     Inventories—Net ........................................................       1,876        1,616"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Prepaid expenses and other",
+        "page": 105,
+        "literal_source_lines": [
+          "     Prepaid expenses and other ................................................     511     420"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Total current assets",
+        "page": 105,
+        "literal_source_lines": [
+          "          Total current assets ..................................................     10,029        6,738"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Property, plant and equipment—Net",
+        "page": 105,
+        "literal_source_lines": [
+          "PROPERTY, PLANT AND EQUIPMENT—NET .................................       1,488        1,255"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Goodwill",
+        "page": 105,
+        "literal_source_lines": [
+          "GOODWILL ...............................................................     10,419        8,988"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Other intangible assets—Net",
+        "page": 105,
+        "literal_source_lines": [
+          "OTHER INTANGIBLE ASSETS—NET .........................................       3,446        2,747"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Other non-current assets",
+        "page": 105,
+        "literal_source_lines": [
+          "OTHER NON-CURRENT ASSETS .............................................     204     242"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Total assets",
+        "page": 105,
+        "literal_source_lines": [
+          "TOTAL ASSETS ...........................................................   $25,586    $19,970",
+          "TOTAL LIABILITIES AND STOCKHOLDERS’ DEFICIT .........................   $25,586    $19,970"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Current portion of long-term debt",
+        "page": 105,
+        "literal_source_lines": [
+          "     Current portion of long-term debt ........................................... $   98 $   71"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Short-term borrowings—trade receivable securitization facility",
+        "page": 105,
+        "literal_source_lines": [
+          "     Short-term borrowings—trade receivable securitization facility ...................     486     349"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Accounts payable",
+        "page": 105,
+        "literal_source_lines": [
+          "     Accounts payable .......................................................     323     305"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Dividends payable",
+        "page": 105,
+        "literal_source_lines": [
+          "     Dividends payable .......................................................       4,216           —"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Accrued and other current liabilities",
+        "page": 105,
+        "literal_source_lines": [
+          "     Accrued and other current liabilities .........................................       1,216           854"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Total current liabilities",
+        "page": 105,
+        "literal_source_lines": [
+          "          Total current liabilities ...............................................       6,339        1,579"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Long-term debt",
+        "page": 105,
+        "literal_source_lines": [
+          "LONG-TERM DEBT ........................................................     24,296      19,330"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Deferred income taxes",
+        "page": 105,
+        "literal_source_lines": [
+          "DEFERRED INCOME TAXES ................................................     766     627"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Other non-current liabilities",
+        "page": 105,
+        "literal_source_lines": [
+          "OTHER NON-CURRENT LIABILITIES ........................................     468     412"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Total liabilities",
+        "page": 105,
+        "literal_source_lines": [
+          "          Total liabilities  .....................................................     31,869      21,948"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Common stock",
+        "page": 105,
+        "literal_source_lines": [
+          "       60,995,513 at September 30, 2024 and September 30, 2023, respectively ..........       1       1"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Additional paid-in capital",
+        "page": 105,
+        "literal_source_lines": [
+          "     Additional paid-in capital .................................................       2,819        2,440"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Accumulated deficit",
+        "page": 105,
+        "literal_source_lines": [
+          "     Accumulated deficit .....................................................      (7,362)     (2,621)"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Accumulated other comprehensive loss",
+        "page": 105,
+        "literal_source_lines": [
+          "     Accumulated other comprehensive loss ......................................          (42)          (98)"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Treasury stock, at cost",
+        "page": 105,
+        "literal_source_lines": [
+          "       2023, respectively .....................................................      (1,706)     (1,706)"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Total TD Group stockholders’ deficit",
+        "page": 105,
+        "literal_source_lines": [
+          "          Total TD Group stockholders’ deficit ....................................      (6,290)     (1,984)"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Noncontrolling interests",
+        "page": 105,
+        "literal_source_lines": [
+          "NONCONTROLLING INTERESTS ............................................       7       6"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Total stockholders’ deficit",
+        "page": 105,
+        "literal_source_lines": [
+          "          Total stockholders’ deficit .............................................      (6,283)     (1,978)"
+        ]
+      },
+      {
+        "table": "balance",
+        "row": "Total liabilities and stockholders’ deficit",
+        "page": 105,
+        "literal_source_lines": [
+          "TOTAL ASSETS ...........................................................   $25,586    $19,970",
+          "TOTAL LIABILITIES AND STOCKHOLDERS’ DEFICIT .........................   $25,586    $19,970"
+        ]
+      },
+      {
+        "table": "comprehensive",
+        "row": "Net income",
+        "page": 107,
+        "literal_source_lines": [
+          "Net income ........................................................    $1,715      $1,299     $    867"
+        ]
+      },
+      {
+        "table": "comprehensive",
+        "row": "Less: Net income attributable to noncontrolling interests",
+        "page": 107,
+        "literal_source_lines": [
+          "     Less: Net income attributable to noncontrolling interests ................      (1)     (1)      (1)"
+        ]
+      },
+      {
+        "table": "comprehensive",
+        "row": "Net income attributable to TD Group",
+        "page": 107,
+        "literal_source_lines": [
+          "Net income attributable to TD Group ....................................    $1,714      $1,298     $    866"
+        ]
+      },
+      {
+        "table": "comprehensive",
+        "row": "Foreign currency translation adjustment",
+        "page": 107,
+        "literal_source_lines": [
+          "     Foreign currency translation adjustment .............................    181     137         (379)"
+        ]
+      },
+      {
+        "table": "comprehensive",
+        "row": "Unrealized (losses) gains on derivatives",
+        "page": 107,
+        "literal_source_lines": [
+          "     Unrealized (losses) gains on derivatives ..............................       (124)           20           352"
+        ]
+      },
+      {
+        "table": "comprehensive",
+        "row": "Pension and post-retirement benefit plans adjustment",
+        "page": 107,
+        "literal_source_lines": [
+          "     Pension and post-retirement benefit plans adjustment ...................      (1)     12       8"
+        ]
+      },
+      {
+        "table": "comprehensive",
+        "row": "Other comprehensive income (loss), net of tax, attributable to TD Group",
+        "page": 107,
+        "literal_source_lines": [
+          "             Group ..................................................     56     169           (19)"
+        ]
+      },
+      {
+        "table": "comprehensive",
+        "row": "Total comprehensive income attributable to TD Group",
+        "page": 107,
+        "literal_source_lines": [
+          "TOTAL COMPREHENSIVE INCOME ATTRIBUTABLE TO TD GROUP ....    $1,770      $1,467     $    847"
+        ]
+      }
+    ],
+    "equity_source": "Full nine-column matrix manually copied from PDF108, visually checked against new1800px rendering. Nine-column annual roll-forward expectations use raw dashes as zero solely for each reconciliation.",
+    "fraction_checks": [
+      {
+        "label": "FY2024 gross profit",
+        "terms": [
+          [
+            "7,940",
+            1
+          ],
+          [
+            "3,268",
+            -1
+          ]
+        ],
+        "expected_numerator": 4672,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2024 operating profit",
+        "terms": [
+          [
+            "4,672",
+            1
+          ],
+          [
+            "980",
+            -1
+          ],
+          [
+            "161",
+            -1
+          ]
+        ],
+        "expected_numerator": 3531,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2024 pretax",
+        "terms": [
+          [
+            "3,531",
+            1
+          ],
+          [
+            "1,286",
+            -1
+          ],
+          [
+            "58",
+            -1
+          ],
+          [
+            "(28)",
+            -1
+          ]
+        ],
+        "expected_numerator": 2215,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2024 CFO",
+        "terms": [
+          [
+            "1,715",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "149",
+            1
+          ],
+          [
+            "163",
+            1
+          ],
+          [
+            "40",
+            1
+          ],
+          [
+            "21",
+            1
+          ],
+          [
+            "(35)",
+            1
+          ],
+          [
+            "58",
+            1
+          ],
+          [
+            "(11)",
+            1
+          ],
+          [
+            "217",
+            1
+          ],
+          [
+            "10",
+            1
+          ],
+          [
+            "20",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "(84)",
+            1
+          ],
+          [
+            "(104)",
+            1
+          ],
+          [
+            "(62)",
+            1
+          ],
+          [
+            "(60)",
+            1
+          ],
+          [
+            "(11)",
+            1
+          ],
+          [
+            "60",
+            1
+          ],
+          [
+            "(41)",
+            1
+          ]
+        ],
+        "expected_numerator": 2045,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2024 investing",
+        "terms": [
+          [
+            "(165)",
+            1
+          ],
+          [
+            "(2,347)",
+            1
+          ],
+          [
+            "71",
+            1
+          ]
+        ],
+        "expected_numerator": -2441,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2024 financing",
+        "terms": [
+          [
+            "245",
+            1
+          ],
+          [
+            "(2,038)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "7,373",
+            1
+          ],
+          [
+            "(4,400)",
+            1
+          ],
+          [
+            "(550)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "137",
+            1
+          ],
+          [
+            "6,815",
+            1
+          ],
+          [
+            "(4,403)",
+            1
+          ],
+          [
+            "(8)",
+            1
+          ]
+        ],
+        "expected_numerator": 3171,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2024 cash movement",
+        "terms": [
+          [
+            "2,045",
+            1
+          ],
+          [
+            "(2,441)",
+            1
+          ],
+          [
+            "3,171",
+            1
+          ],
+          [
+            "14",
+            1
+          ]
+        ],
+        "expected_numerator": 2789,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2024 closing cash",
+        "terms": [
+          [
+            "3,472",
+            1
+          ],
+          [
+            "2,789",
+            1
+          ]
+        ],
+        "expected_numerator": 6261,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2024 cash after capex",
+        "terms": [
+          [
+            "2,045",
+            1
+          ],
+          [
+            "(165)",
+            1
+          ]
+        ],
+        "expected_numerator": 1880,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2024 operating expense block",
+        "terms": [
+          [
+            "980",
+            1
+          ],
+          [
+            "161",
+            1
+          ]
+        ],
+        "expected_numerator": 1141,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2024 operating EBIT plus cashflow DA",
+        "terms": [
+          [
+            "3,531",
+            1
+          ],
+          [
+            "149",
+            1
+          ],
+          [
+            "163",
+            1
+          ]
+        ],
+        "expected_numerator": 3843,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2023 gross profit",
+        "terms": [
+          [
+            "6,585",
+            1
+          ],
+          [
+            "2,743",
+            -1
+          ]
+        ],
+        "expected_numerator": 3842,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2023 operating profit",
+        "terms": [
+          [
+            "3,842",
+            1
+          ],
+          [
+            "780",
+            -1
+          ],
+          [
+            "139",
+            -1
+          ]
+        ],
+        "expected_numerator": 2923,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2023 pretax",
+        "terms": [
+          [
+            "2,923",
+            1
+          ],
+          [
+            "1,164",
+            -1
+          ],
+          [
+            "56",
+            -1
+          ],
+          [
+            "(13)",
+            -1
+          ]
+        ],
+        "expected_numerator": 1716,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2023 CFO",
+        "terms": [
+          [
+            "1,299",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "129",
+            1
+          ],
+          [
+            "139",
+            1
+          ],
+          [
+            "41",
+            1
+          ],
+          [
+            "2",
+            1
+          ],
+          [
+            "(34)",
+            1
+          ],
+          [
+            "56",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "157",
+            1
+          ],
+          [
+            "3",
+            1
+          ],
+          [
+            "14",
+            1
+          ],
+          [
+            "(9)",
+            1
+          ],
+          [
+            "9",
+            1
+          ],
+          [
+            "(212)",
+            1
+          ],
+          [
+            "(261)",
+            1
+          ],
+          [
+            "168",
+            1
+          ],
+          [
+            "(44)",
+            1
+          ],
+          [
+            "12",
+            1
+          ],
+          [
+            "(45)",
+            1
+          ],
+          [
+            "(49)",
+            1
+          ]
+        ],
+        "expected_numerator": 1375,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2023 investing",
+        "terms": [
+          [
+            "(139)",
+            1
+          ],
+          [
+            "(762)",
+            1
+          ],
+          [
+            "1",
+            1
+          ]
+        ],
+        "expected_numerator": -900,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2023 financing",
+        "terms": [
+          [
+            "215",
+            1
+          ],
+          [
+            "(38)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "3,504",
+            1
+          ],
+          [
+            "(1,122)",
+            1
+          ],
+          [
+            "(1,459)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "6,238",
+            1
+          ],
+          [
+            "(7,334)",
+            1
+          ],
+          [
+            "(20)",
+            1
+          ]
+        ],
+        "expected_numerator": -16,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2023 cash movement",
+        "terms": [
+          [
+            "1,375",
+            1
+          ],
+          [
+            "(900)",
+            1
+          ],
+          [
+            "(16)",
+            1
+          ],
+          [
+            "12",
+            1
+          ]
+        ],
+        "expected_numerator": 471,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2023 closing cash",
+        "terms": [
+          [
+            "3,001",
+            1
+          ],
+          [
+            "471",
+            1
+          ]
+        ],
+        "expected_numerator": 3472,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2023 cash after capex",
+        "terms": [
+          [
+            "1,375",
+            1
+          ],
+          [
+            "(139)",
+            1
+          ]
+        ],
+        "expected_numerator": 1236,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2023 operating expense block",
+        "terms": [
+          [
+            "780",
+            1
+          ],
+          [
+            "139",
+            1
+          ]
+        ],
+        "expected_numerator": 919,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2023 operating EBIT plus cashflow DA",
+        "terms": [
+          [
+            "2,923",
+            1
+          ],
+          [
+            "129",
+            1
+          ],
+          [
+            "139",
+            1
+          ]
+        ],
+        "expected_numerator": 3191,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2022 gross profit",
+        "terms": [
+          [
+            "5,429",
+            1
+          ],
+          [
+            "2,330",
+            -1
+          ]
+        ],
+        "expected_numerator": 3099,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2022 operating profit",
+        "terms": [
+          [
+            "3,099",
+            1
+          ],
+          [
+            "748",
+            -1
+          ],
+          [
+            "136",
+            -1
+          ]
+        ],
+        "expected_numerator": 2215,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2022 pretax",
+        "terms": [
+          [
+            "2,215",
+            1
+          ],
+          [
+            "1,076",
+            -1
+          ],
+          [
+            "1",
+            -1
+          ],
+          [
+            "11",
+            -1
+          ]
+        ],
+        "expected_numerator": 1127,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2022 CFO",
+        "terms": [
+          [
+            "867",
+            1
+          ],
+          [
+            "(1)",
+            1
+          ],
+          [
+            "116",
+            1
+          ],
+          [
+            "137",
+            1
+          ],
+          [
+            "34",
+            1
+          ],
+          [
+            "3",
+            1
+          ],
+          [
+            "(39)",
+            1
+          ],
+          [
+            "1",
+            1
+          ],
+          [
+            "(7)",
+            1
+          ],
+          [
+            "184",
+            1
+          ],
+          [
+            "(22)",
+            1
+          ],
+          [
+            "(40)",
+            1
+          ],
+          [
+            "22",
+            1
+          ],
+          [
+            "(16)",
+            1
+          ],
+          [
+            "(190)",
+            1
+          ],
+          [
+            "(134)",
+            1
+          ],
+          [
+            "58",
+            1
+          ],
+          [
+            "(56)",
+            1
+          ],
+          [
+            "58",
+            1
+          ],
+          [
+            "(21)",
+            1
+          ],
+          [
+            "(6)",
+            1
+          ]
+        ],
+        "expected_numerator": 948,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2022 investing",
+        "terms": [
+          [
+            "(119)",
+            1
+          ],
+          [
+            "(437)",
+            1
+          ],
+          [
+            "3",
+            1
+          ]
+        ],
+        "expected_numerator": -553,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2022 financing",
+        "terms": [
+          [
+            "132",
+            1
+          ],
+          [
+            "(1,091)",
+            1
+          ],
+          [
+            "(912)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "(200)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "(75)",
+            1
+          ],
+          [
+            "(2)",
+            1
+          ]
+        ],
+        "expected_numerator": -2148,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2022 cash movement",
+        "terms": [
+          [
+            "948",
+            1
+          ],
+          [
+            "(553)",
+            1
+          ],
+          [
+            "(2,148)",
+            1
+          ],
+          [
+            "(33)",
+            1
+          ]
+        ],
+        "expected_numerator": -1786,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2022 closing cash",
+        "terms": [
+          [
+            "4,787",
+            1
+          ],
+          [
+            "(1,786)",
+            1
+          ]
+        ],
+        "expected_numerator": 3001,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2022 cash after capex",
+        "terms": [
+          [
+            "948",
+            1
+          ],
+          [
+            "(119)",
+            1
+          ]
+        ],
+        "expected_numerator": 829,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2022 operating expense block",
+        "terms": [
+          [
+            "748",
+            1
+          ],
+          [
+            "136",
+            1
+          ]
+        ],
+        "expected_numerator": 884,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2022 operating EBIT plus cashflow DA",
+        "terms": [
+          [
+            "2,215",
+            1
+          ],
+          [
+            "116",
+            1
+          ],
+          [
+            "137",
+            1
+          ]
+        ],
+        "expected_numerator": 2468,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2024 balance equation",
+        "terms": [
+          [
+            "31,869",
+            1
+          ],
+          [
+            "(6,283)",
+            1
+          ]
+        ],
+        "expected_numerator": 25586,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2024 carrying debt",
+        "terms": [
+          [
+            "24,296",
+            1
+          ],
+          [
+            "98",
+            1
+          ],
+          [
+            "486",
+            1
+          ]
+        ],
+        "expected_numerator": 24880,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2023 balance equation",
+        "terms": [
+          [
+            "21,948",
+            1
+          ],
+          [
+            "(1,978)",
+            1
+          ]
+        ],
+        "expected_numerator": 19970,
+        "expected_denominator": 1
+      },
+      {
+        "label": "FY2023 carrying debt",
+        "terms": [
+          [
+            "19,330",
+            1
+          ],
+          [
+            "71",
+            1
+          ],
+          [
+            "349",
+            1
+          ]
+        ],
+        "expected_numerator": 19750,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows0-11 col1",
+        "terms": [
+          [
+            "59,403,100",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "646,585",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": 60049685,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows0-11 col2",
+        "terms": [
+          [
+            "1",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": 1,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows0-11 col3",
+        "terms": [
+          [
+            "1,830",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "151",
+            1
+          ],
+          [
+            "132",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": 2113,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows0-11 col4",
+        "terms": [
+          [
+            "(3,705)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "(1,045)",
+            1
+          ],
+          [
+            "(30)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "866",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": -3914,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows0-11 col5",
+        "terms": [
+          [
+            "(248)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "(379)",
+            1
+          ],
+          [
+            "352",
+            1
+          ],
+          [
+            "8",
+            1
+          ]
+        ],
+        "expected_numerator": -267,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows0-11 col6",
+        "terms": [
+          [
+            "(4,198,226)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "(1,490,413)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": -5688639,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows0-11 col7",
+        "terms": [
+          [
+            "(794)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "(912)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": -1706,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows0-11 col8",
+        "terms": [
+          [
+            "6",
+            1
+          ],
+          [
+            "1",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": 7,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows0-11 col9",
+        "terms": [
+          [
+            "(2,910)",
+            1
+          ],
+          [
+            "1",
+            1
+          ],
+          [
+            "(1,045)",
+            1
+          ],
+          [
+            "(30)",
+            1
+          ],
+          [
+            "151",
+            1
+          ],
+          [
+            "132",
+            1
+          ],
+          [
+            "(912)",
+            1
+          ],
+          [
+            "866",
+            1
+          ],
+          [
+            "(379)",
+            1
+          ],
+          [
+            "352",
+            1
+          ],
+          [
+            "8",
+            1
+          ]
+        ],
+        "expected_numerator": -3766,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows11-20 col1",
+        "terms": [
+          [
+            "60,049,685",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "945,828",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": 60995513,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows11-20 col2",
+        "terms": [
+          [
+            "1",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": 1,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows11-20 col3",
+        "terms": [
+          [
+            "2,113",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "112",
+            1
+          ],
+          [
+            "215",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": 2440,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows11-20 col4",
+        "terms": [
+          [
+            "(3,914)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "(5)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "1,298",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": -2621,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows11-20 col5",
+        "terms": [
+          [
+            "(267)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "137",
+            1
+          ],
+          [
+            "20",
+            1
+          ],
+          [
+            "12",
+            1
+          ]
+        ],
+        "expected_numerator": -98,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows11-20 col6",
+        "terms": [
+          [
+            "(5,688,639)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": -5688639,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows11-20 col7",
+        "terms": [
+          [
+            "(1,706)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": -1706,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows11-20 col8",
+        "terms": [
+          [
+            "7",
+            1
+          ],
+          [
+            "(1)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": 6,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows11-20 col9",
+        "terms": [
+          [
+            "(3,766)",
+            1
+          ],
+          [
+            "(1)",
+            1
+          ],
+          [
+            "(5)",
+            1
+          ],
+          [
+            "112",
+            1
+          ],
+          [
+            "215",
+            1
+          ],
+          [
+            "1,298",
+            1
+          ],
+          [
+            "137",
+            1
+          ],
+          [
+            "20",
+            1
+          ],
+          [
+            "12",
+            1
+          ]
+        ],
+        "expected_numerator": -1978,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows20-30 col1",
+        "terms": [
+          [
+            "60,995,513",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "909,320",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": 61904833,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows20-30 col2",
+        "terms": [
+          [
+            "1",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": 1,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows20-30 col3",
+        "terms": [
+          [
+            "2,440",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "134",
+            1
+          ],
+          [
+            "245",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": 2819,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows20-30 col4",
+        "terms": [
+          [
+            "(2,621)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "(6,368)",
+            1
+          ],
+          [
+            "(87)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "1,714",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": -7362,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows20-30 col5",
+        "terms": [
+          [
+            "(98)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "181",
+            1
+          ],
+          [
+            "(124)",
+            1
+          ],
+          [
+            "(1)",
+            1
+          ]
+        ],
+        "expected_numerator": -42,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows20-30 col6",
+        "terms": [
+          [
+            "(5,688,639)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": -5688639,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows20-30 col7",
+        "terms": [
+          [
+            "(1,706)",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": -1706,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows20-30 col8",
+        "terms": [
+          [
+            "6",
+            1
+          ],
+          [
+            "1",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ],
+          [
+            "—",
+            1
+          ]
+        ],
+        "expected_numerator": 7,
+        "expected_denominator": 1
+      },
+      {
+        "label": "equity rows20-30 col9",
+        "terms": [
+          [
+            "(1,978)",
+            1
+          ],
+          [
+            "1",
+            1
+          ],
+          [
+            "(6,368)",
+            1
+          ],
+          [
+            "(87)",
+            1
+          ],
+          [
+            "134",
+            1
+          ],
+          [
+            "245",
+            1
+          ],
+          [
+            "1,714",
+            1
+          ],
+          [
+            "181",
+            1
+          ],
+          [
+            "(124)",
+            1
+          ],
+          [
+            "(1)",
+            1
+          ]
+        ],
+        "expected_numerator": -6283,
+        "expected_denominator": 1
+      }
+    ],
+    "quantity_controls": [
+      "Income EPS/dividend rows are USD/share, weighted averages million shares; equity individual share columns separate from USDm.",
+      "Absent FY2022 balance sheet stays missing, never backfilled from cashflow or equity.",
+      "Cashflow printed dashes remain raw; zero only for a specified complete reconciliation.",
+      "PDF131 finance-lease wording conflicts with explicit current/long breakdown in PDF148; preserve both without adding262 twice."
+    ]
+  },
+  "model": {
+    "scope": "81 selected annual input/derived cells, including4 missing values; literal source amounts and independent Fraction ratios, frozen before this publication. No production calculation helper used for expectations.",
+    "annual": {
+      "FY2022": {
+        "revenue": {
+          "numerator": 5429,
+          "denominator": 1
+        },
+        "cogs": {
+          "numerator": 2330,
+          "denominator": 1
+        },
+        "gross_profit": {
+          "numerator": 3099,
+          "denominator": 1
+        },
+        "selling_admin": {
+          "numerator": 748,
+          "denominator": 1
+        },
+        "income_statement_amortization": {
+          "numerator": 136,
+          "denominator": 1
+        },
+        "ebit_reported": {
+          "numerator": 2215,
+          "denominator": 1
+        },
+        "depreciation": {
+          "numerator": 116,
+          "denominator": 1
+        },
+        "cf_amortization": {
+          "numerator": 137,
+          "denominator": 1
+        },
+        "cfo": {
+          "numerator": 948,
+          "denominator": 1
+        },
+        "capex_signed": {
+          "numerator": -119,
+          "denominator": 1
+        },
+        "cash": {
+          "numerator": 3001,
+          "denominator": 1
+        },
+        "interest_cash": {
+          "numerator": 1057,
+          "denominator": 1
+        },
+        "tax_cash": {
+          "numerator": 220,
+          "denominator": 1
+        },
+        "issuer_ordinary_ebitda": {
+          "numerator": 2456,
+          "denominator": 1
+        },
+        "issuer_as_defined": {
+          "numerator": 2646,
+          "denominator": 1
+        },
+        "opex_magnitude": {
+          "numerator": 884,
+          "denominator": 1
+        },
+        "ebit": {
+          "numerator": 2215,
+          "denominator": 1
+        },
+        "cash_flow_DA": {
+          "numerator": 253,
+          "denominator": 1
+        },
+        "operating_ebitda": {
+          "numerator": 2468,
+          "denominator": 1
+        },
+        "cfo_less_capex": {
+          "numerator": 829,
+          "denominator": 1
+        },
+        "carrying_debt": null,
+        "net_carrying_debt": null,
+        "issuer_bridge_check": {
+          "numerator": 2646,
+          "denominator": 1
+        },
+        "operating_vs_issuer_basis": {
+          "numerator": 12,
+          "denominator": 1
+        },
+        "gross_carrying_multiple": null,
+        "net_carrying_multiple": null,
+        "issuer_earnings_cash_interest": {
+          "numerator": 378,
+          "denominator": 151
+        }
+      },
+      "FY2023": {
+        "revenue": {
+          "numerator": 6585,
+          "denominator": 1
+        },
+        "cogs": {
+          "numerator": 2743,
+          "denominator": 1
+        },
+        "gross_profit": {
+          "numerator": 3842,
+          "denominator": 1
+        },
+        "selling_admin": {
+          "numerator": 780,
+          "denominator": 1
+        },
+        "income_statement_amortization": {
+          "numerator": 139,
+          "denominator": 1
+        },
+        "ebit_reported": {
+          "numerator": 2923,
+          "denominator": 1
+        },
+        "depreciation": {
+          "numerator": 129,
+          "denominator": 1
+        },
+        "cf_amortization": {
+          "numerator": 139,
+          "denominator": 1
+        },
+        "cfo": {
+          "numerator": 1375,
+          "denominator": 1
+        },
+        "capex_signed": {
+          "numerator": -139,
+          "denominator": 1
+        },
+        "cash": {
+          "numerator": 3472,
+          "denominator": 1
+        },
+        "interest_cash": {
+          "numerator": 1160,
+          "denominator": 1
+        },
+        "tax_cash": {
+          "numerator": 260,
+          "denominator": 1
+        },
+        "issuer_ordinary_ebitda": {
+          "numerator": 3148,
+          "denominator": 1
+        },
+        "issuer_as_defined": {
+          "numerator": 3395,
+          "denominator": 1
+        },
+        "opex_magnitude": {
+          "numerator": 919,
+          "denominator": 1
+        },
+        "ebit": {
+          "numerator": 2923,
+          "denominator": 1
+        },
+        "cash_flow_DA": {
+          "numerator": 268,
+          "denominator": 1
+        },
+        "operating_ebitda": {
+          "numerator": 3191,
+          "denominator": 1
+        },
+        "cfo_less_capex": {
+          "numerator": 1236,
+          "denominator": 1
+        },
+        "carrying_debt": {
+          "numerator": 19750,
+          "denominator": 1
+        },
+        "net_carrying_debt": {
+          "numerator": 16278,
+          "denominator": 1
+        },
+        "issuer_bridge_check": {
+          "numerator": 3395,
+          "denominator": 1
+        },
+        "operating_vs_issuer_basis": {
+          "numerator": 43,
+          "denominator": 1
+        },
+        "gross_carrying_multiple": {
+          "numerator": 3950,
+          "denominator": 679
+        },
+        "net_carrying_multiple": {
+          "numerator": 16278,
+          "denominator": 3395
+        },
+        "issuer_earnings_cash_interest": {
+          "numerator": 679,
+          "denominator": 232
+        }
+      },
+      "FY2024": {
+        "revenue": {
+          "numerator": 7940,
+          "denominator": 1
+        },
+        "cogs": {
+          "numerator": 3268,
+          "denominator": 1
+        },
+        "gross_profit": {
+          "numerator": 4672,
+          "denominator": 1
+        },
+        "selling_admin": {
+          "numerator": 980,
+          "denominator": 1
+        },
+        "income_statement_amortization": {
+          "numerator": 161,
+          "denominator": 1
+        },
+        "ebit_reported": {
+          "numerator": 3531,
+          "denominator": 1
+        },
+        "depreciation": {
+          "numerator": 149,
+          "denominator": 1
+        },
+        "cf_amortization": {
+          "numerator": 163,
+          "denominator": 1
+        },
+        "cfo": {
+          "numerator": 2045,
+          "denominator": 1
+        },
+        "capex_signed": {
+          "numerator": -165,
+          "denominator": 1
+        },
+        "cash": {
+          "numerator": 6261,
+          "denominator": 1
+        },
+        "interest_cash": {
+          "numerator": 1158,
+          "denominator": 1
+        },
+        "tax_cash": {
+          "numerator": 539,
+          "denominator": 1
+        },
+        "issuer_ordinary_ebitda": {
+          "numerator": 3813,
+          "denominator": 1
+        },
+        "issuer_as_defined": {
+          "numerator": 4173,
+          "denominator": 1
+        },
+        "opex_magnitude": {
+          "numerator": 1141,
+          "denominator": 1
+        },
+        "ebit": {
+          "numerator": 3531,
+          "denominator": 1
+        },
+        "cash_flow_DA": {
+          "numerator": 312,
+          "denominator": 1
+        },
+        "operating_ebitda": {
+          "numerator": 3843,
+          "denominator": 1
+        },
+        "cfo_less_capex": {
+          "numerator": 1880,
+          "denominator": 1
+        },
+        "carrying_debt": {
+          "numerator": 24880,
+          "denominator": 1
+        },
+        "net_carrying_debt": {
+          "numerator": 18619,
+          "denominator": 1
+        },
+        "issuer_bridge_check": {
+          "numerator": 4173,
+          "denominator": 1
+        },
+        "operating_vs_issuer_basis": {
+          "numerator": 30,
+          "denominator": 1
+        },
+        "gross_carrying_multiple": {
+          "numerator": 24880,
+          "denominator": 4173
+        },
+        "net_carrying_multiple": {
+          "numerator": 18619,
+          "denominator": 4173
+        },
+        "issuer_earnings_cash_interest": {
+          "numerator": 1391,
+          "denominator": 386
+        }
+      }
+    }
+  }
+}

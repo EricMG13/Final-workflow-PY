@@ -1,0 +1,90 @@
+[
+  {
+    "kind": "behaviour_flag",
+    "topic": "September2024 special dividend funding",
+    "documented_fact": "PDF29 states approximately USD4,348m was paid in October2024, funded by USD3,000m new secured debt and cash; declaration was September19.",
+    "direction": "Extraction-Oriented",
+    "behaviour_type": "dividend recap",
+    "amount_funding_source": "USD3,000m new senior secured debt plus existing cash; approx USD4,348m October payment.",
+    "legal_capacity_link": "Annual disclosure records the action, not operative-document capacity or a legal conclusion.",
+    "dimension": "Leverage tolerance",
+    "risk_mechanic": "New secured borrowing helps fund a shareholder payout rather than remaining available as uncommitted creditor liquidity.",
+    "credit_implication": "Raises the importance of distribution/borrowing controls and post-payment liquidity evidence.",
+    "evidence_quality": "High",
+    "category": "Analyst Interpretation",
+    "citations": [
+      {
+        "source_id": "S1-annual-report.pdf",
+        "locator": "PDF 29",
+        "quote": "funded by a combination of $3,000 million in new senior secured debt and existing cash on hand"
+      }
+    ],
+    "limitation": "One action informs two different dimensions; they are not independent events. Subsequent cash payment is not FY2024 CFO."
+  },
+  {
+    "kind": "behaviour_flag",
+    "topic": "September2024 special dividend funding",
+    "documented_fact": "PDF29 states approximately USD4,348m was paid in October2024, funded by USD3,000m new secured debt and cash; declaration was September19.",
+    "direction": "Extraction-Oriented",
+    "behaviour_type": "dividend recap",
+    "amount_funding_source": "USD3,000m new senior secured debt plus existing cash; approx USD4,348m October payment.",
+    "legal_capacity_link": "Annual disclosure records the action, not operative-document capacity or a legal conclusion.",
+    "dimension": "Shareholder extraction risk",
+    "risk_mechanic": "A documented large payout competes with debt reduction and available creditor buffer.",
+    "credit_implication": "Treat willingness to distribute as established history, while future ability and legal capacity remain unknown.",
+    "evidence_quality": "High",
+    "category": "Analyst Interpretation",
+    "citations": [
+      {
+        "source_id": "S1-annual-report.pdf",
+        "locator": "PDF 29",
+        "quote": "funded by a combination of $3,000 million in new senior secured debt and existing cash on hand"
+      }
+    ],
+    "limitation": "One action informs two different dimensions; they are not independent events. Subsequent cash payment is not FY2024 CFO."
+  },
+  {
+    "kind": "behaviour_flag",
+    "topic": "CPI acquisition funding and integration",
+    "documented_fact": "CPI Electron Device Business was acquired June6 2024 for approximately USD1,385m; the funding included new long-term debt proceeds.",
+    "direction": "Mixed",
+    "behaviour_type": "acquisition",
+    "amount_funding_source": "Existing cash, inclusive of first-quarter new-debt proceeds.",
+    "legal_capacity_link": "No legal capacity or projected integration benefit established.",
+    "dimension": "Acquisition appetite",
+    "risk_mechanic": "An actual acquisition broadens products while requiring cash/debt and bringing integration and preliminary-valuation exposure.",
+    "credit_implication": "Monitor organic versus acquired earnings, future acquisition spending and leverage; do not assume completed synergies.",
+    "evidence_quality": "High",
+    "category": "Analyst Interpretation",
+    "citations": [
+      {
+        "source_id": "S1-annual-report.pdf",
+        "locator": "PDF 115",
+        "quote": "The acquisition was financed through existing cash on hand, inclusive of a portion of the cash proceeds from the new long-term debt issued during the first quarter of fiscal 2024"
+      }
+    ],
+    "limitation": "Acquisition disclosure does not prove returns, synergy realization or a continuing policy."
+  },
+  {
+    "kind": "governance_topic",
+    "topic": "Disclosure of preliminary acquisition values",
+    "documented_fact": "The CPI measurement period is expressly open and values remain subject to adjustment.",
+    "direction": "Supportive",
+    "behaviour_type": null,
+    "amount_funding_source": null,
+    "legal_capacity_link": null,
+    "dimension": "Disclosure transparency",
+    "risk_mechanic": "Explicitly disclosed measurement uncertainty helps avoid treating preliminary valuations as settled collateral value.",
+    "credit_implication": "Retain the uncertainty and request final allocation; this narrow disclosure strength does not cancel extraction risk.",
+    "evidence_quality": "High",
+    "category": "Analyst Interpretation",
+    "citations": [
+      {
+        "source_id": "S1-annual-report.pdf",
+        "locator": "PDF 116",
+        "quote": "the measurement period (not to exceed one year) is open"
+      }
+    ],
+    "limitation": "A narrow positive disclosure observation, not a score for all reporting or governance quality."
+  }
+]

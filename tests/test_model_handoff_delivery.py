@@ -75,7 +75,14 @@ def test_81_values_against_independent_source_fraction_checks(published) -> None
         assert value["currency"] == (None if ratio else "USD")
         assert value["scale"] == ("1" if ratio else "1000000")
         year = int(check["period"][-4:])
-        assert (value["start_date"], value["end_date"]) == (f"{year - 1}-10-01", f"{year}-09-30")
+        if check["key"] in {"cash", "carrying_debt", "net_carrying_debt"}:
+            assert value["start_date"] is None
+            assert value["end_date"] == f"{year}-09-30"
+        else:
+            assert (value["start_date"], value["end_date"]) == (
+                f"{year - 1}-10-01",
+                f"{year}-09-30",
+            )
     assert calculation["values"]["FY2024"]["operating_ebitda"]["amount"] == "3843"
     assert calculation["values"]["FY2024"]["issuer_ordinary_ebitda"]["amount"] == "3813"
     assert calculation["values"]["FY2024"]["issuer_as_defined"]["amount"] == "4173"

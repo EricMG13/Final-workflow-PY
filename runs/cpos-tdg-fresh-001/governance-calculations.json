@@ -1,0 +1,66 @@
+{
+  "input_sha256": "d59f0c6fd4ddb83714e7eb6ff96cca954822005ac9dd41c1e1ff4a202f19d6da",
+  "function": "src/deploy_vii/business_context.py:governance_sponsor_score",
+  "source_sha256": "895cab5e09dd4e3eb48ddc41a2928e0441f74f1acb402539e85622934a2c9cde",
+  "dimensions": [
+    {
+      "dimension": "Leverage tolerance",
+      "score": "5",
+      "assessment": "Adverse",
+      "evidence_quality": "High"
+    },
+    {
+      "dimension": "Shareholder extraction risk",
+      "score": "5",
+      "assessment": "Adverse",
+      "evidence_quality": "High"
+    },
+    {
+      "dimension": "Acquisition appetite",
+      "score": "3",
+      "assessment": "Mixed",
+      "evidence_quality": "High"
+    },
+    {
+      "dimension": "Support behavior",
+      "score": "Not Scorable",
+      "assessment": "Not Scorable",
+      "evidence_quality": "Insufficient"
+    },
+    {
+      "dimension": "Disclosure transparency",
+      "score": "1",
+      "assessment": "Creditor-favorable",
+      "evidence_quality": "High"
+    },
+    {
+      "dimension": "Creditor treatment / amendment behavior",
+      "score": "Not Scorable",
+      "assessment": "Not Scorable",
+      "evidence_quality": "Insufficient"
+    },
+    {
+      "dimension": "Legal-capacity linkage",
+      "score": "Not Scorable",
+      "assessment": "Not Scorable",
+      "evidence_quality": "Insufficient"
+    },
+    {
+      "dimension": "Reporting quality",
+      "score": "Not Scorable",
+      "assessment": "Not Scorable",
+      "evidence_quality": "Insufficient"
+    },
+    {
+      "dimension": "Related-party leakage risk",
+      "score": "Not Scorable",
+      "assessment": "Not Scorable",
+      "evidence_quality": "Insufficient"
+    }
+  ],
+  "scored_dimensions": 4,
+  "composite": "5",
+  "risk_level": "High",
+  "high_risk_action": true,
+  "scope": "Existing rubric over explicit current-host classifications of historical documentary actions, not a rating/default/legal finding or model confidence."
+}
