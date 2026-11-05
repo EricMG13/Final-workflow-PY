@@ -48,6 +48,7 @@ from deploy_workflow.model.turn import (
     dump_json,
     turn_to_json,
 )
+from deploy_workflow.model_testing.configs import CONFIGS
 from deploy_workflow.workflow import _put
 
 if TYPE_CHECKING:
@@ -57,6 +58,14 @@ Check = Callable[["HandoffTask", bytes], tuple[str, ...]]
 MAX_PAGES_PER_READ = 8
 MAX_HITS = 20
 MAX_WRITES = 3
+# The budget hold counts a request's bytes as tokens and refuses above 1,050,000 for gpt-6.1-sol, so
+# a module that read whole filings could not continue. Reads stop well short of that, which leaves
+# room for drafts and repairs in the history and stays under the long-context price.
+MAX_CONTEXT_FOR_READS = 700_000
+READS_FULL = (
+    "ERROR: this module has read as much as its context allows. Use what you have read, record "
+    "anything unread that matters as a gap, and submit with write_handoff."
+)
 
 
 def _tool(name: str, description: str, **properties: Any) -> ToolSpec:
@@ -336,11 +345,12 @@ class HandoffExecutor:
         max_output_tokens: int = 16000,
     ) -> None:
         if (
-            adapter.config_id != "sol-medium"
+            adapter.config_id not in CONFIGS
             or not 1 <= max_turns <= 64
             or not 1 <= max_output_tokens <= 64000
         ):
-            raise ValueError("handoff loop requires sol-medium and bounded turn/output limits")
+            raise ValueError("handoff loop requires a known config and bounded turn/output limits")
+        self.config = CONFIGS[adapter.config_id]
         self.directory, self.adapter, self.check = directory, adapter, check
         self.redactor = redactor or Redactor()
         self.max_turns, self.max_output_tokens = max_turns, max_output_tokens
@@ -407,7 +417,8 @@ class HandoffExecutor:
         }
         history = [Message("system", system), Message("user", dump_json(context))]
         seed = redacted_request(
-            self.redactor, TurnRequest(tuple(history), TOOLS, self.max_output_tokens, "medium")
+            self.redactor,
+            TurnRequest(tuple(history), TOOLS, self.max_output_tokens, self.config.effort),
         )
         encoded = dump_json(asdict(seed)).encode()
         digest = hashlib.sha256(encoded).hexdigest()
@@ -422,7 +433,8 @@ class HandoffExecutor:
         nudges = 0
         for index in range(self.max_turns):
             request = redacted_request(
-                self.redactor, TurnRequest(tuple(history), TOOLS, self.max_output_tokens, "medium")
+                self.redactor,
+                TurnRequest(tuple(history), TOOLS, self.max_output_tokens, self.config.effort),
             )
             returned = self._turn(task, folder, digest, index, request)
             history.append(
@@ -434,6 +446,7 @@ class HandoffExecutor:
                 )
             )
             results = []
+            size = len(dump_json(asdict(request)))
             for call in returned.tool_calls:
                 result = (
                     "ERROR: malformed tool arguments"
@@ -441,6 +454,10 @@ class HandoffExecutor:
                     else module.call(call.name, call.arguments)
                 )
                 result = self.redactor.text(result)
+                if call.name == "read_pages":
+                    if size + len(dump_json(result)) > MAX_CONTEXT_FOR_READS:
+                        result = READS_FULL
+                    size += len(dump_json(result))
                 history.append(Message("tool", result, tool_call_id=call.call_id))
                 results.append({"call_id": call.call_id, "name": call.name, "text": result})
                 if module.accepted or module.writes >= MAX_WRITES:
@@ -521,10 +538,10 @@ class HandoffExecutor:
                 attempt=0,
                 call_index=index,
                 config_id=self.adapter.config_id,
-                provider="openai",
-                requested_model="gpt-6.1-sol",
+                provider=self.config.provider,
+                requested_model=self.config.model,
                 reported_model=None if turn is None else turn.reported_model,
-                requested_effort="medium",
+                requested_effort=self.config.effort,
                 invocation_digest=digest,
                 request_id=None if turn is None else turn.request_id,
                 http_status=reply.http_status,
@@ -564,7 +581,11 @@ class HandoffExecutor:
         )
         if reply.raw is not None:
             self.log.write_raw(
-                digest, index, reply.raw, error_class=reply.error_class, provider="openai"
+                digest,
+                index,
+                reply.raw,
+                error_class=reply.error_class,
+                provider=self.config.provider,
             )
         _put(
             folder / f"{index}.response.json",
