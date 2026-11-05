@@ -31,7 +31,8 @@ kbd{font-family:var(--rb-font-mono);font-weight:500}
 
 /* Rail (DS-07): six destinations, active edge, status dot, tools at the foot */
 .icon-rail{height:100vh;position:sticky;top:0;background:var(--rb-navy);color:var(--rb-on-navy);display:flex;flex-direction:column;align-items:center;padding:var(--rb-s-5) 0;gap:var(--rb-s-1);z-index:5}
-.brand-mark{width:34px;height:34px;border:1px solid var(--rb-ink-3);display:grid;place-items:center;font-family:var(--rb-font-display);font-weight:700;font-size:13px;margin-bottom:var(--rb-s-6)}
+.brand-mark{width:34px;height:34px;display:grid;place-items:center;margin-bottom:var(--rb-s-6)}
+.brand-mark img{display:block;width:24px;height:24px}
 .rail-dests,.rail-foot{display:flex;flex-direction:column;align-items:center;gap:var(--rb-s-1)}
 .rail-foot{margin-top:auto}
 .rail-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:40px;height:36px;border:0;border-left:2px solid transparent;border-radius:var(--rb-r-nav);background:transparent;color:var(--rb-on-navy-2);text-decoration:none;padding:0}

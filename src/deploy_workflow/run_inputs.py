@@ -40,6 +40,7 @@ from deploy_workflow.model.adapter import (
     check_ruling,
 )
 from deploy_workflow.model.turn import ModelSpec
+from deploy_workflow.platform_io import flags, regular_open
 from deploy_workflow.research import evidence, webfetch
 from deploy_workflow.research.contracts import ReservedSourceId, refuse_reserved
 from deploy_workflow.research.intake import (
@@ -212,7 +213,7 @@ def read_capped(path: Path) -> bytes:
     """Read a regular file through one descriptor: open without blocking, ``fstat`` that
     descriptor (FIFO, directory, device refused), then read at most ``MAX_BYTES + 1`` from it."""
     try:
-        fd = os.open(path, os.O_RDONLY | os.O_NONBLOCK | os.O_CLOEXEC)
+        fd = regular_open(path, os.O_RDONLY | flags("O_NONBLOCK", "O_CLOEXEC"))
     except (OSError, ValueError) as error:
         raise SourceUnreadable(
             f"{path}: cannot open ({getattr(error, 'strerror', None) or error})"
@@ -535,7 +536,7 @@ def _write_new(directory: Path, filename: str, data: bytes) -> None:
     target = (directory / filename).resolve()
     if target.parent != directory.resolve():
         raise RunInputError(f"staging path {filename!r} leaves the sources directory")
-    fd = os.open(target, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_CLOEXEC | os.O_NOFOLLOW, 0o600)
+    fd = os.open(target, os.O_WRONLY | os.O_CREAT | os.O_EXCL | flags("O_CLOEXEC", "O_NOFOLLOW", "O_BINARY"), 0o600)
     with os.fdopen(fd, "wb") as handle:
         handle.write(data)
 

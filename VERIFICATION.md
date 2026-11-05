@@ -2648,6 +2648,2198 @@ financial calculation or screening behavior. Rebuilt the self-contained HTML.
 Validation: 9 Python + 5 screening + 9 DOM checks passed; Ruff passed. Existing
 reports, sources and predecessor repositories were not modified.
 
+
+## 2026-11-04 — Offline Issuer Library (isolated worktree)
+
+Scope: approved read-only Windows local web app, automatic run/delivery discovery,
+standard locations, bundled launcher and the existing deliverable design. All work
+is in `apps/issuer-library` on `codex/offline-issuer-library`; no analytical module,
+predecessor repository, historical run or original deliverable was changed. No
+provider execution. Development baseline is snapshot commit `1a21c6c`.
+
+Verification: 17 Go tests pass with `go test -race ./...`; 9 DOM simulations pass
+with `ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom node
+--test web/app.test.cjs`. Native and Windows-targeted `go vet ./...`, Python
+packaging Ruff checks and `git diff --check` pass. `python3 packaging/build.py`
+builds Windows amd64/arm64 GUI executables and a macOS arm64 development binary
+with Go 1.26.4, CGO disabled, local toolchain and module downloads disabled.
+`python3 packaging/smoke_test.py ../../artifacts/issuer-library/darwin-arm64/issuer-library`
+passed compiled startup, all six retained report responses, repeated-launch reuse,
+30-second automatic new-run discovery, settings persistence, quit and restart.
+The latest build incorporates the additionally tested delivery-completeness gate
+and first-run UI; lifecycle implementation is unchanged from the smoke run.
+
+Retained-data scope: 10 run folders + 3 separately identified delivery revisions
+= 13 records, six hash-checked report bundles. Seven original reviewed summaries
+keep their source pins and numerical definitions (TDG leverage 5.96x, coverage
+3.60x; real completeness stays null). Other folders are visible with unknown
+screening metadata. New `library.json` manifests are supported; CP-OS is not
+changed to generate these automatically. The library neither interprets arbitrary
+financial prose nor treats a shared issuer as proof that two runs are related.
+The shared report tokens/CSS are byte-identical; fonts and logo are bundled.
+
+Confidence review — ranked doubts, root causes and disposition:
+1. Historical links / concurrent file changes: CONFIRMED. An old URL could open
+   newly published bytes after refresh. Added hash-pinned URLs and a failing-before,
+   passing-after test. Responses send the bytes that were actually verified. A
+   mutation during HTTP response construction is covered by a deterministic test.
+2. Metadata trust / missing collections: CONFIRMED. An input `handoff_href` could
+   survive when no handoff path existed, and omitted artifacts serialized as null.
+   Derived links are rebuilt, collections normalized, source/identity/metric pins
+   admitted before publication. Wrong-issuer mappings previously hid a valid
+   independently discovered report; that report now gets its own revision row.
+   Each confirmed issue was reproduced before its patch.
+3. Completeness / financial precision: CONFIRMED. A producer checklist could claim
+   delivery with no available direct bundle. Its score is now withheld on missing,
+   changed or only-related delivery. Synthetic complete/partial/corrupt cases cover
+   the boundary; these are transport checks, not analytical acceptance. Display
+   and screening now preserve exact decimal strings (including adjacent decimals
+   beyond binary floating precision), zero vs missing, periods, units and basis.
+4. Filesystem/HTTP boundaries: verified scoped `os.Root` reads, relative path checks,
+   symlink escape rejection, regular-file checks, explicit file allowlist, 64 MiB
+   read ceiling and request-body limits. Host/Origin/cross-site checks and custom
+   POST headers block browser cross-origin mutations. HTML is sandboxed without
+   same-origin privileges or network access. These are local-desktop controls, not
+   authentication for a remotely hosted multi-user service.
+5. Refresh/settings/launch ordering: verified race tests, configuration precedence,
+   policy lock, stale-workspace link rejection, atomic config/index replacement,
+   repeated launch, automatic scan and clean shutdown/restart. The persisted index
+   is rebuilt rather than trusted. Per-user data and canonical workspace files stay
+   separate; IT policy is read on launch. Temporary smoke workspaces are synthetic.
+6. Offline packaging and design: checked ZIP file lists and executable headers;
+   archives contain only the executable, instructions, font licence and a clearly
+   fictional schema example (the executable includes the public legacy metadata
+   adapter). No source PDFs, reports, keys or runtime installers are included.
+7. Still open: execution of the Windows launcher/Known Folder integration and real
+   browser visual/keyboard acceptance. Host execution is macOS; Windows binaries
+   are cross-compiled and vetted, unsigned pilot builds. Browser security previously
+   rejected local-file navigation, and no alternate browser access was attempted.
+   Enterprise signing/distribution and Windows acceptance remain rollout work.
+
+Rewrite tournament — no-argument post-edit mode, inline, two-symbol cap:
+- Targets: `verifyDelivery` (`discovery.go`) and `Application.serveFile` (`server.go`),
+  the admission and serving boundary for real reports. Other nontrivial functions
+  (run admission/discovery/checklist, settings/launcher, UI and exact comparisons)
+  received the confidence review and focused tests above; generated/copied assets,
+  docs and tests are excluded from tournament scope.
+- Impact set: `discover -> verifyDelivery`; `ServeHTTP -> serveFile`, reached through
+  initial discovery, scheduled/manual refresh, settings changes and HTTP file links.
+  GitNexus context/impact returned repository-not-indexed; `rg` enumerated every
+  definition/caller and the Go compiler plus full focused suite checked contracts.
+- Full incumbent and all three complete challenger source files were retained in
+  `/tmp/offline-issuer-library-tournament` before applying any candidate. A (speed)
+  computes the response digest once; B (memory) streams a reopened verified file;
+  C (readability) consolidates delivery failures in a closure.
+- Bracket: A beats B because B fails `TestResponseUsesTheBytesThatWereVerified`:
+  mutation between verification and streaming returns different bytes. A beats C
+  because C adds closure state without improving I/O or the serving boundary.
+  A beats the incumbent only for `serveFile`; **Incumbent holds** for `verifyDelivery`.
+- **Winner: Snippet A**, replacing `Application.serveFile` in `server.go`.
+  Justification: (1) preserves hash-pinned evidence and HTTP range semantics;
+  (2) avoids hashing the same response twice; (3) retains the direct error paths,
+  lock lifetime and byte snapshot instead of adding streaming/closure machinery.
+- Verification: A and C pass `go test ./...`; B fails the adversarial mutation test.
+  Final chosen combination passes `go test -race ./...`. Callers and signatures are
+  unchanged and `go vet` passes. Original report and source bytes are never rewritten.
+- Final code for the winning replacement:
+
+```go
+func (app *Application) serveFile(w http.ResponseWriter, r *http.Request) {
+	name := strings.TrimPrefix(r.URL.Path, "/files/")
+	app.mu.RLock()
+	defer app.mu.RUnlock()
+	hash, allowed := app.catalogue.Allowed[name]
+	if !allowed || !localPath(name) {
+		http.NotFound(w, r)
+		return
+	}
+	root, err := os.OpenRoot(app.config.Workspace)
+	if err != nil {
+		http.Error(w, "Workspace unavailable", http.StatusGone)
+		return
+	}
+	defer root.Close()
+	raw, err := readFile(root, name)
+	if err != nil {
+		http.Error(w, "File unavailable; refresh the library", http.StatusGone)
+		return
+	}
+	pinned := r.URL.Query().Get("sha256")
+	actual := ""
+	if hash != "" || pinned != "" {
+		actual = digest(raw)
+	}
+	if hash != "" && actual != hash {
+		http.Error(w, "File changed since verification; refresh the library", http.StatusConflict)
+		return
+	}
+	if pinned != "" && actual != pinned {
+		http.Error(w, "This link refers to a different evidence version; refresh the library", http.StatusConflict)
+		return
+	}
+	ext := strings.ToLower(path.Ext(name))
+	contentType := "text/plain; charset=utf-8"
+	if ext == ".html" || ext == ".htm" {
+		contentType = "text/html; charset=utf-8"
+	}
+	if ext == ".pdf" {
+		contentType = "application/pdf"
+	}
+	if ext == ".xlsx" {
+		contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+		w.Header().Set("Content-Disposition", mime.FormatMediaType("attachment", map[string]string{"filename": path.Base(name)}))
+	}
+	// Reports retain their local scripts but receive an opaque sandboxed origin:
+	// a report cannot read the library API, modify settings or access the network.
+	w.Header().Set("Content-Security-Policy", "sandbox allow-scripts allow-downloads; default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'")
+	w.Header().Set("Content-Type", contentType)
+	http.ServeContent(w, r, path.Base(name), time.Time{}, bytes.NewReader(raw))
+}
+
+```
+
+Final package SHA-256 (ZIP):
+- Windows amd64: `e84db551d9c03f2932a93996ed0a26149056914a73f3a5ad1773d3ba6095b38e`.
+- Windows arm64: `1690e576318599ee2bd4ac894b514fc04c7bfd8ad57404b27d2aefe15e060ac1`.
+
+
+### Issuer Library — consolidated report view (2026-11-04)
+
+User requested one interface for the library and deliverables. Reports now open
+inside the application with their existing renderer, sections and inspector.
+A persistent toolbar returns to the filtered library, switches explicitly indexed
+revisions and downloads the original HTML. Browser routes pin run, delivery and
+file hash. Only the library or report shell is shown at a time; there is one
+report navigation shell. Standalone report files remain byte-for-byte unchanged.
+Windows amd64/arm64 packages and the local preview were rebuilt.
+
+Confidence review — ranked doubts and findings:
+1. Frame isolation vs functionality: verified the application's `frame-src 'self'`
+   and the report's explicit local `frame-ancestors` opt-in. Sandbox retains scripts
+   and downloads without same-origin privileges; null-origin/cross-site API requests
+   remain forbidden. Ordinary file views still forbid framing. Original bytes and
+   hash checks are unchanged for embedded view and attachment responses. Policy
+   semantics checked against MDN's iframe sandbox and frame-ancestors documentation.
+2. Lost filters, focus and report state: CONFIRMED skip-link regression, reproduced
+   before patch. The library skip link previously closed the report. It now focuses
+   the active report; returning after a refresh falls back to visible library focus
+   if the original link was replaced. Library shortcuts don't focus hidden controls.
+   Filters, scroll context, revision controls and report document identity are covered
+   by DOM checks. A stable report is not reloaded when another record changes.
+3. Stale/bookmarked/untrusted routes: verified catalogue-only URL resolution,
+   exact hash matching, initial-load deep links, rejected arbitrary URLs, unavailable
+   revisions and explicit downloads. A stale link cannot silently adopt new bytes.
+4. Data/rendering/exports: simulated all six retained report renderers, navigated
+   native Model/Evidence sections and opened fact inspectors. Live HTTP checks of
+   all six embedded views and all six downloads matched their original file bytes.
+   No analysis, deliverable reconstruction or historical-file edits occurred.
+5. Packaging/regressions: 18 Go tests pass with `go test -race ./...`; 23 DOM checks
+   pass with `ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom
+   node --test web/app.test.cjs web/report-renderer.test.cjs`. Native/Windows-targeted
+   Go vet pass. Rebuilt executable resources match the final frontend. Preview is
+   served at `http://127.0.0.1:53708`; the previous preview was already stopped.
+   Actual browser framing/layout and Windows execution remain unverified: DOM
+   simulation does not enforce browser CSP or render layout.
+
+Post-edit rewrite tournament, inline, two targets:
+- `ReportWorkspace.create.sync`, `web/report.js:23`, and `Application.serveFile`,
+  `server.go:133`. Other changes are linking/copy, styling and header wiring;
+  they received the confidence review above. GitNexus reported no index for this
+  repository; `rg` plus the JS/Go suites checked the impact set instead.
+- Impact set: report-link creation in library rows/details/history; initial catalogue
+  acceptance and later polling; hashchange/back/revision events; ServeHTTP file
+  dispatch; range, hash, embedding, download and byte-snapshot tests. Signatures,
+  source identities, lock lifetime, original bytes and error contracts are invariants.
+- Full candidate files and logs are in `/tmp/consolidated-library-tournament`.
+  UI A caches too early and fails the new-revision-discovery test (selector becomes
+  empty); UI B iterates directly, eliminating a filtered-array allocation; UI C uses
+  filter/map/spread. B beats A on correctness and C on allocations/straight-line flow.
+  B beats the incumbent by retaining the same simple loop with no temporary array.
+- Server A consolidates duplicate disposition writes (passes); B streams a reopened
+  file and fails the adversarial byte-snapshot mutation test; C uses a MIME switch
+  (passes). A beats B; C offers no material benefit over A or the direct incumbent
+  branches. **Incumbent holds** for serveFile: no verified improvement justifies
+  replacing its explicit serving/export paths.
+- **Winner: Snippet B** for `web/report.js:23` (sync).
+  Justification: (1) preserves catalogue and hash validation; (2) keeps live revision
+  updates without resetting the report document; (3) removes a temporary array while
+  retaining an explicit, readable loop. Final chosen JS/Go combination passes the
+  exact commands above, with caller contracts unchanged. Final winning function:
+
+```javascript
+    function sync() {
+      const params = new URLSearchParams(window.location.hash.slice(1));
+      const opening = params.has('report');
+      const wasOpen = !$('report-workspace').hidden;
+      if (opening && !wasOpen) {
+        previousFocus = document.activeElement;
+        scrollPosition = window.scrollY;
+        if (!new URLSearchParams(previousHash.slice(1)).has('report')) libraryHash = previousHash || '#main';
+      }
+      $('library-workspace').hidden = opening;
+      $('report-workspace').hidden = !opening;
+      document.body.classList.toggle('report-open', opening);
+      previousHash = window.location.hash;
+      if (!opening) {
+        $('report-frame').removeAttribute('src');
+        currentSource = '';
+        if (wasOpen) {
+          window.scrollTo(0,scrollPosition);
+          (previousFocus?.isConnected ? previousFocus : $('main')).focus({preventScroll:true});
+        }
+        return;
+      }
+
+      if (!wasOpen) $('report-back').focus();
+      const data = catalogue();
+      $('report-revision').replaceChildren();
+      $('report-revision').disabled = true;
+      $('report-title').textContent = 'Deliverable';
+      $('report-context').textContent = '';
+      if (!data) { unavailable('Loading the workspace…'); return; }
+      const run = data.real.find(item => item.id === params.get('run'));
+      const artifact = run?.artifacts.find(item => item.folder === params.get('report'));
+      if (!run || !artifact?.available) { unavailable('This report is unavailable. Return to the library to refresh or choose another revision.'); return; }
+
+      // The URL always comes from admitted catalogue metadata, never the route.
+      const source = new URL(artifact.href,window.location.href);
+      const pin = params.get('sha256');
+      if (source.origin !== window.location.origin || !source.pathname.startsWith('/files/deliverables/') || !pin || source.searchParams.get('sha256') !== pin) {
+        unavailable('This link refers to a different report version. Return to the library and open the current revision.'); return;
+      }
+      $('report-title').textContent = run.name;
+      $('report-context').textContent = `${run.issuer} · ${run.period} · ${artifact.relationship === 'related' ? 'Related report · ' : ''}${artifact.state}`;
+      for (const item of run.artifacts) {
+        if (!item.available) continue;
+        const option = document.createElement('option');
+        option.value = href(run,item); option.textContent = `${item.label} · ${item.state}`;
+        option.selected = item.folder === artifact.folder;
+        $('report-revision').append(option);
+      }
+      $('report-revision').disabled = $('report-revision').options.length < 2;
+      const download = new URL(source);download.searchParams.set('download','1');
+      $('report-export').href = download.pathname + download.search;
+      $('report-export').download = artifact.folder.split('/').at(-1) + '.html';
+      $('report-export').hidden = false;
+      source.searchParams.set('embedded','1');
+      const nextSource = source.pathname + source.search;
+      $('report-frame').title = `${run.name} — ${artifact.label}`;
+      $('report-frame').hidden = false;
+      $('report-status').hidden = true;
+      // Polling must not reset the report's active section or evidence inspector.
+      if (currentSource !== nextSource) { currentSource = nextSource; $('report-frame').src = nextSource; }
+    }
+
+```
+
+Updated ZIP SHA-256:
+- Windows amd64: `5912cc98911a851a959f58d2bb489b4e35b34f4dd4703791597c667018416e6e`.
+- Windows arm64: `9e4fb0763f281ac5e912f459bb5caf56dda4dd4321aa79a339b0db348832a077`.
+
+
+## 2026-11-04 — New run in the offline issuer library
+
+Built in the isolated `codex/offline-issuer-library` worktree. The app embeds the
+existing context form, validates uploads through the existing context/input
+validators, shows module order and the USD ceiling, and requires a separate explicit
+Start. Only Start can create the scoped live authorization and invoke CP-OS's existing
+runner. No provider calls were made in this build or its tests.
+
+The scoped Markdown transport retains typed analytical modules literally, supplies
+only currently bound upstream handoffs to prompts, and constructs delivery from those
+handoffs through existing renderer/bindings and applicable Model exports. A terminal
+receipt with refusals or missing module heads is stopped, not complete. New business
+folders are `intake/`, `runs/`, `deliverables/` under the selected workspace; Windows
+uses its standard Known Folder locations for configuration and user state. The full
+Windows ZIP includes the interpreter, pinned wheels and engine; no installation-time
+or launch-time download is needed. External CP-DR retrieval is explicitly unavailable
+in this upload launcher. Existing analytical methods and prices were not changed.
+
+### Confidence review — New run and delivery boundary
+
+Least confident about (ranked):
+1. Paid admission, duplicate clicks and changing inputs — highest blast radius.
+   Investigated → Go's serialized admission plus exclusive persistent `start.claim`;
+   Python recomputes the job/context/source/code fingerprint; the runner checks actual
+   validated original hashes before staging. Concurrent requests admit one worker.
+   Verdict → fine under the local per-user process contract; stale/corrupt review,
+   missing credentials and changed hashes are refused. No automatic paid restart.
+2. Publication corruption and loss of the original run audit.
+   Investigated → a copy could change after source verification. A concrete corruption
+   hook reproduced publication of changed bytes. Moving instead of copying also loses
+   the audit (tournament regression reproduced both failures).
+   Verdict → CONFIRMED bug, patched. Verify the copied manifest, exact file set and
+   copied hashes before atomic directory rename; preserve the run's original delivery.
+3. Empty enterprise workspace on first use.
+   Investigated → compiled HTTP review failed with “runs is not an existing directory”.
+   Verdict → CONFIRMED bug, patched. Prepare the standard parent folders through Go's
+   workspace-root handle. Repeat compiled review succeeds with zero execution folders.
+4. Windows encoding, CRLF, binary logs and POSIX-only I/O.
+   Investigated → default text encoding could misread UTF-8 JSON paths on Windows;
+   workers now explicitly use `-X utf8`. Ruling lines trim CR; file logs/staging use
+   binary mode; portable locking, positioned reads and directory flushes replace
+   unsupported operations. Reverting the UTF-8 setting fails its focused guard test.
+   Verdict → portability fixes verified on macOS, both Windows targets compile/vet.
+   Native Windows behavior remains OPEN; bundled `Smoke-test.ps1` covers packaged
+   imports, an accented workspace path, competing locks and offline review.
+5. Hidden UI errors, opaque-frame communication and report navigation.
+   Investigated → browser exercised the actual wizard, parent message bridge, source
+   upload, review, low-budget rejection, missing-key Start disablement, report opening,
+   C65 evidence inspection, revision switching and return preserving search. Browser
+   console contained no warnings/errors. DOM tests reject messages from other windows.
+   Verdict → fine for the tested browser/viewport. Saved-context chooser automation
+   timed out inside the opaque iframe; that import picker was not accepted as tested.
+   Context entered through the wizard and the outer source picker both worked.
+6. Exact values, missing versus zero, source lineage and a false completion label.
+   Investigated → canonical Markdown payload is parsed and compared to retained module
+   heads; a synthetic literal-transport test preserves `0.00`, currency, period and
+   source references, detects handoff mutation, and exercises downstream consumption.
+   Full-plan coverage/refusal checks gate completion. Output remains candidate/partial.
+   Verdict → verified transport scope only. No new live analytical success is claimed.
+7. A failed worker offering a nonexistent library run.
+   Investigated → status omitted `run_available`, and the frontend treated omission as
+   available. The API now returns the actual directory state; the false/true cases pass.
+   Verdict → CONFIRMED bug, patched.
+8. Credentials, historical files and the package boundary.
+   Investigated → providers receive keys only from process environment. Worker output
+   is discarded except structured redacted status. Upload names never become paths.
+   Report origin/sandbox, pinned-byte and upload admission tests pass. ZIP inspection
+   verifies parity with source and excludes intake/runs/deliverables/credential folders.
+   Verdict → fine within this local, single-user application contract. Predecessor
+   repositories and historical run/delivery directories were not edited.
+
+Fixed: verified-copy publication; first-use standard folders; explicit UTF-8 and
+CRLF/binary portability; accurate run availability. Verified fine: once-only Start,
+stale-input refusal, offline review, literal transport, source-backed report serving.
+By-design: credentials/network required only for live execution; unassessed screening
+metadata stays unknown; stopped workflows expose gaps. Still open: native Windows
+acceptance, iframe saved-context picker acceptance, and any paid/live analytical run.
+
+### Verification actually performed
+
+- `cd apps/issuer-library && go test -race ./... && go vet ./...`: PASS, 26 Go tests.
+  `GOOS=windows GOARCH=amd64 go vet ./...` and `GOOS=windows GOARCH=arm64 go vet ./...`:
+  PASS. Both native PE architectures were inspected, including bundled Python.
+- `PYTHONPATH=src:tests:tests/prompts /Users/ericguei/Documents/final-workflow/.venv/bin/python -m pytest tests/test_cpos_app.py tests/product/test_context.py tests/product/test_context_prepare.py tests/product/test_context_pack.py tests/model/test_record.py tests/model/test_adapter.py -q`:
+  **381 passed in 3.46s**. CP-OS tests use synthetic seams, never a provider.
+- `ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom node --test web/app.test.cjs web/report-renderer.test.cjs web/new-run.test.cjs` from the app:
+  **27 passed** (17 library/report interaction, 6 retained renderer, 4 New run).
+- Ruff on every changed Python runtime module and `tests/test_cpos_app.py`: PASS.
+  `git diff --check`: PASS.
+- `python3 packaging/build.py` from the app: PASS; offline executable build, pinned
+  runtime/dependency download verification and complete Windows ZIPs rebuilt.
+- `ISSUER_LIBRARY_PYTHON=/Users/ericguei/Documents/final-workflow/.venv/bin/python python3 apps/issuer-library/packaging/smoke_test.py artifacts/issuer-library/darwin-arm64/issuer-library`:
+  PASS — compiled launch, six retained reports, repeat launch, accented workspace,
+  existing CP-OS context/source/budget review, missing-provider Start refusal before
+  claim, discovery, settings persistence, shutdown/restart. No execution was created
+  by review. Provider keys are removed from the test process environment.
+- Actual in-app browser at `http://127.0.0.1:53708`: the interaction cases above passed.
+  Synthetic uploads were isolated under `/tmp/issuer-library-browser-check/workspace`;
+  no Start was clicked. Restored the real worktree workspace and its 13 records with
+  no discovery issues. Review screenshot: `artifacts/issuer-library/new-run-review.png`.
+- Broader runner/input/prompt subset earlier: **188 passed, 2 failed, 1 skipped**.
+  Both failures reproduced against unchanged source in `/tmp/cpos-pre-change/src`:
+  `test_a_money_stop_on_the_call_that_ends_the_walk_stops_the_resume[unknown]` expects
+  an UnknownCharge despite current pricing producing OverrunStop;
+  `test_a_live_run_resumed_offline_is_refused` uses a $5 ceiling below the current
+  $6.724560 reservation floor and stops before its injected kill. Pricing and these
+  historical expectations were not changed to hide the failures.
+  `tests/test_owner_rendering.py` cannot collect because the imported project lacks
+  `docs/OWNER-RENDERING-LEASE.md`; no new lease was invented. New transport/delivery
+  tests explicitly cover this app's boundary, not the uncollectable legacy suite.
+
+### Rewrite tournament — no-argument post-edit mode, inline
+
+Read changed symbols and invariants; chose the two most material symbols per pass:
+`Application.startRun` (`apps/issuer-library/jobs.go:293`) and Python `start`
+(`apps/issuer-library/engine/bridge.py:160`). The other changed functions
+(review/upload, frontend create, transport/delivery and platform helpers) were outside
+this capped pass. No agents were used. GitNexus context/impact was attempted but the
+repository is not indexed; `rg` references plus Go compilation/tests and focused Python
+callers supplied the impact set: ServeHTTP/serveRunAPI, browser explicit Start/status,
+Engine.command, bridge main, review/read_job, run_pathway, receipt verifier and export.
+Signatures, errors, one-shot side effects, ceiling/source approval, audit preservation
+and publication/status ordering must be unchanged.
+
+Full incumbents, three full alternatives and outputs are retained in the scratch
+`/tmp/cpos-start-tournament`. A-speed drops revalidation/provider admission and fails
+both ecosystems' guards; B-memory streams JSON allowing trailing content and moves the
+audit delivery, failing corrupt-review and audit-preservation tests. Both are
+disqualified for changed side effects/contracts. C-readability names the Go guard's
+conditions and extracts Python publication to a helper; both focused suites pass, but
+it provides no complexity/cost improvement over the ordered gates in one place.
+Bracket: neither A nor B qualifies; C survives the correctness bracket; the Incumbent
+beats C on explicit sequencing with no extra helper traversal.
+
+**Winner: Incumbent holds** for both Start boundaries; no replacement applied.
+Justification:
+- Keeps admission, verification, launch and settlement in their explicit required order.
+- Preserves every caller contract and retained audit while rejecting the adversarial cases.
+- Splitting a single-use publication block adds indirection without a measured benefit.
+
+Verification: each alternative ran `cd apps/issuer-library && go test ./...`, then
+`PYTHONPATH=src:tests /Users/ericguei/Documents/final-workflow/.venv/bin/python -m pytest tests/test_cpos_app.py -q`.
+A: Go FAIL / Python 1 failed, 9 passed. B: Go FAIL / Python 2 failed, 8 passed.
+C: Go PASS / Python 10 passed. Restored incumbents; final `go test -race ./...` PASS
+and final Python focused run above PASS. Reviewed the actual diff and all impact-set
+interfaces. Concrete invariant: two concurrent confirmed Start requests produce one
+synthetic worker line; a source/budget change is refused before real execution.
+
+<details><summary>Final incumbent code (both reviewed Start boundaries)</summary>
+
+```text
+func (app *Application) startRun(w http.ResponseWriter, r *http.Request) {
+	var request struct {
+		ID       string `json:"id"`
+		ReviewID string `json:"review_id"`
+		Confirm  bool   `json:"confirm"`
+	}
+	decoder := json.NewDecoder(http.MaxBytesReader(w, r.Body, 8192))
+	decoder.DisallowUnknownFields()
+	if err := decoder.Decode(&request); err != nil || !jobID.MatchString(request.ID) || !request.Confirm {
+		http.Error(w, "Explicit confirmation of a reviewed run is required", 400)
+		return
+	}
+	app.mu.Lock()
+	defer app.mu.Unlock()
+	if len(app.activeJobs) > 0 {
+		http.Error(w, "A CP-OS run is already active; wait for it to finish", 409)
+		return
+	}
+	folder := filepath.Join(app.config.Workspace, "intake", request.ID)
+	raw, err := os.ReadFile(filepath.Join(folder, "review.json"))
+	if err != nil {
+		http.Error(w, "Review this run before starting", 409)
+		return
+	}
+	var review struct {
+		ReviewID      string `json:"review_id"`
+		ProviderReady bool   `json:"provider_ready"`
+	}
+	if json.Unmarshal(raw, &review) != nil || review.ReviewID != request.ReviewID || !review.ProviderReady {
+		http.Error(w, "Review is invalid or the provider is not configured", 409)
+		return
+	}
+	claim, err := os.OpenFile(filepath.Join(folder, "start.claim"), os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
+	if err != nil {
+		if !os.IsExist(err) {
+			http.Error(w, "Could not retain the start authorisation", 500)
+			return
+		}
+		http.Error(w, "This run has already been started; no additional call was made", 409)
+		return
+	}
+	claim.Close()
+	command := app.engine.command(context.Background(), "start", folder)
+	// Discard command output; structured, redacted status is the only browser contract.
+	command.Stdout = io.Discard
+	if err = saveJSON(filepath.Join(folder, "status.json"), JobStatus{State: "running", Message: "CP-OS is validating the reviewed inputs and starting the selected workflow.", ID: request.ID}); err != nil {
+		http.Error(w, "Could not retain start state", 500)
+		return
+	}
+	if err = command.Start(); err != nil {
+		_ = saveJSON(filepath.Join(folder, "status.json"), JobStatus{State: "failed", Message: "CP-OS runtime could not start."})
+		http.Error(w, "CP-OS runtime could not start", 503)
+		return
+	}
+	if app.activeJobs == nil {
+		app.activeJobs = map[string]bool{}
+	}
+	app.activeJobs[request.ID] = true
+	go func() {
+		_ = command.Wait()
+		raw, _ := os.ReadFile(filepath.Join(folder, "status.json"))
+		var status JobStatus
+		_ = json.Unmarshal(raw, &status)
+		if status.State == "running" {
+			_ = saveJSON(filepath.Join(folder, "status.json"), JobStatus{State: "interrupted", Message: "The worker exited without a final result. Retained evidence remains available; no automatic paid retry was made."})
+		}
+		app.mu.Lock()
+		delete(app.activeJobs, request.ID)
+		app.refreshLocked()
+		app.mu.Unlock()
+	}()
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusAccepted)
+	jsonResponse(w, JobStatus{State: "running", ID: request.ID, Message: "Run started."})
+}
+
+def start(directory: Path) -> None:
+    from deploy_workflow.cpos_handoffs import transport
+
+    approved = json.loads((directory / "review.json").read_text())
+    current = review(directory)
+    if approved["review_id"] != current["review_id"]:
+        raise ValueError("review is stale; review the inputs again before starting")
+    if not current["provider_ready"]:
+        raise ValueError("the selected provider is not configured in the launching environment")
+    job, workspace, model, context, sources = read_job(directory)
+    # This receipt is created only after the web API's explicit, one-shot Start.
+    ruling = directory / "start-authorization.md"
+    with ruling.open("x", encoding="utf-8", newline="\n") as stream:
+        stream.write(
+            f"lifts: live-provider-pause\nby: user\ndate: {date.today()}\nconfigs: {model.config_id}\nreview: {current['review_id']}\n"
+        )
+    adapter = LiveAdapter(model, ruling, rulings_root=directory)
+    with transport():
+        result = run_pathway(
+            case_id=job["id"],
+            run_id=job["id"],
+            sources=sources,
+            context=directory / "context.json",
+            pathway=context.run.pathway,
+            model=model,
+            adapter=adapter,
+            cap_usd=Decimal(job["cap_usd"]),
+            run_dir=workspace / "runs" / job["id"],
+            approved_inputs=approved["inputs_sha256"],
+        )
+    if result.outcome != "settled":
+        write_json(
+            directory / "status.json",
+            {
+                "state": "stopped",
+                "message": Redactor.from_environ(os.environ).text(
+                    result.stopped_reason or "Workflow stopped."
+                ),
+                "spent_usd": str(result.spent_usd),
+            },
+        )
+        return
+    from deploy_vii.execution import Execution
+    from deploy_workflow.owner_workflow import OwnerRunReceipt, verify_owner_run_receipt
+
+    receipt = OwnerRunReceipt.model_validate_json((result.run_dir / "owner-run.json").read_bytes())
+    publication = result.run_dir / "publication"
+    verify_owner_run_receipt(
+        Execution(result.run_dir / "execution"),
+        receipt,
+        publication_directory=publication if publication.exists() else None,
+    )
+    completed = complete_receipt(receipt)
+    delivered = result.run_dir / "delivery"
+    manifest = json.loads((delivered / "delivery.json").read_text())
+    for name, expected in manifest["files"].items():
+        if (
+            Path(name).name != name
+            or hashlib.sha256((delivered / name).read_bytes()).hexdigest() != expected
+        ):
+            raise ValueError("delivery verification failed")
+    target = workspace / "deliverables" / job["id"]
+    target.parent.mkdir(exist_ok=True)
+    if target.exists():
+        raise ValueError("delivery destination already exists")
+    staging = Path(tempfile.mkdtemp(prefix=".cpos-", dir=target.parent))
+    try:
+        for file in delivered.iterdir():
+            if file.is_symlink() or not file.is_file():
+                raise ValueError("unexpected delivery file")
+            shutil.copyfile(file, staging / file.name)
+        if (
+            json.loads((staging / "delivery.json").read_text()) != manifest
+            or {file.name for file in staging.iterdir()}
+            != set(manifest["files"]) | {"delivery.json"}
+            or any(
+                hashlib.sha256((staging / name).read_bytes()).hexdigest() != expected
+                for name, expected in manifest["files"].items()
+            )
+        ):
+            raise ValueError("copied delivery failed verification")
+        staging.rename(target)
+    finally:
+        if staging.exists():
+            shutil.rmtree(staging)
+    write_json(
+        directory / "status.json",
+        {
+            "state": "complete" if completed else "stopped",
+            "message": "Requested runtime finished; handoffs and delivery hashes verified."
+            if completed
+            else "Workflow ended with module refusals or incomplete outputs. The report retains its explicit gaps; this is not completion.",
+            "spent_usd": str(result.spent_usd),
+            "run_id": job["id"],
+        },
+    )
+```
+
+</details>
+
+Final archive SHA-256 (pilot builds, unsigned; native Windows acceptance pending):
+- amd64: `98eba12c4a433840c226bd6da77cda41602e66aad5d875e7331219c58c07a3c9`.
+- arm64: `38fc4c48957e1a1d50ab85b60972d3dd6f21d77154a82fe643c504eb2996836c`.
+
+
+## 2026-11-04 — Deploy VII library refinement after the Astra critique
+
+User chose all critique fixes and pinned the Deploy VII design system. Read the
+current critique snapshot `2026-11-04T19-06-16Z__apps-issuer-library-web-index-html.md`;
+worked in the existing isolated worktree. Canonical Deploy VII tokens, shared CSS,
+fonts, logo, analytical values and historical documents remain unchanged. No model
+or provider was called. No extra analytical/orchestration layer was added.
+
+Changes: one required-context page using the existing form/build/fill/validators,
+optional disclosures, one continuation action, field-directed errors and stage focus;
+accurate unidentified-record grouping/counts; compact task header and laptop table
+with pinned issuer/report columns; contextual report evidence and laptop reading
+layout; narrative citation typography; scope/budget/readiness first in approval,
+with authoritative registry names and disclosed source hashes/pricing. Separate
+unlinked deliveries are explicitly labelled; lineage is never inferred. Help/upload
+instructions and embedded data-font CSP were corrected. The new embedded report
+presentation is applied only after verifying original report hashes, and never to
+HTML downloads. Original files, unembedded responses and exports retain exact bytes.
+
+### Confidence review — ranked doubts and investigation
+
+1. Original report integrity and sandbox isolation (largest impact).
+   Investigated → reportPresentation is called only for admitted hashed deliveries,
+   embedded=1 and download!=1, after source/pin verification. Tests remove the scoped
+   inserted block and compare every original byte; also check retained file identity,
+   exact exported bytes with combined flags, original storage non-aliasing, fragments,
+   mixed-case HTML, source mutation/pins and opaque/network-disabled CSP.
+   Verdict → fine for this boundary. No analytical values are recalculated.
+2. Required/optional context drift from the existing form.
+   Investigated → the adapter only moves existing DOM controls and changes presentation;
+   build(), fill(), shape checks, conditional requirements and source validation stay
+   authoritative. Actual generated-form tests preserve Unicode/currency, validate
+   earnings periods and load an existing saved context through FileReader.
+   CONFIRMED bug → native valid-file loading targeted its standalone Review step,
+   which this embedded mode hides. The regression first failed with sec11 focus;
+   gotoStep now returns to the visible issuer context and the test passes.
+3. Keyboard and asynchronous stage restoration.
+   Investigated → source-window validation bounds height/readiness messages; stage
+   transitions focus headings and returning restores prior library focus. A concrete
+   leave-and-return-to-Sources test initially focused the hidden Context heading.
+   CONFIRMED bug → reentry now focuses the current visible stage; regression passes.
+   Browser verified missing-issuer focus/aria-invalid and Sources heading focus.
+4. Context auto-height feedback and nested scrolling.
+   Investigated → body margins collapsed outside its measured bounds: browser showed
+   body 1632px but document 1656px. CONFIRMED bug → body flow-root contains margins.
+   Final constrained-width check: body 1832.52px, document 1833px, matching the rounded
+   height sent to the parent. Height messages are bounded, finite and source-checked.
+5. Missing issuer identity being turned into a claimed relationship.
+   Investigated → old UI grouped the backend Unclassified sentinel under its first
+   filename and counted it as an issuer. The independent critique reproduced it.
+   CONFIRMED bug → use an explicit unidentified bucket, separate counts and predicate.
+   Live result: 13 records, 3 identified issuers, 3 unidentified records; bucket yields
+   exactly 3 rows and zero identified issuers. Established issuer metadata is unchanged.
+6. Report evidence focus, close/reopen and available reading width.
+   Investigated → native renderer/citations remain active. Adapter observes rendered
+   evidence, opens on selection, restores the triggering control on close and keeps
+   view changes from reopening dismissed evidence. DOM/browser tests cover C65,
+   native Close inspector, Escape/close mechanics and report routing/revisions/back.
+   Verdict → fine for tested paths. At 1366px the idle reading grid is 56px + 1310px;
+   the inspector occupies no idle space. At laptop widths evidence opens contextually.
+7. Approval comprehension without weakening spending control.
+   Investigated → labels come from existing registry metadata; cap/reservation strings
+   retain exact values. Hashes, limitations and price date stay in disclosures.
+   Existing one-shot Start, review fingerprint and provider guard are unchanged.
+   Browser review with synthetic inputs rendered real metadata and stayed disabled
+   without credentials even after the approval checkbox was checked. No Start clicked.
+   Verdict → fine for offline review and synthetic Start seam; no live success claimed.
+8. Design-system drift, font/network packaging and responsive breakpoints.
+   Investigated → canonical tokens and app.css compare byte-for-byte to their bundled
+   copies. All assets remain local. Generated form now permits its packaged data fonts
+   in both CSP policies; browser computed family is Red Hat Text with no console
+   warnings/errors. Scope-appropriate sizes use the existing type roles.
+   Verdict → tested at 680px reflow, 1024x768, 1280x720, 1366x768 and 1600x1000.
+   First row moved from the critique's ~624px to 420px at 1280x720, with 4 full rows
+   visible. At 1600px document width equals viewport width. Browser font-set iteration
+   was unavailable in the read-only automation API, so no per-face load claim is made.
+
+Fixed: misleading identity grouping, competing context progression, error/return/load
+focus, collapsed-margin iframe overflow, laptop space allocation, approval hierarchy.
+Verified fine: literal context transport, existing approval gates, original report
+bytes/exports, sandbox isolation, real citations, conditional validation and packaging.
+By-design: unknown lineage stays separate; compact Deploy VII status/navigation cues
+remain. Still open: native Windows execution, actual browser saved-file picker inside
+the opaque frame, full NVDA/200% browser zoom/print acceptance, and paid model execution.
+Saved-context FileReader/validation/focus was tested in a DOM simulation, not via a
+native file-picker acceptance run. These limits do not imply observed production bugs.
+
+### Verification
+
+- `cd apps/issuer-library && go test -race ./... && go vet ./...`: PASS, 27 tests.
+  Both `GOOS=windows GOARCH=amd64 go vet ./...` and arm64 equivalent: PASS.
+- `ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom node --test apps/issuer-library/web/app.test.cjs apps/issuer-library/web/new-run.test.cjs apps/issuer-library/web/context-embed.test.cjs apps/issuer-library/web/report-renderer.test.cjs` from repository root:
+  **35 passed** (including unchanged retained renderers and new presentation/form paths).
+- `PYTHONPATH=src:tests /Users/ericguei/Documents/final-workflow/.venv/bin/python -m pytest tests/test_cpos_app.py -q`: **10 passed**. Ruff bridge check: PASS.
+- `ISSUER_LIBRARY_PYTHON=/Users/ericguei/Documents/final-workflow/.venv/bin/python python3 apps/issuer-library/packaging/smoke_test.py artifacts/issuer-library/darwin-arm64/issuer-library`:
+  PASS — compiled launch/reopen, retained reports, accented workspace, offline real
+  context/source/budget validation, unavailable-provider Start gate, discovery,
+  persistence, shutdown/restart. The final later changes were embedded UI/focus only.
+- `python3 packaging/build.py` from app: PASS. Final amd64/arm64 ZIP integrity and
+  both launcher/Python PE architectures checked; bridge/source parity checked;
+  no issuer runs, uploads or credentials enter packages. `git diff --check`: PASS.
+- Browser: empty-context field recovery; required context and Sources focus; upload
+  and offline review using a clearly synthetic issuer/source in a temporary workspace;
+  unchecked/checked approval still cannot Start without credentials; real report C65
+  opens/closes with focus restoration; revision 2→1 and Back; unknown bucket; 1024px
+  Browse issuers; wide layout. Real workspace restored with 13 records. No providers.
+  Existing user preview remains running at http://127.0.0.1:53708/. Viewport override
+  reset. Screenshots: artifacts/issuer-library/library-polished.png and
+  artifacts/issuer-library/new-run-polished.png. No historical directory mutated.
+- One final detector pass (before margin containment and load-focus correction):
+  19 findings: cramped-padding 6, monotonous-spacing 2, undersized-ui-text 1,
+  tiny-text 6, side-tab 4. Section padding findings misidentify top-only separators
+  within a shared 12px parent gutter as side boundaries. Other retained small labels,
+  operational selection edges and spacing are incumbent Deploy VII role choices.
+  Primary table labels/periods/bases now use the 12px table role. No unexplained
+  new visual findings remain in the inspected path. This is not a WCAG certification.
+
+### Rewrite tournament — post-edit mode, inline, two material symbols
+
+Targets read: `server.go:213` reportPresentation and `context-embed.js:38` renderSteps.
+Skipped under this pass's two-symbol cap: NewRun.create/stage/review composition,
+issuer grouping, evidence observer, gotoStep and mechanical assets/docs/tests.
+GitNexus context and upstream impact were attempted; returned only other indexed
+repositories. Used rg and compiler/tests as the caller-contract oracle instead.
+Impact: admitted serveFile embedding, exports/ranges/CSP and Go byte/pin tests;
+original form update→renderSteps, conditional sequences, wrappers, ready messages,
+saved-file load, parent height and new-run validation. Invariants: no original-byte
+mutation/aliasing; same insertion bytes and document endings; no export transformation;
+all original input/conditional semantics; hidden review section; finite source-checked
+messages; no provider side effects. Full candidates/logs retained under
+`/tmp/issuer-library-polish-tournament`.
+
+Go A-speed preallocates output and manually copies offsets; B-memory sizes chunks
+then appends them; C-readability uses standard bytes.Join for the same single output
+allocation. Each passed `go test ./...`. JS A uses a Set of section numbers, B uses
+for-of, C extracts a displaySection helper; each passed actual generated-form tests
+via `python3 packaging/sync_assets.py` then `ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom node --test web/context-embed.test.cjs`.
+Bracket: B beats A by avoiding manual offsets; C beats B and the incumbent through
+fewer staging operations and clearer boundaries. JS variants show no measured benefit;
+incumbent holds. Final complete app/form suites above pass after chosen code applied.
+
+**Winner: Go Snippet C**, reportPresentation at server.go:213; **JS Incumbent holds**.
+Justification:
+- bytes.Join makes the exact immutable insertion pieces explicit with one output buffer.
+- Removes hand-managed lengths/copy offsets and the intermediate addition buffer.
+- Preserves every caller contract, export and original-storage invariant in real tests.
+
+Final selected code:
+```text
+func reportPresentation(original []byte) []byte {
+	style, _ := resources.ReadFile("web/report-adapter.css")
+	script, _ := resources.ReadFile("web/report-adapter.js")
+	position := bytes.LastIndex(bytes.ToLower(original), []byte("</body>"))
+	if position < 0 {
+		position = len(original)
+	}
+	return bytes.Join([][]byte{original[:position], []byte("<style data-library-presentation>"), style,
+		[]byte("</style><script data-library-presentation>"), script, []byte("</script>"), original[position:]}, nil)
+}
+
+  renderSteps = function(sequence, context) {
+    document.querySelectorAll('section.sec').forEach(section => {
+      const number = Number(section.dataset.n);
+      section.hidden = number === 11 || !sequence.includes(number);
+      const wrapper = optional.get(number);
+      if (wrapper) wrapper.hidden = section.hidden;
+      section.querySelector('.n').textContent = '';
+      section.querySelector('.stepline').textContent = '';
+    });
+    parent.postMessage({type:'cpos:ready',ready:errs.length === 0}, '*');
+  };
+```
+
+Final Windows archive SHA-256 (unsigned pilot packages; native acceptance pending):
+- amd64: `9a1944f506d52370858fdb314229cc021f080062e3b6d58ddfc621dff1c75f28`.
+- arm64: `7c79251407cb896f536ead1bf2a5f17e81aa4e1800adc90d93a1f6b371058606`.
+
+## 2026-11-04 — four Deploy VII critique fixes and symbol-only branding
+
+Scope: the four Priority Issues in critique snapshot
+`2026-11-04T20-54-29Z__apps-issuer-library-web-index-html.md`.
+User requested no product/company name, only the supplied STT.D.svg symbol.
+The source SVG was inspected: one path and a white-fill style, no scripts,
+external references or instructions. The symbol is copied byte-for-byte into
+current renderer assets and the generated offline app assets. No predecessor
+repository, retained report or historical run directory was modified.
+
+- Report adapter now follows the native 1350px navigator/search breakpoint.
+  Paired 5:7 blocks remain when they fit; prose and narrative figures cap at 80ch.
+- Embedded context guidance names Deal terms, Quotes and Valuation, preserving
+  all original analytical qualifications and validation. The numbered standalone
+  template remains unchanged.
+- Metric metadata can explicitly declare cited/calculated/synthetic provenance.
+  Missing classification stays missing; the library shows **Not classified**
+  beside Source in screening and details. No legacy classifications inferred.
+- Library, embedded reports and newly generated standalone HTML use only the
+  supplied symbol. Retained original HTML exports preserve their audit bytes.
+
+### Confidence review — this change
+
+Least confident about (ranked):
+1. **Responsive CSS and native search could still disagree.** Traced native
+   focusSearch/showNavigator and inherited drawer rules against adapter CSS.
+   Browser checks at 1280, 1350, 1351, 1366, 1440 and 1500px show a 236px
+   navigator, fixed through 1350 and sticky from 1351, Search and / focusing a
+   visible field, no document overflow. Prose max computes to 712.8px (80ch).
+   Verdict: verified fine; the conflicting 1500px navigation override was fixed.
+2. **Classification might be inferred or accepted without source verification.**
+   Traced admitRun through finite exact string validation and hash/line/quote
+   verification, then publication of sources; the new enum never supplies a
+   default. Go cases retain exact zero with each allowed kind, leave omitted
+   provenance empty, reject unknown/C1. DOM cases verify all three canonical SVG
+   marks and unknown-without-a-mark, without a Start request. Verdict: fine.
+3. **Source links on a different row could focus the wrong run or lose values.**
+   Traced metricCell -> metricSource -> selectRun/renderDetails -> showSource;
+   DOM regression clicks a different row and checks expanded sources and exact
+   focused source ID. Existing exact decimal sorting/filter tests pass. Browser
+   geometry at 1280 confirms Source and Not classified share one line within
+   their cells. Verdict: fine. Initial wrapping was corrected with a compact
+   Source label and the DS label role, without shrinking the existing type scale.
+4. **Rebranding could disappear on a report route change or alter evidence.**
+   Adversarial navigation reproduced a dynamically recreated branded page header;
+   the adapter now removes that presentation header on every view-root update.
+   DOM test switches module and checks no branded header returns. Go tests restore
+   original bytes by removing only the injected presentation and verify downloads,
+   pinning, isolation, original storage and the exact inline SVG. A fresh synthetic
+   unrun standalone report embeds the supplied SVG, omits the old company/brand,
+   and initialises its real renderer without JavaScript errors. Verdict: fixed/fine.
+5. **Named guidance could refer to an unavailable conditional section or change
+   native validation.** Generated-form tests check named disclosures and all
+   original field/conditional/load behavior. Browser Primary reveals Deal terms
+   with matching guidance; Research restored afterward. Verdict: fine.
+6. **Packaging or Windows-specific behavior may differ from the preview.**
+   Windows amd64/arm64 vet and cross-compilation checked; final archive/native
+   smoke results recorded below. Actual Windows desktop/browser acceptance remains
+   open because this host is macOS. No paid/provider execution occurred.
+
+Fixed: responsive breakpoint, reading measure, stale section labels, missing
+classification display, dynamic branding header and source-label wrapping.
+Verified fine: exact decimals/zero/missing, evidence focus, original bytes/CSP,
+source selection, native form rules and newly rendered symbol-only HTML.
+By design: an absent classification is not a cited/calculated/synthetic claim;
+retained original exports are unchanged. Open: native Windows acceptance.
+
+### Rewrite tournament — post-edit, inline, two material symbols
+
+Targets read: web/app.js:93 metricSource; discovery.go:79 admitRun's new enum guard.
+Skipped: mechanical renderer branding, generated assets/copy and one-line caller
+wiring; no broader rewrite of existing discovery or analytical code. GitNexus
+context and upstream impact were attempted for both; this worktree is not indexed.
+Used rg plus Go compiler/tests as the caller-contract oracle instead.
+Impact: metricCell/runRow and renderMetric/renderDetails -> render, selected run,
+poll/reload, source focus; discover's manifest and legacy admitRun calls -> /api/library
+JSON -> frontend metrics. Invariants: exact values, missing vs zero, no inferred
+provenance, pinned evidence before publication, canonical glyphs and contextual
+accessible links; no provider execution or contract/signature changes.
+
+Full backups, complete candidates and focused logs are in
+`/tmp/issuer-library-fixes-tournament`. JS A hoists glyph markup, B selects shapes
+with explicit comparisons, C normalises an allowed kind first. Every challenger
+passed `ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom node
+--test apps/issuer-library/web/app.test.cjs` (19/19). Guard A uses an && chain,
+B a boolean allow-list expression, C a map; all passed `go test -run
+'TestMetric|TestDiscovery|TestChangedAndMalformed' ./...` from the app directory.
+
+Bracket: JS A beats B (readable mapping, no nested ternaries, stable geometry);
+A beats C (no duplicated allow-list, no per-call list, fewer intermediate states);
+incumbent beats A (keeps this tiny mapping beside its only consumer, avoids an
+extra outer binding, no measured speed improvement). Go B beats A (positive
+allow-list, clearer error branch, equal constant space); B beats C (no map
+allocation, no lookup indirection, visible enum); incumbent beats B (native
+switch expresses the closed set, zero extra local state, same error contract).
+
+**Winner: Incumbent holds** at app.js:93–115 and discovery.go:79–84.
+Justification:
+- Closed sets and canonical shapes stay visible at their single validation/render boundary.
+- Alternatives add state or duplicate allowed values without a measured benefit.
+- All candidates preserve contract tests; original files were restored byte-for-byte
+  and the complete focused suites rechecked after restoration.
+
+Final code (unchanged incumbent):
+```javascript
+  function metricSource(run, key) {
+    const metric=run.metrics[key], row=node('span',null,'metric-source');
+    const marks={
+      cited:'<path d="M1 .5h4l2 2v6H1z" class="pg-cited"/>',
+      calculated:'<rect x=".5" y=".5" width="7" height="8" class="pg-calc"/><path d="M2 3.5h4M2 5.5h4" class="pg-calc-line"/>',
+      synthetic:'<path d="M3 .5h2v3l2.5 4.5h-7L3 3.5z" class="pg-synth"/>'
+    };
+    const known=Object.hasOwn(marks,metric.provenance);
+    const classification=node('span',known ? metric.provenance[0].toUpperCase()+metric.provenance.slice(1) : 'Not classified','metric-provenance');
+    classification.title=known ? 'Producer-declared provenance' : 'The source metadata does not classify provenance.';
+    if (known) {
+      const glyph=document.createElementNS('http://www.w3.org/2000/svg','svg');
+      glyph.setAttribute('viewBox','0 0 8 9');glyph.setAttribute('width','8');glyph.setAttribute('height','9');glyph.setAttribute('class','pg');glyph.setAttribute('aria-hidden','true');
+      glyph.innerHTML=marks[metric.provenance];classification.prepend(glyph);
+    }
+    const source=button('Source',()=>{if(selected!==run.id)selectRun(run.id);showSource(metric.source);},'source-link');
+    source.setAttribute('aria-label',`View source for ${metricNames[key]}: ${run.name}, ${run.title}`);
+    row.append(source,classification);
+    return row;
+  }
+```
+```go
+		switch metric.Provenance {
+		case "", "cited", "calculated", "synthetic":
+		default:
+			return run, fmt.Errorf("metric provenance must be cited, calculated, synthetic or omitted")
+		}
+```
+
+Validation before packaging:
+- Go race suite and vet PASS; Windows amd64/arm64 vet PASS.
+- All app/context/retained-renderer DOM tests: **37 passed**.
+- `PYTHONPATH=src:tests /Users/ericguei/Documents/final-workflow/.venv/bin/python -m
+  pytest tests/test_cpos_app.py tests/test_connected_render.py tests/test_codex_render_fixes.py -q`:
+  **36 passed**; Ruff render.py and diff whitespace PASS.
+- Real browser at 1280x720, 1366x768, 1440x900, 1500x900: module filter CP-1A,
+  module -> Front Page, C65 evidence/locator, Escape and citation focus return,
+  revision 2 -> 1 -> 2, Back and library return all PASS. The first bookmarked
+  reload correctly falls back to main focus; subsequent Back returns to its
+  originating report link (also separately verified at 1280). No invented analysis.
+- One final Impeccable detect pass: 19 incumbent warnings (6 cramped-padding,
+  2 monotonous-spacing, 1 undersized-ui-text, 6 tiny-text, 4 side-tab), matching
+  the prior critique. Canonical selection/status edges, DS micro/label roles and
+  context sections sharing a parent gutter were reviewed in the browser and kept.
+  Regex-only CSS/JS coverage is incomplete; the detector is not acceptance proof.
+
+Final package/browser verification:
+- `python3 packaging/build.py` from apps/issuer-library: PASS (Go tests,
+  Windows amd64/arm64 and macOS arm64 builds; pinned Python and eight wheels).
+- Final ZIP integrity, launcher/Python PE architectures, bridge/renderer/symbol
+  parity and exclusion of workspace runs, uploads and credentials: PASS.
+- amd64 ZIP SHA-256: `c548f687dd25d375b8a44d97bbd5e703bb8235aa4659a1423576200e3c650e9d`.
+- arm64 ZIP SHA-256: `252ba4c87b6cab1e8f17fd5e97e18e2cf161daa4b1f7696d07fa000ff722672e`.
+- `ISSUER_LIBRARY_PYTHON=/Users/ericguei/Documents/final-workflow/.venv/bin/python
+  python3 apps/issuer-library/packaging/smoke_test.py
+  artifacts/issuer-library/darwin-arm64/issuer-library`: PASS — compiled
+  launch/reopen, retained reports, Unicode workspace, offline CP-OS context/source/
+  budget review, unavailable-provider Start gate, discovery, persistence and restart.
+- Restarted the user preview from the final packaged macOS binary with provider
+  keys removed at http://127.0.0.1:53708/. Actual workspace restored: 13 records.
+  Final 1366px report has no old visible branding or page overflow; narrative
+  figures compute to 80ch (633.6px at their text role). Final 1280px Search shows
+  a fixed 236px drawer; both revisions and Back/focus work. Browser error/warn
+  log is empty. Temporary viewport override reset; library tab retained.
+- Proof images: artifacts/issuer-library/library-symbol-only.png and
+  artifacts/issuer-library/report-laptop-fixed.png. Closed only the processed
+  critique snapshot. No acceptance claim for native Windows or a paid run.
+
+## 2026-11-04 — independent Astra re-critique after four fixes
+
+A: `/root/symbol_critique_a`, B: `/root/symbol_critique_b`, both Astra, isolated with no prior critique/verification or detector input to A. Source unchanged. A live IAB inspection; B CLI/source/test inspection and failed IAB attempt (capability unavailable); parent supplied fresh-tab live fallback after both assessments finalized. All temporary tabs closed and viewport reset. No overlay/live-server, paid execution or native Windows acceptance.
+
+Three fixes pass: coherent navigator/search at 1280/1350/1351/1366/1440/1500, named context destinations, explicit unknown/declared provenance. Symbol-only branding passes; original downloads stay byte-equal. Reading-width fix is partial: at 1440, Strengths/weaknesses block1100px/body712.8px/grid688.8px with 197.4px explanation columns, while module prose is1074px/max-width:none. Separate P2: eight identical Limitation outline targets. Score31/40, zero P0/P1, two P2. Required CLI scan19 warnings interpreted against DS. All37 DOM tests and Go race/vet pass. Screenshot: artifacts/issuer-library/critique-prose-width.png.
+
+Archived critique: /Users/ericguei/.codex/worktrees/offline-issuer-library/final-workflow-library/.impeccable/critique/2026-11-04T21-55-37Z__apps-issuer-library-web-index-html.md
+
+## 2026-11-04 — navigation review and Deploy VII chart investigation
+
+Read-only review; symbol-only branding accepted and unchanged. Browser traced
+issuer filter -> annual run -> Retained files (32 flat technical files for tdg-002)
+-> report -> Back. File anchors use target=_blank. Report hides the library and
+only exposes Back, revision selector and export; no cross-issuer/run/file switcher.
+Own background tab closed; preview untouched. Proposed persistent issuer/run
+context plus Overview/Reports/Sources/Files and an in-app document list/viewer.
+
+Inspected actual /Users/ericguei/Documents/DEPLOY VII source (not just design
+screenshots): charts.py implements line, grouped, stacked, waterfall, debt_stack
+and unavailable frames; report_view.py names S.1 Leverage, S.2 Interest cover,
+S.3 Liquidity and S.4 Maturity wall. Renderer embeds SVG, focusable provenance
+marks and table twins. Executed two original pure component checks for each of
+five chart kinds against that reference source with Python -B and bytecode off:
+10 targeted checks PASS using explicitly synthetic fixtures; no issuer/model run
+or reference writes. Current workflow already contains and extends this engine.
+
+Missing-chart root cause: all six retained report-view.json files have the same
+five narrative blocks and zero chart/figure objects. handoff_delivery.py:38 scopes
+those five blocks, inserts blocked CP-MODEL and explicitly excludes numeric/chart
+publication; delivery manifests report cp_model_published=false. Browser confirms
+zero svg.chart and zero chart-figure elements. Reuse existing chart types and
+bind verified handoff series through delivery, retaining exact period/unit/basis/
+source and table parity; unavailable series remain explicit gaps. No application
+code or historical deliverable was changed by this investigation.
+
+## 2026-11-04 — module chart and qualitative visualisation catalogue
+
+Mapped 24 active canonical modules, all 16 aliases and separate delivery into
+91 specifications. Sources: current owner/handoff contracts, registered figure
+bindings, selected methodology and all six Deploy VII front-page references;
+inspected source revisions are hashed in docs/visualisations/MAP.md. Named figure
+register has 14 existing producers, six design gaps and DR.6's unavailable frame.
+Nine event lanes retain source identity, date precision, conditional status and
+actual/forecast separation. Required content and proposed graphical treatments
+are explicitly distinguished; producer presence is not issuer acceptance.
+
+Confidence review of the documentation addressed coverage, quantitative versus
+qualitative classification, narrower current alias duties, CP-OS's active role,
+CP-8's one-case limits, currency qualification and missing figure producers.
+Registry/alias coverage, unique IDs, CSV round-trip, 21 named entries, 91 HTML/
+Markdown specifications, local download links and embedded-only HTML assets pass.
+Browser at 1280x800 and 1366x768: no page overflow, zero broken anchors; module
+overview -> CP-1B and shared calendar links reach the correct headings. Console
+warn/error log empty. Proof: artifacts/issuer-library/visualisation-map-preview.png.
+Temporary preview server/tab closed and viewport reset; main app preview retained.
+Generated documentation only; no shipped functions changed, so post-edit rewrite
+tournament does not apply. No analytics/provider run or historical source edits.
+
+## 2026-11-04 — issuer research frontend
+
+Built the approved symbol/palette into a persistent research workspace with run
+switching, Overview/Modules/Visuals/Events/Reports/Sources/Files, a local handoff
+reader and cross-run report navigation. Reviewed the mapped module contracts and
+actual TDG, Ford and ARCC handoffs; the 91 visual specifications remain an explicit
+requirements index. Financial views plot one original table row across explicit
+period columns; CP-1A event views preserve source order and date precision.
+Advanced graphs/nine-lane aggregation are still data/binding requirements, not
+claimed implementation. File counts never establish acceptance. Symbol SHA-256
+remains 67d73e1e8a6700b1528dabb1ad4c2e91963325bbde625cc4f84be5e294430dfd.
+
+Reference/asset provenance: apps/issuer-library/DESIGN-SOURCES.md. Lucide SVGs and
+license notices bundled locally; Red Hat fonts retained. User-pinned world and
+standing discretion applied code-first. Impeccable finish review/documentation
+performed inline under the project's no-subagent rule. DESIGN.md, PRODUCT.md and
+the token sidecar describe the built app; no predecessor/history mutations.
+
+Confidence review, ranked and traced:
+1. Wrong primary revision: catalogue primary URL was hash-pinned while file-list
+   URLs were not. Reproduced first-attempt selection; resolve the matching local
+   path and retain its primary hash. Regression passes.
+2. Stale data after a failed source change: old Overview chart could survive the
+   new failure. Clear on selection/loading/error; adversarial HTTP 409 test passes.
+3. Late file response/filter changes: per-reader abort plus signal/disconnection
+   checks prevent replacement; delayed earlier-response regression passes. Filter
+   changes clear selection and navigation so previous/next cannot use old results.
+4. Malformed tables: silently skipping mismatched cells could conceal a row in
+   the formatted reader. Reject that entire table as structured data and retain
+   its original text. Regression passes; no eligible chart is produced from it.
+5. Numeric/temporal interpretation: zero versus dash, negative parentheses,
+   malformed commas, unsafe integers, exact decimal display and explicit period
+   order tested. Event dates stay original text; no fabricated timestamp or risk.
+6. Trust seams: DOM text insertion, same-origin /files/ URL guard and existing
+   server allowlist/hash checks retained. XSS-like text/foreign-URL tests pass.
+7. Navigation/focus: source links open Sources; cross-run report selection updates
+   return context. Revisions preserve pins. New run explicit Start gating retained.
+8. Layout: corrected unidentified-record count grid; reading-width restriction
+   now targets prose rather than the complete Strengths/weaknesses container.
+9. Offline packaging: served JS/CSS/catalogue/icon bytes equal source; license
+   notices and reference documentation verified inside both Windows ZIPs.
+
+Post-edit rewrite tournament, inline; scoped to mount and series. GitNexus context/
+impact unavailable for this unindexed worktree; rg establishes mount <- renderDetails
+<- render/accept/filter/selectRun and series <- loadVisual, plus DOM/parser tests.
+Invariants: cancellation owns the mounted run, original data/source identities,
+no missing-to-zero coercion, unchanged public callbacks and source-only rendering.
+Speed pre-index/caching contender offers no meaningful benefit at 24 modules/91
+specifications and introduces invalidation state. Memory shared-lifecycle contender
+breaks independent reader/chart cancellation and is disqualified. Readability wins
+for mount: extracted createFileReader with its own abort/selection lifecycle.
+Incumbent series holds: its small table-to-row mapping retains exact strings with
+no new calculation state. Final code: web/research.js createFileReader/mount and
+web/workspace-data.js series. Other small helpers covered by confidence review;
+generated catalogue, documentation, CSS and packaging copies are out of tournament.
+
+Verification: 47 distinct frontend checks pass across the complete 46-check run
+and focused 29-check final recheck (includes the new stale-chart regression).
+Command: ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom
+node --test web/app.test.cjs web/workspace-data.test.cjs web/report-renderer.test.cjs
+web/new-run.test.cjs web/context-embed.test.cjs (from apps/issuer-library).
+Go tests/race/vet pass. Windows amd64/arm64 and macOS builds pass. Final packaged
+smoke passes launch/reopen, Unicode paths, offline context/source/budget review,
+unavailable-provider Start gate, discovery/persistence/shutdown/restart.
+
+Live browser: 1280x800, 1366x768, 1440x900 and 390x844. Verified file filtering,
+reader, next file, real financial chart and seven-event TDG table, report revision
+2 -> 1 -> 2, cross-run switch/back, screening and New run context. No page overflow
+or console errors/warnings. Final byte-matched packaged preview retained at
+http://127.0.0.1:53809/ with provider keys removed and viewport override reset.
+Proof: artifacts/issuer-library/research-desktop.png, research-desktop-full.png,
+research-mobile.png. Static Impeccable scan: six micro-text role warnings and one
+false dark-background shadow warning; main prose/ground/depth inspected visually.
+Inline finish disposition: ship within this frontend/data-lens scope. Native
+Windows execution and advanced analytical-figure population remain unproven.
+
+Final ZIP SHA-256:
+- amd64: 5686ffcefcd49b21a864da500b31c1f2709166a81bd8cc79906146c057cf07f7
+- arm64: c6501e2f22d0f38538675473c21b0ce8fda81b71ef563b5bddd9cec7ca3e107b
+
+
+## 2026-11-04 — new frontend Astra critique
+
+Read-only dual Astra assessment, explicitly requested by the user: independent
+design review and detector/source assessment. A inspected 1280×800 and 1366×768;
+parent supplied 1440×900 and 1280×800 live fallback because B could not access IAB.
+Module-to-file transitions, chart discovery/provenance, CP-1A timeline links,
+report return and run switching reviewed. No providers, Start run, UI code or
+historical artifacts changed; no native Windows acceptance claimed.
+
+Result: 22/40; three P1 findings (module/output/visual separation, chart row
+qualification loss, laptop reading-space allocation) and two P2 findings
+(timeline orientation/source navigation, run-switch task reset). Symbol-only
+branding and core palette retained. Detector: 81 flags, 18 warnings and 63
+advisories; many schema/cascade false positives, not 81 confirmed defects.
+Second scan recovered truncated output. No overlay/server; all review-created
+tabs closed and viewport overrides reset. Snapshot:
+`.impeccable/critique/2026-11-04T23-14-39Z__apps-issuer-library-web-index-html.md`.
+Fresh screenshots: `artifacts/issuer-library/critique-2026-11-04-*`.
+
+## 2026-11-04 — module workspace integration
+
+Applied the two recommended choices: selecting a module opens its analysis with
+an explicit retained-output selector; this pass integrates existing charts/event
+registers rather than building the remaining mapped figures. Four run views now
+lead to Overview, Modules, Reports and Sources & files. Charts and events attach
+to their own source tables inside the module. Run changes preserve the module and
+per-run output selection. Symbol, palette, fonts, historical runs and reports are
+unchanged. No provider execution.
+
+### Confidence review — changed frontend only, inline
+
+Ranked doubts, root-cause checks and dispositions:
+
+1. **Loss of analytical identity — repaired and verified.** The old adapter
+   dropped non-period columns. Series now retain every qualification column,
+   source headers/row, table line and exact row line. Independent retained TDG
+   assertions check `Calculated; simple subtraction only` and `Non-GAAP issuer
+   metric, PDF 142`, as well as exact values and source order. Units not explicitly
+   available beside a table remain a visible limitation; no units are inferred.
+2. **Stale responses or cross-run selection — verified fine.** Each module/file
+   request owns an AbortController and checks cancellation and connectedness.
+   Adversarial delayed responses cannot replace the current output. Selections
+   are scoped to run + module; missing output shows an empty state. Primary file
+   SHA pins survive matching against unpinned catalogue paths. A designated input
+   remains readable but is not promoted into chartable analytical output.
+3. **Evidence destinations and focus — repaired and verified.** Source rows have
+   individual line locators. Live keyboard Enter on the FY2022 cash-after-capex
+   mark focused source row 253; Back to visual restored that SVG mark. Event links
+   open their individual rows, not the table header or a new raw-file tab.
+4. **Date precision — repaired and verified.** Calendar ordering only recognises
+   explicit single calendar dates; ranges, fiscal periods and combined dates stay
+   separate. A zero named day was found to fall through as month precision;
+   corrected and regression-tested alongside invalid leap days and month bounds.
+   Original date strings and classifications remain unchanged.
+5. **Empty output / untrusted content — repaired and verified.** Empty files get
+   an explicit state; failed loads clear old charts and expose Retry. Text uses
+   textContent, including headings/qualifiers; URL guards restrict reads to the
+   local indexed namespace. Missing, zero, unsafe numbers and malformed tables
+   retain their prior guards. No financial signal is inferred from file counts.
+6. **Laptop geometry and lifecycle — repaired and verified.** Live inspection
+   found inherited column flex direction and obscured chart anchors. Explicit
+   direction and observed toolbar height fix them. Library navigation collapses
+   during module reading; module/output context remains visible. ResizeObserver
+   is disconnected on mount cancellation. Empty-library cleanup uses suspend.
+7. **Test harness assumptions — corrected.** The report helper now waits for the
+   actual hashchange instead of an arbitrary 10ms. SVG scrollIntoView uses the
+   same Element stub as HTML. The New run harness loads the actual frontend
+   dependency order, and closes its window before asserting collected errors.
+   These were harness defects, not browser failures.
+
+By design: generic table charts are presentation views, not accepted model
+figures. The first retained output is a labelled preview when no designated output
+exists; no latest-filename acceptance is inferred. Unknown provenance is explicitly
+Not classified. Native Windows browser acceptance remains unperformed.
+
+### Rewrite tournament — no-argument post-edit mode, inline
+
+Scoped to `createModuleWorkspace` and `analyticalDocument` in web/research.js;
+other changed helpers were reviewed above and excluded by the two-symbol cap.
+GitNexus context was attempted: this worktree is not among its indexed repos.
+The rg impact set is local: mount → createModuleWorkspace → openModule →
+analyticalDocument; app.renderDetails calls mount; source navigation calls
+showSources; empty-state cleanup calls suspend. DOM tests exercise these seams.
+
+Invariants: preserve output identity/pins, per-run selections, abort/disposal,
+exact source text and row mapping, original table order, missing/zero distinction,
+unaccepted-attempt status and all public signatures/side effects.
+
+- **createModuleWorkspace winner: speed/readability cache, applied.** Incumbent
+  repeated alias/file/output filtering on navigation and overview rendering.
+  Speed candidate precomputes retained/output maps. Memory candidate defers those
+  maps, but navigation counts immediately require every module anyway. Readability
+  candidate separates output/controller ownership, adding more state plumbing.
+  Bracket: eager cache beats lazy cache; eager cache beats extra controller split;
+  cached candidate beats incumbent. Justification: one consistent classification
+  per mount, direct lookups, no public contract or request-lifetime change.
+- **analyticalDocument: incumbent holds.** Speed candidate pre-indexes every
+  table's series/events; memory candidate parses each table lazily; readability
+  candidate extracts table rendering with additional callback/result plumbing.
+  In this bounded document renderer, DOM creation dominates and the incumbent
+  keeps row attachment, visual placement and source focus in one auditable loop.
+  No challenger provided a correctness/readability benefit sufficient to justify
+  changing those coupled semantics. No blind/agent assessment is claimed.
+
+Applied cache core (the surrounding function and caller signatures are retained):
+```js
+const retainedByModule = new Map(owners.map(id => {
+  const aliases = VisualCatalogue.find(v => v.module === id)?.aliases.split(',').map(s => s.trim()) || [];
+  return [id, files.filter(file => [id, ...aliases].includes(file.module))];
+}));
+const outputsByModule = new Map([...retainedByModule].map(([id, items]) =>
+  [id, items.filter(file => /\.md$/i.test(file.base) && ['Module handoffs', 'Retained attempts'].includes(file.kind))]));
+const matches = id => retainedByModule.get(id) || [];
+const outputs = id => outputsByModule.get(id) || [];
+```
+
+### Verification and artifacts
+
+- **56/56 frontend tests passed:**
+  `ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom node --test apps/issuer-library/web/app.test.cjs apps/issuer-library/web/workspace-data.test.cjs apps/issuer-library/web/report-renderer.test.cjs apps/issuer-library/web/new-run.test.cjs apps/issuer-library/web/context-embed.test.cjs`.
+- `go -C apps/issuer-library test ./...` passed; changed JS syntax checks passed.
+- Windows amd64/arm64 and macOS arm64 packages rebuilt. Both Windows ZIPs passed
+  integrity checks; archived PE executables match build outputs. Served JS/CSS/help
+  match final source bytes. User SVG matches byte-for-byte.
+- Packaged browser checks: 1280×800, 1366×768, 1440×900; no page-wide overflow.
+  Verified chart qualifications, keyboard evidence/return, calendar/source views,
+  run changes with missing output and restored attempt, report revision 2 → 1 → 2,
+  report Back retaining CP-1A attempt 3, and Sources & files. Console errors/warnings
+  empty. Report revision selection used the native menu after a semantic locator
+  failed; actual revision identity and iframe URL were checked.
+- Impeccable detector: 96 flags, 18 warnings / 78 advisories; 64 font-size schema
+  advisories, 8 colour, 6 radius, 6 cramped-padding, 6 tiny-text, 4 side-tab,
+  1 spacing and 1 dark-glow. Inherited context/help flags, intentional shadow and
+  incomplete token-schema coverage are not 96 confirmed defects. Live laptop
+  inspection governs actual hierarchy/readability; no overlay was injected.
+- Fresh evidence: `artifacts/issuer-library/module-charts-1280.png`,
+  `module-events-1366.png`, `module-analysis-1440.png`.
+- Preview: http://127.0.0.1:53810/ (final packaged executable, no provider keys).
+  Viewport reset; preview tab retained as the user-facing result.
+
+
+## 2026-11-04 — Curated module presentation after Direction C review
+
+Scope: inline review and refinement of `apps/issuer-library/web/{research.js,
+research.css,workspace-data.js,app.js}` and their frontend tests, help and design
+records. No subagents, providers, analytical reruns or historical-run mutations.
+Existing branch work was preserved. Direction C reference was the supplied
+`/Users/ericguei/Downloads/Direction C - Workbench.dc.html`, SHA-256
+`bcd9dec94f44c6a3c8356823619031d3d721d70ede9aafefd53a4dc67d34da85`.
+Its dense reading hierarchy and adjacent evidence informed the refinement;
+reference financial data and conclusions were not copied.
+
+### Result and confidence review
+
+Least-confident points, investigated against code, retained files and browser:
+
+1. **Accidental loss or misclassification of content — verified / repaired.**
+   Presentation selects two leading analytical sections, keeps further analysis
+   expandable and preserves all technical content in lazy Evidence & audit.
+   Range coverage over 61 actual retained outputs found zero unassigned
+   non-heading content lines. Unknown sections remain readable. Code-fence
+   headings no longer create sections. CP-0 and CP-5 retain substantive lineage
+   work in analysis instead of hiding their central purpose in audit.
+2. **Hiding qualifications — verified within presentation scope.** Chart-local
+   units, source qualifiers, exact value strings and period order remain intact;
+   missing table basis is explicitly stated, not inferred from another section.
+   Scope/limitations are directly reachable. Source/entity and normalization
+   records remain in audit; the entire original output remains downloadable.
+   This is section selection, not generated replacement analysis or acceptance.
+3. **Source mapping and stale evidence — repaired and verified.** Inspectors
+   resolve the exact retained table row using original line numbers. Switching
+   measures closes the prior proof; switching output/module discards it. Escape
+   and Back to visual restore the original trigger. The live 1280px check found
+   reflow could push the clicked chart out of view; scrolling the trigger after
+   reflow keeps chart and proof visible together. Unknown-provenance badges were
+   accidentally hidden by a broad last-span rule; that rule now excludes badges.
+   TDG CP-1 line 246 and CP-1A line 100 were verified against their retained rows.
+4. **Navigation and restoration — repaired and verified.** Module navigation
+   defaults to available outputs, with search and an All modules option. `/`
+   targets the module search while reading. Output changes retain selector focus.
+   A session cache restores issuer/module/output after reload, scoped to the
+   workspace; cached output URLs are matched only against admitted catalogue
+   files. Tests reject cross-workspace restoration and an external cached URL.
+   Browser reload retained TDG-002 / CP-1A / attempt 3.
+5. **Async, empty and untrusted input paths — verified.** Existing abort guards,
+   stale-fetch tests, empty-output/error/retry states and textContent/URL guards
+   still pass. Audit renders once and only after opening. Metadata never marks
+   retained attempts as accepted; selected inputs do not become chartable output.
+6. **Laptop usability — verified.** At 1280×800, 1366×768 and 1440×900 there was
+   no page-wide horizontal overflow. Verified chart/proof return, visible unknown
+   badges, qualitative disclosures, event navigation to an initially collapsed
+   section, exact event proof, report revision 2 → 1 → 2, and report Back retaining
+   the same module/output. Console warnings/errors were empty. Viewport reset;
+   the final preview tab is retained.
+
+By design: all original analytical words are preserved; selecting and collapsing
+sections does not rewrite long conclusions. Event date precision remains explicit.
+Chart rendering does not assert analytical approval. Native Windows UI execution
+remains untested on this Mac; Windows artifacts were cross-built and checked.
+
+### Rewrite tournament — no-argument post-edit, inline
+
+Two most material symbols: `WorkspaceData.presentation` (workspace-data.js:78–119)
+and `analyticalDocument` (research.js:146–226). Other changed navigation/inspector
+helpers are covered by confidence review and excluded by the two-symbol cap.
+GitNexus context was attempted: this worktree is not indexed. rg impact set:
+app.renderDetails → ResearchWorkspace.mount → createModuleWorkspace/openModule →
+analyticalDocument → WorkspaceData.presentation; the data and DOM tests cover
+these interfaces. Signatures, returned section/visual targets, original source
+positions, output identity, text safety and fetch cancellation must be preserved.
+
+**Winner: Incumbent holds — WorkspaceData.presentation.**
+- Sorting a bounded section list keeps priority and source-order ties explicit.
+- A linear-selection speed candidate requires more branching to preserve the
+  separate second-panel preference; it did not improve clarity enough to win.
+- A streaming memory candidate loses ancestor/range information; a classifier
+  extraction adds parameter plumbing without simplifying the contract.
+
+**Winner: Snippet B — table grouping in analyticalDocument, applied at 149–150
+and lookup sites.** Bracket: grouped lookup beats repeated lazy filtering;
+grouped lookup beats separate renderer plumbing; grouped lookup beats incumbent.
+- Series/events are classified by original table line once, retaining order.
+- Table rendering uses direct lookups instead of filtering all items per table.
+- Public results, exact rows, disclosure targets and inspection callbacks remain
+  unchanged; focused and complete frontend checks passed after application.
+
+Final winning core (surrounding function and signatures retained):
+```js
+const groupByTable = (items, key) => {
+  const groups = new Map();
+  for (const item of items) {
+    if (!groups.has(item[key])) groups.set(item[key], []);
+    groups.get(item[key]).push(item);
+  }
+  return groups;
+};
+const seriesByTable = groupByTable(series, 'line');
+const eventsByTable = groupByTable(events, 'tableLine');
+// In the table-rendering loop:
+const eligible = visuals ? (seriesByTable.get(table.line) || []) : [];
+const register = visuals ? (eventsByTable.get(table.line) || []) : [];
+```
+
+No blind or independent-agent judgment is claimed. Actual source and callers were
+re-read, backups retained in /tmp, and final syntax/DOM/data checks verified the
+winning implementation. The concrete invariant case retained FY2024/FY2023/FY2022
+values 7,940 / 6,585 / 5,429 and source row 246 while plotting oldest to newest.
+
+### Checks and shipped local artifacts
+
+- **66/66 frontend tests passed:**
+  `ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom node --test apps/issuer-library/web/app.test.cjs apps/issuer-library/web/workspace-data.test.cjs apps/issuer-library/web/report-renderer.test.cjs apps/issuer-library/web/new-run.test.cjs apps/issuer-library/web/context-embed.test.cjs`.
+- `python3 apps/issuer-library/packaging/build.py` passed, including Go tests.
+  Changed JS syntax checks and `git diff --check` passed.
+- Windows amd64/arm64 ZIP integrity and archived executable identity checked;
+  both executables have PE headers. Packaged preview serves final JS/CSS/help
+  bytes. Symbol equals supplied STT.D.svg byte-for-byte.
+- Final executable hashes: Windows amd64
+  `dcdf825652e25cbbdea58395d9b24e0f8ab222716327a6bb3c31d27bea659332`;
+  Windows arm64
+  `7cc8655879309cd052cd24d89fb9578faf108dd60de17c27446490ee7a54eb5e`;
+  macOS arm64
+  `f2958227dc04b3b638b5111c0d5f07554043493fa98b1c8c1714d5bbe056c2b5`.
+- Screenshots: `artifacts/issuer-library/curated-analysis-1366.png`,
+  `curated-evidence-1280.png`, `curated-events-1440.png`.
+- Preview: http://127.0.0.1:53810/ — final packaged executable, provider keys unset.
+- The single pre-refinement Impeccable detector run reported 96 flags (18 warning,
+  78 advisory); these include inherited/incomplete-token-schema flags, not 96
+  verified defects. Manual laptop inspection determined confirmed findings;
+  its temporary detector report was removed. No separate review files were added.
+
+
+## 2026-11-05 — Impeccable clarify: interface copy
+
+Applied the clarify playbook to the existing library, module reader and New run
+flow, reusing the session's loaded product/design context. Existing Impeccable
+schema drift was not repaired. No subagents or provider execution. Symbol,
+colours, analytical text, units, qualifications and internal file taxonomy stayed
+unchanged. New visible category labels map to the existing internal values.
+
+Copy now names actions (Filter runs, View source, Open source file, Back to
+analysis), distinguishes Primary output from Saved output, explains empty/error
+recovery and retains Not classified. Reports & revisions replaces inconsistent
+section naming; superseded revisions are no longer generically called failed.
+New run distinguishes offline validation from paid execution, explains the initial
+minimum budget without presenting it as a total-cost estimate, and gives a recent
+history empty state. Help/README and a short DESIGN.md glossary match the labels.
+
+Confidence review — least-confident points, investigated and resolved:
+1. **Meaning and acceptance:** older saved attempts can coexist with a designated
+   primary output. Corrected the history copy to describe only the selected file,
+   then verified both cases in DOM tests and the browser. Analytical acceptance
+   remains explicitly unverified; no claim of failed analysis follows merely from
+   a superseded revision.
+2. **Empty-state actionability:** a zero-result filter left Back to selected run
+   active although no run was selected. Disabled it until results return;
+   verified disabled/re-enabled states and Reset filters recovery.
+3. **File categories and evidence:** display-only labels preserve taxonomy values,
+   filtering, source-row line numbers and local URL guards. Existing exact-value,
+   unknown-provenance, stale-response and report-navigation tests still pass.
+4. **Cost and history claims:** traced the reservation minimum to bridge.py's
+   budget-floor check. Start and approval controls are untouched. jobs.go excludes
+   reviewed drafts from recent history, so the final empty text says No recent
+   runs to show, not that no run has ever been prepared. This last semantic
+   correction received a focused seven-test rerun and a required package rebuild;
+   it did not trigger another visual-polish round.
+5. **Copy fit and accessibility:** checked 1366×768 and 1280×800 laptop views,
+   390×844 narrow view and 640×450 reflow (the CSS viewport equivalent of a
+   1280×900 view at 200%; native browser zoom itself was not exercised). No
+   page-wide overflow. Chart labels, source inspector and empty-state actions
+   remained readable; accessible source/measure names match visible wording.
+   Browser console warnings/errors empty. Viewport reset and preview tab retained.
+
+Rewrite tournament: skipped as trivial copy/label changes plus short empty-state
+presentation updates; no nontrivial function/algorithm rewrite in this pass.
+Confidence review was still performed. Backups live in /tmp/issuer-clarify-before.
+
+Verification:
+- 66/66 frontend tests passed with
+  `ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom node --test apps/issuer-library/web/app.test.cjs apps/issuer-library/web/workspace-data.test.cjs apps/issuer-library/web/report-renderer.test.cjs apps/issuer-library/web/new-run.test.cjs apps/issuer-library/web/context-embed.test.cjs`.
+- After the final recent-history wording correction, `node --test
+  apps/issuer-library/web/new-run.test.cjs` with the same JSDOM environment passed
+  7/7. No paid calls; fixtures are synthetic DOM responses.
+- JS syntax and git diff whitespace checks passed. Packaging Go tests passed.
+  Both Windows ZIPs passed integrity and executable identity checks. Five served
+  files match final source bytes. Native Windows UI execution remains untested.
+- Final executable SHA-256: amd64
+  `5247e44494fac39c699dca2f1d974a75587a85ee32cab59e0dd22e98c67ab918`;
+  arm64 `f87a8d6b9fa41e2346e9f13c7411448350eafda0caa53d23beb9aaed8f89f530`.
+- Screenshot: `artifacts/issuer-library/clarified-module-1366.png`.
+- Updated packaged preview: http://127.0.0.1:53810/.
+
+## 2026-11-05 — Information architecture proposal
+
+User confirmed complete findings/data in designed analyst views, with raw handoffs
+available in audit. Created one requested architecture document at
+`apps/issuer-library/INFORMATION-ARCHITECTURE.md`; the live frontend is unchanged.
+Compared the retained Direction C reference with the current module screenshot,
+the 91-item catalogue, and TDG-002 CP-1/CP-1A/CP-2 instruction/output structures.
+The map check found each of 24 canonical entries plus delivery exactly once,
+all 91 visual IDs assigned, and no unknown IDs. `git diff --check` passed.
+This is planning, not analytical acceptance or implementation. No code, provider
+execution, historical source changes or subagents; code-review skills/tests are
+not triggered by this documentation-only step.
+# CP-1 / CP-1A / CP-2 screen designs — 5 November 2026
+
+Scope: separate clickable HTML prototype in `artifacts/issuer-library/screen-designs/`,
+authored in `apps/issuer-library/designs/`. The working application, launcher,
+provider execution and historical run directories were not changed by this task.
+Pinned source: TDG-002 CP-1 attempt 2, CP-1A attempt 3, CP-2 attempt 2.
+
+## Confidence review
+
+Least confident about, ranked, investigated inline under the no-subagents rule:
+
+1. **Omitted or duplicated content.** A prefix match for T4.1 also matched T4.10,
+   T4.11 and later tables. Confirmed with the all-sections parity check; corrected
+   numeric heading boundaries. A fenced equity transcription was initially treated
+   as prose; converted it to a full table using the handoff's stated column order.
+   All nonblank body lines now retain exact row/paragraph parity: CP-1 315,
+   CP-1A 87, CP-2 91. Every retained block has one named home; custom leading views
+   preserve their underlying exact fields. Unknown substantive sections have an
+   Additional findings fallback. Source copies match their retained originals.
+2. **Financial and qualitative semantics.** Verified FY2023 operating income is
+   2,923, correcting the generated composition's erroneous illustrative text.
+   No chart reads that image. Negative amounts, source dashes, source order,
+   share families, calculated versus reported qualifications and historical scope
+   remain. CP-2 grades are exactly Average / Not Assessable / Not Assessable /
+   Not Assessable / Average / Weak. Only the supplied Weak grade receives adverse
+   colour. No scores or probabilities are invented. Timeline retains all nine
+   events: five calendar entries and four fiscal/combined entries; October has
+   month precision only. Inspector includes retained context and unknown provenance
+   remains Not classified. Verified by independent fixed-value assertions and UI.
+3. **Navigation and return.** Corrected catalogue labels against the approved IA;
+   added persistent quick access to all three screens. Confirmed and fixed a skip
+   link that could reset the route. Topic search opens the matching section.
+   Narrow inspection initially inherited the source's window scroll and hid the
+   Back control above the viewport. Reproduced in browser; corrected inspection
+   scroll, focus and return position. Final observed Back button top was 15px;
+   closing restored the FY2024 source trigger and prior scroll. Module/section
+   navigation, deep links, invalid route fallback and Escape passed.
+4. **Browser execution and escaping.** A renderer named `performance` collided
+   with the browser global in JSDOM; renamed `performanceView`. HTML is escaped
+   before inline formatting; source assets use relative local paths; data has no
+   fetch or remote runtime dependency. Seven focused checks pass. Parser rejects
+   malformed table rows, unclosed equity data and body-before-heading; Unicode
+   retention passes. Builder reads/writes UTF-8 explicitly for Windows portability.
+5. **Layout and device limits.** Browser screenshots at 1366×768, 1280×800 and
+   390×844 show no page-wide horizontal overflow. Evidence remains beside analysis
+   at laptop widths and has a separate reading view on narrow widths. The first
+   narrow analysis capture was malformed during viewport transition and was
+   replaced with a valid capture; the narrow-scroll bug required a focused final
+   confirmation. Native Windows and browser file:// opening remain unverified:
+   the built-in browser rejected the file protocol. No workaround was attempted.
+   All browser verification used the already-running localhost prototype.
+
+Fixed: section prefix duplication, equity-table presentation, catalogue names,
+skip-link route reset, global name collision, narrow evidence focus/scroll.
+Verified fine: source/body parity, exact values and dates, producer grades, local
+assets, escaped source text, module/section/inspector interactions.
+By design: one pinned output per module, other workspace destinations are context
+only, source PDF viewer and production app integration are outside these designs.
+Open: native Windows/direct-file smoke test; production adapter generalisation.
+
+## Rewrite tournament — post-edit, inline
+
+Targets: `parse_source` (build.py:16–76) and `renderRoute` (screen.js:171–195).
+Only these two material symbols were tournamented; view templates and helper
+renderers were covered by parity/interaction tests. GitNexus has no index for
+this repository (it returned only other repositories); `rg` established the
+impact set. `parse_source` is called only by the fixture builder and verification;
+`renderRoute` is called at startup, by hashchange and by focused tests.
+
+Invariants: exact source strings/locators, fail closed for malformed fixture rows,
+all substantive content addressable, module/section pinning, no new analysis,
+preserved source focus and narrow scroll, unknown provenance, no network requests.
+
+**Winner: Incumbent holds for both.**
+
+- Speed challenger: regex-wide parsing / cached rendered pages would save negligible
+  work on three fixtures but makes source line boundaries or detached focus targets
+  harder to preserve. Disqualified when semantics change; no verified benefit.
+- Memory challenger: streaming parser / incremental DOM updates add state and
+  duplicate rendering paths to a small fixture. Exact source copies are retained
+  intentionally; no material allocation problem was measured.
+- Readability challenger: splitting each table and route branch into handlers adds
+  interfaces without reducing the state transitions. Current single-pass parser and
+  explicit changed-view versus evidence-only route preserve the simplest design.
+
+No rewrite applied. Final code is the reviewed functions at the paths/lines above;
+no parallel draft files were retained. Caller contracts were rechecked with the
+builder, source parity checks, syntax validation and seven focused tests.
+
+Commands/results:
+
+```text
+python3 apps/issuer-library/designs/build.py                         PASS, 3 modules
+node --check apps/issuer-library/designs/screen.js                   PASS
+ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom \
+  node --test apps/issuer-library/designs/design.test.cjs            7/7 PASS
+Parser adversarial/Unicode probes                                  4/4 PASS
+Independent source row/paragraph parity                            493 body lines
+git diff --check                                                   PASS
+```
+
+## Impeccable finish review — inline, prototype scope
+
+Disposition: **fix** for production promotion; the requested three screen designs
+are delivered for review. The full comp-to-production gate was not completed and
+must not be represented as a shipping production frontend. The user explicitly
+requested screen designs at this stage. This inline review substitutes for the
+skill's agents because the project prohibits subagents.
+
+- Persistence: approved IA contract and prototype extension to DESIGN.md recorded.
+  Build-phase state records `finish: fix`; spec/hero production reproduction gates
+  remain open. No production release verdict is claimed.
+- Fidelity: symbol/type/palette/ground/persistent module navigation/adjacent
+  inspector match the pinned hybrid. Data-correct text, compact laptop header,
+  complete section selector, three-screen quick links and narrow reflow are
+  deliberate adaptations for source truth and accessibility. Type uses local
+  Red Hat fonts; material is one lifted white surface with internal rules; ground
+  is #EEF0F5. No raster imitation or invented branding ships.
+- Ceiling: designed financial, timeline and qualitative presentations are distinct.
+  Exact tables and full findings remain reachable. Production output/revision
+  selection, all-module adapters and real PDF inspection are future integration.
+- Material fixes for promotion: implement approved designs in the working shell,
+  prove adapters on further outputs and run Windows/revision/report navigation
+  checks; complete the production reproduction/review gates. These are not hidden
+  claims of functionality in the screen-design artifact.
+- Keep: complete content through named module sections, adjacent evidence at
+  laptop sizes, explicit date precision and units, symbol-only branding, and
+  colour tied to supplied evidence states.
+
+Captures: `cp1-1366.png`, `cp1a-1366.png`, `cp2-1366.png`, `cp2-1280.png`,
+`mobile-analysis.png`, `mobile-inspector.png` in the artifact folder. Composition
+reference is generated, not source evidence, and is not bundled into the UI.
+
+
+## 2026-11-05 — Complete module/workspace screen designs (designs only)
+
+User explicitly chose “Complete the screen designs first.” Extended the separate
+Direction C/current-layout hybrid in `apps/issuer-library/designs/`, preserving
+symbol-only branding. No production integration, provider execution or historical
+run mutation. All 22 analytical module designs are reachable: 19 use retained
+outputs (including the bounded CP-3 / CP-3C consumers); CP-L10, CP-3D and CP-8 have
+honest missing-evidence states. Library, Overview, Calendar, Reports, Evidence,
+CP-MODEL publication state, CP-OS run record and Help are interactive. The 91-view
+visualisation specification remains a plan, not a claim of 91 populated figures.
+
+Confidence review, inline as required (no subagents):
+
+1. Content loss or duplicate presentation — independently compared all 2,546
+   substantive raw body lines across 19 originals with parsed blocks; every
+   block maps to exactly one section and every exact cell/text appears in its
+   rendered view. Fixed paragraph whitespace preservation and removed repeated
+   tables only when the designed view contains every field. Original handoff
+   SHA-256 values match. Verdict: verified.
+2. Numeric meaning — tested missing versus zero, signed/parenthesized values,
+   percentages, exact precision, FY2027 scenario endpoints, a six-component cash
+   bridge, and total recovery including deficiencies. Added the explicit 4,173
+   issuer EBITDA endpoint. Peer percentage selections exclude USD rows. Timeline
+   base-date label was at the wrong visual position; aligned it to the actual
+   September 2024 point (between 33% and 34% of its dated axis). Verdict: fixed.
+3. Case boundaries and malformed links — TDG/Ford/Frontier headings, source
+   inventories and dates stay separate; cross-module evidence is allowed only
+   from Calendar. A reproduced `#toString/x` crash exposed inherited object keys;
+   patched registry lookup with Object.hasOwn and tested constructor/__proto__.
+   Verdict: fixed, with regression coverage.
+4. Provenance — a reproduced CP-6 decision verdict was being classified as
+   evidence type. Insufficient Information now requires a provenance/classification
+   field; otherwise Not classified remains beside the source link. Verdict: fixed.
+5. Navigation and focus — fixed chart-selector focus loss after replacement and
+   restored analytical-scroll position as well as focus when closing evidence.
+   Tests cover the source→inspector→Escape cycle, timeline owner, section/topic
+   search, invalid links, issuer switches and report build routing. Verdict: fixed.
+6. Reports, offline dependencies and input safety — all six original report
+   downloads are byte-identical; only separately named previews get the symbol
+   adapter. All assets/data are local, rich text is escaped, report frames permit
+   scripts but not same-origin access/top navigation. No remote runtime dependency
+   or provider call is introduced. Native file/Windows execution remains untested.
+7. Laptop layout — browser walkthroughs at 1366px and 1280px covered 22 modules and
+   two tools with no page/content horizontal overflow. Inspected chart, hedge,
+   committee and adjacent-inspector compositions. All six report builds loaded at
+   1280×720; switching and Return to library worked. No browser error logs observed.
+   Current screenshots have decoded JPEG format and dimensions in the provenance
+   manifest; old prototype captures remain on disk but are excluded from the ZIP.
+
+Rewrite tournament, no-argument post-edit mode, inline:
+
+- Targets: `screen.js:164–173` parseRoute and `views.js:52–64` comparisonChart.
+  The two-symbol cap excludes the other builder/layout/template helpers from this
+  tournament pass; they received the confidence/content review above. GitNexus is
+  not indexed for this repository; rg resolved callers: renderRoute→parseRoute;
+  galleryVisual and the metric-change handler→comparisonChart. Signatures, route
+  fallback, source ownership, exact chart values, missing-data semantics and HTML
+  output are the invariants.
+- Three executable challengers per target: speed (explicit loops), memory
+  (reduced allocations), readability (guard clauses / point helper). Route bracket:
+  speed beats slicing/memory; readability beats speed; incumbent beats readability.
+  Chart bracket: reduction/memory beats loops; memory beats helper/readability;
+  incumbent beats memory. All six alternatives were semantically equivalent on
+  237 route cases and 19 chart selections. No runtime pressure justifies extra
+  mutable loops, slicing or helpers for these bounded fixtures.
+- **Winner: Incumbent holds.** No replacement of either reviewed function.
+- **Justification:**
+  - Existing expressions keep module/section/evidence checks and point construction together.
+  - Every candidate preserved observed output; none improved the dominant rendering cost.
+  - Keeping the direct implementations avoids extra helpers and repeated return shapes.
+- **Verification:** `node /tmp/issuer-design-tournament.cjs` passed all variant
+  comparisons; `node --check apps/issuer-library/designs/screen.js` and the matching
+  views.js command passed. Caller contracts rechecked by the focused suite:
+  `ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom node --test apps/issuer-library/designs/design.test.cjs` — 14/14 pass.
+
+<details><summary>Final code — tournament incumbents</summary>
+
+```js
+function parseRoute() {
+  const [path,query='']=location.hash.slice(1).split('?');
+  const [requestedModule,requestedSection]=path.split('/');
+  const module=Object.hasOwn(modules,requestedModule)?requestedModule:'CP-1';
+  const section=modules[module].sections.some(s=>s[0]===requestedSection)?requestedSection:modules[module].first;
+  const e=new URLSearchParams(query).get('e');
+  const key=e&&(e.includes(':')?e:`${module}:${e}`);
+  const permitted=key&&(key.startsWith(module+':')||module==='W-Calendar');
+  return {module,section,evidence:permitted&&evidence.has(key)?key:null};
+}
+function comparisonChart(module,v,selection=0) {
+  const table=fixtureTable(module,v.table),selected=table.rows[v.rows?.[selection]??0];
+  const selectable=['paired','peers'].includes(v.kind)&&module!=='CP-4C'&&module!=='CP-2A';
+  const rows=selectable?[selected]:(v.rows||table.rows.map((_,i)=>i)).map(i=>table.rows[i]);
+  const points=v.kind==='peers'?v.columns.map(c=>({label:table.headers[c],value:selected.cells[c],row:selected,series:0})):rows.flatMap(row=>(v.columns||[v.column]).map((c,i)=>({label:plain(row.cells[0]),series:i,value:row.cells[c],row,column:c})));
+  const max=Math.max(1,...points.map(p=>Math.abs(chartNumber(p.value)??0)));
+  const hasNegative=points.some(p=>(chartNumber(p.value)??0)<0);
+  const legend=v.columns&&v.kind!=='peers'?`<div class="chart-legend">${v.columns.map((c,i)=>`<span><i class="series-${i}"></i>${esc(table.headers[c])}</span>`).join('')}</div>`:'';
+  return `${chartIntro(v)}${selectable?`<label class="metric-control">Measure <select id="chart-metric">${v.rows.map((idx,i)=>`<option value="${i}" ${i===selection?'selected':''}>${esc(plain(table.rows[idx].cells[0]))}</option>`).join('')}</select></label>`:''}${legend}<div class="horizontal-chart ${hasNegative?'diverging':''}">${points.map(p=>{
+    const n=chartNumber(p.value),width=n===null?0:Math.abs(n)/max*100;
+    return `<button class="chart-row" data-evidence="${module}:${p.row.line}"><span class="chart-label">${esc(p.label)}${v.columns&&v.kind!=='peers'?`<small>${esc(table.headers[p.column])}</small>`:''}</span><span class="track ${n===null?'missing':''}">${hasNegative?`<span class="zero-rule"></span><i class="series-${p.series} ${n<0?'negative':''}" style="left:${n<0?50-width/2:50}%;width:${width/2}%"></i>`:`<i class="series-${p.series}" style="width:${width}%"></i>`}</span><strong>${n===null?'Not available':esc(p.value)}</strong></button>`;
+  }).join('')}</div><p class="matrix-note">Select a plotted row to inspect its exact source fields. Missing values have no bar.</p>`;
+}
+```
+</details>
+
+Delivery: `artifacts/issuer-library/module-screen-designs.zip`, 75 files (~5.4 MB),
+ZIP CRC check passes. Entry is `screen-designs/index.html`; localhost preview is
+`http://127.0.0.1:53812/`. DESIGN.md and bundled README describe the actual scope.
+Screens retain all analytical restrictions; this is not an analytical acceptance
+review, a Windows launcher test, or a claim of a completed single-issuer pathway.
+
+### 2026-11-05 — adversarial design review (no implementation changes)
+
+Target: `apps/issuer-library/designs/index.html`, slug
+`apps-issuer-library-designs-index-html`, preview port 53812. Applied Impeccable
+critique/audit/Operate guidance and a11y-audit. Single-context review as required by
+this project's prohibition on subagents: visual Assessment A recorded before
+detector Assessment B. Design heuristic scores (0–4, higher is better):
+status 3; real-world match 2; control 2; consistency 2; prevention 3;
+recognition 2; efficiency 2; minimalism 2; recovery 3; help 3 — **24/40**.
+
+Confirmed priorities:
+
+- P1, case continuity: Ford CP-2H → Reports opens TransDigm; Calendar is also
+  case-hardcoded. The gallery labels its historical cases, but does not demonstrate
+  the approved pinned-issuer/run workspace journey. Preserve selected context and
+  show a contextual unavailable state where its report or calendar is absent.
+- P1, narrative evidence: CP-4/s75 renders three prose blocks and 17 forced line
+  breaks with zero evidence actions. Add claim/section evidence access and remove
+  source wrapping from designed prose; retain exact text and audit downloads.
+- P1, discovery/focus: CP-2E has 21 flat section options; CP-4 has duplicate Gaps
+  labels; CP-2F alias search has no result. Next section and section selection
+  leave keyboard focus on BODY. Use a grouped, persistent outline and restore focus.
+- P2, laptop reading area: at 1280×720 content starts at y279 and ends at y702;
+  the CP-2G chart extends to y776 and its readout starts at y794. Report iframe
+  height is 402px with nested report chrome. Consolidate navigation/status chrome.
+- P2, visual contract: CP-1B colours reported Current values amber although the
+  key reserves amber for conditional/attention. CP-2G plotted points are passive,
+  unlike hedge and bar rows. Use semantic colour roles and consistent point-level
+  keyboard/pointer evidence access. Hedge axis/date text measures 9px.
+
+Preserve symbol-only branding, Red Hat fonts, restrained depth, explicit missing
+data, module-owned visuals and the adjacent inspector. At 1366×768 the hedge
+inspector opened by keyboard; Escape restored focus to its originating hedge row.
+No page horizontal overflow in this check. These are design findings, not a claim
+of analytical errors, complete WCAG conformance, or Windows execution testing.
+
+Deterministic scans, each run once: Impeccable 78 findings (11 warnings and 67
+advisories); small text corroborated, font parsing/flush-tab padding and many
+token advisories do not establish user-facing defects. a11y scanner 18 findings
+(17 serious, 1 moderate), all unsupported as reported after source/DOM triage:
+decorative image alt, actual #analysis skip target, implicit status live region,
+and CSS files treated as documents. The manually reproduced focus defect remains.
+Screenshots: `artifacts/issuer-library/screen-designs/adversarial-forward-1280.jpg`
+and `adversarial-prose-1280.jpg`. No implementation or bundle changes. No separate
+critique snapshot/trend, respecting the single verification record requirement.
+
+### 2026-11-05 — five design fixes, complete screen designs only
+
+Scope: `apps/issuer-library/designs/`, its generated HTML bundle and design
+context documentation. Production app, launchers, analytical execution and
+historical runs were not changed. Symbol-only branding retained byte-for-byte.
+
+Implemented: pinned issuer/run in deep links and workspace tabs; explicit
+unavailable destinations and case switching; persistent grouped section outline
+above the module catalogue with aliases, unique labels and remembered state;
+source inspection for every narrative block and plotted mark; compact laptop
+chrome and a single report identity shell; comparison colours separated from
+labelled conditional signals. All retained content and original downloads remain.
+The six report builds stay a separate delivery collection: no inferred run link
+or verified revision order. No current issuer analysis or new provider run.
+
+Confidence review — doubts ranked and traced:
+
+1. Case leakage through workspace links or evidence URLs — followed parseRoute,
+   routeHref, navigationSections and renderRoute into every destination. Ford
+   Reports/Calendar stay Ford and show absence; TDG-002 events and TDG-003 hedges
+   stay separate; cross-case evidence is rejected. Deep-link and context tests pass.
+2. Malformed legacy evidence routes — adversarial `W-Evidence/constructor`
+   reproduced a TypeError because a plain-object legacy lookup inherited Object
+   members. Added an own-property guard. `constructor`, `__proto__`, `toString`
+   regression passes; explicit context and aliases retain their contracts.
+3. Focus after rebuilding navigation — browser proved next-section/outline focus
+   and inspector Escape return. Final source review also found hidden targets when
+   compact navigation closes or report/library chrome disappears. Route focus now
+   targets the visible section title, report selector or main region; targeted DOM
+   regression covers all three. This final focus guard received DOM verification;
+   the preceding browser visual captures remain visually unchanged.
+4. Coverage and source fidelity — complete-content test still verifies every
+   retained block is reachable once; narrative newlines become spaces only in
+   presentation. All 19 handoff hashes and six original report hashes match.
+   Unknown provenance remains Not classified, never inferred from a verdict.
+5. Chart values and evidence — retained strings, periods, quantity units, negatives
+   and missing/zero distinctions pass the existing independent expected-value
+   checks. Nine scenario points and all bridge marks expose source actions. Browser
+   Enter on Reference/FY2026 opens its exact row; Escape returns to that point.
+6. Report adaptation — all six embedded records declare Assessment pending;
+   folding that placeholder with delivery limitations is scoped to these copies.
+   The call outline action expands the disclosure. All six builds switched in the
+   browser; citation inspection and Return to library worked. Originals untouched.
+7. Laptop density and responsive state — inspected 1280×720, 1366×768 and a 640px
+   compact view. Final 1280 content starts y217 (previously y279), whole path plot
+   ends y624 with axes/years visible, and report iframe height is 518px (was 402px).
+   Active section outline is immediately available above the catalogue. No page
+   horizontal overflow; report navigator scrollWidth equals clientWidth. Hedge
+   labels are 11px. No browser console errors observed. Functional text floor 11px.
+8. Offline/package boundary — local assets only, source/generated files agree,
+   original symbol agrees, ZIP CRC passes. Native Windows and direct file-browser
+   execution were not run in this screen-design review; these are not app releases.
+
+Fixed: legacy-route prototype lookup, hidden focus destinations, outline below
+catalogue, report navigation crowding, and all five accepted design findings.
+Verified fine: complete data coverage, case boundaries, values and original bytes.
+By design: absent case outputs and unlinked report collection remain explicit.
+Open: production integration and native Windows execution, deferred by the user.
+
+Rewrite tournament — no-argument post-edit mode, inline (no subagents):
+
+- Two decision functions selected: `parseRoute` and `sectionGroups`. Remaining
+  rendering/template helpers, report adaptation and build copying received the
+  confidence review; excluded from this tournament by the two-symbol cap.
+- GitNexus context returned repository not indexed. rg impact set: renderRoute
+  calls parseRoute; renderNavigator → outlineMarkup calls sectionGroups. Both are
+  design-only browser globals; focused DOM suite is the caller contract oracle.
+- Invariants: exact route shape; explicit case preference; safe aliases/defaults;
+  no cross-case evidence; complete section membership exactly once; group insertion
+  order, labels and source section identities preserved. No analytical calculation
+  or original artifact mutation.
+- Three executable challengers each: parser speed (explicit section loops), memory
+  (substring path extraction), readability (guarded context branches); grouping
+  speed (indexed iteration/single bucket lookup), memory (array buckets), readability
+  (named label classifier). All six matched their incumbent on **11,540 route cases
+  and 30 module/workspace groupings**.
+- Parser bracket: speed beats slicing/memory; readability beats speed; readability
+  beats incumbent. Grouping bracket: speed beats array/memory; speed beats helper/
+  readability; incumbent beats speed. No performance improvement was claimed.
+
+**Winner:** readability challenger replaces parseRoute; sectionGroups incumbent holds.
+
+Justification:
+- Explicit context branches make the legacy-own-property guard and case precedence
+  reviewable without changing signatures or return values.
+- Ordered Map buckets retain all original section references and group order.
+- Extra grouping helpers/loops do not improve these bounded fixtures enough to
+  justify replacing the direct implementation.
+
+Final code — tournament winners:
+
+```js
+function parseRoute() {
+  const [path,query='']=location.hash.slice(1).split('?');
+  const [requestedModule,requestedSection]=path.split('/');
+  const resolved=Object.hasOwn(aliases,requestedModule)?aliases[requestedModule]:requestedModule;
+  const module=Object.hasOwn(modules,resolved)?resolved:'CP-1';
+  const params=new URLSearchParams(query),legacyCases={ford:'ford-otosan-2024',frontier:'frontier-2020',tdg:'tdg-002'};
+  let fallback=contextKey(data[module]);
+  if(!fallback&&module==='W-Reports')fallback='tdg-deliveries';
+  if(!fallback&&module==='W-Evidence'&&Object.hasOwn(legacyCases,requestedSection))fallback=legacyCases[requestedSection];
+  if(!fallback&&module==='W-Calendar')fallback=requestedSection==='hedges'?'tdg-003':'tdg-002';
+  const requestedContext=params.get('c');
+  const context=Object.hasOwn(contexts,requestedContext)?requestedContext:fallback||current?.context||'tdg-002';
+  const sections=navigationSections(module,context);
+  const selected=sections.find(s=>s[0]===requestedSection)||sections.find(s=>s[0]===modules[module].first)||sections[0];
+  const e=params.get('e'),key=e&&(e.includes(':')?e:module+':'+e),item=evidence.get(key);
+  const permitted=item&&contextKey(data[item.module])===context&&(item.module===module||module==='W-Calendar');
+  return {module,section:selected[0],context,evidence:permitted?key:null};
+}
+function sectionGroups(module) {
+  const result=new Map();
+  for(const section of modules[module].sections) {
+    const [id,label,prefixes]=section,heading=prefixes.join(' ');
+    let group='Findings & analysis';
+    if(id==='audit'||/^(Sources|Scope &|Evidence &|Definitions & periods|Source register)/.test(label))group='Evidence & audit';
+    else if(/gap|limit|monitor|follow-up|readiness/i.test(label))group='Limits & monitoring';
+    else if(module==='CP-2E')group=heading.includes('T2G.')?'ESG & credit effects':heading.includes('T2F.')?'Rates, FX & hedges':'Credit conclusion';
+    else if(module==='CP-1D')group=heading.includes('T1E.')?'Debt & obligations':'Earnings quality';
+    else if(module==='CP-5')group=heading.includes('T5B.')?'Evidence lineage':'Validation & remediation';
+    if(!result.has(group))result.set(group,[]);
+    result.get(group).push(section);
+  }
+  return [...result];
+}
+```
+
+Verification: `node /tmp/issuer-design-five-fixes/tournament.cjs` reported all six
+challengers equivalent; the readability winner was applied and callers rechecked.
+`ISSUER_LIBRARY_JSDOM=/tmp/issuer-library-dom-check/node_modules/jsdom node --test
+apps/issuer-library/designs/design.test.cjs` — **22/22 pass**. Node syntax checks for
+screen.js, views.js and report-preview.js passed. Single Impeccable detector pass:
+93 flags (7 warnings, 86 advisories); source-only stale small-text declarations were
+raised to the 11px floor, font parsing/flush tab padding were false positives, and
+remaining token advisories were triaged against the approved dense design language.
+No second detector loop or independent-agent claim.
+
+Delivery: `artifacts/issuer-library/module-screen-designs.zip` — 72 files,
+5,238,864 bytes, CRC verified. Preview `http://127.0.0.1:53812/` remains available.
+Four fresh JPEGs (`refined-outline-1280`, `refined-evidence-1366`,
+`refined-reports-1280`, `refined-library-1366`) are identified in the capture manifest;
+older screenshots are retained on disk but excluded from this ZIP. Viewport override
+reset; preview tab retained as a deliverable. Temporary review candidates removed.
+
+### 2026-11-05 — repeated Impeccable critique, outline persistence and library filters
+
+Scope: screen-design gallery only. All five accepted fixes rechecked against the
+Direction C/current-layout hybrid and Deploy VII language, with exact symbol-only
+branding. No production integration, provider call or historical artifact edits.
+Single-context review required by AGENTS.md; no subagents or independent review
+claim. Assessment A was completed before the one detector pass.
+
+Design assessment: authored for issuer research through grouped analytical
+sections, dated case boundaries, domain-specific graphics and exact evidence.
+The two priority findings were P1 catalogue state overwriting the persistent
+outline and P2 unfiltered library discovery burying Ford/Frontier below TDG runs.
+Both are repaired. Remaining minor concern: long subsection labels remain dense;
+the historical gallery cannot prove production run/revision relationships.
+
+Five-fix verification:
+- Issuer context: Ford → unavailable Reports → Modules remains Ford and the
+  same dated run. Separate TDG report collection is explicitly labelled.
+- Grouped outline: the round trip now preserves the deliberately closed
+  catalogue; outline y330.5 at 1280×720, versus the reproduced y922 regression.
+  CP-2E groups retain rates/FX, ESG, limits, conclusion and evidence distinctions.
+- Evidence: CP-4 narrative line 77 and CP-2G Reference/FY2026 point open exact
+  retained content. Ford line 35 also opens and Escape returns to View source.
+  Unknown provenance stays Not classified beside the source action.
+- Laptop/report navigation: actual DOM sizes verified at 1280×720 and 1366×768.
+  All six report builds switch at 1366; build 1 → 6 and C65 inspection rechecked
+  at 1280. Preview and original link agree. Return to library restores filtering.
+  At 1280, report iframe is 517.86px high; child scrollWidth/clientWidth both
+  1200px. No horizontal overflow or console errors in checked paths. CP-2G plot
+  fits within its reading panel with axis/years visible.
+- Colour signals: quarterly prior/current remain blue/navy comparisons;
+  conditional downside remains labelled amber with a distinct dash pattern.
+  Missing values and analytical verdicts never become provenance classifications.
+
+Library now combines case-insensitive issuer/run/year text, sector, available
+content and contained-module filters. Counts distinguish 3 issuers, 7 runs and
+1 report collection. Empty results explain recovery; Clear filters resets all
+criteria and focuses search. Filters persist on return within the same page
+session. No unsupported credit-metric/completeness filters were invented.
+
+Heuristic review (0–4, all applicable): status 3; real-world match 3; user control
+3; consistency 3; error prevention 4; recognition 3; efficiency 3; minimalism 3;
+error recovery 3; help 3. **31/40, Good**; a qualitative review score, not a user
+study. The analyst can move finding → source → finding; keyboard users retain
+focus; first-time users can find Ford without traversing TDG's runs. Five main
+workspace destinations and long outlines remain the main cognitive load; named
+groups and the optional catalogue contain it without hiding module content.
+
+Confidence review — ranked doubts, investigation and disposition:
+1. Programmatic disclosure state contaminating user state — CONFIRMED bug. Native
+   browser reproduced Reports → Modules forcing catalogue open. The capture-phase
+   toggle listener persisted programmatically opened details. Persist only
+   deliberate summary clicks (including native keyboard activation), before the
+   native state change. Async regression distinguishes workspace renders from
+   explicit user expansion; browser confirms visible outline on return.
+2. Filter results blending cases or inventing completeness — fine. Traced
+   contexts → libraryRecords → filterLibrary → libraryResults → routeHref. Eight
+   records preserve insertion order and explicit case IDs. AND combinations,
+   module membership, short TDG ID, empty results and singular/plural counts pass.
+   Missing credit metrics are stated, not scored; no cross-run aggregation.
+3. Reset restoring old defaults after a return — prevented. A native form.reset
+   would restore the saved values used to render the returned form. Clear instead
+   assigns each default to the live control, then updates results. Regression
+   covers returning with filters, clearing, focus and Enter without navigation.
+4. Search escaping and focus — fine. Literal `\"><img...>` stays text, creates no
+   onerror node, and yields no results. Only the result container/count is replaced
+   while typing, keeping the search/select nodes and focus intact. Browser checked
+   combined Ford/2024 filters, no matches, reset and retained return selection.
+5. Stale served preview — CONFIRMED. Server source contained the new library while
+   a previously opened tab still used old script bytes. Generated entry URLs now
+   carry content hashes for five mutable JS/CSS/data assets. All hashes verified;
+   paths remain relative. Fresh navigation rendered the corrected controls.
+6. Data, originals and branding — fine. All 19 copied handoff SHA-256 values and
+   six original report SHA-256 values match their retained source records. Symbol
+   is byte-identical to supplied STT.D.svg. Source/generated JS/CSS agree; entry
+   differs intentionally only by versioned local asset references.
+7. Scope of browser proof — open/by design. Native Windows and direct file URLs
+   were not exercised. Measured laptop sizes are reported, not requested override
+   sizes; this pass does not claim a new 640px check. No claim of production
+   integration or live run history. Production integration remains deferred.
+
+Fixed: disclosure persistence and stale served assets. Verified fine: filters,
+focus, context, evidence, report selection and source bytes. By design: session
+only filter memory, explicit unavailable metrics and unlinked delivery collection.
+
+Rewrite tournament — no-argument post-edit mode, inline, two-symbol cap:
+- Targets: filterLibrary and libraryResults in views.js. GitNexus repository was
+  not indexed; rg caller set is workspaceView → libraryView and the input/change/
+  clear handlers → updateLibraryResults. Templates/helpers received confidence
+  review and are excluded from this two-symbol tournament.
+- Invariants: AND criteria, literal case-insensitive terms, exact module matches,
+  no input mutation, same row identities/order, escaped output, pinned case links,
+  same empty state and issuer/run/report counts.
+- Six actual executable challengers: filter speed loops, memory regex terms and
+  readability boolean chain; results pre-grouped Map, reduced allocation string
+  accumulation and a named issuer renderer. 1,680 filter cases and 512 rendering
+  cases passed exact equivalence; identities/order retained.
+- Filter bracket: speed beats memory; speed beats boolean-chain readability;
+  incumbent beats speed. Results bracket: named renderer beats string accumulation;
+  named renderer beats Map; incumbent beats named renderer. Incumbents hold both.
+
+Justification:
+- Guard clauses build the searchable string once per record and express criteria
+  plainly; the boolean alternative repeats string construction for every term.
+- Eight records/three issuers show no performance pressure that justifies extra
+  Map/loop state or string mutation. No performance gain is claimed.
+- Existing render scope keeps escaping, grouping and pinned links reviewable
+  together; the additional helper offered no demonstrated contract improvement.
+
+Verification: focused DOM suite **26/26 pass** after the final code/build changes;
+JS syntax checks passed. Local asset hash checks passed. Detector ran once after
+visual assessment: **87 flags (5 warnings, 82 advisories)**. Three 11px text
+warnings concern approved compact metadata, not body prose; flush tab padding is
+intentional; Red Hat parsing is a false positive (computed font verified).
+Token advisories describe shades/radii/type sizes beyond the sparse token list,
+not 87 distinct user-facing defects. No new material issue from this scan.
+
+Run bookkeeping: target slug apps-issuer-library-designs-index-html; no ignore
+file. Review tabs stayed in the background. Read-only browser evaluation prevents
+overlay injection, so native screenshots/DOM measurements supply evidence. No
+critique live server was started. Existing preview server remains the deliverable.
+Review-only tabs closed and temporary viewport override reset. Separate critique
+snapshot/trend persistence omitted under AGENTS.md's one-record instruction;
+this record holds the review. Two priority issues resolved; questions skipped.
+
+Final code — retained tournament incumbents:
+
+```js
+function filterLibrary(records,filters) {
+  const terms=filters.query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  return records.filter(record=>{
+    if(filters.sector!=='all'&&record.sector!==filters.sector)return false;
+    if(filters.content!=='all'&&record.content!==filters.content)return false;
+    if(filters.module!=='all'&&!record.modules.includes(filters.module))return false;
+    const searchable=`${record.issuer} ${record.key} ${record.run} ${record.period} ${record.sector} ${record.modules.join(' ')}`.toLowerCase();
+    return terms.every(term=>searchable.includes(term));
+  });
+}
+function libraryResults(records) {
+  if(!records.length)return '<div class="library-empty"><h2>No matching issuers or runs</h2><p>Try a shorter issuer name, another sector or a different content selection. Clear filters to see all retained cases.</p></div>';
+  return `<div class="case-list">${[...new Set(records.map(r=>r.issuer))].map(issuer=>{
+    const matches=records.filter(r=>r.issuer===issuer);
+    return `<section><div><h2>${esc(issuer)}</h2><p>${esc(matches[0].sector)} · historical cases</p></div><div class="run-list">${matches.map(record=>`<a href="${routeHref(record.first,modules[record.first].first,null,record.key)}"><strong>${esc(record.run)}</strong><span>${esc(record.period)}</span><small>${record.content==='reports'?`${window.DESIGN_WORKSPACE.reports.length} saved builds · separate delivery collection`:`${record.modules.length} retained module ${record.modules.length===1?'output':'outputs'}`}</small>${icon('arrow-right')}</a>`).join('')}</div></section>`;
+  }).join('')}</div>`;
+}
+```
+
+Delivery: updated module-screen-designs.zip contains 73 files, 5,279,248 bytes; ZIP CRC verified. Five fresh JPEGs in capture-provenance.json have measured dimensions and hashes. Earlier captures remain on disk but are excluded from this ZIP. Temporary review candidates removed after recording results. Preview remains http://127.0.0.1:53812/.
+
+### 2026-11-05 — five UX fixes from the adversarial review (screen designs only)
+
+Scope: `apps/issuer-library/designs/`, regenerated `artifacts/issuer-library/screen-designs/`,
+`module-screen-designs.zip` and the CP-8 lines of `docs/visualisations/`. Applied by Claude
+Code in this worktree, uncommitted. No provider call. No change to `apps/issuer-library/web/`,
+Go code or any existing file under `runs/` or `deliverables/`.
+
+Fixes:
+1. Each run shows its own saved outputs, keyed `<run-folder>/<file>`, with an attempt chooser.
+   Labels are Output available / Inputs only / No output found. Evidence does not cross runs.
+2. Conclusion bands and chart notes quote retained text through locators. A moved quote, a
+   quote cut through bold text or a missing pinned output fails the build.
+3. Reports list the run they were built from and trace to it by SHA-256; the build fails
+   unless each report has exactly one source match.
+4. CP-8 now presents the run comparison (`runs/tdg-run-comparison-001/CP-8.md`), not the
+   superseded post-mortem. The build fails unless CP-8 cites the compared reports' hashes.
+5. Provenance tags appear only where an output declares them: 1,326 of 1,389 pinned items
+   read "Not classified".
+
+Checks:
+- `node --test apps/issuer-library/designs/design.test.cjs` with `ISSUER_LIBRARY_JSDOM` set:
+  41 of 41 pass. The 15 new tests use hand-written keys. The last 3 were watched failing first.
+- Build guards fired on a doctored catalog: missing pin, bold cut, unmatched quote.
+- Built-in browser: 32 routes at 1366×768 and 18 at 1280×720 had no overflow after one fix
+  (2px on CP-6). A last pass over 12 routes showed no console error, failed page or
+  "undefined" text. The native attempt selector changes route and content.
+  `reports/tdg-fy2024-snapshot-7/preview.html` opens top-level.
+- `diff -rq` against main: copied `runs/tdg-run-comparison-001/` and
+  `deliverables/tdg-fy2024-snapshot-7/` identical. Bundle: 101 files, CRC clean, identical to
+  the folder apart from earlier captures, which it now excludes.
+
+Confidence review, repaired: `#undefined` CP-OS outline links; curated CP-1A catalogue link on
+the wrong first page; bounded-scope tag lost from Evidence; Ford and Frontier periods taken from
+a pin; tab losing the section of a non-default output.
+
+Rewrite tournament, post-edit and inline with no agents. `collect_runs`: pinned branch extracted
+to `pinned_fields`, `data.js` byte-identical. `declaredClasses`: incumbent holds; its forms were
+calibrated against retained outputs and a merged regex only moved the complexity.
+
+By design: CP-1A has no conclusion band (no genuine conclusion block). CP-8 cells keep the
+handoff's missing spaces verbatim. The CP-8 audit page quotes the handoff's own words
+"post-mortem" and "calibration".
+
+Open:
+- `.gitignore` ignores `runs/` here, so the copied CP-8 input stays out of a commit on this
+  branch; main already tracks it. A fresh checkout needs it before `build.py` will run.
+- Inspector basis text for T4.10 ("USD millions…") is still hard-coded.
+- `artifacts/issuer-library/visualisation-map.html` still shows the old CP-8.
+- `src/deploy_vii/methods/cp8.md` and this branch's `AGENTS.md` predate the CP-8 rule.
+
+Not verified: the report iframe inside the gallery (the built-in browser blocks it; the page
+opens top-level); the unzipped bundle in a browser (compared by file only); keyboard and screen
+reader use beyond Escape returning focus; other browsers; contrast. Curated quotes were read for
+sentence cuts, not re-checked against issuer filings.
+
+### 2026-11-05 — open items closed; Deploy VII keyboard and search in the screen designs
+
+Scope: `apps/issuer-library/designs/`, `.gitignore`, `AGENTS.md`, `src/deploy_vii/methods/cp8.md`,
+`docs/reuse/legacy-cp8-decision-ledger.md`, `tests/test_connect_cp8.py`, the CP-8 lines of
+`docs/visualisations/MAP.md` and `artifacts/issuer-library/visualisation-map.html`. Uncommitted.
+Deploy VII read only (`src/deploy_vii/assets/app.js`, commit be92508). No change to
+`apps/issuer-library/web/`, Go code or existing run files. No provider call.
+
+Adopted from Deploy VII: `/` focuses search unless typing or modified; rail "Search (/)";
+`kbd` hint; layered Escape (search text, inspector, navigator, with focus returned); arrow keys
+along chart marks with no wrap; `aria-live` Figures and Sources groups capped at 6 and 4+4; status
+word searchable. Addition: a capped group shows "4 of N". Not adopted: inspector tab arrows (the
+gallery has no tabs); tally chips, Help and Print (not keyboard or search). Results stay in the
+current run.
+
+Open items closed:
+- `.gitignore` now matches main, so `runs/` can be committed (198 files, gitleaks clean).
+- T4.10 basis and chart head now read handoff text (T4.3 row, each row's qualification); the build
+  fails if the row or unit no longer matches. Also dropped "issuer estimates", which the CP-1A cell
+  does not say.
+- `AGENTS.md` and `cp8.md` now equal main; `AGENTS.md` also gains main's Excel rule. The old
+  method moved to the legacy record, and `tests/test_connect_cp8.py` now reads its guard limits there.
+- The map page's CP-8 was regenerated from `MAP.md` by a one-off script; no generator exists.
+
+Checks:
+- `design.test.cjs`: 47 of 47. All 6 new tests and the matched-cell check were watched failing first.
+- `tests/test_connect_cp8.py` with main's venv: 686 pass, 1 fail, same before and after.
+- Map parity script: 23 `MAP.md` lines missing before, all CP-8; 0 after. No broken anchors or
+  duplicate ids.
+- Built-in browser with real keys at 1366×768: `/`, typing, Tab, Enter into the inspector, Escape
+  twice, arrows, Enter and Escape on a mark. At 375×812: `/` and Escape returning focus to the toggle.
+  No console errors or page overflow. Search over 3,092 items took 2 ms or less.
+
+Confidence review, repaired: placeholder clipped at 1366 (search icon removed); numbered rows
+listed as "3" (now "3 · NET SALES"); focus left on a hidden link when a hit matches the current
+route. Verified fine: quotes escaped in labels; no blank titles; `W-Library` has only the page that
+holds its search box.
+
+Rewrite tournament, post-edit and inline with no agents: `renderSearch` and the keydown handler,
+incumbents hold. Splitting adds lines without removing a branch, and caching has no measured need.
+
+Open:
+- `test_methods_file_keeps_the_adaptation_record` reads `docs/methods-drafts/cp8.md`, absent here
+  and on main. Predates this change.
+- On main, 7 tests in `tests/test_connect_cp8.py` fail; 6 are the guard-limit tests repointed here.
+- `METHODOLOGY-REVIEW.md` here still differs from main (213 diff lines).
+- `src/deploy_workflow/owners/cp8.py:418` comment still names `methods/cp8.md`.
+
+Not verified: other browsers; screen readers; the map page as rendered (only the parity script
+and anchor check ran); full Python suite (only `tests/test_connect_cp8.py` ran).
+### 2026-11-05 — one Issuer Library web app; New run through the launcher; Windows hardening
+
+Scope: `apps/issuer-library/`, its tests, and the engine files the Windows path needs. Users are
+on Windows only (owner, 2026-11-05). Verified by Claude Code on macOS. No provider was called;
+the browser and bridge runs replaced `LiveAdapter.complete` and used a placeholder key.
+
+Changed:
+- Gallery and working app are one web app: a rail across library, research workspace,
+  deliverables, run activity, New run, search, settings and help. Deliverables open inside it,
+  and link both ways to the module outputs they were built from.
+- New run follows `owners/cpos_launch.py`: `prepare` for the offline review, `run_live_handoffs`
+  for Start. Launcher deliveries are verified and listed. A stopped run shows the handoffs it
+  accepted and publishes no report.
+- Windows: an open workbook's `~$` lock file no longer refuses a run. Replacing a file waits out
+  a scanner or reader holding it (`platform_io.replace`, `saveJSON`). A page load runs only
+  `store.py` (0.65 s to 0.03 s per process, measured here). Review refuses a workspace too deep
+  for a run before any spend. The packaged build reuses its pinned runtime without downloading.
+- CP-8 guard tests read the retained legacy method, with a hand-written key.
+
+Checked, on the branch merged with `origin/main`:
+- Node 88/88. `go test -race` and `go vet` pass; Windows `go vet`, test compile and amd64/arm64
+  cross-builds pass.
+- Python store, app, launcher and CP-8 connection tests: 782 passed, 1 paid skip.
+  `tests/test_method_cp8.py`: 622 passed.
+- Chromium and Firefox, 82/82, over the 41 retained runs here: every section of every module of
+  every run, a fake-provider run through the real bridge to a report, a stopped run, the links
+  both ways, search and Reload. That pass found and fixed a Published model crash on a run with
+  several unranked outputs.
+- Compiled smoke test (macOS binary) against the engine folder extracted from the Windows zip,
+  under a path with spaces and accents: PASS. Pages at 1280x600 and 1536x730 with scrollbars
+  shown have no horizontal overflow.
+- Mutation checks on the front end: 11 of 13 failed a test. The two survivors are a Start handler
+  guard behind the disabled button and server check, and tab markup built while hidden.
+
+Confidence review confirmed and fixed: a stopped run hid paid handoffs; a `CP-notes.md` or a bad
+`workflow.json` took the whole library down; a symlink out of a run was read; two deliveries of a
+module had one label; a hard-coded "Historical evidence" label sat on every new run. Verified
+fine: `-X utf8` covers Windows text encoding, workers run with `CREATE_NO_WINDOW`, no import in
+`src` or the engine is missing from the pinned wheels, hostile names stay text on every destination.
+
+Rewrite tournament, inline: a readability candidate for `store.collect_runs` was applied. A
+hash-once speed candidate lost (the full workspace loads in 0.19 s). `handoff_files`, `parseRoute`,
+`installNewRun`, `reviewRun` and `bridge.start` hold.
+
+Not verified: anything on Windows itself (no `.exe`, `Smoke-test.ps1` or Edge run; the sharing
+violation fix was simulated); a paid provider call; WebKit, which hangs on a blank page on this
+machine; `tests/test_method_*` other than CP-8, about 10,000 slow tests; `docs/visualisations/MAP.md`
+rows for files changed since its catalogue date. HTML Model deliveries `tdg-model-1`, `-2` and `-3`
+hold no report, so the library lists them in Settings as issues and does not present them.
+
 ### CP-1B handoffs → CP-OS → earnings report (2026-11-04)
 
 **Progress: bounded replay publication, no fresh model run.** The actual retained

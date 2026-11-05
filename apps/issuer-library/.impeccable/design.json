@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-04T23:54:49.607646+00:00",
+  "title": "Design System: Issuer research workspace",
+  "extensions": {
+    "shadows": [
+      {
+        "name": "working-surface",
+        "value": "0 6px 24px rgba(0,5,51,.07)",
+        "purpose": "Lift the white research surface from the cool ground."
+      }
+    ],
+    "motion": [
+      {
+        "name": "desk-reveal",
+        "value": "180ms cubic-bezier(.2,.7,.2,1)",
+        "purpose": "Small view transition; disabled for reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "drawer",
+        "value": "1100px"
+      },
+      {
+        "name": "stack",
+        "value": "700px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The next task action.",
+      "html": "<button class=\"primary-button\">New run</button>",
+      "css": ".primary-button{background:#0017E5;color:white;border:0;border-radius:6px;padding:8px 12px;min-height:36px;font:600 12px \"Red Hat Text\",sans-serif}.primary-button:hover{background:#0012B8}.primary-button:focus-visible{outline:2px solid #0017E5;outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Research desk",
+    "overview": "Selected findings, charts and qualitative facts form the module reading view; supporting analysis expands in place, with exact source rows beside it and technical traceability in Evidence & audit.",
+    "keyCharacteristics": [
+      "Symbol-only branding",
+      "Colour carries meaning",
+      "Source-first charting"
+    ],
+    "rules": [
+      {
+        "name": "Availability is not acceptance",
+        "body": "Module availability uses explicit neutral labels; blue marks selection, action and issuer series. File presence is never acceptance.",
+        "section": "colors"
+      },
+      {
+        "name": "Curated module reading",
+        "body": "Lead with selected analytical sections. Keep interpretation qualifications visible; expand supporting details and limitations. Load execution requests, source inventories and downstream handoffs only when Evidence & audit is opened. Preserve the complete retained output.",
+        "section": "layout"
+      }
+    ],
+    "dos": [
+      "Keep values, periods and source identities visible."
+    ],
+    "donts": [
+      "Do not invent analytics to fill a visual."
+    ]
+  }
+}

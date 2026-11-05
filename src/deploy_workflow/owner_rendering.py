@@ -552,6 +552,20 @@ class _Capture:
 def _read_tree(directory: Path) -> dict[str, bytes]:
     """Every regular file below `directory` by relative path; a symlink, device or other
     non-regular entry refuses. Reads use O_NOFOLLOW relative to the open directory (D1 F5)."""
+    if os.name == "nt":
+        from deploy_workflow.platform_io import flags as portable_flags
+        from deploy_workflow.platform_io import regular_open
+        out = {}
+        for path in sorted(directory.rglob("*")):
+            info = path.lstat()
+            if info.st_file_attributes & stat.FILE_ATTRIBUTE_REPARSE_POINT:
+                raise _refusal("owner_render_delivery")
+            if path.is_dir():
+                continue
+            fd = regular_open(path, os.O_RDONLY | portable_flags("O_BINARY"))
+            with os.fdopen(fd, "rb") as stream:
+                out[path.relative_to(directory).as_posix()] = stream.read()
+        return out
     flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
     out: dict[str, bytes] = {}
 

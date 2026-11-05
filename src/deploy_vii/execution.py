@@ -6,7 +6,6 @@ Validators are trusted Python module implementations, never model-supplied verdi
 The journal does not invoke models, spend money, or claim analytical qualification.
 """
 
-import fcntl
 import hashlib
 import json
 import os
@@ -52,6 +51,7 @@ from deploy_vii.registry import (
     plan,
     within_attempt_repair,
 )
+from deploy_workflow.platform_io import locks as fcntl
 
 Validator = Callable[[Module], tuple[str, ...]]
 SCHEMA = "execution/5"

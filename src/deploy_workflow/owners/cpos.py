@@ -41,6 +41,7 @@ from deploy_vii.execution import Execution
 from deploy_vii.registry import idle_statuses, plan
 from deploy_vii.render import render
 from deploy_vii.report_view import navigator
+from deploy_workflow import platform_io
 from deploy_workflow.handoff_delivery import (
     HEADINGS,
     DeliveryRequest,
@@ -393,7 +394,7 @@ def run_handoffs(
             deliver(delivery_manifest, staging)
             verify_delivery(delivery_manifest, staging)
             destination.parent.mkdir(parents=True, exist_ok=True)
-            staging.rename(destination)
+            platform_io.replace(staging, destination)
         report = verify_delivery(delivery_manifest, destination)
         completion = {
             "kind": "cpos-handoff-snapshot/1"
@@ -435,6 +436,7 @@ def run_live_handoffs(
     max_output_tokens: int = 16000,
     on_handoff: Callable[[HandoffTask, bytes], None] | None = None,
     config: str = "sol-medium",
+    rulings_root: Path | None = None,
 ) -> Path:
     """Explicit paid entry point; callers supply an evidence/instruction checker.
 
@@ -460,6 +462,7 @@ def run_live_handoffs(
             ModelSpec(selected.config_id, selected.provider, selected.model, selected.effort),
             ruling,
             environ=environment,
+            rulings_root=rulings_root,
         ),
         cap_usd=request.provider_cap_usd,
         check=check,
@@ -643,7 +646,7 @@ def run_comparison(
                 _put(staging / name, raw)
             verify_files(staging, files)
             destination.parent.mkdir(parents=True, exist_ok=True)
-            staging.rename(destination)
+            platform_io.replace(staging, destination)
         report = verify_files(destination, files)
         completion = {
             "kind": "cpos-deliverable-comparison/1",

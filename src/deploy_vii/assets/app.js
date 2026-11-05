@@ -823,7 +823,7 @@
     const root = $("view-root"); root.replaceChildren(); $("call-root").replaceChildren();
     const title = module ? `${module.module_id} · ${module.title}` : ({front: report.run.issuer_name, analysis: "Analysis", evidence: "Evidence", limitations: "Limitations", FIT: "Portfolio Fit"}[route] || "Unknown destination");
     const head = node("header", null, "page-head");
-    head.append(node("p", "DEPLOY VII / CREDIT WORKBENCH", "eyebrow"), node("h1", title),
+    head.append(node("h1", title),
       node("p", `As of ${report.run_display.as_of} · ${report.run.case_kind} case · ${report.run.method_version}`, "muted"));
     if (report.mode === "candidate") head.append(node("span", "CANDIDATE PREVIEW · NOT ACCEPTED", "candidate-label"));
     if (route === "front") $("call-root").append(callBand());

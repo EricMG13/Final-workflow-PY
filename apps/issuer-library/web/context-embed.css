@@ -1,0 +1,25 @@
+/* Deploy VII form controls, arranged as one context task inside the library. */
+html,body { min-height:0; height:auto; background:var(--rb-panel); }
+body { display:flow-root; margin:0; }
+.top,.stepnav,#sec11,.stepline,.sec>h2 .n { display:none!important; }
+.layout { display:block; padding:0 var(--rb-s-5); }
+.main { max-width:none; width:100%; }
+.legend { margin:var(--rb-s-5) 0; color:var(--rb-ink-2); }
+.load { margin:0 0 var(--rb-s-5); padding:0; border:0; }
+.sec { margin:0; padding:var(--rb-s-6) 0; border:0; border-top:1px solid var(--rb-rule); }
+.sec>h2 { font-size:var(--rb-fs-issuer); }
+.sec>.intro { margin-bottom:var(--rb-s-5); }
+#sec1 .cards { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.card { border-left-width:1px; }
+.card:has(input:checked) { border-color:var(--rb-blue); }
+.imp { font-size:var(--rb-fs-table); }
+details>summary { cursor:pointer; padding:var(--rb-s-4) 0; font-weight:600; min-height:var(--rb-target); }
+#f>details { border-top:1px solid var(--rb-rule); }
+#f>details>.sec { border:0; padding-top:var(--rb-s-3); }
+#f>details>.sec>h2 { display:none; }
+body>details { margin:var(--rb-s-5); }
+.notice { margin:0; padding:var(--rb-s-4); border:1px solid var(--rb-rule); background:var(--rb-head); }
+.panel { position:static; width:100%; max-height:none; border:0; }
+.panel>summary { display:none; }
+.panel .sig li { border-left-width:1px; }
+@media(max-width:650px) { #sec1 .cards,.grid { grid-template-columns:minmax(0,1fr); } }
