@@ -21,6 +21,7 @@ from deploy_vii.contracts import (
     Fact,
     ModuleView,
     ReportTable,
+    Run,
     Source,
     TableColumn,
     TableRow,
@@ -417,6 +418,25 @@ def _numeric_observations(
     )
 
 
+def require_issuer(run: Run, aliases: tuple[str, ...], module_id: str, lines: list[str]) -> None:
+    """The handoff's title or Request section must name the run's issuer."""
+    declaration = (
+        " ".join(lines[0].split())
+        + "\n"
+        + " ".join(" ".join(line for _, line in section(lines, "Request")).split())
+    ).casefold()
+    if not any(
+        bool(name.strip()) and " ".join(name.split()).casefold() in declaration
+        for name in (run.issuer_name, *aliases)
+    ) and not re.search(
+        r"(?<![a-z0-9])" + re.escape(run.issuer_id.casefold()) + r"(?![a-z0-9])",
+        declaration,
+    ):
+        raise ValueError(
+            f"markdown_issuer: handoff title or Request must identify the selected issuer: {module_id}"
+        )
+
+
 def markdown_files(request: DeliveryRequest, base: Path) -> dict[str, bytes]:
     """Select literal source sections into the existing requested pathway design."""
     layout = request.layout
@@ -458,22 +478,7 @@ def markdown_files(request: DeliveryRequest, base: Path) -> dict[str, bytes]:
         raw = (base / spec.path).read_bytes()
         if hashlib.sha256(raw).hexdigest() != spec.sha256:
             raise ValueError(f"Changed handoff: {module_id}")
-        lines = raw.decode().splitlines()
-        declaration = (
-            " ".join(lines[0].split())
-            + "\n"
-            + " ".join(" ".join(line for _, line in section(lines, "Request")).split())
-        ).casefold()
-        if not any(
-            bool(name.strip()) and " ".join(name.split()).casefold() in declaration
-            for name in (request.run.issuer_name, *layout.issuer_aliases)
-        ) and not re.search(
-            r"(?<![a-z0-9])" + re.escape(request.run.issuer_id.casefold()) + r"(?![a-z0-9])",
-            declaration,
-        ):
-            raise ValueError(
-                f"markdown_issuer: handoff title or Request must identify the selected issuer: {module_id}"
-            )
+        require_issuer(request.run, layout.issuer_aliases, module_id, raw.decode().splitlines())
         module, source, meta = literal_module(module_id, raw)
         module_views.append(module)
         sources.append(source)

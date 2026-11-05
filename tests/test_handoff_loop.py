@@ -1,5 +1,6 @@
 """Offline adversarial tests of the adapted cp-os loop; not live module proof."""
 
+from dataclasses import replace
 from datetime import date
 from decimal import Decimal
 from pathlib import Path
@@ -94,6 +95,33 @@ def test_read_reject_edit_retains_exchange_and_current_handoff(tmp_path: Path) -
     with pytest.raises(ValueError, match="already_started"):
         loop(task())
     assert len(adapter.requests) == 3
+
+
+def test_whole_filing_reads_stop_before_the_request_outgrows_the_budget_bound(
+    tmp_path: Path,
+) -> None:
+    """runs/cpos-launch-live-001: parallel reads of whole filings stopped CP-0 with "1124866
+    input-token bound is over the 1050000 supported", after paying for reads it never used."""
+    filing = (
+        "x" * 11_999 + "\n"
+    ) * 200  # 200 pages of 12,000 characters, as a large text file reads.
+    reads = [
+        ToolCall(str(n), "read_pages", {"source_id": "S1.txt", "first": n + 1, "last": n + 8})
+        for n in range(0, 192, 8)
+    ]
+    adapter = Adapter(
+        turn(*reads[:8]),
+        turn(*reads[8:16]),
+        turn(*reads[16:24]),
+        turn(ToolCall("w", "write_handoff", {"markdown": GOOD.decode()})),
+    )
+    loop = HandoffExecutor(tmp_path, adapter=adapter, cap_usd=Decimal(10), check=check)
+    current = replace(task(), sources={"S1.txt": filing.encode()})
+    assert loop(current) == GOOD
+    assert max(p.stat().st_size for p in tmp_path.rglob("*.request.json")) < 1_050_000
+    tools = [m.text for m in adapter.requests[-1].messages if m.role == "tool"]
+    assert tools[0].startswith("<<<SOURCE id=S1.txt")
+    assert "gap" in tools[-1] and tools[-1].startswith("ERROR")
 
 
 def test_atomic_patch_allowlist_and_page_bounds(tmp_path: Path) -> None:

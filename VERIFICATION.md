@@ -3,6 +3,62 @@
 Keep one running record here. A pass applies only to the stated scope. Preserve
 earlier run artifacts; record a new attempt when instructions or outputs change.
 
+## 2026-11-05 — user-launched CP-OS runs
+
+`python -m deploy_workflow.owners.cpos_launch` starts a run from a context file, an issuer
+folder and a model config. Without `--live` it prepares only. The loop now sends the selected
+config's model and effort, and records them; both were hardcoded to sol-medium.
+
+**Offline scope, fake provider, wiring only:** every pathway preset reaches a verified report
+from synthetic handoffs; the four configs reach the real provider body builder. Prepared offline
+over the real TDG folder: 3.7 MB of 10-K HTML becomes 490 KB of visible text in 181 pages of at
+most 3,000 characters, matching cp-os's page size.
+
+**Live attempt 1, `runs/cpos-launch-live-001`, stopped; no handoff was produced.** Three sol-medium
+calls, USD 0.28956660. CP-0 read four filings almost whole in parallel, and the next request's
+bound (1,124,866) passed the 1,050,000 the budget hold allows, so it was refused before sending.
+Repaired with a read limit at 700,000 bytes and instructions to search first;
+`test_whole_filing_reads_stop_before_the_request_outgrows_the_budget_bound` reproduced the failure.
+The attempt is retained unchanged. Its 12,000-character pages were then cut to cp-os's 3,000.
+
+**Live retry, `runs/cpos-launch-live-002`, passed for this dated TDG case only.** CP-0, CP-1 and
+CP-1A were each accepted first time on gpt-6.1-sol at medium effort: 29 calls, USD 0.93149640,
+largest request 49,231 input tokens. Both attempts together cost USD 1.22106300. CP-1 and CP-1A
+carry their upstream handoffs' hashes, which match the files. The report's four requested sections
+are populated and rendered in a browser with no console errors; it reads "Assessment pending"
+because CP-6 was not requested.
+
+**Checked by hand against the raw 10-K HTML and its inline XBRL tags, not the run's conversion:**
+137 of the 141 annual values in CP-1's financial table equal the tagged fact for that year. The other
+four are untagged EBITDA and opening cash, and they appear on the cited page. All 135 table figures
+are on the pages their rows cite, all 65 bridge results recompute, and CP-1A's financing, acquisition
+and distribution dates match K pages 53-54 and 63. Of 94 quoted spans, 92 are in the filings; CP-0
+flags one as re-punctuated, and the other is CP-1's "— (reported dash)" table key, not a quotation.
+
+**Two gaps the filing answers, neither changing a reported figure:**
+
+- CP-1 and CP-1A leave the October distribution unreconciled, but K page:63 gives
+  4,216 dividends + 132 equivalents = 4,348. CP-1A read that page.
+- CP-1 leaves the 67 between RCF commitments (910) and availability (843) unexplained, but K page:59
+  says it is letters of credit. CP-1 did not read that page.
+
+**Limits of this case:** `K page:N` means a page of the run's retained text, not the filing's printed
+page. CP-1's method names `extract_statements`, which this loop does not offer, as in the earlier
+cp-os loop runs; its handoff says rows were read directly. The test's context leaves the cutoff blank
+and says legal documents are "executed" though none were supplied. CP-0 flagged both, so all three
+handoffs carry a retrospective label and legal conclusions stay restricted.
+
+**Reviews, inline without agents:** the confidence review confirmed and repaired raw HTML reaching
+the model, a cap check sized for the smallest module, silently dropped `_` folders and hardcoded
+provider, model and effort in call records. 1,500 generated hostile handoffs produced issues, not
+crashes; a hostile issuer name did not reach the report as markup. Rewrite tournament: incumbent
+holds except one merged module refusal.
+
+**Not verified:** opus-medium, sol-high and deepseek-max against a real provider; other issuers and
+the full pathway presets live; whole-filing completeness of the handoffs, since the review covered
+what they state, not everything they could have found; the HTML Model, charts and CP-8, which this
+command omits.
+
 ## 2026-11-05 — cp-os live loop reused
 
 The [campaign record](runs/cpos-sol-medium-20261105/verification.json) now records

@@ -434,6 +434,7 @@ def run_live_handoffs(
     max_turns: int = 24,
     max_output_tokens: int = 16000,
     on_handoff: Callable[[HandoffTask, bytes], None] | None = None,
+    config: str = "sol-medium",
 ) -> Path:
     """Explicit paid entry point; callers supply an evidence/instruction checker.
 
@@ -446,15 +447,19 @@ def run_live_handoffs(
     from deploy_workflow.model.handoff import HandoffExecutor
     from deploy_workflow.model.redact import Redactor
     from deploy_workflow.model.turn import ModelSpec
+    from deploy_workflow.model_testing.configs import CONFIGS
 
     request = HandoffPlan.model_validate_json(manifest.read_bytes())
     if request.execution != "live-provider":
         raise ValueError("cpos_live_mode: manifest must explicitly declare live-provider")
     environment = os.environ if environ is None else environ
+    selected = CONFIGS[config]
     executor = HandoffExecutor(
         directory / "live",
         adapter=LiveAdapter(
-            ModelSpec("sol-medium", "openai", "gpt-6.1-sol", "medium"), ruling, environ=environment
+            ModelSpec(selected.config_id, selected.provider, selected.model, selected.effort),
+            ruling,
+            environ=environment,
         ),
         cap_usd=request.provider_cap_usd,
         check=check,
