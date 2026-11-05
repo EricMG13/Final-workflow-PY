@@ -11,7 +11,6 @@ written. This module never reads ``os.environ``: the caller's ``Redactor`` carri
 
 from __future__ import annotations
 
-import fcntl
 import hashlib
 import json
 import os
@@ -48,6 +47,8 @@ from deploy_workflow.model.turn import (
     load_json,
     turn_to_json,
 )
+from deploy_workflow.platform_io import flags, fsync_directory, read_at, replace
+from deploy_workflow.platform_io import locks as fcntl
 
 AUDIT = "owner-run-audit"  # owner_workflow.AUDIT
 INVOCATIONS = "invocations"
@@ -281,11 +282,7 @@ class CallRecord(Contract):
 
 
 def _fsync_dir(path: Path) -> None:
-    fd = os.open(path, os.O_RDONLY)
-    try:
-        os.fsync(fd)
-    finally:
-        os.close(fd)
+    fsync_directory(path)
 
 
 def _write_all(fd: int, data: bytes) -> None:
@@ -307,11 +304,11 @@ class CallLog:
         clean = self._redactor.json_value(record.model_dump(mode="json"))
         data = (json.dumps(clean) + "\n").encode()
         self._dir.mkdir(parents=True, exist_ok=True)
-        fd = os.open(self._calls, os.O_RDWR | os.O_APPEND | os.O_CREAT, 0o600)
+        fd = os.open(self._calls, os.O_RDWR | os.O_APPEND | os.O_CREAT | flags("O_BINARY"), 0o600)
         try:
             fcntl.flock(fd, fcntl.LOCK_EX)
             size = os.fstat(fd).st_size
-            if size and os.pread(fd, 1, size - 1) != b"\n":
+            if size and read_at(fd, 1, size - 1) != b"\n":
                 raise TornLog(f"{self._calls.name} ends mid-line; repair it before appending")
             _write_all(fd, data)
             os.fsync(fd)
@@ -324,7 +321,7 @@ class CallLog:
         """Every line of ``calls.jsonl`` as written. A damaged line raises; none is skipped."""
         if not self._calls.exists():
             return []
-        fd = os.open(self._calls, os.O_RDONLY)
+        fd = os.open(self._calls, os.O_RDONLY | flags("O_BINARY"))
         try:
             fcntl.flock(fd, fcntl.LOCK_SH)
             text = os.read(fd, os.fstat(fd).st_size).decode()
@@ -507,7 +504,7 @@ def _put_once(folder: Path, name: str, raw: bytes, what: str) -> None:
             stream.write(raw)
             stream.flush()
             os.fsync(stream.fileno())
-        os.replace(temporary, path)
+        replace(temporary, path)
     finally:
         Path(temporary).unlink(missing_ok=True)
     _fsync_dir(folder)

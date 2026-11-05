@@ -208,7 +208,7 @@ def render(view: View, report: ReportView | None = None) -> str:
         "<", "\\u003c"
     )
     logo = base64.b64encode(
-        assets.joinpath("brand", "ssim-logo-stacked-black-trim.png").read_bytes()
+        assets.joinpath("brand", "symbol.svg").read_bytes()
     ).decode()
     css = (
         assets.joinpath("tokens.css").read_text()
@@ -219,7 +219,7 @@ def render(view: View, report: ReportView | None = None) -> str:
         "STYLES": css,
         "DATA": data,
         "SCRIPT": assets.joinpath("app.js").read_text(),
-        "LOGO": f"data:image/png;base64,{logo}",
+        "LOGO": f"data:image/svg+xml;base64,{logo}",
         "LICENSE": assets.joinpath("fonts", "OFL.txt").read_text().replace("--", "—"),
     }
     return re.sub(

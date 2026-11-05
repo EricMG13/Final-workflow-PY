@@ -47,6 +47,7 @@ from deploy_workflow.model.turn import (
     load_json,
     turn_from_json,
 )
+from deploy_workflow.platform_io import flags, regular_open
 
 ReplyKind = Literal["ok", "not_sent", "sent_known", "sent_usage", "sent_unknown"]
 _ERROR_KINDS: tuple[str, ...] = ("not_sent", "sent_known", "sent_usage", "sent_unknown")
@@ -177,7 +178,7 @@ def check_ruling(config_id: str, ruling: Path, *, rulings_root: Path | None = No
     try:
         # O_NOFOLLOW: a symlink swapped in after resolve() is refused, not followed; O_NONBLOCK
         # keeps a FIFO from blocking the open. The checked bytes are the bytes read from this fd.
-        fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+        fd = regular_open(path, os.O_RDONLY | flags("O_NOFOLLOW", "O_NONBLOCK"))
         with os.fdopen(fd, "rb") as handle:
             if not stat.S_ISREG(os.fstat(handle.fileno()).st_mode):
                 raise LivePauseInForce("the ruling is not a regular file")
@@ -187,7 +188,7 @@ def check_ruling(config_id: str, ruling: Path, *, rulings_root: Path | None = No
         raise LivePauseInForce(f"ruling unreadable: {type(error).__name__}") from None
     found: dict[str, list[str]] = {key: [] for key in _RULING_KEYS}
     for match in _RULING_LINE.finditer(text):
-        found[match.group(1)].append(match.group(2))
+        found[match.group(1)].append(match.group(2).rstrip("\r"))
     for key in _RULING_KEYS:
         if len(found[key]) != 1:
             raise LivePauseInForce(f"the ruling needs exactly one {key}: line")
@@ -351,8 +352,9 @@ class LiveAdapter:
         transport: Callable[[Request], Response] = https_transport,
         environ: Mapping[str, str] | None = None,
         clock: Callable[[], float] = time.time,
+        *, rulings_root: Path | None = None,
     ) -> None:
-        self._gate = check_live_gate(model, ruling)  # first: before any environment access
+        self._gate = check_live_gate(model, ruling, rulings_root=rulings_root)  # first: before any environment access
         self.config_id = model.config_id
         self._ruling = Path(ruling)
         self._model = model

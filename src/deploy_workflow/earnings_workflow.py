@@ -4041,7 +4041,7 @@ class EarningsWorkflow:
 
     @contextmanager
     def _locked(self, *, inspect_sealed: bool = False) -> Iterator[None]:
-        import fcntl
+        from deploy_workflow.platform_io import locks as fcntl
 
         if not self._operation.acquire(blocking=False):
             raise OwnerError("not_permitted")

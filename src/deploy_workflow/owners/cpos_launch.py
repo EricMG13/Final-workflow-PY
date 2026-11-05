@@ -208,7 +208,10 @@ def _issuer_files(
         parts = path.relative_to(folder).parts
         if any(part.startswith(".") for part in parts) or not path.is_file() or path == context:
             continue
-        if path.suffix.lower() not in SOURCE_SUFFIXES or any(p.startswith("_") for p in parts):
+        # "~$" marks Office's lock file beside a document someone has open.
+        if path.suffix.lower() not in SOURCE_SUFFIXES or any(
+            p.startswith(("_", "~$")) for p in parts
+        ):
             ignored.append(name)
             continue
         raw = path.read_bytes()

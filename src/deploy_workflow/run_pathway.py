@@ -15,7 +15,6 @@ its own ``complete``, and this module's text is redacted by the key pattern alon
 """
 
 import contextlib
-import fcntl
 import hashlib
 import json
 import os
@@ -55,6 +54,8 @@ from deploy_workflow.owner_workflow import (
     verify_owner_run_receipt,
 )
 from deploy_workflow.owners import cpdr
+from deploy_workflow.platform_io import flags, fsync_directory
+from deploy_workflow.platform_io import locks as fcntl
 from deploy_workflow.prompts.compose import NoPrompt
 from deploy_workflow.prompts.factory import UntrustedFor, prompt_factory
 from deploy_workflow.prompts.tools import tools_for
@@ -159,7 +160,10 @@ def _single_writer(run_dir: Path) -> Iterator[None]:
     # ponytail: ``flock`` is advisory; a network filesystem, or a process that never calls
     # ``run_pathway``, is not excluded (the ceiling of ``CallLog``'s lock too). Upgrade path:
     # ``OwnerWorkflow`` holds the lock for its own store, so every writer is excluded.
-    fd = os.open(run_dir, os.O_RDONLY | os.O_DIRECTORY | os.O_CLOEXEC)
+    if os.name == "nt":
+        fd = os.open(run_dir / ".run.lock", os.O_RDWR | os.O_CREAT, 0o600)
+    else:
+        fd = os.open(run_dir, os.O_RDONLY | os.O_DIRECTORY | os.O_CLOEXEC)
     try:
         try:
             fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -183,7 +187,7 @@ def _create_cap(
     try:
         fd = os.open(
             run_dir / CAP_FILE,
-            os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_CLOEXEC | os.O_NOFOLLOW,
+            os.O_WRONLY | os.O_CREAT | os.O_EXCL | flags("O_CLOEXEC", "O_NOFOLLOW", "O_BINARY"),
             0o600,
         )
     except FileExistsError:
@@ -568,11 +572,7 @@ def _staged_entries(checked: CheckedRun, run_dir: Path) -> tuple[dict[str, Any],
 
 
 def _fsync_directory(directory: Path) -> None:
-    fd = os.open(directory, os.O_RDONLY | os.O_DIRECTORY)
-    try:
-        os.fsync(fd)
-    finally:
-        os.close(fd)
+    fsync_directory(directory)
 
 
 def _write_run_json(
@@ -608,7 +608,7 @@ def _write_run_json(
         body["ruling_date"] = checked.gate.date.isoformat()
     data = (json.dumps(meta.redactor.json_value(body), indent=2) + "\n").encode()
     temp = run_dir / "run.json.tmp"
-    fd = os.open(temp, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_CLOEXEC | os.O_NOFOLLOW, 0o600)
+    fd = os.open(temp, os.O_WRONLY | os.O_CREAT | os.O_EXCL | flags("O_CLOEXEC", "O_NOFOLLOW", "O_BINARY"), 0o600)
     with os.fdopen(fd, "wb") as handle:
         handle.write(data)
         handle.flush()
@@ -669,6 +669,13 @@ def _render(workflow: OwnerWorkflow, run_dir: Path, shown: Path | None) -> str |
         run_dir / "owner-run.json",
         run_dir / "delivery",
     )
+    from deploy_workflow.cpos_handoffs import ACTIVE, deliver
+    if ACTIVE.get():
+        try:
+            deliver(Execution(execution), delivery)
+        except (ValueError, OSError) as error:
+            return f"delivery: {error}"
+        return None
     try:
         render_owner_slice(execution, receipt_path, shown, delivery)
         verify_owner_rendered_slice(execution, receipt_path, shown, delivery)
@@ -1100,6 +1107,7 @@ def run_pathway(
     repaired: frozenset[str] = frozenset(),
     through: str | None = None,
     delivery_scope: DeliveryScopeId | None = None,
+    approved_inputs: Mapping[str, str] | None = None,
 ) -> RunOutcome:
     """Check, stage, run, with stderr redacted throughout. A refused argument raises and writes
     nothing; a named fault after the first write returns a ``stopped`` outcome with ``run.json``.
@@ -1148,6 +1156,10 @@ def run_pathway(
             replay_from=replay_from,
             delivery_scope=delivery_scope,
         )
+        if approved_inputs is not None:
+            actual = {item.source_id: item.original_sha256 for item in checked.files}
+            if actual != dict(approved_inputs):
+                raise RunInputError("inputs changed after the explicit run review")
         if through is not None:
             _check_through(checked, through)
         entries = _source_entries(checked, sources, context)

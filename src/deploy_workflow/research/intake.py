@@ -18,6 +18,7 @@ from typing import Any, Literal
 
 from deploy_vii.preparation import MAX_BYTES
 from deploy_workflow.html_text import UndecodableHtml, convert_html
+from deploy_workflow.platform_io import flags, regular_open
 from deploy_workflow.prompts.fence import FenceError, UntrustedItem, untrusted_evidence_block
 from deploy_workflow.research.contracts import (
     CutoffViolation,
@@ -202,7 +203,7 @@ def _read_capped(source: Path, cap: int) -> bytes:
     """Mirror of ``run_inputs.read_capped`` with the caller's cap: one descriptor, opened without
     blocking, ``fstat`` for a regular file (FIFO, directory, device refused), at most cap + 1 bytes."""
     try:
-        fd = os.open(source, os.O_RDONLY | os.O_NONBLOCK | os.O_CLOEXEC | os.O_NOFOLLOW)
+        fd = regular_open(source, os.O_RDONLY | flags("O_NONBLOCK", "O_CLOEXEC", "O_NOFOLLOW"))
     except (OSError, ValueError) as error:
         raise _ItemRefused(
             f"cannot be opened ({getattr(error, 'strerror', None) or error})"
