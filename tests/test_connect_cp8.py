@@ -44,7 +44,7 @@ ROOT = Path(__file__).parents[1]
 CASE = ROOT / "cases/cp8-owner"
 EXPECTED = json.loads((CASE / "expected.json").read_text())
 SUBMISSIONS = json.loads((CASE / "submissions.json").read_text())
-METHODS = ROOT / "src/deploy_vii/methods/cp8.md"
+LEGACY_METHOD = ROOT / "docs/reuse/legacy-cp8-decision-ledger.md"
 PREFIX = "Cited page not read through read_pages"
 
 
@@ -106,7 +106,7 @@ def _at(document: Any, path: str) -> dict[str, Any]:
     return result
 
 
-# --- backlog: guard-limit notes (methods/cp8.md) -----------------------------------------------------
+# --- backlog: guard-limit notes (legacy record) ------------------------------------------------------
 
 NOTES = {
     "rule W": ("rule W", "spaced range", "dash bullet"),
@@ -127,17 +127,19 @@ NOTES = {
 
 @pytest.mark.parametrize("note", sorted(NOTES))
 def test_methods_file_records_each_guard_limit(note: str) -> None:
-    text = METHODS.read_text(encoding="utf-8")
+    text = LEGACY_METHOD.read_text(encoding="utf-8")
     missing = [phrase for phrase in NOTES[note] if phrase not in text]
-    assert not missing, f"{note}: methods/cp8.md lacks {missing}"
+    assert not missing, f"{note}: the legacy record lacks {missing}"
 
 
 def test_methods_file_keeps_the_adaptation_record() -> None:
-    """The freeze moves docs/methods-drafts/cp8.md to methods/cp8.md: its tables stay."""
-    text = METHODS.read_text(encoding="utf-8")
-    draft = (ROOT / "docs/methods-drafts/cp8.md").read_text(encoding="utf-8")
-    rows = re.findall(r"^\| ([A-C][0-9]+) \|", draft, flags=re.MULTILINE)
-    assert len(rows) == 28
+    """The legacy record keeps all 28 adaptation rows of the superseded method's draft."""
+    text = LEGACY_METHOD.read_text(encoding="utf-8")
+    rows = [
+        *(f"A{n}" for n in range(1, 9)),
+        *(f"B{n}" for n in range(1, 4)),
+        *(f"C{n}" for n in range(1, 18)),
+    ]
     for row in rows:
         assert f"| {row} |" in text, row
 

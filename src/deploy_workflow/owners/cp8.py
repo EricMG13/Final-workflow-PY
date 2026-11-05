@@ -415,7 +415,7 @@ def _norm(text: str) -> str:
 
 def _only_date(at: str, quote: str) -> bool:
     """Round 9 item 2: every ``Month D, YYYY`` date the normalised quote states is ``at`` (a
-    repeat is fine). ISO or day-first dates are not seen (a guard limit for methods/cp8.md)."""
+    repeat is fine). ISO or day-first dates are not seen (guard limit: CP-8 legacy record)."""
     return all(match.group(0) == at for match in _DATE_IN_QUOTE.finditer(quote))
 
 
