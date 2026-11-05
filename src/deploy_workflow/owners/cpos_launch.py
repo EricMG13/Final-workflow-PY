@@ -6,14 +6,15 @@ instructions, prints the plan and calls no provider. ``--live`` passes that mani
 
 The generic check here covers handoff structure, issuer/date/source/upstream anchors and report
 selectors. It has no independent expected values, so a passing run is not analytical review; every
-report says so in its scope. ponytail: report only. The HTML Model and charts need issuer-specific
-row selectors; add them when a run can derive those from CP-1's actual tables.
+report says so in its scope. CP-1 fills the chart strip from fixed tables. ponytail: the HTML Model
+needs issuer-specific row selectors; add it when a run can derive those from CP-1's actual tables.
 """
 
 import argparse
 import hashlib
 import json
 import os
+import re
 import sys
 import tempfile
 import textwrap
@@ -35,7 +36,12 @@ from deploy_workflow.handoff_delivery import (
     MarkdownRoute,
 )
 from deploy_workflow.html_text import convert_html
-from deploy_workflow.markdown_delivery import literal_module, markdown_files, require_issuer
+from deploy_workflow.markdown_delivery import (
+    STRIP_FIGURES,
+    literal_module,
+    markdown_files,
+    require_issuer,
+)
 from deploy_workflow.model.adapter import KEY_VARIABLES, LivePauseInForce, check_ruling
 from deploy_workflow.model.budget import Budget
 from deploy_workflow.model.handoff import Check, _pages
@@ -242,6 +248,75 @@ def _issuer_files(
     return pinned, converted, tuple(ignored)
 
 
+# Fixed so any run's charts can be read without issuer-specific row selectors.
+CHART_TABLES: dict[str, tuple[str, tuple[str, ...], str]] = {
+    "S.1": ("Chart data: leverage", ("Total debt / EBITDA", "Net debt / EBITDA"), "x"),
+    "S.2": ("Chart data: interest cover", ("EBITDA / cash interest",), "x"),
+    "S.3": ("Chart data: liquidity", ("Cash", "Undrawn committed facilities"), "US$m"),
+    "S.4": ("Chart data: debt maturities", ("Debt maturing",), "US$m"),
+}
+CHART_BLOCKS = frozenset(STRIP_FIGURES) - {"yield-against-maturity"}
+NOT_SUPPLIED = "Not supplied:"
+PLAIN_NUMBER = re.compile(r"-?\d[\d,]*(?:\.\d+)?")
+
+
+def _chart_route(block_id: str, figure: str) -> MarkdownRoute:
+    heading, columns, unit = CHART_TABLES[figure]
+    return MarkdownRoute(
+        module_id="CP-1",
+        heading=heading,
+        kind="chart",
+        block_id=block_id,
+        figure_id=figure,
+        value_columns=columns,
+        orientation="period-rows",
+        chart_unit=unit,
+    )
+
+
+def _chart_header(route: MarkdownRoute) -> list[str]:
+    return ["Period", *route.value_columns, "Reporting unit", "Basis and limitation"]
+
+
+def chart_issues(text: str, route: MarkdownRoute) -> tuple[str, ...]:
+    """A chart table's cells reach the report as they are, so each must already be chart-ready."""
+    heading = f"### {route.heading}"
+    lines = text.splitlines()
+    if heading not in lines:
+        return (f"Add `{heading}` inside ## Findings, with its table.",)
+    rows = []
+    for line in lines[lines.index(heading) + 1 :]:
+        if line.startswith("#"):
+            break
+        if line.startswith("|"):
+            rows.append([cell.strip() for cell in line.strip().strip("|").split("|")])
+    header = _chart_header(route)
+    if not rows or rows[0] != header:
+        return (f"`{heading}` needs the table headed `| {' | '.join(header)} |`.",)
+    issues = []
+    for row in rows[2:]:
+        if len(row) != len(header):
+            issues.append(f"`{heading}` row needs {len(header)} cells: {' | '.join(row)}")
+            continue
+        period, *values, unit, basis = row
+        if not basis:
+            issues.append(f"`{heading}` {period}: Basis and limitation is blank.")
+        for value in values:
+            if value.startswith(NOT_SUPPLIED) and value.removeprefix(NOT_SUPPLIED).strip():
+                continue
+            if not PLAIN_NUMBER.fullmatch(value):
+                issues.append(
+                    f"`{heading}` {period}: `{value} |` must be a plain number "
+                    "or `Not supplied: <reason>`."
+                )
+            elif unit != route.chart_unit:
+                issues.append(
+                    f"`{heading}` {period}: a number in {unit} cannot be charted as "
+                    f"{route.chart_unit}; write `Not supplied: reported in {unit}`."
+                )
+    return tuple(issues)
+
+
 def _layout(
     run: Run, ordered: tuple[str, ...], aliases: tuple[str, ...], config: str
 ) -> tuple[MarkdownLayout, tuple[str, ...]]:
@@ -252,6 +327,9 @@ def _layout(
         spec = _spec_of(block_id)
         owners = BLOCK_OWNERS.get(block_id, spec.producers)
         owner = next((m for m in owners if m in ordered), None)
+        if owner == "CP-1" and block_id in CHART_BLOCKS:
+            routes += [_chart_route(block_id, figure) for figure in STRIP_FIGURES[block_id]]
+            continue
         if owner is None or spec.kind == "chart" or block_id == SECOND_RUN_ONLY:
             omitted.append(block_id)
             continue
@@ -271,11 +349,11 @@ def _layout(
         f"User-launched {preset.title} run for {run.issuer_name} as of {run.as_of}, using {config} "
         "on the selected issuer folder. Automated checks cover handoff structure, issuer and date "
         "anchors, source and upstream references and report selectors; analytical accuracy has "
-        "not been independently reviewed. The HTML Model, charts and calculation JSON are not "
-        f"published by this launcher. Sections not produced: {', '.join(omitted) or 'none'}."
+        "not been independently reviewed. The HTML Model and calculation JSON are not published "
+        f"by this launcher. Sections not produced: {', '.join(omitted) or 'none'}."
     )
     layout = MarkdownLayout(
-        blocks=tuple(r.block_id for r in routes),
+        blocks=tuple(dict.fromkeys(r.block_id for r in routes)),
         routes=tuple(routes),
         scope=scope,
         title=f"{run.issuer_name} — {preset.title}",
@@ -297,13 +375,24 @@ READER_SECTION_RULES = (
 )
 
 
-def _instructions(run: Run, module: str, routes: Sequence[MarkdownRoute]) -> bytes:
-    selectors = "\n".join(
-        f"- `### {r.heading}`: "
-        + ("exactly one populated Markdown table under it." if r.kind == "table" else "prose only.")
-        for r in routes
-        if r.module_id == module
+def _selector(route: MarkdownRoute) -> str:
+    if route.kind == "chart":
+        return (
+            f"- `### {route.heading}`: exactly one Markdown table headed "
+            f"`| {' | '.join(_chart_header(route))} |`, one row per period. Value cells are plain "
+            f"numbers in {route.chart_unit}, with that as the Reporting unit, or "
+            "`Not supplied: <reason>`. An issuer reporting in another currency or scale writes "
+            "`Not supplied: reported in <unit>` in monetary cells. Basis and limitation is never "
+            "blank."
+        )
+    what = (
+        "exactly one populated Markdown table under it." if route.kind == "table" else "prose only."
     )
+    return f"- `### {route.heading}`: {what}"
+
+
+def _instructions(run: Run, module: str, routes: Sequence[MarkdownRoute]) -> bytes:
+    selectors = "\n".join(_selector(r) for r in routes if r.module_id == module)
     sections = [(path, (ROOT / path).read_text(encoding="utf-8")) for path in METHODS[module]]
     if module == "CP-1":
         sections += [(f"STEP_CONTRACTS[{step}]", STEP_CONTRACTS[step]) for step in CP1_STEPS]
@@ -431,7 +520,10 @@ def checker(layout: MarkdownLayout) -> Check:
         try:
             if routes:
                 own = layout.model_copy(
-                    update={"blocks": tuple(r.block_id for r in routes), "routes": routes}
+                    update={
+                        "blocks": tuple(dict.fromkeys(r.block_id for r in routes)),
+                        "routes": routes,
+                    }
                 )
                 with tempfile.TemporaryDirectory() as temporary:
                     (Path(temporary) / "answer.md").write_bytes(raw)
@@ -445,6 +537,9 @@ def checker(layout: MarkdownLayout) -> Check:
                 literal_module(task.module_id, raw)
         except ValueError as error:
             issues.append(f"The report adapter refused this handoff: {error}")
+        for route in routes:
+            if route.kind == "chart":
+                issues += chart_issues(text, route)
         return tuple(issues)
 
     return check

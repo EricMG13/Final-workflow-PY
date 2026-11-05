@@ -8,7 +8,14 @@ from pathlib import Path
 
 import pytest
 
-from deploy_workflow.handoff_delivery import HEADINGS, verify_delivery
+from deploy_vii.report_view import ReportView
+from deploy_workflow.handoff_delivery import (
+    HEADINGS,
+    DeliveryRequest,
+    HandoffInput,
+    verify_delivery,
+)
+from deploy_workflow.markdown_delivery import markdown_files
 from deploy_workflow.model.adapter import AdapterReply, LiveAdapter
 from deploy_workflow.model.handoff import _pages
 from deploy_workflow.model.providers import build
@@ -34,6 +41,7 @@ COVENANT_ROUTES = {
     ("lme-creditor-exposure", "CP-3C", "LME capacity and creditor exposure", "table"),
     ("ebitda-definition", "CP-4", "EBITDA definition", "table"),
     ("documents-structure", "CP-4", "Documents and structure", "table"),
+    ("maturity-wall", "CP-1", "Chart data: debt maturities", "chart"),
 }
 PATHWAY_MODULES = {
     "credit_snapshot": ("CP-0", "CP-1", "CP-1A", "CP-2", "CP-4", "CP-3", "CP-5", "CP-6"),
@@ -70,6 +78,34 @@ def issuer_folder(tmp_path: Path) -> Path:
 
 
 READER_BOTTOM_LINE = "The synthetic issuer shows one observed item."
+# Hand-written and synthetic: they prove the chart path, not any analysis.
+CHART_TABLES = {
+    "Chart data: leverage": """| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |
+| --- | --- | --- | --- | --- |
+| FY2023 | 4.20 | 3.85 | x | Synthetic. |
+| FY2024 | 3.60 | 3.25 | x | Synthetic. |""",
+    "Chart data: interest cover": """| Period | EBITDA / cash interest | Reporting unit | Basis and limitation |
+| --- | --- | --- | --- |
+| FY2023 | 3.10 | x | Synthetic. |
+| FY2024 | 3.40 | x | Synthetic. |""",
+    "Chart data: liquidity": """| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |
+| --- | --- | --- | --- | --- |
+| FY2023 | 300 | 450 | US$m | Synthetic. |
+| FY2024 | 275 | 400 | US$m | Synthetic. |""",
+    "Chart data: debt maturities": """| Period | Debt maturing | Reporting unit | Basis and limitation |
+| --- | --- | --- | --- |
+| FY2026 | 500 | US$m | Synthetic. |
+| FY2027 | Not supplied: the schedule stops here | US$m | Synthetic. |
+| FY2028 | 1,250 | US$m | Synthetic. |""",
+}
+NON_USD_TABLES = {
+    "Chart data: liquidity": """| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |
+| --- | --- | --- | --- | --- |
+| FY2024 | Not supplied: reported in EUR m | Not supplied: reported in EUR m | EUR m | Synthetic. |""",
+    "Chart data: debt maturities": """| Period | Debt maturing | Reporting unit | Basis and limitation |
+| --- | --- | --- | --- |
+| FY2026 | Not supplied: reported in EUR m | EUR m | Synthetic. |""",
+}
 
 
 def answer(context: dict, plan_routes: list) -> str:
@@ -86,7 +122,9 @@ def answer(context: dict, plan_routes: list) -> str:
         if route.module_id != context["module_id"]:
             continue
         lines += [f"### {route.heading}", ""]
-        if route.kind == "table":
+        if route.kind == "chart":
+            lines += [CHART_TABLES[route.heading], ""]
+        elif route.kind == "table":
             lines += ["| Item | Value |", "| --- | --- |", "| Observed | 1 |", ""]
         else:
             lines += ["A located finding.", ""]
@@ -283,7 +321,7 @@ def test_context_sets_run_identity_modules_and_report_routes(tmp_path):
     assert {
         (r.block_id, r.module_id, r.heading, r.kind) for r in prepared.plan.layout.routes
     } == COVENANT_ROUTES
-    assert "maturity-wall" in prepared.omitted
+    assert "maturity-wall" not in prepared.omitted
 
 
 def test_selected_method_and_report_selectors_reach_the_instructions(tmp_path):
@@ -565,9 +603,9 @@ def test_run_directory_inside_the_issuer_folder_is_refused(tmp_path, capsys):
     assert not (tmp_path / "issuer/run").exists()
 
 
-def good_task(tmp_path: Path, module: str = "CP-2"):
+def good_task(tmp_path: Path, module: str = "CP-2", pathway: str = "covenant_refinancing"):
     prepared = prepare(
-        context_file(tmp_path),
+        context_file(tmp_path, pathway),
         issuer_folder(tmp_path),
         tmp_path / "out",
         config="sol-medium",
@@ -666,6 +704,107 @@ def test_the_reader_section_reaches_the_report_unchanged(tmp_path, provider):
     assert READER_BOTTOM_LINE in (report.parent / "report-view.json").read_text()
 
 
+def strip_of(prepared, raw: str, tmp_path: Path, block: str):
+    routes = tuple(r for r in prepared.layout.routes if r.module_id == "CP-1")
+    own = prepared.layout.model_copy(
+        update={"blocks": tuple(dict.fromkeys(r.block_id for r in routes)), "routes": routes}
+    )
+    (tmp_path / "cp-1.md").write_text(raw)
+    handoff = HandoffInput(path="cp-1.md", sha256=hashlib.sha256(raw.encode()).hexdigest())
+    request = DeliveryRequest(run=prepared.plan.run, handoffs={"CP-1": handoff}, layout=own)
+    report = ReportView.model_validate_json(markdown_files(request, tmp_path)["report-view.json"])
+    return next(b for b in report.blocks if b.block_id == block)
+
+
+def test_cp1_chart_tables_become_the_report_chart_strip(tmp_path):
+    prepared, task, context = good_task(tmp_path, "CP-1", "credit_snapshot")
+    raw = answer(context, list(prepared.plan.layout.routes))
+    assert _checked_handoff(task, raw.encode(), checker(prepared.layout)) == ()
+    figures = strip_of(prepared, raw, tmp_path, "model-chart-strip").figures
+    assert [f.fig_id for f in figures] == ["S.1", "S.2", "S.3", "S.4"]
+    assert [m.value for m in figures[0].chart.marks] == [
+        Decimal("4.20"),
+        Decimal("3.85"),
+        Decimal("3.60"),
+        Decimal("3.25"),
+    ]
+    assert [m.value for m in figures[3].chart.marks] == [Decimal(500), None, Decimal(1250)]
+    assert figures[3].chart.marks[1].ref_id.startswith("G")
+
+
+def test_an_all_gaps_non_usd_issuer_passes_with_no_chart_values(tmp_path, monkeypatch):
+    prepared, task, context = good_task(tmp_path, "CP-1", "credit_snapshot")
+    monkeypatch.setitem(
+        CHART_TABLES, "Chart data: liquidity", NON_USD_TABLES["Chart data: liquidity"]
+    )
+    monkeypatch.setitem(
+        CHART_TABLES, "Chart data: debt maturities", NON_USD_TABLES["Chart data: debt maturities"]
+    )
+    raw = answer(context, list(prepared.plan.layout.routes))
+    assert _checked_handoff(task, raw.encode(), checker(prepared.layout)) == ()
+    figures = strip_of(prepared, raw, tmp_path, "model-chart-strip").figures
+    assert all(m.value is None for f in figures[2:] for m in f.chart.marks)
+
+
+@pytest.mark.parametrize(
+    ("old", "new", "complaint"),
+    [
+        ("| 3.85 |", "| 3.85x |", "3.85x"),
+        ("| 300 | 450 | US$m |", "| 300 | 450 | EUR m |", "EUR m"),
+        ("| FY2023 | 3.10 | x | Synthetic. |", "| FY2023 | 3.10 | x |  |", "Basis and limitation"),
+        ("### Chart data: liquidity", "### Liquidity data", "Chart data: liquidity"),
+        ("| Period | Debt maturing |", "| Year | Debt maturing |", "Period"),
+        ("| FY2026 | 500 |", "| FY2026 | Not supplied: |", "Not supplied: |"),
+    ],
+)
+def test_checker_refuses_each_broken_chart_table(tmp_path, old, new, complaint):
+    prepared, task, context = good_task(tmp_path, "CP-1", "credit_snapshot")
+    raw = answer(context, list(prepared.plan.layout.routes))
+    assert old in raw
+    issues = _checked_handoff(task, raw.replace(old, new).encode(), checker(prepared.layout))
+    assert any(complaint in issue for issue in issues), issues
+
+
+def test_the_instructions_give_the_exact_chart_table_header(tmp_path):
+    prepared, *_ = good_task(tmp_path, "CP-1", "credit_snapshot")
+    text = (tmp_path / "out" / prepared.plan.instructions["CP-1"].path).read_text()
+    assert (
+        "`| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |`"
+        in text
+    )
+    assert "Not supplied: reported in <unit>" in text
+
+
+def test_a_run_without_cp1_still_omits_the_chart_block(tmp_path):
+    prepared = prepare(
+        context_file(tmp_path, "credit_snapshot"),
+        issuer_folder(tmp_path),
+        tmp_path / "out",
+        config="sol-medium",
+        cap="50",
+        modules=("CP-1A",),
+    )
+    assert "CP-1" not in prepared.ordered
+    assert "model-chart-strip" in prepared.omitted
+
+
+def test_yield_against_maturity_stays_omitted(tmp_path):
+    prepared = prepare(
+        context_file(tmp_path, "relative_value"),
+        issuer_folder(tmp_path),
+        tmp_path / "out",
+        config="sol-medium",
+        cap="50",
+    )
+    assert "yield-against-maturity" in prepared.omitted
+
+
+def test_the_report_scope_no_longer_says_charts_are_unpublished(tmp_path):
+    prepared, *_ = good_task(tmp_path, "CP-1", "credit_snapshot")
+    assert "The HTML Model and calculation JSON are not published" in prepared.layout.scope
+    assert "charts" not in prepared.layout.scope.lower()
+
+
 def test_six_handoff_headings_are_still_enforced(tmp_path):
     prepared, task, context = good_task(tmp_path, "CP-0")
     raw = answer(context, []).replace("## Gaps", "## Risks").encode()
@@ -706,6 +845,7 @@ def assert_live_evidence(out: Path, cap: Decimal) -> None:
     view = json.loads((report.parent / "report-view.json").read_text())
     assert {b["block_id"]: b["state"] for b in view["blocks"]} == {
         "company-operating-model": "populated",
+        "model-chart-strip": "populated",
         "financials-credit-metrics": "populated",
         "company-profile": "populated",
         "transaction-summary": "populated",

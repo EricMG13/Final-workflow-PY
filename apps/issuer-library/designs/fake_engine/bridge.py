@@ -41,6 +41,15 @@ def complete(self, request, **kwargs):
     for route in plan["layout"]["routes"]:
         if route["module_id"] == context["module_id"]:
             lines += [f"### {route['heading']}", ""]
+            if route["kind"] == "chart":
+                columns = route["value_columns"]
+                lines += [
+                    f"| Period | {' | '.join(columns)} | Reporting unit | Basis and limitation |"
+                ]
+                lines += ["| --- " * (len(columns) + 3) + "|"]
+                values = " | ".join("0" for _ in columns)
+                lines += [f"| FY2024 | {values} | {route['chart_unit']} | Fake data. |", ""]
+                continue
             lines += (
                 ["| Item | Value |", "| --- | --- |", "| Observed | 0 |", ""]
                 if route["kind"] == "table"
