@@ -343,6 +343,13 @@ test('Active Library filters show as removable chips, and Clear all appears only
   assert.equal(d.activeElement,sector);assert.equal(clear.hidden,true);assert.ok(!sector.classList.contains('active'));
   dom.window.close();
 });
+test('New run and Settings use the shared secondary button for their other actions',()=>{
+  const dom=fixture('W-NewRun/run'),w=dom.window,d=w.document;
+  const ids=['edit-context','revise-run','another-run'];
+  w.eval(`location.hash='W-Settings/workspace';renderRoute()`);ids.push('refresh-library','quit-library');
+  for(const id of ids){const b=d.getElementById(id);assert.ok(b.classList.contains('secondary-action'),id);assert.ok(!b.classList.contains('text-button'),id);}
+  dom.window.close();
+});
 test('Content labels use the shared grey badge, not a separate tag style',()=>{
   for(const route of ['W-Overview/overview?c=tdg-002','W-Evidence/sources?c=tdg-002','W-Reports/list','CP-4/s75','CP-6']){
     const dom=fixture(route),d=dom.window.document;

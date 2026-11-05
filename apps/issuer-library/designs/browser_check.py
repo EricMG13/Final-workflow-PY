@@ -262,6 +262,30 @@ def chart_style(page, name, port):
     page.wait_for_selector(".bars")
 
 
+FORM_STYLE = """() => {
+  const css = (selector, property) => {
+    const element = document.querySelector(selector);
+    return element ? getComputedStyle(element)[property] : 'missing';
+  };
+  return {
+    select: [css('#run-model', 'height'), css('#run-model', 'borderTopLeftRadius')],
+    input: [css('#run-budget', 'height'), css('#run-budget', 'borderTopLeftRadius')],
+    secondary: css('#edit-context', 'height'),
+    done: css('.run-stages li[data-stage=context]', 'borderTopColor'),
+    current: css('.run-stages li[aria-current]', 'borderTopColor'),
+    todo: css('.run-stages li[data-stage=review]', 'borderTopColor'),
+  };
+}"""
+FORM_WANT = {
+    "select": ["40px", "8px"],
+    "input": ["40px", "8px"],
+    "secondary": "40px",
+    "done": "rgb(0, 23, 229)",
+    "current": "rgb(0, 23, 229)",
+    "todo": "rgb(228, 230, 236)",
+}
+
+
 def new_run(browser, name, port, workspace, start):
     page = browser.new_page(viewport={"width": 1366, "height": 768})
     errors = errors_of(page)
@@ -295,6 +319,11 @@ def new_run(browser, name, port, workspace, start):
     note(True, f"{name}: choosing the folder lists its files, dot files left out")
     page.fill("#run-budget", "50")
     page.screenshot(path=str(S / f"{name}-folder.png"))
+    form = page.evaluate(FORM_STYLE)
+    note(
+        form == FORM_WANT,
+        f"{name}: New run fields, buttons and stages use the shared controls ({form})",
+    )
     # Navigation away and back keeps the prepared run.
     page.click(".rail a[aria-label='Help']")
     page.wait_for_selector(".help-copy")

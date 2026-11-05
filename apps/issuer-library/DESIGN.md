@@ -96,8 +96,8 @@ are bundled locally with their ISC/MIT license notices. Icons accompany labels.
 Controls follow Untitled UI React (MIT): 40px buttons, inputs and selects with
 8px corners and an xs shadow; a 4px blue focus ring; pill badges; removable
 chips; tables with a grey header row. Colours, fonts and the rail stay the
-company's, and the greys lean toward its navy. The Library and the run header
-use them; other screens move to them one at a time. The run header is one line:
+company's, and the greys lean toward its navy. Every screen uses
+them except the embedded context form. The run header is one line:
 issuer name, the run as a grey mono badge, Change case, and the period with a
 calendar icon on the right. Underline tabs follow: grey text, the current tab
 blue with a 2px underline; on phones they scroll sideways without icons.
@@ -113,6 +113,11 @@ ring, and summary charts sit in the same 12px card. Grades are pills: a grey
 pill for neutral, a dashed outline for Not Assessable, red tint only where
 the handoff declares Weak. Navy and blue-grey fail a generic palette's
 lightness and chroma checks, so every series stays labelled in text.
+New run and Settings use the same 40px fields (16px text, a chevron on
+selects, a styled file button) and the secondary button for every action
+but the primary one. Run stages are a progress bar: blue up to the current
+stage, grey after it. The context form keeps its own contents inside a
+framed 12px card.
 
 - Run changes preserve the active module; unavailable output remains explicit.
 - The module opens selected analytical sections, not the entire Markdown handoff.
