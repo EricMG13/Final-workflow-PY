@@ -31,8 +31,8 @@ typography:
     fontWeight: 500
 rounded:
   surface: 12px
-  control: 6px
-  status: 4px
+  control: 8px
+  status: 999px
 spacing:
   small: 8px
   medium: 16px
@@ -42,8 +42,8 @@ components:
     backgroundColor: "{colors.action}"
     textColor: "{colors.panel}"
     rounded: "{rounded.control}"
-    padding: 8px 12px
-    height: 36px
+    padding: 0 14px
+    height: 40px
 ---
 
 ## Overview
@@ -88,7 +88,7 @@ rules. Do not add nested shadow cards or decorative glow.
 
 ## Shapes
 
-12px working-surface corners; 6px controls; 4px status labels. Lucide line icons
+12px working-surface corners; 8px controls; pill-shaped status labels. Lucide line icons
 are bundled locally with their ISC/MIT license notices. Icons accompany labels.
 
 ## Components
@@ -101,6 +101,11 @@ use them; other screens move to them one at a time. The run header is one line:
 issuer name, the run as a grey mono badge, Change case, and the period with a
 calendar icon on the right. Underline tabs follow: grey text, the current tab
 blue with a 2px underline; on phones they scroll sideways without icons.
+Content tables sit in a bordered 12px card with a grey header row, row rules
+and no stripes; values stay in Red Hat Mono with tabular figures, and a wide
+table scrolls inside its own card. Labels in content (classification, input,
+output scope, report status, summary kind) use the same grey badge as the
+Library; on the navy summary band it is a white outline.
 
 - Run changes preserve the active module; unavailable output remains explicit.
 - The module opens selected analytical sections, not the entire Markdown handoff.

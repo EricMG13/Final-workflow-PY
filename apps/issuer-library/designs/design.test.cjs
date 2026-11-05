@@ -166,7 +166,7 @@ test('Malformed and inherited-object route keys cannot break navigation or cross
 });
 test('An analytical verdict is not promoted to a provenance classification',()=>{
   const dom=fixture('CP-6'),w=dom.window,d=w.document;
-  const last=d.querySelectorAll('.debate')[2];assert.ok(last.textContent.includes('Insufficient Information'));assert.equal(last.querySelector('.source-footer .tag'),null,'an unclassified row shows no tag');
+  const last=d.querySelectorAll('.debate')[2];assert.ok(last.textContent.includes('Insufficient Information'));assert.equal(last.querySelector('.source-footer .badge'),null,'an unclassified row shows no tag');
   assert.equal(w.eval(`classification({fields:[['Evidence classification','Insufficient Information']]})`),'Insufficient Information');
   w.location.hash='CP-1D';w.eval('renderRoute()');assert.equal(d.querySelectorAll('.vector-chart rect').length,6);assert.ok(d.querySelector('.vector-chart').textContent.includes('4,173'));
   dom.window.close();
@@ -203,7 +203,7 @@ test('Narrative claims expose exact retained evidence without source hard wrappi
   const dom=fixture('CP-4/s75'),w=dom.window,d=w.document;
   assert.equal(d.querySelectorAll('.finding').length,3);assert.equal(d.querySelectorAll('.finding br').length,0);
   const button=d.querySelector('.finding .source-link');button.focus();button.click();w.eval('renderRoute()');
-  assert.ok(d.getElementById('inspector').textContent.includes('2.0'));assert.equal(d.querySelector('.finding .tag'),null);assert.equal(d.querySelector('#inspector .classification').textContent,'Not classified');
+  assert.ok(d.getElementById('inspector').textContent.includes('2.0'));assert.equal(d.querySelector('.finding .badge'),null);assert.equal(d.querySelector('#inspector .badge.badge-gray.classification').textContent,'Not classified');
   d.getElementById('back-analysis').click();w.eval('renderRoute()');assert.equal(d.activeElement,button);
   dom.window.close();
 });
@@ -343,11 +343,22 @@ test('Active Library filters show as removable chips, and Clear all appears only
   assert.equal(d.activeElement,sector);assert.equal(clear.hidden,true);assert.ok(!sector.classList.contains('active'));
   dom.window.close();
 });
+test('Content labels use the shared grey badge, not a separate tag style',()=>{
+  for(const route of ['W-Overview/overview?c=tdg-002','W-Evidence/sources?c=tdg-002','W-Reports/list','CP-4/s75','CP-6']){
+    const dom=fixture(route),d=dom.window.document;
+    assert.equal(d.querySelectorAll('.tag').length,0,route);
+    dom.window.close();
+  }
+  const dom=fixture('W-Evidence/sources?c=ford-otosan-2024'),d=dom.window.document;
+  assert.equal(d.querySelectorAll('.tag').length,0);
+  assert.ok([...d.querySelectorAll('.source-inventory .badge.badge-gray')].some(b=>b.textContent==='Input'),'input files carry a grey Input badge');
+  dom.window.close();
+});
 test('Grey text: Evidence rows name only the attempt; the intro states the PDF limitation plainly',()=>{
   const dom=fixture('W-Evidence/sources?c=tdg-002'),d=dom.window.document,content=d.getElementById('content');
   assert.equal(norm(content.querySelector('.intro').textContent),'Source PDFs aren’t included; page references point to the originals.');
   assert.equal(norm(content.querySelector('.source-inventory>section p').textContent),'Attempt 1 of 2');
-  assert.ok(![...content.querySelectorAll('.source-inventory .tag')].some(t=>t.textContent==='Saved output'));
+  assert.ok(![...content.querySelectorAll('.source-inventory .badge')].some(t=>t.textContent==='Saved output'));
   dom.window.close();
 });
 test('Grey text: run pages drop state narration, hash notes, design specs and empty classifications',()=>{
