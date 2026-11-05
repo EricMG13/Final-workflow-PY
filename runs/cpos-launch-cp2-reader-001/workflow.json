@@ -1,0 +1,209 @@
+{
+  "execution": "live-provider",
+  "instructions": {
+    "CP-0": {
+      "path": "instructions/CP-0.md",
+      "sha256": "b581c2bca7df2a89367077af74b84201840666dc47a40f7e7c355ac306b5da92"
+    },
+    "CP-1": {
+      "path": "instructions/CP-1.md",
+      "sha256": "9af45823d12ab1249a19916c47bc4d01a07602c928fee76492ac5ab5e26adbc0"
+    },
+    "CP-1A": {
+      "path": "instructions/CP-1A.md",
+      "sha256": "f00c028f96702baa6843e92cb123e415f09a799ac8442afe1fa7229eab75c47f"
+    },
+    "CP-2": {
+      "path": "instructions/CP-2.md",
+      "sha256": "2bb7a6b2235470a569e2cd3ba70a604268a83a6fce969982db51c07da4abc44e"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "key-findings",
+      "company-operating-model",
+      "financials-credit-metrics",
+      "strengths-weaknesses",
+      "company-profile",
+      "transaction-summary"
+    ],
+    "issuer_aliases": [],
+    "question": null,
+    "routes": [
+      {
+        "block_id": "key-findings",
+        "chart_unit": null,
+        "figure_id": null,
+        "heading": "Key findings",
+        "kind": "prose",
+        "label": null,
+        "module_id": "CP-2",
+        "orientation": "period-columns",
+        "prefix": null,
+        "row_labels": [],
+        "table_header": null,
+        "value_columns": []
+      },
+      {
+        "block_id": "company-operating-model",
+        "chart_unit": null,
+        "figure_id": null,
+        "heading": "Company and operating model",
+        "kind": "table",
+        "label": null,
+        "module_id": "CP-1A",
+        "orientation": "period-columns",
+        "prefix": null,
+        "row_labels": [],
+        "table_header": null,
+        "value_columns": []
+      },
+      {
+        "block_id": "financials-credit-metrics",
+        "chart_unit": null,
+        "figure_id": null,
+        "heading": "Financials and credit metrics",
+        "kind": "table",
+        "label": null,
+        "module_id": "CP-1",
+        "orientation": "period-columns",
+        "prefix": null,
+        "row_labels": [],
+        "table_header": null,
+        "value_columns": []
+      },
+      {
+        "block_id": "strengths-weaknesses",
+        "chart_unit": null,
+        "figure_id": null,
+        "heading": "Strengths and weaknesses",
+        "kind": "prose",
+        "label": null,
+        "module_id": "CP-2",
+        "orientation": "period-columns",
+        "prefix": null,
+        "row_labels": [],
+        "table_header": null,
+        "value_columns": []
+      },
+      {
+        "block_id": "company-profile",
+        "chart_unit": null,
+        "figure_id": null,
+        "heading": "Company profile",
+        "kind": "table",
+        "label": null,
+        "module_id": "CP-1A",
+        "orientation": "period-columns",
+        "prefix": null,
+        "row_labels": [],
+        "table_header": null,
+        "value_columns": []
+      },
+      {
+        "block_id": "transaction-summary",
+        "chart_unit": null,
+        "figure_id": null,
+        "heading": "Transaction summary and new debt issues",
+        "kind": "prose",
+        "label": null,
+        "module_id": "CP-1A",
+        "orientation": "period-columns",
+        "prefix": null,
+        "row_labels": [],
+        "table_header": null,
+        "value_columns": []
+      }
+    ],
+    "scope": "User-launched Credit Snapshot run for TransDigm Group Incorporated as of 2024-09-30, using sol-medium on the selected issuer folder. Automated checks cover handoff structure, issuer and date anchors, source and upstream references and report selectors; analytical accuracy has not been independently reviewed. The HTML Model, charts and calculation JSON are not published by this launcher. Sections not produced: model-chart-strip, capital-structure, relative-value, portfolio-fit, committee-challenge, what-changed.",
+    "title": "TransDigm Group Incorporated \u2014 Credit Snapshot"
+  },
+  "max_attempts": 1,
+  "model": null,
+  "provider_cap_usd": "8",
+  "retained_handoffs": {
+    "CP-0": {
+      "path": "retained/CP-0.md",
+      "sha256": "1bd907de98c4ddf470c43d588cb1b6dba6a1f3f61c57024f3f7486852f0393c5",
+      "source_hashes": {
+        "TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm.jsonl": "fcec3566cfda08c82a8aaed7289c6440cc05d12976f237cd72a32cf9fbfb2ed6",
+        "TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm.jsonl": "ce1b0541d5e8222dc536d748942a3cb51236d7ff62d8613b002460bd8b41dcf2",
+        "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm.jsonl": "d75c469fdb1966dd895c0f6faa6d5179b380d3ed95aa00aca99aa258059edab6",
+        "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm.jsonl": "ec98b47e6ebad9663286dc04b35dade04d11e7d12c3642ddaa6ef549a33d671f",
+        "TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "context": "f7b95e1ff471b47547a3ac86cb68e7e7144a06231f6e94de0eee48e0c6828449"
+      },
+      "upstream": {}
+    },
+    "CP-1": {
+      "path": "retained/CP-1.md",
+      "sha256": "89b8b460f4114ffc268a661d76e9c2fc9256e19dc970681b9c2b4da2363e9c3d",
+      "source_hashes": {
+        "TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm.jsonl": "fcec3566cfda08c82a8aaed7289c6440cc05d12976f237cd72a32cf9fbfb2ed6",
+        "TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm.jsonl": "ce1b0541d5e8222dc536d748942a3cb51236d7ff62d8613b002460bd8b41dcf2",
+        "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm.jsonl": "d75c469fdb1966dd895c0f6faa6d5179b380d3ed95aa00aca99aa258059edab6",
+        "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm.jsonl": "ec98b47e6ebad9663286dc04b35dade04d11e7d12c3642ddaa6ef549a33d671f",
+        "TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "context": "f7b95e1ff471b47547a3ac86cb68e7e7144a06231f6e94de0eee48e0c6828449"
+      },
+      "upstream": {
+        "CP-0": "1bd907de98c4ddf470c43d588cb1b6dba6a1f3f61c57024f3f7486852f0393c5"
+      }
+    },
+    "CP-1A": {
+      "path": "retained/CP-1A.md",
+      "sha256": "bc532f0ebb526608d9adad5b0c02dfcad68006015221085a4139260be2a96545",
+      "source_hashes": {
+        "TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm.jsonl": "fcec3566cfda08c82a8aaed7289c6440cc05d12976f237cd72a32cf9fbfb2ed6",
+        "TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm.jsonl": "ce1b0541d5e8222dc536d748942a3cb51236d7ff62d8613b002460bd8b41dcf2",
+        "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm.jsonl": "d75c469fdb1966dd895c0f6faa6d5179b380d3ed95aa00aca99aa258059edab6",
+        "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm.jsonl": "ec98b47e6ebad9663286dc04b35dade04d11e7d12c3642ddaa6ef549a33d671f",
+        "TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+        "context": "f7b95e1ff471b47547a3ac86cb68e7e7144a06231f6e94de0eee48e0c6828449"
+      },
+      "upstream": {
+        "CP-0": "1bd907de98c4ddf470c43d588cb1b6dba6a1f3f61c57024f3f7486852f0393c5",
+        "CP-1": "89b8b460f4114ffc268a661d76e9c2fc9256e19dc970681b9c2b4da2363e9c3d"
+      }
+    }
+  },
+  "run": {
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "issuer_id": "tdg",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-2"
+    ],
+    "run_id": "tdg-2024-09-30-credit_snapshot-sol-medium",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm.jsonl": {
+      "path": "source-text/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm.jsonl",
+      "sha256": "fcec3566cfda08c82a8aaed7289c6440cc05d12976f237cd72a32cf9fbfb2ed6"
+    },
+    "TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm.jsonl": {
+      "path": "source-text/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm.jsonl",
+      "sha256": "ce1b0541d5e8222dc536d748942a3cb51236d7ff62d8613b002460bd8b41dcf2"
+    },
+    "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm.jsonl": {
+      "path": "source-text/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm.jsonl",
+      "sha256": "d75c469fdb1966dd895c0f6faa6d5179b380d3ed95aa00aca99aa258059edab6"
+    },
+    "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm.jsonl": {
+      "path": "source-text/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm.jsonl",
+      "sha256": "ec98b47e6ebad9663286dc04b35dade04d11e7d12c3642ddaa6ef549a33d671f"
+    },
+    "TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": {
+      "path": "../../data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+    },
+    "context": {
+      "path": "../cpos-launch-live-002/context.json",
+      "sha256": "f7b95e1ff471b47547a3ac86cb68e7e7144a06231f6e94de0eee48e0c6828449"
+    }
+  }
+}
