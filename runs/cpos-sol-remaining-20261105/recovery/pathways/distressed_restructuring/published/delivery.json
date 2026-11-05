@@ -1,0 +1,20 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "TDG conditional downside and restructuring route. Actual distress is not established. Annual static stress, conditional forecasts and December liquidity use their own periods and assumptions. Recovery by class, realizable-value allocation and agency rating triggers remain explicit gaps. Positive recovery-function proof on Frontier\u2019s 2020 case is separate and supplies no TDG facts. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output. The retained live December committee response includes a source-checked host erratum for the annual maturity mapping. Its December periods and Watchlist judgment are unchanged.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-1D.md": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
+    "CP-2A.md": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3",
+    "CP-2D.md": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565",
+    "CP-2G.md": "20314e01d39b87d2e50d4a50ab048371175bccc4c8330ff1170811254b38a2c6",
+    "CP-2.md": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+    "CP-4.md": "3d39b8424f070064d992a2534bf0ef355ffbde34cd550222bb2adb97ac41e72e",
+    "CP-3C.md": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+    "CP-6.md": "85c4820fc1a925d21741a9904cf20e97e1d2a9f5e6fd49037b56e22f07bc75e2",
+    "view.json": "c9b2acce66a33820860005b1bf6b9d9ffce333e322db898fd8d166c019d02c02",
+    "report-view.json": "20d25b05538604831c37eba1dca42c0e625ba0ea367a9f6e2a86ad4fe099ce6a",
+    "report.html": "e386c386fa79d379819c8a4c95ac219fd7b4649bb09fd70545ca920596ce864e"
+  }
+}

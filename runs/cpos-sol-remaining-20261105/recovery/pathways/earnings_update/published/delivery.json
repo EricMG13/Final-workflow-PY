@@ -1,0 +1,25 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "TDG historical earnings update for December 28, 2024 versus December 30, 2023. The FY2022\u2013FY2024 annual Model and separately dated November 2024/February 2025 guidance remain distinct. What Changed compares reported and guided periods; CP-8 prior-run comparison is separate. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output. The retained live December committee response includes a source-checked host erratum for the annual maturity mapping. Its December periods and Watchlist judgment are unchanged.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": true,
+  "excel_output": false,
+  "files": {
+    "CP-1.md": "2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891",
+    "CP-1A.md": "ac6631243ca71cda10dcdafcc5696a3393c9617b61c49bdfe8e94d2d5a33f955",
+    "CP-2.md": "46cca7cd74c612c8c29b7d89c572a46c1e86481a387bd1301525e3e440b3ae1c",
+    "CP-1B.md": "42ee44c8350150abd3875adc4ee30ba2cdc4658d0db3ed905251f4825be6e377",
+    "CP-1D.md": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
+    "CP-DR.md": "0463a4b16e8ed7de1e1ed9a219587bbf4ee2b6fc2e98228d4f0090c22d487b03",
+    "CP-6.md": "85c4820fc1a925d21741a9904cf20e97e1d2a9f5e6fd49037b56e22f07bc75e2",
+    "annual.md": "2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891",
+    "current_synthesis.md": "46cca7cd74c612c8c29b7d89c572a46c1e86481a387bd1301525e3e440b3ae1c",
+    "calculation.json": "437004d244f2d3a351620498a1a7d8b60901ea72dbbca9d13c09de3d0eda5ab1",
+    "model-view.json": "a430782402cf5eeb622351c3656c69ab4f8bac0a52cb5d7ef24da30bdc7f2a2a",
+    "model-report-view.json": "dec6d71d63d0125ab0e8c194c67e0765df5408fee617c0919e00ea356dcc7bc4",
+    "model.html": "3cfb77b1478b0a9960456c6d7beff1a9000f46f42d389d08257c7c7172a688a8",
+    "view.json": "5f7b6dc6b42587efa25a9a130449bf7066858e2b52a39037a0f80629516c8eb5",
+    "report-view.json": "0879209c72e2439fab809e6b8b9dceeb897074704ae64a00485a3a41ad900331",
+    "report.html": "3328220561e6abee307ef815f365ca86d59dcf538a9978315ba091cef9bd1e75"
+  }
+}

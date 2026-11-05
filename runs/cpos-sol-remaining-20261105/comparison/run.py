@@ -25,6 +25,6 @@ if __name__ == "__main__":
             ruling=ROOT / "docs/rulings/2026-11-05-remaining-modules.md",
             check=check,
             max_turns=24,
-            max_output_tokens=16000,
+            max_output_tokens=8000,
         )
     )

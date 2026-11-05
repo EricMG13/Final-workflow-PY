@@ -3,6 +3,11 @@
 Keep one running record here. A pass applies only to the stated scope. Preserve
 earlier run artifacts; record a new attempt when instructions or outputs change.
 
+The [current remaining-module record](runs/cpos-sol-remaining-20261105/verification.json)
+contains the settled CP-6 timeout cost, the corrected TDG annual publication, the
+live CP-8 comparison and checks of the five broader report bundles. The older
+entries below retain their historical case scope.
+
 ## 2026-11-05 — cp-os live loop reused
 
 The [campaign record](runs/cpos-sol-medium-20261105/verification.json) now records

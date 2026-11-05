@@ -15,23 +15,29 @@ ARCC, LQD, Ford Otosan, Enel, Moog/Wencor, CRC, LMI and Frontier with each
 issuer and evidence date kept separate. These are bounded historical proofs,
 not current underwriting or universal native-contract acceptance.
 
-Five broader report designs consume live handoffs through the existing delivery
-process. Final source-completeness corrections are in progress: the annual report
-explicitly places the November 2027 note maturity in fiscal 2028, resolving the
-previously alleged fiscal-2027 conflict. This is provider-free publication reuse,
-not fresh execution of every module in each pathway:
+The corrected [TDG annual report and Model](runs/cpos-sol-remaining-20261105/recovery/execution/deliveries/96c0def4111ccdccdba03f67829817a9d180bd1b6d23ca5bd36dd88fdb0d1dee/report.html)
+use the retained source intake and seven sequential sol-medium modules. The
+annual report places the November 2027 notes in fiscal 2028; the reported fiscal
+2027 repayment bucket remains 92. The publication has 12 populated panels, charts
+and calculation JSON. The [live CP-8 comparison](runs/cpos-sol-remaining-20261105/comparison/execution/deliveries/0656748d344c9ae4a504157fd5681143daddfd978462f95e20a35a5278302f29/report.html)
+compares both complete bundles across seven dimensions. Both runs resume from
+verified artifacts without another provider call.
+
+Five broader report designs reuse checked handoffs through the existing delivery
+process. The December committee response includes a source-checked host erratum
+that preserves its original scope and judgment:
 
 | Pathway | Populated panels | Evidence boundary |
 |---|---:|---|
-| [Earnings update](runs/cpos-sol-remaining-20261105/pathways/earnings_update/published/report.html) | 14 | TDG December 2024 quarter, separate annual Model and dated guidance |
+| [Earnings update](runs/cpos-sol-remaining-20261105/recovery/pathways/earnings_update/published/report.html) | 14 | TDG December 2024 quarter, separate annual Model and dated guidance |
 | [Relative value](runs/cpos-sol-remaining-20261105/pathways/relative_value/published/report.html) | 10 | ARCC December 2024 same-issuer bond comparison; conditional price basis |
 | [Portfolio decision](runs/cpos-sol-remaining-20261105/pathways/portfolio_decision/published/report.html) | 8 | LQD May 2025 holdings; Requires More Work, with missing mandate inputs |
-| [Covenant/refinancing](runs/cpos-sol-remaining-20261105/pathways/covenant_refinancing/published/report.html) | 11 | TDG executed 2033 indenture; conditional capacity and liquidity |
-| [Distressed/restructuring](runs/cpos-sol-remaining-20261105/pathways/distressed_restructuring/published/report.html) | 15 | TDG conditional downside; actual distress and quantified recovery not established |
+| [Covenant/refinancing](runs/cpos-sol-remaining-20261105/recovery/pathways/covenant_refinancing/published/report.html) | 11 | TDG executed 2033 indenture; conditional capacity and liquidity |
+| [Distressed/restructuring](runs/cpos-sol-remaining-20261105/recovery/pathways/distressed_restructuring/published/report.html) | 15 | TDG conditional downside; actual distress and quantified recovery not established |
 
-Offline reproduction checks raw handoff bytes, every citation's physical line
-and source hash, chart values, Model calculations and complete publication
-bundles: `PYTHONPATH=src .venv/bin/python runs/cpos-sol-remaining-20261105/pathways/verify.py`.
+Offline reproduction of the annual and comparison proofs uses `recovery/verify.py`
+and `comparison/verify.py` in the campaign directory. The campaign record links
+the five verified broader bundles and records the source checks and settled costs.
 The literal adapter copies explicit committee action biases as well as portfolio
 postures, and keeps Model identity unchanged when sharing its facts with report
 charts. It does not generate replacement analysis or infer missing decisions.

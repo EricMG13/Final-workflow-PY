@@ -62,7 +62,7 @@ def verify():
             check=check,
             environ={},
             max_turns=24,
-            max_output_tokens=16000,
+            max_output_tokens=8000,
         )
     assert resumed == report and (state / "live/calls.jsonl").read_bytes() == before
     assert not list(report.parent.glob("*.xlsx"))

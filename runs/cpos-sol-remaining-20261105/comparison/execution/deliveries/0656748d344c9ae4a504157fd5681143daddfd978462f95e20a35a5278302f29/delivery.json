@@ -1,0 +1,12 @@
+{
+  "kind": "checked_deliverable_comparison",
+  "scope": "Comparison of the explicitly selected prior and current delivery bundles. Latest local publication does not imply current issuer evidence. No decision history, returns, new issuer analysis or Excel output. Limitations and exact source bindings remain in the CP-8 handoff.",
+  "analytical_runtime_executed": false,
+  "files": {
+    "CP-8.md": "9de6d2e6f3a6bb4162a8a91832605a44643becd333dc0b05a1838543f5b7489f",
+    "view.json": "577dbb640f50534120a3d5445085718d2ee03897a83721264138f7169011d8b8",
+    "report-view.json": "4e6578e7968678618464dd75ee975fa8ee9988a74f0b60d41d54da0904cf6eb5",
+    "report.html": "40d4dd14b74cd49f9aadc8816c0c922651df2cb797322a7ca826f58b331ecc94",
+    "comparison-inputs.json": "4bb3c582c02e25daf688e75f1321721f9a3a0675784db4e9017e9af5706677be"
+  }
+}

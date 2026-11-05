@@ -1,0 +1,26 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "TDG historical FY2024 annual case, CP-OS ordered live source corrections and new committee analysis from current handoffs. Source intake is the checked original live CP-0 response. Twelve credit-report panels plus HTML Model, charts and calculation JSON; source, legal, market and portfolio limits remain explicit.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": true,
+  "excel_output": false,
+  "files": {
+    "CP-0.md": "8a0611cc768e043abd52c2bf4899f6b0a6d560a1c264f7fbc991fa6d10863963",
+    "CP-1.md": "2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891",
+    "CP-1A.md": "ac6631243ca71cda10dcdafcc5696a3393c9617b61c49bdfe8e94d2d5a33f955",
+    "CP-2.md": "46cca7cd74c612c8c29b7d89c572a46c1e86481a387bd1301525e3e440b3ae1c",
+    "CP-4.md": "3d39b8424f070064d992a2534bf0ef355ffbde34cd550222bb2adb97ac41e72e",
+    "CP-3.md": "d2472fbb0694f2d73882f0c405765c19604dbbf11f5116acc1cbc4c8a01a76d7",
+    "CP-5.md": "b629973ef435578dc42a4ef932e558b0c18de3f441b50be1aa3f0f7cbd7d7b86",
+    "CP-6.md": "cfd965c46e884cc6f8763a14119d843e305d95955d68587795f0e0658dd6c773",
+    "annual.md": "2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891",
+    "current_synthesis.md": "46cca7cd74c612c8c29b7d89c572a46c1e86481a387bd1301525e3e440b3ae1c",
+    "calculation.json": "437004d244f2d3a351620498a1a7d8b60901ea72dbbca9d13c09de3d0eda5ab1",
+    "model-view.json": "4a8a79a5cc5bea3c0ad2370156fd93e28edffd65206bf07ffcdebb3429af07d8",
+    "model-report-view.json": "924761352d0a09bee97012b16cfb2c7fe0ff9b6c2a9e38b5e0099d59bbba32ed",
+    "model.html": "b7148844ffb307675ce58e0da088c2ff2fb04c9ebd460301e8f21c94e835642e",
+    "view.json": "5869c8c220bde698ddc211ae72cfbe018581c85830bc13537e88a56e1f17bff6",
+    "report-view.json": "c4b1377005b490631f23a237f3be3c18f2174bfa37217349f10cfc5c907a7936",
+    "report.html": "354da61a24e620dc141a94e9d6ce25374eeff532267e43756e8038661f3d5db6"
+  }
+}

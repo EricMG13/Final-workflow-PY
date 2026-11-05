@@ -1,0 +1,37 @@
+{
+  "run": {
+    "run_id": "sol-fresh-tdg-complete-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-4",
+      "CP-6"
+    ]
+  },
+  "module_id": "CP-6",
+  "instructions": {
+    "path": "instructions.md",
+    "sha256": "89ce8e34773edda3f2ea92291cfcd75caef47e19011a5b268e5c4d288a7174ae"
+  },
+  "sources": {
+    "S1-annual-report.pdf": {
+      "path": "../../../../data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+    }
+  },
+  "handoffs": {
+    "CP-1": {
+      "path": "../CP-1.md",
+      "sha256": "2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891"
+    }
+  },
+  "draft": {
+    "path": "../CP-6.md",
+    "sha256": "22dfe64e5b9c3ff5764839378b4db9c71259ecf1f897fb710b876d38251fadf1"
+  },
+  "checks": "checks.json",
+  "output": "CP-6.md"
+}
