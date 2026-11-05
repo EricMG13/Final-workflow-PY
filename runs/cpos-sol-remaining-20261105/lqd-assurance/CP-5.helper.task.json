@@ -1,0 +1,85 @@
+{
+  "run": {
+    "run_id": "sol-remaining-lqd-assurance-helper-adoption-20261105",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2025-05-31",
+    "case_kind": "public",
+    "pathway": "portfolio_decision",
+    "requested_modules": [
+      "CP-5"
+    ]
+  },
+  "module_id": "CP-5",
+  "instructions": {
+    "path": "CP-5.helper.instructions.md",
+    "sha256": "b752ab24659f5502a3eb9371bacf338aa0e29e519b6cfaa2453bb624818faf52"
+  },
+  "sources": {
+    "method-entry": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/SKILL.md",
+      "sha256": "7f21c8712cb40e871abaa1f855fdb95dded5df9887e354c39253e0492dd93390"
+    },
+    "method-runbook": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/references/CP-5_RUNBOOK.md",
+      "sha256": "c053b622c63b242364a8e53c1b2e676f6f02c1ce6a4f7e87728c885e9fd68434"
+    },
+    "method-trace": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/references/REF_CP-5_STEPS.md",
+      "sha256": "0b5beddbc0a5d3c99065379b7110e3b87fbc5392d38ed243ccbf7fdce70e506a"
+    },
+    "method-QA": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/references/REF_CP-5A_STEPS.md",
+      "sha256": "e93781b8055e0c33e744b06fb0706161885400d6f8c7ef07a743497d4a865e8d"
+    },
+    "nport-selected": {
+      "path": "../lqd-portfolio/nport-selected.txt",
+      "sha256": "05035e8fb6f704a1a5a11522dd361942866b1e815dfdc71d940620dd512bfb3f"
+    },
+    "form-semantics": {
+      "path": "../lqd-portfolio/form-semantics.txt",
+      "sha256": "10453adb85c318ce466a951c1e1bf9b07d5f900614f1ff67765ef027924a7fc6"
+    },
+    "review-claims": {
+      "path": "claims.json",
+      "sha256": "b3b30b854cec6187f61d70521e27962aaed918e2c0f508ab6fe8752abab7c06b"
+    },
+    "publication-evidence": {
+      "path": "publication-evidence.json",
+      "sha256": "b2efbb75643562c95a102cefcb6537bcd68555a03a4fd72c13f331b5d1b0eb39"
+    },
+    "producer-instructions": {
+      "path": "../lqd-portfolio/CP-3.instructions.md",
+      "sha256": "d6fc111d09f65d5b2e246f5170ad7c3bf7be638e75ca4fa40ddb16e82a341855"
+    },
+    "challenge-instructions": {
+      "path": "../lqd-debate/CP-6.instructions.md",
+      "sha256": "732edf8c3dc56b3b43a328fa23a2c137ae733bdcb2115fc8a949e5c223b3bd62"
+    },
+    "targeted-repair-instructions": {
+      "path": "../lqd-debate/CP-6.repair.instructions.md",
+      "sha256": "e3b7037b53b1a025ce6ee01e461123a67f1796a78057e147f7a54ec9e7fa9916"
+    },
+    "confidence-helper-executed": {
+      "path": "confidence-helper-executed.json",
+      "sha256": "d2bbf92a61b5d86d5dbcecc1f018672cf7a79ff5b0f92bd71a101d664939d0cd"
+    }
+  },
+  "handoffs": {
+    "CP-3B": {
+      "path": "../lqd-portfolio/CP-3.md",
+      "sha256": "183c91f1b5ca67fcecad5ce64ac99cbc0a42c9bed422880c6102e9c9501677f3"
+    },
+    "CP-6": {
+      "path": "../lqd-debate/CP-6-repaired.md",
+      "sha256": "554455c01803a0ae794e49dacc7ceb98c30f0b81be1a2b81f668ecb53de117f8"
+    }
+  },
+  "layout": "CP-5.layout.json",
+  "checks": "CP-5.checks.json",
+  "output": "CP-5-final.md",
+  "draft": {
+    "path": "CP-5.md",
+    "sha256": "3f79e9bc50bb63a55cddcefd51c0b32979c2955249ac6cd7cef4977a77c24f89"
+  }
+}

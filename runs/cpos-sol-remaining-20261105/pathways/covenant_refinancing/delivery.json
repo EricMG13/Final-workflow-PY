@@ -1,0 +1,153 @@
+{
+  "run": {
+    "run_id": "sol-current-covenant_refinancing-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-12-28",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-1",
+      "CP-1A",
+      "CP-2",
+      "CP-4",
+      "CP-3C",
+      "CP-2D",
+      "CP-1D"
+    ]
+  },
+  "handoffs": {
+    "CP-1": {
+      "path": "../../fresh-tdg/CP-1.md",
+      "sha256": "89dced9cb71499d2c18ae55dda6bfcb524f060b86c43b52e9f35ece4e1c38c9e"
+    },
+    "CP-1A": {
+      "path": "../../../cpos-sol-medium-20261105/requests/CP-1A/b602bf1822d9fb914aa21e26dee0d70daa3069fb7351dbc997f532ee45776057/1.response.md",
+      "sha256": "3da9bf55281dc9a86e15bbb438ddd3b8aa04244344ab5ee7e5c059fc2da9054f"
+    },
+    "CP-2": {
+      "path": "../../../cpos-sol-medium-20261105/requests/CP-2/e3c268f7bf12c2b2c239071295db763955f2a6a849e990ae2f553a22ed360593/1.response.md",
+      "sha256": "e7b46ceeedf76db7143359e7cef97b64c6a210dd7b63d3362cc2a7943018ee3a"
+    },
+    "CP-4": {
+      "path": "../../tdg-legal/CP-4.md",
+      "sha256": "267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43"
+    },
+    "CP-3C": {
+      "path": "../../tdg-legal/CP-3C.md",
+      "sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e"
+    },
+    "CP-2D": {
+      "path": "../../tdg-earnings/CP-2D.md",
+      "sha256": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565"
+    },
+    "CP-1D": {
+      "path": "../../tdg-earnings/CP-1D.md",
+      "sha256": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "covenant-tests-headroom",
+      "liquidity-runway",
+      "maturity-wall",
+      "funding-gap",
+      "red-flags",
+      "lender-protection-score",
+      "refinancing-paths",
+      "capacity",
+      "lme-creditor-exposure",
+      "ebitda-definition",
+      "documents-structure"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-4",
+        "heading": "T4.3 \u2014 provision register",
+        "kind": "table",
+        "block_id": "covenant-tests-headroom"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "T2E.6 \u2014 months to empty",
+        "kind": "table",
+        "block_id": "liquidity-runway"
+      },
+      {
+        "module_id": "CP-1",
+        "heading": "T4.18 \u2014 Debt and facility register",
+        "kind": "chart",
+        "block_id": "maturity-wall",
+        "figure_id": "S.4",
+        "value_columns": [
+          "Amount"
+        ],
+        "row_labels": [
+          "Fiscal 2025",
+          "Fiscal 2026",
+          "Fiscal 2027",
+          "Fiscal 2028",
+          "Fiscal 2029",
+          "Thereafter"
+        ],
+        "orientation": "period-rows",
+        "chart_unit": "US$m",
+        "table_header": "Item",
+        "label": "Reported Note 10, USD millions schedule, not reconciled debt wall: FY2027 92 conflicts with notes of 2,650; excludes A/R and leases"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "T2E.5 \u2014 forward liquidity bridge",
+        "kind": "table",
+        "block_id": "funding-gap"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4.12 \u2014 red flags and observable follow-up",
+        "kind": "table",
+        "block_id": "red-flags"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4.11 \u2014 provisional aggressiveness assessment",
+        "kind": "table",
+        "block_id": "lender-protection-score",
+        "label": "Provisional legal aggressiveness rubric; not a calibrated lender score"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Refinancing paths",
+        "kind": "table",
+        "block_id": "refinancing-paths"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Legal numeric controls",
+        "kind": "table",
+        "block_id": "capacity",
+        "label": "Conditional clause boundaries, not unused capacity"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Creditor exposure",
+        "kind": "table",
+        "block_id": "lme-creditor-exposure"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.4 \u2014 issuer control bridge and unresolved quality bridge",
+        "kind": "table",
+        "block_id": "ebitda-definition",
+        "label": "Accounting versus quality bridge; legal EBITDA definition remains in CP4"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4.2 \u2014 controlling document and roles",
+        "kind": "table",
+        "block_id": "documents-structure"
+      }
+    ],
+    "scope": "TDG\u2019s executed September 19, 2024 indenture for the 6% 2033 notes, with December 28, 2024 liquidity context. Annual, quarter and instrument dates remain separate. The reported Note 10 maturity schedule contains an unresolved FY2027 conflict: 92 versus notes of 2,650 due that year. It excludes receivables financing and finance leases. It is not a reconciled maturity wall. Current certificates, the complete intercreditor package and forward cash inputs remain gaps. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+    "title": "TransDigm Group Incorporated \u2014 covenant refinancing"
+  }
+}

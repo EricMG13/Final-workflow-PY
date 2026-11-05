@@ -1,0 +1,62 @@
+[
+  {
+    "old": "Blank missing cells require repair before tabular reuse.",
+    "new": "Producer instructions explicitly require blank unavailable numeric cells with adjacent reasons; no zero is inferred."
+  },
+  {
+    "old": "Conflicted-versus-missing cell labeling requires repair.",
+    "new": "The specified conflicted display withholds the unverified plotted quantity while retaining both source observations in adjacent prose."
+  },
+  {
+    "old": "The maturity conflict remains unresolved, and CP-3's conflicted cell is incorrectly labeled as not supplied. CP-1 also carries blank missing-data cells despite explanatory prose.",
+    "new": "The maturity conflict remains unresolved. CP-3's specified conflict-withheld cell and CP-1's explained blank numeric cells follow explicit producer presentation instructions; they are not confirmed analytical defects."
+  },
+  {
+    "old": "| C27 CP-3 FY2027 cell says \u201cNot supplied: unresolved source conflict\u201d | Conflict | Current CP-3 Maturity observations versus S1 p.133 supplied 92 and CP-1 MAT03 | Inconsistent missingness labeling; CP5-002 | Withholding a validated plot is appropriate; source observation is still supplied. |",
+    "new": "| C27 CP-3 FY2027 cell says \u201cNot supplied: unresolved source conflict\u201d | Conflict | Current CP-3 Maturity observations, its exact producer instructions, S1 p.133 supplied 92 and CP-1 MAT03 | Supported explicit withholding of an unresolved plotted quantity | Both 92 and 2,650 remain in adjacent prose; missing validated allocation is not absence of source observations. |"
+  },
+  {
+    "old": "| CP5-002 \u2014 Conflict mislabeled as missing in CP-3 display | MATERIAL | Current CP-3 Maturity observations cell says \u201cNot supplied: unresolved source conflict,\u201d although S1 p.133 supplies 92 and adjacent CP-3 prose records it. This changes data type from conflicted to missing and can corrupt publication/ingestion. | Producer should label the display \u201cWithheld \u2014 source reports 92; allocation conflicts with due-2027 principal 2,650,\u201d or equivalent; preserve original reported value separately. Keep the unverified wall out of charts. No source amount is to be silently changed. |\n",
+    "new": ""
+  },
+  {
+    "old": "| CP5-003 \u2014 Blank unavailable cells in CP-1 | MATERIAL | Current CP-1 EB/CB FY2022 cells, absent-year debt-instrument cells, lease FY2022 cells and K07\u2013K10 FY2022 cells are empty, despite explanatory paragraphs. Individual cells are ambiguous to downstream reuse and fail the current nonempty-table/missing-display rule. | CP-1 owner replace each empty cell with a reasoned Not supplied or Not calculable label appropriate to its source/period. For no row in a dated debt table, state that specific fact; do not infer zero. Preserve source dashes separately. Complete before copying tables to delivery. |\n",
+    "new": ""
+  },
+  {
+    "old": "| CP5-007 \u2014 Unrelated month-specific missing-input language | MINOR | Current CP-3 RV and G6 refer to absent \u201cMarch/June\u201d inputs even though this current supplied case establishes an annual September base, not those reporting cases. Surrounding language does not adopt a quarter or adverse outcome. | CP-3 producer remove the unrelated month references or tie any retained reference to an actually supplied input. Use \u201clater quarterly/current inputs Not supplied.\u201d No numerical thesis change required. |\n",
+    "new": ""
+  },
+  {
+    "old": "There are **six Material findings and one Minor finding**, not a predetermined pass/count.",
+    "new": "There are **four Material findings and no Minor findings**, following review of the actual evidence and producer instructions, not a predetermined pass/count."
+  },
+  {
+    "old": "The material cross-presentation defect is CP-3's missingness label, not a newly reconciled maturity amount.",
+    "new": "The maturity source conflict remains material; the explicitly instructed display label is not a newly reconciled amount or a confirmed producer defect."
+  },
+  {
+    "old": "The unrelated March/June wording is the specific hygiene defect registered above. Current headings/identity data are usable; CP-1 empty numeric display cells need targeted repair.",
+    "new": "The March/June non-inference wording follows CP-3's explicit instructions and adopts no separate quarter or adverse outcome. Current headings/identity data are usable; CP-1's specific blank-cell convention preserves missing quantities with adjacent reasons. The host reports that the existing Model preflight preserves these gaps; this is host-provided execution evidence, not a tool execution by CP-5."
+  },
+  {
+    "old": "**Before downstream tabular/publication reuse:** producers repair CP5-002 and CP5-003 without changing source observations or rebuilding the thesis. CP-5 does not silently patch the retained producer handoffs; a changed producer artifact requires its new exact identity to be propagated and affected consumers reviewed.",
+    "new": "**Before downstream tabular/publication reuse:** retain CP-1's instructed blank numeric cells and adjacent reasons, and CP-3's instructed conflict-withheld FY2027 display plus both source observations. CP5-002, CP5-003 and CP5-007 from the original draft are withdrawn after inspection of the actual producer instructions: they were audit false positives. Delivery must preserve missing versus zero and the conflict qualification; no source amount or producer artifact changes. CP-5 has not independently executed delivery or verified final publication parity."
+  },
+  {
+    "old": "**Formatting/hygiene:** repair CP5-007. Other repetition is not elevated into a numerical or legal defect merely to increase findings.",
+    "new": "**Formatting/hygiene:** no confirmed producer repair remains from the three withdrawn instruction-context findings. Other repetition is not elevated into a numerical or legal defect merely to increase findings."
+  },
+  {
+    "old": "disclose CP5-001\u2013006 where relevant",
+    "new": "disclose CP5-001, CP5-004, CP5-005 and CP5-006 where relevant"
+  },
+  {
+    "old": "financial producers own the display and scope repairs.",
+    "new": "financial producers own the unresolved scope reconciliations."
+  },
+  {
+    "old": "with verified content parity and the conflicted wall withheld.",
+    "new": "with verified content parity and the conflicted FY2027 plotted quantity withheld; other reported buckets retain their source-defined, unreconciled scope."
+  }
+]

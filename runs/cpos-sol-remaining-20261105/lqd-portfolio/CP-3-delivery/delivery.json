@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Fresh CP-3B historical positive holdings/downside function. December2024 security context kept separate fromMay2025 holdings; no investment approval or complete native portfolio pathway.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-3.md": "183c91f1b5ca67fcecad5ce64ac99cbc0a42c9bed422880c6102e9c9501677f3",
+    "view.json": "f533cc9de8fd24aaf5ca9a43f72a0c5019bfa406761e553fbc61231aa9c62d42",
+    "report-view.json": "a5992b2849a56fb57ee99bf8d2eec7f76c1bb69882c373c6a7dd51e602b6abea",
+    "report.html": "21054bfedabbec1f4b708b593d6da69be0a419d8a88741159c480a50d86cf0f1"
+  }
+}

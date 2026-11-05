@@ -1,0 +1,72 @@
+{
+  "blocks": [
+    "key-findings",
+    "capital-structure",
+    "strengths-weaknesses"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-6",
+      "heading": "Bear Analyst Cross-Examination",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Bear Analyst Cross-Examination"
+    },
+    {
+      "module_id": "CP-6",
+      "heading": "IC Chair Evidence Weighting",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "IC Chair Evidence Weighting"
+    },
+    {
+      "module_id": "CP-6",
+      "heading": "Debate Resolution Matrix",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Debate Resolution Matrix"
+    },
+    {
+      "module_id": "CP-6",
+      "heading": "Gaps Ledger",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Gaps Ledger"
+    },
+    {
+      "module_id": "CP-6",
+      "heading": "Consumption controls",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Consumption controls"
+    },
+    {
+      "module_id": "CP-6",
+      "heading": "Action Bias Determination",
+      "kind": "prose",
+      "block_id": "key-findings",
+      "label": "Action Bias Determination"
+    },
+    {
+      "module_id": "CP-6",
+      "heading": "IC Chair Final Memo",
+      "kind": "prose",
+      "block_id": "strengths-weaknesses",
+      "label": "IC Chair Final Memo"
+    },
+    {
+      "module_id": "CP-6",
+      "heading": "Decision boundary",
+      "kind": "prose",
+      "block_id": "strengths-weaknesses",
+      "label": "Decision boundary"
+    }
+  ],
+  "title": "TransDigm historical IC challenge",
+  "question": "Does operating generation protect creditors when cash retention and financing access remain conditional?",
+  "issuer_aliases": [
+    "TDG",
+    "TransDigm"
+  ],
+  "scope": "All eleven base CP6 analytical duties over actual live annual/quarter/stress/liquidity/quality/legal handoffs. Historical mixed periods explicitly separated. Full current underwriting, pricing, portfolio approval and broader pathway remain unproved by this selected module report."
+}

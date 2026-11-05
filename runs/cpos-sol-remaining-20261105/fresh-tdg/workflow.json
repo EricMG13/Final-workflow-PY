@@ -1,0 +1,373 @@
+{
+  "run": {
+    "run_id": "sol-fresh-tdg-complete-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-4",
+      "CP-6"
+    ]
+  },
+  "sources": {
+    "S1-annual-report.pdf": {
+      "path": "../../../data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+    },
+    "S1-text-aid.jsonl": {
+      "path": "../../cpos-tdg-fresh-001/source-pages.jsonl",
+      "sha256": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+    },
+    "legal-text": {
+      "path": "../../tdg-004/legal-source/source-lines.txt",
+      "sha256": "cb2c0c77e7ec1f90e5a7117a5df7e16cd2556b02e7be7ca43fbf4d64ed585b05"
+    },
+    "CP-4-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/SKILL.md",
+      "sha256": "8a3b12f3f37359463434177759febac1ffcf0f8c484aa0508eb7119f7b6548b2"
+    },
+    "CP-4-REF_CP-4_STEPS": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/references/REF_CP-4_STEPS.md",
+      "sha256": "ef5eb569be59ec30dd3a66c1bcc81c5cc0bcc2e9d2ac3909b04caa23339b6b94"
+    },
+    "CP-3-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/SKILL.md",
+      "sha256": "7e85b2f545fffcb3ad17f4997e5c577ae9620d279f1ffe8e12aefa8ce38abcd1"
+    },
+    "CP-3-REF_CP-3A_STEPS": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/REF_CP-3A_STEPS.md",
+      "sha256": "40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec"
+    },
+    "CP-3-REF_CP-3_STEPS": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/REF_CP-3_STEPS.md",
+      "sha256": "a142dd66006ea876e3abc9166e0184fcb0685b32bc5cff703e9158da22fe8767"
+    },
+    "CP-5-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/SKILL.md",
+      "sha256": "7f21c8712cb40e871abaa1f855fdb95dded5df9887e354c39253e0492dd93390"
+    },
+    "CP-5-REF_CP-5A_STEPS": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/references/REF_CP-5A_STEPS.md",
+      "sha256": "e93781b8055e0c33e744b06fb0706161885400d6f8c7ef07a743497d4a865e8d"
+    },
+    "CP-5-REF_CP-5_STEPS": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/references/REF_CP-5_STEPS.md",
+      "sha256": "0b5beddbc0a5d3c99065379b7110e3b87fbc5392d38ed243ccbf7fdce70e506a"
+    },
+    "CP-6-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/SKILL.md",
+      "sha256": "0ae74db02dd569fe7805e62a661f22cd436494183ba5cb928f8be37aa549a96b"
+    },
+    "CP-6-REF_CP-6_STEPS": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/references/REF_CP-6_STEPS.md",
+      "sha256": "6141d27e800d45d2d0208173f38060c75d97005ee9b93013e24a16a40570f1e1"
+    }
+  },
+  "instructions": {
+    "CP-0": {
+      "path": "CP-0.instructions.md",
+      "sha256": "97fcc8919abf88e3feb0c399a9c8c31ec4b8b3a8b86a039c869e7d96a204f62b"
+    },
+    "CP-1": {
+      "path": "CP-1.maturity.instructions.md",
+      "sha256": "aaea1a2c493f154efa774ffb7f2811baa90ab49083b45f47665eda57363cc61f"
+    },
+    "CP-1A": {
+      "path": "CP-1A.instructions.md",
+      "sha256": "efdec55bfd811248125d968e3141dc2a64c7df9ad33d44ef21150d2bcddcec83"
+    },
+    "CP-2": {
+      "path": "CP-2.instructions.md",
+      "sha256": "f6d27c961805f8cc45785b1e720615e770815e0e8165f6b95195b619611ad908"
+    },
+    "CP-4": {
+      "path": "CP-4.instructions.md",
+      "sha256": "9ff166674ae82b7f5f275ac55858dd82bfc2c87a9af50fafc1b1bb0d661c3309"
+    },
+    "CP-3": {
+      "path": "CP-3.instructions.md",
+      "sha256": "8b3c82871f28a0d21c7ae59d15265fb25cc3761ecce5ac976a95590b66d812b0"
+    },
+    "CP-5": {
+      "path": "CP-5.instruction-review.instructions.md",
+      "sha256": "569c3b46e62ae602e0866e760d437f149c9268d391657448aab637ab70c2e991"
+    },
+    "CP-6": {
+      "path": "CP-6.instructions.md",
+      "sha256": "f23347091731a3bdedc4a1426445e144607e05a21235c12f7e68f1956745a09c"
+    }
+  },
+  "retained_handoffs": {},
+  "model": {
+    "periods": {
+      "FY2022": {
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "balance_column": null
+      },
+      "FY2023": {
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "balance_column": "Sep 30, 2023"
+      },
+      "FY2024": {
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "balance_column": "Sep 30, 2024"
+      }
+    },
+    "anchors": {
+      "normalization": "### T4.1\u2013T4.3 \u2014 Source, entity, normalization",
+      "periods": "### T4.8 and T4.14 \u2014 Period register",
+      "income": "### T4.4 \u2014 Income statement and comprehensive-income/equity supplements",
+      "cash": "### T4.5 \u2014 Cash-flow statement",
+      "balance": "### T4.6 \u2014 Balance sheet",
+      "dashboard": "### T4.10 \u2014 Source-supported dashboard",
+      "issuer_bridge": "**Net income to EBITDA and EBITDA As Defined, reported (PDF 53):**"
+    },
+    "rows": {
+      "revenue": {
+        "table": "income",
+        "label": "NET SALES"
+      },
+      "cogs": {
+        "table": "income",
+        "label": "COST OF SALES"
+      },
+      "gross_profit": {
+        "table": "income",
+        "label": "GROSS PROFIT"
+      },
+      "selling_admin": {
+        "table": "income",
+        "label": "SELLING AND ADMINISTRATIVE EXPENSES"
+      },
+      "income_statement_amortization": {
+        "table": "income",
+        "label": "AMORTIZATION OF INTANGIBLE ASSETS"
+      },
+      "ebit_reported": {
+        "table": "income",
+        "label": "INCOME FROM OPERATIONS"
+      },
+      "depreciation": {
+        "table": "cash",
+        "label": "Depreciation"
+      },
+      "cf_amortization": {
+        "table": "cash",
+        "label": "Amortization of intangible assets and product certification costs"
+      },
+      "cfo": {
+        "table": "cash",
+        "label": "Net cash provided by operating activities"
+      },
+      "capex_signed": {
+        "table": "cash",
+        "label": "Capital expenditures"
+      },
+      "cash": {
+        "table": "cash",
+        "label": "Cash and cash equivalents, end of period"
+      },
+      "interest_cash": {
+        "table": "cash",
+        "label": "Cash paid during period for interest, net"
+      },
+      "tax_cash": {
+        "table": "cash",
+        "label": "Cash paid during period for income taxes, net of refunds"
+      },
+      "issuer_ordinary_ebitda": {
+        "table": "issuer_bridge",
+        "label": "EBITDA"
+      },
+      "issuer_as_defined": {
+        "table": "dashboard",
+        "label": "EBITDA As Defined, total company"
+      },
+      "debt_long_term": {
+        "table": "balance",
+        "label": "Long-term debt"
+      },
+      "debt_current": {
+        "table": "balance",
+        "label": "Current portion of long-term debt"
+      },
+      "debt_securitization": {
+        "table": "balance",
+        "label": "Short-term borrowings\u2014trade receivable securitization facility"
+      },
+      "adjustment_acquisition": {
+        "table": "issuer_bridge",
+        "label": "Acquisition transaction and integration-related expenses"
+      },
+      "adjustment_compensation": {
+        "table": "issuer_bridge",
+        "label": "Non-cash stock and deferred compensation expense"
+      },
+      "adjustment_refinancing": {
+        "table": "issuer_bridge",
+        "label": "Refinancing costs"
+      },
+      "adjustment_other": {
+        "table": "issuer_bridge",
+        "label": "Other, net"
+      }
+    },
+    "extra_handoffs": {},
+    "forecast_exact": null
+  },
+  "layout": {
+    "blocks": [
+      "key-findings",
+      "company-operating-model",
+      "model-chart-strip",
+      "capital-structure",
+      "financials-credit-metrics",
+      "strengths-weaknesses",
+      "relative-value",
+      "company-profile",
+      "transaction-summary",
+      "portfolio-fit",
+      "committee-challenge",
+      "what-changed"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2",
+        "heading": "Findings",
+        "kind": "prose",
+        "block_id": "key-findings"
+      },
+      {
+        "module_id": "CP-1A",
+        "heading": "Company, business and revenue model",
+        "kind": "table",
+        "block_id": "company-operating-model"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Capital structure and legal reach",
+        "kind": "table",
+        "block_id": "capital-structure"
+      },
+      {
+        "module_id": "CP-MODEL",
+        "heading": "Annual source and computation register",
+        "kind": "table",
+        "block_id": "financials-credit-metrics"
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Ranked strengths, weaknesses and key risks",
+        "kind": "prose",
+        "block_id": "strengths-weaknesses"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Relative value assessment",
+        "kind": "prose",
+        "block_id": "relative-value"
+      },
+      {
+        "module_id": "CP-1A",
+        "heading": "Issuer profile",
+        "kind": "table",
+        "block_id": "company-profile"
+      },
+      {
+        "module_id": "CP-1A",
+        "heading": "Transaction and capital allocation summary",
+        "kind": "prose",
+        "block_id": "transaction-summary"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Portfolio suitability",
+        "kind": "prose",
+        "block_id": "portfolio-fit"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Committee challenge",
+        "kind": "prose",
+        "block_id": "committee-challenge"
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Historical change and limits",
+        "kind": "prose",
+        "block_id": "what-changed"
+      },
+      {
+        "module_id": "CP-MODEL",
+        "heading": "Defined historical ratios \u2014 not covenant/agency measures",
+        "kind": "chart",
+        "block_id": "model-chart-strip",
+        "figure_id": "S.1",
+        "value_columns": [
+          "FY2022",
+          "FY2023",
+          "FY2024"
+        ],
+        "row_labels": [
+          "Carrying borrowing / issuer EBITDA As Defined",
+          "Mechanical net carrying borrowing / issuer EBITDA As Defined"
+        ],
+        "chart_unit": "x"
+      },
+      {
+        "module_id": "CP-MODEL",
+        "heading": "Defined historical ratios \u2014 not covenant/agency measures",
+        "kind": "chart",
+        "block_id": "model-chart-strip",
+        "figure_id": "S.2",
+        "value_columns": [
+          "FY2022",
+          "FY2023",
+          "FY2024"
+        ],
+        "row_labels": [
+          "Issuer EBITDA As Defined / reported cash interest"
+        ],
+        "chart_unit": "x"
+      },
+      {
+        "module_id": "CP-MODEL",
+        "heading": "Annual source and computation register",
+        "kind": "chart",
+        "block_id": "model-chart-strip",
+        "figure_id": "S.3",
+        "value_columns": [
+          "FY2022",
+          "FY2023",
+          "FY2024"
+        ],
+        "row_labels": [
+          "Cash"
+        ],
+        "chart_unit": "US$m"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Maturity observations",
+        "kind": "chart",
+        "block_id": "model-chart-strip",
+        "figure_id": "S.4",
+        "value_columns": [
+          "Principal USDm"
+        ],
+        "orientation": "period-rows",
+        "chart_unit": "US$m"
+      }
+    ],
+    "scope": "Fresh sol-medium CP-OS execution from issuer sources to all 12 credit-report panels, the HTML Model, charts and calculation JSON. Historical FY2024 annual base; disclosed later events remain separate. Source, legal, market and portfolio limitations remain explicit. Completion proves the requested execution and delivery workflow; it does not supply missing evidence or current investment clearance. No Excel output.",
+    "title": "TransDigm historical complete credit pathway"
+  },
+  "execution": "live-provider",
+  "max_attempts": 1,
+  "provider_cap_usd": "25"
+}

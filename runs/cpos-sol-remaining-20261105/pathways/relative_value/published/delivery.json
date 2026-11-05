@@ -1,0 +1,17 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "ARCC retrospective December 31, 2024 evaluated valuations, with separate clean- and dirty-price assumptions. The March/July 2029 pair is a same-issuer comparison; external peers and loan/HY pricing were not supplied. The chart copies the current handoff\u2019s six-decimal fractional yields; higher-precision narrative remains in the evidence. No repricing or current executable preference. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-3D.md": "0f90e8e5a1b58f5174fe60281244347dfd15f0da1608152a1f53cfe8132b6f61",
+    "CP-3.md": "9d266261a1eb5c92c9e7052a999e087fc39cde506e4fdb9be47c00d65218b1c6",
+    "CP-4.md": "fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738",
+    "CP-L10.md": "08c4132947ce27d2bfddb818ffd62c81dbb2602b060ba5b63c752fdb92410661",
+    "CP-5.md": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea",
+    "view.json": "db6f38831e00be7e0b72bdac6cf15129bd161dc7941297726243b39f60845565",
+    "report-view.json": "e629cbdf8a43cd26e02adb71d5eeb341191e1fdc15321b1277b47001e1ce7f87",
+    "report.html": "edfda944e1549406686046a2e14cf4a4dfd62794f3d2a25a2ba6d71e31a9228d"
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "run": {
+    "run_id": "sol-current-distressed_restructuring-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-12-28",
+    "case_kind": "public",
+    "pathway": "distressed_restructuring",
+    "requested_modules": [
+      "CP-1D",
+      "CP-2A",
+      "CP-2D",
+      "CP-2G",
+      "CP-2",
+      "CP-4",
+      "CP-3C",
+      "CP-6"
+    ]
+  },
+  "handoffs": {
+    "CP-1D": {
+      "path": "../../tdg-earnings/CP-1D.md",
+      "sha256": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807"
+    },
+    "CP-2A": {
+      "path": "../../tdg-stress/CP-2A.md",
+      "sha256": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3"
+    },
+    "CP-2D": {
+      "path": "../../tdg-earnings/CP-2D.md",
+      "sha256": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565"
+    },
+    "CP-2G": {
+      "path": "../../tdg-forecast/CP-2G.md",
+      "sha256": "20314e01d39b87d2e50d4a50ab048371175bccc4c8330ff1170811254b38a2c6"
+    },
+    "CP-2": {
+      "path": "../../tdg-forecast/CP-2.md",
+      "sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab"
+    },
+    "CP-4": {
+      "path": "../../tdg-legal/CP-4.md",
+      "sha256": "267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43"
+    },
+    "CP-3C": {
+      "path": "../../tdg-legal/CP-3C.md",
+      "sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e"
+    },
+    "CP-6": {
+      "path": "../../tdg-ic/CP-6-repaired.md",
+      "sha256": "d999e6a0af14925a14dfe6c6cb414d65bd458e62d14535af322fc4e811540d3f"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "distress-gate",
+      "downside-stress",
+      "break-points",
+      "forward-credit-path",
+      "forward-breakpoints",
+      "recovery-by-class",
+      "value-allocation-claims",
+      "liquidity-runway",
+      "funding-gap-lme",
+      "covenant-levers",
+      "rating-triggers",
+      "restructuring-paths",
+      "instrument-decision",
+      "portfolio-fit",
+      "what-changed"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2A",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "distress-gate",
+        "label": "Static conditional stress; actual distress not established"
+      },
+      {
+        "module_id": "CP-2A",
+        "heading": "T2B.3 \u2014 stressed flows",
+        "kind": "table",
+        "block_id": "downside-stress"
+      },
+      {
+        "module_id": "CP-2A",
+        "heading": "T2B.6 \u2014 break points",
+        "kind": "table",
+        "block_id": "break-points"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.4 \u2014 operating paths",
+        "kind": "table",
+        "block_id": "forward-credit-path"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.7 \u2014 first tests and consequences",
+        "kind": "table",
+        "block_id": "forward-breakpoints"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4.9 \u2014 PD versus LGD transmission",
+        "kind": "table",
+        "block_id": "recovery-by-class",
+        "label": "Legal loss transmission; no quantified recovery by class"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1E.1 \u2014 obligation inventory, annual balance basis",
+        "kind": "table",
+        "block_id": "value-allocation-claims",
+        "label": "Known obligations; no realizable-value allocation supplied"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "T2E.6 \u2014 months to empty",
+        "kind": "table",
+        "block_id": "liquidity-runway"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Funding conclusion",
+        "kind": "prose",
+        "block_id": "funding-gap-lme"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Overall legal view",
+        "kind": "prose",
+        "block_id": "covenant-levers"
+      },
+      {
+        "module_id": "CP-2G",
+        "heading": "T2H.8 \u2014 deleveraging and disconfirmation",
+        "kind": "prose",
+        "block_id": "rating-triggers",
+        "label": "Conditional analyst disconfirmation; no agency rating-trigger certification"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Refinancing paths",
+        "kind": "prose",
+        "block_id": "restructuring-paths"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Action Bias Determination",
+        "kind": "prose",
+        "block_id": "instrument-decision"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Decision boundary",
+        "kind": "prose",
+        "block_id": "portfolio-fit"
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Integrated implication",
+        "kind": "prose",
+        "block_id": "what-changed"
+      }
+    ],
+    "scope": "TDG conditional downside and restructuring route. Actual distress is not established. Annual static stress, conditional forecasts and December liquidity use their own periods and assumptions. Recovery by class, realizable-value allocation and agency rating triggers remain explicit gaps. Positive recovery-function proof on Frontier\u2019s 2020 case is separate and supplies no TDG facts. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+    "title": "TransDigm Group Incorporated \u2014 distressed restructuring"
+  }
+}

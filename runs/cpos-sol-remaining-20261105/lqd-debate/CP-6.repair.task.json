@@ -1,0 +1,49 @@
+{
+  "run": {
+    "run_id": "sol-remaining-lqd-debate-fidelity-repair-20261105",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2025-05-31",
+    "case_kind": "public",
+    "pathway": "portfolio_decision",
+    "requested_modules": [
+      "CP-6"
+    ]
+  },
+  "module_id": "CP-6",
+  "instructions": {
+    "path": "CP-6.repair.instructions.md",
+    "sha256": "e3b7037b53b1a025ce6ee01e461123a67f1796a78057e147f7a54ec9e7fa9916"
+  },
+  "sources": {
+    "method-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/references/REF_CP-6A_STEPS.md",
+      "sha256": "9e36ee1bc5ed1b2a99ffb2e8bc1ed2a10e2a3d26b70083a00beb598a8d1c9478"
+    },
+    "method-schema": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/references/CP-6A_SCHEMA_REFERENCE.md",
+      "sha256": "f91e1ef62493c6bd734555dc7d4ee8b397a53f939a88f2c0e42b331880ae49e3"
+    },
+    "nport-selected": {
+      "path": "../lqd-portfolio/nport-selected.txt",
+      "sha256": "05035e8fb6f704a1a5a11522dd361942866b1e815dfdc71d940620dd512bfb3f"
+    },
+    "form-semantics": {
+      "path": "../lqd-portfolio/form-semantics.txt",
+      "sha256": "10453adb85c318ce466a951c1e1bf9b07d5f900614f1ff67765ef027924a7fc6"
+    }
+  },
+  "handoffs": {
+    "CP-3B": {
+      "path": "../lqd-portfolio/CP-3.md",
+      "sha256": "183c91f1b5ca67fcecad5ce64ac99cbc0a42c9bed422880c6102e9c9501677f3"
+    }
+  },
+  "layout": "CP-6.layout.json",
+  "checks": "CP-6.checks.json",
+  "output": "CP-6-repaired.md",
+  "draft": {
+    "path": "CP-6.md",
+    "sha256": "e575c4274f59841971e969c68f7f260dcd8a9dfbb6e20dda1b7ced399426c7e3"
+  }
+}

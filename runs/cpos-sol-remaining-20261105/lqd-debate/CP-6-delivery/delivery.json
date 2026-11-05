@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "All eleven CP-6A portfolio-debate duties using actual current CP-3B and historical May2025 filing. Not complete base IC, current market recommendation or full native pathway. Raw full handoff retained; conditional scenarios are not expected losses.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-6.md": "554455c01803a0ae794e49dacc7ceb98c30f0b81be1a2b81f668ecb53de117f8",
+    "view.json": "dffaebf9c5638558c236937715720c13f5e9b35c1e591ee1a207a67191fd4add",
+    "report-view.json": "0d64f1233dcc7f095c228babd3f34c6c2cf1781e0da28eecdad3312e9cfaf2a4",
+    "report.html": "dfbee2de4fdd32401f4c862d15a2724e68959c57d0763311f6ea4e74613b0905"
+  }
+}

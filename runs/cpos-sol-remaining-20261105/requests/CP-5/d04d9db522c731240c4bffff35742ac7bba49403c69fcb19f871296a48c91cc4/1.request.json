@@ -1,0 +1,44 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0": "8a0611cc768e043abd52c2bf4899f6b0a6d560a1c264f7fbc991fa6d10863963",
+    "CP-1": "89dced9cb71499d2c18ae55dda6bfcb524f060b86c43b52e9f35ece4e1c38c9e",
+    "CP-1A": "b58fdbea15b292eece7b49baae234822f5c36ddcbe80c78f1729fa9faaf8c56b",
+    "CP-2": "587ad984c29a883648ca2e6b0b01a79d650d69e1c2e2ca1faa68963e1d40ddb7",
+    "CP-3": "78b5da47bf2ad37c6065798878d1ef558c0f8416f5cb484374f8518b59e8a401",
+    "CP-4": "2860d8ab33f46ab1cf8c4553a0505d60336510169cc2333f1af5b1bda638132a"
+  },
+  "instructions": "\n\n# Current complete-pathway proof instructions\nCurrent user authorizes sol-medium live execution one module at a time, host evidence review after each, then existing delivery. No imported pause/profile approval authority, no CP-MEMO, no Excel, no new orchestration. This is a fresh source-to-deliverable CP-OS run, not a retained-answer replay. All current supplied handoffs must be consumed and their exact SHA256 identities reanchored. Do not use any older campaign handoff or another issuer. Issuer TransDigm Group Incorporated, annual base September30 2024, FY2022/FY2023/FY2024; later events in that retrospective annual report separately dated, execution November5 2026. No December quarterly case has been supplied. Source text is not visual/PDF-fidelity proof. Selected DeployV-r14 ancestry plus current methods/corrections; historical imported module names are not roles. Use only six H2 Request, Sources, Findings, Calculations, Gaps, Next module. Title identifies module and issuer. Use current CP-3C refinancing, CP-4 legal, CP-6 committee roles. Do not invent missing current quotes, legal certificates, cash accessibility, forecasts, recovery, fund constraints or investment clearance. Source references/periods/units/limitations remain explicit. Actual model response retained and subsequent module consumes it. Output must be substantive for the bounded source case; missing inputs are explicit gaps, not zero or adverse evidence. Financial accounting and legal definitions stay separate. Do not regenerate analysis for delivery format.\n\nApply fullCP5 source/lineage and QA integrity methods to all current analysthandoffs and sourceevidence. Inspect actual numbers/units/dates/missingness/legaldefinition/typeboundaries, exactsourceversion/currenthandoffconsumption and contradictions. No pass/count predetermined. Do not claim renderer or hostexecution/validator/helper you did not execute. Source/Calculated/Assumption/Inference/Weak/Conflict classification for at least20materialclaims with supporting source/locator/units/period/qualifications, actual findings only withseverity. Missingmethodnativeexportrequirements superseded by actualhandsoffdelivery. Qualitativeconfidence only unless actual helperexecuted (not availablehere); no scoreinvented. Output H3 \"Assurance conclusion\" prose, \"Claim trace\" table Claim|Lineage|Evidence|Assessment|Limitation, \"Findings register\" table Finding|Severity|Evidence|Required repair, \"Assurance limits\" prose. Explain counterfactualprobes separately from actualfindings. Confirm source maturityconflict is notresolvedfromassumption; accountingaddbacknotcontractcapacity.\n",
+  "module_id": "CP-5",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-4",
+      "CP-6"
+    ],
+    "run_id": "sol-fresh-tdg-complete-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "CP-3-REF_CP-3A_STEPS": "40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec",
+    "CP-3-REF_CP-3_STEPS": "a142dd66006ea876e3abc9166e0184fcb0685b32bc5cff703e9158da22fe8767",
+    "CP-3-method": "7e85b2f545fffcb3ad17f4997e5c577ae9620d279f1ffe8e12aefa8ce38abcd1",
+    "CP-4-REF_CP-4_STEPS": "ef5eb569be59ec30dd3a66c1bcc81c5cc0bcc2e9d2ac3909b04caa23339b6b94",
+    "CP-4-method": "8a3b12f3f37359463434177759febac1ffcf0f8c484aa0508eb7119f7b6548b2",
+    "CP-5-REF_CP-5A_STEPS": "e93781b8055e0c33e744b06fb0706161885400d6f8c7ef07a743497d4a865e8d",
+    "CP-5-REF_CP-5_STEPS": "0b5beddbc0a5d3c99065379b7110e3b87fbc5392d38ed243ccbf7fdce70e506a",
+    "CP-5-method": "7f21c8712cb40e871abaa1f855fdb95dded5df9887e354c39253e0492dd93390",
+    "CP-6-REF_CP-6_STEPS": "6141d27e800d45d2d0208173f38060c75d97005ee9b93013e24a16a40570f1e1",
+    "CP-6-method": "0ae74db02dd569fe7805e62a661f22cd436494183ba5cb928f8be37aa549a96b",
+    "S1-annual-report.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+    "S1-text-aid.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+    "legal-text": "cb2c0c77e7ec1f90e5a7117a5df7e16cd2556b02e7be7ca43fbf4d64ed585b05"
+  }
+}

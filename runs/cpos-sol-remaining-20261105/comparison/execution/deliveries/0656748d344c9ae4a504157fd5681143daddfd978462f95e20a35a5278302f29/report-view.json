@@ -1,0 +1,671 @@
+{
+  "schema_version": "report-view/1",
+  "pathway": {
+    "id": "credit_snapshot",
+    "title": "Run deliverable comparison",
+    "question": "What changed between the prior and current deliverables?",
+    "requested_modules": [
+      "CP-8"
+    ],
+    "blocks": [
+      "what-changed"
+    ]
+  },
+  "call": [
+    {
+      "kind": "na",
+      "label": "Assessment",
+      "value_text": "Assessment pending",
+      "meter": null,
+      "ref_id": null,
+      "direction": null,
+      "line": false
+    }
+  ],
+  "call_withheld": null,
+  "blocks": [
+    {
+      "block_id": "what-changed",
+      "title": "Changes across the seven requested dimensions",
+      "owner": "CP-8",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Dimension",
+      "columns": [
+        "Prior deliverable",
+        "Current deliverable",
+        "Explanation"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "Values",
+          "cells": [
+            {
+              "text": "FY2024 revenue 7,940; ordinary issuer EBITDA 3,813; As Defined EBITDA 4,173; operating-derived EBITDA 3,843; cash 6,261; carrying debt 24,880; CFO 2,045; signed capex (165); CFO less capex 1,880 (USD millions). prior/calculation.json, chunks 4–5, FY2024 named fields.",
+              "prov": "cited",
+              "ref_id": "C1",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Same amounts and distinct definitions in current/calculation.json, chunks 4–5. current/CP-6.md, chunk 4, retained quantities separately gives gross/principal debt 25,068 rather than carrying debt. Both Model report views chunk 1 preserve the FY2022 ordinary-EBITDA gap rather than zero.",
+              "prov": "cited",
+              "ref_id": "C1",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Unchanged sampled amounts; lineage/presentation change, not a new accounting source. Principal and carrying debt are incomparable bases for a publication delta. Operating-derived EBITDA must not replace issuer ordinary EBITDA or As Defined EBITDA. See calculation lineage below.",
+              "prov": "cited",
+              "ref_id": "C1",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "Periods",
+          "cells": [
+            {
+              "text": "FY2024 2023-10-01–2024-09-30; FY2023 and FY2022 annual comparatives; September 2024/2023 balance instants. Prior CP-1 chunk 3 F3 treats notes “due 2027” against the fiscal 2027 bucket 92 as unresolved.",
+              "prov": "cited",
+              "ref_id": "C2",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Same annual dates (current/CP-1.md, chunk 1, period register). Current CP-1 chunk 3 maturity discussion cites S1 p.43 explicitly mapping November 2027 to fiscal 2028, and p.46 gives November 15, 2027 for 2,650 principal. Fiscal 2027 remains 92.",
+              "prov": "cited",
+              "ref_id": "C2",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Correction of calendar-versus-fiscal interpretation, not changed maturity or reporting period. Current CP-1 attributes the earlier conflict to a host/model error. All reported repayment rows remain unchanged. October 2024 events remain subsequent to the accounting base; audit date November 7, 2024 also postdates it.",
+              "prov": "cited",
+              "ref_id": "C2",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r2",
+          "label": "Assumptions",
+          "cells": [
+            {
+              "text": "Prior CP-2 chunk 1 E2–E5 treats approximately 55% aftermarket/90% proprietary sales as management estimates; no automatic cash retention, unrestricted cash offset or fully assessed liquidity buffer. Consolidation is not a guarantor group.",
+              "prov": "cited",
+              "ref_id": "C3",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Current CP-2 chunk 1 retains those qualifications and explicitly assumes neither sponsor rescue nor repeat refinancing access. Current CP-6 chunk 4 E05 recognizes the S1 pp.44–45 combined issuer/guarantor summary, including UK, while withholding entity-level collateral/value inference; E11 distinguishes accounting coverage from legal FCCR.",
+              "prov": "cited",
+              "ref_id": "C3",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Clarification and analytical/legal scope expansion. Combined financial information is available, but is not proof of recoverable collateral, cash accessibility or legal basket capacity. The added legal module does not mean the issuer's legal position changed between publications.",
+              "prov": "cited",
+              "ref_id": "C3",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r3",
+          "label": "Conclusions",
+          "cells": [
+            {
+              "text": "Prior CP-2 chunk 1: Medium-confidence fundamental assessment; franchise and historical cash generation support debt service, but distribution/acquisition policy limits creditor retention. prior/report-view.json, chunk 1, call[0]: “Assessment pending”; no supplied prior CP-6 decision.",
+              "prov": "cited",
+              "ref_id": "C4",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Current CP-2 chunk 1 retains Medium confidence and makes debt-funded extraction/retained cash more explicit. current/report-view.json, chunk 1, call[0]: “Requires More Work”, ref C1295. Current CP-6 chunk 1 Action Bias Determination: “Neither wins”; chunk 4 portfolio posture likewise Requires More Work, size Not calculable because trade/vehicle/risk budget are Not supplied.",
+              "prov": "cited",
+              "ref_id": "C4",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "New analytical judgment and committee scope, not a measured adverse decision change. Prior pending display is not an approval or rejection. Current CP-3 remains a conditional comparison, not a priced security preference; absence of a prior decision cannot establish recommendation migration.",
+              "prov": "cited",
+              "ref_id": "C4",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r4",
+          "label": "Sources",
+          "cells": [
+            {
+              "text": "Receipt lists CP-1/CP-1A/CP-2, aliases and delivery artifacts. Prior CP-1 chunk 1 uses the annual PDF and its non-independent text aid; CP-0 identity inherited as 95bc2034f22a52bed0c4ca52c61da678a17c7a36c6a83d843486f7fd07bcc93a.",
+              "prov": "cited",
+              "ref_id": "C5",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Current receipt adds original CP-0 and CP-4/CP-3/CP-5/CP-6. Current CP-1 chunk 1 records new targeted annual-source reads pp.43–46; current CP-2 Sources records the instrument-specific executed indenture and the unchanged annual-source hashes.",
+              "prov": "cited",
+              "ref_id": "C5",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Source coverage expansion plus correction from an existing source, not a new annual issuer condition. Repeated handoff citations and aliases are reuse, not independent corroboration. Changed artifact hashes can reflect corrected prose, locators and additional content without changed amounts.",
+              "prov": "cited",
+              "ref_id": "C5",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r5",
+          "label": "Limitations",
+          "cells": [
+            {
+              "text": "Prior CP-1 chunk 1: no FY2022 full balance sheet, forecast, quarterly/LTM construction, independent legal opinion or visual/full-file certification. Prior CP-2 E6 retains the apparent maturity conflict; E5 qualifies 843 historical revolver availability.",
+              "prov": "cited",
+              "ref_id": "C6",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Current CP-5 chunk 1 withdraws the false maturity conflict but restricts QA to bounded historical debate. Current CP-6 chunk 4 E08–E10 retains cash/dividend scope residuals, transaction/reference chronology discrepancies and lease wording conflict; E06 sources commitments 910, LCs 67, availability 843 and February 27, 2029 maturity, not live liquidity.",
+              "prov": "cited",
+              "ref_id": "C6",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Some missing-source interpretations corrected; genuine unresolved restrictions remain. New precision does not resolve the complete facility/security package, legal capacity, current prices, recovery or actual portfolio constraints. QA is not investment clearance or independent visual assurance.",
+              "prov": "cited",
+              "ref_id": "C6",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r6",
+          "label": "Output scope",
+          "cells": [
+            {
+              "text": "prior/report-view.json, chunk 1, pathway.blocks: key-findings; company-operating-model; strengths-weaknesses; company-profile; transaction-summary. Receipt confirms HTML Model, charts and calculation JSON published; analytical_runtime_executed=false, cp_model_published=true.",
+              "prov": "cited",
+              "ref_id": "C7",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Current report view chunk 1 lists those five plus model-chart-strip, capital-structure, financials-credit-metrics, relative-value, portfolio-fit, committee-challenge and what-changed: twelve panels. Receipt confirms Model/charts/calculation JSON, no Excel output, analytical runtime false. Both Model report views chunk 1 retain financials-credit-metrics and company-profile, FY2022–FY2024 annual grid.",
+              "prov": "cited",
+              "ref_id": "C7",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Presentation and substantive module expansion with actual publication completed, not a second analyst/model run. Both already published Model/charts/JSON; the current report adds a chart strip and wider analysis. Historical handoff statements that publication was not yet executed describe their intermediate stage and do not override the later receipts and host validation.",
+              "prov": "cited",
+              "ref_id": "C7",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-8",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    }
+  ],
+  "unplaced": [],
+  "passports": [
+    {
+      "ref_id": "C1",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-8"
+        },
+        {
+          "name": "Locator",
+          "value": "line 38"
+        },
+        {
+          "name": "Quote",
+          "value": "| Values | FY2024 revenue 7,940; ordinary issuer EBITDA 3,813; As Defined EBITDA 4,173; operating-derived EBITDA 3,843; cash 6,261; carrying debt 24,880; CFO 2,045; signed capex (165); CFO less capex 1,880 (USD millions). `prior/calculation.json`, chunks 4–5, FY2024 named fields. | Same amounts and distinct definitions in `current/calculation.json`, chunks 4–5. `current/CP-6.md`, chunk 4, retained quantities separately gives gross/principal debt 25,068 rather than carrying debt. Both Model report views chunk 1 preserve the FY2022 ordinary-EBITDA gap rather than zero. | **Unchanged sampled amounts; lineage/presentation change, not a new accounting source.** Principal and carrying debt are incomparable bases for a publication delta. Operating-derived EBITDA must not replace issuer ordinary EBITDA or As Defined EBITDA. See calculation lineage below. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "9de6d2e6f3a6bb4162a8a91832605a44643becd333dc0b05a1838543f5b7489f"
+        }
+      ]
+    },
+    {
+      "ref_id": "C2",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-8"
+        },
+        {
+          "name": "Locator",
+          "value": "line 39"
+        },
+        {
+          "name": "Quote",
+          "value": "| Periods | FY2024 2023-10-01–2024-09-30; FY2023 and FY2022 annual comparatives; September 2024/2023 balance instants. Prior CP-1 chunk 3 F3 treats notes “due 2027” against the fiscal 2027 bucket 92 as unresolved. | Same annual dates (`current/CP-1.md`, chunk 1, period register). Current CP-1 chunk 3 maturity discussion cites S1 p.43 explicitly mapping November 2027 to **fiscal 2028**, and p.46 gives November 15, 2027 for 2,650 principal. Fiscal 2027 remains 92. | **Correction of calendar-versus-fiscal interpretation, not changed maturity or reporting period.** Current CP-1 attributes the earlier conflict to a host/model error. All reported repayment rows remain unchanged. October 2024 events remain subsequent to the accounting base; audit date November 7, 2024 also postdates it. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "9de6d2e6f3a6bb4162a8a91832605a44643becd333dc0b05a1838543f5b7489f"
+        }
+      ]
+    },
+    {
+      "ref_id": "C3",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-8"
+        },
+        {
+          "name": "Locator",
+          "value": "line 40"
+        },
+        {
+          "name": "Quote",
+          "value": "| Assumptions | Prior CP-2 chunk 1 E2–E5 treats approximately 55% aftermarket/90% proprietary sales as management estimates; no automatic cash retention, unrestricted cash offset or fully assessed liquidity buffer. Consolidation is not a guarantor group. | Current CP-2 chunk 1 retains those qualifications and explicitly assumes neither sponsor rescue nor repeat refinancing access. Current CP-6 chunk 4 E05 recognizes the S1 pp.44–45 combined issuer/guarantor summary, including UK, while withholding entity-level collateral/value inference; E11 distinguishes accounting coverage from legal FCCR. | **Clarification and analytical/legal scope expansion.** Combined financial information is available, but is not proof of recoverable collateral, cash accessibility or legal basket capacity. The added legal module does not mean the issuer's legal position changed between publications. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "9de6d2e6f3a6bb4162a8a91832605a44643becd333dc0b05a1838543f5b7489f"
+        }
+      ]
+    },
+    {
+      "ref_id": "C4",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-8"
+        },
+        {
+          "name": "Locator",
+          "value": "line 41"
+        },
+        {
+          "name": "Quote",
+          "value": "| Conclusions | Prior CP-2 chunk 1: Medium-confidence fundamental assessment; franchise and historical cash generation support debt service, but distribution/acquisition policy limits creditor retention. `prior/report-view.json`, chunk 1, `call[0]`: “Assessment pending”; no supplied prior CP-6 decision. | Current CP-2 chunk 1 retains Medium confidence and makes debt-funded extraction/retained cash more explicit. `current/report-view.json`, chunk 1, `call[0]`: “Requires More Work”, ref C1295. Current CP-6 chunk 1 Action Bias Determination: “Neither wins”; chunk 4 portfolio posture likewise Requires More Work, size Not calculable because trade/vehicle/risk budget are Not supplied. | **New analytical judgment and committee scope, not a measured adverse decision change.** Prior pending display is not an approval or rejection. Current CP-3 remains a conditional comparison, not a priced security preference; absence of a prior decision cannot establish recommendation migration. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "9de6d2e6f3a6bb4162a8a91832605a44643becd333dc0b05a1838543f5b7489f"
+        }
+      ]
+    },
+    {
+      "ref_id": "C5",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-8"
+        },
+        {
+          "name": "Locator",
+          "value": "line 42"
+        },
+        {
+          "name": "Quote",
+          "value": "| Sources | Receipt lists CP-1/CP-1A/CP-2, aliases and delivery artifacts. Prior CP-1 chunk 1 uses the annual PDF and its non-independent text aid; CP-0 identity inherited as `95bc2034f22a52bed0c4ca52c61da678a17c7a36c6a83d843486f7fd07bcc93a`. | Current receipt adds original CP-0 and CP-4/CP-3/CP-5/CP-6. Current CP-1 chunk 1 records new targeted annual-source reads pp.43–46; current CP-2 Sources records the instrument-specific executed indenture and the unchanged annual-source hashes. | **Source coverage expansion plus correction from an existing source**, not a new annual issuer condition. Repeated handoff citations and aliases are reuse, not independent corroboration. Changed artifact hashes can reflect corrected prose, locators and additional content without changed amounts. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "9de6d2e6f3a6bb4162a8a91832605a44643becd333dc0b05a1838543f5b7489f"
+        }
+      ]
+    },
+    {
+      "ref_id": "C6",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-8"
+        },
+        {
+          "name": "Locator",
+          "value": "line 43"
+        },
+        {
+          "name": "Quote",
+          "value": "| Limitations | Prior CP-1 chunk 1: no FY2022 full balance sheet, forecast, quarterly/LTM construction, independent legal opinion or visual/full-file certification. Prior CP-2 E6 retains the apparent maturity conflict; E5 qualifies 843 historical revolver availability. | Current CP-5 chunk 1 withdraws the false maturity conflict but restricts QA to bounded historical debate. Current CP-6 chunk 4 E08–E10 retains cash/dividend scope residuals, transaction/reference chronology discrepancies and lease wording conflict; E06 sources commitments 910, LCs 67, availability 843 and February 27, 2029 maturity, not live liquidity. | **Some missing-source interpretations corrected; genuine unresolved restrictions remain.** New precision does not resolve the complete facility/security package, legal capacity, current prices, recovery or actual portfolio constraints. QA is not investment clearance or independent visual assurance. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "9de6d2e6f3a6bb4162a8a91832605a44643becd333dc0b05a1838543f5b7489f"
+        }
+      ]
+    },
+    {
+      "ref_id": "C7",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-8"
+        },
+        {
+          "name": "Locator",
+          "value": "line 44"
+        },
+        {
+          "name": "Quote",
+          "value": "| Output scope | `prior/report-view.json`, chunk 1, `pathway.blocks`: key-findings; company-operating-model; strengths-weaknesses; company-profile; transaction-summary. Receipt confirms HTML Model, charts and calculation JSON published; `analytical_runtime_executed=false`, `cp_model_published=true`. | Current report view chunk 1 lists those five plus model-chart-strip, capital-structure, financials-credit-metrics, relative-value, portfolio-fit, committee-challenge and what-changed: twelve panels. Receipt confirms Model/charts/calculation JSON, no Excel output, analytical runtime false. Both Model report views chunk 1 retain financials-credit-metrics and company-profile, FY2022–FY2024 annual grid. | **Presentation and substantive module expansion with actual publication completed**, not a second analyst/model run. Both already published Model/charts/JSON; the current report adds a chart strip and wider analysis. Historical handoff statements that publication was not yet executed describe their intermediate stage and do not override the later receipts and host validation. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "9de6d2e6f3a6bb4162a8a91832605a44643becd333dc0b05a1838543f5b7489f"
+        }
+      ]
+    }
+  ],
+  "index": {
+    "facts": [
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-8-0.r0.c0"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-8-0.r0.c1"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-8-0.r0.c2"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-8-0.r1.c0"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-8-0.r1.c1"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-8-0.r1.c2"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-8-0.r2.c0"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-8-0.r2.c1"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-8-0.r2.c2"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-8-0.r3.c0"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-8-0.r3.c1"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-8-0.r3.c2"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r4",
+          "fact_id": "raw-CP-8-0.r4.c0"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r4",
+          "fact_id": "raw-CP-8-0.r4.c1"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r4",
+          "fact_id": "raw-CP-8-0.r4.c2"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r5",
+          "fact_id": "raw-CP-8-0.r5.c0"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r5",
+          "fact_id": "raw-CP-8-0.r5.c1"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r5",
+          "fact_id": "raw-CP-8-0.r5.c2"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r6",
+          "fact_id": "raw-CP-8-0.r6.c0"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r6",
+          "fact_id": "raw-CP-8-0.r6.c1"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-8",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r6",
+          "fact_id": "raw-CP-8-0.r6.c2"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      }
+    ]
+  }
+}

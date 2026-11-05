@@ -1,0 +1,28 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-1": "2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891"
+  },
+  "instructions": "# Targeted wording correction of the actual annual CP-6 response\n\nCP-1 CF22/CF23/K02 and annual PDF109 distinguish operating cash flow from the cash flow after capex. Annual PDF146 expressly dates the earlier $35 special dividend payment to November 2023. Make exactly the following two local replacements using edit_handoff; do not change any other text, numbers, conclusions, hash anchors or source reading claims. This repair reuses the actual original debate and its source reads.\n\n[\n  {\n    \"old\": \"CP-1 CFO 2,045 and K02 1,880 in FY2024 are after operating cash interest/tax burdens and reported capex under their definitions.\",\n    \"new\": \"CP-1 FY2024 CFO is 2,045 after operating cash interest and taxes; K02 deducts the reported capex of 165 from CFO to give 1,880 before acquisitions and distributions.\"\n  },\n  {\n    \"old\": \"with **1,937** paid that November\",\n    \"new\": \"with **1,937** paid in November 2023\"\n  }\n]\n",
+  "module_id": "CP-6",
+  "repair_draft_sha256": "22dfe64e5b9c3ff5764839378b4db9c71259ecf1f897fb710b876d38251fadf1",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-4",
+      "CP-6"
+    ],
+    "run_id": "sol-fresh-tdg-complete-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "S1-annual-report.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+  }
+}

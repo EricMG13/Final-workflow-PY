@@ -1,0 +1,26 @@
+{
+  "CP-1": {
+    "path": "../fresh-tdg/CP-1.md",
+    "sha256": "89dced9cb71499d2c18ae55dda6bfcb524f060b86c43b52e9f35ece4e1c38c9e"
+  },
+  "CP-1A": {
+    "path": "../fresh-tdg/CP-1A.md",
+    "sha256": "b58fdbea15b292eece7b49baae234822f5c36ddcbe80c78f1729fa9faaf8c56b"
+  },
+  "CP-2": {
+    "path": "../fresh-tdg/CP-2.md",
+    "sha256": "587ad984c29a883648ca2e6b0b01a79d650d69e1c2e2ca1faa68963e1d40ddb7"
+  },
+  "CP-4": {
+    "path": "../fresh-tdg/CP-4.md",
+    "sha256": "2860d8ab33f46ab1cf8c4553a0505d60336510169cc2333f1af5b1bda638132a"
+  },
+  "CP-3": {
+    "path": "../fresh-tdg/CP-3.md",
+    "sha256": "78b5da47bf2ad37c6065798878d1ef558c0f8416f5cb484374f8518b59e8a401"
+  },
+  "CP-5": {
+    "path": "../fresh-tdg/CP-5.md",
+    "sha256": "c9ff889360763dfe6f7150ba31ac7ae7598ad4f62ee19c7f198434c6f8b56e46"
+  }
+}

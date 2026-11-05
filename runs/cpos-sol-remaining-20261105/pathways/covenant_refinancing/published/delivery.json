@@ -1,0 +1,19 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "TDG\u2019s executed September 19, 2024 indenture for the 6% 2033 notes, with December 28, 2024 liquidity context. Annual, quarter and instrument dates remain separate. The reported Note 10 maturity schedule contains an unresolved FY2027 conflict: 92 versus notes of 2,650 due that year. It excludes receivables financing and finance leases. It is not a reconciled maturity wall. Current certificates, the complete intercreditor package and forward cash inputs remain gaps. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-1.md": "89dced9cb71499d2c18ae55dda6bfcb524f060b86c43b52e9f35ece4e1c38c9e",
+    "CP-1A.md": "3da9bf55281dc9a86e15bbb438ddd3b8aa04244344ab5ee7e5c059fc2da9054f",
+    "CP-2.md": "e7b46ceeedf76db7143359e7cef97b64c6a210dd7b63d3362cc2a7943018ee3a",
+    "CP-4.md": "267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43",
+    "CP-3C.md": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+    "CP-2D.md": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565",
+    "CP-1D.md": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
+    "view.json": "c2d3fd858265315bc18539139cc79ccf3c94ead893db279920a28d09a2afa971",
+    "report-view.json": "e28ffc2dc9fd1f2b7a2fcf385671b1f0e78287d9bd6f7fa5688ae3e7a4961db2",
+    "report.html": "357bed189cbb728e06c500176842abcfbdca7a09fa7be62e7c75d446a8e1e62a"
+  }
+}

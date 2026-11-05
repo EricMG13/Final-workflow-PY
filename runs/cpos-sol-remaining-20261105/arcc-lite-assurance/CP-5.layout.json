@@ -1,0 +1,60 @@
+{
+  "blocks": [
+    "key-findings",
+    "capital-structure",
+    "strengths-weaknesses"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-5",
+      "heading": "Review conclusion",
+      "kind": "prose",
+      "block_id": "key-findings",
+      "label": "Review conclusion"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "Screen review register",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Screen review register"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "Claim trace",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Claim trace"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "Findings register",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Findings register"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "Priority consumption controls",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Priority consumption controls"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "Counterfactual probes",
+      "kind": "prose",
+      "block_id": "strengths-weaknesses",
+      "label": "Counterfactual probes"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "Review limitations",
+      "kind": "prose",
+      "block_id": "strengths-weaknesses",
+      "label": "Review limitations"
+    }
+  ],
+  "scope": "Focused actual live CP5 review of allfive currentARCCLite screens andtheirsource/producerboundaries. Historical2024 withdatedsubsequentevents; no currentinvestmentapproval orfreshfullissuerpathway. Originalhandoffs preserved; noExcel ornewanalysisfordelivery.",
+  "title": "ARCC historical five-screen assurance"
+}

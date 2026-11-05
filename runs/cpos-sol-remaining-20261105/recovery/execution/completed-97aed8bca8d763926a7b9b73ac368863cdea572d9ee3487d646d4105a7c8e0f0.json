@@ -1,0 +1,29 @@
+{
+  "kind": "cpos-markdown-delivery/1",
+  "execution": "live-provider",
+  "scope": "TDG historical FY2024 annual case, CP-OS ordered live source corrections and new committee analysis from current handoffs. Source intake is the checked original live CP-0 response. Twelve credit-report panels plus HTML Model, charts and calculation JSON; source, legal, market and portfolio limits remain explicit.",
+  "provider_cap_usd": "7.79497550",
+  "modules": {
+    "CP-0": "requests/CP-0/0b93c523c34f720eaa232c4e5142f784992c57735608e7bd87ca40ff8fa78867/1.response.md",
+    "CP-1": "requests/CP-1/f21c7feae89d2b626e7f9cddad713dadc292ef00b7c9c0b2a813926826633b69/1.response.md",
+    "CP-1A": "requests/CP-1A/2976b682a74db91e9d32f7fd1bc7ab6569db2b0b8fdf4937ddcc2379621e2dbf/1.response.md",
+    "CP-2": "requests/CP-2/ef729b3c2376caeefdcd21e26d91dedbe4b5ae8df73717ce2da6e080c01c0fdc/1.response.md",
+    "CP-4": "requests/CP-4/655bf6ee040b634f51fd9b94c5992057d4d02bd65d9b06d7aa9da11edd01f360/1.response.md",
+    "CP-3": "requests/CP-3/10288e6ee16fc9d7b6ac0ee059c7d626ef9b0d7426c38073da905c8057ac60f4/1.response.md",
+    "CP-5": "requests/CP-5/6a6984c750b9d18c2bc4f132dbb332bb1f96541145b4dfd438aa6fac6cdf51eb/1.response.md",
+    "CP-6": "requests/CP-6/4828c01565b869d6a0ee38e54f23470e7a591527776b9f84c901fd91116e8973/1.response.md"
+  },
+  "module_execution": {
+    "CP-0": "retained-response-replay",
+    "CP-1": "live-provider",
+    "CP-1A": "live-provider",
+    "CP-2": "live-provider",
+    "CP-4": "live-provider",
+    "CP-3": "live-provider",
+    "CP-5": "live-provider",
+    "CP-6": "retained-response-replay"
+  },
+  "cp_model_published": true,
+  "delivery_manifest_sha256": "94f5c089fa806476746a0df4d861ed406930b92f8208246f18d0cc08c2ebddca",
+  "report_sha256": "354da61a24e620dc141a94e9d6ce25374eeff532267e43756e8038661f3d5db6"
+}

@@ -674,3 +674,27 @@ def test_replay_without_response_map_refuses_incomplete_retained_inputs(tmp_path
     with pytest.raises(ValueError, match="cpos_replay_inputs"):
         replay_handoffs(path, tmp_path / "state")
     assert not (tmp_path / "state").exists()
+
+
+def test_observer_stops_after_durable_handoff_and_resumes_without_duplicate_dispatch(tmp_path):
+    manifest = job(tmp_path)
+    state = tmp_path / "state"
+    sent = []
+
+    def execute(task):
+        sent.append(task.module_id)
+        return RESPONSES[task.module_id]
+
+    def observe(task, raw):
+        assert raw == RESPONSES[task.module_id]
+        assert list(state.glob("requests/" + task.module_id + "/*/*.review.json"))
+        raise RuntimeError("host evidence review")
+
+    with pytest.raises(RuntimeError, match="host evidence review"):
+        run_handoffs(manifest, state, execute=execute, check=checked, on_handoff=observe)
+    assert sent == ["CP-0"]
+    assert not list(state.glob("requests/CP-1/*/*.request.json"))
+    assert not list(state.glob("completed-*.json"))
+    report = run_handoffs(manifest, state, execute=execute, check=checked)
+    assert sent == ORDER
+    assert verify_delivery(next(state.glob("delivery-*.json")), report.parent) == report

@@ -1,0 +1,84 @@
+{
+  "run": {
+    "run_id": "sol-remaining-lqd-debate-fidelity-repair-20261105",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2025-05-31",
+    "case_kind": "public",
+    "pathway": "portfolio_decision",
+    "requested_modules": [
+      "CP-6"
+    ]
+  },
+  "handoffs": {
+    "CP-6": {
+      "path": "CP-6-repaired.md",
+      "sha256": "554455c01803a0ae794e49dacc7ceb98c30f0b81be1a2b81f668ecb53de117f8"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "capital-structure",
+      "portfolio-fit",
+      "binding-limitations"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-6",
+        "heading": "The Mandate Compliance Officer's Attack",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "The Mandate Compliance Officer's Attack"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "CIO Evidence Weighting",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "CIO Evidence Weighting"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Allocation Decision Matrix",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "Allocation Decision Matrix"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Gaps Ledger",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "Gaps Ledger"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Exposure and loss controls",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "Exposure and loss controls"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Final Sizing Posture",
+        "kind": "prose",
+        "block_id": "portfolio-fit",
+        "label": "Final Sizing Posture"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Decision boundary",
+        "kind": "prose",
+        "block_id": "binding-limitations",
+        "label": "Decision boundary"
+      }
+    ],
+    "title": "LQD historical ARCC portfolio challenge",
+    "question": "Do measured holdings and conditional losses support a sizing decision?",
+    "issuer_aliases": [
+      "ARCC",
+      "Ares Capital"
+    ],
+    "scope": "All eleven CP-6A portfolio-debate duties using actual current CP-3B and historical May2025 filing. Not complete base IC, current market recommendation or full native pathway. Raw full handoff retained; conditional scenarios are not expected losses."
+  }
+}

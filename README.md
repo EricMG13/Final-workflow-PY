@@ -7,6 +7,41 @@ applicable later corrections and additions, to Deploy Workflow's existing delive
 separate delivery process → Deploy Workflow reports, HTML Model, charts and calculation JSON.**
 
 Excel files are supported as analytical inputs only. Deliverables do not include Excel workbooks.
+
+The [remaining-module campaign record](runs/cpos-sol-remaining-20261105/verification.json)
+records sequential sol-medium responses, source/instruction reviews, targeted
+repairs and actual downstream consumption. Positive functional cases use TDG,
+ARCC, LQD, Ford Otosan, Enel, Moog/Wencor, CRC, LMI and Frontier with each
+issuer and evidence date kept separate. These are bounded historical proofs,
+not current underwriting or universal native-contract acceptance.
+
+The corrected [TDG annual report and Model](runs/cpos-sol-remaining-20261105/recovery/execution/deliveries/96c0def4111ccdccdba03f67829817a9d180bd1b6d23ca5bd36dd88fdb0d1dee/report.html)
+use the retained source intake and seven sequential sol-medium modules. The
+annual report places the November 2027 notes in fiscal 2028; the reported fiscal
+2027 repayment bucket remains 92. The publication has 12 populated panels, charts
+and calculation JSON. The [live CP-8 comparison](runs/cpos-sol-remaining-20261105/comparison/execution/deliveries/0656748d344c9ae4a504157fd5681143daddfd978462f95e20a35a5278302f29/report.html)
+compares both complete bundles across seven dimensions. Both runs resume from
+verified artifacts without another provider call.
+
+Five broader report designs reuse checked handoffs through the existing delivery
+process. The December committee response includes a source-checked host erratum
+that preserves its original scope and judgment:
+
+| Pathway | Populated panels | Evidence boundary |
+|---|---:|---|
+| [Earnings update](runs/cpos-sol-remaining-20261105/recovery/pathways/earnings_update/published/report.html) | 14 | TDG December 2024 quarter, separate annual Model and dated guidance |
+| [Relative value](runs/cpos-sol-remaining-20261105/pathways/relative_value/published/report.html) | 10 | ARCC December 2024 same-issuer bond comparison; conditional price basis |
+| [Portfolio decision](runs/cpos-sol-remaining-20261105/pathways/portfolio_decision/published/report.html) | 8 | LQD May 2025 holdings; Requires More Work, with missing mandate inputs |
+| [Covenant/refinancing](runs/cpos-sol-remaining-20261105/recovery/pathways/covenant_refinancing/published/report.html) | 11 | TDG executed 2033 indenture; conditional capacity and liquidity |
+| [Distressed/restructuring](runs/cpos-sol-remaining-20261105/recovery/pathways/distressed_restructuring/published/report.html) | 15 | TDG conditional downside; actual distress and quantified recovery not established |
+
+Offline reproduction of the annual and comparison proofs uses `recovery/verify.py`
+and `comparison/verify.py` in the campaign directory. The campaign record links
+the five verified broader bundles and records the source checks and settled costs.
+The literal adapter copies explicit committee action biases as well as portfolio
+postures, and keeps Model identity unchanged when sharing its facts with report
+charts. It does not generate replacement analysis or infer missing decisions.
+
 The [historical Erste source-intake report](deliverables/erste-source-intake-1/report.html)
 now exercises that boundary on real issuer spreadsheets: checked preparation,
 actual CP-1 consumption and HTML publication, with conflicting source values
@@ -86,6 +121,67 @@ a live ruling, and launches with `OPENAI_API_KEY`. Unknown charges stop executio
 Import, build, retained replay and ordinary delivery make no provider calls.
 The [sequential sol-medium campaign](runs/cpos-sol-medium-20261105/verification.json)
 retains actual requests, responses, source checks, repairs and consumption proof.
+
+## Start a run from a context file and issuer folder
+
+Select the issuer files, the context file and the model. Without `--live` this only
+prepares the run: it reads every file, writes the pinned manifest and module
+instructions, prints the plan and makes no provider call.
+
+```bash
+PYTHONPATH=src .venv/bin/python -m deploy_workflow.owners.cpos_launch \
+  --context path/to/context.json \
+  --sources path/to/issuer-folder \
+  --config sol-medium \
+  --cap 25
+```
+
+Add `--live --ruling docs/rulings/<file>.md` to start the paid run; the ruling must
+name the selected config, and the provider key must be in the launching environment.
+CP-OS then runs the modules in order and publishes `deliveries/<id>/report.html`.
+
+- **Context file:** a `context/1` file, such as one from
+  [the context form](docs/templates/context-form.html). It sets the issuer, as-of date,
+  case kind and pathway, and every module can read it as the source `context`.
+- **Issuer folder:** read recursively. PDF, TXT, Markdown, XLSX, CSV, JSON and JSONL files
+  are pinned as they are; HTML filings are pinned as their visible text in cp-os's
+  3,000-character pages, headed by the filed document's name and hash. Other files and `_`-prefixed folders are listed as
+  ignored, dotfiles are skipped, and an unreadable file stops the launch.
+- **Model:** `--config` is `sol-medium`, `sol-high`, `opus-medium` or `deepseek-max`.
+- **Cap:** a USD ceiling per run folder. Each call holds up to its worst-case price
+  against the cap until it settles (USD 5.73 for `gpt-6.1-sol`), and a cap too small
+  for one call of the largest module is refused before anything is sent.
+- **Modules:** the pathway's preset by default. `--modules` narrows it, keeping
+  dependencies, and must fill at least one report section.
+- **Run folder:** `--out`, or `runs/<run id>`. A changed request, including a new file
+  in the issuer folder or a new cap, needs a new folder. Relaunching the same request
+  rechecks finished modules without resending them.
+
+**Current limits:**
+
+- The automated checks cover handoff structure, issuer/date/source/upstream anchors
+  and report selectors. They hold no independent expected values, so a passing run has
+  not had analytical review, and each report says so in its scope.
+- It publishes the report only. The HTML Model, charts and calculation JSON need
+  issuer-specific row selectors, which remain hand-written manifest work, as does CP-8.
+- A module interrupted mid-call, or stopped by the cap, is never resent because its
+  charge may be unknown. Finishing that request means a new run folder, which repeats
+  and pays for the earlier modules.
+
+- Reads stop once a module's context reaches about 700,000 bytes. The module is told to
+  use what it has and record the rest as a gap, so a run over very large filings may not
+  read all of them.
+
+One paid test covers this path with historical TDG FY2024 files: CP-0, CP-1 and CP-1A
+on `sol-medium`, retained in `runs/cpos-launch-live-002`. An ordinary test run skips it.
+A rerun rechecks the retained answers and sends nothing. It passed at USD 0.93, and
+[VERIFICATION.md](VERIFICATION.md) records the review of its answers against the filing.
+The first attempt, [`runs/cpos-launch-live-001`](runs/cpos-launch-live-001), stopped
+during CP-0 after USD 0.29; its reads of whole filings led to the read limit above.
+
+```bash
+CPOS_LIVE_RULING=docs/rulings/<file>.md PYTHONPATH=src:. .venv/bin/python -m pytest tests/test_cpos_launch.py -m live -q
+```
 
 ## Development loop
 

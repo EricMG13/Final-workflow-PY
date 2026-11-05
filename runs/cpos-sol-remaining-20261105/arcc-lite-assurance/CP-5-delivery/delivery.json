@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Focused actual live CP5 review of allfive currentARCCLite screens andtheirsource/producerboundaries. Historical2024 withdatedsubsequentevents; no currentinvestmentapproval orfreshfullissuerpathway. Originalhandoffs preserved; noExcel ornewanalysisfordelivery.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-5.md": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea",
+    "view.json": "136cb04842d198982437de10331ebe615d65de7a65ada12bf54eb9b0446e0be1",
+    "report-view.json": "5ee43e613cfbe2c2aab83b770a1576923ab4ea0f0220f4dfcaf3394870693f37",
+    "report.html": "fdb4137420e1f810f22e3a3e82a942d9b2102b3fabcdb3ffa5007e463befaf3a"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "run": {
+    "run_id": "sol-current-portfolio_decision-20261105",
+    "issuer_id": "LQD",
+    "issuer_name": "iShares iBoxx $ Investment Grade Corporate Bond ETF",
+    "as_of": "2025-05-31",
+    "case_kind": "public",
+    "pathway": "portfolio_decision",
+    "requested_modules": [
+      "CP-3",
+      "CP-6",
+      "CP-5"
+    ]
+  },
+  "handoffs": {
+    "CP-3": {
+      "path": "../../lqd-portfolio/CP-3.md",
+      "sha256": "183c91f1b5ca67fcecad5ce64ac99cbc0a42c9bed422880c6102e9c9501677f3"
+    },
+    "CP-6": {
+      "path": "../../lqd-debate/CP-6-repaired.md",
+      "sha256": "554455c01803a0ae794e49dacc7ceb98c30f0b81be1a2b81f668ecb53de117f8"
+    },
+    "CP-5": {
+      "path": "../../lqd-assurance/CP-5-final.md",
+      "sha256": "475284bdcf6b4ff2109e5037d0732b08b7a2d88a4db437ca45558a2d79459c38"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "portfolio-recommendation",
+      "portfolio-fit",
+      "instrument-decision",
+      "binding-limitations",
+      "strengths-weaknesses",
+      "thesis-catalysts-challenge",
+      "capital-structure",
+      "what-changed"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-6",
+        "heading": "Final Sizing Posture",
+        "kind": "prose",
+        "block_id": "portfolio-recommendation"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Core and Starter condition assessment",
+        "kind": "prose",
+        "block_id": "portfolio-fit"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Portfolio conclusion",
+        "kind": "prose",
+        "block_id": "instrument-decision"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Exact Portfolio Constraint",
+        "kind": "prose",
+        "block_id": "binding-limitations"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Causal transmission, countercase and decision boundary",
+        "kind": "prose",
+        "block_id": "strengths-weaknesses"
+      },
+      {
+        "module_id": "CP-5",
+        "heading": "Argument fidelity and challenge value",
+        "kind": "prose",
+        "block_id": "thesis-catalysts-challenge"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Held instrument evidence",
+        "kind": "table",
+        "block_id": "capital-structure"
+      },
+      {
+        "module_id": "CP-5",
+        "heading": "Publication evidence comparison",
+        "kind": "prose",
+        "block_id": "what-changed"
+      }
+    ],
+    "scope": "LQD holdings dated May 31, 2025: the five identified ARCC positions and selected July note, with December 2024 issuer context kept separate. Observed exposures, conditional losses and actual argument challenge are retained. Mandate limits and current trading evidence were not supplied. CP-5\u2019s score of 56 measures evidence confidence, not investment conviction. Final posture: Requires More Work. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+    "title": "iShares iBoxx $ Investment Grade Corporate Bond ETF \u2014 portfolio decision"
+  }
+}

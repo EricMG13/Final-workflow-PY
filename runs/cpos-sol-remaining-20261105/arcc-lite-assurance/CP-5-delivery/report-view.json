@@ -1,0 +1,6241 @@
+{
+  "schema_version": "report-view/1",
+  "pathway": {
+    "id": "credit_snapshot",
+    "title": "ARCC historical five-screen assurance",
+    "question": "Should we own this issuer, in which instrument, and why?",
+    "requested_modules": [
+      "CP-5"
+    ],
+    "blocks": [
+      "key-findings",
+      "capital-structure",
+      "strengths-weaknesses"
+    ]
+  },
+  "call": [
+    {
+      "kind": "na",
+      "label": "Assessment",
+      "value_text": "Assessment pending",
+      "meter": null,
+      "ref_id": null,
+      "direction": null,
+      "line": false
+    }
+  ],
+  "call_withheld": "not_requested",
+  "blocks": [
+    {
+      "block_id": "key-findings",
+      "title": "Key findings",
+      "owner": "CP-5",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "prose",
+      "scale": null,
+      "row_header": null,
+      "columns": [],
+      "rows": [],
+      "lines": [
+        {
+          "runs": [
+            {
+              "text": "Clearance: pass for the specified historical screening-only consumption, with source limitations retained. No confirmed scoped defect requires repair before existing delivery. All five screens retain PARTIAL source gates, MIXED execution bases, COMPLETE_WITH_GAPS statuses and FULL_UPGRADE_REQUIRED analytical dispositions. Their postures—MIXED, MIXED, WATCH, ESCALATE_FOR_FULL_SELECTION and WATCH—are permitted literals, not underwriting outcomes.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C92",
+              "kind": "fig",
+              "ref_id": "C92"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "The twenty exact table families are present in the required order. Each allocation has six unique canonical topics and exact source-owner sets; all five decision screens have one OVERALL row. Every DEEPEN and material GAP_ONLY allocation has a topic-matched upgrade row with missing inputs, decision impact, required source, permitted target owner, expected owned object and blocking flag. The two SUMMARIZE topics are source basis and controlling-document identity; no required upgrade was hidden by a quota. There are twenty-five DEEPEN, three GAP_ONLY and two SUMMARIZE allocations, with twenty-eight corresponding mandatory upgrade rows. These are observed coverage counts, not budgets or new analytical scores.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C93",
+              "kind": "fig",
+              "ref_id": "C93"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "The observed evidence-to-transmission-to-implication-to-owner chains and strongest contrary cases remain conditional. L does not convert rising NII, unchanged average grade or reported coverage into sufficient liquidity; nor does it convert nonaccrual changes, missing certificates or negative CFO into default. D/S uncertainty is consumed rather than re-ranked. No fixed deepening quota, depth cap, reserve pool or security reranking was identified.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C94",
+              "kind": "fig",
+              "ref_id": "C94"
+            }
+          ],
+          "label": null,
+          "section": null
+        }
+      ],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-5",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "capital-structure",
+      "title": "Capital structure",
+      "owner": "CP-5",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Screen",
+      "columns": [
+        "Source/instruction test",
+        "Result",
+        "Limitation"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "L10 — financial change",
+          "cells": [
+            {
+              "text": "schema-L10/method-L10 p1; L TL10.1–4; A pp6–7/original115,116,255; owners CP-1/CP-1B, with EARNINGS_MARGIN_CHANGE owned by CP-1B alone",
+              "prov": "cited",
+              "ref_id": "C1",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Six exact allocations and four exact column schemas; OVERALL MIXED; five DEEPEN upgrades to CP-1B except liquidity to CP-1; source-basis SUMMARIZE to CP-1; reported income, cash and debt definitions retained",
+              "prov": "cited",
+              "ref_id": "C1",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Recurring collected earnings, definition bridges and accessible-cash facts remain incomplete; no canonical history cleared",
+              "prov": "cited",
+              "ref_id": "C1",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "L20 — fundamental credit",
+          "cells": [
+            {
+              "text": "schema-L20/method-L20 p1; L TL20.1–4; A pp1–7/original3,35,36,73,89,96,97,116,255; exact CP-2/CP-2C/CP-2F topic owners",
+              "prov": "cited",
+              "ref_id": "C2",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Six allocations, four column schemas and OVERALL MIXED; three fundamental upgrades to CP-2, governance/policy to CP-2C, ESG request to CP-2F; no support inferred from affiliation",
+              "prov": "cited",
+              "ref_id": "C2",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "ESG remains HIGH/MISSING/GAP_ONLY without incident, loss or transmission conclusion; no full fundamental/governance/ESG score",
+              "prov": "cited",
+              "ref_id": "C2",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r2",
+          "label": "L23 — liquidity/forward risk",
+          "cells": [
+            {
+              "text": "schema-L23/method-L23 p1; L TL23.1–4; A pp3–7/original88,94,99,100,115,255,283; exact CP-2D/CP-2E/CP-2G topic owners",
+              "prov": "cited",
+              "ref_id": "C3",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Six allocations, four column schemas and OVERALL WATCH; access/deployment to CP-2D, rates/FX to CP-2E, cases/breakpoint to CP-2G; issuer scenarios distinguished from new forecasts",
+              "prov": "cited",
+              "ref_id": "C3",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "BASE_DOWNSIDE_TRAJECTORY remains HIGH/MISSING/GAP_ONLY; no trajectory, runway, accessible-liquidity sufficiency or hedge-adequacy conclusion",
+              "prov": "cited",
+              "ref_id": "C3",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r3",
+          "label": "L30 — market/protection",
+          "cells": [
+            {
+              "text": "schema-L30/method-L30 p1; L TL30.1–4; D T3E.1–10; S T3.5/T3B.4–8; A p4/original95; J pp1–4; exact CP-3D/CP-3A/CP-3 owner sets",
+              "prov": "cited",
+              "ref_id": "C4",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Six allocations, four column schemas and OVERALL ESCALATE_FOR_FULL_SELECTION; market requests to CP-3D, structural/LME to CP-3A, integration to CP-3; existing pair uncertainty retained",
+              "prov": "cited",
+              "ref_id": "C4",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "LIQUIDITY_TECHNICALS remains HIGH/MISSING/GAP_ONLY; producer mathematics and unprovided underlying pricing sources not independently certified; no selection or recovery approval",
+              "prov": "cited",
+              "ref_id": "C4",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r4",
+          "label": "L40 — legal/capacity",
+          "cells": [
+            {
+              "text": "schema-L40/method-L40 p1; L TL40.1–4; B §§5.01,9.02,10.07,14.03–04; J §§1.01(g),7.04,7.06 and Art Six; C T4C.3–9",
+              "prov": "cited",
+              "ref_id": "C5",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Six allocations, four column schemas and OVERALL WATCH; protection to CP-4, reach/leakage to CP-4B, affected capacity/pressure inputs to CP-4A; controlling identity SUMMARIZE to CP-4",
+              "prov": "cited",
+              "ref_id": "C5",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "July scope only; complete amendment/control history, facility certificate and value-access schedules missing; no definitive legal interpretation, current compliance or usable capacity",
+              "prov": "cited",
+              "ref_id": "C5",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": "Screen review register",
+      "tabs": [
+        {
+          "label": "Claim trace",
+          "scale": null,
+          "row_header": "Claim",
+          "columns": [
+            "Evidence",
+            "Assessment",
+            "Scope"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Investment income is 2,990/2,614 USDm",
+              "cells": [
+                {
+                  "text": "A p6/original116, “Total investment income”; L TL10.2–3",
+                  "prov": "cited",
+                  "ref_id": "C6",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported; directly sourced, distinct from NII and operations",
+                  "prov": "cited",
+                  "ref_id": "C6",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "FY2024/FY2023 consolidated annual figures",
+                  "prov": "cited",
+                  "ref_id": "C6",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "NII is 1,403/1,266 USDm",
+              "cells": [
+                {
+                  "text": "A p6/original116, “NET INVESTMENT INCOME”; L TL10.3",
+                  "prov": "cited",
+                  "ref_id": "C7",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported; after-tax NII, not income before taxes 1,476/1,286",
+                  "prov": "cited",
+                  "ref_id": "C7",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Annual reported metric, not recurring collected earnings",
+                  "prov": "cited",
+                  "ref_id": "C7",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Net operations are 1,522/1,522 USDm",
+              "cells": [
+                {
+                  "text": "A p6/original116, “NET INCREASE IN STOCKHOLDERS’ EQUITY RESULTING FROM OPERATIONS”",
+                  "prov": "cited",
+                  "ref_id": "C8",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported; L preserves the separate metric",
+                  "prov": "cited",
+                  "ref_id": "C8",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "No inference that higher NII improves all earnings measures",
+                  "prov": "cited",
+                  "ref_id": "C8",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Diluted EPS is 2.44/2.68 USD/share",
+              "cells": [
+                {
+                  "text": "A p6/original116, diluted line; L Calculations",
+                  "prov": "cited",
+                  "ref_id": "C9",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported; not basic EPS 2.44/2.75",
+                  "prov": "cited",
+                  "ref_id": "C9",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Annual per-share figures; full attribution bridge absent",
+                  "prov": "cited",
+                  "ref_id": "C9",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Three signed changes are +376 USDm, +137 USDm and −0.24 USD/share",
+              "cells": [
+                {
+                  "text": "L Bounded arithmetic trace; A p6/original116 inputs",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported calculation; operands, period, units and signs agree",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Descriptive differences only; execution provenance attributed to L",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "PIK recognition differs from collections",
+              "cells": [
+                {
+                  "text": "A p7/original255: adjustments −206/−257 and collections +109/+33 USDm; L TL10.3",
+                  "prov": "cited",
+                  "ref_id": "C11",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported; recognition reversal adjustments not cash collections",
+                  "prov": "cited",
+                  "ref_id": "C11",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "FY2024 PIK interest/dividends kept separate",
+                  "prov": "cited",
+                  "ref_id": "C11",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "CFO includes portfolio deployment",
+              "cells": [
+                {
+                  "text": "A pp6–7/original255: purchases −12,622, sales/repayments +9,212, CFO −2,128 versus +511 USDm",
+                  "prov": "cited",
+                  "ref_id": "C12",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported facts; prohibition on industrial-burn inference is appropriate",
+                  "prov": "cited",
+                  "ref_id": "C12",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "BDC operating cash-flow classification, not industrial capex/FCF or runway",
+                  "prov": "cited",
+                  "ref_id": "C12",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r7",
+              "label": "Cash categories remain distinct",
+              "cells": [
+                {
+                  "text": "A p6/original115: cash635/restricted225; A p7/original255 ending combined860 USDm",
+                  "prov": "cited",
+                  "ref_id": "C13",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported; no demonstrated accessibility from reported balances",
+                  "prov": "cited",
+                  "ref_id": "C13",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "2024-12-31 consolidated snapshots, not parent usable cash",
+                  "prov": "cited",
+                  "ref_id": "C13",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r8",
+              "label": "Debt and Secured borrowings captions differ",
+              "cells": [
+                {
+                  "text": "A p6/original115: Debt13,727/11,884; Secured borrowings32/34 USDm",
+                  "prov": "cited",
+                  "ref_id": "C14",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported; separate captions retained",
+                  "prov": "cited",
+                  "ref_id": "C14",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not a reconstructed legal denominator or all-secured total",
+                  "prov": "cited",
+                  "ref_id": "C14",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r9",
+              "label": "Nonaccrual denominators differ",
+              "cells": [
+                {
+                  "text": "A pp2–3/original73: total investments at amortized cost1.7/1.3%, fair value1.0/0.6%",
+                  "prov": "cited",
+                  "ref_id": "C15",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported; denominator-preserving extraction",
+                  "prov": "cited",
+                  "ref_id": "C15",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "December2024/December2023; not interchangeable percentages",
+                  "prov": "cited",
+                  "ref_id": "C15",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r10",
+              "label": "Average grade3.1 is unchanged and grade4 is best",
+              "cells": [
+                {
+                  "text": "A pp2–3/original73: grade4 “least amount of risk”; average3.1/3.1",
+                  "prov": "cited",
+                  "ref_id": "C16",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported; issuer grade is not a CP risk score",
+                  "prov": "cited",
+                  "ref_id": "C16",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "No blanket portfolio deterioration or numerical governance score",
+                  "prov": "cited",
+                  "ref_id": "C16",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r11",
+              "label": "Actual shareholder returns coexist with equity capital",
+              "cells": [
+                {
+                  "text": "A p7/original255: dividends paid−1,139, common issuance+1,364 USDm; A p3/original89 no program repurchases2024/2023",
+                  "prov": "cited",
+                  "ref_id": "C17",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported; no debt-funded recap established",
+                  "prov": "cited",
+                  "ref_id": "C17",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "A89 ATM net1,362.7 has a different reported scope; no forced reconciliation",
+                  "prov": "cited",
+                  "ref_id": "C17",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r12",
+              "label": "Valuation process does not prove misconduct or support",
+              "cells": [
+                {
+                  "text": "A pp4–5/original96–97: adviser designee, board oversight, IVP input without independent verification of supplied information",
+                  "prov": "cited",
+                  "ref_id": "C18",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported documentary facts; L's oversight follow-up is bounded interpretation",
+                  "prov": "cited",
+                  "ref_id": "C18",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "No sponsor backstop or adverse conduct inferred",
+                  "prov": "cited",
+                  "ref_id": "C18",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r13",
+              "label": "ESG is a request only",
+              "cells": [
+                {
+                  "text": "A p2/original35–36 generic risks; L TL20.2/.4 and synthesis",
+                  "prov": "cited",
+                  "ref_id": "C19",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported missingness treatment, not an ESG analytical result",
+                  "prov": "cited",
+                  "ref_id": "C19",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "HIGH is conservative attention judgment, not proof of actual exposure, incident, cost or loss",
+                  "prov": "cited",
+                  "ref_id": "C19",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r14",
+              "label": "Issuer rate scenarios are static and fee-excluded",
+              "cells": [
+                {
+                  "text": "A p6/original99–100: +100bp net+111, −100bp−112, −300bp−328 USDm; no structure change; floors; swap expense; income-based fee excluded",
+                  "prov": "cited",
+                  "ref_id": "C20",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported; issuer-attributed annualized scenarios",
+                  "prov": "cited",
+                  "ref_id": "C20",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not newly authored forecast cases or verified dynamic net hedge adequacy",
+                  "prov": "cited",
+                  "ref_id": "C20",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r15",
+              "label": "FX forwards actually exist",
+              "cells": [
+                {
+                  "text": "A p7/original283 lists CAD/EUR/GBP/NOK/NZD/AUD contracts",
+                  "prov": "cited",
+                  "ref_id": "C21",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported on existence; insufficient evidence for net matching/protection",
+                  "prov": "cited",
+                  "ref_id": "C21",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "2024-12-31 contracts; foreign-currency notionals are not aggregate USD exposure",
+                  "prov": "cited",
+                  "ref_id": "C21",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r16",
+              "label": "Reported facility availability is conditional",
+              "cells": [
+                {
+                  "text": "A p3/original88: approximately5.1bn USD “Subject to borrowing base and other restrictions”",
+                  "prov": "cited",
+                  "ref_id": "C22",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported; L does not add it as freely usable cash",
+                  "prov": "cited",
+                  "ref_id": "C22",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Access/use bridge and certificates not supplied",
+                  "prov": "cited",
+                  "ref_id": "C22",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r17",
+              "label": "Published196.2%/46.2pp is not dollars",
+              "cells": [
+                {
+                  "text": "C T4C.3–4/C1–4; L TL40.3; A p3/original88 reports coarser196%",
+                  "prov": "cited",
+                  "ref_id": "C23",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported as attributed C result; finer source not independently verified in this pack",
+                  "prov": "cited",
+                  "ref_id": "C23",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Published precision, not unrounded certificate or certified current headroom",
+                  "prov": "cited",
+                  "ref_id": "C23",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r18",
+              "label": "Conditional2,219 USDm is not unused drawable capacity",
+              "cells": [
+                {
+                  "text": "C T4C.5/C6:6,732−4,513; C C7:3,348 revolver subamount inside aggregate availability; L TL23/40",
+                  "prov": "cited",
+                  "ref_id": "C24",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported as attributed producer comparison, not newly measured capacity",
+                  "prov": "cited",
+                  "ref_id": "C24",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Underlying facility pages/operative agreement not independently supplied here; no additive liquidity source",
+                  "prov": "cited",
+                  "ref_id": "C24",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r19",
+              "label": "Note incurrence and facility maintenance differ",
+              "cells": [
+                {
+                  "text": "B p20 §10.07 L1384–85; A p3/original88 at least150% after borrowing; C T4C.3 separate facility1.5:1 maintenance summary",
+                  "prov": "cited",
+                  "ref_id": "C25",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Direct note framework supported; facility maintenance attributed to C, not independently confirmed from operative facility",
+                  "prov": "cited",
+                  "ref_id": "C25",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Same numerical threshold does not equate formulas, timing or actual tested ratios",
+                  "prov": "cited",
+                  "ref_id": "C25",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r20",
+              "label": "Default below100% needs24 consecutive monthly observations",
+              "cells": [
+                {
+                  "text": "B p12 §5.01(vii) L917: last business day of each of24 consecutive calendar months",
+                  "prov": "cited",
+                  "ref_id": "C26",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported documentary claim; correctly separate from150% incurrence/maintenance",
+                  "prov": "cited",
+                  "ref_id": "C26",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "No monthly history, breach or current default inferred",
+                  "prov": "cited",
+                  "ref_id": "C26",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r21",
+              "label": "July combined event offer is100% plus accrued",
+              "cells": [
+                {
+                  "text": "J p2 §2.01 L157–190 and p3 Art Six L261–288",
+                  "prov": "cited",
+                  "ref_id": "C27",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported; combined control/rating event, all-three-agency window/attribution, exclusions and exceptions retained",
+                  "prov": "cited",
+                  "ref_id": "C27",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not101%, unconditional put funding or recovery floor",
+                  "prov": "cited",
+                  "ref_id": "C27",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r22",
+              "label": "Majority power is not unlimited covenant release",
+              "cells": [
+                {
+                  "text": "B p19 §9.02 L1311–14 affected-holder exceptions; J p1 §1.01(g) L96; B pp22–23 §§14.03–04",
+                  "prov": "cited",
+                  "ref_id": "C28",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported; trust funding, no-default/non-conflict, tax opinion and certificate conditions are substantive",
+                  "prov": "cited",
+                  "ref_id": "C28",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "No actual election/consent supplied; no perpetual-protection or unrestricted-release inference",
+                  "prov": "cited",
+                  "ref_id": "C28",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r23",
+              "label": "July governing package is executed and series-specific",
+              "cells": [
+                {
+                  "text": "B p26 execution block; J p4 L302–338, §§7.04/7.06 and signatures",
+                  "prov": "cited",
+                  "ref_id": "C29",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported from extracted execution text; form-note blanks are not unsigned supplement evidence",
+                  "prov": "cited",
+                  "ref_id": "C29",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "May13,2024 July package, not March2010-base review or enforceability opinion",
+                  "prov": "cited",
+                  "ref_id": "C29",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r24",
+              "label": "Holder coupons differ from issuer swapped rates",
+              "cells": [
+                {
+                  "text": "J p1 L80 July5.950%; A pp3–4/original94 July effective6.040%, March receive5.875%/effective6.575%; S Definition conflicts",
+                  "prov": "cited",
+                  "ref_id": "C30",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported role distinction; March holder coupon also attributed to S's separately reviewed supplement",
+                  "prov": "cited",
+                  "ref_id": "C30",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Coupon, issuer cost and swap legs are not rates to average",
+                  "prov": "cited",
+                  "ref_id": "C30",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r25",
+              "label": "July market levels are evaluated conditional cases",
+              "cells": [
+                {
+                  "text": "D T3E.1–5:101.294118 per100; A/B maturity yields5.622366%/6.316949%; simple premiums126.768113/196.226407bp; L TL30.3",
+                  "prov": "cited",
+                  "ref_id": "C31",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported transmission from D; underlying fair-value/Treasury/helper records not independently verified here",
+                  "prov": "cited",
+                  "ref_id": "C31",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not dealer quotes, OAS, full contractual YTW, factual PD or adequate compensation",
+                  "prov": "cited",
+                  "ref_id": "C31",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r26",
+              "label": "Existing pair result remains unresolved",
+              "cells": [
+                {
+                  "text": "S T3.5, Pair difference controls and T3B.7–8: clean residual gap0.160839bp fails independent rounding; dirty16.472695bp survives rounding but adequacy Unclear",
+                  "prov": "cited",
+                  "ref_id": "C32",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported as producer conclusion; no fresh root/rounding computation or note selection",
+                  "prov": "cited",
+                  "ref_id": "C32",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Historical selected pair; both Requires More Work, no full-stack ranking",
+                  "prov": "cited",
+                  "ref_id": "C32",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r27",
+              "label": "Liquidity technicals and forward cases remain unanswered",
+              "cells": [
+                {
+                  "text": "L TL30.2/.4 and TL23.2/.4; D T3E.6/10",
+                  "prov": "cited",
+                  "ref_id": "C33",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported request treatment, not evidence of illiquidity or a negative trajectory",
+                  "prov": "cited",
+                  "ref_id": "C33",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "HIGH/MISSING/GAP_ONLY; no analytical conclusion in decision rows or synthesis",
+                  "prov": "cited",
+                  "ref_id": "C33",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r28",
+              "label": "Swap effective-date source conflict is real",
+              "cells": [
+                {
+                  "text": "A p4/original95 says January8,2032; A p7/original300 says January8,2026; L Gaps; D/S conflict entries",
+                  "prov": "cited",
+                  "ref_id": "C34",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Conflicting source evidence, correctly preserved and excluded",
+                  "prov": "cited",
+                  "ref_id": "C34",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Subsequent March2032 issuance swap; no assumption resolves December inputs",
+                  "prov": "cited",
+                  "ref_id": "C34",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r29",
+              "label": "Subsequent issuance/authority are not December balances/usage",
+              "cells": [
+                {
+                  "text": "A pp4,7/original95,300–301: January2025 issuance1,000 USDm at5.800%; February2025 program extension up to1,000 USDm",
+                  "prov": "cited",
+                  "ref_id": "C35",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supported event/timing distinction",
+                  "prov": "cited",
+                  "ref_id": "C35",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Later access evidence/authorization only; no December resource or executed outflow",
+                  "prov": "cited",
+                  "ref_id": "C35",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        },
+        {
+          "label": "Findings register",
+          "scale": null,
+          "row_header": "Finding",
+          "columns": [
+            "Severity",
+            "Exact evidence",
+            "Required action"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "No finding — no confirmed defect in the specified historical Lite integrity/trace consumption",
+              "cells": [
+                {
+                  "text": "Not applicable — no defect severity assigned",
+                  "prov": "cited",
+                  "ref_id": "C36",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "L TL10.1–TL40.4 and Attention ranking inputs matched all five schema/method p1 references; A/B/J and D/S/C claim checks above preserve the material limitations; authority-repair wording is present",
+                  "prov": "cited",
+                  "ref_id": "C36",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Preserve exact current handoffs, source qualifications, GAP_ONLY requests and all thirty ranks in existing delivery; do not expand clearance",
+                  "prov": "cited",
+                  "ref_id": "C36",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        },
+        {
+          "label": "Priority consumption controls",
+          "scale": null,
+          "row_header": "Topic",
+          "columns": [
+            "Rank"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "L10/SOURCE_BASIS",
+              "cells": [
+                {
+                  "text": "6",
+                  "prov": "cited",
+                  "ref_id": "C37",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "L10/EARNINGS_MARGIN_CHANGE",
+              "cells": [
+                {
+                  "text": "1",
+                  "prov": "cited",
+                  "ref_id": "C38",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "L10/CASH_CONVERSION",
+              "cells": [
+                {
+                  "text": "2",
+                  "prov": "cited",
+                  "ref_id": "C39",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "L10/LEVERAGE_COVERAGE",
+              "cells": [
+                {
+                  "text": "3",
+                  "prov": "cited",
+                  "ref_id": "C40",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "L10/LIQUIDITY_MATURITIES",
+              "cells": [
+                {
+                  "text": "4",
+                  "prov": "cited",
+                  "ref_id": "C41",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "L10/KPI_COMPARABILITY",
+              "cells": [
+                {
+                  "text": "5",
+                  "prov": "cited",
+                  "ref_id": "C42",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "L20/BUSINESS_DURABILITY",
+              "cells": [
+                {
+                  "text": "4",
+                  "prov": "cited",
+                  "ref_id": "C43",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r7",
+              "label": "L20/MARGIN_FCF_RESILIENCE",
+              "cells": [
+                {
+                  "text": "1",
+                  "prov": "cited",
+                  "ref_id": "C44",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r8",
+              "label": "L20/LEVERAGE_REFINANCING_CONTEXT",
+              "cells": [
+                {
+                  "text": "2",
+                  "prov": "cited",
+                  "ref_id": "C45",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r9",
+              "label": "L20/GOVERNANCE_SPONSOR_BEHAVIOR",
+              "cells": [
+                {
+                  "text": "6",
+                  "prov": "cited",
+                  "ref_id": "C46",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r10",
+              "label": "L20/FINANCIAL_POLICY_CAPITAL_ALLOCATION",
+              "cells": [
+                {
+                  "text": "3",
+                  "prov": "cited",
+                  "ref_id": "C47",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r11",
+              "label": "L20/ESG_TRANSITION",
+              "cells": [
+                {
+                  "text": "5",
+                  "prov": "cited",
+                  "ref_id": "C48",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r12",
+              "label": "L23/ACCESSIBLE_LIQUIDITY_USES",
+              "cells": [
+                {
+                  "text": "1",
+                  "prov": "cited",
+                  "ref_id": "C49",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r13",
+              "label": "L23/WORKING_CAPITAL_CAPEX_CASH_BURN",
+              "cells": [
+                {
+                  "text": "5",
+                  "prov": "cited",
+                  "ref_id": "C50",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r14",
+              "label": "L23/RATES_HEDGES",
+              "cells": [
+                {
+                  "text": "2",
+                  "prov": "cited",
+                  "ref_id": "C51",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r15",
+              "label": "L23/FX_COMMODITY_INFLATION",
+              "cells": [
+                {
+                  "text": "6",
+                  "prov": "cited",
+                  "ref_id": "C52",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r16",
+              "label": "L23/BASE_DOWNSIDE_TRAJECTORY",
+              "cells": [
+                {
+                  "text": "4",
+                  "prov": "cited",
+                  "ref_id": "C53",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r17",
+              "label": "L23/BREAKPOINTS_REFINANCING",
+              "cells": [
+                {
+                  "text": "3",
+                  "prov": "cited",
+                  "ref_id": "C54",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r18",
+              "label": "L30/DATED_MARKET_SNAPSHOT",
+              "cells": [
+                {
+                  "text": "1",
+                  "prov": "cited",
+                  "ref_id": "C55",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r19",
+              "label": "L30/CURVE_COMPARABLE_COMPENSATION",
+              "cells": [
+                {
+                  "text": "2",
+                  "prov": "cited",
+                  "ref_id": "C56",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r20",
+              "label": "L30/LIQUIDITY_TECHNICALS",
+              "cells": [
+                {
+                  "text": "6",
+                  "prov": "cited",
+                  "ref_id": "C57",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r21",
+              "label": "L30/STRUCTURAL_RECOVERY_PROTECTION",
+              "cells": [
+                {
+                  "text": "3",
+                  "prov": "cited",
+                  "ref_id": "C58",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r22",
+              "label": "L30/DOWNSIDE_LME_EXPOSURE",
+              "cells": [
+                {
+                  "text": "4",
+                  "prov": "cited",
+                  "ref_id": "C59",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r23",
+              "label": "L30/INTEGRATED_SCREENING_POSTURE",
+              "cells": [
+                {
+                  "text": "5",
+                  "prov": "cited",
+                  "ref_id": "C60",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r24",
+              "label": "L40/CONTROLLING_DOCUMENT_AVAILABILITY",
+              "cells": [
+                {
+                  "text": "6",
+                  "prov": "cited",
+                  "ref_id": "C61",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r25",
+              "label": "L40/PROTECTION_WEAKNESS_FLAGS",
+              "cells": [
+                {
+                  "text": "1",
+                  "prov": "cited",
+                  "ref_id": "C62",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r26",
+              "label": "L40/ENTITY_GUARANTEE_COLLATERAL",
+              "cells": [
+                {
+                  "text": "2",
+                  "prov": "cited",
+                  "ref_id": "C63",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r27",
+              "label": "L40/LEAKAGE_PRIMING_FLAGS",
+              "cells": [
+                {
+                  "text": "3",
+                  "prov": "cited",
+                  "ref_id": "C64",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r28",
+              "label": "L40/CAPACITY_AVAILABILITY",
+              "cells": [
+                {
+                  "text": "4",
+                  "prov": "cited",
+                  "ref_id": "C65",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r29",
+              "label": "L40/PRESSURE_POINT_UPGRADE_PRIORITY",
+              "cells": [
+                {
+                  "text": "5",
+                  "prov": "cited",
+                  "ref_id": "C66",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        }
+      ],
+      "note": null,
+      "full_analysis_route": "CP-5",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "strengths-weaknesses",
+      "title": "Strengths and weaknesses",
+      "owner": "CP-5",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "prose",
+      "scale": null,
+      "row_header": null,
+      "columns": [],
+      "rows": [],
+      "lines": [
+        {
+          "runs": [
+            {
+              "text": "Four dangerous mutations were tested by comparing the actual text with the governing evidence, not by editing the upstream artifact or running a mutation engine. First, promoting860 combined cash, conditional5.1bn facilities or2,219 ceiling difference into usable cash/certified debt capacity would fail A115/255/88 and C's definitions; L expressly prevents that promotion. Second, collapsing150% note incurrence,150% facility maintenance and below100%/24-month default—or importing101% into the July combined-event offer—would change legal meaning; B/J and L retain their distinct conditions. Third, converting evaluated A/B yield cases or the surviving dirty-case pair premium into executable risk-adequate preference would contradict D/S; L preserves uncertainty and does not select. Fourth, converting HIGH/MISSING ESG, trajectory or technicals requests into adverse/favorable analysis, IMMATERIAL classifications or omitted upgrades would violate all five adaptive methods and common policy; all three remain request-only throughout L. None of these hypothetical mutations is an actual finding, and none inflates the issue count.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C96",
+              "kind": "fig",
+              "ref_id": "C96"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "This review applies claim-support, definitions/arithmetic, legal-control, market-basis, cross-module/version, schema/coverage and authority-boundary tests to the actual four current handoffs. It does not claim full native seventeen-register assurance, CP-5A execution/clearance, host filesystem inspection, script validation, export rendering/parity, native accepted-head/profile acceptance or broader pathway completion. The full CP-5 trace/QA workflow tested on another case is not ARCC execution evidence and supplies no issuer facts or scores here.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C110",
+              "kind": "fig",
+              "ref_id": "C110"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Confidence is high in the observed table/topic/owner/rank consistency and directly read annual/legal extractions, and more limited in producer-dependent mathematics or finer disclosures whose underlying source files are outside this selected pack. Complete raw calculation logs, the March supplement/base, Treasury observations, finer C financial pages, operative facility agreement, certificates, usage trackers and entity/value-access schedules were not independently verified here. These are disclosed limits, not newly discovered defects in a handoff that already qualifies them. The A95/A300 swap-date conflict remains unresolved; operative confirmation is required before any affected CP-2E/legal use.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C111",
+              "kind": "fig",
+              "ref_id": "C111"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Historical management compliance statements are attributed as of December2024, not independently certified or carried forward to November2026. January issuance and February authorization remain subsequent. No LQD, TDG, Ford or Frontier facts or scores enter this review. References to cross-issuer mutation hazards do not import those issuers' economics or rights.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C112",
+              "kind": "fig",
+              "ref_id": "C112"
+            }
+          ],
+          "label": null,
+          "section": null
+        }
+      ],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-5",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    }
+  ],
+  "unplaced": [],
+  "passports": [
+    {
+      "ref_id": "C1",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 63"
+        },
+        {
+          "name": "Quote",
+          "value": "| L10 — financial change | schema-L10/method-L10 p1; L TL10.1–4; A pp6–7/original115,116,255; owners CP-1/CP-1B, with EARNINGS_MARGIN_CHANGE owned by CP-1B alone | Six exact allocations and four exact column schemas; OVERALL MIXED; five DEEPEN upgrades to CP-1B except liquidity to CP-1; source-basis SUMMARIZE to CP-1; reported income, cash and debt definitions retained | Recurring collected earnings, definition bridges and accessible-cash facts remain incomplete; no canonical history cleared |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C2",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 64"
+        },
+        {
+          "name": "Quote",
+          "value": "| L20 — fundamental credit | schema-L20/method-L20 p1; L TL20.1–4; A pp1–7/original3,35,36,73,89,96,97,116,255; exact CP-2/CP-2C/CP-2F topic owners | Six allocations, four column schemas and OVERALL MIXED; three fundamental upgrades to CP-2, governance/policy to CP-2C, ESG request to CP-2F; no support inferred from affiliation | ESG remains HIGH/MISSING/GAP_ONLY without incident, loss or transmission conclusion; no full fundamental/governance/ESG score |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C3",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 65"
+        },
+        {
+          "name": "Quote",
+          "value": "| L23 — liquidity/forward risk | schema-L23/method-L23 p1; L TL23.1–4; A pp3–7/original88,94,99,100,115,255,283; exact CP-2D/CP-2E/CP-2G topic owners | Six allocations, four column schemas and OVERALL WATCH; access/deployment to CP-2D, rates/FX to CP-2E, cases/breakpoint to CP-2G; issuer scenarios distinguished from new forecasts | BASE_DOWNSIDE_TRAJECTORY remains HIGH/MISSING/GAP_ONLY; no trajectory, runway, accessible-liquidity sufficiency or hedge-adequacy conclusion |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C4",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 66"
+        },
+        {
+          "name": "Quote",
+          "value": "| L30 — market/protection | schema-L30/method-L30 p1; L TL30.1–4; D T3E.1–10; S T3.5/T3B.4–8; A p4/original95; J pp1–4; exact CP-3D/CP-3A/CP-3 owner sets | Six allocations, four column schemas and OVERALL ESCALATE_FOR_FULL_SELECTION; market requests to CP-3D, structural/LME to CP-3A, integration to CP-3; existing pair uncertainty retained | LIQUIDITY_TECHNICALS remains HIGH/MISSING/GAP_ONLY; producer mathematics and unprovided underlying pricing sources not independently certified; no selection or recovery approval |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C5",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 67"
+        },
+        {
+          "name": "Quote",
+          "value": "| L40 — legal/capacity | schema-L40/method-L40 p1; L TL40.1–4; B §§5.01,9.02,10.07,14.03–04; J §§1.01(g),7.04,7.06 and Art Six; C T4C.3–9 | Six allocations, four column schemas and OVERALL WATCH; protection to CP-4, reach/leakage to CP-4B, affected capacity/pressure inputs to CP-4A; controlling identity SUMMARIZE to CP-4 | July scope only; complete amendment/control history, facility certificate and value-access schedules missing; no definitive legal interpretation, current compliance or usable capacity |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C6",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 75"
+        },
+        {
+          "name": "Quote",
+          "value": "| Investment income is 2,990/2,614 USDm | A p6/original116, “Total investment income”; L TL10.2–3 | Supported; directly sourced, distinct from NII and operations | FY2024/FY2023 consolidated annual figures |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C7",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 76"
+        },
+        {
+          "name": "Quote",
+          "value": "| NII is 1,403/1,266 USDm | A p6/original116, “NET INVESTMENT INCOME”; L TL10.3 | Supported; after-tax NII, not income before taxes 1,476/1,286 | Annual reported metric, not recurring collected earnings |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C8",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 77"
+        },
+        {
+          "name": "Quote",
+          "value": "| Net operations are 1,522/1,522 USDm | A p6/original116, “NET INCREASE IN STOCKHOLDERS’ EQUITY RESULTING FROM OPERATIONS” | Supported; L preserves the separate metric | No inference that higher NII improves all earnings measures |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C9",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 78"
+        },
+        {
+          "name": "Quote",
+          "value": "| Diluted EPS is 2.44/2.68 USD/share | A p6/original116, diluted line; L Calculations | Supported; not basic EPS 2.44/2.75 | Annual per-share figures; full attribution bridge absent |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C10",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 79"
+        },
+        {
+          "name": "Quote",
+          "value": "| Three signed changes are +376 USDm, +137 USDm and −0.24 USD/share | L Bounded arithmetic trace; A p6/original116 inputs | Supported calculation; operands, period, units and signs agree | Descriptive differences only; execution provenance attributed to L |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C11",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 80"
+        },
+        {
+          "name": "Quote",
+          "value": "| PIK recognition differs from collections | A p7/original255: adjustments −206/−257 and collections +109/+33 USDm; L TL10.3 | Supported; recognition reversal adjustments not cash collections | FY2024 PIK interest/dividends kept separate |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C12",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 81"
+        },
+        {
+          "name": "Quote",
+          "value": "| CFO includes portfolio deployment | A pp6–7/original255: purchases −12,622, sales/repayments +9,212, CFO −2,128 versus +511 USDm | Supported facts; prohibition on industrial-burn inference is appropriate | BDC operating cash-flow classification, not industrial capex/FCF or runway |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C13",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 82"
+        },
+        {
+          "name": "Quote",
+          "value": "| Cash categories remain distinct | A p6/original115: cash635/restricted225; A p7/original255 ending combined860 USDm | Supported; no demonstrated accessibility from reported balances | 2024-12-31 consolidated snapshots, not parent usable cash |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C14",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 83"
+        },
+        {
+          "name": "Quote",
+          "value": "| Debt and Secured borrowings captions differ | A p6/original115: Debt13,727/11,884; Secured borrowings32/34 USDm | Supported; separate captions retained | Not a reconstructed legal denominator or all-secured total |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C15",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 84"
+        },
+        {
+          "name": "Quote",
+          "value": "| Nonaccrual denominators differ | A pp2–3/original73: total investments at amortized cost1.7/1.3%, fair value1.0/0.6% | Supported; denominator-preserving extraction | December2024/December2023; not interchangeable percentages |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C16",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 85"
+        },
+        {
+          "name": "Quote",
+          "value": "| Average grade3.1 is unchanged and grade4 is best | A pp2–3/original73: grade4 “least amount of risk”; average3.1/3.1 | Supported; issuer grade is not a CP risk score | No blanket portfolio deterioration or numerical governance score |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C17",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 86"
+        },
+        {
+          "name": "Quote",
+          "value": "| Actual shareholder returns coexist with equity capital | A p7/original255: dividends paid−1,139, common issuance+1,364 USDm; A p3/original89 no program repurchases2024/2023 | Supported; no debt-funded recap established | A89 ATM net1,362.7 has a different reported scope; no forced reconciliation |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C18",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 87"
+        },
+        {
+          "name": "Quote",
+          "value": "| Valuation process does not prove misconduct or support | A pp4–5/original96–97: adviser designee, board oversight, IVP input without independent verification of supplied information | Supported documentary facts; L's oversight follow-up is bounded interpretation | No sponsor backstop or adverse conduct inferred |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C19",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 88"
+        },
+        {
+          "name": "Quote",
+          "value": "| ESG is a request only | A p2/original35–36 generic risks; L TL20.2/.4 and synthesis | Supported missingness treatment, not an ESG analytical result | HIGH is conservative attention judgment, not proof of actual exposure, incident, cost or loss |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C20",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 89"
+        },
+        {
+          "name": "Quote",
+          "value": "| Issuer rate scenarios are static and fee-excluded | A p6/original99–100: +100bp net+111, −100bp−112, −300bp−328 USDm; no structure change; floors; swap expense; income-based fee excluded | Supported; issuer-attributed annualized scenarios | Not newly authored forecast cases or verified dynamic net hedge adequacy |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C21",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 90"
+        },
+        {
+          "name": "Quote",
+          "value": "| FX forwards actually exist | A p7/original283 lists CAD/EUR/GBP/NOK/NZD/AUD contracts | Supported on existence; insufficient evidence for net matching/protection | 2024-12-31 contracts; foreign-currency notionals are not aggregate USD exposure |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C22",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 91"
+        },
+        {
+          "name": "Quote",
+          "value": "| Reported facility availability is conditional | A p3/original88: approximately5.1bn USD “Subject to borrowing base and other restrictions” | Supported; L does not add it as freely usable cash | Access/use bridge and certificates not supplied |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C23",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 92"
+        },
+        {
+          "name": "Quote",
+          "value": "| Published196.2%/46.2pp is not dollars | C T4C.3–4/C1–4; L TL40.3; A p3/original88 reports coarser196% | Supported as attributed C result; finer source not independently verified in this pack | Published precision, not unrounded certificate or certified current headroom |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C24",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 93"
+        },
+        {
+          "name": "Quote",
+          "value": "| Conditional2,219 USDm is not unused drawable capacity | C T4C.5/C6:6,732−4,513; C C7:3,348 revolver subamount inside aggregate availability; L TL23/40 | Supported as attributed producer comparison, not newly measured capacity | Underlying facility pages/operative agreement not independently supplied here; no additive liquidity source |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C25",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 94"
+        },
+        {
+          "name": "Quote",
+          "value": "| Note incurrence and facility maintenance differ | B p20 §10.07 L1384–85; A p3/original88 at least150% after borrowing; C T4C.3 separate facility1.5:1 maintenance summary | Direct note framework supported; facility maintenance attributed to C, not independently confirmed from operative facility | Same numerical threshold does not equate formulas, timing or actual tested ratios |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C26",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 95"
+        },
+        {
+          "name": "Quote",
+          "value": "| Default below100% needs24 consecutive monthly observations | B p12 §5.01(vii) L917: last business day of each of24 consecutive calendar months | Supported documentary claim; correctly separate from150% incurrence/maintenance | No monthly history, breach or current default inferred |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C27",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 96"
+        },
+        {
+          "name": "Quote",
+          "value": "| July combined event offer is100% plus accrued | J p2 §2.01 L157–190 and p3 Art Six L261–288 | Supported; combined control/rating event, all-three-agency window/attribution, exclusions and exceptions retained | Not101%, unconditional put funding or recovery floor |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C28",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 97"
+        },
+        {
+          "name": "Quote",
+          "value": "| Majority power is not unlimited covenant release | B p19 §9.02 L1311–14 affected-holder exceptions; J p1 §1.01(g) L96; B pp22–23 §§14.03–04 | Supported; trust funding, no-default/non-conflict, tax opinion and certificate conditions are substantive | No actual election/consent supplied; no perpetual-protection or unrestricted-release inference |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C29",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 98"
+        },
+        {
+          "name": "Quote",
+          "value": "| July governing package is executed and series-specific | B p26 execution block; J p4 L302–338, §§7.04/7.06 and signatures | Supported from extracted execution text; form-note blanks are not unsigned supplement evidence | May13,2024 July package, not March2010-base review or enforceability opinion |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C30",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 99"
+        },
+        {
+          "name": "Quote",
+          "value": "| Holder coupons differ from issuer swapped rates | J p1 L80 July5.950%; A pp3–4/original94 July effective6.040%, March receive5.875%/effective6.575%; S Definition conflicts | Supported role distinction; March holder coupon also attributed to S's separately reviewed supplement | Coupon, issuer cost and swap legs are not rates to average |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C31",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 100"
+        },
+        {
+          "name": "Quote",
+          "value": "| July market levels are evaluated conditional cases | D T3E.1–5:101.294118 per100; A/B maturity yields5.622366%/6.316949%; simple premiums126.768113/196.226407bp; L TL30.3 | Supported transmission from D; underlying fair-value/Treasury/helper records not independently verified here | Not dealer quotes, OAS, full contractual YTW, factual PD or adequate compensation |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C32",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 101"
+        },
+        {
+          "name": "Quote",
+          "value": "| Existing pair result remains unresolved | S T3.5, Pair difference controls and T3B.7–8: clean residual gap0.160839bp fails independent rounding; dirty16.472695bp survives rounding but adequacy Unclear | Supported as producer conclusion; no fresh root/rounding computation or note selection | Historical selected pair; both Requires More Work, no full-stack ranking |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C33",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 102"
+        },
+        {
+          "name": "Quote",
+          "value": "| Liquidity technicals and forward cases remain unanswered | L TL30.2/.4 and TL23.2/.4; D T3E.6/10 | Supported request treatment, not evidence of illiquidity or a negative trajectory | HIGH/MISSING/GAP_ONLY; no analytical conclusion in decision rows or synthesis |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C34",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 103"
+        },
+        {
+          "name": "Quote",
+          "value": "| Swap effective-date source conflict is real | A p4/original95 says January8,2032; A p7/original300 says January8,2026; L Gaps; D/S conflict entries | Conflicting source evidence, correctly preserved and excluded | Subsequent March2032 issuance swap; no assumption resolves December inputs |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C35",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 104"
+        },
+        {
+          "name": "Quote",
+          "value": "| Subsequent issuance/authority are not December balances/usage | A pp4,7/original95,300–301: January2025 issuance1,000 USDm at5.800%; February2025 program extension up to1,000 USDm | Supported event/timing distinction | Later access evidence/authorization only; no December resource or executed outflow |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C36",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 110"
+        },
+        {
+          "name": "Quote",
+          "value": "| No finding — no confirmed defect in the specified historical Lite integrity/trace consumption | Not applicable — no defect severity assigned | L TL10.1–TL40.4 and Attention ranking inputs matched all five schema/method p1 references; A/B/J and D/S/C claim checks above preserve the material limitations; authority-repair wording is present | Preserve exact current handoffs, source qualifications, GAP_ONLY requests and all thirty ranks in existing delivery; do not expand clearance |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C37",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 138"
+        },
+        {
+          "name": "Quote",
+          "value": "| L10/SOURCE_BASIS | 6 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C38",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 139"
+        },
+        {
+          "name": "Quote",
+          "value": "| L10/EARNINGS_MARGIN_CHANGE | 1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C39",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 140"
+        },
+        {
+          "name": "Quote",
+          "value": "| L10/CASH_CONVERSION | 2 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C40",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 141"
+        },
+        {
+          "name": "Quote",
+          "value": "| L10/LEVERAGE_COVERAGE | 3 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C41",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 142"
+        },
+        {
+          "name": "Quote",
+          "value": "| L10/LIQUIDITY_MATURITIES | 4 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C42",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 143"
+        },
+        {
+          "name": "Quote",
+          "value": "| L10/KPI_COMPARABILITY | 5 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C43",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 144"
+        },
+        {
+          "name": "Quote",
+          "value": "| L20/BUSINESS_DURABILITY | 4 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C44",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 145"
+        },
+        {
+          "name": "Quote",
+          "value": "| L20/MARGIN_FCF_RESILIENCE | 1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C45",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 146"
+        },
+        {
+          "name": "Quote",
+          "value": "| L20/LEVERAGE_REFINANCING_CONTEXT | 2 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C46",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 147"
+        },
+        {
+          "name": "Quote",
+          "value": "| L20/GOVERNANCE_SPONSOR_BEHAVIOR | 6 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C47",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 148"
+        },
+        {
+          "name": "Quote",
+          "value": "| L20/FINANCIAL_POLICY_CAPITAL_ALLOCATION | 3 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C48",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 149"
+        },
+        {
+          "name": "Quote",
+          "value": "| L20/ESG_TRANSITION | 5 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C49",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 150"
+        },
+        {
+          "name": "Quote",
+          "value": "| L23/ACCESSIBLE_LIQUIDITY_USES | 1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C50",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 151"
+        },
+        {
+          "name": "Quote",
+          "value": "| L23/WORKING_CAPITAL_CAPEX_CASH_BURN | 5 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C51",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 152"
+        },
+        {
+          "name": "Quote",
+          "value": "| L23/RATES_HEDGES | 2 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C52",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 153"
+        },
+        {
+          "name": "Quote",
+          "value": "| L23/FX_COMMODITY_INFLATION | 6 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C53",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 154"
+        },
+        {
+          "name": "Quote",
+          "value": "| L23/BASE_DOWNSIDE_TRAJECTORY | 4 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C54",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 155"
+        },
+        {
+          "name": "Quote",
+          "value": "| L23/BREAKPOINTS_REFINANCING | 3 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C55",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 156"
+        },
+        {
+          "name": "Quote",
+          "value": "| L30/DATED_MARKET_SNAPSHOT | 1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C56",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 157"
+        },
+        {
+          "name": "Quote",
+          "value": "| L30/CURVE_COMPARABLE_COMPENSATION | 2 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C57",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 158"
+        },
+        {
+          "name": "Quote",
+          "value": "| L30/LIQUIDITY_TECHNICALS | 6 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C58",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 159"
+        },
+        {
+          "name": "Quote",
+          "value": "| L30/STRUCTURAL_RECOVERY_PROTECTION | 3 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C59",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 160"
+        },
+        {
+          "name": "Quote",
+          "value": "| L30/DOWNSIDE_LME_EXPOSURE | 4 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C60",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 161"
+        },
+        {
+          "name": "Quote",
+          "value": "| L30/INTEGRATED_SCREENING_POSTURE | 5 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C61",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 162"
+        },
+        {
+          "name": "Quote",
+          "value": "| L40/CONTROLLING_DOCUMENT_AVAILABILITY | 6 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C62",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 163"
+        },
+        {
+          "name": "Quote",
+          "value": "| L40/PROTECTION_WEAKNESS_FLAGS | 1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C63",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 164"
+        },
+        {
+          "name": "Quote",
+          "value": "| L40/ENTITY_GUARANTEE_COLLATERAL | 2 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C64",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 165"
+        },
+        {
+          "name": "Quote",
+          "value": "| L40/LEAKAGE_PRIMING_FLAGS | 3 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C65",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 166"
+        },
+        {
+          "name": "Quote",
+          "value": "| L40/CAPACITY_AVAILABILITY | 4 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C66",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 167"
+        },
+        {
+          "name": "Quote",
+          "value": "| L40/PRESSURE_POINT_UPGRADE_PRIORITY | 5 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C67",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 5"
+        },
+        {
+          "name": "Quote",
+          "value": "View: Ares Capital Corporation's current five-screen Lite handoff is supportable for historical screening-only consumption, subject to its stated source and analytical limitations. This review found no confirmed defect in the scoped Lite consumption, topic allocation, upgrade coverage or priority ordering. It does not clear an investment decision, current compliance, usable funding capacity or security selection."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C68",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 7"
+        },
+        {
+          "name": "Quote",
+          "value": "Run `sol-remaining-arcc-lite-assurance-20261105`; issuer_id `ARCC`; module `CP-5`; method `deploy-v-r14`; public / credit_snapshot. Consumed Lite decision_scope: `SCREENING_ONLY`; this review preserves that scope. Reporting anchor: 2024-12-31; comparisons: FY2024/FY2023; subsequent events: January/February 2025; execution: 2026-11-05. This is an ex-post historical integrity/trace review, not a point-in-time availability backtest or a present-market update."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C69",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 9"
+        },
+        {
+          "name": "Quote",
+          "value": "One model performed separate-module consumption of the complete supplied CP-L10 and current CP-3D, CP-3/absorbed CP-3A and CP-4/CP-4A handoffs. This is not independent-agent assurance, a new full seventeen-register CP-5 case, or a fresh issuer pathway. No issuer thesis, canonical financial history, forecast, valuation, recovery, security preference or size is newly authored."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C70",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 15"
+        },
+        {
+          "name": "Quote",
+          "value": "**Source gate: PARTIAL; review readiness: Ready with Limitations.** All four substantive current handoffs are available and were read completely. All pinned source-tool texts were read completely: lite-entry pp1–6, method-policy p1, annual-selected pp1–7, base-legal pp1–26, July-supplement pp1–6, five schema references and five adaptive methods at p1 each, producer-instructions p1, authority-repair p1, assurance-QA pp1–3 and assurance-trace pp1–2. `list_sources` matched the supplied source identities. Text extraction, not visual inspection, is the basis of this review."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C71",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 17"
+        },
+        {
+          "name": "Quote",
+          "value": "The four exact upstream identities consumed are:"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C72",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 19"
+        },
+        {
+          "name": "Quote",
+          "value": "- **L = CP-L10**, run `sol-remaining-arcc-lite-20261105`, SHA256 `08c4132947ce27d2bfddb818ffd62c81dbb2602b060ba5b63c752fdb92410661`: all five screens, twenty registers, thirty allocations, calculations, gaps and next-module boundary; FY2024/FY2023 and December 2024 anchor."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C73",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 20"
+        },
+        {
+          "name": "Quote",
+          "value": "- **D = CP-3D**, run `sol-remaining-arcc-market-20261105`, SHA256 `0f90e8e5a1b58f5174fe60281244347dfd15f0da1608152a1f53cfe8132b6f61`: December 31, 2024 evaluated market evidence and conditional July-note cases, executed November 5, 2026."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C74",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 21"
+        },
+        {
+          "name": "Quote",
+          "value": "- **S = CP-3 with absorbed CP-3A**, run `sol-remaining-arcc-selection-20261105`, SHA256 `9d266261a1eb5c92c9e7052a999e087fc39cde506e4fdb9be47c00d65218b1c6`: historical March/July 2029 two-note comparison, executed November 5, 2026; not a full stack."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C75",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 22"
+        },
+        {
+          "name": "Quote",
+          "value": "- **C = CP-4 carrying CP-4A**, run `sol-remaining-arcc-capacity-20261105`, SHA256 `fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738`: December 2024 capacity context for July 2029, executed November 5, 2026; not March-note diligence or a current certificate."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C76",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 24"
+        },
+        {
+          "name": "Quote",
+          "value": "These are supplied identities, not independently recomputed hashes of raw files. Older handoff hashes inside D/S/C are retained historical lineage, not replacements for these current versions. L's H0 admission identity `e38debed3085e5f9b486a8e1ff5fa860fb34b5f6f6654cfbf7c563cc40162adb` and original PDF identity `4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170` remain attributed lineage; H0 itself and the full original PDF were not independently available for inspection here. Its admission/audit-date/visual assertions are not independently verified by CP-5."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C77",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 28"
+        },
+        {
+          "name": "Quote",
+          "value": "Primary evidence pins:"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C78",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 30"
+        },
+        {
+          "name": "Quote",
+          "value": "- annual-selected: `eaedf199a0fa440c41e5b022594c4c1afc9c746dabd776ca572898b66b5b1618`."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C79",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 31"
+        },
+        {
+          "name": "Quote",
+          "value": "- base-legal: `ef8ad4d8a3d5902746726697b6f6fa53058d7445b59d99157cbea6258bf2d459`."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C80",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 32"
+        },
+        {
+          "name": "Quote",
+          "value": "- July-supplement: `bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c`."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C81",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 34"
+        },
+        {
+          "name": "Quote",
+          "value": "Method identities, all matched to the supplied manifest and read:"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C82",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 36"
+        },
+        {
+          "name": "Quote",
+          "value": "- lite-entry: `8ebb7d70cd46a7b4f620e9b036b1a3b29e83da175d8d8bc3f101c8100ac43e30`; method-policy: `d0db9ea2476d8d2f4356b83543d9cf71ea0d86017d8b1e291e0eabf1f02f7372`."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C83",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 37"
+        },
+        {
+          "name": "Quote",
+          "value": "- schema-L10: `046bf01ddf46c65103bfe6e601db65de5813c5b76f18c9b96612d19c05bdd58f`; method-L10: `0481a8aa4d7a4a4ce1e8004a6faf098d033b05a995c15dcbe1896b64b7c010bb`."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C84",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 38"
+        },
+        {
+          "name": "Quote",
+          "value": "- schema-L20: `1252e3a06b1831af38c18278e5aa9a825ef680c0416022954481e47e166b5eb8`; method-L20: `0d9a308aaa6e4a7eb911b0a8d30b5ef6dd693038edb9e4c25af726fa0746ac7d`."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C85",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 39"
+        },
+        {
+          "name": "Quote",
+          "value": "- schema-L23: `9a25fee9bd063fc6c3074f08468c5d823f84be5ea965f8c083a590117e1c2b12`; method-L23: `51e2d1bfc4f66cc4a0a8375230572f28d9c757c706fb50ab8f7b56a409c1f0d7`."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C86",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 40"
+        },
+        {
+          "name": "Quote",
+          "value": "- schema-L30: `5a63b25907de96567b01ac1ebb401835911e4e95c060cc8a52ef5663fa9d10a8`; method-L30: `852059fa62c41cec9c2a8164a135b1db9496c6c518339fa3c0eb0003718543a1`."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C87",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 41"
+        },
+        {
+          "name": "Quote",
+          "value": "- schema-L40: `8f36b959e62c3bcc9484de7db83bf5c9aadee15d7fc78f41d0bd0268d684d060`; method-L40: `f80e3cb4f91c8fef9c2ea83c6af385864876d8683f65d79e9895a2f1ed8e0874`."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C88",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 42"
+        },
+        {
+          "name": "Quote",
+          "value": "- producer-instructions: `c5f6cb70ffb979bad1ccce29b610a1a3f70df7e886a55f715178a1e06d323596`; authority-repair: `c2066af3fd95c6ea99bdf7f5c8726fecb6b412c0845c044803288fbb41201a23`."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C89",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 43"
+        },
+        {
+          "name": "Quote",
+          "value": "- assurance-QA: `e93781b8055e0c33e744b06fb0706161885400d6f8c7ef07a743497d4a865e8d`; assurance-trace: `0b5beddbc0a5d3c99065379b7110e3b87fbc5392d38ed243ccbf7fdce70e506a`."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C90",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 45"
+        },
+        {
+          "name": "Quote",
+          "value": "Below, **A** means annual-selected with selected page and original PDF page; **B** means base-legal; **J** means July-supplement. D/S/C register citations are producer evidence, not independent reopening of their other source packs. In particular, the selected pack here does not contain the Treasury/helper records, March supplement, annual debt fair-value table or finer capacity disclosures used in those producers."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C91",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 47"
+        },
+        {
+          "name": "Quote",
+          "value": "Current instructions and actual producer requirements govern this review. Imported YAML/export/script/approval machinery is source evidence, not operative instruction. The two authority-repair substitutions are present in L's Screening boundary and Next module: existing campaign authorization is recognized without automatic profile activation or investment authority. Lack of old-style envelope headings is therefore not manufactured into a defect."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C92",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 53"
+        },
+        {
+          "name": "Quote",
+          "value": "**Clearance: pass for the specified historical screening-only consumption, with source limitations retained.** No confirmed scoped defect requires repair before existing delivery. All five screens retain PARTIAL source gates, MIXED execution bases, COMPLETE_WITH_GAPS statuses and FULL_UPGRADE_REQUIRED analytical dispositions. Their postures—MIXED, MIXED, WATCH, ESCALATE_FOR_FULL_SELECTION and WATCH—are permitted literals, not underwriting outcomes."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C93",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 55"
+        },
+        {
+          "name": "Quote",
+          "value": "The twenty exact table families are present in the required order. Each allocation has six unique canonical topics and exact source-owner sets; all five decision screens have one OVERALL row. Every DEEPEN and material GAP_ONLY allocation has a topic-matched upgrade row with missing inputs, decision impact, required source, permitted target owner, expected owned object and blocking flag. The two SUMMARIZE topics are source basis and controlling-document identity; no required upgrade was hidden by a quota. There are twenty-five DEEPEN, three GAP_ONLY and two SUMMARIZE allocations, with twenty-eight corresponding mandatory upgrade rows. These are observed coverage counts, not budgets or new analytical scores."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C94",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 57"
+        },
+        {
+          "name": "Quote",
+          "value": "The observed evidence-to-transmission-to-implication-to-owner chains and strongest contrary cases remain conditional. L does not convert rising NII, unchanged average grade or reported coverage into sufficient liquidity; nor does it convert nonaccrual changes, missing certificates or negative CFO into default. D/S uncertainty is consumed rather than re-ranked. No fixed deepening quota, depth cap, reserve pool or security reranking was identified."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C95",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 69"
+        },
+        {
+          "name": "Quote",
+          "value": "For the exact-owner check, L10's other five topic source-owner sets, L20's joint policy set CP-2/CP-2C, L23's joint breakpoint set CP-2D/CP-2E/CP-2G, L30's joint compensation/downside/integration sets and L40's joint leakage set CP-4/CP-4B all match their respective schema p1. Upgrade recipients are permitted and match the default affected-owner duties; joint allocation owners are not misrepresented as completed full-owner runs."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C96",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 114"
+        },
+        {
+          "name": "Quote",
+          "value": "Four dangerous mutations were tested by comparing the actual text with the governing evidence, not by editing the upstream artifact or running a mutation engine. First, promoting860 combined cash, conditional5.1bn facilities or2,219 ceiling difference into usable cash/certified debt capacity would fail A115/255/88 and C's definitions; L expressly prevents that promotion. Second, collapsing150% note incurrence,150% facility maintenance and below100%/24-month default—or importing101% into the July combined-event offer—would change legal meaning; B/J and L retain their distinct conditions. Third, converting evaluated A/B yield cases or the surviving dirty-case pair premium into executable risk-adequate preference would contradict D/S; L preserves uncertainty and does not select. Fourth, converting HIGH/MISSING ESG, trajectory or technicals requests into adverse/favorable analysis, IMMATERIAL classifications or omitted upgrades would violate all five adaptive methods and common policy; all three remain request-only throughout L. None of these hypothetical mutations is an actual finding, and none inflates the issue count."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C97",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 120"
+        },
+        {
+          "name": "Quote",
+          "value": "The three L calculations were independently checked for operand transcription, signed subtraction, period, units and scope against A p6/original116:"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C98",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 122"
+        },
+        {
+          "name": "Quote",
+          "value": "- FY2024 investment income2,990 plus negative FY2023 income2,614 = **+376 USDm**."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C99",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 123"
+        },
+        {
+          "name": "Quote",
+          "value": "- FY2024 NII1,403 plus negative FY2023 NII1,266 = **+137 USDm**."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C100",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 124"
+        },
+        {
+          "name": "Quote",
+          "value": "- FY2024 diluted EPS2.44 plus negative FY2023 diluted EPS2.68 = **−0.24 USD/share**."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C101",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 126"
+        },
+        {
+          "name": "Quote",
+          "value": "They are consolidated annual descriptive changes without normalization, pro forma adjustment or a denominator. No new calculated financial history is created. L reports prior Decimal-38 execution; its raw execution log is not independently supplied here. CP-5 verifies the displayed arithmetic but does not claim to have re-executed that producer log. No calculate call was necessary for these exact simple differences."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C102",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 128"
+        },
+        {
+          "name": "Quote",
+          "value": "D/S yield roots, PVs, loss proxies, rounding intervals and C's capacity arithmetic were not independently re-executed. Their consumed values and scope restrictions agree across the four current handoffs; the claim trace distinguishes producer support from primary-source verification. Actual usable dollar debt, RP/leakage capacity and numerical recovery remain **Not calculable** because legal inputs, uses, constraints, claim reach and realizable-value evidence are incomplete."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C103",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 132"
+        },
+        {
+          "name": "Quote",
+          "value": "I independently ordered each screen's six declared tuples: urgency descending, magnitude descending, evidence confidence descending, then canonical index ascending. All thirty supplied ranks agree; no arithmetic ordering exception was found. Urgency and magnitude are authored attention judgments supported by L's rationale, not facts proved by sorting. Evidence-confidence keys follow the declared evidence-status mapping; they are not probabilities or a numeric assurance score. In particular HIGH on the three missing topics is conservative decision attention, not an incident/loss estimate."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C104",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 134"
+        },
+        {
+          "name": "Quote",
+          "value": "Canonical index resets within each screen. L10 and L40 place canonical topics2–6 ahead of their urgency2/MEDIUM identity topics. L20 places its urgency3 topics2,3,5 first, then urgency2/HIGH topic1, missing topic6 and MEDIUM topic4. L23 places urgency3/PARTIAL topics1,3,6 ahead of missing topic5, then urgency2 topics2,4. L30 places its five PARTIAL topics in canonical order ahead of missing topic3. These independent comparisons reproduce the current ranks below exactly; this is a downstream consumption control, not a new credit/security ranking."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C105",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 173"
+        },
+        {
+          "name": "Quote",
+          "value": "The three HIGH/MISSING allocations remain GAP_ONLY with no topic-level analytical conclusion in prose, decision screens, OVERALL rows or synthesis:"
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C106",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 175"
+        },
+        {
+          "name": "Quote",
+          "value": "- **L20/ESG_TRANSITION → CP-2F:** actual exposure/incident records, costs, transition plans and executed sustainability-linked instrument terms are Not supplied. Their absence prevents transmission/materiality assessment. L TL20.4 requests issuer/portfolio incident/exposure records, cost schedules and instrument terms; generic A35–36 risks establish neither an actual incident nor immateriality."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C107",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 176"
+        },
+        {
+          "name": "Quote",
+          "value": "- **L23/BASE_DOWNSIDE_TRAJECTORY → CP-2G:** horizon and supported collection/default/mark/funding assumptions and cases are Not supplied. No directional case trajectory can be assessed. L TL23.4 requests supported historical-anchor assumptions and base/downside inputs; A100 static issuer sensitivities do not supply those missing cases."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C108",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 177"
+        },
+        {
+          "name": "Quote",
+          "value": "- **L30/LIQUIDITY_TECHNICALS → CP-3D:** two-way executable lots, depth, trade/no-trade history and holder/flow records are Not supplied. Execution/technical effects cannot be assessed. L TL30.4 requests dated dealer depth, trade and ownership/flow evidence; evaluated size/price evidence is not a substitute."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C109",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 179"
+        },
+        {
+          "name": "Quote",
+          "value": "L's remaining twenty-five DEEPEN upgrades also retain precise missing-input/impact/source/owner requests. Requests to already completed bounded D/S/C functions are limited to affected missing inputs; they do not pretend those producers were absent, nor that their completion supplied full current underwriting. No missing amount is assigned zero, and no absent certificate, event history or disclosure is treated as proof of current compliance, default or adverse behavior."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C110",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 183"
+        },
+        {
+          "name": "Quote",
+          "value": "This review applies claim-support, definitions/arithmetic, legal-control, market-basis, cross-module/version, schema/coverage and authority-boundary tests to the actual four current handoffs. It does not claim full native seventeen-register assurance, CP-5A execution/clearance, host filesystem inspection, script validation, export rendering/parity, native accepted-head/profile acceptance or broader pathway completion. The full CP-5 trace/QA workflow tested on another case is not ARCC execution evidence and supplies no issuer facts or scores here."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C111",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 185"
+        },
+        {
+          "name": "Quote",
+          "value": "Confidence is high in the observed table/topic/owner/rank consistency and directly read annual/legal extractions, and more limited in producer-dependent mathematics or finer disclosures whose underlying source files are outside this selected pack. Complete raw calculation logs, the March supplement/base, Treasury observations, finer C financial pages, operative facility agreement, certificates, usage trackers and entity/value-access schedules were not independently verified here. These are disclosed limits, not newly discovered defects in a handoff that already qualifies them. The A95/A300 swap-date conflict remains unresolved; operative confirmation is required before any affected CP-2E/legal use."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C112",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 187"
+        },
+        {
+          "name": "Quote",
+          "value": "Historical management compliance statements are attributed as of December2024, not independently certified or carried forward to November2026. January issuance and February authorization remain subsequent. No LQD, TDG, Ford or Frontier facts or scores enter this review. References to cross-issuer mutation hazards do not import those issuers' economics or rights."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C113",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 191"
+        },
+        {
+          "name": "Quote",
+          "value": "Use the **existing delivery process** to preserve the exact checked CP-L10, this CP-5 handoff and the current D/S/C raw lineage, without reanalysis, reranking, restatement or overwriting producer qualifications. Retain all thirty topic ranks and all owned evidence requests."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    },
+    {
+      "ref_id": "C114",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-5"
+        },
+        {
+          "name": "Locator",
+          "value": "line 193"
+        },
+        {
+          "name": "Quote",
+          "value": "The already authorized **CP-OS pathway-proof work** remains subsequent: verify actual delivery and the existing campaign's execution/dependency records without treating this focused review as full-pathway completion. Imported approval records do not impose a new permission request. This handoff neither activates a different immutable profile nor authorizes investment execution. No newly invented future module, CP-MEMO, Excel output or rebuild is proposed. Clearance remains historical screening-only, not full investment approval."
+        },
+        {
+          "name": "SHA-256",
+          "value": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+        }
+      ]
+    }
+  ],
+  "index": {
+    "facts": [
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-5-0.r0.c0"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-5-0.r0.c1"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-5-0.r0.c2"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-5-0.r1.c0"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-5-0.r1.c1"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-5-0.r1.c2"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-5-0.r2.c0"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-5-0.r2.c1"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-5-0.r2.c2"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-5-0.r3.c0"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-5-0.r3.c1"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-5-0.r3.c2"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r4",
+          "fact_id": "raw-CP-5-0.r4.c0"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r4",
+          "fact_id": "raw-CP-5-0.r4.c1"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-0",
+          "row_id": "r4",
+          "fact_id": "raw-CP-5-0.r4.c2"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-5-1.r0.c0"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-5-1.r0.c1"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-5-1.r0.c2"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-5-1.r1.c0"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-5-1.r1.c1"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-5-1.r1.c2"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-5-1.r2.c0"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-5-1.r2.c1"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-5-1.r2.c2"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-5-1.r3.c0"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-5-1.r3.c1"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-5-1.r3.c2"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-5-1.r4.c0"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-5-1.r4.c1"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-5-1.r4.c2"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-5-1.r5.c0"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-5-1.r5.c1"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-5-1.r5.c2"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r6",
+          "fact_id": "raw-CP-5-1.r6.c0"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r6",
+          "fact_id": "raw-CP-5-1.r6.c1"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r6",
+          "fact_id": "raw-CP-5-1.r6.c2"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r7",
+          "fact_id": "raw-CP-5-1.r7.c0"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r7",
+          "fact_id": "raw-CP-5-1.r7.c1"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r7",
+          "fact_id": "raw-CP-5-1.r7.c2"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r8",
+          "fact_id": "raw-CP-5-1.r8.c0"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r8",
+          "fact_id": "raw-CP-5-1.r8.c1"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r8",
+          "fact_id": "raw-CP-5-1.r8.c2"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r9",
+          "fact_id": "raw-CP-5-1.r9.c0"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r9",
+          "fact_id": "raw-CP-5-1.r9.c1"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r9",
+          "fact_id": "raw-CP-5-1.r9.c2"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r10",
+          "fact_id": "raw-CP-5-1.r10.c0"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r10",
+          "fact_id": "raw-CP-5-1.r10.c1"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r10",
+          "fact_id": "raw-CP-5-1.r10.c2"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r11",
+          "fact_id": "raw-CP-5-1.r11.c0"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r11",
+          "fact_id": "raw-CP-5-1.r11.c1"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r11",
+          "fact_id": "raw-CP-5-1.r11.c2"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r12",
+          "fact_id": "raw-CP-5-1.r12.c0"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r12",
+          "fact_id": "raw-CP-5-1.r12.c1"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r12",
+          "fact_id": "raw-CP-5-1.r12.c2"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r13",
+          "fact_id": "raw-CP-5-1.r13.c0"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r13",
+          "fact_id": "raw-CP-5-1.r13.c1"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r13",
+          "fact_id": "raw-CP-5-1.r13.c2"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r14",
+          "fact_id": "raw-CP-5-1.r14.c0"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r14",
+          "fact_id": "raw-CP-5-1.r14.c1"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r14",
+          "fact_id": "raw-CP-5-1.r14.c2"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r15",
+          "fact_id": "raw-CP-5-1.r15.c0"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r15",
+          "fact_id": "raw-CP-5-1.r15.c1"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r15",
+          "fact_id": "raw-CP-5-1.r15.c2"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r16",
+          "fact_id": "raw-CP-5-1.r16.c0"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r16",
+          "fact_id": "raw-CP-5-1.r16.c1"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r16",
+          "fact_id": "raw-CP-5-1.r16.c2"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r17",
+          "fact_id": "raw-CP-5-1.r17.c0"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r17",
+          "fact_id": "raw-CP-5-1.r17.c1"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r17",
+          "fact_id": "raw-CP-5-1.r17.c2"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r18",
+          "fact_id": "raw-CP-5-1.r18.c0"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r18",
+          "fact_id": "raw-CP-5-1.r18.c1"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r18",
+          "fact_id": "raw-CP-5-1.r18.c2"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r19",
+          "fact_id": "raw-CP-5-1.r19.c0"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r19",
+          "fact_id": "raw-CP-5-1.r19.c1"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r19",
+          "fact_id": "raw-CP-5-1.r19.c2"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r20",
+          "fact_id": "raw-CP-5-1.r20.c0"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r20",
+          "fact_id": "raw-CP-5-1.r20.c1"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r20",
+          "fact_id": "raw-CP-5-1.r20.c2"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r21",
+          "fact_id": "raw-CP-5-1.r21.c0"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r21",
+          "fact_id": "raw-CP-5-1.r21.c1"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r21",
+          "fact_id": "raw-CP-5-1.r21.c2"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r22",
+          "fact_id": "raw-CP-5-1.r22.c0"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r22",
+          "fact_id": "raw-CP-5-1.r22.c1"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r22",
+          "fact_id": "raw-CP-5-1.r22.c2"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r23",
+          "fact_id": "raw-CP-5-1.r23.c0"
+        },
+        "ref_ids": [
+          "C29"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r23",
+          "fact_id": "raw-CP-5-1.r23.c1"
+        },
+        "ref_ids": [
+          "C29"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r23",
+          "fact_id": "raw-CP-5-1.r23.c2"
+        },
+        "ref_ids": [
+          "C29"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r24",
+          "fact_id": "raw-CP-5-1.r24.c0"
+        },
+        "ref_ids": [
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r24",
+          "fact_id": "raw-CP-5-1.r24.c1"
+        },
+        "ref_ids": [
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r24",
+          "fact_id": "raw-CP-5-1.r24.c2"
+        },
+        "ref_ids": [
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r25",
+          "fact_id": "raw-CP-5-1.r25.c0"
+        },
+        "ref_ids": [
+          "C31"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r25",
+          "fact_id": "raw-CP-5-1.r25.c1"
+        },
+        "ref_ids": [
+          "C31"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r25",
+          "fact_id": "raw-CP-5-1.r25.c2"
+        },
+        "ref_ids": [
+          "C31"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r26",
+          "fact_id": "raw-CP-5-1.r26.c0"
+        },
+        "ref_ids": [
+          "C32"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r26",
+          "fact_id": "raw-CP-5-1.r26.c1"
+        },
+        "ref_ids": [
+          "C32"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r26",
+          "fact_id": "raw-CP-5-1.r26.c2"
+        },
+        "ref_ids": [
+          "C32"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r27",
+          "fact_id": "raw-CP-5-1.r27.c0"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r27",
+          "fact_id": "raw-CP-5-1.r27.c1"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r27",
+          "fact_id": "raw-CP-5-1.r27.c2"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r28",
+          "fact_id": "raw-CP-5-1.r28.c0"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r28",
+          "fact_id": "raw-CP-5-1.r28.c1"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r28",
+          "fact_id": "raw-CP-5-1.r28.c2"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r29",
+          "fact_id": "raw-CP-5-1.r29.c0"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r29",
+          "fact_id": "raw-CP-5-1.r29.c1"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-1",
+          "row_id": "r29",
+          "fact_id": "raw-CP-5-1.r29.c2"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-5-2.r0.c0"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-5-2.r0.c1"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-5-2.r0.c2"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-5-3.r0.c0"
+        },
+        "ref_ids": [
+          "C37"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-5-3.r1.c0"
+        },
+        "ref_ids": [
+          "C38"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-5-3.r2.c0"
+        },
+        "ref_ids": [
+          "C39"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r3",
+          "fact_id": "raw-CP-5-3.r3.c0"
+        },
+        "ref_ids": [
+          "C40"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r4",
+          "fact_id": "raw-CP-5-3.r4.c0"
+        },
+        "ref_ids": [
+          "C41"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r5",
+          "fact_id": "raw-CP-5-3.r5.c0"
+        },
+        "ref_ids": [
+          "C42"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r6",
+          "fact_id": "raw-CP-5-3.r6.c0"
+        },
+        "ref_ids": [
+          "C43"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r7",
+          "fact_id": "raw-CP-5-3.r7.c0"
+        },
+        "ref_ids": [
+          "C44"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r8",
+          "fact_id": "raw-CP-5-3.r8.c0"
+        },
+        "ref_ids": [
+          "C45"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r9",
+          "fact_id": "raw-CP-5-3.r9.c0"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r10",
+          "fact_id": "raw-CP-5-3.r10.c0"
+        },
+        "ref_ids": [
+          "C47"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r11",
+          "fact_id": "raw-CP-5-3.r11.c0"
+        },
+        "ref_ids": [
+          "C48"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r12",
+          "fact_id": "raw-CP-5-3.r12.c0"
+        },
+        "ref_ids": [
+          "C49"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r13",
+          "fact_id": "raw-CP-5-3.r13.c0"
+        },
+        "ref_ids": [
+          "C50"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r14",
+          "fact_id": "raw-CP-5-3.r14.c0"
+        },
+        "ref_ids": [
+          "C51"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r15",
+          "fact_id": "raw-CP-5-3.r15.c0"
+        },
+        "ref_ids": [
+          "C52"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r16",
+          "fact_id": "raw-CP-5-3.r16.c0"
+        },
+        "ref_ids": [
+          "C53"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r17",
+          "fact_id": "raw-CP-5-3.r17.c0"
+        },
+        "ref_ids": [
+          "C54"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r18",
+          "fact_id": "raw-CP-5-3.r18.c0"
+        },
+        "ref_ids": [
+          "C55"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r19",
+          "fact_id": "raw-CP-5-3.r19.c0"
+        },
+        "ref_ids": [
+          "C56"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r20",
+          "fact_id": "raw-CP-5-3.r20.c0"
+        },
+        "ref_ids": [
+          "C57"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r21",
+          "fact_id": "raw-CP-5-3.r21.c0"
+        },
+        "ref_ids": [
+          "C58"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r22",
+          "fact_id": "raw-CP-5-3.r22.c0"
+        },
+        "ref_ids": [
+          "C59"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r23",
+          "fact_id": "raw-CP-5-3.r23.c0"
+        },
+        "ref_ids": [
+          "C60"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r24",
+          "fact_id": "raw-CP-5-3.r24.c0"
+        },
+        "ref_ids": [
+          "C61"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r25",
+          "fact_id": "raw-CP-5-3.r25.c0"
+        },
+        "ref_ids": [
+          "C62"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r26",
+          "fact_id": "raw-CP-5-3.r26.c0"
+        },
+        "ref_ids": [
+          "C63"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r27",
+          "fact_id": "raw-CP-5-3.r27.c0"
+        },
+        "ref_ids": [
+          "C64"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r28",
+          "fact_id": "raw-CP-5-3.r28.c0"
+        },
+        "ref_ids": [
+          "C65"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "raw-CP-5-3",
+          "row_id": "r29",
+          "fact_id": "raw-CP-5-3.r29.c0"
+        },
+        "ref_ids": [
+          "C66"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-0",
+          "row_id": "r0",
+          "fact_id": "prose-CP-5-0.r0.c0"
+        },
+        "ref_ids": [
+          "C67"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-0",
+          "row_id": "r1",
+          "fact_id": "prose-CP-5-0.r1.c0"
+        },
+        "ref_ids": [
+          "C68"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-0",
+          "row_id": "r2",
+          "fact_id": "prose-CP-5-0.r2.c0"
+        },
+        "ref_ids": [
+          "C69"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-1",
+          "row_id": "r0",
+          "fact_id": "prose-CP-5-1.r0.c0"
+        },
+        "ref_ids": [
+          "C70"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-1",
+          "row_id": "r1",
+          "fact_id": "prose-CP-5-1.r1.c0"
+        },
+        "ref_ids": [
+          "C71"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-1",
+          "row_id": "r2",
+          "fact_id": "prose-CP-5-1.r2.c0"
+        },
+        "ref_ids": [
+          "C72",
+          "C73",
+          "C74",
+          "C75"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-1",
+          "row_id": "r3",
+          "fact_id": "prose-CP-5-1.r3.c0"
+        },
+        "ref_ids": [
+          "C76"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-2",
+          "row_id": "r0",
+          "fact_id": "prose-CP-5-2.r0.c0"
+        },
+        "ref_ids": [
+          "C77"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-2",
+          "row_id": "r1",
+          "fact_id": "prose-CP-5-2.r1.c0"
+        },
+        "ref_ids": [
+          "C78",
+          "C79",
+          "C80"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-2",
+          "row_id": "r2",
+          "fact_id": "prose-CP-5-2.r2.c0"
+        },
+        "ref_ids": [
+          "C81"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-2",
+          "row_id": "r3",
+          "fact_id": "prose-CP-5-2.r3.c0"
+        },
+        "ref_ids": [
+          "C82",
+          "C83",
+          "C84",
+          "C85",
+          "C86",
+          "C87",
+          "C88",
+          "C89"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-2",
+          "row_id": "r4",
+          "fact_id": "prose-CP-5-2.r4.c0"
+        },
+        "ref_ids": [
+          "C90"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-2",
+          "row_id": "r5",
+          "fact_id": "prose-CP-5-2.r5.c0"
+        },
+        "ref_ids": [
+          "C91"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-3",
+          "row_id": "r0",
+          "fact_id": "prose-CP-5-3.r0.c0"
+        },
+        "ref_ids": [
+          "C92"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-3",
+          "row_id": "r1",
+          "fact_id": "prose-CP-5-3.r1.c0"
+        },
+        "ref_ids": [
+          "C93"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-3",
+          "row_id": "r2",
+          "fact_id": "prose-CP-5-3.r2.c0"
+        },
+        "ref_ids": [
+          "C94"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-4",
+          "row_id": "r0",
+          "fact_id": "prose-CP-5-4.r0.c0"
+        },
+        "ref_ids": [
+          "C95"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-5",
+          "row_id": "r0",
+          "fact_id": "prose-CP-5-5.r0.c0"
+        },
+        "ref_ids": [
+          "C96"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-6",
+          "row_id": "r0",
+          "fact_id": "prose-CP-5-6.r0.c0"
+        },
+        "ref_ids": [
+          "C97"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-6",
+          "row_id": "r1",
+          "fact_id": "prose-CP-5-6.r1.c0"
+        },
+        "ref_ids": [
+          "C98",
+          "C99",
+          "C100"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-6",
+          "row_id": "r2",
+          "fact_id": "prose-CP-5-6.r2.c0"
+        },
+        "ref_ids": [
+          "C101"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-6",
+          "row_id": "r3",
+          "fact_id": "prose-CP-5-6.r3.c0"
+        },
+        "ref_ids": [
+          "C102"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-7",
+          "row_id": "r0",
+          "fact_id": "prose-CP-5-7.r0.c0"
+        },
+        "ref_ids": [
+          "C103"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-7",
+          "row_id": "r1",
+          "fact_id": "prose-CP-5-7.r1.c0"
+        },
+        "ref_ids": [
+          "C104"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-8",
+          "row_id": "r0",
+          "fact_id": "prose-CP-5-8.r0.c0"
+        },
+        "ref_ids": [
+          "C105"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-8",
+          "row_id": "r1",
+          "fact_id": "prose-CP-5-8.r1.c0"
+        },
+        "ref_ids": [
+          "C106",
+          "C107",
+          "C108"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-8",
+          "row_id": "r2",
+          "fact_id": "prose-CP-5-8.r2.c0"
+        },
+        "ref_ids": [
+          "C109"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-9",
+          "row_id": "r0",
+          "fact_id": "prose-CP-5-9.r0.c0"
+        },
+        "ref_ids": [
+          "C110"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-9",
+          "row_id": "r1",
+          "fact_id": "prose-CP-5-9.r1.c0"
+        },
+        "ref_ids": [
+          "C111"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-9",
+          "row_id": "r2",
+          "fact_id": "prose-CP-5-9.r2.c0"
+        },
+        "ref_ids": [
+          "C112"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-10",
+          "row_id": "r0",
+          "fact_id": "prose-CP-5-10.r0.c0"
+        },
+        "ref_ids": [
+          "C113"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-5",
+          "table_id": "prose-CP-5-10",
+          "row_id": "r1",
+          "fact_id": "prose-CP-5-10.r1.c0"
+        },
+        "ref_ids": [
+          "C114"
+        ]
+      }
+    ]
+  }
+}

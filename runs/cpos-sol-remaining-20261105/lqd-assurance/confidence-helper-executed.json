@@ -1,0 +1,56 @@
+{
+  "scope": "Actual unchanged archived helper execution over authored25claim lineage and225metadatafieldcounts. IndependentFraction arithmetic verified. Scoped research trace confidence, not investmentconviction, probability or fullunderwritingcomplete. Passed severitymeans0actualdefects, not portfolioapproval.",
+  "helper_path": "docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/scripts/confidence_score.py",
+  "helper_sha256": "6e88bc8c70f65cd9478d4e5c7f460c13d4b49f8e3dc5f540e28ec8acc0648b3f",
+  "review_sha256": "3f79e9bc50bb63a55cddcefd51c0b32979c2955249ac6cd7cef4977a77c24f89",
+  "inputs": {
+    "lineage": {
+      "Directly Sourced": 6,
+      "Calculated": 7,
+      "Assumption-Based": 4,
+      "Analyst Inference": 5,
+      "Weak Lineage": 2,
+      "Conflicting": 1
+    },
+    "fields_present": 225,
+    "fields_total": 225,
+    "source_gate": "partial",
+    "findings": {
+      "CRITICAL": 0,
+      "MATERIAL": 0,
+      "MINOR": 0
+    }
+  },
+  "actual_output": {
+    "C": 100.0,
+    "E": 67.6,
+    "P": 0,
+    "S": 0.7,
+    "confidence_band": "Low",
+    "confidence_score": 56,
+    "material_claims": 25,
+    "qa_status": "Passed",
+    "raw_score": 56.392,
+    "working": "score = clamp((0.6*67.6 + 0.4*100) * 0.7 - 0, 0, 100) = 56.39 -> 56"
+  },
+  "independent": {
+    "weighted_lineage_total": "16.9",
+    "claims": 25,
+    "E": "67.6",
+    "C": "100",
+    "S": "0.7",
+    "P": "0",
+    "raw_score": "56.392",
+    "score": 56,
+    "band": "Low",
+    "qa_status": "Passed"
+  },
+  "checks": {
+    "exact_original_schema_registers": 17,
+    "traced_claims": 25,
+    "matched_lineage_rows": 25,
+    "metadata_fields": 225,
+    "actual_findings": 0,
+    "counterfactual_probes_excluded": 4
+  }
+}

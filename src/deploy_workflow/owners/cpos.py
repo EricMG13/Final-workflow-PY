@@ -102,9 +102,20 @@ class ComparisonPlan(Contract):
     prior: HandoffInput
     current: HandoffInput
     instructions: HandoffInput
-    execution: Literal["host-session", "retained-response-replay", "synthetic"]
+    execution: Literal["host-session", "retained-response-replay", "synthetic", "live-provider"]
     max_attempts: int = Field(default=2, ge=1, le=3)
-    provider_cap_usd: Literal[0] = 0
+    provider_cap_usd: Decimal = Field(default=Decimal(0), ge=0, allow_inf_nan=False)
+
+    @model_validator(mode="after")
+    def execution_budget(self) -> "ComparisonPlan":
+        if self.execution == "live-provider":
+            if self.provider_cap_usd <= 0 or self.max_attempts != 1:
+                raise ValueError(
+                    "Live mode needs a positive cap and one outer attempt; repairs occur inside the loop"
+                )
+        elif self.provider_cap_usd != 0:
+            raise ValueError("Non-live modes require a zero provider cap")
+        return self
 
 
 @dataclass(frozen=True)
@@ -218,6 +229,7 @@ def run_handoffs(
     *,
     execute: Callable[[HandoffTask], bytes],
     check: Callable[[HandoffTask, bytes], tuple[str, ...]],
+    on_handoff: Callable[[HandoffTask, bytes], None] | None = None,
 ) -> Path:
     """CP-OS exchange: plan, retain, check, pass current handoffs, deliver.
 
@@ -229,6 +241,8 @@ def run_handoffs(
     after dispatch without retained output refuses automatic repeat. Explicitly
     retained handoffs are checked without executor calls, only when their pinned
     source and upstream context still match; completion records each module's origin.
+    An optional observer runs after each checked response is durable and before
+    the next module. It may stop for evidence review; resume rechecks the bytes.
     Their declared consumed inputs bound reuse planning; a checked published case
     does not trigger a new analytical build merely to satisfy a native producer.
     """
@@ -263,7 +277,7 @@ def run_handoffs(
         from deploy_vii.report_view import pathways
 
         selected_modules = set(planned)
-        if selected_modules & {"CP-8", "CP-MODEL", "CP-MEMO", "CP-OS"} or request.model is not None:
+        if selected_modules & {"CP-8", "CP-MODEL", "CP-MEMO", "CP-OS"}:
             raise ValueError(
                 "cpos_scope: select analytical Markdown modules; comparison and Model use their existing routes"
             )
@@ -272,7 +286,11 @@ def run_handoffs(
             len(set(request.layout.blocks)) != len(request.layout.blocks)
             or not set(request.layout.blocks) <= set(preset.blocks)
             or {r.block_id for r in request.layout.routes} != set(request.layout.blocks)
-            or any(r.module_id not in selected_modules for r in request.layout.routes)
+            or any(
+                r.module_id not in selected_modules
+                and not (r.module_id == "CP-MODEL" and request.model is not None)
+                for r in request.layout.routes
+            )
         ):
             raise ValueError(
                 "cpos_layout: route selected modules to unique blocks of the requested pathway"
@@ -333,6 +351,8 @@ def run_handoffs(
             )
             handoffs[module_id] = raw
             selected[module_id] = path
+            if on_handoff is not None:
+                on_handoff(task, raw)
         delivery_request = DeliveryRequest(
             run=request.run,
             handoffs={
@@ -413,6 +433,8 @@ def run_live_handoffs(
     environ: Mapping[str, str] | None = None,
     max_turns: int = 24,
     max_output_tokens: int = 16000,
+    on_handoff: Callable[[HandoffTask, bytes], None] | None = None,
+    config: str = "sol-medium",
 ) -> Path:
     """Explicit paid entry point; callers supply an evidence/instruction checker.
 
@@ -425,15 +447,19 @@ def run_live_handoffs(
     from deploy_workflow.model.handoff import HandoffExecutor
     from deploy_workflow.model.redact import Redactor
     from deploy_workflow.model.turn import ModelSpec
+    from deploy_workflow.model_testing.configs import CONFIGS
 
     request = HandoffPlan.model_validate_json(manifest.read_bytes())
     if request.execution != "live-provider":
         raise ValueError("cpos_live_mode: manifest must explicitly declare live-provider")
     environment = os.environ if environ is None else environ
+    selected = CONFIGS[config]
     executor = HandoffExecutor(
         directory / "live",
         adapter=LiveAdapter(
-            ModelSpec("sol-medium", "openai", "gpt-6.1-sol", "medium"), ruling, environ=environment
+            ModelSpec(selected.config_id, selected.provider, selected.model, selected.effort),
+            ruling,
+            environ=environment,
         ),
         cap_usd=request.provider_cap_usd,
         check=check,
@@ -441,7 +467,7 @@ def run_live_handoffs(
         max_turns=max_turns,
         max_output_tokens=max_output_tokens,
     )
-    return run_handoffs(manifest, directory, execute=executor, check=check)
+    return run_handoffs(manifest, directory, execute=executor, check=check, on_handoff=on_handoff)
 
 
 def replay_handoffs(
@@ -539,6 +565,22 @@ def run_comparison(
 ) -> Path:
     """CP-OS: verify both deliveries, request/check CP-8, publish its actual handoff."""
     request = ComparisonPlan.model_validate_json(manifest.read_bytes())
+    from deploy_workflow.model.adapter import LiveAdapter
+    from deploy_workflow.model.handoff import HandoffExecutor
+
+    live = isinstance(execute, HandoffExecutor) and isinstance(execute.adapter, LiveAdapter)
+    if (request.execution == "live-provider") != live:
+        raise ValueError("cpos_execution_mode: live mode requires the bounded LiveAdapter executor")
+    if (
+        live
+        and isinstance(execute, HandoffExecutor)
+        and (
+            execute.budget.cap_usd != request.provider_cap_usd
+            or execute.directory.resolve() != (directory / "live").resolve()
+            or execute.check is not check
+        )
+    ):
+        raise ValueError("cpos_live_binding: executor must share this run's cap, state and checker")
     if request.run.requested_modules != ("CP-8",) or request.run.pathway != "credit_snapshot":
         raise ValueError("cp8_scope: select CP-8 deliverable comparison on the snapshot shell")
     prior_view, prior = _comparison_bundle(manifest.parent, request.prior)
@@ -561,6 +603,8 @@ def run_comparison(
     }
     source_hashes = {name: _sha(raw) for name, raw in sources.items()}
     identity = request.model_dump(mode="json", exclude={"prior", "current", "instructions"})
+    if not live:
+        identity["provider_cap_usd"] = 0  # Preserve identities of existing provider-free runs.
     directory.mkdir(parents=True, exist_ok=True)
     with _single_writer(directory):
         _put(directory / "identity.json", json.dumps(identity, sort_keys=True).encode())
@@ -605,7 +649,7 @@ def run_comparison(
             "kind": "cpos-deliverable-comparison/1",
             "execution": request.execution,
             "scope": "Checked CP-8 comparison of selected delivery bundles; not decision calibration or full pathway acceptance",
-            "provider_cap_usd": 0,
+            "provider_cap_usd": str(request.provider_cap_usd) if live else 0,
             "response": response_path,
             "response_sha256": _sha(response),
             "input_files": source_hashes,
@@ -615,6 +659,54 @@ def run_comparison(
         raw_completion = json.dumps(completion, indent=2).encode()
         _put(directory / f"completed-{_sha(raw_completion)}.json", raw_completion)
         return report
+
+
+def run_live_comparison(
+    manifest: Path,
+    directory: Path,
+    *,
+    ruling: Path,
+    check: Callable[[HandoffTask, bytes], tuple[str, ...]],
+    environ: Mapping[str, str] | None = None,
+    max_turns: int = 24,
+    max_output_tokens: int = 16000,
+) -> Path:
+    """Explicit bounded CP-8 execution over the existing verified bundle exchange."""
+    import os
+
+    from deploy_workflow.model.adapter import LiveAdapter
+    from deploy_workflow.model.handoff import HandoffExecutor
+    from deploy_workflow.model.redact import Redactor
+    from deploy_workflow.model.turn import ModelSpec
+
+    request = ComparisonPlan.model_validate_json(manifest.read_bytes())
+    if request.execution != "live-provider":
+        raise ValueError("cpos_live_mode: manifest must explicitly declare live-provider")
+
+    def checked_response(task: HandoffTask, raw: bytes) -> tuple[str, ...]:
+        # Supply dimension feedback inside the paid repair loop, before outer publication.
+        # This validation's files are discarded; run_comparison binds the published input hashes.
+        try:
+            comparison_files(task.run, raw, {})
+        except ValueError as error:
+            if str(error).startswith("cp8_dimensions:"):
+                return (str(error),)
+            raise
+        return check(task, raw)
+
+    environment = os.environ if environ is None else environ
+    executor = HandoffExecutor(
+        directory / "live",
+        adapter=LiveAdapter(
+            ModelSpec("sol-medium", "openai", "gpt-6.1-sol", "medium"), ruling, environ=environment
+        ),
+        cap_usd=request.provider_cap_usd,
+        check=checked_response,
+        redactor=Redactor.from_environ(environment),
+        max_turns=max_turns,
+        max_output_tokens=max_output_tokens,
+    )
+    return run_comparison(manifest, directory, execute=executor, check=checked_response)
 
 
 def main() -> None:

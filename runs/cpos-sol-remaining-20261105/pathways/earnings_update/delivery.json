@@ -1,0 +1,323 @@
+{
+  "run": {
+    "run_id": "sol-current-earnings_update-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-12-28",
+    "case_kind": "public",
+    "pathway": "earnings_update",
+    "requested_modules": [
+      "CP-1",
+      "CP-1A",
+      "CP-2",
+      "CP-1B",
+      "CP-1D",
+      "CP-DR",
+      "CP-6"
+    ]
+  },
+  "handoffs": {
+    "CP-1": {
+      "path": "../../../cpos-sol-medium-20261105/requests/CP-1/392a3b08c06b1585c4a7174d361b98bac1b16c820222c16575a0884b4ed4c5ea/1.response.md",
+      "sha256": "9d57bc5d5baac5c16a3f12fc2c017b8405e3e3b3db327002890f8cf8f7a1eb03"
+    },
+    "CP-1A": {
+      "path": "../../../cpos-sol-medium-20261105/requests/CP-1A/b602bf1822d9fb914aa21e26dee0d70daa3069fb7351dbc997f532ee45776057/1.response.md",
+      "sha256": "3da9bf55281dc9a86e15bbb438ddd3b8aa04244344ab5ee7e5c059fc2da9054f"
+    },
+    "CP-2": {
+      "path": "../../../cpos-sol-medium-20261105/requests/CP-2/e3c268f7bf12c2b2c239071295db763955f2a6a849e990ae2f553a22ed360593/1.response.md",
+      "sha256": "e7b46ceeedf76db7143359e7cef97b64c6a210dd7b63d3362cc2a7943018ee3a"
+    },
+    "CP-1B": {
+      "path": "../../tdg-earnings/CP-1B.md",
+      "sha256": "42ee44c8350150abd3875adc4ee30ba2cdc4658d0db3ed905251f4825be6e377"
+    },
+    "CP-1D": {
+      "path": "../../tdg-earnings/CP-1D.md",
+      "sha256": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807"
+    },
+    "CP-DR": {
+      "path": "../../tdg-guidance/CP-DR.md",
+      "sha256": "0463a4b16e8ed7de1e1ed9a219587bbf4ee2b6fc2e98228d4f0090c22d487b03"
+    },
+    "CP-6": {
+      "path": "../../tdg-ic/CP-6-repaired.md",
+      "sha256": "d999e6a0af14925a14dfe6c6cb414d65bd458e62d14535af322fc4e811540d3f"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "headline-results",
+      "variance-drivers",
+      "kpi-changes",
+      "guidance-signals",
+      "ebitda-adjustments",
+      "earnings-quality",
+      "restated-leverage",
+      "metric-strip",
+      "watch-items",
+      "financials-credit-metrics",
+      "historical-performance",
+      "company-profile",
+      "portfolio-fit",
+      "what-changed"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-1B",
+        "heading": "Financial performance / comparator register",
+        "kind": "table",
+        "block_id": "headline-results",
+        "table_header": "Metric"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Variance mechanics and comparative credit evaluation",
+        "kind": "prose",
+        "block_id": "variance-drivers"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Financial performance / comparator register",
+        "kind": "table",
+        "block_id": "kpi-changes",
+        "table_header": "KPI Category"
+      },
+      {
+        "module_id": "CP-DR",
+        "heading": "Executive answer",
+        "kind": "prose",
+        "block_id": "guidance-signals"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.1 \u2014 inherited signed adjustment register",
+        "kind": "table",
+        "block_id": "ebitda-adjustments"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1D.3 \u2014 recurrence test",
+        "kind": "table",
+        "block_id": "earnings-quality"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "T1E.4 \u2014 effect of the quantified subtotal",
+        "kind": "table",
+        "block_id": "restated-leverage"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Monitoring and method changes justified by observed output",
+        "kind": "prose",
+        "block_id": "watch-items"
+      },
+      {
+        "module_id": "CP-MODEL",
+        "heading": "Annual source and computation register",
+        "kind": "table",
+        "block_id": "financials-credit-metrics"
+      },
+      {
+        "module_id": "CP-1D",
+        "heading": "Credit read-through, contrary evidence and monitoring",
+        "kind": "prose",
+        "block_id": "historical-performance"
+      },
+      {
+        "module_id": "CP-1A",
+        "heading": "Company, business and revenue model",
+        "kind": "table",
+        "block_id": "company-profile"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Decision boundary",
+        "kind": "prose",
+        "block_id": "portfolio-fit"
+      },
+      {
+        "module_id": "CP-DR",
+        "heading": "Comparison and causal synthesis",
+        "kind": "prose",
+        "block_id": "what-changed"
+      },
+      {
+        "module_id": "CP-MODEL",
+        "heading": "Defined historical ratios \u2014 not covenant/agency measures",
+        "kind": "chart",
+        "block_id": "metric-strip",
+        "figure_id": "S.1",
+        "value_columns": [
+          "FY2022",
+          "FY2023",
+          "FY2024"
+        ],
+        "row_labels": [
+          "Carrying borrowing / issuer EBITDA As Defined",
+          "Mechanical net carrying borrowing / issuer EBITDA As Defined"
+        ],
+        "chart_unit": "x",
+        "label": "Annual defined ratios; quarter remains in earnings tables"
+      },
+      {
+        "module_id": "CP-MODEL",
+        "heading": "Defined historical ratios \u2014 not covenant/agency measures",
+        "kind": "chart",
+        "block_id": "metric-strip",
+        "figure_id": "S.2",
+        "value_columns": [
+          "FY2022",
+          "FY2023",
+          "FY2024"
+        ],
+        "row_labels": [
+          "Issuer EBITDA As Defined / reported cash interest"
+        ],
+        "chart_unit": "x",
+        "label": "Annual defined ratios; quarter remains in earnings tables"
+      },
+      {
+        "module_id": "CP-MODEL",
+        "heading": "Annual source and computation register",
+        "kind": "chart",
+        "block_id": "metric-strip",
+        "figure_id": "S.3",
+        "value_columns": [
+          "FY2022",
+          "FY2023",
+          "FY2024"
+        ],
+        "row_labels": [
+          "Cash"
+        ],
+        "chart_unit": "US$m",
+        "label": "Annual cash; quarter remains in earnings tables"
+      }
+    ],
+    "scope": "TDG historical earnings update for December 28, 2024 versus December 30, 2023. The FY2022\u2013FY2024 annual Model and separately dated November 2024/February 2025 guidance remain distinct. What Changed compares reported and guided periods; CP-8 prior-run comparison is separate. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+    "title": "TransDigm Group Incorporated \u2014 earnings update"
+  },
+  "model": {
+    "periods": {
+      "FY2022": {
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "balance_column": null
+      },
+      "FY2023": {
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "balance_column": "Sep 30, 2023"
+      },
+      "FY2024": {
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "balance_column": "Sep 30, 2024"
+      }
+    },
+    "anchors": {
+      "normalization": "### T4.1\u2013T4.3 \u2014 Source, entity, normalization",
+      "periods": "### T4.8 and T4.14 \u2014 Period register",
+      "income": "### T4.4 \u2014 Income statement and comprehensive-income/equity supplements",
+      "cash": "### T4.5 \u2014 Cash-flow statement",
+      "balance": "### T4.6 \u2014 Balance sheet",
+      "dashboard": "### T4.10 \u2014 Source-supported dashboard",
+      "issuer_bridge": "**Net income to EBITDA and EBITDA As Defined, reported (PDF 53):**"
+    },
+    "rows": {
+      "revenue": {
+        "table": "income",
+        "label": "NET SALES"
+      },
+      "cogs": {
+        "table": "income",
+        "label": "COST OF SALES"
+      },
+      "gross_profit": {
+        "table": "income",
+        "label": "GROSS PROFIT"
+      },
+      "selling_admin": {
+        "table": "income",
+        "label": "SELLING AND ADMINISTRATIVE EXPENSES"
+      },
+      "income_statement_amortization": {
+        "table": "income",
+        "label": "AMORTIZATION OF INTANGIBLE ASSETS"
+      },
+      "ebit_reported": {
+        "table": "income",
+        "label": "INCOME FROM OPERATIONS"
+      },
+      "depreciation": {
+        "table": "cash",
+        "label": "Depreciation"
+      },
+      "cf_amortization": {
+        "table": "cash",
+        "label": "Amortization of intangible assets and product certification costs"
+      },
+      "cfo": {
+        "table": "cash",
+        "label": "Net cash provided by operating activities"
+      },
+      "capex_signed": {
+        "table": "cash",
+        "label": "Capital expenditures"
+      },
+      "cash": {
+        "table": "cash",
+        "label": "Cash and cash equivalents, end of period"
+      },
+      "interest_cash": {
+        "table": "cash",
+        "label": "Cash paid during period for interest, net"
+      },
+      "tax_cash": {
+        "table": "cash",
+        "label": "Cash paid during period for income taxes, net of refunds"
+      },
+      "issuer_ordinary_ebitda": {
+        "table": "issuer_bridge",
+        "label": "EBITDA"
+      },
+      "issuer_as_defined": {
+        "table": "dashboard",
+        "label": "EBITDA As Defined, total company"
+      },
+      "debt_long_term": {
+        "table": "balance",
+        "label": "Long-term debt"
+      },
+      "debt_current": {
+        "table": "balance",
+        "label": "Current portion of long-term debt"
+      },
+      "debt_securitization": {
+        "table": "balance",
+        "label": "Short-term borrowings\u2014trade receivable securitization facility"
+      },
+      "adjustment_acquisition": {
+        "table": "issuer_bridge",
+        "label": "Acquisition transaction and integration-related expenses"
+      },
+      "adjustment_compensation": {
+        "table": "issuer_bridge",
+        "label": "Non-cash stock and deferred compensation expense"
+      },
+      "adjustment_refinancing": {
+        "table": "issuer_bridge",
+        "label": "Refinancing costs"
+      },
+      "adjustment_other": {
+        "table": "issuer_bridge",
+        "label": "Other, net"
+      }
+    },
+    "extra_handoffs": {},
+    "forecast_exact": null
+  }
+}

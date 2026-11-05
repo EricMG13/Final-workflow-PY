@@ -17,7 +17,7 @@ from datetime import date
 from pathlib import Path
 from typing import Annotated, Literal
 
-from pydantic import Field
+from pydantic import Field, model_validator
 
 from deploy_vii.bindings import Binding, BindingMap
 from deploy_vii.bindings.shipped import SHIPPED_MAPS
@@ -93,11 +93,45 @@ class ModelDelivery(Contract):
 class MarkdownRoute(Contract):
     module_id: str
     heading: str
-    kind: Literal["table", "prose"]
+    kind: Literal["table", "prose", "chart"]
     block_id: str
     table_header: str | None = None
     prefix: str | None = None
     label: str | None = None
+    figure_id: Literal["S.1", "S.2", "S.3", "S.4", "RV.1"] | None = None
+    value_columns: tuple[str, ...] = ()
+    row_labels: tuple[str, ...] = ()
+    orientation: Literal["period-columns", "period-rows"] = "period-columns"
+    chart_unit: Literal["x", "US$m", "%"] | None = None
+
+    @model_validator(mode="after")
+    def chart_selection(self) -> MarkdownRoute:
+        if self.kind == "chart":
+            if (
+                self.figure_id is None
+                or not self.value_columns
+                or self.chart_unit
+                != (
+                    {"S.1": "x", "S.2": "x", "S.3": "US$m", "S.4": "US$m", "RV.1": "%"}.get(
+                        self.figure_id
+                    )
+                )
+                or (
+                    self.figure_id == "RV.1"
+                    and any(not c.endswith("_fraction") for c in self.value_columns)
+                )
+                or self.prefix is not None
+            ):
+                raise ValueError("markdown_chart: select an explicit figure, columns and its unit")
+        elif (
+            self.figure_id is not None
+            or self.value_columns
+            or self.row_labels
+            or self.chart_unit
+            or self.orientation != "period-columns"
+        ):
+            raise ValueError("markdown_chart: numeric selectors require a chart route")
+        return self
 
 
 class MarkdownLayout(Contract):

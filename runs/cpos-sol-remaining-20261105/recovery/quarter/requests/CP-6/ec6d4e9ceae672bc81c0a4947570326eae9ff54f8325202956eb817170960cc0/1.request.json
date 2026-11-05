@@ -1,0 +1,40 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0-annual": "ece2808828294951bfbed08636a37d75319e7ac4d6ccc28e865c547e2b90942b",
+    "CP-1-annual": "9d57bc5d5baac5c16a3f12fc2c017b8405e3e3b3db327002890f8cf8f7a1eb03",
+    "CP-1-annual-corrected": "2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891",
+    "CP-1A-annual": "3da9bf55281dc9a86e15bbb438ddd3b8aa04244344ab5ee7e5c059fc2da9054f",
+    "CP-1B-quarter": "42ee44c8350150abd3875adc4ee30ba2cdc4658d0db3ed905251f4825be6e377",
+    "CP-1D-quality": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
+    "CP-2-annual": "e7b46ceeedf76db7143359e7cef97b64c6a210dd7b63d3362cc2a7943018ee3a",
+    "CP-2A-downside": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3",
+    "CP-2D-liquidity": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565",
+    "CP-3C-funding": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+    "CP-4-legal": "267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43"
+  },
+  "instructions": "# Targeted correction to the retained December 2024 committee handoff\n\nUse edit_handoff on the supplied actual CP-6 draft; preserve the twelve Consumption controls, all eleven duties, the Watchlist judgment, scores, historical December base and three simulated perspectives. Read S1-annual-report.pdf pp.43\u201346 directly. The ten original handoffs remain actual historical inputs with their exact identities. Also read current CP-1-annual-corrected and add its exact supplied SHA256 in Sources, reanchoring it as the controlling source correction without rewriting other historical lineage. Record new read coverage and exact annual source hash.\n\nThe November 15, 2027 notes fall in fiscal 2028 (PDF 43 and 46); the reported FY2027 bucket 92 is not in conflict. Withdraw the erroneous maturity claim in the neutral map, chair refinancing evidence, and inherited observations. Retain the actual separate lease, draw-precision, concentration and measurement issues; do not treat the reported schedule as a fully reconciled instrument/amortization allocation or assume renewal. PDF45's 67m letters of credit and exact revolver date belong to the September annual base, not December draw/availability. PDF46 annual-reported January 15, 2033 does not authenticate the incomplete note form. The correction is evidence context, not a current investment decision or reason to rescore. Leave unrelated paragraphs and the exact final Action Bias and Decision boundary headings intact. No new financial analysis, score, forecast or CP-MEMO.\n",
+  "module_id": "CP-6",
+  "repair_draft_sha256": "d999e6a0af14925a14dfe6c6cb414d65bd458e62d14535af322fc4e811540d3f",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2024-12-28",
+    "case_kind": "public",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-6"
+    ],
+    "run_id": "sol-remaining-tdg-ic-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "S1-annual-report.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+    "method-base-steps": "6141d27e800d45d2d0208173f38060c75d97005ee9b93013e24a16a40570f1e1",
+    "method-entry": "0ae74db02dd569fe7805e62a661f22cd436494183ba5cb928f8be37aa549a96b",
+    "primary-legal-selection": "ff0a65f7e9255a060f74e01c74459a8c5bdfcbffbd9d907abe09eb2f922b221a"
+  }
+}

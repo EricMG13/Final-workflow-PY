@@ -1,0 +1,15 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "LQD holdings dated May 31, 2025: the five identified ARCC positions and selected July note, with December 2024 issuer context kept separate. Observed exposures, conditional losses and actual argument challenge are retained. Mandate limits and current trading evidence were not supplied. CP-5\u2019s score of 56 measures evidence confidence, not investment conviction. Final posture: Requires More Work. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-3.md": "183c91f1b5ca67fcecad5ce64ac99cbc0a42c9bed422880c6102e9c9501677f3",
+    "CP-6.md": "554455c01803a0ae794e49dacc7ceb98c30f0b81be1a2b81f668ecb53de117f8",
+    "CP-5.md": "475284bdcf6b4ff2109e5037d0732b08b7a2d88a4db437ca45558a2d79459c38",
+    "view.json": "d6eac728a66ac4f1b949b60cbcab87c0c76d4397a05e35381efe1bc0ab37c272",
+    "report-view.json": "d65415b0a10ac12360ff03904a7ce70ff5e09d16ba49528efe7d7ab853dba755",
+    "report.html": "892c018f77ffaeb53ae2a323c7819063aab2122196255b9647e0e1cd7e43f541"
+  }
+}
