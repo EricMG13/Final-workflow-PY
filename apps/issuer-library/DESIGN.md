@@ -93,6 +93,12 @@ are bundled locally with their ISC/MIT license notices. Icons accompany labels.
 
 ## Components
 
+Controls follow Untitled UI React (MIT): 40px buttons, inputs and selects with
+8px corners and an xs shadow; a 4px blue focus ring; pill badges; removable
+chips; tables with a grey header row. Colours, fonts and the rail stay the
+company's, and the greys lean toward its navy. The Library uses these first;
+other screens move to them one at a time.
+
 - Run changes preserve the active module; unavailable output remains explicit.
 - The module opens selected analytical sections, not the entire Markdown handoff.
   A compact output selector keeps attempts distinct. Findings and a relevant
@@ -157,10 +163,14 @@ sector, workflow, as-of year, available content and contained module. Workflow
 and as-of year come only from what a run's own manifest recorded; a run without
 them is listed under Not recorded, never given an inferred date or workflow.
 Modules in the contained-module list sit under the credit question each one
-answers. All criteria combine. Counts
-distinguish issuers, retained runs and reports. Filters
-remain when returning from a run within the same page session; Clear filters
-resets every criterion and focuses search. Empty results explain recovery.
+answers. All criteria combine. Controls carry no visible label; each active
+filter shows as a chip that names it and removes it, and Clear all appears only
+while something is filtered. Counts distinguish issuers, retained runs and
+reports. Results are one table row per issuer: an issuer with one run links
+straight to it; an issuer with several runs opens a drop-down of its runs, each
+with its workflow, period and reports, and stays open on return. Filters remain
+when returning from a run within the same page session; Clear all resets every
+criterion and focuses search. Empty results explain recovery.
 Comparable credit metrics and completeness scores are not offered, so the library
 has no metric filters. Only deliberate
 disclosure actions persist; workspace-driven catalogue expansion cannot override

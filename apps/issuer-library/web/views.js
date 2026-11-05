@@ -263,16 +263,27 @@ function libraryCount(records) {
   const issuers=new Set(records.map(r=>r.issuer)).size,reports=new Set(records.flatMap(r=>r.reports)).size;
   return `${plural(issuers,'issuer')} · ${plural(records.length,'run')} · ${plural(reports,'report')}`;
 }
-// Readers look for reports; a run with no outputs at all says so in words.
-const runCounts=({outputs,reports})=>reports.length?plural(reports.length,'report'):outputs?'':'No saved outputs';
+const sectorLabel=sector=>sector==='Unclassified'?'Not recorded':sector;
+const badge=(kind,text)=>`<span class="badge badge-${kind}">${esc(text)}</span>`;
+const workflowCell=values=>[...new Set(values)].map(v=>v==='none'?'<span class="muted">Not recorded</span>':`<span class="badge badge-blue"><i></i>${esc(workflowTitle(v))}</span>`).join(' ');
+// A report built from several runs counts once; a run with no outputs at all says so.
+const reportCell=runs=>{const n=new Set(runs.flatMap(r=>r.reports)).size;return n?badge('navy',plural(n,'report')):runs.some(r=>r.outputs)?'<span class="muted">No report</span>':badge('attention','No saved outputs');};
+const shortPeriod=period=>period.split(' · ')[0];
 function libraryResults(records) {
   if(!Object.keys(contexts).length)return `<div class="library-empty"><h2>No runs in this workspace yet</h2><p>Start a new run, or choose another workspace folder in Settings.</p><a class="text-action" href="#W-Settings/workspace">Open Settings${icon('arrow-right')}</a></div>`;
-  if(!records.length)return '<div class="library-empty"><h2>No matching issuers or runs</h2><p>Try a shorter issuer name, another sector or a different content selection. Clear filters to see all retained cases.</p></div>';
-  return `<div class="case-list">${[...new Set(records.map(r=>r.issuer))].map(issuer=>{
-    const matches=records.filter(r=>r.issuer===issuer);
-    return `<section><div><h2>${esc(issuer)}</h2><p>${esc(matches[0].sector)}</p></div><div class="run-list">${matches.map(record=>`<a href="${routeHref('W-Overview','overview',null,record.key)}"><strong>${esc(record.run)}</strong><span>${esc([workflowName(record),record.period.split(' · ')[0]].filter(Boolean).join(' · '))}</span><small>${runCounts(record)}</small>${icon('arrow-right')}</a>`).join('')}</div></section>`;
-  }).join('')}</div>`;
+  if(!records.length)return '<div class="library-empty"><h2>No matching issuers or runs</h2><p>Try a shorter search or remove a filter.</p></div>';
+  const runCells=r=>`<td><a class="run-link" href="${routeHref('W-Overview','overview',null,r.key)}">${esc(r.run)}</a></td><td>${workflowCell([r.workflow])}</td><td>${esc(shortPeriod(r.period))}</td><td>${reportCell([r])}</td><td class="row-open">${icon('arrow-right')}</td>`;
+  const groups=[...new Set(records.map(r=>r.issuer))].map(issuer=>{
+    const runs=records.filter(r=>r.issuer===issuer),name=`<th scope="rowgroup"><h2>${esc(issuer)}</h2>${badge('gray',runs[0].sector==='Unclassified'?'Sector not recorded':runs[0].sector)}</th>`;
+    if(runs.length===1)return `<tbody class="run-list"><tr class="issuer-row">${name}${runCells(runs[0])}</tr></tbody>`;
+    const open=expandedIssuers.has(issuer),periods=[...new Set(runs.map(r=>shortPeriod(r.period)))];
+    return `<tbody class="run-list"><tr class="issuer-row">${name}<td><button class="run-toggle" type="button" aria-expanded="${open}" aria-controls="${runs.map(r=>`run-row-${esc(r.key)}`).join(' ')}">${plural(runs.length,'run')}${icon('chevron-down')}</button></td><td>${workflowCell(runs.map(r=>r.workflow))}</td><td>${periods.length===1?esc(periods[0]):'<span class="muted">Varies</span>'}</td><td>${reportCell(runs)}</td><td class="row-open"></td></tr>${runs.map(r=>`<tr class="run-row" id="run-row-${esc(r.key)}" ${open?'':'hidden'}><td></td>${runCells(r)}</tr>`).join('')}</tbody>`;
+  });
+  return `<table class="case-list"><thead><tr><th scope="col">Issuer</th><th scope="col">Run</th><th scope="col">Workflow</th><th scope="col">Period</th><th scope="col">Reports</th><th scope="col"><span class="sr-only">Open</span></th></tr></thead>${groups.join('')}</table>`;
 }
+const CHIP_NAMES={sector:'Sector',workflow:'Workflow',year:'As of',content:'Content',module:'Module'};
+const chipValue=(key,value)=>key==='sector'?sectorLabel(value):key==='content'?{modules:'Module outputs',reports:'Saved reports'}[value]:key==='module'?moduleLabel(value)||value:value==='none'?'Not recorded':key==='workflow'?workflowTitle(value):value;
+const libraryChips=()=>Object.entries(CHIP_NAMES).filter(([key])=>libraryFilters[key]!=='all').map(([key,name])=>`<span class="chip"><span>${name}:</span> ${esc(chipValue(key,libraryFilters[key]))}<button type="button" data-library-unset="${key}" aria-label="Remove ${name} filter">${icon('x')}</button></span>`).join('');
 const libraryFiltered=()=>Object.entries(LIBRARY_DEFAULTS).some(([key,value])=>libraryFilters[key]!==value);
 function libraryView() {
   const records=libraryRecords(),matches=filterLibrary(records,libraryFilters);
@@ -280,14 +291,17 @@ function libraryView() {
   const recorded=(key,label,order)=>{const values=[...new Set(records.map(r=>r[key]).filter(v=>v!=='none'))].map(v=>[v,label(v)]).sort(order);return records.some(r=>r[key]==='none')?[...values,['none','Not recorded']]:values;};
   const workflows=recorded('workflow',workflowTitle,(a,b)=>a[1].localeCompare(b[1])),years=recorded('year',String,(a,b)=>b[0].localeCompare(a[0]));
   const moduleGroups=groups.map(([name,items])=>[name,items.filter(([id])=>records.some(r=>r.modules.includes(id)))]).filter(([,items])=>items.length);
-  return `<div class="library-discovery"><form id="library-filters" class="library-filters" role="search" aria-label="Filter issuer library"><label class="library-search">Search issuers or runs<span>${icon('search')}<input id="library-query" data-library-filter="query" type="search" value="${esc(libraryFilters.query)}" placeholder="Issuer name, run ID or year" autocomplete="off" aria-controls="library-results"></span></label><label>Sector<select data-library-filter="sector" aria-controls="library-results">${options([['all','All sectors'],...[...new Set(records.map(r=>r.sector))].map(s=>[s,s])],libraryFilters.sector)}</select></label><label>Workflow<select data-library-filter="workflow" aria-controls="library-results">${options([['all','Any workflow'],...workflows],libraryFilters.workflow)}</select></label><label>As of<select data-library-filter="year" aria-controls="library-results">${options([['all','Any year'],...years],libraryFilters.year)}</select></label><label>Available content<select data-library-filter="content" aria-controls="library-results">${options([['all','All content'],['modules','Module outputs'],['reports','Saved reports']],libraryFilters.content)}</select></label><label>Contains module<select data-library-filter="module" aria-controls="library-results">${options([['all','Any module']],libraryFilters.module)}${moduleGroups.map(([name,items])=>`<optgroup label="${esc(name)}">${options(items.map(([id])=>[id,moduleLabel(id)]),libraryFilters.module)}</optgroup>`).join('')}</select></label><button id="library-clear" type="button" ${libraryFiltered()?'':'disabled'}>Clear filters</button></form><div class="library-result-meta"><p id="library-count" role="status" aria-live="polite">${libraryCount(matches)}</p><a class="text-action" href="#W-Reports/list">All deliverables${icon('arrow-right')}</a></div></div><div id="library-results">${libraryResults(matches)}</div>`;
+  const select=(key,label,items)=>`<label class="library-select"><span class="sr-only">${label}</span><select data-library-filter="${key}" class="${libraryFilters[key]==='all'?'':'active'}" aria-controls="library-results">${items}</select></label>`;
+  return `<div class="library-discovery"><form id="library-filters" class="library-filters" role="search" aria-label="Filter issuer library"><label class="library-search"><span class="sr-only">Search issuers or runs</span>${icon('search')}<input id="library-query" data-library-filter="query" type="search" value="${esc(libraryFilters.query)}" placeholder="Search issuer, run ID or year" autocomplete="off" aria-controls="library-results"></label>${select('sector','Sector',options([['all','All sectors'],...[...new Set(records.map(r=>r.sector))].map(s=>[s,sectorLabel(s)])],libraryFilters.sector))}${select('workflow','Workflow',options([['all','Any workflow'],...workflows],libraryFilters.workflow))}${select('year','As of',options([['all','Any year'],...years],libraryFilters.year))}${select('content','Available content',options([['all','All content'],['modules','Module outputs'],['reports','Saved reports']],libraryFilters.content))}${select('module','Contains module',`${options([['all','Any module']],libraryFilters.module)}${moduleGroups.map(([name,items])=>`<optgroup label="${esc(name)}">${options(items.map(([id])=>[id,moduleLabel(id)]),libraryFilters.module)}</optgroup>`).join('')}`)}</form><div class="library-status"><p id="library-count" role="status" aria-live="polite">${libraryCount(matches)}</p><div id="library-chips">${libraryChips()}</div><button id="library-clear" class="tertiary-action" type="button" ${libraryFiltered()?'':'hidden'}>Clear all</button></div></div><div id="library-results">${libraryResults(matches)}</div>`;
 }
 function updateLibraryResults() {
   $('library-filters').querySelectorAll('[data-library-filter]').forEach(control=>{libraryFilters[control.dataset.libraryFilter]=control.value;});
   const records=filterLibrary(libraryRecords(),libraryFilters);
   $('library-results').innerHTML=libraryResults(records);
   $('library-count').textContent=libraryCount(records);
-  $('library-clear').disabled=!libraryFiltered();
+  $('library-chips').innerHTML=libraryChips();
+  $('library-clear').hidden=!libraryFiltered();
+  $('library-filters').querySelectorAll('select[data-library-filter]').forEach(control=>control.classList.toggle('active',control.value!=='all'));
 }
 function reportList(context) {
   const ctx=contexts[context],all=window.DESIGN_WORKSPACE.reports,built=reportsBuiltFrom(context),others=ctx?issuerReports(context).filter(r=>!built.includes(r)):[];
@@ -385,7 +399,7 @@ function updateWorkspaceChrome(module) {
   const ctx=contexts[current.context],isHome=!ctx||appDestinations.has(module);
   const moduleId=ctx&&(lastSection.get(current.context+':module')||ctx.first),period=current.output?data[current.output].period:ctx?.period;
   const title=isHome?(module==='W-Library'?'Issuer library':moduleNames[module]):ctx.title;
-  document.querySelector('.issuer').innerHTML=`<div><h1>${esc(title)}</h1>${isHome?'':`<div class="issuer-meta"><span class="code">${esc(ctx.run)}</span><a href="#W-Library/cases">Change case</a></div>`}</div>${module==='W-Library'?`<a class="primary-action" id="library-new-run" href="#W-NewRun/run">${icon('plus')}New run</a>`:''}${isHome?'':`<div class="scope"><strong>${esc(period)}</strong></div>`}`;
+  document.querySelector('.issuer').innerHTML=`<div><h1>${esc(title)}</h1>${isHome?'':`<div class="issuer-meta"><span class="code">${esc(ctx.run)}</span><a href="#W-Library/cases">Change case</a></div>`}</div>${module==='W-Library'?`<div class="page-actions"><a class="secondary-action" href="#W-Reports/list">${icon('files')}All deliverables</a><a class="primary-action" id="library-new-run" href="#W-NewRun/run">${icon('plus')}New run</a></div>`:''}${isHome?'':`<div class="scope"><strong>${esc(period)}</strong></div>`}`;
   document.querySelector('.workspace-tabs').hidden=isHome;
   if(!isHome)document.querySelector('.workspace-tabs').innerHTML=[['W-Overview','Summary','layout-grid'],[moduleId,'Analysis','layers'],['W-Calendar','Calendar','calendar-days'],['W-Reports','Deliverables','files'],['W-Evidence','Evidence','folder-open']].map(([id,label,img])=>{
     const sections=navigationSections(id,current.context,resolveOutput(id,current.context,lastFile.get(`${current.context}:${id}`))),remembered=lastSection.get(current.context+':'+id),section=sections.some(s=>s[0]===remembered)?remembered:sections[0][0];

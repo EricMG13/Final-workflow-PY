@@ -53,6 +53,7 @@ const lastSection = new Map(), lastFile = new Map();
 const readingPositions = new Map(), expandedGroups = new Map();
 const LIBRARY_DEFAULTS = {query:'',sector:'all',workflow:'all',year:'all',content:'all',module:'all'};
 const libraryFilters = {...LIBRARY_DEFAULTS};
+const expandedIssuers = new Set(); // Issuers whose run list is open; kept for the page session.
 let current = null, returnTrigger = null, returnScroll = 0, returnContentScroll = 0;
 installDestinations();
 const appDestinations=new Set(['W-Library','W-NewRun','W-Settings','W-Help']); // These need no selected run.
@@ -407,6 +408,14 @@ document.addEventListener('click',event=>{
   if(searchHit){returnTrigger=$('module-search');showNavigator(false);if(searchHit.hash===location.hash)$('analysis').focus();}
   const summary=event.target.closest('summary');
   if(summary?.parentElement.dataset.group)expandedGroups.set(summary.parentElement.dataset.group,!summary.parentElement.open);
+  const toggle=event.target.closest('.run-toggle');
+  if(toggle){
+    const open=toggle.getAttribute('aria-expanded')!=='true',issuer=toggle.closest('tbody').querySelector('h2').textContent;
+    if(open)expandedIssuers.add(issuer);else expandedIssuers.delete(issuer);
+    toggle.setAttribute('aria-expanded',String(open));toggle.getAttribute('aria-controls').split(' ').forEach(id=>{$(id).hidden=!open;});return;
+  }
+  const unset=event.target.closest('[data-library-unset]');
+  if(unset){const control=$('library-filters').querySelector(`[data-library-filter="${unset.dataset.libraryUnset}"]`);control.value='all';updateLibraryResults();control.focus();return;}
   if(event.target.closest('#library-clear')){
     Object.assign(libraryFilters,LIBRARY_DEFAULTS);
     $('library-filters').querySelectorAll('[data-library-filter]').forEach(control=>{control.value=libraryFilters[control.dataset.libraryFilter];});

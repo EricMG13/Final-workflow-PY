@@ -155,7 +155,7 @@ test('Evidence cases are isolated; report build selection changes both preview a
   assert.equal(d.querySelectorAll('.source-inventory>section').length,8);assert.ok(!d.getElementById('content').textContent.includes('TDG-002'));
   w.location.hash='W-Evidence/sources?c=tdg-002';w.eval('renderRoute()');assert.ok(!d.getElementById('content').textContent.includes('Ford Otosan'));assert.ok(!d.getElementById('content').textContent.includes('Frontier'));
   w.location.hash='W-Reports/tdg-fy2024-snapshot-6';w.eval('renderRoute()');assert.equal(d.getElementById('report-preview').getAttribute('src'),'reports/tdg-fy2024-snapshot-6/preview.html');assert.equal(d.querySelector('.report-tools a[download]').getAttribute('href'),'reports/tdg-fy2024-snapshot-6/original.html');assert.equal(d.getElementById('report-preview').getAttribute('sandbox'),'allow-scripts allow-downloads');
-  w.location.hash='W-Library/cases';w.eval('renderRoute()');assert.equal(d.querySelectorAll('.case-list>section').length,3);
+  w.location.hash='W-Library/cases';w.eval('renderRoute()');assert.equal(d.querySelectorAll('.case-list tbody.run-list').length,3);
   dom.window.close();
 });
 test('Malformed and inherited-object route keys cannot break navigation or cross issuer evidence',()=>{
@@ -270,7 +270,7 @@ test('Library filters by recorded workflow and as-of year, and keeps runs withou
   assert.deepEqual([...d.querySelectorAll('[data-library-filter="workflow"] option')].map(o=>o.textContent),['Any workflow','Credit Snapshot','Earnings Update','Not recorded']);
   assert.deepEqual([...d.querySelectorAll('[data-library-filter="year"] option')].map(o=>o.textContent),['Any year','2024','2021','Not recorded']);
   pick('workflow','earnings_update');assert.deepEqual(shown(),['tdg-003']);
-  assert.match(norm(d.querySelector('.run-list a span').textContent),/^Earnings Update · /);
+  assert.equal(norm(d.querySelector('.run-list a').closest('tr').children[2].textContent),'Earnings Update');
   assert.equal(d.getElementById('library-clear').disabled,false);
   pick('workflow','none');assert.equal(shown().length,6);assert.ok(!shown().includes('tdg-003')&&!shown().includes('ford-otosan-2024'));
   pick('workflow','all');pick('year','2021');assert.deepEqual(shown(),['ford-otosan-2024']);
@@ -297,12 +297,50 @@ test('Grey text: app pages carry no subtitle, run headers no freshness line, the
   assert.equal(norm(d.querySelector('#context-step .intro').textContent),'Load a saved context or enter the issuer.');
   dom.window.close();
 });
-test('Grey text: a Library row shows the period up to its first dot and only the report count',()=>{
-  const dom=fixture('W-Library/cases'),d=dom.window.document;
-  const row=key=>d.querySelector(`.run-list a[href*="c=${key}"]`);
-  assert.equal(norm(row('tdg-002').querySelector('span').textContent),'FY2024 historical evidence');
-  assert.equal(norm(row('tdg-002').querySelector('small').textContent),'7 reports');
-  assert.equal(norm(row('ford-otosan-2024').querySelector('small').textContent),'');
+test('Library shows one row per issuer; an issuer with several runs opens a drop-down of its runs',()=>{
+  const dom=fixture('W-Library/cases'),w=dom.window,d=w.document;
+  const table=d.querySelector('table.case-list');
+  assert.deepEqual([...table.querySelectorAll('thead th')].map(th=>norm(th.textContent)),['Issuer','Run','Workflow','Period','Reports','Open']);
+  const groups=()=>[...d.querySelectorAll('table.case-list tbody.run-list')];assert.equal(groups().length,3);
+  const group=name=>groups().find(g=>g.querySelector('h2').textContent===name);
+  const cells=row=>[...row.children].slice(1,5).map(c=>norm(c.textContent));
+  assert.deepEqual(cells(group('Ford Otosan').querySelector('tr')),['FORD-OTOSAN-2024','Not recorded','11 April 2024','No report'],'one run: the issuer row is the run');
+  const tdg=group('TransDigm Group'),head=tdg.querySelector('tr'),toggle=head.querySelector('button.run-toggle');
+  assert.equal(head.querySelector('th[scope="rowgroup"] .badge').textContent,'Aerospace & defense');
+  assert.deepEqual(cells(head),['6 runs','Not recorded','Varies','7 reports']);
+  assert.equal(toggle.getAttribute('aria-expanded'),'false');
+  const runRows=[...tdg.querySelectorAll('tr.run-row')];assert.equal(runRows.length,6);assert.ok(runRows.every(r=>r.hidden));
+  assert.deepEqual(toggle.getAttribute('aria-controls').split(' ').sort(),runRows.map(r=>r.id).sort());
+  toggle.focus();toggle.click();
+  assert.equal(toggle.getAttribute('aria-expanded'),'true');assert.ok(runRows.every(r=>!r.hidden));assert.equal(d.activeElement,toggle);
+  assert.deepEqual(cells(d.querySelector('.run-list a[href*="c=tdg-002"]').closest('tr')),['TDG-002','Not recorded','FY2024 historical evidence','7 reports']);
+  assert.equal(d.querySelectorAll('.run-list a').length,8,'one link per run');
+  w.eval(`location.hash='W-Settings/workspace';renderRoute();location.hash='W-Library/cases';renderRoute()`);
+  assert.equal(group('TransDigm Group').querySelector('button.run-toggle').getAttribute('aria-expanded'),'true','the drop-down stays open on return');
+  w.eval(`contexts['frontier-2020'].sector='Unclassified';location.hash='W-Settings/workspace';renderRoute();location.hash='W-Library/cases';renderRoute()`);
+  assert.equal(group('Frontier').querySelector('.badge').textContent,'Sector not recorded');
+  assert.ok([...d.querySelectorAll('[data-library-filter="sector"] option')].some(o=>o.value==='Unclassified'&&o.textContent==='Not recorded'));
+  dom.window.close();
+});
+test('A run with no saved outputs says so in an attention badge',()=>{
+  const store=structuredClone(NORTHBRIDGE);
+  store.runs['web-2']={...store.runs['web-1'],folder:'web-2',run:'WEB-2',modules:{}};
+  const dom=appFixture('W-Library/cases',store,NORTHBRIDGE_REPORTS),d=dom.window.document;
+  const reports=key=>d.querySelector(`.run-list a[href*="c=${key}"]`).closest('tr').children[4];
+  assert.equal(norm(reports('web-2').textContent),'No saved outputs');assert.ok(reports('web-2').querySelector('.badge-attention'));
+  dom.window.close();
+});
+test('Active Library filters show as removable chips, and Clear all appears only when something is filtered',()=>{
+  const dom=fixture('W-Library/cases'),w=dom.window,d=w.document;
+  const sector=d.querySelector('[data-library-filter="sector"]'),clear=d.getElementById('library-clear');
+  assert.equal(clear.hidden,true);assert.equal(d.querySelectorAll('#library-chips .chip').length,0);
+  sector.value='Automotive';sector.dispatchEvent(new w.Event('change',{bubbles:true}));
+  assert.equal(clear.hidden,false);assert.ok(sector.classList.contains('active'));
+  const chip=d.querySelector('#library-chips .chip');assert.equal(norm(chip.textContent),'Sector: Automotive');
+  const remove=chip.querySelector('button');assert.equal(remove.getAttribute('aria-label'),'Remove Sector filter');
+  remove.click();
+  assert.equal(sector.value,'all');assert.equal(d.querySelectorAll('.run-list a').length,8);assert.equal(d.querySelectorAll('#library-chips .chip').length,0);
+  assert.equal(d.activeElement,sector);assert.equal(clear.hidden,true);assert.ok(!sector.classList.contains('active'));
   dom.window.close();
 });
 test('Grey text: Evidence rows name only the attempt; the intro states the PDF limitation plainly',()=>{
@@ -341,6 +379,8 @@ test('The library says what it is once and puts New run beside its title',()=>{
   assert.equal(d.querySelector('.issuer-meta'),null,'the title stands alone');
   assert.equal(d.querySelector('#content .intro'),null,'no second introduction');
   assert.ok(d.getElementById('library-new-run').closest('.issuer'),'the primary action sits beside the title');
+  const deliverables=d.querySelector('.issuer .secondary-action');assert.equal(deliverables.getAttribute('href'),'#W-Reports/list');assert.equal(norm(deliverables.textContent),'All deliverables');
+  assert.equal(d.querySelector('.library-result-meta'),null);
   assert.equal(d.getElementById('library-new-run').getAttribute('href'),'#W-NewRun/run');
   assert.ok(!/separate runs/.test(d.getElementById('library-results').textContent));
   assert.equal(d.querySelector('#content .matrix-note'),null,'no footnote under the list');
@@ -352,18 +392,6 @@ test('The module filter names each module once',()=>{
   assert.ok(options.length>5);
   for(const option of options)assert.equal(option.textContent,dom.window.eval(`moduleLabel(${JSON.stringify(option.value)})`),option.value);
   dom.window.close();
-});
-test('A run row leaves out zero counts and says when a run holds no saved outputs',()=>{
-  const store=structuredClone(NORTHBRIDGE);
-  store.runs['web-2']={...store.runs['web-1'],folder:'web-2',run:'WEB-2',modules:{}};
-  const dom=appFixture('W-Library/cases',store,NORTHBRIDGE_REPORTS),d=dom.window.document;
-  const meta=key=>norm(d.querySelector(`.run-list a[href*="c=${key}"] small`).textContent);
-  assert.equal(meta('web-2'),'No saved outputs');
-  assert.doesNotMatch(meta('web-1'),/\b0 /);
-  const real=fixture('W-Library/cases');
-  for(const small of real.window.document.querySelectorAll('.run-list small'))assert.doesNotMatch(small.textContent,/(^|· )0 /,small.textContent);
-  assert.match(norm(real.window.document.querySelector('.run-list a[href*="c=tdg-002"] small').textContent),/^\d+ reports?$/);
-  real.window.close();dom.window.close();
 });
 test('A source footer leaves the line number to the inspector',()=>{
   const dom=fixture('CP-2/assessment'),d=dom.window.document;
