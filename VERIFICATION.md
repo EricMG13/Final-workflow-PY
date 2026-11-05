@@ -3,6 +3,16 @@
 Keep one running record here. A pass applies only to the stated scope. Preserve
 earlier run artifacts; record a new attempt when instructions or outputs change.
 
+## 2026-11-05 — cp-os live loop reused
+
+The [campaign record](runs/cpos-sol-medium-20261105/verification.json) now records
+sequential sol-medium module proofs followed by a fresh CP-0 → CP-1 → CP-1A → CP-2
+annual issuer-to-deliverable run. It includes the actual responses, independent
+source/arithmetic checks, a checker-format repair with retained-response recovery,
+populated report/HTML Model/charts/calculation JSON, and zero-provider resume.
+This closes that bounded live integration gap. Broader module limitations and
+fresh full-pathway coverage in the historical matrix below remain separate.
+
 ## Active goal — all modules and aliases
 
 **Current output ruling:** Excel is ingestion-only. No Excel/workbook export is

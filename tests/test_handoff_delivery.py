@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from deploy_workflow.handoff_delivery import deliver, prepare, section, table
+from deploy_workflow.handoff_delivery import deliver, mapped_module, prepare, section, table
 
 RUN = Path(__file__).resolve().parents[1] / "runs" / "tdg-002"
 
@@ -106,6 +106,31 @@ def test_actual_handoffs_populate_existing_five_sections_and_exact_sources() -> 
     assert "Date / period: October 2024" in rendered_text
 
 
+def test_business_row_ids_preserve_literal_content_and_ambiguous_company_refuses() -> None:
+    job = json.loads((RUN / "snapshot-inputs.json").read_text())
+    raw = (RUN / job["handoffs"]["CP-1A"]["path"]).read_text()
+    labels = (
+        "Company description",
+        "Product mix",
+        "Revenue-channel estimate",
+        "Aftermarket margin/stability characterization",
+        "End markets / concentration",
+    )
+    for i, label in enumerate(labels, 1):
+        raw = raw.replace("| " + label + " |", f"| C{i:02} {label} |")
+    module, source = mapped_module("CP-1A", raw.encode())
+    mix = next(t for t in module.tables if t.table_id == "revenue_business_mix")
+    assert {r.label for r in mix.rows} == {f"C{i:02} {v}" for i, v in enumerate(labels, 1) if i > 1}
+    company = next(f for f in module.facts if f.table_id == "company_description")
+    assert company.label == "C01 Company description"
+    assert company.citations[0].quote.startswith("| C01 Company description |")
+    assert company.citations[0].quote in {s.text for s in source.spans}
+    row = next(line for line in raw.splitlines() if line.startswith("| C01 Company description |"))
+    duplicate = raw.replace(row, row + "\n" + row.replace("C01", "C99", 1))
+    with pytest.raises(ValueError, match="company-description row"):
+        mapped_module("CP-1A", duplicate.encode())
+
+
 @pytest.mark.parametrize("token", ["", "   ", "** **", "0", "—"])
 def test_dashboard_blank_is_missing_and_zero_or_dash_stays_literal(
     tmp_path: Path, token: str
@@ -160,7 +185,11 @@ def test_changed_handoff_and_foreign_issuer_refuse_before_export(tmp_path: Path)
 
 @pytest.mark.parametrize(
     "wrapped_name",
-    ["TransDigm\nGroup Incorporated", "TransDigm\r\nGroup\tIncorporated", "TransDigm  Group Incorporated"],
+    [
+        "TransDigm\nGroup Incorporated",
+        "TransDigm\r\nGroup\tIncorporated",
+        "TransDigm  Group Incorporated",
+    ],
 )
 def test_issuer_word_wrapping_preserves_original_handoff_bytes(
     tmp_path: Path, wrapped_name: str

@@ -1,0 +1,1 @@
+{"issues":["Formatting-only repair must preserve every non-heading byte and trailing newline. Promote bold envelope labels to H2 and demote original H2 subsections to H3."]}

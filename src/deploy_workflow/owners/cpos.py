@@ -1,9 +1,9 @@
 """CP-OS handoff orchestration and retained native report-navigation verification.
 
 ``run_handoffs`` drives the checked public snapshot or explicitly mapped Markdown
-report sections using the existing dependency planner and separate delivery adapter. Its executor is a
-local host-session or retained-response exchange, never a provider adapter. Paid
-execution still belongs to the existing explicitly invoked ``run_pathway`` route.
+report sections using the existing dependency planner and separate delivery adapter.
+Explicit ``run_live_handoffs`` uses the adapted cp-os module loop with the existing
+provider adapter and durable budget. Replay and host exchanges remain provider-free.
 ``run_comparison`` uses the same exchange for the current CP-8 definition:
 compare complete prior/current delivery bundles, then publish its checked answer.
 It does not invoke the imported investment-decision ledger owner.
@@ -28,12 +28,13 @@ import json
 import re
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass, replace
+from decimal import Decimal
 from pathlib import Path
 from types import MappingProxyType
 from typing import Any, Literal
 from uuid import uuid4
 
-from pydantic import Field, TypeAdapter
+from pydantic import Field, TypeAdapter, model_validator
 
 from deploy_vii.contracts import Contract, Hash, Identifier, Run, Text, View
 from deploy_vii.execution import Execution
@@ -78,9 +79,20 @@ class HandoffPlan(Contract):
     retained_handoffs: dict[str, RetainedHandoff] = Field(default_factory=dict)
     model: ModelDelivery | None = None
     layout: MarkdownLayout | None = None
-    execution: Literal["host-session", "retained-response-replay", "synthetic"]
+    execution: Literal["host-session", "retained-response-replay", "synthetic", "live-provider"]
     max_attempts: int = Field(default=2, ge=1, le=3)
-    provider_cap_usd: Literal[0] = 0
+    provider_cap_usd: Decimal = Field(default=Decimal(0), ge=0, allow_inf_nan=False)
+
+    @model_validator(mode="after")
+    def execution_budget(self) -> "HandoffPlan":
+        if self.execution == "live-provider":
+            if self.provider_cap_usd <= 0 or self.max_attempts != 1:
+                raise ValueError(
+                    "Live mode needs a positive cap and one outer attempt; repairs occur inside the loop"
+                )
+        elif self.provider_cap_usd != 0:
+            raise ValueError("Non-live modes require a zero provider cap")
+        return self
 
 
 class ComparisonPlan(Contract):
@@ -106,6 +118,7 @@ class HandoffTask:
     handoffs: Mapping[str, bytes]
     attempt: int
     feedback: tuple[str, ...]
+    draft: bytes | None = None  # Explicit targeted repair; never automatic retry of a sent call.
 
 
 def _pinned_inputs(base: Path, entries: Mapping[str, HandoffInput]) -> dict[str, bytes]:
@@ -127,8 +140,14 @@ def _checked_handoff(
         text = response.decode("utf-8")
     except UnicodeDecodeError:
         return ("The response must be UTF-8 Markdown.",)
-    if tuple(line[3:] for line in text.splitlines() if line.startswith("## ")) != HEADINGS:
-        return ("The six Markdown handoff headings are required once, in order.",)
+    actual = tuple(line[3:] for line in text.splitlines() if line.startswith("## "))
+    if actual != HEADINGS:
+        return (
+            "Use exactly these six H2 headings, once in this order: "
+            + "; ".join("## " + heading for heading in HEADINGS)
+            + ". All subsections must use ### or deeper, never ##. "
+            + f"Received H2 headings: {actual!r}.",
+        )
     issues = check(task, response)
     if type(issues) is not tuple or any(not isinstance(x, str) or not x.strip() for x in issues):
         raise ValueError("cpos_check: verifier must return a tuple of nonempty issue strings")
@@ -153,6 +172,8 @@ def _handoff(
         "handoffs": {k: _sha(v) for k, v in task.handoffs.items()},
         "retained_response_sha256": None if retained is None else _sha(retained),
     }
+    if task.draft is not None:
+        inputs["repair_draft_sha256"] = _sha(task.draft)
     encoded = json.dumps(inputs, sort_keys=True).encode()
     fingerprint = _sha(encoded)
     folder = directory / "requests" / task.module_id / fingerprint
@@ -198,10 +219,10 @@ def run_handoffs(
     execute: Callable[[HandoffTask], bytes],
     check: Callable[[HandoffTask, bytes], tuple[str, ...]],
 ) -> Path:
-    """CP-OS local exchange: plan, retain, check, pass current handoffs, deliver.
+    """CP-OS exchange: plan, retain, check, pass current handoffs, deliver.
 
-    The executor must implement the declared local/replay mode, not call paid
-    providers. The required checker compares output with instructions/evidence;
+    Paid execution must use the explicit bounded live executor. The required
+    checker compares output with instructions/evidence;
     Markdown shape alone is never analytical approval. Reusing this directory
     rechecks retained answers. Changed instructions/sources invalidate the affected
     requests and their actual consumers. All revisions remain retained. A crash
@@ -212,6 +233,22 @@ def run_handoffs(
     does not trigger a new analytical build merely to satisfy a native producer.
     """
     request = HandoffPlan.model_validate_json(manifest.read_bytes())
+    from deploy_workflow.model.adapter import LiveAdapter
+    from deploy_workflow.model.handoff import HandoffExecutor
+
+    live = isinstance(execute, HandoffExecutor) and isinstance(execute.adapter, LiveAdapter)
+    if (request.execution == "live-provider") != live:
+        raise ValueError("cpos_execution_mode: live mode requires the bounded LiveAdapter executor")
+    if (
+        live
+        and isinstance(execute, HandoffExecutor)
+        and (
+            execute.budget.cap_usd != request.provider_cap_usd
+            or execute.directory.resolve() != (directory / "live").resolve()
+            or execute.check is not check
+        )
+    ):
+        raise ValueError("cpos_live_binding: executor must share this run's cap, state and checker")
     if request.layout is None and (
         request.run.pathway != "credit_snapshot"
         or request.run.case_kind != "public"
@@ -352,7 +389,7 @@ def run_handoffs(
                 else "; Model publication not requested"
             )
             + "; not full pathway/native acceptance",
-            "provider_cap_usd": 0,
+            "provider_cap_usd": str(request.provider_cap_usd) if live else 0,
             "modules": selected,
             "module_execution": {
                 m: "retained-response-replay" if m in retained else request.execution
@@ -365,6 +402,46 @@ def run_handoffs(
         completion_raw = json.dumps(completion, indent=2).encode()
         _put(directory / f"completed-{_sha(completion_raw)}.json", completion_raw)
         return report
+
+
+def run_live_handoffs(
+    manifest: Path,
+    directory: Path,
+    *,
+    ruling: Path,
+    check: Callable[[HandoffTask, bytes], tuple[str, ...]],
+    environ: Mapping[str, str] | None = None,
+    max_turns: int = 24,
+    max_output_tokens: int = 16000,
+) -> Path:
+    """Explicit paid entry point; callers supply an evidence/instruction checker.
+
+    No provider execution occurs during build, import, replay or normal delivery.
+    Credentials come from the launching environment, never a file in this API.
+    """
+    import os
+
+    from deploy_workflow.model.adapter import LiveAdapter
+    from deploy_workflow.model.handoff import HandoffExecutor
+    from deploy_workflow.model.redact import Redactor
+    from deploy_workflow.model.turn import ModelSpec
+
+    request = HandoffPlan.model_validate_json(manifest.read_bytes())
+    if request.execution != "live-provider":
+        raise ValueError("cpos_live_mode: manifest must explicitly declare live-provider")
+    environment = os.environ if environ is None else environ
+    executor = HandoffExecutor(
+        directory / "live",
+        adapter=LiveAdapter(
+            ModelSpec("sol-medium", "openai", "gpt-6.1-sol", "medium"), ruling, environ=environment
+        ),
+        cap_usd=request.provider_cap_usd,
+        check=check,
+        redactor=Redactor.from_environ(environment),
+        max_turns=max_turns,
+        max_output_tokens=max_output_tokens,
+    )
+    return run_handoffs(manifest, directory, execute=executor, check=check)
 
 
 def replay_handoffs(

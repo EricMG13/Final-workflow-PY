@@ -13,16 +13,21 @@ actual CP-1 consumption and HTML publication, with conflicting source values
 preserved and restricted. This does not certify arbitrary workbook layouts or
 complete bank underwriting.
 
-CP-OS now drives a bounded local handoff workflow using the existing dependency
-planner and Markdown-to-report adapter. A retained-response TDG replay reaches
-five populated report sections and resumes without repeating executors. The
-[whole-system review](METHODOLOGY-REVIEW.md) remains the historical baseline;
-fresh execution across the full pathway, native execution and general delivery
-integration remain open. A fresh host CP-2 answer now reaches a checked report
-through CP-OS using retained upstream work, as described below.
-The current retained-handoff publication also includes the HTML Model, three
-charts and calculation JSON. It reuses the checked analytical answers without
-rerunning analysis for delivery.
+CP-OS now drives the adapted cp-os live execution loop through the existing
+dependency planner and Markdown delivery adapter. The fresh sol-medium
+[TDG annual report and Model](runs/cpos-sol-medium-20261105/deliveries/ff9a58944ddfb17f1876151a30020200a622d0d7238d3a79eb1ddba1d7e050fa/report.html)
+uses new CP-0, CP-1, CP-1A and CP-2 responses from pinned issuer files, following
+separate module proofs. Five populated narrative sections, the HTML Model,
+three charts and calculation JSON pass existing delivery and independent
+numerical checks. Resume makes no provider calls. A campaign checker falsely
+rejected CP-2's recipient punctuation; its reviewed retained response was
+recovered after fixing that checker, without repeating analysis.
+The [single campaign record](runs/cpos-sol-medium-20261105/verification.json)
+retains that intervention, actual calls, cost and scope. Reproduce offline with
+`PYTHONPATH=src .venv/bin/python runs/cpos-sol-medium-20261105/verify.py`.
+This proves the selected historical annual pathway; complete current underwriting
+and fresh execution across broader pathways remain open. The
+[whole-system review](METHODOLOGY-REVIEW.md) remains the historical baseline.
 
 CP-OS now also delivers the complete eight-section
 [Portfolio Decision report](runs/cpos-lqd-portfolio-001/execution/deliveries/827427820e0e5f1d647ef2323182d9a59eb88edb97a4773b838b01e2ed14e5c4/report.html)
@@ -67,9 +72,20 @@ CP-MEMO is replaced by these actual deliverables. Completion is checked against
 the requested populated outputs and their source handoffs, without a separate
 CP-MEMO analytical run.
 
-The imported native runner retains its provider/cost controls. The CP-OS handoff
-path below invokes no provider and supports a local host exchange or retained
-responses through an executor and an evidence/instruction checker.
+CP-OS also has an explicit paid handoff entry point, `run_live_handoffs` in
+`src/deploy_workflow/owners/cpos.py`. It reuses cp-os revision `b57a344`'s source
+tools and bounded write/edit loop through final-workflow's existing provider
+adapter, durable budget and retained call log. The existing planner, handoff
+checks and delivery process remain in charge. No second orchestration layer or
+analytical rerun for publication is introduced.
+
+Live manifests select `execution: live-provider`, a positive `provider_cap_usd`
+and `max_attempts: 1`; each module may repair up to three submitted drafts within
+the bounded live loop. The caller supplies the evidence/instruction checker and
+a live ruling, and launches with `OPENAI_API_KEY`. Unknown charges stop execution.
+Import, build, retained replay and ordinary delivery make no provider calls.
+The [sequential sol-medium campaign](runs/cpos-sol-medium-20261105/verification.json)
+retains actual requests, responses, source checks, repairs and consumption proof.
 
 ## Development loop
 

@@ -20,6 +20,140 @@ RESPONSES = {
 }
 
 
+def test_explicit_repair_draft_participates_in_resume_identity(tmp_path):
+    from dataclasses import replace
+
+    from deploy_workflow.owners.cpos import HandoffPlan, _handoff
+
+    run = HandoffPlan.model_validate_json(job(tmp_path).read_bytes()).run
+    task = HandoffTask(run, "CP-0", b"repair", {}, {}, 1, (), b"first")
+    seen = []
+
+    def execute(current):
+        seen.append(current.draft)
+        return RESPONSES["CP-0"]
+
+    for draft in (b"first", b"second", b"second"):
+        _handoff(replace(task, draft=draft), tmp_path / "state", execute, checked, 1)
+    assert seen == [b"first", b"second"]
+
+
+def test_campaign_recipient_check_uses_role_not_label_separator():
+    """Reproduce the live CP-2 false rejection without another provider call."""
+    import re
+    import runpy
+
+    from deploy_vii.contracts import Run
+
+    case = ROOT / "runs/cpos-sol-medium-20261105"
+    campaign = runpy.run_path(str(case / "run.py"))
+    inputs = campaign["inputs"]
+    current = HandoffTask(
+        Run.model_validate_json(json.dumps(inputs["run"])),
+        "CP-2",
+        b"",
+        {},
+        {m: (case / inputs["handoffs"].get(m, m + ".md")).read_bytes() for m in ("CP-1", "CP-1A")},
+        1,
+        (),
+    )
+    raw = (case / "CP-2-v2.md").read_text()
+    for separator in (" / role", " — role", ""):
+        variant = re.sub(
+            r"^\| (CP-3C|CP-4|CP-6) /[^|]+", r"| \1" + separator + " ", raw, flags=re.MULTILINE
+        )
+        # Keep role text in the next cell, as the actual fresh answer does.
+        for m, role in {
+            "CP-3C": "Refinancing",
+            "CP-4": "Legal and covenant",
+            "CP-6": "Committee debate and challenge",
+        }.items():
+            variant = variant.replace(
+                "| " + m + separator + " |", "| " + m + separator + " | " + role + ":", 1
+            )
+        assert not campaign["check"](current, variant.encode())
+    bad = re.sub(
+        r"^\| CP-4[^\n]+",
+        "| CP-4 | Portfolio monitoring | No legal role supplied |",
+        variant,
+        flags=re.MULTILINE,
+    )
+    assert any("CP-4" in x for x in campaign["check"](current, bad.encode()))
+
+
+def test_explicit_live_loop_drives_existing_planner_delivery_and_resume(tmp_path, monkeypatch):
+    """Fake transport proves wiring only; this is not a provider/module proof."""
+    from decimal import Decimal
+
+    from deploy_workflow.model.adapter import AdapterReply, LiveAdapter
+    from deploy_workflow.model.handoff import HandoffExecutor
+    from deploy_workflow.model.turn import ModelSpec, ToolCall, Turn, Usage
+
+    path = job(tmp_path)
+    data = json.loads(path.read_bytes())
+    data.update(execution="live-provider", provider_cap_usd="10", max_attempts=1)
+    path.write_text(json.dumps(data))
+    adapter = LiveAdapter(
+        ModelSpec("sol-medium", "openai", "gpt-6.1-sol", "medium"),
+        ROOT / "docs/rulings/2026-11-05-live-loop-tests.md",
+        environ={},
+    )
+    seen = []
+
+    def complete(request, **kwargs):
+        context = json.loads(request.messages[1].text)
+        module = context["module_id"]
+        assert list(context["handoffs"]) == seen
+        seen.append(module)
+        answer = Turn(
+            "",
+            (ToolCall(str(len(seen)), "write_handoff", {"markdown": RESPONSES[module].decode()}),),
+            Usage(input_tokens=100, output_tokens=50),
+            "tool_use",
+            "gpt-6.1-sol",
+            "fake",
+            200,
+        )
+        return AdapterReply("ok", answer, None, 200, None, None, 1, 2, answer.usage)
+
+    monkeypatch.setattr(adapter, "complete", complete)
+    state = tmp_path / "state"
+    executor = HandoffExecutor(state / "live", adapter=adapter, cap_usd=Decimal(10), check=checked)
+    report = run_handoffs(path, state, execute=executor, check=checked)
+    assert seen == ORDER
+    assert verify_delivery(next(state.glob("delivery-*.json")), report.parent) == report
+    assert run_handoffs(path, state, execute=executor, check=checked) == report
+    assert seen == ORDER
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"execution": "live-provider", "provider_cap_usd": "0", "max_attempts": 1},
+        {"execution": "live-provider", "provider_cap_usd": "10", "max_attempts": 2},
+        {"execution": "synthetic", "provider_cap_usd": "10"},
+    ],
+)
+def test_live_configuration_fails_before_dispatch(tmp_path, changes):
+    path = job(tmp_path)
+    data = json.loads(path.read_bytes())
+    data.update(changes)
+    path.write_text(json.dumps(data))
+    with pytest.raises(ValueError):
+        run_handoffs(
+            path, tmp_path / "state", execute=lambda _: pytest.fail("dispatched"), check=checked
+        )
+
+
+def test_live_mode_rejects_unbounded_callback(tmp_path):
+    path = job(tmp_path)
+    data = json.loads(path.read_bytes())
+    data.update(execution="live-provider", provider_cap_usd="10", max_attempts=1)
+    path.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match="cpos_execution_mode"):
+        run_handoffs(path, tmp_path / "state", execute=replay, check=checked)
+
+
 def job(tmp_path: Path) -> Path:
     manifest = json.loads((ROOT / "runs/tdg-002/snapshot-inputs.json").read_text())
     manifest.pop("handoffs")

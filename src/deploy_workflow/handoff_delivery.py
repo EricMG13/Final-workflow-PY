@@ -225,7 +225,9 @@ def mapped_module(module_id: str, raw: bytes) -> tuple[ModuleView, Source]:
                         field=f"c{c}",
                         text=cell_text or None,
                         status="known" if cell_text else "missing",
-                        limitation=None if cell_text else "Original handoff cell is blank; not zero",
+                        limitation=None
+                        if cell_text
+                        else "Original handoff cell is blank; not zero",
                         value_class="source",
                         basis="Literal content of the model-authored handoff; no new analysis or arithmetic.",
                         citations=(
@@ -269,7 +271,13 @@ def mapped_module(module_id: str, raw: bytes) -> tuple[ModuleView, Source]:
         gap_id = "T4.12"
     elif module_id == "CP-1A":
         headers, rows = table(section(lines, "Company, business and revenue model"))
-        company_rows = [r for r in rows if r[2][0] == "Company description"]
+
+        # Live handoffs may prefix these labels with stable evidence-row IDs.
+        # Normalize only selection; add() retains the literal label and source line.
+        def business_label(row: tuple[int, str, list[str]]) -> str:
+            return re.sub(r"^C\d+\s+", "", plain(row[2][0]))
+
+        company_rows = [r for r in rows if business_label(r) == "Company description"]
         if len(company_rows) != 1:
             raise ValueError("CP-1A: expected the company-description row")
         add("company_description", "Company", headers, company_rows, company=True)
@@ -283,13 +291,13 @@ def mapped_module(module_id: str, raw: bytes) -> tuple[ModuleView, Source]:
             "revenue_business_mix",
             "Revenue and business mix",
             headers,
-            [r for r in rows if r[2][0] in mix_names],
+            [r for r in rows if business_label(r) in mix_names],
         )
         add(
             "operating_model",
             "Operating model",
             headers,
-            [r for r in rows if r[2][0] not in mix_names | {"Company description"}],
+            [r for r in rows if business_label(r) not in mix_names | {"Company description"}],
         )
         for heading, table_id, prose in (
             ("Ownership and control", "ownership_register", False),

@@ -1,5 +1,16 @@
 # Methodology across the related projects
 
+**Live execution adaptation, 2026-11-05:** reuse cp-os `b57a344`'s `SourceTools`,
+bounded module loop and atomic handoff edits in the existing final-workflow
+CP-OS exchange. Retain final-workflow `54a88165`'s selected analytical instructions,
+registry planning, source/handoff checks, provider adapter, conservative durable
+budget and report/HTML Model/chart/calculation-JSON delivery. Only observed live
+failures justify the heading feedback, governance-row validation, current module
+role context, seeded repair identity and row-ID delivery selector changes.
+This transport choice does not import cp-os's old CP-8, memo or workbook duties.
+The [campaign record](runs/cpos-sol-medium-20261105/verification.json) separates
+module proof, fresh orchestration and retained broader-pathway regression scope.
+
 Current user correction: CP-MEMO is replaced by the actual deliverables assembled
 from analytical handoffs. The historical catalog/Word findings below describe
 the imported projects; they do not require another memo module in this version.
@@ -17,7 +28,7 @@ Exact selected revisions are in the case's verification data. The historical
 whole-system findings below remain a baseline, not the current execution ledger;
 current progress is recorded in VERIFICATION.md.
 
-**Current CP-OS integration:** the current user's active-orchestrator ruling is
+**Initial CP-OS integration (before the live campaign above):** the current user's active-orchestrator ruling is
 now implemented for a bounded local handoff snapshot. CP-OS reuses the existing
 registry planner, single-writer control and separate Markdown delivery adapter;
 it retains/checks responses, supplies current handoffs, bounds repairs and verifies

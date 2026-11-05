@@ -1,0 +1,305 @@
+{
+  "campaign": "sol-medium module tests before orchestration/pathways",
+  "scope": "TDG historical FY2024: scoped module proofs followed by a fresh four-module issuer-to-deliverable annual snapshot. Broader/full current underwriting is unproven.",
+  "reuse": {
+    "cp_os": "b57a344: SourceTools/edit_handoff/run_module",
+    "final_workflow": "54a88165: planner, delivery, budget, adapter, checks"
+  },
+  "budget_cap_usd": "10",
+  "offline": {
+    "focused_tests": 179,
+    "mypy": "3 changed source files pass with follow-imports=silent",
+    "ruff": "all changed Python files pass",
+    "focused_test_command": ".venv/bin/pytest tests/test_handoff_loop.py tests/test_cpos_handoffs.py tests/test_cpos_comparison.py tests/test_handoff_delivery.py tests/test_model_handoff_delivery.py tests/test_markdown_delivery.py tests/test_relative_value_handoff_delivery.py tests/test_portfolio_handoff_delivery.py tests/test_retained_planning.py -q",
+    "focused_test_result": "179 passed in 17.31s",
+    "secret_scan": "gitleaks current campaign: no leaks",
+    "diff_check": "Code/tests/docs pass default git diff --check. Actual sent CP-1 instructions intentionally retain their final blank line; full artifact check passes with only blank-at-eof excluded."
+  },
+  "confidence_review": {
+    "ranked_doubts": [
+      {
+        "doubt": "stale shared budget across preconstructed executors",
+        "result": "confirmed and repaired: acquire module writer lock then reload Budget; two-executor regression passes"
+      },
+      {
+        "doubt": "unknown charges or crash dispatch automatically repeated",
+        "result": "refuted: durable Budget stop plus immutable invocation folder; no automatic retry; regressions pass"
+      },
+      {
+        "doubt": "accepted draft overwritten by a later tool in same response",
+        "result": "refuted: terminal break and submission-closed guard; regression passes"
+      },
+      {
+        "doubt": "patch partially mutates rejected draft",
+        "result": "refuted: all exact unique replacements performed in memory before immutable submission; regression passes"
+      },
+      {
+        "doubt": "missing, zero, precision or nonfinite values change in calculation tool",
+        "result": "existing Decimal-38 kernel reused; null propagation/zero/0.1+0.2/nonfinite bounds tested"
+      },
+      {
+        "doubt": "provider mode could accidentally run under replay manifest",
+        "result": "Explicit mode, positive cap, one outer attempt, LiveAdapter/state/checker binding verified; fake-transport planner/delivery/no-call resume and invalid-mode regressions pass."
+      },
+      {
+        "doubt": "live output and source semantics",
+        "result": "Reviewed actual module and fresh-run outputs against instructions and issuer evidence; 134 primary source rows, 201 live calculation calls, 81 Model values and 18 chart observations independently checked. One earlier scorer-input quote anomaly is explicitly reconciled; current fresh scorer citations all match. No full broader-pathway claim."
+      },
+      {
+        "doubt": "Governance score serialization contains nested Pydantic evidence rows",
+        "result": "Confirmed TypeError reproduced on documented adverse action; use TypeAdapter(GovernanceScore).dump_json, preserving deciding evidence and unscorable dimensions. Regression passes."
+      },
+      {
+        "doubt": "Format repair feedback is actionable",
+        "result": "Live CP-0 failed all three submissions with ambiguous heading feedback. Repaired checker names exact required H2 and received headings and requires subsections H3+. Targeted presentation-only live repair passed."
+      },
+      {
+        "doubt": "Case-specific historical wording leaked into the reusable executor",
+        "result": "Replaced unconditional historical/not-current wording with respect for supplied run/evidence dates and scope. The TDG campaign still explicitly instructs historical-only analysis; no analytical scope expanded."
+      },
+      {
+        "doubt": "Schema parsing alone preserved existing governance semantic checks",
+        "result": "Confirmed failure on actual live rows. Added existing _row_issues before scorer; adversarial invalid topic regression fails before fix, passes after. No scoring-rule rebuild."
+      },
+      {
+        "doubt": "Consumer numbering drift in model handoffs",
+        "result": "Actual CP-1A mislabeled CP-4 as committee and CP-6 as monitoring; existing registry proves CP-4 legal/covenants and CP-6 committee challenge. Current registry roles now accompany each request with current CP-OS/CP-8/Model overrides and CP-MEMO removed; test confirms mapping."
+      },
+      {
+        "doubt": "Live CP-1A row-ID prefixes fail the existing delivery label selector",
+        "result": "Confirmed on actual output: company-description row refused. Strip only optional C-number prefix for selection, preserving literal labels/cells/citations. Regression checks matching mix rows and refuses duplicate company rows."
+      },
+      {
+        "doubt": "Explicit seeded repair reused the previous response for a different draft",
+        "result": "Confirmed two distinct drafts dispatched only once. Added draft hash only for seeded tasks; distinct-draft and same-draft resume regression passes; normal historical fingerprints unchanged."
+      },
+      {
+        "doubt": "Literal scorer quotations all matched source text",
+        "result": "One word inserted in a tool-input quote for an unscored source-boundary row. Final published Q11 is correct. Independent source check locates the anomaly; rerunning the existing scorer after correcting only that word produces byte-identical full output. Retained raw response remains unchanged."
+      },
+      {
+        "doubt": "Excel input extraction silently treats formulas as zero or writes deliverables",
+        "result": "Input-only regression confirms exact formula text, zero, missing cell distinction and sheet/cell locators; no output file produced."
+      },
+      {
+        "doubt": "Campaign recipient verifier required punctuation absent from the actual instructions",
+        "result": "Confirmed false CP-2 rejection across all three submissions. Parse exact recipient IDs independent of slash/em dash/bare-cell separator; regression passes all supported forms and rejects a wrong role. Recover only the reviewed existing model draft; no provider resend or source-analysis rebuild."
+      }
+    ]
+  },
+  "rewrite_tournament": {
+    "scope": [
+      "HandoffExecutor._run",
+      "HandoffExecutor._turn"
+    ],
+    "impact": "GitNexus has no index for this repository; rg callers are run_live_handoffs/run_handoffs and test_handoff_loop; mypy passes. No signature changes.",
+    "winner": "Incumbent holds",
+    "challengers": {
+      "speed": "Avoid full request serialization: rejected because exact request retention and conservative bound depend on those bytes; provider latency dominates.",
+      "memory": "Discard earlier turns/raw after summary: disqualified because subsequent requests must preserve exact tool history and opaque reasoning blocks.",
+      "readability": "Combine settlement and return into compact success/error dispatch: rejected because errors, unknown charge and overrun must all be recorded before returning or stopping."
+    },
+    "invariants": [
+      "reserve before send",
+      "retain full redacted request/response",
+      "unknown charge stops",
+      "source and upstream hashes retained",
+      "no change to delivery calculations"
+    ],
+    "additional_pass": {
+      "scope": [
+        "ModuleTools.calculate",
+        "ModuleTools.edit_handoff"
+      ],
+      "impact": "Only ModuleTools.call and focused loop tests; caller signatures unchanged; mypy passes.",
+      "winner": "Incumbent holds",
+      "bracket": "Speed candidate using native sum/division disqualified: loses Decimal-38 missing/reason semantics. Memory candidate incremental in-place patch disqualified: failed later edit must leave draft unchanged. Readability candidate broad exception/combined dispatch rejected: obscures caller-visible validation errors and accepted-draft terminal behavior.",
+      "verification": "178 focused tests pass; concrete 0.1+0.2=0.3, missing != zero, 1/0 unknown, two-edit failure atomic, seeded-draft identity distinct.",
+      "unchanged_choices": "Source paging, executor construction and live entry-point wrappers retain direct existing APIs; no evidence justified a second router or new calculation engine. Business-label adapter edit is below materiality threshold."
+    },
+    "scope_locations": [
+      "src/deploy_workflow/model/handoff.py:370-460 (_run)",
+      "src/deploy_workflow/model/handoff.py:462-581 (_turn)",
+      "src/deploy_workflow/model/handoff.py:242-296 (edit_handoff/calculate)"
+    ],
+    "final_code": {
+      "src/deploy_workflow/model/handoff.py": "0899b11d8439ae15a22c399a1aee1afbc5fbe22ebd9c774834ddf574276ae426",
+      "src/deploy_workflow/owners/cpos.py": "00cde2fbff5a4e3bc350dc7aadacc1df9186d2e3b49767b11c27278990f74870",
+      "src/deploy_workflow/handoff_delivery.py": "738d82888f3b9606fb604a6ba1966941b706141b7e03f9d1b804003d39609944"
+    }
+  },
+  "modules": {
+    "CP-0": {
+      "status": "passed scoped module proof; exact handoff consumed by live CP-1",
+      "provider_turns": 10,
+      "cost_usd": "0.24861850",
+      "observed_defect": "Output used H1 envelope and H2 subsections; two model repairs changed only envelope, then bold text. Existing rejection did not name exact heading levels/received headings.",
+      "handoff_sha256": "ece2808828294951bfbed08636a37d75319e7ac4d6ccc28e865c547e2b90942b",
+      "review": {
+        "issuer_period_basis_units": "Checked against PDF 1/3/103/105-110/114/122; share, per-share and money distinctions preserved.",
+        "coverage": "Actual read_pages calls match stated page coverage; no visual-read claim; empty tail pages not called verified blank.",
+        "authority": "Report/auditor date 2024-11-07 kept separate from 2024-09-30 retrospective as-of; proxy/legal/market/quarter/portfolio gaps remain.",
+        "repair": "One write followed by one exact edit; the final document preserves every non-heading byte from the rejected draft.",
+        "limitations": "Text-read readiness for annual base only, not full pathway or current underwriting."
+      },
+      "consumer": "CP-1 invocation af923aedad95c901741cec984c88d9cfe074db2b1aa93b2624b764bafedb23c1"
+    },
+    "CP-1": {
+      "status": "passed scoped module proof; exact handoff consumed by live CP-1A",
+      "provider_turns": 8,
+      "cost_usd": "0.50249380",
+      "handoff_sha256": "bd6face3d8f0dda4826c348bf61197b17936206ad47089b58c39c509620debf6",
+      "review": {
+        "primary_statements": "All 134 rows retained: 22 income, 44 cash, 29 balance, 8 comprehensive, 31 equity. 100 rows matched by normalized label; 3 label variants inspected; 31 equity rows/279 numeric cells matched by retained row identity and period.",
+        "arithmetic": "102 actual tool calculations independently checked with Fraction and Decimal-38 rounding; frozen source observations not production calculations supply expected facts.",
+        "semantics": "USD millions, actual shares, million-share EPS denominator and USD/share remain distinct; instants have no start; original signs/dashes retained.",
+        "gaps": "Missing FY2022 p53 ordinary EBITDA bridge remains blank; CFO-capex is a bounded cash proxy; disclosed October dividend/draw not included in Sep30 balances. Unresolved alternate cash bridge residuals and lease wording preserved.",
+        "repair": "Existing Model reader rejected the word missing in numerical columns; one live edit replaced these with blank missing cells, without fabricating zero.",
+        "scope": "Historical annual foundation and available note context; text only, no current/LTM/legal/whole-pathway claim."
+      }
+    },
+    "CP-1A": {
+      "status": "passed corrected scoped module proof; latest handoff consumed by live CP-2 and checked delivery",
+      "governance_tool_check": "12 corrected rows pass existing semantic checks. 14/15 scorer citations match exactly; one unscored source-boundary citation has an extra word, while published Q11 is correct. Correcting that tool citation leaves the full existing scorer result byte-identical. Composite 5/High; support/disclosure/legal/related-party dimensions Not Scorable.",
+      "observed_defects": [
+        "Governance-topic rows illegally used behavior-only fields/direction; adapter had bypassed existing _row_issues checks.",
+        "Disclosure transparency was graded Mixed from an unavailable proxy source boundary; unsupported behavior assessment must remain unscored."
+      ],
+      "source_checks": "Issuer source/business dates and estimates preserve source distinctions; scorer quote anomaly is separately reconciled rather than called exact.",
+      "provider_turns": 10,
+      "cost_usd": "0.73215330",
+      "handoff": "CP-1A-v3.md",
+      "handoff_sha256": "f0f243a6de893a8f322563946ee739d47b672f530daee552548433412e8e4af2",
+      "review": {
+        "protected_content": "Source/business/history prefix, all financial-row consumption and all gaps/readiness remained byte-identical through the targeted repair.",
+        "governance": "Existing semantic row checks now pass all 12 actual rows; unsupported disclosure dimension is Not Scorable, alongside support/legal/related-party dimensions. Existing score remains 5/High from evidenced leverage/extraction; not a credit rating.",
+        "quotes": "45 final-handoff business/governance quote spans reviewed. One scorer-input quote anomaly (captions entitled versus captions) has no scoring effect and does not appear in final Q11; verify.py retains and reconciles it explicitly.",
+        "boundaries": "90% proprietary/55% total aftermarket estimates remain Management Language, separate from 31% commercial aftermarket; p7/p121 customer threshold wording conflict retained; no capacity/opinion or current deal invented."
+      }
+    },
+    "CP-2": {
+      "status": "passed scoped module proof; corrected handoff consumed by checked report and Model delivery",
+      "review": "Nine dimensions and six-factor matrix present; Medium confidence, conditional horizons/downside chain, ranked evidence/mechanics/counterevidence, monitoring and material gaps retained. Exact CP-1 annual and instant values/definitions preserved; no new calculations, security recommendation, current-underwriting or full-pathway claim.",
+      "provider_turns": 2,
+      "cost_usd": "0.32789400",
+      "handoff": "CP-2-v2.md",
+      "handoff_sha256": "1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be"
+    }
+  },
+  "orchestration": {
+    "status": "passed bounded fresh live run with explicit recovery of a falsely rejected CP-2 response; publication and zero-provider resume verified",
+    "prepared": "workflow.json: all four modules fresh, no retained_handoffs; same shared USD10 budget, existing annual report/Model delivery",
+    "review": {
+      "CP-0": "Actual PDF read ranges match the stated coverage; issuer, consolidated perimeter, fiscal policy, physical pages, money/share/per-share units, visual limits and later report/signature dates preserved. Consumed by fresh CP-1.",
+      "CP-1": "All 134 primary rows match frozen source observations. Supplemental reported/calculated, carrying/principal, duration/instant and subsequent-event distinctions reviewed. FY2022 p53 ordinary EBITDA remains blank; cash proxy and maturity/lease conflicts remain restricted. Consumed by fresh CP-1A.",
+      "CP-1A_governance": "12 evidence rows pass existing semantic scorer checks; source quotes match. Composite 5/High, four dimensions Not Scorable. Reporting quality 1 rather than earlier 3 is a supported current Analyst Interpretation of the auditor ICFR opinion, with acquired-control exclusions and unresolved wording gaps retained; version parity is not the acceptance rule.",
+      "CP-1A": "Actual business/ownership/history, source classifications, conflicts, twelve governance rows, financial-row consumption and consumer routing reviewed. All 18 current scoring citations match source pages. One presentation repair preserves analysis and makes five selector labels/current recipient columns consumable.",
+      "CP-2": "Nine qualitative dimensions, six-factor matrix, historical conditional horizons/downside chain, ranked counterevidence, monitoring, exact current hashes and copied annual/instant figures reviewed. Medium confidence, qualified liquidity/refinancing and inherited material gaps retained. All analytical bytes unchanged through two recipient-format edits; no new calculations or current/security/recovery claim."
+    },
+    "recovery": {
+      "cause": "Campaign checker wrongly required a slash after CP-2 recipient IDs. All three actual responses used semantically correct current roles.",
+      "fix": "Match the exact module ID with a bare pipe, slash or em dash separator, then verify required role words. Regression rejects incorrect roles.",
+      "retained_draft": "live/modules/ba27d4a83fbf870fc157a6785439b99c2cb0f7482d17ef5a9174089eda3cb08c/3.draft.md",
+      "sha256": "e7b46ceeedf76db7143359e7cef97b64c6a210dd7b63d3362cc2a7943018ee3a",
+      "action": "Reviewed actual third model draft, verified all upstream hashes and unchanged analytical content across all three drafts, retained it at the existing interrupted outer request response path, and resumed existing CP-OS with no credentials. Original rejected reviews remain immutable.",
+      "provider_resend": false
+    },
+    "modules": {
+      "CP-0": {
+        "turns": 7,
+        "cost_usd": "0.26470170",
+        "submissions": [
+          {
+            "issues": []
+          }
+        ],
+        "handoff_sha256": "95bc2034f22a52bed0c4ca52c61da678a17c7a36c6a83d843486f7fd07bcc93a"
+      },
+      "CP-1": {
+        "turns": 11,
+        "cost_usd": "0.50186410",
+        "submissions": [
+          {
+            "issues": [
+              "Existing Model input adapter refused: model_period: source dates differ for FY2022"
+            ]
+          },
+          {
+            "issues": [
+              "Missing/duplicate source row: Common stock",
+              "Missing/duplicate source row: Treasury stock, at cost"
+            ]
+          },
+          {
+            "issues": []
+          }
+        ],
+        "handoff_sha256": "9d57bc5d5baac5c16a3f12fc2c017b8405e3e3b3db327002890f8cf8f7a1eb03"
+      },
+      "CP-1A": {
+        "turns": 7,
+        "cost_usd": "0.46745310",
+        "submissions": [
+          {
+            "issues": [
+              "Consumer row must reflect current registry role for CP-3C: refinancing",
+              "Consumer row must reflect current registry role for CP-4: legal, covenant",
+              "Consumer row must reflect current registry role for CP-6: committee, challenge",
+              "Existing report input adapter refused: CP-1A: expected the company-description row"
+            ]
+          },
+          {
+            "issues": []
+          }
+        ],
+        "handoff_sha256": "3da9bf55281dc9a86e15bbb438ddd3b8aa04244344ab5ee7e5c059fc2da9054f"
+      },
+      "CP-2": {
+        "turns": 3,
+        "cost_usd": "0.23876130",
+        "submissions": [
+          {
+            "issues": [
+              "Use the current registry recipient role for CP-3C",
+              "Use the current registry recipient role for CP-4",
+              "Use the current registry recipient role for CP-6"
+            ]
+          },
+          {
+            "issues": [
+              "Use the current registry recipient role for CP-3C",
+              "Use the current registry recipient role for CP-4",
+              "Use the current registry recipient role for CP-6"
+            ]
+          },
+          {
+            "issues": [
+              "Use the current registry recipient role for CP-3C",
+              "Use the current registry recipient role for CP-4",
+              "Use the current registry recipient role for CP-6"
+            ]
+          }
+        ],
+        "handoff_sha256": "e7b46ceeedf76db7143359e7cef97b64c6a210dd7b63d3362cc2a7943018ee3a"
+      }
+    },
+    "report": "deliveries/ff9a58944ddfb17f1876151a30020200a622d0d7238d3a79eb1ddba1d7e050fa/report.html",
+    "receipt": "completed-47b44222a370fb968bdb4b0128bda420ddabcddd8baab49de051671f13a10605.json",
+    "resume": "Identical report returned; calls.jsonl byte-identical; launching environment deliberately contained no credentials."
+  },
+  "pathways": {
+    "module_delivery": "Verified five sections, HTML Model, 3 charts, calculation JSON; independent 81-value and 18-chart-mark checks pass.",
+    "fresh_annual_pathway": "Passed: all four analytical modules freshly executed from pinned issuer files/current live handoffs; report plus Model/3 charts/calculation JSON verified after checker repair and exact retained-response recovery.",
+    "broader_paths": "Relative Value, Portfolio, earnings/Markdown, comparison and retained-planning regression suites pass. These retain prior actual handoffs; this campaign does not claim fresh full broader pathways."
+  },
+  "live_summary": {
+    "provider_calls": 58,
+    "raw_recording_exports": 58,
+    "settled_cost_usd": "3.28393980",
+    "unknown_charges": 0,
+    "fresh_prior_handoffs": 0,
+    "publication_numeric_checks": 81,
+    "chart_observations": 18,
+    "live_calculations_independently_checked": 201
+  }
+}

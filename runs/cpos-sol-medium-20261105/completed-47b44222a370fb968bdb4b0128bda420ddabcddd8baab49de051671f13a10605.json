@@ -1,0 +1,21 @@
+{
+  "kind": "cpos-handoff-snapshot/1",
+  "execution": "live-provider",
+  "scope": "public five-section snapshot plus deterministic HTML Model/charts/calculation JSON; not full pathway/native acceptance",
+  "provider_cap_usd": "10",
+  "modules": {
+    "CP-0": "requests/CP-0/491e1865c46962c8f921e8e4c89712c91a451794651a66e27aad18a0f5fb7612/1.response.md",
+    "CP-1": "requests/CP-1/392a3b08c06b1585c4a7174d361b98bac1b16c820222c16575a0884b4ed4c5ea/1.response.md",
+    "CP-1A": "requests/CP-1A/b602bf1822d9fb914aa21e26dee0d70daa3069fb7351dbc997f532ee45776057/1.response.md",
+    "CP-2": "requests/CP-2/e3c268f7bf12c2b2c239071295db763955f2a6a849e990ae2f553a22ed360593/1.response.md"
+  },
+  "module_execution": {
+    "CP-0": "live-provider",
+    "CP-1": "live-provider",
+    "CP-1A": "live-provider",
+    "CP-2": "live-provider"
+  },
+  "cp_model_published": true,
+  "delivery_manifest_sha256": "a2b23229572f1704c8b932bf2fbe41b76b5e3614fed7577d56b6f44f2cbc4053",
+  "report_sha256": "80112d44cfabcf91679ad5f82ed0efa7cfa4cf1ba97f0037af17e50807ef8780"
+}
