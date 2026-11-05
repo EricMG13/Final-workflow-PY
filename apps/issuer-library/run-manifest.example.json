@@ -1,0 +1,31 @@
+{
+  "schema": "issuer-library-run/1",
+  "run": {
+    "id": "example-2024",
+    "issuer": "EXAMPLE",
+    "name": "Example Industries — fictional schema example",
+    "title": "Annual review",
+    "workflow": "Annual credit review",
+    "date": "2024-12-31",
+    "period": "FY2024",
+    "period_kind": "Annual",
+    "currency": "USD",
+    "sector": "Unclassified",
+    "identity_source": "identity",
+    "handoff": "runs/example-2024/CP-0.md",
+    "summary": "Replace this example with the actual dated handoff summary.",
+    "gaps": ["Example only; no real issuer evidence is supplied."],
+    "metrics": {},
+    "ratings": [],
+    "artifacts": []
+  },
+  "sources": {
+    "identity": {
+      "path": "runs/example-2024/CP-0.md",
+      "sha256": "REPLACE_WITH_SHA256_OF_THE_EXACT_SOURCE_FILE",
+      "line": 1,
+      "quote": "REPLACE_WITH_THE_EXACT_IDENTITY_LINE"
+    }
+  },
+  "checklist": null
+}

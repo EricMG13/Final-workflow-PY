@@ -1,0 +1,441 @@
+{
+  "CP-1": {
+    "path": "tdg-002/CP-1-attempt-2.md",
+    "period": "FY2024 historical evidence · later events separately dated",
+    "firstHeading": "T4.10",
+    "basis": {
+      "row": "T4.3 normalization",
+      "unit": "USD millions"
+    },
+    "scope": "Retained module output",
+    "call": {
+      "heading": "Financial read-through",
+      "startsWith": "Reported net sales rose",
+      "sentences": 1
+    }
+  },
+  "CP-1A": {
+    "path": "tdg-002/CP-1A-attempt-3.md",
+    "period": "FY2024 historical evidence · later events separately dated",
+    "firstHeading": "Timeline",
+    "scope": "Retained module output"
+  },
+  "CP-2": {
+    "path": "tdg-002/CP-2-attempt-2.md",
+    "period": "FY2024 historical evidence · later events separately dated",
+    "firstHeading": "Integrated fundamental",
+    "scope": "Retained module output",
+    "call": {
+      "heading": "Integrated fundamental",
+      "startsWith": "Analyst Interpretation; confidence Medium",
+      "sentences": 2
+    }
+  },
+  "CP-0": {
+    "path": "tdg-003/CP-0.md",
+    "period": "FY2024 and quarter ended 28 December 2024",
+    "firstHeading": "Identity, authority",
+    "scope": "Retained module output",
+    "visual": {
+      "kind": "matrix",
+      "title": "Source coverage and reporting periods",
+      "table": 55,
+      "columns": [
+        0,
+        1,
+        2
+      ]
+    },
+    "call": {
+      "heading": "Request",
+      "startsWith": "Result: ready with limitations",
+      "sentences": 2
+    }
+  },
+  "CP-1B": {
+    "path": "tdg-003/CP-1B-attempt-1.md",
+    "period": "Fiscal Q1: 2023 and 2024 calendar windows",
+    "firstHeading": "Financial performance",
+    "scope": "Retained module output",
+    "visual": {
+      "kind": "paired",
+      "title": "Quarterly comparison",
+      "table": 69,
+      "rows": [
+        0,
+        5,
+        6,
+        10,
+        11,
+        13,
+        14
+      ],
+      "columns": [
+        1,
+        2
+      ],
+      "unit": "USD millions",
+      "noteQuote": {
+        "heading": "Financial performance",
+        "startsWith": "Comparison basis:",
+        "sentences": 1
+      }
+    },
+    "call": {
+      "heading": "Request",
+      "startsWith": "Earnings view, Analyst Interpretation",
+      "sentences": 1
+    }
+  },
+  "CP-1D": {
+    "path": "tdg-003/CP-1D-attempt-1.md",
+    "period": "FY2024 annual; quarterly checks separate",
+    "firstHeading": "T1D.4",
+    "scope": "Retained module output",
+    "visual": {
+      "kind": "bridge",
+      "title": "Ordinary to issuer As Defined EBITDA",
+      "table": 88,
+      "amount": 1,
+      "total": 2,
+      "unit": "USD millions"
+    },
+    "call": {
+      "heading": "T1D.4",
+      "startsWith": "The source bridge reconciles",
+      "sentences": 1
+    }
+  },
+  "CP-1C": {
+    "path": "tdg-peers-2024-001/CP-1C-attempt-2.md",
+    "period": "Each company’s own FY2024 · unmatched fiscal dates",
+    "firstHeading": "T4.3 /",
+    "scope": "Retained module output",
+    "visual": {
+      "kind": "peers",
+      "title": "Compare reported operating and cash measures",
+      "table": 116,
+      "rows": [
+        1,
+        2,
+        6,
+        7,
+        8
+      ],
+      "columns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "unit": "%"
+    },
+    "call": {
+      "heading": "Overall peer view",
+      "startsWith": "Analyst interpretation; confidence Medium",
+      "sentences": 2
+    }
+  },
+  "CP-2D": {
+    "path": "tdg-002/CP-2D-attempt-1.md",
+    "period": "FY2024 cash bridge · historical opening basis",
+    "firstHeading": "Historical sources",
+    "scope": "Retained module output",
+    "visual": {
+      "kind": "waterfall",
+      "title": "How reported cash moved",
+      "table": 56,
+      "rows": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "amount": 1,
+      "unit": "USD millions"
+    },
+    "call": {
+      "heading": "Risk chain",
+      "startsWith": "The issuer-specific chain",
+      "sentences": 1
+    }
+  },
+  "CP-2A": {
+    "path": "tdg-002/CP-2A-attempt-1.md",
+    "period": "FY2024 static base · conditional sensitivities",
+    "firstHeading": "Findings",
+    "scope": "Retained module output",
+    "visual": {
+      "kind": "paired",
+      "title": "Conditional downside outcomes",
+      "table": 30,
+      "rows": [
+        0,
+        1,
+        2
+      ],
+      "columns": [
+        1,
+        2,
+        3
+      ],
+      "unit": "USD millions",
+      "noteQuote": {
+        "heading": "Findings",
+        "startsWith": "T2B.1 Scenarios",
+        "sentences": 1
+      }
+    },
+    "call": {
+      "heading": "Findings",
+      "startsWith": "The earliest calculable watch",
+      "sentences": 2
+    }
+  },
+  "CP-2E": {
+    "path": "tdg-003/CP-2E-attempt-2.md",
+    "period": "30 September 2024 base · forward hedge dates",
+    "firstHeading": "T2F.3",
+    "scope": "Retained module output",
+    "visual": {
+      "kind": "hedges",
+      "title": "Hedge effective dates and maturities",
+      "table": 88,
+      "noteQuote": {
+        "heading": "T2F.3",
+        "startsWith": "Active swap notionals",
+        "sentences": 2
+      }
+    },
+    "call": {
+      "heading": "Request",
+      "startsWith": "View: documented rate mitigation",
+      "sentences": 1
+    }
+  },
+  "CP-2G": {
+    "path": "tdg-003/CP-2G-attempt-2.md",
+    "period": "FY2025–2027 conditional paths · FY2024 base",
+    "firstHeading": "T2H.5",
+    "scope": "Retained module output",
+    "visual": {
+      "kind": "paths",
+      "title": "Closing cash under the stipulated paths",
+      "table": 126,
+      "column": 7,
+      "unit": "USD millions",
+      "noteQuote": {
+        "heading": "T2H.5",
+        "startsWith": "Each opening cash/debt",
+        "sentences": 2
+      }
+    },
+    "call": {
+      "heading": "Request",
+      "startsWith": "Conditional result:",
+      "sentences": 1
+    }
+  },
+  "CP-2H": {
+    "path": "ford-otosan-2024-001/CP-2H-attempt-2.md",
+    "period": "11 April 2024 · historical agency publications",
+    "firstHeading": "T2R.1",
+    "scope": "Retained module output",
+    "visual": {
+      "kind": "agencies",
+      "title": "Dated agency positions",
+      "table": 33,
+      "columns": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "call": {
+      "heading": "T2R.1",
+      "startsWith": "The proposed bond",
+      "sentences": 2
+    }
+  },
+  "CP-3": {
+    "path": "frontier-2020-001/CP-3-recovery-consumer.md",
+    "period": "29 June 2020 disclosure · historical recovery cases",
+    "firstHeading": "Findings",
+    "scope": "Bounded recovery consumer · not full security selection",
+    "visual": {
+      "kind": "matrix",
+      "title": "Instrument comparison and decision limits",
+      "table": 24,
+      "columns": [
+        0,
+        1,
+        3
+      ]
+    },
+    "call": {
+      "heading": "Findings",
+      "startsWith": "Trade-off actually used:",
+      "sentences": 1
+    }
+  },
+  "CP-3C": {
+    "path": "ford-otosan-2024-001/CP-3C-consumer.md",
+    "period": "2024 published funding plan · as of 11 April 2024",
+    "firstHeading": "Findings",
+    "scope": "Bounded funding-plan consumer · not full refinancing / LME",
+    "visual": {
+      "kind": "bars",
+      "title": "Funding sources less uses",
+      "table": 38,
+      "column": 2,
+      "unit": "TRY billions",
+      "noteQuote": {
+        "heading": "Findings",
+        "startsWith": "The source's 2024 plan",
+        "sentences": 1
+      }
+    },
+    "call": {
+      "heading": "Findings",
+      "startsWith": "The causal risk is",
+      "sentences": 2
+    }
+  },
+  "CP-4": {
+    "path": "tdg-004/CP-4-attempt-2.md",
+    "period": "19 September 2024 indenture · 6% secured notes due 2033",
+    "firstHeading": "T4.3",
+    "scope": "Retained module output",
+    "visual": {
+      "kind": "matrix",
+      "title": "Provision map",
+      "table": 58,
+      "columns": [
+        0,
+        1,
+        2
+      ]
+    },
+    "call": {
+      "heading": "T4.13",
+      "startsWith": "Overall, the examined package",
+      "sentences": 1
+    }
+  },
+  "CP-4C": {
+    "path": "frontier-2020-001/CP-4C-attempt-1.md",
+    "period": "29 June 2020 disclosure · conditional liquidation",
+    "firstHeading": "T4E.5",
+    "scope": "Retained module output",
+    "visual": {
+      "kind": "paired",
+      "title": "Total recovery by class",
+      "table": 99,
+      "rows": [
+        0,
+        1,
+        2
+      ],
+      "columns": [
+        1,
+        2
+      ],
+      "unit": "%",
+      "noteQuote": {
+        "heading": "T4E.8",
+        "startsWith": "Strongest contrary evidence",
+        "sentences": 1
+      }
+    },
+    "call": {
+      "heading": "T4E.5",
+      "startsWith": "Fulcrum distinction:",
+      "sentences": 2
+    }
+  },
+  "CP-5": {
+    "path": "ford-otosan-2024-001/CP-5-attempt-1.md",
+    "period": "11 April 2024 case · five upstream handoffs",
+    "firstHeading": "T5B.3",
+    "scope": "Retained module output",
+    "visual": {
+      "kind": "matrix",
+      "title": "Material claim lineage",
+      "table": 70,
+      "columns": [
+        0,
+        2,
+        4
+      ]
+    },
+    "call": {
+      "heading": "T5B.7",
+      "startsWith": "Overall traceability",
+      "sentences": 2
+    }
+  },
+  "CP-6": {
+    "path": "ford-otosan-2024-001/CP-6-attempt-1.md",
+    "period": "11 April 2024 case · historical decision exercise",
+    "firstHeading": "T6A.7",
+    "scope": "Retained module output",
+    "visual": {
+      "kind": "debate",
+      "title": "Three disputes, three distinct resolutions",
+      "table": 139,
+      "columns": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "call": {
+      "heading": "Request",
+      "startsWith": "Final action bias",
+      "sentences": 3
+    }
+  },
+  "CP-DR": {
+    "path": "tdg-guidance-001/CP-DR-attempt-1.md",
+    "period": "7 November 2024 guidance · FY2025 outlook",
+    "firstHeading": "TDR.2",
+    "scope": "Retained module output",
+    "visual": {
+      "kind": "matrix",
+      "title": "Guidance claims and located evidence",
+      "table": 53,
+      "columns": [
+        0,
+        1,
+        2
+      ]
+    },
+    "call": {
+      "heading": "TDR.3",
+      "startsWith": "Answer:",
+      "sentences": 2
+    }
+  },
+  "CP-8": {
+    "path": "tdg-run-comparison-001/CP-8.md",
+    "period": "Build 2 compared with build 6 · 30 September 2024 financial base",
+    "firstHeading": "Findings",
+    "scope": "Retained module output",
+    "compare": {
+      "prior": "tdg-fy2024-snapshot-2",
+      "current": "tdg-fy2024-snapshot-6",
+      "repaired": "tdg-fy2024-snapshot-7",
+      "recheck": "tdg-run-comparison-001/CP-8-recheck.md"
+    },
+    "call": {
+      "heading": "Findings",
+      "startsWith": "The newer deliverable",
+      "sentences": 1
+    }
+  }
+}
