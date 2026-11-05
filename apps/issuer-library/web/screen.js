@@ -51,7 +51,8 @@ const matchesHeading = (heading,prefix) => prefix.startsWith('=') ? heading===pr
 const evidence = new Map();
 const lastSection = new Map(), lastFile = new Map();
 const readingPositions = new Map(), expandedGroups = new Map();
-const libraryFilters = {query:'',sector:'all',content:'all',module:'all'};
+const LIBRARY_DEFAULTS = {query:'',sector:'all',workflow:'all',year:'all',content:'all',module:'all'};
+const libraryFilters = {...LIBRARY_DEFAULTS};
 let current = null, returnTrigger = null, returnScroll = 0, returnContentScroll = 0;
 installDestinations();
 const appDestinations=new Set(['W-Library','W-NewRun','W-Settings','W-Help']); // These need no selected run.
@@ -405,7 +406,7 @@ document.addEventListener('click',event=>{
   const summary=event.target.closest('summary');
   if(summary?.parentElement.dataset.group)expandedGroups.set(summary.parentElement.dataset.group,!summary.parentElement.open);
   if(event.target.closest('#library-clear')){
-    Object.assign(libraryFilters,{query:'',sector:'all',content:'all',module:'all'});
+    Object.assign(libraryFilters,LIBRARY_DEFAULTS);
     $('library-filters').querySelectorAll('[data-library-filter]').forEach(control=>{control.value=libraryFilters[control.dataset.libraryFilter];});
     updateLibraryResults();$('library-query').focus();return;
   }

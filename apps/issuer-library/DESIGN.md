@@ -152,7 +152,11 @@ absorbed CP aliases are searchable. Unique section labels, disclosure state,
 reading position and keyboard focus persist while navigating.
 
 The library provides one restrained discovery strip: issuer/run text,
-sector, available content and contained module. All criteria combine. Counts
+sector, workflow, as-of year, available content and contained module. Workflow
+and as-of year come only from what a run's own manifest recorded; a run without
+them is listed under Not recorded, never given an inferred date or workflow.
+Modules in the contained-module list sit under the credit question each one
+answers. All criteria combine. Counts
 distinguish issuers, retained runs and reports. Filters
 remain when returning from a run within the same page session; Clear filters
 resets every criterion and focuses search. Empty results explain recovery.

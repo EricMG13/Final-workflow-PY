@@ -131,6 +131,25 @@ test('Calendar source inspection keeps owning module and returns to the calendar
   d.getElementById('back-analysis').click();w.eval('renderRoute()');assert.equal(w.location.hash,'#W-Calendar/hedges?c=tdg-003');
   dom.window.close();
 });
+test('Evidence rows act through labelled icons instead of repeating link words',()=>{
+  const dom=fixture('W-Evidence/sources?c=tdg-002'),d=dom.window.document;
+  const actions=[...d.querySelectorAll('.source-inventory>section>div:nth-child(2) a')];
+  assert.ok(actions.length>4);
+  for(const a of actions){
+    assert.equal(a.textContent.trim(),'',a.outerHTML);assert.ok(a.querySelector('img'));
+    assert.match(a.getAttribute('aria-label'),/^(Open output|Download original handoff|Download original file): CP-/);
+    assert.equal(a.title,a.getAttribute('aria-label').split(':')[0]);
+  }
+  const names=actions.map(a=>a.getAttribute('aria-label'));
+  assert.equal(new Set(names).size,names.length,'each icon names its own file');
+  dom.window.close();
+});
+test('The white card starts at the top with no strip of text above it',()=>{
+  const dom=fixture('W-Library/cases'),d=dom.window.document;
+  assert.equal(d.querySelector('.topbar'),null);assert.equal(d.getElementById('workspace-name'),null);
+  assert.ok(!d.body.textContent.includes('no model call until you start a run'));
+  dom.window.close();
+});
 test('Evidence cases are isolated; report build selection changes both preview and original',()=>{
   const dom=fixture('W-Evidence/sources?c=ford-otosan-2024'),w=dom.window,d=w.document;
   assert.equal(d.querySelectorAll('.source-inventory>section').length,8);assert.ok(!d.getElementById('content').textContent.includes('TDG-002'));
@@ -240,6 +259,32 @@ test('Library filters combine case-insensitive search, sector, content and modul
   assert.equal(d.getElementById('library-count').textContent,'1 issuer · 4 runs · 7 reports');assert.ok(![...d.querySelectorAll('.run-list a')].some(a=>a.href.includes('c=tdg-deliveries')));
   const module=d.querySelector('[data-library-filter="module"]');module.value='CP-2G';module.dispatchEvent(new w.Event('change',{bubbles:true}));assert.equal(d.querySelectorAll('.run-list a').length,1);assert.ok(d.querySelector('.run-list a').href.includes('c=tdg-003'));
   content.value='modules';content.dispatchEvent(new w.Event('change',{bubbles:true}));assert.deepEqual([...d.querySelectorAll('.run-list a')].map(a=>new URLSearchParams(a.hash.split('?')[1]).get('c')).sort(),['ford-otosan-2024','tdg-003']);
+  dom.window.close();
+});
+test('Library filters by recorded workflow and as-of year, and keeps runs without them findable as not recorded',()=>{
+  const dom=fixture('W-Library/cases'),w=dom.window,d=w.document;
+  w.eval(`Object.assign(contexts['tdg-003'],{pathway:'earnings_update',asOf:'2024-12-28'});Object.assign(contexts['ford-otosan-2024'],{pathway:'credit_snapshot',asOf:'2021-04-11'});location.hash='W-Settings/workspace';renderRoute();location.hash='W-Library/cases';renderRoute()`);
+  const pick=(name,value)=>{const c=d.querySelector(`[data-library-filter="${name}"]`);c.value=value;c.dispatchEvent(new w.Event('change',{bubbles:true}));};
+  const shown=()=>[...d.querySelectorAll('.run-list a')].map(a=>new URLSearchParams(a.hash.split('?')[1]).get('c')).sort();
+  assert.deepEqual([...d.querySelectorAll('[data-library-filter="workflow"] option')].map(o=>o.textContent),['Any workflow','Credit Snapshot','Earnings Update','Not recorded']);
+  assert.deepEqual([...d.querySelectorAll('[data-library-filter="year"] option')].map(o=>o.textContent),['Any year','2024','2021','Not recorded']);
+  pick('workflow','earnings_update');assert.deepEqual(shown(),['tdg-003']);
+  assert.match(norm(d.querySelector('.run-list a span').textContent),/^Earnings Update · /);
+  assert.equal(d.getElementById('library-clear').disabled,false);
+  pick('workflow','none');assert.equal(shown().length,6);assert.ok(!shown().includes('tdg-003')&&!shown().includes('ford-otosan-2024'));
+  pick('workflow','all');pick('year','2021');assert.deepEqual(shown(),['ford-otosan-2024']);
+  pick('year','none');assert.equal(shown().length,6);
+  d.getElementById('library-clear').click();assert.equal(shown().length,8);
+  assert.equal(d.querySelector('[data-library-filter="year"]').value,'all');
+  const search=d.getElementById('library-query');search.value='earnings update';search.dispatchEvent(new w.Event('input',{bubbles:true}));assert.deepEqual(shown(),['tdg-003']);
+  dom.window.close();
+});
+test('The module filter groups modules under the credit question each one answers',()=>{
+  const dom=fixture('W-Library/cases'),d=dom.window.document;
+  const select=d.querySelector('[data-library-filter="module"]');
+  assert.ok(select.querySelectorAll('optgroup').length>2);
+  assert.equal(select.querySelector('option[value="CP-2G"]').parentElement.label,'Outlook and downside');
+  assert.equal(select.querySelector('option[value="CP-1"]').parentElement.label,'Financial performance');
   dom.window.close();
 });
 test('The library says what it is once and puts New run beside its title',()=>{
@@ -779,7 +824,6 @@ test('Settings shows the workspace and its issues and respects the policy lock',
   assert.equal(d.getElementById('workspace-path').disabled,true);assert.equal(d.getElementById('save-workspace').disabled,true);
   assert.match(d.querySelector('.settings').textContent,/managed by your IT configuration/);
   assert.equal(d.querySelector('.settings ul b'),null);assert.match(d.querySelector('.settings ul').textContent,/<b>changed<\/b>/);
-  assert.equal(d.getElementById('workspace-name').textContent,'Workspace · /research "main"');
   const calls=[];dom.window.fetch=async(url,options)=>{calls.push([url,options.headers['X-Issuer-Library']]);return{ok:true,json:async()=>({stopped:true})};};
   d.getElementById('quit-library').click();await new Promise(resolve=>setTimeout(resolve,5));
   assert.deepEqual(calls,[['/api/quit','1']]);assert.match(d.getElementById('settings-status').textContent,/Library stopped/);

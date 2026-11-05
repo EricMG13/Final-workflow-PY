@@ -271,6 +271,15 @@ def test_a_link_out_of_the_run_is_not_read(tmp_path):
     assert list(result["outputs"]) == ["linked/CP-0.md"]
 
 
+def test_runs_carry_the_recorded_workflow_and_as_of_and_none_when_unrecorded(tmp_path):
+    runs = store.workspace_store(tmp_path, workspace(tmp_path))["runs"]
+    assert (runs["launched"]["pathway"], runs["launched"]["asOf"]) == (
+        "credit_snapshot",
+        "2025-06-30",
+    )
+    assert (runs["alpha-001"]["pathway"], runs["alpha-001"]["asOf"]) == (None, None)
+
+
 def test_a_malformed_run_manifest_falls_back_to_the_catalogue(tmp_path):
     for number, manifest in enumerate(
         ('{"run": null}', '{"run": "x"}', "[]", '{"run": {"issuer_name": 7}}')
@@ -279,6 +288,7 @@ def test_a_malformed_run_manifest_falls_back_to_the_catalogue(tmp_path):
         put(tmp_path, f"runs/{folder}/workflow.json", manifest)
         run = store.workspace_store(tmp_path, plain_run(folder))["runs"][folder]
         assert run["issuer"] == folder and run["period"] == "Period not recorded"
+        assert run["pathway"] is None and run["asOf"] is None
 
 
 def test_two_different_deliveries_of_a_module_can_be_told_apart(tmp_path):

@@ -471,6 +471,7 @@ def collect_runs(root, shown, catalog, link, strict=True):
                 else None,
             }
         with_outputs = [module for module in modules if modules[module]["outputs"]]
+        recorded = recorded_run(run_dir)
         runs[key] = {
             "folder": folder,
             "issuer": issuer,
@@ -478,6 +479,8 @@ def collect_runs(root, shown, catalog, link, strict=True):
             "run": label,
             "sector": sector,
             "period": period,
+            "pathway": recorded.get("pathway") or None,
+            "asOf": recorded.get("as_of") or None,
             "first": first or (with_outputs[0] if with_outputs else "W-Overview"),
             "modules": modules,
         }
@@ -556,16 +559,19 @@ def visual_catalogue():
         return list(csv.DictReader(source))
 
 
+def recorded_run(run_dir):
+    """The text fields of the launcher's own manifest; a run without a readable one records none."""
+    try:
+        manifest = json.loads((run_dir / "workflow.json").read_text(encoding="utf-8"))
+        return {key: value for key, value in manifest["run"].items() if isinstance(value, str)}
+    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+        return {}
+
+
 def run_row(root, run):
     """Labels for a run with no curated ones: the launcher's own manifest, else the catalogue."""
     folder = run["id"]
-    try:
-        manifest = json.loads(
-            (root / "runs" / folder / "workflow.json").read_text(encoding="utf-8")
-        )
-        identity = {key: value for key, value in manifest["run"].items() if isinstance(value, str)}
-    except (OSError, ValueError, KeyError, TypeError, AttributeError):
-        identity = {}
+    identity = recorded_run(root / "runs" / folder)
     issuer = identity.get("issuer_name") or run["name"]
     period = (
         f"As of {identity['as_of']}"
