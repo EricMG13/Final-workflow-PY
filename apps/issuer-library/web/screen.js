@@ -28,11 +28,13 @@ const modules = {
     ['gaps','Gaps & limitations',['Gaps']],['sources','Sources',['Sources']],['audit','Technical audit',['Request','Calculations','Next module']]]}
 };
 const groups = [
-  ['Issuer & evidence',[['CP-0','Source readiness'],['CP-1A','Business & governance'],['CP-DR','Research questions']]],
+  ['Business and evidence',[['CP-0','Source readiness'],['CP-1A','Business & governance'],['CP-DR','Research questions']]],
   ['Financial performance',[['CP-1','Financial foundation'],['CP-1B','Earnings changes'],['CP-L10','Financial change screen'],['CP-1D','Earnings quality'],['CP-1C','Peer benchmark']]],
-  ['Credit outlook & liquidity',[['CP-2','Fundamental credit'],['CP-2D','Liquidity'],['CP-2A','Downside'],['CP-2E','Rates, FX & hedging'],['CP-2G','Forward credit model'],['CP-2H','Ratings & triggers']]],
-  ['Capital structure & securities',[['CP-3','Security selection'],['CP-3D','Market-implied risk'],['CP-3C','Refinancing & LME'],['CP-4','Legal & covenants'],['CP-4C','Recovery & fulcrum']]],
-  ['Decision & review',[['CP-5','Evidence validation'],['CP-6','Committee decision'],['CP-8','Deliverable comparison']]]
+  ['Liquidity and refinancing',[['CP-2D','Liquidity'],['CP-3C','Refinancing & LME']]],
+  ['Outlook and downside',[['CP-2','Fundamental credit'],['CP-2A','Downside'],['CP-2G','Forward credit model'],['CP-2E','Rates, FX & hedging'],['CP-2H','Ratings & triggers']]],
+  ['Capital structure and legal',[['CP-4','Legal & covenants'],['CP-4C','Recovery & fulcrum']]],
+  ['Relative value',[['CP-3','Security selection'],['CP-3D','Market-implied risk']]],
+  ['Decision and review',[['CP-6','Committee decision'],['CP-5','Evidence validation'],['CP-8','Deliverable comparison']]]
 ];
 // A module the reading groups do not name still gets a place, under its code.
 const unnamed=[...new Set(Object.values(data).map(output=>output.module))].filter(id=>id!=='CP-MODEL'&&!groups.some(group=>group[1].some(item=>item[0]===id))).sort();
@@ -60,6 +62,7 @@ for(const visual of window.DESIGN_WORKSPACE.visuals)for(const alias of String(vi
 const MODULE_CODE=/\bCP-[A-Z0-9]+\b(?![-.][A-Za-z0-9])/,REFERENCE=/\bT\d+[A-Z]?\.\d+\b|\b[FKCS]\d{1,4}\b/;
 const READER_TOKEN=new RegExp(`${MODULE_CODE.source}|${REFERENCE.source}`,'g');
 const moduleLabel=code=>moduleNames[aliases[code]||code]||(code==='CP-MEMO'?'Credit memo':null);
+const namedText=text=>text.replace(new RegExp(MODULE_CODE,'g'),code=>moduleLabel(code)||code);
 const showsCodes=({module,section})=>section==='audit'||['W-Evidence','CP-OS','W-Help','W-Settings','W-NewRun'].includes(module);
 function nameCodes(root) {
   const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),nodes=[];
@@ -70,7 +73,7 @@ function nameCodes(root) {
     const parts=[...node.data.matchAll(READER_TOKEN)];
     if(!parts.length)continue;
     // A chart or a select cannot hold markup, so these only take the name.
-    if(parent.closest('svg,option')){node.data=node.data.replace(READER_TOKEN,m=>moduleLabel(m)||m);continue;}
+    if(parent.closest('svg,option')){node.data=namedText(node.data);continue;}
     const fragment=document.createDocumentFragment();
     let at=0;
     for(const part of parts) {
@@ -237,7 +240,7 @@ function renderSearch(query) {
   // Default outputs first, so the first hit opens what the module itself opens.
   const isDefault=id=>defaultOutput(data[id].module,context)===id;
   const outputs=Object.keys(data).filter(id=>data[id].run===context).sort((a,b)=>isDefault(b)-isDefault(a));
-  const code=id=>data[id].label===data[id].module?data[id].module:`${data[id].module} · ${data[id].label}`;
+  const code=id=>data[id].label===data[id].module?moduleNames[data[id].module]:`${moduleNames[data[id].module]} · ${data[id].label}`;
   const sectionOf=(id,heading)=>modules[id].sections.find(s=>s[2].some(p=>matchesHeading(heading,p)))?.[0];
   const href=(id,section,key=null)=>routeHref(data[id].module,section,key,context,data[id].source);
   const hit=(kind,owner,label,target)=>`<a class="search-hit" href="${esc(target)}" aria-label="${esc(`${kind}: ${owner} ${label}`)}"><span class="code">${esc(owner)}</span><span>${esc(label)}</span></a>`;
@@ -254,7 +257,7 @@ function renderSearch(query) {
   }).filter(([id,label])=>has(label,data[id].module));
   const files=[
     ...outputs.filter(id=>has(data[id].source,data[id].label)).map(id=>hit('Source',code(id),data[id].source,href(id,modules[id].first))),
-    ...Object.values(store.inputs).filter(input=>input.run===context&&has(input.source)).map(input=>hit('Source',input.module,input.source,routeHref('W-Evidence','sources',null,context))),
+    ...Object.values(store.inputs).filter(input=>input.run===context&&has(input.source)).map(input=>hit('Source',moduleNames[input.module]||input.module,input.source,routeHref('W-Evidence','sources',null,context))),
   ];
   const items=[...evidence.entries()].filter(([,item])=>item.run===context&&has(item.title,...item.fields.map(field=>field[1]))).sort((a,b)=>outputs.indexOf(a[1].output)-outputs.indexOf(b[1].output));
   $('search-results').innerHTML=group('Figures',figures.length,figures.slice(0,6).map(([id,label,heading])=>hit('Figure',code(id),label,href(id,sectionOf(id,heading)))))
@@ -271,12 +274,13 @@ function renderNavigator(module) {
     const open=query||matches.some(([id])=>id===module)||(expandedGroups.get(title)??false);
     return `<details class="nav-group" data-group="${esc(title)}" ${open?'open':''}><summary>${esc(title)}</summary>${matches.map(([id,name])=>{
       const section=query&&sectionsOf(id).find(s=>s[1].toLowerCase().includes(query));
-      return `<a href="${routeHref(id,section?.[0]||lastSection.get(context+':'+id)||firstSection(id,context))}" class="module-item ${id===module?'selected':''}" ${id===module?'aria-current="page"':''}><span class="module-label">${esc(name)}</span><span class="module-code">${id}<span>${isAnalytical(id)?availability(id,context):'Run record'}</span></span>${section?`<small>${esc(section[1])}</small>`:''}</a>`;
+      return `<a href="${routeHref(id,section?.[0]||lastSection.get(context+':'+id)||firstSection(id,context))}" title="${esc(id)}" class="module-item ${id===module?'selected':''}" ${id===module?'aria-current="page"':''}><span class="module-label">${esc(name)}</span><span class="module-code"><span>${isAnalytical(id)?availability(id,context):'Run record'}</span></span>${section?`<small>${esc(section[1])}</small>`:''}</a>`;
     }).join('')}</details>`;
-  }).join('')+(!count?'<p class="empty">No matching module. Try a CP code or analytical topic.</p>':'');
+  }).join('')+(!count?'<p class="empty">No match. Try another name or topic.</p>':'');
   const analytical=!module.startsWith('W-'),outline=current.output||(Object.hasOwn(modules,module)&&module);
-  $('module-list').innerHTML=`<details class="module-catalogue" data-group="catalogue" ${query||!analytical||expandedGroups.get('catalogue')?'open':''}><summary>Browse modules & tools</summary>${catalogue}</details>${analytical&&!query&&outline?`<div class="outline-heading">${esc(module)} · Section outline</div>${outlineMarkup(outline)}`:''}`;
-  document.querySelector('.nav-filter').innerHTML=`${query?'Matching modules':'Modules & tools'} <span>${count}</span>`;
+  $('module-list').innerHTML=`<details class="module-catalogue" data-group="catalogue" ${query||!analytical||expandedGroups.get('catalogue')?'open':''}><summary>Browse analysis & tools</summary>${catalogue}</details>${analytical&&!query&&outline?`<div class="outline-heading">${esc(moduleNames[module])} · Section outline</div>${outlineMarkup(outline)}`:''}`;
+  nameCodes($('module-list'));
+  document.querySelector('.nav-filter').innerHTML=`${query?'Matches':'Analysis & tools'} <span>${count}</span>`;
   renderSearch(query);
 }
 function parseRoute() {
@@ -344,13 +348,14 @@ function renderRoute() {
     $('module-head').innerHTML=moduleHead(next);
     const title=`<h3 id="section-title" tabindex="-1">${esc(sections[index][1])}</h3>`;
     $('section-nav').innerHTML=isAnalytical(next.module)&&!next.output?title:`${title}<span>${index+1} / ${sections.length}</span><button id="previous-section" ${index===0?'disabled':''} aria-label="Previous section">${icon('arrow-left')}</button><button id="next-section" ${index===sections.length-1?'disabled':''} aria-label="Next section">${icon('arrow-right')}</button>`;
+    if(!showsCodes(next))nameCodes($('section-nav'));
     updateWorkspaceChrome(next.module);
     $('content').innerHTML=moduleBody(next);
     if(!showsCodes(next))nameCodes($('content'));
     $('content').scrollTop=readingPositions.get(`${next.context}:${next.output||next.module}:${next.section}`)||0;
     showNavigator(false);
     renderNavigator(next.module);
-    document.title=`${next.module.startsWith('W-')?'':`${next.module} · `}${moduleNames[next.module]} · Issuer Library`;
+    document.title=`${moduleNames[next.module]} · Issuer Library`;
     const creating=next.module==='W-NewRun';
     $('content').hidden=creating;
     $('new-run').hidden=!creating;
@@ -375,7 +380,7 @@ function renderRoute() {
     }
   }
   const named=contexts[next.context]?`${contexts[next.context].title}, ${contexts[next.context].run}, `:'';
-  $('announcement').textContent=`${named}${moduleNames[next.module]}, ${navigationSections(next.module,next.context,next.output).find(s=>s[0]===next.section)[1]}${next.evidence?', evidence open':''}`;
+  $('announcement').textContent=`${named}${moduleNames[next.module]}, ${namedText(navigationSections(next.module,next.context,next.output).find(s=>s[0]===next.section)[1])}${next.evidence?', evidence open':''}`;
 }
 document.addEventListener('change',event=>{
   if(event.target.matches('[data-library-filter]'))updateLibraryResults();

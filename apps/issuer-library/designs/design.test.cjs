@@ -153,7 +153,7 @@ test('An analytical verdict is not promoted to a provenance classification',()=>
 });
 test('Workspace tabs preserve issuer/run; unavailable destinations never substitute another case',()=>{
   const dom=fixture('CP-2H'),w=dom.window,d=w.document;
-  for(const name of ['Calendar','Deliverables','Evidence','Overview','Modules']) {
+  for(const name of ['Calendar','Deliverables','Evidence','Summary','Analysis']) {
     const link=[...d.querySelectorAll('.workspace-tabs a')].find(a=>a.textContent===name);
     w.location.hash=link.getAttribute('href');w.eval('renderRoute()');
     assert.equal(d.querySelector('.issuer h1').textContent,'Ford Otosan',name);
@@ -372,7 +372,7 @@ test('A render failure names the new module and shows an explicit gap, never sta
   w.eval(`renderContent=()=>{throw new Error('forced')}`);
   w.location.hash='CP-2G';w.eval('renderRoute()');
   assert.ok(d.getElementById('content').textContent.includes('Couldn’t present this output'));assert.equal(d.querySelectorAll('.bar-column').length,0);
-  assert.ok(d.getElementById('module-head').textContent.includes('Forward credit model'));assert.ok(w.document.title.includes('CP-2G'));
+  assert.ok(d.getElementById('module-head').textContent.includes('Forward credit model'));assert.ok(w.document.title.includes('Forward credit model'));
   assert.ok(d.querySelector('#content a[download]').getAttribute('href').includes('CP-2G'));assert.equal(logged,1);
   dom.window.close();
 });
@@ -473,7 +473,7 @@ test('Navigation links keep module identity, each curated module opens on its fi
   contentOf(dom,'CP-OS?c=tdg-002');assert.deepEqual([...d.querySelectorAll('.section-item')].map(a=>a.getAttribute('href')),['#CP-OS/activity?c=tdg-002','#CP-OS/delivery?c=tdg-002']);
   const section=w.eval(`modules['tdg-003/CP-1-attempt-1.md'].sections.map(s=>s[0]).find(id=>!modules['tdg-003/CP-1-attempt-2.md'].sections.some(s=>s[0]===id))`);assert.ok(section);
   contentOf(dom,`CP-1/${section}?c=tdg-003&o=CP-1-attempt-1.md`);contentOf(dom,'W-Evidence/sources?c=tdg-003');
-  const href=[...d.querySelectorAll('.workspace-tabs a')].find(a=>a.textContent==='Modules').getAttribute('href');
+  const href=[...d.querySelectorAll('.workspace-tabs a')].find(a=>a.textContent==='Analysis').getAttribute('href');
   assert.ok(href.startsWith(`#CP-1/${section}?`),href);assert.ok(href.includes('o=CP-1-attempt-1.md'),href);
   dom.window.close();
 });
@@ -540,7 +540,7 @@ test('Search finds figures and sources of this run and opens them',()=>{
   type(w,box,'source-supported dashboard');let groups=searchGroups(d);
   assert.equal(groups[0].title,'Figures');
   assert.equal(groups[0].hits[0].getAttribute('href'),'#CP-1/performance?c=tdg-002');
-  assert.equal(groups[0].hits[0].getAttribute('aria-label'),'Figure: CP-1 · Attempt 2 of 2 T4.10 — Source-supported dashboard');
+  assert.equal(groups[0].hits[0].getAttribute('aria-label'),'Figure: Financial foundation · Attempt 2 of 2 T4.10 — Source-supported dashboard');
   assert.ok(groups[0].hits[1].getAttribute('href').includes('o=CP-1-attempt-1.md'));
   assert.ok(contentOf(dom,groups[0].hits[0].getAttribute('href').slice(1)).textContent.includes('7,940'));
   type(w,box,'Quarterly comparison');
@@ -560,11 +560,11 @@ test('Search finds figures and sources of this run and opens them',()=>{
   assert.match(sources.title,/^Sources · 4 of \d+$/);assert.equal(sources.hits.length,4);assert.ok(Number(sources.title.split(' of ')[1])>4);
   type(w,box,'Otosan');assert.equal(searchGroups(d).length,0,'another issuer');
   type(w,box,'&');for(const group of searchGroups(d))for(const hit of group.hits)assert.ok(!hit.textContent.includes('&amp;'),hit.textContent);
-  type(w,box,'no output found');assert.ok([...d.querySelectorAll('.module-item')].some(a=>a.textContent.includes('CP-2H')),'status word');
+  type(w,box,'no output found');assert.ok([...d.querySelectorAll('.module-item')].some(a=>a.title==='CP-2H'),'status word');
   contentOf(dom,'CP-1?c=ford-otosan-2024');type(w,box,'Source-supported dashboard');assert.equal(searchGroups(d).length,0,'another run');
   type(w,box,'CP-1-selected-input.md');assert.equal(searchGroups(d)[0].hits[0].getAttribute('href'),'#W-Evidence/sources?c=ford-otosan-2024');
-  contentOf(dom,'CP-1?c=tdg-003');type(w,box,'net sales');assert.ok(searchGroups(d).find(g=>g.title.startsWith('Sources')).hits.some(hit=>hit.getAttribute('aria-label')==='Reference: CP-1 · Attempt 2 of 2 3 · NET SALES'),'a numbered row names the cell that matched');
-  contentOf(dom,'CP-1B?c=tdg-003');type(w,box,'Quarterly comparison');const plotted=searchGroups(d)[0].hits[0];assert.ok(plotted.getAttribute('aria-label').startsWith('Figure: CP-1B')&&plotted.textContent.includes('Quarterly comparison'));assert.ok(contentOf(dom,plotted.getAttribute('href').slice(1)).querySelector('#module-visual'));
+  contentOf(dom,'CP-1?c=tdg-003');type(w,box,'net sales');assert.ok(searchGroups(d).find(g=>g.title.startsWith('Sources')).hits.some(hit=>hit.getAttribute('aria-label')==='Reference: Financial foundation · Attempt 2 of 2 3 · NET SALES'),'a numbered row names the cell that matched');
+  contentOf(dom,'CP-1B?c=tdg-003');type(w,box,'Quarterly comparison');const plotted=searchGroups(d)[0].hits[0];assert.ok(plotted.getAttribute('aria-label').startsWith('Figure: Earnings changes')&&plotted.textContent.includes('Quarterly comparison'));assert.ok(contentOf(dom,plotted.getAttribute('href').slice(1)).querySelector('#module-visual'));
   for(const context of w.eval('Object.keys(contexts)')){contentOf(dom,`W-Evidence/sources?c=${context}`);for(const text of ['t','a','.md'])for(const hit of (type(w,box,text),d.querySelectorAll('a.search-hit')))assert.ok(!hit.getAttribute('href').includes('undefined'),`${context} ${hit.getAttribute('href')}`);}
   dom.window.close();
 });
@@ -809,3 +809,21 @@ test('The route names codes on reader pages and leaves the audit and inspector e
   assert.match(d.getElementById('inspector').textContent,/\bCP-\d/,'the inspector keeps codes');
   dom.window.close();
 });
+test('The app is organised by credit question and its chrome shows names, not codes',()=>{
+  const dom=fixture('CP-2G?c=tdg-003'),d=dom.window.document,w=dom.window;
+  assert.deepEqual([...d.querySelectorAll('.workspace-tabs a')].map(a=>a.textContent),['Summary','Analysis','Calendar','Deliverables','Evidence']);
+  const head=d.querySelector('.module-title h2');
+  assert.equal(norm(head.textContent),'Forward credit model');assert.equal(head.title,'CP-2G');
+  assert.doesNotMatch(d.title,/CP-/);
+  assert.deepEqual([...d.querySelectorAll('.nav-group summary')].map(s=>s.textContent).slice(0,7),['Business and evidence','Financial performance','Liquidity and refinancing','Outlook and downside','Capital structure and legal','Relative value','Decision and review']);
+  assert.doesNotMatch(d.getElementById('module-list').textContent,/\bCP-\d/);
+  assert.equal(d.querySelector('.module-item[aria-current]').title,'CP-2G');
+  d.getElementById('module-search').value='cp-2g';w.eval(`renderNavigator(current.module)`);
+  assert.ok([...d.querySelectorAll('.module-item')].some(a=>a.textContent.includes('Forward credit model')),'search still finds a code');
+  assert.doesNotMatch(d.getElementById('search-results').textContent,/\bCP-\d/);
+  assert.ok(d.querySelector('.module-title h2'));
+  goTo(dom,'CP-2G/overview?c=tdg-003');
+  assert.equal(w.eval('current.module'),'CP-2G','the code still works as a link');
+  dom.window.close();
+});
+

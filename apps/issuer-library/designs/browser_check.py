@@ -240,7 +240,10 @@ def new_run(browser, name, port, workspace, start):
     page.wait_for_selector("#review-step:not([hidden])", timeout=60000)
     text = page.inner_text("#run-review")
     note(
-        ISSUER in text and "CP-0" in text and "gpt-6.1-sol" in text,
+        ISSUER in text
+        and "Source readiness" in text
+        and "CP-0" not in text
+        and "gpt-6.1-sol" in text,
         f"{name}: review shows the launcher's plan",
     )
     note(page.is_disabled("#start-run"), f"{name}: Start stays disabled before approval")

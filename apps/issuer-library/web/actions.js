@@ -45,7 +45,8 @@ function installNewRun(){
     finally{listing=false;}
   }
   function showStatus(status){
-    const accepted=status.progress?.module?` · last accepted ${status.progress.module}`:'';
+    const moduleId=status.progress?.module,moduleTitle=review?.module_details?.find(item=>item.id===moduleId)?.title;
+    const accepted=moduleId?` · last accepted ${moduleTitle||moduleId}`:'';
     $('run-progress').textContent=`${status.state}: ${status.message||''}${accepted}`;
     const spent=status.spent_usd??status.progress?.spent_usd;
     $('run-spend').textContent=spent==null?'Spend appears after CP-OS records a completed model response.':`Recorded spend: USD ${spent}`;
@@ -62,7 +63,7 @@ function installNewRun(){
     for(const [label,value] of [['Workflow',workflowTitle(result.pathway)],['As of',result.as_of],['Model',`${result.provider} ${result.model} · ${result.effort}`],['Maximum spend',`USD ${result.cap_usd}`],['Held per call',`USD ${result.hold_usd}`],['Max turns per module',String(result.max_turns)]])summary.append(textNode('dt',label),textNode('dd',value));
     const readiness=textNode('p',result.provider_ready?'Model provider configured. Review the scope and budget before starting.':`Cannot start · ${result.provider_key} is not set in the launching environment. Set it, restart the app and review again.`);
     readiness.className=result.provider_ready?'matrix-note':'caution';
-    const modules=list('ol',result.modules.map(id=>{const detail=result.module_details.find(item=>item.id===id),item=textNode('li',detail?.title||id);if(detail){item.append(textNode('span',id));item.title=detail.purpose;}return item;}));
+    const modules=list('ol',result.modules.map(id=>{const detail=result.module_details.find(item=>item.id===id),item=textNode('li',detail?.title||id);item.title=detail?`${id}: ${detail.purpose}`:id;return item;}));
     modules.className='review-modules';
     const ignored=result.ignored.length?result.ignored:['None'];
     $('run-review').replaceChildren(textNode('h3',result.issuer),summary,readiness,textNode('h4','Modules to run, in order'),modules,
