@@ -138,7 +138,18 @@
         "CP-3A",
         "CP-3B"
       ],
-      "status": "pending live module proof; historical host proof remains separately recorded"
+      "status": "Fresh CP-3/3A two-note source-based comparison reviewed/published; CP-3B live proof next. Broader/current/native pathway remains separate.",
+      "arcc_selection": {
+        "path": "arcc-selection/CP-3.md",
+        "report": "arcc-selection/CP-3-delivery/report.html",
+        "sha256": "9d266261a1eb5c92c9e7052a999e087fc39cde506e4fdb9be47c00d65218b1c6",
+        "review": "Entire72510byte response andallselected primarysources reviewed: all11CP3/12CP3A duties,18schema registers plusdefinitions/narratives and48independentcontrolcells. New executedMarchJan23supp own2010base distinguishedJuly2024base; coupon5.875vs6.575issuer,March/Sepdates/paststub/Feb1parcall/+35bpvsJuly/+30bp reducePVnotincreaseholdercreditspread. Current3Dactualconsumption changespairanalysis: cleanpointyield2.210154bp/residual.160839notrobusttorounding,dirty18.522010/16.472695survivesroundingbutnotprovenriskpremium; extraJuly duration.245358/.237119andmixedbasis-50.936285/+71.668448. No forcedpreference, nofullYTW/OAS or numericrecovery, nofakeweights/scoreorissuergrade3.1mapping. Current4Adefinitions copiedverbatim,46.2pp/2219conditional/3348within5100 and100%24monthvsincurrence/maintenance scope preserved, nottransferredtoMarch. SixfundamentalpagesprimaryreviewedactualNII/PIK/collections/cash/debtandnonaccrualdenominators; issuergovernance/sourcevaluations/sourceATMcashscope distinction andswapdateconflictretained. All8sourcesfulltoolpagesread,5calls,30newcalculatecalls audited; no repair. Nextcurrent3Bconsumption retainsDecemberhistoricalcontext separatefromMayholdings."
+      },
+      "portfolio_preflight": {
+        "case": "lqd-portfolio",
+        "status": "Offline ready only; live launch follows this checkpoint.",
+        "checks": "Exact five ARCC positions from2910,NAV/repPdDate/repPdEnd,two relatedissuer exclusions,44independentcells, sourcepcttruncation andadverseDecimalcontext, fullselectedlayout synthetic preflight passed. CurrentreviewedCP3A is historicalDecembercontext only, notMayselectionauthority."
+      }
     },
     "CP-4": {
       "aliases": [
@@ -256,7 +267,14 @@
     },
     "CP-3D": {
       "aliases": [],
-      "status": "pending live module proof; historical host proof remains separately recorded"
+      "status": "Fresh six-phase/ten-register CP-3D verified/published and actually consumed by current fullCP3/3A pair comparison; bounded historical function, not native full underwriting/currentquotes/fullpathway.",
+      "market": {
+        "path": "arcc-market/CP-3D.md",
+        "report": "arcc-market/CP-3D-delivery/report.html",
+        "sha256": "0f90e8e5a1b58f5174fe60281244347dfd15f0da1608152a1f53cfe8132b6f61",
+        "review": "Entire46649byte actual response read against allselected primary annual94/95/290/291, executedJuly supplement, Treasury row/method and currentCP4A. All110independent numericcells match. Eightcontinuing sourceequivalent improvements nottotalreturns, two prior dashes notzero, swapsnotcoupons, groupvs10parent subset distinct. ConditionalA/Bbasis69.458294bpuncertainty vsrounding1.5bp, twolegminreversal notfullYTW, duration/DV01/shocks and6constantlossproxies notOAS/factualPD. Claims priority/BDCfunding/coverage46.2ppandconditional2219vs3348/5100preserved. CurrentCP4Aactuallyadopted with source95effectiveJan8 2032 vsC4Jan8 2026 subsequent swap conflict; excludedpricing. Strongcountercase/downside/monitoring and missingpeer/quotes/CP2 boundaries. All7sources fulltoolpages read;6modelcalls27calculatecalls; no repair.",
+        "consumer": "arcc-selection/CP-3.md"
+      }
     },
     "CP-3C": {
       "aliases": [],
@@ -390,12 +408,20 @@
       {
         "point": "Frontier case delivery selectors initially routed tables into prose blocks",
         "finding": "Offline synthetic preflight foundtable/prose mismatch but paidlaunch incorrectly followed a shell block whose finalruffexitwas0. Rootcausehost result handling, not model economics. Initialcase layout retained; table routes corrected toexistingdensevalue-allocation-claims; threeblocks/selectors passed syntheticcheck. Fullactualdraft2 passes all56numericcells but issueronlyinfrontmatter is outside existing first-line/Request identitycheck; datesaddedasISO frontmatter in2nddraft, third unnecessarilyshortenedtwotables. Retainallthree, usefull2nddraft for exactliveedit insertingissuernameinRequestonly. A hypothetical exacteditpassesoffline, actualmodelrepairpending. No productionchange. Laterpaidlaunch nowexplicitlydepends on inspectedexitcode0; preflightfailure preventedtwo repairlaunches before finalconfigurationpassed. Actualtitle/Request repaircompleted: exactonephraseinsertverified; all56numericcells andreportchecks pass."
+      },
+      {
+        "point": "Bond helper accepts only coupon-date schedules at high level; stale expectation files or price-basis mixing could create false numerical proof.",
+        "finding": "Test-only market/pair fixtures pin original annual/legal/Treasury/helper; primary94 principal/coupon independently matched per series,291fourcolumn order/dashes preserved. Explicit date algebra reconstructs 30E360 cashflows/partialparcall/accrual and ACT365 benchmark separately. Fresh unchanged floatyield/PV compared to50digitDecimalPV roots/analyticderivative/nonlinearshocks/constantlosscompounding.110market and48pairnumericcells; both adverseprecision7/FLOOR deterministic. Highleveldated/conventionrefusals,null/zeroyield preserved. Source pricebasisunknown retained as twocases; sourceFVroundingcanreversecleanpairpointyieldorder. No productionenginechange or rewrite."
+      },
+      {
+        "point": "N-PORT holdings could be matched by similar names, duplicated through lending, divided by wrong-date NAV or falsely rejected for reported percentage rounding.",
+        "finding": "New test-only verifier scans2910XMLholdings, matchesexactARCCLEI only5ordinals andexcludes2AresStrategicIncomeFund positions. Literalpar/value/currency/maturity/coupon/lending flags and5published12decimalpctVal independentlytranscribed. Fundseries/date/NAVchecked assets-minusliabilities. Firstnearest-rounding assertion failedactualselectedpctresidual~0.995lastdigit; all5areconsistenttruncation, so preservepublishedvaluesseparatelyandtest0<=recomputed-published<1lastdigit. LoanYamountsarealready-heldsubsets; explicitNallows0onlythere. IndependentFraction44cells/3groupscenarios andselected40case, adverseDecimalcontextpassed; no productionchanges. Fullmodelconsumptionpending."
       }
     ]
   },
   "rewrite_tournament": {
-    "decision": "Skipped: onlynewtest-fixture functions/tests andcaseinstructions/selectors/data; no nontrivial productionfunctionchanged. Existinghelpersreusedunchanged.",
-    "verification": "70focusedtests passed including3LMIcorruptioncontrols andFrontiernull/rank/doubleclaim/boundary/adverseDecimalchecks. Ruffpasses; rawsource/modelMarkdownretainsoriginalbytes/whitespace; code/JSONdiffchecked. Campaign-only gitleaks110.05MB passed with no findings."
+    "decision": "Skipped test-only fixture/checker additions andcaseinstructions/selectors/data; no nontrivial productionfunction changed. Existinglowlevelyield/PV andCPOSloopreusedunchanged.",
+    "verification": "72focusedtests passed;22campaigntests include market/paircontext andNPORTactualtruncation controls. Ruffclean andcode/JSON/JSONLdiffcheckpassed. Campaign-onlygitleaks121.24MB scannedclean. Rawrequests/responses/sourceMarkdown originalbytes retained. No productionfunctionrewritten."
   },
   "live": {
     "calls": {
@@ -413,11 +439,12 @@
       "CP-4": 20,
       "CP-6": 3,
       "CP-4C": 15,
-      "CP-3": 6
+      "CP-3": 11,
+      "CP-3D": 6
     },
-    "cost_usd": "8.60143810",
-    "independent_calculations": 358,
+    "cost_usd": "9.44196050",
+    "independent_calculations": 415,
     "declined_nonpositive_ratios": 2
   },
-  "checkpoint_scope": "Verified module progress only; remaining modules and all six broader pathway proofs are still pending. Continuing this task after checkpoint."
+  "checkpoint_scope": "Current checkpoint addsactualsol-mediumCP3D->CP3/3A market/securityselection consumption andpopulatedreports.110+48numericcells and57newarithmeticcalls verified; portfolio44cell fixture/offlinepreflightready, no liveportfolio success yet. PendingbroaderCP3B,CP5,fullCP6,CP8,Liteandall6broaderpathways remain explicitlypending. ExistingCPOS/livehelpers/renderers reused;no rebuild."
 }

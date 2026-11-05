@@ -3,6 +3,7 @@
 import hashlib
 import json
 import runpy
+from fractions import Fraction
 from pathlib import Path
 
 import pytest
@@ -138,3 +139,38 @@ def test_explicit_repair_preserves_exact_pinned_model_draft():
     path = CASE / "crc-liquidity/CP-3C.tenor-repair.task.json"
     _, task, _ = HARNESS["load_task"](path)
     assert task.draft == (path.parent / "CP-3C.md").read_bytes()
+
+
+def test_market_and_pair_controls_are_independent_of_decimal_context():
+    from decimal import ROUND_FLOOR, localcontext
+
+    from verify_market_inputs import check as market
+    from verify_selection_inputs import check as pair
+
+    expected = market(), pair()
+    with localcontext() as context:
+        context.prec = 7
+        context.rounding = ROUND_FLOOR
+        assert (market(), pair()) == expected
+    differences = expected[1][1][-1]["rows"]
+    # Rounded source values alone can reverse the clean-basis point yield ordering.
+    assert Fraction(differences[0][-2]) < 0 < Fraction(differences[0][-1])
+    assert 0 < Fraction(differences[1][-2]) < Fraction(differences[1][-1])
+
+
+def test_portfolio_source_percentages_do_not_require_nearest_rounding():
+    from decimal import ROUND_FLOOR, localcontext
+
+    from verify_portfolio_inputs import LITERALS, check
+
+    expected = check()
+    with localcontext() as context:
+        context.prec = 7
+        context.rounding = ROUND_FLOOR
+        assert check() == expected
+    selected = LITERALS[2]
+    recalculated = Fraction(selected[3]) / Fraction("30823830378.19") * 100
+    # The actual published selected-note percentage is lower by > half a final digit.
+    assert Fraction(1, 2 * 10**12) < recalculated - Fraction(selected[4]) < Fraction(1, 10**12)
+    assert b"ordinal 887; EXCLUDED" in expected[0]
+    assert b"ordinal 2092; EXCLUDED" in expected[0]

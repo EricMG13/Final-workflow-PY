@@ -1,0 +1,65 @@
+{
+  "run": {
+    "run_id": "sol-remaining-arcc-market-20261105",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2024-12-31",
+    "case_kind": "public",
+    "pathway": "relative_value",
+    "requested_modules": [
+      "CP-3D"
+    ]
+  },
+  "module_id": "CP-3D",
+  "instructions": {
+    "path": "CP-3D.instructions.md",
+    "sha256": "ae9212b0f735bebf9c932d6c08b1e36434e901e5d90f05f3bea17caee34251ca"
+  },
+  "sources": {
+    "annual-selected": {
+      "path": "annual-selected.txt",
+      "sha256": "c8de49a455d86045756e35a2096d11c92022076729f13dee364d0bafd4f0dc88"
+    },
+    "supplement": {
+      "path": "../../arcc-2024-001/sources/supplement-lines.txt",
+      "sha256": "bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c"
+    },
+    "treasury": {
+      "path": "../../arcc-market-2024-001/sources/treasury-2024.csv",
+      "sha256": "6775840b76cd7fd41121f61d6f6c60184eca6b2ba49954ec7372c463cbeef34d"
+    },
+    "treasury-method": {
+      "path": "../../arcc-market-2024-001/sources/treasury-web-capture.txt",
+      "sha256": "202c0857ef29f05cb2bff0725fea3f0fc00e3fc4051581f31c4058c41320f01c"
+    },
+    "selected-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/SKILL.md",
+      "sha256": "7b1dcf5967f599a94a6b0c2138a51647a66fd73fc232c385bbec4b20286e02a4"
+    },
+    "method-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-3d-market-implied-risk/references/REF_CP-3D_STEPS.md",
+      "sha256": "e1a3dc9584611edcf1e1dac66345aebba01e86b573c3ac7e7f848b7350683545"
+    },
+    "offline-helper": {
+      "path": "offline-helper.json",
+      "sha256": "5ff5531c5b5933e42532a300320f3bafc1e4b6b9c9ce20ef279df7089172ae79"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../../arcc-market-2024-001/CP-0.md",
+      "sha256": "f61415aa2b3c2d0d6fd79ad6853d49ec96e51d65e3130277e54f18e30b24626a"
+    },
+    "CP-1": {
+      "path": "../../arcc-market-2024-001/CP-1-market-inputs.md",
+      "sha256": "68437034bceb3ebb0d04ad97e0746b255588aef701c8e7a6bcd8c38507b3ae1c"
+    },
+    "CP-4A": {
+      "path": "../arcc-capacity/CP-4A.md",
+      "sha256": "fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738"
+    }
+  },
+  "layout": "CP-3D.layout.json",
+  "checks": "CP-3D.checks.json",
+  "output": "CP-3D.md"
+}

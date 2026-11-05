@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Fresh sol-medium CP-3D source-based historical function, conditional pricing and current CP-4A consumption. Not executable quotes, full native underwriting or an end-to-end pathway.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-3D.md": "0f90e8e5a1b58f5174fe60281244347dfd15f0da1608152a1f53cfe8132b6f61",
+    "view.json": "3997ee58128cb407e73ce89e8a4195641070af4eaa0032c1569fda91279162d5",
+    "report-view.json": "582cd0ec012449466fa516628fcf534d1b65d6027bdd83a42606230a95b64a1b",
+    "report.html": "35052b6c60323f0ff1f0d8f374baea9adfec080cb82ac03b38b4fe6778169c71"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "required_terms": [
+    "US04010LBF94",
+    "US04010LBG77",
+    "2024-12-31",
+    "30E/360",
+    "Requires More Work",
+    "Not Scorable",
+    "46.2",
+    "2219",
+    "T3B.11"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Pair pricing controls",
+      "columns": [
+        "Security_case",
+        "Equivalent",
+        "Accrued",
+        "Dirty",
+        "Maturity_yield_fraction",
+        "Par_call_yield_fraction",
+        "Minimum_two_legs_fraction",
+        "Simple_residual_bps",
+        "Modified_duration",
+        "Rounding_yield_low_pct",
+        "Rounding_yield_high_pct"
+      ],
+      "rows": [
+        [
+          "March2029_assume_clean",
+          "101.000000",
+          "1.942014",
+          "102.942014",
+          "0.056003",
+          "0.055966",
+          "0.055966",
+          "126.607274",
+          "3.591090",
+          "5.586743",
+          "5.613794"
+        ],
+        [
+          "March2029_assume_dirty",
+          "101.000000",
+          "1.942014",
+          "101.000000",
+          "0.061317",
+          "0.061377",
+          "0.061317",
+          "179.753712",
+          "3.576032",
+          "6.117890",
+          "6.145577"
+        ],
+        [
+          "July2029_assume_clean",
+          "101.294118",
+          "2.727083",
+          "104.021201",
+          "0.056224",
+          "0.056182",
+          "0.056182",
+          "126.768113",
+          "3.836448",
+          "5.607631",
+          "5.637111"
+        ],
+        [
+          "July2029_assume_dirty",
+          "101.294118",
+          "2.727083",
+          "101.294118",
+          "0.063169",
+          "0.063242",
+          "0.063169",
+          "196.226407",
+          "3.813151",
+          "6.301725",
+          "6.332184"
+        ]
+      ]
+    },
+    {
+      "heading": "Pair difference controls",
+      "columns": [
+        "Case",
+        "July_minus_March_yield_bps",
+        "July_minus_March_residual_bps",
+        "Rounding_yield_gap_low_bps",
+        "Rounding_yield_gap_high_bps"
+      ],
+      "rows": [
+        [
+          "assume_clean",
+          "2.210154",
+          "0.160839",
+          "-0.616287",
+          "5.036816"
+        ],
+        [
+          "assume_dirty",
+          "18.522010",
+          "16.472695",
+          "15.614840",
+          "21.429430"
+        ]
+      ]
+    }
+  ]
+}

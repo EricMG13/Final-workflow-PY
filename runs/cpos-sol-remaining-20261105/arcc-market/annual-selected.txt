@@ -1,0 +1,161 @@
+=== PDF PAGE 94 ===
+In March 2024, we repaid in full the $403 million in aggregate principal amount of unsecured convertible notes which bore interest at a rate of 4.625% per
+year, payable semi-annually (the “2024 Convertible Notes”) upon their maturity, resulting in a realized loss on extinguishment of debt of $14 million. In accordance
+with the indenture governing the 2024 Convertible Notes, we settled the repayment of the 2024 Convertible Notes with a combination of cash and shares of our
+common stock. Approximately $393 million of aggregate principal amount was settled with approximately 20 million shares of our common stock and the remaining
+$10 million of aggregate principal amount was settled with available cash.
+Unsecured Notes
+ 
+We issued certain unsecured notes (we refer to each series of unsecured notes using the defined term set forth under the “Unsecured Notes” column of the table
+below and collectively referred all such series as the “Unsecured Notes”), that pay interest semi-annually and all principal amounts are due upon maturity. Each of the
+Unsecured Notes may be redeemed in whole or in part at any time at our option at a redemption price equal to par plus a “make whole” premium, if applicable, as
+determined pursuant to the indentures governing each of the Unsecured Notes, plus any accrued and unpaid interest. Certain key terms related to the features for the
+Unsecured Notes as of December 31, 2024 are listed below.
+(dollar amounts in millions)
+Unsecured Notes
+Aggregate Principal
+Amount Issued Effective Stated Interest Rate Original Issuance Date Maturity Date
+March 2025 Notes $ 600 4.250% January 11, 2018 March 1, 2025
+July 2025 Notes $ 1,250 3.250% January 15, 2020 July 15, 2025
+January 2026 Notes $ 1,150 3.875% July 15, 2020 January 15, 2026
+July 2026 Notes $ 1,000 2.150% January 13, 2021 July 15, 2026
+January 2027 Notes(1) $ 900 6.978% August 3, 2023 January 15, 2027
+June 2027 Notes $ 500 2.875% January 13, 2022 June 15, 2027
+June 2028 Notes $ 1,250 2.875% June 10, 2021 June 15, 2028
+March 2029 Notes(1) $ 1,000 6.575% January 23, 2024 March 1, 2029
+July 2029 Notes(1) $ 850 6.040% May 13, 2024 July 15, 2029
+November 2031 Notes $ 700 3.200% November 4, 2021 November 15, 2031
+________________________________________
+(1) The effective stated interest rates of the January 2027 Notes, the March 2029 Notes and the July 2029 Notes include the impact of interest rate swaps.
+In June 2024, we repaid in full the $900 million in aggregate principal amount outstanding of unsecured notes (the “June 2024 Notes”) upon their maturity.
+The June 2024 Notes bore interest at a rate of 4.200% per annum, payable semi-annually.
+In connection with certain of the unsecured notes issued by us, we have entered into interest rate swaps to more closely align the interest rates of such
+liabilities with our investment portfolio, which consists primarily of floating rate loans. We designated these interest rate swaps and the associated unsecured notes as
+qualifying fair value hedge accounting relationships. Under the interest rate swaps, we receive a fixed interest rate and pay a floating interest rate of one-month SOFR
+plus an applicable spread, as disclosed below. Certain information related to our interest rate swaps as of December 31, 2024 is presented below.
+(dollar amounts in millions) Description Hedged Item Company Receives Company Pays Maturity Date Notional Amount
+Interest rate swap January 2027 Notes 7.000 % SOFR +2.581% January 15, 2027 $ 900 
+Interest rate swap March 2029 Notes 5.875 % SOFR +2.023% March 1, 2029 $ 1,000 
+Interest rate swap July 2029 Notes 5.950 % SOFR +1.643% July 15, 2029 $ 850 
+See Note 6 to our consolidated financial statements for the year ended December 31, 2024 for more information on our interest rate swaps.
+See “Recent Developments,” as well as Note 16 to our consolidated financial statements for the year ended December 31, 2024 for a subsequent event relating
+to an additional issuance of unsecured notes.
+94
+
+=== PDF PAGE 95 ===
+As of December 31, 2024, we were in compliance in all material respects with the indentures governing the Unsecured Notes.
+The Unsecured Notes are our senior unsecured obligations and rank senior in right of payment to any future indebtedness that is expressly subordinated in
+right of payment to the Unsecured Notes; equal in right of payment to our existing and future unsecured indebtedness that is not expressly subordinated; effectively
+junior in right of payment to any of our secured indebtedness (including existing unsecured indebtedness that we later secure) to the extent of the value of the assets
+securing such indebtedness; and structurally junior to all existing and future indebtedness (including trade payables) incurred by our subsidiaries, financing vehicles or
+similar facilities.
+RECENT DEVELOPMENTS
+In January 2025, we issued $1.0 billion in aggregate principal amount of unsecured notes that mature on March 8, 2032 and bear interest at a rate of 5.800%
+per annum (the “March 2032 Notes”). The March 2032 Notes pay interest semi-annually and all principal is due upon maturity. The March 2032 Notes may be
+redeemed in whole or in part at any time at our option at a redemption price equal to par plus a “make whole” premium, if applicable, as determined pursuant to the
+indenture governing the March 2032 Notes, and any accrued and unpaid interest. The March 2032 Notes were issued at a discount to the principal amount. In
+connection with the March 2032 Notes, we entered into a forward-starting interest rate swap for a total notional amount of $1.0 billion that matures on March 8, 2032
+with an effective date of January 8, 2032. Under the forward-starting interest rate swap, we will receive a fixed interest rate of 5.800% and pay a floating interest rate of
+one-month SOFR plus 1.6995%.
+In February 2025, our board of directors authorized an amendment to our existing stock repurchase program to extend the expiration date of the program from
+February 15, 2025 to February 15, 2026. Under the program, we may repurchase up to $1.0 billion in the aggregate of our outstanding common stock in the open
+market at a price per share that meets certain thresholds below our net asset value per share, in accordance with the guidelines specified in Rule 10b-18 of the Exchange
+Act. The timing, manner, price and amount of any share repurchases will be determined by us, in our discretion, based upon the evaluation of economic and market
+conditions, stock price, applicable legal and regulatory requirements and other factors.
+From January 1, 2025 through January 28, 2025, we made new investment commitments of approximately $1.2 billion, of which approximately $864 million
+were funded. Of the approximately $1.2 billion in new investment commitments, 90% were in first lien senior secured loans, 1% were in second lien senior secured
+loans, 6% were in preferred equity and 3% were in other equity. Of the approximately $1.2 billion in new investment commitments, 79% were floating rate, 18% were
+fixed rate and 3% were non-income producing. The weighted average yield of debt and other income producing securities funded during the period at amortized cost
+was 10.1% and the weighted average yield on total investments funded during the period at amortized cost was 9.8%. We may seek to sell all or a portion of these new
+investment commitments, although there can be no assurance that we will be able to do so.
+From January 1, 2025 through January 28, 2025, we exited approximately $498 million of investment commitments. Of the approximately $498 million of
+exited investment commitments, 69% were first lien senior secured loans, 11% were second lien senior secured loans, 11% were subordinated certificates of the SDLP,
+7% were senior subordinated loans, 1% were preferred equity and 1% were other equity. Of the approximately $498 million of exited investment commitments, 80%
+were floating rate, 18% were fixed rate and 2% were non-income producing. The weighted average yield of debt and other income producing securities exited or repaid
+during the period at amortized cost was 10.8% and the weighted average yield on total investments exited or repaid during the period at amortized cost was 10.6%. Of
+the approximately $498 million of investment commitments exited from January 1, 2025 through January 28, 2025, we recognized total net realized gains of
+approximately $1 million.
+In addition, as of January 28, 2025, we had an investment backlog of approximately $1.8 billion. Investment backlog includes transactions approved by our
+investment adviser’s investment committee and/or for which a formal mandate, letter of intent or a signed commitment have been issued, and therefore we believe are
+likely to close. The consummation of any of the investments in this backlog depends upon, among other things, one or more of the following: our acceptance of the
+terms and structure of such investment and the execution and delivery of satisfactory transaction documentation. In addition, we may sell all or a portion of these
+investments and certain of these investments may result in the repayment of existing investments. We cannot assure you that we will make any of these investments or
+that we will sell all or any portion of these investments.
+CRITICAL ACCOUNTING ESTIMATES
+95
+
+=== PDF PAGE 290 ===
+Investments were transferred into and out of Level 3 during the year ended December 31, 2024. Transfers into and out of Level 3 were generally as a result of
+changes in the observability of significant inputs or available market data for certain portfolio companies.
+As of December 31, 2024, the net unrealized appreciation on the investments that use Level 3 inputs was $369.
+For the year ended December 31, 2024, the total amount of gains (losses) for the period included in earnings attributable to the change in unrealized gains
+(losses) relating to the Company’s Level 3 assets still held as of December 31, 2024, and reported within the net unrealized gains (losses) on investments, foreign
+currency and other transactions in the Company’s consolidated statement of operations was $111.
+The following tables present changes in investments that use Level 3 inputs as of and for the year ended December 31, 2023:
+ 
+As of and For the Year
+Ended December 31, 2023
+Balance as of December 31, 2022 $ 21,361 
+Net realized losses (173)
+Net unrealized gains 457 
+Purchases 5,585 
+Sales (1,532)
+Repayments (3,707)
+PIK interest and dividends 354 
+Net accretion of discount on securities 10 
+Net transfers in and/or out of Level 3 (271)
+Balance as of December 31, 2023 $ 22,084 
+Investments were transferred into and out of Level 3 during the year ended December 31, 2023. Transfers into and out of Level 3 were generally as a result of
+changes in the observability of significant inputs or available market data for certain portfolio companies.
+As of December 31, 2023, the net unrealized appreciation on the investments that use Level 3 inputs was $238.
+For the year ended December 31, 2023, the total amount of gains (losses) for the period included in earnings attributable to the change in unrealized gains
+(losses) relating to the Company’s Level 3 assets still held as of December 31, 2023, and reported within the net unrealized gains (losses) on investments, foreign
+currency and other transactions in the Company’s consolidated statement of operations was $282.
+The following are the carrying and fair values of the Company’s debt obligations as of December 31, 2024 and 2023. Fair value is estimated by discounting
+remaining payments using applicable current market rates, which take into account changes in the Company’s marketplace credit ratings, or market quotes, if available.
+F-180
+
+=== PDF PAGE 291 ===
+ 
+As of December 31,
+ 
+2024 2023
+Carrying Value(1) Fair Value(6) Carrying Value(1) Fair Value(6)
+Revolving Credit Facility $ 1,113 $ 1,113 $ 1,413 $ 1,413 
+Revolving Funding Facility 1,065 1,065 863 863 
+SMBC Funding Facility 502 502 401 401 
+BNP Funding Facility 889 889 575 575 
+April 2036 CLO Notes (principal amount outstanding of $476 and
+$0, respectively)(2) 473 (3) 476 — — 
+October 2036 CLO Secured Loans (principal amount outstanding
+of $544 and $0, respectively)(2) 541 (3) 544 — — 
+2024 Convertible Notes (principal amount outstanding of $0 and
+$403, respectively) — — 402 (3) 417 
+June 2024 Notes (principal amount outstanding of $0 and $900,
+respectively) — — 899 (3) 893 
+March 2025 Notes (principal amount outstanding of $600) 600 (3) 599 599 (3) 587 
+July 2025 Notes (principal amount outstanding of $1,250) 1,252 (3) 1,238 1,255 (3) 1,198 
+January 2026 Notes (principal amount outstanding of $1,150) 1,148 (3) 1,137 1,146 (3) 1,107 
+July 2026 Notes (principal amount outstanding of $1,000) 996 (3) 957 993 (3) 913 
+January 2027 Notes (principal amount outstanding of $900) 891 (3)(4) 933 905 (3)(4) 927 
+June 2027 Notes (principal amount outstanding of $500) 497 (3) 475 495 (3) 458 
+June 2028 Notes (principal amount outstanding of $1,250) 1,248 (3) 1,151 1,247 (3) 1,109 
+March 2029 Notes (principal amount outstanding of $1,000 and
+$0, respectively) 985 (3)(4) 1,010 — — 
+July 2029 Notes (principal amount outstanding of $850 and $0,
+respectively) 835 (3)(4) 861 — — 
+November 2031 Notes (principal amount outstanding of $700) 692 (3) 602 691 (3) 586 
+Total $ 13,727 (5) $ 13,552 $ 11,884 (5) $ 11,447 
+________________________________________
+(1) The Revolving Credit Facility, the Revolving Funding Facility, the SMBC Funding Facility and the BNP Funding Facility carrying values are the same as the
+principal amounts outstanding.
+(2) Excludes the April 2036 CLO Subordinated Notes and October 2036 CLO Subordinated Notes, which were retained by the Company and, as such, eliminated
+in consolidation. See Note 5 for more information on the Debt Securitizations.
+(3) Represents the aggregate principal amount outstanding, less unamortized debt issuance costs and the net unaccreted/amortized discount or premium recorded
+upon issuance.
+(4) The carrying value of the January 2027 Notes, the March 2029 Notes and the July 2029 Notes as of December 31, 2024 includes adjustments as a result of
+effective hedge accounting relationships. The carrying value of the January 2027 Notes as of December 31, 2023 includes an adjustment as a result of an
+effective hedge accounting relationship. See Notes 5 and 6 for more information.
+(5) Total principal amount of debt outstanding totaled $13,789 and $11,905 as of December 31, 2024 and 2023, respectively.
+(6) The fair value of these debt obligations would be categorized as Level 2 under ASC 820-10.
+F-181

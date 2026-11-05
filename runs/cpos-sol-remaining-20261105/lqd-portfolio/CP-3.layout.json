@@ -1,0 +1,125 @@
+{
+  "blocks": [
+    "portfolio-fit",
+    "capital-structure",
+    "binding-limitations"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-3",
+      "heading": "Request",
+      "kind": "prose",
+      "prefix": "View:",
+      "block_id": "portfolio-fit",
+      "label": "Historical portfolio view"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Portfolio conclusion",
+      "kind": "prose",
+      "block_id": "portfolio-fit",
+      "label": "Portfolio conclusion"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Implementation boundary",
+      "kind": "prose",
+      "block_id": "binding-limitations",
+      "label": "Implementation boundary"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3C.1 \u2014 portfolio input gate",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T3C.1 \u2014 portfolio input gate"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3C.2 \u2014 portfolio fit",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T3C.2 \u2014 portfolio fit"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3C.3 \u2014 sizing posture",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T3C.3 \u2014 sizing posture"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3C.4 \u2014 risk budget flags",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T3C.4 \u2014 risk budget flags"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3C.5 \u2014 concentration and correlation",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T3C.5 \u2014 concentration and correlation"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3C.6 \u2014 liquidity and implementation",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T3C.6 \u2014 liquidity and implementation"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3C.7 \u2014 downside budget",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T3C.7 \u2014 downside budget"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3C.8 \u2014 monitoring",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T3C.8 \u2014 monitoring"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3C.9 \u2014 gaps",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T3C.9 \u2014 gaps"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Held instrument evidence",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Held instrument evidence"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Inherited historical definition conflicts",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Inherited historical definition conflicts"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Holding controls",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Holding controls"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Exposure and loss controls",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Exposure and loss controls"
+    }
+  ],
+  "title": "LQD historical ARCC exposure and conditional downside",
+  "question": "What do actual held positions imply for exposure and conditional fund loss when sizing constraints are missing?",
+  "scope": "Fresh CP-3B historical positive holdings/downside function. December2024 security context kept separate fromMay2025 holdings; no investment approval or complete native portfolio pathway."
+}

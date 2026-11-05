@@ -1,0 +1,49 @@
+{
+  "run": {
+    "run_id": "sol-remaining-lqd-portfolio-20261105",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2025-05-31",
+    "case_kind": "public",
+    "pathway": "portfolio_decision",
+    "requested_modules": [
+      "CP-3B"
+    ]
+  },
+  "module_id": "CP-3",
+  "instructions": {
+    "path": "CP-3.instructions.md",
+    "sha256": "d6fc111d09f65d5b2e246f5170ad7c3bf7be638e75ca4fa40ddb16e82a341855"
+  },
+  "sources": {
+    "nport-selected": {
+      "path": "nport-selected.txt",
+      "sha256": "05035e8fb6f704a1a5a11522dd361942866b1e815dfdc71d940620dd512bfb3f"
+    },
+    "form-semantics": {
+      "path": "form-semantics.txt",
+      "sha256": "10453adb85c318ce466a951c1e1bf9b07d5f900614f1ff67765ef027924a7fc6"
+    },
+    "method-runbook": {
+      "path": "../../../docs/reuse/selected-methods/CP-3B_RUNBOOK.md",
+      "sha256": "b506932e7abb629e5da139f0f049673c4737c662c988f4e0ee69fd799787bafa"
+    },
+    "method-schema": {
+      "path": "../../../docs/reuse/selected-methods/CP-3B_SCHEMA_REFERENCE.md",
+      "sha256": "c686fbe33f83970fa235e666f66a1caa55b3dbaab6eed2fe87d8bca3de8f640d"
+    },
+    "method-steps": {
+      "path": "../../../docs/reuse/selected-methods/REF_CP-3B_STEPS.md",
+      "sha256": "9e134207ab85d004174ef27094948bdcbd798601def55cf307b63c5c302c4711"
+    }
+  },
+  "handoffs": {
+    "CP-3A": {
+      "path": "../arcc-selection/CP-3.md",
+      "sha256": "9d266261a1eb5c92c9e7052a999e087fc39cde506e4fdb9be47c00d65218b1c6"
+    }
+  },
+  "layout": "CP-3.layout.json",
+  "checks": "CP-3.checks.json",
+  "output": "CP-3.md"
+}

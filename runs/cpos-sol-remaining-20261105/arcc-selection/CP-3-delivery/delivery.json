@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Fresh live CP-3/3A functions over two historical notes, consuming current market and capacity handoffs. No full stack, current trading recommendation or portfolio implementation.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-3.md": "9d266261a1eb5c92c9e7052a999e087fc39cde506e4fdb9be47c00d65218b1c6",
+    "view.json": "38ded3e26fda93bb0c603e3276fefbe9922d7308937a35625e5c3d2c83c7e3c1",
+    "report-view.json": "9d9fc0a3dbd588b5703a4f6ffb17d8bf2d97d0d3a37cdbd06955983a60224288",
+    "report.html": "443e1079ec353c664b1c0fc35920eabeeca9a4cf310c5047795936ef7c16fd0c"
+  }
+}

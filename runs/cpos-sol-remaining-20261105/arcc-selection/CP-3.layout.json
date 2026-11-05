@@ -1,0 +1,196 @@
+{
+  "blocks": [
+    "instrument-levels",
+    "compensation-preference",
+    "market-against-fundamentals",
+    "credit-view"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-3",
+      "heading": "Request",
+      "kind": "prose",
+      "prefix": "View:",
+      "block_id": "credit-view",
+      "label": "Security view"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3.1 \u2014 source gate",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3.1 \u2014 source gate"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3.3 \u2014 scorecard",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3.3 \u2014 scorecard"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3.4 \u2014 overrides",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3.4 \u2014 overrides"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3.5 \u2014 relative value",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3.5 \u2014 relative value"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3.6 \u2014 fundamental value matrix",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3.6 \u2014 fundamental value matrix"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3.7 \u2014 final ranking",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3.7 \u2014 final ranking"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3.9 \u2014 monitoring",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3.9 \u2014 monitoring"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3.10 \u2014 gaps",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3.10 \u2014 gaps"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3B.1 \u2014 instrument source gate",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3B.1 \u2014 instrument source gate"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3B.2 \u2014 selected capital structure",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3B.2 \u2014 selected capital structure"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3B.3 \u2014 instrument matrix",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3B.3 \u2014 instrument matrix"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3B.4 \u2014 structural positioning",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3B.4 \u2014 structural positioning"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3B.5 \u2014 legal and LME overlay",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3B.5 \u2014 legal and LME overlay"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3B.6 \u2014 recovery sensitivity",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3B.6 \u2014 recovery sensitivity"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3B.7 \u2014 compensation cross-check",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3B.7 \u2014 compensation cross-check"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3B.8 \u2014 preference decisions",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3B.8 \u2014 preference decisions"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3B.10 \u2014 instrument monitoring",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3B.10 \u2014 instrument monitoring"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "T3B.11 \u2014 instrument gaps",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3B.11 \u2014 instrument gaps"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Definition conflicts",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "Definition conflicts"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Pair pricing controls",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "Pair pricing controls"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Pair difference controls",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "Pair difference controls"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Fundamental credit context",
+      "kind": "prose",
+      "block_id": "market-against-fundamentals",
+      "label": "Fundamental credit context"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Instrument trade-offs",
+      "kind": "prose",
+      "block_id": "compensation-preference",
+      "label": "Instrument trade-offs"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Security-selection conclusion",
+      "kind": "prose",
+      "block_id": "credit-view",
+      "label": "Security-selection conclusion"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Portfolio implementation boundary",
+      "kind": "prose",
+      "block_id": "credit-view",
+      "label": "Portfolio implementation boundary"
+    }
+  ],
+  "title": "ARCC historical two-note security comparison",
+  "question": "Does conditional market compensation justify preferring either 2029 note?",
+  "scope": "Fresh live CP-3/3A functions over two historical notes, consuming current market and capacity handoffs. No full stack, current trading recommendation or portfolio implementation."
+}

@@ -1,0 +1,125 @@
+{
+  "blocks": [
+    "instrument-levels",
+    "market-against-fundamentals",
+    "credit-view"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-3D",
+      "heading": "Request",
+      "kind": "prose",
+      "prefix": "View:",
+      "block_id": "credit-view",
+      "label": "Historical market view"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "Market conclusion",
+      "kind": "prose",
+      "block_id": "credit-view",
+      "label": "Market conclusion"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "T3E.1 \u2014 market evidence",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3E.1 \u2014 market evidence"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "T3E.2 \u2014 pricing conventions",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3E.2 \u2014 pricing conventions"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "T3E.3 \u2014 issuer curve",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3E.3 \u2014 issuer curve"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "T3E.4 \u2014 comparators",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3E.4 \u2014 comparators"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "T3E.5 \u2014 loss break-even",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3E.5 \u2014 loss break-even"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "T3E.6 \u2014 liquidity and technicals",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3E.6 \u2014 liquidity and technicals"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "T3E.7 \u2014 fundamental reconciliation",
+      "kind": "table",
+      "block_id": "market-against-fundamentals",
+      "label": "T3E.7 \u2014 fundamental reconciliation"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "T3E.8 \u2014 sensitivities",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "T3E.8 \u2014 sensitivities"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "T3E.9 \u2014 monitoring",
+      "kind": "table",
+      "block_id": "market-against-fundamentals",
+      "label": "T3E.9 \u2014 monitoring"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "T3E.10 \u2014 gaps",
+      "kind": "table",
+      "block_id": "market-against-fundamentals",
+      "label": "T3E.10 \u2014 gaps"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "Evaluated curve controls",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "Evaluated curve controls"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "Conditional pricing controls",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "Conditional pricing controls"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "Loss break-even controls",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "Loss break-even controls"
+    },
+    {
+      "module_id": "CP-3D",
+      "heading": "Yield shock controls",
+      "kind": "table",
+      "block_id": "instrument-levels",
+      "label": "Yield shock controls"
+    }
+  ],
+  "title": "ARCC historical evaluated market risk",
+  "question": "What can dated evaluated debt values support when price basis and executable liquidity are unresolved?",
+  "scope": "Fresh sol-medium CP-3D source-based historical function, conditional pricing and current CP-4A consumption. Not executable quotes, full native underwriting or an end-to-end pathway."
+}

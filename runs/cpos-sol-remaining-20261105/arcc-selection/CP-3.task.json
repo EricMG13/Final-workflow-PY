@@ -1,0 +1,77 @@
+{
+  "run": {
+    "run_id": "sol-remaining-arcc-selection-20261105",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2024-12-31",
+    "case_kind": "public",
+    "pathway": "relative_value",
+    "requested_modules": [
+      "CP-3A"
+    ]
+  },
+  "module_id": "CP-3",
+  "instructions": {
+    "path": "CP-3.instructions.md",
+    "sha256": "0cfe17ca82aba6894faaf5fef17cf8297c775ae5cfab0a7e1f2db876c823e03a"
+  },
+  "sources": {
+    "annual-selected": {
+      "path": "annual-selected.txt",
+      "sha256": "9061d53de033632abfcb20aa50e3c302534a9dd903218e2b290abe65904a40ae"
+    },
+    "march-supplement": {
+      "path": "../../arcc-selection-2024-001/sources/March2029-lines.txt",
+      "sha256": "afa48e16a39d3cab0e427ec9bc2967980570f2117223203482d0cf1d84f8bbd3"
+    },
+    "july-supplement": {
+      "path": "../../arcc-2024-001/sources/supplement-lines.txt",
+      "sha256": "bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c"
+    },
+    "selected-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/SKILL.md",
+      "sha256": "7e85b2f545fffcb3ad17f4997e5c577ae9620d279f1ffe8e12aefa8ce38abcd1"
+    },
+    "cp3-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/REF_CP-3_STEPS.md",
+      "sha256": "a142dd66006ea876e3abc9166e0184fcb0685b32bc5cff703e9158da22fe8767"
+    },
+    "cp3a-runbook": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/CP-3A_RUNBOOK.md",
+      "sha256": "cbb19deed431ea93c91b5e4d025d466869169681e8daa2d94a70ecde775dbc8e"
+    },
+    "cp3a-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/REF_CP-3A_STEPS.md",
+      "sha256": "40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec"
+    },
+    "offline-helper": {
+      "path": "offline-helper.json",
+      "sha256": "6b325c360bc3223c81d994f887b9a7480f6669a3888e9cfa2564a535bc7783b9"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../../arcc-market-2024-001/CP-0.md",
+      "sha256": "f61415aa2b3c2d0d6fd79ad6853d49ec96e51d65e3130277e54f18e30b24626a"
+    },
+    "CP-1": {
+      "path": "../../arcc-market-2024-001/CP-1-market-inputs.md",
+      "sha256": "68437034bceb3ebb0d04ad97e0746b255588aef701c8e7a6bcd8c38507b3ae1c"
+    },
+    "CP-L10": {
+      "path": "../../arcc-lite-2024-001/ARCC_CP-L10_20261104-attempt-3.md",
+      "sha256": "495c0b91b6374fc5770c44033b031f5bd17b9b26b23451ec8c20407bff29dee1"
+    },
+    "CP-3D": {
+      "path": "../arcc-market/CP-3D.md",
+      "sha256": "0f90e8e5a1b58f5174fe60281244347dfd15f0da1608152a1f53cfe8132b6f61"
+    },
+    "CP-4A": {
+      "path": "../arcc-capacity/CP-4A.md",
+      "sha256": "fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738"
+    }
+  },
+  "layout": "CP-3.layout.json",
+  "checks": "CP-3.checks.json",
+  "output": "CP-3.md"
+}

@@ -1,0 +1,276 @@
+Source: LQD-20250531-NPORT.xml SHA256 7617ce8e9f605035939d57fdf019636510ba08d9cb2388d561be04d574bb11df; retained literal fragments, not whole filing. Holdings scanned:2910. Exact issuer LEI match includes5; related issuer887/2092 explicitly excluded. Ordinals1-based.
+
+<genInfo>
+      <regName>iShares Trust</regName>
+      <regFileNumber>811-09729</regFileNumber>
+      <regCik>0001100663</regCik>
+      <regLei>5493000860OXIC4B5K91</regLei>
+      <regStreet1>400 Howard Street</regStreet1>
+      <regCity>San Francisco</regCity>
+      <regStateConditional regCountry="US" regState="US-CA"/>
+      <regZipOrPostalCode>94105</regZipOrPostalCode>
+      <regPhone>800-474-2737</regPhone>
+      <seriesName>iShares iBoxx $ Investment Grade Corporate Bond ETF</seriesName>
+      <seriesId>S000004361</seriesId>
+      <seriesLei>549300FYCXFXG8POR355</seriesLei>
+      <repPdEnd>2026-02-28</repPdEnd>
+      <repPdDate>2025-05-31</repPdDate>
+      <isFinalFiling>N</isFinalFiling>
+    </genInfo>
+
+<totAssets>34826064750.43</totAssets>
+<totLiabs>4002234372.24</totLiabs>
+<netAssets>30823830378.19</netAssets>
+
+
+Original invstOrSec ordinal 887; EXCLUDED related issuer:
+<invstOrSec>
+        <name>ARES STRATEGIC INCOME FU</name>
+        <lei>549300IANZJVZPTICV54</lei>
+        <title>Ares Strategic Income Fund</title>
+        <cusip>04020EAD9</cusip>
+        <identifiers>
+          <isin value="US04020EAD94"/>
+        </identifiers>
+        <balance>7187000.00000000</balance>
+        <units>PA</units>
+        <curCd>USD</curCd>
+        <valUSD>7061829.77000000</valUSD>
+        <pctVal>0.022910292729</pctVal>
+        <payoffProfile>Long</payoffProfile>
+        <assetCat>DBT</assetCat>
+        <issuerCat>CORP</issuerCat>
+        <invCountry>US</invCountry>
+        <isRestrictedSec>N</isRestrictedSec>
+
+        <fairValLevel>2</fairValLevel>
+        <debtSec>
+          <maturityDt>2030-02-15</maturityDt>
+          <couponKind>Fixed</couponKind>
+          <annualizedRt>5.60000000</annualizedRt>
+          <isDefault>N</isDefault>
+          <areIntrstPmntsInArrs>N</areIntrstPmntsInArrs>
+          <isPaidKind>N</isPaidKind>
+        </debtSec>
+        <securityLending>
+          <isCashCollateral>N</isCashCollateral>
+          <isNonCashCollateral>N</isNonCashCollateral>
+          <isLoanByFund>N</isLoanByFund>
+        </securityLending>
+      </invstOrSec>
+
+Original invstOrSec ordinal 888; INCLUDED:
+<invstOrSec>
+        <name>ARES CAPITAL CORP</name>
+        <lei>WEQ82666OJYSI5GUAB47</lei>
+        <title>Ares Capital Corp</title>
+        <cusip>04010LBK8</cusip>
+        <identifiers>
+          <isin value="US04010LBK89"/>
+        </identifiers>
+        <balance>4430000.00000000</balance>
+        <units>PA</units>
+        <curCd>USD</curCd>
+        <valUSD>4393034.75000000</valUSD>
+        <pctVal>0.014252072815</pctVal>
+        <payoffProfile>Long</payoffProfile>
+        <assetCat>DBT</assetCat>
+        <issuerCat>CORP</issuerCat>
+        <invCountry>US</invCountry>
+        <isRestrictedSec>N</isRestrictedSec>
+
+        <fairValLevel>2</fairValLevel>
+        <debtSec>
+          <maturityDt>2030-09-01</maturityDt>
+          <couponKind>Fixed</couponKind>
+          <annualizedRt>5.50000000</annualizedRt>
+          <isDefault>N</isDefault>
+          <areIntrstPmntsInArrs>N</areIntrstPmntsInArrs>
+          <isPaidKind>N</isPaidKind>
+        </debtSec>
+        <securityLending>
+          <isCashCollateral>N</isCashCollateral>
+          <isNonCashCollateral>N</isNonCashCollateral>
+          <isLoanByFund>N</isLoanByFund>
+        </securityLending>
+      </invstOrSec>
+
+Original invstOrSec ordinal 1453; INCLUDED:
+<invstOrSec>
+        <name>ARES CAPITAL CORP</name>
+        <lei>WEQ82666OJYSI5GUAB47</lei>
+        <title>Ares Capital Corp</title>
+        <cusip>04010LBB8</cusip>
+        <identifiers>
+          <isin value="US04010LBB80"/>
+        </identifiers>
+        <balance>1347000.00000000</balance>
+        <units>PA</units>
+        <curCd>USD</curCd>
+        <valUSD>1256309.72000000</valUSD>
+        <pctVal>0.004075774180</pctVal>
+        <payoffProfile>Long</payoffProfile>
+        <assetCat>DBT</assetCat>
+        <issuerCat>CORP</issuerCat>
+        <invCountry>US</invCountry>
+        <isRestrictedSec>N</isRestrictedSec>
+
+        <fairValLevel>2</fairValLevel>
+        <debtSec>
+          <maturityDt>2028-06-15</maturityDt>
+          <couponKind>Fixed</couponKind>
+          <annualizedRt>2.88000000</annualizedRt>
+          <isDefault>N</isDefault>
+          <areIntrstPmntsInArrs>N</areIntrstPmntsInArrs>
+          <isPaidKind>N</isPaidKind>
+        </debtSec>
+        <securityLending>
+          <isCashCollateral>N</isCashCollateral>
+          <isNonCashCollateral>N</isNonCashCollateral>
+          <isLoanByFund>N</isLoanByFund>
+        </securityLending>
+      </invstOrSec>
+
+Original invstOrSec ordinal 1780; INCLUDED:
+<invstOrSec>
+        <name>ARES CAPITAL CORP</name>
+        <lei>WEQ82666OJYSI5GUAB47</lei>
+        <title>Ares Capital Corp</title>
+        <cusip>04010LBG7</cusip>
+        <identifiers>
+          <isin value="US04010LBG77"/>
+        </identifiers>
+        <balance>10247000.00000000</balance>
+        <units>PA</units>
+        <curCd>USD</curCd>
+        <valUSD>10424576.41000000</valUSD>
+        <pctVal>0.033819860419</pctVal>
+        <payoffProfile>Long</payoffProfile>
+        <assetCat>DBT</assetCat>
+        <issuerCat>CORP</issuerCat>
+        <invCountry>US</invCountry>
+        <isRestrictedSec>N</isRestrictedSec>
+
+        <fairValLevel>2</fairValLevel>
+        <debtSec>
+          <maturityDt>2029-07-15</maturityDt>
+          <couponKind>Fixed</couponKind>
+          <annualizedRt>5.95000000</annualizedRt>
+          <isDefault>N</isDefault>
+          <areIntrstPmntsInArrs>N</areIntrstPmntsInArrs>
+          <isPaidKind>N</isPaidKind>
+        </debtSec>
+        <securityLending>
+          <isCashCollateral>N</isCashCollateral>
+          <isNonCashCollateral>N</isNonCashCollateral>
+          <loanByFundCondition isLoanByFund="Y" loanVal="1213674.21280000"/>
+        </securityLending>
+      </invstOrSec>
+
+Original invstOrSec ordinal 2092; EXCLUDED related issuer:
+<invstOrSec>
+        <name>ARES STRATEGIC INCOME FU</name>
+        <lei>549300IANZJVZPTICV54</lei>
+        <title>Ares Strategic Income Fund</title>
+        <cusip>04020EAJ6</cusip>
+        <identifiers>
+          <isin value="US04020EAJ64"/>
+        </identifiers>
+        <balance>5591000.00000000</balance>
+        <units>PA</units>
+        <curCd>USD</curCd>
+        <valUSD>5554539.97000000</valUSD>
+        <pctVal>0.018020278147</pctVal>
+        <payoffProfile>Long</payoffProfile>
+        <assetCat>DBT</assetCat>
+        <issuerCat>CORP</issuerCat>
+        <invCountry>US</invCountry>
+        <isRestrictedSec>N</isRestrictedSec>
+
+        <fairValLevel>2</fairValLevel>
+        <debtSec>
+          <maturityDt>2032-03-21</maturityDt>
+          <couponKind>Fixed</couponKind>
+          <annualizedRt>6.20000000</annualizedRt>
+          <isDefault>N</isDefault>
+          <areIntrstPmntsInArrs>N</areIntrstPmntsInArrs>
+          <isPaidKind>N</isPaidKind>
+        </debtSec>
+        <securityLending>
+          <isCashCollateral>N</isCashCollateral>
+          <isNonCashCollateral>N</isNonCashCollateral>
+          <loanByFundCondition isLoanByFund="Y" loanVal="580191.61920000"/>
+        </securityLending>
+      </invstOrSec>
+
+Original invstOrSec ordinal 2173; INCLUDED:
+<invstOrSec>
+        <name>ARES CAPITAL CORP</name>
+        <lei>WEQ82666OJYSI5GUAB47</lei>
+        <title>Ares Capital Corp</title>
+        <cusip>04010LBH5</cusip>
+        <identifiers>
+          <isin value="US04010LBH50"/>
+        </identifiers>
+        <balance>10572000.00000000</balance>
+        <units>PA</units>
+        <curCd>USD</curCd>
+        <valUSD>10414771.10000000</valUSD>
+        <pctVal>0.033788049610</pctVal>
+        <payoffProfile>Long</payoffProfile>
+        <assetCat>DBT</assetCat>
+        <issuerCat>CORP</issuerCat>
+        <invCountry>US</invCountry>
+        <isRestrictedSec>N</isRestrictedSec>
+
+        <fairValLevel>2</fairValLevel>
+        <debtSec>
+          <maturityDt>2032-03-08</maturityDt>
+          <couponKind>Fixed</couponKind>
+          <annualizedRt>5.80000000</annualizedRt>
+          <isDefault>N</isDefault>
+          <areIntrstPmntsInArrs>N</areIntrstPmntsInArrs>
+          <isPaidKind>N</isPaidKind>
+        </debtSec>
+        <securityLending>
+          <isCashCollateral>N</isCashCollateral>
+          <isNonCashCollateral>N</isNonCashCollateral>
+          <isLoanByFund>N</isLoanByFund>
+        </securityLending>
+      </invstOrSec>
+
+Original invstOrSec ordinal 2561; INCLUDED:
+<invstOrSec>
+        <name>ARES CAPITAL CORP</name>
+        <lei>WEQ82666OJYSI5GUAB47</lei>
+        <title>Ares Capital Corp</title>
+        <cusip>04010LBF9</cusip>
+        <identifiers>
+          <isin value="US04010LBF94"/>
+        </identifiers>
+        <balance>7177000.00000000</balance>
+        <units>PA</units>
+        <curCd>USD</curCd>
+        <valUSD>7273541.42000000</valUSD>
+        <pctVal>0.023597136795</pctVal>
+        <payoffProfile>Long</payoffProfile>
+        <assetCat>DBT</assetCat>
+        <issuerCat>CORP</issuerCat>
+        <invCountry>US</invCountry>
+        <isRestrictedSec>N</isRestrictedSec>
+
+        <fairValLevel>2</fairValLevel>
+        <debtSec>
+          <maturityDt>2029-03-01</maturityDt>
+          <couponKind>Fixed</couponKind>
+          <annualizedRt>5.88000000</annualizedRt>
+          <isDefault>N</isDefault>
+          <areIntrstPmntsInArrs>N</areIntrstPmntsInArrs>
+          <isPaidKind>N</isPaidKind>
+        </debtSec>
+        <securityLending>
+          <isCashCollateral>N</isCashCollateral>
+          <isNonCashCollateral>N</isNonCashCollateral>
+          <loanByFundCondition isLoanByFund="Y" loanVal="306062.35300000"/>
+        </securityLending>
+      </invstOrSec>

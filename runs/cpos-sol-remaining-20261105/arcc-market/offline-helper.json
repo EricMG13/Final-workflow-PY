@@ -1,0 +1,306 @@
+{
+  "scope": "Fresh unchanged low-level yield/PV calls on explicitly chosen30E/360flows; independent50digitDecimalPV/derivatives/shocks/losschecks against primarysourceoperands and retainedindependentroots. High-leveldated/30E360refusals preserved. Notgeneraldatedadapter,executablequote,OASorcurrentrisk.",
+  "valuation_date": "2024-12-31",
+  "curve": [
+    {
+      "series": "March2025",
+      "maturity": "2025-03-01",
+      "principal_usdm": 600,
+      "carrying_usdm": 600,
+      "estimated_fair_value_usdm": 599,
+      "fixed_coupon_pct": "4.250",
+      "evaluated_equivalent_per_100": "599/6",
+      "discount_to_par_points": "1/6",
+      "prior_fair_usdm": 587,
+      "prior_equivalent_per_100": "587/6",
+      "change_points_not_total_return": "2"
+    },
+    {
+      "series": "July2025",
+      "maturity": "2025-07-15",
+      "principal_usdm": 1250,
+      "carrying_usdm": 1252,
+      "estimated_fair_value_usdm": 1238,
+      "fixed_coupon_pct": "3.250",
+      "evaluated_equivalent_per_100": "2476/25",
+      "discount_to_par_points": "24/25",
+      "prior_fair_usdm": 1198,
+      "prior_equivalent_per_100": "2396/25",
+      "change_points_not_total_return": "16/5"
+    },
+    {
+      "series": "January2026",
+      "maturity": "2026-01-15",
+      "principal_usdm": 1150,
+      "carrying_usdm": 1148,
+      "estimated_fair_value_usdm": 1137,
+      "fixed_coupon_pct": "3.875",
+      "evaluated_equivalent_per_100": "2274/23",
+      "discount_to_par_points": "26/23",
+      "prior_fair_usdm": 1107,
+      "prior_equivalent_per_100": "2214/23",
+      "change_points_not_total_return": "60/23"
+    },
+    {
+      "series": "July2026",
+      "maturity": "2026-07-15",
+      "principal_usdm": 1000,
+      "carrying_usdm": 996,
+      "estimated_fair_value_usdm": 957,
+      "fixed_coupon_pct": "2.150",
+      "evaluated_equivalent_per_100": "957/10",
+      "discount_to_par_points": "43/10",
+      "prior_fair_usdm": 913,
+      "prior_equivalent_per_100": "913/10",
+      "change_points_not_total_return": "22/5"
+    },
+    {
+      "series": "January2027",
+      "maturity": "2027-01-15",
+      "principal_usdm": 900,
+      "carrying_usdm": 891,
+      "estimated_fair_value_usdm": 933,
+      "fixed_coupon_pct": "7.000",
+      "evaluated_equivalent_per_100": "311/3",
+      "discount_to_par_points": "-11/3",
+      "prior_fair_usdm": 927,
+      "prior_equivalent_per_100": "103",
+      "change_points_not_total_return": "2/3"
+    },
+    {
+      "series": "June2027",
+      "maturity": "2027-06-15",
+      "principal_usdm": 500,
+      "carrying_usdm": 497,
+      "estimated_fair_value_usdm": 475,
+      "fixed_coupon_pct": "2.875",
+      "evaluated_equivalent_per_100": "95",
+      "discount_to_par_points": "5",
+      "prior_fair_usdm": 458,
+      "prior_equivalent_per_100": "458/5",
+      "change_points_not_total_return": "17/5"
+    },
+    {
+      "series": "June2028",
+      "maturity": "2028-06-15",
+      "principal_usdm": 1250,
+      "carrying_usdm": 1248,
+      "estimated_fair_value_usdm": 1151,
+      "fixed_coupon_pct": "2.875",
+      "evaluated_equivalent_per_100": "2302/25",
+      "discount_to_par_points": "198/25",
+      "prior_fair_usdm": 1109,
+      "prior_equivalent_per_100": "2218/25",
+      "change_points_not_total_return": "84/25"
+    },
+    {
+      "series": "March2029",
+      "maturity": "2029-03-01",
+      "principal_usdm": 1000,
+      "carrying_usdm": 985,
+      "estimated_fair_value_usdm": 1010,
+      "fixed_coupon_pct": "5.875",
+      "evaluated_equivalent_per_100": "101",
+      "discount_to_par_points": "-1",
+      "prior_fair_usdm": null,
+      "prior_equivalent_per_100": null,
+      "change_points_not_total_return": null
+    },
+    {
+      "series": "July2029",
+      "maturity": "2029-07-15",
+      "principal_usdm": 850,
+      "carrying_usdm": 835,
+      "estimated_fair_value_usdm": 861,
+      "fixed_coupon_pct": "5.950",
+      "evaluated_equivalent_per_100": "1722/17",
+      "discount_to_par_points": "-22/17",
+      "prior_fair_usdm": null,
+      "prior_equivalent_per_100": null,
+      "change_points_not_total_return": null
+    },
+    {
+      "series": "November2031",
+      "maturity": "2031-11-15",
+      "principal_usdm": 700,
+      "carrying_usdm": 692,
+      "estimated_fair_value_usdm": 602,
+      "fixed_coupon_pct": "3.200",
+      "evaluated_equivalent_per_100": "86",
+      "discount_to_par_points": "14",
+      "prior_fair_usdm": 586,
+      "prior_equivalent_per_100": "586/7",
+      "change_points_not_total_return": "16/7"
+    }
+  ],
+  "accrued_exact": "1309/480",
+  "maturity_flows": [
+    {
+      "time_years_exact": "1/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "13/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "25/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "37/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "49/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "61/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "73/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "85/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "97/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "109/24",
+      "amount_per100_exact": "4119/40"
+    }
+  ],
+  "par_call_flows": [
+    {
+      "time_years_exact": "1/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "13/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "25/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "37/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "49/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "61/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "73/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "85/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "97/24",
+      "amount_per100_exact": "119/40"
+    },
+    {
+      "time_years_exact": "107/24",
+      "amount_per100_exact": "4919/48"
+    }
+  ],
+  "horizon_act365f": "1657/365",
+  "benchmark_yield_exact": "79473/1825000",
+  "cases": [
+    {
+      "case": "A_assume_equivalent_clean",
+      "dirty_price_exact": "848813/8160",
+      "assumed_clean_price_exact": "1722/17",
+      "maturity_yield": 0.05622366058445431,
+      "par_call_yield": 0.05618164480320495,
+      "simple_spread_bps": 126.76811269385823,
+      "modified_duration": 3.8364477866891664,
+      "loss_break_even_sensitivities": [
+        {
+          "recovery_fraction": 0.2,
+          "annual_fraction": 0.015846014086732276,
+          "horizon_fraction": 0.06994598134478347
+        },
+        {
+          "recovery_fraction": 0.4,
+          "annual_fraction": 0.021128018782309705,
+          "horizon_fraction": 0.09239241615504412
+        },
+        {
+          "recovery_fraction": 0.6,
+          "annual_fraction": 0.03169202817346455,
+          "horizon_fraction": 0.13601708392562928
+        }
+      ],
+      "rounding_yield_bounds": [
+        0.05637111261316614,
+        0.056076310912778746
+      ],
+      "shocks": [
+        {
+          "change_bps": -100,
+          "equivalent_price": 105.38051888787732
+        },
+        {
+          "change_bps": 100,
+          "equivalent_price": 97.39576979148895
+        }
+      ]
+    },
+    {
+      "case": "B_assume_equivalent_dirty",
+      "dirty_price_exact": "1722/17",
+      "assumed_clean_price_exact": "804307/8160",
+      "maturity_yield": 0.06316949000391184,
+      "par_call_yield": 0.06324222628574597,
+      "simple_spread_bps": 196.22640688843347,
+      "modified_duration": 3.8131508622712516,
+      "loss_break_even_sensitivities": [
+        {
+          "recovery_fraction": 0.2,
+          "annual_fraction": 0.024528300861054182,
+          "horizon_fraction": 0.10661722524863171
+        },
+        {
+          "recovery_fraction": 0.4,
+          "annual_fraction": 0.03270440114807225,
+          "horizon_fraction": 0.14011023884426865
+        },
+        {
+          "recovery_fraction": 0.6,
+          "annual_fraction": 0.049056601722108364,
+          "horizon_fraction": 0.20415557789532812
+        }
+      ],
+      "rounding_yield_bounds": [
+        0.06332183847001426,
+        0.0630172503712057
+      ],
+      "shocks": [
+        {
+          "change_bps": -100,
+          "equivalent_price": 105.24885054974374
+        },
+        {
+          "change_bps": 100,
+          "equivalent_price": 97.52067517237987
+        }
+      ]
+    }
+  ],
+  "checked_numeric_cells": 110
+}
