@@ -54,6 +54,40 @@ let current = null, returnTrigger = null, returnScroll = 0, returnContentScroll 
 installDestinations();
 const appDestinations=new Set(['W-Library','W-NewRun','W-Settings','W-Help']); // These need no selected run.
 const aliases = {'CP-2F':'CP-2E','CP-2C':'CP-1A','CP-1E':'CP-1D','CP-5A':'CP-5','CP-6A':'CP-6'};
+for(const visual of window.DESIGN_WORKSPACE.visuals)for(const alias of String(visual.aliases||'').split(/[;,\s]+/).filter(Boolean))aliases[alias]??=visual.module;
+// Reader pages show names; the audit, inspector and evidence pages keep exact codes. Text only, so
+// downloads, links and the retained files are untouched, and each name carries its code as a title.
+const MODULE_CODE=/\bCP-[A-Z0-9]+\b(?![-.][A-Za-z0-9])/,REFERENCE=/\bT\d+[A-Z]?\.\d+\b|\b[FKCS]\d{1,4}\b/;
+const READER_TOKEN=new RegExp(`${MODULE_CODE.source}|${REFERENCE.source}`,'g');
+const moduleLabel=code=>moduleNames[aliases[code]||code]||(code==='CP-MEMO'?'Credit memo':null);
+const showsCodes=({module,section})=>section==='audit'||['W-Evidence','CP-OS','W-Help','W-Settings','W-NewRun'].includes(module);
+function nameCodes(root) {
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),nodes=[];
+  while(walker.nextNode())nodes.push(walker.currentNode);
+  for(const node of nodes) {
+    const parent=node.parentElement;
+    if(parent.closest('.ref,.module-ref,.built-from,.hash'))continue;
+    const parts=[...node.data.matchAll(READER_TOKEN)];
+    if(!parts.length)continue;
+    // A chart or a select cannot hold markup, so these only take the name.
+    if(parent.closest('svg,option')){node.data=node.data.replace(READER_TOKEN,m=>moduleLabel(m)||m);continue;}
+    const fragment=document.createDocumentFragment();
+    let at=0;
+    for(const part of parts) {
+      fragment.append(node.data.slice(at,part.index));
+      at=part.index+part[0].length;
+      const label=MODULE_CODE.test(part[0])?moduleLabel(part[0]):null;
+      if(MODULE_CODE.test(part[0])&&!label){fragment.append(part[0]);continue;}
+      const mark=document.createElement(label?'abbr':'small');
+      mark.className=label?'module-ref':'ref';
+      mark.textContent=label||part[0];
+      if(label)mark.title=part[0];
+      fragment.append(mark);
+    }
+    fragment.append(node.data.slice(at));
+    node.replaceWith(fragment);
+  }
+}
 
 for (const [id, output] of Object.entries(data)) {
   const located={module:output.module,output:id,run:output.run};
@@ -312,6 +346,7 @@ function renderRoute() {
     $('section-nav').innerHTML=isAnalytical(next.module)&&!next.output?title:`${title}<span>${index+1} / ${sections.length}</span><button id="previous-section" ${index===0?'disabled':''} aria-label="Previous section">${icon('arrow-left')}</button><button id="next-section" ${index===sections.length-1?'disabled':''} aria-label="Next section">${icon('arrow-right')}</button>`;
     updateWorkspaceChrome(next.module);
     $('content').innerHTML=moduleBody(next);
+    if(!showsCodes(next))nameCodes($('content'));
     $('content').scrollTop=readingPositions.get(`${next.context}:${next.output||next.module}:${next.section}`)||0;
     showNavigator(false);
     renderNavigator(next.module);
@@ -348,6 +383,7 @@ document.addEventListener('change',event=>{
   if(event.target.id==='output-select')go(current.module,current.section,null,event.target.value);
   if(event.target.id==='chart-metric') {
     $('module-visual').innerHTML=comparisonChart(current.output,data[current.output].visual,Number(event.target.value));
+    nameCodes($('module-visual'));
     $('chart-metric').focus({preventScroll:true});
   }
 });

@@ -134,6 +134,7 @@ def real_workspace(browser, name, port, full):
             location.hash=`${module}?c=${encodeURIComponent(key)}`;renderRoute();
             for(const [section] of navigationSections(module,key,current.output)) {
               location.hash=routeHref(module,section,null,key).slice(1);renderRoute();
+              if(!showsCodes(current)&&section!=='audit'&&(isAnalytical(module)||module==='W-Overview')){const left=document.getElementById('content').textContent.match(/\bCP-[A-Z0-9]+\b(?![-.][A-Za-z0-9])/);if(left)bad.push(`code ${left[0]} on ${key} ${module} ${section}`);}
               if(/Couldn.t present this output/.test(document.getElementById('content').textContent))bad.push(`${key} ${module} ${section}`);
               if(current.module!==module)bad.push(`redirected ${key} ${module}`);
             }

@@ -16,6 +16,8 @@ function fixture(hash='CP-1/performance') {
   return dom;
 }
 const norm=s=>s.replace(/\*\*|`/g,'').replace(/\s+/g,' ').trim();
+// A reader page's text with each shown name turned back into the retained code.
+const retainedText=el=>{const copy=el.cloneNode(true);copy.querySelectorAll('abbr.module-ref').forEach(a=>a.replaceWith(a.title));return norm(copy.textContent);};
 const PIN={'CP-1':'tdg-002/CP-1-attempt-2.md','CP-1A':'tdg-002/CP-1A-attempt-3.md','CP-2':'tdg-002/CP-2-attempt-2.md','CP-1C':'tdg-peers-2024-001/CP-1C-attempt-2.md','CP-6':'ford-otosan-2024-001/CP-6-attempt-1.md','CP-8':'tdg-run-comparison-001/CP-8.md'};
 test('Every retained body block is reachable in exactly one named section',()=>{
   const dom=fixture(),w=dom.window;
@@ -414,7 +416,7 @@ test('CP-8 is the deliverable comparison: all retained rows, both reports and th
   const dom=fixture('CP-8'),w=dom.window,d=w.document,content=d.getElementById('content');
   assert.equal(w.eval('current.context'),'tdg-run-comparison');assert.equal(w.eval('current.output'),PIN['CP-8']);
   assert.ok(d.getElementById('module-head').textContent.includes('Deliverable comparison'));assert.equal(d.getElementById('output-select').value,'CP-8.md');
-  const text=norm(content.textContent),handoff=fs.readFileSync(path.join(repo,'runs',PIN['CP-8']),'utf8').split('\n');
+  const text=retainedText(content),handoff=fs.readFileSync(path.join(repo,'runs',PIN['CP-8']),'utf8').split('\n');
   const rows=heading=>{const start=handoff.findIndex(l=>l===`### ${heading}`);return handoff.slice(start).filter((l,i,all)=>l.startsWith('|')&&all.slice(0,i).every(x=>!x.startsWith('## '))).slice(2).filter(l=>!/^\|[\s:|-]+\|$/.test(l));};
   const sections=rows('All five report sections').slice(0,5),material=rows('Material analytical changes').slice(0,9),regressions=rows('Unresolved regressions to repair').slice(0,3);
   assert.ok(sections[0].startsWith('| Key findings'));assert.ok(sections[4].startsWith('| Transaction summary'));assert.ok(material[0].startsWith('| Annual financial base'));assert.ok(material[8].startsWith('| Output scope'));assert.ok(regressions[2].startsWith('| RC-3'));
@@ -762,4 +764,48 @@ test('The shell loads only files the server embeds',()=>{
   for(const [,rel] of html.matchAll(/(?:src|href)="([^"#]+)"/g))assert.ok(fs.existsSync(path.join(web,rel)),rel);
   const boot=fs.readFileSync(path.join(web,'boot.js'),'utf8');
   for(const name of ['views.js','actions.js','screen.js'])assert.ok(boot.includes(`'${name}'`)&&fs.existsSync(path.join(web,name)),name);
+});
+test('Module codes read as names on reader surfaces, references are muted, and evidence stays exact',()=>{
+  const dom=fixture(),w=dom.window,d=w.document,nameCodes=w.eval('nameCodes');
+  const named=text=>{const el=d.createElement('div');el.textContent=text;nameCodes(el);return el;};
+  assert.equal(named("CP-2G's assumed 20% earnings reduction").textContent,"Forward credit model's assumed 20% earnings reduction");
+  assert.equal(named('CP-2G').querySelector('abbr.module-ref').title,'CP-2G');
+  assert.equal(named('CP-2F and CP-PARSE').textContent,'Rates, FX & hedging and Source readiness');
+  assert.equal(named('CP-XYZ note').textContent,'CP-XYZ note');
+  assert.equal(named('see CP-2-integrated.md').textContent,'see CP-2-integrated.md');
+  const references=named('T4.3 normalization and C67');
+  assert.equal(references.textContent,'T4.3 normalization and C67');
+  assert.deepEqual([...references.querySelectorAll('small.ref')].map(e=>e.textContent),['T4.3','C67']);
+  nameCodes(references);
+  assert.equal(references.querySelector('.ref .ref'),null,'a second pass changes nothing');
+  const chart=d.createElement('div');chart.innerHTML='<svg><text>CP-2G</text></svg>';nameCodes(chart);
+  assert.equal(chart.querySelector('text').textContent,'Forward credit model');
+  assert.equal(chart.querySelector('abbr'),null,'an abbr would not draw inside a chart');
+  dom.window.close();
+});
+test('Only module codes change on any reader section, and every retained character is restorable',()=>{
+  const dom=fixture(),w=dom.window,d=w.document,nameCodes=w.eval('nameCodes');
+  const pages=w.eval(`Object.entries(data).filter(([id])=>data[id].source).flatMap(([id])=>modules[id].sections.map(s=>[id,s[0]])).filter(([,s])=>s!=='audit')`);
+  assert.ok(pages.length>50);
+  for(const [id,section] of pages){
+    const el=d.createElement('div');
+    el.innerHTML=w.eval(`renderContent(${JSON.stringify(id)},${JSON.stringify(section)})`);
+    const before=el.textContent;
+    nameCodes(el);
+    const left=el.textContent.match(/\bCP-[A-Z0-9]+\b(?![-.][A-Za-z0-9])/g);
+    assert.equal(left,null,`${id}/${section} still shows ${left}`);
+    el.querySelectorAll('abbr.module-ref').forEach(a=>a.replaceWith(a.title));
+    assert.equal(el.textContent,before,`${id}/${section}`);
+  }
+  dom.window.close();
+});
+test('The route names codes on reader pages and leaves the audit and inspector exact',()=>{
+  const dom=fixture('CP-2/assessment?c=tdg-002'),w=dom.window,d=w.document;
+  assert.doesNotMatch(d.getElementById('content').textContent,/\bCP-\d/);
+  goTo(dom,'CP-2/audit?c=tdg-002');
+  assert.match(d.getElementById('content').textContent,/\bCP-\d/,'the technical audit keeps codes');
+  const key=w.eval(`[...evidence.entries()].find(([k,v])=>v.run==='tdg-002'&&v.fields.some(f=>/CP-\\d/.test(f[1])))[0]`);
+  w.eval(`showInspector(${JSON.stringify(key)})`);
+  assert.match(d.getElementById('inspector').textContent,/\bCP-\d/,'the inspector keeps codes');
+  dom.window.close();
 });
