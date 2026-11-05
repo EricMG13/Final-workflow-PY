@@ -94,6 +94,7 @@ def _unmatched_numbers(section: str, rest: str) -> tuple[str, ...]:
 
 def reader_issues(text: str) -> tuple[str, ...]:
     """Every problem with the handoff's reader section; empty when it is valid."""
+    text = text.replace("\r\n", "\n")
     headings = list(HEADING.finditer(text))
     if not headings:
         return ("Reader summary section is missing",)

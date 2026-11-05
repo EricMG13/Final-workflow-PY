@@ -963,6 +963,21 @@ test('A stopped run holding only one module shows one card',()=>{
   assert.deepEqual([...d.querySelectorAll('.summary-card')].map(c=>c.dataset.module),['CP-1']);
   dom.window.close();
 });
+test('A reader section opens first, even when the catalogue names another heading',()=>{
+  const store=readerStore();
+  store.outputs['web-1/CP-1.md'].firstHeading='Chart data: liquidity';
+  const dom=appFixture('CP-1?c=web-1',store,NORTHBRIDGE_REPORTS),d=dom.window.document;
+  assert.equal(norm(d.getElementById('section-title').textContent),'Reader summary');
+  assert.ok(d.querySelector('.analysis-call .summary-facts'));
+  dom.window.close();
+});
+test('A catalogue first heading with no body of its own still opens a real section',()=>{
+  const store=readerStore(readerOutput('| Bottom line |','| Conclusion |'));
+  store.outputs['web-1/CP-1.md'].firstHeading='Findings';
+  const dom=appFixture('CP-1?c=web-1',store,NORTHBRIDGE_REPORTS),d=dom.window.document;
+  assert.ok(d.getElementById('content').textContent.includes('Total debt / EBITDA fell'));
+  dom.window.close();
+});
 test('Every card on a Summary quotes its own handoff',()=>{
   const dom=fixture(),w=dom.window;
   let checked=0;

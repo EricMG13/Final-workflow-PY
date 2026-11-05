@@ -862,19 +862,20 @@ def test_live_launch_from_a_context_file_and_issuer_folder():
     ruling = os.environ.get("CPOS_LIVE_RULING")
     if not ruling or not os.environ.get("OPENAI_API_KEY"):
         pytest.skip("paid: set CPOS_LIVE_RULING and OPENAI_API_KEY to run")
-    # Retained answers for these modules cost USD 2.72, and each call holds 5.73. With the USD 0.29
-    # the first attempt charged, this keeps the user's approved USD 12 total.
-    cap = Decimal("11.71")
+    # Its own folder: the launcher now asks for more, so answers retained in LIVE_CASE cannot be
+    # reused, and that retained run must not change. The USD 12 is the owner-approved maximum.
+    out = ROOT / "runs/cpos-reader-live-001"
+    cap = Decimal(12)
     code = main(
         [
             *("--context", str(LIVE_CASE / "context.json")),
             *("--sources", str(ROOT / "data/public-corpus/v1/TDG")),
             *("--config", "sol-medium", "--cap", str(cap), "--modules", "CP-1", "CP-1A"),
-            *("--out", str(LIVE_CASE), "--live", "--ruling", ruling),
+            *("--out", str(out), "--live", "--ruling", ruling),
         ]
     )
     assert code == 0
-    assert_live_evidence(LIVE_CASE, cap)
+    assert_live_evidence(out, cap)
 
 
 def test_live_evidence_check_can_pass_and_refuses_each_kind_of_fake(tmp_path, provider):

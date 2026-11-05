@@ -9,7 +9,7 @@ function installDestinations() {
       if(/^(Request|Calculations|Next module)/.test(s.heading)) {audit.push('='+s.heading);continue;}
       sections.push(['s'+s.line,title(s.heading),['='+s.heading]]);
     }
-    const first=out.firstHeading&&out.sections.find(s=>s.heading.startsWith(out.firstHeading));
+        const first=out.summary?out.sections.find(s=>s.heading==='Reader summary'):out.firstHeading&&out.sections.find(s=>s.heading.startsWith(out.firstHeading));
     const rank=s=>s[0]==='s'+first?.line?-1:s[1]==='Sources'?1:0;
     sections.sort((a,b)=>rank(a)-rank(b));
     sections.push(['audit','Technical audit',audit]);

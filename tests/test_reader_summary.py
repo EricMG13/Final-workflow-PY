@@ -124,3 +124,7 @@ def test_a_number_only_inside_a_hash_or_reference_does_not_match() -> None:
     for number in ("77", "8.25"):
         text = base.replace(BOTTOM_LINE, f"Cover was {number}.")
         assert any(f"number {number} " in issue for issue in reader_issues(text)), number
+
+
+def test_windows_line_endings_do_not_hide_the_section() -> None:
+    assert reader_issues(VALID.replace("\n", "\r\n")) == ()
