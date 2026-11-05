@@ -13,7 +13,9 @@ VALID = f"""# Example
 
 Assess the credit.
 
-## Reader summary
+## Findings
+
+### Reader summary
 
 | Bottom line | Confidence | Main limitation |
 | --- | --- | --- |
@@ -23,9 +25,13 @@ Assess the credit.
 | --- | --- | --- |
 | {FINDING} | Leverage limits new debt capacity. | High |
 
-## Findings
+### Detail
 
 Interest cover was 3.14x and net debt was 7,940. A later period shows 13.15 and 3.16.
+
+## Gaps
+
+None.
 """
 FINDING_ROW = f"| {FINDING} | Leverage limits new debt capacity. | High |"
 
@@ -56,7 +62,9 @@ def test_the_longest_allowed_section_is_valid() -> None:
 @pytest.mark.parametrize(
     ("before", "after", "cause"),
     [
-        ("## Reader summary", "## Summary", "missing"),
+        ("### Reader summary", "### Summary", "missing"),
+        ("## Findings\n", "## Findings\n\nA paragraph first.\n", "first under"),
+        ("## Findings\n", "## Request again\n", "first under"),
         (BOTTOM_LINE, words(41), "bottom line"),
         (LIMITATION, words(31), "limitation"),
         (FINDING, words(31), "finding"),
@@ -90,8 +98,8 @@ def test_a_broken_section_gives_one_issue_naming_the_cause(
 
 
 def test_a_repeated_section_is_refused() -> None:
-    section = VALID[VALID.index("## Reader summary") : VALID.index("## Findings")]
-    issues = reader_issues(VALID.replace("## Findings", section + "## Findings"))
+    section = VALID[VALID.index("### Reader summary") : VALID.index("### Detail")]
+    issues = reader_issues(VALID.replace("### Detail", section + "### Detail"))
     assert len(issues) == 1 and "more than once" in issues[0]
 
 
@@ -107,5 +115,12 @@ def test_a_number_only_inside_a_longer_number_does_not_match() -> None:
 
 def test_numbers_beside_punctuation_still_match() -> None:
     text = VALID.replace(FINDING, "Debt was 7,940, cover 3.14x; dates FY2024 and 30 Sep 2024.")
-    text = text.replace("## Findings\n", "## Findings\n\nFY2024 to 30 Sep 2024.\n")
+    text = text.replace("### Detail\n", "### Detail\n\nFY2024 to 30 Sep 2024.\n")
     assert reader_issues(text) == ()
+
+
+def test_a_number_only_inside_a_hash_or_reference_does_not_match() -> None:
+    base = VALID.replace("## Gaps", "## Gaps\n\nFile deadbeef77cafe0123456789 and table T8.25.")
+    for number in ("77", "8.25"):
+        text = base.replace(BOTTOM_LINE, f"Cover was {number}.")
+        assert any(f"number {number} " in issue for issue in reader_issues(text)), number

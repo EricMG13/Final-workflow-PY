@@ -69,12 +69,19 @@ def issuer_folder(tmp_path: Path) -> Path:
     return folder
 
 
+READER_BOTTOM_LINE = "The synthetic issuer shows one observed item."
+
+
 def answer(context: dict, plan_routes: list) -> str:
     lines = [f"# {context['module_id']}", "", "## Request", f"{ISSUER} as of {AS_OF}.", ""]
     lines += ["## Sources", ""]
     lines += [f"- {n} {h}" for n, h in context["sources"].items()]
     lines += [f"- {n} {h['sha256']}" for n, h in context["handoffs"].items()]
-    lines += ["", "## Findings", ""]
+    lines += ["", "## Findings", "", "### Reader summary", ""]
+    lines += ["| Bottom line | Confidence | Main limitation |"]
+    lines += ["| --- | --- | --- |", f"| {READER_BOTTOM_LINE} | Low | Synthetic data only. |", ""]
+    lines += ["| Finding | Creditor impact | Confidence |", "| --- | --- | --- |"]
+    lines += ["| One item was observed. | None for this synthetic case. | Low |", ""]
     for route in plan_routes:
         if route.module_id != context["module_id"]:
             continue
@@ -294,6 +301,27 @@ def test_selected_method_and_report_selectors_reach_the_instructions(tmp_path):
     assert "### Covenant tests and headroom" in text
     assert "search_source" in text  # runs/cpos-launch-live-001 read whole filings unprompted.
     assert ISSUER in text and AS_OF in text
+
+
+def test_instructions_ask_for_a_reader_section_and_keep_the_method_verbatim(tmp_path):
+    prepared = prepare(
+        context_file(tmp_path),
+        issuer_folder(tmp_path),
+        tmp_path / "out",
+        config="sol-medium",
+        cap="50",
+    )
+    text = (tmp_path / "out" / prepared.plan.instructions["CP-4"].path).read_text()
+    assert "### Reader summary" in text
+    assert "| Bottom line | Confidence | Main limitation |" in text
+    assert "| Finding | Creditor impact | Confidence |" in text
+    assert "first under `## Findings`" in text
+    assert "add no new fact, figure or conclusion" in text
+    assert "no module codes, table IDs or hashes" in text
+    method = ROOT / "docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/SKILL.md"
+    assert method.read_text() in text
+    assert hashlib.sha256(method.read_bytes()).hexdigest() in text
+    assert text.index("### Reader summary") < text.index(method.read_text())
 
 
 def test_explicit_modules_narrow_the_run_and_keep_dependencies(tmp_path):
@@ -602,6 +630,40 @@ def test_module_without_report_sections_still_needs_the_issuer(tmp_path):
 
 def test_every_selected_method_file_exists():
     assert all((ROOT / path).is_file() for files in METHODS.values() for path in files)
+
+
+def test_checker_rejects_a_handoff_without_a_reader_section(tmp_path):
+    prepared, task, context = good_task(tmp_path, "CP-4")
+    raw = answer(context, list(prepared.plan.layout.routes))
+    start = raw.index("### Reader summary")
+    missing = raw[:start] + raw[raw.index("### ", start + 4) :]
+    issues = _checked_handoff(task, missing.encode(), checker(prepared.layout))
+    assert any("Reader summary" in issue for issue in issues)
+
+
+def test_checker_rejects_a_reader_number_the_handoff_does_not_hold(tmp_path):
+    prepared, task, context = good_task(tmp_path, "CP-4")
+    raw = answer(context, list(prepared.plan.layout.routes))
+    wrong = raw.replace(READER_BOTTOM_LINE, "Cover was 9.87x.")
+    issues = _checked_handoff(task, wrong.encode(), checker(prepared.layout))
+    assert any("9.87" in issue for issue in issues)
+
+
+def test_the_reader_section_reaches_the_report_unchanged(tmp_path, provider):
+    argv = launch(tmp_path, "--live", "--ruling", str(RULING))
+    routes = list(
+        prepare(
+            tmp_path / "context.json",
+            tmp_path / "issuer",
+            tmp_path / "preview",
+            config="sol-medium",
+            cap="50",
+        ).plan.layout.routes
+    )
+    provider.answer = lambda context: answer(context, routes)
+    assert main(argv) == 0
+    report = next((tmp_path / "out" / "deliveries").glob("*/report.html"))
+    assert READER_BOTTOM_LINE in (report.parent / "report-view.json").read_text()
 
 
 def test_six_handoff_headings_are_still_enforced(tmp_path):

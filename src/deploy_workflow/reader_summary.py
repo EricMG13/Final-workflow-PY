@@ -4,8 +4,9 @@ import re
 
 BOTTOM_LINE_WORDS, LIMITATION_WORDS, FINDING_WORDS, MAX_FINDINGS = 40, 30, 30, 5
 CONFIDENCE = ("High", "Medium", "Low", "Not assessable")
-HEADING = re.compile(r"^## Reader summary[ \t]*$", re.M)
-NEXT_HEADING = re.compile(r"^## ", re.M)
+HEADING = re.compile(r"^### Reader summary[ \t]*$", re.MULTILINE)
+NEXT_HEADING = re.compile(r"^#{2,3} ", re.MULTILINE)
+FIRST_UNDER_FINDINGS = re.compile(r"^## Findings[ \t]*\n\s*\Z", re.MULTILINE)
 TABLES = (
     ("Bottom line", "Confidence", "Main limitation"),
     ("Finding", "Creditor impact", "Confidence"),
@@ -84,7 +85,9 @@ def _unmatched_numbers(section: str, rest: str) -> tuple[str, ...]:
     """A number matches only as a whole number: 3.1 is not in 3.14, and 3.14 is not in 13.14."""
     issues = []
     for number in dict.fromkeys(NUMBER.findall(CODE.sub(" ", section))):
-        if not re.search(rf"(?<!\d)(?<!\d[.,]){re.escape(number)}(?!\d)(?![.,]\d)", rest):
+        if not re.search(
+            rf"(?<!\d)(?<!\d[.,]){re.escape(number)}(?!\d)(?![.,]\d)", CODE.sub(" ", rest)
+        ):
             issues.append(f"Reader summary number {number} does not appear in the handoff")
     return tuple(issues)
 
@@ -100,6 +103,8 @@ def reader_issues(text: str) -> tuple[str, ...]:
     following = NEXT_HEADING.search(text, start)
     end = following.start() if following else len(text)
     section, rest = text[start:end], text[: headings[0].start()] + text[end:]
+    if not FIRST_UNDER_FINDINGS.search(text, 0, headings[0].start()):
+        return ("Reader summary must come first under ## Findings",)
     codes = tuple(
         f"Reader summary must not name internal reference {code}"
         for code in dict.fromkeys(CODE.findall(section))

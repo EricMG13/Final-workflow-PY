@@ -42,6 +42,14 @@ from deploy_workflow.model.handoff import Check, _pages
 from deploy_workflow.model.pricing import price_of, request_reservation_usd
 from deploy_workflow.model_testing.configs import CONFIGS
 from deploy_workflow.owners.cpos import HandoffPlan, HandoffTask, run_live_handoffs
+from deploy_workflow.reader_summary import (
+    BOTTOM_LINE_WORDS,
+    CONFIDENCE,
+    FINDING_WORDS,
+    LIMITATION_WORDS,
+    MAX_FINDINGS,
+    reader_issues,
+)
 from deploy_workflow.workflow import _put
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -276,6 +284,19 @@ def _layout(
     return layout, tuple(omitted)
 
 
+READER_SECTION_RULES = (
+    "Write `### Reader summary` after the analysis is finished and place it first under "
+    "`## Findings`. It restates conclusions already in this handoff in plain language for a "
+    "credit analyst: add no new fact, figure or conclusion. Use no module codes, table IDs or "
+    "hashes. Every number must match the handoff exactly. Use these two tables, one row in the "
+    f"first (bottom line at most {BOTTOM_LINE_WORDS} words, main limitation at most "
+    f"{LIMITATION_WORDS}) and 1 to {MAX_FINDINGS} rows in the second (each finding and creditor "
+    f"impact at most {FINDING_WORDS} words). Confidence is one of {', '.join(CONFIDENCE)}.\n\n"
+    "| Bottom line | Confidence | Main limitation |\n| --- | --- | --- |\n\n"
+    "| Finding | Creditor impact | Confidence |\n| --- | --- | --- |\n\n"
+)
+
+
 def _instructions(run: Run, module: str, routes: Sequence[MarkdownRoute]) -> bytes:
     selectors = "\n".join(
         f"- `### {r.heading}`: "
@@ -305,6 +326,7 @@ def _instructions(run: Run, module: str, routes: Sequence[MarkdownRoute]) -> byt
         f"- name {run.issuer_name} in `## Request`, and state the as-of date {run.as_of} there;\n"
         "- list each issuer source it relied on in `## Sources`, with its exact name and sha256;\n"
         "- list each supplied handoff in `## Sources`, with its module and exact sha256.\n\n"
+        + READER_SECTION_RULES
         + (
             "Report selectors, each exactly once inside `## Findings`, using these exact "
             f"headings. They place content in the report and are not analytical completion:\n"
@@ -404,6 +426,7 @@ def checker(layout: MarkdownLayout) -> Check:
         evidence = {_sha(v) for k, v in task.sources.items() if k != CONTEXT_SOURCE_ID}
         if not any(digest in text for digest in evidence):
             issues.append("List each issuer source relied on with its exact name and sha256.")
+        issues += reader_issues(text)
         routes = tuple(r for r in layout.routes if r.module_id == task.module_id)
         try:
             if routes:

@@ -33,7 +33,11 @@ def complete(self, request, **kwargs):
     ]
     lines += [f"- {n} {h}" for n, h in context["sources"].items()]
     lines += [f"- {n} {h['sha256']}" for n, h in context["handoffs"].items()]
-    lines += ["", "## Findings", ""]
+    lines += ["", "## Findings", "", "### Reader summary", ""]
+    lines += ["| Bottom line | Confidence | Main limitation |"]
+    lines += ["| --- | --- | --- |", "| A fake engine finding only. | Low | Fake data. |", ""]
+    lines += ["| Finding | Creditor impact | Confidence |", "| --- | --- | --- |"]
+    lines += ["| One item was observed. | None. | Low |", ""]
     for route in plan["layout"]["routes"]:
         if route["module_id"] == context["module_id"]:
             lines += [f"### {route['heading']}", ""]
