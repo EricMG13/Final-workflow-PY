@@ -8,6 +8,35 @@ contains the settled CP-6 timeout cost, the corrected TDG annual publication, th
 live CP-8 comparison and checks of the five broader report bundles. The older
 entries below retain their historical case scope.
 
+## 2026-11-05 — repeated source copies removed
+
+At the user's instruction, 20 repeated source copies of 1 MB or more (54.4 MB) were removed from
+`execution/inputs` in `cpos-tdg-assurance-001`, `cpos-tdg-quality-001`, `cpos-tdg-comparison-001`,
+`cpos-tdg-host-001`, `cpos-tdg-fresh-001` and `cpos-arcc-rv-001`. Each file's SHA-256 matches its name
+and a copy kept under `data/public-corpus` or another retained run. Retained records cite them by
+hash, not by path. Restore one with `git checkout c7a945d -- <path>`.
+
+Checks at `c7a945d` without these files: 335 tests across 14 run-related test files pass, with the
+one live test deselected. The Go tests, including `TestCurrentRetainedWorkspace`, pass. The design
+fixture builds and its 59 tests pass. No README, VERIFICATION or METHODOLOGY-REVIEW link breaks.
+
+Of the 17 verification scripts, 9 pass and 8 fail with the same final error on an unmodified
+`c7a945d`, so the removal did not cause them:
+
+- `cpos-sol-medium-20261105/verify.py`, `cpos-sol-remaining-20261105/pathways/verify.py` and
+  `recovery/verify.py` stop with `delivery_changed: model.html`, and `comparison/verify.py` stops
+  with an `AssertionError`. All four passed at `cadb55c`, before PR 2 merged. On `c7a945d`,
+  `comparison/verify.py` also writes 7 new files into the retained run, so run it only in a
+  disposable checkout until this is fixed. The cause has not been traced.
+- `cpos-lqd-portfolio-001/verify.py`, `enel-final-terms-research-001/verify.py` and
+  `enel-sdg-2021-001/verify.py` stop with `identity_mismatch`, and `fresh-tdg/verify.py` stops with an
+  `AssertionError`. All four also failed at `cadb55c`.
+
+These scripts ran from a temporary path, so the location may be a factor in the failures.
+
+Not verified: the full suite on this change; re-executing the six affected runs from their retained
+folders; Windows. Blobs stay in history, so GitHub storage does not shrink.
+
 ## 2026-11-05 — user-launched CP-OS runs
 
 `python -m deploy_workflow.owners.cpos_launch` starts a run from a context file, an issuer
