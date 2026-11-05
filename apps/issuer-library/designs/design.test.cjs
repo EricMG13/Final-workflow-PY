@@ -92,7 +92,7 @@ test('Retained text is escaped before formatting; no remote runtime dependency',
 test('Every module primary view renders, with historical case changes and no fictitious missing values',()=>{
   const dom=fixture(),w=dom.window,d=w.document;
   const ids=w.eval('groups.flatMap(g=>g[1].map(m=>m[0]))');
-  assert.equal(ids.length,22);
+  assert.equal(ids.length,25);
   for(const id of ids){
     w.location.hash=id;w.eval('renderRoute()');
     assert.ok(d.getElementById('content').textContent.length>200,id);
@@ -686,8 +686,6 @@ test('An uncurated workspace works: unnamed modules, unstructured handoffs, no c
   assert.equal(dom.window.eval('current.module'),'CP-4A');
   assert.doesNotMatch(d.body.textContent,/Historical evidence|not current issuer/,'a new run is not historical by default');
   assert.match(d.querySelector('.issuer').textContent,/Retained evidence · not updated since this run/);
-  d.querySelector('.module-catalogue').open=true;
-  assert.ok([...d.querySelectorAll('.nav-group summary')].some(s=>s.textContent==='Other modules'));
   assert.match(d.getElementById('module-head').textContent,/Shown unstructured: Body before first heading/);
   assert.ok(d.getElementById('content').textContent.includes('Body <b>raw</b>'),'raw text is shown, escaped');
   assert.equal(d.querySelector('#content b'),null);
@@ -851,6 +849,42 @@ test('A run with no stored call says so and shows its findings without a bottom 
   assert.equal(norm(d.querySelector('.summary-lead').textContent),'No bottom line is stored for this run. Read the findings below.');
   assert.equal(d.querySelector('.call-quote'),null);
   assert.ok(d.querySelector('[data-module]'),'each module with an output still has a card');
+  dom.window.close();
+});
+test('A legal sub-module sits with the legal work under its own name',()=>{
+  const dom=appFixture('W-Overview?c=web-1',NORTHBRIDGE,NORTHBRIDGE_REPORTS),d=dom.window.document;
+  const link=d.querySelector('.module-item[title="CP-4A"]');
+  assert.equal(norm(link.querySelector('.module-label').textContent),'Covenant capacity');
+  assert.equal(link.closest('.nav-group').dataset.group,'Capital structure and legal');
+  assert.ok(![...d.querySelectorAll('.nav-group summary')].some(s=>s.textContent==='Other modules'));
+  assert.equal(dom.window.eval(`moduleLabel('CP-4A')`),'Covenant capacity');
+  assert.equal(dom.window.eval(`moduleLabel('CP-2F')`),'Rates, FX & hedging','an absorbed code still takes its parent name');
+  dom.window.close();
+});
+test('A module the groups do not know stays under its code, in its own group',()=>{
+  const store=structuredClone(NORTHBRIDGE),output=store.outputs['web-1/CP-4A.md'];
+  store.runs['web-1'].modules['CP-99']={outputs:['web-1/CP-99.md'],inputs:[],default:'web-1/CP-99.md'};
+  store.outputs['web-1/CP-99.md']={...output,id:'web-1/CP-99.md',module:'CP-99',source:'CP-99.md',file:'web-1--CP-99.md',label:'CP-99'};
+  const dom=appFixture('W-Overview?c=web-1',store,NORTHBRIDGE_REPORTS),d=dom.window.document;
+  const link=d.querySelector('.module-item[title="CP-99"]');
+  assert.equal(link.closest('.nav-group').dataset.group,'Other modules');
+  assert.equal(norm(link.querySelector('.module-label').textContent),'CP-99');
+  dom.window.close();
+});
+test('A card quotes only the Findings section, never a later section',()=>{
+  const store=structuredClone(NORTHBRIDGE),output=store.outputs['web-1/deliveries/abc/CP-0.md'];
+  output.sections.splice(1,Infinity,{heading:'Gaps',level:2,line:9,blocks:[{type:'text',line:9,end:9,text:'A stated gap.'}]});
+  const dom=appFixture('W-Overview?c=web-1',store,NORTHBRIDGE_REPORTS),d=dom.window.document;
+  const card=d.querySelector('.summary-card[data-module="CP-0"]');
+  assert.ok(!card.textContent.includes('A stated gap.'));
+  assert.ok(card.textContent.includes('No written findings'));
+  dom.window.close();
+});
+test('A card quotes a finding written under a Findings subsection',()=>{
+  const store=structuredClone(NORTHBRIDGE),output=store.outputs['web-1/deliveries/abc/CP-0.md'];
+  output.sections.splice(1,Infinity,{heading:'Liquidity',level:3,line:8,blocks:[{type:'text',line:9,end:9,text:'A located finding.'}]});
+  const dom=appFixture('W-Overview?c=web-1',store,NORTHBRIDGE_REPORTS),d=dom.window.document;
+  assert.ok(d.querySelector('.summary-card[data-module="CP-0"]').textContent.includes('A located finding.'));
   dom.window.close();
 });
 test('Every card on a Summary quotes its own handoff',()=>{

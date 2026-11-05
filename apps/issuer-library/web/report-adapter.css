@@ -41,3 +41,5 @@
 
 .library-report .nav-tally{flex-wrap:wrap;gap:4px}.library-report .chips{flex-wrap:wrap}.library-report .page-head h1{font-size:19px}
 .library-report .module-link .code{display:none}
+/* A module name in a block head is reader text, not a code. */
+.library-report .block-head .meta.num{font-family:inherit}

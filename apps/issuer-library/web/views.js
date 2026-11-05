@@ -309,8 +309,8 @@ const CALL_ORDER=['CP-6','CP-2','CP-3','CP-2D','CP-1','CP-0'];
 function firstFinding(id) {
   const sections=data[id].sections,start=sections.findIndex(s=>s.heading==='Findings');
   if(start<0)return null;
-  for(const section of sections.slice(start)) {
-    if(section.heading==='Calculations')break;
+  for(const [at,section] of sections.slice(start).entries()) {
+    if(at&&section.level<=sections[start].level)break;
     const block=section.blocks.find(b=>b.type==='text');
     if(block)return {text:block.text,line:block.line};
   }

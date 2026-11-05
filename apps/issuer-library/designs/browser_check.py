@@ -6,6 +6,7 @@ FW_BROWSER_OUT, or to a temporary folder.
 
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -16,6 +17,8 @@ from pathlib import Path
 
 from playwright.sync_api import Error as PlaywrightError
 from playwright.sync_api import expect, sync_playwright
+
+MODULE_CODE = re.compile(r"\bCP-[A-Z0-9]+\b(?![-.][A-Za-z0-9])")
 
 HERE = Path(__file__).resolve().parent
 R = HERE.parents[2]
@@ -115,6 +118,14 @@ def real_workspace(browser, name, port, full):
     note(
         frame.locator("#view-root").count() == 1,
         f"{name}: report renders inside the app, with the adapter",
+    )
+    note(
+        not MODULE_CODE.search(frame.locator("#view-root").inner_text()),
+        f"{name}: the report's reader text shows names, not module codes",
+    )
+    note(
+        not MODULE_CODE.search(page.locator("#module-list").text_content()),
+        f"{name}: navigation shows names, not module codes",
     )
     note(
         page.locator(".rail a[aria-label='Deliverables'][aria-current]").count() == 1,

@@ -32,7 +32,7 @@ const groups = [
   ['Financial performance',[['CP-1','Financial foundation'],['CP-1B','Earnings changes'],['CP-L10','Financial change screen'],['CP-1D','Earnings quality'],['CP-1C','Peer benchmark']]],
   ['Liquidity and refinancing',[['CP-2D','Liquidity'],['CP-3C','Refinancing & LME']]],
   ['Outlook and downside',[['CP-2','Fundamental credit'],['CP-2A','Downside'],['CP-2G','Forward credit model'],['CP-2E','Rates, FX & hedging'],['CP-2H','Ratings & triggers']]],
-  ['Capital structure and legal',[['CP-4','Legal & covenants'],['CP-4C','Recovery & fulcrum']]],
+  ['Capital structure and legal',[['CP-4','Legal & covenants'],['CP-4A','Covenant capacity'],['CP-4B','Structural priority'],['CP-4D','Intercreditor control'],['CP-4C','Recovery & fulcrum']]],
   ['Relative value',[['CP-3','Security selection'],['CP-3D','Market-implied risk']]],
   ['Decision and review',[['CP-6','Committee decision'],['CP-5','Evidence validation'],['CP-8','Deliverable comparison']]]
 ];
@@ -61,9 +61,18 @@ for(const visual of window.DESIGN_WORKSPACE.visuals)for(const alias of String(vi
 // downloads, links and the retained files are untouched, and each name carries its code as a title.
 const MODULE_CODE=/\bCP-[A-Z0-9]+\b(?![-.][A-Za-z0-9])/,REFERENCE=/\bT\d+[A-Z]?\.\d+\b|\b[FKCS]\d{1,4}\b/;
 const READER_TOKEN=new RegExp(`${MODULE_CODE.source}|${REFERENCE.source}`,'g');
-const moduleLabel=code=>moduleNames[aliases[code]||code]||(code==='CP-MEMO'?'Credit memo':null);
+// A module's own name wins; a code standing in for its own label takes its parent's name when it has one.
+const moduleLabel=code=>{
+  const own=moduleNames[code];
+  return (own!==code&&own)||moduleNames[aliases[code]]||own||(code==='CP-MEMO'?'Credit memo':null);
+};
 const namedText=text=>text.replace(new RegExp(MODULE_CODE,'g'),code=>moduleLabel(code)||code);
 const showsCodes=({module,section})=>section==='audit'||['W-Evidence','CP-OS','W-Help','W-Settings','W-NewRun'].includes(module);
+function readerMark(token) {
+  if(!MODULE_CODE.test(token))return Object.assign(document.createElement('small'),{className:'ref',textContent:token});
+  const label=moduleLabel(token);
+  return label?Object.assign(document.createElement('abbr'),{className:'module-ref',textContent:label,title:token}):token;
+}
 function nameCodes(root) {
   const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),nodes=[];
   while(walker.nextNode())nodes.push(walker.currentNode);
@@ -77,15 +86,8 @@ function nameCodes(root) {
     const fragment=document.createDocumentFragment();
     let at=0;
     for(const part of parts) {
-      fragment.append(node.data.slice(at,part.index));
+      fragment.append(node.data.slice(at,part.index),readerMark(part[0]));
       at=part.index+part[0].length;
-      const label=MODULE_CODE.test(part[0])?moduleLabel(part[0]):null;
-      if(MODULE_CODE.test(part[0])&&!label){fragment.append(part[0]);continue;}
-      const mark=document.createElement(label?'abbr':'small');
-      mark.className=label?'module-ref':'ref';
-      mark.textContent=label||part[0];
-      if(label)mark.title=part[0];
-      fragment.append(mark);
     }
     fragment.append(node.data.slice(at));
     node.replaceWith(fragment);

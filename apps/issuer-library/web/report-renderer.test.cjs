@@ -72,7 +72,7 @@ test('the preview names every module the app names, including absorbed codes',()
  const rows=fs.readFileSync(path.resolve(__dirname,'../../../docs/visualisations/catalogue.csv'),'utf8').split('\n').slice(1).filter(Boolean);
  for(const row of rows){
   const [,module,quoted,bare]=row.match(/^[^,]*,([^,]*),(?:"([^"]*)"|([^,]*))/);
-  for(const alias of (quoted??bare).split(/[;,\s]+/).filter(Boolean))assert.equal(names[alias],app[module],alias);
+  for(const alias of (quoted??bare).split(/[;,\s]+/).filter(Boolean))assert.equal(names[alias],app[alias]??app[module],alias);
  }
 });
 
