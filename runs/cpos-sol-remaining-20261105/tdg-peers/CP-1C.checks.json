@@ -1,0 +1,120 @@
+{
+  "required_terms": [
+    "T4.1 \u2014 peer scope",
+    "T4.2 \u2014 metric alignment",
+    "T4.3 \u2014 operating comparison",
+    "T4.4 \u2014 cash and capex",
+    "T4.5 \u2014 credit comparison",
+    "T4.6 \u2014 statistics",
+    "T4.7 \u2014 outliers",
+    "T4.8 \u2014 public trading comps",
+    "T4.9 \u2014 transaction comps",
+    "T4.10 \u2014 conditional indications",
+    "T4.11 \u2014 gaps",
+    "Discovery register",
+    "Comparability dimensions",
+    "Peer statistic controls",
+    "2024-09-30",
+    "2024-09-28",
+    "2024-10-31",
+    "2024-12-31",
+    "2026-11-05",
+    "CP-2",
+    "177.344"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Peer statistic controls",
+      "columns": [
+        "Metric",
+        "N",
+        "Min (6dp)",
+        "Max (6dp)",
+        "Range (6dp)",
+        "Median (6dp)"
+      ],
+      "rows": [
+        [
+          "2024_sales_growth_pct",
+          "3",
+          "8.738395",
+          "29.970773",
+          "21.232377",
+          "9.693492"
+        ],
+        [
+          "2024_cfo_sales_pct",
+          "3",
+          "5.606401",
+          "17.438066",
+          "11.831665",
+          "17.429437"
+        ],
+        [
+          "2024_capex_sales_pct",
+          "3",
+          "1.510264",
+          "4.322834",
+          "2.812570",
+          "1.953550"
+        ],
+        [
+          "2024_cash_after_capex_sales_pct",
+          "3",
+          "1.283567",
+          "15.919173",
+          "14.635606",
+          "15.484516"
+        ],
+        [
+          "2024_operating_margin_pct",
+          "2",
+          "16.935757",
+          "21.371844",
+          "4.436086",
+          "\u2014"
+        ],
+        [
+          "2024_borrowing_finance_lease_cfo_x",
+          "3",
+          "1.939628",
+          "4.860451",
+          "2.920823",
+          "3.315695"
+        ],
+        [
+          "2023_cfo_sales_pct",
+          "3",
+          "4.095511",
+          "15.747988",
+          "11.652477",
+          "15.118569"
+        ],
+        [
+          "2023_capex_sales_pct",
+          "3",
+          "1.569777",
+          "5.220839",
+          "3.651062",
+          "1.665507"
+        ],
+        [
+          "2023_cash_after_capex_sales_pct",
+          "3",
+          "-1.125328",
+          "14.178211",
+          "15.303539",
+          "13.453062"
+        ],
+        [
+          "2023_operating_margin_pct",
+          "2",
+          "17.031229",
+          "21.068628",
+          "4.037399",
+          "\u2014"
+        ]
+      ]
+    }
+  ]
+}

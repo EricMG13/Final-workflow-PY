@@ -30,7 +30,32 @@
     },
     "CP-1C": {
       "aliases": [],
-      "status": "pending live module proof; historical host proof remains separately recorded"
+      "status": "Three separately dated positive live functions reviewed/reportpublished; fresh CP-2 actualconsumption checked and published; broaderpathwayspending",
+      "valuation_case": {
+        "case": "Moog/TDG FY2025 historical; one specified peer, no contemporaneous transaction case",
+        "report": "tdg-valuation/CP-1C-delivery/report.html",
+        "handoff_sha256": "b8d05baa599aa44822e77ffaf157421fa31e1340ba98ddbcd80ac6294b29c1af",
+        "review": "All21 retained results independently recomputed from frozen source-literal Fraction operands before launch; final exact six-place grid and source definitions checked. Four new live calculations (two outstanding-share sums/two margins) audited. Two share classes/trust shares/EPS denominators, USD-thousands conversion, principal/carrying/fair debt/leases/RPA and missing complete EV preserved. TDG ordinary4568 versus AsDefined4760 and Moog488.451 proxy definition remain distinct. Conditional17160.112063/70157.294567 are separate indications, not range/recovery/fair value. All16 dimensions/four valuation methods/gap controls retained. No production change justified."
+      },
+      "peer_case": {
+        "case": "Three real FY2024 peers withFY2023 comparators; historical and separately dated fromFY2025valuation",
+        "report": "tdg-peers/CP-1C-delivery/report.html",
+        "handoff_sha256": "c575789fd953c4ee89a1bacd4641bb82db741788ae3e960566f2001e7b932330",
+        "review": "All11views+discovery/16dimensions reviewed against source/instructions;42literal rechecks(32primaryrows/10checkedborroweranchors),10helperstatistics independently validated against pre-frozenFractionoracles. 37newlivecalculatecalls checked. N2operatingmedian suppressed, N3means/quartiles/stdev suppressed; two dated Moogexclusion sensitivities changeN3->2 andsuppressmedian; no borrower inN. Source-verified HEICO acquisitions643.5/40.7,customerfunding145.746/87.556,Moognegativecashaftercapex-37.351,receivablessales25 sensitivity177.344,leaseclassification/no-doublecount,Moogcash61.694+.123+2.720=64.537,perioddifferences retained. No currentsector/valuation/recovery claim.",
+        "repair": "First model table separator and ISOdate omissions repaired bymodel. Next draft split debt bridge into its ownheading. Final automaticrefusal due three tablesunderPeerstatisticcontrols. After source/mathreview, addedtable_headerselectors anddebtbridgeroute tocase layoutonly. Exactlatestdraft recoveredthroughsameouterrequest withprovider-refusingexecutor. All3drafts/rejections/initiallayout retained; no analyticalrewriteornewcall."
+      },
+      "transaction_case": {
+        "case": "Wencor/HEICO2023-05-15 announcedterms, corroboratingMay18 8K; primaryretrieved2026-11-05",
+        "report": "wencor-transaction/CP-1C-delivery/report.html",
+        "handoff_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+        "review": "Allfivepositive arithmetic controls independently Fractionchecked and actualcalculatecalls audited:2050/724=2.831492,2050/153=13.398693,(2050-75)/153=12.908497 reconcilesquoted12.9x. SourceoriginalHTMLplusbrowser8K supportfixed1137656shares,20mescrowwithin1900cash,Februaryacquisition+diligence forecastadjustments,estimatedtaxbenefits75throughFY2038. Newlyreadbridge1500m/364days/proposedfacility1500->2000 andno-financingcondition supported8KL121-126, no actualdraw. Distinctannouncedconsiderationproxy/completeEV;no realizedforecast/currentsector/TDGtransfer claim; allfourmethods represented. No repair or productionchange."
+      },
+      "consumer": {
+        "path": "tdg-peer-consumer/CP-2.md",
+        "report": "tdg-peer-consumer/CP-2-delivery/report.html",
+        "sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+        "review": "Reads exactpriorCP2 andallthree currentCP1C hashes inactualrequest andretains eight numericcontrols exactly. Source-to-output review confirms findings activelystrengthen bothoperatingbuffer/debt-burden assessment, prohibitvaluationrangeor2024/2025debtmix, distinguishordinary4568/AsDefined4760, andturnWencorforecast/fundinglimits into targetedmonitoring. No new calculation; FY2024/FY2025/announced2023 remainseparate, no full/currentunderwriting claim. No repairorcodechange."
+      }
     },
     "CP-1D": {
       "aliases": [
@@ -206,12 +231,24 @@
       {
         "point": "Targeted manual review repair could regenerate unrelated analysis or replace original evidence",
         "finding": "Test fixture now passes pinned draft to existingHandoffTask. All29 focused tests pass. ActualCP3C edit_handoff retained exact original; diffonlytwo tenor cells and calculation explanation. Source dates independently verified; no source or historicalrun mutated."
+      },
+      {
+        "point": "Re-executed peer helper might use its own values as an oracle or silently admit different peers",
+        "finding": "Read-only verify_peer_inputs rechecks32primarytextrows+10retainedborroweranchors, then10 unchangedhelperoutputs against separately frozen Fraction expectations. Expectedgrid file withheld frommodel. Live response separately reviews all16dimensions beforeadoptingretainedclassification; none changed. 37newtoolcalculations audited. Floathelperprecision explicitlylimited to6dp; null N2medians preserved."
+      },
+      {
+        "point": "Multiple valid tables under one model heading caused delivery refusal",
+        "finding": "Reproduced exactfinalresponse refusal withthree tablesunderPeerstatisticcontrols. Existing table_headerselector resolves each uniquely; addeddebtbridgeroute. No productionparserchangeoranswerreplacement. Original3drafts/reviews retained; provider-refusingexecutor proveszerocallrecovery. 29focusedtests pass."
+      },
+      {
+        "point": "Wencor announcement may be confused with closingenterprisevalue or realizedearnings",
+        "finding": "PrimarySEC announcementHTMLretained and 8Kbrowsercapture retained afterdirect403. Sourcefacts andhiddenindependentexpectations preservefixedsharecount,stockvaluationrisk,20mescrowwithin1900cash,75estimatedtaxbenefitthrough2038 andforecast724/153 withFebruaryacquisition/diligenceadjustments. Live reviewpending; no completed/normalizedEVclaim authorized. Completedlive source/mathreview andfreshCP2 adoption nowconfirmallrestrictions preserved."
       }
     ]
   },
   "rewrite_tournament": {
-    "decision": "Skipped: production changes are instruction strings only, no new branching; campaign audit and fixtures are test-only. No nontrivial production function changed.",
-    "verification": "29 focused tests andruff pass. Production diff remains4 tool-instruction stringlines; all added scripts are campaignfixtures. Rewrite skipped per test-only/string-only rule."
+    "decision": "Skipped at this checkpoint: only campaign test fixtures, data and selectors changed; no nontrivial production function changed.",
+    "verification": "29focusedtests, read-only42literal/10statistics crosscheck,ruff anddiffcheck pass. gitleaks proper single-directoryscan passes50.97MB. Earlier two-path command scannedrepository instead; that result is not used as campaignverification."
   },
   "live": {
     "calls": {
@@ -220,10 +257,12 @@
       "CP-DR": 7,
       "CP-2A": 7,
       "CP-2D": 15,
-      "CP-3C": 10
+      "CP-3C": 10,
+      "CP-1C": 18,
+      "CP-2": 4
     },
-    "cost_usd": "2.79890380",
-    "independent_calculations": 238,
+    "cost_usd": "3.77232760",
+    "independent_calculations": 284,
     "declined_nonpositive_ratios": 2
   },
   "checkpoint_scope": "Verified module progress only; remaining modules and all six broader pathway proofs are still pending. Continuing this task after checkpoint."

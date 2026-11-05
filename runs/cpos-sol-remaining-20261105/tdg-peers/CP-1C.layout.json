@@ -1,0 +1,129 @@
+{
+  "blocks": [
+    "instrument-levels",
+    "peer-positioning",
+    "market-against-fundamentals",
+    "what-changed"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-1C",
+      "heading": "Request",
+      "kind": "prose",
+      "prefix": "Peer view:",
+      "block_id": "market-against-fundamentals"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.1 \u2014 peer scope",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.2 \u2014 metric alignment",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.3 \u2014 operating comparison",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.4 \u2014 cash and capex",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.5 \u2014 credit comparison",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.6 \u2014 statistics",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.7 \u2014 outliers",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.8 \u2014 public trading comps",
+      "kind": "table",
+      "block_id": "instrument-levels"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.9 \u2014 transaction comps",
+      "kind": "table",
+      "block_id": "instrument-levels"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.10 \u2014 conditional indications",
+      "kind": "table",
+      "block_id": "instrument-levels"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.11 \u2014 gaps",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "Discovery register",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "Comparability dimensions",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "Peer statistic controls",
+      "kind": "table",
+      "block_id": "peer-positioning",
+      "table_header": "Metric"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "Peer statistic controls",
+      "table_header": "Entity / period",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "Peer statistic controls",
+      "table_header": "Fiscal vintage / excluded entity",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "Reported debt and finance-lease bridge",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "Next module",
+      "kind": "prose",
+      "block_id": "what-changed"
+    }
+  ],
+  "scope": "Historical FY2024 three-peer benchmarking; separate fromFY2025valuation; not current sector universe or fullRVpathway."
+}

@@ -1,0 +1,29 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-1C-FY2024-peers": "c575789fd953c4ee89a1bacd4641bb82db741788ae3e960566f2001e7b932330",
+    "CP-1C-FY2025-valuation": "b8d05baa599aa44822e77ffaf157421fa31e1340ba98ddbcd80ac6294b29c1af",
+    "CP-1C-Wencor2023": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+    "CP-2-prior": "1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be"
+  },
+  "instructions": "# Fresh sol-medium CP-2 consumption of checked CP-1C increments\nIssuerTDG; execution/asof2026-11-05 solely retrieval/synthesiscutoff. Historical/incrementalscope, notcurrentunderwriting. Read supplied actual prior CP-2baseline plus eachthreefreshCP-1C handoffs and citeexacthashes. Sourcesareupstreamonly; no new extraction/marketquery/newcalculation. Current sixH2 Request/Sources/Findings/Calculations/Gaps/Nextmodule govern; Requeststarts `Credit update:`. SelectedCP2method source is deploymentV r14adaptation usedpriorliveCP2, withcurrentMarkdowntransport overridingnativefactchip/numericprohibition. Do not rerun fullannualanalysis justtosatisfynativecontract.\n\nConsume findings, not merelyrepeatreceipt. Explain exactlyhow eachchanges/supports/restrictshistoricalcreditthesis, evidence->mechanism->creditconsequence plusstrongestcountercase/whatwouldchangeview. Threecases staydistinct:\n1FY2024 TDG/threepeers (peer fiscalendsdiffer), operatingandcashadvantages versus12.166259xdebt/CFOand1.939628\u20134.860451cohort. Two-yearcash/growthcontext, nonorganicgrowth/funding/financeleaseadjustmentlimitations, N2vs3suppressionandMoogexclusion. No industryrank/currentpeeruniverse.\n2FY2025 TDG/Moogvalueproxy: sameyearfinancialsbutnotFY2024debt/cash,7501.839030knowncomponentsproxyandconditional17160.112063revenue/70157.294567ordinaryEBITDAindications; distinctnotrangeoraveraged. Margins/interestdefinitions/EVadjustments/datedsharesdebtbasis/receivablessensitivity. Ordinary4568vsAsDefined4760, no substitution. Onepeer, staleness, retrospectivefilingsnotpointintimebacktest. No normalizedfairvalue/collateral/recovery/debtcoverage.\n3WencorMay15'23announcedtransaction, May18corroboration, prospectiveCY2023adjustedproformarevenue724/EBITDA153,2050considerationproxy,2.831492/13.398693multiples,75taxbenefits1975/12.908497~12.9. Fixedsharesnotclosingdollars,20mescrowwithin cash, forecastadjustments/acquisition/taxrealizationrisk, conditionalfunding/364daybridge. No transferintoTDGFY2024/2025 valuationoractualclosedtransactionclaim.\n\nDo notcallanycasefullTDGpathway. Priorbaselineasof2024-09-30 remainshistorical. Say whichnewcontextaddsjudgmentbutcannotreplacecanonicalTDGfinancialsor currentreadiness. No ratings,covenantcapacity,securitydecision,probability/recovery. Allnumbersexactupstreamcopied,nocalculations. No claimindependentrawsourceauditorhostoracleexecution. Keepconcise~1500wordsplustables.\n\nExactH3tables: `Cohort consumption` columns Case | Period and evidence | Adopted finding | Effect on credit view | Prohibited inference; `Definition and conflict register` columns Item | Distinction | Consequence | Source; `Consumption controls` columns Metric | Value withnumericstringssixplaces ifsourcehas6dp, plainintegersallowedexact; `Monitoring and repair` columns Trigger or gap | Mechanism | Targeted next action.\nConsumptioncontrols exactly8rowsinorder:\nFY2024_TDG_debt_over_CFO =12.166259\nFY2024_peer_min_debt_over_CFO =1.939628\nFY2024_peer_max_debt_over_CFO =4.860451\nFY2025_Moog_EV_proxy_USDm =7501.839030\nFY2025_TDG_revenue_indication_USDm =17160.112063\nFY2025_TDG_EBITDA_indication_USDm =70157.294567\nWencor2023_consideration_over_revenue =2.831492\nWencor2023_consideration_over_EBITDA =13.398693\nThesearesourcehand-offobservationsnotnewcalculation. Retainprovenanceandunitsbesidetable. Nextmodule states targetedCP2D/2G/3C/4/5/6 responsibilities andseparatedeliverypreservation; don'tclaimdownstreamrun. No workbook/newengine/rebuild.\n",
+  "module_id": "CP-2",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2026-11-05",
+    "case_kind": "public",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "relative_value",
+    "requested_modules": [
+      "CP-2"
+    ],
+    "run_id": "sol-remaining-tdg-peer-consumer-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "selected-cp2-method": "9ddd2ab22b5aeab99054cf82ebfb7f03ef49422678be08374566b96dc18dcbd1"
+  }
+}

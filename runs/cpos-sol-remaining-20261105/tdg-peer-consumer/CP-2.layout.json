@@ -1,0 +1,48 @@
+{
+  "blocks": [
+    "instrument-levels",
+    "peer-positioning",
+    "market-against-fundamentals",
+    "what-changed"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-2",
+      "heading": "Request",
+      "kind": "prose",
+      "prefix": "Credit update:",
+      "block_id": "market-against-fundamentals"
+    },
+    {
+      "module_id": "CP-2",
+      "heading": "Cohort consumption",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-2",
+      "heading": "Definition and conflict register",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-2",
+      "heading": "Consumption controls",
+      "kind": "table",
+      "block_id": "instrument-levels"
+    },
+    {
+      "module_id": "CP-2",
+      "heading": "Monitoring and repair",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-2",
+      "heading": "Next module",
+      "kind": "prose",
+      "block_id": "what-changed"
+    }
+  ],
+  "scope": "ActualfreshCP2consumption ofthree separatelydated CP1C increments. Historicalcontext, notcurrentTDGunderwriting or completeRVpathway."
+}

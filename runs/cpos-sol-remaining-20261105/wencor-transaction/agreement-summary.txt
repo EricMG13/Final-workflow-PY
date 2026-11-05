@@ -1,0 +1,183 @@
+Browser rendering retained2026-11-05; directHTMLrequest403; not originalHTMLbytes. URL: https://www.sec.gov/Archives/edgar/data/46619/000095014223001471/eh230360120_8k.htm
+www.sec.gov (https://www.sec.gov/Archives/edgar/data/46619/000095014223001471/eh230360120_8k.htm)
+【turn5view0】 [wordlim: 200] Crawled: today; Content type: text/html; Source: open({"ref_id":"https://www.sec.gov/Archives/edgar/data/46619/000095014223001471/eh230360120_8k.htm","lineno":85}); Total lines: 179
+L0: 0000046619 false 0000046619 2023-05-14 2023-05-14 0000046619 HEI:CommonStock.01ParValuePerShareMember 2023-05-14 2023-05-14 0000046619 HEI:ClassCommonStock.01ParValuePerShareMember 2023-05-14 2023-05-14 iso4217:USD xbrli:shares iso4217:USD xbrli:shares
+L1: 
+L2: 
+L3: 
+L4: 
+L5: 
+L6: UNITED STATES
+L7: 
+L8: SECURITIES AND EXCHANGE COMMISSION
+L9: 
+L10: Washington, D.C. 20549
+L11: 
+L12: 
+L13: 
+L14: FORM 8-K
+L15: 
+L16: 
+L17: 
+L18: CURRENT REPORT
+L19: 
+L20: Pursuant to Section 13 or 15(d) of The Securities Exchange Act of 1934
+L21: 
+L22: 
+L23: 
+L24: Date of Report (Date of earliest event reported): May 14, 2023
+L25: HEICO CORPORATION
+L26: 
+L27: (Exact name of registrant as specified in its charter)
+L28: 
+L29: Florida  |    | 001-04604  |    | 65-0341002
+L30: (State or other jurisdiction of incorporation)  |    | (Commission File Number)  |    | (IRS Employer Identification No.)
+L31: 
+L32: 
+L33: 
+L34: 3000 Taft Street, Hollywood, Florida 33021
+L35: (Address of principal executive offices) (Zip Code)
+L36: 
+L37: 
+L38: 
+L39: (954) 987-4000
+L40: 
+L41: (Registrant’s telephone number, including area code)
+L42: 
+L43: 
+L44: 
+L45: None
+L46: 
+L47: (Former name or former address, if changed since last report)
+L48: Check the appropriate box below if the Form 8-K filing is intended to simultaneously satisfy the filing obligation of the registrant under any of the following provisions (see General Instruction A.2. below):
+L49: 
+L50: ☐ Written communications pursuant to Rule 425 under the Securities Act (17 CFR 230.425)
+L51: 
+L52: ☐ Soliciting material pursuant to Rule 14a-12 under the Exchange Act (17 CFR 240.14a-12)
+L53: 
+L54: ☐ Pre-commencement communications pursuant to Rule 14d-2(b) under the Exchange Act (17 CFR 240.14d-2(b))
+L55: ☐ Pre-commencement communications pursuant to Rule 13e-4(c) under the Exchange Act (17 CFR 240.13e-4(c))
+L56: 
+L57: 
+L58: 
+L59: Securities registered pursuant to Section 12(b) of the Act:
+L60: 
+L61: 
+L62: 
+L63: Title of each class  |    | Trading Symbol(s)  |    | Name of each exchange on which registered
+L64:    |    |    |    |
+L65: Common Stock, $.01 par value per share   |    | HEI  |    | New York Stock Exchange
+L66: Class A Common Stock, $.01 par value per share   |    | HEI.A  |    | New York Stock Exchange
+L67: Indicate by check mark whether the registrant is an emerging growth company as defined in Rule 405 of the Securities Act of 1933 (§230.405 of this chapter) or Rule 12b-2 of the Securities Exchange Act of 1934 (§240.12b-2 of this chapter).
+L68: 
+L69: 
+L70: 
+L71: Emerging growth company ☐
+L72: If an emerging growth company, indicate by check mark if the registrant has elected not to use the extended transition period for complying with any new or revised financial accounting standards provided pursuant to Section 13(a) of the Exchange Act. ☐
+L73: 
+L74: 
+L75: 
+L76: 
+L77: 
+L78: 
+L79: 
+L80: 
+L81: 
+L82: 
+L83: 
+L84: 
+L85: 
+L86:  | Item 1.01.  | Entry into a Material Definitive Agreement.
+L87: On May 15, 2023, HEICO Corporation, a Florida corporation (the “Company” or “HEICO”), entered into an agreement to acquire Wencor Group (“Wencor”) from affiliates of Warburg Pincus LLC and Wencor’s management for $1.9 billion in cash and $150 million in HEICO Class A Common Stock to be paid at closing, or $2.05 billion in the aggregate.
+L88: Wencor is a large commercial and military aircraft aftermarket company offering factory-new FAA-approved aircraft replacement parts, value-added distribution of high-use commercial & military aftermarket parts and aircraft & engine accessory component repair and overhaul services.
+L89: 
+L90: 
+L91: Merger Agreement
+L92: On May 15, 2023, the Company and its newly formed wholly owned subsidiary Magnolia MergeCo Inc., a Delaware corporation (“Merger Sub”), entered into an Agreement and Plan of Merger (the “Merger Agreement”) to acquire Jazz Parent, Inc., a Delaware corporation, the owner of Wencor (the “Target”), with the Target and Jazz Topco GP LLC, a Delaware limited liability company (the “Representative”), solely in its capacity as Representative for purposes of certain provisions of the Merger Agreement.
+L93: Under the Merger Agreement Merger Sub will merge with and into the Target, with the Target continuing as the surviving entity and a wholly owned subsidiary of the Company (the “Merger”), for an aggregate purchase price of $1.9 billion in cash, subject to certain working capital, debt and other customary adjustments set forth in the Merger Agreement (the “Cash Consideration”), and 1,137,656 shares of HEICO Class A Common Stock (the “Stock Consideration”).
+L94: 
+L95: 
+L96: The Merger Agreement provides that, upon the terms and subject to the conditions set forth in the Merger Agreement, at the closing of the transactions contemplated thereby, the Company will deposit $20 million of the Cash Consideration with an escrow agent to fund the Target’s payment obligations with respect to the working capital, debt and other customary post-closing adjustments contained in the Merger Agreement.
+L97: Under the Merger Agreement, the Company and the Target have made customary representations and warranties and have agreed to be bound to customary covenants for transactions of this type, including committing to use reasonable best efforts to obtain necessary approvals under the Hart-Scott-Rodino Antitrust Improvements Act of 1976, as amended (the “HSR Act”) and certain other regulatory approvals.
+L98: The completion of the Merger is subject to customary closing conditions, including, among others: (a) the absence of certain legal impediments to the consummation of the Merger; (b) the expiration or termination of the applicable waiting period under the HSR Act, and the receipt of certain other regulatory approvals; (c) in the case of the Company’s and the Target’s obligations to complete the transaction, the accuracy of the Target’s and the Company’s, respectively, representations and warranties contained in the Merger Agreement subject to customary materiality standards; (d) material compliance by the Company, the Target and the Representative with certain pre-closing covenants; and (e) no material adverse change in the Target’s business since the date of the Merger Agreement.
+L99: Subject to the satisfaction of the closing conditions, the Merger is expected to close by the end of calendar 2023.
+L100: 
+L101: 
+L102: 
+L103: 
+L104: 
+L105: 
+L106: 
+L107: 
+L108: The Merger Agreement contains customary registration rights with respect to the Stock Consideration, including that the Company will file a registration statement to allow the resale of the Stock Consideration by the holders thereof.
+L109: The Merger Agreement contains customary termination rights for the parties thereto, including by mutual consent of the Company and Representative and under certain other circumstances, including by the Company or Representative if the Merger has not occurred on or before the nine-month anniversary of the signing of the Merger Agreement subject to up to two 90-day extensions if on such date a closing condition related to regulatory approvals has not been satisfied or waived.
+L110: The Company is required to pay Target a termination fee of $143,500,000 in cash upon termination of the Merger Agreement under specified circumstances, including the failure to obtain regulatory approvals or, among others, if the Company materially breaches its regulatory covenants such that there is a failure of certain conditions to the Merger.
+L111: 
+L112: 
+L113: The Merger Agreement also provides that, in certain circumstances, either party may seek to compel the other party to specifically perform its obligations under the Merger Agreement.
+L114: 
+L115: 
+L116: 
+L117: The foregoing description of the Merger Agreement does not purport to be complete and is qualified in its entirety by reference to the full text of the Merger Agreement, a copy of which is attached as Exhibit 2.1 to this Current Report on Form 8-K and which is incorporated herein by reference.
+L118: 
+L119: 
+L120: 
+L121: Commitment Letter
+L122: In connection with the foregoing, on May 14, 2023, the Company entered into an engagement letter with Truist Securities, Inc.
+L123: (the “Engagement Letter”) to, among other things, increase the commitments under its existing credit facility from $1.5 billion to $2.0 billion and to extend the maturity date thereunder to a date that is five years from the closing date, and has also entered into a commitment letter (the “Commitment Letter”) with Truist Bank (the “Bridge Lender”) and Truist Securities, Inc., pursuant to which the Bridge Lender has committed to provide a senior unsecured credit facility to the Company, as the borrower, in an aggregate amount of up to $1.5 billion (the “Bridge Facility”), with a maturity date of 364 days following the closing date.
+L124: The obligation to fund the Bridge Facility is subject to the satisfaction of certain conditions set forth in the Commitment Letter. The Company intends to finance the purchase price through a mix of cash, debt and/or equity. The Merger Agreement is not subject to any financing condition. The Company’s currently committed credit facilities (including the Bridge Facility), together with cash on hand, are sufficient to fund the purchase price.
+L125: The Bridge Lender and other arrangers and lenders providing the Bridge Facility or providing financing or other services in connection with the financing of the purchase price have received, or may receive in the future, customary fees for such transactions.
+L126: The foregoing description of the Commitment Letter does not purport to be complete and is qualified in its entirety by reference to the full text of the Commitment Letter, a copy of which is attached as Exhibit 10.1 to this Current Report on Form 8-K and which is incorporated herein by reference.
+L127: 
+L128: 
+L129:  | Item 3.02.  | Unregistered Sales of Equity Securities.
+L130: 
+L131: 
+L132: 
+L133: The information set forth in Item 1.01 of this Current Report on Form 8-K is incorporated by reference in response to this Item 3.02. The issuance of the Stock Consideration will be completed in reliance upon the exemption from the registration requirements of the Securities Act of 1933, as amended, provided by Section 4(a)(2) thereof as a transaction by an issuer not involving any public offering.
+L134:  | Item 9.01.  | Financial Statements and Exhibits.
+L135: 
+L136: 
+L137: 
+L138: (d) Exhibits
+L139: 
+L140: 
+L141: 
+L142: Exhibit No.  |    | Description
+L143: 2.1  |    | 【0†Agreement and Plan of Merger by and among HEICO Corporation, Magnolia MergeCo Inc., Jazz Parent, Inc. and Jazz Topco GP LLC*】
+L144: 10.1  |    | 【1†Commitment letter, dated May 14, 2023, by and among Truist Securities, Inc., Truist Bank and HEICO Corporation.】
+L145: 104  |    | Cover Page Interactive Data File (embedded within the Inline XBRL document)
+L146: *   Schedules have been omitted pursuant to Item 601(a)(5) of Regulation S-K. The registrant hereby undertakes to furnish copies of any of the omitted schedules upon request by the Securities and Exchange Commission.
+L147: 
+L148: 
+L149: 
+L150: 
+L151: 
+L152: Forward-Looking Statements
+L153: Certain statements in this Current Report constitute forward-looking statements, which are subject to risks, uncertainties and contingencies, including the anticipated timing of the Merger.
+L154: HEICO's actual results may differ materially from those expressed in or implied by those forward-looking statements as a result of factors including, but not limited to: the severity, magnitude and duration of public health threats, such as the COVID-19 pandemic (“Health Emergencies”); HEICO's liquidity and the amount and timing of cash generation; lower commercial air travel caused by Health Emergencies and their aftermath, airline fleet changes or airline purchasing decisions, which could cause lower demand for our goods and services; product specification costs and requirements, which could cause an increase to our costs to complete contracts; governmental and regulatory demands, export policies and restrictions, reductions in defense, space or homeland security spending by U.S.
+L155: and/or foreign customers or competition from existing and new competitors, which could reduce our sales; our ability to introduce new products and services at profitable pricing levels, which could reduce our sales or sales growth; product development or manufacturing difficulties, which could increase our product development and manufacturing costs and delay sales; our ability to make acquisitions, including obtaining any applicable domestic and/or foreign governmental approvals, and achieve operating synergies from acquired businesses; customer credit risk; interest, foreign currency exchange and income tax rates; economic conditions, including the effects of inflation, within and outside of the aviation, defense, space, medical, telecommunications, and electronics industries, which could negatively impact our costs and revenues; and defense spending or budget cuts, which could reduce our defense-related revenue.
+L156: With regard to the Merger, capital market and economic conditions could adversely affect HEICO's ability to obtain debt financing on the terms and timing contemplated, regulatory approvals may delay or otherwise impact the Merger, and Target’s business may not perform as expected due to the same factors listed above that may affect HEICO's business.
+L157: Parties receiving this material are encouraged to review all of HEICO's filings with the Securities and Exchange Commission, including, but not limited to filings on Form 10-K, Form 10-Q and Form 8-K. HEICO undertakes no obligation to publicly update or revise any forward-looking statement, whether as a result of new information, future events or otherwise, except to the extent required by applicable law.
+L158: 
+L159: 
+L160: 
+L161: 
+L162: 
+L163: 
+L164: 
+L165: 
+L166: SIGNATURES
+L167: 
+L168: 
+L169: 
+L170: Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized.
+L171: 
+L172: 
+L173: 
+L174: Date: May 18, 2023  | HEICO CORPORATION  |
+L175:    |    |    |
+L176:    | By:  | /s/ CARLOS L. MACAU, JR.  |
+L177:    |    | Carlos L. Macau, Jr.  |
+L178:    |    | Executive Vice President – Chief Financial Officer and Treasurer  |
+

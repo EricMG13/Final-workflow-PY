@@ -1,0 +1,49 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-valuation-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2025-09-30",
+    "case_kind": "public",
+    "pathway": "relative_value",
+    "requested_modules": [
+      "CP-1C"
+    ]
+  },
+  "module_id": "CP-1C",
+  "instructions": {
+    "path": "CP-1C.instructions.md",
+    "sha256": "4ee7ef502d708b33006805219f8ed69feccf837d7f260cef200ab748e22ad10b"
+  },
+  "sources": {
+    "filing-captures": {
+      "path": "../../tdg-valuation-2025-001/sources/filing-captures.txt",
+      "sha256": "b81f0bc9b1c467086fc7a4c81f1bb40b8b0ae1198fa70b0b17c344902492d331"
+    },
+    "receivables-supplement": {
+      "path": "../../tdg-valuation-2025-001/sources/receivables-supplement.txt",
+      "sha256": "2bb2817184e33a56159d14de6c0719425a9f9f77663674a85bcac3ffa2ada467"
+    },
+    "retained-calculations": {
+      "path": "../../tdg-valuation-2025-001/calculations.json",
+      "sha256": "f08e324d1c3b60ddd64459d264d18d4eabd8fb1fc626007e7b74f443d8e6be8d"
+    },
+    "peer-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/SKILL.md",
+      "sha256": "4bd3b130ce0b49571f7b4b97da25a42a81dbed80b03ea752552ea8ae90cd9f71"
+    },
+    "peer-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/references/REF_CP-1C_STEPS.md",
+      "sha256": "fbbed9bac006c67a04397303c39c684046817cf491ebad6a4fa1302ecfbfd766"
+    }
+  },
+  "handoffs": {
+    "CP-1": {
+      "path": "../../tdg-valuation-2025-001/CP-1-valuation-inputs.md",
+      "sha256": "2d88e82cea96c83108b53a86dafa27056f35098c786419d25dba0280fe0735df"
+    }
+  },
+  "checks": "CP-1C.checks.json",
+  "layout": "CP-1C.layout.json",
+  "output": "CP-1C.md"
+}

@@ -1,0 +1,45 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-peer-consumer-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2026-11-05",
+    "case_kind": "public",
+    "pathway": "relative_value",
+    "requested_modules": [
+      "CP-2"
+    ]
+  },
+  "module_id": "CP-2",
+  "instructions": {
+    "path": "CP-2.instructions.md",
+    "sha256": "49d1f108e291095ff2cdcc7d87a3e85a9dd1fb702be502469cc4fb87e9a3ba70"
+  },
+  "sources": {
+    "selected-cp2-method": {
+      "path": "../../../src/deploy_vii/methods/cp2.md",
+      "sha256": "9ddd2ab22b5aeab99054cf82ebfb7f03ef49422678be08374566b96dc18dcbd1"
+    }
+  },
+  "handoffs": {
+    "CP-2-prior": {
+      "path": "../../cpos-sol-medium-20261105/CP-2-v2.md",
+      "sha256": "1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be"
+    },
+    "CP-1C-FY2024-peers": {
+      "path": "../tdg-peers/CP-1C.md",
+      "sha256": "c575789fd953c4ee89a1bacd4641bb82db741788ae3e960566f2001e7b932330"
+    },
+    "CP-1C-FY2025-valuation": {
+      "path": "../tdg-valuation/CP-1C.md",
+      "sha256": "b8d05baa599aa44822e77ffaf157421fa31e1340ba98ddbcd80ac6294b29c1af"
+    },
+    "CP-1C-Wencor2023": {
+      "path": "../wencor-transaction/CP-1C.md",
+      "sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+    }
+  },
+  "checks": "CP-2.checks.json",
+  "layout": "CP-2.layout.json",
+  "output": "CP-2.md"
+}

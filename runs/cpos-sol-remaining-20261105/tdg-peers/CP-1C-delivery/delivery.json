@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Historical FY2024 three-peer benchmarking; separate fromFY2025valuation; not current sector universe or fullRVpathway.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-1C.md": "c575789fd953c4ee89a1bacd4641bb82db741788ae3e960566f2001e7b932330",
+    "view.json": "0865d9fc2750a2ff8f78ed8a610eeeceaf65bdf6b285106702702b674cc84a96",
+    "report-view.json": "cc74159239f4c1418599dda6d4ab13102a5424117ae2469c2bdc416566b71395",
+    "report.html": "4a3cc93c7b63ec72744287e1caf20998531d37c70511340d64bd423ea08da39a"
+  }
+}

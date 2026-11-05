@@ -1,0 +1,14 @@
+{
+  "announcement": {
+    "url": "https://www.sec.gov/Archives/edgar/data/46619/000095014223001445/eh230358705_ex9901.htm",
+    "retrieved": "2026-11-05",
+    "original_sha256": "8e922ca27df1dd5cc4f2d95da0220d58bc1469a61b767593071c24b566802490",
+    "format": "original SEC HTML and numbered text derivative"
+  },
+  "agreement-summary": {
+    "url": "https://www.sec.gov/Archives/edgar/data/46619/000095014223001471/eh230360120_8k.htm",
+    "retrieved": "2026-11-05",
+    "capture_sha256": "971a46b9fde77e6314c244e506670c3d58e59be673d3e54390972090b540e689",
+    "format": "browser-rendered SEC text; original directHTML403; not complete-file equivalence"
+  }
+}

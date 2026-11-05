@@ -1,0 +1,30 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-1": "1ef504d93110558501b36dce2ed530bad29191812fa120872c4306ac1b8dfd3c"
+  },
+  "instructions": "# Fresh sol-medium CP-1C transaction function\nCurrent execution2026-11-05; historical announcedevent2023-05-15, WENCOR case, relativevalue. Read exact CP-1transactionhandoff byhash, bothprimarySECderivatives and source-record plus selectedmethod/REF. No new discovery claim or currentunderwriting. Six H2Request/Sources/Findings/Calculations/Gaps/Next module govern; Request beginsdirectly `Transaction view:`. NoExcel/newengine/competingcontroller/nativeacceptedheads.\n\nThis is a targeted positive transaction-comparable increment after separately verified trading/peercases, not another fullbenchmark or TDGvaluation. Sourceonlyannouncedterms; do not assertclosedorrealizedFY2023. Preserve units/dates/shares/cash/debt/escrowroles; reconcile2050aggregate with1900cashand150announcedstockvalue andfixed1137656shares. Do not claim fixedstockdollarvalue atclosing. Projected724revenue/153adjustedproformaEBITDA includeFebruaryacquisitionanddiligenceadjustments, not actual/reported/covenantEBITDA. Derive announcedconsideration/forecastmultiples withcalculate; distinguishpurchaseconsiderationfromcompleteenterprisevalue. Compute statedtaxbenefit75sensitivity and reconcileapprox12.9x, no unsupportedNPV or pretendsynergies. Risks->mechanism->creditconsequences/countercase/monitoring; Wencorindustry/customer/contract facts onlywhenactuallyprovided.\n\nUse allfourvaluationmethods inT4.10: tradingmultiplesmissing; transactionmultiplespositivebutnoalignedborrowertransfer, so noimpliedborrowerEV. N=1 meansindividualcasecontext, nostatistics/range/fairvalue/TDGvaluation/recovery/securityselection. No forcedtransferusingFY2024/2025values. InT4.9 TVcolumn mustlabelannouncedconsiderationproxy; completeeconomicEVNotcalculable. No syntheticnewmultipleengine needed, allnewarithmetic calculate sum/ratio.\n\nKeep compact~1200wordsplustables. ExactH3headings:\n- Transaction evidence\n- T4.9 \u2014 transaction comps\n- T4.10 \u2014 conditional indications\n- Transaction calculation controls\n- Transaction gaps\nUse selectedSKILL columnsforT4.9/T4.10. Transaction evidence columns Fact|Value|Basis/date|Source. Transaction gaps columns Gap|Effect|Targeted repair. Calculationcontrols columnsMetric|Value(6dp)withexactspaces: `Metric` | `Value (6dp)`; fiveorderedrows:\nannounced_total_usdm\nannounced_total_over_projected_revenue\nannounced_total_over_projected_ebitda\ntax_benefit_adjusted_price_usdm\ntax_adjusted_over_projected_ebitda\nSixdecimalnumericstrings only; completeothercellsmissinglabelsnotempty/null. EndNextmodule with CP-2 allowedcontextandprohibiteduses, notclaimedreceiverexecution. Importedmethodsareanalyticalguidance,currenttestscopeanduseroverridesgovern.\n",
+  "module_id": "CP-1C",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2023-05-15",
+    "case_kind": "public",
+    "issuer_id": "WENCOR",
+    "issuer_name": "Wencor Group",
+    "method_version": "deploy-v-r14",
+    "pathway": "relative_value",
+    "requested_modules": [
+      "CP-1C"
+    ],
+    "run_id": "sol-remaining-wencor-transaction-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "agreement-summary": "e3c4e826ab675583c9b37f3643b4772390bb2c66b79080e83133cc255be781cd",
+    "announcement": "6b3caec2745f6a5e80bb723b1c6f93a3e4a6c283416ab74279101311ab0b3b0e",
+    "peer-method": "4bd3b130ce0b49571f7b4b97da25a42a81dbed80b03ea752552ea8ae90cd9f71",
+    "peer-steps": "fbbed9bac006c67a04397303c39c684046817cf491ebad6a4fa1302ecfbfd766",
+    "source-record": "a23065d783eac8ac9844d606dee7d72a3ce678586ff534c3d8856bd3afb4d6c2"
+  }
+}

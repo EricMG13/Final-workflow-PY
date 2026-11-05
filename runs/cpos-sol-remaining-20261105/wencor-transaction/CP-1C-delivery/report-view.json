@@ -1,0 +1,2864 @@
+{
+  "schema_version": "report-view/1",
+  "pathway": {
+    "id": "relative_value",
+    "title": "Relative Value",
+    "question": "Which instrument is best compensated for its risk, and at what level?",
+    "requested_modules": [
+      "CP-1C"
+    ],
+    "blocks": [
+      "instrument-levels",
+      "peer-positioning",
+      "market-against-fundamentals",
+      "what-changed"
+    ]
+  },
+  "call": [
+    {
+      "kind": "na",
+      "label": "Assessment",
+      "value_text": "Assessment pending",
+      "meter": null,
+      "ref_id": null,
+      "direction": null,
+      "line": false
+    }
+  ],
+  "call_withheld": "not_requested",
+  "blocks": [
+    {
+      "block_id": "instrument-levels",
+      "title": "Instrument levels",
+      "owner": "CP-1C",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Fact",
+      "columns": [
+        "Value",
+        "Basis/date",
+        "Source"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "Buyer / sellers / perimeter",
+          "cells": [
+            {
+              "text": "HEICO / Warburg Pincus affiliates and Wencor management; acquisition of Jazz Parent, owner of Wencor",
+              "prov": "cited",
+              "ref_id": "C1",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Agreement announced May 15, 2023; intended Flight Support Group inclusion",
+              "prov": "cited",
+              "ref_id": "C1",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "announcement p. 1, L9–14; agreement-summary p. 1, L87–93",
+              "prov": "cited",
+              "ref_id": "C1",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "Announced purchase consideration",
+          "cells": [
+            {
+              "text": "USD1,900m cash + USD150m announced stock value = USD2,050m aggregate",
+              "prov": "cited",
+              "ref_id": "C2",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Announced terms, not closing measurement",
+              "prov": "cited",
+              "ref_id": "C2",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "announcement p. 1, L10–12",
+              "prov": "cited",
+              "ref_id": "C2",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r2",
+          "label": "Stock delivery",
+          "cells": [
+            {
+              "text": "1,137,656 HEICO Class A shares; count not adjusted for share-price changes",
+              "prov": "cited",
+              "ref_id": "C3",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Fixed share count, not fixed closing dollar value",
+              "prov": "cited",
+              "ref_id": "C3",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "announcement p. 2, L140–142; agreement-summary p. 1, L93",
+              "prov": "cited",
+              "ref_id": "C3",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r3",
+          "label": "Cash adjustment / escrow",
+          "cells": [
+            {
+              "text": "Cash subject to working-capital, debt and customary adjustments; USD20m escrow is within cash consideration",
+              "prov": "cited",
+              "ref_id": "C4",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Escrow funds post-closing adjustment obligations; not extra consideration",
+              "prov": "cited",
+              "ref_id": "C4",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "agreement-summary p. 1, L93–96",
+              "prov": "cited",
+              "ref_id": "C4",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r4",
+          "label": "Forecast denominator",
+          "cells": [
+            {
+              "text": "USD724m revenue; USD153m adjusted proforma EBITDA",
+              "prov": "cited",
+              "ref_id": "C5",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Projected CY2023; includes February 2023 acquisition and diligence adjustments; not actual, reported or covenant EBITDA",
+              "prov": "cited",
+              "ref_id": "C5",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "announcement p. 1, L28–32; p. 2, L143–145",
+              "prov": "cited",
+              "ref_id": "C5",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r5",
+          "label": "Tax / synergies",
+          "cells": [
+            {
+              "text": "Estimated USD75m tax benefits through FY2038; issuer approximately 12.9x effective purchase-price multiple",
+              "prov": "cited",
+              "ref_id": "C6",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Forecast tax benefit; issuer multiple excludes expected synergies; synergies not quantified",
+              "prov": "cited",
+              "ref_id": "C6",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "announcement p. 1, L30–38",
+              "prov": "cited",
+              "ref_id": "C6",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r6",
+          "label": "Wencor business / customers",
+          "cells": [
+            {
+              "text": "Commercial and military aircraft aftermarket replacement parts, distribution and accessory repair/overhaul; airlines, MRO companies, military agencies and defense contractors",
+              "prov": "cited",
+              "ref_id": "C7",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "International parts/services; approximately 1,000 staff, 19 US facilities; concentration and contract economics Not supplied",
+              "prov": "cited",
+              "ref_id": "C7",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "announcement p. 1, L18–27",
+              "prov": "cited",
+              "ref_id": "C7",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r7",
+          "label": "Funding / execution",
+          "cells": [
+            {
+              "text": "Intended mix of cash, debt and/or equity; up to USD1,500m senior unsecured bridge, 364-day maturity after closing; facility commitments proposed to rise from USD1,500m to USD2,000m",
+              "prov": "cited",
+              "ref_id": "C8",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "May 14 commitments; funding conditions apply; merger has no financing condition; no actual draw or debt allocation supplied",
+              "prov": "cited",
+              "ref_id": "C8",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "agreement-summary p. 1, L121–126",
+              "prov": "cited",
+              "ref_id": "C8",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r8",
+          "label": "Closing status",
+          "cells": [
+            {
+              "text": "Subject to conditions including regulatory approval; expected by end-CY2023",
+              "prov": "cited",
+              "ref_id": "C9",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Announcement expectation only; closed status Not supplied",
+              "prov": "cited",
+              "ref_id": "C9",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "announcement p. 1, L56–57; agreement-summary p. 1, L97–99",
+              "prov": "cited",
+              "ref_id": "C9",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": "Transaction evidence — Fact",
+      "tabs": [
+        {
+          "label": "T4.9 — transaction comps — Txn Name",
+          "scale": null,
+          "row_header": "Txn Name",
+          "columns": [
+            "Date",
+            "Type",
+            "Buyer/Seller",
+            "TV",
+            "TV/Revenue",
+            "TV/EBITDA",
+            "Period",
+            "Metric Def",
+            "Comp Status",
+            "Source"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Wencor acquisition",
+              "cells": [
+                {
+                  "text": "2023-05-15 announcement",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Announced acquisition / merger",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "HEICO / Warburg Pincus affiliates and management",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "USD2,050m announced consideration proxy; complete economic EV Not calculable: full bridge missing",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "2.831492x",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "13.398693x",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Projected CY2023",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Announced consideration / forecast adjusted proforma revenue or EBITDA; February acquisition and diligence adjustments included",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Comparable with Limitations for historical transaction context; Not Comparable for unaligned borrower transfer",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "announcement pp. 1–2, L9–32, L140–145; agreement-summary p. 1, L93–96; calculations below",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        },
+        {
+          "label": "T4.10 — conditional indications — Method",
+          "scale": null,
+          "row_header": "Method",
+          "columns": [
+            "Multiple Source/Value",
+            "Borrower Metric/Period",
+            "Implied EV/Low/Median/High",
+            "Calc Status",
+            "Limitations"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Trading EV/EBITDA",
+              "cells": [
+                {
+                  "text": "Not supplied: no trading multiple in this increment",
+                  "prov": "cited",
+                  "ref_id": "C11",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not supplied: aligned borrower EBITDA/period",
+                  "prov": "cited",
+                  "ref_id": "C11",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not calculable: multiple and aligned metric missing; no range",
+                  "prov": "cited",
+                  "ref_id": "C11",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not Calculable",
+                  "prov": "cited",
+                  "ref_id": "C11",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Separate trading cases not imported or recomputed",
+                  "prov": "cited",
+                  "ref_id": "C11",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Trading EV/Revenue",
+              "cells": [
+                {
+                  "text": "Not supplied: no trading multiple in this increment",
+                  "prov": "cited",
+                  "ref_id": "C12",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not supplied: aligned borrower revenue/period",
+                  "prov": "cited",
+                  "ref_id": "C12",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not calculable: multiple and aligned metric missing; no range",
+                  "prov": "cited",
+                  "ref_id": "C12",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not Calculable",
+                  "prov": "cited",
+                  "ref_id": "C12",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "No contemporaneous trading EV bridge supplied",
+                  "prov": "cited",
+                  "ref_id": "C12",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Transaction TV/EBITDA",
+              "cells": [
+                {
+                  "text": "Wencor announced consideration proxy / projected CY2023 adjusted proforma EBITDA: 13.398693x",
+                  "prov": "cited",
+                  "ref_id": "C13",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not supplied: independently aligned borrower EBITDA/period",
+                  "prov": "cited",
+                  "ref_id": "C13",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not calculable: borrower transfer unsupported; no range",
+                  "prov": "cited",
+                  "ref_id": "C13",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Derived multiple; Not Calculable implied EV",
+                  "prov": "cited",
+                  "ref_id": "C13",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Positive multiple evidence, but consideration is not complete EV; N=1",
+                  "prov": "cited",
+                  "ref_id": "C13",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Transaction TV/Revenue",
+              "cells": [
+                {
+                  "text": "Wencor announced consideration proxy / projected CY2023 revenue: 2.831492x",
+                  "prov": "cited",
+                  "ref_id": "C14",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not supplied: independently aligned borrower revenue/period",
+                  "prov": "cited",
+                  "ref_id": "C14",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not calculable: borrower transfer unsupported; no range",
+                  "prov": "cited",
+                  "ref_id": "C14",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Derived multiple; Not Calculable implied EV",
+                  "prov": "cited",
+                  "ref_id": "C14",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "No forced transfer to TDG or FY2024/2025 metrics; N=1",
+                  "prov": "cited",
+                  "ref_id": "C14",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        },
+        {
+          "label": "Transaction calculation controls — Metric",
+          "scale": null,
+          "row_header": "Metric",
+          "columns": [
+            "Value (6dp)"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "announced_total_usdm",
+              "cells": [
+                {
+                  "text": "2050.000000",
+                  "prov": "cited",
+                  "ref_id": "C15",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "announced_total_over_projected_revenue",
+              "cells": [
+                {
+                  "text": "2.831492",
+                  "prov": "cited",
+                  "ref_id": "C16",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "announced_total_over_projected_ebitda",
+              "cells": [
+                {
+                  "text": "13.398693",
+                  "prov": "cited",
+                  "ref_id": "C17",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "tax_benefit_adjusted_price_usdm",
+              "cells": [
+                {
+                  "text": "1975.000000",
+                  "prov": "cited",
+                  "ref_id": "C18",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "tax_adjusted_over_projected_ebitda",
+              "cells": [
+                {
+                  "text": "12.908497",
+                  "prov": "cited",
+                  "ref_id": "C19",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        }
+      ],
+      "note": null,
+      "full_analysis_route": "CP-1C",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "peer-positioning",
+      "title": "Peer positioning",
+      "owner": "CP-1C",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Gap",
+      "columns": [
+        "Effect",
+        "Targeted repair"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "Closing share price, final cash adjustments and complete debt/cash/other EV bridge Not supplied",
+          "cells": [
+            {
+              "text": "Closing consideration and complete economic EV Not calculable",
+              "prov": "cited",
+              "ref_id": "C20",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Obtain dated closing consideration and reconciled EV schedule as separately dated subsequent evidence",
+              "prov": "cited",
+              "ref_id": "C20",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "Detailed diligence/February acquisition adjustments and realized results Not supplied",
+          "cells": [
+            {
+              "text": "Cannot normalize EBITDA, establish actual CY2023 earnings or cash conversion",
+              "prov": "cited",
+              "ref_id": "C21",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Obtain reconciliation, acquired-business perimeter and reported cash-flow results",
+              "prov": "cited",
+              "ref_id": "C21",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r2",
+          "label": "Aligned borrower metrics Not supplied",
+          "cells": [
+            {
+              "text": "All four implied-EV indications blocked; no FY2024/2025 substitution",
+              "prov": "cited",
+              "ref_id": "C22",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Establish contemporaneous period, perimeter, currency and definition alignment before any transfer",
+              "prov": "cited",
+              "ref_id": "C22",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r3",
+          "label": "Tax timing, realizability and discount basis Not supplied; synergies unquantified",
+          "cells": [
+            {
+              "text": "USD75m subtraction is sensitivity only, not NPV or incremental EBITDA",
+              "prov": "cited",
+              "ref_id": "C23",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Obtain tax schedule and evidence of realization; separately document any synergy case",
+              "prov": "cited",
+              "ref_id": "C23",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r4",
+          "label": "Customer concentration, contract structure and Wencor standalone capital structure Not supplied",
+          "cells": [
+            {
+              "text": "No inference on revenue durability, covenant headroom or debt capacity",
+              "prov": "cited",
+              "ref_id": "C24",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Obtain customer/contract disclosures and standalone debt/cash schedules",
+              "prov": "cited",
+              "ref_id": "C24",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r5",
+          "label": "N=1; historical evidence retrieved in 2026; agreement summary subsequent to announcement and incomplete",
+          "cells": [
+            {
+              "text": "No statistics, sector range or current-market conclusion; legal detail remains bounded",
+              "prov": "cited",
+              "ref_id": "C25",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Retain dated case individually; require additional aligned cases for aggregates and full agreement for legal analysis",
+              "prov": "cited",
+              "ref_id": "C25",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-1C",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "market-against-fundamentals",
+      "title": "Market against fundamentals",
+      "owner": "CP-1C",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Paragraph",
+      "columns": [
+        "Text"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "Request — paragraph 1",
+          "cells": [
+            {
+              "text": "Transaction view: Wencor Group / CP-1C, run sol-remaining-wencor-transaction-20261105, pathway relative_value, method deploy-v-r14. Historical announcement anchor: 2023-05-15; execution/retrieval: 2026-11-05. This is a targeted positive transaction-comparable increment after separately verified trading/peer cases, not a new full benchmark, current underwriting or TDG valuation. No new discovery, Excel, new multiple engine or competing controller is used.",
+              "prov": "cited",
+              "ref_id": "C26",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-1C",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "what-changed",
+      "title": "What changed since the last Report",
+      "owner": "CP-1C",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "prose",
+      "scale": null,
+      "row_header": null,
+      "columns": [],
+      "rows": [],
+      "lines": [
+        {
+          "runs": [
+            {
+              "text": "CP-2 may use this as historical announced transaction context: one positive consideration/forecast observation, explicit forecast-normalization risk, financing/integration monitoring and the stated-tax-benefit sensitivity. Prohibited uses: current market multiple, implied borrower EV, TDG valuation, fair value, statistical range, realized FY2023 results, closed-deal assertion, recovery, collateral/debt coverage or security selection. No receiver execution or native accepted status is claimed.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C41",
+              "kind": "fig",
+              "ref_id": "C41"
+            }
+          ],
+          "label": null,
+          "section": null
+        }
+      ],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-1C",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    }
+  ],
+  "unplaced": [],
+  "passports": [
+    {
+      "ref_id": "C1",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 19"
+        },
+        {
+          "name": "Quote",
+          "value": "| Buyer / sellers / perimeter | HEICO / Warburg Pincus affiliates and Wencor management; acquisition of Jazz Parent, owner of Wencor | Agreement announced May 15, 2023; intended Flight Support Group inclusion | announcement p. 1, L9–14; agreement-summary p. 1, L87–93 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C2",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 20"
+        },
+        {
+          "name": "Quote",
+          "value": "| Announced purchase consideration | USD1,900m cash + USD150m announced stock value = USD2,050m aggregate | Announced terms, not closing measurement | announcement p. 1, L10–12 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C3",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 21"
+        },
+        {
+          "name": "Quote",
+          "value": "| Stock delivery | 1,137,656 HEICO Class A shares; count not adjusted for share-price changes | Fixed share count, not fixed closing dollar value | announcement p. 2, L140–142; agreement-summary p. 1, L93 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C4",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 22"
+        },
+        {
+          "name": "Quote",
+          "value": "| Cash adjustment / escrow | Cash subject to working-capital, debt and customary adjustments; USD20m escrow is within cash consideration | Escrow funds post-closing adjustment obligations; not extra consideration | agreement-summary p. 1, L93–96 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C5",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 23"
+        },
+        {
+          "name": "Quote",
+          "value": "| Forecast denominator | USD724m revenue; USD153m adjusted proforma EBITDA | Projected CY2023; includes February 2023 acquisition and diligence adjustments; not actual, reported or covenant EBITDA | announcement p. 1, L28–32; p. 2, L143–145 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C6",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 24"
+        },
+        {
+          "name": "Quote",
+          "value": "| Tax / synergies | Estimated USD75m tax benefits through FY2038; issuer approximately 12.9x effective purchase-price multiple | Forecast tax benefit; issuer multiple excludes expected synergies; synergies not quantified | announcement p. 1, L30–38 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C7",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 25"
+        },
+        {
+          "name": "Quote",
+          "value": "| Wencor business / customers | Commercial and military aircraft aftermarket replacement parts, distribution and accessory repair/overhaul; airlines, MRO companies, military agencies and defense contractors | International parts/services; approximately 1,000 staff, 19 US facilities; concentration and contract economics Not supplied | announcement p. 1, L18–27 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C8",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 26"
+        },
+        {
+          "name": "Quote",
+          "value": "| Funding / execution | Intended mix of cash, debt and/or equity; up to USD1,500m senior unsecured bridge, 364-day maturity after closing; facility commitments proposed to rise from USD1,500m to USD2,000m | May 14 commitments; funding conditions apply; merger has no financing condition; no actual draw or debt allocation supplied | agreement-summary p. 1, L121–126 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C9",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 27"
+        },
+        {
+          "name": "Quote",
+          "value": "| Closing status | Subject to conditions including regulatory approval; expected by end-CY2023 | Announcement expectation only; closed status Not supplied | announcement p. 1, L56–57; agreement-summary p. 1, L97–99 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C10",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 32"
+        },
+        {
+          "name": "Quote",
+          "value": "| Wencor acquisition | 2023-05-15 announcement | Announced acquisition / merger | HEICO / Warburg Pincus affiliates and management | USD2,050m announced consideration proxy; complete economic EV Not calculable: full bridge missing | 2.831492x | 13.398693x | Projected CY2023 | Announced consideration / forecast adjusted proforma revenue or EBITDA; February acquisition and diligence adjustments included | Comparable with Limitations for historical transaction context; Not Comparable for unaligned borrower transfer | announcement pp. 1–2, L9–32, L140–145; agreement-summary p. 1, L93–96; calculations below |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C11",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 37"
+        },
+        {
+          "name": "Quote",
+          "value": "| Trading EV/EBITDA | Not supplied: no trading multiple in this increment | Not supplied: aligned borrower EBITDA/period | Not calculable: multiple and aligned metric missing; no range | Not Calculable | Separate trading cases not imported or recomputed |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C12",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 38"
+        },
+        {
+          "name": "Quote",
+          "value": "| Trading EV/Revenue | Not supplied: no trading multiple in this increment | Not supplied: aligned borrower revenue/period | Not calculable: multiple and aligned metric missing; no range | Not Calculable | No contemporaneous trading EV bridge supplied |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C13",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 39"
+        },
+        {
+          "name": "Quote",
+          "value": "| Transaction TV/EBITDA | Wencor announced consideration proxy / projected CY2023 adjusted proforma EBITDA: 13.398693x | Not supplied: independently aligned borrower EBITDA/period | Not calculable: borrower transfer unsupported; no range | Derived multiple; Not Calculable implied EV | Positive multiple evidence, but consideration is not complete EV; N=1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C14",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 40"
+        },
+        {
+          "name": "Quote",
+          "value": "| Transaction TV/Revenue | Wencor announced consideration proxy / projected CY2023 revenue: 2.831492x | Not supplied: independently aligned borrower revenue/period | Not calculable: borrower transfer unsupported; no range | Derived multiple; Not Calculable implied EV | No forced transfer to TDG or FY2024/2025 metrics; N=1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C15",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 58"
+        },
+        {
+          "name": "Quote",
+          "value": "| announced_total_usdm | 2050.000000 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C16",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 59"
+        },
+        {
+          "name": "Quote",
+          "value": "| announced_total_over_projected_revenue | 2.831492 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C17",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 60"
+        },
+        {
+          "name": "Quote",
+          "value": "| announced_total_over_projected_ebitda | 13.398693 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C18",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 61"
+        },
+        {
+          "name": "Quote",
+          "value": "| tax_benefit_adjusted_price_usdm | 1975.000000 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C19",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 62"
+        },
+        {
+          "name": "Quote",
+          "value": "| tax_adjusted_over_projected_ebitda | 12.908497 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C20",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 70"
+        },
+        {
+          "name": "Quote",
+          "value": "| Closing share price, final cash adjustments and complete debt/cash/other EV bridge Not supplied | Closing consideration and complete economic EV Not calculable | Obtain dated closing consideration and reconciled EV schedule as separately dated subsequent evidence |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C21",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 71"
+        },
+        {
+          "name": "Quote",
+          "value": "| Detailed diligence/February acquisition adjustments and realized results Not supplied | Cannot normalize EBITDA, establish actual CY2023 earnings or cash conversion | Obtain reconciliation, acquired-business perimeter and reported cash-flow results |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C22",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 72"
+        },
+        {
+          "name": "Quote",
+          "value": "| Aligned borrower metrics Not supplied | All four implied-EV indications blocked; no FY2024/2025 substitution | Establish contemporaneous period, perimeter, currency and definition alignment before any transfer |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C23",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 73"
+        },
+        {
+          "name": "Quote",
+          "value": "| Tax timing, realizability and discount basis Not supplied; synergies unquantified | USD75m subtraction is sensitivity only, not NPV or incremental EBITDA | Obtain tax schedule and evidence of realization; separately document any synergy case |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C24",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 74"
+        },
+        {
+          "name": "Quote",
+          "value": "| Customer concentration, contract structure and Wencor standalone capital structure Not supplied | No inference on revenue durability, covenant headroom or debt capacity | Obtain customer/contract disclosures and standalone debt/cash schedules |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C25",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 75"
+        },
+        {
+          "name": "Quote",
+          "value": "| N=1; historical evidence retrieved in 2026; agreement summary subsequent to announcement and incomplete | No statistics, sector range or current-market conclusion; legal detail remains bounded | Retain dated case individually; require additional aligned cases for aggregates and full agreement for legal analysis |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C26",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 2"
+        },
+        {
+          "name": "Quote",
+          "value": "Transaction view: Wencor Group / CP-1C, run `sol-remaining-wencor-transaction-20261105`, pathway relative_value, method deploy-v-r14. Historical announcement anchor: 2023-05-15; execution/retrieval: 2026-11-05. This is a targeted positive transaction-comparable increment after separately verified trading/peer cases, not a new full benchmark, current underwriting or TDG valuation. No new discovery, Excel, new multiple engine or competing controller is used."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C27",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 5"
+        },
+        {
+          "name": "Quote",
+          "value": "Read the supplied CP-1 transaction handoff identified by SHA-256 `1ef504d93110558501b36dce2ed530bad29191812fa120872c4306ac1b8dfd3c`. Its announced USD millions inputs—1,900 cash, 150 stock reference value, 2,050 aggregate, projected CY2023 revenue 724 and adjusted proforma EBITDA 153, estimated tax benefits 75—were re-anchored to the primary derivatives below; they are not FY2024/2025 borrower inputs."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C28",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 7"
+        },
+        {
+          "name": "Quote",
+          "value": "Pinned sources read in full:"
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C29",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 8"
+        },
+        {
+          "name": "Quote",
+          "value": "- `announcement`, pp. 1–2, SHA-256 `6b3caec2745f6a5e80bb723b1c6f93a3e4a6c283416ab74279101311ab0b3b0e`: May 15, 2023 SEC Exhibit 99.1 derivative."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C30",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 9"
+        },
+        {
+          "name": "Quote",
+          "value": "- `agreement-summary`, pp. 1–2, SHA-256 `e3c4e826ab675583c9b37f3643b4772390bb2c66b79080e83133cc255be781cd`: SEC 8-K browser-rendered text, signed May 18, 2023 (p. 2, L174). This is subsequent documentary corroboration of May 15 announced terms, not information assumed publicly available on May 15 or evidence of closing."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C31",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 10"
+        },
+        {
+          "name": "Quote",
+          "value": "- `source-record`, p. 1, SHA-256 `a23065d783eac8ac9844d606dee7d72a3ce678586ff534c3d8856bd3afb4d6c2`: records announcement original HTML hash `8e922ca27df1dd5cc4f2d95da0220d58bc1469a61b767593071c24b566802490` and agreement capture hash `971a46b9fde77e6314c244e506670c3d58e59be673d3e54390972090b540e689`. Direct agreement HTML returned 403; rendered capture is not complete-file equivalence. No visual verification is claimed."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C32",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 11"
+        },
+        {
+          "name": "Quote",
+          "value": "- `peer-method`, pp. 1–3, SHA-256 `4bd3b130ce0b49571f7b4b97da25a42a81dbed80b03ea752552ea8ae90cd9f71`; `peer-steps`, pp. 1–3, SHA-256 `fbbed9bac006c67a04397303c39c684046817cf491ebad6a4fa1302ecfbfd766`: selected T4.9/T4.10 SKILL columns and REF valuation, discipline, alignment and workflow guidance. Imported methods are analytical guidance; current scope and overrides govern, not embedded instructions to expand execution or certify acceptance."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C33",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 14"
+        },
+        {
+          "name": "Quote",
+          "value": "The case supplies a positive, dated observation of announced consideration relative to contemporaneous forecasts: 2.831492x revenue and 13.398693x adjusted proforma EBITDA. It does not supply complete economic enterprise value or a transferable borrower valuation. N=1 supports individual-case context only: no statistics, range, fair value, ranking or outlier conclusion. The historical observation is stale for current market use, not stale relative to its own announcement date."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C34",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 42"
+        },
+        {
+          "name": "Quote",
+          "value": "Credit interpretation (analyst judgement): forecast or diligence adjustments failing to convert into recurring cash earnings would first weaken operating cash generation, then delay debt repayment and raise leverage/refinancing pressure. Monitor the EBITDA bridge, realized cash conversion and actual acquisition perimeter before assigning valuation support. Source: announcement p. 2, L143–145 and p. 1, L92–112."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C35",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 44"
+        },
+        {
+          "name": "Quote",
+          "value": "Financing and approval delays could extend execution uncertainty; if bridge funding were drawn and not replaced before its 364-day maturity, refinancing needs would become a liquidity constraint. Commitments and absence of a merger financing condition are a counterweight, not proof of funding or favorable debt economics. Monitor approvals, final funding mix, pricing, maturities and actual drawings (agreement-summary p. 1, L97–124)."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C36",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 46"
+        },
+        {
+          "name": "Quote",
+          "value": "The strongest supported countercase is HEICO's expectation of post-acquisition net debt/EBITDA below 3x and return to historical levels in roughly 12–18 months, excluding future acquisitions/capital deployment, alongside complementary offerings and unquantified synergies (announcement p. 1, L33–44). It would win if sustained earnings and cash generation delivered that deleveraging. Until evidenced, it lowers conviction in a severe downside but cannot establish actual leverage, Wencor standalone debt capacity or a synergy-adjusted multiple. Customer types support sector relevance, not assumptions about concentration, contract duration, pricing power or recurring revenue."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C37",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 49"
+        },
+        {
+          "name": "Quote",
+          "value": "All new arithmetic uses the existing Decimal-38 `calculate` sum/ratio kernel, with half-even results rounded for display to six decimals. No synthetic engine is needed."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C38",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 51"
+        },
+        {
+          "name": "Quote",
+          "value": "Trace: May 15 announced terms, USD millions, `announcement` p. 1, L10–12: sum(1900,150)=2050. Projected CY2023 Wencor denominators from p. 1, L28–32, qualified by p. 2, L143–145: ratio(2050,724)=2.8314917127071823204419889502762430939; ratio(2050,153)=13.398692810457516339869281045751633987. Both denominators are strictly positive; ratios are multiples, not percentages."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C39",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 53"
+        },
+        {
+          "name": "Quote",
+          "value": "Tax sensitivity: USD millions, same announced price and forecast EBITDA; estimated benefit through FY2038 from `announcement` p. 1, L30–32: sum(2050,-75)=1975; ratio(1975,153)=12.908496732026143790849673202614379085. Rounded to one decimal this reconciles the issuer's approximately 12.9x. This is subtraction of the stated estimate, not independently assessed NPV, cash at closing or a synergy adjustment. Timing and realization remain uncertain."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C40",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 64"
+        },
+        {
+          "name": "Quote",
+          "value": "Complete economic EV would require a consistent bridge: transaction equity value + debt + minority interests + preferred equity − cash − available liquid short-term investments, with agreement adjustments reconciled and double counting avoided. Those components and the precise consideration-to-EV bridge are Not supplied; complete economic EV is Not calculable. Escrow is not incremental and committed financing is not acquired debt or actual borrowing."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    },
+    {
+      "ref_id": "C41",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-1C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 78"
+        },
+        {
+          "name": "Quote",
+          "value": "CP-2 may use this as historical announced transaction context: one positive consideration/forecast observation, explicit forecast-normalization risk, financing/integration monitoring and the stated-tax-benefit sensitivity. Prohibited uses: current market multiple, implied borrower EV, TDG valuation, fair value, statistical range, realized FY2023 results, closed-deal assertion, recovery, collateral/debt coverage or security selection. No receiver execution or native accepted status is claimed."
+        },
+        {
+          "name": "SHA-256",
+          "value": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9"
+        }
+      ]
+    }
+  ],
+  "index": {
+    "facts": [
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-0.r0.c0"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-0.r0.c1"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-0.r0.c2"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1C-0.r1.c0"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1C-0.r1.c1"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1C-0.r1.c2"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1C-0.r2.c0"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1C-0.r2.c1"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1C-0.r2.c2"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1C-0.r3.c0"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1C-0.r3.c1"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1C-0.r3.c2"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r4",
+          "fact_id": "raw-CP-1C-0.r4.c0"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r4",
+          "fact_id": "raw-CP-1C-0.r4.c1"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r4",
+          "fact_id": "raw-CP-1C-0.r4.c2"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r5",
+          "fact_id": "raw-CP-1C-0.r5.c0"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r5",
+          "fact_id": "raw-CP-1C-0.r5.c1"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r5",
+          "fact_id": "raw-CP-1C-0.r5.c2"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r6",
+          "fact_id": "raw-CP-1C-0.r6.c0"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r6",
+          "fact_id": "raw-CP-1C-0.r6.c1"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r6",
+          "fact_id": "raw-CP-1C-0.r6.c2"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r7",
+          "fact_id": "raw-CP-1C-0.r7.c0"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r7",
+          "fact_id": "raw-CP-1C-0.r7.c1"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r7",
+          "fact_id": "raw-CP-1C-0.r7.c2"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r8",
+          "fact_id": "raw-CP-1C-0.r8.c0"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r8",
+          "fact_id": "raw-CP-1C-0.r8.c1"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r8",
+          "fact_id": "raw-CP-1C-0.r8.c2"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-1.r0.c0"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-1.r0.c1"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-1.r0.c2"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-1.r0.c3"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-1.r0.c4"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-1.r0.c5"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-1.r0.c6"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-1.r0.c7"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-1.r0.c8"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-1.r0.c9"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-2.r0.c0"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-2.r0.c1"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-2.r0.c2"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-2.r0.c3"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-2.r0.c4"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1C-2.r1.c0"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1C-2.r1.c1"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1C-2.r1.c2"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1C-2.r1.c3"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1C-2.r1.c4"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1C-2.r2.c0"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1C-2.r2.c1"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1C-2.r2.c2"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1C-2.r2.c3"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1C-2.r2.c4"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1C-2.r3.c0"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1C-2.r3.c1"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1C-2.r3.c2"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1C-2.r3.c3"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1C-2.r3.c4"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-3.r0.c0"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1C-3.r1.c0"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1C-3.r2.c0"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-3",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1C-3.r3.c0"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-3",
+          "row_id": "r4",
+          "fact_id": "raw-CP-1C-3.r4.c0"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-4.r0.c0"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r0",
+          "fact_id": "raw-CP-1C-4.r0.c1"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1C-4.r1.c0"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r1",
+          "fact_id": "raw-CP-1C-4.r1.c1"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1C-4.r2.c0"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r2",
+          "fact_id": "raw-CP-1C-4.r2.c1"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1C-4.r3.c0"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r3",
+          "fact_id": "raw-CP-1C-4.r3.c1"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r4",
+          "fact_id": "raw-CP-1C-4.r4.c0"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r4",
+          "fact_id": "raw-CP-1C-4.r4.c1"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r5",
+          "fact_id": "raw-CP-1C-4.r5.c0"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r5",
+          "fact_id": "raw-CP-1C-4.r5.c1"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "prose-CP-1C-0",
+          "row_id": "r0",
+          "fact_id": "prose-CP-1C-0.r0.c0"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "prose-CP-1C-1",
+          "row_id": "r0",
+          "fact_id": "prose-CP-1C-1.r0.c0"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "prose-CP-1C-1",
+          "row_id": "r1",
+          "fact_id": "prose-CP-1C-1.r1.c0"
+        },
+        "ref_ids": [
+          "C28",
+          "C29",
+          "C30",
+          "C31",
+          "C32"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "prose-CP-1C-2",
+          "row_id": "r0",
+          "fact_id": "prose-CP-1C-2.r0.c0"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "prose-CP-1C-3",
+          "row_id": "r0",
+          "fact_id": "prose-CP-1C-3.r0.c0"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "prose-CP-1C-3",
+          "row_id": "r1",
+          "fact_id": "prose-CP-1C-3.r1.c0"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "prose-CP-1C-3",
+          "row_id": "r2",
+          "fact_id": "prose-CP-1C-3.r2.c0"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "prose-CP-1C-4",
+          "row_id": "r0",
+          "fact_id": "prose-CP-1C-4.r0.c0"
+        },
+        "ref_ids": [
+          "C37"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "prose-CP-1C-4",
+          "row_id": "r1",
+          "fact_id": "prose-CP-1C-4.r1.c0"
+        },
+        "ref_ids": [
+          "C38"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "prose-CP-1C-4",
+          "row_id": "r2",
+          "fact_id": "prose-CP-1C-4.r2.c0"
+        },
+        "ref_ids": [
+          "C39"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "prose-CP-1C-5",
+          "row_id": "r0",
+          "fact_id": "prose-CP-1C-5.r0.c0"
+        },
+        "ref_ids": [
+          "C40"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-1C",
+          "table_id": "prose-CP-1C-6",
+          "row_id": "r0",
+          "fact_id": "prose-CP-1C-6.r0.c0"
+        },
+        "ref_ids": [
+          "C41"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-peers-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "relative_value",
+    "requested_modules": [
+      "CP-1C"
+    ]
+  },
+  "module_id": "CP-1C",
+  "instructions": {
+    "path": "CP-1C.instructions.md",
+    "sha256": "27b34a9fbcc4df82956c4ee33863d13a0ca75716b272da0839af79733df5fa26"
+  },
+  "sources": {
+    "CW": {
+      "path": "CW-selected-pages.txt",
+      "sha256": "2049fd16848a090a4adc68116c85da5ff089624d76c964832d14892c37dff9ed"
+    },
+    "MOOG": {
+      "path": "MOOG-selected-pages.txt",
+      "sha256": "22d23b8757c78c5aa945202ea130a98e188b44475e511e9fd18c4fb89dc617b1"
+    },
+    "HEICO": {
+      "path": "../../tdg-peers-2024-001/sources/HEICO-clean-lines.txt",
+      "sha256": "0494cbde5086b969eef2152a316ba3b07bd4a60941dabae675de8dd507b59056"
+    },
+    "HEICO-leases": {
+      "path": "../../tdg-peers-2024-001/sources/HEICO-lease-web-capture.txt",
+      "sha256": "58def220dbd6252308e90256bab28eab5145fa3497bb7c91a4e4b814fa93a1c3"
+    },
+    "source-retrieval": {
+      "path": "../../tdg-peers-2024-001/sources/retrieval.json",
+      "sha256": "bb7174ed578a87a1113173ce38112839cfb35e1cc5232366841ce687a438e795"
+    },
+    "statistics-results": {
+      "path": "statistics-results.json",
+      "sha256": "820eafed8531f12ebe678e2fe8a0a60d2dbe62a721450a7c9131ac34a5071f09"
+    },
+    "peer-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/SKILL.md",
+      "sha256": "4bd3b130ce0b49571f7b4b97da25a42a81dbed80b03ea752552ea8ae90cd9f71"
+    },
+    "peer-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/references/REF_CP-1C_STEPS.md",
+      "sha256": "fbbed9bac006c67a04397303c39c684046817cf491ebad6a4fa1302ecfbfd766"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../../tdg-peers-2024-001/CP-0.md",
+      "sha256": "de557f61171c627e43e2f0a9c462d0360f8b4764bed08b5759d87eb25a853bc4"
+    },
+    "CP-1": {
+      "path": "../../tdg-peers-2024-001/CP-1-peer-inputs-attempt-2.md",
+      "sha256": "19d04ee9a66963bdb789aff824d60113bbf46fec0763a6e01e5f4ff761d4caf5"
+    },
+    "borrower-CP1": {
+      "path": "../../tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    }
+  },
+  "checks": "CP-1C.checks.json",
+  "layout": "CP-1C.layout.json",
+  "output": "CP-1C.md"
+}

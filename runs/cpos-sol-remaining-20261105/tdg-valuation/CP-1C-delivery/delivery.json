@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "TDG/Moog FY2025 historical positive valuation function; one-peer known-component EV proxy and provisional metric transfers. Allfourmethods retain absenttransactiongaps. Separate fromFY2024peercohort; not completeEV/currentsector/entireRVpathway.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-1C.md": "b8d05baa599aa44822e77ffaf157421fa31e1340ba98ddbcd80ac6294b29c1af",
+    "view.json": "b70444155011e84d015958035a7eeaf1619a958088176b45c958ed57a9536447",
+    "report-view.json": "8a1c39f2e05c7983ffb73cd3f206fb0b2c0b1e1ddb17c2bb36c7eaaf5c6848c7",
+    "report.html": "6c7b3dfed3f414218225868a9b6f840f3bed52abe1156edb9ef80e1bec7d629f"
+  }
+}

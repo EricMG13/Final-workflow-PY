@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Wencor/HEICO announcedMay2023 consideration and projectedfinancialmultiples; standalonehistoricaltransactionincrement, notcompleteEV/currentvalue/fullRVpathway.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-1C.md": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+    "view.json": "02b1a23019051b8dc25c2d069270d9e16d3f643c30bb021c002dec145e145b14",
+    "report-view.json": "8d8a23e5ac372889c1decf0ba513cd03e7a1e848e76927c5a9a181a79a2bd600",
+    "report.html": "4b16fd883bc97a8c22a726ee85143e254a7761a9d4556b737cecf4f67432e518"
+  }
+}

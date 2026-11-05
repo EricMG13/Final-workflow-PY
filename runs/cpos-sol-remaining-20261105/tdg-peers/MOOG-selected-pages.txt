@@ -1,0 +1,932 @@
+Unmodified selected pages from runs/tdg-peers-2024-001/sources/MOOG-pages.txt sha256 ce69ea2eb64d79c6074c26afa4a53dc4e1ac7a7df6fff0886b44cccbb482d367; historical derivative.
+=== PDF PAGE 1 ===
+UNITED STATES
+SECURITIES AND EXCHANGE COMMISSION
+Washington, D.C. 20549
+FORM 10-K 
+(Mark One)
+☒
+ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 
+1934
+For the fiscal year ended September 28, 2024 
+OR
+☐
+TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT 
+OF 1934
+For the transition period from _________  to _________
+Commission file number 1-05129 
+  Inc. 
+(Exact 
+name of registrant as specified in its charter)
+New York 16-0757636
+(State or other jurisdiction of 
+incorporation or organization)
+(I.R.S. Employer Identification No.)
+400 Jamison Road East Aurora, New York 14052-0018
+(Address of Principal Executive Offices) (Zip Code)
+(716) 652-2000
+Registrant's telephone number, including area code
+Securities registered pursuant to Section 12(b) of the Act: 
+Title of each class Trading Symbol(s) Name of each exchange on which registered
+Class A common stock MOG.A New York Stock Exchange
+Class B common stock MOG.B New York Stock Exchange
+Securities registered pursuant to Section 12(g) of the Act: None 
+Indicate by check mark if the registrant is a well-known seasoned issuer, as defined in Rule 405 of the Securities Act. 
+Yes  ☒ No  ☐ 
+Indicate by check mark if the registrant is not required to file reports pursuant to Section 13 or Section 15(d) of the Act. 
+Yes  ☐ No  ☒
+Indicate by check mark whether the registrant (1) has filed all reports required to be filed by Section 13 or 15(d) of the 
+Securities Exchange Act of 1934 during the preceding 12 months (or for such shorter period that the registrant was 
+required to file such reports), and (2) has been subject to such filing requirements for the past 90 days.
+Yes  ☒  No  ☐ 
+Indicate by check mark whether the registrant has submitted electronically every Interactive Data File required to be 
+submitted pursuant to Rule 405 of Regulation S-T (§232.405 of this chapter) during the preceding 12 months (or for 
+such shorter period that the registrant was required to submit such files).     Yes  ☒  No  ☐ 
+1
+
+=== PDF PAGE 4 ===
+PART I
+The Registrant, Moog Inc., a New York corporation formed in 1951, is referred to in this report as “Moog” or the 
+"Company" or in the nominative “we” or the possessive “our.”
+Unless otherwise noted or the context otherwise requires, all references to years in this report are to fiscal years. 
+Item 1. Business.
+Description of the Business. Moog is a worldwide designer, manufacturer and systems integrator of high 
+performance precision motion and fluid controls and controls systems for a broad range of applications in aerospace 
+and defense and industrial markets. We have four operating segments: Space and Defense, Military Aircraft, 
+Commercial Aircraft and Industrial.
+Additional information describing the business and comparative segment revenues, operating profits and related 
+financial information for 2024, 2023 and 2022 are provided in Note 22 - Segments, of Item 8, Financial Statements 
+and Supplementary Data, of this report.
+Distribution. Our sales and marketing organization consists of individuals possessing highly specialized technical 
+expertise. This expertise is required in order to effectively evaluate a customer’s precision control requirements and to 
+facilitate communication between the customer and our engineering staff. Our sales staff is the primary contact with 
+customers. Manufacturers’ representatives are used to cover certain domestic aerospace markets. Distributors are 
+used selectively to cover certain industrial and medical markets.
+Industry and Competitive Conditions. We experience considerable competition in our aerospace and defense and 
+industrial markets across tier one and tier two suppliers as well as vertically integrated primes. We believe that the 
+principal points of competition in our markets are product quality, reliability, price, design and engineering capabilities, 
+product development, conformity to customer specifications, timeliness of delivery, effectiveness of the distribution 
+organization and quality of support after the sale. We believe we compete effectively on all of these bases. 
+Competitors to our Military and Commercial Aircraft segments specialize in precision flight control and control systems 
+manufacturing. Competitors to our space market specialize in thrust vector controls and spacecraft engines, 
+mechanisms, avionics and structure systems and components. Competitors in our defense market produce turreted 
+weapons, missile steering actuation and power and data transfer systems and components. Competitors to our 
+Industrial segment include other industrial precision controls and medical device manufacturers.
+Backlog. Our twelve-month backlog represents confirmed orders we believe will be recognized as revenue within the 
+next twelve months. Our twelve-month backlog as of September 28, 2024 was $2.5 billion, an increase of 3% 
+compared to September 30, 2023. See Item 7, Management’s Discussion and Analysis of Financial Condition and 
+Results of Operations of this report for a discussion on the various business drivers and conditions contributing to the 
+twelve-month backlog change.
+Raw Materials. Materials, supplies and components are purchased from numerous suppliers. We believe the loss of 
+any one supplier, although potentially disruptive in the short-term, would not materially affect our operations in the 
+long-term.
+Working Capital. See the discussion on operating cycle in Note 1 - Summary of Significant Accounting Policies, of 
+Item 8, Financial Statements and Supplementary Data, of this report.
+Seasonality. Our business is generally not seasonal; however, certain products and systems, such as those in the 
+energy market of our Industrial segment, do experience seasonal variations in sales levels.
+Patents. We maintain a patent portfolio of issued or pending patents and patent applications worldwide that generally 
+includes the United States ("U.S."), Europe, China, Japan and India. The portfolio includes patents that relate to 
+electrohydraulic, electromechanical, electronics, hydraulics, components and methods of operation and manufacture 
+as related to motion control and actuation systems. The portfolio also includes patents related to wind turbines, 
+robotics, vibration control and medical devices. We do not consider any one or more of these patents or patent 
+applications to be material in relation to our business as a whole. The patent portfolio related to certain medical 
+devices is significant to our position in this market as several of these products work exclusively together, and provide 
+us future revenue opportunities.
+Research Activities. Research and development activity has been, and continues to be, significant for us. Research 
+and development expense was $113 million and represented approximately 3% of sales in 2024.
+4
+=== PDF PAGE 5 ===
+Human Capital Resources. Moog possesses a unique culture that fuels our business success. Our more than 
+13,500 employees in over 20 countries work closely together, driven by a shared sense of purpose and a desire to do 
+the right thing. We value our ground-breaking, challenging work and what we stand for. We value the skill and 
+commitment of our talented workforce above all else. Whether it’s enabling a Mars Rover to land safely or helping to 
+support breakthrough advances in healthcare, together, we solve our customers’ most difficult challenges.    
+Although we are a successful, global business, our employees feel like they are amongst friends and are comfortable 
+being themselves. We empower them to find innovative ways of accomplishing things, and the scale of our business 
+means that careers can develop in exciting and unexpected directions. For prospective employees looking for 
+inspiring and meaningful work in a warm, respectful, family-like environment, Moog will feel like home.
+In order to ensure we live our values and our culture stays unique and strong, our Board of Directors and executive 
+team put significant focus on our human capital resources. These are some of the key aspects of Moog’s human 
+capital strategy:
+Employee Recruitment
+Moog actively seeks to attract the best talent from a diverse range of sources and industries in order to meet the 
+current and future demands of our business. We have established relationships with trade schools, world-class 
+universities, professional associations and industry groups to proactively attract talent. 
+In 2024, we hired over 1,700 new employees and rehired over 100 employees throughout the world. 
+Diversity, Equity and Inclusion 
+Moog aspires to be diverse, equitable and inclusive, where employees are empowered to bring their whole, authentic 
+selves to work every day. We believe being diverse, equitable and inclusive is better for all of our employees, 
+customers and shareholders. 
+During 2024, we continued to make progress toward our Diversity, Equity and Inclusion ("DE&I") strategy. In support 
+of this strategy, we:
+• Grew our DE&I curriculum to continue to help our employees understand the value of inclusivity, the very
+different experiences people have and the role we all must play in creating an inclusive and welcoming
+environment at Moog.
+• Honored employees from different backgrounds and helped increase understanding through a variety of
+monthly celebrations, including, but not limited to, Black History Month, International Women’s Day and Pride
+Month.
+• Expanded our network of Employee Resource Groups ("ERGs") to include Veterans (MVO), Caregivers
+(C.A.R.E.S) and LGBTQ+ (Pride@Moog). Our ERGs are voluntary, employee-led, corporate-supported
+groups that are organized primarily around a defined characteristic, special interest, or life experience. We
+currently have seven ERG chapters focused on Employees of Color, Women (2 chapters), Veterans and
+LGBTQ+.
+At Moog, we are continuously striving to ensure the diversity of our organization more fully represents the diversity of 
+the communities in which we operate. 
+5
+=== PDF PAGE 6 ===
+Compensation and Benefits
+Moog works to maintain compensation, benefits and rewards programs that enable us to attract, retain, motivate and 
+reward employees for their contributions to company performance. Our compensation and rewards programs are 
+linked closely to our values of We Are All In This Together, We Try Harder, Competence Is King and Performance 
+And Commitment Should Be Rewarded.
+Moog is committed to providing comprehensive benefit options that reflect the differing priorities and needs of our 
+sites globally, governed by an intent to offer plans that will allow our employees and their families to live healthier and 
+more secure lives.
+In addition to traditional employee benefits, Moog has a number of innovative initiatives to support the well-being of 
+our employee base, including onsite wellness clinics and pharmacies at a number of locations, online tools that assist 
+employees with their physical, financial and mental health, special events with outside vendors and participants 
+focusing on employee well-being and much more.
+Health and Safety
+Maintaining a safe and healthy work environment is a key priority and a responsibility for all of our employees.  At 
+Moog, we embrace a continuous improvement approach with regard to our global Environment, Health & Safety 
+("EHS") culture. All Moog businesses strive to operate in a responsible manner that demonstrates our commitment to 
+the health and safety of our employees, customers, suppliers, communities and the environment.  Our commitment 
+will not be compromised. We expect our employees, visitors and service providers to follow our EHS standards and 
+practices. We regularly conduct training for all of our employees and work hard to learn lessons from every incident. 
+Additionally, we measure and review our EHS results continuously in each location. 
+Employee Engagement and Retention 
+Moog is deeply committed to continuously evolving into an even better place to work. We're built on a strong 
+foundation of mutual trust and the premise that we must engage with employees at different levels to empower our 
+people, enable progress and align efforts.
+Moog employs a variety of mechanisms to collect and respond to feedback from our employees. We conduct a regular 
+employee engagement survey. We also leverage focus groups and listening sessions to solicit feedback. In response 
+to employee feedback and in acknowledgment of the changing landscape brought about by the global pandemic, 
+Moog has been piloting a variety of flexible working arrangements, including remote work and hybrid working 
+schedules. We are implementing these changes in a way that allows our employees to collaborate and innovate in the 
+Moog Way that has made us so successful to date. 
+We see our positive employee engagement coming through in high levels of employee retention. For the last five 
+years, the average of voluntary attrition has been approximately 6% of our workforce. That is a competitive attrition 
+figure and a testament to Moog being a great place to work. 
+Leadership Development and Training
+At Moog, we believe that the best leaders are the ones who come from within. These leaders learn with us, grow with 
+us and reach their potential through challenging on-the-job and deliberate learning experiences we provide. Moog's 
+leadership development strategy focuses on the growth of its leaders at the various stages of leadership. At the 
+foundation is our Moog Values, Moog Leadership Qualities and our Business Strategy.
+6
+=== PDF PAGE 7 ===
+Moog has carefully designed the global, enterprise-wide leadership development programs to improve the 
+effectiveness of our leaders. Our Moog Leadership Program is an 18-month program designed to expand, develop, 
+support and engage senior executive leadership talent. Our Emerging Leadership Program is a nine-month program 
+designed to accelerate the development of senior leadership talent in order to help meet the demand for important 
+leadership roles throughout our Company. Our LEAD program supports mid-level, high performing leaders excel and 
+accelerate their careers through focused skill development in line with our key leadership qualities. In addition to these 
+cohort-based programs and to establish the foundations of leadership across Moog, we have our Leading and 
+Coaching People program. This is a two-day course open to all leaders that provides the foundational framework for 
+engaging, empowering, and coaching employees for optimal performance. 
+In addition to our leadership development programs, Moog has many other valuable development resources available 
+for employees in order to ensure our people have everything they need to succeed both personally and professionally. 
+These resources include a Global Mentoring Program, Moog Gigs, access to an on-demand learning library and a 
+suite of resources to support development of our Moog Leadership Qualities. Moog facilitates training opportunities 
+and development programs through state-of-the-art learning and talent management systems. Our employees are 
+encouraged to take responsibility for their own development and crate learning plans that fit their needs and 
+development goals best.
+Succession Planning
+Each year, Moog conducts an extensive talent review across our global enterprise that includes, among other 
+important topics, a review of succession plans for many of our roles. To ensure the long-term continuity of our 
+business, we actively manage the development of talent to fill the roles that are most critical to our on-going success 
+of our Company.
+Sustainability
+Our values, rooted in trust, integrity and collaboration, lay the foundation for Moog's commitment to grow as a 
+sustainable corporation. As a developer of advanced motion control products, we believe in momentum and our 
+shared responsibility to protect people and the planet now and for generations to come. Our commitment to 
+Sustainability includes: 
+• Protecting our planet by minimizing our environmental impact.
+• Strengthening our communities by contributing our time, talent, and resources.
+• Engaging in ethical practices across all operations.
+We are committed to a more inclusive, equitable world which is reflected in our corporate culture, work environment, 
+supply chain and community support around the globe. 
+We're all in this together. Moog and its employees live this mantra with countless initiatives focused on supporting our 
+sustainability strategy and communities. Some recent examples in 2024 of Moog’s “responsibility in action” include:
+• Sustainability Reporting: See our Sustainability Report and Sustainability Accounting Standards Board
+(SASB) disclosure at Moog Sustainability. The content of the Sustainability Report and the Company’s
+website are not, and should not, be deemed to be incorporated by reference in this Form 10-K or otherwise
+filed with the Securities and Exchange Commission (“SEC”).
+• Greenhouse Gas (GHG) Emissions Inventory: We compiled our first global inventory of greenhouse gas
+emissions starting with 2022 baseline and developed a global Data Collection Procedure and an Inventory
+Management Plan. We have set an ambition to reduce our combined Scope 1 and 2 emissions in company
+operations by 40% from our 2022 baseline by 2030, supported by a strategy and governance control.
+Baselines for water consumption and hazardous waste produced from 2022 data have been established, with
+improvement goals set.
+• We have conducted our first Double Materiality Assessment for future regulatory disclosures.
+• We continue to expand our Community giving employee giving and volunteering platform, now available
+across all UK, US and Canada sites, with plans for further expansion internationally in 2025.
+• We launched a pilot of paid Volunteer Time Off in Western New York and the UK, allowing employees one
+paid shift of time per year to volunteer for nonprofit community organizations, with a goal to expand to more of
+our footprint in 2025.
+• We have refined our corporate charitable giving guidelines to prioritize twelve key United Nations Sustainable
+Development Goals and developed toolkits to empower Moog sites around the world create local impact at a
+global scale.
+7
+=== PDF PAGE 8 ===
+Business Ethics
+Moog is fully dedicated to conducting ourselves by the letter and in the spirit of the many laws and standards that 
+apply to our business. Ethics are deeply embedded in our values and business processes. We regularly re-enforce 
+our commitment to ethics and integrity in employee communications, in our everyday actions and in processes and 
+controls. As a part of our on-going efforts to ensure our employees conduct business with the highest levels of ethics 
+and integrity, Moog has compliance training programs in multiple languages. We also maintain two ethics related 
+hotlines, through which individuals can anonymously raise concerns they have about business behavior they do not 
+feel comfortable discussing personally with business operations managers or human resources personnel. The 
+Company's general confidential ethics hotline is administered by internal company counsel designated as Moog's 
+ethics advocate. In addition, we maintain a separate hotline for cases wherein an employee believes that the 
+Company's financial statements are materially misstated as a result of intentional acts or material weaknesses in the 
+systems of internal control. This hotline is administered by the Company's Corporate Secretary.
+Customers. Our principal customers are Original Equipment Manufacturers ("OEMs") and end users for whom we 
+provide aftermarket support. Aerospace and defense OEM customers collectively represented 60% of 2024 sales. The 
+majority of these sales are to a small number of large companies. Due to the long-term nature of many of the 
+programs, many of our relationships with aerospace and defense OEM customers are based on long-term 
+agreements. Our industrial market sales, which represented 27% of 2024 sales, are to a wide range of global 
+customers and are normally based on lead times of 90 days or less. We also provide aftermarket support, consisting 
+of spare and replacement parts and repair and overhaul services, for all of our products. Our major aftermarket 
+customers are the U.S. Government and commercial airlines. In 2024, aftermarket sales accounted for 13% of total 
+sales.
+Our significant customers include tier one, large U.S. Government contractors and system integrators and are 
+primarily within our Space and Defense, Military Aircraft and Commercial Aircraft segments. Net sales to our five 
+largest customers represented approximately 29% of our 2024 sales.
+All U.S. Government contracts are subject to termination by the U.S. Government. In 2024, sales under U.S. 
+Government contracts represented 38% of total sales and were primarily within our Space and Defense and Military 
+Aircraft segments.
+See Item 1A, Risk Factors and Note 22 – Segments, of Item 8, Financial Statements and Supplementary Data, of this 
+report for additional information on U.S. Government contracts and customers accounting for more than 10% of our 
+net sales.
+8
+=== PDF PAGE 9 ===
+International Operations. Our operations outside the U.S. are conducted primarily through wholly-owned foreign 
+subsidiaries and are located predominantly in Europe and the Asia-Pacific region. See Note 22 - Segments, of Item 8, 
+Financial Statements and Supplementary Data of this report for information regarding sales by geographic area and 
+Exhibit 21 of Item 15, Exhibits and Financial Statement Schedules of this report for a list of subsidiaries. Our 
+international operations are subject to the usual risks inherent in international trade, including currency fluctuations, 
+local government contracting regulations, local governmental restrictions on foreign investment and repatriation of 
+profits, exchange controls, regulation of the import and distribution of foreign goods, as well as changing economic 
+and social conditions in countries in which our operations are conducted.
+Environmental Matters. See the discussion in Note 24 - Commitments and Contingencies, of Item 8, Financial 
+Statements and Supplementary Data, of this report.
+Website Access to Information. Our internet address is www.moog.com. The information contained on or connected 
+to our website is not incorporated by reference into this Annual Report on Form 10-K and should not be considered 
+part of this or any other report filed with the SEC. We make our annual reports on Form 10-K, quarterly reports on 
+Form 10-Q, current reports on Form 8-K and, if applicable, amendments to those reports, available on the investor 
+relations portion of our website. The reports are free of charge and are available as soon as reasonably practicable 
+after they are filed with the SEC. The SEC maintains a website at www.sec.gov that contains reports, proxy 
+statements and other information regarding SEC registrants, including Moog. 
+9
+=== PDF PAGE 10 ===
+Information about our Executive Officers.  Other than the prior positions noted in the table below, the principal 
+occupations of our executive officers for the past five years is the current positions they hold.
+Executive Officers Current Position Prior Positions Age Year FirstElected Officer
+Pat Roche President, Chief 
+Executive Officer and 
+Director
+On February 2, 2023, Pat Roche was named 
+Chief Executive Officer. Previously, he served 
+as Executive Vice President and Chief 
+Operating Officer, a position he held since 
+December 1, 2021. Prior to that, he served as 
+President, Industrial, a position he held since 
+2012.
+61 2012
+Mark J. Trabert Executive Vice 
+President and Chief 
+Operating Officer
+On March 1, 2023, Mark J. Trabert was named 
+Executive Vice President and Chief Operating 
+Officer. Previously, he served as Vice President 
+and President, Aircraft a position he held since 
+2015.
+65 2015
+Jennifer Walter Executive Vice 
+President and Chief 
+Financial Officer 
+On January 2, 2020 Jennifer Walter was named 
+Chief Financial Officer. Previously, she was Vice 
+President - Finance, a position she held since 
+2018.
+53 2008
+Joseph Alfieri Vice President and 
+President, Space 
+and Defense
+On March 1, 2023, Joseph Alfieri was named 
+Vice President and President, Space and 
+Defense. Previously, he served as General 
+Manager, Moog Construction, a position he held 
+since 2021. Prior to that, he served as General 
+Manager, Commercial Aircraft Original 
+Equipment since 2018.
+42 2023
+Mark Graczyk Vice President and 
+President, Military 
+Aircraft
+On March 1, 2023, Mark Graczyk was named 
+Vice President and President, Military Aircraft. 
+Previously, he served as Chief Business Officer, 
+Aircraft, a position he held since 2022. Prior to 
+that, he served as General Manager, Industrial 
+Controls since 2021 and Finance Director, 
+Aircraft, since 2017. 
+41 2023
+Stuart Mclachlan Vice President and 
+President, Industrial
+On December 1, 2021, Stuart Mclachlan was 
+named Vice President and President, Industrial 
+Group. Previously, he was Chief Business 
+Officer, Aircraft, a position he held since 2019. 
+Prior to that, he served as Group Vice President 
+for Aircraft Control Components.
+53 2022
+Michael Schaff Vice President and 
+President, 
+Commercial Aircraft
+On March 1, 2023, Michael Schaff was named 
+Vice President and President, Commercial 
+Aircraft. Previously, he served as General 
+Manager, Commercial Aircraft Original 
+Equipment since 2021. Prior to that, he served 
+as Finance Director, Space and Defense since 
+2017.
+53 2023
+Paul Wilkinson Executive Vice 
+President and Chief 
+Human Resources 
+Officer
+44 2017
+10
+=== PDF PAGE 29 ===
+Income Taxes
+Our annual tax rate is based on our earnings before tax by jurisdiction, applicable statutory tax rates, the impacts of 
+permanent differences, tax incentives and tax planning opportunities in the various jurisdictions in which we operate. 
+Significant judgment is required in determining our annual tax rate and in evaluating our tax positions. 
+An estimated annual effective tax rate is applied to our quarterly ordinary operating results. For certain significant, 
+unusual or infrequent events, we recognize the tax impact in the quarter in which it occurs. 
+We record reserves against tax benefits when it’s more likely than not that we will not sustain a position if the 
+appropriate taxing jurisdiction had full information and examined our position. We adjust these reserves when facts 
+and circumstances change, such as when progress is made by taxing authorities in their review of our position. There 
+is a considerable amount of judgment in making these assessments. There were no significant reserves taken in 
+2024.  
+Valuation allowances associated with deferred tax assets is another area that requires judgment. We record a 
+valuation allowance to reduce deferred tax assets to the amount of future tax benefit that we believe is more likely 
+than not to be realized. We consider recent earnings projections, allowable tax carryforward periods, tax planning 
+strategies and historical earnings performance to determine the amount of the valuation allowance. Changes in these 
+factors could cause us to adjust our valuation allowance, which would impact our income tax expense when we 
+determine that these factors have changed.
+At September 28, 2024, we had gross deferred tax assets of $201 million and deferred tax asset valuation allowances 
+of $11 million. The deferred tax assets principally relate to benefit accruals, inventory obsolescence, tax benefit 
+carryforwards, contract reserves and lease liabilities. The deferred tax assets include $18 million related to tax benefit 
+carryforwards associated with net operating losses and tax credits, for which $11 million of deferred tax asset 
+valuation allowances are recorded. For further information, refer to Note 16 - Income Taxes, of Item 8, Financial 
+Statements and Supplementary Data, of this report. 
+29
+=== PDF PAGE 30 ===
+CONSOLIDATED RESULTS OF OPERATIONS 
+The following is a discussion of our results of operations in 2024 compared to 2023. A discussion of our 2023 results 
+of operations compared to 2022 results can be found within Part II, Item 7. Management's Discussion and 
+Analysis within our 2023 Annual Report on Form 10-K, filed with the SEC on November 14, 2023.
+2024 vs. 2023 2023 vs. 2022
+(dollars and shares in millions, except per 
+share data) 2024 2023 2022
+$ 
+Variance
+% 
+Variance
+$ 
+Variance
+% 
+Variance
+Net sales $ 3,609 $ 3,319 $ 3,036 $ 290  9% $ 283  9% 
+Gross margin  27.6 %  26.9 %  27.0 %
+Research and development expenses 113 107 110 6  6% (3)  (3%)
+Selling, general and administrative 
+expenses as a percentage of sales  13.7 %  14.2 %  14.8 %
+Interest expense 62 64 37 (1)  (2%) 27  73% 
+Asset impairment and fair value 
+adjustment 22 15 18 8 N/M (3)  (19%)
+Restructuring expense 24 8 10 16 N/M (2)  (16%)
+Loss on sale of businesses — 1 3 (1) N/M (2)  (73%)
+Gain on sale of buildings (1) (10) (9) 9 N/M (1) N/M
+Pension settlement — 13 — (13) N/M 13  —% 
+Other 14 9 1 5  52% 8 N/M
+Effective tax rate  22.6 %  20.9 %  23.6 %
+Net earnings $ 207 $ 171 $ 155 $ 36  21% $ 16  10% 
+Diluted average common shares 
+outstanding 32 32 32 —  1% —  —% 
+Diluted earnings per share $ 6.40 $ 5.34 $ 4.83 $ 1.06  20% $ 0.51  11% 
+Total backlog $ 5,060 $ 5,150 $ 5,200 $ (90)  (2%) $ (50)  (1%)
+Twelve-month backlog $ 2,500 $ 2,420 $ 2,300 $ 80  3% $ 120  5% 
+Net sales increased across all our segments in 2024 compared to 2023, driven by production ramps in Commercial 
+Aircraft and by defense market growth in Military Aircraft and Space and Defense.
+Gross margin increased in 2024 compared to 2023, driven by improved performance on our space vehicle 
+development programs, a $14 million benefit from the Employee Retention Credit associated with the CARES Act and 
+the results of our pricing and simplification initiatives across all of our segments.
+Research and development expenses increased in 2024 compared to 2023. Activities supporting our new growth 
+programs in Space and Defense and Industrial were partially offset by a reduction in Military Aircraft.
+Selling, general and administrative expenses as a percentage of sales decreased in 2024 compared to 2023, 
+reflecting the incremental benefit from higher sales volume.
+Interest expense decreased in 2024 compared to 2023 due to capitalizing $10 million of interest associated with 
+certain major long term capital projects in 2023 and 2024. Mostly offsetting the reduction was the impact of higher 
+rates on outstanding debt balances, as well as higher debt balances.
+In 2024 and 2023, we incurred restructuring charges, impairment charges, inventory write-downs and other charges 
+across all our segments, as we continued to simplify our business. In 2023, we also incurred a non-cash pension 
+settlement charge, which was mostly offset by the gain from the sales of three buildings in Industrial.
+The effective tax rate was higher in 2024 compared to 2023, as the prior year included higher amounts of research 
+and development tax credit benefits.
+The twelve-month backlog at September 28, 2024 increased as compared with the twelve-month backlog at 
+September 30, 2023. Within Commercial Aircraft, we had higher spares orders in our aftermarket programs. Within 
+Space and Defense, we had higher orders across our satellite and launch vehicle programs, as well as for defense 
+component programs. These were partially offset by the timing of orders in various Military Aircraft programs.
+30
+=== PDF PAGE 31 ===
+SEGMENT RESULTS OF OPERATIONS
+Operating profit, as presented below, is net sales less cost of sales and other operating expenses, excluding interest 
+expense, equity-based compensation expense, non-service pension expense and other corporate expenses. Cost of 
+sales and other operating expenses are directly identifiable to the respective segment or allocated on the basis of 
+sales, headcount or profit. Operating profit is reconciled to earnings before income taxes in Note 22 - Segments, of 
+Item 8, Financial Statements and Supplementary Data, of this report.
+Space and Defense
+2024 vs. 2023 2023 vs. 2022
+(dollars in millions) 2024 2023 2022
+$ 
+Variance
+% 
+Variance
+$ 
+Variance
+% 
+Variance
+Net sales $ 1,018 $ 947 $ 872 $ 71  7% $ 75  9% 
+Operating profit $ 127 $ 96 $ 87 $ 31  33% $ 9  10% 
+Operating margin  12.5 %  10.1 %  10.0 %
+Space and Defense net sales increased in 2024 compared to 2023, driven by strong, broad-based demand for 
+defense applications. In 2024, sales increased $45 million in our defense programs and $26 million in our space 
+programs. Within our defense market, higher U.S. demand for our component products and the ramp of new defense 
+pursuits serving European needs increased sales. Within our space market, higher demand for launch vehicle and 
+satellite components was partially offset by lower activity across our space vehicle programs.
+Operating margin increased in 2024 compared to 2023 driven by strong operational performance, including improved 
+performance on our space vehicle programs and by the benefits from our pricing initiatives. In 2024 and 2023, we 
+incurred restructuring, inventory write-down, impairment and other charges of $9 million and $3 million, respectively. 
+Excluding these charges, adjusted operating margins in 2024 and 2023 were 13.4% and 10.5%, respectively.
+Military Aircraft
+2024 vs. 2023 2023 vs. 2022
+(dollars in millions) 2024 2023 2022
+$ 
+Variance
+% 
+Variance
+$ 
+Variance
+% 
+Variance
+Net sales $ 812 $ 720 $ 742 $ 91  13% $ (22)  (3%)
+Operating profit $ 86 $ 60 $ 90 $ 25  42% $ (30)  (33%)
+Operating margin  10.6 %  8.4 %  12.1 %
+Military Aircraft net sales increased in 2024 compared to 2023, driven by growth on development and production 
+aircraft. Sales increased $88 million in military OEM programs, driven by the ramp-up of activity on the FLRAA 
+program and other OEM production programs.
+Operating margin increased in 2024 compared to 2023, driven by the benefits of cost absorption from having a full 
+year of activity on the FLRAA program, and by a reduction in research and development expenses. Partially offsetting 
+these benefits in 2024 were impairment, restructuring and other charges of $11 million, compared to inventory write-
+down, impairment and other charges of $4 million in 2023. Excluding these charges, adjusted operating margins in 
+2024 and 2023 were 12.0% and 9.0%, respectively.
+31
+=== PDF PAGE 32 ===
+Commercial Aircraft
+2024 vs. 2023 2023 vs. 2022
+(dollars in millions) 2024 2023 2022
+$ 
+Variance
+% 
+Variance
+$ 
+Variance
+% 
+Variance
+Net sales $ 788 $ 669 $ 514 $ 239  18% $ 154  30% 
+Operating profit $ 91 $ 84 $ 34 $ 7  8% $ 51  151% 
+Operating margin  11.6 %  12.6 %  6.5 %
+Commercial Aircraft net sales increased in 2024 compared to 2023. Commercial OEM sales increased $90 million, as 
+we experienced growth from production ramps on widebody, narrowbody and business jet programs. Commercial 
+aftermarket sales increased $30 million, driven by higher levels of spares for initial provisioning and higher repair 
+volumes.
+Operating margin decreased in 2024 compared to 2023. The absence of favorable aftermarket retrofit activity and the 
+sale of inventory upon exiting a mature platform from 2023, were partially offset by higher production volume in 2024. 
+Industrial
+2024 vs. 2023 2023 vs. 2022
+(dollars in millions) 2024 2023 2022
+$ 
+Variance
+% 
+Variance
+$ 
+Variance
+% 
+Variance
+Net sales $ 991 $ 983 $ 907 $ 8  1% $ 76  8% 
+Operating profit $ 91 $ 102 $ 72 $ (12)  (11%) $ 30  41% 
+Operating margin  9.1 %  10.4 %  8.0 %
+Industrial net sales increased in 2024 compared to 2023. Sales increased $31 million in our simulation and test 
+market. Higher demand for our flight simulation systems, which support the increased pilot training demand, and for 
+our test products drove the sales increase in this market. Sales also increased $14 million in our energy market. 
+Partially offsetting these increases was a $42 million sales decrease in our industrial automation market, reflecting a 
+slowdown in orders.
+Operating margin decreased in 2024 compared to 2023 due to higher amounts of simplification charges. In 2024 we 
+incurred impairment, restructuring and inventory write-down charges of $32 million. In 2023, we incurred impairment, 
+restructuring, inventory write-down and other charges of $21 million, partially offset by a $10 million gain related to the 
+sales of three buildings. Excluding these charges, adjusted operating margins in 2024 and 2023 were 12.4% and 
+11.5%, respectively. The increase in adjusted operating margin was driven by the benefits from our pricing initiatives.
+32
+=== PDF PAGE 40 ===
+Item 8.  Financial Statements and Supplementary Data.
+Consolidated Statements of Earnings
+Fiscal Years Ended
+(dollars in thousands, except share and per share data)
+September 28, 
+2024
+September 30, 
+2023
+October 1, 
+2022
+Net sales $ 3,609,160 $ 3,319,122 $ 3,035,783 
+Cost of sales 2,605,214 2,423,245 2,211,384 
+Inventory write-down 7,027 4,345 3,598 
+Gross profit 996,919 891,532 820,801 
+Research and development 112,773 106,551 109,527 
+Selling, general and administrative 494,887 469,836 448,531 
+Interest 62,112 63,578 36,757 
+Asset impairment and fair value adjustment 22,149 14,628 18,053 
+Restructuring 23,788 7,997 9,509 
+Loss on sale of businesses — 900 3,346 
+Gain on sale of buildings (979) (10,030) (9,075) 
+Pension settlement — 12,542 — 
+Other 14,376 9,478 1,174 
+Earnings before income taxes 267,813 216,052 202,979 
+Income taxes 60,593 45,054 47,802 
+Net earnings $ 207,220 $ 170,998 $ 155,177 
+Net earnings per share
+Basic $ 6.48 $ 5.37 $ 4.85 
+Diluted $ 6.40 $ 5.34 $ 4.83 
+Weighted average common shares outstanding
+Basic 31,954,689 31,831,687 31,977,482 
+Diluted 32,359,338 32,044,226 32,117,028 
+See accompanying Notes to Consolidated Financial Statements.
+40
+=== PDF PAGE 42 ===
+Consolidated Balance Sheets
+(dollars in thousands, except per share data)
+September 28, 
+2024
+September 30, 
+2023
+ASSETS
+Current assets
+Cash and cash equivalents $ 61,694 $ 68,959 
+Restricted cash 123 185 
+Receivables, net 419,971 434,723 
+Unbilled receivables 709,014 706,601 
+Inventories, net 863,702 724,002 
+Prepaid expenses and other current assets 86,245 50,862 
+Total current assets 2,140,749 1,985,332 
+Property, plant and equipment, net 929,357 814,696 
+Operating lease right-of-use assets 52,591 56,067 
+Goodwill 833,764 821,301 
+Intangible assets, net 63,479 71,637 
+Deferred income taxes 20,991 8,749 
+Other assets 52,695 50,254 
+Total assets $ 4,093,626 $ 3,808,036 
+LIABILITIES AND SHAREHOLDERS’ EQUITY
+Current liabilities
+Accounts payable $ 292,988 $ 264,573 
+Accrued compensation 101,127 111,154 
+Contract advances and progress billings 299,732 377,977 
+Accrued liabilities and other 305,180 211,769 
+Total current liabilities 999,027 965,473 
+Long-term debt, excluding current installments 874,139 863,092 
+Long-term pension and retirement obligations 167,161 157,455 
+Deferred income taxes 27,738 37,626 
+Other long-term liabilities 164,928 148,303 
+Total liabilities 2,232,993 2,171,949 
+Shareholders’ equity
+Common stock - par value $1.00
+ Class A - Authorized 100,000,000 shares 43,835 43,822 
+Issued 43,835,149 and outstanding 28,776,489 shares at September 28, 2024
+Issued 43,822,344 and outstanding 28,739,299 shares at September 30, 2023
+ Class B - Authorized 20,000,000 shares. Convertible to Class A on a one-for-one basis 7,445 7,458 
+Issued 7,444,564 and outstanding 3,209,222 shares at September 28, 2024
+Issued 7,457,369 and outstanding 3,142,226 shares at September 30, 2023
+Additional paid-in capital 784,509 608,270 
+Retained earnings 2,668,723 2,496,979 
+Treasury shares (1,082,240) (1,057,938) 
+Stock Employee Compensation Trust (194,049) (114,769) 
+Supplemental Retirement Plan Trust (163,821) (93,126) 
+Accumulated other comprehensive loss (203,769) (254,609) 
+Total shareholders’ equity 1,860,633 1,636,087 
+Total liabilities and shareholders’ equity $ 4,093,626 $ 3,808,036 
+See accompanying Notes to Consolidated Financial Statements.
+42
+=== PDF PAGE 45 ===
+Consolidated Statements of Cash Flows
+Fiscal Years Ended
+(dollars in thousands)
+September 28, 
+2024
+September 30, 
+2023
+October 1, 
+2022
+CASH FLOWS FROM OPERATING ACTIVITIES
+Net earnings $ 207,220 $ 170,998 $ 155,177 
+Adjustments to reconcile net earnings to net cash provided (used) by 
+operating activities:
+Depreciation 82,957 78,692 75,238 
+Amortization 10,149 11,541 13,151 
+Deferred income taxes (31,735) (35,531) 11,739 
+Equity-based compensation expense 14,959 10,582 8,882 
+Loss on sale of businesses — 900 3,346 
+Inventory write-down, asset impairment and fair value adjustments 29,176 18,973 21,651 
+Gain on sale of buildings (979) (10,030) (9,075) 
+Pension settlement — 12,542 — 
+Other 6,512 6,244 6,818 
+Changes in assets and liabilities providing (using) cash:
+Receivables 23,262 (56,575) 7,668 
+Unbilled receivables 2,856 (87,915) (94,535) 
+Inventories (126,978) (130,378) (28,677) 
+Accounts payable 26,446 28,641 43,349 
+Contract advances and progress billings (84,296) 79,983 42,097 
+Accrued expenses 26,493 (1,692) (4,445) 
+Accrued income taxes 16,219 22,869 3,070 
+Net pension and post retirement liabilities 11,791 13,940 18,093 
+Other assets and liabilities (11,708) 2,151 (26,745) 
+Net cash provided (used) by operating activities 202,344 135,935 246,802 
+CASH FLOWS FROM INVESTING ACTIVITIES
+Acquisitions of businesses, net of cash acquired (5,911) — (11,832) 
+Purchase of property, plant and equipment (156,018) (173,286) (139,431) 
+Net proceeds from businesses sold 1,627 1,892 57,315 
+Net proceeds from buildings sold 1,453 19,702 13,297 
+Other investing transactions (766) (11,455) (4,573) 
+Net cash provided (used) by investing activities (159,615) (163,147) (85,224) 
+CASH FLOWS FROM FINANCING ACTIVITIES
+Proceeds from revolving lines of credit 1,038,500 1,044,101 840,475 
+Payments on revolving lines of credit (1,029,500) (1,017,420) (827,801) 
+Payments on long-term debt — (916) (80,364)
+Payments on finance lease obligations (6,496) (4,620) (2,524) 
+Payment of dividends (35,476) (34,074) (32,970) 
+Proceeds from sale of treasury stock 15,685 19,785 18,414 
+Purchase of outstanding shares for treasury (36,738) (29,306) (48,558) 
+Proceeds from sale of stock held by SECT 28,202 15,713 13,250 
+Purchase of stock held by SECT (22,837) (14,251) (14,830) 
+Other financing transactions — (2,027) — 
+Net cash provided (used) by financing activities (48,660) (23,015) (134,908) 
+Effect of exchange rate changes on cash 1,324 2,043 (10,256) 
+Increase (decrease) in cash, cash equivalents and restricted cash (4,607) (48,184) 16,414 
+Cash, cash equivalents and restricted cash at beginning of year 69,144 117,328 100,914 
+Cash, cash equivalents and restricted cash at end of year (1) $ 64,537 $ 69,144 $ 117,328 
+(1) End of year cash balance at September 28, 2024 includes cash related to assets held for sale of $2,720.
+45
+=== PDF PAGE 46 ===
+Consolidated Statements of Cash Flows, continued
+Fiscal Years Ended
+September 28, 
+2024
+September 30, 
+2023
+October 1, 
+2022
+SUPPLEMENTAL CASH FLOW INFORMATION
+Interest paid $ 61,164 $ 63,193 $ 34,765 
+Income taxes paid, net of refunds 78,482 69,253 24,047 
+Treasury shares issued as compensation 5,323 4,174 4,482 
+Assets acquired through lease financing 45,086 61,805 36,897 
+See accompanying Notes to Consolidated Financial Statements.
+46
+=== PDF PAGE 47 ===
+Notes to Consolidated Financial Statements
+(dollars in thousands, except per share data)
+Note 1 - Summary of Significant Accounting Policies
+Consolidation: The consolidated financial statements include the accounts of Moog Inc. and all of our U.S. and 
+foreign subsidiaries. All intercompany balances and transactions have been eliminated in consolidation.
+Fiscal Year: Our fiscal year ends on the Saturday that is closest to September 30. The consolidated financial 
+statements include 52 weeks for the years ended September 28, 2024, September 30, 2023 and October 1, 2022. 
+Operating Cycle: Consistent with industry practice, aerospace and defense related inventories, unbilled recoverable 
+costs and profits on over-time contract receivables, customer advances, warranties and contract reserves include 
+amounts relating to contracts having long production and procurement cycles, portions of which are not expected to 
+be realized or settled within one year.
+Foreign Currency Translation: Assets and liabilities of subsidiaries that prepare financial statements in currencies 
+other than the U.S. dollar are translated using rates of exchange as of the balance sheet date and the statements of 
+earnings are translated at the average rates of exchange for each reporting period.
+Use of Estimates: The preparation of financial statements in conformity with U.S. generally accepted accounting 
+principles requires management to make estimates and assumptions that affect the reported amounts of assets and 
+liabilities and disclosure of contingent liabilities at the date of the financial statements and the reported amounts of 
+revenues and expenses during the reporting periods. Actual results could differ from those estimates and 
+assumptions.
+Revenue Recognition: We recognize revenue from contracts with customers using an over-time, cost-to-cost method 
+of accounting or at the point in time that control transfers to the customer. For additional discussion on revenue 
+recognition, see Note 2 - Revenue from Contracts with Customers.
+Cost of Sales: Includes costs of products and services sold, which include but are not limited to: purchased product, 
+raw material, direct and engineering labor and related benefits, shipping and handling costs, depreciation and 
+amortization, indirect costs and overhead charges.
+Research and Development: Research and development costs are expensed as incurred and include salaries, 
+benefits, consulting, material costs, depreciation and amortization.
+Selling, General and Administrative Expenses: Selling, general and administrative expenses are expensed as 
+incurred. Such expenses include, but are not limited to advertising, bid and proposal, consulting, depreciation, 
+employee payroll and related benefits, legal and professional costs.
+Government Assistance: We receive various types of government assistance, primary in the form of grants and 
+refundable tax credits. We recognize government assistance when there is reasonable assurance that it will comply 
+with the relevant conditions and the assistance will be received. Government assistance related to property, plant and 
+equipment is recorded as a reduction to the carrying value of the related asset, which reduces depreciation expense 
+over the expected useful life of the asset on a straight-line basis. See Note 4 – Receivables and Note 6 – Property, 
+Plant and Equipment for additional disclosures related to government assistance.
+Equity-Based Compensation: Our equity-based compensation plans allow for various types of equity-based 
+incentive awards. The types and mix of these incentive awards are evaluated on an on-going basis and may vary 
+based on our overall strategy regarding compensation. Equity-based compensation expense is based on awards that 
+are ultimately expected to vest over the requisite service periods and are based on the fair value of the award 
+measured on the grant date. Vesting requirements vary for directors, officers and key employees. In general, awards 
+granted to officers and key employees principally vest over three years, in equal annual installments for time-based 
+awards and in three years cliff vest for performance-based awards. We have elected to account for forfeitures when 
+the forfeiture of the underlying awards occur. Equity-based compensation expense is included in selling, general and 
+administrative expenses.
+47
+=== PDF PAGE 54 ===
+Note 4 - Receivables
+Receivables consist of:
+September 28,
+2024
+September 30,
+2023
+Accounts receivable $ 388,841 $ 426,804 
+Government assistance receivables 16,673 3,388 
+Other 17,530 8,541 
+Less allowance for credit losses (3,073) (4,010) 
+Receivables, net $ 419,971 $ 434,723 
+In 2024, we recorded impairment charges of $1,152 associated with the U.S. Army announcement cancelling the next 
+generation Future Attack Reconnaissance Aircraft ("FARA") program. In 2023, we recorded impairment charges of 
+$219 associated with an unexpected cancellation of a contract. In 2022, we recorded impairment charges of $642 
+associated with Russian activities in Ukraine. 
+On December 13, 2023, Moog Receivables LLC (the "Receivables Subsidiary"), a wholly owned bankruptcy remote 
+special purpose subsidiary of Moog Inc. (the "Company"), as seller, the Company, as master servicer, Wells Fargo 
+Bank, N.A., as administrative agent (the "Agent") and certain purchasers (collectively, the "Purchasers") entered into 
+the Third Amendment to the Amended and Restated Receivables Purchase Agreement (the "RPA"). The RPA 
+amendment increased the capacity from $100,000 to $125,000 and extended the maturity date from November 4, 
+2024 to December 11, 2026. The RPA is subject to customary termination events related to transactions of this type.
+Under the RPA, the Receivables Subsidiary may sell receivables to the Purchasers in amounts up to a $125,000 limit. 
+The receivables will be sold to the Purchasers in consideration for the Purchasers making payments of cash, which is 
+referred to as "capital" for purposes of the RPA, to the Receivables Subsidiary in accordance with the terms of the 
+RPA. The Receivables Subsidiary may sell receivables to the Purchasers so long as certain conditions are satisfied, 
+including that, at any date of determination, the aggregate capital paid to the Receivables Subsidiary does not exceed 
+a "capital coverage amount," equal to an adjusted net receivables pool balance minus a required reserve. Each 
+Purchaser's share of capital accrues yield at a variable rate plus an applicable margin.
+The parties intend that the conveyance of receivables to the Agent, for the ratable benefit of the Purchasers will 
+constitute a purchase and sale of receivables and not a pledge for security. The Receivables Subsidiary has 
+guaranteed to each Purchaser and Agent the prompt payment of sold receivables, and to secure the prompt payment 
+and performance of such guaranteed obligations, the Receivables Subsidiary has granted a security interest to the 
+Agent, for the benefit of the Purchasers, in all assets of the Receivables Subsidiary. The assets of the Receivables 
+Subsidiary are not available to pay our creditors or any affiliate thereof. In our capacity as master servicer under the 
+RPA, we are responsible for administering and collecting receivables and have made customary representations, 
+warranties, covenants and indemnities.
+The proceeds of the RPA are classified as operating activities in our Consolidated Statements of Cash Flows. Cash 
+received from collections of sold receivables is used by the Receivables Subsidiary to fund additional purchases of 
+receivables on a revolving basis or to return all or any portion of outstanding capital of the Purchaser. Subsequent 
+collections on the pledged receivables, which have not been sold, will be classified as operating cash flows at the time 
+of collection. Total receivables sold under the RPA were $658,035 for the year ended September 28, 2024. Total cash 
+collections under the RPA were $633,035 for the year ended September 28, 2024. The fair value of the sold 
+receivables approximated book value due to their credit quality and short-term nature, and as a result, no gain or loss 
+on sale of receivables was recorded.
+The amount sold to the Purchasers was $125,000 at September 28, 2024, which was derecognized from the 
+Consolidated Balance Sheets. As collateral against sold receivables, the Receivables Subsidiary maintains a certain 
+level of unsold receivables, which was $578,124 at September 28, 2024.
+Over-time contract receivables are primarily associated with prime contractors and subcontractors in connection with 
+U.S. Government contracts, as well as commercial aircraft and satellite manufacturers. Amounts billed for over-time 
+contracts to the U.S. Government were $3,952 at September 28, 2024 and $13,350 at September 30, 2023. 
+There are no material amounts of claims or unapproved change orders included in the Consolidated Balance Sheets. 
+There are no material balances billed but not paid by customers under retainage provisions.
+54
+=== PDF PAGE 55 ===
+Concentrations of credit risk on receivables are limited to those from significant customers who are believed to be 
+financially sound. Receivables, both billed and unbilled from Boeing were $242,096 at September 28, 2024 and 
+$227,107 at September 30, 2023 and receivables, both billed and unbilled from Lockheed Martin were $122,816 at 
+September 28, 2024 and $120,014 at September 30, 2023. We perform periodic credit evaluations of our customers’ 
+financial condition and generally do not require collateral.
+In 2020 the U.S. government enacted the Coronavirus Aid, Relief and Economics Security Act (the "CARES Act") to 
+provide relief as a result of the COVID-19 pandemic. The CARES Act provides tax relief, along with other stimulus 
+measures, including a provision for an Employee Retention Credit ("ERC"), which allows employers to claim a 
+refundable tax credit against the employer share of Social Security tax equal to 70% of the qualified wages paid to 
+employees. We applied for the ERC under the CARES Act and recorded contra expense to personnel related costs of 
+$13,247 to Costs of sales and $1,012 to Selling, general and administrative costs in our Consolidated Statement of 
+Earnings in 2024 and is included in Receivables on our Consolidated Balance Sheets at September 28, 2024.
+We qualify for a New York State ("NYS") Excelsior Jobs Program tax credit, which relates to increasing and 
+maintaining employee headcount, amounts of capital investments and research and development spending in NYS. 
+The initial program allows us to receive up to $8,500 of refundable tax credits in cash over a nine year period. As long 
+as the annual requirements are met and maintained, we will receive the credits without any clawback provisions. We 
+have recorded the tax credits as a contra expense to personnel related costs and research and development in our 
+Consolidated Statement of Earnings for $1,118, $1,118 and $922 in 2024, 2023 and 2022, respectively. We have 
+$2,236 and $3,096, recorded as Receivables for these credits on our Consolidated Balance Sheets at September 28, 
+2024 and September 30, 2023, respectively. As of September 28, 2024 we have future tax credits of $3,353 that we 
+can receive through 2027, if we maintain the annual requirements.
+Note 5 - Inventories
+Inventories, net of reserves, consist of:
+September 28,
+2024
+September 30,
+2023
+Raw materials and purchased parts $ 291,969 $ 270,305 
+Work in progress 489,503 368,277 
+Finished goods 82,230 85,420 
+Inventories, net $ 863,702 $ 724,002 
+There are no material inventoried costs relating to over-time contracts where revenue is accounted for using the cost-
+to-cost method of accounting as of September 28, 2024 and September 30, 2023. 
+In 2024, we recorded $7,027 of inventory write-downs, primarily as a result of excess and obsolete inventories related 
+to restructuring actions taken to close Industrial and Space and Defense facilities and transfer remaining production. 
+In 2023, we recorded $4,345 of inventory write-downs associated with a decline in business in our Industrial segment 
+and the retirement of a program in our Military Aircraft segment. In 2022, we recorded impairment charges on 
+inventory of $1,907 associated with Russian actions in the Ukraine. See Note 14 - Restructuring for additional 
+disclosures relating to inventory write-downs.
+55
+=== PDF PAGE 58 ===
+Supplemental balance sheet information related to leases was as follows:
+September 28, 
+2024
+September 30, 
+2023
+Operating Leases:
+Operating lease right-of-use assets $ 52,591 $ 56,067 
+Accrued liabilities and other $ 11,124 $ 11,283 
+Other long-term liabilities 53,228 56,398 
+Total operating lease liabilities $ 64,352 $ 67,681 
+Finance Leases:
+Property, plant, and equipment, at cost $ 123,314 $ 85,324 
+Accumulated depreciation (14,875) (10,913) 
+Property, plant, and equipment, net $ 108,439 $ 74,411 
+Accrued liabilities and other $ 9,198 $ 5,621 
+Other long-term liabilities 100,146 71,225 
+Total finance lease liabilities $ 109,344 $ 76,846 
+Weighted average remaining lease term in years:
+Operating leases 6.2 6.9
+Finance leases 20.1 23.1
+Weighted average discount rates:
+Operating leases  5.2 %  5.0 %
+Finance leases  6.4 %  6.5 %
+Maturities of lease liabilities were as follows: 
+September 28, 2024
+Operating Leases Finance Leases
+2025 $ 13,916 $ 14,972 
+2026 13,537 17,592 
+2027 12,225 13,375 
+2028 10,124 15,714 
+2029 7,821 15,329 
+Thereafter 17,225 143,306 
+Total lease payments 74,848 220,288 
+Less: imputed interest (10,496) (110,944) 
+Total $ 64,352 $ 109,344 
+The operating lease ROU and finance lease disclosures above reflect write downs of $2,849 and $2,086 for the years 
+2024 and 2023, respectively as a result of restructuring actions taken to simplify our business operations through 
+facility closures.
+On September 30, 2022, we sold a building located in Murray, Utah and concurrently entered into a lease agreement 
+for the building with an initial term of two years, which also includes the option to extend the terms of the lease for up 
+to two consecutive terms of six months each. The transaction resulted in a net gain of $9,075 which is included in the 
+Consolidated Statements of Earnings.
+58
+=== PDF PAGE 61 ===
+Note 10 - Indebtedness
+We maintain short-term line of credit facilities with banks throughout the world that are principally demand lines 
+subject to revision by the banks.
+Long-term debt consists of:
+September 28,
+2024
+September 30,
+2023
+U.S. revolving credit facility $ 375,500 $ 334,500 
+SECT revolving credit facility 1,000 33,000 
+Senior notes 4.25% 500,000 500,000 
+Senior debt 876,500 867,500 
+Less deferred debt issuance cost (2,361) (4,408) 
+Long-term debt $ 874,139 $ 863,092 
+Our U.S. revolving credit facility, which matures on October 27, 2027, has a capacity of $1,100,000 and provides an 
+expansion option, which permits us to request an increase of up to $400,000 to the credit facility upon satisfaction of 
+certain conditions. Interest on our outstanding borrowings is based on SOFR plus the applicable margin. The credit 
+facility is secured by substantially all of our U.S. assets. The loan agreement contains various covenants which, 
+among others, specify interest coverage and maximum leverage. We are in compliance with all covenants. The 
+weighted-average interest rate on the outstanding credit facility borrowings is 6.73% and is based on SOFR plus the 
+applicable margin, which was 1.60% at September 28, 2024.
+The SECT has a revolving credit facility with a borrowing capacity of $35,000, maturing on October 26, 2025. Interest 
+is based on SOFR plus an applicable margin of 2.23%. A commitment fee is also charged based on a percentage of 
+the unused amounts available and is not material. See Note 25 - Subsequent Events, for information related to an 
+amendment to the credit facility. 
+We have $500,000 aggregate principal amount of 4.25% senior notes due December 15, 2027 with interest paid 
+semiannually on June 15 and December 15 of each year. The senior notes are unsecured obligations, guaranteed on 
+a senior unsecured basis by certain subsidiaries and contain normal incurrence-based covenants and limitations such 
+as the ability to incur additional indebtedness, pay dividends, make other restricted payments and investments, create 
+liens and certain corporate acts such as mergers and consolidations. We are in compliance with all covenants. The 
+effective interest rate for these notes after considering the amortization of deferred debt issuance costs is 4.60%.
+Maturities of long-term debt are:
+2025 2026 2027 2028 2029 Thereafter
+Long-term debt maturities $ — $ 1,000 $ — $ 875,500 $ — $ — 
+At September 28, 2024, we had pledged assets with a net book value of $2,028,027 as security for long-term debt.
+At September 28, 2024, we had $754,581 of unused short and long-term borrowing capacity, including $720,581 from 
+the U.S. revolving credit facility. 
+Commitment fees are charged on some of these arrangements and on the U.S. revolving credit facility based on a 
+percentage of the unused amounts available and are not material.
+61

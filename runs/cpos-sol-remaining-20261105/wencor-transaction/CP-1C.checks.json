@@ -1,0 +1,45 @@
+{
+  "required_terms": [
+    "Transaction evidence",
+    "T4.9 \u2014 transaction comps",
+    "T4.10 \u2014 conditional indications",
+    "Transaction calculation controls",
+    "Transaction gaps",
+    "2023-05-15",
+    "2026-11-05",
+    "N=1",
+    "12.9",
+    "CP-2"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Transaction calculation controls",
+      "columns": [
+        "Metric",
+        "Value (6dp)"
+      ],
+      "rows": [
+        [
+          "announced_total_usdm",
+          "2050.000000"
+        ],
+        [
+          "announced_total_over_projected_revenue",
+          "2.831492"
+        ],
+        [
+          "announced_total_over_projected_ebitda",
+          "13.398693"
+        ],
+        [
+          "tax_benefit_adjusted_price_usdm",
+          "1975.000000"
+        ],
+        [
+          "tax_adjusted_over_projected_ebitda",
+          "12.908497"
+        ]
+      ]
+    }
+  ]
+}

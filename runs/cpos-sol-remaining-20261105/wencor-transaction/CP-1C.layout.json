@@ -1,0 +1,54 @@
+{
+  "blocks": [
+    "instrument-levels",
+    "peer-positioning",
+    "market-against-fundamentals",
+    "what-changed"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-1C",
+      "heading": "Request",
+      "kind": "prose",
+      "prefix": "Transaction view:",
+      "block_id": "market-against-fundamentals"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "Transaction evidence",
+      "kind": "table",
+      "block_id": "instrument-levels"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.9 \u2014 transaction comps",
+      "kind": "table",
+      "block_id": "instrument-levels"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.10 \u2014 conditional indications",
+      "kind": "table",
+      "block_id": "instrument-levels"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "Transaction calculation controls",
+      "kind": "table",
+      "block_id": "instrument-levels"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "Transaction gaps",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "Next module",
+      "kind": "prose",
+      "block_id": "what-changed"
+    }
+  ],
+  "scope": "Wencor/HEICO announcedMay2023 consideration and projectedfinancialmultiples; standalonehistoricaltransactionincrement, notcompleteEV/currentvalue/fullRVpathway."
+}

@@ -1,0 +1,67 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-peer-consumer-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2026-11-05",
+    "case_kind": "public",
+    "pathway": "relative_value",
+    "requested_modules": [
+      "CP-2"
+    ]
+  },
+  "handoffs": {
+    "CP-2": {
+      "path": "CP-2.md",
+      "sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "instrument-levels",
+      "peer-positioning",
+      "market-against-fundamentals",
+      "what-changed"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2",
+        "heading": "Request",
+        "kind": "prose",
+        "prefix": "Credit update:",
+        "block_id": "market-against-fundamentals"
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Cohort consumption",
+        "kind": "table",
+        "block_id": "peer-positioning"
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Definition and conflict register",
+        "kind": "table",
+        "block_id": "peer-positioning"
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Consumption controls",
+        "kind": "table",
+        "block_id": "instrument-levels"
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Monitoring and repair",
+        "kind": "table",
+        "block_id": "peer-positioning"
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Next module",
+        "kind": "prose",
+        "block_id": "what-changed"
+      }
+    ],
+    "scope": "ActualfreshCP2consumption ofthree separatelydated CP1C increments. Historicalcontext, notcurrentTDGunderwriting or completeRVpathway."
+  }
+}

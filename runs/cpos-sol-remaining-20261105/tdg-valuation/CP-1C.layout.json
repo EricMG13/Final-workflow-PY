@@ -1,0 +1,72 @@
+{
+  "blocks": [
+    "instrument-levels",
+    "peer-positioning",
+    "market-against-fundamentals",
+    "what-changed"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-1C",
+      "heading": "Request",
+      "kind": "prose",
+      "prefix": "Valuation view:",
+      "block_id": "market-against-fundamentals"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.1 \u2014 peer scope",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.2 \u2014 valuation alignment",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.8 \u2014 public trading comps",
+      "kind": "table",
+      "block_id": "instrument-levels"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.9 \u2014 transaction comps",
+      "kind": "table",
+      "block_id": "instrument-levels"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.10 \u2014 conditional indications",
+      "kind": "table",
+      "block_id": "instrument-levels"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "T4.11 \u2014 gaps",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "Valuation calculation controls",
+      "kind": "table",
+      "block_id": "instrument-levels"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "Comparability dimensions",
+      "kind": "table",
+      "block_id": "peer-positioning"
+    },
+    {
+      "module_id": "CP-1C",
+      "heading": "Next module",
+      "kind": "prose",
+      "block_id": "what-changed"
+    }
+  ],
+  "scope": "TDG/Moog FY2025 historical positive valuation function; one-peer known-component EV proxy and provisional metric transfers. Allfourmethods retain absenttransactiongaps. Separate fromFY2024peercohort; not completeEV/currentsector/entireRVpathway."
+}

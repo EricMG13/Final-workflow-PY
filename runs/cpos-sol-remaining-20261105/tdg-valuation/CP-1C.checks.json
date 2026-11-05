@@ -1,0 +1,113 @@
+{
+  "required_terms": [
+    "T4.1 \u2014 peer scope",
+    "T4.2 \u2014 valuation alignment",
+    "T4.8 \u2014 public trading comps",
+    "T4.9 \u2014 transaction comps",
+    "T4.10 \u2014 conditional indications",
+    "T4.11 \u2014 gaps",
+    "Valuation calculation controls",
+    "Comparability dimensions",
+    "2025-09-27",
+    "2025-09-30",
+    "2026-11-05",
+    "Provisional",
+    "N=1",
+    "CP-2"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Valuation calculation controls",
+      "columns": [
+        "Metric",
+        "Value (6dp)"
+      ],
+      "rows": [
+        [
+          "class_a_equity_usd",
+          "5816861917.920000"
+        ],
+        [
+          "class_b_equity_usd",
+          "666915112.000000"
+        ],
+        [
+          "market_cap_usdm",
+          "6483.777030"
+        ],
+        [
+          "borrowing_carrying_usdm",
+          "945.686000"
+        ],
+        [
+          "finance_lease_usdm",
+          "134.075000"
+        ],
+        [
+          "borrowing_principal_usdm",
+          "946.000000"
+        ],
+        [
+          "proxy_principal_usdm",
+          "7501.839030"
+        ],
+        [
+          "proxy_carrying_usdm",
+          "7501.525030"
+        ],
+        [
+          "proxy_fair_debt_usdm",
+          "7488.409030"
+        ],
+        [
+          "debt_fair_sensitivity_usdm",
+          "-13.430000"
+        ],
+        [
+          "net_carrying_sensitivity_usdm",
+          "-0.314000"
+        ],
+        [
+          "proxy_plus_rpa_usdm",
+          "7626.839030"
+        ],
+        [
+          "moog_ebitda_proxy_usdm",
+          "488.451000"
+        ],
+        [
+          "moog_revenue_usdm",
+          "3860.624000"
+        ],
+        [
+          "ev_proxy_revenue",
+          "1.943167"
+        ],
+        [
+          "ev_proxy_ebitda_proxy",
+          "15.358427"
+        ],
+        [
+          "tdg_ordinary_ebitda_usdm",
+          "4568.000000"
+        ],
+        [
+          "tdg_as_defined_usdm",
+          "4760.000000"
+        ],
+        [
+          "tdg_revenue_usdm",
+          "8831.000000"
+        ],
+        [
+          "tdg_revenue_indication_usdm",
+          "17160.112063"
+        ],
+        [
+          "tdg_ebitda_indication_usdm",
+          "70157.294567"
+        ]
+      ]
+    }
+  ]
+}

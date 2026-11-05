@@ -1,0 +1,148 @@
+Primary SEC HTML derivative. URL: https://www.sec.gov/Archives/edgar/data/46619/000095014223001445/eh230358705_ex9901.htm
+Retrieved2026-11-05; originalSHA256 8e922ca27df1dd5cc4f2d95da0220d58bc1469a61b767593071c24b566802490
+L1: EX-99.1
+L2: 2
+L3: eh230358705_ex9901.htm
+L4: EXHIBIT 99.1
+L5: EXHIBIT 99.1
+L6: HEICO CORPORATION AGREES TO MAKE MAJOR AND
+L7: HIGHLY COMPLEMENTARY ACQUISITION
+L8: HOLLYWOOD, FL
+L9: and PEACHTREE CITY, GA / ACCESSWIRE / May 15, 2023 / HEICO Corporation (NYSE:HEI.A)(NYSE:HEI) today announced that it entered
+L10: into an agreement to acquire Wencor Group ("Wencor") from affiliates of Warburg Pincus LLC and Wencor's management for
+L11: $1.9 billion in cash and $150 million in HEICO Class A Common Stock1 to be paid at closing, or $2.05 billion in the
+L12: aggregate.
+L13: The transaction will be HEICO’s largest ever in purchase price,
+L14: as well as revenues and income acquired. Wencor will become part of HEICO's Flight Support Group.
+L15: HEICO stated that it expects the highly synergistic acquisition to
+L16: be accretive to its earnings within the year following the closing. Further, HEICO anticipates it will continue to achieve its often-articulated
+L17: growth objectives in the years following the closing.
+L18: Founded in 1955, Wencor is a large commercial and military aircraft
+L19: aftermarket company offering factory-new FAA-approved aircraft replacement parts, value-added distribution of high-use commercial &
+L20: military aftermarket parts and aircraft & engine accessory component repair and overhaul services.
+L21: Wencor is based in Peachtree City, GA and provides its parts and
+L22: services internationally, employing approximately 1,000 team members in 19 facilities around the United States. HEICO currently employs
+L23: approximately 9,000 Team Members at over 100 facilities worldwide. Wencor’s customers include airlines worldwide, aircraft maintenance
+L24: repair and overhaul companies, military agencies and defense contractors.
+L25: Wencor’s parts and repairs are found in hydraulic,
+L26: pneumatic, electronic and electro-mechanical, cockpit and galley systems throughout numerous aircraft models and provide
+L27: Wencor’s customers with significant cost savings.
+L28: HEICO anticipates that Wencor will generate approximately $724 million
+L29: and $153 million in adjusted proforma revenues and EBITDA, respectively, in calendar year 2023.2 Further, HEICO expects to
+L30: receive estimated tax benefits of approximately $75 million that will be realized through fiscal year 2038. Including the estimated tax
+L31: benefits and without accounting for any expected synergies, HEICO anticipates that its effective purchase price multiple will be approximately
+L32: 12.9 times Wencor’s projected proforma adjusted EBITDA.
+L33: Following the acquisition’s completion, HEICO anticipates its
+L34: net debt-to-EBITDA leverage ratio will be below 3:1 and will return to its historical levels within roughly a year to eighteen months
+L35: after the acquisition, before taking into account future acquisitions and other possible capital deployment activities.
+L36: HEICO stated that it believes its Flight Support Group will achieve
+L37: meaningful synergies from the acquisition, though it is not now providing details on those likely synergies. HEICO's Flight Support Group
+L38: has successfully achieved significant financial and other synergies from acquisitions of other businesses over many years.
+L39: Laurans A. Mendelson, HEICO's Chairman and Chief Executive Officer,
+L40: along with Eric A. Mendelson, HEICO's Co-President and Chief Executive Officer of its Flight Support Group, together remarked, "Our
+L41: Flight Support Group has for decades provided high-quality and reliable cost-saving products and services to the commercial aircraft and
+L42: defense aftermarkets. The Wencor acquisition materially expands HEICO's aftermarket product offerings, enabling the combined company to
+L43: offer even greater savings and capabilities to its customers, while expanding our new products and services development capacity. Wencor
+L44: is a perfect and highly complementary fit with HEICO.
+L45: Importantly, we look forward to welcoming Wencor's Team Members to
+L46: the HEICO family and to working with Wencor's talented leadership team led by Shawn Trogdon, who will continue to lead the business."
+L47: Shawn Trogdon, Wencor's Chief Executive Officer, remarked, “I
+L48: am excited about the opportunity to combine HEICO and Wencor’s impressive teams who share the same culture and commitment to our
+L49: customers, suppliers and employees. The unmatched combination will further accelerate growth, innovation, and development of highly reliable
+L50: cost-saving solutions for our customers. I am proud of our team’s achievements to date and look forward to continuing our journey
+L51: of growth with HEICO. I want to thank the Warburg Pincus team for their support and partnership that has helped enable our success.”
+L52: “We are proud of the transformative growth of Wencor and significant
+L53: expansion and deepening of capabilities during our ownership period. The company is very well positioned for future growth, and we wish
+L54: Shawn and the entire Wencor team continued success. As growth investors, we feel privileged to have supported Wencor in building a leading
+L55: design, repair provider and distributor of aftermarket aerospace components,” said Dan Zamlong, Managing Director, Warburg Pincus.
+L56: Closing is subject to customary closing conditions, including, among
+L57: other things, antitrust clearance. The parties anticipate closing the transaction by the end of calendar 2023.
+L58: HEICO previously announced that it will hold its regular earnings-related
+L59: conference call at 9:00 a.m. EST on Tuesday, May 23, 2023 following its earnings press release issuance the prior day. Dial-in and replay
+L60: information is available on HEICO’s website.
+L61: Morgan Stanley & Co. LLC acted as lead financial advisor to HEICO,
+L62: with RBC Capital Markets LLC and Truist Securities also advising HEICO. In addition, Lazard and Moelis & Company advised HEICO. Paul,
+L63: Weiss, Rifkind, Wharton & Garrison LLP and Akerman LLP acted as legal counsel to HEICO. Truist Securities has provided committed financing
+L64: for the transaction.
+L65: Citi
+L66: acted as lead advisor and Jefferies acted as co-advisor to Wencor in the transaction. William Blair and Alderman & Company also
+L67: served as financial advisors to Wencor. Cleary Gottlieb Steen and Hamilton acted as legal counsel to Wencor.
+L68: HEICO has two classes of common stock traded on the NYSE. Both classes,
+L69: the Class A Common Stock (HEI.A) and the Common Stock (HEI), are virtually identical in all economic respects. The only difference between
+L70: the share classes is the voting rights. The Class A Common Stock (HEI.A) carries 1/10 vote per share and the Common Stock (HEI) carries
+L71: one vote per share. The stock symbols for HEICO’s two classes of common stock on most websites are HEI.A and HEI. However, some
+L72: websites change HEICO's Class A Common Stock trading symbol (HEI.A) to HEI/A or HEIa.
+L73: 2
+L74: About HEICO
+L75: HEICO Corporation is engaged primarily in the design, production,
+L76: servicing and distribution of products and services to certain niche segments of the aviation, defense, space, medical, telecommunications
+L77: and electronics industries through its Hollywood, Florida-based Flight Support Group and its Miami, Florida-based Electronic Technologies
+L78: Group. HEICO’s customers include a majority of the world’s airlines and overhaul shops, as well as numerous defense and space
+L79: contractors and military agencies worldwide, in addition to medical, telecommunications and electronics equipment manufacturers. For
+L80: more information about HEICO, please visit our website at www.heico.com.
+L81: About Warburg Pincus
+L82: Warburg Pincus LLC is a leading global growth investor. The firm
+L83: has more than $80 billion in assets under management. The firm’s active portfolio of more than 250 companies is highly diversified
+L84: by stage, sector, and geography. Warburg Pincus has been an active investor in the aerospace and defense sectors with current and former
+L85: investments including Accelya, Aquila Air Capital, CAMP Systems, Consolidated Precision Products, Extant Aerospace, Inmarsat, Quest Global,
+L86: TransDigm and Wencor Group. Founded in 1966, Warburg Pincus has raised 21 private equity and 2 real estate funds, which have invested
+L87: more than $109 billion in over 1,000 companies in more than 40 countries. The firm is headquartered in New York with offices in Amsterdam,
+L88: Beijing, Berlin, Hong Kong, Houston, London, Luxembourg, Mumbai, Mauritius, San Francisco, São Paulo, Shanghai, and Singapore.
+L89: For more information, please visit www.warburgpincus.com. Follow us on LinkedIn.
+L90: Forward-Looking Statements
+L91: Certain statements in this press release constitute forward-looking
+L92: statements, which are subject to risks, uncertainties and contingencies, including HEICO's ability to obtain debt financing on the terms
+L93: and timing contemplated to complete the acquisition, to successfully and timely integrate Wencor into HEICO's Flight Support Group and
+L94: generate cost-savings for customers and synergies, to realize the transaction’s anticipated tax benefits, to achieve the expected
+L95: improvements in HEICO's EBITDA and net debt-to-EBITDA ratio and to continue to achieve its growth objectives, and also including Wencor's
+L96: ability to achieve its projected proforma adjusted revenue and EBITDA in 2023 and beyond. HEICO's actual results may differ materially
+L97: from those expressed in or implied by those forward-looking statements as a result of factors including, but not limited to: the severity,
+L98: magnitude and duration of public health threats, such as the COVID-19 pandemic (“Health Emergencies”); HEICO's liquidity and
+L99: the amount and timing of cash generation; lower commercial air travel caused by Health Emergencies and their aftermath, airline fleet
+L100: changes or airline purchasing decisions, which could cause lower demand for our goods and services; product specification costs and requirements,
+L101: which could cause an increase to our costs to complete contracts; governmental and regulatory demands, export policies and restrictions,
+L102: reductions in defense, space or homeland security spending by U.S. and/or foreign customers or competition from existing and new competitors,
+L103: which could reduce our sales; our ability to introduce new products and services at profitable pricing levels, which could reduce our
+L104: sales or sales growth; product development or manufacturing difficulties, which could increase our product development and manufacturing
+L105: costs and delay sales; our ability to make acquisitions, including obtaining any applicable domestic and/or foreign governmental approvals,
+L106: and achieve operating synergies from acquired businesses; customer credit risk; interest, foreign currency exchange and income tax rates;
+L107: economic conditions, including the effects of inflation, within and outside of the aviation, defense, space, medical, telecommunications,
+L108: and electronics industries, which could negatively impact our costs and revenues; and defense spending or budget cuts, which could reduce
+L109: our defense-related revenue. With regard to the Wencor acquisition, capital market and economic conditions could adversely affect HEICO's
+L110: ability to obtain debt financing on the terms and timing contemplated, regulatory approvals may delay or otherwise impact the closing
+L111: of the acquisition, and Wencor's business may not perform as expected and it may not achieve its projected proforma adjusted revenue and
+L112: EBITDA due to the same factors listed above that may affect HEICO's business. Parties receiving this material are encouraged to review
+L113: all of HEICO's filings with the Securities and Exchange Commission, including, but not limited to filings on Form 10-K, Form 10-Q and
+L114: Form 8-K. HEICO undertakes no obligation to publicly update or revise any forward-looking statement, whether as a result of new information,
+L115: future events or otherwise, except to the extent required by applicable law.
+L116: 3
+L117: Non-GAAP Financial Measures
+L118: To provide additional information about
+L119: HEICO's projected results, HEICO has discussed in this press release, for future periods following the completion of the Wencor acquisition,
+L120: its projected net debt-to-EBITDA ratio (calculated as net debt divided by EBITDA). Projected EBITDA is calculated as projected net income
+L121: attributable to HEICO adjusted for depreciation and amortization expense, net income attributable to noncontrolling interests, interest
+L122: expense and income tax expense. Projected net debt is calculated as projected total debt less projected cash and cash equivalents. These
+L123: measures are not prepared in accordance with accounting principles generally accepted in the United States of America ("GAAP").
+L124: These non-GAAP measures are included to
+L125: supplement HEICO's financial information presented in accordance with GAAP and because HEICO uses such measures to monitor and evaluate
+L126: the performance of its business and believes the presentation of these measures enhance an investor's ability to analyze trends in HEICO's
+L127: business and to evaluate HEICO's performance relative to other companies in its industry. However, these non-GAAP measures have limitations
+L128: and should not be considered in isolation or as a substitute for analysis of HEICO's financial results as reported under GAAP.
+L129: These non-GAAP measures are not in accordance
+L130: with, or an alternative to, measures prepared in accordance with GAAP and may be different from non-GAAP measures used by other companies.
+L131: In addition, these non-GAAP measures are not based on any comprehensive set of accounting rules or principles. These measures should only
+L132: be used to evaluate HEICO's results of operations in conjunction with their corresponding GAAP measures.
+L133: With respect to our projected EBITDA, projected net debt, and projected
+L134: net debt-to-EBITDA ratio, for periods in fiscal 2024 following the expected closing of the acquisition of Wencor, a reconciliation of
+L135: these non-GAAP measures to the corresponding GAAP measures of net income attributable to HEICO, total debt, and total debt-to-net income
+L136: attributable to HEICO, are not available without unreasonable effort due to the variability and complexity of the reconciling items that
+L137: we add-back to net income attributable to HEICO to determine EBITDA. The variability of these items may have a significant impact on our
+L138: future GAAP financial results and, as a result, we are unable to prepare the forward-looking statement of income prepared in accordance
+L139: with GAAP that would be required to produce such a reconciliation.
+L140: 1
+L141: A fixed number of 1,137,656 shares of HEICO Class A Common Stock
+L142: will be issued at closing. The number of shares is not subject to adjustment for share price changes.
+L143: 2
+L144: Wencor's projected revenues and EBITDA are adjusted and on a proforma
+L145: basis to take into account an acquisition it completed in February 2023 and certain diligence adjustments.
+L146: 4

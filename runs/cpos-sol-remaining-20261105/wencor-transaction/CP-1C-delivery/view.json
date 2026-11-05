@@ -1,0 +1,4037 @@
+{
+  "schema_version": "view/4",
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "sol-remaining-wencor-transaction-20261105",
+    "issuer_id": "WENCOR",
+    "issuer_name": "Wencor Group",
+    "as_of": "2023-05-15",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "relative_value",
+    "requested_modules": [
+      "CP-1C"
+    ]
+  },
+  "mode": "candidate",
+  "modules": [
+    {
+      "module_id": "CP-1C",
+      "title": "Peer benchmark",
+      "aliases": [],
+      "status": "candidate",
+      "artifact_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+      "facts": [
+        {
+          "fact_id": "raw-CP-1C-0.r0.c0",
+          "label": "Buyer / sellers / perimeter",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "HEICO / Warburg Pincus affiliates and Wencor management; acquisition of Jazz Parent, owner of Wencor",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 19",
+              "quote": "| Buyer / sellers / perimeter | HEICO / Warburg Pincus affiliates and Wencor management; acquisition of Jazz Parent, owner of Wencor | Agreement announced May 15, 2023; intended Flight Support Group inclusion | announcement p. 1, L9–14; agreement-summary p. 1, L87–93 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r0.c1",
+          "label": "Buyer / sellers / perimeter",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Agreement announced May 15, 2023; intended Flight Support Group inclusion",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 19",
+              "quote": "| Buyer / sellers / perimeter | HEICO / Warburg Pincus affiliates and Wencor management; acquisition of Jazz Parent, owner of Wencor | Agreement announced May 15, 2023; intended Flight Support Group inclusion | announcement p. 1, L9–14; agreement-summary p. 1, L87–93 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r0.c2",
+          "label": "Buyer / sellers / perimeter",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "announcement p. 1, L9–14; agreement-summary p. 1, L87–93",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 19",
+              "quote": "| Buyer / sellers / perimeter | HEICO / Warburg Pincus affiliates and Wencor management; acquisition of Jazz Parent, owner of Wencor | Agreement announced May 15, 2023; intended Flight Support Group inclusion | announcement p. 1, L9–14; agreement-summary p. 1, L87–93 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r1.c0",
+          "label": "Announced purchase consideration",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "USD1,900m cash + USD150m announced stock value = USD2,050m aggregate",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 20",
+              "quote": "| Announced purchase consideration | USD1,900m cash + USD150m announced stock value = USD2,050m aggregate | Announced terms, not closing measurement | announcement p. 1, L10–12 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r1.c1",
+          "label": "Announced purchase consideration",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Announced terms, not closing measurement",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 20",
+              "quote": "| Announced purchase consideration | USD1,900m cash + USD150m announced stock value = USD2,050m aggregate | Announced terms, not closing measurement | announcement p. 1, L10–12 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r1.c2",
+          "label": "Announced purchase consideration",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "announcement p. 1, L10–12",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 20",
+              "quote": "| Announced purchase consideration | USD1,900m cash + USD150m announced stock value = USD2,050m aggregate | Announced terms, not closing measurement | announcement p. 1, L10–12 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r2.c0",
+          "label": "Stock delivery",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "1,137,656 HEICO Class A shares; count not adjusted for share-price changes",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 21",
+              "quote": "| Stock delivery | 1,137,656 HEICO Class A shares; count not adjusted for share-price changes | Fixed share count, not fixed closing dollar value | announcement p. 2, L140–142; agreement-summary p. 1, L93 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r2.c1",
+          "label": "Stock delivery",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Fixed share count, not fixed closing dollar value",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 21",
+              "quote": "| Stock delivery | 1,137,656 HEICO Class A shares; count not adjusted for share-price changes | Fixed share count, not fixed closing dollar value | announcement p. 2, L140–142; agreement-summary p. 1, L93 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r2.c2",
+          "label": "Stock delivery",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "announcement p. 2, L140–142; agreement-summary p. 1, L93",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 21",
+              "quote": "| Stock delivery | 1,137,656 HEICO Class A shares; count not adjusted for share-price changes | Fixed share count, not fixed closing dollar value | announcement p. 2, L140–142; agreement-summary p. 1, L93 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r3.c0",
+          "label": "Cash adjustment / escrow",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Cash subject to working-capital, debt and customary adjustments; USD20m escrow is within cash consideration",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 22",
+              "quote": "| Cash adjustment / escrow | Cash subject to working-capital, debt and customary adjustments; USD20m escrow is within cash consideration | Escrow funds post-closing adjustment obligations; not extra consideration | agreement-summary p. 1, L93–96 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r3.c1",
+          "label": "Cash adjustment / escrow",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Escrow funds post-closing adjustment obligations; not extra consideration",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 22",
+              "quote": "| Cash adjustment / escrow | Cash subject to working-capital, debt and customary adjustments; USD20m escrow is within cash consideration | Escrow funds post-closing adjustment obligations; not extra consideration | agreement-summary p. 1, L93–96 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r3.c2",
+          "label": "Cash adjustment / escrow",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r3",
+          "field": "c2",
+          "amount": null,
+          "text": "agreement-summary p. 1, L93–96",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 22",
+              "quote": "| Cash adjustment / escrow | Cash subject to working-capital, debt and customary adjustments; USD20m escrow is within cash consideration | Escrow funds post-closing adjustment obligations; not extra consideration | agreement-summary p. 1, L93–96 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r4.c0",
+          "label": "Forecast denominator",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "USD724m revenue; USD153m adjusted proforma EBITDA",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 23",
+              "quote": "| Forecast denominator | USD724m revenue; USD153m adjusted proforma EBITDA | Projected CY2023; includes February 2023 acquisition and diligence adjustments; not actual, reported or covenant EBITDA | announcement p. 1, L28–32; p. 2, L143–145 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r4.c1",
+          "label": "Forecast denominator",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "Projected CY2023; includes February 2023 acquisition and diligence adjustments; not actual, reported or covenant EBITDA",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 23",
+              "quote": "| Forecast denominator | USD724m revenue; USD153m adjusted proforma EBITDA | Projected CY2023; includes February 2023 acquisition and diligence adjustments; not actual, reported or covenant EBITDA | announcement p. 1, L28–32; p. 2, L143–145 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r4.c2",
+          "label": "Forecast denominator",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r4",
+          "field": "c2",
+          "amount": null,
+          "text": "announcement p. 1, L28–32; p. 2, L143–145",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 23",
+              "quote": "| Forecast denominator | USD724m revenue; USD153m adjusted proforma EBITDA | Projected CY2023; includes February 2023 acquisition and diligence adjustments; not actual, reported or covenant EBITDA | announcement p. 1, L28–32; p. 2, L143–145 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r5.c0",
+          "label": "Tax / synergies",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "Estimated USD75m tax benefits through FY2038; issuer approximately 12.9x effective purchase-price multiple",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 24",
+              "quote": "| Tax / synergies | Estimated USD75m tax benefits through FY2038; issuer approximately 12.9x effective purchase-price multiple | Forecast tax benefit; issuer multiple excludes expected synergies; synergies not quantified | announcement p. 1, L30–38 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r5.c1",
+          "label": "Tax / synergies",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "Forecast tax benefit; issuer multiple excludes expected synergies; synergies not quantified",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 24",
+              "quote": "| Tax / synergies | Estimated USD75m tax benefits through FY2038; issuer approximately 12.9x effective purchase-price multiple | Forecast tax benefit; issuer multiple excludes expected synergies; synergies not quantified | announcement p. 1, L30–38 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r5.c2",
+          "label": "Tax / synergies",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r5",
+          "field": "c2",
+          "amount": null,
+          "text": "announcement p. 1, L30–38",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 24",
+              "quote": "| Tax / synergies | Estimated USD75m tax benefits through FY2038; issuer approximately 12.9x effective purchase-price multiple | Forecast tax benefit; issuer multiple excludes expected synergies; synergies not quantified | announcement p. 1, L30–38 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r6.c0",
+          "label": "Wencor business / customers",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r6",
+          "field": "c0",
+          "amount": null,
+          "text": "Commercial and military aircraft aftermarket replacement parts, distribution and accessory repair/overhaul; airlines, MRO companies, military agencies and defense contractors",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 25",
+              "quote": "| Wencor business / customers | Commercial and military aircraft aftermarket replacement parts, distribution and accessory repair/overhaul; airlines, MRO companies, military agencies and defense contractors | International parts/services; approximately 1,000 staff, 19 US facilities; concentration and contract economics Not supplied | announcement p. 1, L18–27 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r6.c1",
+          "label": "Wencor business / customers",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r6",
+          "field": "c1",
+          "amount": null,
+          "text": "International parts/services; approximately 1,000 staff, 19 US facilities; concentration and contract economics Not supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 25",
+              "quote": "| Wencor business / customers | Commercial and military aircraft aftermarket replacement parts, distribution and accessory repair/overhaul; airlines, MRO companies, military agencies and defense contractors | International parts/services; approximately 1,000 staff, 19 US facilities; concentration and contract economics Not supplied | announcement p. 1, L18–27 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r6.c2",
+          "label": "Wencor business / customers",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r6",
+          "field": "c2",
+          "amount": null,
+          "text": "announcement p. 1, L18–27",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 25",
+              "quote": "| Wencor business / customers | Commercial and military aircraft aftermarket replacement parts, distribution and accessory repair/overhaul; airlines, MRO companies, military agencies and defense contractors | International parts/services; approximately 1,000 staff, 19 US facilities; concentration and contract economics Not supplied | announcement p. 1, L18–27 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r7.c0",
+          "label": "Funding / execution",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r7",
+          "field": "c0",
+          "amount": null,
+          "text": "Intended mix of cash, debt and/or equity; up to USD1,500m senior unsecured bridge, 364-day maturity after closing; facility commitments proposed to rise from USD1,500m to USD2,000m",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 26",
+              "quote": "| Funding / execution | Intended mix of cash, debt and/or equity; up to USD1,500m senior unsecured bridge, 364-day maturity after closing; facility commitments proposed to rise from USD1,500m to USD2,000m | May 14 commitments; funding conditions apply; merger has no financing condition; no actual draw or debt allocation supplied | agreement-summary p. 1, L121–126 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r7.c1",
+          "label": "Funding / execution",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r7",
+          "field": "c1",
+          "amount": null,
+          "text": "May 14 commitments; funding conditions apply; merger has no financing condition; no actual draw or debt allocation supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 26",
+              "quote": "| Funding / execution | Intended mix of cash, debt and/or equity; up to USD1,500m senior unsecured bridge, 364-day maturity after closing; facility commitments proposed to rise from USD1,500m to USD2,000m | May 14 commitments; funding conditions apply; merger has no financing condition; no actual draw or debt allocation supplied | agreement-summary p. 1, L121–126 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r7.c2",
+          "label": "Funding / execution",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r7",
+          "field": "c2",
+          "amount": null,
+          "text": "agreement-summary p. 1, L121–126",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 26",
+              "quote": "| Funding / execution | Intended mix of cash, debt and/or equity; up to USD1,500m senior unsecured bridge, 364-day maturity after closing; facility commitments proposed to rise from USD1,500m to USD2,000m | May 14 commitments; funding conditions apply; merger has no financing condition; no actual draw or debt allocation supplied | agreement-summary p. 1, L121–126 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r8.c0",
+          "label": "Closing status",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r8",
+          "field": "c0",
+          "amount": null,
+          "text": "Subject to conditions including regulatory approval; expected by end-CY2023",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 27",
+              "quote": "| Closing status | Subject to conditions including regulatory approval; expected by end-CY2023 | Announcement expectation only; closed status Not supplied | announcement p. 1, L56–57; agreement-summary p. 1, L97–99 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r8.c1",
+          "label": "Closing status",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r8",
+          "field": "c1",
+          "amount": null,
+          "text": "Announcement expectation only; closed status Not supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 27",
+              "quote": "| Closing status | Subject to conditions including regulatory approval; expected by end-CY2023 | Announcement expectation only; closed status Not supplied | announcement p. 1, L56–57; agreement-summary p. 1, L97–99 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-0.r8.c2",
+          "label": "Closing status",
+          "table_id": "raw-CP-1C-0",
+          "row_id": "r8",
+          "field": "c2",
+          "amount": null,
+          "text": "announcement p. 1, L56–57; agreement-summary p. 1, L97–99",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 27",
+              "quote": "| Closing status | Subject to conditions including regulatory approval; expected by end-CY2023 | Announcement expectation only; closed status Not supplied | announcement p. 1, L56–57; agreement-summary p. 1, L97–99 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-1.r0.c0",
+          "label": "Wencor acquisition",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "2023-05-15 announcement",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 32",
+              "quote": "| Wencor acquisition | 2023-05-15 announcement | Announced acquisition / merger | HEICO / Warburg Pincus affiliates and management | USD2,050m announced consideration proxy; complete economic EV Not calculable: full bridge missing | 2.831492x | 13.398693x | Projected CY2023 | Announced consideration / forecast adjusted proforma revenue or EBITDA; February acquisition and diligence adjustments included | Comparable with Limitations for historical transaction context; Not Comparable for unaligned borrower transfer | announcement pp. 1–2, L9–32, L140–145; agreement-summary p. 1, L93–96; calculations below |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-1.r0.c1",
+          "label": "Wencor acquisition",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Announced acquisition / merger",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 32",
+              "quote": "| Wencor acquisition | 2023-05-15 announcement | Announced acquisition / merger | HEICO / Warburg Pincus affiliates and management | USD2,050m announced consideration proxy; complete economic EV Not calculable: full bridge missing | 2.831492x | 13.398693x | Projected CY2023 | Announced consideration / forecast adjusted proforma revenue or EBITDA; February acquisition and diligence adjustments included | Comparable with Limitations for historical transaction context; Not Comparable for unaligned borrower transfer | announcement pp. 1–2, L9–32, L140–145; agreement-summary p. 1, L93–96; calculations below |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-1.r0.c2",
+          "label": "Wencor acquisition",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "HEICO / Warburg Pincus affiliates and management",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 32",
+              "quote": "| Wencor acquisition | 2023-05-15 announcement | Announced acquisition / merger | HEICO / Warburg Pincus affiliates and management | USD2,050m announced consideration proxy; complete economic EV Not calculable: full bridge missing | 2.831492x | 13.398693x | Projected CY2023 | Announced consideration / forecast adjusted proforma revenue or EBITDA; February acquisition and diligence adjustments included | Comparable with Limitations for historical transaction context; Not Comparable for unaligned borrower transfer | announcement pp. 1–2, L9–32, L140–145; agreement-summary p. 1, L93–96; calculations below |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-1.r0.c3",
+          "label": "Wencor acquisition",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "field": "c3",
+          "amount": null,
+          "text": "USD2,050m announced consideration proxy; complete economic EV Not calculable: full bridge missing",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 32",
+              "quote": "| Wencor acquisition | 2023-05-15 announcement | Announced acquisition / merger | HEICO / Warburg Pincus affiliates and management | USD2,050m announced consideration proxy; complete economic EV Not calculable: full bridge missing | 2.831492x | 13.398693x | Projected CY2023 | Announced consideration / forecast adjusted proforma revenue or EBITDA; February acquisition and diligence adjustments included | Comparable with Limitations for historical transaction context; Not Comparable for unaligned borrower transfer | announcement pp. 1–2, L9–32, L140–145; agreement-summary p. 1, L93–96; calculations below |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-1.r0.c4",
+          "label": "Wencor acquisition",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "field": "c4",
+          "amount": null,
+          "text": "2.831492x",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 32",
+              "quote": "| Wencor acquisition | 2023-05-15 announcement | Announced acquisition / merger | HEICO / Warburg Pincus affiliates and management | USD2,050m announced consideration proxy; complete economic EV Not calculable: full bridge missing | 2.831492x | 13.398693x | Projected CY2023 | Announced consideration / forecast adjusted proforma revenue or EBITDA; February acquisition and diligence adjustments included | Comparable with Limitations for historical transaction context; Not Comparable for unaligned borrower transfer | announcement pp. 1–2, L9–32, L140–145; agreement-summary p. 1, L93–96; calculations below |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-1.r0.c5",
+          "label": "Wencor acquisition",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "field": "c5",
+          "amount": null,
+          "text": "13.398693x",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 32",
+              "quote": "| Wencor acquisition | 2023-05-15 announcement | Announced acquisition / merger | HEICO / Warburg Pincus affiliates and management | USD2,050m announced consideration proxy; complete economic EV Not calculable: full bridge missing | 2.831492x | 13.398693x | Projected CY2023 | Announced consideration / forecast adjusted proforma revenue or EBITDA; February acquisition and diligence adjustments included | Comparable with Limitations for historical transaction context; Not Comparable for unaligned borrower transfer | announcement pp. 1–2, L9–32, L140–145; agreement-summary p. 1, L93–96; calculations below |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-1.r0.c6",
+          "label": "Wencor acquisition",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "field": "c6",
+          "amount": null,
+          "text": "Projected CY2023",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 32",
+              "quote": "| Wencor acquisition | 2023-05-15 announcement | Announced acquisition / merger | HEICO / Warburg Pincus affiliates and management | USD2,050m announced consideration proxy; complete economic EV Not calculable: full bridge missing | 2.831492x | 13.398693x | Projected CY2023 | Announced consideration / forecast adjusted proforma revenue or EBITDA; February acquisition and diligence adjustments included | Comparable with Limitations for historical transaction context; Not Comparable for unaligned borrower transfer | announcement pp. 1–2, L9–32, L140–145; agreement-summary p. 1, L93–96; calculations below |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-1.r0.c7",
+          "label": "Wencor acquisition",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "field": "c7",
+          "amount": null,
+          "text": "Announced consideration / forecast adjusted proforma revenue or EBITDA; February acquisition and diligence adjustments included",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 32",
+              "quote": "| Wencor acquisition | 2023-05-15 announcement | Announced acquisition / merger | HEICO / Warburg Pincus affiliates and management | USD2,050m announced consideration proxy; complete economic EV Not calculable: full bridge missing | 2.831492x | 13.398693x | Projected CY2023 | Announced consideration / forecast adjusted proforma revenue or EBITDA; February acquisition and diligence adjustments included | Comparable with Limitations for historical transaction context; Not Comparable for unaligned borrower transfer | announcement pp. 1–2, L9–32, L140–145; agreement-summary p. 1, L93–96; calculations below |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-1.r0.c8",
+          "label": "Wencor acquisition",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "field": "c8",
+          "amount": null,
+          "text": "Comparable with Limitations for historical transaction context; Not Comparable for unaligned borrower transfer",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 32",
+              "quote": "| Wencor acquisition | 2023-05-15 announcement | Announced acquisition / merger | HEICO / Warburg Pincus affiliates and management | USD2,050m announced consideration proxy; complete economic EV Not calculable: full bridge missing | 2.831492x | 13.398693x | Projected CY2023 | Announced consideration / forecast adjusted proforma revenue or EBITDA; February acquisition and diligence adjustments included | Comparable with Limitations for historical transaction context; Not Comparable for unaligned borrower transfer | announcement pp. 1–2, L9–32, L140–145; agreement-summary p. 1, L93–96; calculations below |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-1.r0.c9",
+          "label": "Wencor acquisition",
+          "table_id": "raw-CP-1C-1",
+          "row_id": "r0",
+          "field": "c9",
+          "amount": null,
+          "text": "announcement pp. 1–2, L9–32, L140–145; agreement-summary p. 1, L93–96; calculations below",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 32",
+              "quote": "| Wencor acquisition | 2023-05-15 announcement | Announced acquisition / merger | HEICO / Warburg Pincus affiliates and management | USD2,050m announced consideration proxy; complete economic EV Not calculable: full bridge missing | 2.831492x | 13.398693x | Projected CY2023 | Announced consideration / forecast adjusted proforma revenue or EBITDA; February acquisition and diligence adjustments included | Comparable with Limitations for historical transaction context; Not Comparable for unaligned borrower transfer | announcement pp. 1–2, L9–32, L140–145; agreement-summary p. 1, L93–96; calculations below |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r0.c0",
+          "label": "Trading EV/EBITDA",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Not supplied: no trading multiple in this increment",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 37",
+              "quote": "| Trading EV/EBITDA | Not supplied: no trading multiple in this increment | Not supplied: aligned borrower EBITDA/period | Not calculable: multiple and aligned metric missing; no range | Not Calculable | Separate trading cases not imported or recomputed |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r0.c1",
+          "label": "Trading EV/EBITDA",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Not supplied: aligned borrower EBITDA/period",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 37",
+              "quote": "| Trading EV/EBITDA | Not supplied: no trading multiple in this increment | Not supplied: aligned borrower EBITDA/period | Not calculable: multiple and aligned metric missing; no range | Not Calculable | Separate trading cases not imported or recomputed |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r0.c2",
+          "label": "Trading EV/EBITDA",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "Not calculable: multiple and aligned metric missing; no range",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 37",
+              "quote": "| Trading EV/EBITDA | Not supplied: no trading multiple in this increment | Not supplied: aligned borrower EBITDA/period | Not calculable: multiple and aligned metric missing; no range | Not Calculable | Separate trading cases not imported or recomputed |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r0.c3",
+          "label": "Trading EV/EBITDA",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r0",
+          "field": "c3",
+          "amount": null,
+          "text": "Not Calculable",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 37",
+              "quote": "| Trading EV/EBITDA | Not supplied: no trading multiple in this increment | Not supplied: aligned borrower EBITDA/period | Not calculable: multiple and aligned metric missing; no range | Not Calculable | Separate trading cases not imported or recomputed |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r0.c4",
+          "label": "Trading EV/EBITDA",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r0",
+          "field": "c4",
+          "amount": null,
+          "text": "Separate trading cases not imported or recomputed",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 37",
+              "quote": "| Trading EV/EBITDA | Not supplied: no trading multiple in this increment | Not supplied: aligned borrower EBITDA/period | Not calculable: multiple and aligned metric missing; no range | Not Calculable | Separate trading cases not imported or recomputed |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r1.c0",
+          "label": "Trading EV/Revenue",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Not supplied: no trading multiple in this increment",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 38",
+              "quote": "| Trading EV/Revenue | Not supplied: no trading multiple in this increment | Not supplied: aligned borrower revenue/period | Not calculable: multiple and aligned metric missing; no range | Not Calculable | No contemporaneous trading EV bridge supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r1.c1",
+          "label": "Trading EV/Revenue",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Not supplied: aligned borrower revenue/period",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 38",
+              "quote": "| Trading EV/Revenue | Not supplied: no trading multiple in this increment | Not supplied: aligned borrower revenue/period | Not calculable: multiple and aligned metric missing; no range | Not Calculable | No contemporaneous trading EV bridge supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r1.c2",
+          "label": "Trading EV/Revenue",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "Not calculable: multiple and aligned metric missing; no range",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 38",
+              "quote": "| Trading EV/Revenue | Not supplied: no trading multiple in this increment | Not supplied: aligned borrower revenue/period | Not calculable: multiple and aligned metric missing; no range | Not Calculable | No contemporaneous trading EV bridge supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r1.c3",
+          "label": "Trading EV/Revenue",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r1",
+          "field": "c3",
+          "amount": null,
+          "text": "Not Calculable",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 38",
+              "quote": "| Trading EV/Revenue | Not supplied: no trading multiple in this increment | Not supplied: aligned borrower revenue/period | Not calculable: multiple and aligned metric missing; no range | Not Calculable | No contemporaneous trading EV bridge supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r1.c4",
+          "label": "Trading EV/Revenue",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r1",
+          "field": "c4",
+          "amount": null,
+          "text": "No contemporaneous trading EV bridge supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 38",
+              "quote": "| Trading EV/Revenue | Not supplied: no trading multiple in this increment | Not supplied: aligned borrower revenue/period | Not calculable: multiple and aligned metric missing; no range | Not Calculable | No contemporaneous trading EV bridge supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r2.c0",
+          "label": "Transaction TV/EBITDA",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Wencor announced consideration proxy / projected CY2023 adjusted proforma EBITDA: 13.398693x",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 39",
+              "quote": "| Transaction TV/EBITDA | Wencor announced consideration proxy / projected CY2023 adjusted proforma EBITDA: 13.398693x | Not supplied: independently aligned borrower EBITDA/period | Not calculable: borrower transfer unsupported; no range | Derived multiple; Not Calculable implied EV | Positive multiple evidence, but consideration is not complete EV; N=1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r2.c1",
+          "label": "Transaction TV/EBITDA",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Not supplied: independently aligned borrower EBITDA/period",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 39",
+              "quote": "| Transaction TV/EBITDA | Wencor announced consideration proxy / projected CY2023 adjusted proforma EBITDA: 13.398693x | Not supplied: independently aligned borrower EBITDA/period | Not calculable: borrower transfer unsupported; no range | Derived multiple; Not Calculable implied EV | Positive multiple evidence, but consideration is not complete EV; N=1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r2.c2",
+          "label": "Transaction TV/EBITDA",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "Not calculable: borrower transfer unsupported; no range",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 39",
+              "quote": "| Transaction TV/EBITDA | Wencor announced consideration proxy / projected CY2023 adjusted proforma EBITDA: 13.398693x | Not supplied: independently aligned borrower EBITDA/period | Not calculable: borrower transfer unsupported; no range | Derived multiple; Not Calculable implied EV | Positive multiple evidence, but consideration is not complete EV; N=1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r2.c3",
+          "label": "Transaction TV/EBITDA",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r2",
+          "field": "c3",
+          "amount": null,
+          "text": "Derived multiple; Not Calculable implied EV",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 39",
+              "quote": "| Transaction TV/EBITDA | Wencor announced consideration proxy / projected CY2023 adjusted proforma EBITDA: 13.398693x | Not supplied: independently aligned borrower EBITDA/period | Not calculable: borrower transfer unsupported; no range | Derived multiple; Not Calculable implied EV | Positive multiple evidence, but consideration is not complete EV; N=1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r2.c4",
+          "label": "Transaction TV/EBITDA",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r2",
+          "field": "c4",
+          "amount": null,
+          "text": "Positive multiple evidence, but consideration is not complete EV; N=1",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 39",
+              "quote": "| Transaction TV/EBITDA | Wencor announced consideration proxy / projected CY2023 adjusted proforma EBITDA: 13.398693x | Not supplied: independently aligned borrower EBITDA/period | Not calculable: borrower transfer unsupported; no range | Derived multiple; Not Calculable implied EV | Positive multiple evidence, but consideration is not complete EV; N=1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r3.c0",
+          "label": "Transaction TV/Revenue",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Wencor announced consideration proxy / projected CY2023 revenue: 2.831492x",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 40",
+              "quote": "| Transaction TV/Revenue | Wencor announced consideration proxy / projected CY2023 revenue: 2.831492x | Not supplied: independently aligned borrower revenue/period | Not calculable: borrower transfer unsupported; no range | Derived multiple; Not Calculable implied EV | No forced transfer to TDG or FY2024/2025 metrics; N=1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r3.c1",
+          "label": "Transaction TV/Revenue",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Not supplied: independently aligned borrower revenue/period",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 40",
+              "quote": "| Transaction TV/Revenue | Wencor announced consideration proxy / projected CY2023 revenue: 2.831492x | Not supplied: independently aligned borrower revenue/period | Not calculable: borrower transfer unsupported; no range | Derived multiple; Not Calculable implied EV | No forced transfer to TDG or FY2024/2025 metrics; N=1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r3.c2",
+          "label": "Transaction TV/Revenue",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r3",
+          "field": "c2",
+          "amount": null,
+          "text": "Not calculable: borrower transfer unsupported; no range",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 40",
+              "quote": "| Transaction TV/Revenue | Wencor announced consideration proxy / projected CY2023 revenue: 2.831492x | Not supplied: independently aligned borrower revenue/period | Not calculable: borrower transfer unsupported; no range | Derived multiple; Not Calculable implied EV | No forced transfer to TDG or FY2024/2025 metrics; N=1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r3.c3",
+          "label": "Transaction TV/Revenue",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r3",
+          "field": "c3",
+          "amount": null,
+          "text": "Derived multiple; Not Calculable implied EV",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 40",
+              "quote": "| Transaction TV/Revenue | Wencor announced consideration proxy / projected CY2023 revenue: 2.831492x | Not supplied: independently aligned borrower revenue/period | Not calculable: borrower transfer unsupported; no range | Derived multiple; Not Calculable implied EV | No forced transfer to TDG or FY2024/2025 metrics; N=1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-2.r3.c4",
+          "label": "Transaction TV/Revenue",
+          "table_id": "raw-CP-1C-2",
+          "row_id": "r3",
+          "field": "c4",
+          "amount": null,
+          "text": "No forced transfer to TDG or FY2024/2025 metrics; N=1",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 40",
+              "quote": "| Transaction TV/Revenue | Wencor announced consideration proxy / projected CY2023 revenue: 2.831492x | Not supplied: independently aligned borrower revenue/period | Not calculable: borrower transfer unsupported; no range | Derived multiple; Not Calculable implied EV | No forced transfer to TDG or FY2024/2025 metrics; N=1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-3.r0.c0",
+          "label": "announced_total_usdm",
+          "table_id": "raw-CP-1C-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "2050.000000",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 58",
+              "quote": "| announced_total_usdm | 2050.000000 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-3.r1.c0",
+          "label": "announced_total_over_projected_revenue",
+          "table_id": "raw-CP-1C-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "2.831492",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 59",
+              "quote": "| announced_total_over_projected_revenue | 2.831492 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-3.r2.c0",
+          "label": "announced_total_over_projected_ebitda",
+          "table_id": "raw-CP-1C-3",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "13.398693",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 60",
+              "quote": "| announced_total_over_projected_ebitda | 13.398693 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-3.r3.c0",
+          "label": "tax_benefit_adjusted_price_usdm",
+          "table_id": "raw-CP-1C-3",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "1975.000000",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 61",
+              "quote": "| tax_benefit_adjusted_price_usdm | 1975.000000 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-3.r4.c0",
+          "label": "tax_adjusted_over_projected_ebitda",
+          "table_id": "raw-CP-1C-3",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "12.908497",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 62",
+              "quote": "| tax_adjusted_over_projected_ebitda | 12.908497 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-4.r0.c0",
+          "label": "Closing share price, final cash adjustments and complete debt/cash/other EV bridge Not supplied",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Closing consideration and complete economic EV Not calculable",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 70",
+              "quote": "| Closing share price, final cash adjustments and complete debt/cash/other EV bridge Not supplied | Closing consideration and complete economic EV Not calculable | Obtain dated closing consideration and reconciled EV schedule as separately dated subsequent evidence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-4.r0.c1",
+          "label": "Closing share price, final cash adjustments and complete debt/cash/other EV bridge Not supplied",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Obtain dated closing consideration and reconciled EV schedule as separately dated subsequent evidence",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 70",
+              "quote": "| Closing share price, final cash adjustments and complete debt/cash/other EV bridge Not supplied | Closing consideration and complete economic EV Not calculable | Obtain dated closing consideration and reconciled EV schedule as separately dated subsequent evidence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-4.r1.c0",
+          "label": "Detailed diligence/February acquisition adjustments and realized results Not supplied",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Cannot normalize EBITDA, establish actual CY2023 earnings or cash conversion",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 71",
+              "quote": "| Detailed diligence/February acquisition adjustments and realized results Not supplied | Cannot normalize EBITDA, establish actual CY2023 earnings or cash conversion | Obtain reconciliation, acquired-business perimeter and reported cash-flow results |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-4.r1.c1",
+          "label": "Detailed diligence/February acquisition adjustments and realized results Not supplied",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Obtain reconciliation, acquired-business perimeter and reported cash-flow results",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 71",
+              "quote": "| Detailed diligence/February acquisition adjustments and realized results Not supplied | Cannot normalize EBITDA, establish actual CY2023 earnings or cash conversion | Obtain reconciliation, acquired-business perimeter and reported cash-flow results |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-4.r2.c0",
+          "label": "Aligned borrower metrics Not supplied",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "All four implied-EV indications blocked; no FY2024/2025 substitution",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 72",
+              "quote": "| Aligned borrower metrics Not supplied | All four implied-EV indications blocked; no FY2024/2025 substitution | Establish contemporaneous period, perimeter, currency and definition alignment before any transfer |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-4.r2.c1",
+          "label": "Aligned borrower metrics Not supplied",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Establish contemporaneous period, perimeter, currency and definition alignment before any transfer",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 72",
+              "quote": "| Aligned borrower metrics Not supplied | All four implied-EV indications blocked; no FY2024/2025 substitution | Establish contemporaneous period, perimeter, currency and definition alignment before any transfer |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-4.r3.c0",
+          "label": "Tax timing, realizability and discount basis Not supplied; synergies unquantified",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "USD75m subtraction is sensitivity only, not NPV or incremental EBITDA",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 73",
+              "quote": "| Tax timing, realizability and discount basis Not supplied; synergies unquantified | USD75m subtraction is sensitivity only, not NPV or incremental EBITDA | Obtain tax schedule and evidence of realization; separately document any synergy case |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-4.r3.c1",
+          "label": "Tax timing, realizability and discount basis Not supplied; synergies unquantified",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Obtain tax schedule and evidence of realization; separately document any synergy case",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 73",
+              "quote": "| Tax timing, realizability and discount basis Not supplied; synergies unquantified | USD75m subtraction is sensitivity only, not NPV or incremental EBITDA | Obtain tax schedule and evidence of realization; separately document any synergy case |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-4.r4.c0",
+          "label": "Customer concentration, contract structure and Wencor standalone capital structure Not supplied",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "No inference on revenue durability, covenant headroom or debt capacity",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 74",
+              "quote": "| Customer concentration, contract structure and Wencor standalone capital structure Not supplied | No inference on revenue durability, covenant headroom or debt capacity | Obtain customer/contract disclosures and standalone debt/cash schedules |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-4.r4.c1",
+          "label": "Customer concentration, contract structure and Wencor standalone capital structure Not supplied",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "Obtain customer/contract disclosures and standalone debt/cash schedules",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 74",
+              "quote": "| Customer concentration, contract structure and Wencor standalone capital structure Not supplied | No inference on revenue durability, covenant headroom or debt capacity | Obtain customer/contract disclosures and standalone debt/cash schedules |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-4.r5.c0",
+          "label": "N=1; historical evidence retrieved in 2026; agreement summary subsequent to announcement and incomplete",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "No statistics, sector range or current-market conclusion; legal detail remains bounded",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 75",
+              "quote": "| N=1; historical evidence retrieved in 2026; agreement summary subsequent to announcement and incomplete | No statistics, sector range or current-market conclusion; legal detail remains bounded | Retain dated case individually; require additional aligned cases for aggregates and full agreement for legal analysis |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-1C-4.r5.c1",
+          "label": "N=1; historical evidence retrieved in 2026; agreement summary subsequent to announcement and incomplete",
+          "table_id": "raw-CP-1C-4",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "Retain dated case individually; require additional aligned cases for aggregates and full agreement for legal analysis",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 75",
+              "quote": "| N=1; historical evidence retrieved in 2026; agreement summary subsequent to announcement and incomplete | No statistics, sector range or current-market conclusion; legal detail remains bounded | Retain dated case individually; require additional aligned cases for aggregates and full agreement for legal analysis |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-1C-0.r0.c0",
+          "label": "Request",
+          "table_id": "prose-CP-1C-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Transaction view: Wencor Group / CP-1C, run sol-remaining-wencor-transaction-20261105, pathway relative_value, method deploy-v-r14. Historical announcement anchor: 2023-05-15; execution/retrieval: 2026-11-05. This is a targeted positive transaction-comparable increment after separately verified trading/peer cases, not a new full benchmark, current underwriting or TDG valuation. No new discovery, Excel, new multiple engine or competing controller is used.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 2",
+              "quote": "Transaction view: Wencor Group / CP-1C, run `sol-remaining-wencor-transaction-20261105`, pathway relative_value, method deploy-v-r14. Historical announcement anchor: 2023-05-15; execution/retrieval: 2026-11-05. This is a targeted positive transaction-comparable increment after separately verified trading/peer cases, not a new full benchmark, current underwriting or TDG valuation. No new discovery, Excel, new multiple engine or competing controller is used."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-1C-1.r0.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-1C-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Read the supplied CP-1 transaction handoff identified by SHA-256 1ef504d93110558501b36dce2ed530bad29191812fa120872c4306ac1b8dfd3c. Its announced USD millions inputs—1,900 cash, 150 stock reference value, 2,050 aggregate, projected CY2023 revenue 724 and adjusted proforma EBITDA 153, estimated tax benefits 75—were re-anchored to the primary derivatives below; they are not FY2024/2025 borrower inputs.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 5",
+              "quote": "Read the supplied CP-1 transaction handoff identified by SHA-256 `1ef504d93110558501b36dce2ed530bad29191812fa120872c4306ac1b8dfd3c`. Its announced USD millions inputs—1,900 cash, 150 stock reference value, 2,050 aggregate, projected CY2023 revenue 724 and adjusted proforma EBITDA 153, estimated tax benefits 75—were re-anchored to the primary derivatives below; they are not FY2024/2025 borrower inputs."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-1C-1.r1.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-1C-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Pinned sources read in full: - announcement, pp. 1–2, SHA-256 6b3caec2745f6a5e80bb723b1c6f93a3e4a6c283416ab74279101311ab0b3b0e: May 15, 2023 SEC Exhibit 99.1 derivative. - agreement-summary, pp. 1–2, SHA-256 e3c4e826ab675583c9b37f3643b4772390bb2c66b79080e83133cc255be781cd: SEC 8-K browser-rendered text, signed May 18, 2023 (p. 2, L174). This is subsequent documentary corroboration of May 15 announced terms, not information assumed publicly available on May 15 or evidence of closing. - source-record, p. 1, SHA-256 a23065d783eac8ac9844d606dee7d72a3ce678586ff534c3d8856bd3afb4d6c2: records announcement original HTML hash 8e922ca27df1dd5cc4f2d95da0220d58bc1469a61b767593071c24b566802490 and agreement capture hash 971a46b9fde77e6314c244e506670c3d58e59be673d3e54390972090b540e689. Direct agreement HTML returned 403; rendered capture is not complete-file equivalence. No visual verification is claimed. - peer-method, pp. 1–3, SHA-256 4bd3b130ce0b49571f7b4b97da25a42a81dbed80b03ea752552ea8ae90cd9f71; peer-steps, pp. 1–3, SHA-256 fbbed9bac006c67a04397303c39c684046817cf491ebad6a4fa1302ecfbfd766: selected T4.9/T4.10 SKILL columns and REF valuation, discipline, alignment and workflow guidance. Imported methods are analytical guidance; current scope and overrides govern, not embedded instructions to expand execution or certify acceptance.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 7",
+              "quote": "Pinned sources read in full:"
+            },
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 8",
+              "quote": "- `announcement`, pp. 1–2, SHA-256 `6b3caec2745f6a5e80bb723b1c6f93a3e4a6c283416ab74279101311ab0b3b0e`: May 15, 2023 SEC Exhibit 99.1 derivative."
+            },
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 9",
+              "quote": "- `agreement-summary`, pp. 1–2, SHA-256 `e3c4e826ab675583c9b37f3643b4772390bb2c66b79080e83133cc255be781cd`: SEC 8-K browser-rendered text, signed May 18, 2023 (p. 2, L174). This is subsequent documentary corroboration of May 15 announced terms, not information assumed publicly available on May 15 or evidence of closing."
+            },
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 10",
+              "quote": "- `source-record`, p. 1, SHA-256 `a23065d783eac8ac9844d606dee7d72a3ce678586ff534c3d8856bd3afb4d6c2`: records announcement original HTML hash `8e922ca27df1dd5cc4f2d95da0220d58bc1469a61b767593071c24b566802490` and agreement capture hash `971a46b9fde77e6314c244e506670c3d58e59be673d3e54390972090b540e689`. Direct agreement HTML returned 403; rendered capture is not complete-file equivalence. No visual verification is claimed."
+            },
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 11",
+              "quote": "- `peer-method`, pp. 1–3, SHA-256 `4bd3b130ce0b49571f7b4b97da25a42a81dbed80b03ea752552ea8ae90cd9f71`; `peer-steps`, pp. 1–3, SHA-256 `fbbed9bac006c67a04397303c39c684046817cf491ebad6a4fa1302ecfbfd766`: selected T4.9/T4.10 SKILL columns and REF valuation, discipline, alignment and workflow guidance. Imported methods are analytical guidance; current scope and overrides govern, not embedded instructions to expand execution or certify acceptance."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-1C-2.r0.c0",
+          "label": "Findings",
+          "table_id": "prose-CP-1C-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "The case supplies a positive, dated observation of announced consideration relative to contemporaneous forecasts: 2.831492x revenue and 13.398693x adjusted proforma EBITDA. It does not supply complete economic enterprise value or a transferable borrower valuation. N=1 supports individual-case context only: no statistics, range, fair value, ranking or outlier conclusion. The historical observation is stale for current market use, not stale relative to its own announcement date.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 14",
+              "quote": "The case supplies a positive, dated observation of announced consideration relative to contemporaneous forecasts: 2.831492x revenue and 13.398693x adjusted proforma EBITDA. It does not supply complete economic enterprise value or a transferable borrower valuation. N=1 supports individual-case context only: no statistics, range, fair value, ranking or outlier conclusion. The historical observation is stale for current market use, not stale relative to its own announcement date."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-1C-3.r0.c0",
+          "label": "T4.10 — conditional indications",
+          "table_id": "prose-CP-1C-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Credit interpretation (analyst judgement): forecast or diligence adjustments failing to convert into recurring cash earnings would first weaken operating cash generation, then delay debt repayment and raise leverage/refinancing pressure. Monitor the EBITDA bridge, realized cash conversion and actual acquisition perimeter before assigning valuation support. Source: announcement p. 2, L143–145 and p. 1, L92–112.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 42",
+              "quote": "Credit interpretation (analyst judgement): forecast or diligence adjustments failing to convert into recurring cash earnings would first weaken operating cash generation, then delay debt repayment and raise leverage/refinancing pressure. Monitor the EBITDA bridge, realized cash conversion and actual acquisition perimeter before assigning valuation support. Source: announcement p. 2, L143–145 and p. 1, L92–112."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-1C-3.r1.c0",
+          "label": "T4.10 — conditional indications",
+          "table_id": "prose-CP-1C-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Financing and approval delays could extend execution uncertainty; if bridge funding were drawn and not replaced before its 364-day maturity, refinancing needs would become a liquidity constraint. Commitments and absence of a merger financing condition are a counterweight, not proof of funding or favorable debt economics. Monitor approvals, final funding mix, pricing, maturities and actual drawings (agreement-summary p. 1, L97–124).",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 44",
+              "quote": "Financing and approval delays could extend execution uncertainty; if bridge funding were drawn and not replaced before its 364-day maturity, refinancing needs would become a liquidity constraint. Commitments and absence of a merger financing condition are a counterweight, not proof of funding or favorable debt economics. Monitor approvals, final funding mix, pricing, maturities and actual drawings (agreement-summary p. 1, L97–124)."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-1C-3.r2.c0",
+          "label": "T4.10 — conditional indications",
+          "table_id": "prose-CP-1C-3",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "The strongest supported countercase is HEICO's expectation of post-acquisition net debt/EBITDA below 3x and return to historical levels in roughly 12–18 months, excluding future acquisitions/capital deployment, alongside complementary offerings and unquantified synergies (announcement p. 1, L33–44). It would win if sustained earnings and cash generation delivered that deleveraging. Until evidenced, it lowers conviction in a severe downside but cannot establish actual leverage, Wencor standalone debt capacity or a synergy-adjusted multiple. Customer types support sector relevance, not assumptions about concentration, contract duration, pricing power or recurring revenue.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 46",
+              "quote": "The strongest supported countercase is HEICO's expectation of post-acquisition net debt/EBITDA below 3x and return to historical levels in roughly 12–18 months, excluding future acquisitions/capital deployment, alongside complementary offerings and unquantified synergies (announcement p. 1, L33–44). It would win if sustained earnings and cash generation delivered that deleveraging. Until evidenced, it lowers conviction in a severe downside but cannot establish actual leverage, Wencor standalone debt capacity or a synergy-adjusted multiple. Customer types support sector relevance, not assumptions about concentration, contract duration, pricing power or recurring revenue."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-1C-4.r0.c0",
+          "label": "Calculations",
+          "table_id": "prose-CP-1C-4",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "All new arithmetic uses the existing Decimal-38 calculate sum/ratio kernel, with half-even results rounded for display to six decimals. No synthetic engine is needed.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 49",
+              "quote": "All new arithmetic uses the existing Decimal-38 `calculate` sum/ratio kernel, with half-even results rounded for display to six decimals. No synthetic engine is needed."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-1C-4.r1.c0",
+          "label": "Calculations",
+          "table_id": "prose-CP-1C-4",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Trace: May 15 announced terms, USD millions, announcement p. 1, L10–12: sum(1900,150)=2050. Projected CY2023 Wencor denominators from p. 1, L28–32, qualified by p. 2, L143–145: ratio(2050,724)=2.8314917127071823204419889502762430939; ratio(2050,153)=13.398692810457516339869281045751633987. Both denominators are strictly positive; ratios are multiples, not percentages.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 51",
+              "quote": "Trace: May 15 announced terms, USD millions, `announcement` p. 1, L10–12: sum(1900,150)=2050. Projected CY2023 Wencor denominators from p. 1, L28–32, qualified by p. 2, L143–145: ratio(2050,724)=2.8314917127071823204419889502762430939; ratio(2050,153)=13.398692810457516339869281045751633987. Both denominators are strictly positive; ratios are multiples, not percentages."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-1C-4.r2.c0",
+          "label": "Calculations",
+          "table_id": "prose-CP-1C-4",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Tax sensitivity: USD millions, same announced price and forecast EBITDA; estimated benefit through FY2038 from announcement p. 1, L30–32: sum(2050,-75)=1975; ratio(1975,153)=12.908496732026143790849673202614379085. Rounded to one decimal this reconciles the issuer's approximately 12.9x. This is subtraction of the stated estimate, not independently assessed NPV, cash at closing or a synergy adjustment. Timing and realization remain uncertain.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 53",
+              "quote": "Tax sensitivity: USD millions, same announced price and forecast EBITDA; estimated benefit through FY2038 from `announcement` p. 1, L30–32: sum(2050,-75)=1975; ratio(1975,153)=12.908496732026143790849673202614379085. Rounded to one decimal this reconciles the issuer's approximately 12.9x. This is subtraction of the stated estimate, not independently assessed NPV, cash at closing or a synergy adjustment. Timing and realization remain uncertain."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-1C-5.r0.c0",
+          "label": "Transaction calculation controls",
+          "table_id": "prose-CP-1C-5",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Complete economic EV would require a consistent bridge: transaction equity value + debt + minority interests + preferred equity − cash − available liquid short-term investments, with agreement adjustments reconciled and double counting avoided. Those components and the precise consideration-to-EV bridge are Not supplied; complete economic EV is Not calculable. Escrow is not incremental and committed financing is not acquired debt or actual borrowing.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 64",
+              "quote": "Complete economic EV would require a consistent bridge: transaction equity value + debt + minority interests + preferred equity − cash − available liquid short-term investments, with agreement adjustments reconciled and double counting avoided. Those components and the precise consideration-to-EV bridge are Not supplied; complete economic EV is Not calculable. Escrow is not incremental and committed financing is not acquired debt or actual borrowing."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-1C-6.r0.c0",
+          "label": "Next module",
+          "table_id": "prose-CP-1C-6",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-2 may use this as historical announced transaction context: one positive consideration/forecast observation, explicit forecast-normalization risk, financing/integration monitoring and the stated-tax-benefit sensitivity. Prohibited uses: current market multiple, implied borrower EV, TDG valuation, fair value, statistical range, realized FY2023 results, closed-deal assertion, recovery, collateral/debt coverage or security selection. No receiver execution or native accepted status is claimed.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-1C",
+              "source_sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+              "locator": "line 78",
+              "quote": "CP-2 may use this as historical announced transaction context: one positive consideration/forecast observation, explicit forecast-normalization risk, financing/integration monitoring and the stated-tax-benefit sensitivity. Prohibited uses: current market multiple, implied borrower EV, TDG valuation, fair value, statistical range, realized FY2023 results, closed-deal assertion, recovery, collateral/debt coverage or security selection. No receiver execution or native accepted status is claimed."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "raw-CP-1C-0",
+          "title": "Transaction evidence — Fact",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Value"
+            },
+            {
+              "field": "c1",
+              "label": "Basis/date"
+            },
+            {
+              "field": "c2",
+              "label": "Source"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Buyer / sellers / perimeter",
+              "fact_ids": [
+                "raw-CP-1C-0.r0.c0",
+                "raw-CP-1C-0.r0.c1",
+                "raw-CP-1C-0.r0.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Announced purchase consideration",
+              "fact_ids": [
+                "raw-CP-1C-0.r1.c0",
+                "raw-CP-1C-0.r1.c1",
+                "raw-CP-1C-0.r1.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Stock delivery",
+              "fact_ids": [
+                "raw-CP-1C-0.r2.c0",
+                "raw-CP-1C-0.r2.c1",
+                "raw-CP-1C-0.r2.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Cash adjustment / escrow",
+              "fact_ids": [
+                "raw-CP-1C-0.r3.c0",
+                "raw-CP-1C-0.r3.c1",
+                "raw-CP-1C-0.r3.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Forecast denominator",
+              "fact_ids": [
+                "raw-CP-1C-0.r4.c0",
+                "raw-CP-1C-0.r4.c1",
+                "raw-CP-1C-0.r4.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Tax / synergies",
+              "fact_ids": [
+                "raw-CP-1C-0.r5.c0",
+                "raw-CP-1C-0.r5.c1",
+                "raw-CP-1C-0.r5.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "Wencor business / customers",
+              "fact_ids": [
+                "raw-CP-1C-0.r6.c0",
+                "raw-CP-1C-0.r6.c1",
+                "raw-CP-1C-0.r6.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r7",
+              "label": "Funding / execution",
+              "fact_ids": [
+                "raw-CP-1C-0.r7.c0",
+                "raw-CP-1C-0.r7.c1",
+                "raw-CP-1C-0.r7.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r8",
+              "label": "Closing status",
+              "fact_ids": [
+                "raw-CP-1C-0.r8.c0",
+                "raw-CP-1C-0.r8.c1",
+                "raw-CP-1C-0.r8.c2"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Fact",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-1C-1",
+          "title": "T4.9 — transaction comps — Txn Name",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Date"
+            },
+            {
+              "field": "c1",
+              "label": "Type"
+            },
+            {
+              "field": "c2",
+              "label": "Buyer/Seller"
+            },
+            {
+              "field": "c3",
+              "label": "TV"
+            },
+            {
+              "field": "c4",
+              "label": "TV/Revenue"
+            },
+            {
+              "field": "c5",
+              "label": "TV/EBITDA"
+            },
+            {
+              "field": "c6",
+              "label": "Period"
+            },
+            {
+              "field": "c7",
+              "label": "Metric Def"
+            },
+            {
+              "field": "c8",
+              "label": "Comp Status"
+            },
+            {
+              "field": "c9",
+              "label": "Source"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Wencor acquisition",
+              "fact_ids": [
+                "raw-CP-1C-1.r0.c0",
+                "raw-CP-1C-1.r0.c1",
+                "raw-CP-1C-1.r0.c2",
+                "raw-CP-1C-1.r0.c3",
+                "raw-CP-1C-1.r0.c4",
+                "raw-CP-1C-1.r0.c5",
+                "raw-CP-1C-1.r0.c6",
+                "raw-CP-1C-1.r0.c7",
+                "raw-CP-1C-1.r0.c8",
+                "raw-CP-1C-1.r0.c9"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Txn Name",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-1C-2",
+          "title": "T4.10 — conditional indications — Method",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Multiple Source/Value"
+            },
+            {
+              "field": "c1",
+              "label": "Borrower Metric/Period"
+            },
+            {
+              "field": "c2",
+              "label": "Implied EV/Low/Median/High"
+            },
+            {
+              "field": "c3",
+              "label": "Calc Status"
+            },
+            {
+              "field": "c4",
+              "label": "Limitations"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Trading EV/EBITDA",
+              "fact_ids": [
+                "raw-CP-1C-2.r0.c0",
+                "raw-CP-1C-2.r0.c1",
+                "raw-CP-1C-2.r0.c2",
+                "raw-CP-1C-2.r0.c3",
+                "raw-CP-1C-2.r0.c4"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Trading EV/Revenue",
+              "fact_ids": [
+                "raw-CP-1C-2.r1.c0",
+                "raw-CP-1C-2.r1.c1",
+                "raw-CP-1C-2.r1.c2",
+                "raw-CP-1C-2.r1.c3",
+                "raw-CP-1C-2.r1.c4"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Transaction TV/EBITDA",
+              "fact_ids": [
+                "raw-CP-1C-2.r2.c0",
+                "raw-CP-1C-2.r2.c1",
+                "raw-CP-1C-2.r2.c2",
+                "raw-CP-1C-2.r2.c3",
+                "raw-CP-1C-2.r2.c4"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Transaction TV/Revenue",
+              "fact_ids": [
+                "raw-CP-1C-2.r3.c0",
+                "raw-CP-1C-2.r3.c1",
+                "raw-CP-1C-2.r3.c2",
+                "raw-CP-1C-2.r3.c3",
+                "raw-CP-1C-2.r3.c4"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Method",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-1C-3",
+          "title": "Transaction calculation controls — Metric",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Value (6dp)"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "announced_total_usdm",
+              "fact_ids": [
+                "raw-CP-1C-3.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "announced_total_over_projected_revenue",
+              "fact_ids": [
+                "raw-CP-1C-3.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "announced_total_over_projected_ebitda",
+              "fact_ids": [
+                "raw-CP-1C-3.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "tax_benefit_adjusted_price_usdm",
+              "fact_ids": [
+                "raw-CP-1C-3.r3.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "tax_adjusted_over_projected_ebitda",
+              "fact_ids": [
+                "raw-CP-1C-3.r4.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Metric",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-1C-4",
+          "title": "Transaction gaps — Gap",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Effect"
+            },
+            {
+              "field": "c1",
+              "label": "Targeted repair"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Closing share price, final cash adjustments and complete debt/cash/other EV bridge Not supplied",
+              "fact_ids": [
+                "raw-CP-1C-4.r0.c0",
+                "raw-CP-1C-4.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Detailed diligence/February acquisition adjustments and realized results Not supplied",
+              "fact_ids": [
+                "raw-CP-1C-4.r1.c0",
+                "raw-CP-1C-4.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Aligned borrower metrics Not supplied",
+              "fact_ids": [
+                "raw-CP-1C-4.r2.c0",
+                "raw-CP-1C-4.r2.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Tax timing, realizability and discount basis Not supplied; synergies unquantified",
+              "fact_ids": [
+                "raw-CP-1C-4.r3.c0",
+                "raw-CP-1C-4.r3.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Customer concentration, contract structure and Wencor standalone capital structure Not supplied",
+              "fact_ids": [
+                "raw-CP-1C-4.r4.c0",
+                "raw-CP-1C-4.r4.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "N=1; historical evidence retrieved in 2026; agreement summary subsequent to announcement and incomplete",
+              "fact_ids": [
+                "raw-CP-1C-4.r5.c0",
+                "raw-CP-1C-4.r5.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Gap",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-1C-0",
+          "title": "Request",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Request — paragraph 1",
+              "fact_ids": [
+                "prose-CP-1C-0.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-1C-1",
+          "title": "Sources",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Sources — paragraph 1",
+              "fact_ids": [
+                "prose-CP-1C-1.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Sources — paragraph 2",
+              "fact_ids": [
+                "prose-CP-1C-1.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-1C-2",
+          "title": "Findings",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Findings — paragraph 1",
+              "fact_ids": [
+                "prose-CP-1C-2.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-1C-3",
+          "title": "T4.10 — conditional indications",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "T4.10 — conditional indications — paragraph 1",
+              "fact_ids": [
+                "prose-CP-1C-3.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "T4.10 — conditional indications — paragraph 2",
+              "fact_ids": [
+                "prose-CP-1C-3.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "T4.10 — conditional indications — paragraph 3",
+              "fact_ids": [
+                "prose-CP-1C-3.r2.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-1C-4",
+          "title": "Calculations",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Calculations — paragraph 1",
+              "fact_ids": [
+                "prose-CP-1C-4.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Calculations — paragraph 2",
+              "fact_ids": [
+                "prose-CP-1C-4.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Calculations — paragraph 3",
+              "fact_ids": [
+                "prose-CP-1C-4.r2.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-1C-5",
+          "title": "Transaction calculation controls",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Transaction calculation controls — paragraph 1",
+              "fact_ids": [
+                "prose-CP-1C-5.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-1C-6",
+          "title": "Next module",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Next module — paragraph 1",
+              "fact_ids": [
+                "prose-CP-1C-6.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        }
+      ],
+      "claims": [],
+      "limitations": [
+        "Literal checked analytical handoff, not native contract acceptance; source qualifications and gaps remain."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "schema_version": "source/1",
+      "source_id": "CP-1C",
+      "name": "CP-1C.md",
+      "status": "ready",
+      "sha256": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+      "media_type": "text/markdown",
+      "spans": [
+        {
+          "locator": "line 1",
+          "text": "## Request",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 2",
+          "text": "Transaction view: Wencor Group / CP-1C, run `sol-remaining-wencor-transaction-20261105`, pathway relative_value, method deploy-v-r14. Historical announcement anchor: 2023-05-15; execution/retrieval: 2026-11-05. This is a targeted positive transaction-comparable increment after separately verified trading/peer cases, not a new full benchmark, current underwriting or TDG valuation. No new discovery, Excel, new multiple engine or competing controller is used.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 4",
+          "text": "## Sources",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 5",
+          "text": "Read the supplied CP-1 transaction handoff identified by SHA-256 `1ef504d93110558501b36dce2ed530bad29191812fa120872c4306ac1b8dfd3c`. Its announced USD millions inputs—1,900 cash, 150 stock reference value, 2,050 aggregate, projected CY2023 revenue 724 and adjusted proforma EBITDA 153, estimated tax benefits 75—were re-anchored to the primary derivatives below; they are not FY2024/2025 borrower inputs.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 7",
+          "text": "Pinned sources read in full:",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 8",
+          "text": "- `announcement`, pp. 1–2, SHA-256 `6b3caec2745f6a5e80bb723b1c6f93a3e4a6c283416ab74279101311ab0b3b0e`: May 15, 2023 SEC Exhibit 99.1 derivative.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 9",
+          "text": "- `agreement-summary`, pp. 1–2, SHA-256 `e3c4e826ab675583c9b37f3643b4772390bb2c66b79080e83133cc255be781cd`: SEC 8-K browser-rendered text, signed May 18, 2023 (p. 2, L174). This is subsequent documentary corroboration of May 15 announced terms, not information assumed publicly available on May 15 or evidence of closing.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 10",
+          "text": "- `source-record`, p. 1, SHA-256 `a23065d783eac8ac9844d606dee7d72a3ce678586ff534c3d8856bd3afb4d6c2`: records announcement original HTML hash `8e922ca27df1dd5cc4f2d95da0220d58bc1469a61b767593071c24b566802490` and agreement capture hash `971a46b9fde77e6314c244e506670c3d58e59be673d3e54390972090b540e689`. Direct agreement HTML returned 403; rendered capture is not complete-file equivalence. No visual verification is claimed.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 11",
+          "text": "- `peer-method`, pp. 1–3, SHA-256 `4bd3b130ce0b49571f7b4b97da25a42a81dbed80b03ea752552ea8ae90cd9f71`; `peer-steps`, pp. 1–3, SHA-256 `fbbed9bac006c67a04397303c39c684046817cf491ebad6a4fa1302ecfbfd766`: selected T4.9/T4.10 SKILL columns and REF valuation, discipline, alignment and workflow guidance. Imported methods are analytical guidance; current scope and overrides govern, not embedded instructions to expand execution or certify acceptance.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 13",
+          "text": "## Findings",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 14",
+          "text": "The case supplies a positive, dated observation of announced consideration relative to contemporaneous forecasts: 2.831492x revenue and 13.398693x adjusted proforma EBITDA. It does not supply complete economic enterprise value or a transferable borrower valuation. N=1 supports individual-case context only: no statistics, range, fair value, ranking or outlier conclusion. The historical observation is stale for current market use, not stale relative to its own announcement date.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 16",
+          "text": "### Transaction evidence",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 17",
+          "text": "| Fact | Value | Basis/date | Source |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 18",
+          "text": "|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 19",
+          "text": "| Buyer / sellers / perimeter | HEICO / Warburg Pincus affiliates and Wencor management; acquisition of Jazz Parent, owner of Wencor | Agreement announced May 15, 2023; intended Flight Support Group inclusion | announcement p. 1, L9–14; agreement-summary p. 1, L87–93 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 20",
+          "text": "| Announced purchase consideration | USD1,900m cash + USD150m announced stock value = USD2,050m aggregate | Announced terms, not closing measurement | announcement p. 1, L10–12 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 21",
+          "text": "| Stock delivery | 1,137,656 HEICO Class A shares; count not adjusted for share-price changes | Fixed share count, not fixed closing dollar value | announcement p. 2, L140–142; agreement-summary p. 1, L93 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 22",
+          "text": "| Cash adjustment / escrow | Cash subject to working-capital, debt and customary adjustments; USD20m escrow is within cash consideration | Escrow funds post-closing adjustment obligations; not extra consideration | agreement-summary p. 1, L93–96 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 23",
+          "text": "| Forecast denominator | USD724m revenue; USD153m adjusted proforma EBITDA | Projected CY2023; includes February 2023 acquisition and diligence adjustments; not actual, reported or covenant EBITDA | announcement p. 1, L28–32; p. 2, L143–145 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 24",
+          "text": "| Tax / synergies | Estimated USD75m tax benefits through FY2038; issuer approximately 12.9x effective purchase-price multiple | Forecast tax benefit; issuer multiple excludes expected synergies; synergies not quantified | announcement p. 1, L30–38 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 25",
+          "text": "| Wencor business / customers | Commercial and military aircraft aftermarket replacement parts, distribution and accessory repair/overhaul; airlines, MRO companies, military agencies and defense contractors | International parts/services; approximately 1,000 staff, 19 US facilities; concentration and contract economics Not supplied | announcement p. 1, L18–27 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 26",
+          "text": "| Funding / execution | Intended mix of cash, debt and/or equity; up to USD1,500m senior unsecured bridge, 364-day maturity after closing; facility commitments proposed to rise from USD1,500m to USD2,000m | May 14 commitments; funding conditions apply; merger has no financing condition; no actual draw or debt allocation supplied | agreement-summary p. 1, L121–126 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 27",
+          "text": "| Closing status | Subject to conditions including regulatory approval; expected by end-CY2023 | Announcement expectation only; closed status Not supplied | announcement p. 1, L56–57; agreement-summary p. 1, L97–99 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 29",
+          "text": "### T4.9 — transaction comps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 30",
+          "text": "| Txn Name | Date | Type | Buyer/Seller | TV | TV/Revenue | TV/EBITDA | Period | Metric Def | Comp Status | Source |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 31",
+          "text": "|---|---|---|---|---|---|---|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 32",
+          "text": "| Wencor acquisition | 2023-05-15 announcement | Announced acquisition / merger | HEICO / Warburg Pincus affiliates and management | USD2,050m announced consideration proxy; complete economic EV Not calculable: full bridge missing | 2.831492x | 13.398693x | Projected CY2023 | Announced consideration / forecast adjusted proforma revenue or EBITDA; February acquisition and diligence adjustments included | Comparable with Limitations for historical transaction context; Not Comparable for unaligned borrower transfer | announcement pp. 1–2, L9–32, L140–145; agreement-summary p. 1, L93–96; calculations below |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 34",
+          "text": "### T4.10 — conditional indications",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 35",
+          "text": "| Method | Multiple Source/Value | Borrower Metric/Period | Implied EV/Low/Median/High | Calc Status | Limitations |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 36",
+          "text": "|---|---|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 37",
+          "text": "| Trading EV/EBITDA | Not supplied: no trading multiple in this increment | Not supplied: aligned borrower EBITDA/period | Not calculable: multiple and aligned metric missing; no range | Not Calculable | Separate trading cases not imported or recomputed |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 38",
+          "text": "| Trading EV/Revenue | Not supplied: no trading multiple in this increment | Not supplied: aligned borrower revenue/period | Not calculable: multiple and aligned metric missing; no range | Not Calculable | No contemporaneous trading EV bridge supplied |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 39",
+          "text": "| Transaction TV/EBITDA | Wencor announced consideration proxy / projected CY2023 adjusted proforma EBITDA: 13.398693x | Not supplied: independently aligned borrower EBITDA/period | Not calculable: borrower transfer unsupported; no range | Derived multiple; Not Calculable implied EV | Positive multiple evidence, but consideration is not complete EV; N=1 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 40",
+          "text": "| Transaction TV/Revenue | Wencor announced consideration proxy / projected CY2023 revenue: 2.831492x | Not supplied: independently aligned borrower revenue/period | Not calculable: borrower transfer unsupported; no range | Derived multiple; Not Calculable implied EV | No forced transfer to TDG or FY2024/2025 metrics; N=1 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 42",
+          "text": "Credit interpretation (analyst judgement): forecast or diligence adjustments failing to convert into recurring cash earnings would first weaken operating cash generation, then delay debt repayment and raise leverage/refinancing pressure. Monitor the EBITDA bridge, realized cash conversion and actual acquisition perimeter before assigning valuation support. Source: announcement p. 2, L143–145 and p. 1, L92–112.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 44",
+          "text": "Financing and approval delays could extend execution uncertainty; if bridge funding were drawn and not replaced before its 364-day maturity, refinancing needs would become a liquidity constraint. Commitments and absence of a merger financing condition are a counterweight, not proof of funding or favorable debt economics. Monitor approvals, final funding mix, pricing, maturities and actual drawings (agreement-summary p. 1, L97–124).",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 46",
+          "text": "The strongest supported countercase is HEICO's expectation of post-acquisition net debt/EBITDA below 3x and return to historical levels in roughly 12–18 months, excluding future acquisitions/capital deployment, alongside complementary offerings and unquantified synergies (announcement p. 1, L33–44). It would win if sustained earnings and cash generation delivered that deleveraging. Until evidenced, it lowers conviction in a severe downside but cannot establish actual leverage, Wencor standalone debt capacity or a synergy-adjusted multiple. Customer types support sector relevance, not assumptions about concentration, contract duration, pricing power or recurring revenue.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 48",
+          "text": "## Calculations",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 49",
+          "text": "All new arithmetic uses the existing Decimal-38 `calculate` sum/ratio kernel, with half-even results rounded for display to six decimals. No synthetic engine is needed.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 51",
+          "text": "Trace: May 15 announced terms, USD millions, `announcement` p. 1, L10–12: sum(1900,150)=2050. Projected CY2023 Wencor denominators from p. 1, L28–32, qualified by p. 2, L143–145: ratio(2050,724)=2.8314917127071823204419889502762430939; ratio(2050,153)=13.398692810457516339869281045751633987. Both denominators are strictly positive; ratios are multiples, not percentages.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 53",
+          "text": "Tax sensitivity: USD millions, same announced price and forecast EBITDA; estimated benefit through FY2038 from `announcement` p. 1, L30–32: sum(2050,-75)=1975; ratio(1975,153)=12.908496732026143790849673202614379085. Rounded to one decimal this reconciles the issuer's approximately 12.9x. This is subtraction of the stated estimate, not independently assessed NPV, cash at closing or a synergy adjustment. Timing and realization remain uncertain.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 55",
+          "text": "### Transaction calculation controls",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 56",
+          "text": "| Metric | Value (6dp) |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 57",
+          "text": "|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 58",
+          "text": "| announced_total_usdm | 2050.000000 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 59",
+          "text": "| announced_total_over_projected_revenue | 2.831492 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 60",
+          "text": "| announced_total_over_projected_ebitda | 13.398693 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 61",
+          "text": "| tax_benefit_adjusted_price_usdm | 1975.000000 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 62",
+          "text": "| tax_adjusted_over_projected_ebitda | 12.908497 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 64",
+          "text": "Complete economic EV would require a consistent bridge: transaction equity value + debt + minority interests + preferred equity − cash − available liquid short-term investments, with agreement adjustments reconciled and double counting avoided. Those components and the precise consideration-to-EV bridge are Not supplied; complete economic EV is Not calculable. Escrow is not incremental and committed financing is not acquired debt or actual borrowing.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 66",
+          "text": "## Gaps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 67",
+          "text": "### Transaction gaps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 68",
+          "text": "| Gap | Effect | Targeted repair |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 69",
+          "text": "|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 70",
+          "text": "| Closing share price, final cash adjustments and complete debt/cash/other EV bridge Not supplied | Closing consideration and complete economic EV Not calculable | Obtain dated closing consideration and reconciled EV schedule as separately dated subsequent evidence |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 71",
+          "text": "| Detailed diligence/February acquisition adjustments and realized results Not supplied | Cannot normalize EBITDA, establish actual CY2023 earnings or cash conversion | Obtain reconciliation, acquired-business perimeter and reported cash-flow results |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 72",
+          "text": "| Aligned borrower metrics Not supplied | All four implied-EV indications blocked; no FY2024/2025 substitution | Establish contemporaneous period, perimeter, currency and definition alignment before any transfer |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 73",
+          "text": "| Tax timing, realizability and discount basis Not supplied; synergies unquantified | USD75m subtraction is sensitivity only, not NPV or incremental EBITDA | Obtain tax schedule and evidence of realization; separately document any synergy case |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 74",
+          "text": "| Customer concentration, contract structure and Wencor standalone capital structure Not supplied | No inference on revenue durability, covenant headroom or debt capacity | Obtain customer/contract disclosures and standalone debt/cash schedules |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 75",
+          "text": "| N=1; historical evidence retrieved in 2026; agreement summary subsequent to announcement and incomplete | No statistics, sector range or current-market conclusion; legal detail remains bounded | Retain dated case individually; require additional aligned cases for aggregates and full agreement for legal analysis |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 77",
+          "text": "## Next module",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 78",
+          "text": "CP-2 may use this as historical announced transaction context: one positive consideration/forecast observation, explicit forecast-normalization risk, financing/integration monitoring and the stated-tax-benefit sensitivity. Prohibited uses: current market multiple, implied borrower EV, TDG valuation, fair value, statistical range, realized FY2023 results, closed-deal assertion, recovery, collateral/debt coverage or security selection. No receiver execution or native accepted status is claimed.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        }
+      ],
+      "limitation": "Actual analytical handoff; underlying source qualifications and scope remain.",
+      "extractor": "literal-markdown-lines",
+      "extraction_status": "complete",
+      "coverage": []
+    }
+  ],
+  "analytical_qualification": "partial",
+  "native_host_qualification": "unrun"
+}

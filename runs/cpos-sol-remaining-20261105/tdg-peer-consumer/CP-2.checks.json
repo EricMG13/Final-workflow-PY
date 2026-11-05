@@ -1,0 +1,55 @@
+{
+  "required_terms": [
+    "Cohort consumption",
+    "Definition and conflict register",
+    "Consumption controls",
+    "Monitoring and repair",
+    "2026-11-05",
+    "2024-09-30",
+    "2025",
+    "2023"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Consumption controls",
+      "columns": [
+        "Metric",
+        "Value"
+      ],
+      "rows": [
+        [
+          "FY2024_TDG_debt_over_CFO",
+          "12.166259"
+        ],
+        [
+          "FY2024_peer_min_debt_over_CFO",
+          "1.939628"
+        ],
+        [
+          "FY2024_peer_max_debt_over_CFO",
+          "4.860451"
+        ],
+        [
+          "FY2025_Moog_EV_proxy_USDm",
+          "7501.839030"
+        ],
+        [
+          "FY2025_TDG_revenue_indication_USDm",
+          "17160.112063"
+        ],
+        [
+          "FY2025_TDG_EBITDA_indication_USDm",
+          "70157.294567"
+        ],
+        [
+          "Wencor2023_consideration_over_revenue",
+          "2.831492"
+        ],
+        [
+          "Wencor2023_consideration_over_EBITDA",
+          "13.398693"
+        ]
+      ]
+    }
+  ]
+}

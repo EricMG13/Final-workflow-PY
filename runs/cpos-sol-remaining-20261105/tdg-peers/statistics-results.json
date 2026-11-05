@@ -1,0 +1,1029 @@
+{
+  "scope": "Existing unchanged helper re-executed2026-11-05 over retained preclassified historical inputs; not new model math or proof of comparability. Model must confirm admission independently. No current sector claim.",
+  "helper_sha256": "3073ed168e8f89b422b3421df4255a48a0875b1d44a90a53414ce078c2f7015b",
+  "facts": {
+    "TDG": {
+      "sales": [
+        7940000,
+        6585000
+      ],
+      "op": [
+        3531000,
+        2923000
+      ],
+      "cfo": [
+        2045000,
+        1375000
+      ],
+      "capex": [
+        165000,
+        139000
+      ],
+      "debt_lease": 24880000
+    },
+    "HEICO": {
+      "sales": [
+        3857669,
+        2968105
+      ],
+      "op": [
+        824455,
+        625339
+      ],
+      "cfo": [
+        672370,
+        448735
+      ],
+      "capex": [
+        58261,
+        49434
+      ],
+      "debt_lease": 2229374
+    },
+    "CW": {
+      "sales": [
+        3121189,
+        2845373
+      ],
+      "op": [
+        528597,
+        484602
+      ],
+      "cfo": [
+        544275,
+        448089
+      ],
+      "capex": [
+        60974,
+        44666
+      ],
+      "debt_lease": 1055691
+    },
+    "Moog": {
+      "sales": [
+        3609160,
+        3319122
+      ],
+      "op": [
+        null,
+        null
+      ],
+      "cfo": [
+        202344,
+        135935
+      ],
+      "capex": [
+        156018,
+        173286
+      ],
+      "debt_lease": 983483
+    }
+  },
+  "formulae": {
+    "sales_growth_pct": "100 * (sales24 - sales23) / sales23",
+    "cfo_sales_pct": "100 * CFO / sales",
+    "capex_sales_pct": "100 * gross cash PP&E capex magnitude / sales",
+    "cash_after_capex_sales_pct": "100 * (CFO - gross cash PP&E capex magnitude) / sales",
+    "operating_margin_pct": "100 * reported consolidated operating income / sales",
+    "borrowing_finance_lease_cfo_x": "(book borrowings + finance leases not already included) / reported annual CFO"
+  },
+  "exact_ratios": {
+    "TDG": {
+      "2024": {
+        "cfo_sales_pct": "10225/397",
+        "capex_sales_pct": "825/397",
+        "cash_after_capex_sales_pct": "9400/397",
+        "cash_after_capex_usdm": "1880",
+        "operating_margin_pct": "17655/397",
+        "sales_growth_pct": "27100/1317",
+        "borrowing_finance_lease_cfo_x": "4976/409"
+      },
+      "2023": {
+        "cfo_sales_pct": "27500/1317",
+        "capex_sales_pct": "2780/1317",
+        "cash_after_capex_sales_pct": "8240/439",
+        "cash_after_capex_usdm": "1236",
+        "operating_margin_pct": "58460/1317"
+      }
+    },
+    "HEICO": {
+      "2024": {
+        "cfo_sales_pct": "67237000/3857669",
+        "capex_sales_pct": "5826100/3857669",
+        "cash_after_capex_sales_pct": "61410900/3857669",
+        "cash_after_capex_usdm": "614109/1000",
+        "operating_margin_pct": "82445500/3857669",
+        "sales_growth_pct": "17791280/593621",
+        "borrowing_finance_lease_cfo_x": "1114687/336185"
+      },
+      "2023": {
+        "cfo_sales_pct": "1282100/84803",
+        "capex_sales_pct": "141240/84803",
+        "cash_after_capex_sales_pct": "1140860/84803",
+        "cash_after_capex_usdm": "399301/1000",
+        "operating_margin_pct": "12506780/593621"
+      }
+    },
+    "CW": {
+      "2024": {
+        "cfo_sales_pct": "54427500/3121189",
+        "capex_sales_pct": "6097400/3121189",
+        "cash_after_capex_sales_pct": "48330100/3121189",
+        "cash_after_capex_usdm": "483301/1000",
+        "operating_margin_pct": "52859700/3121189",
+        "sales_growth_pct": "27581600/2845373",
+        "borrowing_finance_lease_cfo_x": "117299/60475"
+      },
+      "2023": {
+        "cfo_sales_pct": "44808900/2845373",
+        "capex_sales_pct": "4466600/2845373",
+        "cash_after_capex_sales_pct": "40342300/2845373",
+        "cash_after_capex_usdm": "403423/1000",
+        "operating_margin_pct": "48460200/2845373"
+      }
+    },
+    "Moog": {
+      "2024": {
+        "cfo_sales_pct": "505860/90229",
+        "capex_sales_pct": "390045/90229",
+        "cash_after_capex_sales_pct": "115815/90229",
+        "cash_after_capex_usdm": "23163/500",
+        "operating_margin_pct": null,
+        "sales_growth_pct": "14501900/1659561",
+        "borrowing_finance_lease_cfo_x": "983483/202344"
+      },
+      "2023": {
+        "cfo_sales_pct": "6796750/1659561",
+        "capex_sales_pct": "2888100/553187",
+        "cash_after_capex_sales_pct": "-1867550/1659561",
+        "cash_after_capex_usdm": "-37351/1000",
+        "operating_margin_pct": null
+      }
+    }
+  },
+  "results": {
+    "2024_sales_growth_pct": {
+      "input": {
+        "metric": "sales_growth_pct",
+        "period": "2024",
+        "peers": [
+          {
+            "name": "HEICO",
+            "value": 29.97077259733062,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "CW",
+            "value": 9.69349185502217,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "Moog",
+            "value": 8.738395274412932,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          }
+        ],
+        "borrower_value": 20.577069096431284
+      },
+      "actual_unchanged_helper_output": {
+        "metric": "sales_growth_pct",
+        "convention": "median: mean of the two central values when N is even; quartiles: inclusive linear interpolation (Excel PERCENTILE.INC / R type 7); stdev: sample standard deviation (n-1). CP-1C does not specify a quantile convention, so it is stated here rather than chosen silently.",
+        "threshold_set": "ACTIVE_PROMPT Thresholds (median 3, quartile 4, average 5, none below 2), named by cp-1c SKILL.md #### Peer Statistic Rules. The base 'Peer Statistic Rules' passage states minimum 2 for an average; it is not marked superseded, so the governing set is stated here.",
+        "n_supplied": 3,
+        "n_included": 3,
+        "excluded_non_comparable": [],
+        "excluded_null_value": [],
+        "excluded_by_calculation_status": [],
+        "included_comparable_with_limitations": [
+          "HEICO",
+          "CW",
+          "Moog"
+        ],
+        "stale_over_12_months": [],
+        "currencies": [],
+        "mixed_currency_warning": null,
+        "multiple_types": [],
+        "blended_multiple_warning": null,
+        "outliers_flagged": [],
+        "statistics_including_outliers": {
+          "n": 3,
+          "status": "calculated",
+          "minimum": 8.738395274412932,
+          "maximum": 29.97077259733062,
+          "range": 21.232377322917685,
+          "median": 9.69349185502217,
+          "average": null,
+          "stdev": null,
+          "q1": null,
+          "q3": null,
+          "suppressed": [
+            "average",
+            "quartiles",
+            "stdev"
+          ]
+        },
+        "statistics_excluding_outliers": null,
+        "meaningful_as_sector_multiple": true,
+        "borrower_positioning": {
+          "borrower_value": 20.577069096431284,
+          "vs_median": 10.883577,
+          "vs_average": null,
+          "inside_peer_range": true
+        }
+      }
+    },
+    "2024_cfo_sales_pct": {
+      "input": {
+        "metric": "cfo_sales_pct",
+        "period": "2024",
+        "peers": [
+          {
+            "name": "HEICO",
+            "value": 17.429437310458724,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "CW",
+            "value": 17.438066070334095,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "Moog",
+            "value": 5.606401489543273,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          }
+        ],
+        "borrower_value": 25.75566750629723
+      },
+      "actual_unchanged_helper_output": {
+        "metric": "cfo_sales_pct",
+        "convention": "median: mean of the two central values when N is even; quartiles: inclusive linear interpolation (Excel PERCENTILE.INC / R type 7); stdev: sample standard deviation (n-1). CP-1C does not specify a quantile convention, so it is stated here rather than chosen silently.",
+        "threshold_set": "ACTIVE_PROMPT Thresholds (median 3, quartile 4, average 5, none below 2), named by cp-1c SKILL.md #### Peer Statistic Rules. The base 'Peer Statistic Rules' passage states minimum 2 for an average; it is not marked superseded, so the governing set is stated here.",
+        "n_supplied": 3,
+        "n_included": 3,
+        "excluded_non_comparable": [],
+        "excluded_null_value": [],
+        "excluded_by_calculation_status": [],
+        "included_comparable_with_limitations": [
+          "HEICO",
+          "CW",
+          "Moog"
+        ],
+        "stale_over_12_months": [],
+        "currencies": [],
+        "mixed_currency_warning": null,
+        "multiple_types": [],
+        "blended_multiple_warning": null,
+        "outliers_flagged": [],
+        "statistics_including_outliers": {
+          "n": 3,
+          "status": "calculated",
+          "minimum": 5.606401489543273,
+          "maximum": 17.438066070334095,
+          "range": 11.831664580790822,
+          "median": 17.429437310458724,
+          "average": null,
+          "stdev": null,
+          "q1": null,
+          "q3": null,
+          "suppressed": [
+            "average",
+            "quartiles",
+            "stdev"
+          ]
+        },
+        "statistics_excluding_outliers": null,
+        "meaningful_as_sector_multiple": true,
+        "borrower_positioning": {
+          "borrower_value": 25.75566750629723,
+          "vs_median": 8.32623,
+          "vs_average": null,
+          "inside_peer_range": false
+        }
+      }
+    },
+    "2024_capex_sales_pct": {
+      "input": {
+        "metric": "capex_sales_pct",
+        "period": "2024",
+        "peers": [
+          {
+            "name": "HEICO",
+            "value": 1.5102643591246423,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "CW",
+            "value": 1.953550393776218,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "Moog",
+            "value": 4.322834122067184,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": true
+          }
+        ],
+        "borrower_value": 2.0780856423173804
+      },
+      "actual_unchanged_helper_output": {
+        "metric": "capex_sales_pct",
+        "convention": "median: mean of the two central values when N is even; quartiles: inclusive linear interpolation (Excel PERCENTILE.INC / R type 7); stdev: sample standard deviation (n-1). CP-1C does not specify a quantile convention, so it is stated here rather than chosen silently.",
+        "threshold_set": "ACTIVE_PROMPT Thresholds (median 3, quartile 4, average 5, none below 2), named by cp-1c SKILL.md #### Peer Statistic Rules. The base 'Peer Statistic Rules' passage states minimum 2 for an average; it is not marked superseded, so the governing set is stated here.",
+        "n_supplied": 3,
+        "n_included": 3,
+        "excluded_non_comparable": [],
+        "excluded_null_value": [],
+        "excluded_by_calculation_status": [],
+        "included_comparable_with_limitations": [
+          "HEICO",
+          "CW",
+          "Moog"
+        ],
+        "stale_over_12_months": [],
+        "currencies": [],
+        "mixed_currency_warning": null,
+        "multiple_types": [],
+        "blended_multiple_warning": null,
+        "outliers_flagged": [
+          "Moog"
+        ],
+        "statistics_including_outliers": {
+          "n": 3,
+          "status": "calculated",
+          "minimum": 1.5102643591246423,
+          "maximum": 4.322834122067184,
+          "range": 2.812569762942542,
+          "median": 1.953550393776218,
+          "average": null,
+          "stdev": null,
+          "q1": null,
+          "q3": null,
+          "suppressed": [
+            "average",
+            "quartiles",
+            "stdev"
+          ]
+        },
+        "statistics_excluding_outliers": {
+          "n": 2,
+          "status": "calculated",
+          "minimum": 1.5102643591246423,
+          "maximum": 1.953550393776218,
+          "range": 0.4432860346515757,
+          "median": null,
+          "average": null,
+          "stdev": null,
+          "q1": null,
+          "q3": null,
+          "suppressed": [
+            "average",
+            "median",
+            "quartiles",
+            "stdev"
+          ],
+          "newly_suppressed_by_exclusion": [
+            "median"
+          ]
+        },
+        "meaningful_as_sector_multiple": true,
+        "borrower_positioning": {
+          "borrower_value": 2.0780856423173804,
+          "vs_median": 0.124535,
+          "vs_average": null,
+          "inside_peer_range": true
+        }
+      }
+    },
+    "2024_cash_after_capex_sales_pct": {
+      "input": {
+        "metric": "cash_after_capex_sales_pct",
+        "period": "2024",
+        "peers": [
+          {
+            "name": "HEICO",
+            "value": 15.919172951334083,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "CW",
+            "value": 15.484515676557876,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "Moog",
+            "value": 1.2835673674760886,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": true
+          }
+        ],
+        "borrower_value": 23.67758186397985
+      },
+      "actual_unchanged_helper_output": {
+        "metric": "cash_after_capex_sales_pct",
+        "convention": "median: mean of the two central values when N is even; quartiles: inclusive linear interpolation (Excel PERCENTILE.INC / R type 7); stdev: sample standard deviation (n-1). CP-1C does not specify a quantile convention, so it is stated here rather than chosen silently.",
+        "threshold_set": "ACTIVE_PROMPT Thresholds (median 3, quartile 4, average 5, none below 2), named by cp-1c SKILL.md #### Peer Statistic Rules. The base 'Peer Statistic Rules' passage states minimum 2 for an average; it is not marked superseded, so the governing set is stated here.",
+        "n_supplied": 3,
+        "n_included": 3,
+        "excluded_non_comparable": [],
+        "excluded_null_value": [],
+        "excluded_by_calculation_status": [],
+        "included_comparable_with_limitations": [
+          "HEICO",
+          "CW",
+          "Moog"
+        ],
+        "stale_over_12_months": [],
+        "currencies": [],
+        "mixed_currency_warning": null,
+        "multiple_types": [],
+        "blended_multiple_warning": null,
+        "outliers_flagged": [
+          "Moog"
+        ],
+        "statistics_including_outliers": {
+          "n": 3,
+          "status": "calculated",
+          "minimum": 1.2835673674760886,
+          "maximum": 15.919172951334083,
+          "range": 14.635605583857995,
+          "median": 15.484515676557876,
+          "average": null,
+          "stdev": null,
+          "q1": null,
+          "q3": null,
+          "suppressed": [
+            "average",
+            "quartiles",
+            "stdev"
+          ]
+        },
+        "statistics_excluding_outliers": {
+          "n": 2,
+          "status": "calculated",
+          "minimum": 15.484515676557876,
+          "maximum": 15.919172951334083,
+          "range": 0.43465727477620675,
+          "median": null,
+          "average": null,
+          "stdev": null,
+          "q1": null,
+          "q3": null,
+          "suppressed": [
+            "average",
+            "median",
+            "quartiles",
+            "stdev"
+          ],
+          "newly_suppressed_by_exclusion": [
+            "median"
+          ]
+        },
+        "meaningful_as_sector_multiple": true,
+        "borrower_positioning": {
+          "borrower_value": 23.67758186397985,
+          "vs_median": 8.193066,
+          "vs_average": null,
+          "inside_peer_range": false
+        }
+      }
+    },
+    "2024_operating_margin_pct": {
+      "input": {
+        "metric": "operating_margin_pct",
+        "period": "2024",
+        "peers": [
+          {
+            "name": "HEICO",
+            "value": 21.371843981430235,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "CW",
+            "value": 16.93575749498028,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "Moog",
+            "value": null,
+            "comparability": "Insufficient Information",
+            "calculation_status": "Insufficient Information",
+            "outlier": false
+          }
+        ],
+        "borrower_value": 44.47103274559194
+      },
+      "actual_unchanged_helper_output": {
+        "metric": "operating_margin_pct",
+        "convention": "median: mean of the two central values when N is even; quartiles: inclusive linear interpolation (Excel PERCENTILE.INC / R type 7); stdev: sample standard deviation (n-1). CP-1C does not specify a quantile convention, so it is stated here rather than chosen silently.",
+        "threshold_set": "ACTIVE_PROMPT Thresholds (median 3, quartile 4, average 5, none below 2), named by cp-1c SKILL.md #### Peer Statistic Rules. The base 'Peer Statistic Rules' passage states minimum 2 for an average; it is not marked superseded, so the governing set is stated here.",
+        "n_supplied": 3,
+        "n_included": 2,
+        "excluded_non_comparable": [
+          {
+            "name": "Moog",
+            "comparability": "Insufficient Information"
+          }
+        ],
+        "excluded_null_value": [],
+        "excluded_by_calculation_status": [],
+        "included_comparable_with_limitations": [
+          "HEICO",
+          "CW"
+        ],
+        "stale_over_12_months": [],
+        "currencies": [],
+        "mixed_currency_warning": null,
+        "multiple_types": [],
+        "blended_multiple_warning": null,
+        "outliers_flagged": [],
+        "statistics_including_outliers": {
+          "n": 2,
+          "status": "calculated",
+          "minimum": 16.93575749498028,
+          "maximum": 21.371843981430235,
+          "range": 4.436086486449955,
+          "median": null,
+          "average": null,
+          "stdev": null,
+          "q1": null,
+          "q3": null,
+          "suppressed": [
+            "average",
+            "median",
+            "quartiles",
+            "stdev"
+          ]
+        },
+        "statistics_excluding_outliers": null,
+        "meaningful_as_sector_multiple": false,
+        "borrower_positioning": {
+          "borrower_value": 44.47103274559194,
+          "vs_median": null,
+          "vs_average": null,
+          "inside_peer_range": false
+        }
+      }
+    },
+    "2024_borrowing_finance_lease_cfo_x": {
+      "input": {
+        "metric": "borrowing_finance_lease_cfo_x",
+        "period": "2024",
+        "peers": [
+          {
+            "name": "HEICO",
+            "value": 3.31569522733019,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "CW",
+            "value": 1.9396279454319967,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "Moog",
+            "value": 4.860450519906694,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          }
+        ],
+        "borrower_value": 12.166259168704157
+      },
+      "actual_unchanged_helper_output": {
+        "metric": "borrowing_finance_lease_cfo_x",
+        "convention": "median: mean of the two central values when N is even; quartiles: inclusive linear interpolation (Excel PERCENTILE.INC / R type 7); stdev: sample standard deviation (n-1). CP-1C does not specify a quantile convention, so it is stated here rather than chosen silently.",
+        "threshold_set": "ACTIVE_PROMPT Thresholds (median 3, quartile 4, average 5, none below 2), named by cp-1c SKILL.md #### Peer Statistic Rules. The base 'Peer Statistic Rules' passage states minimum 2 for an average; it is not marked superseded, so the governing set is stated here.",
+        "n_supplied": 3,
+        "n_included": 3,
+        "excluded_non_comparable": [],
+        "excluded_null_value": [],
+        "excluded_by_calculation_status": [],
+        "included_comparable_with_limitations": [
+          "HEICO",
+          "CW",
+          "Moog"
+        ],
+        "stale_over_12_months": [],
+        "currencies": [],
+        "mixed_currency_warning": null,
+        "multiple_types": [],
+        "blended_multiple_warning": null,
+        "outliers_flagged": [],
+        "statistics_including_outliers": {
+          "n": 3,
+          "status": "calculated",
+          "minimum": 1.9396279454319967,
+          "maximum": 4.860450519906694,
+          "range": 2.9208225744746974,
+          "median": 3.31569522733019,
+          "average": null,
+          "stdev": null,
+          "q1": null,
+          "q3": null,
+          "suppressed": [
+            "average",
+            "quartiles",
+            "stdev"
+          ]
+        },
+        "statistics_excluding_outliers": null,
+        "meaningful_as_sector_multiple": true,
+        "borrower_positioning": {
+          "borrower_value": 12.166259168704157,
+          "vs_median": 8.850564,
+          "vs_average": null,
+          "inside_peer_range": false
+        }
+      }
+    },
+    "2023_cfo_sales_pct": {
+      "input": {
+        "metric": "cfo_sales_pct",
+        "period": "2023",
+        "peers": [
+          {
+            "name": "HEICO",
+            "value": 15.118568918552409,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "CW",
+            "value": 15.747988049369978,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "Moog",
+            "value": 4.095510800747909,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          }
+        ],
+        "borrower_value": 20.88078967350038
+      },
+      "actual_unchanged_helper_output": {
+        "metric": "cfo_sales_pct",
+        "convention": "median: mean of the two central values when N is even; quartiles: inclusive linear interpolation (Excel PERCENTILE.INC / R type 7); stdev: sample standard deviation (n-1). CP-1C does not specify a quantile convention, so it is stated here rather than chosen silently.",
+        "threshold_set": "ACTIVE_PROMPT Thresholds (median 3, quartile 4, average 5, none below 2), named by cp-1c SKILL.md #### Peer Statistic Rules. The base 'Peer Statistic Rules' passage states minimum 2 for an average; it is not marked superseded, so the governing set is stated here.",
+        "n_supplied": 3,
+        "n_included": 3,
+        "excluded_non_comparable": [],
+        "excluded_null_value": [],
+        "excluded_by_calculation_status": [],
+        "included_comparable_with_limitations": [
+          "HEICO",
+          "CW",
+          "Moog"
+        ],
+        "stale_over_12_months": [],
+        "currencies": [],
+        "mixed_currency_warning": null,
+        "multiple_types": [],
+        "blended_multiple_warning": null,
+        "outliers_flagged": [],
+        "statistics_including_outliers": {
+          "n": 3,
+          "status": "calculated",
+          "minimum": 4.095510800747909,
+          "maximum": 15.747988049369978,
+          "range": 11.65247724862207,
+          "median": 15.118568918552409,
+          "average": null,
+          "stdev": null,
+          "q1": null,
+          "q3": null,
+          "suppressed": [
+            "average",
+            "quartiles",
+            "stdev"
+          ]
+        },
+        "statistics_excluding_outliers": null,
+        "meaningful_as_sector_multiple": true,
+        "borrower_positioning": {
+          "borrower_value": 20.88078967350038,
+          "vs_median": 5.762221,
+          "vs_average": null,
+          "inside_peer_range": false
+        }
+      }
+    },
+    "2023_capex_sales_pct": {
+      "input": {
+        "metric": "capex_sales_pct",
+        "period": "2023",
+        "peers": [
+          {
+            "name": "HEICO",
+            "value": 1.6655071164935202,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "CW",
+            "value": 1.5697766162819426,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "Moog",
+            "value": 5.220838522958783,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": true
+          }
+        ],
+        "borrower_value": 2.11085801063022
+      },
+      "actual_unchanged_helper_output": {
+        "metric": "capex_sales_pct",
+        "convention": "median: mean of the two central values when N is even; quartiles: inclusive linear interpolation (Excel PERCENTILE.INC / R type 7); stdev: sample standard deviation (n-1). CP-1C does not specify a quantile convention, so it is stated here rather than chosen silently.",
+        "threshold_set": "ACTIVE_PROMPT Thresholds (median 3, quartile 4, average 5, none below 2), named by cp-1c SKILL.md #### Peer Statistic Rules. The base 'Peer Statistic Rules' passage states minimum 2 for an average; it is not marked superseded, so the governing set is stated here.",
+        "n_supplied": 3,
+        "n_included": 3,
+        "excluded_non_comparable": [],
+        "excluded_null_value": [],
+        "excluded_by_calculation_status": [],
+        "included_comparable_with_limitations": [
+          "HEICO",
+          "CW",
+          "Moog"
+        ],
+        "stale_over_12_months": [],
+        "currencies": [],
+        "mixed_currency_warning": null,
+        "multiple_types": [],
+        "blended_multiple_warning": null,
+        "outliers_flagged": [
+          "Moog"
+        ],
+        "statistics_including_outliers": {
+          "n": 3,
+          "status": "calculated",
+          "minimum": 1.5697766162819426,
+          "maximum": 5.220838522958783,
+          "range": 3.6510619066768397,
+          "median": 1.6655071164935202,
+          "average": null,
+          "stdev": null,
+          "q1": null,
+          "q3": null,
+          "suppressed": [
+            "average",
+            "quartiles",
+            "stdev"
+          ]
+        },
+        "statistics_excluding_outliers": {
+          "n": 2,
+          "status": "calculated",
+          "minimum": 1.5697766162819426,
+          "maximum": 1.6655071164935202,
+          "range": 0.09573050021157758,
+          "median": null,
+          "average": null,
+          "stdev": null,
+          "q1": null,
+          "q3": null,
+          "suppressed": [
+            "average",
+            "median",
+            "quartiles",
+            "stdev"
+          ],
+          "newly_suppressed_by_exclusion": [
+            "median"
+          ]
+        },
+        "meaningful_as_sector_multiple": true,
+        "borrower_positioning": {
+          "borrower_value": 2.11085801063022,
+          "vs_median": 0.445351,
+          "vs_average": null,
+          "inside_peer_range": true
+        }
+      }
+    },
+    "2023_cash_after_capex_sales_pct": {
+      "input": {
+        "metric": "cash_after_capex_sales_pct",
+        "period": "2023",
+        "peers": [
+          {
+            "name": "HEICO",
+            "value": 13.453061802058889,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "CW",
+            "value": 14.178211433088034,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "Moog",
+            "value": -1.1253277222108737,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": true
+          }
+        ],
+        "borrower_value": 18.76993166287016
+      },
+      "actual_unchanged_helper_output": {
+        "metric": "cash_after_capex_sales_pct",
+        "convention": "median: mean of the two central values when N is even; quartiles: inclusive linear interpolation (Excel PERCENTILE.INC / R type 7); stdev: sample standard deviation (n-1). CP-1C does not specify a quantile convention, so it is stated here rather than chosen silently.",
+        "threshold_set": "ACTIVE_PROMPT Thresholds (median 3, quartile 4, average 5, none below 2), named by cp-1c SKILL.md #### Peer Statistic Rules. The base 'Peer Statistic Rules' passage states minimum 2 for an average; it is not marked superseded, so the governing set is stated here.",
+        "n_supplied": 3,
+        "n_included": 3,
+        "excluded_non_comparable": [],
+        "excluded_null_value": [],
+        "excluded_by_calculation_status": [],
+        "included_comparable_with_limitations": [
+          "HEICO",
+          "CW",
+          "Moog"
+        ],
+        "stale_over_12_months": [],
+        "currencies": [],
+        "mixed_currency_warning": null,
+        "multiple_types": [],
+        "blended_multiple_warning": null,
+        "outliers_flagged": [
+          "Moog"
+        ],
+        "statistics_including_outliers": {
+          "n": 3,
+          "status": "calculated",
+          "minimum": -1.1253277222108737,
+          "maximum": 14.178211433088034,
+          "range": 15.303539155298907,
+          "median": 13.453061802058889,
+          "average": null,
+          "stdev": null,
+          "q1": null,
+          "q3": null,
+          "suppressed": [
+            "average",
+            "quartiles",
+            "stdev"
+          ]
+        },
+        "statistics_excluding_outliers": {
+          "n": 2,
+          "status": "calculated",
+          "minimum": 13.453061802058889,
+          "maximum": 14.178211433088034,
+          "range": 0.7251496310291454,
+          "median": null,
+          "average": null,
+          "stdev": null,
+          "q1": null,
+          "q3": null,
+          "suppressed": [
+            "average",
+            "median",
+            "quartiles",
+            "stdev"
+          ],
+          "newly_suppressed_by_exclusion": [
+            "median"
+          ]
+        },
+        "meaningful_as_sector_multiple": true,
+        "borrower_positioning": {
+          "borrower_value": 18.76993166287016,
+          "vs_median": 5.31687,
+          "vs_average": null,
+          "inside_peer_range": false
+        }
+      }
+    },
+    "2023_operating_margin_pct": {
+      "input": {
+        "metric": "operating_margin_pct",
+        "period": "2023",
+        "peers": [
+          {
+            "name": "HEICO",
+            "value": 21.068627962959532,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "CW",
+            "value": 17.03122929752971,
+            "comparability": "Comparable with Limitations",
+            "calculation_status": "Calculated",
+            "outlier": false
+          },
+          {
+            "name": "Moog",
+            "value": null,
+            "comparability": "Insufficient Information",
+            "calculation_status": "Insufficient Information",
+            "outlier": false
+          }
+        ],
+        "borrower_value": 44.38876233864844
+      },
+      "actual_unchanged_helper_output": {
+        "metric": "operating_margin_pct",
+        "convention": "median: mean of the two central values when N is even; quartiles: inclusive linear interpolation (Excel PERCENTILE.INC / R type 7); stdev: sample standard deviation (n-1). CP-1C does not specify a quantile convention, so it is stated here rather than chosen silently.",
+        "threshold_set": "ACTIVE_PROMPT Thresholds (median 3, quartile 4, average 5, none below 2), named by cp-1c SKILL.md #### Peer Statistic Rules. The base 'Peer Statistic Rules' passage states minimum 2 for an average; it is not marked superseded, so the governing set is stated here.",
+        "n_supplied": 3,
+        "n_included": 2,
+        "excluded_non_comparable": [
+          {
+            "name": "Moog",
+            "comparability": "Insufficient Information"
+          }
+        ],
+        "excluded_null_value": [],
+        "excluded_by_calculation_status": [],
+        "included_comparable_with_limitations": [
+          "HEICO",
+          "CW"
+        ],
+        "stale_over_12_months": [],
+        "currencies": [],
+        "mixed_currency_warning": null,
+        "multiple_types": [],
+        "blended_multiple_warning": null,
+        "outliers_flagged": [],
+        "statistics_including_outliers": {
+          "n": 2,
+          "status": "calculated",
+          "minimum": 17.03122929752971,
+          "maximum": 21.068627962959532,
+          "range": 4.037398665429823,
+          "median": null,
+          "average": null,
+          "stdev": null,
+          "q1": null,
+          "q3": null,
+          "suppressed": [
+            "average",
+            "median",
+            "quartiles",
+            "stdev"
+          ]
+        },
+        "statistics_excluding_outliers": null,
+        "meaningful_as_sector_multiple": false,
+        "borrower_positioning": {
+          "borrower_value": 44.38876233864844,
+          "vs_median": null,
+          "vs_average": null,
+          "inside_peer_range": false
+        }
+      }
+    }
+  },
+  "moog_cash_sensitivity": {
+    "net_receivable_sales_usdm": "25 = (658035 - 633035) / 1000",
+    "cfo_less_net_sales_usdm": "177.344 = 202.344 - 25",
+    "scope": "Analyst illustrative cash-timing sensitivity; not restated GAAP CFO, full normalisation or added debt; excluded from reported statistics"
+  }
+}

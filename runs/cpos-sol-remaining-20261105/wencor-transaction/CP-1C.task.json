@@ -1,0 +1,49 @@
+{
+  "run": {
+    "run_id": "sol-remaining-wencor-transaction-20261105",
+    "issuer_id": "WENCOR",
+    "issuer_name": "Wencor Group",
+    "as_of": "2023-05-15",
+    "case_kind": "public",
+    "pathway": "relative_value",
+    "requested_modules": [
+      "CP-1C"
+    ]
+  },
+  "module_id": "CP-1C",
+  "instructions": {
+    "path": "CP-1C.instructions.md",
+    "sha256": "13dd07f3788134684fa3ea899326c888b5c872f335219d841ea5fdca6c657564"
+  },
+  "sources": {
+    "announcement": {
+      "path": "announcement.txt",
+      "sha256": "6b3caec2745f6a5e80bb723b1c6f93a3e4a6c283416ab74279101311ab0b3b0e"
+    },
+    "agreement-summary": {
+      "path": "agreement-summary.txt",
+      "sha256": "e3c4e826ab675583c9b37f3643b4772390bb2c66b79080e83133cc255be781cd"
+    },
+    "source-record": {
+      "path": "source-record.json",
+      "sha256": "a23065d783eac8ac9844d606dee7d72a3ce678586ff534c3d8856bd3afb4d6c2"
+    },
+    "peer-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/SKILL.md",
+      "sha256": "4bd3b130ce0b49571f7b4b97da25a42a81dbed80b03ea752552ea8ae90cd9f71"
+    },
+    "peer-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-1c-peer-benchmark/references/REF_CP-1C_STEPS.md",
+      "sha256": "fbbed9bac006c67a04397303c39c684046817cf491ebad6a4fa1302ecfbfd766"
+    }
+  },
+  "handoffs": {
+    "CP-1": {
+      "path": "CP-1-transaction-inputs.md",
+      "sha256": "1ef504d93110558501b36dce2ed530bad29191812fa120872c4306ac1b8dfd3c"
+    }
+  },
+  "checks": "CP-1C.checks.json",
+  "layout": "CP-1C.layout.json",
+  "output": "CP-1C.md"
+}

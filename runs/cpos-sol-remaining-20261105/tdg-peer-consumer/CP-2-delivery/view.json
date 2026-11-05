@@ -1,0 +1,4300 @@
+{
+  "schema_version": "view/4",
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "sol-remaining-tdg-peer-consumer-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2026-11-05",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "relative_value",
+    "requested_modules": [
+      "CP-2"
+    ]
+  },
+  "mode": "candidate",
+  "modules": [
+    {
+      "module_id": "CP-2",
+      "title": "Fundamental credit synthesizer",
+      "aliases": [],
+      "status": "candidate",
+      "artifact_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+      "facts": [
+        {
+          "fact_id": "raw-CP-2-0.r0.c0",
+          "label": "B",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Actual prior CP-2 baseline",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 15",
+              "quote": "| B | Actual prior CP-2 baseline | `1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be` | Historical assessment, canonical-financial lineage, allocation/liquidity mechanisms and unresolved gaps |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r0.c1",
+          "label": "B",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 15",
+              "quote": "| B | Actual prior CP-2 baseline | `1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be` | Historical assessment, canonical-financial lineage, allocation/liquidity mechanisms and unresolved gaps |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r0.c2",
+          "label": "B",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "Historical assessment, canonical-financial lineage, allocation/liquidity mechanisms and unresolved gaps",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 15",
+              "quote": "| B | Actual prior CP-2 baseline | `1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be` | Historical assessment, canonical-financial lineage, allocation/liquidity mechanisms and unresolved gaps |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r1.c0",
+          "label": "P",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-1C FY2024 peers",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 16",
+              "quote": "| P | CP-1C FY2024 peers | `c575789fd953c4ee89a1bacd4641bb82db741788ae3e960566f2001e7b932330` | Findings T4.2–T4.7; Calculations controls and exclusion sensitivities; Gaps/countercase |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r1.c1",
+          "label": "P",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "c575789fd953c4ee89a1bacd4641bb82db741788ae3e960566f2001e7b932330",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 16",
+              "quote": "| P | CP-1C FY2024 peers | `c575789fd953c4ee89a1bacd4641bb82db741788ae3e960566f2001e7b932330` | Findings T4.2–T4.7; Calculations controls and exclusion sensitivities; Gaps/countercase |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r1.c2",
+          "label": "P",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "Findings T4.2–T4.7; Calculations controls and exclusion sensitivities; Gaps/countercase",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 16",
+              "quote": "| P | CP-1C FY2024 peers | `c575789fd953c4ee89a1bacd4641bb82db741788ae3e960566f2001e7b932330` | Findings T4.2–T4.7; Calculations controls and exclusion sensitivities; Gaps/countercase |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r2.c0",
+          "label": "V",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-1C FY2025 valuation",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 17",
+              "quote": "| V | CP-1C FY2025 valuation | `b8d05baa599aa44822e77ffaf157421fa31e1340ba98ddbcd80ac6294b29c1af` | Valuation conclusion, alignment, funding sensitivities, T4.8/T4.10 and restrictions |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r2.c1",
+          "label": "V",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "b8d05baa599aa44822e77ffaf157421fa31e1340ba98ddbcd80ac6294b29c1af",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 17",
+              "quote": "| V | CP-1C FY2025 valuation | `b8d05baa599aa44822e77ffaf157421fa31e1340ba98ddbcd80ac6294b29c1af` | Valuation conclusion, alignment, funding sensitivities, T4.8/T4.10 and restrictions |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r2.c2",
+          "label": "V",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "Valuation conclusion, alignment, funding sensitivities, T4.8/T4.10 and restrictions",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 17",
+              "quote": "| V | CP-1C FY2025 valuation | `b8d05baa599aa44822e77ffaf157421fa31e1340ba98ddbcd80ac6294b29c1af` | Valuation conclusion, alignment, funding sensitivities, T4.8/T4.10 and restrictions |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r3.c0",
+          "label": "W",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-1C Wencor2023",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 18",
+              "quote": "| W | CP-1C Wencor2023 | `4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9` | Transaction evidence, T4.9, forecast/funding risks and tax sensitivity |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r3.c1",
+          "label": "W",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 18",
+              "quote": "| W | CP-1C Wencor2023 | `4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9` | Transaction evidence, T4.9, forecast/funding risks and tax sensitivity |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r3.c2",
+          "label": "W",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r3",
+          "field": "c2",
+          "amount": null,
+          "text": "Transaction evidence, T4.9, forecast/funding risks and tax sensitivity",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 18",
+              "quote": "| W | CP-1C Wencor2023 | `4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9` | Transaction evidence, T4.9, forecast/funding risks and tax sensitivity |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r4.c0",
+          "label": "M",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "Selected CP-2 method, p.1",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 19",
+              "quote": "| M | Selected CP-2 method, p.1 | `9ddd2ab22b5aeab99054cf82ebfb7f03ef49422678be08374566b96dc18dcbd1` | Deployment V r14 adaptation used for prior live CP-2; evidence-to-mechanism synthesis |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r4.c1",
+          "label": "M",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "9ddd2ab22b5aeab99054cf82ebfb7f03ef49422678be08374566b96dc18dcbd1",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 19",
+              "quote": "| M | Selected CP-2 method, p.1 | `9ddd2ab22b5aeab99054cf82ebfb7f03ef49422678be08374566b96dc18dcbd1` | Deployment V r14 adaptation used for prior live CP-2; evidence-to-mechanism synthesis |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r4.c2",
+          "label": "M",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r4",
+          "field": "c2",
+          "amount": null,
+          "text": "Deployment V r14 adaptation used for prior live CP-2; evidence-to-mechanism synthesis",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 19",
+              "quote": "| M | Selected CP-2 method, p.1 | `9ddd2ab22b5aeab99054cf82ebfb7f03ef49422678be08374566b96dc18dcbd1` | Deployment V r14 adaptation used for prior live CP-2; evidence-to-mechanism synthesis |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r0.c0",
+          "label": "FY2024 TDG / three peers",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "P T4.2–T4.7 and controls; FY2023 comparison. FY2024 ends: TDG September 30, Moog September 28, HEICO October 31, CW December 31",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 35",
+              "quote": "| FY2024 TDG / three peers | P T4.2–T4.7 and controls; FY2023 comparison. FY2024 ends: TDG September 30, Moog September 28, HEICO October 31, CW December 31 | Above-cohort reported operating/cash margins persist across both years; TDG debt/CFO 12.166259x versus 1.939628–4.860451x | Operating buffer is supported, yet more debt remains dependent on each annual cash dollar; retention and refinancing sensitivity remain central | No industry rank, current peer universe, common EBITDA leverage or unrestricted cash conclusion |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r0.c1",
+          "label": "FY2024 TDG / three peers",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Above-cohort reported operating/cash margins persist across both years; TDG debt/CFO 12.166259x versus 1.939628–4.860451x",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 35",
+              "quote": "| FY2024 TDG / three peers | P T4.2–T4.7 and controls; FY2023 comparison. FY2024 ends: TDG September 30, Moog September 28, HEICO October 31, CW December 31 | Above-cohort reported operating/cash margins persist across both years; TDG debt/CFO 12.166259x versus 1.939628–4.860451x | Operating buffer is supported, yet more debt remains dependent on each annual cash dollar; retention and refinancing sensitivity remain central | No industry rank, current peer universe, common EBITDA leverage or unrestricted cash conclusion |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r0.c2",
+          "label": "FY2024 TDG / three peers",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "Operating buffer is supported, yet more debt remains dependent on each annual cash dollar; retention and refinancing sensitivity remain central",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 35",
+              "quote": "| FY2024 TDG / three peers | P T4.2–T4.7 and controls; FY2023 comparison. FY2024 ends: TDG September 30, Moog September 28, HEICO October 31, CW December 31 | Above-cohort reported operating/cash margins persist across both years; TDG debt/CFO 12.166259x versus 1.939628–4.860451x | Operating buffer is supported, yet more debt remains dependent on each annual cash dollar; retention and refinancing sensitivity remain central | No industry rank, current peer universe, common EBITDA leverage or unrestricted cash conclusion |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r0.c3",
+          "label": "FY2024 TDG / three peers",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r0",
+          "field": "c3",
+          "amount": null,
+          "text": "No industry rank, current peer universe, common EBITDA leverage or unrestricted cash conclusion",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 35",
+              "quote": "| FY2024 TDG / three peers | P T4.2–T4.7 and controls; FY2023 comparison. FY2024 ends: TDG September 30, Moog September 28, HEICO October 31, CW December 31 | Above-cohort reported operating/cash margins persist across both years; TDG debt/CFO 12.166259x versus 1.939628–4.860451x | Operating buffer is supported, yet more debt remains dependent on each annual cash dollar; retention and refinancing sensitivity remain central | No industry rank, current peer universe, common EBITDA leverage or unrestricted cash conclusion |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r1.c0",
+          "label": "FY2025 TDG / Moog proxy",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "V alignment and T4.8/T4.10; TDG September 30 and Moog September 27 financials",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 36",
+              "quote": "| FY2025 TDG / Moog proxy | V alignment and T4.8/T4.10; TDG September 30 and Moog September 27 financials | Known-components proxy 7501.839030 USDm; separate revenue indication 17160.112063 USDm and ordinary-EBITDA indication 70157.294567 USDm | Divergence exposes margin/definition dependence; neither supplies reliable valuation support for the historical credit thesis | No range, average, normalized fair value, collateral, recovery or debt coverage; no FY2024 debt/cash import |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r1.c1",
+          "label": "FY2025 TDG / Moog proxy",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Known-components proxy 7501.839030 USDm; separate revenue indication 17160.112063 USDm and ordinary-EBITDA indication 70157.294567 USDm",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 36",
+              "quote": "| FY2025 TDG / Moog proxy | V alignment and T4.8/T4.10; TDG September 30 and Moog September 27 financials | Known-components proxy 7501.839030 USDm; separate revenue indication 17160.112063 USDm and ordinary-EBITDA indication 70157.294567 USDm | Divergence exposes margin/definition dependence; neither supplies reliable valuation support for the historical credit thesis | No range, average, normalized fair value, collateral, recovery or debt coverage; no FY2024 debt/cash import |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r1.c2",
+          "label": "FY2025 TDG / Moog proxy",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "Divergence exposes margin/definition dependence; neither supplies reliable valuation support for the historical credit thesis",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 36",
+              "quote": "| FY2025 TDG / Moog proxy | V alignment and T4.8/T4.10; TDG September 30 and Moog September 27 financials | Known-components proxy 7501.839030 USDm; separate revenue indication 17160.112063 USDm and ordinary-EBITDA indication 70157.294567 USDm | Divergence exposes margin/definition dependence; neither supplies reliable valuation support for the historical credit thesis | No range, average, normalized fair value, collateral, recovery or debt coverage; no FY2024 debt/cash import |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r1.c3",
+          "label": "FY2025 TDG / Moog proxy",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r1",
+          "field": "c3",
+          "amount": null,
+          "text": "No range, average, normalized fair value, collateral, recovery or debt coverage; no FY2024 debt/cash import",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 36",
+              "quote": "| FY2025 TDG / Moog proxy | V alignment and T4.8/T4.10; TDG September 30 and Moog September 27 financials | Known-components proxy 7501.839030 USDm; separate revenue indication 17160.112063 USDm and ordinary-EBITDA indication 70157.294567 USDm | Divergence exposes margin/definition dependence; neither supplies reliable valuation support for the historical credit thesis | No range, average, normalized fair value, collateral, recovery or debt coverage; no FY2024 debt/cash import |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r2.c0",
+          "label": "Wencor announced acquisition",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "W transaction evidence/T4.9; May 15, 2023 announcement; May 18 corroboration; prospective CY2023 denominators",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 37",
+              "quote": "| Wencor announced acquisition | W transaction evidence/T4.9; May 15, 2023 announcement; May 18 corroboration; prospective CY2023 denominators | 2050 USDm consideration proxy against projected revenue 724 USDm and adjusted proforma EBITDA 153 USDm; 2.831492x and 13.398693x | A positive historical transaction observation adds forecast-conversion and conditional-funding discipline to acquisition analysis | No TDG FY2024/FY2025 valuation transfer, actual-results inference or closed-transaction claim |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r2.c1",
+          "label": "Wencor announced acquisition",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "2050 USDm consideration proxy against projected revenue 724 USDm and adjusted proforma EBITDA 153 USDm; 2.831492x and 13.398693x",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 37",
+              "quote": "| Wencor announced acquisition | W transaction evidence/T4.9; May 15, 2023 announcement; May 18 corroboration; prospective CY2023 denominators | 2050 USDm consideration proxy against projected revenue 724 USDm and adjusted proforma EBITDA 153 USDm; 2.831492x and 13.398693x | A positive historical transaction observation adds forecast-conversion and conditional-funding discipline to acquisition analysis | No TDG FY2024/FY2025 valuation transfer, actual-results inference or closed-transaction claim |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r2.c2",
+          "label": "Wencor announced acquisition",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "A positive historical transaction observation adds forecast-conversion and conditional-funding discipline to acquisition analysis",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 37",
+              "quote": "| Wencor announced acquisition | W transaction evidence/T4.9; May 15, 2023 announcement; May 18 corroboration; prospective CY2023 denominators | 2050 USDm consideration proxy against projected revenue 724 USDm and adjusted proforma EBITDA 153 USDm; 2.831492x and 13.398693x | A positive historical transaction observation adds forecast-conversion and conditional-funding discipline to acquisition analysis | No TDG FY2024/FY2025 valuation transfer, actual-results inference or closed-transaction claim |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r2.c3",
+          "label": "Wencor announced acquisition",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r2",
+          "field": "c3",
+          "amount": null,
+          "text": "No TDG FY2024/FY2025 valuation transfer, actual-results inference or closed-transaction claim",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 37",
+              "quote": "| Wencor announced acquisition | W transaction evidence/T4.9; May 15, 2023 announcement; May 18 corroboration; prospective CY2023 denominators | 2050 USDm consideration proxy against projected revenue 724 USDm and adjusted proforma EBITDA 153 USDm; 2.831492x and 13.398693x | A positive historical transaction observation adds forecast-conversion and conditional-funding discipline to acquisition analysis | No TDG FY2024/FY2025 valuation transfer, actual-results inference or closed-transaction claim |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r0.c0",
+          "label": "Baseline versus increments",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "B remains September 2024 historical base; P is a peer overlay; V is a limited FY2025 valuation increment",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 55",
+              "quote": "| Baseline versus increments | B remains September 2024 historical base; P is a peer overlay; V is a limited FY2025 valuation increment | None replaces canonical TDG financials or establishes current readiness | B Request/Gaps; P/V Request |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r0.c1",
+          "label": "Baseline versus increments",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "None replaces canonical TDG financials or establishes current readiness",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 55",
+              "quote": "| Baseline versus increments | B remains September 2024 historical base; P is a peer overlay; V is a limited FY2025 valuation increment | None replaces canonical TDG financials or establishes current readiness | B Request/Gaps; P/V Request |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r0.c2",
+          "label": "Baseline versus increments",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "B Request/Gaps; P/V Request",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 55",
+              "quote": "| Baseline versus increments | B remains September 2024 historical base; P is a peer overlay; V is a limited FY2025 valuation increment | None replaces canonical TDG financials or establishes current readiness | B Request/Gaps; P/V Request |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r1.c0",
+          "label": "Sample and Moog exclusions",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Borrower outside peer N; operating margin N=2 because Moog matching subtotal is absent; cash/capex base N=3",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 56",
+              "quote": "| Sample and Moog exclusions | Borrower outside peer N; operating margin N=2 because Moog matching subtotal is absent; cash/capex base N=3 | N=3 permits median but suppresses mean/quartiles/standard deviation; N=2 also suppresses median. FY2024 and FY2023 ex-Moog sensitivities retain TDG cash advantage but place capex above remaining maximum; not a revised universe | P T4.6 and Calculations |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r1.c1",
+          "label": "Sample and Moog exclusions",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "N=3 permits median but suppresses mean/quartiles/standard deviation; N=2 also suppresses median. FY2024 and FY2023 ex-Moog sensitivities retain TDG cash advantage but place capex above remaining maximum; not a revised universe",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 56",
+              "quote": "| Sample and Moog exclusions | Borrower outside peer N; operating margin N=2 because Moog matching subtotal is absent; cash/capex base N=3 | N=3 permits median but suppresses mean/quartiles/standard deviation; N=2 also suppresses median. FY2024 and FY2023 ex-Moog sensitivities retain TDG cash advantage but place capex above remaining maximum; not a revised universe | P T4.6 and Calculations |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r1.c2",
+          "label": "Sample and Moog exclusions",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "P T4.6 and Calculations",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 56",
+              "quote": "| Sample and Moog exclusions | Borrower outside peer N; operating margin N=2 because Moog matching subtotal is absent; cash/capex base N=3 | N=3 permits median but suppresses mean/quartiles/standard deviation; N=2 also suppresses median. FY2024 and FY2023 ex-Moog sensitivities retain TDG cash advantage but place capex above remaining maximum; not a revised universe | P T4.6 and Calculations |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r2.c0",
+          "label": "Cash proxy",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "CFO minus gross cash PP&E capex excludes acquisitions, distributions and lease-financed additions",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 57",
+              "quote": "| Cash proxy | CFO minus gross cash PP&E capex excludes acquisitions, distributions and lease-financed additions | Not sustainable FCF, distributable cash or funding capacity | P T4.4; B Calculations |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r2.c1",
+          "label": "Cash proxy",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Not sustainable FCF, distributable cash or funding capacity",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 57",
+              "quote": "| Cash proxy | CFO minus gross cash PP&E capex excludes acquisitions, distributions and lease-financed additions | Not sustainable FCF, distributable cash or funding capacity | P T4.4; B Calculations |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r2.c2",
+          "label": "Cash proxy",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "P T4.4; B Calculations",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 57",
+              "quote": "| Cash proxy | CFO minus gross cash PP&E capex excludes acquisitions, distributions and lease-financed additions | Not sustainable FCF, distributable cash or funding capacity | P T4.4; B Calculations |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r3.c0",
+          "label": "Earnings/interest",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "FY2025 ordinary EBITDA 4568 versus EBITDA As Defined 4760 USDm; Moog pretax-plus-interest-plus-D&A proxy uses expense-labelled interest, TDG net interest",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 58",
+              "quote": "| Earnings/interest | FY2025 ordinary EBITDA 4568 versus EBITDA As Defined 4760 USDm; Moog pretax-plus-interest-plus-D&A proxy uses expense-labelled interest, TDG net interest | No As Defined substitution; absent interest-income bridge prevents normalized transfer or common coverage | V alignment/denominators |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r3.c1",
+          "label": "Earnings/interest",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "No As Defined substitution; absent interest-income bridge prevents normalized transfer or common coverage",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 58",
+              "quote": "| Earnings/interest | FY2025 ordinary EBITDA 4568 versus EBITDA As Defined 4760 USDm; Moog pretax-plus-interest-plus-D&A proxy uses expense-labelled interest, TDG net interest | No As Defined substitution; absent interest-income bridge prevents normalized transfer or common coverage | V alignment/denominators |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r3.c2",
+          "label": "Earnings/interest",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r3",
+          "field": "c2",
+          "amount": null,
+          "text": "V alignment/denominators",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 58",
+              "quote": "| Earnings/interest | FY2025 ordinary EBITDA 4568 versus EBITDA As Defined 4760 USDm; Moog pretax-plus-interest-plus-D&A proxy uses expense-labelled interest, TDG net interest | No As Defined substitution; absent interest-income bridge prevents normalized transfer or common coverage | V alignment/denominators |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r4.c0",
+          "label": "Dated equity and EV basis",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "Actual dated shares, not EPS weighted averages; principal debt proxy differs from carrying/fair-borrowing sensitivities",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 59",
+              "quote": "| Dated equity and EV basis | Actual dated shares, not EPS weighted averages; principal debt proxy differs from carrying/fair-borrowing sensitivities | Incomplete preferred/minority, investments and economic-claims review prevents complete EV; receivables sensitivity 7626.839030 USDm is not a peer range or GAAP borrowing reclassification | V equity/funding bridge and controls |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r4.c1",
+          "label": "Dated equity and EV basis",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "Incomplete preferred/minority, investments and economic-claims review prevents complete EV; receivables sensitivity 7626.839030 USDm is not a peer range or GAAP borrowing reclassification",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 59",
+              "quote": "| Dated equity and EV basis | Actual dated shares, not EPS weighted averages; principal debt proxy differs from carrying/fair-borrowing sensitivities | Incomplete preferred/minority, investments and economic-claims review prevents complete EV; receivables sensitivity 7626.839030 USDm is not a peer range or GAAP borrowing reclassification | V equity/funding bridge and controls |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r4.c2",
+          "label": "Dated equity and EV basis",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r4",
+          "field": "c2",
+          "amount": null,
+          "text": "V equity/funding bridge and controls",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 59",
+              "quote": "| Dated equity and EV basis | Actual dated shares, not EPS weighted averages; principal debt proxy differs from carrying/fair-borrowing sensitivities | Incomplete preferred/minority, investments and economic-claims review prevents complete EV; receivables sensitivity 7626.839030 USDm is not a peer range or GAAP borrowing reclassification | V equity/funding bridge and controls |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r5.c0",
+          "label": "Wencor consideration",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "1900 USDm cash plus 150 USDm announced stock reference; fixed 1,137,656 shares; 20 USDm escrow within cash",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 60",
+              "quote": "| Wencor consideration | 1900 USDm cash plus 150 USDm announced stock reference; fixed 1,137,656 shares; 20 USDm escrow within cash | Share count is fixed, closing dollars are not; customary adjustments and full EV bridge remain unresolved | W transaction evidence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r5.c1",
+          "label": "Wencor consideration",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "Share count is fixed, closing dollars are not; customary adjustments and full EV bridge remain unresolved",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 60",
+              "quote": "| Wencor consideration | 1900 USDm cash plus 150 USDm announced stock reference; fixed 1,137,656 shares; 20 USDm escrow within cash | Share count is fixed, closing dollars are not; customary adjustments and full EV bridge remain unresolved | W transaction evidence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r5.c2",
+          "label": "Wencor consideration",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r5",
+          "field": "c2",
+          "amount": null,
+          "text": "W transaction evidence",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 60",
+              "quote": "| Wencor consideration | 1900 USDm cash plus 150 USDm announced stock reference; fixed 1,137,656 shares; 20 USDm escrow within cash | Share count is fixed, closing dollars are not; customary adjustments and full EV bridge remain unresolved | W transaction evidence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r6.c0",
+          "label": "Wencor tax and funding",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r6",
+          "field": "c0",
+          "amount": null,
+          "text": "Stated tax benefits 75 USDm through FY2038 yield source sensitivity 1975 USDm / 12.908497x, approximately 12.9x; conditional 364-day bridge",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 61",
+              "quote": "| Wencor tax and funding | Stated tax benefits 75 USDm through FY2038 yield source sensitivity 1975 USDm / 12.908497x, approximately 12.9x; conditional 364-day bridge | Not independently assessed NPV, closing cash, synergy-adjusted EBITDA or actual borrowing; no financing condition is not proof of funding | W Calculations/transaction evidence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r6.c1",
+          "label": "Wencor tax and funding",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r6",
+          "field": "c1",
+          "amount": null,
+          "text": "Not independently assessed NPV, closing cash, synergy-adjusted EBITDA or actual borrowing; no financing condition is not proof of funding",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 61",
+              "quote": "| Wencor tax and funding | Stated tax benefits 75 USDm through FY2038 yield source sensitivity 1975 USDm / 12.908497x, approximately 12.9x; conditional 364-day bridge | Not independently assessed NPV, closing cash, synergy-adjusted EBITDA or actual borrowing; no financing condition is not proof of funding | W Calculations/transaction evidence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r6.c2",
+          "label": "Wencor tax and funding",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r6",
+          "field": "c2",
+          "amount": null,
+          "text": "W Calculations/transaction evidence",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 61",
+              "quote": "| Wencor tax and funding | Stated tax benefits 75 USDm through FY2038 yield source sensitivity 1975 USDm / 12.908497x, approximately 12.9x; conditional 364-day bridge | Not independently assessed NPV, closing cash, synergy-adjusted EBITDA or actual borrowing; no financing condition is not proof of funding | W Calculations/transaction evidence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r7.c0",
+          "label": "Inherited conflicts",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r7",
+          "field": "c0",
+          "amount": null,
+          "text": "B retains lease wording conflict, cash-bridge residuals and representation/customer-threshold limits",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 62",
+              "quote": "| Inherited conflicts | B retains lease wording conflict, cash-bridge residuals and representation/customer-threshold limits | No silent resolution; peer bridging does not repair canonical source conflicts | B Calculations/Gaps |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r7.c1",
+          "label": "Inherited conflicts",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r7",
+          "field": "c1",
+          "amount": null,
+          "text": "No silent resolution; peer bridging does not repair canonical source conflicts",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 62",
+              "quote": "| Inherited conflicts | B retains lease wording conflict, cash-bridge residuals and representation/customer-threshold limits | No silent resolution; peer bridging does not repair canonical source conflicts | B Calculations/Gaps |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r7.c2",
+          "label": "Inherited conflicts",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r7",
+          "field": "c2",
+          "amount": null,
+          "text": "B Calculations/Gaps",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 62",
+              "quote": "| Inherited conflicts | B retains lease wording conflict, cash-bridge residuals and representation/customer-threshold limits | No silent resolution; peer bridging does not repair canonical source conflicts | B Calculations/Gaps |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r0.c0",
+          "label": "FY2024_TDG_debt_over_CFO",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "12.166259",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 70",
+              "quote": "| FY2024_TDG_debt_over_CFO | 12.166259 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r1.c0",
+          "label": "FY2024_peer_min_debt_over_CFO",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "1.939628",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 71",
+              "quote": "| FY2024_peer_min_debt_over_CFO | 1.939628 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r2.c0",
+          "label": "FY2024_peer_max_debt_over_CFO",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "4.860451",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 72",
+              "quote": "| FY2024_peer_max_debt_over_CFO | 4.860451 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r3.c0",
+          "label": "FY2025_Moog_EV_proxy_USDm",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "7501.839030",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 73",
+              "quote": "| FY2025_Moog_EV_proxy_USDm | 7501.839030 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r4.c0",
+          "label": "FY2025_TDG_revenue_indication_USDm",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "17160.112063",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 74",
+              "quote": "| FY2025_TDG_revenue_indication_USDm | 17160.112063 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r5.c0",
+          "label": "FY2025_TDG_EBITDA_indication_USDm",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "70157.294567",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 75",
+              "quote": "| FY2025_TDG_EBITDA_indication_USDm | 70157.294567 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r6.c0",
+          "label": "Wencor2023_consideration_over_revenue",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r6",
+          "field": "c0",
+          "amount": null,
+          "text": "2.831492",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 76",
+              "quote": "| Wencor2023_consideration_over_revenue | 2.831492 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r7.c0",
+          "label": "Wencor2023_consideration_over_EBITDA",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r7",
+          "field": "c0",
+          "amount": null,
+          "text": "13.398693",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 77",
+              "quote": "| Wencor2023_consideration_over_EBITDA | 13.398693 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-4.r0.c0",
+          "label": "Margin/CFO advantage narrows; advances reverse or receivable-sale reliance grows",
+          "table_id": "raw-CP-2-4",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Earnings may fail to translate into retained repayment cash",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 87",
+              "quote": "| Margin/CFO advantage narrows; advances reverse or receivable-sale reliance grows | Earnings may fail to translate into retained repayment cash | Obtain matched cash-funding and working-capital bridges; preserve GAAP CFO and separate sensitivities |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-4.r0.c1",
+          "label": "Margin/CFO advantage narrows; advances reverse or receivable-sale reliance grows",
+          "table_id": "raw-CP-2-4",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Obtain matched cash-funding and working-capital bridges; preserve GAAP CFO and separate sensitivities",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 87",
+              "quote": "| Margin/CFO advantage narrows; advances reverse or receivable-sale reliance grows | Earnings may fail to translate into retained repayment cash | Obtain matched cash-funding and working-capital bridges; preserve GAAP CFO and separate sensitivities |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-4.r1.c0",
+          "label": "Further distributions/acquisitions without retained cash",
+          "table_id": "raw-CP-2-4",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Fixed claims and commitments can offset operating improvement",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 88",
+              "quote": "| Further distributions/acquisitions without retained cash | Fixed claims and commitments can offset operating improvement | Reconcile allocation, accessible cash and acquisition cash returns without treating cash-after-capex as funding capacity |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-4.r1.c1",
+          "label": "Further distributions/acquisitions without retained cash",
+          "table_id": "raw-CP-2-4",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Reconcile allocation, accessible cash and acquisition cash returns without treating cash-after-capex as funding capacity",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 88",
+              "quote": "| Further distributions/acquisitions without retained cash | Fixed claims and commitments can offset operating improvement | Reconcile allocation, accessible cash and acquisition cash returns without treating cash-after-capex as funding capacity |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-4.r2.c0",
+          "label": "Organic growth, maintenance capex and acquired earnings Not supplied on a normalized basis",
+          "table_id": "raw-CP-2-4",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Reported growth/cash cannot establish sustainable forward service",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 89",
+              "quote": "| Organic growth, maintenance capex and acquired earnings Not supplied on a normalized basis | Reported growth/cash cannot establish sustainable forward service | Targeted earnings-quality work before forecast expansion; no assumed synergies or zero investment needs |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-4.r2.c1",
+          "label": "Organic growth, maintenance capex and acquired earnings Not supplied on a normalized basis",
+          "table_id": "raw-CP-2-4",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Targeted earnings-quality work before forecast expansion; no assumed synergies or zero investment needs",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 89",
+              "quote": "| Organic growth, maintenance capex and acquired earnings Not supplied on a normalized basis | Reported growth/cash cannot establish sustainable forward service | Targeted earnings-quality work before forecast expansion; no assumed synergies or zero investment needs |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-4.r3.c0",
+          "label": "Full EV/economic claims and normalized interest bridge Not supplied",
+          "table_id": "raw-CP-2-4",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Single-peer indications remain definition-dependent",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 90",
+              "quote": "| Full EV/economic claims and normalized interest bridge Not supplied | Single-peer indications remain definition-dependent | Complete capitalization/earnings bridges and refresh dated evidence only under a new mandate |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-4.r3.c1",
+          "label": "Full EV/economic claims and normalized interest bridge Not supplied",
+          "table_id": "raw-CP-2-4",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Complete capitalization/earnings bridges and refresh dated evidence only under a new mandate",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 90",
+              "quote": "| Full EV/economic claims and normalized interest bridge Not supplied | Single-peer indications remain definition-dependent | Complete capitalization/earnings bridges and refresh dated evidence only under a new mandate |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-4.r4.c0",
+          "label": "Wencor closing, realized results, final funding and tax realization Not supplied",
+          "table_id": "raw-CP-2-4",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "Announced multiples and bridge risk cannot establish actual outcomes",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 91",
+              "quote": "| Wencor closing, realized results, final funding and tax realization Not supplied | Announced multiples and bridge risk cannot establish actual outcomes | Obtain separately dated closing evidence, adjustment reconciliation and cash/tax realization schedules |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-4.r4.c1",
+          "label": "Wencor closing, realized results, final funding and tax realization Not supplied",
+          "table_id": "raw-CP-2-4",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "Obtain separately dated closing evidence, adjustment reconciliation and cash/tax realization schedules",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 91",
+              "quote": "| Wencor closing, realized results, final funding and tax realization Not supplied | Announced multiples and bridge risk cannot establish actual outcomes | Obtain separately dated closing evidence, adjustment reconciliation and cash/tax realization schedules |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-4.r5.c0",
+          "label": "B legal rights, cash fungibility, hedging, ownership/support and related-party gaps persist",
+          "table_id": "raw-CP-2-4",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "Accessible liquidity, control and refinancing constraints remain incomplete",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 92",
+              "quote": "| B legal rights, cash fungibility, hedging, ownership/support and related-party gaps persist | Accessible liquidity, control and refinancing constraints remain incomplete | Preserve B's ready-with-limitations signal and Medium confidence; obtain targeted executed documents, cash-access and hedging evidence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-4.r5.c1",
+          "label": "B legal rights, cash fungibility, hedging, ownership/support and related-party gaps persist",
+          "table_id": "raw-CP-2-4",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "Preserve B's ready-with-limitations signal and Medium confidence; obtain targeted executed documents, cash-access and hedging evidence",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 92",
+              "quote": "| B legal rights, cash fungibility, hedging, ownership/support and related-party gaps persist | Accessible liquidity, control and refinancing constraints remain incomplete | Preserve B's ready-with-limitations signal and Medium confidence; obtain targeted executed documents, cash-access and hedging evidence |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-4.r6.c0",
+          "label": "Stale, retrospective and differently ended financial periods",
+          "table_id": "raw-CP-2-4",
+          "row_id": "r6",
+          "field": "c0",
+          "amount": null,
+          "text": "Historical comparisons cannot establish current conditions or point-in-time tradeability",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 93",
+              "quote": "| Stale, retrospective and differently ended financial periods | Historical comparisons cannot establish current conditions or point-in-time tradeability | Keep all cases dated and distinct; do not calendarize silently or promote to current underwriting |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-4.r6.c1",
+          "label": "Stale, retrospective and differently ended financial periods",
+          "table_id": "raw-CP-2-4",
+          "row_id": "r6",
+          "field": "c1",
+          "amount": null,
+          "text": "Keep all cases dated and distinct; do not calendarize silently or promote to current underwriting",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 93",
+              "quote": "| Stale, retrospective and differently ended financial periods | Historical comparisons cannot establish current conditions or point-in-time tradeability | Keep all cases dated and distinct; do not calendarize silently or promote to current underwriting |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-0.r0.c0",
+          "label": "Request",
+          "table_id": "prose-CP-2-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Credit update: TransDigm Group Incorporated (TDG) — CP-2 incremental historical synthesis, run sol-remaining-tdg-peer-consumer-20261105, method deploy-v-r14. Execution/as-of 2026-11-05 is solely the retrieval/synthesis cutoff, not an underwriting date. The prior CP-2 analytical baseline remains 2024-09-30, consolidated TD Group and subsidiaries, not an instrument-guarantor assessment.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 3",
+              "quote": "Credit update: **TransDigm Group Incorporated (TDG)** — CP-2 incremental historical synthesis, run `sol-remaining-tdg-peer-consumer-20261105`, method `deploy-v-r14`. Execution/as-of **2026-11-05 is solely the retrieval/synthesis cutoff**, not an underwriting date. The prior CP-2 analytical baseline remains **2024-09-30**, consolidated TD Group and subsidiaries, not an instrument-guarantor assessment."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-0.r1.c0",
+          "label": "Request",
+          "table_id": "prose-CP-2-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Consume the actual prior baseline and three supplied checked CP-1C increments without rebuilding annual analysis. These are distinct historical operating, valuation-proxy and announced-transaction cases; none constitutes a full TDG pathway. No new extraction, market query or calculation is performed. Readiness remains usable with material limitations for historical synthesis, not current readiness.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 5",
+              "quote": "Consume the actual prior baseline and three supplied checked CP-1C increments without rebuilding annual analysis. These are distinct historical operating, valuation-proxy and announced-transaction cases; none constitutes a full TDG pathway. No new extraction, market query or calculation is performed. Readiness remains **usable with material limitations for historical synthesis**, not current readiness."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-1.r0.c0",
+          "label": "Consumed artifacts and method",
+          "table_id": "prose-CP-2-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "References B, P, V and W below refer to the supplied Markdown artifacts, read as upstream analytical evidence. Hashes are supplied identities, not independently computed authentication.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 11",
+              "quote": "References B, P, V and W below refer to the supplied Markdown artifacts, read as upstream analytical evidence. Hashes are supplied identities, not independently computed authentication."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-1.r1.c0",
+          "label": "Consumed artifacts and method",
+          "table_id": "prose-CP-2-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "M was opened through the source tool. Current six-section Markdown transport supersedes its native fact-chip/numeric prohibition and composition contract; analytical responsibilities remain. B retains canonical CP-1 hash bd6face3d8f0dda4826c348bf61197b17936206ad47089b58c39c509620debf6 and CP-1A hash f0f243a6de893a8f322563946ee739d47b672f530daee552548433412e8e4af2; these are inherited lineage, not separately reopened inputs. Their annual-report anchor is dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 21",
+              "quote": "M was opened through the source tool. Current six-section Markdown transport supersedes its native fact-chip/numeric prohibition and composition contract; analytical responsibilities remain. B retains canonical CP-1 hash `bd6face3d8f0dda4826c348bf61197b17936206ad47089b58c39c509620debf6` and CP-1A hash `f0f243a6de893a8f322563946ee739d47b672f530daee552548433412e8e4af2`; these are inherited lineage, not separately reopened inputs. Their annual-report anchor is `dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af`."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-1.r2.c0",
+          "label": "Consumed artifacts and method",
+          "table_id": "prose-CP-2-1",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "No raw-source audit, visual check, independent auditor assurance, host-oracle execution or upstream calculation execution is claimed here. Retrospectively available filings do not establish contemporaneous information availability.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 23",
+              "quote": "No raw-source audit, visual check, independent auditor assurance, host-oracle execution or upstream calculation execution is claimed here. Retrospectively available filings do not establish contemporaneous information availability."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-2.r0.c0",
+          "label": "Findings",
+          "table_id": "prose-CP-2-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Assessment — Analyst Interpretation; confidence Medium. The historical thesis survives and becomes sharper: TDG's operating/cash advantages are substantive, but unusually large debt claims on annual cash generation and demonstrated extraction keep cash retention—not margin superiority—the deciding creditor variable. P strengthens B's operating counterweight while strengthening its debt-burden concern. V adds a warning against translating operating quality directly into valuation support. W adds acquisition-pricing and execution context, not TDG valuation evidence. Basis: B Assessment/priority findings; P T4.3–T4.7; V valuation conclusion; W transaction evidence.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 27",
+              "quote": "**Assessment — Analyst Interpretation; confidence Medium.** The historical thesis survives and becomes sharper: TDG's operating/cash advantages are substantive, but unusually large debt claims on annual cash generation and demonstrated extraction keep cash retention—not margin superiority—the deciding creditor variable. P strengthens B's operating counterweight while strengthening its debt-burden concern. V adds a warning against translating operating quality directly into valuation support. W adds acquisition-pricing and execution context, not TDG valuation evidence. Basis: B Assessment/priority findings; P T4.3–T4.7; V valuation conclusion; W transaction evidence."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-2.r1.c0",
+          "label": "Findings",
+          "table_id": "prose-CP-2-2",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Thesis — Analyst Interpretation. Installed-product economics and observed cash generation support historical debt service, but creditor improvement requires retained accessible cash and disciplined capital allocation; neither a peer margin advantage nor conditional value indications establish that retention. Basis: B Thesis and ranked weaknesses; P cash-funding discussion; V/W restrictions.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 29",
+              "quote": "**Thesis — Analyst Interpretation.** Installed-product economics and observed cash generation support historical debt service, but creditor improvement requires retained accessible cash and disciplined capital allocation; neither a peer margin advantage nor conditional value indications establish that retention. Basis: B Thesis and ranked weaknesses; P cash-funding discussion; V/W restrictions."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-3.r0.c0",
+          "label": "Decisive strengths, weaknesses and countercases",
+          "table_id": "prose-CP-2-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Strength — persistent operating/cash buffer (Analyst Interpretation). P reports CFO/sales of 25.755668% in FY2024 and 20.880790% in FY2023, and CFO-minus-gross-cash-capex of 1880 and 1236 USDm. Together with above-cohort operating margins in both years, this supports B's earnings-buffer judgment rather than an isolated favorable year. Reported FY2024 sales growth of 20.577069% adds scale context, not an organic-growth explanation. Acquisition contributions, cost classification and mix prevent attributing the advantage wholly to pricing power. Basis: P T4.2–T4.4/T4.6.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 41",
+              "quote": "**Strength — persistent operating/cash buffer (Analyst Interpretation).** P reports CFO/sales of 25.755668% in FY2024 and 20.880790% in FY2023, and CFO-minus-gross-cash-capex of 1880 and 1236 USDm. Together with above-cohort operating margins in both years, this supports B's earnings-buffer judgment rather than an isolated favorable year. Reported FY2024 sales growth of 20.577069% adds scale context, not an organic-growth explanation. Acquisition contributions, cost classification and mix prevent attributing the advantage wholly to pricing power. Basis: P T4.2–T4.4/T4.6."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-3.r1.c0",
+          "label": "Decisive strengths, weaknesses and countercases",
+          "table_id": "prose-CP-2-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Weakness — debt burden and allocation dominate relative operating strength (Analyst Interpretation; Material risk). P's bridged debt/CFO contrast means stronger operations coexist with greater claims on generated cash. B's debt-funded distribution evidence and committed dividend uses explain why operating progress need not reduce refinancing dependence. Acquisition and dividend cash uses sit outside the cash-after-capex proxy. The strongest countercase is persistent margins, cash generation and reported cash: these could support repayment if retained and accessible. Repeated retention and a falling consistently defined debt/CFO burden would improve the view; renewed debt-funded extraction or deteriorating conversion would weaken it. Basis: B priority findings/ranked weaknesses; P T4.4–T4.7 and countercase.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 43",
+              "quote": "**Weakness — debt burden and allocation dominate relative operating strength (Analyst Interpretation; Material risk).** P's bridged debt/CFO contrast means stronger operations coexist with greater claims on generated cash. B's debt-funded distribution evidence and committed dividend uses explain why operating progress need not reduce refinancing dependence. Acquisition and dividend cash uses sit outside the cash-after-capex proxy. The strongest countercase is persistent margins, cash generation and reported cash: these could support repayment **if retained and accessible**. Repeated retention and a falling consistently defined debt/CFO burden would improve the view; renewed debt-funded extraction or deteriorating conversion would weaken it. Basis: B priority findings/ranked weaknesses; P T4.4–T4.7 and countercase."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-3.r2.c0",
+          "label": "Decisive strengths, weaknesses and countercases",
+          "table_id": "prose-CP-2-3",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "P does not normalize economic cash. CW and HEICO benefit from customer funding; Moog suffered advance reversals and includes receivable-sale proceeds in CFO, unlike TDG securitization financing. Moog's FY2024 illustrative CFO sensitivity is 177.344 USDm, not restated GAAP CFO. These mechanisms restrict causal claims about cash efficiency. Finance-lease bridging also matters: TDG/HEICO already include finance leases; CW/Moog require additions outside borrowing captions. No double counting or silent operating-lease inclusion is adopted. Basis: P cash-funding and debt-bridge sections.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 45",
+              "quote": "P does not normalize economic cash. CW and HEICO benefit from customer funding; Moog suffered advance reversals and includes receivable-sale proceeds in CFO, unlike TDG securitization financing. Moog's FY2024 illustrative CFO sensitivity is 177.344 USDm, not restated GAAP CFO. These mechanisms restrict causal claims about cash efficiency. Finance-lease bridging also matters: TDG/HEICO already include finance leases; CW/Moog require additions outside borrowing captions. No double counting or silent operating-lease inclusion is adopted. Basis: P cash-funding and debt-bridge sections."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-3.r3.c0",
+          "label": "Decisive strengths, weaknesses and countercases",
+          "table_id": "prose-CP-2-3",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Valuation caution — not a new financial-strength score (Analyst Interpretation). V's two indications are distinct point illustrations, not competing estimates to average. Moog's lower-margin systems/industrial mix makes a revenue transfer potentially too restrictive for durable TDG aftermarket economics; conversely, an EBITDA transfer may exaggerate support if TDG margins or cash conversion erode. This is the strongest countercase to rejecting all relevance: durable differentiated earnings could justify economics unlike Moog's. But matched business mix, earnings definitions and complete capitalization must be established before choosing a valuation anchor. Until then, V adds judgment about model dependence, not creditor protection. Basis: V valuation conclusion/alignment.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 47",
+              "quote": "**Valuation caution — not a new financial-strength score (Analyst Interpretation).** V's two indications are distinct point illustrations, not competing estimates to average. Moog's lower-margin systems/industrial mix makes a revenue transfer potentially too restrictive for durable TDG aftermarket economics; conversely, an EBITDA transfer may exaggerate support if TDG margins or cash conversion erode. This is the strongest countercase to rejecting all relevance: durable differentiated earnings could justify economics unlike Moog's. But matched business mix, earnings definitions and complete capitalization must be established before choosing a valuation anchor. Until then, V adds judgment about model dependence, not creditor protection. Basis: V valuation conclusion/alignment."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-3.r4.c0",
+          "label": "Decisive strengths, weaknesses and countercases",
+          "table_id": "prose-CP-2-3",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "Acquisition discipline — Wencor context only (Analyst Interpretation; Material execution risk). W's prospective adjusted proforma earnings include a February acquisition and diligence adjustments. Failure to realize recurring cash earnings could delay repayment; conditional bridge funding could introduce rollover pressure if drawn and not replaced. HEICO's stated deleveraging expectation, complementary offerings and unquantified synergies are the strongest countercase, but remain management expectations, not realized outcomes or TDG support. Verified cash conversion, integration and final funding would change the view. Basis: W transaction evidence and credit interpretation.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 49",
+              "quote": "**Acquisition discipline — Wencor context only (Analyst Interpretation; Material execution risk).** W's prospective adjusted proforma earnings include a February acquisition and diligence adjustments. Failure to realize recurring cash earnings could delay repayment; conditional bridge funding could introduce rollover pressure if drawn and not replaced. HEICO's stated deleveraging expectation, complementary offerings and unquantified synergies are the strongest countercase, but remain management expectations, not realized outcomes or TDG support. Verified cash conversion, integration and final funding would change the view. Basis: W transaction evidence and credit interpretation."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-4.r0.c0",
+          "label": "Consumption controls",
+          "table_id": "prose-CP-2-4",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "These are source-handoff observations, not new calculations. Rows for FY2024 are times, carrying borrowing-plus-finance-lease debt at respective fiscal ends divided by annual CFO, from P T4.5/controls. FY2025 rows are USD millions from V valuation controls: principal known-components Moog proxy and two separate provisional TDG transfers. Wencor rows are times from W transaction controls, announced consideration divided by prospective CY2023 denominators. Exact artifact hashes are in Sources; all other numerical observations above are likewise copied, not recomputed.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 79",
+              "quote": "These are **source-handoff observations, not new calculations**. Rows for FY2024 are times, carrying borrowing-plus-finance-lease debt at respective fiscal ends divided by annual CFO, from P T4.5/controls. FY2025 rows are USD millions from V valuation controls: principal known-components Moog proxy and two separate provisional TDG transfers. Wencor rows are times from W transaction controls, announced consideration divided by prospective CY2023 denominators. Exact artifact hashes are in Sources; all other numerical observations above are likewise copied, not recomputed."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-5.r0.c0",
+          "label": "Monitoring and repair",
+          "table_id": "prose-CP-2-5",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Missing evidence is not adverse behavior. Neither the positive Wencor case nor FY2025 proxy evidence retrospectively fills P's FY2024 valuation gaps. No ratings, covenant-capacity conclusions, security decision, default probability or recovery outcome is supplied.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 95",
+              "quote": "Missing evidence is not adverse behavior. Neither the positive Wencor case nor FY2025 proxy evidence retrospectively fills P's FY2024 valuation gaps. No ratings, covenant-capacity conclusions, security decision, default probability or recovery outcome is supplied."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-6.r0.c0",
+          "label": "Next module",
+          "table_id": "prose-CP-2-6",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "- CP-2D: reconcile accessible cash, committed distributions, working-capital funding and facility conditions into a separately evidenced liquidity bridge; do not net later events into September balances here. - CP-2G: develop forward cash-retention and acquired-earnings cases only after organic, capex, interest and normalization inputs are checked; keep FY2025 valuation points outside cash forecasts. - CP-3C: examine refinancing dependencies, securitization renewal and conditional bridge takeout with dated executable funding evidence; historical access is not future feasibility. - CP-4: review executed agreements, guarantees/collateral and amendments for actual legal permissions; annual disclosures, announced commitments and completed financing are not capacity opinions. - CP-5: validate material claim-to-handoff lineage, exact hashes, dates, units, definition conflicts and inherited limits; distinguish upstream checks from independent evidence certification. - CP-6: challenge the operating-resilience/retention thesis against its strongest countercases, especially durable differentiated margins versus persistent extraction; committee debate remains downstream.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 99",
+              "quote": "- **CP-2D:** reconcile accessible cash, committed distributions, working-capital funding and facility conditions into a separately evidenced liquidity bridge; do not net later events into September balances here."
+            },
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 100",
+              "quote": "- **CP-2G:** develop forward cash-retention and acquired-earnings cases only after organic, capex, interest and normalization inputs are checked; keep FY2025 valuation points outside cash forecasts."
+            },
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 101",
+              "quote": "- **CP-3C:** examine refinancing dependencies, securitization renewal and conditional bridge takeout with dated executable funding evidence; historical access is not future feasibility."
+            },
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 102",
+              "quote": "- **CP-4:** review executed agreements, guarantees/collateral and amendments for actual legal permissions; annual disclosures, announced commitments and completed financing are not capacity opinions."
+            },
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 103",
+              "quote": "- **CP-5:** validate material claim-to-handoff lineage, exact hashes, dates, units, definition conflicts and inherited limits; distinguish upstream checks from independent evidence certification."
+            },
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 104",
+              "quote": "- **CP-6:** challenge the operating-resilience/retention thesis against its strongest countercases, especially durable differentiated margins versus persistent extraction; committee debate remains downstream."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-6.r1.c0",
+          "label": "Next module",
+          "table_id": "prose-CP-2-6",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "These are targeted responsibilities, not claims that downstream modules ran. Preserve this incremental CP-2 separately from B and preserve P/V/W as distinct dated deliverables with their tables, definitions, provenance and restrictions. Existing delivery should retain this reasoning in the report/HTML and verify populated artifacts separately. No workbook, new engine, analytical rebuild, publication execution or full-pathway completion is claimed.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+              "locator": "line 106",
+              "quote": "These are targeted responsibilities, not claims that downstream modules ran. Preserve this incremental CP-2 separately from B and preserve P/V/W as distinct dated deliverables with their tables, definitions, provenance and restrictions. Existing delivery should retain this reasoning in the report/HTML and verify populated artifacts separately. No workbook, new engine, analytical rebuild, publication execution or full-pathway completion is claimed."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "raw-CP-2-0",
+          "title": "Consumed artifacts and method — Key",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Artifact"
+            },
+            {
+              "field": "c1",
+              "label": "Exact SHA-256"
+            },
+            {
+              "field": "c2",
+              "label": "Scope adopted"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "B",
+              "fact_ids": [
+                "raw-CP-2-0.r0.c0",
+                "raw-CP-2-0.r0.c1",
+                "raw-CP-2-0.r0.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "P",
+              "fact_ids": [
+                "raw-CP-2-0.r1.c0",
+                "raw-CP-2-0.r1.c1",
+                "raw-CP-2-0.r1.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "V",
+              "fact_ids": [
+                "raw-CP-2-0.r2.c0",
+                "raw-CP-2-0.r2.c1",
+                "raw-CP-2-0.r2.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "W",
+              "fact_ids": [
+                "raw-CP-2-0.r3.c0",
+                "raw-CP-2-0.r3.c1",
+                "raw-CP-2-0.r3.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "M",
+              "fact_ids": [
+                "raw-CP-2-0.r4.c0",
+                "raw-CP-2-0.r4.c1",
+                "raw-CP-2-0.r4.c2"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Key",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-2-1",
+          "title": "Cohort consumption — Case",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Period and evidence"
+            },
+            {
+              "field": "c1",
+              "label": "Adopted finding"
+            },
+            {
+              "field": "c2",
+              "label": "Effect on credit view"
+            },
+            {
+              "field": "c3",
+              "label": "Prohibited inference"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "FY2024 TDG / three peers",
+              "fact_ids": [
+                "raw-CP-2-1.r0.c0",
+                "raw-CP-2-1.r0.c1",
+                "raw-CP-2-1.r0.c2",
+                "raw-CP-2-1.r0.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "FY2025 TDG / Moog proxy",
+              "fact_ids": [
+                "raw-CP-2-1.r1.c0",
+                "raw-CP-2-1.r1.c1",
+                "raw-CP-2-1.r1.c2",
+                "raw-CP-2-1.r1.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Wencor announced acquisition",
+              "fact_ids": [
+                "raw-CP-2-1.r2.c0",
+                "raw-CP-2-1.r2.c1",
+                "raw-CP-2-1.r2.c2",
+                "raw-CP-2-1.r2.c3"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Case",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-2-2",
+          "title": "Definition and conflict register — Item",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Distinction"
+            },
+            {
+              "field": "c1",
+              "label": "Consequence"
+            },
+            {
+              "field": "c2",
+              "label": "Source"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Baseline versus increments",
+              "fact_ids": [
+                "raw-CP-2-2.r0.c0",
+                "raw-CP-2-2.r0.c1",
+                "raw-CP-2-2.r0.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Sample and Moog exclusions",
+              "fact_ids": [
+                "raw-CP-2-2.r1.c0",
+                "raw-CP-2-2.r1.c1",
+                "raw-CP-2-2.r1.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Cash proxy",
+              "fact_ids": [
+                "raw-CP-2-2.r2.c0",
+                "raw-CP-2-2.r2.c1",
+                "raw-CP-2-2.r2.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Earnings/interest",
+              "fact_ids": [
+                "raw-CP-2-2.r3.c0",
+                "raw-CP-2-2.r3.c1",
+                "raw-CP-2-2.r3.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Dated equity and EV basis",
+              "fact_ids": [
+                "raw-CP-2-2.r4.c0",
+                "raw-CP-2-2.r4.c1",
+                "raw-CP-2-2.r4.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Wencor consideration",
+              "fact_ids": [
+                "raw-CP-2-2.r5.c0",
+                "raw-CP-2-2.r5.c1",
+                "raw-CP-2-2.r5.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "Wencor tax and funding",
+              "fact_ids": [
+                "raw-CP-2-2.r6.c0",
+                "raw-CP-2-2.r6.c1",
+                "raw-CP-2-2.r6.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r7",
+              "label": "Inherited conflicts",
+              "fact_ids": [
+                "raw-CP-2-2.r7.c0",
+                "raw-CP-2-2.r7.c1",
+                "raw-CP-2-2.r7.c2"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Item",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-2-3",
+          "title": "Consumption controls — Metric",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Value"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "FY2024_TDG_debt_over_CFO",
+              "fact_ids": [
+                "raw-CP-2-3.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "FY2024_peer_min_debt_over_CFO",
+              "fact_ids": [
+                "raw-CP-2-3.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "FY2024_peer_max_debt_over_CFO",
+              "fact_ids": [
+                "raw-CP-2-3.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "FY2025_Moog_EV_proxy_USDm",
+              "fact_ids": [
+                "raw-CP-2-3.r3.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "FY2025_TDG_revenue_indication_USDm",
+              "fact_ids": [
+                "raw-CP-2-3.r4.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "FY2025_TDG_EBITDA_indication_USDm",
+              "fact_ids": [
+                "raw-CP-2-3.r5.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "Wencor2023_consideration_over_revenue",
+              "fact_ids": [
+                "raw-CP-2-3.r6.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r7",
+              "label": "Wencor2023_consideration_over_EBITDA",
+              "fact_ids": [
+                "raw-CP-2-3.r7.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Metric",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-2-4",
+          "title": "Monitoring and repair — Trigger or gap",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Mechanism"
+            },
+            {
+              "field": "c1",
+              "label": "Targeted next action"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Margin/CFO advantage narrows; advances reverse or receivable-sale reliance grows",
+              "fact_ids": [
+                "raw-CP-2-4.r0.c0",
+                "raw-CP-2-4.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Further distributions/acquisitions without retained cash",
+              "fact_ids": [
+                "raw-CP-2-4.r1.c0",
+                "raw-CP-2-4.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Organic growth, maintenance capex and acquired earnings Not supplied on a normalized basis",
+              "fact_ids": [
+                "raw-CP-2-4.r2.c0",
+                "raw-CP-2-4.r2.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Full EV/economic claims and normalized interest bridge Not supplied",
+              "fact_ids": [
+                "raw-CP-2-4.r3.c0",
+                "raw-CP-2-4.r3.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Wencor closing, realized results, final funding and tax realization Not supplied",
+              "fact_ids": [
+                "raw-CP-2-4.r4.c0",
+                "raw-CP-2-4.r4.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "B legal rights, cash fungibility, hedging, ownership/support and related-party gaps persist",
+              "fact_ids": [
+                "raw-CP-2-4.r5.c0",
+                "raw-CP-2-4.r5.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "Stale, retrospective and differently ended financial periods",
+              "fact_ids": [
+                "raw-CP-2-4.r6.c0",
+                "raw-CP-2-4.r6.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Trigger or gap",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2-0",
+          "title": "Request",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Request — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2-0.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Request — paragraph 2",
+              "fact_ids": [
+                "prose-CP-2-0.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2-1",
+          "title": "Consumed artifacts and method",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Consumed artifacts and method — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2-1.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Consumed artifacts and method — paragraph 2",
+              "fact_ids": [
+                "prose-CP-2-1.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Consumed artifacts and method — paragraph 3",
+              "fact_ids": [
+                "prose-CP-2-1.r2.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2-2",
+          "title": "Findings",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Findings — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2-2.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Findings — paragraph 2",
+              "fact_ids": [
+                "prose-CP-2-2.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2-3",
+          "title": "Decisive strengths, weaknesses and countercases",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Decisive strengths, weaknesses and countercases — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2-3.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Decisive strengths, weaknesses and countercases — paragraph 2",
+              "fact_ids": [
+                "prose-CP-2-3.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Decisive strengths, weaknesses and countercases — paragraph 3",
+              "fact_ids": [
+                "prose-CP-2-3.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Decisive strengths, weaknesses and countercases — paragraph 4",
+              "fact_ids": [
+                "prose-CP-2-3.r3.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Decisive strengths, weaknesses and countercases — paragraph 5",
+              "fact_ids": [
+                "prose-CP-2-3.r4.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2-4",
+          "title": "Consumption controls",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Consumption controls — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2-4.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2-5",
+          "title": "Monitoring and repair",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Monitoring and repair — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2-5.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2-6",
+          "title": "Next module",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Next module — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2-6.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Next module — paragraph 2",
+              "fact_ids": [
+                "prose-CP-2-6.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        }
+      ],
+      "claims": [],
+      "limitations": [
+        "Literal checked analytical handoff, not native contract acceptance; source qualifications and gaps remain."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "schema_version": "source/1",
+      "source_id": "CP-2",
+      "name": "CP-2.md",
+      "status": "ready",
+      "sha256": "028d8c1e57517560c41010cc9cc969ce38909e102f9dfff3967daf0a6fe31a79",
+      "media_type": "text/markdown",
+      "spans": [
+        {
+          "locator": "line 1",
+          "text": "## Request",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 3",
+          "text": "Credit update: **TransDigm Group Incorporated (TDG)** — CP-2 incremental historical synthesis, run `sol-remaining-tdg-peer-consumer-20261105`, method `deploy-v-r14`. Execution/as-of **2026-11-05 is solely the retrieval/synthesis cutoff**, not an underwriting date. The prior CP-2 analytical baseline remains **2024-09-30**, consolidated TD Group and subsidiaries, not an instrument-guarantor assessment.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 5",
+          "text": "Consume the actual prior baseline and three supplied checked CP-1C increments without rebuilding annual analysis. These are distinct historical operating, valuation-proxy and announced-transaction cases; none constitutes a full TDG pathway. No new extraction, market query or calculation is performed. Readiness remains **usable with material limitations for historical synthesis**, not current readiness.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 7",
+          "text": "## Sources",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 9",
+          "text": "### Consumed artifacts and method",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 11",
+          "text": "References B, P, V and W below refer to the supplied Markdown artifacts, read as upstream analytical evidence. Hashes are supplied identities, not independently computed authentication.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 13",
+          "text": "| Key | Artifact | Exact SHA-256 | Scope adopted |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 14",
+          "text": "|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 15",
+          "text": "| B | Actual prior CP-2 baseline | `1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be` | Historical assessment, canonical-financial lineage, allocation/liquidity mechanisms and unresolved gaps |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 16",
+          "text": "| P | CP-1C FY2024 peers | `c575789fd953c4ee89a1bacd4641bb82db741788ae3e960566f2001e7b932330` | Findings T4.2–T4.7; Calculations controls and exclusion sensitivities; Gaps/countercase |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 17",
+          "text": "| V | CP-1C FY2025 valuation | `b8d05baa599aa44822e77ffaf157421fa31e1340ba98ddbcd80ac6294b29c1af` | Valuation conclusion, alignment, funding sensitivities, T4.8/T4.10 and restrictions |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 18",
+          "text": "| W | CP-1C Wencor2023 | `4f29134a4a11dcb134f7b8eeec9a4426b2159835aa051a93ca709c5c819567f9` | Transaction evidence, T4.9, forecast/funding risks and tax sensitivity |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 19",
+          "text": "| M | Selected CP-2 method, p.1 | `9ddd2ab22b5aeab99054cf82ebfb7f03ef49422678be08374566b96dc18dcbd1` | Deployment V r14 adaptation used for prior live CP-2; evidence-to-mechanism synthesis |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 21",
+          "text": "M was opened through the source tool. Current six-section Markdown transport supersedes its native fact-chip/numeric prohibition and composition contract; analytical responsibilities remain. B retains canonical CP-1 hash `bd6face3d8f0dda4826c348bf61197b17936206ad47089b58c39c509620debf6` and CP-1A hash `f0f243a6de893a8f322563946ee739d47b672f530daee552548433412e8e4af2`; these are inherited lineage, not separately reopened inputs. Their annual-report anchor is `dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af`.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 23",
+          "text": "No raw-source audit, visual check, independent auditor assurance, host-oracle execution or upstream calculation execution is claimed here. Retrospectively available filings do not establish contemporaneous information availability.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 25",
+          "text": "## Findings",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 27",
+          "text": "**Assessment — Analyst Interpretation; confidence Medium.** The historical thesis survives and becomes sharper: TDG's operating/cash advantages are substantive, but unusually large debt claims on annual cash generation and demonstrated extraction keep cash retention—not margin superiority—the deciding creditor variable. P strengthens B's operating counterweight while strengthening its debt-burden concern. V adds a warning against translating operating quality directly into valuation support. W adds acquisition-pricing and execution context, not TDG valuation evidence. Basis: B Assessment/priority findings; P T4.3–T4.7; V valuation conclusion; W transaction evidence.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 29",
+          "text": "**Thesis — Analyst Interpretation.** Installed-product economics and observed cash generation support historical debt service, but creditor improvement requires retained accessible cash and disciplined capital allocation; neither a peer margin advantage nor conditional value indications establish that retention. Basis: B Thesis and ranked weaknesses; P cash-funding discussion; V/W restrictions.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 31",
+          "text": "### Cohort consumption",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 33",
+          "text": "| Case | Period and evidence | Adopted finding | Effect on credit view | Prohibited inference |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 34",
+          "text": "|---|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 35",
+          "text": "| FY2024 TDG / three peers | P T4.2–T4.7 and controls; FY2023 comparison. FY2024 ends: TDG September 30, Moog September 28, HEICO October 31, CW December 31 | Above-cohort reported operating/cash margins persist across both years; TDG debt/CFO 12.166259x versus 1.939628–4.860451x | Operating buffer is supported, yet more debt remains dependent on each annual cash dollar; retention and refinancing sensitivity remain central | No industry rank, current peer universe, common EBITDA leverage or unrestricted cash conclusion |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 36",
+          "text": "| FY2025 TDG / Moog proxy | V alignment and T4.8/T4.10; TDG September 30 and Moog September 27 financials | Known-components proxy 7501.839030 USDm; separate revenue indication 17160.112063 USDm and ordinary-EBITDA indication 70157.294567 USDm | Divergence exposes margin/definition dependence; neither supplies reliable valuation support for the historical credit thesis | No range, average, normalized fair value, collateral, recovery or debt coverage; no FY2024 debt/cash import |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 37",
+          "text": "| Wencor announced acquisition | W transaction evidence/T4.9; May 15, 2023 announcement; May 18 corroboration; prospective CY2023 denominators | 2050 USDm consideration proxy against projected revenue 724 USDm and adjusted proforma EBITDA 153 USDm; 2.831492x and 13.398693x | A positive historical transaction observation adds forecast-conversion and conditional-funding discipline to acquisition analysis | No TDG FY2024/FY2025 valuation transfer, actual-results inference or closed-transaction claim |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 39",
+          "text": "### Decisive strengths, weaknesses and countercases",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 41",
+          "text": "**Strength — persistent operating/cash buffer (Analyst Interpretation).** P reports CFO/sales of 25.755668% in FY2024 and 20.880790% in FY2023, and CFO-minus-gross-cash-capex of 1880 and 1236 USDm. Together with above-cohort operating margins in both years, this supports B's earnings-buffer judgment rather than an isolated favorable year. Reported FY2024 sales growth of 20.577069% adds scale context, not an organic-growth explanation. Acquisition contributions, cost classification and mix prevent attributing the advantage wholly to pricing power. Basis: P T4.2–T4.4/T4.6.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 43",
+          "text": "**Weakness — debt burden and allocation dominate relative operating strength (Analyst Interpretation; Material risk).** P's bridged debt/CFO contrast means stronger operations coexist with greater claims on generated cash. B's debt-funded distribution evidence and committed dividend uses explain why operating progress need not reduce refinancing dependence. Acquisition and dividend cash uses sit outside the cash-after-capex proxy. The strongest countercase is persistent margins, cash generation and reported cash: these could support repayment **if retained and accessible**. Repeated retention and a falling consistently defined debt/CFO burden would improve the view; renewed debt-funded extraction or deteriorating conversion would weaken it. Basis: B priority findings/ranked weaknesses; P T4.4–T4.7 and countercase.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 45",
+          "text": "P does not normalize economic cash. CW and HEICO benefit from customer funding; Moog suffered advance reversals and includes receivable-sale proceeds in CFO, unlike TDG securitization financing. Moog's FY2024 illustrative CFO sensitivity is 177.344 USDm, not restated GAAP CFO. These mechanisms restrict causal claims about cash efficiency. Finance-lease bridging also matters: TDG/HEICO already include finance leases; CW/Moog require additions outside borrowing captions. No double counting or silent operating-lease inclusion is adopted. Basis: P cash-funding and debt-bridge sections.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 47",
+          "text": "**Valuation caution — not a new financial-strength score (Analyst Interpretation).** V's two indications are distinct point illustrations, not competing estimates to average. Moog's lower-margin systems/industrial mix makes a revenue transfer potentially too restrictive for durable TDG aftermarket economics; conversely, an EBITDA transfer may exaggerate support if TDG margins or cash conversion erode. This is the strongest countercase to rejecting all relevance: durable differentiated earnings could justify economics unlike Moog's. But matched business mix, earnings definitions and complete capitalization must be established before choosing a valuation anchor. Until then, V adds judgment about model dependence, not creditor protection. Basis: V valuation conclusion/alignment.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 49",
+          "text": "**Acquisition discipline — Wencor context only (Analyst Interpretation; Material execution risk).** W's prospective adjusted proforma earnings include a February acquisition and diligence adjustments. Failure to realize recurring cash earnings could delay repayment; conditional bridge funding could introduce rollover pressure if drawn and not replaced. HEICO's stated deleveraging expectation, complementary offerings and unquantified synergies are the strongest countercase, but remain management expectations, not realized outcomes or TDG support. Verified cash conversion, integration and final funding would change the view. Basis: W transaction evidence and credit interpretation.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 51",
+          "text": "### Definition and conflict register",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 53",
+          "text": "| Item | Distinction | Consequence | Source |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 54",
+          "text": "|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 55",
+          "text": "| Baseline versus increments | B remains September 2024 historical base; P is a peer overlay; V is a limited FY2025 valuation increment | None replaces canonical TDG financials or establishes current readiness | B Request/Gaps; P/V Request |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 56",
+          "text": "| Sample and Moog exclusions | Borrower outside peer N; operating margin N=2 because Moog matching subtotal is absent; cash/capex base N=3 | N=3 permits median but suppresses mean/quartiles/standard deviation; N=2 also suppresses median. FY2024 and FY2023 ex-Moog sensitivities retain TDG cash advantage but place capex above remaining maximum; not a revised universe | P T4.6 and Calculations |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 57",
+          "text": "| Cash proxy | CFO minus gross cash PP&E capex excludes acquisitions, distributions and lease-financed additions | Not sustainable FCF, distributable cash or funding capacity | P T4.4; B Calculations |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 58",
+          "text": "| Earnings/interest | FY2025 ordinary EBITDA 4568 versus EBITDA As Defined 4760 USDm; Moog pretax-plus-interest-plus-D&A proxy uses expense-labelled interest, TDG net interest | No As Defined substitution; absent interest-income bridge prevents normalized transfer or common coverage | V alignment/denominators |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 59",
+          "text": "| Dated equity and EV basis | Actual dated shares, not EPS weighted averages; principal debt proxy differs from carrying/fair-borrowing sensitivities | Incomplete preferred/minority, investments and economic-claims review prevents complete EV; receivables sensitivity 7626.839030 USDm is not a peer range or GAAP borrowing reclassification | V equity/funding bridge and controls |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 60",
+          "text": "| Wencor consideration | 1900 USDm cash plus 150 USDm announced stock reference; fixed 1,137,656 shares; 20 USDm escrow within cash | Share count is fixed, closing dollars are not; customary adjustments and full EV bridge remain unresolved | W transaction evidence |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 61",
+          "text": "| Wencor tax and funding | Stated tax benefits 75 USDm through FY2038 yield source sensitivity 1975 USDm / 12.908497x, approximately 12.9x; conditional 364-day bridge | Not independently assessed NPV, closing cash, synergy-adjusted EBITDA or actual borrowing; no financing condition is not proof of funding | W Calculations/transaction evidence |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 62",
+          "text": "| Inherited conflicts | B retains lease wording conflict, cash-bridge residuals and representation/customer-threshold limits | No silent resolution; peer bridging does not repair canonical source conflicts | B Calculations/Gaps |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 64",
+          "text": "## Calculations",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 66",
+          "text": "### Consumption controls",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 68",
+          "text": "| Metric | Value |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 69",
+          "text": "|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 70",
+          "text": "| FY2024_TDG_debt_over_CFO | 12.166259 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 71",
+          "text": "| FY2024_peer_min_debt_over_CFO | 1.939628 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 72",
+          "text": "| FY2024_peer_max_debt_over_CFO | 4.860451 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 73",
+          "text": "| FY2025_Moog_EV_proxy_USDm | 7501.839030 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 74",
+          "text": "| FY2025_TDG_revenue_indication_USDm | 17160.112063 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 75",
+          "text": "| FY2025_TDG_EBITDA_indication_USDm | 70157.294567 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 76",
+          "text": "| Wencor2023_consideration_over_revenue | 2.831492 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 77",
+          "text": "| Wencor2023_consideration_over_EBITDA | 13.398693 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 79",
+          "text": "These are **source-handoff observations, not new calculations**. Rows for FY2024 are times, carrying borrowing-plus-finance-lease debt at respective fiscal ends divided by annual CFO, from P T4.5/controls. FY2025 rows are USD millions from V valuation controls: principal known-components Moog proxy and two separate provisional TDG transfers. Wencor rows are times from W transaction controls, announced consideration divided by prospective CY2023 denominators. Exact artifact hashes are in Sources; all other numerical observations above are likewise copied, not recomputed.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 81",
+          "text": "## Gaps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 83",
+          "text": "### Monitoring and repair",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 85",
+          "text": "| Trigger or gap | Mechanism | Targeted next action |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 86",
+          "text": "|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 87",
+          "text": "| Margin/CFO advantage narrows; advances reverse or receivable-sale reliance grows | Earnings may fail to translate into retained repayment cash | Obtain matched cash-funding and working-capital bridges; preserve GAAP CFO and separate sensitivities |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 88",
+          "text": "| Further distributions/acquisitions without retained cash | Fixed claims and commitments can offset operating improvement | Reconcile allocation, accessible cash and acquisition cash returns without treating cash-after-capex as funding capacity |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 89",
+          "text": "| Organic growth, maintenance capex and acquired earnings Not supplied on a normalized basis | Reported growth/cash cannot establish sustainable forward service | Targeted earnings-quality work before forecast expansion; no assumed synergies or zero investment needs |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 90",
+          "text": "| Full EV/economic claims and normalized interest bridge Not supplied | Single-peer indications remain definition-dependent | Complete capitalization/earnings bridges and refresh dated evidence only under a new mandate |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 91",
+          "text": "| Wencor closing, realized results, final funding and tax realization Not supplied | Announced multiples and bridge risk cannot establish actual outcomes | Obtain separately dated closing evidence, adjustment reconciliation and cash/tax realization schedules |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 92",
+          "text": "| B legal rights, cash fungibility, hedging, ownership/support and related-party gaps persist | Accessible liquidity, control and refinancing constraints remain incomplete | Preserve B's ready-with-limitations signal and Medium confidence; obtain targeted executed documents, cash-access and hedging evidence |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 93",
+          "text": "| Stale, retrospective and differently ended financial periods | Historical comparisons cannot establish current conditions or point-in-time tradeability | Keep all cases dated and distinct; do not calendarize silently or promote to current underwriting |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 95",
+          "text": "Missing evidence is not adverse behavior. Neither the positive Wencor case nor FY2025 proxy evidence retrospectively fills P's FY2024 valuation gaps. No ratings, covenant-capacity conclusions, security decision, default probability or recovery outcome is supplied.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 97",
+          "text": "## Next module",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 99",
+          "text": "- **CP-2D:** reconcile accessible cash, committed distributions, working-capital funding and facility conditions into a separately evidenced liquidity bridge; do not net later events into September balances here.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 100",
+          "text": "- **CP-2G:** develop forward cash-retention and acquired-earnings cases only after organic, capex, interest and normalization inputs are checked; keep FY2025 valuation points outside cash forecasts.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 101",
+          "text": "- **CP-3C:** examine refinancing dependencies, securitization renewal and conditional bridge takeout with dated executable funding evidence; historical access is not future feasibility.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 102",
+          "text": "- **CP-4:** review executed agreements, guarantees/collateral and amendments for actual legal permissions; annual disclosures, announced commitments and completed financing are not capacity opinions.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 103",
+          "text": "- **CP-5:** validate material claim-to-handoff lineage, exact hashes, dates, units, definition conflicts and inherited limits; distinguish upstream checks from independent evidence certification.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 104",
+          "text": "- **CP-6:** challenge the operating-resilience/retention thesis against its strongest countercases, especially durable differentiated margins versus persistent extraction; committee debate remains downstream.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 106",
+          "text": "These are targeted responsibilities, not claims that downstream modules ran. Preserve this incremental CP-2 separately from B and preserve P/V/W as distinct dated deliverables with their tables, definitions, provenance and restrictions. Existing delivery should retain this reasoning in the report/HTML and verify populated artifacts separately. No workbook, new engine, analytical rebuild, publication execution or full-pathway completion is claimed.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        }
+      ],
+      "limitation": "Actual analytical handoff; underlying source qualifications and scope remain.",
+      "extractor": "literal-markdown-lines",
+      "extraction_status": "complete",
+      "coverage": []
+    }
+  ],
+  "analytical_qualification": "partial",
+  "native_host_qualification": "unrun"
+}
