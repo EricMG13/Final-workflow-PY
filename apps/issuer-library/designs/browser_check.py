@@ -109,6 +109,7 @@ def real_workspace(browser, name, port, full):
     page.screenshot(path=str(S / f"{name}-module.png"))
     used = page.locator("#module-head a", has_text="Used in")
     note(used.count() == 1, f"{name}: module output names the deliverables that used it")
+    chart_style(page, name, port)
     page.click(".workspace-tabs a:has-text('Deliverables')")
     page.wait_for_selector(".report-row a")
     page.click(".report-built .report-row a >> nth=0")
@@ -222,6 +223,43 @@ def real_workspace(browser, name, port, full):
     page.screenshot(path=str(S / f"{name}-newrun-narrow.png"))
     note(not errors, f"{name}: no console errors {errors[:4]}")
     page.close()
+
+
+CHART_STYLE = """() => {
+  const css = (selector, property) => {
+    const element = document.querySelector(selector);
+    return element ? getComputedStyle(element)[property] : 'missing';
+  };
+  return {
+    bar: css('.bar', 'borderTopLeftRadius'),
+    card: css('.summary-chart', 'borderTopLeftRadius'),
+    track: css('.horizontal-chart .track:not(.missing)', 'backgroundColor'),
+    barEnd: css('.horizontal-chart .track:not(.missing)>i', 'borderTopRightRadius'),
+    rect: css('.vector-chart rect.movement', 'rx'),
+    grade: css('.grade', 'borderTopLeftRadius'),
+  };
+}"""
+
+
+def chart_style(page, name, port):
+    """Charts follow the Untitled UI chart look: rounded data-ends, no tracks, pill grades, 12px cards."""
+    run = "?c=tdg-002"
+    seen = {}
+    for route in ("#CP-1/performance", "#W-Overview/overview", "#CP-2/assessment"):
+        page.goto(f"http://127.0.0.1:{port}/{route}{run}")
+        page.wait_for_selector("#content .section-heading")
+        seen.update({k: v for k, v in page.evaluate(CHART_STYLE).items() if v != "missing"})
+    want = {
+        "bar": "4px",
+        "card": "12px",
+        "track": "rgba(0, 0, 0, 0)",
+        "barEnd": "4px",
+        "rect": "4px",
+        "grade": "999px",
+    }
+    note(seen == want, f"{name}: charts use rounded data-ends, no tracks and pill grades ({seen})")
+    page.goto(f"http://127.0.0.1:{port}/#CP-1/performance{run}")
+    page.wait_for_selector(".bars")
 
 
 def new_run(browser, name, port, workspace, start):

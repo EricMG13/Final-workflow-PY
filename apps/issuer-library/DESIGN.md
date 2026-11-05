@@ -106,6 +106,13 @@ and no stripes; values stay in Red Hat Mono with tabular figures, and a wide
 table scrolls inside its own card. Labels in content (classification, input,
 output scope, report status, summary kind) use the same grey badge as the
 Library; on the navy summary band it is a white outline.
+Charts keep the company series colours (blue, navy, blue-grey; amber for
+conditional downside) and drop grey bar tracks. Bars end in a 4px rounded
+data-end, the grid and axes are pale greys, scenario points carry a white
+ring, and summary charts sit in the same 12px card. Grades are pills: a grey
+pill for neutral, a dashed outline for Not Assessable, red tint only where
+the handoff declares Weak. Navy and blue-grey fail a generic palette's
+lightness and chroma checks, so every series stays labelled in text.
 
 - Run changes preserve the active module; unavailable output remains explicit.
 - The module opens selected analytical sections, not the entire Markdown handoff.
