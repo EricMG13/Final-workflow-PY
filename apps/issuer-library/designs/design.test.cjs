@@ -242,6 +242,44 @@ test('Library filters combine case-insensitive search, sector, content and modul
   content.value='modules';content.dispatchEvent(new w.Event('change',{bubbles:true}));assert.deepEqual([...d.querySelectorAll('.run-list a')].map(a=>new URLSearchParams(a.hash.split('?')[1]).get('c')).sort(),['ford-otosan-2024','tdg-003']);
   dom.window.close();
 });
+test('The library says what it is once and puts New run beside its title',()=>{
+  const dom=fixture('W-Library/cases'),d=dom.window.document;
+  assert.equal(norm(d.querySelector('.issuer-meta').textContent),'Find a run or start a new one');
+  assert.equal(d.querySelector('#content .intro'),null,'no second introduction');
+  assert.ok(d.getElementById('library-new-run').closest('.issuer'),'the primary action sits beside the title');
+  assert.equal(d.getElementById('library-new-run').getAttribute('href'),'#W-NewRun/run');
+  assert.ok(!/separate runs/.test(d.getElementById('library-results').textContent));
+  assert.equal(d.querySelector('#content .matrix-note'),null,'no footnote under the list');
+  dom.window.close();
+});
+test('The module filter names each module once',()=>{
+  const dom=fixture('W-Library/cases'),d=dom.window.document;
+  const options=[...d.querySelectorAll('[data-library-filter="module"] option')].slice(1);
+  assert.ok(options.length>5);
+  for(const option of options)assert.equal(option.textContent,dom.window.eval(`moduleLabel(${JSON.stringify(option.value)})`),option.value);
+  dom.window.close();
+});
+test('A run row leaves out zero counts and says when a run holds no saved outputs',()=>{
+  const store=structuredClone(NORTHBRIDGE);
+  store.runs['web-2']={...store.runs['web-1'],folder:'web-2',run:'WEB-2',modules:{}};
+  const dom=appFixture('W-Library/cases',store,NORTHBRIDGE_REPORTS),d=dom.window.document;
+  const meta=key=>norm(d.querySelector(`.run-list a[href*="c=${key}"] small`).textContent);
+  assert.equal(meta('web-2'),'No saved outputs');
+  assert.doesNotMatch(meta('web-1'),/\b0 /);
+  const real=fixture('W-Library/cases');
+  for(const small of real.window.document.querySelectorAll('.run-list small'))assert.doesNotMatch(small.textContent,/(^|· )0 /,small.textContent);
+  assert.match(norm(real.window.document.querySelector('.run-list a[href*="c=tdg-002"] small').textContent),/· \d+ reports?$/);
+  real.window.close();dom.window.close();
+});
+test('A source footer leaves the line number to the inspector',()=>{
+  const dom=fixture('CP-2/assessment'),d=dom.window.document;
+  const footers=[...d.querySelectorAll('#content .source-footer')];
+  assert.ok(footers.length);
+  for(const footer of footers)assert.doesNotMatch(footer.textContent,/Line \d/);
+  footers[0].querySelector('.source-link').click();dom.window.eval('renderRoute()');
+  assert.match(d.querySelector('.evidence-context').textContent,/Line \d+/);
+  dom.window.close();
+});
 test('Library return restores filters and clear resets retained default values without changing context',()=>{
   const dom=fixture('W-Library/cases'),w=dom.window,d=w.document;
   const search=d.getElementById('library-query');search.value='Ford';search.dispatchEvent(new w.Event('input',{bubbles:true}));

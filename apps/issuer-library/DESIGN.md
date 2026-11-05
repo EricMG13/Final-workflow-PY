@@ -102,8 +102,8 @@ are bundled locally with their ISC/MIT license notices. Icons accompany labels.
   accessible. Source-readiness and evidence-trace modules retain substantive
   lineage work as analysis. Files and history are secondary; inputs never acquire
   output status.
-- Charts attach to their own source tables. Exact values, row qualifications,
-  declared provenance and locators remain visible. Chart order is chronological;
+- Charts attach to their own source tables. Exact values, row qualifications
+  and declared provenance remain visible; a row's line locator shows in the inspector it opens. Chart order is chronological;
   the table twin keeps source order. Source opens the exact row fields in a side inspector in the same module.
 - Event registers support calendar and source order. Fiscal/range/combined dates
   stay separate. Markers are neutral; date precision and source classifications

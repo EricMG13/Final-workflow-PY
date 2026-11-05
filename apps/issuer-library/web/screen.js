@@ -156,7 +156,7 @@ function classification(item) {
 }
 function sourceFooter(key) {
   const item=evidence.get(key);
-  return `<div class="source-footer">${sourceLink(key)}<span class="tag">${esc(classification(item))}</span><span>Line ${item.line}</span></div>`;
+  return `<div class="source-footer">${sourceLink(key)}<span class="tag">${esc(classification(item))}</span></div>`;
 }
 function tableMarkup(module, block) {
   const financial=block.financial||block.headers.some(h=>/^(FY\d{4}|Sep 30|Own FY)/.test(h))||block.rows.some(r=>r.cells.slice(1).filter(c=>chartNumber(c)!==null).length>=2);
