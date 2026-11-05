@@ -155,9 +155,11 @@ function classification(item) {
   });
   return [...new Set(classes)].join(' · ') || 'Not classified';
 }
+// Lists show a class only when the handoff declared one; the inspector still says Not classified.
+const classTag=(item,cls)=>{const c=classification(item);return c==='Not classified'?'':`<span class="${cls}">${esc(c)}</span>`;};
 function sourceFooter(key) {
   const item=evidence.get(key);
-  return `<div class="source-footer">${sourceLink(key)}<span class="tag">${esc(classification(item))}</span></div>`;
+  return `<div class="source-footer">${sourceLink(key)}${classTag(item,'tag')}</div>`;
 }
 function tableMarkup(module, block) {
   const financial=block.financial||block.headers.some(h=>/^(FY\d{4}|Sep 30|Own FY)/.test(h))||block.rows.some(r=>r.cells.slice(1).filter(c=>chartNumber(c)!==null).length>=2);
@@ -165,7 +167,7 @@ function tableMarkup(module, block) {
     const key=`${module}:${row.line}`;
     return `<section class="record"><h3>${rich(row.cells[0])}</h3>${block.headers.slice(1).map((h,i)=>`<div class="record-field"><h4>${esc(h)}</h4><div>${rich(row.cells[i+1])}</div></div>`).join('')}${sourceFooter(key)}</section>`;
   }).join('')}</div>`;
-  return `<div class="table-scroll" tabindex="0" role="region" aria-label="Exact source values"><table><thead><tr>${block.headers.map(h=>`<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${block.rows.map(row=>`<tr><th scope="row">${sourceLink(`${module}:${row.line}`,plain(row.cells[0]))}<span class="row-classification">${esc(classification(evidence.get(`${module}:${row.line}`)))}</span></th>${row.cells.slice(1).map(c=>`<td>${rich(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  return `<div class="table-scroll" tabindex="0" role="region" aria-label="Exact source values"><table><thead><tr>${block.headers.map(h=>`<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${block.rows.map(row=>`<tr><th scope="row">${sourceLink(`${module}:${row.line}`,plain(row.cells[0]))}${classTag(evidence.get(`${module}:${row.line}`),'row-classification')}</th>${row.cells.slice(1).map(c=>`<td>${rich(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
 function sectionsMarkup(module, sections, omitPresentedTable=false) {
   return sections.map(section=>{
@@ -187,7 +189,7 @@ function trendChart(module, metric) {
 function performanceView() {
   const id=pins['CP-1'],{table}=findRow(id,'T4.10','Net sales');
   const retainedNotes=sectionData(id,'performance').flatMap(s=>s.blocks.filter(b=>b.type==='text')).map(b=>narrativeMarkup(id,b)).join('');
-  return `<div class="section-heading"><h2>Performance</h2><span>${esc(table.headers[3])}–${esc(table.headers[1])}</span></div>${trendChart(id,'Net sales')}<div class="section-heading compact"><h3>Exact financial measures</h3><span>Source order preserved</span></div>${tableMarkup(id,table)}${retainedNotes}`;
+  return `<div class="section-heading"><h2>Performance</h2><span>${esc(table.headers[3])}–${esc(table.headers[1])}</span></div>${trendChart(id,'Net sales')}<div class="section-heading compact"><h3>Exact financial measures</h3></div>${tableMarkup(id,table)}${retainedNotes}`;
 }
 function eventTimeline() {
   const id=pins['CP-1A'],section=sectionData(id,'events')[0], block=section.blocks.find(b=>b.type==='table');
@@ -237,7 +239,7 @@ function renderContent(id,section) {
   let visual=band+(id===pins['CP-1A']&&section==='business'?businessVisual():id===pins['CP-1']&&section==='cash'?trendChart(id,'Net cash provided by operating activities'):id===pins['CP-2']&&section==='outlook'?downside():'');
   visual+=galleryVisual(id,section)+readerCharts(id,section);
   if(section==='audit')visual+=`<div class="audit-intro"><h2>Original output & technical audit</h2><p>The retained output is available alongside its designed presentation. Analytical acceptance has not been verified by this library.</p><a href="${esc(data[id].href)}" download>Download original handoff</a><p class="hash">SHA-256 ${data[id].sha256}</p></div>`;
-  return visual+sectionsMarkup(id,sectionData(id,section),true)+(section==='audit'?visualPlan(data[id].module):'');
+  return visual+sectionsMarkup(id,sectionData(id,section),true);
 }
 function renderSearch(query) {
   if(!query){$('search-results').replaceChildren();return;}

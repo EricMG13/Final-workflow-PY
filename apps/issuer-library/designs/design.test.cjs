@@ -96,7 +96,7 @@ test('Every module primary view renders, with historical case changes and no fic
   assert.equal(ids.length,25);
   for(const id of ids){
     w.location.hash=id;w.eval('renderRoute()');
-    assert.ok(d.getElementById('content').textContent.length>200,id);
+    assert.ok(d.getElementById('content').textContent.length>200||d.querySelector('#content .missing-state'),id);
     assert.ok(!d.getElementById('content').innerHTML.includes('NaN'),id);
     assert.ok(!d.getElementById('module-head').textContent.includes('undefined'),id);
   }
@@ -166,7 +166,7 @@ test('Malformed and inherited-object route keys cannot break navigation or cross
 });
 test('An analytical verdict is not promoted to a provenance classification',()=>{
   const dom=fixture('CP-6'),w=dom.window,d=w.document;
-  const last=d.querySelectorAll('.debate')[2];assert.ok(last.textContent.includes('Insufficient Information'));assert.equal(last.querySelector('.source-footer .tag').textContent,'Not classified');
+  const last=d.querySelectorAll('.debate')[2];assert.ok(last.textContent.includes('Insufficient Information'));assert.equal(last.querySelector('.source-footer .tag'),null,'an unclassified row shows no tag');
   assert.equal(w.eval(`classification({fields:[['Evidence classification','Insufficient Information']]})`),'Insufficient Information');
   w.location.hash='CP-1D';w.eval('renderRoute()');assert.equal(d.querySelectorAll('.vector-chart rect').length,6);assert.ok(d.querySelector('.vector-chart').textContent.includes('4,173'));
   dom.window.close();
@@ -179,7 +179,8 @@ test('Workspace tabs preserve issuer/run; unavailable destinations never substit
     assert.equal(d.querySelector('.issuer h1').textContent,'Ford Otosan',name);
     assert.equal(w.eval('current.context'),'ford-otosan-2024',name);
     assert.ok(!d.querySelector('#content iframe'),name);
-    if(['Calendar','Deliverables'].includes(name))assert.ok(d.getElementById('content').textContent.includes('remains selected'));
+    if(name==='Calendar')assert.ok(d.getElementById('content').textContent.includes('No dates are inferred from other cases.'));
+    if(name==='Deliverables')assert.ok(d.getElementById('content').textContent.includes('No report was built from this run’s files'));
   }
   w.location.hash='CP-1/performance?c=ford-otosan-2024';w.eval('renderRoute()');
   assert.ok(d.querySelector('.missing-state'));assert.equal(d.querySelectorAll('.bar-column').length,0);
@@ -202,7 +203,7 @@ test('Narrative claims expose exact retained evidence without source hard wrappi
   const dom=fixture('CP-4/s75'),w=dom.window,d=w.document;
   assert.equal(d.querySelectorAll('.finding').length,3);assert.equal(d.querySelectorAll('.finding br').length,0);
   const button=d.querySelector('.finding .source-link');button.focus();button.click();w.eval('renderRoute()');
-  assert.ok(d.getElementById('inspector').textContent.includes('2.0'));assert.ok(d.querySelector('.finding .tag').textContent.includes('Not classified'));
+  assert.ok(d.getElementById('inspector').textContent.includes('2.0'));assert.equal(d.querySelector('.finding .tag'),null);assert.equal(d.querySelector('#inspector .classification').textContent,'Not classified');
   d.getElementById('back-analysis').click();w.eval('renderRoute()');assert.equal(d.activeElement,button);
   dom.window.close();
 });
@@ -287,9 +288,57 @@ test('The module filter groups modules under the credit question each one answer
   assert.equal(select.querySelector('option[value="CP-1"]').parentElement.label,'Financial performance');
   dom.window.close();
 });
+test('Grey text: app pages carry no subtitle, run headers no freshness line, the outline no design notes',()=>{
+  const dom=fixture('W-Library/cases'),w=dom.window,d=w.document;
+  assert.equal(d.querySelector('.issuer-meta'),null);
+  assert.equal(d.querySelector('.nav-help'),null);assert.equal(d.querySelector('.nav-key'),null);
+  w.location.hash='CP-1?c=tdg-002';w.eval('renderRoute()');
+  assert.equal(norm(d.querySelector('.issuer .scope').textContent),'FY2024 historical evidence · later events separately dated');
+  assert.equal(norm(d.querySelector('#context-step .intro').textContent),'Load a saved context or enter the issuer.');
+  dom.window.close();
+});
+test('Grey text: a Library row shows the period up to its first dot and only the report count',()=>{
+  const dom=fixture('W-Library/cases'),d=dom.window.document;
+  const row=key=>d.querySelector(`.run-list a[href*="c=${key}"]`);
+  assert.equal(norm(row('tdg-002').querySelector('span').textContent),'FY2024 historical evidence');
+  assert.equal(norm(row('tdg-002').querySelector('small').textContent),'7 reports');
+  assert.equal(norm(row('ford-otosan-2024').querySelector('small').textContent),'');
+  dom.window.close();
+});
+test('Grey text: Evidence rows name only the attempt; the intro states the PDF limitation plainly',()=>{
+  const dom=fixture('W-Evidence/sources?c=tdg-002'),d=dom.window.document,content=d.getElementById('content');
+  assert.equal(norm(content.querySelector('.intro').textContent),'Source PDFs aren’t included; page references point to the originals.');
+  assert.equal(norm(content.querySelector('.source-inventory>section p').textContent),'Attempt 1 of 2');
+  assert.ok(![...content.querySelectorAll('.source-inventory .tag')].some(t=>t.textContent==='Saved output'));
+  dom.window.close();
+});
+test('Grey text: run pages drop state narration, hash notes, design specs and empty classifications',()=>{
+  const dom=fixture('W-Reports/list?c=tdg-002'),w=dom.window,d=w.document;
+  const at=route=>{w.location.hash=route;w.eval('renderRoute()');return d.getElementById('content');};
+  let c=at('W-Reports/list?c=tdg-002');
+  assert.equal(norm(c.querySelector('.intro').textContent),'7 reports built from TDG-002’s files.');
+  assert.equal(c.querySelector('.report-row small'),null);
+  c=at('W-Reports/tdg-fy2024-snapshot-3?c=tdg-002');assert.ok(!c.textContent.includes('remains selected'));
+  c=at('CP-OS/activity?c=tdg-002');
+  assert.ok(c.textContent.includes('No live progress or cost recorded for this run.'));assert.ok(c.textContent.includes('9 saved outputs'));
+  assert.ok(!/source identity|SHA-256|historical selection/.test(c.textContent));
+  c=at('W-Calendar/unavailable?c=tdg-003');assert.equal(c.querySelector('.context-note'),null);assert.equal(c.querySelector('.matrix-note'),null);
+  c=at('CP-1?c=tdg-002');assert.ok(!c.textContent.includes('Source order preserved'));
+  c=at('W-Overview/overview?c=tdg-002');
+  assert.ok(!c.textContent.includes('Not classified'));
+  assert.deepEqual([...c.querySelectorAll('.matrix-note')].map(n=>norm(n.textContent)),['Missing values have no bar.']);
+  assert.equal(c.querySelector('.chart-legend'),null);
+  const seen=[...c.querySelectorAll('.horizontal-chart .chart-label')].map(l=>norm([...l.childNodes].filter(n=>!n.classList?.contains('sr-only')&&n.tagName!=='SMALL').map(n=>n.textContent).join('')));
+  assert.deepEqual(seen.slice(0,4),['Base','','','Demand and margin pressure']);
+  c=at('CP-MODEL/publication?c=tdg-002');assert.equal(c.querySelector('.visual-plan'),null);assert.ok(!c.textContent.includes('delivery metadata'));
+  c=at('CP-2H?c=tdg-002');assert.equal(c.querySelector('.visual-plan'),null);
+  c=at('CP-2?c=tdg-003');assert.equal(norm(c.querySelector('.missing-state p').textContent),'3 versions of this analysis. Choose one to read.');
+  c=at('W-Help/help');assert.ok(!c.textContent.includes('Visualisation coverage'));
+  dom.window.close();
+});
 test('The library says what it is once and puts New run beside its title',()=>{
   const dom=fixture('W-Library/cases'),d=dom.window.document;
-  assert.equal(norm(d.querySelector('.issuer-meta').textContent),'Find a run or start a new one');
+  assert.equal(d.querySelector('.issuer-meta'),null,'the title stands alone');
   assert.equal(d.querySelector('#content .intro'),null,'no second introduction');
   assert.ok(d.getElementById('library-new-run').closest('.issuer'),'the primary action sits beside the title');
   assert.equal(d.getElementById('library-new-run').getAttribute('href'),'#W-NewRun/run');
@@ -313,7 +362,7 @@ test('A run row leaves out zero counts and says when a run holds no saved output
   assert.doesNotMatch(meta('web-1'),/\b0 /);
   const real=fixture('W-Library/cases');
   for(const small of real.window.document.querySelectorAll('.run-list small'))assert.doesNotMatch(small.textContent,/(^|· )0 /,small.textContent);
-  assert.match(norm(real.window.document.querySelector('.run-list a[href*="c=tdg-002"] small').textContent),/· \d+ reports?$/);
+  assert.match(norm(real.window.document.querySelector('.run-list a[href*="c=tdg-002"] small').textContent),/^\d+ reports?$/);
   real.window.close();dom.window.close();
 });
 test('A source footer leaves the line number to the inspector',()=>{
@@ -425,7 +474,7 @@ test('Availability uses only the recorded labels and an available output is neve
 test('A module with no output shows no other case, no outline and no pager, and offers only the same issuer',()=>{
   const dom=fixture('CP-2H?c=tdg-002'),d=dom.window.document,content=d.getElementById('content');
   assert.ok(content.querySelector('.missing-state').textContent.includes('No output found'));
-  const plan=content.querySelector('.visual-plan');plan.remove();
+  assert.equal(content.querySelector('.visual-plan'),null);
   assert.ok(!/dated rating posture|agency divergence|Ford/i.test(`${content.textContent} ${d.getElementById('module-list').textContent} ${d.getElementById('section-nav').textContent}`));
   assert.equal(d.getElementById('next-section'),null);assert.equal(d.querySelector('.section-outline'),null);
   assert.deepEqual([...content.querySelectorAll('.available-case a')].map(a=>new URLSearchParams(a.hash.split('?')[1]).get('c')),['tdg-003']);
@@ -477,7 +526,7 @@ test('Key C: reports trace to their source files by hash and carry the recorded 
   for(const [run,builds] of Object.entries(REPORTS_BY_RUN)){
     const content=contentOf(dom,`W-Reports/list?c=${run}`),built=[...content.querySelectorAll('.report-built .report-row a')].map(a=>a.textContent);
     assert.deepEqual(built.map(t=>Number(t.match(/Build (\d)/)[1])).sort(),builds,run);
-    if(!builds.length)assert.ok(content.textContent.includes('No report was built from this run’s files (checked by SHA-256)'),run);
+    if(!builds.length)assert.ok(content.textContent.includes('No report was built from this run’s files'),run);
   }
   for(const route of ['W-Reports/list?c=tdg-002','W-Reports/tdg-fy2024-snapshot-3?c=tdg-002','W-Library/cases','W-Overview?c=tdg-002','CP-OS?c=tdg-003','W-Help/help'])assert.ok(!/source-run linkage|No report linked|Revision order unverified|Saved build|tdg-deliveries/.test(contentOf(dom,route).innerHTML),route);
   dom.window.close();
@@ -511,9 +560,9 @@ test('CP-8 is the deliverable comparison: all retained rows, both reports and th
   assert.ok(text.includes('RC-1/2/3 are closed for this delivery revision.'));assert.ok(text.includes('“Current” means the selected latest local report, not current2026 issuer information.'));
   assert.equal(content.querySelectorAll('.regression-row .grade').length,3);for(const grade of content.querySelectorAll('.regression-row .grade'))assert.equal(grade.textContent,'Closed');
   const gaps=contentOf(dom,`CP-8/gaps`);assert.ok(gaps.textContent.includes('Native integration and assurance'));
-  const old=/decision review|attribution|calibration|hit-rate|post-mortem/i,plan=w.eval(`visualPlan('CP-8')`);
-  assert.ok(!old.test(text));assert.ok(!old.test(d.getElementById('module-head').textContent));assert.ok(!old.test(d.getElementById('module-list').textContent));assert.ok(!old.test(plan));
-  assert.equal(JSDOM.fragment(plan).querySelectorAll('section').length,3);assert.equal(w.eval('window.DESIGN_WORKSPACE.visuals.length'),91);
+  const old=/decision review|attribution|calibration|hit-rate|post-mortem/i;
+  assert.ok(!old.test(text));assert.ok(!old.test(d.getElementById('module-head').textContent));assert.ok(!old.test(d.getElementById('module-list').textContent));
+  const cp8=JSON.parse(w.eval(`JSON.stringify(window.DESIGN_WORKSPACE.visuals.filter(v=>v.module==='CP-8'))`));assert.equal(cp8.length,3);assert.ok(!old.test(JSON.stringify(cp8)));assert.equal(w.eval('window.DESIGN_WORKSPACE.visuals.length'),91);
   const recheck=contentOf(dom,'CP-8?c=tdg-run-comparison&o=CP-8-recheck.md');assert.ok(recheck.textContent.includes('RC-3 Critical labels'));assert.equal(recheck.querySelectorAll('.change-row').length,0);
   dom.window.close();
 });
@@ -769,7 +818,7 @@ test('An uncurated workspace works: unnamed modules, unstructured handoffs, no c
   const dom=appFixture('CP-4A?c=web-1',NORTHBRIDGE,NORTHBRIDGE_REPORTS),d=dom.window.document;
   assert.equal(dom.window.eval('current.module'),'CP-4A');
   assert.doesNotMatch(d.body.textContent,/Historical evidence|not current issuer/,'a new run is not historical by default');
-  assert.match(d.querySelector('.issuer').textContent,/Retained evidence · not updated since this run/);
+  assert.equal(norm(d.querySelector('.issuer .scope').textContent),'As of 2025-03-31');
   assert.match(d.getElementById('module-head').textContent,/Shown unstructured: Body before first heading/);
   assert.ok(d.getElementById('content').textContent.includes('Body <b>raw</b>'),'raw text is shown, escaped');
   assert.equal(d.querySelector('#content b'),null);

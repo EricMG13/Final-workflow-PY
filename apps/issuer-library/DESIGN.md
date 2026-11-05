@@ -117,7 +117,8 @@ are bundled locally with their ISC/MIT license notices. Icons accompany labels.
 ## Do's and Don'ts
 
 Do use source identity, period, unit and limitations as part of the view. Do keep
-unknown provenance labelled “Not classified”. Do use subdued depth and clear
+unknown provenance labelled “Not classified” in the evidence inspector; lists and
+source footers show a class only when the handoff declares one. Do use subdued depth and clear
 reading hierarchy. Do keep all assets offline. Do not mix fiscal periods, invent
 missing figures, treat workflow progress as credit quality, or promote an attempt
 because its filename sorts first.
@@ -131,7 +132,7 @@ because its filename sorts first.
 - **View source** opens the exact module row; **Open source file** opens the
   original file. **Back to analysis** restores the chart, fact or event that opened it.
 - **Evidence & audit** holds production records and technical detail.
-  **Not classified** retains the user's chosen unknown-provenance label.
+  **Not classified** retains the user's chosen unknown-provenance label there.
 
 ## The one app
 
@@ -180,15 +181,15 @@ agency comparisons, provision and claim-lineage matrices, recovery comparisons,
 funding-case differences, and bull/bear/resolution views. Complete exact data and
 qualifications remain adjacent or in named sections. Qualitative presentations
 that already contain every table field do not repeat the same table underneath.
-The existing 91-view specification is available under Help / Visualisation
-coverage and module audit; this is a plan, not a claim that every figure is populated.
+The 91-view specification stays in docs/visualisations for builders; the app does
+not show it, and it is a plan, not a claim that every figure is populated.
 
 Blue identifies data and action; navy and muted blue-grey distinguish ordinary
 comparison series. Amber identifies labelled conditional downside or attention.
 Conditional paths also use distinct dash patterns; signed outflows use direction
 and exact values instead of receiving an inferred adverse grade. Grey
 marks absent/unassessed evidence. Analytical outcomes do not become provenance
-labels. Unknown provenance displays Not classified beside source links. No
+labels. Unknown provenance displays Not classified in the evidence inspector. No
 probability, numerical credit grade or new analytical result is introduced.
 
 Issuer/run context is encoded in workspace links and deep links. Missing destinations retain
