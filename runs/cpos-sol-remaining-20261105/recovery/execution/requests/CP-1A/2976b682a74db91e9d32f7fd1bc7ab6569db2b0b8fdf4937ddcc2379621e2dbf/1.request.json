@@ -1,0 +1,40 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0": "8a0611cc768e043abd52c2bf4899f6b0a6d560a1c264f7fbc991fa6d10863963",
+    "CP-1": "2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891"
+  },
+  "instructions": "# Targeted source-completeness correction \u2014 preserve the existing module\nThe host found a real error in its earlier maturity review: it compared a calendar-year note label to a fiscal-year repayment bucket and missed explicit annual report pages43,45,46. The earlier host instruction to invent an unresolved FY2027 conflict is withdrawn. This supersedes any contrary prior text in your seeded actual draft. Use edit_handoff on that draft. Do not regenerate unrelated tables, analysis, calculations, scores or conclusions. This is your existing module's targeted repair, not a new workflow.\n\nRead S1-annual-report.pdf pages43\u201346 (one-based PDF pages) via source tools. Keep all source identities unchanged; record your new direct coverage. Re-anchor all current upstream hashes from task.handoffs (some have changed by this same source correction) and actually review their corrected passages. The seeded draft is your prior actual response, not external authority.\n\nSource corrections:\n- Page43 explicitly says no tranche of term loans or notes matures until November2027 (fiscal2028). Page46 lists 5.50% notes USD2650m due November15 2027. The page133 fiscal2027 bucket92 is NOT in conflict. Keep reported maturity rows93,92,92,6637,4768,12637 and source scope (long-term debt excluding finance leases; separate short-term A/R). Do not invent full instrument/amortization allocation merely from this correct date mapping. Withdraw every alleged calendar/fiscal maturity conflict, conditional FY2027 missing display and issuer-reconciliation request motivated solely by it. Explain the correction where material; retain source dates/amounts.\n- Page45 lists exact revolver maturity February27 2029 and67m outstanding letters of credit alongside910m commitments/843m available. State LC amount as sourced, not inferred drawn borrowing. Live liquidity/cash accessibility and conditions remain separate gaps.\n- Page46 lists exact annual-reported note maturities: 5.50%2027 Nov15 2027;6.75%2028 Aug15 2028;4.625%2029 Jan15 2029;6.375%2029 Mar1 2029;4.875%2029 May1 2029;6.875%2030 Dec15 2030;7.125%2031 Dec1 2031;6.625%2032 Mar1 2032;6%2033 Jan15 2033. Correct any claim that these reported dates are unavailable. For legal authentication, still distinguish annual-reported Jan15 2033 from the supplied blank note-form day and absent authenticated issued note. Coupon/call dates do not fill the form. Do not change amounts/rates or infer call schedules from maturities.\n- Pages44\u201345 contain summarized combined issuer/guarantor financial data, explicitly excluding non-guarantors and eliminating intercompany among included entities. For legal/selection modules, acknowledge the supplied combined summary rather than claim all guarantor financial information is absent. It does not provide an individual entity/collateral/perfection/value map or an allowed-claims waterfall; retain those real gaps. Other modules need not add unrelated new data.\n\nPreserve genuine cash/dividend scope residuals, lease narrative classification issue, legal-reference chronology discrepancies, absent market/mandate/currentcash/valuation inputs and all applicable qualifications. Never turn missing evidence into zero or adverse outcomes. Current historical case and all six H2 headings remain. CP1 blank numeric cells with adjacent reasons remain the explicit existing Model convention; do not rewrite them. CP3 output maturity table heading/columns/rows remain with FY2027 numeric92. CP5's three prior instruction-context false positives stay withdrawn, and the maturity-conflict finding must now be withdrawn as a host/model calendar-fiscal error with source proof; the other three real source-scope conflicts remain for independent assessment. CP6 must review the corrected CP5 and not treat the withdrawn findings as evidence against the issuer or as an unresolved maturity gap. Preserve unrelated conclusions unless this specific correction justifies a change, which must be explicit.\n\nUse only exact local edit_handoff changes needed for these source corrections and current upstream identity updates. Submit the retained corrected response. No new provider-independent calculation or visual/checker execution claim.\n\nExact seeded draft SHA256: b58fdbea15b292eece7b49baae234822f5c36ddcbe80c78f1729fa9faaf8c56b.\n",
+  "module_id": "CP-1A",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-4",
+      "CP-6"
+    ],
+    "run_id": "sol-fresh-tdg-complete-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "CP-3-REF_CP-3A_STEPS": "40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec",
+    "CP-3-REF_CP-3_STEPS": "a142dd66006ea876e3abc9166e0184fcb0685b32bc5cff703e9158da22fe8767",
+    "CP-3-method": "7e85b2f545fffcb3ad17f4997e5c577ae9620d279f1ffe8e12aefa8ce38abcd1",
+    "CP-4-REF_CP-4_STEPS": "ef5eb569be59ec30dd3a66c1bcc81c5cc0bcc2e9d2ac3909b04caa23339b6b94",
+    "CP-4-method": "8a3b12f3f37359463434177759febac1ffcf0f8c484aa0508eb7119f7b6548b2",
+    "CP-5-REF_CP-5A_STEPS": "e93781b8055e0c33e744b06fb0706161885400d6f8c7ef07a743497d4a865e8d",
+    "CP-5-REF_CP-5_STEPS": "0b5beddbc0a5d3c99065379b7110e3b87fbc5392d38ed243ccbf7fdce70e506a",
+    "CP-5-method": "7f21c8712cb40e871abaa1f855fdb95dded5df9887e354c39253e0492dd93390",
+    "CP-6-REF_CP-6_STEPS": "6141d27e800d45d2d0208173f38060c75d97005ee9b93013e24a16a40570f1e1",
+    "CP-6-method": "0ae74db02dd569fe7805e62a661f22cd436494183ba5cb928f8be37aa549a96b",
+    "S1-annual-report.pdf": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af",
+    "S1-text-aid.jsonl": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db",
+    "legal-text": "cb2c0c77e7ec1f90e5a7117a5df7e16cd2556b02e7be7ca43fbf4d64ed585b05"
+  }
+}

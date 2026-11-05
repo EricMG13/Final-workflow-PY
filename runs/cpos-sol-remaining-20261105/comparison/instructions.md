@@ -16,6 +16,22 @@ not physical pages. Use precise file, chunk and field/heading locators. Retain
 exact prior/current receipt hashes, run IDs and relevant artifact hashes. Do not
 claim complete exhaustive record comparison unless actually performed.
 
+Batch targeted reads in a single tool turn where possible. The first page of
+each receipt and the relevant sections of each report view, calculation JSON
+and Model identify the published contents. Use narrow searches for underlying
+handoff evidence rather than reading repeated embedded report data. In
+particular, check whether an apparent 2027 maturity conflict was a calendar
+date compared with a fiscal bucket. Attribute the corrected interpretation to
+the source and state whether the reported bucket itself changed.
+
+For a compact evidence pass, call list_sources, read page 1 of both delivery
+receipts and pages 3–4 of both calculation JSON files, and use search_source for
+the report-view block IDs, Model links, original CP-1 maturity wording, and
+the current CP-6 action bias. Search directly for any remaining material fact.
+Use at most two batched evidence turns and then submit the complete comparison.
+The host already checked both complete bundles and their HTML/view bindings;
+distinguish your own sampled reads from that host validation.
+
 Use six H2 headings: Request, Sources, Findings, Calculations, Gaps, Next module.
 Under Findings provide exactly one table with headers:
 Dimension | Prior deliverable | Current deliverable | Explanation

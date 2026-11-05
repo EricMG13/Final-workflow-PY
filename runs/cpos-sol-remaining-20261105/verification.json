@@ -239,7 +239,7 @@
       "aliases": [
         "CP-6A"
       ],
-      "status": "Both full eleven-duty base and portfolio functions live reviewed, targeted repairs retained and reports published; current fresh TDG committee stage follows assurance.",
+      "status": "Annual live and exact live wording repair verified; prior December live response carried forward with host source erratum.",
       "portfolio": {
         "handoff": "lqd-debate/CP-6-repaired.md",
         "sha256": "554455c01803a0ae794e49dacc7ceb98c30f0b81be1a2b81f668ecb53de117f8",
@@ -252,11 +252,21 @@
         "handoff_sha256": "d999e6a0af14925a14dfe6c6cb414d65bd458e62d14535af322fc4e811540d3f",
         "report": "tdg-ic/CP-6-delivery/report.html",
         "review": "All258lines compared to current10handoff pins, selected primary legal text and fullmethod. Three exact pitch/attack/defense pairs; all10neutralmap dimensions,9Chairdimensions(no partialaverage/4unscored),4exactschemas,12verbatimcontrols. Full conditionalZeroBound chain and11legalweakening vectors preserve unproven links, actualpositiveOCF and conditional protections. No currentinvest/RV/portfolio approval. ConfirmedICFR wording bug corrected to effectiveopinion with acquisitionexclusions; no Bullwin over unassertedunlimitedpriming; missing sufficiency evidence Defense2 nowInsufficientInformation. Actual6exactedits verified byteforbyte; numbers/scores/Watchlist unchanged."
+      },
+      "annual_recovery": {
+        "sha256": "cfd965c46e884cc6f8763a14119d843e305d95955d68587795f0e0658dd6c773",
+        "original_response_sha256": "22dfe64e5b9c3ff5764839378b4db9c71259ecf1f897fb710b876d38251fadf1",
+        "review": "Reviewed all 11 IC and absorbed portfolio functions, exactly 3 matched challenge pairs, 9 Chair evidence dimensions without an incomplete average, 7 current upstream hashes and exact source/control amounts. Requires More Work and restricted historical use supported. Actual seeded edit changed exactly two phrases: CFO versus CFO less capex (PDF109) and November 2023 dividend payment (PDF146). All numbers, conclusions and proof trace retained. CP-OS consumes the repaired live artifact with all seven upstream pins."
       }
     },
     "CP-8": {
-      "aliases": [],
-      "status": "pending live module proof; historical host proof remains separately recorded"
+      "report": "comparison/execution/deliveries/0656748d344c9ae4a504157fd5681143daddfd978462f95e20a35a5278302f29/report.html",
+      "handoff_sha256": "9de6d2e6f3a6bb4162a8a91832605a44643becd333dc0b05a1838543f5b7489f",
+      "report_sha256": "40d4dd14b74cd49f9aadc8816c0c922651df2cb797322a7ca826f58b331ecc94",
+      "calls": 4,
+      "cost_usd": "0.28462380",
+      "verification": "Seven dimensions published from actual response; every citation line/hash exact; both complete input bundles revalidated; zero-provider resume preserves publication and call log.",
+      "status": "Verified live sol-medium publication comparison; all seven dimensions and prior/current hashes checked."
     },
     "CP-L10": {
       "aliases": [
@@ -328,20 +338,35 @@
     }
   },
   "pathways": {
-    "credit_snapshot": "pending full selected scope",
-    "earnings_update": {
-      "report": "pathways/earnings_update/published/report.html",
-      "panels": 14,
-      "scope": "TDG historical earnings update for December 28, 2024 versus December 30, 2023. The FY2022\u2013FY2024 annual Model and separately dated November 2024/February 2025 guidance remain distinct. What Changed compares reported and guided periods; CP-8 prior-run comparison is separate. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
-      "report_sha256": "75910545f9f8acffcd10d2e60f54f44d18ebb7c1ff6a5d8b244c5229fef193c7",
+    "credit_snapshot": {
+      "report": "recovery/execution/deliveries/96c0def4111ccdccdba03f67829817a9d180bd1b6d23ca5bd36dd88fdb0d1dee/report.html",
+      "panels": 12,
       "handoff_hashes": {
-        "CP-1": "9d57bc5d5baac5c16a3f12fc2c017b8405e3e3b3db327002890f8cf8f7a1eb03",
-        "CP-1A": "3da9bf55281dc9a86e15bbb438ddd3b8aa04244344ab5ee7e5c059fc2da9054f",
-        "CP-2": "e7b46ceeedf76db7143359e7cef97b64c6a210dd7b63d3362cc2a7943018ee3a",
+        "CP-0": "8a0611cc768e043abd52c2bf4899f6b0a6d560a1c264f7fbc991fa6d10863963",
+        "CP-1": "2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891",
+        "CP-1A": "ac6631243ca71cda10dcdafcc5696a3393c9617b61c49bdfe8e94d2d5a33f955",
+        "CP-2": "46cca7cd74c612c8c29b7d89c572a46c1e86481a387bd1301525e3e440b3ae1c",
+        "CP-4": "3d39b8424f070064d992a2534bf0ef355ffbde34cd550222bb2adb97ac41e72e",
+        "CP-3": "d2472fbb0694f2d73882f0c405765c19604dbbf11f5116acc1cbc4c8a01a76d7",
+        "CP-5": "b629973ef435578dc42a4ef932e558b0c18de3f441b50be1aa3f0f7cbd7d7b86",
+        "CP-6": "cfd965c46e884cc6f8763a14119d843e305d95955d68587795f0e0658dd6c773"
+      },
+      "report_sha256": "354da61a24e620dc141a94e9d6ce25374eeff532267e43756e8038661f3d5db6",
+      "verification": "Checked retained CP-0 intake and seven sequential live TDG modules consumed the exact current handoffs; all12panels populated; every raw line/hash preserved; 81 independent Fraction expectations and18 Model chart twins; four report charts. Primary annual43/45/46 resolves November2027 as fiscal2028; reported FY2027 remains92. Complete CP8 bundle; provider-refusing resume identical."
+    },
+    "earnings_update": {
+      "report": "recovery/pathways/earnings_update/published/report.html",
+      "panels": 14,
+      "scope": "TDG historical earnings update for December 28, 2024 versus December 30, 2023. The FY2022\u2013FY2024 annual Model and separately dated November 2024/February 2025 guidance remain distinct. What Changed compares reported and guided periods; CP-8 prior-run comparison is separate. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output. The retained live December committee response includes a source-checked host erratum for the annual maturity mapping. Its December periods and Watchlist judgment are unchanged.",
+      "report_sha256": "3328220561e6abee307ef815f365ca86d59dcf538a9978315ba091cef9bd1e75",
+      "handoff_hashes": {
+        "CP-1": "2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891",
+        "CP-1A": "ac6631243ca71cda10dcdafcc5696a3393c9617b61c49bdfe8e94d2d5a33f955",
+        "CP-2": "46cca7cd74c612c8c29b7d89c572a46c1e86481a387bd1301525e3e440b3ae1c",
         "CP-1B": "42ee44c8350150abd3875adc4ee30ba2cdc4658d0db3ed905251f4825be6e377",
         "CP-1D": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
         "CP-DR": "0463a4b16e8ed7de1e1ed9a219587bbf4ee2b6fc2e98228d4f0090c22d487b03",
-        "CP-6": "d999e6a0af14925a14dfe6c6cb414d65bd458e62d14535af322fc4e811540d3f"
+        "CP-6": "85c4820fc1a925d21741a9904cf20e97e1d2a9f5e6fd49037b56e22f07bc75e2"
       },
       "verification": "Exact preset panelset, populated blocks, immutable handoff byte parity, every fact citation/physical line/sourcehash, complete CP8-ready bundle verified; chart/Model/portfolio independent expected values checked where applicable."
     },
@@ -360,35 +385,35 @@
       "verification": "Exact preset panelset, populated blocks, immutable handoff byte parity, every fact citation/physical line/sourcehash, complete CP8-ready bundle verified; chart/Model/portfolio independent expected values checked where applicable."
     },
     "covenant_refinancing": {
-      "report": "pathways/covenant_refinancing/published/report.html",
+      "report": "recovery/pathways/covenant_refinancing/published/report.html",
       "panels": 11,
-      "scope": "TDG\u2019s executed September 19, 2024 indenture for the 6% 2033 notes, with December 28, 2024 liquidity context. Annual, quarter and instrument dates remain separate. The reported Note 10 maturity schedule contains an unresolved FY2027 conflict: 92 versus notes of 2,650 due that year. It excludes receivables financing and finance leases. It is not a reconciled maturity wall. Current certificates, the complete intercreditor package and forward cash inputs remain gaps. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
-      "report_sha256": "357bed189cbb728e06c500176842abcfbdca7a09fa7be62e7c75d446a8e1e62a",
+      "scope": "TDG\u2019s executed September 19, 2024 indenture for the 6% 2033 notes, with December 28, 2024 liquidity context. Annual, quarter and instrument dates remain separate. The November 15, 2027 notes mature in fiscal 2028; the reported Note 10 fiscal 2027 repayment bucket remains USD 92 million. The annual report supplies January 15, 2033 as the reported maturity; the blank day in the supplied note form does not authenticate that date. The Note 10 schedule excludes receivables financing and finance leases. It does not allocate every instrument to a fiscal bucket. Current certificates, the complete intercreditor package and forward cash inputs remain gaps. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+      "report_sha256": "be06304e25b595483573334e4105aab35ae3b702ca0b5734c5a2b66961113395",
       "handoff_hashes": {
-        "CP-1": "89dced9cb71499d2c18ae55dda6bfcb524f060b86c43b52e9f35ece4e1c38c9e",
-        "CP-1A": "3da9bf55281dc9a86e15bbb438ddd3b8aa04244344ab5ee7e5c059fc2da9054f",
-        "CP-2": "e7b46ceeedf76db7143359e7cef97b64c6a210dd7b63d3362cc2a7943018ee3a",
-        "CP-4": "267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43",
+        "CP-1": "2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891",
+        "CP-1A": "ac6631243ca71cda10dcdafcc5696a3393c9617b61c49bdfe8e94d2d5a33f955",
+        "CP-2": "46cca7cd74c612c8c29b7d89c572a46c1e86481a387bd1301525e3e440b3ae1c",
+        "CP-4": "3d39b8424f070064d992a2534bf0ef355ffbde34cd550222bb2adb97ac41e72e",
         "CP-3C": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
         "CP-2D": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565",
         "CP-1D": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807"
       },
-      "verification": "Exact preset panelset, populated blocks, immutable handoff byte parity, every fact citation/physical line/sourcehash, complete CP8-ready bundle verified; chart/Model/portfolio independent expected values checked where applicable."
+      "verification": "All preset blocks populated and exact raw/hashes/citation lines verified, complete bundle rechecked, six independent maturity observations match PDF133 and PDF43/46 maps November 2027 to fiscal 2028."
     },
     "distressed_restructuring": {
-      "report": "pathways/distressed_restructuring/published/report.html",
+      "report": "recovery/pathways/distressed_restructuring/published/report.html",
       "panels": 15,
-      "scope": "TDG conditional downside and restructuring route. Actual distress is not established. Annual static stress, conditional forecasts and December liquidity use their own periods and assumptions. Recovery by class, realizable-value allocation and agency rating triggers remain explicit gaps. Positive recovery-function proof on Frontier\u2019s 2020 case is separate and supplies no TDG facts. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
-      "report_sha256": "4592efddf6adba6c97d084371ecbf3341f372dee5fd129cab623138c26b7bd54",
+      "scope": "TDG conditional downside and restructuring route. Actual distress is not established. Annual static stress, conditional forecasts and December liquidity use their own periods and assumptions. Recovery by class, realizable-value allocation and agency rating triggers remain explicit gaps. Positive recovery-function proof on Frontier\u2019s 2020 case is separate and supplies no TDG facts. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output. The retained live December committee response includes a source-checked host erratum for the annual maturity mapping. Its December periods and Watchlist judgment are unchanged.",
+      "report_sha256": "e386c386fa79d379819c8a4c95ac219fd7b4649bb09fd70545ca920596ce864e",
       "handoff_hashes": {
         "CP-1D": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
         "CP-2A": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3",
         "CP-2D": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565",
         "CP-2G": "20314e01d39b87d2e50d4a50ab048371175bccc4c8330ff1170811254b38a2c6",
         "CP-2": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
-        "CP-4": "267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43",
+        "CP-4": "3d39b8424f070064d992a2534bf0ef355ffbde34cd550222bb2adb97ac41e72e",
         "CP-3C": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
-        "CP-6": "d999e6a0af14925a14dfe6c6cb414d65bd458e62d14535af322fc4e811540d3f"
+        "CP-6": "85c4820fc1a925d21741a9904cf20e97e1d2a9f5e6fd49037b56e22f07bc75e2"
       },
       "verification": "Exact preset panelset, populated blocks, immutable handoff byte parity, every fact citation/physical line/sourcehash, complete CP8-ready bundle verified; chart/Model/portfolio independent expected values checked where applicable."
     },
@@ -403,6 +428,14 @@
         "CP-5": "475284bdcf6b4ff2109e5037d0732b08b7a2d88a4db437ca45558a2d79459c38"
       },
       "verification": "Exact preset panelset, populated blocks, immutable handoff byte parity, every fact citation/physical line/sourcehash, complete CP8-ready bundle verified; chart/Model/portfolio independent expected values checked where applicable."
+    },
+    "cp8_comparison": {
+      "report": "comparison/execution/deliveries/0656748d344c9ae4a504157fd5681143daddfd978462f95e20a35a5278302f29/report.html",
+      "handoff_sha256": "9de6d2e6f3a6bb4162a8a91832605a44643becd333dc0b05a1838543f5b7489f",
+      "report_sha256": "40d4dd14b74cd49f9aadc8816c0c922651df2cb797322a7ca826f58b331ecc94",
+      "calls": 4,
+      "cost_usd": "0.28462380",
+      "verification": "Seven dimensions published from actual response; every citation line/hash exact; both complete input bundles revalidated; zero-provider resume preserves publication and call log."
     }
   },
   "confidence_review": {
@@ -681,7 +714,7 @@
     "independent_calculations": 582,
     "declined_nonpositive_ratios": 2
   },
-  "checkpoint_scope": "User-requested checkpoint committed/pushed. Final source-completeness repairs and CP8 live comparison remain unfinished. CP6 timed out with unknown charge; existing paid budget is stopped. Affected TDG publications are not final verified analytical outputs; prior calendar/fiscal conflict findings are withdrawn.",
+  "checkpoint_scope": "Complete bounded historical proof. Corrected annual issuer-to-deliverable run, live CP-8, five verified broader publications. Earlier checkpoint artifacts remain historical. No current underwriting, native contract acceptance or new whole-pathway executions for the five reuse cases.",
   "fresh_reviews": {
     "CP-0": {
       "sha256": "8a0611cc768e043abd52c2bf4899f6b0a6d560a1c264f7fbc991fa6d10863963",
@@ -722,7 +755,7 @@
     "declined_nonpositive_ratios": 2
   },
   "source_completion": {
-    "status": "Blocked on the existing unknown-charge stop; correction instructions and offline publication checks prepared, no unreviewed handoff approved.",
+    "status": "Resolved and consumed. Primary fiscal mapping, reported dates, and LCs corrected in actual annual handoffs; December retained response has exact host erratum.",
     "confirmed_root_cause": "Host compared calendar due-year2027 with fiscal2027 and missed annualPDF43/45/46. PDF43 explicitly maps November2027 to fiscal2028; PDF46 gives November15 2027 and January15 2033 dates; PDF45 supplies67letters of credit and February27 2029 revolver maturity. Prior host-imposed conflict is false.",
     "affected": "Fresh CP1/1A/2/4/3/5/6 and three broader TDG publications; historical source/run artifacts preserved. Current corrections must propagate exact new upstream identities before final delivery.",
     "superseded_reviews": {
@@ -781,11 +814,96 @@
       "invocation": "c4b8646b27f11b6fc1bc40b8347c5ca3fc6a941561dce3b8928857b746246a50",
       "call_index": 3,
       "reservation": "call-21d687e539ab47968dce21c887d98508",
-      "status": "OverallTimeout after host sleep/wake; sent_unknown, no model handoff or usage returned. Existing budget stop prevents further paid execution. No retry or cap reset performed.",
+      "status": "Historical transport timeout and unknown marker preserved; cost now accounted from provider usage, see recovery.cp6_cost_reconciliation.",
       "error_class": "OverallTimeout",
       "known_campaign_cost_usd": "17.03720670",
       "unknown_call_hold_usd": "5.610000",
       "conservative_campaign_bound_usd": "22.64720670"
+    }
+  },
+  "recovery": {
+    "cp6_cost_reconciliation": {
+      "evidence": "OpenAI project Usage activity export, Responses and Chat Completions, 1-minute buckets for 2026-11-05 UTC. Original export retained locally in Downloads (not committed). The same project and API key matched all nearby successful completion buckets in count and input/output/cached/cache-write tokens. 05:52 UTC has one extra sol completion, no competing local dispatch after 05:47; its 110658 cache-read tokens equal the last successful CP6 call input less 126 uncached tokens. Charge is reconstructed from the repo tariff; no response body recovered.",
+      "export_sha256": "c92992adcbb704e0ed5b8c7e3e3722e91ff5b2fc7c9c24d6c212a6107767d3cf",
+      "bucket_start": "2026-11-05T05:52:00+00:00",
+      "bucket_end": "2026-11-05T05:53:00+00:00",
+      "usage": {
+        "num_model_requests": 1,
+        "input_tokens": 121120,
+        "output_tokens": 13066,
+        "input_cached_tokens": 110658,
+        "input_cache_write_30m_tokens": 10336,
+        "input_uncached_tokens": 126
+      },
+      "known_previous_usd": "17.03720670",
+      "reconciled_timeout_usd": "0.1678178",
+      "total_previous_usd": "17.20502450",
+      "remaining_usd": "7.79497550",
+      "reservation": "call-21d687e539ab47968dce21c887d98508; original 5.610000 unknown record preserved unchanged."
+    },
+    "reviews": {
+      "CP-0": {
+        "sha256": "8a0611cc768e043abd52c2bf4899f6b0a6d560a1c264f7fbc991fa6d10863963",
+        "review": "Full sourceadmissionread:13exactpins, annualphysical105-109statementlocators andshare/per-share/moneyfamilies, 160PDFvs37legaltoolpages, actualtextreadcoverage, executioncover/signatures, sourceauditdate, consolidationandperiods verifiedagainst earlierdirectprimaryreview. All future/current/visual gaps explicit; nofinancialorlegalanalysis invented. CP3/6 decisionlimitations do not blocksourceanalysis. No confirmedrepairnecessary."
+      },
+      "CP-1": {
+        "sha256": "2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891",
+        "review": "Reviewed every change against seeded source-completeness instruction and annual PDF 43\u201346/133. All financial statement and calculation rows remain byte-identical. Dates, USD67m LCs, annual-reported vs authenticated terms, and retained FY2027 USD92 are correct; superseded conflict withdrawn and live availability/term allocation gaps preserved."
+      },
+      "CP-1A": {
+        "sha256": "ac6631243ca71cda10dcdafcc5696a3393c9617b61c49bdfe8e94d2d5a33f955",
+        "review": "Diff checked against annual PDF 43\u201346/133 and corrected CP-1. Current hashes anchored; fiscal mapping, LCs, reported exact dates and combined guarantor scope correct. No changes to observed financial figures, scored governance result, or substantive interpretation. The inherited 'no previous answer used' clause describes the original pass; the repair paragraph and invocation explicitly record the seeded prior answer."
+      },
+      "CP-2": {
+        "sha256": "46cca7cd74c612c8c29b7d89c572a46c1e86481a387bd1301525e3e440b3ae1c",
+        "review": "Full edit diff checked against annual PDF 43\u201346/133 and corrected CP-1/1A. No financial, risk-factor, or recommendation changes; correct fiscal FY2027 92, 2028 maturity, LCs and limits. CP-4, CP-6 and CP-3C still use their exact current roles and current upstream identities."
+      },
+      "CP-4": {
+        "sha256": "3d39b8424f070064d992a2534bf0ef355ffbde34cd550222bb2adb97ac41e72e",
+        "review": "All changes inspected against original legal handoff, annual PDF 43\u201346/133 and current upstream hashes. Current capital-structure and coverage descriptions retain precise dates, sourced LCs, combined guarantor summary vs individual map, and separate unauthenticated 2033 form date. Clause analysis, capacity gaps and provisional rubric unchanged; legal chronology retained."
+      },
+      "CP-3": {
+        "sha256": "d2472fbb0694f2d73882f0c405765c19604dbbf11f5116acc1cbc4c8a01a76d7",
+        "review": "Checked all edited security rows and maturities against PDF43/45/46/133. Six source rows are 93/92/92/6637/4768/12637, not a full allocation or carrying-debt chart. Exact instrument dates, USD67m LCs, limited guarantor scope and operative legal gaps are correct; RV judgment, downside comparison, instruments/amounts and missing market/mandate evidence preserved."
+      },
+      "CP-5": {
+        "sha256": "b629973ef435578dc42a4ef932e558b0c18de3f441b50be1aa3f0f7cbd7d7b86",
+        "review": "Inspected complete edit diff and precise output controls. CP5-001 withdrawn on PDF43/46/133; three producer-instruction false positives remain withdrawn. Actual material CP5-004/005/006 retained with scopes and limits. QA09 operands unchanged; prior kernel execution is labeled retained, no new assurance claim. All six current hashes and correct FY2027 numeric cell confirmed."
+      },
+      "CP-6": {
+        "sha256": "cfd965c46e884cc6f8763a14119d843e305d95955d68587795f0e0658dd6c773",
+        "original_response_sha256": "22dfe64e5b9c3ff5764839378b4db9c71259ecf1f897fb710b876d38251fadf1",
+        "review": "Reviewed all 11 IC and absorbed portfolio functions, exactly 3 matched challenge pairs, 9 Chair evidence dimensions without an incomplete average, 7 current upstream hashes and exact source/control amounts. Requires More Work and restricted historical use supported. Actual seeded edit changed exactly two phrases: CFO versus CFO less capex (PDF109) and November 2023 dividend payment (PDF146). All numbers, conclusions and proof trace retained. CP-OS consumes the repaired live artifact with all seven upstream pins."
+      }
+    },
+    "status": "Complete: annual recovery and CP-8 live, five historical pathway publications verified.",
+    "live_audit": {
+      "calls": {
+        "CP-1": 3,
+        "CP-1A": 3,
+        "CP-2": 2,
+        "CP-4": 3,
+        "CP-3": 3,
+        "CP-5": 3,
+        "CP-6": 6
+      },
+      "cost_usd": "2.25278350",
+      "independent_calculations": 0,
+      "declined_nonpositive_ratios": 0
+    },
+    "campaign_accounted_total_usd": "19.74243180",
+    "unspent_usd": "5.25756820",
+    "quarterly_erratum": {
+      "path": "recovery/quarter-erratum/erratum.json",
+      "source_check": "Annual PDF43/45/46/133 and reviewed current CP-1, no changed December data, twelve independent exact consumption controls passed. Five exact local edits to original pinned actual live CP-6 and unchanged Watchlist/score. Supplementary paid attempt completed source reads but reservation guard stopped before submission. No new live quarter response is claimed."
+    },
+    "confidence_review": {
+      "billing_attribution": "Five neighboring completion-minute buckets match count/input/output/cache-read/cache-write exactly. Sole unmatched 05:52 bucket cache-read 110658 equals last known CP-6 input 110784 minus 126, matching same project/key. All following minutes until resumed work lack a competing dispatch. Reconciled cost computed independently from four rates; old unknown hold left immutable.",
+      "budget_and_seed": "Adversarially increased cap, removed a seed, and changed a seed hash in scratch: all refuse before CP-OS. Valid scratch case delegates the exact CP-1 bytes and no seed for initial CP-6. Failed quarterly third reserve sent nothing. CP-8 used only settled residual. Final offline replay forbids provider calls.",
+      "source_and_output": "Every seed diff reviewed against primary pages/current hashes. Fixed two CP-6 wording issues with exact actual model edits; the December host erratum is labeled. Checked FY2027 92, cash 6261, reporting versus operative dates, all Model oracles, view/HTML bindings, CP-8 sampled facts and seven dimensions.",
+      "rewrite_tournament": "Inline post-edit run.py: A local digest binding beats B path rereads (single preflight byte snapshot); C extraction wins readability against A; incumbent holds against C (one caller, simpler interface). Rejected B also changed behavior if a draft changes after preflight. Full scratch candidates syntax-checked. Actual CP-OS dispatch, offline refusal checks, both zero-call resumes and MYPYPATH=src mypy passed. Fixture repair script is mechanical; verify.py test-only.",
+      "checks": "208 focused tests passed. Ruff and targeted mypy. Browser inspected FY2027 92, exact FY2024 Model cash source line 185 and the seven CP-8 rows. Full repository collection still has the pre-existing missing scaffolding documented in repository_suite.",
+      "secret_scan": "Redacted gitleaks checks passed across recovery (104.72 MB) and comparison (47.30 MB). Raw pinned whitespace is preserved. Billing CSV and provider credentials are not staged."
     }
   }
 }

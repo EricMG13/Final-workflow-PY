@@ -1,0 +1,423 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "sol-fresh-tdg-complete-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-4",
+      "CP-6"
+    ]
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "requests/CP-0/0b93c523c34f720eaa232c4e5142f784992c57735608e7bd87ca40ff8fa78867/1.response.md",
+      "sha256": "8a0611cc768e043abd52c2bf4899f6b0a6d560a1c264f7fbc991fa6d10863963"
+    },
+    "CP-1": {
+      "path": "requests/CP-1/f21c7feae89d2b626e7f9cddad713dadc292ef00b7c9c0b2a813926826633b69/1.response.md",
+      "sha256": "2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891"
+    },
+    "CP-1A": {
+      "path": "requests/CP-1A/2976b682a74db91e9d32f7fd1bc7ab6569db2b0b8fdf4937ddcc2379621e2dbf/1.response.md",
+      "sha256": "ac6631243ca71cda10dcdafcc5696a3393c9617b61c49bdfe8e94d2d5a33f955"
+    },
+    "CP-2": {
+      "path": "requests/CP-2/ef729b3c2376caeefdcd21e26d91dedbe4b5ae8df73717ce2da6e080c01c0fdc/1.response.md",
+      "sha256": "46cca7cd74c612c8c29b7d89c572a46c1e86481a387bd1301525e3e440b3ae1c"
+    },
+    "CP-4": {
+      "path": "requests/CP-4/655bf6ee040b634f51fd9b94c5992057d4d02bd65d9b06d7aa9da11edd01f360/1.response.md",
+      "sha256": "3d39b8424f070064d992a2534bf0ef355ffbde34cd550222bb2adb97ac41e72e"
+    },
+    "CP-3": {
+      "path": "requests/CP-3/10288e6ee16fc9d7b6ac0ee059c7d626ef9b0d7426c38073da905c8057ac60f4/1.response.md",
+      "sha256": "d2472fbb0694f2d73882f0c405765c19604dbbf11f5116acc1cbc4c8a01a76d7"
+    },
+    "CP-5": {
+      "path": "requests/CP-5/6a6984c750b9d18c2bc4f132dbb332bb1f96541145b4dfd438aa6fac6cdf51eb/1.response.md",
+      "sha256": "b629973ef435578dc42a4ef932e558b0c18de3f441b50be1aa3f0f7cbd7d7b86"
+    },
+    "CP-6": {
+      "path": "requests/CP-6/4828c01565b869d6a0ee38e54f23470e7a591527776b9f84c901fd91116e8973/1.response.md",
+      "sha256": "cfd965c46e884cc6f8763a14119d843e305d95955d68587795f0e0658dd6c773"
+    }
+  },
+  "model": {
+    "periods": {
+      "FY2022": {
+        "start_date": "2021-10-01",
+        "end_date": "2022-09-30",
+        "balance_column": null
+      },
+      "FY2023": {
+        "start_date": "2022-10-01",
+        "end_date": "2023-09-30",
+        "balance_column": "Sep 30, 2023"
+      },
+      "FY2024": {
+        "start_date": "2023-10-01",
+        "end_date": "2024-09-30",
+        "balance_column": "Sep 30, 2024"
+      }
+    },
+    "anchors": {
+      "normalization": "### T4.1–T4.3 — Source, entity, normalization",
+      "periods": "### T4.8 and T4.14 — Period register",
+      "income": "### T4.4 — Income statement and comprehensive-income/equity supplements",
+      "cash": "### T4.5 — Cash-flow statement",
+      "balance": "### T4.6 — Balance sheet",
+      "dashboard": "### T4.10 — Source-supported dashboard",
+      "issuer_bridge": "**Net income to EBITDA and EBITDA As Defined, reported (PDF 53):**"
+    },
+    "rows": {
+      "revenue": {
+        "table": "income",
+        "label": "NET SALES"
+      },
+      "cogs": {
+        "table": "income",
+        "label": "COST OF SALES"
+      },
+      "gross_profit": {
+        "table": "income",
+        "label": "GROSS PROFIT"
+      },
+      "selling_admin": {
+        "table": "income",
+        "label": "SELLING AND ADMINISTRATIVE EXPENSES"
+      },
+      "income_statement_amortization": {
+        "table": "income",
+        "label": "AMORTIZATION OF INTANGIBLE ASSETS"
+      },
+      "ebit_reported": {
+        "table": "income",
+        "label": "INCOME FROM OPERATIONS"
+      },
+      "depreciation": {
+        "table": "cash",
+        "label": "Depreciation"
+      },
+      "cf_amortization": {
+        "table": "cash",
+        "label": "Amortization of intangible assets and product certification costs"
+      },
+      "cfo": {
+        "table": "cash",
+        "label": "Net cash provided by operating activities"
+      },
+      "capex_signed": {
+        "table": "cash",
+        "label": "Capital expenditures"
+      },
+      "cash": {
+        "table": "cash",
+        "label": "Cash and cash equivalents, end of period"
+      },
+      "interest_cash": {
+        "table": "cash",
+        "label": "Cash paid during period for interest, net"
+      },
+      "tax_cash": {
+        "table": "cash",
+        "label": "Cash paid during period for income taxes, net of refunds"
+      },
+      "issuer_ordinary_ebitda": {
+        "table": "issuer_bridge",
+        "label": "EBITDA"
+      },
+      "issuer_as_defined": {
+        "table": "dashboard",
+        "label": "EBITDA As Defined, total company"
+      },
+      "debt_long_term": {
+        "table": "balance",
+        "label": "Long-term debt"
+      },
+      "debt_current": {
+        "table": "balance",
+        "label": "Current portion of long-term debt"
+      },
+      "debt_securitization": {
+        "table": "balance",
+        "label": "Short-term borrowings—trade receivable securitization facility"
+      },
+      "adjustment_acquisition": {
+        "table": "issuer_bridge",
+        "label": "Acquisition transaction and integration-related expenses"
+      },
+      "adjustment_compensation": {
+        "table": "issuer_bridge",
+        "label": "Non-cash stock and deferred compensation expense"
+      },
+      "adjustment_refinancing": {
+        "table": "issuer_bridge",
+        "label": "Refinancing costs"
+      },
+      "adjustment_other": {
+        "table": "issuer_bridge",
+        "label": "Other, net"
+      }
+    },
+    "extra_handoffs": {},
+    "forecast_exact": null
+  },
+  "layout": {
+    "blocks": [
+      "key-findings",
+      "company-operating-model",
+      "model-chart-strip",
+      "capital-structure",
+      "financials-credit-metrics",
+      "strengths-weaknesses",
+      "relative-value",
+      "company-profile",
+      "transaction-summary",
+      "portfolio-fit",
+      "committee-challenge",
+      "what-changed"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2",
+        "heading": "Findings",
+        "kind": "prose",
+        "block_id": "key-findings",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-1A",
+        "heading": "Company, business and revenue model",
+        "kind": "table",
+        "block_id": "company-operating-model",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Capital structure and legal reach",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-MODEL",
+        "heading": "Annual source and computation register",
+        "kind": "table",
+        "block_id": "financials-credit-metrics",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Ranked strengths, weaknesses and key risks",
+        "kind": "prose",
+        "block_id": "strengths-weaknesses",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Relative value assessment",
+        "kind": "prose",
+        "block_id": "relative-value",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-1A",
+        "heading": "Issuer profile",
+        "kind": "table",
+        "block_id": "company-profile",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-1A",
+        "heading": "Transaction and capital allocation summary",
+        "kind": "prose",
+        "block_id": "transaction-summary",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Portfolio suitability",
+        "kind": "prose",
+        "block_id": "portfolio-fit",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Committee challenge",
+        "kind": "prose",
+        "block_id": "committee-challenge",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Historical change and limits",
+        "kind": "prose",
+        "block_id": "what-changed",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-MODEL",
+        "heading": "Defined historical ratios — not covenant/agency measures",
+        "kind": "chart",
+        "block_id": "model-chart-strip",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": "S.1",
+        "value_columns": [
+          "FY2022",
+          "FY2023",
+          "FY2024"
+        ],
+        "row_labels": [
+          "Carrying borrowing / issuer EBITDA As Defined",
+          "Mechanical net carrying borrowing / issuer EBITDA As Defined"
+        ],
+        "orientation": "period-columns",
+        "chart_unit": "x"
+      },
+      {
+        "module_id": "CP-MODEL",
+        "heading": "Defined historical ratios — not covenant/agency measures",
+        "kind": "chart",
+        "block_id": "model-chart-strip",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": "S.2",
+        "value_columns": [
+          "FY2022",
+          "FY2023",
+          "FY2024"
+        ],
+        "row_labels": [
+          "Issuer EBITDA As Defined / reported cash interest"
+        ],
+        "orientation": "period-columns",
+        "chart_unit": "x"
+      },
+      {
+        "module_id": "CP-MODEL",
+        "heading": "Annual source and computation register",
+        "kind": "chart",
+        "block_id": "model-chart-strip",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": "S.3",
+        "value_columns": [
+          "FY2022",
+          "FY2023",
+          "FY2024"
+        ],
+        "row_labels": [
+          "Cash"
+        ],
+        "orientation": "period-columns",
+        "chart_unit": "US$m"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Maturity observations",
+        "kind": "chart",
+        "block_id": "model-chart-strip",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": "S.4",
+        "value_columns": [
+          "Principal USDm"
+        ],
+        "row_labels": [],
+        "orientation": "period-rows",
+        "chart_unit": "US$m"
+      }
+    ],
+    "scope": "TDG historical FY2024 annual case, CP-OS ordered live source corrections and new committee analysis from current handoffs. Source intake is the checked original live CP-0 response. Twelve credit-report panels plus HTML Model, charts and calculation JSON; source, legal, market and portfolio limits remain explicit.",
+    "title": "TransDigm historical complete credit pathway",
+    "question": null,
+    "issuer_aliases": []
+  }
+}

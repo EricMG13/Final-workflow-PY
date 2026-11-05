@@ -1,0 +1,46 @@
+{
+  "kind": "source-checked host erratum to retained live quarterly CP-6",
+  "issuer": "TDG",
+  "as_of": "2024-12-28",
+  "original": {
+    "path": "../../tdg-ic/CP-6-repaired.md",
+    "sha256": "d999e6a0af14925a14dfe6c6cb414d65bd458e62d14535af322fc4e811540d3f"
+  },
+  "sources": {
+    "S1-annual-report.pdf": {
+      "path": "../../../../data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+    }
+  },
+  "corrected_annual_input": {
+    "path": "../CP-1.md",
+    "sha256": "2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891"
+  },
+  "source_locators": "S1 PDF43,45,46,133; annual September 30 2024, no December data replacement",
+  "edits": [
+    {
+      "old": "These supplied handoffs were consumed in full. The fresh annual foundation was generated earlier in the live campaign and is retained context; the remaining-module handoffs are actual current live responses. Different run IDs and embedded predecessor snapshots have not been collapsed into one execution.",
+      "new": "These supplied handoffs were consumed in full. The fresh annual foundation was generated earlier in the live campaign and is retained context; the remaining-module handoffs are actual current live responses. Different run IDs and embedded predecessor snapshots have not been collapsed into one execution.\n\nThe host source erratum uses CP-1-annual-corrected, supplied SHA256 `2ec4b36a3bec9bd872ff53b9c31628ab59551a3eed5ed7c11501e06006b42891`. Annual PDF43/46 places the November 15, 2027 maturity in fiscal 2028; PDF133 keeps the reported fiscal 2027 bucket at 92. Annual PDF45 identifies 67 of September outstanding letters of credit; the amount is not a December borrowing measure. These corrected annual facts supersede the old calendar/fiscal allegation, while the original quarter scope, ten analytical inputs and decisions are retained. The sourced correction does not establish a full instrument/amortization allocation, live renewal or an authenticated 2033 note."
+    },
+    {
+      "old": "Aggregate maturity-year conflict remains. [CP-1A TX04/CF01; CP-2D T2E.3; CP-3C Refinancing paths.]",
+      "new": "The November 15, 2027 notes mature in fiscal 2028; the annual FY2027 bucket remains 92. The schedule is not a complete instrument/amortization allocation. [CP-1A TX04; CP-1-annual-corrected T4.18/G13; A PDF43/46/133; CP-2D T2E.3; CP-3C Refinancing paths.]"
+    },
+    {
+      "old": "Fully drawn A/R; execution missing; annual maturity allocation conflict. CP-2D/CP-1 F3",
+      "new": "Fully drawn A/R and forward execution unproved; full instrument/amortization allocation remains unestablished. CP-2D/CP-1-annual-corrected T4.18/G13"
+    },
+    {
+      "old": "**Other inherited unresolved observations:** annual maturity table 2027 bucket92 versus note labeled due2027 principal2650 remains unresolved, notwithstanding total arithmetic; lease wording",
+      "new": "**Other inherited unresolved observations:** lease wording"
+    },
+    {
+      "old": "[CP-1 T4.11/F3; CP-1A CF01–04; CP-1B corporate actions.]",
+      "new": "[CP-1 T4.11; CP-1A CF02–04; CP-1B corporate actions.]"
+    }
+  ],
+  "output": {
+    "path": "CP-6.md",
+    "sha256": "85c4820fc1a925d21741a9904cf20e97e1d2a9f5e6fd49037b56e22f07bc75e2"
+  }
+}

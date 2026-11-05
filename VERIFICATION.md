@@ -3,6 +3,11 @@
 Keep one running record here. A pass applies only to the stated scope. Preserve
 earlier run artifacts; record a new attempt when instructions or outputs change.
 
+The [current remaining-module record](runs/cpos-sol-remaining-20261105/verification.json)
+contains the settled CP-6 timeout cost, the corrected TDG annual publication, the
+live CP-8 comparison and checks of the five broader report bundles. The older
+entries below retain their historical case scope.
+
 ## 2026-11-05 — user-launched CP-OS runs
 
 `python -m deploy_workflow.owners.cpos_launch` starts a run from a context file, an issuer
