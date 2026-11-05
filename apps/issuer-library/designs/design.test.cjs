@@ -350,6 +350,33 @@ test('New run and Settings use the shared secondary button for their other actio
   for(const id of ids){const b=d.getElementById(id);assert.ok(b.classList.contains('secondary-action'),id);assert.ok(!b.classList.contains('text-button'),id);}
   dom.window.close();
 });
+test('Review W1: a run folder with a space still opens its issuer drop-down',()=>{
+  const dom=fixture('W-Library/cases'),w=dom.window,d=w.document;
+  w.eval(`contexts['tdg 005']={...contexts['tdg-002'],folder:'tdg 005',run:'TDG 005'};location.hash='W-Settings/workspace';renderRoute();location.hash='W-Library/cases';renderRoute()`);
+  const tdg=[...d.querySelectorAll('tbody.run-list')].find(g=>g.querySelector('h2').textContent==='TransDigm Group'),toggle=tdg.querySelector('button.run-toggle');
+  const rows=[...tdg.querySelectorAll('tr.run-row')];assert.equal(rows.length,7);
+  assert.ok(rows.every(r=>!/\s/.test(r.id)),'row ids carry no whitespace');
+  assert.doesNotThrow(()=>toggle.click());
+  assert.equal(toggle.getAttribute('aria-expanded'),'true');assert.ok(rows.every(r=>!r.hidden),'every run row opens, including the spaced one');
+  dom.window.close();
+});
+test('Review W2: a recorded as-of that is not a full date still gives its year',()=>{
+  const dom=fixture('W-Library/cases'),w=dom.window,d=w.document;
+  w.eval(`contexts['tdg-003'].asOf='2024-12';location.hash='W-Settings/workspace';renderRoute();location.hash='W-Library/cases';renderRoute()`);
+  const year=d.querySelector('select[data-library-filter="year"]');
+  assert.ok([...year.options].some(o=>o.value==='2024'),'2024 is offered');
+  year.value='2024';w.eval('updateLibraryResults()');
+  assert.deepEqual([...d.querySelectorAll('.run-list a.run-link')].map(a=>a.textContent),['TDG-003']);
+  dom.window.close();
+});
+test('Review W3: iconAction escapes the link it is given',()=>{
+  const dom=fixture('W-Library/cases'),w=dom.window,d=w.document;
+  d.body.insertAdjacentHTML('beforeend',w.eval(`iconAction('Open','x','a"b<c',  'arrow-right')`));
+  const a=d.body.lastElementChild;assert.equal(a.getAttribute('href'),'a"b<c');assert.equal(a.getAttribute('aria-label'),'Open: x');assert.equal(a.hasAttribute('download'),false);
+  d.body.insertAdjacentHTML('beforeend',w.eval(`iconAction('Save','y','f.md','download',true)`));
+  assert.equal(d.body.lastElementChild.hasAttribute('download'),true);
+  dom.window.close();
+});
 test('Content labels use the shared grey badge, not a separate tag style',()=>{
   for(const route of ['W-Overview/overview?c=tdg-002','W-Evidence/sources?c=tdg-002','W-Reports/list','CP-4/s75','CP-6']){
     const dom=fixture(route),d=dom.window.document;

@@ -232,17 +232,17 @@ function navigationSections(module,context,output=defaultOutput(module,context))
 }
 function moduleLink(id,label){return `<a class="text-action" href="${routeHref(id,lastSection.get(current?.context+':'+id)||firstSection(id,current?.context))}">${esc(label||moduleNames[id])}${icon('arrow-right')}</a>`;}
 // Rows repeat the same two actions, so each is an icon; its accessible name and tooltip still say what it does.
-const iconAction=(action,target,attributes,name)=>`<a class="icon-action" ${attributes} aria-label="${esc(`${action}: ${target}`)}" title="${action}">${icon(name)}</a>`;
+const iconAction=(action,target,href,name,download=false)=>`<a class="icon-action" href="${esc(href)}" ${download?'download':''} aria-label="${esc(`${action}: ${target}`)}" title="${action}">${icon(name)}</a>`;
 function sourceInventory(context) {
   const identity=f=>`<details><summary>File identity</summary><p>${esc(f.file)}</p><p class="hash">SHA-256 ${f.sha256}</p></details>`;
   const rows=Object.entries(contexts[context].modules).flatMap(([module,entry])=>[
-    ...entry.outputs.map(id=>{const out=data[id];return `<section><div><h3>${module} · ${esc(moduleNames[module])}</h3><p>${esc(out.label)}</p>${out.scope==='Retained module output'?'':`<span class="badge badge-gray">${esc(out.scope)}</span>`}</div><div>${iconAction('Open output',`${module} ${moduleNames[module]}, ${out.label}`,`href="${routeHref(module,modules[id].first,null,context,out.source)}"`,'arrow-right')}${iconAction('Download original handoff',`${module} ${moduleNames[module]}, ${out.label}`,`href="${esc(out.href)}" download`,'download')}</div>${identity(out)}</section>`;}),
-    ...entry.inputs.map(id=>{const f=store.inputs[id];return `<section><div><h3>${module} · ${esc(moduleNames[module])}</h3><p>${esc(f.source)}</p><span class="badge badge-gray">Input</span></div><div>${iconAction('Download original file',`${module} ${moduleNames[module]}, ${f.source}`,`href="${esc(f.href)}" download`,'download')}</div>${identity(f)}</section>`;})
+    ...entry.outputs.map(id=>{const out=data[id];return `<section><div><h3>${module} · ${esc(moduleNames[module])}</h3><p>${esc(out.label)}</p>${out.scope==='Retained module output'?'':`<span class="badge badge-gray">${esc(out.scope)}</span>`}</div><div>${iconAction('Open output',`${module} ${moduleNames[module]}, ${out.label}`,routeHref(module,modules[id].first,null,context,out.source),'arrow-right')}${iconAction('Download original handoff',`${module} ${moduleNames[module]}, ${out.label}`,out.href,'download',true)}</div>${identity(out)}</section>`;}),
+    ...entry.inputs.map(id=>{const f=store.inputs[id];return `<section><div><h3>${module} · ${esc(moduleNames[module])}</h3><p>${esc(f.source)}</p><span class="badge badge-gray">Input</span></div><div>${iconAction('Download original file',`${module} ${moduleNames[module]}, ${f.source}`,f.href,'download',true)}</div>${identity(f)}</section>`;})
   ]);
   return `<div class="source-inventory">${rows.join('')}</div>`;
 }
 function libraryRecords() {
-  return Object.entries(contexts).map(([key,run])=>({key,issuer:run.issuer,sector:run.sector,run:run.run,period:run.period,workflow:run.pathway||'none',year:/^(\d{4})-\d\d-\d\d$/.exec(run.asOf||'')?.[1]||'none',first:run.first,modules:contextModules(key),outputs:outputCount(key),reports:reportsBuiltFrom(key).map(r=>r.id)}));
+  return Object.entries(contexts).map(([key,run])=>({key,issuer:run.issuer,sector:run.sector,run:run.run,period:run.period,workflow:run.pathway||'none',year:/^\d{4}/.exec(run.asOf||'')?.[0]||'none',first:run.first,modules:contextModules(key),outputs:outputCount(key),reports:reportsBuiltFrom(key).map(r=>r.id)}));
 }
 // Workflow and as-of come only from what a run recorded; anything else is 'none', shown as Not recorded.
 const workflowName=record=>record.workflow==='none'?'':workflowTitle(record.workflow);
@@ -273,11 +273,12 @@ function libraryResults(records) {
   if(!Object.keys(contexts).length)return `<div class="library-empty"><h2>No runs in this workspace yet</h2><p>Start a new run, or choose another workspace folder in Settings.</p><a class="text-action" href="#W-Settings/workspace">Open Settings${icon('arrow-right')}</a></div>`;
   if(!records.length)return '<div class="library-empty"><h2>No matching issuers or runs</h2><p>Try a shorter search or remove a filter.</p></div>';
   const runCells=r=>`<td><a class="run-link" href="${routeHref('W-Overview','overview',null,r.key)}">${esc(r.run)}</a></td><td>${workflowCell([r.workflow])}</td><td>${esc(shortPeriod(r.period))}</td><td>${reportCell([r])}</td><td class="row-open">${icon('arrow-right')}</td>`;
+  let rowNumber=0;const rowId=()=>`run-row-${++rowNumber}`;
   const groups=[...new Set(records.map(r=>r.issuer))].map(issuer=>{
     const runs=records.filter(r=>r.issuer===issuer),name=`<th scope="rowgroup"><h2>${esc(issuer)}</h2>${badge('gray',runs[0].sector==='Unclassified'?'Sector not recorded':runs[0].sector)}</th>`;
     if(runs.length===1)return `<tbody class="run-list"><tr class="issuer-row">${name}${runCells(runs[0])}</tr></tbody>`;
     const open=expandedIssuers.has(issuer),periods=[...new Set(runs.map(r=>shortPeriod(r.period)))];
-    return `<tbody class="run-list"><tr class="issuer-row">${name}<td><button class="run-toggle" type="button" aria-expanded="${open}" aria-controls="${runs.map(r=>`run-row-${esc(r.key)}`).join(' ')}">${plural(runs.length,'run')}${icon('chevron-down')}</button></td><td>${workflowCell(runs.map(r=>r.workflow))}</td><td>${periods.length===1?esc(periods[0]):'<span class="muted">Varies</span>'}</td><td>${reportCell(runs)}</td><td class="row-open"></td></tr>${runs.map(r=>`<tr class="run-row" id="run-row-${esc(r.key)}" ${open?'':'hidden'}><td></td>${runCells(r)}</tr>`).join('')}</tbody>`;
+    return `<tbody class="run-list"><tr class="issuer-row">${name}<td><button class="run-toggle" type="button" aria-expanded="${open}" aria-controls="${runs.map((_,i)=>`run-row-${rowNumber+i+1}`).join(' ')}">${plural(runs.length,'run')}${icon('chevron-down')}</button></td><td>${workflowCell(runs.map(r=>r.workflow))}</td><td>${periods.length===1?esc(periods[0]):'<span class="muted">Varies</span>'}</td><td>${reportCell(runs)}</td><td class="row-open"></td></tr>${runs.map(r=>`<tr class="run-row" id="${rowId()}" ${open?'':'hidden'}><td></td>${runCells(r)}</tr>`).join('')}</tbody>`;
   });
   return `<table class="case-list"><thead><tr><th scope="col">Issuer</th><th scope="col">Run</th><th scope="col">Workflow</th><th scope="col">Period</th><th scope="col">Reports</th><th scope="col"><span class="sr-only">Open</span></th></tr></thead>${groups.join('')}</table>`;
 }
