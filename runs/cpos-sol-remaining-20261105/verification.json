@@ -146,7 +146,31 @@
         "CP-4B",
         "CP-4D"
       ],
-      "status": "pending live module proof; historical host proof remains separately recorded"
+      "status": "TDG fourteen-step legal and ARCC thirteen-step positive capacity phases reviewed, report-published and freshly consumed; LMI CP-4B/4D still pending",
+      "tdg_case": {
+        "path": "tdg-legal/CP-4.md",
+        "report": "tdg-legal/CP-4-delivery/report.html",
+        "sha256": "267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43",
+        "review": "Complete actual response and all fourteen provision families/eight registers read against method and full primary indexed indenture. Two new arithmetic calls independent Fraction checked. Strict>2 and 35% clause-specific post-adjustment cap, legal four-quarter/Company-Restricted perimeter, source66 2/3 fraction, default cure vs source Company-only automatic acceleration and special-consent scope preserved. Newly sourced5.25 secured-net ratio, $3100 facilities limb, greater-of debt/investment formulas, RPbuilder/alternative, 545/120/180 timing, guarantees/liens/releases/suspension all conditional not unused capacity. Source AdditionalNotes crossref4.03 vs operative4.09, designatedsenior wording and formnote bankruptcy/maturity discrepancies retained. Non-arithmetic4/5 provisional rubric supported with protective countercase, no market comparison invented. Original first draft omitted exact Restricted Subsidiaries wording; second adds supported explicit perimeter only, diff verified. No economic or production repair.",
+        "consumer": {
+          "path": "tdg-legal/CP-3C.md",
+          "report": "tdg-legal/CP-3C-delivery/report.html",
+          "sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+          "review": "Entire fresh response read against exact current producer, financial handoffs and six-page primary legal selection. Twelve controls retained;101%1515 includes15premium, no duplicate. Distinct A/Rrenewal/reduction/replacement, ordinaryrefinancing and conditionalnotesexit; ratios/legalperimeter,5.25specificliencondition,strict2,66 2/3specialscope,nonrecourseexceptions andmissingICA applied substantively. September487/486 vsDecember650/649 andcash6261/2459/3308distinguished,October162.5 vsquarter163 notadded. No new calculations, no currentoutcome/capacity/LMEintent inferred. No repairs."
+        }
+      },
+      "arcc_capacity": {
+        "path": "arcc-capacity/CP-4A.md",
+        "report": "arcc-capacity/CP-4-delivery/report.html",
+        "sha256": "fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738",
+        "review": "Entire13-step response read against fullbase/supplement and11physicalannualpages;11registers/13capacityroutes/nearestpoint/overallview. Sevennewcalculations independentFractionchecked;1962/1000=1.962,minus1.5=.462=46.2pp,wholepercent46distinct,6732-4513=2219conditionalceilingdifference,4513-1113-52=3348reportedconditionalrevolverwithin5.1bn. Positivecushion notborrowable dollars/unroundedcertificate. Actualp276maintenance1.5separatefromnotesafterborrowingActtest. 100%24consecutivemonthsdefault,60daynoticeotheragreements,distinctcrossdefault,defeasanceconditions/affectedholderprotections andcombinedCoCallthreeagency100%put preserved. Period/principalcarry/hedge/portfoliofloat/scopedSBArelief/sourcepostevents correct. FirstdraftonlymissingISOmaturity2029-07-15,liveaddedoneheaderline;noeconomicrepair. FreshCP6consumer next.",
+        "consumer": {
+          "path": "arcc-capacity/CP-6.md",
+          "report": "arcc-capacity/CP-6-delivery/report.html",
+          "sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+          "review": "Entire fresh focused challenge read against currentproducer and actualselectedannualpages. Eight controls exact; positivepublishedcushion anddatedexecution survive, executableborrowablecash/46.2%assetlossrunway/duplicate5.1bn+3348+2219 inference rejected. Same-numberfacility vsnotes tests/defaultduration, allthreeagencycombined100%CoCtrigger andcollateralexclusions preserved. Jan2025debt andFebauthorizationseparatefromDec/actualusage. Monitoring andstrongcountercase specific; no arithmeticrerunor fullCP6gateclaim, no repair."
+        }
+      }
     },
     "CP-4C": {
       "aliases": [],
@@ -310,12 +334,20 @@
       {
         "point": "Funding consumer could transfer issuer outlook to proposed note or turn annual sums into payment-date liquidity",
         "finding": "Full response/source review found shared issuer/note BB-/Positive wording. Pinned-draft live repair changes exactly that phrase; no numbers changed. Independent six-case Fraction/unchanged helper controls pass under ambient low precision. Annual sums, currencies, mixed stress-dividend/unstressed-capex basis and conditional funding restrictions remain explicit."
+      },
+      {
+        "point": "Legal source numeric controls might mistake a strict boundary, fractional consent or form placeholder for an actual issuer number",
+        "finding": "Rechecked all2877 indexed lines and frozen hash, three actual source thresholds, four fractional percentage refusals and three independent Fraction strict-boundary cases. Original1500 and101% source facts independently produce conditional1515 principal component; accrued interest and current legal ratio/unused capacity remain missing. 37 existing legal tests and adversarial ambient Decimal precision pass. Source form exact month/day remains a placeholder. No production change, test-only tournament skip."
+      },
+      {
+        "point": "ARCC published ratio, conditional facility expansion and usable dollars could be conflated by a shared helper",
+        "finding": "New test-only check_arcc pins original annual/base/supplement, reads p65 per-unit1962/1000 and p274 minimum150% after borrowing. Independent Fraction0.462 and46.2pp versus unchanged minimum headroom helper; three inclusive boundary cases and ambient precision7/ROUND_FLOOR pass. Conditional6732-4513=2219 is an expansion ceiling difference, not debt outstanding or borrowable cash; p276 separately3348 subject borrowing base withinaggregate5.1bn. Contractual/source currency/date and null capacity remain distinct. No production change; rewrite tournament test-only skip."
       }
     ]
   },
   "rewrite_tournament": {
-    "decision": "Skipped at this checkpoint: only campaign test fixtures, data and selectors changed; no nontrivial production function changed.",
-    "verification": "29 focused tests; five source/math fixture checks; ruff and diffcheck pass. Proper single-directory gitleaks scan78.06MB has no findings. Only test fixtures/data/selectors changed at this checkpoint."
+    "decision": "Skipped: new legal-source checks are test-only; current case instructions/selectors and retained responses are data. No nontrivial production function changed.",
+    "verification": "66 focused tests pass; independent TDG and ARCC source/parser/headroom checks and adversarial Decimal context pass; ruff passes; proper single-directory gitleaks95.37MB no findings. Source extracts and actual model Markdown retain original whitespace and pinned bytes; code/JSON diff whitespace checked separately."
   },
   "live": {
     "calls": {
@@ -324,15 +356,17 @@
       "CP-DR": 7,
       "CP-2A": 7,
       "CP-2D": 15,
-      "CP-3C": 21,
+      "CP-3C": 25,
       "CP-1C": 18,
       "CP-2": 5,
       "CP-2E": 10,
       "CP-2G": 6,
-      "CP-2H": 6
+      "CP-2H": 6,
+      "CP-4": 13,
+      "CP-6": 3
     },
-    "cost_usd": "5.83335040",
-    "independent_calculations": 310,
+    "cost_usd": "7.35486530",
+    "independent_calculations": 319,
     "declined_nonpositive_ratios": 2
   },
   "checkpoint_scope": "Verified module progress only; remaining modules and all six broader pathway proofs are still pending. Continuing this task after checkpoint."

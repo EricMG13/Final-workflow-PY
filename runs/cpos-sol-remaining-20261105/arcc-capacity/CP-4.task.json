@@ -1,0 +1,65 @@
+{
+  "run": {
+    "run_id": "sol-remaining-arcc-capacity-20261105",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2024-12-31",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-4A"
+    ]
+  },
+  "module_id": "CP-4",
+  "instructions": {
+    "path": "CP-4.instructions.md",
+    "sha256": "e6fd962e393ebc9b1d3bbb04ae35d71b5637e02bb758df37bca7731b2a2d15fa"
+  },
+  "sources": {
+    "annual-selected": {
+      "path": "annual-selected.txt",
+      "sha256": "ec0dbd96488e2f6977a42bfc17085b6dd8410a9b39db7e7a0a3670c2d701f58b"
+    },
+    "base-indenture": {
+      "path": "../../arcc-2024-001/sources/base-lines.txt",
+      "sha256": "ef8ad4d8a3d5902746726697b6f6fa53058d7445b59d99157cbea6258bf2d459"
+    },
+    "supplement": {
+      "path": "../../arcc-2024-001/sources/supplement-lines.txt",
+      "sha256": "bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c"
+    },
+    "selected-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/SKILL.md",
+      "sha256": "8a3b12f3f37359463434177759febac1ffcf0f8c484aa0508eb7119f7b6548b2"
+    },
+    "method-runbook": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/references/CP-4A_RUNBOOK.md",
+      "sha256": "1ca9d2d86d40772d6c4a1df3052af174ab10ee80a27460dfcee0de93a227e5bc"
+    },
+    "method-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/references/REF_CP-4A_STEPS.md",
+      "sha256": "30cf03f343a9153aa85d6492e6bad519ab5d639395dae2b686de4b8276764e98"
+    },
+    "checked-controls": {
+      "path": "checked-controls.json",
+      "sha256": "5d03be730a3b856f071ae09c13a7771a41804bb5173d82cd4736b25f20fb9bbd"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../../arcc-2024-001/CP-0.md",
+      "sha256": "8347534cab302ae92b4e097f7a7d08a0ea69945337a0cadaf575526578ea83e5"
+    },
+    "CP-1": {
+      "path": "../../arcc-2024-001/CP-1.md",
+      "sha256": "ed934cea757dec38962ec99f87e86725e4d10e08a2b4865e0bee1ebd3ab4b240"
+    },
+    "CP-4": {
+      "path": "../../arcc-2024-001/CP-4.md",
+      "sha256": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9"
+    }
+  },
+  "layout": "CP-4.layout.json",
+  "checks": "CP-4.checks.json",
+  "output": "CP-4A.md"
+}

@@ -1,0 +1,45 @@
+{
+  "run": {
+    "run_id": "sol-remaining-arcc-capacity-challenge-20261105",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2024-12-31",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-6"
+    ]
+  },
+  "module_id": "CP-6",
+  "instructions": {
+    "path": "CP-6.instructions.md",
+    "sha256": "5d7f606ed5e259b24ad4dbec7ea1b841190dd7ce35d595302b2c51c0b3c74def"
+  },
+  "sources": {
+    "annual-selected": {
+      "path": "annual-selected.txt",
+      "sha256": "ec0dbd96488e2f6977a42bfc17085b6dd8410a9b39db7e7a0a3670c2d701f58b"
+    }
+  },
+  "handoffs": {
+    "CP-4-capacity": {
+      "path": "CP-4A.md",
+      "sha256": "fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738"
+    },
+    "CP-0": {
+      "path": "../../arcc-2024-001/CP-0.md",
+      "sha256": "8347534cab302ae92b4e097f7a7d08a0ea69945337a0cadaf575526578ea83e5"
+    },
+    "CP-1": {
+      "path": "../../arcc-2024-001/CP-1.md",
+      "sha256": "ed934cea757dec38962ec99f87e86725e4d10e08a2b4865e0bee1ebd3ab4b240"
+    },
+    "CP-4": {
+      "path": "../../arcc-2024-001/CP-4.md",
+      "sha256": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9"
+    }
+  },
+  "layout": "CP-6.layout.json",
+  "checks": "CP-6.checks.json",
+  "output": "CP-6.md"
+}

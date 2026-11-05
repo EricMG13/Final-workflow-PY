@@ -1,0 +1,54 @@
+{
+  "blocks": [
+    "refinancing-paths",
+    "lme-creditor-exposure"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-3C",
+      "heading": "Request",
+      "kind": "prose",
+      "prefix": "View:",
+      "block_id": "refinancing-paths",
+      "label": "Historical legal-to-funding conclusion"
+    },
+    {
+      "module_id": "CP-3C",
+      "heading": "Funding conclusion",
+      "kind": "prose",
+      "block_id": "refinancing-paths",
+      "label": "Funding conclusion"
+    },
+    {
+      "module_id": "CP-3C",
+      "heading": "Refinancing paths",
+      "kind": "table",
+      "block_id": "refinancing-paths",
+      "label": "Refinancing paths"
+    },
+    {
+      "module_id": "CP-3C",
+      "heading": "Creditor exposure",
+      "kind": "table",
+      "block_id": "lme-creditor-exposure",
+      "label": "Creditor exposure"
+    },
+    {
+      "module_id": "CP-3C",
+      "heading": "Monitoring",
+      "kind": "table",
+      "block_id": "lme-creditor-exposure",
+      "label": "Monitoring"
+    },
+    {
+      "module_id": "CP-3C",
+      "heading": "Consumption controls",
+      "kind": "table",
+      "block_id": "refinancing-paths",
+      "label": "Consumption controls"
+    }
+  ],
+  "title": "TransDigm historical legal-to-funding review",
+  "question": "How do the notes provisions change funding and creditor-risk assessment?",
+  "scope": "Fresh current CP-4 consumption with independently checked original handoff facts; historical 2024/2025 dates. No actual unused capacity, funded refinancing, current legal opinion or full pathway claim."
+}

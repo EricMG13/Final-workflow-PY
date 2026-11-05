@@ -1,0 +1,1999 @@
+{
+  "schema_version": "report-view/1",
+  "pathway": {
+    "id": "covenant_refinancing",
+    "title": "Ares Capital historical capacity challenge",
+    "question": "Does the published cushion prove financing access?",
+    "requested_modules": [
+      "CP-6"
+    ],
+    "blocks": [
+      "capacity",
+      "red-flags"
+    ]
+  },
+  "call": [
+    {
+      "kind": "na",
+      "label": "Assessment",
+      "value_text": "Assessment pending",
+      "meter": null,
+      "ref_id": null,
+      "direction": null,
+      "line": false
+    }
+  ],
+  "call_withheld": null,
+  "blocks": [
+    {
+      "block_id": "capacity",
+      "title": "Capacity and baskets",
+      "owner": "CP-6",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Metric",
+      "columns": [
+        "Value"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "published_coverage_ratio",
+          "cells": [
+            {
+              "text": "1.962",
+              "prov": "cited",
+              "ref_id": "C13",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "reported_minimum_ratio",
+          "cells": [
+            {
+              "text": "1.5",
+              "prov": "cited",
+              "ref_id": "C14",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r2",
+          "label": "published_coverage_cushion_ratio",
+          "cells": [
+            {
+              "text": "0.462",
+              "prov": "cited",
+              "ref_id": "C15",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r3",
+          "label": "published_coverage_cushion_pp",
+          "cells": [
+            {
+              "text": "46.2",
+              "prov": "cited",
+              "ref_id": "C16",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r4",
+          "label": "conditional_ceiling_difference_USDm",
+          "cells": [
+            {
+              "text": "2219",
+              "prov": "cited",
+              "ref_id": "C17",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r5",
+          "label": "reported_revolver_available_USDm",
+          "cells": [
+            {
+              "text": "3348",
+              "prov": "cited",
+              "ref_id": "C18",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r6",
+          "label": "actual_usable_dollar_debt_capacity_USDm",
+          "cells": [
+            {
+              "text": "—",
+              "prov": "cited",
+              "ref_id": "C19",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r7",
+          "label": "actual_RP_capacity_USDm",
+          "cells": [
+            {
+              "text": "—",
+              "prov": "cited",
+              "ref_id": "C20",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-6",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "red-flags",
+      "title": "Red flags",
+      "owner": "CP-6",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Paragraph",
+      "columns": [
+        "Text"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "Request — paragraph 1",
+          "cells": [
+            {
+              "text": "View: Positive historical coverage and reported conditional funding rebut immediate funding closure, but do not establish an executable incremental-debt buffer. Retain a documentary-follow-up and monitoring posture: the favorable historical comparison survives; usable dollar capacity requires more evidence. This fresh sol-medium execution, dated 2026-11-05, consumes the exact current CP-4 capacity handoff and historical focused CP-0/CP-1/legal CP-4 for Ares Capital Corporation at 2024-12-31, focusing on the 5.950% notes due July 15, 2029. Run: sol-remaining-arcc-capacity-challenge-20261105; method deploy-v-r14; pathway covenant_refinancing. This is focused consumer proof, not a full CP-6 gate, eleven-step debate, committee decision, current underwriting or whole-pathway execution. No independent agents or separate debate roles were run.",
+              "prov": "cited",
+              "ref_id": "C25",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": "Focused capacity challenge",
+      "tabs": [
+        {
+          "label": "Challenge register",
+          "scale": null,
+          "row_header": "Claim",
+          "columns": [
+            "Supporting evidence",
+            "Strongest challenge",
+            "Disposition",
+            "Decision consequence"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Positive coverage supports funding flexibility",
+              "cells": [
+                {
+                  "text": "A65 fn2: USD1,962 per USD1,000; A274: applicable 150% after-borrowing minimum",
+                  "prov": "cited",
+                  "ref_id": "C6",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Published ratio lacks unrounded legal numerator/denominator, relief bridge and proposed uses; cushion is neither dollar capacity nor 46.2% asset-price-decline runway",
+                  "prov": "cited",
+                  "ref_id": "C6",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Historical comparison survives; executable buffer requires evidence",
+                  "prov": "cited",
+                  "ref_id": "C6",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Do not certify incremental dollars or an asset-loss tolerance",
+                  "prov": "cited",
+                  "ref_id": "C6",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Cushion is 0.462x, or 46.2 percentage points",
+              "cells": [
+                {
+                  "text": "Current CP-4 C1–C5; A65/A274",
+                  "prov": "cited",
+                  "ref_id": "C7",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Whole-percent 196% versus 150% produces the separate coarser 46 pp presentation; none is a percentage asset drawdown",
+                  "prov": "cited",
+                  "ref_id": "C7",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Precision distinction survives",
+                  "prov": "cited",
+                  "ref_id": "C7",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Keep ratio, pp and whole-percent presentation separate",
+                  "prov": "cited",
+                  "ref_id": "C7",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Reported facilities are material counterevidence to closure",
+              "cells": [
+                {
+                  "text": "A88: approximately USD5.1bn conditional availability; A276: USD3,348m revolver availability",
+                  "prov": "cited",
+                  "ref_id": "C8",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "USD3,348m is included, not additive; USD2,219m ceiling difference from A274–275 is conditional expansion, not cash. Borrowing base/equity/other conditions can bind",
+                  "prov": "cited",
+                  "ref_id": "C8",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Reported access survives; unconditional drawability does not",
+                  "prov": "cited",
+                  "ref_id": "C8",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Reconcile conditions; never sum the three figures",
+                  "prov": "cited",
+                  "ref_id": "C8",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "The 1.5 minima establish the same headroom and breach timing",
+              "cells": [
+                {
+                  "text": "A276 reports facility maintenance and material compliance at December 31; B p20 §10.07/L1384–1385 incorporates Act restriction",
+                  "prov": "cited",
+                  "ref_id": "C9",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Facility definitions/exceptions differ from note incurrence. B p12 §5.01(vii)/L917 uses below 100% at each last business day for 24 consecutive months; S pp2–3 §4.03/L216–217 separately requires 60 consecutive days after specified notice",
+                  "prov": "cited",
+                  "ref_id": "C9",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Same-number equivalence rejected; dated issuer compliance assertion retained",
+                  "prov": "cited",
+                  "ref_id": "C9",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Neither immediate default nor a general two-year cure follows",
+                  "prov": "cited",
+                  "ref_id": "C9",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "January issuance and February authorization demonstrate extra resources or leakage",
+              "cells": [
+                {
+                  "text": "A300: January 2025 USD1,000m gross new debt; A300–301: February extension of up-to-USD1,000m repurchase authority",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Issuance demonstrates subsequent execution, not net retained cash; authorization is not actual repurchase, remaining RP capacity or December usage",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Access evidence survives; December/pro-forma use inference rejected",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Separate events; obtain proceeds/use and actual execution",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Change-of-control put ensures repayment value",
+              "cells": [
+                {
+                  "text": "Inherited S pp2–3 §2.01/Article Six: 100% principal plus accrued unpaid interest",
+                  "prov": "cited",
+                  "ref_id": "C11",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Requires defined control change plus qualifying below-investment-grade event involving all three agencies, attribution/window and exceptions; not unconditional cash or recovery",
+                  "prov": "cited",
+                  "ref_id": "C11",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Contingent protection only",
+                  "prov": "cited",
+                  "ref_id": "C11",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Do not use as recovery floor or TDG-style 101% term",
+                  "prov": "cited",
+                  "ref_id": "C11",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "Further secured funding automatically creates new priming",
+              "cells": [
+                {
+                  "text": "A276 documents collateral, exclusions and base restrictions; A88 contemplates additional debt",
+                  "prov": "cited",
+                  "ref_id": "C12",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Excludes investments held by Ares Capital CP, ACJB, AFB, ADL CLO 1/4 and others; consolidated value is not direct creditor reach. New secured claims depend on permissions, collateral and actual execution",
+                  "prov": "cited",
+                  "ref_id": "C12",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Priority sensitivity survives; automatic transaction/amount rejected",
+                  "prov": "cited",
+                  "ref_id": "C12",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Obtain entity/collateral map before unsecured recovery or priming claims",
+                  "prov": "cited",
+                  "ref_id": "C12",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        },
+        {
+          "label": "Decision consequence",
+          "scale": null,
+          "row_header": "Paragraph",
+          "columns": [
+            "Text"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Decision consequence — paragraph 1",
+              "cells": [
+                {
+                  "text": "The strongest bear pathway is portfolio marks and funded uses → weaker adjusted coverage and/or borrowing base → constrained funding before payment default. Cash-funded returns remove assets; debt-funded uses also change senior claims. Restrictions could force asset sales, repayment or equity funding. This is an analyst stress mechanism, not an observed breach, quantified shock or prediction of default.",
+                  "prov": "cited",
+                  "ref_id": "C28",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Decision consequence — paragraph 2",
+              "cells": [
+                {
+                  "text": "The strongest rebuttal is substantive: published 1.962x exceeds 1.5x; A88 reports USD635m cash and substantial conditional facilities; A276 asserts material facility compliance; January 2025 issuance demonstrates capital-market execution. This defeats an unsupported immediate-closure thesis. It does not prove that intended draws remain executable after uses, marks, equity requirements and collateral eligibility. Thus historical flexibility survives; exact usable incremental debt and RP capacity remain unresolved. No trade, size, present compliance or recovery estimate follows.",
+                  "prov": "cited",
+                  "ref_id": "C29",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        },
+        {
+          "label": "Monitoring",
+          "scale": null,
+          "row_header": "Signal",
+          "columns": [
+            "Evidence/action",
+            "What changes posture"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Coverage and uses",
+              "cells": [
+                {
+                  "text": "Pair next disclosure with unrounded pro-forma borrowing certificate",
+                  "prov": "cited",
+                  "ref_id": "C21",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Verified surviving cushion after intended uses strengthens executable-buffer case; erosion tightens follow-up",
+                  "prov": "cited",
+                  "ref_id": "C21",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Facility access",
+              "cells": [
+                {
+                  "text": "Reconcile base eligibility, actual maintenance ratio, equity and lender commitments",
+                  "prov": "cited",
+                  "ref_id": "C22",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Demonstrated drawable funding supports flexibility; failed conditions elevate funding-constraint concern",
+                  "prov": "cited",
+                  "ref_id": "C22",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Execution and creditor reach",
+              "cells": [
+                {
+                  "text": "Track actual draws, repurchases, collateral changes and proceeds location",
+                  "prov": "cited",
+                  "ref_id": "C23",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Documented outflows/new secured claims warrant renewed capacity and priority analysis, not assumed leakage",
+                  "prov": "cited",
+                  "ref_id": "C23",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Legal control history",
+              "cells": [
+                {
+                  "text": "Obtain notices, monthly coverage history, consents and defeasance records",
+                  "prov": "cited",
+                  "ref_id": "C24",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Evaluate the applicable trigger only when its conditions/history are evidenced",
+                  "prov": "cited",
+                  "ref_id": "C24",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        }
+      ],
+      "note": null,
+      "full_analysis_route": "CP-6",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    }
+  ],
+  "unplaced": [],
+  "passports": [
+    {
+      "ref_id": "C1",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 15"
+        },
+        {
+          "name": "Quote",
+          "value": "| Current CP-4-capacity | `fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738` |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C2",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 16"
+        },
+        {
+          "name": "Quote",
+          "value": "| Historical CP-0 | `8347534cab302ae92b4e097f7a7d08a0ea69945337a0cadaf575526578ea83e5` |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C3",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 17"
+        },
+        {
+          "name": "Quote",
+          "value": "| Historical focused CP-1 | `ed934cea757dec38962ec99f87e86725e4d10e08a2b4865e0bee1ebd3ab4b240` |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C4",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 18"
+        },
+        {
+          "name": "Quote",
+          "value": "| Historical legal CP-4 | `ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9` |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C5",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 19"
+        },
+        {
+          "name": "Quote",
+          "value": "| annual-selected | `ec0dbd96488e2f6977a42bfc17085b6dd8410a9b39db7e7a0a3670c2d701f58b` |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C6",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 29"
+        },
+        {
+          "name": "Quote",
+          "value": "| Positive coverage supports funding flexibility | A65 fn2: USD1,962 per USD1,000; A274: applicable 150% after-borrowing minimum | Published ratio lacks unrounded legal numerator/denominator, relief bridge and proposed uses; cushion is neither dollar capacity nor 46.2% asset-price-decline runway | Historical comparison survives; executable buffer requires evidence | Do not certify incremental dollars or an asset-loss tolerance |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C7",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 30"
+        },
+        {
+          "name": "Quote",
+          "value": "| Cushion is 0.462x, or 46.2 percentage points | Current CP-4 C1–C5; A65/A274 | Whole-percent 196% versus 150% produces the separate coarser 46 pp presentation; none is a percentage asset drawdown | Precision distinction survives | Keep ratio, pp and whole-percent presentation separate |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C8",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 31"
+        },
+        {
+          "name": "Quote",
+          "value": "| Reported facilities are material counterevidence to closure | A88: approximately USD5.1bn conditional availability; A276: USD3,348m revolver availability | USD3,348m is included, not additive; USD2,219m ceiling difference from A274–275 is conditional expansion, not cash. Borrowing base/equity/other conditions can bind | Reported access survives; unconditional drawability does not | Reconcile conditions; never sum the three figures |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C9",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 32"
+        },
+        {
+          "name": "Quote",
+          "value": "| The 1.5 minima establish the same headroom and breach timing | A276 reports facility maintenance and material compliance at December 31; B p20 §10.07/L1384–1385 incorporates Act restriction | Facility definitions/exceptions differ from note incurrence. B p12 §5.01(vii)/L917 uses below 100% at each last business day for 24 consecutive months; S pp2–3 §4.03/L216–217 separately requires 60 consecutive days after specified notice | Same-number equivalence rejected; dated issuer compliance assertion retained | Neither immediate default nor a general two-year cure follows |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C10",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 33"
+        },
+        {
+          "name": "Quote",
+          "value": "| January issuance and February authorization demonstrate extra resources or leakage | A300: January 2025 USD1,000m gross new debt; A300–301: February extension of up-to-USD1,000m repurchase authority | Issuance demonstrates subsequent execution, not net retained cash; authorization is not actual repurchase, remaining RP capacity or December usage | Access evidence survives; December/pro-forma use inference rejected | Separate events; obtain proceeds/use and actual execution |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C11",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 34"
+        },
+        {
+          "name": "Quote",
+          "value": "| Change-of-control put ensures repayment value | Inherited S pp2–3 §2.01/Article Six: 100% principal plus accrued unpaid interest | Requires defined control change plus qualifying below-investment-grade event involving all three agencies, attribution/window and exceptions; not unconditional cash or recovery | Contingent protection only | Do not use as recovery floor or TDG-style 101% term |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C12",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 35"
+        },
+        {
+          "name": "Quote",
+          "value": "| Further secured funding automatically creates new priming | A276 documents collateral, exclusions and base restrictions; A88 contemplates additional debt | Excludes investments held by Ares Capital CP, ACJB, AFB, ADL CLO 1/4 and others; consolidated value is not direct creditor reach. New secured claims depend on permissions, collateral and actual execution | Priority sensitivity survives; automatic transaction/amount rejected | Obtain entity/collateral map before unsecured recovery or priming claims |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C13",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 49"
+        },
+        {
+          "name": "Quote",
+          "value": "| published_coverage_ratio | 1.962 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C14",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 50"
+        },
+        {
+          "name": "Quote",
+          "value": "| reported_minimum_ratio | 1.5 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C15",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 51"
+        },
+        {
+          "name": "Quote",
+          "value": "| published_coverage_cushion_ratio | 0.462 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C16",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 52"
+        },
+        {
+          "name": "Quote",
+          "value": "| published_coverage_cushion_pp | 46.2 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C17",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 53"
+        },
+        {
+          "name": "Quote",
+          "value": "| conditional_ceiling_difference_USDm | 2219 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C18",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 54"
+        },
+        {
+          "name": "Quote",
+          "value": "| reported_revolver_available_USDm | 3348 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C19",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 55"
+        },
+        {
+          "name": "Quote",
+          "value": "| actual_usable_dollar_debt_capacity_USDm | — |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C20",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 56"
+        },
+        {
+          "name": "Quote",
+          "value": "| actual_RP_capacity_USDm | — |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C21",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 70"
+        },
+        {
+          "name": "Quote",
+          "value": "| Coverage and uses | Pair next disclosure with unrounded pro-forma borrowing certificate | Verified surviving cushion after intended uses strengthens executable-buffer case; erosion tightens follow-up |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C22",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 71"
+        },
+        {
+          "name": "Quote",
+          "value": "| Facility access | Reconcile base eligibility, actual maintenance ratio, equity and lender commitments | Demonstrated drawable funding supports flexibility; failed conditions elevate funding-constraint concern |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C23",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 72"
+        },
+        {
+          "name": "Quote",
+          "value": "| Execution and creditor reach | Track actual draws, repurchases, collateral changes and proceeds location | Documented outflows/new secured claims warrant renewed capacity and priority analysis, not assumed leakage |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C24",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 73"
+        },
+        {
+          "name": "Quote",
+          "value": "| Legal control history | Obtain notices, monthly coverage history, consents and defeasance records | Evaluate the applicable trigger only when its conditions/history are evidenced |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C25",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 5"
+        },
+        {
+          "name": "Quote",
+          "value": "View: Positive historical coverage and reported conditional funding rebut immediate funding closure, but do not establish an executable incremental-debt buffer. Retain a documentary-follow-up and monitoring posture: the favorable historical comparison survives; usable dollar capacity requires more evidence. This fresh sol-medium execution, dated **2026-11-05**, consumes the exact current CP-4 capacity handoff and historical focused CP-0/CP-1/legal CP-4 for Ares Capital Corporation at **2024-12-31**, focusing on the **5.950% notes due July 15, 2029**. Run: `sol-remaining-arcc-capacity-challenge-20261105`; method `deploy-v-r14`; pathway `covenant_refinancing`. This is focused consumer proof, **not a full CP-6 gate**, eleven-step debate, committee decision, current underwriting or whole-pathway execution. No independent agents or separate debate roles were run."
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C26",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 9"
+        },
+        {
+          "name": "Quote",
+          "value": "Read all four supplied handoffs and independently read `annual-selected` pp1–4. Annual locators below retain original physical PDF pages; financial-note amounts are **USD millions**, except ratios, percentages and per-unit data. A65 = selected pp1–2/original p65; A88/A274 = selected p2; A275 = selected pp2–3; A276/A282 = selected p3; A300–301 = selected p4. B/S legal references are **inherited evidence from the read CP-4 handoffs**, not newly accessed contracts: May 13, 2024 base indenture/first supplement, with original section, page and retained line locators. No new provider access or visual check is claimed. ARCC is not TDG; terms must not migrate between issuers."
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C27",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 21"
+        },
+        {
+          "name": "Quote",
+          "value": "Retained underlying lineage, not additional fresh reads: original annual PDF `4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170`; B `ef8ad4d8a3d5902746726697b6f6fa53058d7445b59d99157cbea6258bf2d459`; S `bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c`. Historical predecessors were executed November 4, 2026; their focused admission/extraction is not a full current foundation."
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C28",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 39"
+        },
+        {
+          "name": "Quote",
+          "value": "The strongest bear pathway is **portfolio marks and funded uses → weaker adjusted coverage and/or borrowing base → constrained funding before payment default**. Cash-funded returns remove assets; debt-funded uses also change senior claims. Restrictions could force asset sales, repayment or equity funding. This is an analyst stress mechanism, not an observed breach, quantified shock or prediction of default."
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C29",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 41"
+        },
+        {
+          "name": "Quote",
+          "value": "The strongest rebuttal is substantive: published 1.962x exceeds 1.5x; A88 reports USD635m cash and substantial conditional facilities; A276 asserts material facility compliance; January 2025 issuance demonstrates capital-market execution. This defeats an unsupported immediate-closure thesis. It does not prove that intended draws remain executable after uses, marks, equity requirements and collateral eligibility. Thus **historical flexibility survives; exact usable incremental debt and RP capacity remain unresolved**. No trade, size, present compliance or recovery estimate follows."
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C30",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 58"
+        },
+        {
+          "name": "Quote",
+          "value": "All values are **reused**, not new arithmetic: current CP-4 C1–C7 records 1962/1000; 150/100; 1.962−1.5; 196.2−150; whole-percent 196−150 = 46 pp; 6732−4513 = USD2,219m; and 4513−1113−52 = USD3,348m. Period: December 31, 2024; sources A65/A274–276. No calculation tool or helper was rerun merely for delivery. The last two cells mean **Not calculable**, not zero: legal inputs/transaction conditions and RP permissions/usage respectively are missing. Neither USD13,727m carrying debt nor USD835m note carrying value substitutes for the legal denominator (A274–275). No implied numerator or post-event ratio is reconstructed."
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C31",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 62"
+        },
+        {
+          "name": "Quote",
+          "value": "Request only decision-changing inputs: dated unrounded Act computation, senior-security/SBA-relief bridge and proposed borrowing proceeds/uses; executed facility/amendment chain plus borrowing-base, equity and maintenance certificates; accessible-cash/entity/collateral schedules; and RP permissions with actual utilization. Separately obtain January issuance net proceeds/uses, February program execution, intervening marks and notice/amendment/defeasance history. These resolve execution rather than merely refresh a headline ratio. No broad module rerun is requested just to deliver this challenge."
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    },
+    {
+      "ref_id": "C32",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-6"
+        },
+        {
+          "name": "Locator",
+          "value": "line 75"
+        },
+        {
+          "name": "Quote",
+          "value": "CP-4 should resolve certificates and permissions; CP-2D/CP-3C can then test accessible liquidity and refinancing. CP-5 can audit this evidence chain. None is claimed to have run. Maintain monitoring/documentary follow-up until transaction-level conditions are demonstrated; price and portfolio context would still be needed for implementation. **Focused CP-6 challenge completed with limitations; not full CP-6 gate approval.**"
+        },
+        {
+          "name": "SHA-256",
+          "value": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+        }
+      ]
+    }
+  ],
+  "index": {
+    "facts": [
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-6-0.r0.c0"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-6-0.r1.c0"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-6-0.r2.c0"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-6-0.r3.c0"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-0",
+          "row_id": "r4",
+          "fact_id": "raw-CP-6-0.r4.c0"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-6-1.r0.c0"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-6-1.r0.c1"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-6-1.r0.c2"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-6-1.r0.c3"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-6-1.r1.c0"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-6-1.r1.c1"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-6-1.r1.c2"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-6-1.r1.c3"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-6-1.r2.c0"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-6-1.r2.c1"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-6-1.r2.c2"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-6-1.r2.c3"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-6-1.r3.c0"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-6-1.r3.c1"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-6-1.r3.c2"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-6-1.r3.c3"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-6-1.r4.c0"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-6-1.r4.c1"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-6-1.r4.c2"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-6-1.r4.c3"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-6-1.r5.c0"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-6-1.r5.c1"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-6-1.r5.c2"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r5",
+          "fact_id": "raw-CP-6-1.r5.c3"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r6",
+          "fact_id": "raw-CP-6-1.r6.c0"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r6",
+          "fact_id": "raw-CP-6-1.r6.c1"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r6",
+          "fact_id": "raw-CP-6-1.r6.c2"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r6",
+          "fact_id": "raw-CP-6-1.r6.c3"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-6-2.r0.c0"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-6-2.r1.c0"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-6-2.r2.c0"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r3",
+          "fact_id": "raw-CP-6-2.r3.c0"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r4",
+          "fact_id": "raw-CP-6-2.r4.c0"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r5",
+          "fact_id": "raw-CP-6-2.r5.c0"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r6",
+          "fact_id": "raw-CP-6-2.r6.c0"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r7",
+          "fact_id": "raw-CP-6-2.r7.c0"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-6-3.r0.c0"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-6-3.r0.c1"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-6-3.r1.c0"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-6-3.r1.c1"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-6-3.r2.c0"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-6-3.r2.c1"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r3",
+          "fact_id": "raw-CP-6-3.r3.c0"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r3",
+          "fact_id": "raw-CP-6-3.r3.c1"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "prose-CP-6-0",
+          "row_id": "r0",
+          "fact_id": "prose-CP-6-0.r0.c0"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "prose-CP-6-1",
+          "row_id": "r0",
+          "fact_id": "prose-CP-6-1.r0.c0"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "prose-CP-6-2",
+          "row_id": "r0",
+          "fact_id": "prose-CP-6-2.r0.c0"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "prose-CP-6-3",
+          "row_id": "r0",
+          "fact_id": "prose-CP-6-3.r0.c0"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "prose-CP-6-3",
+          "row_id": "r1",
+          "fact_id": "prose-CP-6-3.r1.c0"
+        },
+        "ref_ids": [
+          "C29"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "prose-CP-6-4",
+          "row_id": "r0",
+          "fact_id": "prose-CP-6-4.r0.c0"
+        },
+        "ref_ids": [
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "prose-CP-6-5",
+          "row_id": "r0",
+          "fact_id": "prose-CP-6-5.r0.c0"
+        },
+        "ref_ids": [
+          "C31"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-6",
+          "table_id": "prose-CP-6-6",
+          "row_id": "r0",
+          "fact_id": "prose-CP-6-6.r0.c0"
+        },
+        "ref_ids": [
+          "C32"
+        ]
+      }
+    ]
+  }
+}

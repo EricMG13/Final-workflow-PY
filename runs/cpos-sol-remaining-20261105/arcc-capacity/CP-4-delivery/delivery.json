@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Fresh sol-medium CP-4A phase using canonical CP-4 transport; historicalFY2024 publishedprecision and originalMay2024notes. Applicable13duties withpositiveactualinputcushion,notallbasketfamilies/currentcompliance/usabledebt/fullpathway. Existingreport andfullMarkdown evidence, noExcel.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-4.md": "fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738",
+    "view.json": "cc8364fa7ec0599fc3e0323d9a45fbb5b32a56b1a84a0899d18da600ac59431c",
+    "report-view.json": "e9234076ee214ff817145c6f4de1ac840339270e50c29e5aae2f5c5cd1429ca1",
+    "report.html": "e6838cb9783f604aac5b3109b56eace610a7c8aeed812489577ac4ed54257e4b"
+  }
+}

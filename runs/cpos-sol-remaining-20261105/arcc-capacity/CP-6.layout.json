@@ -1,0 +1,51 @@
+{
+  "blocks": [
+    "capacity",
+    "red-flags"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-6",
+      "heading": "Request",
+      "kind": "prose",
+      "prefix": "View:",
+      "block_id": "red-flags",
+      "label": "Focused capacity challenge"
+    },
+    {
+      "module_id": "CP-6",
+      "heading": "Challenge register",
+      "kind": "table",
+      "block_id": "red-flags",
+      "label": "Challenge register"
+    },
+    {
+      "module_id": "CP-6",
+      "heading": "Decision consequence",
+      "kind": "prose",
+      "block_id": "red-flags",
+      "label": "Decision consequence"
+    },
+    {
+      "module_id": "CP-6",
+      "heading": "Monitoring",
+      "kind": "table",
+      "block_id": "red-flags",
+      "label": "Monitoring"
+    },
+    {
+      "module_id": "CP-6",
+      "heading": "Consumption controls",
+      "kind": "table",
+      "block_id": "capacity",
+      "label": "Consumption controls"
+    }
+  ],
+  "title": "Ares Capital historical capacity challenge",
+  "question": "Does the published cushion prove financing access?",
+  "issuer_aliases": [
+    "ARCC",
+    "Ares Capital"
+  ],
+  "scope": "Fresh sol-medium substantiveconsumption of currentCP4Aphase; historicalassetcoverageinputs. Focusedchallenge,notfullCP6committee/currentrating/action/sizingorwholepathway. Existingreport andfullMarkdown preserved."
+}

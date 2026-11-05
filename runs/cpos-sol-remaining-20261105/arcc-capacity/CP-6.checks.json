@@ -1,0 +1,49 @@
+{
+  "required_terms": [
+    "2024-12-31",
+    "2026-11-05"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Consumption controls",
+      "columns": [
+        "Metric",
+        "Value"
+      ],
+      "rows": [
+        [
+          "published_coverage_ratio",
+          "1.962"
+        ],
+        [
+          "reported_minimum_ratio",
+          "1.5"
+        ],
+        [
+          "published_coverage_cushion_ratio",
+          "0.462"
+        ],
+        [
+          "published_coverage_cushion_pp",
+          "46.2"
+        ],
+        [
+          "conditional_ceiling_difference_USDm",
+          "2219"
+        ],
+        [
+          "reported_revolver_available_USDm",
+          "3348"
+        ],
+        [
+          "actual_usable_dollar_debt_capacity_USDm",
+          "\u2014"
+        ],
+        [
+          "actual_RP_capacity_USDm",
+          "\u2014"
+        ]
+      ]
+    }
+  ]
+}

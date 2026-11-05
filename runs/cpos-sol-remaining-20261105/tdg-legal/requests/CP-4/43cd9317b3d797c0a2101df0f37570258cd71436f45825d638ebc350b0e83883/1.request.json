@@ -1,0 +1,38 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0": "ece2808828294951bfbed08636a37d75319e7ac4d6ccc28e865c547e2b90942b",
+    "CP-0-legal-admission": "60902235146ab272998554ab9381cd7e894bfbd3a0b58f46d1a704c337418f27",
+    "CP-1": "bd6face3d8f0dda4826c348bf61197b17936206ad47089b58c39c509620debf6",
+    "CP-1A": "6785723ae6c9013f3c1eef521914783c4443dfa8d602a3fbd8ba3963a16790b6",
+    "CP-1D": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
+    "CP-2": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+    "CP-2A": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3",
+    "CP-2D": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565"
+  },
+  "instructions": "# Fresh sol-medium CP-4 historical indenture review\nExecute the selected broader fourteen-step CP-4 method using the actual admitted indenture. Current execution2026-11-05; legal date2024-09-19, financial September2024 and December2024 contexts separately dated. This is fresh live function proof, not current legal advice or complete TDG pathway. Reuse supplied Markdown handoffs and pure-helper controls; no prior CP-4 answer supplied. Selected-method/runbook/REF analytical duties apply; historical workflow/approval/host-only restrictions and native accepted-artifact machinery are evidence not present authority. Use six H2 Request/Sources/Findings/Calculations/Gaps/Next module. No new engine, workbook, synthetic legal terms, or full CP-4A/B/D claim; those phases follow independently. Retain exact current hashes of all supplied upstreams and distinguish historical host source-admission from current live financial handoffs.\n\nRead full legal text and the selected method runbook and REF. Cover all fourteen duties and fourteen distinct provision families P01-P14. Source provides complete indexed text L0-L2876, not raw HTML or visual audit. Preserve Company/issuer, Holdings, Guarantors and two agent roles. Identify separate-document boundaries, New York law, missing ICA/security bodies, later changes and certificates/usage. Do not let a missing comparator erase available clause analysis.\n\nIndependent check results supplied are deterministic preflight, not newly generated model analysis or actual capacity. Exact source strict >2.0 incurrence and RP, clause M 35% post-adjustment cap with 24-month condition, not cap on every EBITDA adjustment; preserve actual legal four-quarter/perimeter/interest/pro forma formula. Reported AsDefined4173/cashinterest1158 and carryingdebt24880/broader25002 cannot be substituted. Permitted debt/baskets/reclassification, RP/investments/USub, liens, asset-sale fairvalue/cash/deemedcash/reinvestment/offer controls, guarantees/release, collateral/exclusions, defaults/remedies, amendments/affectedholder rights, suspension/reversion and CoC all require source-grounded interpretation. No automatic unused capacity/current breach/borrower intent. Securitization exceptions do not certify the separate A/R facility access.\n\nPreserve exact 66 2/3% consent fraction (actual source 66^{2}\u2044_{3}%); parser refusal is correct and not a 3% threshold. Explain limited special scope versus ordinary majority, affected-holder and already-permitted releases. Form-note exact maturity month/day is placeholder, do not invent it. CoC101% principal illustration assumes all ORIGINAL1500USDm eligible validly tendered, no actual triggering/remainingprincipal/funding assertion; premium separate, accrued interest missing not zero; use calculate for new arithmetic. Do not copy old output or invent tool execution.\n\nReader-facing conclusion first, all broad register meanings preserved, full standard finding chain/documentaryfact vs interpretation/PD vs LGD/counterevidence/time-aware monitoring. Score seven areas from rubric only where supported, composite not arithmetic mean, market-standard label not an empirical comparator claim. ~3000 words plus complete tables. One table per exact heading below; additional tables use distinct headings.\n- T4.1 \u2014 source gate\n- T4.2 \u2014 controlling document and roles\n- T4.3 \u2014 provision register\n- T4.9 \u2014 PD versus LGD transmission\n- T4.10 \u2014 market comparison\n- T4.11 \u2014 provisional aggressiveness assessment\n- T4.12 \u2014 red flags and observable follow-up\n- T4.13 \u2014 gaps\nProse subsections with actual paragraphs, not only tables:\n- Definitions and ratio mechanics \u2014 P01\u201303\n- Debt, leakage and cash-control mechanics \u2014 P04\u201308\n- Guarantees, security, remedies and control \u2014 P09\u201314\n- Overall legal view\nRequest includes paragraph starting View:. All key evidence needs clause + exact retained L locator. Source citations not long quotations.\n\nCalculations include H3 Legal numeric controls, exact columns Metric|Value, ordered rows: incurrence_threshold_x; restricted_payment_threshold_x; clause_M_post_adjustment_cap_percent; original_notes_principal_USDm; conditional_all_original_principal_101_percent_USDm; conditional_premium_component_USDm; actual_current_legal_FCCR; actual_unused_ratio_debt_capacity_USDm; conditional_accrued_interest_USDm. Bare numbers without units/grouping, final three emdash \u2014 with reasons explained. Include synthetic strict 1.99/2.00/2.01 boundary results separately explicitly not actual issuer. Explain fractional threshold exact even unsupported by Decimal parser. Existing hidden expectations compare source and independently calculated amounts. Next module CP-3C must actually distinguish this notes indenture from July2025 A/R access and consume qualified refinancing/creditor implications; do not claim it already ran.\n",
+  "module_id": "CP-4",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-4"
+    ],
+    "run_id": "sol-remaining-tdg-legal-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "checked-controls": "8e7f8057f802d8f02e0d2393bb9d237095a584fe2b65b7adb0ae839b8aefcb51",
+    "legal-retrieval": "1692e2ebb6c6d682553685fef6b54b971c8e71fcab1ec1670cfac6ef8fafece4",
+    "legal-text": "cb2c0c77e7ec1f90e5a7117a5df7e16cd2556b02e7be7ca43fbf4d64ed585b05",
+    "method-runbook": "abe96a72629686818d5697fbf7a9ccedaf90c3f6d80ca8c46fa3dd27b461ad57",
+    "method-steps": "ef5eb569be59ec30dd3a66c1bcc81c5cc0bcc2e9d2ac3909b04caa23339b6b94",
+    "selected-method": "8a3b12f3f37359463434177759febac1ffcf0f8c484aa0508eb7119f7b6548b2"
+  }
+}

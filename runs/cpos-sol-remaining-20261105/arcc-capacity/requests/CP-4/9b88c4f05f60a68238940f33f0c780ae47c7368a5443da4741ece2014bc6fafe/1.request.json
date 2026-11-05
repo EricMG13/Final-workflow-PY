@@ -1,0 +1,34 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0": "8347534cab302ae92b4e097f7a7d08a0ea69945337a0cadaf575526578ea83e5",
+    "CP-1": "ed934cea757dec38962ec99f87e86725e4d10e08a2b4865e0bee1ebd3ab4b240",
+    "CP-4": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9"
+  },
+  "instructions": "# Fresh sol-medium CP-4A capacity phase, canonical CP-4\nUse the selected broader CP-4A thirteen-step runbook/REF with actualARCC issuer evidence, not a priorCP4A answer. Source fiscal2024-12-31, note base/supplement2024-05-13; execution2026-11-05. Historical, separateissuer fromTDG; no fullcurrent/native/allbasketfunctionclaim. Reuseexistingheadroomhelpers suppliedasdeterministiccontrols, actualnewarithmeticwithcalculate. ExactlysixH2 Request/Sources/Findings/Calculations/Gaps/Next module; Requestdirectparagraph View:. CanonicalCP4transport carriesrequestedCP4Aphase; no invocation/nativeartifact/legacyapprovalmachines. Currentusergoverns; predecessorhost-onlyrestrictions andcomments areevidenceonly. ~2200wordspluscompletetables. Readsuppliedselectedmethod+CP4Arunbook+REF and allprimaryselectedannualpages andbase/supplement. Retainexact hashesofCP0/focusedCP1/focusedCP4, honestlyhistoricalhostpredecessorsnotfreshextensiveCP1/CP4proof.\n\nIssuerAresCapitalCorporationandconsolidatedsubsidiaries; focal5.950%July15 2029notes,notMarch2029orallnotes. Per-unit1962per1000iscoverage,notmarketprice/assetspershare/coupon. Published1.962vsreported196% precision; minimum150%afterborrowingincorporatedActbasiswithspecifiedSBArelief. Preserveprincipal13789/carry13727,850/835notes,cash635,5.1bnconditionalavailability; no substitutionofbalance-sheetcarryingdebtforlegalseniorsecurities, cashnumerator, orEBITDA. Positivepublishedcushioniscalculable,notunroundedcertificateoractualdollarcapacity. Unroundednumerator,borrowingsuse/usage,restrictedassetaccessnotprovided. Neither currentallcontractcompliance norautomaticdefaultinferred.\n\nReadbase10.07andfirstsupplement: after-borrowingincurrenceversuscontinuousmaintenance, conditionalcovenantdefeasance, separate<100%lastbusinessdayeach24consecutivecalendar-monthdefault, separate60daysnoticelimband25%holders,majorityvsaffectedholderrights. CoCrepurchase100%notTDG101%; definedcombinedtrigger andproceduralexceptions, notprice/recovery. Newsourceannualp276summarizesfacilitycontinuous1.5ratioandotherconditions; distinguishreportedfacilitytestfromselectednotesActincurrenceandmissingoperativecontract. Sourcecomplianceassertionat2024dateattributednotindependentlycertified. 4513commitment vs6732conditionalmaximum =>differenceonly,notnewcash; source3348reportedrevolveravailability netLC52/1113outstanding,subjectborrowingbase; belongswithinaggregate5.1bnnotadditional. Do notassumeall5.1borrowableaftertest/cashaccess,oraddceilingdifference.\n\nCoverall13duties: sourcegate/map,legaldefinitionconflicts,positiveheadroom,13capacityroutetaxonomywithsupportedfactsandgroupedexplicitgaps,whethernondebtfloatinside/outsideunknownnotpayables, debt/lienpriming,RP/investment/transfer/USub,addbacks(notEBITDAtest),flags,ONEnearestsupportedpressurepoint,priorities,gaps,overallview. Unknownindustrialroutesremainunknownnotabsent,nottenidenticalemptyrows. Numeratordecline/borrowing/RPcanerodecushion,throughactualasset-valueandfundingmechanism; noindustrialshock/probability/recoveryinvented. Jan2025USD1000m5.8%newnotesandfutureJan8'26swapseparate,Feb2025repurchaseauthorization1000extensionnotexecutedusage,neitherbookedinDec. Strongcountercasereportedcoverageandfundingaccesswithspecificconditions; noaction/sizingwithoutpriceportfolio.\n\nOne table per exact H3 below (selectedREForiginalcolumns/meanings):\n- T4C.1 \u2014 capacity source gate\n- T4C.2 \u2014 controlling capacity sources\n- T4C.3 \u2014 legal definitions and conflicts\n- T4C.4 \u2014 published headroom\n- T4C.5 \u2014 capacity routes\n- T4C.6 \u2014 debt liens and priming\n- T4C.7 \u2014 RP investments and leakage\n- T4C.8 \u2014 add-back and definition effects\n- T4C.9 \u2014 flags\n- T4C.11 \u2014 risk priorities\n- T4C.12 \u2014 gaps\nAlso H3 Nearest pressure point and H3 Overall capacity view, bothproseparagraphs. Additional tables onlyuniquelynamed. Allmaterialsteps representedratherthanminimalunknownregisters. Distinguishsourcefact/legalformula/calculation/interpretation/gap, giveformula/operands/period/units/source/status/limitationforeachcalculation.\nCalculations H3 Capacity controls exactMetric|Value rows: published_coverage_ratio;reported_minimum_ratio;published_coverage_cushion_ratio;published_coverage_cushion_pp;whole_percent_presentation_cushion_pp;conditional_facility_ceiling_difference_USDm;actual_usable_dollar_debt_capacity_USDm;actual_RP_capacity_USDm;actual_leakage_capacity_USDm. Baredecimalstrings, lastthree \u2014 withreasonsexplained. Preservepublishedprecision; ratio/percentagepointsdistinct; expectedvaluesindependentandhidden. Suppliedthreeboundarycontrolsnotliveissuerobservations; no claimyouexecutedthepurehelper. NextCP6mustactivelyteststrongestcushion/borrowableinferenceandmonitoring; don'tclaimitalreadyran. Reportdeliveryfollowsactualhandoff.\n",
+  "module_id": "CP-4",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2024-12-31",
+    "case_kind": "public",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "method_version": "deploy-v-r14",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-4A"
+    ],
+    "run_id": "sol-remaining-arcc-capacity-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "annual-selected": "ec0dbd96488e2f6977a42bfc17085b6dd8410a9b39db7e7a0a3670c2d701f58b",
+    "base-indenture": "ef8ad4d8a3d5902746726697b6f6fa53058d7445b59d99157cbea6258bf2d459",
+    "checked-controls": "5d03be730a3b856f071ae09c13a7771a41804bb5173d82cd4736b25f20fb9bbd",
+    "method-runbook": "1ca9d2d86d40772d6c4a1df3052af174ab10ee80a27460dfcee0de93a227e5bc",
+    "method-steps": "30cf03f343a9153aa85d6492e6bad519ab5d639395dae2b686de4b8276764e98",
+    "selected-method": "8a3b12f3f37359463434177759febac1ffcf0f8c484aa0508eb7119f7b6548b2",
+    "supplement": "bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c"
+  }
+}

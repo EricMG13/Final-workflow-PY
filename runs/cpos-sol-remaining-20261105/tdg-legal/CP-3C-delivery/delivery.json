@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Fresh current CP-4 consumption with independently checked original handoff facts; historical 2024/2025 dates. No actual unused capacity, funded refinancing, current legal opinion or full pathway claim.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-3C.md": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+    "view.json": "d39996ed5dba87d5cfbe2d4027f10fd81e821b317a8f8d0600d98ced5f8ee413",
+    "report-view.json": "f75192ead127bb75767481ecdce760899abed3935c97c10f9983795d42738820",
+    "report.html": "0da1bf936d32b74455682ec0ac735cf86a63d3b1108002c13a14ab31da252074"
+  }
+}

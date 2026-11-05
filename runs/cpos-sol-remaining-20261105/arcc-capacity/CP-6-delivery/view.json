@@ -1,0 +1,2860 @@
+{
+  "schema_version": "view/4",
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "sol-remaining-arcc-capacity-challenge-20261105",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2024-12-31",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-6"
+    ]
+  },
+  "mode": "candidate",
+  "modules": [
+    {
+      "module_id": "CP-6",
+      "title": "Ic debate challenge",
+      "aliases": [
+        "CP-6A"
+      ],
+      "status": "candidate",
+      "artifact_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+      "facts": [
+        {
+          "fact_id": "raw-CP-6-0.r0.c0",
+          "label": "Current CP-4-capacity",
+          "table_id": "raw-CP-6-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 15",
+              "quote": "| Current CP-4-capacity | `fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738` |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-0.r1.c0",
+          "label": "Historical CP-0",
+          "table_id": "raw-CP-6-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "8347534cab302ae92b4e097f7a7d08a0ea69945337a0cadaf575526578ea83e5",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 16",
+              "quote": "| Historical CP-0 | `8347534cab302ae92b4e097f7a7d08a0ea69945337a0cadaf575526578ea83e5` |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-0.r2.c0",
+          "label": "Historical focused CP-1",
+          "table_id": "raw-CP-6-0",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "ed934cea757dec38962ec99f87e86725e4d10e08a2b4865e0bee1ebd3ab4b240",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 17",
+              "quote": "| Historical focused CP-1 | `ed934cea757dec38962ec99f87e86725e4d10e08a2b4865e0bee1ebd3ab4b240` |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-0.r3.c0",
+          "label": "Historical legal CP-4",
+          "table_id": "raw-CP-6-0",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 18",
+              "quote": "| Historical legal CP-4 | `ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9` |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-0.r4.c0",
+          "label": "annual-selected",
+          "table_id": "raw-CP-6-0",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "ec0dbd96488e2f6977a42bfc17085b6dd8410a9b39db7e7a0a3670c2d701f58b",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 19",
+              "quote": "| annual-selected | `ec0dbd96488e2f6977a42bfc17085b6dd8410a9b39db7e7a0a3670c2d701f58b` |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r0.c0",
+          "label": "Positive coverage supports funding flexibility",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "A65 fn2: USD1,962 per USD1,000; A274: applicable 150% after-borrowing minimum",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 29",
+              "quote": "| Positive coverage supports funding flexibility | A65 fn2: USD1,962 per USD1,000; A274: applicable 150% after-borrowing minimum | Published ratio lacks unrounded legal numerator/denominator, relief bridge and proposed uses; cushion is neither dollar capacity nor 46.2% asset-price-decline runway | Historical comparison survives; executable buffer requires evidence | Do not certify incremental dollars or an asset-loss tolerance |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r0.c1",
+          "label": "Positive coverage supports funding flexibility",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Published ratio lacks unrounded legal numerator/denominator, relief bridge and proposed uses; cushion is neither dollar capacity nor 46.2% asset-price-decline runway",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 29",
+              "quote": "| Positive coverage supports funding flexibility | A65 fn2: USD1,962 per USD1,000; A274: applicable 150% after-borrowing minimum | Published ratio lacks unrounded legal numerator/denominator, relief bridge and proposed uses; cushion is neither dollar capacity nor 46.2% asset-price-decline runway | Historical comparison survives; executable buffer requires evidence | Do not certify incremental dollars or an asset-loss tolerance |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r0.c2",
+          "label": "Positive coverage supports funding flexibility",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "Historical comparison survives; executable buffer requires evidence",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 29",
+              "quote": "| Positive coverage supports funding flexibility | A65 fn2: USD1,962 per USD1,000; A274: applicable 150% after-borrowing minimum | Published ratio lacks unrounded legal numerator/denominator, relief bridge and proposed uses; cushion is neither dollar capacity nor 46.2% asset-price-decline runway | Historical comparison survives; executable buffer requires evidence | Do not certify incremental dollars or an asset-loss tolerance |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r0.c3",
+          "label": "Positive coverage supports funding flexibility",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r0",
+          "field": "c3",
+          "amount": null,
+          "text": "Do not certify incremental dollars or an asset-loss tolerance",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 29",
+              "quote": "| Positive coverage supports funding flexibility | A65 fn2: USD1,962 per USD1,000; A274: applicable 150% after-borrowing minimum | Published ratio lacks unrounded legal numerator/denominator, relief bridge and proposed uses; cushion is neither dollar capacity nor 46.2% asset-price-decline runway | Historical comparison survives; executable buffer requires evidence | Do not certify incremental dollars or an asset-loss tolerance |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r1.c0",
+          "label": "Cushion is 0.462x, or 46.2 percentage points",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Current CP-4 C1–C5; A65/A274",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 30",
+              "quote": "| Cushion is 0.462x, or 46.2 percentage points | Current CP-4 C1–C5; A65/A274 | Whole-percent 196% versus 150% produces the separate coarser 46 pp presentation; none is a percentage asset drawdown | Precision distinction survives | Keep ratio, pp and whole-percent presentation separate |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r1.c1",
+          "label": "Cushion is 0.462x, or 46.2 percentage points",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Whole-percent 196% versus 150% produces the separate coarser 46 pp presentation; none is a percentage asset drawdown",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 30",
+              "quote": "| Cushion is 0.462x, or 46.2 percentage points | Current CP-4 C1–C5; A65/A274 | Whole-percent 196% versus 150% produces the separate coarser 46 pp presentation; none is a percentage asset drawdown | Precision distinction survives | Keep ratio, pp and whole-percent presentation separate |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r1.c2",
+          "label": "Cushion is 0.462x, or 46.2 percentage points",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "Precision distinction survives",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 30",
+              "quote": "| Cushion is 0.462x, or 46.2 percentage points | Current CP-4 C1–C5; A65/A274 | Whole-percent 196% versus 150% produces the separate coarser 46 pp presentation; none is a percentage asset drawdown | Precision distinction survives | Keep ratio, pp and whole-percent presentation separate |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r1.c3",
+          "label": "Cushion is 0.462x, or 46.2 percentage points",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r1",
+          "field": "c3",
+          "amount": null,
+          "text": "Keep ratio, pp and whole-percent presentation separate",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 30",
+              "quote": "| Cushion is 0.462x, or 46.2 percentage points | Current CP-4 C1–C5; A65/A274 | Whole-percent 196% versus 150% produces the separate coarser 46 pp presentation; none is a percentage asset drawdown | Precision distinction survives | Keep ratio, pp and whole-percent presentation separate |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r2.c0",
+          "label": "Reported facilities are material counterevidence to closure",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "A88: approximately USD5.1bn conditional availability; A276: USD3,348m revolver availability",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 31",
+              "quote": "| Reported facilities are material counterevidence to closure | A88: approximately USD5.1bn conditional availability; A276: USD3,348m revolver availability | USD3,348m is included, not additive; USD2,219m ceiling difference from A274–275 is conditional expansion, not cash. Borrowing base/equity/other conditions can bind | Reported access survives; unconditional drawability does not | Reconcile conditions; never sum the three figures |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r2.c1",
+          "label": "Reported facilities are material counterevidence to closure",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "USD3,348m is included, not additive; USD2,219m ceiling difference from A274–275 is conditional expansion, not cash. Borrowing base/equity/other conditions can bind",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 31",
+              "quote": "| Reported facilities are material counterevidence to closure | A88: approximately USD5.1bn conditional availability; A276: USD3,348m revolver availability | USD3,348m is included, not additive; USD2,219m ceiling difference from A274–275 is conditional expansion, not cash. Borrowing base/equity/other conditions can bind | Reported access survives; unconditional drawability does not | Reconcile conditions; never sum the three figures |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r2.c2",
+          "label": "Reported facilities are material counterevidence to closure",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "Reported access survives; unconditional drawability does not",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 31",
+              "quote": "| Reported facilities are material counterevidence to closure | A88: approximately USD5.1bn conditional availability; A276: USD3,348m revolver availability | USD3,348m is included, not additive; USD2,219m ceiling difference from A274–275 is conditional expansion, not cash. Borrowing base/equity/other conditions can bind | Reported access survives; unconditional drawability does not | Reconcile conditions; never sum the three figures |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r2.c3",
+          "label": "Reported facilities are material counterevidence to closure",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r2",
+          "field": "c3",
+          "amount": null,
+          "text": "Reconcile conditions; never sum the three figures",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 31",
+              "quote": "| Reported facilities are material counterevidence to closure | A88: approximately USD5.1bn conditional availability; A276: USD3,348m revolver availability | USD3,348m is included, not additive; USD2,219m ceiling difference from A274–275 is conditional expansion, not cash. Borrowing base/equity/other conditions can bind | Reported access survives; unconditional drawability does not | Reconcile conditions; never sum the three figures |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r3.c0",
+          "label": "The 1.5 minima establish the same headroom and breach timing",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "A276 reports facility maintenance and material compliance at December 31; B p20 §10.07/L1384–1385 incorporates Act restriction",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 32",
+              "quote": "| The 1.5 minima establish the same headroom and breach timing | A276 reports facility maintenance and material compliance at December 31; B p20 §10.07/L1384–1385 incorporates Act restriction | Facility definitions/exceptions differ from note incurrence. B p12 §5.01(vii)/L917 uses below 100% at each last business day for 24 consecutive months; S pp2–3 §4.03/L216–217 separately requires 60 consecutive days after specified notice | Same-number equivalence rejected; dated issuer compliance assertion retained | Neither immediate default nor a general two-year cure follows |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r3.c1",
+          "label": "The 1.5 minima establish the same headroom and breach timing",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Facility definitions/exceptions differ from note incurrence. B p12 §5.01(vii)/L917 uses below 100% at each last business day for 24 consecutive months; S pp2–3 §4.03/L216–217 separately requires 60 consecutive days after specified notice",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 32",
+              "quote": "| The 1.5 minima establish the same headroom and breach timing | A276 reports facility maintenance and material compliance at December 31; B p20 §10.07/L1384–1385 incorporates Act restriction | Facility definitions/exceptions differ from note incurrence. B p12 §5.01(vii)/L917 uses below 100% at each last business day for 24 consecutive months; S pp2–3 §4.03/L216–217 separately requires 60 consecutive days after specified notice | Same-number equivalence rejected; dated issuer compliance assertion retained | Neither immediate default nor a general two-year cure follows |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r3.c2",
+          "label": "The 1.5 minima establish the same headroom and breach timing",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r3",
+          "field": "c2",
+          "amount": null,
+          "text": "Same-number equivalence rejected; dated issuer compliance assertion retained",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 32",
+              "quote": "| The 1.5 minima establish the same headroom and breach timing | A276 reports facility maintenance and material compliance at December 31; B p20 §10.07/L1384–1385 incorporates Act restriction | Facility definitions/exceptions differ from note incurrence. B p12 §5.01(vii)/L917 uses below 100% at each last business day for 24 consecutive months; S pp2–3 §4.03/L216–217 separately requires 60 consecutive days after specified notice | Same-number equivalence rejected; dated issuer compliance assertion retained | Neither immediate default nor a general two-year cure follows |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r3.c3",
+          "label": "The 1.5 minima establish the same headroom and breach timing",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r3",
+          "field": "c3",
+          "amount": null,
+          "text": "Neither immediate default nor a general two-year cure follows",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 32",
+              "quote": "| The 1.5 minima establish the same headroom and breach timing | A276 reports facility maintenance and material compliance at December 31; B p20 §10.07/L1384–1385 incorporates Act restriction | Facility definitions/exceptions differ from note incurrence. B p12 §5.01(vii)/L917 uses below 100% at each last business day for 24 consecutive months; S pp2–3 §4.03/L216–217 separately requires 60 consecutive days after specified notice | Same-number equivalence rejected; dated issuer compliance assertion retained | Neither immediate default nor a general two-year cure follows |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r4.c0",
+          "label": "January issuance and February authorization demonstrate extra resources or leakage",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "A300: January 2025 USD1,000m gross new debt; A300–301: February extension of up-to-USD1,000m repurchase authority",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 33",
+              "quote": "| January issuance and February authorization demonstrate extra resources or leakage | A300: January 2025 USD1,000m gross new debt; A300–301: February extension of up-to-USD1,000m repurchase authority | Issuance demonstrates subsequent execution, not net retained cash; authorization is not actual repurchase, remaining RP capacity or December usage | Access evidence survives; December/pro-forma use inference rejected | Separate events; obtain proceeds/use and actual execution |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r4.c1",
+          "label": "January issuance and February authorization demonstrate extra resources or leakage",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "Issuance demonstrates subsequent execution, not net retained cash; authorization is not actual repurchase, remaining RP capacity or December usage",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 33",
+              "quote": "| January issuance and February authorization demonstrate extra resources or leakage | A300: January 2025 USD1,000m gross new debt; A300–301: February extension of up-to-USD1,000m repurchase authority | Issuance demonstrates subsequent execution, not net retained cash; authorization is not actual repurchase, remaining RP capacity or December usage | Access evidence survives; December/pro-forma use inference rejected | Separate events; obtain proceeds/use and actual execution |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r4.c2",
+          "label": "January issuance and February authorization demonstrate extra resources or leakage",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r4",
+          "field": "c2",
+          "amount": null,
+          "text": "Access evidence survives; December/pro-forma use inference rejected",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 33",
+              "quote": "| January issuance and February authorization demonstrate extra resources or leakage | A300: January 2025 USD1,000m gross new debt; A300–301: February extension of up-to-USD1,000m repurchase authority | Issuance demonstrates subsequent execution, not net retained cash; authorization is not actual repurchase, remaining RP capacity or December usage | Access evidence survives; December/pro-forma use inference rejected | Separate events; obtain proceeds/use and actual execution |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r4.c3",
+          "label": "January issuance and February authorization demonstrate extra resources or leakage",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r4",
+          "field": "c3",
+          "amount": null,
+          "text": "Separate events; obtain proceeds/use and actual execution",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 33",
+              "quote": "| January issuance and February authorization demonstrate extra resources or leakage | A300: January 2025 USD1,000m gross new debt; A300–301: February extension of up-to-USD1,000m repurchase authority | Issuance demonstrates subsequent execution, not net retained cash; authorization is not actual repurchase, remaining RP capacity or December usage | Access evidence survives; December/pro-forma use inference rejected | Separate events; obtain proceeds/use and actual execution |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r5.c0",
+          "label": "Change-of-control put ensures repayment value",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "Inherited S pp2–3 §2.01/Article Six: 100% principal plus accrued unpaid interest",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 34",
+              "quote": "| Change-of-control put ensures repayment value | Inherited S pp2–3 §2.01/Article Six: 100% principal plus accrued unpaid interest | Requires defined control change plus qualifying below-investment-grade event involving all three agencies, attribution/window and exceptions; not unconditional cash or recovery | Contingent protection only | Do not use as recovery floor or TDG-style 101% term |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r5.c1",
+          "label": "Change-of-control put ensures repayment value",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "Requires defined control change plus qualifying below-investment-grade event involving all three agencies, attribution/window and exceptions; not unconditional cash or recovery",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 34",
+              "quote": "| Change-of-control put ensures repayment value | Inherited S pp2–3 §2.01/Article Six: 100% principal plus accrued unpaid interest | Requires defined control change plus qualifying below-investment-grade event involving all three agencies, attribution/window and exceptions; not unconditional cash or recovery | Contingent protection only | Do not use as recovery floor or TDG-style 101% term |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r5.c2",
+          "label": "Change-of-control put ensures repayment value",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r5",
+          "field": "c2",
+          "amount": null,
+          "text": "Contingent protection only",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 34",
+              "quote": "| Change-of-control put ensures repayment value | Inherited S pp2–3 §2.01/Article Six: 100% principal plus accrued unpaid interest | Requires defined control change plus qualifying below-investment-grade event involving all three agencies, attribution/window and exceptions; not unconditional cash or recovery | Contingent protection only | Do not use as recovery floor or TDG-style 101% term |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r5.c3",
+          "label": "Change-of-control put ensures repayment value",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r5",
+          "field": "c3",
+          "amount": null,
+          "text": "Do not use as recovery floor or TDG-style 101% term",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 34",
+              "quote": "| Change-of-control put ensures repayment value | Inherited S pp2–3 §2.01/Article Six: 100% principal plus accrued unpaid interest | Requires defined control change plus qualifying below-investment-grade event involving all three agencies, attribution/window and exceptions; not unconditional cash or recovery | Contingent protection only | Do not use as recovery floor or TDG-style 101% term |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r6.c0",
+          "label": "Further secured funding automatically creates new priming",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r6",
+          "field": "c0",
+          "amount": null,
+          "text": "A276 documents collateral, exclusions and base restrictions; A88 contemplates additional debt",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 35",
+              "quote": "| Further secured funding automatically creates new priming | A276 documents collateral, exclusions and base restrictions; A88 contemplates additional debt | Excludes investments held by Ares Capital CP, ACJB, AFB, ADL CLO 1/4 and others; consolidated value is not direct creditor reach. New secured claims depend on permissions, collateral and actual execution | Priority sensitivity survives; automatic transaction/amount rejected | Obtain entity/collateral map before unsecured recovery or priming claims |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r6.c1",
+          "label": "Further secured funding automatically creates new priming",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r6",
+          "field": "c1",
+          "amount": null,
+          "text": "Excludes investments held by Ares Capital CP, ACJB, AFB, ADL CLO 1/4 and others; consolidated value is not direct creditor reach. New secured claims depend on permissions, collateral and actual execution",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 35",
+              "quote": "| Further secured funding automatically creates new priming | A276 documents collateral, exclusions and base restrictions; A88 contemplates additional debt | Excludes investments held by Ares Capital CP, ACJB, AFB, ADL CLO 1/4 and others; consolidated value is not direct creditor reach. New secured claims depend on permissions, collateral and actual execution | Priority sensitivity survives; automatic transaction/amount rejected | Obtain entity/collateral map before unsecured recovery or priming claims |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r6.c2",
+          "label": "Further secured funding automatically creates new priming",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r6",
+          "field": "c2",
+          "amount": null,
+          "text": "Priority sensitivity survives; automatic transaction/amount rejected",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 35",
+              "quote": "| Further secured funding automatically creates new priming | A276 documents collateral, exclusions and base restrictions; A88 contemplates additional debt | Excludes investments held by Ares Capital CP, ACJB, AFB, ADL CLO 1/4 and others; consolidated value is not direct creditor reach. New secured claims depend on permissions, collateral and actual execution | Priority sensitivity survives; automatic transaction/amount rejected | Obtain entity/collateral map before unsecured recovery or priming claims |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-1.r6.c3",
+          "label": "Further secured funding automatically creates new priming",
+          "table_id": "raw-CP-6-1",
+          "row_id": "r6",
+          "field": "c3",
+          "amount": null,
+          "text": "Obtain entity/collateral map before unsecured recovery or priming claims",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 35",
+              "quote": "| Further secured funding automatically creates new priming | A276 documents collateral, exclusions and base restrictions; A88 contemplates additional debt | Excludes investments held by Ares Capital CP, ACJB, AFB, ADL CLO 1/4 and others; consolidated value is not direct creditor reach. New secured claims depend on permissions, collateral and actual execution | Priority sensitivity survives; automatic transaction/amount rejected | Obtain entity/collateral map before unsecured recovery or priming claims |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-2.r0.c0",
+          "label": "published_coverage_ratio",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "1.962",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 49",
+              "quote": "| published_coverage_ratio | 1.962 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-2.r1.c0",
+          "label": "reported_minimum_ratio",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "1.5",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 50",
+              "quote": "| reported_minimum_ratio | 1.5 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-2.r2.c0",
+          "label": "published_coverage_cushion_ratio",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "0.462",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 51",
+              "quote": "| published_coverage_cushion_ratio | 0.462 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-2.r3.c0",
+          "label": "published_coverage_cushion_pp",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "46.2",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 52",
+              "quote": "| published_coverage_cushion_pp | 46.2 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-2.r4.c0",
+          "label": "conditional_ceiling_difference_USDm",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "2219",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 53",
+              "quote": "| conditional_ceiling_difference_USDm | 2219 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-2.r5.c0",
+          "label": "reported_revolver_available_USDm",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "3348",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 54",
+              "quote": "| reported_revolver_available_USDm | 3348 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-2.r6.c0",
+          "label": "actual_usable_dollar_debt_capacity_USDm",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r6",
+          "field": "c0",
+          "amount": null,
+          "text": "—",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 55",
+              "quote": "| actual_usable_dollar_debt_capacity_USDm | — |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-2.r7.c0",
+          "label": "actual_RP_capacity_USDm",
+          "table_id": "raw-CP-6-2",
+          "row_id": "r7",
+          "field": "c0",
+          "amount": null,
+          "text": "—",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 56",
+              "quote": "| actual_RP_capacity_USDm | — |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-3.r0.c0",
+          "label": "Coverage and uses",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Pair next disclosure with unrounded pro-forma borrowing certificate",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 70",
+              "quote": "| Coverage and uses | Pair next disclosure with unrounded pro-forma borrowing certificate | Verified surviving cushion after intended uses strengthens executable-buffer case; erosion tightens follow-up |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-3.r0.c1",
+          "label": "Coverage and uses",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Verified surviving cushion after intended uses strengthens executable-buffer case; erosion tightens follow-up",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 70",
+              "quote": "| Coverage and uses | Pair next disclosure with unrounded pro-forma borrowing certificate | Verified surviving cushion after intended uses strengthens executable-buffer case; erosion tightens follow-up |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-3.r1.c0",
+          "label": "Facility access",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Reconcile base eligibility, actual maintenance ratio, equity and lender commitments",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 71",
+              "quote": "| Facility access | Reconcile base eligibility, actual maintenance ratio, equity and lender commitments | Demonstrated drawable funding supports flexibility; failed conditions elevate funding-constraint concern |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-3.r1.c1",
+          "label": "Facility access",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Demonstrated drawable funding supports flexibility; failed conditions elevate funding-constraint concern",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 71",
+              "quote": "| Facility access | Reconcile base eligibility, actual maintenance ratio, equity and lender commitments | Demonstrated drawable funding supports flexibility; failed conditions elevate funding-constraint concern |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-3.r2.c0",
+          "label": "Execution and creditor reach",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Track actual draws, repurchases, collateral changes and proceeds location",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 72",
+              "quote": "| Execution and creditor reach | Track actual draws, repurchases, collateral changes and proceeds location | Documented outflows/new secured claims warrant renewed capacity and priority analysis, not assumed leakage |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-3.r2.c1",
+          "label": "Execution and creditor reach",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Documented outflows/new secured claims warrant renewed capacity and priority analysis, not assumed leakage",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 72",
+              "quote": "| Execution and creditor reach | Track actual draws, repurchases, collateral changes and proceeds location | Documented outflows/new secured claims warrant renewed capacity and priority analysis, not assumed leakage |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-3.r3.c0",
+          "label": "Legal control history",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Obtain notices, monthly coverage history, consents and defeasance records",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 73",
+              "quote": "| Legal control history | Obtain notices, monthly coverage history, consents and defeasance records | Evaluate the applicable trigger only when its conditions/history are evidenced |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-6-3.r3.c1",
+          "label": "Legal control history",
+          "table_id": "raw-CP-6-3",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Evaluate the applicable trigger only when its conditions/history are evidenced",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 73",
+              "quote": "| Legal control history | Obtain notices, monthly coverage history, consents and defeasance records | Evaluate the applicable trigger only when its conditions/history are evidenced |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-6-0.r0.c0",
+          "label": "Request",
+          "table_id": "prose-CP-6-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "View: Positive historical coverage and reported conditional funding rebut immediate funding closure, but do not establish an executable incremental-debt buffer. Retain a documentary-follow-up and monitoring posture: the favorable historical comparison survives; usable dollar capacity requires more evidence. This fresh sol-medium execution, dated 2026-11-05, consumes the exact current CP-4 capacity handoff and historical focused CP-0/CP-1/legal CP-4 for Ares Capital Corporation at 2024-12-31, focusing on the 5.950% notes due July 15, 2029. Run: sol-remaining-arcc-capacity-challenge-20261105; method deploy-v-r14; pathway covenant_refinancing. This is focused consumer proof, not a full CP-6 gate, eleven-step debate, committee decision, current underwriting or whole-pathway execution. No independent agents or separate debate roles were run.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 5",
+              "quote": "View: Positive historical coverage and reported conditional funding rebut immediate funding closure, but do not establish an executable incremental-debt buffer. Retain a documentary-follow-up and monitoring posture: the favorable historical comparison survives; usable dollar capacity requires more evidence. This fresh sol-medium execution, dated **2026-11-05**, consumes the exact current CP-4 capacity handoff and historical focused CP-0/CP-1/legal CP-4 for Ares Capital Corporation at **2024-12-31**, focusing on the **5.950% notes due July 15, 2029**. Run: `sol-remaining-arcc-capacity-challenge-20261105`; method `deploy-v-r14`; pathway `covenant_refinancing`. This is focused consumer proof, **not a full CP-6 gate**, eleven-step debate, committee decision, current underwriting or whole-pathway execution. No independent agents or separate debate roles were run."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-6-1.r0.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-6-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Read all four supplied handoffs and independently read annual-selected pp1–4. Annual locators below retain original physical PDF pages; financial-note amounts are USD millions, except ratios, percentages and per-unit data. A65 = selected pp1–2/original p65; A88/A274 = selected p2; A275 = selected pp2–3; A276/A282 = selected p3; A300–301 = selected p4. B/S legal references are inherited evidence from the read CP-4 handoffs, not newly accessed contracts: May 13, 2024 base indenture/first supplement, with original section, page and retained line locators. No new provider access or visual check is claimed. ARCC is not TDG; terms must not migrate between issuers.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 9",
+              "quote": "Read all four supplied handoffs and independently read `annual-selected` pp1–4. Annual locators below retain original physical PDF pages; financial-note amounts are **USD millions**, except ratios, percentages and per-unit data. A65 = selected pp1–2/original p65; A88/A274 = selected p2; A275 = selected pp2–3; A276/A282 = selected p3; A300–301 = selected p4. B/S legal references are **inherited evidence from the read CP-4 handoffs**, not newly accessed contracts: May 13, 2024 base indenture/first supplement, with original section, page and retained line locators. No new provider access or visual check is claimed. ARCC is not TDG; terms must not migrate between issuers."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-6-2.r0.c0",
+          "label": "Exact input identities",
+          "table_id": "prose-CP-6-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Retained underlying lineage, not additional fresh reads: original annual PDF 4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170; B ef8ad4d8a3d5902746726697b6f6fa53058d7445b59d99157cbea6258bf2d459; S bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c. Historical predecessors were executed November 4, 2026; their focused admission/extraction is not a full current foundation.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 21",
+              "quote": "Retained underlying lineage, not additional fresh reads: original annual PDF `4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170`; B `ef8ad4d8a3d5902746726697b6f6fa53058d7445b59d99157cbea6258bf2d459`; S `bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c`. Historical predecessors were executed November 4, 2026; their focused admission/extraction is not a full current foundation."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-6-3.r0.c0",
+          "label": "Decision consequence",
+          "table_id": "prose-CP-6-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "The strongest bear pathway is portfolio marks and funded uses → weaker adjusted coverage and/or borrowing base → constrained funding before payment default. Cash-funded returns remove assets; debt-funded uses also change senior claims. Restrictions could force asset sales, repayment or equity funding. This is an analyst stress mechanism, not an observed breach, quantified shock or prediction of default.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 39",
+              "quote": "The strongest bear pathway is **portfolio marks and funded uses → weaker adjusted coverage and/or borrowing base → constrained funding before payment default**. Cash-funded returns remove assets; debt-funded uses also change senior claims. Restrictions could force asset sales, repayment or equity funding. This is an analyst stress mechanism, not an observed breach, quantified shock or prediction of default."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-6-3.r1.c0",
+          "label": "Decision consequence",
+          "table_id": "prose-CP-6-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "The strongest rebuttal is substantive: published 1.962x exceeds 1.5x; A88 reports USD635m cash and substantial conditional facilities; A276 asserts material facility compliance; January 2025 issuance demonstrates capital-market execution. This defeats an unsupported immediate-closure thesis. It does not prove that intended draws remain executable after uses, marks, equity requirements and collateral eligibility. Thus historical flexibility survives; exact usable incremental debt and RP capacity remain unresolved. No trade, size, present compliance or recovery estimate follows.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 41",
+              "quote": "The strongest rebuttal is substantive: published 1.962x exceeds 1.5x; A88 reports USD635m cash and substantial conditional facilities; A276 asserts material facility compliance; January 2025 issuance demonstrates capital-market execution. This defeats an unsupported immediate-closure thesis. It does not prove that intended draws remain executable after uses, marks, equity requirements and collateral eligibility. Thus **historical flexibility survives; exact usable incremental debt and RP capacity remain unresolved**. No trade, size, present compliance or recovery estimate follows."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-6-4.r0.c0",
+          "label": "Consumption controls",
+          "table_id": "prose-CP-6-4",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "All values are reused, not new arithmetic: current CP-4 C1–C7 records 1962/1000; 150/100; 1.962−1.5; 196.2−150; whole-percent 196−150 = 46 pp; 6732−4513 = USD2,219m; and 4513−1113−52 = USD3,348m. Period: December 31, 2024; sources A65/A274–276. No calculation tool or helper was rerun merely for delivery. The last two cells mean Not calculable, not zero: legal inputs/transaction conditions and RP permissions/usage respectively are missing. Neither USD13,727m carrying debt nor USD835m note carrying value substitutes for the legal denominator (A274–275). No implied numerator or post-event ratio is reconstructed.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 58",
+              "quote": "All values are **reused**, not new arithmetic: current CP-4 C1–C7 records 1962/1000; 150/100; 1.962−1.5; 196.2−150; whole-percent 196−150 = 46 pp; 6732−4513 = USD2,219m; and 4513−1113−52 = USD3,348m. Period: December 31, 2024; sources A65/A274–276. No calculation tool or helper was rerun merely for delivery. The last two cells mean **Not calculable**, not zero: legal inputs/transaction conditions and RP permissions/usage respectively are missing. Neither USD13,727m carrying debt nor USD835m note carrying value substitutes for the legal denominator (A274–275). No implied numerator or post-event ratio is reconstructed."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-6-5.r0.c0",
+          "label": "Gaps",
+          "table_id": "prose-CP-6-5",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Request only decision-changing inputs: dated unrounded Act computation, senior-security/SBA-relief bridge and proposed borrowing proceeds/uses; executed facility/amendment chain plus borrowing-base, equity and maintenance certificates; accessible-cash/entity/collateral schedules; and RP permissions with actual utilization. Separately obtain January issuance net proceeds/uses, February program execution, intervening marks and notice/amendment/defeasance history. These resolve execution rather than merely refresh a headline ratio. No broad module rerun is requested just to deliver this challenge.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 62",
+              "quote": "Request only decision-changing inputs: dated unrounded Act computation, senior-security/SBA-relief bridge and proposed borrowing proceeds/uses; executed facility/amendment chain plus borrowing-base, equity and maintenance certificates; accessible-cash/entity/collateral schedules; and RP permissions with actual utilization. Separately obtain January issuance net proceeds/uses, February program execution, intervening marks and notice/amendment/defeasance history. These resolve execution rather than merely refresh a headline ratio. No broad module rerun is requested just to deliver this challenge."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-6-6.r0.c0",
+          "label": "Monitoring",
+          "table_id": "prose-CP-6-6",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-4 should resolve certificates and permissions; CP-2D/CP-3C can then test accessible liquidity and refinancing. CP-5 can audit this evidence chain. None is claimed to have run. Maintain monitoring/documentary follow-up until transaction-level conditions are demonstrated; price and portfolio context would still be needed for implementation. Focused CP-6 challenge completed with limitations; not full CP-6 gate approval.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-6",
+              "source_sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+              "locator": "line 75",
+              "quote": "CP-4 should resolve certificates and permissions; CP-2D/CP-3C can then test accessible liquidity and refinancing. CP-5 can audit this evidence chain. None is claimed to have run. Maintain monitoring/documentary follow-up until transaction-level conditions are demonstrated; price and portfolio context would still be needed for implementation. **Focused CP-6 challenge completed with limitations; not full CP-6 gate approval.**"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "raw-CP-6-0",
+          "title": "Exact input identities — Input",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "SHA-256"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Current CP-4-capacity",
+              "fact_ids": [
+                "raw-CP-6-0.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Historical CP-0",
+              "fact_ids": [
+                "raw-CP-6-0.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Historical focused CP-1",
+              "fact_ids": [
+                "raw-CP-6-0.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Historical legal CP-4",
+              "fact_ids": [
+                "raw-CP-6-0.r3.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "annual-selected",
+              "fact_ids": [
+                "raw-CP-6-0.r4.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Input",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-6-1",
+          "title": "Challenge register — Claim",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Supporting evidence"
+            },
+            {
+              "field": "c1",
+              "label": "Strongest challenge"
+            },
+            {
+              "field": "c2",
+              "label": "Disposition"
+            },
+            {
+              "field": "c3",
+              "label": "Decision consequence"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Positive coverage supports funding flexibility",
+              "fact_ids": [
+                "raw-CP-6-1.r0.c0",
+                "raw-CP-6-1.r0.c1",
+                "raw-CP-6-1.r0.c2",
+                "raw-CP-6-1.r0.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Cushion is 0.462x, or 46.2 percentage points",
+              "fact_ids": [
+                "raw-CP-6-1.r1.c0",
+                "raw-CP-6-1.r1.c1",
+                "raw-CP-6-1.r1.c2",
+                "raw-CP-6-1.r1.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Reported facilities are material counterevidence to closure",
+              "fact_ids": [
+                "raw-CP-6-1.r2.c0",
+                "raw-CP-6-1.r2.c1",
+                "raw-CP-6-1.r2.c2",
+                "raw-CP-6-1.r2.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "The 1.5 minima establish the same headroom and breach timing",
+              "fact_ids": [
+                "raw-CP-6-1.r3.c0",
+                "raw-CP-6-1.r3.c1",
+                "raw-CP-6-1.r3.c2",
+                "raw-CP-6-1.r3.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "January issuance and February authorization demonstrate extra resources or leakage",
+              "fact_ids": [
+                "raw-CP-6-1.r4.c0",
+                "raw-CP-6-1.r4.c1",
+                "raw-CP-6-1.r4.c2",
+                "raw-CP-6-1.r4.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Change-of-control put ensures repayment value",
+              "fact_ids": [
+                "raw-CP-6-1.r5.c0",
+                "raw-CP-6-1.r5.c1",
+                "raw-CP-6-1.r5.c2",
+                "raw-CP-6-1.r5.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "Further secured funding automatically creates new priming",
+              "fact_ids": [
+                "raw-CP-6-1.r6.c0",
+                "raw-CP-6-1.r6.c1",
+                "raw-CP-6-1.r6.c2",
+                "raw-CP-6-1.r6.c3"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Claim",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-6-2",
+          "title": "Consumption controls — Metric",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Value"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "published_coverage_ratio",
+              "fact_ids": [
+                "raw-CP-6-2.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "reported_minimum_ratio",
+              "fact_ids": [
+                "raw-CP-6-2.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "published_coverage_cushion_ratio",
+              "fact_ids": [
+                "raw-CP-6-2.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "published_coverage_cushion_pp",
+              "fact_ids": [
+                "raw-CP-6-2.r3.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "conditional_ceiling_difference_USDm",
+              "fact_ids": [
+                "raw-CP-6-2.r4.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "reported_revolver_available_USDm",
+              "fact_ids": [
+                "raw-CP-6-2.r5.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "actual_usable_dollar_debt_capacity_USDm",
+              "fact_ids": [
+                "raw-CP-6-2.r6.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r7",
+              "label": "actual_RP_capacity_USDm",
+              "fact_ids": [
+                "raw-CP-6-2.r7.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Metric",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-6-3",
+          "title": "Monitoring — Signal",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Evidence/action"
+            },
+            {
+              "field": "c1",
+              "label": "What changes posture"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Coverage and uses",
+              "fact_ids": [
+                "raw-CP-6-3.r0.c0",
+                "raw-CP-6-3.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Facility access",
+              "fact_ids": [
+                "raw-CP-6-3.r1.c0",
+                "raw-CP-6-3.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Execution and creditor reach",
+              "fact_ids": [
+                "raw-CP-6-3.r2.c0",
+                "raw-CP-6-3.r2.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Legal control history",
+              "fact_ids": [
+                "raw-CP-6-3.r3.c0",
+                "raw-CP-6-3.r3.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Signal",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-6-0",
+          "title": "Request",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Request — paragraph 1",
+              "fact_ids": [
+                "prose-CP-6-0.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-6-1",
+          "title": "Sources",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Sources — paragraph 1",
+              "fact_ids": [
+                "prose-CP-6-1.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-6-2",
+          "title": "Exact input identities",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Exact input identities — paragraph 1",
+              "fact_ids": [
+                "prose-CP-6-2.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-6-3",
+          "title": "Decision consequence",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Decision consequence — paragraph 1",
+              "fact_ids": [
+                "prose-CP-6-3.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Decision consequence — paragraph 2",
+              "fact_ids": [
+                "prose-CP-6-3.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-6-4",
+          "title": "Consumption controls",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Consumption controls — paragraph 1",
+              "fact_ids": [
+                "prose-CP-6-4.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-6-5",
+          "title": "Gaps",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Gaps — paragraph 1",
+              "fact_ids": [
+                "prose-CP-6-5.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-6-6",
+          "title": "Monitoring",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Monitoring — paragraph 1",
+              "fact_ids": [
+                "prose-CP-6-6.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        }
+      ],
+      "claims": [],
+      "limitations": [
+        "Literal checked analytical handoff, not native contract acceptance; source qualifications and gaps remain."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "schema_version": "source/1",
+      "source_id": "CP-6",
+      "name": "CP-6.md",
+      "status": "ready",
+      "sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
+      "media_type": "text/markdown",
+      "spans": [
+        {
+          "locator": "line 1",
+          "text": "# ARCC — focused CP-6 capacity challenge",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 3",
+          "text": "## Request",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 5",
+          "text": "View: Positive historical coverage and reported conditional funding rebut immediate funding closure, but do not establish an executable incremental-debt buffer. Retain a documentary-follow-up and monitoring posture: the favorable historical comparison survives; usable dollar capacity requires more evidence. This fresh sol-medium execution, dated **2026-11-05**, consumes the exact current CP-4 capacity handoff and historical focused CP-0/CP-1/legal CP-4 for Ares Capital Corporation at **2024-12-31**, focusing on the **5.950% notes due July 15, 2029**. Run: `sol-remaining-arcc-capacity-challenge-20261105`; method `deploy-v-r14`; pathway `covenant_refinancing`. This is focused consumer proof, **not a full CP-6 gate**, eleven-step debate, committee decision, current underwriting or whole-pathway execution. No independent agents or separate debate roles were run.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 7",
+          "text": "## Sources",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 9",
+          "text": "Read all four supplied handoffs and independently read `annual-selected` pp1–4. Annual locators below retain original physical PDF pages; financial-note amounts are **USD millions**, except ratios, percentages and per-unit data. A65 = selected pp1–2/original p65; A88/A274 = selected p2; A275 = selected pp2–3; A276/A282 = selected p3; A300–301 = selected p4. B/S legal references are **inherited evidence from the read CP-4 handoffs**, not newly accessed contracts: May 13, 2024 base indenture/first supplement, with original section, page and retained line locators. No new provider access or visual check is claimed. ARCC is not TDG; terms must not migrate between issuers.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 11",
+          "text": "### Exact input identities",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 13",
+          "text": "| Input | SHA-256 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 14",
+          "text": "|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 15",
+          "text": "| Current CP-4-capacity | `fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738` |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 16",
+          "text": "| Historical CP-0 | `8347534cab302ae92b4e097f7a7d08a0ea69945337a0cadaf575526578ea83e5` |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 17",
+          "text": "| Historical focused CP-1 | `ed934cea757dec38962ec99f87e86725e4d10e08a2b4865e0bee1ebd3ab4b240` |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 18",
+          "text": "| Historical legal CP-4 | `ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9` |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 19",
+          "text": "| annual-selected | `ec0dbd96488e2f6977a42bfc17085b6dd8410a9b39db7e7a0a3670c2d701f58b` |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 21",
+          "text": "Retained underlying lineage, not additional fresh reads: original annual PDF `4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170`; B `ef8ad4d8a3d5902746726697b6f6fa53058d7445b59d99157cbea6258bf2d459`; S `bf82a65cae422d4814fa292ab3b9e5e5324f74d09643d6367ad6110055e6390c`. Historical predecessors were executed November 4, 2026; their focused admission/extraction is not a full current foundation.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 23",
+          "text": "## Findings",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 25",
+          "text": "### Challenge register",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 27",
+          "text": "| Claim | Supporting evidence | Strongest challenge | Disposition | Decision consequence |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 28",
+          "text": "|---|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 29",
+          "text": "| Positive coverage supports funding flexibility | A65 fn2: USD1,962 per USD1,000; A274: applicable 150% after-borrowing minimum | Published ratio lacks unrounded legal numerator/denominator, relief bridge and proposed uses; cushion is neither dollar capacity nor 46.2% asset-price-decline runway | Historical comparison survives; executable buffer requires evidence | Do not certify incremental dollars or an asset-loss tolerance |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 30",
+          "text": "| Cushion is 0.462x, or 46.2 percentage points | Current CP-4 C1–C5; A65/A274 | Whole-percent 196% versus 150% produces the separate coarser 46 pp presentation; none is a percentage asset drawdown | Precision distinction survives | Keep ratio, pp and whole-percent presentation separate |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 31",
+          "text": "| Reported facilities are material counterevidence to closure | A88: approximately USD5.1bn conditional availability; A276: USD3,348m revolver availability | USD3,348m is included, not additive; USD2,219m ceiling difference from A274–275 is conditional expansion, not cash. Borrowing base/equity/other conditions can bind | Reported access survives; unconditional drawability does not | Reconcile conditions; never sum the three figures |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 32",
+          "text": "| The 1.5 minima establish the same headroom and breach timing | A276 reports facility maintenance and material compliance at December 31; B p20 §10.07/L1384–1385 incorporates Act restriction | Facility definitions/exceptions differ from note incurrence. B p12 §5.01(vii)/L917 uses below 100% at each last business day for 24 consecutive months; S pp2–3 §4.03/L216–217 separately requires 60 consecutive days after specified notice | Same-number equivalence rejected; dated issuer compliance assertion retained | Neither immediate default nor a general two-year cure follows |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 33",
+          "text": "| January issuance and February authorization demonstrate extra resources or leakage | A300: January 2025 USD1,000m gross new debt; A300–301: February extension of up-to-USD1,000m repurchase authority | Issuance demonstrates subsequent execution, not net retained cash; authorization is not actual repurchase, remaining RP capacity or December usage | Access evidence survives; December/pro-forma use inference rejected | Separate events; obtain proceeds/use and actual execution |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 34",
+          "text": "| Change-of-control put ensures repayment value | Inherited S pp2–3 §2.01/Article Six: 100% principal plus accrued unpaid interest | Requires defined control change plus qualifying below-investment-grade event involving all three agencies, attribution/window and exceptions; not unconditional cash or recovery | Contingent protection only | Do not use as recovery floor or TDG-style 101% term |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 35",
+          "text": "| Further secured funding automatically creates new priming | A276 documents collateral, exclusions and base restrictions; A88 contemplates additional debt | Excludes investments held by Ares Capital CP, ACJB, AFB, ADL CLO 1/4 and others; consolidated value is not direct creditor reach. New secured claims depend on permissions, collateral and actual execution | Priority sensitivity survives; automatic transaction/amount rejected | Obtain entity/collateral map before unsecured recovery or priming claims |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 37",
+          "text": "### Decision consequence",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 39",
+          "text": "The strongest bear pathway is **portfolio marks and funded uses → weaker adjusted coverage and/or borrowing base → constrained funding before payment default**. Cash-funded returns remove assets; debt-funded uses also change senior claims. Restrictions could force asset sales, repayment or equity funding. This is an analyst stress mechanism, not an observed breach, quantified shock or prediction of default.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 41",
+          "text": "The strongest rebuttal is substantive: published 1.962x exceeds 1.5x; A88 reports USD635m cash and substantial conditional facilities; A276 asserts material facility compliance; January 2025 issuance demonstrates capital-market execution. This defeats an unsupported immediate-closure thesis. It does not prove that intended draws remain executable after uses, marks, equity requirements and collateral eligibility. Thus **historical flexibility survives; exact usable incremental debt and RP capacity remain unresolved**. No trade, size, present compliance or recovery estimate follows.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 43",
+          "text": "## Calculations",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 45",
+          "text": "### Consumption controls",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 47",
+          "text": "| Metric | Value |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 48",
+          "text": "|---|---:|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 49",
+          "text": "| published_coverage_ratio | 1.962 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 50",
+          "text": "| reported_minimum_ratio | 1.5 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 51",
+          "text": "| published_coverage_cushion_ratio | 0.462 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 52",
+          "text": "| published_coverage_cushion_pp | 46.2 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 53",
+          "text": "| conditional_ceiling_difference_USDm | 2219 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 54",
+          "text": "| reported_revolver_available_USDm | 3348 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 55",
+          "text": "| actual_usable_dollar_debt_capacity_USDm | — |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 56",
+          "text": "| actual_RP_capacity_USDm | — |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 58",
+          "text": "All values are **reused**, not new arithmetic: current CP-4 C1–C7 records 1962/1000; 150/100; 1.962−1.5; 196.2−150; whole-percent 196−150 = 46 pp; 6732−4513 = USD2,219m; and 4513−1113−52 = USD3,348m. Period: December 31, 2024; sources A65/A274–276. No calculation tool or helper was rerun merely for delivery. The last two cells mean **Not calculable**, not zero: legal inputs/transaction conditions and RP permissions/usage respectively are missing. Neither USD13,727m carrying debt nor USD835m note carrying value substitutes for the legal denominator (A274–275). No implied numerator or post-event ratio is reconstructed.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 60",
+          "text": "## Gaps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 62",
+          "text": "Request only decision-changing inputs: dated unrounded Act computation, senior-security/SBA-relief bridge and proposed borrowing proceeds/uses; executed facility/amendment chain plus borrowing-base, equity and maintenance certificates; accessible-cash/entity/collateral schedules; and RP permissions with actual utilization. Separately obtain January issuance net proceeds/uses, February program execution, intervening marks and notice/amendment/defeasance history. These resolve execution rather than merely refresh a headline ratio. No broad module rerun is requested just to deliver this challenge.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 64",
+          "text": "## Next module",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 66",
+          "text": "### Monitoring",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 68",
+          "text": "| Signal | Evidence/action | What changes posture |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 69",
+          "text": "|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 70",
+          "text": "| Coverage and uses | Pair next disclosure with unrounded pro-forma borrowing certificate | Verified surviving cushion after intended uses strengthens executable-buffer case; erosion tightens follow-up |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 71",
+          "text": "| Facility access | Reconcile base eligibility, actual maintenance ratio, equity and lender commitments | Demonstrated drawable funding supports flexibility; failed conditions elevate funding-constraint concern |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 72",
+          "text": "| Execution and creditor reach | Track actual draws, repurchases, collateral changes and proceeds location | Documented outflows/new secured claims warrant renewed capacity and priority analysis, not assumed leakage |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 73",
+          "text": "| Legal control history | Obtain notices, monthly coverage history, consents and defeasance records | Evaluate the applicable trigger only when its conditions/history are evidenced |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 75",
+          "text": "CP-4 should resolve certificates and permissions; CP-2D/CP-3C can then test accessible liquidity and refinancing. CP-5 can audit this evidence chain. None is claimed to have run. Maintain monitoring/documentary follow-up until transaction-level conditions are demonstrated; price and portfolio context would still be needed for implementation. **Focused CP-6 challenge completed with limitations; not full CP-6 gate approval.**",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        }
+      ],
+      "limitation": "Actual analytical handoff; underlying source qualifications and scope remain.",
+      "extractor": "literal-markdown-lines",
+      "extraction_status": "complete",
+      "coverage": []
+    }
+  ],
+  "analytical_qualification": "partial",
+  "native_host_qualification": "unrun"
+}

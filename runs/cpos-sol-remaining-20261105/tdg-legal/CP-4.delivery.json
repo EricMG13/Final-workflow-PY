@@ -1,0 +1,102 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-legal-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-4"
+    ]
+  },
+  "handoffs": {
+    "CP-4": {
+      "path": "CP-4.md",
+      "sha256": "267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "capacity",
+      "lme-creditor-exposure",
+      "red-flags"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-4",
+        "heading": "Request",
+        "kind": "prose",
+        "prefix": "View:",
+        "block_id": "capacity",
+        "label": "Historical legal view"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4.3 \u2014 provision register",
+        "block_id": "capacity",
+        "label": "Fourteen provision families",
+        "kind": "table"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Legal numeric controls",
+        "block_id": "capacity",
+        "label": "Source thresholds and conditional amount controls",
+        "kind": "table"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Definitions and ratio mechanics \u2014 P01\u201303",
+        "block_id": "capacity",
+        "label": "Legal definitions and financial perimeter",
+        "kind": "prose"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Debt, leakage and cash-control mechanics \u2014 P04\u201308",
+        "block_id": "capacity",
+        "label": "Permissions, conditions and unknown usage",
+        "kind": "prose"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Guarantees, security, remedies and control \u2014 P09\u201314",
+        "block_id": "lme-creditor-exposure",
+        "label": "Security and creditor controls",
+        "kind": "prose"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4.9 \u2014 PD versus LGD transmission",
+        "block_id": "lme-creditor-exposure",
+        "label": "Distinct default and recovery mechanisms",
+        "kind": "table"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4.11 \u2014 provisional aggressiveness assessment",
+        "block_id": "lme-creditor-exposure",
+        "label": "Provision-based judgment with limitations",
+        "kind": "table"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4.12 \u2014 red flags and observable follow-up",
+        "block_id": "red-flags",
+        "label": "Observable creditor-risk follow-up",
+        "kind": "table"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Overall legal view",
+        "block_id": "red-flags",
+        "label": "Counterevidence and bounded conclusion",
+        "kind": "prose"
+      }
+    ],
+    "title": "TransDigm historical secured-note indenture review",
+    "question": "What does the operative text permit, protect and leave unproved?",
+    "scope": "Fresh sol-medium CP-4 fourteen-step function over September19 2024 indenture; source-admission and fiscal dates explicit. Selected report blocks and full Markdown evidence, not full pathway, current legal status, numerical unused capacity, CP-4A/B/D completion or recovery valuation."
+  }
+}

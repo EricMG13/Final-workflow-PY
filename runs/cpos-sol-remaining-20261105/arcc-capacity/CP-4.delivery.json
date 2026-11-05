@@ -1,0 +1,99 @@
+{
+  "run": {
+    "run_id": "sol-remaining-arcc-capacity-20261105",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2024-12-31",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-4A"
+    ]
+  },
+  "handoffs": {
+    "CP-4": {
+      "path": "CP-4A.md",
+      "sha256": "fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "capacity",
+      "lme-creditor-exposure",
+      "red-flags"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-4",
+        "heading": "Request",
+        "kind": "prose",
+        "prefix": "View:",
+        "block_id": "capacity",
+        "label": "Published capacity view"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4C.4 \u2014 published headroom",
+        "kind": "table",
+        "block_id": "capacity",
+        "label": "T4C.4 \u2014 published headroom"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4C.5 \u2014 capacity routes",
+        "kind": "table",
+        "block_id": "capacity",
+        "label": "T4C.5 \u2014 capacity routes"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Capacity controls",
+        "kind": "table",
+        "block_id": "capacity",
+        "label": "Capacity controls"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4C.6 \u2014 debt liens and priming",
+        "kind": "table",
+        "block_id": "lme-creditor-exposure",
+        "label": "T4C.6 \u2014 debt liens and priming"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4C.7 \u2014 RP investments and leakage",
+        "kind": "table",
+        "block_id": "lme-creditor-exposure",
+        "label": "T4C.7 \u2014 RP investments and leakage"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4C.11 \u2014 risk priorities",
+        "kind": "table",
+        "block_id": "red-flags",
+        "label": "T4C.11 \u2014 risk priorities"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Nearest pressure point",
+        "kind": "prose",
+        "block_id": "red-flags",
+        "label": "Nearest pressure point"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Overall capacity view",
+        "kind": "prose",
+        "block_id": "red-flags",
+        "label": "Overall capacity view"
+      }
+    ],
+    "title": "Ares Capital historical published asset-coverage cushion",
+    "question": "What positive headroom is supported, and what financing capacity remains unproved?",
+    "issuer_aliases": [
+      "ARCC",
+      "Ares Capital"
+    ],
+    "scope": "Fresh sol-medium CP-4A phase using canonical CP-4 transport; historicalFY2024 publishedprecision and originalMay2024notes. Applicable13duties withpositiveactualinputcushion,notallbasketfamilies/currentcompliance/usabledebt/fullpathway. Existingreport andfullMarkdown evidence, noExcel."
+  }
+}

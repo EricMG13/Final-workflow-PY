@@ -1,0 +1,56 @@
+{
+  "required_terms": [
+    "2024-12-31",
+    "2024-05-13",
+    "2026-11-05",
+    "2029-07-15",
+    "T4C.12"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Capacity controls",
+      "columns": [
+        "Metric",
+        "Value"
+      ],
+      "rows": [
+        [
+          "published_coverage_ratio",
+          "1.962"
+        ],
+        [
+          "reported_minimum_ratio",
+          "1.5"
+        ],
+        [
+          "published_coverage_cushion_ratio",
+          "0.462"
+        ],
+        [
+          "published_coverage_cushion_pp",
+          "46.2"
+        ],
+        [
+          "whole_percent_presentation_cushion_pp",
+          "46"
+        ],
+        [
+          "conditional_facility_ceiling_difference_USDm",
+          "2219"
+        ],
+        [
+          "actual_usable_dollar_debt_capacity_USDm",
+          "\u2014"
+        ],
+        [
+          "actual_RP_capacity_USDm",
+          "\u2014"
+        ],
+        [
+          "actual_leakage_capacity_USDm",
+          "\u2014"
+        ]
+      ]
+    }
+  ]
+}

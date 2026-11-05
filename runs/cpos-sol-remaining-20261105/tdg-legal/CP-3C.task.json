@@ -1,0 +1,49 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-legal-funding-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-12-28",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-3C"
+    ]
+  },
+  "module_id": "CP-3C",
+  "instructions": {
+    "path": "CP-3C.instructions.md",
+    "sha256": "86d27a2341aa8191a9b59826d5c034df43488daa7b7f4ee986232cd2dbc135a9"
+  },
+  "sources": {
+    "primary-legal-selection": {
+      "path": "refinancing-source-lines.txt",
+      "sha256": "ff0a65f7e9255a060f74e01c74459a8c5bdfcbffbd9d907abe09eb2f922b221a"
+    }
+  },
+  "handoffs": {
+    "CP-4": {
+      "path": "CP-4.md",
+      "sha256": "267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43"
+    },
+    "CP-2D": {
+      "path": "../tdg-earnings/CP-2D.md",
+      "sha256": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565"
+    },
+    "CP-2A": {
+      "path": "../tdg-stress/CP-2A.md",
+      "sha256": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3"
+    },
+    "CP-2": {
+      "path": "../tdg-forecast/CP-2.md",
+      "sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab"
+    },
+    "CP-0-legal-admission": {
+      "path": "../../tdg-004/CP-0.md",
+      "sha256": "60902235146ab272998554ab9381cd7e894bfbd3a0b58f46d1a704c337418f27"
+    }
+  },
+  "layout": "CP-3C.layout.json",
+  "checks": "CP-3C.checks.json",
+  "output": "CP-3C.md"
+}

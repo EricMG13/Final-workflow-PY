@@ -1,0 +1,25 @@
+{
+  "scope": "Read-only source/parser checks and synthetic strict-boundary controls; no actual issuer headroom. Conditional 101% assumes all original principal tendered, no current-outstanding or actual-trigger assertion.",
+  "source_sha256": "cb2c0c77e7ec1f90e5a7117a5df7e16cd2556b02e7be7ca43fbf4d64ed585b05",
+  "source_threshold_checks": 3,
+  "fraction_refusals": 4,
+  "strict_boundary_controls": [
+    {
+      "synthetic_metric": "1.99",
+      "headroom_x": "-0.01",
+      "within_strict_test": false
+    },
+    {
+      "synthetic_metric": "2.00",
+      "headroom_x": "0.00",
+      "within_strict_test": false
+    },
+    {
+      "synthetic_metric": "2.01",
+      "headroom_x": "0.01",
+      "within_strict_test": true
+    }
+  ],
+  "conditional_principal_component_USDm": "1515",
+  "conditional_interest_USDm": null
+}

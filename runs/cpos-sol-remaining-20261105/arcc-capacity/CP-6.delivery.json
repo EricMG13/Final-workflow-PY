@@ -1,0 +1,70 @@
+{
+  "run": {
+    "run_id": "sol-remaining-arcc-capacity-challenge-20261105",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2024-12-31",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-6"
+    ]
+  },
+  "handoffs": {
+    "CP-6": {
+      "path": "CP-6.md",
+      "sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "capacity",
+      "red-flags"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-6",
+        "heading": "Request",
+        "kind": "prose",
+        "prefix": "View:",
+        "block_id": "red-flags",
+        "label": "Focused capacity challenge"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Challenge register",
+        "kind": "table",
+        "block_id": "red-flags",
+        "label": "Challenge register"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Decision consequence",
+        "kind": "prose",
+        "block_id": "red-flags",
+        "label": "Decision consequence"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Monitoring",
+        "kind": "table",
+        "block_id": "red-flags",
+        "label": "Monitoring"
+      },
+      {
+        "module_id": "CP-6",
+        "heading": "Consumption controls",
+        "kind": "table",
+        "block_id": "capacity",
+        "label": "Consumption controls"
+      }
+    ],
+    "title": "Ares Capital historical capacity challenge",
+    "question": "Does the published cushion prove financing access?",
+    "issuer_aliases": [
+      "ARCC",
+      "Ares Capital"
+    ],
+    "scope": "Fresh sol-medium substantiveconsumption of currentCP4Aphase; historicalassetcoverageinputs. Focusedchallenge,notfullCP6committee/currentrating/action/sizingorwholepathway. Existingreport andfullMarkdown preserved."
+  }
+}

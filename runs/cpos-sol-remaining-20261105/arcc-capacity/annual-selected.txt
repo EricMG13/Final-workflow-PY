@@ -1,0 +1,488 @@
+Exact selected page text from retained ARCC-FY2024-10K.pdf hash4483569e723b1a0c479d1ce45bcf64e11f6c82c98754bce1aa317641eb81e170; textaid9e216fdd000f529b4f1c452d5786b2ec9e0cab69e8fcd9659558d87d8b4e1976. Physical1-basedPDFpages, historicalFY2024.
+
+=== PDF PAGE 1 ===
+UNITED STATES
+SECURITIES AND EXCHANGE COMMISSION
+Washington, D.C. 20549
+____________________________________________________________________________
+FORM 10-K
+ý  ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934
+For the fiscal year ended December 31, 2024
+OR
+o  TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934
+For the transition period from _____ to _____
+Commission File No. 814-00663
+__________________________________________________________________________
+ARES CAPITAL CORPORATION
+(Exact name of registrant as specified in its charter)
+Maryland  33-1089684
+(State or other jurisdiction of
+incorporation or organization)
+ (I.R.S. Employer
+Identification No.)
+245 Park Avenue, 44th Floor, New York, New York 10167
+ (Address of principal executive offices) (Zip Code)
+(212) 750-7300
+ (Registrant’s telephone number, including area code)
+____________________________________________________________________________
+Securities registered pursuant to Section 12(b) of the Act:
+Title of each class Trading Symbol Name of each exchange on which registered 
+Common Stock, par value $0.001 per share ARCC The NASDAQ Global Select Market
+Securities registered pursuant to Section 12(g) of the Act: None
+Indicate by check mark if the registrant is a well-known seasoned issuer, as defined in Rule 405 of the Securities Act. Yes ý    No o
+Indicate by check mark if the registrant is not required to file reports pursuant to Section 13 or Section 15(d) of the Act. Yes o    No ý
+Indicate by check mark whether the registrant (1) has filed all reports required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 1934 during the preceding 12 months (or for such shorter period that the
+registrant was required to file such reports), and (2) has been subject to such filing requirements for the past 90 days: Yes ý    No o
+Indicate by check mark whether the registrant has submitted electronically every Interactive Data File required to be submitted pursuant to Rule 405 of Regulation S-T (Section §232.405 of this chapter) during the preceding
+12 months (or for such shorter period that the registrant was required to submit such files). Yes ý    No o
+Indicate by check mark whether the registrant is a large accelerated filer, an accelerated filer, a non-accelerated filer, a smaller reporting company, or an emerging growth company. See the definitions of “large accelerated
+filer,” “accelerated filer,” “smaller reporting company” and “emerging growth company” in Rule 12b-2 of the Exchange Act:
+Large accelerated filer ý  Accelerated filer o  Non-accelerated filer o  Smaller reporting company o Emerging Growth Company o
+If an emerging growth company, indicate by check mark if the registrant has elected not to use the extended transition period complying with any new or revised financial accounting standards provided pursuant to Section
+13(a) of the Exchange Act. o
+Indicate by check mark whether the registrant has filed a report on and attestation to its management’s assessment of the effectiveness of its internal control over financial reporting under Section 404(b) of the Sarbanes-
+Oxley Act (15 U.S.C. 7262(b)) by the registered public accounting firm that prepared or issued its audit report. Yes ý    No o
+If securities are registered pursuant to Section 12(b) of the Act, indicate by check mark whether the financial statements of the registrant included in the filing reflect the correction of an error to previously issued financial
+statements. o
+Indicate by check mark whether any of those error corrections are restatements that required a recovery analysis of incentive-based compensation received by any of the registrant’s executive officers during the relevant
+recovery period pursuant to §240.10D-1(b). o
+Indicate by check mark whether the registrant is a shell company (as defined in Rule 12b-2 of the Exchange Act). Yes o    No ý
+The aggregate market value of the voting stock held by non-affiliates of the registrant on June 30, 2024, based on the closing price on that date of $20.84 on The NASDAQ Global Select Market, was approximately
+$13,066,189,804. As of January 28, 2025, there were 671,481,609 shares of the registrant’s common stock outstanding.
+Portions of the registrant’s Proxy Statement for its 2025 Annual Meeting of Stockholders to be filed not later than 120 days after the end of the fiscal year covered by this Annual Report on Form 10-K are incorporated by
+reference into Part III of this Form 10-K.
+=== PDF PAGE 7 ===
+requirements. For example, we are generally not permitted to co-invest in any portfolio company in which a fund managed by Ares or any of its downstream affiliates
+(other than us and our downstream affiliates) is also co-investing. We, our investment adviser and certain of our affiliates have received an order from the Securities and
+Exchange Commission (the “SEC”) that permits us and other BDCs and registered closed-end management investment companies managed by Ares to co-invest in
+portfolio companies with each other and with affiliated investment funds (the “Co-Investment Exemptive Order”). Co-investments made under the Co-Investment
+Exemptive Order are subject to compliance with certain conditions and other requirements, which could limit our ability to participate in a co-investment transaction.
+We may also otherwise co-invest with funds managed by Ares or any of its downstream affiliates, subject to compliance with existing regulatory guidance, applicable
+regulations and our investment adviser’s allocation policy.
+Also, while we may borrow funds to make investments, our ability to use debt is limited in certain significant aspects. See “Regulation.” In particular, because
+we obtained the required approvals under Section 61(a)(2) of the Investment Company Act, we must have at least 150% asset coverage calculated pursuant to the
+Investment Company Act in order to incur debt or issue preferred stock (which we refer to collectively as “senior securities”) (i.e., we are able to borrow up to two
+dollars for every dollar we have in assets less all liabilities and indebtedness not represented by senior securities issued by us). See “Management’s Discussion and
+Analysis of Financial Condition and Results of Operations—Financial Condition, Liquidity and Capital Resources.”
+As of December 31, 2024, our asset coverage was 196%.
+In addition, as a consequence of our being a RIC under the Code, for U.S. federal income tax purposes, our asset growth is dependent on our ability to raise
+equity capital through the issuance of common stock. RICs generally must distribute substantially all of their investment company taxable income (as defined under the
+Code) to stockholders as dividends in order to preserve their status as a RIC and not to be subject to additional U.S. federal corporate-level income taxes. This
+requirement, in turn, generally prevents us from using our earnings to support our operations, including making new investments.
+INVESTMENTS
+Ares Capital Corporation Portfolio
+We have built an investment portfolio of primarily first and second lien senior secured loans, subordinated debt, preferred equity and, to a lesser extent,
+common equity investments in private middle-market companies. Our portfolio is well diversified by industry sector and its concentration to any single issuer is
+limited.
+Our debt investments in corporate borrowers generally range between $30 million and $500 million each. However, the sizes of our investments may be more
+or less than these ranges and may vary based on, among other things, our capital availability, the composition of our portfolio and general micro- and macro-economic
+factors.
+Our common equity investments have generally been non-control equity investments of less than $20 million (usually in conjunction with a concurrent debt
+investment). However, we may increase the size or change the nature of these investments.
+The proportion of these types of investments will change over time given our views on, among other things, the economic and credit environment in which we
+are operating. In pursuit of our investment objective, we generally seek to self-originate investments and lead the investment process, which may result in us making
+commitments with respect to indebtedness or securities of a potential portfolio company in excess of our expected final hold size. In such situations, while we may
+initially agree to fund up to a certain dollar amount of an investment, we may subsequently syndicate or sell a portion of such amount (including, without limitation, to
+our wholly owned portfolio company, IHAM (as defined below), or to vehicles managed by IHAM), such that we are left with a smaller investment than what was
+reflected in our original commitment. In addition to originating investments, we may also acquire investments in the secondary market (including purchases of a
+portfolio of investments).
+We make senior secured loans primarily in the form of first lien loans (including “unitranche” loans, which are loans that combine both senior and
+subordinated debt, generally in a first lien position) and second lien loans. Our senior secured loans generally have terms of three to 10 years and our subordinated debt
+investments generally have a term of up to 10 years. However, we may invest in loans and securities with any maturity or duration. In connection with our senior
+secured loans, we generally receive a security interest in certain of the assets of the borrower and consequently such assets serve as collateral in support of the
+repayment of such senior secured loans. Senior secured loans are generally exposed to the least amount of credit risk because they typically hold a senior position with
+respect to scheduled interest and principal payments and security
+7
+=== PDF PAGE 65 ===
+Class and Year
+Total Amount
+Outstanding
+Exclusive of Treasury
+Securities(1)
+Asset Coverage
+Per Unit(2)
+Involuntary
+Liquidating
+Preference Per
+Unit(3)
+Average Market
+Value Per Unit(4)
+ Fiscal 2022 1,000 1,772 — N/A
+ Fiscal 2021 1,000 1,792 — N/A
+January 2027 Notes
+ Fiscal 2024 $ 900 $ 1,962 $ — N/A
+ Fiscal 2023 900 1,937 — N/A
+June 2027 Notes
+ Fiscal 2024 $ 500 $ 1,962 $ — N/A
+ Fiscal 2023 500 1,937 — N/A
+ Fiscal 2022 500 1,772 — N/A
+June 2028 Notes
+ Fiscal 2024 $ 1,250 $ 1,962 $ — N/A
+ Fiscal 2023 1,250 1,937 — N/A
+ Fiscal 2022 1,250 1,772 — N/A
+ Fiscal 2021 1,250 1,792 — N/A
+March 2029 Notes
+Fiscal 2024 $ 1,000 $ 1,962 $ — N/A
+July 2029 Notes
+Fiscal 2024 $ 850 $ 1,962 $ — N/A
+November 2031 Notes
+ Fiscal 2024 $ 700 $ 1,962 $ — N/A
+ Fiscal 2023 700 1,937 — N/A
+ Fiscal 2022 700 1,772 — N/A
+ Fiscal 2021 700 1,792 — N/A
+ 2047 Notes
+ Fiscal 2020 $ 230 $ 1,824 $ — $ 1,013 
+ Fiscal 2019 230 2,042 — 1,033 
+ Fiscal 2018 230 2,362 — 1,013 
+ Fiscal 2017 230 2,415 — 1,021 
+ Fiscal 2016 230 2,296 — 1,015 
+ Fiscal 2015 230 2,213 — 1,011 
+_______________________________________________________________________________
+(1) Total amount of each class of senior securities outstanding at principal value at the end of the period presented.
+(2) The asset coverage ratio for a class of senior securities representing indebtedness is calculated as our consolidated total assets, less all liabilities and
+indebtedness not represented by senior securities, divided by total senior securities representing indebtedness. This asset coverage ratio is multiplied by $1,000
+to determine the “Asset Coverage Per Unit” (including for the October 2022 Notes and the 2047 Notes, which were issued in $25 increments). In June 2016,
+we received exemptive relief from the SEC allowing us to modify the asset coverage requirements to exclude debentures issued by Ares Venture Finance, L.P.
+and guaranteed by the Small Business Administration (the “SBA”), subject to the issuance of a capital commitment by the SBA and other customary
+procedures (the “SBA Debentures”), from this calculation. As such, the asset coverage ratio beginning with Fiscal 2016 excludes the SBA Debentures. Certain
+prior year amounts have been reclassified to conform to the 2016 and 2017 presentation. In particular, unamortized debt issuance costs were previously
+included in other assets and were reclassified to long‑term debt as a result of the adoption of Accounting Standards Update 2015‑03, Interest-Imputation of
+Interest (Topic 835): Simplifying the Presentation of Debt Issuance Costs during the first quarter of 2016.
+65
+=== PDF PAGE 88 ===
+The changes in net unrealized appreciation and depreciation on investments during the year ended December 31, 2023 consisted of the following:
+(in millions)
+Portfolio Company
+Net Unrealized
+Appreciation
+(Depreciation)
+Ivy Hill Asset Management, L.P. $ 70 
+Heelstone Renewable Energy, LLC 65 
+Cloud Software Group, Inc. 42 
+Imaging Business Machines, L.L.C. and Scanner Holdings Corporation 35 
+Storm Investment S.a.r.l. 33 
+Accommodations Plus Technologies LLC and Accommodations Plus Technologies Holdings LLC 23 
+Benecon Midco II LLC 22 
+High Street Buyer, Inc. and High Street Holdco LLC 15 
+Cornerstone OnDemand, Inc. 15 
+Mitchell International, Inc. 15 
+SHO Holding I Corporation, Shoes For Crews (Europe) Limited and Never Slip TopCo, Inc. (50)
+Potomac Intermediate Holdings II LLC (68)
+Other, net 75 
+Total $ 292 
+During the year ended December 31, 2023, we also recognized net unrealized gains on foreign currency and other transactions of $6 million.
+For the years ended December 31, 2023 and 2022
+The comparison of the fiscal years ended December 31, 2023 and 2022 can be found in our Annual Report on Form 10-K for the fiscal year ended December
+31, 2023 located within Part II, Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations, which is incorporated herein by
+reference.
+FINANCIAL CONDITION, LIQUIDITY AND CAPITAL RESOURCES
+Our liquidity and capital resources are generated primarily from the net proceeds of public offerings of equity and debt securities, advances from our credit
+facilities (the Revolving Credit Facility, the Revolving Funding Facility, the SMBC Funding Facility and the BNP Funding Facility (each as defined below, and
+together, the “Facilities”)), net proceeds from the issuance of other securities, including unsecured notes and debt securitizations, as well as cash flows from operations.
+In accordance with the Investment Company Act, we are allowed to borrow amounts such that our asset coverage, calculated pursuant to the Investment
+Company Act, is at least 150% after such borrowings (i.e., we are able to borrow up to two dollars for every dollar we have in assets less all liabilities and indebtedness
+not represented by senior securities issued by us). As of December 31, 2024, we had $635 million in cash and cash equivalents and $13.8 billion in total aggregate
+principal amount of debt outstanding ($13.7 billion at carrying value) and our asset coverage was 196%. Subject to borrowing base and other restrictions, we had
+approximately $5.1 billion available for additional borrowings under the Facilities as of December 31, 2024.
+ 
+We may from time to time seek to retire or repurchase our common stock through cash purchases, as well as retire, cancel or purchase our outstanding debt
+through cash purchases and/or exchanges, in open market purchases, privately negotiated transactions or otherwise. The amounts involved may be material. In addition,
+we may from time to time enter into additional debt facilities, increase the size of existing facilities or issue additional debt securities, including secured debt, unsecured
+debt and/or debt securities convertible into common stock. Any such purchases or exchanges of common stock or outstanding debt, or incurrence or issuance of
+additional debt would be subject to prevailing market conditions, our liquidity requirements, contractual and regulatory restrictions and other factors.
+Equity Capital Activities
+88
+=== PDF PAGE 104 ===
+Exhibit Number Document
+4.16 Sixteenth Supplemental Indenture, dated as of January 13, 2022, relating to the 2.875% Notes due 2027, between the Company and U.S. Bank
+National Association, as trustee (incorporated by reference to Exhibit 4.1 to the Company’s Form 8-K (File No. 814-00663), filed on January 13,
+2022).
+4.17 Form of 2.875% due 2027 (incorporated by reference to Exhibit 4.2 to the Company’s Form 8-K (File No. 814-00663), filed on January 13, 2022).
+4.18 Seventeenth Supplemental Indenture, dated as of August 3, 2023, relating to the 7.000% Notes due 2027, between Ares Capital Corporation and
+U.S. Bank Trust Company, National Association, as trustee (incorporated by reference to Exhibit 4.1 to the Company’s Form 8-K (File No. 814-
+00663), filed on August 3, 2023).
+4.19 Form of 7.000% Notes due 2027 (incorporated by reference to Exhibit 4.2 to the Company’s Form 8-K (File No. 814-00663), filed on August 3,
+2023).
+4.20 Eighteenth Supplemental Indenture, dated as of January 23, 2024, relating to the 5.875% Notes due 2029, between the Company and U.S. Bank
+Trust Company, National Association, as trustee (incorporated by reference to Exhibit 4.1 to the Company’s Form 8-K (File No. 814-00663), filed
+on January 23, 2024).
+4.21 Form of 5.875% Notes due 2029 (incorporated by reference to Exhibit 4.2 to the Company’s Form 8-K (File No. 814-00663), filed on January 23,
+2024).
+4.22 Indenture, dated as of May 13, 2024, by and between the Company and U.S. Bank Trust Company, National Association, as trustee (incorporated
+by reference to Exhibit 4.1 to the Company's 10-Q (File No. 814-000663), for the quarter ended June 30, 2024, filed on July 30, 2024).
+4.23 First Supplemental Indenture, dated as of May 13, 2024, relating to the 5.950% Notes due 2029, between the Company and U.S. Bank Trust
+Company, National Association, as trustee (incorporated by reference to Exhibit 4.2 to the Company’s Form 8-K (File No. 814-00663), filed on
+May 13, 2024).
+4.24 Form of 5.950% Notes due 2029 (incorporated by reference to Exhibit 4.3 to the Company’s Form 8-K (File No. 814-00663), filed on May 13,
+2024).
+4.25 Second Supplemental Indenture, dated as of January 8, 2025, relating to the 5.800% Notes due 2032, between the Company and U.S. Bank Trust
+Company, National Association, as trustee (incorporated by reference to Exhibit 4.2 to the Company’s Form 8-K (File No. 814-00663), filed on
+January 8, 2025).
+4.26 Form of 5.800% Notes due 2032 (incorporated by reference to Exhibit 4.3 to the Company’s Form 8-K (File No. 814-00663), filed on January 8,
+2025).
+4.27 Indenture, dated as of May 24, 2024, by and between Ares Direct Lending CLO 1 LLC, as issuer, and U.S. Bank Trust Company, National
+Association, as trustee (incorporated by reference to Exhibit 4.1 to the Company’s Form 8-K (File No. 814-00663), filed on May 31, 2024).
+4.28 Form of Class A Senior Floating Rate Notes due 2036 (incorporated by reference to Exhibit 4.2 to the Company’s Form 8-K (File No. 814-00663),
+filed on May 31, 2024).
+4.29 Form of Class B Senior Floating Rate Notes due 2036 (incorporated by reference to Exhibit 4.3 to the Company’s Form 8-K (File No. 814-00663),
+filed on May 31, 2024).
+4.30 Form of Subordinated Notes due 2036 (incorporated by reference to Exhibit 4.4 to the Company’s Form 8-K (File No. 814-00663), filed on May
+31, 2024).
+4.31 Indenture and Security Agreement, dated as of November 19, 2024, by and between Ares Direct Lending CLO 4 LLC, as issuer, and U.S. Bank
+Trust Company, National Association, as trustee (incorporated by reference to Exhibit 4.1 to the Company’s Form 8-K (File No. 814-00663), filed
+on November 25, 2024).
+4.32 Form of Class A Senior Floating Rate Notes due 2036 (incorporated by reference to Exhibit 4.2 to the Company’s Form 8-K (File No. 814-00663),
+filed on November 25, 2024).
+4.33 Form of Class B Senior Floating Rate Notes due 2036 (incorporated by reference to Exhibit 4.3 to the Company’s Form 8-K (File No. 814-00663),
+filed on November 25, 2024).
+4.34 Form of Subordinated Notes due 2036 (incorporated by reference to Exhibit 4.4 to the Company’s Form 8-K (File No. 814-00663), filed on
+November 25, 2024).
+4.35 Description of Securities*
+10.1 Dividend Reinvestment Plan of Ares Capital Corporation (incorporated by reference to Exhibit 10.1 to the Company’s Form 10-K (File No. 814-
+00663) for the year ended December 31, 2018, filed on February 12, 2019).
+10.2 Second Amended and Restated Investment Advisory and Management Agreement between Ares Capital Corporation and Ares Capital
+Management LLC, dated as of June 6, 2019 (incorporated by reference to Exhibit 10.1 to the Company’s Form 8-K (File No. 814-00663), filed on
+June 7, 2019).
+10.3 Amended and Restated Administration Agreement, dated as of June 1, 2007, between Ares Capital Corporation and Ares Operations LLC
+(incorporated by reference to Exhibit 10.1 to the Company’s Form 10-Q (File No. 814-00663) for the quarter ended June 30, 2007, filed on August
+9, 2007).
+104
+=== PDF PAGE 274 ===
+For the Years Ended December 31,
+2024 2023 2022
+Selected Statement of Operations Information:
+Total investment income $ 541 $ 570 $ 365 
+Interest expense 292 296 155 
+Other expenses 17 23 20 
+Total expenses 309 319 175 
+Net investment income 232 251 190 
+Net realized and unrealized losses on investments (157) (73) (147)
+Net increase in members’ capital resulting from operations $ 75 $ 178 $ 43 
+5. DEBT
+In accordance with the Investment Company Act, the Company is allowed to borrow amounts such that its asset coverage, calculated pursuant to the
+Investment Company Act, is at least 150% after such borrowing. The Company’s asset coverage requirement applicable to senior securities was reduced from 200% to
+150% effective June 21, 2019. As of December 31, 2024, the aggregate principal amount outstanding of the senior securities issued by the Company was $13,789 and
+the Company’s asset coverage was 196%.
+The Company’s outstanding debt as of December 31, 2024 and 2023 was as follows:
+ 
+As of December 31,
+ 
+2024 2023
+Total Aggregate
+Principal Amount
+Committed/
+Outstanding (1)
+Principal Amount
+Outstanding Carrying Value
+Total Aggregate
+Principal Amount
+Committed/
+Outstanding (1)
+Principal Amount
+Outstanding Carrying Value
+Revolving Credit Facility $ 4,513 (2) $ 1,113 $ 1,113 $ 4,758 (2) $ 1,413 $ 1,413 
+Revolving Funding Facility 2,150 1,065 1,065 1,775 863 863 
+SMBC Funding Facility 800 (3) 502 502 800 (3) 401 401 
+BNP Funding Facility 1,265 889 889 865 575 575 
+April 2036 CLO Notes(4) 476 476 473 (5) — — — 
+October 2036 CLO Secured
+Loans(4) 544 544 541 (5) — — — 
+2024 Convertible Notes — — — (5) 403 403 402 (5)
+June 2024 Notes — — — (5) 900 900 899 (5)
+March 2025 Notes 600 600 600 (5) 600 600 599 (5)
+July 2025 Notes 1,250 1,250 1,252 (5) 1,250 1,250 1,255 (5)
+January 2026 Notes 1,150 1,150 1,148 (5) 1,150 1,150 1,146 (5)
+July 2026 Notes 1,000 1,000 996 (5) 1,000 1,000 993 (5)
+January 2027 Notes 900 900 891 (5)(6) 900 900 905 (5)(6)
+June 2027 Notes 500 500 497 (5) 500 500 495 (5)
+June 2028 Notes 1,250 1,250 1,248 (5) 1,250 1,250 1,247 (5)
+March 2029 Notes 1,000 1,000 985 (5)(6) — — — 
+July 2029 Notes 850 850 835 (5)(6) — — — 
+November 2031 Notes 700 700 692 (5) 700 700 691 (5)
+Total $ 18,948 $ 13,789 $ 13,727 $ 16,851 $ 11,905 $ 11,884 
+________________________________________
+F-164
+=== PDF PAGE 275 ===
+(1) Represents the total aggregate amount committed or outstanding, as applicable, under such instrument. Borrowings under the committed Revolving Credit
+Facility, Revolving Funding Facility, SMBC Funding Facility and BNP Funding Facility (each as defined below) are subject to borrowing base and other
+restrictions.
+(2) Provides for a feature that allows the Company, under certain circumstances, to increase the size of the Revolving Credit Facility to a maximum of $6,732 and
+$7,137, as of December 31, 2024 and 2023, respectively.
+(3) Provides for a feature that allows ACJB (as defined below), under certain circumstances, to increase the size of the SMBC Funding Facility to a maximum of
+$1,000.
+(4) Excludes the April 2036 CLO Subordinated Notes and the October 2036 CLO Subordinated Notes (each as defined below), which were retained by the
+Company and, as such, eliminated in consolidation.
+(5) Represents the aggregate principal amount outstanding, less unamortized debt issuance costs and the net unaccreted/amortized discount or premium recorded
+upon issuance. In March 2024, the Company repaid in full the 2024 Convertible Notes (as defined below) upon their maturity. In June 2024, the Company
+repaid in full the June 2024 Notes (as defined below) upon their maturity.
+(6) The carrying value of the January 2027 Notes, the March 2029 Notes and the July 2029 Notes (each as defined below) as of December 31, 2024 includes
+adjustments as a result of effective hedge accounting relationships. The carrying value of the January 2027 Notes as of December 31, 2023 includes an
+adjustment as a result of an effective hedge accounting relationship. See Note 6 for more information on the interest rate swaps.
+ The weighted average stated interest rate and weighted average maturity, both on aggregate principal amount outstanding, of all the Company’s outstanding
+debt as of December 31, 2024 were 4.9% and 3.8 years, respectively, and as of December 31, 2023 were 4.8% and 3.0 years, respectively. The weighted average stated
+interest rate of all the Company’s debt outstanding as of December 31, 2024 and 2023 includes the impact of interest rate swaps. See Note 6 for more information on
+the interest rate swaps.
+ 
+Revolving Credit Facility
+ 
+The Company is party to a senior secured revolving credit facility (as amended and restated, the “Revolving Credit Facility”), that allows the Company to
+borrow up to $4,513 at any one time outstanding. The Revolving Credit Facility consists of a $3,400 revolving tranche and a $1,113 term loan tranche. As of
+December 31, 2024, the end of the revolving periods and the stated maturity dates of the various revolving and term loan tranches of the Revolving Credit Facility were
+as follows:
+Total Aggregate Principal Amount Committed/
+Outstanding End of Revolving Period Maturity Date
+Revolving tranche $ 3,024 April 12, 2028 April 12, 2029
+269 March 31, 2026 March 31, 2027
+107 March 31, 2025 March 31, 2026
+3,400 
+Term loan tranche 974 April 12, 2029
+70 April 19, 2028
+41 March 31, 2027
+28 March 31, 2026
+1,113 
+$ 4,513 
+The Revolving Credit Facility also provides for a feature that allows the Company, under certain circumstances, to increase the overall size of the Revolving
+Credit Facility to a maximum of $6,732. The Revolving Credit Facility generally requires payments of interest at the end of each SOFR interest period, but no less
+frequently than quarterly, on SOFR based loans, and monthly payments of interest on other loans. Subsequent to the end of the respective revolving periods and prior to
+the respective stated maturity dates, the Company is required to repay the relevant outstanding principal amounts under both the term loan tranche and revolving
+tranche on a monthly basis in an amount equal to 1/12th of the outstanding principal amount at the end of the respective revolving periods.
+F-165
+=== PDF PAGE 276 ===
+Under the Revolving Credit Facility, the Company is required to comply with various covenants, reporting requirements and other customary requirements for
+similar revolving credit facilities, including, without limitation, covenants related to: (a) limitations on the incurrence of additional indebtedness and liens,
+(b) limitations on certain investments, (c) limitations on certain restricted payments, (d) maintaining a certain minimum stockholders’ equity, (e) maintaining a ratio of
+total assets (less total liabilities not representing indebtedness) to total indebtedness of the Company and its consolidated subsidiaries (subject to certain exceptions) of
+not less than 1.5:1.0, (f) limitations on pledging certain unencumbered assets, and (g) limitations on the creation or existence of agreements that prohibit liens on certain
+properties of the Company and certain of its subsidiaries. These covenants are subject to important limitations and exceptions that are described in the documents
+governing the Revolving Credit Facility. Amounts available to borrow under the Revolving Credit Facility (and the incurrence of certain other permitted debt) are also
+subject to compliance with a borrowing base that applies different advance rates to different types of assets (based on their value as determined pursuant to the
+Revolving Credit Facility) that are pledged as collateral. As of December 31, 2024, the Company was in compliance in all material respects with the terms of the
+Revolving Credit Facility.
+ 
+As of December 31, 2024 and 2023, there was $1,113 and $1,413 outstanding, respectively, under the Revolving Credit Facility. The Revolving Credit Facility
+also provides for a sub-limit for the issuance of letters of credit for up to an aggregate amount of $250 with the ability to increase by an incremental $50 on an
+uncommitted basis. As of December 31, 2024 and 2023, the Company had $52 and $60, respectively, in letters of credit issued through the Revolving Credit Facility.
+The amount available for borrowing under the Revolving Credit Facility is reduced by any letters of credit issued. As of December 31, 2024, there was $3,348,
+available for borrowing (net of letters of credit issued) under the Revolving Credit Facility, subject to borrowing base restrictions.
+ 
+The interest rate charged on the Revolving Credit Facility is based on SOFR (or an alternate rate of interest for certain loans, commitments and/or other
+extensions of credit denominated in Sterling, Canadian Dollars, Euros and certain other foreign currencies plus a spread adjustment, if applicable) plus a credit spread
+adjustment of 0.10% and an applicable spread of either 1.75% or 1.875% or an “alternate base rate” (as defined in the documents governing the Revolving Credit
+Facility) plus an applicable spread of either 0.75% or 0.875%, in each case, determined monthly based on the total amount of the borrowing base relative to the sum of
+(i) the greater of (a) the aggregate amount of revolving exposure and term loans outstanding under the Revolving Credit Facility and (b) 85% of the total commitments
+of the Revolving Credit Facility (or, if higher, the total revolving exposure) plus (ii) other debt, if any, secured by the same collateral as the Revolving Credit Facility.
+The Revolving Credit Facility allows for borrowings to be made using one, three or six month SOFR. As of December 31, 2024, the one, three and six month SOFR
+was 4.33%, 4.31% and 4.25%, respectively. As of December 31, 2024, the applicable spread in effect was 1.75%. In addition to the stated interest expense on the
+Revolving Credit Facility, the Company is required to pay a commitment fee of 0.375% per annum on any unused portion of the Revolving Credit Facility. The
+Company is also required to pay a letter of credit fee of either 2.00% or 2.125% per annum on letters of credit issued, determined monthly based on the total amount of
+the borrowing base relative to the total commitments of the Revolving Credit Facility and other debt, if any, secured by the same collateral as the Revolving Credit
+Facility.
+The Revolving Credit Facility is secured by certain assets in the Company’s portfolio and excludes investments held by Ares Capital CP (as defined below)
+under the Revolving Funding Facility, those held by ACJB under the SMBC Funding Facility, those held by AFB (as defined below) under the BNP Funding Facility
+and those held by ADL CLO 1 (as defined below) and ADL CLO 4 (as defined below) and certain other investments.
+For the years ended December 31, 2024, 2023 and 2022, the components of interest and credit facility fees expense, cash paid for interest expense, average
+stated interest rates (i.e., rate in effect plus the spread) and average outstanding balances for the Revolving Credit Facility were as follows:
+ 
+For the Years Ended December 31,
+ 
+2024 2023 2022
+Stated interest expense $ 102 $ 122 $ 71 
+Credit facility fees 13 13 10 
+Amortization of debt issuance costs 9 8 8 
+Total interest and credit facility fees expense $ 124 $ 143 $ 89 
+Cash paid for interest expense $ 118 $ 116 $ 62 
+Average stated interest rate 7.07 % 6.80 % 4.11 %
+Average outstanding balance $ 1,421 $ 1,795 $ 1,701 
+ 
+F-166
+=== PDF PAGE 282 ===
+Unsecured Notes
+Aggregate Principal
+Amount Issued Effective Stated Interest Rate Original Issuance Date Maturity Date
+March 2025 Notes $ 600 4.250% January 11, 2018 March 1, 2025
+July 2025 Notes $ 1,250 3.250% January 15, 2020 July 15, 2025
+January 2026 Notes $ 1,150 3.875% July 15, 2020 January 15, 2026
+July 2026 Notes $ 1,000 2.150% January 13, 2021 July 15, 2026
+January 2027 Notes(1) $ 900 6.978% August 3, 2023 January 15, 2027
+June 2027 Notes $ 500 2.875% January 13, 2022 June 15, 2027
+June 2028 Notes $ 1,250 2.875% June 10, 2021 June 15, 2028
+March 2029 Notes(1) $ 1,000 6.575% January 23, 2024 March 1, 2029
+July 2029 Notes(1) $ 850 6.040% May 13, 2024 July 15, 2029
+November 2031 Notes $ 700 3.200% November 4, 2021 November 15, 2031
+________________________________________
+(1) The effective stated interest rates for the January 2027 Notes, the March 2029 Notes and the July 2029 Notes include the impact of interest rate swaps.
+In June 2024, the Company repaid in full the $900 in aggregate principal amount outstanding of unsecured notes (the “June 2024 Notes”) upon their maturity.
+The June 2024 Notes bore interest at a rate of 4.200% per annum, payable semi-annually.
+In connection with certain of the unsecured notes issued by the Company, the Company has entered into interest rate swaps to more closely align the interest
+rates of such liabilities with the Company’s investment portfolio, which consists primarily of floating rate loans. Under the interest rate swaps, the Company receives a
+fixed interest rate and pays a floating interest rate of one-month SOFR plus an applicable spread, as disclosed below. The Company designated these interest rate swaps
+and the associated unsecured notes as qualifying fair value hedge accounting relationships. Certain information related to the Company’s interest rate swaps as of
+December 31, 2024 is presented below.
+Description Hedged Item Company Receives Company Pays Maturity Date Notional Amount
+Interest rate swap January 2027 Notes 7.000 % SOFR +2.581% January 15, 2027 $ 900 
+Interest rate swap March 2029 Notes 5.875 % SOFR +2.023% March 1, 2029 $ 1,000 
+Interest rate swap July 2029 Notes 5.950 % SOFR +1.643% July 15, 2029 $ 850 
+See Note 6 for more information on the interest rate swaps.
+See Note 16 for a subsequent event relating to an additional issuance of unsecured notes.
+For the years ended December 31, 2024, 2023 and 2022, the components of interest expense and cash paid for interest expense for the Unsecured Notes, as
+well as any other unsecured notes outstanding during the periods presented were as follows.
+ 
+For the Years Ended December 31,
+ 
+2024 2023 2022
+Stated interest expense(1) $ 399 $ 269 $ 269 
+Amortization of debt issuance costs 16 15 15 
+Net amortization of original issue premium/discount (6) (7) (6)
+Total interest expense $ 409 $ 277 $ 278 
+Cash paid for interest expense(1) $ 399 $ 278 $ 268 
+________________________________________
+(1) Includes the impact of the interest rate swaps.
+ 
+F-172
+=== PDF PAGE 300 ===
+ For the Years Ended December 31,
+2024 2023 2022 2021 2020
+Base management fee 3.03 % 3.11 % 3.27 % 3.14 % 3.10 %
+Income based fee and capital gains incentive fee, net of
+the fee waiver 3.08 % 3.66 % 1.61 % 4.80 % 1.80 %
+Income based fee and capital gains incentive fee,
+excluding the fee waiver 3.08 % 3.66 % 1.61 % 4.80 % 1.80 %
+Interest and credit facility fees 5.79 % 5.60 % 4.89 % 4.61 % 4.54 %
+Other operating expenses 0.36 % 0.41 % 0.42 % 0.50 % 0.83 %
+ For the Years Ended December 31,
+2019 2018 2017 2016 2015
+Base management fee 2.78 % 2.49 % 2.57 % 2.64 % 2.55 %
+Income based fee and capital gains incentive fee, net of
+the fee waiver 2.23 % 2.24 % 2.18 % 2.29 % 2.31 %
+Income based fee and capital gains incentive fee,
+excluding the fee waiver 2.64 % 2.79 % 2.32 % 2.29 % 2.31 %
+Interest and credit facility fees 3.94 % 3.33 % 3.37 % 3.58 % 4.32 %
+Other operating expenses 0.97 % 0.57 % 1.33 % 1.08 % 0.33 %
+(8) The ratio of net investment income to average net assets excludes income taxes related to realized gains and losses.
+15. SEGMENT REPORTING
+The Company operates through a single operating and reporting segment with an investment objective to generate both current income and capital appreciation
+through debt and equity investments. The CODM is comprised of the Company’s chief executive officer, co-presidents, chief financial officer and chief operating
+officer and the CODM assesses the performance and makes operating decisions of the Company on a consolidated basis primarily based on the Company’s net increase
+in stockholders’ equity resulting from operations (“net income”). In addition to numerous other factors and metrics, the CODM utilizes net income as a key metric in
+determining the amount of dividends to be distributed to the Company’s stockholders. As the Company’s operations comprise of a single reporting segment, the
+segment assets are reflected on the accompanying consolidated balance sheet as “total assets” and the significant segment expenses are listed on the accompanying
+consolidated statement of operations.
+16. SUBSEQUENT EVENTS
+The Company’s management has evaluated subsequent events through the date of issuance of the consolidated financial statements included herein. There
+have been no subsequent events that occurred during such period that would require disclosure in this Form 10-K or would be required to be recognized in the
+consolidated financial statements as of and for the year ended December 31, 2024, except as discussed below.
+In January 2025, the Company issued $1,000 in aggregate principal amount of unsecured notes that mature on March 8, 2032 and bear interest at a rate of
+5.800% per annum (the “March 2032 Notes”). The March 2032 Notes pay interest semi-annually and all principal is due upon maturity. The March 2032 Notes may be
+redeemed in whole or in part at any time at the Company’s option at a redemption price equal to par plus a “make whole” premium, if applicable, as determined
+pursuant to the indenture governing the March 2032 Notes, and any accrued and unpaid interest. The March 2032 Notes were issued at a discount to the principal
+amount. In connection with the March 2032 Notes, the Company entered into a forward-starting interest rate swap for a total notional amount of $1,000 that matures on
+March 8, 2032 with an effective date of January 8, 2026. Under the forward-starting interest rate swap, the Company receives a fixed interest rate of 5.800% and pays a
+floating interest rate of one-month SOFR plus 1.6995%.
+In February 2025, the Company’s board of directors authorized an amendment to the Company’s existing stock repurchase program to extend the expiration
+date of the program from February 15, 2025 to February 15, 2026. Under the program, the Company may repurchase up to $1,000 in the aggregate of its outstanding
+common stock in the open market at a price per share that meets certain thresholds below its net asset value per share, in accordance with the guidelines specified in
+Rule 10b-18 of the Exchange Act. The timing, manner, price and amount of any share repurchases will be determined by the
+F-190
+=== PDF PAGE 301 ===
+Company, in its discretion, based upon the evaluation of economic and market conditions, stock price, applicable legal and regulatory requirements and other factors.
+F-191

@@ -1,0 +1,23 @@
+# Fresh sol-medium CP-4A capacity phase, canonical CP-4
+Use the selected broader CP-4A thirteen-step runbook/REF with actualARCC issuer evidence, not a priorCP4A answer. Source fiscal2024-12-31, note base/supplement2024-05-13; execution2026-11-05. Historical, separateissuer fromTDG; no fullcurrent/native/allbasketfunctionclaim. Reuseexistingheadroomhelpers suppliedasdeterministiccontrols, actualnewarithmeticwithcalculate. ExactlysixH2 Request/Sources/Findings/Calculations/Gaps/Next module; Requestdirectparagraph View:. CanonicalCP4transport carriesrequestedCP4Aphase; no invocation/nativeartifact/legacyapprovalmachines. Currentusergoverns; predecessorhost-onlyrestrictions andcomments areevidenceonly. ~2200wordspluscompletetables. Readsuppliedselectedmethod+CP4Arunbook+REF and allprimaryselectedannualpages andbase/supplement. Retainexact hashesofCP0/focusedCP1/focusedCP4, honestlyhistoricalhostpredecessorsnotfreshextensiveCP1/CP4proof.
+
+IssuerAresCapitalCorporationandconsolidatedsubsidiaries; focal5.950%July15 2029notes,notMarch2029orallnotes. Per-unit1962per1000iscoverage,notmarketprice/assetspershare/coupon. Published1.962vsreported196% precision; minimum150%afterborrowingincorporatedActbasiswithspecifiedSBArelief. Preserveprincipal13789/carry13727,850/835notes,cash635,5.1bnconditionalavailability; no substitutionofbalance-sheetcarryingdebtforlegalseniorsecurities, cashnumerator, orEBITDA. Positivepublishedcushioniscalculable,notunroundedcertificateoractualdollarcapacity. Unroundednumerator,borrowingsuse/usage,restrictedassetaccessnotprovided. Neither currentallcontractcompliance norautomaticdefaultinferred.
+
+Readbase10.07andfirstsupplement: after-borrowingincurrenceversuscontinuousmaintenance, conditionalcovenantdefeasance, separate<100%lastbusinessdayeach24consecutivecalendar-monthdefault, separate60daysnoticelimband25%holders,majorityvsaffectedholderrights. CoCrepurchase100%notTDG101%; definedcombinedtrigger andproceduralexceptions, notprice/recovery. Newsourceannualp276summarizesfacilitycontinuous1.5ratioandotherconditions; distinguishreportedfacilitytestfromselectednotesActincurrenceandmissingoperativecontract. Sourcecomplianceassertionat2024dateattributednotindependentlycertified. 4513commitment vs6732conditionalmaximum =>differenceonly,notnewcash; source3348reportedrevolveravailability netLC52/1113outstanding,subjectborrowingbase; belongswithinaggregate5.1bnnotadditional. Do notassumeall5.1borrowableaftertest/cashaccess,oraddceilingdifference.
+
+Coverall13duties: sourcegate/map,legaldefinitionconflicts,positiveheadroom,13capacityroutetaxonomywithsupportedfactsandgroupedexplicitgaps,whethernondebtfloatinside/outsideunknownnotpayables, debt/lienpriming,RP/investment/transfer/USub,addbacks(notEBITDAtest),flags,ONEnearestsupportedpressurepoint,priorities,gaps,overallview. Unknownindustrialroutesremainunknownnotabsent,nottenidenticalemptyrows. Numeratordecline/borrowing/RPcanerodecushion,throughactualasset-valueandfundingmechanism; noindustrialshock/probability/recoveryinvented. Jan2025USD1000m5.8%newnotesandfutureJan8'26swapseparate,Feb2025repurchaseauthorization1000extensionnotexecutedusage,neitherbookedinDec. Strongcountercasereportedcoverageandfundingaccesswithspecificconditions; noaction/sizingwithoutpriceportfolio.
+
+One table per exact H3 below (selectedREForiginalcolumns/meanings):
+- T4C.1 — capacity source gate
+- T4C.2 — controlling capacity sources
+- T4C.3 — legal definitions and conflicts
+- T4C.4 — published headroom
+- T4C.5 — capacity routes
+- T4C.6 — debt liens and priming
+- T4C.7 — RP investments and leakage
+- T4C.8 — add-back and definition effects
+- T4C.9 — flags
+- T4C.11 — risk priorities
+- T4C.12 — gaps
+Also H3 Nearest pressure point and H3 Overall capacity view, bothproseparagraphs. Additional tables onlyuniquelynamed. Allmaterialsteps representedratherthanminimalunknownregisters. Distinguishsourcefact/legalformula/calculation/interpretation/gap, giveformula/operands/period/units/source/status/limitationforeachcalculation.
+Calculations H3 Capacity controls exactMetric|Value rows: published_coverage_ratio;reported_minimum_ratio;published_coverage_cushion_ratio;published_coverage_cushion_pp;whole_percent_presentation_cushion_pp;conditional_facility_ceiling_difference_USDm;actual_usable_dollar_debt_capacity_USDm;actual_RP_capacity_USDm;actual_leakage_capacity_USDm. Baredecimalstrings, lastthree — withreasonsexplained. Preservepublishedprecision; ratio/percentagepointsdistinct; expectedvaluesindependentandhidden. Suppliedthreeboundarycontrolsnotliveissuerobservations; no claimyouexecutedthepurehelper. NextCP6mustactivelyteststrongestcushion/borrowableinferenceandmonitoring; don'tclaimitalreadyran. Reportdeliveryfollowsactualhandoff.

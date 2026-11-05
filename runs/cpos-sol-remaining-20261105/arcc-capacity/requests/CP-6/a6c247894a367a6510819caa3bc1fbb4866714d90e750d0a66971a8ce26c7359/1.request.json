@@ -1,0 +1,29 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0": "8347534cab302ae92b4e097f7a7d08a0ea69945337a0cadaf575526578ea83e5",
+    "CP-1": "ed934cea757dec38962ec99f87e86725e4d10e08a2b4865e0bee1ebd3ab4b240",
+    "CP-4": "ff4a8bb2eef5f1a735628a5d1e99f1662eb8078858d0be80a9c199f4307569c9",
+    "CP-4-capacity": "fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738"
+  },
+  "instructions": "# Fresh CP-6 focused capacity challenge\nActually read and use exact current CP-4 capacity-phase handoff plus historical focusedCP0/1/legalCP4. Fresh sol-medium execution2026-11-05, historicalARCC2024-12-31 andMay13 2024notes, July15 2029maturity. SeparateJan/Feb2025events. This is focusedconsumer proof, not fullCP6eleven-stepdebate/committee/currentunderwriting/wholepathway. SixH2 Request/Sources/Findings/Calculations/Gaps/Next module, Requestdirectparagraph View:. ~900wordspluscompacttables. Sourceannualselectionavailableforactualchallenge; no newprovider/sourceclaimunlessread. PreserveexactinputSHA256s and original sourceperiodunitslocators. No sameissuer asTDG.\n\nChallenge strongest favorable inference, not straw man: positivepublished1.962vs1.5 coverage andreportedconditionalfundingare realcounterevidence to immediateclosure, yetdo they establish executableincrementaldebtbuffer? Five concrete claims minimum: ratio cushion\u2260dollar capacity nor46.2%asset-pricedeclinerunway; .462ratio vs46.2percentagepoint vswholepercent46; conditionalfacility5.1bn includes3348revolver,do notadd2219ceilingdifference; same-numberfacilitymaintenance\u2260noteincurrence,defaultduration/notice separate; Jan2025new1000debtgross andFeb2025up-to1000repurchaseauthorization\u2260Decemberuses/actualrepurchase. Qualify3ratingCoC100%put vscontingentandnotrecovery; collateralreach/exclusion andfurthersecuredclaims matterednotautomaticnewpriming. Strongbearstresschain portfolio marks/uses->coverage/base->fundingconstraintbeforepaymentdefault; strongestrebuttalpositivehistoricalnumbersandexecution. Explicitdecisiononwhichclaimsurvivesorrequiresmoreevidence, noindependentagents/actuallynotrunroles. Monitoringdecisionandwhatwouldchangeposture; do not inventtrade/sizing, default, currentstatus or exactunusedcapacity.\n\nExactH3 Challenge register (one table: claim, supporting evidence, strongest challenge, disposition, decision consequence), Decision consequence (prose), Monitoring (table), Consumption controls (table). ControlsMetric|Value orderedrows: published_coverage_ratio;reported_minimum_ratio;published_coverage_cushion_ratio;published_coverage_cushion_pp;conditional_ceiling_difference_USDm;reported_revolver_available_USDm;actual_usable_dollar_debt_capacity_USDm;actual_RP_capacity_USDm. Plainnumbercells, lasttwo \u2014 missingnotzero. Reusedfactsnotnewmathunlesscalculateexecuted. Missinginputrequests targeted; no rerunmerelyfordelivery. SaynotfullCP6gate.\n",
+  "module_id": "CP-6",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2024-12-31",
+    "case_kind": "public",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "method_version": "deploy-v-r14",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-6"
+    ],
+    "run_id": "sol-remaining-arcc-capacity-challenge-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "annual-selected": "ec0dbd96488e2f6977a42bfc17085b6dd8410a9b39db7e7a0a3670c2d701f58b"
+  }
+}

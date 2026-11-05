@@ -1,0 +1,58 @@
+{
+  "required_terms": [
+    "2024-09-19",
+    "2024-09-30",
+    "2026-11-05",
+    "P14",
+    "T4.13",
+    "66",
+    "Restricted Subsidiaries"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Legal numeric controls",
+      "columns": [
+        "Metric",
+        "Value"
+      ],
+      "rows": [
+        [
+          "incurrence_threshold_x",
+          "2"
+        ],
+        [
+          "restricted_payment_threshold_x",
+          "2"
+        ],
+        [
+          "clause_M_post_adjustment_cap_percent",
+          "35"
+        ],
+        [
+          "original_notes_principal_USDm",
+          "1500"
+        ],
+        [
+          "conditional_all_original_principal_101_percent_USDm",
+          "1515"
+        ],
+        [
+          "conditional_premium_component_USDm",
+          "15"
+        ],
+        [
+          "actual_current_legal_FCCR",
+          "\u2014"
+        ],
+        [
+          "actual_unused_ratio_debt_capacity_USDm",
+          "\u2014"
+        ],
+        [
+          "conditional_accrued_interest_USDm",
+          "\u2014"
+        ]
+      ]
+    }
+  ]
+}

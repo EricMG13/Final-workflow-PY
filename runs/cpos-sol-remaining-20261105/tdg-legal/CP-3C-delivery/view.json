@@ -1,0 +1,3604 @@
+{
+  "schema_version": "view/4",
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "sol-remaining-tdg-legal-funding-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-12-28",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-3C"
+    ]
+  },
+  "mode": "candidate",
+  "modules": [
+    {
+      "module_id": "CP-3C",
+      "title": "Refinancing lme risk",
+      "aliases": [],
+      "status": "candidate",
+      "artifact_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+      "facts": [
+        {
+          "fact_id": "raw-CP-3C-0.r0.c0",
+          "label": "Current CP-4",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 13",
+              "quote": "| Current CP-4 | 267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43 | Fourteen-step legal findings, P01–P14; replaces blanket absence for named notes only |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r0.c1",
+          "label": "Current CP-4",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Fourteen-step legal findings, P01–P14; replaces blanket absence for named notes only",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 13",
+              "quote": "| Current CP-4 | 267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43 | Fourteen-step legal findings, P01–P14; replaces blanket absence for named notes only |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r1.c0",
+          "label": "Current CP-2D",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 14",
+              "quote": "| Current CP-2D | 8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565 | December liquidity, cash bridge, A/R exposure and access gates |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r1.c1",
+          "label": "Current CP-2D",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "December liquidity, cash bridge, A/R exposure and access gates",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 14",
+              "quote": "| Current CP-2D | 8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565 | December liquidity, cash bridge, A/R exposure and access gates |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r2.c0",
+          "label": "Current CP-2A",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 15",
+              "quote": "| Current CP-2A | b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3 | Static stress boundaries and six historical calendar objects |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r2.c1",
+          "label": "Current CP-2A",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Static stress boundaries and six historical calendar objects",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 15",
+              "quote": "| Current CP-2A | b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3 | Static stress boundaries and six historical calendar objects |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r3.c0",
+          "label": "Current CP-2",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 16",
+              "quote": "| Current CP-2 | 72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab | Conditional forecast service vulnerability and retention caveat |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r3.c1",
+          "label": "Current CP-2",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Conditional forecast service vulnerability and retention caveat",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 16",
+              "quote": "| Current CP-2 | 72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab | Conditional forecast service vulnerability and retention caveat |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r4.c0",
+          "label": "Historical CP-0 legal admission",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "60902235146ab272998554ab9381cd7e894bfbd3a0b58f46d1a704c337418f27",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 17",
+              "quote": "| Historical CP-0 legal admission | 60902235146ab272998554ab9381cd7e894bfbd3a0b58f46d1a704c337418f27 | November 4, 2026 admission, issuer roles and text-reconstruction limits |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r4.c1",
+          "label": "Historical CP-0 legal admission",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "November 4, 2026 admission, issuer roles and text-reconstruction limits",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 17",
+              "quote": "| Historical CP-0 legal admission | 60902235146ab272998554ab9381cd7e894bfbd3a0b58f46d1a704c337418f27 | November 4, 2026 admission, issuer roles and text-reconstruction limits |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r5.c0",
+          "label": "Primary legal selection",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "ff0a65f7e9255a060f74e01c74459a8c5bdfcbffbd9d907abe09eb2f922b221a",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 18",
+              "quote": "| Primary legal selection | ff0a65f7e9255a060f74e01c74459a8c5bdfcbffbd9d907abe09eb2f922b221a | All six pages read live; tests of producer's operative findings |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r5.c1",
+          "label": "Primary legal selection",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "All six pages read live; tests of producer's operative findings",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 18",
+              "quote": "| Primary legal selection | ff0a65f7e9255a060f74e01c74459a8c5bdfcbffbd9d907abe09eb2f922b221a | All six pages read live; tests of producer's operative findings |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r0.c0",
+          "label": "A/R renewal",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Timely extension, eligible receivables, no disqualifying termination event and lender requirements met",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 40",
+              "quote": "| A/R renewal | Timely extension, eligible receivables, no disqualifying termination event and lender requirements met | Extension notice rejected, absent or conditional; eligibility shortfall | Executed facility, borrowing base and dated extension evidence; renewal of existing principal is not fresh proceeds |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r0.c1",
+          "label": "A/R renewal",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Extension notice rejected, absent or conditional; eligibility shortfall",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 40",
+              "quote": "| A/R renewal | Timely extension, eligible receivables, no disqualifying termination event and lender requirements met | Extension notice rejected, absent or conditional; eligibility shortfall | Executed facility, borrowing base and dated extension evidence; renewal of existing principal is not fresh proceeds |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r0.c2",
+          "label": "A/R renewal",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "Executed facility, borrowing base and dated extension evidence; renewal of existing principal is not fresh proceeds",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 40",
+              "quote": "| A/R renewal | Timely extension, eligible receivables, no disqualifying termination event and lender requirements met | Extension notice rejected, absent or conditional; eligibility shortfall | Executed facility, borrowing base and dated extension evidence; renewal of existing principal is not fresh proceeds |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r1.c0",
+          "label": "A/R reduction / repayment",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Collections or verified accessible cash fund the actual balance due while preserving operating cash",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 41",
+              "quote": "| A/R reduction / repayment | Collections or verified accessible cash fund the actual balance due while preserving operating cash | Borrowing-base paydown demand or forecast minimum-cash breach | Balance/payment ledger and cash-access forecast; December 650 is exposure if unchanged, not automatically July's payable |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r1.c1",
+          "label": "A/R reduction / repayment",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Borrowing-base paydown demand or forecast minimum-cash breach",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 41",
+              "quote": "| A/R reduction / repayment | Collections or verified accessible cash fund the actual balance due while preserving operating cash | Borrowing-base paydown demand or forecast minimum-cash breach | Balance/payment ledger and cash-access forecast; December 650 is exposure if unchanged, not automatically July's payable |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r1.c2",
+          "label": "A/R reduction / repayment",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "Balance/payment ledger and cash-access forecast; December 650 is exposure if unchanged, not automatically July's payable",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 41",
+              "quote": "| A/R reduction / repayment | Collections or verified accessible cash fund the actual balance due while preserving operating cash | Borrowing-base paydown demand or forecast minimum-cash breach | Balance/payment ledger and cash-access forecast; December 650 is exposure if unchanged, not automatically July's payable |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r2.c0",
+          "label": "Alternative secured A/R funding",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Replacement lender commitment, eligible collateral, debt AND lien permission and release/ICA sequencing",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 42",
+              "quote": "| Alternative secured A/R funding | Replacement lender commitment, eligible collateral, debt AND lien permission and release/ICA sequencing | Advance rate, collateral release or closing condition fails | Recourse, obligors, priority, fees and commitments; potentially less proceeds or greater collateral sharing |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r2.c1",
+          "label": "Alternative secured A/R funding",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Advance rate, collateral release or closing condition fails",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 42",
+              "quote": "| Alternative secured A/R funding | Replacement lender commitment, eligible collateral, debt AND lien permission and release/ICA sequencing | Advance rate, collateral release or closing condition fails | Recourse, obligors, priority, fees and commitments; potentially less proceeds or greater collateral sharing |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r2.c2",
+          "label": "Alternative secured A/R funding",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "Recourse, obligors, priority, fees and commitments; potentially less proceeds or greater collateral sharing",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 42",
+              "quote": "| Alternative secured A/R funding | Replacement lender commitment, eligible collateral, debt AND lien permission and release/ICA sequencing | Advance rate, collateral release or closing condition fails | Recourse, obligors, priority, fees and commitments; potentially less proceeds or greater collateral sharing |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r3.c0",
+          "label": "Ordinary issuer refinancing",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Permitted refinancing/basket/ratio route, actual pricing and maturity conditions, guarantee and lien compliance",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 43",
+              "quote": "| Ordinary issuer refinancing | Permitted refinancing/basket/ratio route, actual pricing and maturity conditions, guarantee and lien compliance | Market commitment unavailable or certified route fails | Legal earnings/debt/usage bridge, terms, lender certificates and payment calendar; revolver disclosure alone is not execution |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r3.c1",
+          "label": "Ordinary issuer refinancing",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Market commitment unavailable or certified route fails",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 43",
+              "quote": "| Ordinary issuer refinancing | Permitted refinancing/basket/ratio route, actual pricing and maturity conditions, guarantee and lien compliance | Market commitment unavailable or certified route fails | Legal earnings/debt/usage bridge, terms, lender certificates and payment calendar; revolver disclosure alone is not execution |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r3.c2",
+          "label": "Ordinary issuer refinancing",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r3",
+          "field": "c2",
+          "amount": null,
+          "text": "Legal earnings/debt/usage bridge, terms, lender certificates and payment calendar; revolver disclosure alone is not execution",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 43",
+              "quote": "| Ordinary issuer refinancing | Permitted refinancing/basket/ratio route, actual pricing and maturity conditions, guarantee and lien compliance | Market commitment unavailable or certified route fails | Legal earnings/debt/usage bridge, terms, lender certificates and payment calendar; revolver disclosure alone is not execution |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r4.c0",
+          "label": "Conditional notes CoC / redemption / consent",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "Actual trigger and tenders; required other-debt repayment/consents; alternatively valid redemption or compliant third-party offer; action-specific holder approvals",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 44",
+              "quote": "| Conditional notes CoC / redemption / consent | Actual trigger and tenders; required other-debt repayment/consents; alternatively valid redemption or compliant third-party offer; action-specific holder approvals | Trigger notice, senior-debt consent refusal, unfunded tender or inadequate votes | Eligible principal, ownership facts, payment date, call terms, interest, actual solicitation and funds; 101% is not every refinancing price |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r4.c1",
+          "label": "Conditional notes CoC / redemption / consent",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "Trigger notice, senior-debt consent refusal, unfunded tender or inadequate votes",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 44",
+              "quote": "| Conditional notes CoC / redemption / consent | Actual trigger and tenders; required other-debt repayment/consents; alternatively valid redemption or compliant third-party offer; action-specific holder approvals | Trigger notice, senior-debt consent refusal, unfunded tender or inadequate votes | Eligible principal, ownership facts, payment date, call terms, interest, actual solicitation and funds; 101% is not every refinancing price |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r4.c2",
+          "label": "Conditional notes CoC / redemption / consent",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r4",
+          "field": "c2",
+          "amount": null,
+          "text": "Eligible principal, ownership facts, payment date, call terms, interest, actual solicitation and funds; 101% is not every refinancing price",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 44",
+              "quote": "| Conditional notes CoC / redemption / consent | Actual trigger and tenders; required other-debt repayment/consents; alternatively valid redemption or compliant third-party offer; action-specific holder approvals | Trigger notice, senior-debt consent refusal, unfunded tender or inadequate votes | Eligible principal, ownership facts, payment date, call terms, interest, actual solicitation and funds; 101% is not every refinancing price |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r0.c0",
+          "label": "A/R versus notes default",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Qualified securitization debt permission requires nonrecourse except Standard Securitization Undertakings; §6.01(d) excludes Securitization Entities and tests specified maturity/acceleration debt aggregating at least 50",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 50",
+              "quote": "| A/R versus notes default | Qualified securitization debt permission requires nonrecourse except Standard Securitization Undertakings; §6.01(d) excludes Securitization Entities and tests specified maturity/acceleration debt aggregating at least 50 | Match actual obligor, recourse, trigger and time before concluding contagion; neither universal default immunity nor automatic notes cross-default [S pp.2,4, L628, L1483] |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r0.c1",
+          "label": "A/R versus notes default",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Match actual obligor, recourse, trigger and time before concluding contagion; neither universal default immunity nor automatic notes cross-default [S pp.2,4, L628, L1483]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 50",
+              "quote": "| A/R versus notes default | Qualified securitization debt permission requires nonrecourse except Standard Securitization Undertakings; §6.01(d) excludes Securitization Entities and tests specified maturity/acceleration debt aggregating at least 50 | Match actual obligor, recourse, trigger and time before concluding contagion; neither universal default immunity nor automatic notes cross-default [S pp.2,4, L628, L1483] |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r1.c0",
+          "label": "Collective consent",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Ordinary amendments generally majority; specified payment, ranking and post-trigger CoC changes require each affected holder",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 51",
+              "quote": "| Collective consent | Ordinary amendments generally majority; specified payment, ranking and post-trigger CoC changes require each affected holder | A majority solicitation is not unrestricted coercive-LME authority [S pp.4–5, L1835–1859] |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r1.c1",
+          "label": "Collective consent",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "A majority solicitation is not unrestricted coercive-LME authority [S pp.4–5, L1835–1859]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 51",
+              "quote": "| Collective consent | Ordinary amendments generally majority; specified payment, ranking and post-trigger CoC changes require each affected holder | A majority solicitation is not unrestricted coercive-LME authority [S pp.4–5, L1835–1859] |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r2.c0",
+          "label": "Special collateral/ICA consent",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Exact 66 2/3% for all/substantially-all collateral release outside permitted documents or materially adverse ICA modification",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 52",
+              "quote": "| Special collateral/ICA consent | Exact **66 2/3%** for all/substantially-all collateral release outside permitted documents or materially adverse ICA modification | Distinct from ordinary majority and affected-holder rights; not a universal release threshold [S p.5, L1860] |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r2.c1",
+          "label": "Special collateral/ICA consent",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Distinct from ordinary majority and affected-holder rights; not a universal release threshold [S p.5, L1860]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 52",
+              "quote": "| Special collateral/ICA consent | Exact **66 2/3%** for all/substantially-all collateral release outside permitted documents or materially adverse ICA modification | Distinct from ordinary majority and affected-holder rights; not a universal release threshold [S p.5, L1860] |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r3.c0",
+          "label": "Guarantees, collateral and control",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Conditional guarantee/lien releases; ICA controls conflicts and collateral enforcement",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 53",
+              "quote": "| Guarantees, collateral and control | Conditional guarantee/lien releases; ICA controls conflicts and collateral enforcement | Additional secured claims or permitted releases may dilute reachable value; actual ICA/security bodies, exclusions and entity map required before priority/control conclusions [S pp.5–6, L1935–1946, L2095–2097, L2198–2224] |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r3.c1",
+          "label": "Guarantees, collateral and control",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Additional secured claims or permitted releases may dilute reachable value; actual ICA/security bodies, exclusions and entity map required before priority/control conclusions [S pp.5–6, L1935–1946, L2095–2097, L2198–2224]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 53",
+              "quote": "| Guarantees, collateral and control | Conditional guarantee/lien releases; ICA controls conflicts and collateral enforcement | Additional secured claims or permitted releases may dilute reachable value; actual ICA/security bodies, exclusions and entity map required before priority/control conclusions [S pp.5–6, L1935–1946, L2095–2097, L2198–2224] |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r0.c0",
+          "label": "Before historical July checkpoint: weaker collections / retained inventory → reduced A/R eligibility → paydown or replacement need",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Dated borrowing-base certificates, termination notices and extension/repayment documents",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 59",
+              "quote": "| Before historical July checkpoint: weaker collections / retained inventory → reduced A/R eligibility → paydown or replacement need | Dated borrowing-base certificates, termination notices and extension/repayment documents | Distinguish reduced facility, renewed facility and funded repayment; infer no outcome |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r0.c1",
+          "label": "Before historical July checkpoint: weaker collections / retained inventory → reduced A/R eligibility → paydown or replacement need",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Distinguish reduced facility, renewed facility and funded repayment; infer no outcome",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 59",
+              "quote": "| Before historical July checkpoint: weaker collections / retained inventory → reduced A/R eligibility → paydown or replacement need | Dated borrowing-base certificates, termination notices and extension/repayment documents | Distinguish reduced facility, renewed facility and funded repayment; infer no outcome |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r1.c0",
+          "label": "Demand/margin loss or integration slippage → weaker cash conversion; further payouts → smaller retained buffer",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Monthly receipts, inventory, recurring-cost cash, Board commitments and minimum-cash forecast",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 60",
+              "quote": "| Demand/margin loss or integration slippage → weaker cash conversion; further payouts → smaller retained buffer | Monthly receipts, inventory, recurring-cost cash, Board commitments and minimum-cash forecast | Refresh payment-level sources/uses before claiming feasible funding is sufficient |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r1.c1",
+          "label": "Demand/margin loss or integration slippage → weaker cash conversion; further payouts → smaller retained buffer",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Refresh payment-level sources/uses before claiming feasible funding is sufficient",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 60",
+              "quote": "| Demand/margin loss or integration slippage → weaker cash conversion; further payouts → smaller retained buffer | Monthly receipts, inventory, recurring-cost cash, Board commitments and minimum-cash forecast | Refresh payment-level sources/uses before claiming feasible funding is sufficient |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r2.c0",
+          "label": "March/September 2025 hedge transitions → changed cash-interest timing around funding need",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Debt-to-hedge map and actual settlement schedule",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 61",
+              "quote": "| March/September 2025 hedge transitions → changed cash-interest timing around funding need | Debt-to-hedge map and actual settlement schedule | Do not aggregate overlapping notionals or price a shock from notional alone |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r2.c1",
+          "label": "March/September 2025 hedge transitions → changed cash-interest timing around funding need",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Do not aggregate overlapping notionals or price a shock from notional alone",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 61",
+              "quote": "| March/September 2025 hedge transitions → changed cash-interest timing around funding need | Debt-to-hedge map and actual settlement schedule | Do not aggregate overlapping notionals or price a shock from notional alone |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r3.c0",
+          "label": "New secured debt, designations, releases or consent solicitation",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Transaction documents, route/usage certificates, guarantor map and exact votes",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 62",
+              "quote": "| New secured debt, designations, releases or consent solicitation | Transaction documents, route/usage certificates, guarantor map and exact votes | Test legal permissions and creditor reach action by action; do not infer LME intent |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r3.c1",
+          "label": "New secured debt, designations, releases or consent solicitation",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Test legal permissions and creditor reach action by action; do not infer LME intent",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 62",
+              "quote": "| New secured debt, designations, releases or consent solicitation | Transaction documents, route/usage certificates, guarantor map and exact votes | Test legal permissions and creditor reach action by action; do not infer LME intent |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r0.c0",
+          "label": "september_AR_principal_USDm",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "487",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 70",
+              "quote": "| september_AR_principal_USDm | 487 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r1.c0",
+          "label": "september_AR_carrying_USDm",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "486",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 71",
+              "quote": "| september_AR_carrying_USDm | 486 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r2.c0",
+          "label": "december_AR_principal_USDm",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "650",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 72",
+              "quote": "| december_AR_principal_USDm | 650 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r3.c0",
+          "label": "december_AR_carrying_USDm",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "649",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 73",
+              "quote": "| december_AR_carrying_USDm | 649 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r4.c0",
+          "label": "december_cash_USDm",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "2459",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 74",
+              "quote": "| december_cash_USDm | 2459 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r5.c0",
+          "label": "issuer_december_liquidity_USDm",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "3308",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 75",
+              "quote": "| issuer_december_liquidity_USDm | 3308 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r6.c0",
+          "label": "original_notes_principal_USDm",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r6",
+          "field": "c0",
+          "amount": null,
+          "text": "1500",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 76",
+              "quote": "| original_notes_principal_USDm | 1500 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r7.c0",
+          "label": "conditional_CoC_principal_component_USDm",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r7",
+          "field": "c0",
+          "amount": null,
+          "text": "1515",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 77",
+              "quote": "| conditional_CoC_principal_component_USDm | 1515 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r8.c0",
+          "label": "conditional_CoC_premium_USDm",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r8",
+          "field": "c0",
+          "amount": null,
+          "text": "15",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 78",
+              "quote": "| conditional_CoC_premium_USDm | 15 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r9.c0",
+          "label": "actual_notes_unused_debt_capacity_USDm",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r9",
+          "field": "c0",
+          "amount": null,
+          "text": "—",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 79",
+              "quote": "| actual_notes_unused_debt_capacity_USDm | — |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r10.c0",
+          "label": "certified_AR_future_access_USDm",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r10",
+          "field": "c0",
+          "amount": null,
+          "text": "—",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 80",
+              "quote": "| certified_AR_future_access_USDm | — |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r11.c0",
+          "label": "conditional_CoC_accrued_interest_USDm",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r11",
+          "field": "c0",
+          "amount": null,
+          "text": "—",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 81",
+              "quote": "| conditional_CoC_accrued_interest_USDm | — |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-0.r0.c0",
+          "label": "Request",
+          "table_id": "prose-CP-3C-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "View: The newly evidenced notes covenants narrow the earlier blanket legal-data gap and identify conditional refinancing routes, but do not establish executable funding or unused capacity. TDG's positive operating cash and historical financing execution support a feasible funding countercase; allocation-led cash depletion and the fully drawn receivables facility make dated access verification decisive. This focused CP-3C intake is Completed with Limitations, not a replacement full CP-3C run, current underwriting or whole-pathway conclusion.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 3",
+              "quote": "View: The newly evidenced notes covenants narrow the earlier blanket legal-data gap and identify conditional refinancing routes, but do not establish executable funding or unused capacity. TDG's positive operating cash and historical financing execution support a feasible funding countercase; allocation-led cash depletion and the fully drawn receivables facility make dated access verification decisive. This focused CP-3C intake is **Completed with Limitations**, not a replacement full CP-3C run, current underwriting or whole-pathway conclusion."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-0.r1.c0",
+          "label": "Request",
+          "table_id": "prose-CP-3C-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Run sol-remaining-tdg-legal-funding-20261105; TDG; deploy-v-r14; execution 2026-11-05; historical analytical as-of 2024-12-28. Legal terms dated 2024-09-19, financial observations at 2024-09-30, and balances at 2024-12-28 remain distinct. 2025-07-11 is a historical funding checkpoint, not an upcoming 2026 maturity. No completed 2025 outcome or current 2026 status is established.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 5",
+              "quote": "Run `sol-remaining-tdg-legal-funding-20261105`; TDG; deploy-v-r14; execution **2026-11-05**; historical analytical as-of **2024-12-28**. Legal terms dated **2024-09-19**, financial observations at **2024-09-30**, and balances at **2024-12-28** remain distinct. **2025-07-11** is a historical funding checkpoint, not an upcoming 2026 maturity. No completed 2025 outcome or current 2026 status is established."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-1.r0.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-3C-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "The complete supplied current handoffs and historical admission were consumed at these exact supplied SHA-256 identities; hashes are retained identifiers, not independently recomputed attestations.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 9",
+              "quote": "The complete supplied current handoffs and historical admission were consumed at these exact supplied SHA-256 identities; hashes are retained identifiers, not independently recomputed attestations."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-1.r1.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-3C-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "The selection preserves original indexed lines from indenture source cb2c0c77e7ec1f90e5a7117a5df7e16cd2556b02e7be7ca43fbf4d64ed585b05. Citations S p./L below identify the selection page and original line. This is extracted text, not visual verification or original HTML authentication. CP-0 admits the September 19 execution-version indenture for TransDigm Inc.'s 6.000% secured notes due 2033; Holdings is TransDigm Group Incorporated. The indenture is not the A/R or credit-facility agreement.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 20",
+              "quote": "The selection preserves original indexed lines from indenture source `cb2c0c77e7ec1f90e5a7117a5df7e16cd2556b02e7be7ca43fbf4d64ed585b05`. Citations **S p./L** below identify the selection page and original line. This is extracted text, not visual verification or original HTML authentication. CP-0 admits the September 19 execution-version indenture for TransDigm Inc.'s 6.000% secured notes due 2033; Holdings is TransDigm Group Incorporated. The indenture is not the A/R or credit-facility agreement."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-2.r0.c0",
+          "label": "Funding conclusion",
+          "table_id": "prose-CP-3C-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "The primary selections substantiate CP-4's funding-relevant conclusions: incurrence FCCR is strictly >2.0, while debt and lien permission require separate tests. There is no notes maintenance-ratio intervention identified by CP-4. Legal FCCR cannot use 4173/1158: restricted-group legal earnings, four-quarter availability, fixed charges including noncash/capitalized interest and preferred dividends, and transaction pro formas differ from reported annual cash coverage. [S pp.1–3, L403–431, L1295.] Thus financial deterioration can precede a legal default; conversely, legal qualification does not supply cash.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 26",
+              "quote": "The primary selections substantiate CP-4's funding-relevant conclusions: incurrence FCCR is **strictly >2.0**, while debt and lien permission require separate tests. There is no notes maintenance-ratio intervention identified by CP-4. Legal FCCR cannot use **4173/1158**: restricted-group legal earnings, four-quarter availability, fixed charges including noncash/capitalized interest and preferred dividends, and transaction pro formas differ from reported annual cash coverage. [S pp.1–3, L403–431, L1295.] Thus financial deterioration can precede a legal default; conversely, legal qualification does not supply cash."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-2.r1.c0",
+          "label": "Funding conclusion",
+          "table_id": "prose-CP-3C-2",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Independent Permitted Indebtedness routes and reclassification can facilitate ordinary refinancing. Their conditions, existing usage and restricted/guarantor perimeter matter: the facilities limb is not an untouched USD3100m allowance, and non-guarantor ratio debt has a USD400m outstanding limit. 5.25x is the secured-net condition for liens securing Ratio Indebtedness, not a universal cap on all debt. Debt permission AND lien permission, plus applicable guarantee and perimeter conditions, must be satisfied. Actual unused capacity remains unknown. [S pp.2–3, L603, L615, L624, L628–640, L715, L1295, L1338; CP-4 P03–P07.]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 28",
+              "quote": "Independent Permitted Indebtedness routes and reclassification can facilitate ordinary refinancing. Their conditions, existing usage and restricted/guarantor perimeter matter: the facilities limb is not an untouched USD3100m allowance, and non-guarantor ratio debt has a USD400m outstanding limit. **5.25x** is the secured-net condition for liens securing Ratio Indebtedness, not a universal cap on all debt. Debt permission AND lien permission, plus applicable guarantee and perimeter conditions, must be satisfied. Actual unused capacity remains unknown. [S pp.2–3, L603, L615, L624, L628–640, L715, L1295, L1338; CP-4 P03–P07.]"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-2.r2.c0",
+          "label": "Funding conclusion",
+          "table_id": "prose-CP-3C-2",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "September cash 6261 cannot substitute for December 2459. Issuer December liquidity 3308 includes 849 reported revolver availability; neither that availability nor the full cash balance is independently certified deployable. Positive Q1 CFO 752 and historical refinancing execution are substantial counterevidence to an operating-collapse thesis. Nevertheless, Q1 distributions 4396 and repurchases 316 demonstrate that operating generation need not be retained. CP-2's forecast coverage warnings and CP-2A's 7x/3x watches are economic sensitivities, not indenture triggers. [CP-2D T2E.2–8; CP-2 Findings; CP-2A T2B.4–8.]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 30",
+              "quote": "September cash **6261** cannot substitute for December **2459**. Issuer December liquidity **3308** includes **849** reported revolver availability; neither that availability nor the full cash balance is independently certified deployable. Positive Q1 CFO **752** and historical refinancing execution are substantial counterevidence to an operating-collapse thesis. Nevertheless, Q1 distributions **4396** and repurchases **316** demonstrate that operating generation need not be retained. CP-2's forecast coverage warnings and CP-2A's 7x/3x watches are economic sensitivities, not indenture triggers. [CP-2D T2E.2–8; CP-2 Findings; CP-2A T2B.4–8.]"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-2.r3.c0",
+          "label": "Funding conclusion",
+          "table_id": "prose-CP-3C-2",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "The RP ratio alternative requires no default and pro forma FCCR >2.0, with specific contracted-payment provisions. It does not prove the historical distribution used that route or was permitted through any selected route. Even a demonstrated prior permitted distribution would not certify future access. Financial pressure and flexible permissions establish neither unrestricted LME permission nor intent. [S p.3, L1265–1277.]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 32",
+              "quote": "The RP ratio alternative requires no default and pro forma FCCR >2.0, with specific contracted-payment provisions. It does not prove the historical distribution used that route or was permitted through any selected route. Even a demonstrated prior permitted distribution would not certify future access. Financial pressure and flexible permissions establish neither unrestricted LME permission nor intent. [S p.3, L1265–1277.]"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-3.r0.c0",
+          "label": "Refinancing paths",
+          "table_id": "prose-CP-3C-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "All paths below are conditional alternatives, not settled transactions. A/R cases concern the historically scheduled July checkpoint; notes cases apply only if the relevant transaction occurs.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 36",
+              "quote": "All paths below are conditional alternatives, not settled transactions. A/R cases concern the historically scheduled July checkpoint; notes cases apply only if the relevant transaction occurs."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-4.r0.c0",
+          "label": "Consumption controls",
+          "table_id": "prose-CP-3C-4",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "These are consumed facts and CP-4's conditional illustration, not new tool calculations. A/R and cash rows are from CP-2D T2E.2–3/Calculations; original notes and illustration from CP-4 Calculations. The final three em dashes mean, respectively: Not calculable without legal financial/usage schedules; Not supplied as certified future access; Not calculable without payment date, eligible principal and accrual history. Missing is not zero.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 83",
+              "quote": "These are consumed facts and CP-4's conditional illustration, **not new tool calculations**. A/R and cash rows are from CP-2D T2E.2–3/Calculations; original notes and illustration from CP-4 Calculations. The final three em dashes mean, respectively: **Not calculable** without legal financial/usage schedules; **Not supplied** as certified future access; **Not calculable** without payment date, eligible principal and accrual history. Missing is not zero."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-4.r1.c0",
+          "label": "Consumption controls",
+          "table_id": "prose-CP-3C-4",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "The prescribed CoC principal-component control 1515 represents 101% of assumed tender of all original 1500, including the 15 premium; the premium must not be added again. Accrued interest is additional and missing. Original issue principal is not current eligible principal, a current maturity or a payable obligation; trigger and tenders are unknown. Optional redemption has separate call/make-whole terms. [CP-4 P14/Calculations; S pp.3–4, L1345–1368.]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 85",
+              "quote": "The prescribed CoC principal-component control **1515** represents 101% of assumed tender of all original **1500**, including the **15** premium; the premium must not be added again. Accrued interest is additional and missing. Original issue principal is not current eligible principal, a current maturity or a payable obligation; trigger and tenders are unknown. Optional redemption has separate call/make-whole terms. [CP-4 P14/Calculations; S pp.3–4, L1345–1368.]"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-4.r2.c0",
+          "label": "Consumption controls",
+          "table_id": "prose-CP-3C-4",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "A/R 650 commitment differs from September 487 gross/486 carrying and December 650/649 fully drawn. October 162.5 and quarterly 163 describe the same draw at different precision, not two funding sources. LC 61 is not new funded debt. No cash-minus-all-carrying-debt calculation is made. September broader claims 25002 is neither legal debt nor immediate cash need. Annual FY2025 principal 93 and lease 22/20 windows cannot be treated as December remaining needs; December remaining-FY lease 21/19 requires finance principal/interest separation and no second OCF deduction. [CP-2D Calculations/T2E.3; CP-2A E4–E6.]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 87",
+              "quote": "A/R **650 commitment** differs from September **487 gross/486 carrying** and December **650/649 fully drawn**. October **162.5** and quarterly **163** describe the same draw at different precision, not two funding sources. LC **61** is not new funded debt. No cash-minus-all-carrying-debt calculation is made. September broader claims **25002** is neither legal debt nor immediate cash need. Annual FY2025 principal **93** and lease **22/20** windows cannot be treated as December remaining needs; December remaining-FY lease **21/19** requires finance principal/interest separation and no second OCF deduction. [CP-2D Calculations/T2E.3; CP-2A E4–E6.]"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-5.r0.c0",
+          "label": "Gaps",
+          "table_id": "prose-CP-3C-5",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "The broad legal gap is narrowed for these named notes, not eliminated across the capital structure. Separate A/R/credit agreements, later amendments, legal financial and basket-usage certificates, cash accessibility, actual ICA/security bodies, perfection and the obligor/value map remain missing. Complete weekly/monthly sources/uses, minimum operating cash and dated interest/principal schedules are also absent. Consequently no certified funding gap, runway, unused debt capacity, default, recovery estimate or completed transaction is established.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 91",
+              "quote": "The broad legal gap is narrowed for these named notes, not eliminated across the capital structure. Separate A/R/credit agreements, later amendments, legal financial and basket-usage certificates, cash accessibility, actual ICA/security bodies, perfection and the obligor/value map remain missing. Complete weekly/monthly sources/uses, minimum operating cash and dated interest/principal schedules are also absent. Consequently no certified funding gap, runway, unused debt capacity, default, recovery estimate or completed transaction is established."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-5.r1.c0",
+          "label": "Gaps",
+          "table_id": "prose-CP-3C-5",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "The strongest positive case would prevail with demonstrated recurring cash conversion, restrained uncommitted allocation, verified cash/revolver access and a documented funded renewal or repayment plan. Missing evidence does not itself prove distress. Confidence is Medium for this bounded funding interpretation; legal clause evidence is stronger than transaction-execution evidence.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 93",
+              "quote": "The strongest positive case would prevail with demonstrated recurring cash conversion, restrained uncommitted allocation, verified cash/revolver access and a documented funded renewal or repayment plan. Missing evidence does not itself prove distress. Confidence is Medium for this bounded funding interpretation; legal clause evidence is stronger than transaction-execution evidence."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-6.r0.c0",
+          "label": "Next module",
+          "table_id": "prose-CP-3C-6",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Request targeted evidence, not a rerun merely for delivery: treasury/lenders supply the dated historical July extension or repayment record, borrowing-base and recourse terms, accessible-cash/minimum-cash schedule and funded payment forecast. Counsel supplies transaction-specific debt/lien/RP routes and usage, actual ICA/security bodies, release chain and eligible consent population. For any proposed notes exit, obtain trigger facts, remaining eligible principal, tenders, call/payment date, accrued interest and other-debt consents.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 97",
+              "quote": "Request targeted evidence, not a rerun merely for delivery: treasury/lenders supply the dated historical July extension or repayment record, borrowing-base and recourse terms, accessible-cash/minimum-cash schedule and funded payment forecast. Counsel supplies transaction-specific debt/lien/RP routes and usage, actual ICA/security bodies, release chain and eligible consent population. For any proposed notes exit, obtain trigger facts, remaining eligible principal, tenders, call/payment date, accrued interest and other-debt consents."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-6.r1.c0",
+          "label": "Next module",
+          "table_id": "prose-CP-3C-6",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-2D/CP-2G can incorporate verified access and payment timing; CP-4 can resolve route/control questions; CP-5 should validate these exact current hashes, primary locators and control transcription. Later outcomes require a separately dated update. No downstream execution, report delivery acceptance or whole-pathway completion is claimed.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+              "locator": "line 99",
+              "quote": "CP-2D/CP-2G can incorporate verified access and payment timing; CP-4 can resolve route/control questions; CP-5 should validate these exact current hashes, primary locators and control transcription. Later outcomes require a separately dated update. No downstream execution, report delivery acceptance or whole-pathway completion is claimed."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "raw-CP-3C-0",
+          "title": "Sources — Input",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "SHA-256"
+            },
+            {
+              "field": "c1",
+              "label": "Actual use"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Current CP-4",
+              "fact_ids": [
+                "raw-CP-3C-0.r0.c0",
+                "raw-CP-3C-0.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Current CP-2D",
+              "fact_ids": [
+                "raw-CP-3C-0.r1.c0",
+                "raw-CP-3C-0.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Current CP-2A",
+              "fact_ids": [
+                "raw-CP-3C-0.r2.c0",
+                "raw-CP-3C-0.r2.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Current CP-2",
+              "fact_ids": [
+                "raw-CP-3C-0.r3.c0",
+                "raw-CP-3C-0.r3.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Historical CP-0 legal admission",
+              "fact_ids": [
+                "raw-CP-3C-0.r4.c0",
+                "raw-CP-3C-0.r4.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Primary legal selection",
+              "fact_ids": [
+                "raw-CP-3C-0.r5.c0",
+                "raw-CP-3C-0.r5.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Input",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-3C-1",
+          "title": "Refinancing paths — Path",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Conditions for feasibility"
+            },
+            {
+              "field": "c1",
+              "label": "First observable break"
+            },
+            {
+              "field": "c2",
+              "label": "Missing inputs / funding consequence"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "A/R renewal",
+              "fact_ids": [
+                "raw-CP-3C-1.r0.c0",
+                "raw-CP-3C-1.r0.c1",
+                "raw-CP-3C-1.r0.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "A/R reduction / repayment",
+              "fact_ids": [
+                "raw-CP-3C-1.r1.c0",
+                "raw-CP-3C-1.r1.c1",
+                "raw-CP-3C-1.r1.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Alternative secured A/R funding",
+              "fact_ids": [
+                "raw-CP-3C-1.r2.c0",
+                "raw-CP-3C-1.r2.c1",
+                "raw-CP-3C-1.r2.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Ordinary issuer refinancing",
+              "fact_ids": [
+                "raw-CP-3C-1.r3.c0",
+                "raw-CP-3C-1.r3.c1",
+                "raw-CP-3C-1.r3.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Conditional notes CoC / redemption / consent",
+              "fact_ids": [
+                "raw-CP-3C-1.r4.c0",
+                "raw-CP-3C-1.r4.c1",
+                "raw-CP-3C-1.r4.c2"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Path",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-3C-2",
+          "title": "Creditor exposure — Exposure",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Established protection / qualification"
+            },
+            {
+              "field": "c1",
+              "label": "Funding and creditor implication"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "A/R versus notes default",
+              "fact_ids": [
+                "raw-CP-3C-2.r0.c0",
+                "raw-CP-3C-2.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Collective consent",
+              "fact_ids": [
+                "raw-CP-3C-2.r1.c0",
+                "raw-CP-3C-2.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Special collateral/ICA consent",
+              "fact_ids": [
+                "raw-CP-3C-2.r2.c0",
+                "raw-CP-3C-2.r2.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Guarantees, collateral and control",
+              "fact_ids": [
+                "raw-CP-3C-2.r3.c0",
+                "raw-CP-3C-2.r3.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Exposure",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-3C-3",
+          "title": "Monitoring — Timed causal pathway",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Observable verification"
+            },
+            {
+              "field": "c1",
+              "label": "Required response"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Before historical July checkpoint: weaker collections / retained inventory → reduced A/R eligibility → paydown or replacement need",
+              "fact_ids": [
+                "raw-CP-3C-3.r0.c0",
+                "raw-CP-3C-3.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Demand/margin loss or integration slippage → weaker cash conversion; further payouts → smaller retained buffer",
+              "fact_ids": [
+                "raw-CP-3C-3.r1.c0",
+                "raw-CP-3C-3.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "March/September 2025 hedge transitions → changed cash-interest timing around funding need",
+              "fact_ids": [
+                "raw-CP-3C-3.r2.c0",
+                "raw-CP-3C-3.r2.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "New secured debt, designations, releases or consent solicitation",
+              "fact_ids": [
+                "raw-CP-3C-3.r3.c0",
+                "raw-CP-3C-3.r3.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Timed causal pathway",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-3C-4",
+          "title": "Consumption controls — Metric",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Value"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "september_AR_principal_USDm",
+              "fact_ids": [
+                "raw-CP-3C-4.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "september_AR_carrying_USDm",
+              "fact_ids": [
+                "raw-CP-3C-4.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "december_AR_principal_USDm",
+              "fact_ids": [
+                "raw-CP-3C-4.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "december_AR_carrying_USDm",
+              "fact_ids": [
+                "raw-CP-3C-4.r3.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "december_cash_USDm",
+              "fact_ids": [
+                "raw-CP-3C-4.r4.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "issuer_december_liquidity_USDm",
+              "fact_ids": [
+                "raw-CP-3C-4.r5.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "original_notes_principal_USDm",
+              "fact_ids": [
+                "raw-CP-3C-4.r6.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r7",
+              "label": "conditional_CoC_principal_component_USDm",
+              "fact_ids": [
+                "raw-CP-3C-4.r7.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r8",
+              "label": "conditional_CoC_premium_USDm",
+              "fact_ids": [
+                "raw-CP-3C-4.r8.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r9",
+              "label": "actual_notes_unused_debt_capacity_USDm",
+              "fact_ids": [
+                "raw-CP-3C-4.r9.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r10",
+              "label": "certified_AR_future_access_USDm",
+              "fact_ids": [
+                "raw-CP-3C-4.r10.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r11",
+              "label": "conditional_CoC_accrued_interest_USDm",
+              "fact_ids": [
+                "raw-CP-3C-4.r11.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Metric",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-0",
+          "title": "Request",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Request — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-0.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Request — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-0.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-1",
+          "title": "Sources",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Sources — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-1.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Sources — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-1.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-2",
+          "title": "Funding conclusion",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Funding conclusion — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-2.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Funding conclusion — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-2.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Funding conclusion — paragraph 3",
+              "fact_ids": [
+                "prose-CP-3C-2.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Funding conclusion — paragraph 4",
+              "fact_ids": [
+                "prose-CP-3C-2.r3.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-3",
+          "title": "Refinancing paths",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Refinancing paths — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-3.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-4",
+          "title": "Consumption controls",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Consumption controls — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-4.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Consumption controls — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-4.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Consumption controls — paragraph 3",
+              "fact_ids": [
+                "prose-CP-3C-4.r2.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-5",
+          "title": "Gaps",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Gaps — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-5.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Gaps — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-5.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-6",
+          "title": "Next module",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Next module — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-6.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Next module — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-6.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        }
+      ],
+      "claims": [],
+      "limitations": [
+        "Literal checked analytical handoff, not native contract acceptance; source qualifications and gaps remain."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "schema_version": "source/1",
+      "source_id": "CP-3C",
+      "name": "CP-3C.md",
+      "status": "ready",
+      "sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+      "media_type": "text/markdown",
+      "spans": [
+        {
+          "locator": "line 1",
+          "text": "## Request",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 3",
+          "text": "View: The newly evidenced notes covenants narrow the earlier blanket legal-data gap and identify conditional refinancing routes, but do not establish executable funding or unused capacity. TDG's positive operating cash and historical financing execution support a feasible funding countercase; allocation-led cash depletion and the fully drawn receivables facility make dated access verification decisive. This focused CP-3C intake is **Completed with Limitations**, not a replacement full CP-3C run, current underwriting or whole-pathway conclusion.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 5",
+          "text": "Run `sol-remaining-tdg-legal-funding-20261105`; TDG; deploy-v-r14; execution **2026-11-05**; historical analytical as-of **2024-12-28**. Legal terms dated **2024-09-19**, financial observations at **2024-09-30**, and balances at **2024-12-28** remain distinct. **2025-07-11** is a historical funding checkpoint, not an upcoming 2026 maturity. No completed 2025 outcome or current 2026 status is established.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 7",
+          "text": "## Sources",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 9",
+          "text": "The complete supplied current handoffs and historical admission were consumed at these exact supplied SHA-256 identities; hashes are retained identifiers, not independently recomputed attestations.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 11",
+          "text": "| Input | SHA-256 | Actual use |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 12",
+          "text": "|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 13",
+          "text": "| Current CP-4 | 267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43 | Fourteen-step legal findings, P01–P14; replaces blanket absence for named notes only |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 14",
+          "text": "| Current CP-2D | 8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565 | December liquidity, cash bridge, A/R exposure and access gates |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 15",
+          "text": "| Current CP-2A | b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3 | Static stress boundaries and six historical calendar objects |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 16",
+          "text": "| Current CP-2 | 72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab | Conditional forecast service vulnerability and retention caveat |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 17",
+          "text": "| Historical CP-0 legal admission | 60902235146ab272998554ab9381cd7e894bfbd3a0b58f46d1a704c337418f27 | November 4, 2026 admission, issuer roles and text-reconstruction limits |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 18",
+          "text": "| Primary legal selection | ff0a65f7e9255a060f74e01c74459a8c5bdfcbffbd9d907abe09eb2f922b221a | All six pages read live; tests of producer's operative findings |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 20",
+          "text": "The selection preserves original indexed lines from indenture source `cb2c0c77e7ec1f90e5a7117a5df7e16cd2556b02e7be7ca43fbf4d64ed585b05`. Citations **S p./L** below identify the selection page and original line. This is extracted text, not visual verification or original HTML authentication. CP-0 admits the September 19 execution-version indenture for TransDigm Inc.'s 6.000% secured notes due 2033; Holdings is TransDigm Group Incorporated. The indenture is not the A/R or credit-facility agreement.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 22",
+          "text": "## Findings",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 24",
+          "text": "### Funding conclusion",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 26",
+          "text": "The primary selections substantiate CP-4's funding-relevant conclusions: incurrence FCCR is **strictly >2.0**, while debt and lien permission require separate tests. There is no notes maintenance-ratio intervention identified by CP-4. Legal FCCR cannot use **4173/1158**: restricted-group legal earnings, four-quarter availability, fixed charges including noncash/capitalized interest and preferred dividends, and transaction pro formas differ from reported annual cash coverage. [S pp.1–3, L403–431, L1295.] Thus financial deterioration can precede a legal default; conversely, legal qualification does not supply cash.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 28",
+          "text": "Independent Permitted Indebtedness routes and reclassification can facilitate ordinary refinancing. Their conditions, existing usage and restricted/guarantor perimeter matter: the facilities limb is not an untouched USD3100m allowance, and non-guarantor ratio debt has a USD400m outstanding limit. **5.25x** is the secured-net condition for liens securing Ratio Indebtedness, not a universal cap on all debt. Debt permission AND lien permission, plus applicable guarantee and perimeter conditions, must be satisfied. Actual unused capacity remains unknown. [S pp.2–3, L603, L615, L624, L628–640, L715, L1295, L1338; CP-4 P03–P07.]",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 30",
+          "text": "September cash **6261** cannot substitute for December **2459**. Issuer December liquidity **3308** includes **849** reported revolver availability; neither that availability nor the full cash balance is independently certified deployable. Positive Q1 CFO **752** and historical refinancing execution are substantial counterevidence to an operating-collapse thesis. Nevertheless, Q1 distributions **4396** and repurchases **316** demonstrate that operating generation need not be retained. CP-2's forecast coverage warnings and CP-2A's 7x/3x watches are economic sensitivities, not indenture triggers. [CP-2D T2E.2–8; CP-2 Findings; CP-2A T2B.4–8.]",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 32",
+          "text": "The RP ratio alternative requires no default and pro forma FCCR >2.0, with specific contracted-payment provisions. It does not prove the historical distribution used that route or was permitted through any selected route. Even a demonstrated prior permitted distribution would not certify future access. Financial pressure and flexible permissions establish neither unrestricted LME permission nor intent. [S p.3, L1265–1277.]",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 34",
+          "text": "### Refinancing paths",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 36",
+          "text": "All paths below are conditional alternatives, not settled transactions. A/R cases concern the historically scheduled July checkpoint; notes cases apply only if the relevant transaction occurs.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 38",
+          "text": "| Path | Conditions for feasibility | First observable break | Missing inputs / funding consequence |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 39",
+          "text": "|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 40",
+          "text": "| A/R renewal | Timely extension, eligible receivables, no disqualifying termination event and lender requirements met | Extension notice rejected, absent or conditional; eligibility shortfall | Executed facility, borrowing base and dated extension evidence; renewal of existing principal is not fresh proceeds |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 41",
+          "text": "| A/R reduction / repayment | Collections or verified accessible cash fund the actual balance due while preserving operating cash | Borrowing-base paydown demand or forecast minimum-cash breach | Balance/payment ledger and cash-access forecast; December 650 is exposure if unchanged, not automatically July's payable |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 42",
+          "text": "| Alternative secured A/R funding | Replacement lender commitment, eligible collateral, debt AND lien permission and release/ICA sequencing | Advance rate, collateral release or closing condition fails | Recourse, obligors, priority, fees and commitments; potentially less proceeds or greater collateral sharing |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 43",
+          "text": "| Ordinary issuer refinancing | Permitted refinancing/basket/ratio route, actual pricing and maturity conditions, guarantee and lien compliance | Market commitment unavailable or certified route fails | Legal earnings/debt/usage bridge, terms, lender certificates and payment calendar; revolver disclosure alone is not execution |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 44",
+          "text": "| Conditional notes CoC / redemption / consent | Actual trigger and tenders; required other-debt repayment/consents; alternatively valid redemption or compliant third-party offer; action-specific holder approvals | Trigger notice, senior-debt consent refusal, unfunded tender or inadequate votes | Eligible principal, ownership facts, payment date, call terms, interest, actual solicitation and funds; 101% is not every refinancing price |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 46",
+          "text": "### Creditor exposure",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 48",
+          "text": "| Exposure | Established protection / qualification | Funding and creditor implication |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 49",
+          "text": "|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 50",
+          "text": "| A/R versus notes default | Qualified securitization debt permission requires nonrecourse except Standard Securitization Undertakings; §6.01(d) excludes Securitization Entities and tests specified maturity/acceleration debt aggregating at least 50 | Match actual obligor, recourse, trigger and time before concluding contagion; neither universal default immunity nor automatic notes cross-default [S pp.2,4, L628, L1483] |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 51",
+          "text": "| Collective consent | Ordinary amendments generally majority; specified payment, ranking and post-trigger CoC changes require each affected holder | A majority solicitation is not unrestricted coercive-LME authority [S pp.4–5, L1835–1859] |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 52",
+          "text": "| Special collateral/ICA consent | Exact **66 2/3%** for all/substantially-all collateral release outside permitted documents or materially adverse ICA modification | Distinct from ordinary majority and affected-holder rights; not a universal release threshold [S p.5, L1860] |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 53",
+          "text": "| Guarantees, collateral and control | Conditional guarantee/lien releases; ICA controls conflicts and collateral enforcement | Additional secured claims or permitted releases may dilute reachable value; actual ICA/security bodies, exclusions and entity map required before priority/control conclusions [S pp.5–6, L1935–1946, L2095–2097, L2198–2224] |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 55",
+          "text": "### Monitoring",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 57",
+          "text": "| Timed causal pathway | Observable verification | Required response |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 58",
+          "text": "|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 59",
+          "text": "| Before historical July checkpoint: weaker collections / retained inventory → reduced A/R eligibility → paydown or replacement need | Dated borrowing-base certificates, termination notices and extension/repayment documents | Distinguish reduced facility, renewed facility and funded repayment; infer no outcome |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 60",
+          "text": "| Demand/margin loss or integration slippage → weaker cash conversion; further payouts → smaller retained buffer | Monthly receipts, inventory, recurring-cost cash, Board commitments and minimum-cash forecast | Refresh payment-level sources/uses before claiming feasible funding is sufficient |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 61",
+          "text": "| March/September 2025 hedge transitions → changed cash-interest timing around funding need | Debt-to-hedge map and actual settlement schedule | Do not aggregate overlapping notionals or price a shock from notional alone |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 62",
+          "text": "| New secured debt, designations, releases or consent solicitation | Transaction documents, route/usage certificates, guarantor map and exact votes | Test legal permissions and creditor reach action by action; do not infer LME intent |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 64",
+          "text": "## Calculations",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 66",
+          "text": "### Consumption controls",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 68",
+          "text": "| Metric | Value |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 69",
+          "text": "|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 70",
+          "text": "| september_AR_principal_USDm | 487 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 71",
+          "text": "| september_AR_carrying_USDm | 486 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 72",
+          "text": "| december_AR_principal_USDm | 650 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 73",
+          "text": "| december_AR_carrying_USDm | 649 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 74",
+          "text": "| december_cash_USDm | 2459 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 75",
+          "text": "| issuer_december_liquidity_USDm | 3308 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 76",
+          "text": "| original_notes_principal_USDm | 1500 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 77",
+          "text": "| conditional_CoC_principal_component_USDm | 1515 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 78",
+          "text": "| conditional_CoC_premium_USDm | 15 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 79",
+          "text": "| actual_notes_unused_debt_capacity_USDm | — |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 80",
+          "text": "| certified_AR_future_access_USDm | — |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 81",
+          "text": "| conditional_CoC_accrued_interest_USDm | — |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 83",
+          "text": "These are consumed facts and CP-4's conditional illustration, **not new tool calculations**. A/R and cash rows are from CP-2D T2E.2–3/Calculations; original notes and illustration from CP-4 Calculations. The final three em dashes mean, respectively: **Not calculable** without legal financial/usage schedules; **Not supplied** as certified future access; **Not calculable** without payment date, eligible principal and accrual history. Missing is not zero.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 85",
+          "text": "The prescribed CoC principal-component control **1515** represents 101% of assumed tender of all original **1500**, including the **15** premium; the premium must not be added again. Accrued interest is additional and missing. Original issue principal is not current eligible principal, a current maturity or a payable obligation; trigger and tenders are unknown. Optional redemption has separate call/make-whole terms. [CP-4 P14/Calculations; S pp.3–4, L1345–1368.]",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 87",
+          "text": "A/R **650 commitment** differs from September **487 gross/486 carrying** and December **650/649 fully drawn**. October **162.5** and quarterly **163** describe the same draw at different precision, not two funding sources. LC **61** is not new funded debt. No cash-minus-all-carrying-debt calculation is made. September broader claims **25002** is neither legal debt nor immediate cash need. Annual FY2025 principal **93** and lease **22/20** windows cannot be treated as December remaining needs; December remaining-FY lease **21/19** requires finance principal/interest separation and no second OCF deduction. [CP-2D Calculations/T2E.3; CP-2A E4–E6.]",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 89",
+          "text": "## Gaps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 91",
+          "text": "The broad legal gap is narrowed for these named notes, not eliminated across the capital structure. Separate A/R/credit agreements, later amendments, legal financial and basket-usage certificates, cash accessibility, actual ICA/security bodies, perfection and the obligor/value map remain missing. Complete weekly/monthly sources/uses, minimum operating cash and dated interest/principal schedules are also absent. Consequently no certified funding gap, runway, unused debt capacity, default, recovery estimate or completed transaction is established.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 93",
+          "text": "The strongest positive case would prevail with demonstrated recurring cash conversion, restrained uncommitted allocation, verified cash/revolver access and a documented funded renewal or repayment plan. Missing evidence does not itself prove distress. Confidence is Medium for this bounded funding interpretation; legal clause evidence is stronger than transaction-execution evidence.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 95",
+          "text": "## Next module",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 97",
+          "text": "Request targeted evidence, not a rerun merely for delivery: treasury/lenders supply the dated historical July extension or repayment record, borrowing-base and recourse terms, accessible-cash/minimum-cash schedule and funded payment forecast. Counsel supplies transaction-specific debt/lien/RP routes and usage, actual ICA/security bodies, release chain and eligible consent population. For any proposed notes exit, obtain trigger facts, remaining eligible principal, tenders, call/payment date, accrued interest and other-debt consents.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 99",
+          "text": "CP-2D/CP-2G can incorporate verified access and payment timing; CP-4 can resolve route/control questions; CP-5 should validate these exact current hashes, primary locators and control transcription. Later outcomes require a separately dated update. No downstream execution, report delivery acceptance or whole-pathway completion is claimed.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        }
+      ],
+      "limitation": "Actual analytical handoff; underlying source qualifications and scope remain.",
+      "extractor": "literal-markdown-lines",
+      "extraction_status": "complete",
+      "coverage": []
+    }
+  ],
+  "analytical_qualification": "partial",
+  "native_host_qualification": "unrun"
+}
