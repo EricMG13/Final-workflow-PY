@@ -99,6 +99,14 @@ SAFE_FOLDER = re.compile(r"[\w. -]+")
 WEB_RUN = re.compile(r"web-[a-f0-9]{32}")
 
 
+READER_TABLES = [
+    ["Bottom line", "Confidence", "Main limitation"],
+    ["Finding", "Creditor impact", "Confidence"],
+]
+CHART_PREFIX = "Chart data: "
+CHART_LAST_COLUMNS = ["Reporting unit", "Basis and limitation"]
+
+
 def parse_source(text):
     """Keep every nonblank body line in one typed block with its source locator."""
     lines = text.splitlines()
@@ -285,6 +293,67 @@ def pinned_fields(sections, config, module):
     return fields
 
 
+def _reader_summary(section):
+    """The section's values, or None when it does not hold its two tables."""
+    tables = [b for b in section["blocks"] if b["type"] == "table"]
+    if [t["headers"] for t in tables] != READER_TABLES:
+        return None
+    calls, findings = (t["rows"] for t in tables)
+    if len(calls) != 1 or not findings or any(len(r["cells"]) != 3 for r in calls + findings):
+        return None
+    bottom_line, confidence, limitation = calls[0]["cells"]
+    return {
+        "bottomLine": bottom_line,
+        "confidence": confidence,
+        "limitation": limitation,
+        "line": calls[0]["line"],
+        "findings": [
+            {
+                "finding": r["cells"][0],
+                "impact": r["cells"][1],
+                "confidence": r["cells"][2],
+                "line": r["line"],
+            }
+            for r in findings
+        ],
+    }
+
+
+def _chart_table(section):
+    """What the app needs to draw the section's table, or None when it is not the fixed shape."""
+    tables = [b for b in section["blocks"] if b["type"] == "table"]
+    if len(tables) != 1 or not tables[0]["rows"]:
+        return None
+    table = tables[0]
+    headers = table["headers"]
+    if len(headers) < 4 or headers[0] != "Period" or headers[-2:] != CHART_LAST_COLUMNS:
+        return None
+    return {
+        "title": section["heading"].removeprefix(CHART_PREFIX).capitalize(),
+        "unit": table["rows"][0]["cells"][-2],
+        "table": table["line"],
+        "columns": list(range(1, len(headers) - 2)),
+    }
+
+
+def reader_fields(sections):
+    """A handoff's reader section and chart tables. A malformed one is named; the handoff still reads."""
+    summary, charts, problems = None, [], []
+    for section in sections:
+        heading = section["heading"]
+        if heading == "Reader summary":
+            summary = _reader_summary(section)
+            if summary is None:
+                problems.append("Reader summary is not in its two tables")
+        elif heading.startswith(CHART_PREFIX):
+            chart = _chart_table(section)
+            if chart:
+                charts.append(chart)
+            else:
+                problems.append(f"{heading} is not in its fixed table")
+    return {"summary": summary, "charts": charts, "issue": "; ".join(problems) or None}
+
+
 def structured(raw, strict):
     """Typed blocks. In the app a handoff the parser refuses stays readable as one flagged block."""
     try:
@@ -364,6 +433,9 @@ def collect_runs(root, shown, catalog, link, strict=True):
                     "firstHeading": config.get("firstHeading"),
                     "sections": sections,
                 }
+                record.update(reader_fields(sections))
+                if record["issue"]:
+                    issues.append(f"{output_id}: {record['issue']}")
                 if problem:
                     record["parseError"] = problem
                     issues.append(f"{output_id}: shown unstructured ({problem})")

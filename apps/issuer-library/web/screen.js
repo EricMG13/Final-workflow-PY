@@ -219,10 +219,12 @@ function assessment() {
   const id=pins['CP-2'];
   return `${factorMatrix()}${downside()}${sectionsMarkup(id,sectionData(id,'assessment'))}`;
 }
+const readerFacts=({confidence,limitation})=>`<dl class="summary-facts"><div><dt>Confidence</dt><dd>${esc(confidence)}</dd></div><div><dt>Main limitation</dt><dd>${rich(limitation)}</dd></div></dl>`;
 function callBand(id,section) {
-  const call=data[id].call;
-  if(!call||section!==modules[id].first)return '';
-  return `<div class="analysis-call"><p class="call-quote">${rich(call.text.replace(/\n/g,' '))}</p></div>${sourceFooter(`${id}:${call.line}`)}`;
+  const {summary,call}=data[id];
+  if(section!==modules[id].first||!(summary||call))return '';
+  const {text,line}=summary?{text:summary.bottomLine,line:summary.line}:call;
+  return `<div class="analysis-call"><p class="call-quote">${rich(text.replace(/\n/g,' '))}</p>${summary?readerFacts(summary):''}</div>${sourceFooter(`${id}:${line}`)}`;
 }
 function renderContent(id,section) {
   if(!isAnalytical(id))return workspaceView(id,section);
@@ -232,7 +234,7 @@ function renderContent(id,section) {
   if(id===pins['CP-2']&&section==='assessment')return band+assessment();
   if(id===pins['CP-8']&&section==='comparison')return band+comparisonView();
   let visual=band+(id===pins['CP-1A']&&section==='business'?businessVisual():id===pins['CP-1']&&section==='cash'?trendChart(id,'Net cash provided by operating activities'):id===pins['CP-2']&&section==='outlook'?downside():'');
-  visual+=galleryVisual(id,section);
+  visual+=galleryVisual(id,section)+readerCharts(id,section);
   if(section==='audit')visual+=`<div class="audit-intro"><h2>Original output & technical audit</h2><p>The retained output is available alongside its designed presentation. Analytical acceptance has not been verified by this library.</p><a href="${esc(data[id].href)}" download>Download original handoff</a><p class="hash">SHA-256 ${data[id].sha256}</p></div>`;
   return visual+sectionsMarkup(id,sectionData(id,section),true)+(section==='audit'?visualPlan(data[id].module):'');
 }

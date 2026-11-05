@@ -2,6 +2,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const { execFileSync } = require('node:child_process');
 const vm = require('node:vm');
 const crypto = require('node:crypto');
 const { JSDOM } = require(process.env.ISSUER_LIBRARY_JSDOM || 'jsdom');
@@ -885,6 +886,81 @@ test('A card quotes a finding written under a Findings subsection',()=>{
   output.sections.splice(1,Infinity,{heading:'Liquidity',level:3,line:8,blocks:[{type:'text',line:9,end:9,text:'A located finding.'}]});
   const dom=appFixture('W-Overview?c=web-1',store,NORTHBRIDGE_REPORTS),d=dom.window.document;
   assert.ok(d.querySelector('.summary-card[data-module="CP-0"]').textContent.includes('A located finding.'));
+  dom.window.close();
+});
+// Real store output over the synthetic fixture, so these tests read what the app is really given.
+function readerOutput(before='',after='') {
+  const script=`
+import json,sys
+from pathlib import Path
+sys.path.insert(0,'engine')
+from store import parse_source,reader_fields
+text=Path('designs/reader-fixture/CP-1.md').read_text(encoding='utf-8')
+if sys.argv[1]:text=text.replace(sys.argv[1],sys.argv[2])
+sections=parse_source(text)
+print(json.dumps({'sections':sections,**reader_fields(sections)}))`;
+  return JSON.parse(execFileSync(process.env.FW_PYTHON||'python3',['-B','-c',script,before,after],{cwd:path.join(__dirname,'..'),encoding:'utf8'}));
+}
+function readerStore(fields=readerOutput()) {
+  const store=structuredClone(NORTHBRIDGE),id='web-1/CP-1.md';
+  store.runs['web-1'].modules['CP-1']={outputs:[id],inputs:[],default:id};
+  const {parseError,...base}=store.outputs['web-1/CP-4A.md'];
+  store.outputs[id]={...base,id,module:'CP-1',source:'CP-1.md',file:'web-1--CP-1.md',label:'CP-1',...fields};
+  return store;
+}
+test('Summary leads with the reader section: bottom line, confidence and limitation',()=>{
+  const dom=appFixture('W-Overview?c=web-1',readerStore(),NORTHBRIDGE_REPORTS),lead=dom.window.document.querySelector('.summary-lead');
+  assert.equal(norm(lead.querySelector('.call-quote').textContent),'Total debt / EBITDA fell from 4.20x to 3.60x while liquidity held above 275.');
+  assert.match(norm(lead.textContent),/Confidence\s*Medium/);
+  assert.match(norm(lead.textContent),/Main limitation\s*The maturity schedule has no FY2027 figure\./);
+  assert.equal(lead.querySelector('.source-link').dataset.evidence,'web-1/CP-1.md:17');
+  dom.window.close();
+});
+test('Summary draws chart tables with their exact values and shows a gap as not available',()=>{
+  const dom=appFixture('W-Overview?c=web-1',readerStore(),NORTHBRIDGE_REPORTS),d=dom.window.document;
+  const charts=[...d.querySelectorAll('.summary-chart')];
+  assert.deepEqual(charts.map(c=>norm(c.querySelector('h2').textContent)),['Leverage','Interest cover','Liquidity','Debt maturities']);
+  const rows=c=>[...c.querySelectorAll('.chart-row')].map(r=>[norm(r.querySelector('.chart-label').textContent),norm(r.querySelector('strong').textContent)]);
+  assert.deepEqual(rows(charts[0]),[['FY2023Total debt / EBITDA','4.20'],['FY2023Net debt / EBITDA','3.85'],['FY2024Total debt / EBITDA','3.60'],['FY2024Net debt / EBITDA','3.25']]);
+  assert.deepEqual(rows(charts[3]),[['FY2026Debt maturing','500'],['FY2027Debt maturing','Not available'],['FY2028Debt maturing','1,250']]);
+  dom.window.close();
+});
+test('A handoff with a reader section opens on it, and hostile text stays text',()=>{
+  const dom=appFixture('CP-1?c=web-1',readerStore(),NORTHBRIDGE_REPORTS),d=dom.window.document;
+  assert.equal(norm(d.querySelector('.analysis-call .call-quote').textContent),'Total debt / EBITDA fell from 4.20x to 3.60x while liquidity held above 275.');
+  assert.match(norm(d.querySelector('.analysis-call').textContent),/Main limitation\s*The maturity schedule/);
+  const content=d.getElementById('content');
+  assert.equal(content.querySelector('img[src="x"]'),null);
+  assert.ok(content.textContent.includes('<img src=x onerror=alert(document.domain)>'));
+  assert.ok(content.textContent.includes('More debt capacity before a covenant test.'));
+  assert.equal(content.querySelectorAll('.record h3').length,2,'the band holds the bottom line row; only findings stay as records');
+  dom.window.close();
+});
+test('A chart section is named for its measure and draws its table above the exact rows',()=>{
+  const output=readerOutput(),line=output.sections.find(s=>s.heading==='Chart data: leverage').line;
+  const dom=appFixture(`CP-1/s${line}?c=web-1`,readerStore(output),NORTHBRIDGE_REPORTS),d=dom.window.document;
+  assert.equal(norm(d.getElementById('section-title').textContent),'Leverage');
+  assert.equal(d.querySelectorAll('#content .chart-row').length,4);
+  assert.ok(d.getElementById('content').textContent.includes('Synthetic.'),'the exact table stays below the chart');
+  dom.window.close();
+});
+test('A malformed reader section is named, and the handoff still renders with no bottom line',()=>{
+  const fields=readerOutput('| Bottom line |','| Conclusion |');
+  assert.match(fields.issue,/Reader summary/);
+  assert.equal(fields.summary,null);
+  const dom=appFixture('W-Overview?c=web-1',readerStore(fields),NORTHBRIDGE_REPORTS),d=dom.window.document;
+  assert.match(d.querySelector('.summary-lead').textContent,/No bottom line is stored/);
+  assert.ok(d.querySelector('.summary-card[data-module="CP-1"]'));
+  dom.window.location.hash='CP-1?c=web-1';dom.window.eval('renderRoute()');
+  assert.ok(d.getElementById('content').textContent.includes('Total debt / EBITDA fell'),'its rows stay readable');
+  dom.window.close();
+});
+test('A stopped run holding only one module shows one card',()=>{
+  const store=readerStore();
+  delete store.runs['web-1'].modules['CP-4A'];delete store.runs['web-1'].modules['CP-0'];
+  delete store.outputs['web-1/CP-4A.md'];delete store.outputs['web-1/deliveries/abc/CP-0.md'];
+  const dom=appFixture('W-Overview?c=web-1',store,NORTHBRIDGE_REPORTS),d=dom.window.document;
+  assert.deepEqual([...d.querySelectorAll('.summary-card')].map(c=>c.dataset.module),['CP-1']);
   dom.window.close();
 });
 test('Every card on a Summary quotes its own handoff',()=>{

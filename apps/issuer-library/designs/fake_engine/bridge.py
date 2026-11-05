@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 REAL = Path(os.environ["CHECK_ROOT"]) / "apps/issuer-library/engine/bridge.py"
+FIXTURE = Path(os.environ["CHECK_ROOT"]) / "apps/issuer-library/designs/reader-fixture/CP-1.md"
 spec = importlib.util.spec_from_file_location("real_bridge", REAL)
 bridge = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(bridge)
@@ -33,22 +34,20 @@ def complete(self, request, **kwargs):
     ]
     lines += [f"- {n} {h}" for n, h in context["sources"].items()]
     lines += [f"- {n} {h['sha256']}" for n, h in context["handoffs"].items()]
-    lines += ["", "## Findings", "", "### Reader summary", ""]
-    lines += ["| Bottom line | Confidence | Main limitation |"]
-    lines += ["| --- | --- | --- |", "| A fake engine finding only. | Low | Fake data. |", ""]
-    lines += ["| Finding | Creditor impact | Confidence |", "| --- | --- | --- |"]
-    lines += ["| One item was observed. | None. | Low |", ""]
+    lines += ["", "## Findings", ""]
+    if context["module_id"] == "CP-1":
+        # The synthetic fixture holds this module's reader section and all four chart tables.
+        fixture = FIXTURE.read_text(encoding="utf-8")
+        lines += [fixture[fixture.index("### Reader summary") : fixture.index("## Calculations")]]
+    else:
+        lines += ["### Reader summary", "", "| Bottom line | Confidence | Main limitation |"]
+        lines += ["| --- | --- | --- |", "| A fake engine finding only. | Low | Fake data. |", ""]
+        lines += ["| Finding | Creditor impact | Confidence |", "| --- | --- | --- |"]
+        lines += ["| One item was observed. | None. | Low |", ""]
     for route in plan["layout"]["routes"]:
         if route["module_id"] == context["module_id"]:
             lines += [f"### {route['heading']}", ""]
             if route["kind"] == "chart":
-                columns = route["value_columns"]
-                lines += [
-                    f"| Period | {' | '.join(columns)} | Reporting unit | Basis and limitation |"
-                ]
-                lines += ["| --- " * (len(columns) + 3) + "|"]
-                values = " | ".join("0" for _ in columns)
-                lines += [f"| FY2024 | {values} | {route['chart_unit']} | Fake data. |", ""]
                 continue
             lines += (
                 ["| Item | Value |", "| --- | --- |", "| Observed | 0 |", ""]

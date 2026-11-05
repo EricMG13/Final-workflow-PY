@@ -334,6 +334,15 @@ def new_run(browser, name, port, workspace, start):
         ISSUER in page.frame_locator("#report-preview").locator("body").inner_text(),
         f"{name}: its report opens inside the app",
     )
+    report = page.frame_locator("#report-preview")
+    note(
+        report.locator("#view-root figure").count() == 4,
+        f"{name}: synthetic fake-provider run, its report draws the four CP-1 charts",
+    )
+    note(
+        report.locator("img[src='x']").count() == 0,
+        f"{name}: synthetic hostile text in a handoff stays text in the report",
+    )
     page.screenshot(path=str(S / f"{name}-delivered.png"))
     page.locator(".built-from summary").first.click()
     page.locator(".built-from tbody a").first.click()
@@ -345,6 +354,19 @@ def new_run(browser, name, port, workspace, start):
     page.click("#module-head a:has-text('Used in')")
     page.wait_for_selector("#report-preview")
     note(True, f"{name}: Used in returns to the deliverable")
+    page.evaluate("location.hash = location.hash.replace(/^#[^?]*/, '#W-Overview/overview')")
+    page.wait_for_selector(".summary-lead")
+    note(
+        "A fake engine finding only." in page.inner_text(".summary-lead")
+        and "Confidence" in page.inner_text(".summary-lead"),
+        f"{name}: synthetic fake-provider run, Summary leads with its stored bottom line",
+    )
+    note(
+        "Total debt / EBITDA fell" in page.inner_text(".summary-card[data-module='CP-1']")
+        and page.locator(".summary-chart").count() == 4,
+        f"{name}: synthetic fake-provider run, Summary shows the CP-1 reader text and charts",
+    )
+    page.screenshot(path=str(S / f"{name}-synthetic-summary.png"))
     page.click(".rail a[aria-label='Issuer library']")
     page.wait_for_selector(".run-list a")
     note(
@@ -367,7 +389,7 @@ def new_run(browser, name, port, workspace, start):
 
 
 context = json.loads((R / "cases/cpdr-context-cutoff/context.json").read_text())
-context["run"].update(pathway="covenant_refinancing", as_of="2025-03-31", cutoff="")
+context["run"].update(pathway="credit_snapshot", as_of="2025-03-31", cutoff="")
 context["identity"].update(issuer_name=ISSUER, issuer_id="nbg")
 (S / "context.json").write_text(json.dumps(context))
 issuer = S / "issuer"

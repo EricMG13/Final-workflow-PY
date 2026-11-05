@@ -1,6 +1,6 @@
 /* Presentation views. No analytical execution. */
 function installDestinations() {
-  const title = h => h.replace(/^T[\w.]+(?:\s*[–/]\s*(?:T[\w.]+|\d+))*\s*[—–]\s*/,'').replace(/^./,s=>s.toUpperCase());
+  const title = h => h.replace(/^Chart data: /,'').replace(/^T[\w.]+(?:\s*[–/]\s*(?:T[\w.]+|\d+))*\s*[—–]\s*/,'').replace(/^./,s=>s.toUpperCase());
   for (const [id,out] of Object.entries(data)) {
     if(modules[id]) continue;
     const sections=[];
@@ -138,13 +138,19 @@ function qualitativeVisual(module,v) {
 }
 const CHART_RENDERERS={paired:comparisonChart,peers:comparisonChart,bars:comparisonChart,bridge:bridgeChart,waterfall:bridgeChart,paths:pathChart,hedges:hedgeChart};
 const visualMarkup=(module,v)=>(CHART_RENDERERS[v.kind]||qualitativeVisual)(module,v);
+const readerChart=(id,chart)=>comparisonChart(id,{kind:'bars',...chart});
+function readerCharts(id,section) {
+  const lines=new Set(sectionData(id,section).flatMap(s=>s.blocks).map(b=>b.line));
+  return (data[id].charts||[]).filter(c=>lines.has(c.table)).map(c=>readerChart(id,c)).join('');
+}
 function galleryVisual(module,section) {
   const out=data[module],v=out.visual;
   if(!v||!sectionData(module,section).some(s=>s.blocks.some(b=>b.line===v.table)))return '';
   return `<div id="module-visual">${visualMarkup(module,v)}</div>${visualCoversTable(module,fixtureTable(module,v.table))?'':'<div class="section-heading compact"><h2>Complete findings & exact data</h2><span>Retained output</span></div>'}`;
 }
 function visualCoversTable(module,block) {
-  const v=data[module].visual;
+  const {visual:v,summary}=data[module];
+  if(block.type==='table'&&summary&&block.rows[0]?.line===summary.line)return true; // The band holds this row.
   return block.type==='table'&&v?.table===block.line&&(['agencies','debate'].includes(v.kind)||(v.kind==='matrix'&&new Set(v.columns).size===block.headers.length));
 }
 function comparisonView() {
@@ -317,7 +323,8 @@ function firstFinding(id) {
   return null;
 }
 function moduleSummary(id) {
-  const {call}=data[id];
+  const {summary,call}=data[id];
+  if(summary)return {kind:'summary',text:summary.bottomLine,line:summary.line,confidence:summary.confidence,limitation:summary.limitation};
   if(call)return {kind:'call',text:call.text,line:call.line};
   const finding=firstFinding(id);
   return finding&&{kind:'finding',...finding};
@@ -327,17 +334,21 @@ function summaryLead(context,available) {
   for(const module of order) {
     const id=defaultOutput(module,context),summary=id&&moduleSummary(id);
     // A first finding is one paragraph of a module's work, so it never stands as the run's bottom line.
-    if(summary&&summary.kind!=='finding')return `<section class="summary-lead"><p class="summary-owner">${esc(moduleNames[module])}</p><p class="call-quote">${rich(summary.text.replace(/\n/g,' '))}</p>${sourceFooter(`${id}:${summary.line}`)}</section>`;
+    if(summary&&summary.kind!=='finding')return `<section class="summary-lead"><p class="summary-owner">${esc(moduleNames[module])}</p><p class="call-quote">${rich(summary.text.replace(/\n/g,' '))}</p>${summary.kind==='summary'?readerFacts(summary):''}${sourceFooter(`${id}:${summary.line}`)}</section>`;
   }
   return '<section class="summary-lead empty"><p>No bottom line is stored for this run. Read the findings below.</p></section>';
 }
 function summaryCharts(available,context) {
-  const charts=available.map(module=>defaultOutput(module,context)).filter(id=>id&&CHART_RENDERERS[data[id].visual?.kind]).slice(0,4);
-  return charts.length?`<div class="summary-charts">${charts.map(id=>`<div class="summary-chart">${visualMarkup(id,{...data[id].visual,fixed:true})}</div>`).join('')}</div>`:'';
+  const charts=available.map(module=>defaultOutput(module,context)).filter(Boolean).flatMap(id=>{
+    const visual=data[id].visual;
+    if(CHART_RENDERERS[visual?.kind])return [visualMarkup(id,{...visual,fixed:true})];
+    return (data[id].charts||[]).map(chart=>readerChart(id,chart));
+  }).slice(0,4);
+  return charts.length?`<div class="summary-charts">${charts.map(chart=>`<div class="summary-chart">${chart}</div>`).join('')}</div>`:'';
 }
 function summaryCard(module,context) {
   const id=defaultOutput(module,context),summary=id&&moduleSummary(id);
-  const body=!id?`<p class="summary-note">${plural(moduleEntry(module,context).outputs.length,'saved output')}. Choose one to read its findings.</p>`:summary?`<div class="summary-text">${rich(summary.text.replace(/\n/g,' '))}</div>${sourceLink(`${id}:${summary.line}`)}`:'<p class="summary-note">No written findings in this output.</p>';
+  const body=!id?`<p class="summary-note">${plural(moduleEntry(module,context).outputs.length,'saved output')}. Choose one to read its findings.</p>`:summary?`<div class="summary-text">${rich(summary.text.replace(/\n/g,' '))}</div>${summary.kind==='summary'?`<span class="tag">Confidence: ${esc(summary.confidence)}</span>`:''}${sourceLink(`${id}:${summary.line}`)}`:'<p class="summary-note">No written findings in this output.</p>';
   return `<article class="summary-card" data-module="${esc(module)}" ${id?`data-output="${esc(id)}"`:''}><h3>${moduleLink(module)}</h3>${body}</article>`;
 }
 function summaryView(context) {
