@@ -8,6 +8,60 @@ contains the settled CP-6 timeout cost, the corrected TDG annual publication, th
 live CP-8 comparison and checks of the five broader report bundles. The older
 entries below retain their historical case scope.
 
+## 2026-11-05 — CP-2 writes for the credit reader
+
+Web-app CP-2 handoffs read as audit records next to Deploy V's Microsoft 365 handoffs. Compared:
+`deliverables/tdg-fy2024-snapshot-7/CP-2.md` (TDG) against M365 Deploy V screenshots in
+`~/Documents/VMEDO2 Screenshots` (VMO2, 2026-09-20) and `~/Documents/Module Output` (Wood
+Mackenzie, 2026-08-27). These are different issuers and dates, so the comparison is not
+controlled. M365 carried as many limitations, but kept them in front matter and gap tables; its
+prose opened with the view. M365 also had the user's Copilot custom instruction (a senior
+credit-analyst persona), which no web-app prompt carried.
+
+`cpos_launch` now gives CP-2 that custom instruction, the reader-facing rules of Deploy V
+`CANON_SHARED.md` (sha256 `1ab484c5072a92944e1ed8b1591f96dfff2a021baf2cc230b8033eaa913a232d`)
+and the `### Credit view` opening. The checker rejects a CP-2 handoff whose `## Findings` does
+not open with that section in prose. Other modules are unchanged.
+
+Checks: `tests/test_cpos_launch.py` passes (73, live test deselected). The new tests failed
+first. Ruff and format are clean on both changed files, and mypy reports nothing in
+`cpos_launch.py`. `test_cpos_app.py` and `test_cpos_handoffs.py` pass. `test_owner_cpos.py`
+errors in 42 tests at fixture setup (`publication refused: publication_refused`). That file does
+not import `cpos_launch`, and an unmodified `ab46df7` checkout fails the same way, so the change
+did not cause it; the cause has not been traced.
+
+**Live test, `runs/cpos-launch-cp2-reader-001`, passed for this dated TDG case only.** At the
+user's instruction "test first" ([ruling](docs/rulings/2026-11-05-cp2-reader-test.md)), CP-2 ran on
+gpt-6.1-sol at medium effort over the accepted CP-0, CP-1 and CP-1A of `cpos-launch-live-002`. Those
+three were pinned as retained and replayed without calls; live-002 was not written. CP-2 was
+accepted on its first submission: 3 calls, USD 0.13628070, under a USD 8 cap. `run.py` in the folder
+produced it. Its 4.4 MB copy of the TDG annual-report PDF (`inputs/dc6a8ea6…`) is left out of the
+repository: `cpos-launch-live-002/inputs` keeps the identical file under the same SHA-256 name.
+
+Against the earlier sol-medium TDG CP-2 (`cpos-sol-medium-20261105`, older instructions and
+different upstream handoffs, so not a controlled comparison), with crude counts per 1,000 words
+of Findings prose:
+
+| Measure | Before | After |
+| --- | ---: | ---: |
+| `## Request` words | 116 | 43 |
+| Findings opens with | bold assessment block, then a 827-word section | `### Credit view`, 117 words |
+| Negations (not, no, never, cannot …) | 20.8 | 11.4 |
+| Module codes in prose | 11.6 | 2.1 |
+| Unitless thousands (e.g. "2,045") | 6.7 | 0.0 |
+| Gap rows | 10 | 8 |
+
+All 20 figures in the new opening and findings appear in the retained CP-1 handoff. These were
+recomputed by hand: 2,045 − 165 = 1,880; 1,880 − 2,038 − 2,347 = −2,505; 25,068 / 4,173 = 6.01x;
+25,068 / 3,813 = 6.57x; 7,267 − 4,348 = 2,919. The publication-cutoff, legal-capacity, earnings and
+liquidity limitations remain in `## Gaps`. The drop from 10 to 8 gap rows cannot be attributed,
+because the upstream handoffs differ.
+
+The prose rules are instructions only: no check measures tone, word count or units. The web app
+should show `### Credit view` first, since it shows sections in document order unless the
+catalogue names a first heading; this was read from the code, not seen in a browser. Windows was
+not checked.
+
 ## 2026-11-05 — repeated source copies removed
 
 At the user's instruction, 20 repeated source copies of 1 MB or more (54.4 MB) were removed from
