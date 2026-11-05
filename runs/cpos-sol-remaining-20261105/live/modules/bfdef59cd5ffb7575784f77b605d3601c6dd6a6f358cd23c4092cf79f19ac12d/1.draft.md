@@ -1,0 +1,227 @@
+---
+issuer_id: FTR
+issuer_name: Frontier Communications Corporation
+module_id: CP-4C
+owned_object: restructuring_scenario
+run_id: sol-remaining-frontier-recovery-20261105
+analysis_date: 2026-11-05
+historical_as_of: 2020-06-29
+petition_date: 2020-04-14
+hypothetical_sale_close: 2020-10-31
+hypothetical_liquidation_date: 2020-11-01
+assumed_plan_effective_date: 2021-01-01
+method_version: deploy-v-r14
+qa_status: Restricted
+committee_status: Requires More Work
+confidence_band: Low for complete underwriting; high for bounded arithmetic
+scope: Historical numerical recovery and analytical-method proof; not full native gate acceptance
+---
+
+## Request
+
+View: For Frontier Communications Corporation, the actual Chapter 11 filing passes the distress gate. The documented equitization plan is the primary supported restructuring route; the disclosed alternative is a distressed section 363 going-concern sale followed by Chapter 7 wind-down. Source-defined liquidation recoveries differ sharply by pool: aggregate first liens recover 0.865398–1.000000, second liens 0.095291–0.749657, and HoldCo Senior Notes 0.095291–0.138421, including applicable deficiency distributions. The pledged-pool marginal class moves from first liens to second liens; it is not a unique group-wide or plan fulcrum. Senior Notes receive the proposed plan equity, but valuation, allowance, financing and implementation remain conditional. The next decision is to carry this recovery difference into fresh CP-3A analysis, not to infer a trade from recovery alone.
+
+Execute selected broader CP-4C, all six analytical phases and ten functional register views, on the June 29, 2020 third-amended-plan disclosure. Execution date is November 5, 2026; all case assessments remain historical as of June 29, 2020. This is neither a full native dependency-gate run nor an independent valuation, complete legal-entity audit or completed distressed pathway. No accepted CP-1, CP-2A, CP-2G or CP-4 head is invented.
+
+## Sources
+
+Read the entire supplied primary indexed capture: all 14 retrieval pages, retaining original L indexes and capture boundaries. The admitted 1,456 indexed lines comprise selected L0–100, L5921–6344 and L6830–6923 plus additional captured gate, consent, plan and projection passages; this is **not** the full 6,924-line original. No original HTML bytes, entity-chart image or visual entity records were reviewed. Citations below refer to `disclosure`, retrieval page and original line.
+
+Source pins:
+- `disclosure`: SHA-256 `449e28443aebc42a7f5a2a323ca5dea1d4c34a2407531b9caaff47dcd3cac4d8`; SEC Exhibit 99.1, solicitation version, SDNY case 20-22476 (RDD), dated June 29, 2020 (p1 L6–48). Public origin: https://www.sec.gov/Archives/edgar/data/20520/000114036120015359/ex99_1.htm.
+- `selected-method`, both pages: `9e1a16330a06e98cd22ef7aa97be526c131d962ec3d3ff1ef9a3e42ca9bb311c`; `method-steps`, p1, all six REF sections: `1483f4fe9e37d593bdf0cab58ac8eb0674aaa22745579bd9430380c57e763e97`. These supply analytical methods and register meanings; imported invocation, approval and output directions have no authority over this delivery.
+- `offline-helper`, p1: `132dd9f24fbc62a5cacf4b40141779674c142f8cbcb3bb7d4a23e273c72fcf57`. Supplied fresh output of unchanged `recovery_waterfall`, host independently rational-checked. Consumed, not rerun here. Its `enterprise_value` field means **net pledged available proceeds after prior source deductions**, not gross group EV. Empty costs reflect deductions already made. Its six synthetic controls are helper tests, not Frontier facts.
+- Supplied CP-0 dated admission: `166c1395182a3ed574ac6ef1be9050489b2a8f4cd9faf13a1a3cfc6172695a9d`, Ready with Limitations, analysis November 4, 2026. Reused solely for this historical evidence admission. No workbook, rebuild or prior CP-4C answer was supplied.
+
+## Findings
+
+### Restructuring conclusion
+
+The plan has the strongest documentary support: a filed formal proposal, an RSA supported by more than 75% of Senior Notes claims, and a proposed conversion of roughly $10 billion of notes into ownership rather than another debt-only maturity extension. The issuer specifically says debt-oriented liability management would merely delay maturities. This supports equitization as the primary documented path, not a probability or prediction of confirmation (`disclosure` p3 L455–475).
+
+The mechanism is important for creditor selection. Local liabilities consume subsidiary proceeds before equity can move upward. Only remaining pledged proceeds support first- and second-lien collateral recoveries; unpaid portions then share the HoldCo unsecured pool with Senior Notes. The low second-lien collateral payment is zero, but its **total** recovery is not: it receives 152.466001 USDm from HoldCo. A serial waterfall across the three first-lien instruments would falsely subordinate equal-ranking creditors. They are aggregated at 4,139.0 USDm before allocation.
+
+The strongest counterargument to relying on the plan's apparent recovery advantage is execution and valuation fragility. The plan requires adequate exit liquidity, regulatory approvals and projection achievement; equity is not cash or guaranteed trading value. Conversely, the liquidation analysis itself is described as optimistic. Customer and employee attrition, vendor term contraction, labor interruption and delayed network reinvestment could impair EBITDA before a sale closes. That creates a causal loop: approval or financing delay → operating disruption/churn → lower sale EBITDA and buyer appetite → smaller collateral and HoldCo pools → larger deficiencies competing for less unsecured value. Observe churn, vendor terms, retention, maintenance spending, liquidity forecasts, financing commitments and approval progress, rather than attaching a fabricated probability (`disclosure` p7 L5946–5957; p2 L219–249; p13 L6865–6869).
+
+### T4E.1 — distress gate
+
+| trigger | evidence/date | affected entity/instrument | jurisdiction | status | limitation |
+| --- | --- | --- | --- | --- | --- |
+| Actual Chapter 11 filing and RSA | April 14, 2020; disclosure p3 L459 and L953; identity p1 L8–48 | Frontier Communications Corporation and debtor affiliates; existing creditor capital structure | United States Bankruptcy Court, Southern District of New York, case 20-22476 (RDD) | Passed historical distress gate; June 29 solicitation version locked | Joint administration is not substantive consolidation; separate plan for each debtor, p3 L451. No confirmed-plan/current-rights inference. |
+
+### T4E.2 — claims and priority
+
+All quantities below are **source-estimated scenario claims, not finally allowed claims and not GAAP carrying debt**. USDm applies throughout. Principal/accrual splits and PIK are not supplied separately unless stated. The consolidated priority is a source-model ordering, not an independent opinion on every legal entity.
+
+| class/claim ID | obligor | principal/accrued/PIK | currency | security/guarantee | priority | disputed/contingent | evidence |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| L/C B1 | HoldCo modeled cash allocation | 53.7 revolver L/C plus 50.0 bilateral; projected October 31 balances | USDm | Fully cash collateralized; separate from 749.0 revolver claim | After deducted Chapter 7 fees; before other allocations | Estimated commitments, not adjudicated liability | disclosure pp8–9 L6093–6094; p11 L6289 |
+| Administrative B3/B4 | Legal entities per source allocation; PBGC admin at HoldCo | 17.8 goods/cure; 156.2 PBGC delayed contributions | USDm | Administrative expense assumptions | Before local secured/unsecured and pledged allocation | CARES deferrals assumed administrative on liquidation | disclosure p8 L6103–6104; p11 L6293–6295 |
+| DIP B2; priority B5; litigation B17 | Relevant estates; parent for litigation | None modeled under each scenario assumption; actual quantities not established | USDm | No modeled DIP priming; other claims depend on actual facts | DIP/admin/priority precede local claims; parent litigation unsecured | SCENARIO ASSUMPTIONS: sufficient cash; continued first-day payments; no adverse judgments contemplated | disclosure p11 L6291, L6297, L6342 |
+| Local secured B6 | Frontier Southwest; Frontier Communications Corp. IDRB; Citizens Utilities Rural | 123.9 including filing balances plus interest through liquidation | USDm | Subsidiary secured notes and specified loans; entity reach not independently audited | Local secured before local unsecured/upflow | Estimated accrual, collateral validity not adjudicated | disclosure p9 L6113; p11 L6299–6300 |
+| Local unsecured B7 | Frontier California, North, West Virginia, Florida | 764.4, filing balances plus interest through liquidation | USDm | Local unsecured debt | Structurally senior to parent unsecured claims | Estimated, allowance unresolved | disclosure p9 L6118; p11 L6302–6303 |
+| PBGC B8 | Pension sponsor controlled group, joint and several | 999.7; unfunded liability as of December 31, 2019 | USDm | Modeled locally pro rata by LTM EBITDA; could instead assert directly at HoldCo | Local unsecured in source scenario | Actuarial and allocation uncertainty; do not multiply across entities | disclosure p9 L6119; p11 L6311–6312 |
+| OPEB B9 | Subsidiary legal counterparties under CBA/employment plans; HoldCo deficiency | Local 942.2; deficiency 13.5 low / 8.2 high | USDm | Entity liability then parent shortfall, not another full claim | Local unsecured then HoldCo pari passu | December 31, 2019 valuation, pro forma Northwest sale | disclosure pp9–11 L6120, L6142, L6209, L6231, L6314–6316 |
+| Leases/trade B10/B11 | Local counterparties; parent claims/deficiencies | Local leases 8.7; local trade 31.5. HoldCo leases 8.7 low / 8.3 high; trade 7.6 and trade deficiency 15.4 | USDm | Rejection damages and vendor/cure claims; no general collateral priority inferred | Local first, HoldCo unsecured separately | Lease scenario inconsistency preserved; legal overlap not fully auditable | disclosure pp9–11 L6121–6122, L6143–6145, L6232–6234, L6318–6322 |
+| First liens B12/B13/B14 | Source aggregated pledged pool, with HoldCo shortfall claims | Revolver 749.0 + term loan 1,740.0 + notes 1,650.0 = 4,139.0; filing balances plus estimated interest through liquidation | USDm | Three equal-rank first-lien instruments; guarantee reach not fully supplied | Shared pledged allocation, ahead of 2L; deficiency pari passu at HoldCo | Estimated, not finally allowed; no serial ranking or multiplied guarantees | disclosure p9 L6127–6129; p11 L6324, L6332, L6334 |
+| Second liens B15 | Source pledged pool and HoldCo deficiency | 1,600.0; filing balance plus estimated interest through liquidation | USDm | Second-lien collateral component; unpaid amount at HoldCo | After first liens in pledged pool; unsecured deficiency pari passu | Estimated, not finally allowed | disclosure pp9–11 L6134, L6223, L6336 |
+| Senior Notes B16 | Frontier Communications Corporation | 11,445.4; filing balance plus interest through filing date | USDm | Parent unsecured; no duplicate guarantee claim added | HoldCo pari passu with unpaid deficiencies | Source series maturities conflict with separate historical debt description; preserve aggregate only | disclosure p9 L6141; p10 L6230; p11 L6338–6340 versus p4 L1582 |
+| Intercompany / equity | Relevant estates and owners | Separate amounts Not supplied; source recovery summary marks intercompany not applicable and equity no distribution | USDm | Intercompany setoff, guarantees and ownership chains not independently verified | No residual to pledged equity in helper cases | Do not invent balances or infer group consolidation | disclosure p8 L6042–6045; p8 L5998; offline-helper p1 |
+
+### T4E.3 — valuation cases
+
+| scenario | valuation date | metric/cash flow | multiple/discount | EV | source/judgment IDs | limitation |
+| --- | --- | --- | --- | --- | --- | --- |
+| Liquidation low | Sale October 31, 2020; liquidation November 1 | FY19 adjusted EBITDA 3,068.0 pro forma Northwest sale; transaction EBITDA 2,454.4 | 20% EBITDA haircut; 2.5x | Gross going-concern sale 6,136.0 USDm; not helper net value | disclosure p8 L6066–6073; p10 L6247–6256 and L6277 | Source advisor/issuer estimate; taxes excluded; optimistic disruption assumptions |
+| Liquidation high | Same dates | Same FY19 basis; transaction EBITDA 2,761.2 | 10% haircut; 3.0x | Gross sale 8,283.6 USDm | disclosure p9 L6157–6164; p10 L6252–6256 | No disclosed middle liquidation case; none manufactured |
+| Plan low / midpoint / high | Assumed January 1, 2021 emergence | Management 2021–2024 base projections; DCF, comparable companies and precedent transactions | DCF rate and detailed selected multiples Not supplied in capture; methods described | 10,000 / 11,250 / 12,500 USDm | disclosure pp13–14 L6849–6859, L6884–6913 | Not liquidation EV or predicted market trading value; no independent reproduction of Evercore valuation |
+
+### T4E.4 — restructuring paths
+
+| path | process/jurisdiction | consent/vote | new money | class treatment | milestones | blockers | probability class |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Formal equitization plan | Existing SDNY Chapter 11 | Class acceptance: at least two-thirds value AND more than half number of voting allowed claims; Class 10 voting, conditional solicitation Classes 4–7; court confirmation required | Best efforts $850m exit commitments; undrawn at effective date except L/Cs; no $750m incremental cash injection | Secured repaid/reinstated; Senior Notes equity, takeback debt and surplus cash; other GUC full/reinstated/unimpaired | July 31 vote deadline; takeback decision 30 days pre-effective; assumed January 1 emergence | FCC/PUC approvals, financing, allowance, confirmation/feasibility and definitive documents | Primary documented route; ordinal assessment only, not quantified likelihood |
+| Distressed going-concern sale then wind-down | Section 363 sales, then Chapter 7 trustee | Court sale/conversion orders and regulatory permissions; no invented creditor unanimity threshold | B2 assumes existing cash/flow funds wind-down; extra actual financing terms Not supplied | Local priority then pledged 1L/2L then HoldCo unsecured; cash distributions | Hypothetical July 11 RSA expiry, October 31 close, November 1 liquidation and three-month wind-down | Buyers, expedited marketing, service continuity, regulatory/antitrust approval; taxes and financing uncertainty | Documented contingent fallback, not predicted failure of plan |
+
+Path evidence: `disclosure` p1 L62–71; pp3–6 L469–490, L1008, L1930–1935, L2422–2432, L3342, L3440, L4906, L5570; p7 L5946–5985. More than 75% RSA support is distinct from its two-thirds effectiveness/support conditions and statutory class voting. Required Consenting Noteholders are defined by greater than 50.1% of consenting holdings; Determining Noteholders' two-thirds controls takeback reduction, not class acceptance. No source-supported ordinary refinancing route is added merely to populate a framework.
+
+### T4E.5 — waterfall allocation
+
+Amounts USDm; residual is the remaining amount in the named pool, not consolidated equity. These rows use source-disclosed intermediate pool values, retaining source rounding rather than reconstructing hidden entity calculations.
+
+| scenario | entity | available value | priority claim | allocation | residual | legal evidence ID |
+| --- | --- | --- | --- | --- | --- | --- |
+| Low / high | HoldCo pre-unsecured | Net initial 1,582.2 / 1,930.2 | L/C 103.7; admin and local deductions follow | Source progression ends at HoldCo GUC 1,306.1 / 1,654.1 | 1,306.1 / 1,654.1 for pari passu distribution | disclosure pp8–10 L6090–6124, L6179–6213 |
+| Low / high | Pledged subsidiaries before shared liens | Net initial 6,114.4 / 7,865.3 | Local admin, secured and unsecured claims precede shared lien allocation | Source local deductions leave 3,523.2 / 5,274.1 | Net pledged 3,523.2 / 5,274.1 | disclosure pp8–10 L6090–6124, L6179–6213; ordering L5989–5998 |
+| Low | Pledged pool | 3,523.2 | Aggregate 1L 4,139.0 | 1L 3,523.2; 2L collateral 0 | 0; deficiencies 615.8 and 1,600.0 | offline-helper p1; disclosure p9 L6124–6140 |
+| High | Pledged pool | 5,274.1 | 1L 4,139.0; then 2L 1,600.0 | 1L 4,139.0; 2L collateral 1,135.1 | 0; deficiencies 0 and 464.9 | offline-helper p1; disclosure p10 L6213–6229 |
+| Low | HoldCo unsecured | 1,306.1 | Equal-rank estimated denominator 13,706.4 | Each unpaid claim times 0.0952912508025448, computed without display rounding | 0 before final-display rounding | disclosure p9 L6139–6146; B9–B16 p11; arithmetic controls |
+| High | HoldCo unsecured | 1,654.1 | Equal-rank estimated denominator 11,949.8 | Each unpaid claim times 0.1384207267067231, computed without display rounding | 0 before final-display rounding | disclosure p10 L6228–6235; B9–B16 p11; arithmetic controls |
+| Low / high | Non-pledged subsidiaries | Net initial 1,010.7 / 1,364.4 | Local claims paid before equity upflow | Source equity upflow 759.1 / 1,107.1 already included in HoldCo initial value | No second addition to HoldCo | disclosure p8 L6078–6082; pp9–10 L6148, L6169, L6237; A5 L6266 |
+
+### T4E.6 — fulcrum sensitivity
+
+| scenario/EV range | last covered class | first impaired class | fulcrum class/range | uncertainty |
+| --- | --- | --- | --- | --- |
+| Low net pledged 3,523.2 USDm | Source preceding local claims subject to entity-specific exceptions | Aggregate shared first liens | Pledged marginal class 1L; total recovery 0.865398 after HoldCo payout | Does not mean all local claims are whole: local OPEB, leases and trade have separate shortfalls |
+| High net pledged 5,274.1 USDm | Shared first liens fully covered | Second liens in pledged pool | Pledged marginal class 2L; total recovery 0.749657 | HoldCo has a separate pari passu marginal pool; no sole group fulcrum |
+| Conditional pledged thresholds | 1L coverage at 4,139.0; shared 1L plus 2L coverage at 5,739.0 | Depends on net pool relative to thresholds | Marginal shared collateral moves from 1L to 2L above 4,139.0 | Arithmetic thresholds hold only if prior deductions/claims unchanged; not fresh gross-EV scenarios |
+| Plan EV 10,000–12,500 USDm | Secured classes reported 100% | Senior Notes impaired under proposed plan | Senior Notes receive residual reorganized equity/control | Plan equity recipient is not the same as liquidation collateral fulcrum; equity value conditional, MIP dilution and claim dates differ |
+
+### T4E.7 — class recoveries
+
+The required “allowed claim” column explicitly records estimated claims, **not finally allowed amounts**. Liquidation cash amounts are undiscounted scenario estimates, not payments; no further time discount is invented. Formula lineage is T4E.5 and the numeric controls. Source class-summary percentages are independent rounded comparisons.
+
+| scenario | class/instrument | allowed claim | cash/debt/equity/warrant value | total recovery | timing | currency |
+| --- | --- | --- | --- | --- | --- | --- |
+| Low liquidation | Aggregate first liens; source pledged pool plus HoldCo deficiency | Estimated 4,139.0 | Cash 3,523.2 + 58.680352 = 3,581.880352; no noncash distribution modeled | 0.865398; source summary 87% | Following November 1 liquidation during illustrative three-month wind-down | USDm |
+| High liquidation | Aggregate first liens | Estimated 4,139.0 | Cash 4,139.000000; no unpaid deficiency | 1.000000; source 100% | Same illustrative wind-down | USDm |
+| Low liquidation | Second liens; pledged plus HoldCo | Estimated 1,600.0 | Cash 0 collateral + 152.466001 deficiency | 0.095291; source summary 10% | Same illustrative wind-down | USDm |
+| High liquidation | Second liens; pledged plus HoldCo | Estimated 1,600.0 | Cash 1,135.1 + 64.351796 = 1,199.451796 | 0.749657; source summary 75% | Same illustrative wind-down | USDm |
+| Low / high liquidation | HoldCo Senior Notes | Estimated 11,445.4 | Cash 1,090.646482 / 1,584.280585; no debt/equity/warrants modeled | 0.095291 / 0.138421; source 10% / 14% | Same illustrative wind-down | USDm |
+| Low / high liquidation | Other HoldCo unsecured components | Estimated OPEB deficiency 13.5 / 8.2; lease 8.7 / 8.3; trade 7.6; trade deficiency 15.4 | Cash payouts separately in numeric controls | Each component 0.095291 / 0.138421 within HoldCo, not aggregate local recovery | Same illustrative wind-down | USDm |
+| Low / high liquidation | Local secured / local unsecured notes | Estimated 123.9 / 764.4 respectively | Source cash 123.9 / 764.4 in both cases | Source 100% each; not independently reconstructed by entity | Same illustrative wind-down | USDm |
+| Proposed plan | Secured classes / Senior Notes | Plan-date claim reconciliation Not supplied; do not substitute liquidation accrued claims | Secured full payment or reinstatement; Senior Notes 100% new equity subject MIP, 750 takeback subject reduction, plus qualifying cash above 150; warrants Not supplied | Source secured 100%; Senior Notes 43–45%, reported not independently reproduced | Assumed January 1, 2021 effective date; actual timing conditional | USDm |
+
+Source comparisons: `disclosure` p8 L6012–6039; individual liquidation and unsecured distributions pp9–10 L6127–6145 and L6216–6234. Source 85% low first-lien rows measure collateral only; 87% class summary includes deficiency value. Similarly high 2L 71% collateral versus 75% total is not a contradiction once forms are separated.
+
+### T4E.8 — transfer and control mechanisms
+
+| mechanism | affected classes | required capacity/consent | evidence | possible outcome |
+| --- | --- | --- | --- | --- |
+| Equitization and governance transfer | Senior Notes and existing owners | Confirmation/effectiveness; new organizational documents acceptable to Required Consenting Noteholders under plan terms | disclosure p3 L470; p5 L3342, L3373; p4 L1787 | Senior Notes receive equity subject MIP; two RSA board observers before emergence; ownership value differs from immediate cash |
+| Takeback debt distribution | Senior Notes; junior ranking relative to retained debt | 750 principal subject downward adjustment by Determining Noteholders with Debtors at least 30 days before effective date; security depends on 2L treatment | disclosure pp4–6 L1008, L3441–3444, L3867, L5646–5647 | Third lien or agreed basis, not 750 of incremental new cash; final rate not fixed by illustrative projection |
+| Exit facility and surplus cash restriction | Senior Notes residual cash; ongoing company liquidity | Best efforts 850 commitments; facility undrawn except L/Cs; proceeds excluded from surplus cash; shortfall reduces surplus cash | disclosure p5 L3440 | Protects liquidity ahead of residual cash distribution; nominal cash above 150 is subject to deductions/terms, not automatic unrestricted payout |
+| Collateral realization and structural priority | Local claimants, shared liens, parent unsecured | Source entity-level allocation and sale/priority orders; no independent covenant-capacity finding | disclosure p8 L5989–5998; p11 L6312–6336 | Local liabilities absorb sale value first; deficiencies dilute HoldCo; PBGC direct-parent alternative changes pool distribution |
+| Releases, exculpation and claim transfer | Releasing and exculpated parties; consenting noteholders/transferees | Effective-date and applicable-law conditions; specified misconduct exceptions; transfer agreement binds transferee to agreement and prior vote | disclosure pp6–7 L5773–5778, L5860–5861 | May limit retained litigation rights and preserve support continuity; no inference of actual release enforceability or litigation value |
+
+### T4E.9 — milestones
+
+| event/milestone | earliest/latest timing | evidence | consequence | downstream module |
+| --- | --- | --- | --- | --- |
+| Petition and RSA | April 14, 2020, historical actual | disclosure p3 L459, L953 | Actual formal distress gate | CP-3A / CP-5 |
+| Northwest operations sale | May 1, 2020, historical subsequent-to-petition event already known at as-of | disclosure p12 L6378; p7 L5971 | Pro forma EBITDA and cash/upflow treatment; do not add sale proceeds again | CP-3A |
+| Liquidation-model RSA expiry | Hypothetical July 11, 2020; not actual termination | disclosure p7 L5969–5972 | Starts fallback marketing assumption only | CP-3A / CP-6 |
+| Plan ballot deadline | July 31, 2020, 11:59 p.m. Eastern | disclosure p1 L62–67 | Catalyst for voting support; count value and number separately | CP-3A / CP-6 |
+| Definitive plan supplement | At least seven days before confirmation hearing, subject court extension; hearing date Not supplied | disclosure p5 L3342 | Exit debt, governance and transaction documents need review | CP-4 / CP-3A |
+| Hypothetical sale and liquidation | October 31 close; November 1, 2020 liquidation; next three months wind-down | disclosure p7 L5977–5985 | Source cash realization timing; not realized recovery | CP-3A |
+| Takeback reduction decision / emergence | Decision no later than 30 days pre-effective; valuation assumes January 1, 2021 effective date | disclosure p4 L1008; p13 L6849–6859 | Changes consideration composition; approval and financing delays affect residual value | CP-3A / CP-6 |
+
+## Calculations
+
+### Arithmetic trace and controls
+
+The unchanged supplied helper allocates the **net pledged pool only**: low 3,523.2 to 1L and zero to 2L; high 4,139.0 to 1L and 1,135.1 to 2L, fully allocated with no equity residual. Its fraction displays are six-decimal outputs, not inputs for precision amounts. Independent Decimal-38 tool calculations use original decimal source operands, not those rounded helper fractions.
+
+For the October/November 2020 liquidation scenarios, all monetary operands are USDm (`disclosure` pp9–11 L6124–6145, L6213–6234, B9–B16):
+- Equal-rank 1L = 749 + 1,740 + 1,650 = 4,139. Low unpaid = 4,139 − 3,523.2 = 615.8. High residual = 5,274.1 − 4,139 = 1,135.1; unpaid 2L = 1,600 − 1,135.1 = 464.9.
+- Low HoldCo denominator = 615.8 + 1,600 + 11,445.4 + 13.5 + 8.7 + 7.6 + 15.4 = 13,706.4. High = 0 + 464.9 + 11,445.4 + 8.2 + 8.3 + 7.6 + 15.4 = 11,949.8. Full secured principal is **not** included again.
+- Fractions = 1,306.1 / 13,706.4 and 1,654.1 / 11,949.8. Each payout uses algebraic ratio `claim / (denominator / HoldCo_available)` with Decimal-38 intermediate precision. No multiplication of six-decimal display fractions. All HoldCo value is distributed before final display rounding.
+- Total 1L/2L recovery = (collateral payout + deficiency payout) / original claim. High first-lien deficiency and its payment are derived zero because collateral pays the entire claim, not missing-data zero-fill.
+- Source low payouts 58.7 / 152.5 / 1,090.7 and high 0 / 64.4 / 1,584.3 are independent rounded comparisons. Differences below remain visible: rounded source inputs need not reproduce the source's unrounded entity model. No fees, priority claims or non-pledged upflow are deducted/added twice.
+
+### Recovery numeric controls
+
+| Metric | Low | High |
+| --- | --- | --- |
+| net_pledged_proceeds_USDm | 3523.200000 | 5274.100000 |
+| holdco_available_USDm | 1306.100000 | 1654.100000 |
+| equal_rank_first_lien_claims_USDm | 4139.000000 | 4139.000000 |
+| first_lien_collateral_paid_USDm | 3523.200000 | 4139.000000 |
+| second_lien_collateral_paid_USDm | 0.000000 | 1135.100000 |
+| first_lien_deficiency_USDm | 615.800000 | 0.000000 |
+| second_lien_deficiency_USDm | 1600.000000 | 464.900000 |
+| holdco_unsecured_claims_USDm | 13706.400000 | 11949.800000 |
+| holdco_pro_rata_fraction | 0.095291 | 0.138421 |
+| first_lien_deficiency_paid_USDm | 58.680352 | 0.000000 |
+| second_lien_deficiency_paid_USDm | 152.466001 | 64.351796 |
+| senior_notes_paid_USDm | 1090.646482 | 1584.280585 |
+| OPEB_deficiency_paid_USDm | 1.286432 | 1.135050 |
+| lease_paid_USDm | 0.829034 | 1.148892 |
+| trade_paid_USDm | 0.724214 | 1.051998 |
+| trade_deficiency_paid_USDm | 1.467485 | 2.131679 |
+| first_lien_total_recovery_fraction | 0.865398 | 1.000000 |
+| second_lien_total_recovery_fraction | 0.095291 | 0.749657 |
+| senior_notes_total_recovery_fraction | 0.095291 | 0.138421 |
+| source_minus_calculated_1L_deficiency_paid_USDm | 0.019648 | 0.000000 |
+| source_minus_calculated_2L_deficiency_paid_USDm | 0.033999 | 0.048204 |
+| source_minus_calculated_senior_notes_paid_USDm | 0.053518 | 0.019415 |
+
+### Plan equity bridge controls
+
+This separate January 1, 2021 plan bridge uses EV − net debt − tax-affected pension/OPEB (`disclosure` p13 L6852–6859). Original source values are 10.00 / 11.25 / 12.50 billion, less 6.56 billion and 1.37 billion; conversion to USDm is shown below. Net debt already includes 750 takeback debt and 160 capital leases and assumes prepetition revolver repayment. Do not subtract takeback a second time or treat it as new cash. Arithmetic-tool sums reproduce 2,070 / 3,320 / 4,570 USDm equity; they do not independently validate the underlying EV.
+
+| Scenario | EV_USDm | Net_debt_USDm | Pension_OPEB_USDm | Equity_USDm |
+| --- | --- | --- | --- | --- |
+| low | 10000.000000 | 6560.000000 | 1370.000000 | 2070.000000 |
+| midpoint | 11250.000000 | 6560.000000 | 1370.000000 | 3320.000000 |
+| high | 12500.000000 | 6560.000000 | 1370.000000 | 4570.000000 |
+
+Liquidation uses FY19 pro forma EBITDA 3,068.0, not plan EV: 20% and 10% haircuts yield 2,454.4 and 2,761.2; 2.5x and 3.0x yield source sale values 6,136.0 and 8,283.6. The plan bridge's midpoint is not a middle liquidation case. Plan Senior Notes recovery of 43–45% and secured recovery of 100% are source-reported, not independently reproduced using liquidation claims with different accrual dates.
+
+## Gaps
+
+### T4E.10 — gaps
+
+| claim/legal/value/process gap | affected scenario/class | impact | required evidence |
+| --- | --- | --- | --- |
+| Full legal-entity priority, guarantees, intercompany and ownership images not reviewed | All pools | Source aggregates cannot establish priority at every entity; joint administration does not cure this | Original instruments, security/perfection and intercreditor documents, reviewed entity chart and entity waterfalls; accepted CP-4/4B work |
+| PBGC controlled-group alternative and OPEB/entity overlap | Local and HoldCo unsecured; indirectly shared liens | PBGC could assert against HoldCo first; no numerical alternative invented; avoid adding full joint-and-several claims repeatedly | Actuarial claim basis, entity liability and guarantee schedules, proposed/allowed allocations |
+| Exact source claim contradictions retained | Senior Notes and lease claims | L6340 describes 9.000%, 7.680%, 7.450% and 7.050% series as due 2022, while p4 L1582 gives 2031, 2034, 2035 and 2046; high HoldCo lease 8.3 differs from low 8.7 despite local high lease 8.7. Aggregate scenario operands used without silently correcting source | Controlling indentures, claim schedules and underlying model; reconcile allowance/accrual before instrument-level selection |
+| Filing-date versus liquidation-date accrual | Senior Notes versus secured/subsidiary debt; plan versus liquidation | B16 stops Senior Notes interest at filing, B6/B7/B12–15 extend through liquidation. No conversion to GAAP carrying debt or proof of plan 43–45% from these dates | Plan-specific claim denominators, allowance orders and interest treatment |
+| Unmodeled liquidation tax, fees and operating deterioration | Both liquidation cases, especially unsecured residual | Source omits liquidation taxes; trustee model 1% could be as high as 3%; B2/B5/B17 none assumptions do not establish actual zero liabilities | Tax analysis, court-approved budget, fee estimates, litigation register and updated liquidity forecast |
+| Plan financing, new governance and definitive consideration | Plan Senior Notes and retained debt | Exit commitments, takeback security/rate/reduction, surplus cash and MIP may change recoverable economic value | Exit facility and takeback documents, plan supplement, MIP, consent/approval orders and surplus-cash calculation |
+| Native upstream and full valuation inputs absent | Complete underwriting and pathway acceptance | Selected method proof cannot certify native dependency gates or independent EV; detailed DCF discount rates not supplied | Fresh accepted CP-1/2A/2G/4 lineage and valuation schedules; no backfilled heads |
+| Prices, instrument terms and portfolio context absent | CP-3A selection and implementation | Recovery ranking alone cannot support buy/sell, sizing or unconditional relative value | Historical-as-of prices/accruals, instrument terms, settlement/liquidity and portfolio constraints |
+
+### QA and confidence
+
+Phase coverage: distress gate T4E.1; claims/value/priority lock T4E.2–3; supported paths T4E.4; allocation/fulcrum/recovery T4E.5–7 and controls; decision/control/timeline T4E.8–9 and conclusion; QA/gaps T4E.10 and this section. Identity, dates, USDm, source lineage, equal-rank grouping, deficiency-only denominator, no duplicate guarantees, no double-counted upflow/costs, and scenario independence were checked against supplied text and arithmetic outputs. The helper's two net-pool cases are fully allocated; HoldCo pro-rata allocation exhausts each pool by construction, with only final-display rounding differences.
+
+Confidence is high in the bounded source-operand arithmetic but low for complete underwriting/current rights. Entity priority, allowed claims and independent valuation remain unresolved. No numerical confidence score is presented as script-certified. Invocation, confidence, completeness and native validation scripts were not available or run; no exit code or full native acceptance is claimed. This Markdown is the complete raw analytical handoff for retention alongside the existing report, not a rebuilt workbook or alternative report export. Evidence/instruction validation is delegated to the supplied handoff tool, distinct from those unavailable native scripts.
+
+## Next module
+
+Fresh **CP-3A must actually consume this recovery difference**: liquidation 1L 0.865398–1.000000, 2L 0.095291–0.749657 and Senior Notes 0.095291–0.138421, versus separately disclosed plan secured 100% and Senior Notes 43–45%. It must retain the cash/noncash split, claim-date differences, net-pool fulcrum movement, January plan versus November liquidation timing, and all unresolved legal/financing conditions. The economic comparison must then add price, accrued claim, distribution timing, enforceable terms, dilution, exit liquidity and portfolio constraints before any conditional instrument preference.
+
+CP-5 should audit source/model contradictions and source-minus-calculated differences; CP-4/4B should resolve entity reach and overlaps. CP-6 should debate whether execution delay and operating erosion overwhelm the supported plan advantage, with financing commitments, ballot results, approval progress and definitive plan documents as observable updates. No buy/sell, position size, unconditional relative-value claim, numerical path probability or certainty of court outcome follows from this handoff. Deliver this raw Markdown separately alongside the existing report; do not overwrite the historical report or promote hypothetical proceeds to realized distributions.

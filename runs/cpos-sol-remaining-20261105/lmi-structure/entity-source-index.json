@@ -1,0 +1,81 @@
+{
+  "scope": "Source identity/index aid, not a prior CP4B answer or complete group. Actual raw ICA controls.",
+  "entities": [
+    {
+      "name": "LMI AEROSPACE, INC.",
+      "source_index": 592
+    },
+    {
+      "name": "D3 Technologies, Inc.",
+      "source_index": 597
+    },
+    {
+      "name": "Integrated Technologies, Inc.",
+      "source_index": 602
+    },
+    {
+      "name": "Leonard\u2019s Metal, Inc.",
+      "source_index": 607
+    },
+    {
+      "name": "LMI Kitting, LLC",
+      "source_index": 618
+    },
+    {
+      "name": "LMI Finishing, Inc.",
+      "source_index": 623
+    },
+    {
+      "name": "Precise Machine Company",
+      "source_index": 628
+    },
+    {
+      "name": "TASS, Inc.",
+      "source_index": 633
+    },
+    {
+      "name": "TASS Asia Pacific (AP) PTY LTD",
+      "source_index": 638
+    },
+    {
+      "name": "TASS-EU Limited",
+      "source_index": 643
+    },
+    {
+      "name": "Tempco Engineering, Inc.",
+      "source_index": 654
+    },
+    {
+      "name": "Valent Aerostructures, LLC",
+      "source_index": 659
+    },
+    {
+      "name": "Valent Aerostructures \u2013 Lenexa, LLC",
+      "source_index": 664
+    },
+    {
+      "name": "Valent Aerostructures \u2013 Tulsa, LLC",
+      "source_index": 669
+    },
+    {
+      "name": "Ozark Mountain Technologies, LLC",
+      "source_index": 674
+    },
+    {
+      "name": "Valent Aerostructures \u2013 Wichita, LLC",
+      "source_index": 679
+    },
+    {
+      "name": "Valent Aerostructures \u2013 St. Louis, Inc.",
+      "source_index": 690
+    },
+    {
+      "name": "Valent Aerostructures \u2013 Washington, LLC",
+      "source_index": 695
+    },
+    {
+      "name": "Versaform Corp.",
+      "source_index": 700
+    }
+  ]
+}

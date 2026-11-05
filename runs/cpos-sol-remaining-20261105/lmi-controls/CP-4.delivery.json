@@ -1,0 +1,99 @@
+{
+  "run": {
+    "run_id": "sol-remaining-lmi-controls-20261105",
+    "issuer_id": "LMI",
+    "issuer_name": "LMI Aerospace, Inc.",
+    "as_of": "2014-06-19",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-4D"
+    ]
+  },
+  "handoffs": {
+    "CP-4": {
+      "path": "CP-4D.md",
+      "sha256": "3ae37060a3d6ac729a3f99fdbb8236a38bcd0e2c5c2b71e28046f39450c5d45f"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "capacity",
+      "lme-creditor-exposure",
+      "red-flags"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-4",
+        "heading": "Request",
+        "kind": "prose",
+        "prefix": "View:",
+        "block_id": "lme-creditor-exposure",
+        "label": "Historical intercreditor view"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4F.2 \u2014 creditor class map",
+        "kind": "table",
+        "block_id": "lme-creditor-exposure",
+        "label": "T4F.2 \u2014 creditor class map"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4F.3 \u2014 enforcement control",
+        "kind": "table",
+        "block_id": "lme-creditor-exposure",
+        "label": "T4F.3 \u2014 enforcement control"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4F.4 \u2014 turnover release and purchase",
+        "kind": "table",
+        "block_id": "capacity",
+        "label": "T4F.4 \u2014 turnover release and purchase"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4F.5 \u2014 recovery control assessment",
+        "kind": "table",
+        "block_id": "lme-creditor-exposure",
+        "label": "T4F.5 \u2014 recovery control assessment"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Synthetic calendar controls",
+        "kind": "table",
+        "block_id": "red-flags",
+        "label": "Synthetic calendar controls"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Semantic boundary controls",
+        "kind": "table",
+        "block_id": "red-flags",
+        "label": "Semantic boundary controls"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "T4F.6 \u2014 gaps ledger",
+        "kind": "table",
+        "block_id": "red-flags",
+        "label": "T4F.6 \u2014 gaps ledger"
+      },
+      {
+        "module_id": "CP-4",
+        "heading": "Intercreditor conclusion",
+        "kind": "prose",
+        "block_id": "red-flags",
+        "label": "Intercreditor conclusion"
+      }
+    ],
+    "title": "LMI Aerospace historical enforcement and recovery controls",
+    "question": "How do the actual ICA conditions constrain junior creditor access?",
+    "issuer_aliases": [
+      "LMI Aerospace",
+      "LMI"
+    ],
+    "scope": "Fresh sol-medium CP4D phase consumes current CP4B, historical 2014 ICA. Qualitative control proof and explicitly synthetic calendar fixtures, no numerical recovery/current rights/full pathway."
+  }
+}

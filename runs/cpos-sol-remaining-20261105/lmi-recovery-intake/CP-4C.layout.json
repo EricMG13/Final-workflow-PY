@@ -1,0 +1,45 @@
+{
+  "blocks": [
+    "capacity",
+    "lme-creditor-exposure",
+    "red-flags"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-4C",
+      "heading": "Request",
+      "kind": "prose",
+      "prefix": "View:",
+      "block_id": "lme-creditor-exposure",
+      "label": "Recovery intake view"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "Recovery operand consequences",
+      "kind": "table",
+      "block_id": "lme-creditor-exposure",
+      "label": "Recovery operand consequences"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "Recovery missing controls",
+      "kind": "table",
+      "block_id": "capacity",
+      "label": "Recovery missing controls"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "Recovery intake conclusion",
+      "kind": "prose",
+      "block_id": "red-flags",
+      "label": "Recovery intake conclusion"
+    }
+  ],
+  "title": "LMI Aerospace recovery input requirements",
+  "question": "How do current structural and control findings constrain a recovery model?",
+  "issuer_aliases": [
+    "LMI Aerospace",
+    "LMI"
+  ],
+  "scope": "Fresh downstream intake of current CP4B/CP4D, historical2014ICA. No positive numericalrecovery/fullCP4C/nativepathwayproof."
+}

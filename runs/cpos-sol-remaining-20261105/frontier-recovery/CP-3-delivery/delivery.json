@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Fresh sol-medium CP3Afocusedconsumer ofcurrentCP4C. Historical source-definedscenarios,notfullmodule/nativepathway/currenttradeorrealizedrecovery.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-3.md": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+    "view.json": "50c9de12bf7cfb00281763a675377b33733b17b5c2c6534b2824a412fe660218",
+    "report-view.json": "3bb76141279333ea0b91aaa88a4ac2f28060b34956cfa76d0adb3ed98add1aaa",
+    "report.html": "cc5122b9a798252c7cbac52433a8ef83db2257ab37d515ae4a59c71b3db8702d"
+  }
+}

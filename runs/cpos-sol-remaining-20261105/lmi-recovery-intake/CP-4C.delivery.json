@@ -1,0 +1,64 @@
+{
+  "run": {
+    "run_id": "sol-remaining-lmi-recovery-intake-20261105",
+    "issuer_id": "LMI",
+    "issuer_name": "LMI Aerospace, Inc.",
+    "as_of": "2014-06-19",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-4C"
+    ]
+  },
+  "handoffs": {
+    "CP-4C": {
+      "path": "CP-4C.md",
+      "sha256": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "capacity",
+      "lme-creditor-exposure",
+      "red-flags"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-4C",
+        "heading": "Request",
+        "kind": "prose",
+        "prefix": "View:",
+        "block_id": "lme-creditor-exposure",
+        "label": "Recovery intake view"
+      },
+      {
+        "module_id": "CP-4C",
+        "heading": "Recovery operand consequences",
+        "kind": "table",
+        "block_id": "lme-creditor-exposure",
+        "label": "Recovery operand consequences"
+      },
+      {
+        "module_id": "CP-4C",
+        "heading": "Recovery missing controls",
+        "kind": "table",
+        "block_id": "capacity",
+        "label": "Recovery missing controls"
+      },
+      {
+        "module_id": "CP-4C",
+        "heading": "Recovery intake conclusion",
+        "kind": "prose",
+        "block_id": "red-flags",
+        "label": "Recovery intake conclusion"
+      }
+    ],
+    "title": "LMI Aerospace recovery input requirements",
+    "question": "How do current structural and control findings constrain a recovery model?",
+    "issuer_aliases": [
+      "LMI Aerospace",
+      "LMI"
+    ],
+    "scope": "Fresh downstream intake of current CP4B/CP4D, historical2014ICA. No positive numericalrecovery/fullCP4C/nativepathwayproof."
+  }
+}

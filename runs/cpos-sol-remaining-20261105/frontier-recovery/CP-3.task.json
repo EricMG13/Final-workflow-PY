@@ -1,0 +1,45 @@
+{
+  "run": {
+    "run_id": "sol-remaining-frontier-recovery-consumer-20261105",
+    "issuer_id": "FTR",
+    "issuer_name": "Frontier Communications Corporation",
+    "as_of": "2020-06-29",
+    "case_kind": "public",
+    "pathway": "distressed_restructuring",
+    "requested_modules": [
+      "CP-3A"
+    ]
+  },
+  "module_id": "CP-3",
+  "instructions": {
+    "path": "CP-3.instructions.md",
+    "sha256": "668ac2429bbfe54fcfc19a736492a93d42ad7ed5cc07641280399888eb7183f9"
+  },
+  "sources": {
+    "disclosure": {
+      "path": "../../frontier-2020-001/sources/source-lines.txt",
+      "sha256": "449e28443aebc42a7f5a2a323ca5dea1d4c34a2407531b9caaff47dcd3cac4d8"
+    },
+    "method-runbook": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/CP-3A_RUNBOOK.md",
+      "sha256": "cbb19deed431ea93c91b5e4d025d466869169681e8daa2d94a70ecde775dbc8e"
+    },
+    "method-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/REF_CP-3A_STEPS.md",
+      "sha256": "40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../../frontier-2020-001/CP-0.md",
+      "sha256": "166c1395182a3ed574ac6ef1be9050489b2a8f4cd9faf13a1a3cfc6172695a9d"
+    },
+    "CP-4C": {
+      "path": "CP-4C-repaired.md",
+      "sha256": "14cafb053370f8af95a8f46c1d87ae57ce2e7c635824505c253cecc41b759a82"
+    }
+  },
+  "layout": "CP-3.layout.json",
+  "checks": "CP-3.checks.json",
+  "output": "CP-3.md"
+}

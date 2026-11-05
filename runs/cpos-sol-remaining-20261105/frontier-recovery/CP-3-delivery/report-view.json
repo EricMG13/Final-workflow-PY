@@ -1,0 +1,1779 @@
+{
+  "schema_version": "report-view/1",
+  "pathway": {
+    "id": "distressed_restructuring",
+    "title": "Frontier historical recovery differences and security-selection limits",
+    "question": "What do actual fresh recovery results change about conditional creditor-class comparison?",
+    "requested_modules": [
+      "CP-3A"
+    ],
+    "blocks": [
+      "recovery-by-class",
+      "value-allocation-claims",
+      "instrument-decision"
+    ]
+  },
+  "call": [
+    {
+      "kind": "na",
+      "label": "Assessment",
+      "value_text": "Assessment pending",
+      "meter": null,
+      "ref_id": null,
+      "direction": null,
+      "line": false
+    }
+  ],
+  "call_withheld": "not_requested",
+  "blocks": [
+    {
+      "block_id": "recovery-by-class",
+      "title": "Recovery by class",
+      "owner": "CP-3",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Instrument / source claim",
+      "columns": [
+        "Low total fraction",
+        "High total fraction",
+        "Recovery mechanic / sensitivity interpretation"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "Revolver 749.0; 1L term loan 1,740.0; 1L notes 1,650.0; one equal-rank 4,139.0 class",
+          "cells": [
+            {
+              "text": "0.865398",
+              "prov": "cited",
+              "ref_id": "C1",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "1.000000",
+              "prov": "cited",
+              "ref_id": "C1",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Shared collateral 3,523.2 / 4,139.0 plus HoldCo deficiency payment 58.680352 / 0. Moderate sensitivity within these cases; no preference among the three from rank.",
+              "prov": "cited",
+              "ref_id": "C1",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "2L notes 1,600.0",
+          "cells": [
+            {
+              "text": "0.095291",
+              "prov": "cited",
+              "ref_id": "C2",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "0.749657",
+              "prov": "cited",
+              "ref_id": "C2",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Collateral 0 / 1,135.1 plus deficiency cash 152.466001 / 64.351796. High sensitivity: upside reaches junior collateral only after shared 1L coverage.",
+              "prov": "cited",
+              "ref_id": "C2",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r2",
+          "label": "HoldCo Senior Notes 11,445.4",
+          "cells": [
+            {
+              "text": "0.095291",
+              "prov": "cited",
+              "ref_id": "C3",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "0.138421",
+              "prov": "cited",
+              "ref_id": "C3",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Unsecured cash 1,090.646482 / 1,584.280585; structurally subordinated to local liabilities and exposed to competing deficiencies. High sensitivity despite the relatively narrow disclosed endpoint range.",
+              "prov": "cited",
+              "ref_id": "C3",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": "Recovery comparison",
+      "tabs": [
+        {
+          "label": "Recovery basis controls",
+          "scale": null,
+          "row_header": "Metric",
+          "columns": [
+            "Low",
+            "High"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "first_lien_total_recovery_fraction",
+              "cells": [
+                {
+                  "text": "0.865398",
+                  "prov": "cited",
+                  "ref_id": "C7",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "1.000000",
+                  "prov": "cited",
+                  "ref_id": "C7",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "second_lien_total_recovery_fraction",
+              "cells": [
+                {
+                  "text": "0.095291",
+                  "prov": "cited",
+                  "ref_id": "C8",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "0.749657",
+                  "prov": "cited",
+                  "ref_id": "C8",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "senior_notes_total_recovery_fraction",
+              "cells": [
+                {
+                  "text": "0.095291",
+                  "prov": "cited",
+                  "ref_id": "C9",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "0.138421",
+                  "prov": "cited",
+                  "ref_id": "C9",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        }
+      ],
+      "note": null,
+      "full_analysis_route": "CP-3",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "value-allocation-claims",
+      "title": "Value allocation and claims",
+      "owner": "CP-3",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Adopted producer finding",
+      "columns": [
+        "Changed economic interpretation",
+        "Decision consequence / trace"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "Unpaid secured claims share HoldCo pari passu",
+          "cells": [
+            {
+              "text": "Low 2L is not zero total recovery: it matches Senior Notes’ fraction through its deficiency claim. Low 1L also has value beyond collateral.",
+              "prov": "cited",
+              "ref_id": "C4",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Do not confuse collateral rows with total recoveries. P T4E.7; disclosure p9 L6134–6141 and p11 L6324–6336.",
+              "prov": "cited",
+              "ref_id": "C4",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "Pledged marginal class moves from 1L low to 2L high",
+          "cells": [
+            {
+              "text": "2L has substantial collateral upside, not merely the same unsecured exposure as Senior Notes in every case.",
+              "prov": "cited",
+              "ref_id": "C5",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "No unique group-wide fulcrum: HoldCo remains a separate marginal pool. P T4E.6; disclosure pp9–10 L6124–6141, L6213–6230.",
+              "prov": "cited",
+              "ref_id": "C5",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r2",
+          "label": "Source has separate pledged and HoldCo distributable pools",
+          "cells": [
+            {
+              "text": "Gross group sale value is not freely fungible collateral; non-pledged equity upflow is already in HoldCo.",
+              "prov": "cited",
+              "ref_id": "C6",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Do not double-count 759.1 / 1,107.1 upflow, prior deductions or guarantees. P T4E.5; disclosure p8 L6078–6082, p9 L6169, p10 L6266.",
+              "prov": "cited",
+              "ref_id": "C6",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": "Adoption consequences",
+      "tabs": [
+        {
+          "label": "Decision evidence gaps",
+          "scale": null,
+          "row_header": "Missing evidence / conflict",
+          "columns": [
+            "Decision affected",
+            "Required follow-up / observable"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Historical prices, trade accruals, market benchmarks, trading liquidity and portfolio constraints: Not supplied",
+              "cells": [
+                {
+                  "text": "Compensation Unclear; all five instruments Require More Work; no security-selection ranking",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Obtain as-of quotes, settlement/accrual basis, executable liquidity and portfolio limits before CP-3 RV/implementation.",
+                  "prov": "cited",
+                  "ref_id": "C10",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Controlling instrument terms, guarantees, perfection, intercreditor and entity waterfalls: Not supplied",
+              "cells": [
+                {
+                  "text": "Source aggregates do not certify collateral reach, release/priming capacity or equal economics",
+                  "prov": "cited",
+                  "ref_id": "C11",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "CP-4/4B legal review; entity chart and instruments. PBGC direct-HoldCo alternative can redistribute value (p11 L6312).",
+                  "prov": "cited",
+                  "ref_id": "C11",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Allowed claims and plan claim dates: Not supplied; Senior Notes maturity and lease inconsistencies retained",
+              "cells": [
+                {
+                  "text": "No series-level selection or independent plan 43–45% reconstruction",
+                  "prov": "cited",
+                  "ref_id": "C12",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Reconcile P gaps to disclosure p4 L1582 versus p11 L6340; p9 L6143 versus p10 L6232.",
+                  "prov": "cited",
+                  "ref_id": "C12",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Final MIP, takeback documents, surplus cash and exit commitments: Not supplied",
+              "cells": [
+                {
+                  "text": "Noncash value, dilution and liquidity remain conditional",
+                  "prov": "cited",
+                  "ref_id": "C13",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Review plan supplement, commitment amounts and takeback decision at least 30 days pre-effective (p5 L3342, L3867).",
+                  "prov": "cited",
+                  "ref_id": "C13",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Liquidation taxes excluded; updated operating/fee evidence: Not supplied",
+              "cells": [
+                {
+                  "text": "Endpoints are not floors; approval delay may erode proceeds",
+                  "prov": "cited",
+                  "ref_id": "C14",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Tax/fee review, churn, maintenance, vendor terms and liquidity updates; no unsupported quantitative trigger (p7 L5945–5957; p10 L6274).",
+                  "prov": "cited",
+                  "ref_id": "C14",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        }
+      ],
+      "note": null,
+      "full_analysis_route": "CP-3",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "instrument-decision",
+      "title": "Instrument decision",
+      "owner": "CP-3",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "prose",
+      "scale": null,
+      "row_header": null,
+      "columns": [],
+      "rows": [],
+      "lines": [
+        {
+          "runs": [
+            {
+              "text": "View: Frontier Communications Corporation’s source-defined liquidation protects the three equal-ranking first-lien instruments more than second liens or HoldCo Senior Notes, but does not establish investment preference. Adopting the fresh repaired CP-4C changes the economics: low-case second liens retain unsecured deficiency value rather than recovering nothing, while high-case second liens participate materially in collateral upside. All instruments Require More Work for security selection; compensation is Unclear.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C15",
+              "kind": "fig",
+              "ref_id": "C15"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Conditional liquidation recovery ordering is 1L above 2L equal to Senior Notes in the low case, and 1L above 2L above Senior Notes in the high case. Equal rank does not establish identical instrument terms or trading economics. This is not an unconditional instrument preference, yield/spread comparison, buy/sell recommendation or position decision.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C22",
+              "kind": "fig",
+              "ref_id": "C22"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "Keep the proposed plan separate: source-reported secured recovery is 100%, Senior Notes 43–45%; neither is independently reconstructed from liquidation claim denominators (disclosure p8 L6021–6033; P T4E.7). Secured treatment is repayment or reinstatement, not necessarily immediate cash. Senior Notes receive new equity subject to MIP dilution, 750 takeback debt subject to reduction, and qualified surplus cash above 150—not liquidation cash and not 750 of new-money funding (p4 L1768–1769, L1008; p5 L3440–3444).",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C23",
+              "kind": "fig",
+              "ref_id": "C23"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "The plan valuation assumes 2021-01-01; liquidation assumes 2020-10-31 sale and 2020-11-01 liquidation with illustrative three-month wind-down. P’s separate plan equity bridge is 2,070–4,570 USDm; it is not predicted trading value or a middle liquidation case (disclosure p13 L6845–6859; p7 L5977–5985).",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C24",
+              "kind": "fig",
+              "ref_id": "C24"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "The strongest countercase to favoring apparent secured protection is that, at sufficiently different prices, junior plan equity participation could offer better economics; prices are absent. The strongest countercase to relying on the plan’s reported recovery advantage is implementation and valuation erosion. Exit financing is only a commercially reasonable best-efforts 850 commitment target, not certified available funds. Surplus cash is adjusted for deferred pensions, regulatory/restructuring payments and any commitment shortfall; exit proceeds are excluded and the facility is to remain undrawn except L/Cs (p5 L3440).",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C25",
+              "kind": "fig",
+              "ref_id": "C25"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "At the historical decision point, FCC/PUC approvals and confirmation were prospective. Class acceptance requires at least two-thirds in value AND more than half in number of voting allowed claims, distinct from RSA support thresholds (p4 L1935, L2422; p6 L4906). Approval/financing delay can extend liquidity strain, vendor contraction, employee/customer attrition and deferred maintenance; lower EBITDA and buyer appetite then shrink both pools while deficiencies compete for less HoldCo value. The source itself calls liquidation optimistic (p7 L5950–5957; p13 L6865–6869). Monitor approvals, actual exit commitments, ballots, liquidity forecasts, churn, retention, vendor terms and network reinvestment. No numerical path probability is assigned.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C26",
+              "kind": "fig",
+              "ref_id": "C26"
+            }
+          ],
+          "label": null,
+          "section": null
+        }
+      ],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-3",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    }
+  ],
+  "unplaced": [],
+  "passports": [
+    {
+      "ref_id": "C1",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 25"
+        },
+        {
+          "name": "Quote",
+          "value": "| Revolver 749.0; 1L term loan 1,740.0; 1L notes 1,650.0; one equal-rank 4,139.0 class | 0.865398 | 1.000000 | Shared collateral 3,523.2 / 4,139.0 plus HoldCo deficiency payment 58.680352 / 0. Moderate sensitivity within these cases; no preference among the three from rank. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C2",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 26"
+        },
+        {
+          "name": "Quote",
+          "value": "| 2L notes 1,600.0 | 0.095291 | 0.749657 | Collateral 0 / 1,135.1 plus deficiency cash 152.466001 / 64.351796. High sensitivity: upside reaches junior collateral only after shared 1L coverage. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C3",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 27"
+        },
+        {
+          "name": "Quote",
+          "value": "| HoldCo Senior Notes 11,445.4 | 0.095291 | 0.138421 | Unsecured cash 1,090.646482 / 1,584.280585; structurally subordinated to local liabilities and exposed to competing deficiencies. High sensitivity despite the relatively narrow disclosed endpoint range. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C4",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 35"
+        },
+        {
+          "name": "Quote",
+          "value": "| Unpaid secured claims share HoldCo pari passu | Low 2L is not zero total recovery: it matches Senior Notes’ fraction through its deficiency claim. Low 1L also has value beyond collateral. | Do not confuse collateral rows with total recoveries. P T4E.7; disclosure p9 L6134–6141 and p11 L6324–6336. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C5",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 36"
+        },
+        {
+          "name": "Quote",
+          "value": "| Pledged marginal class moves from 1L low to 2L high | 2L has substantial collateral upside, not merely the same unsecured exposure as Senior Notes in every case. | No unique group-wide fulcrum: HoldCo remains a separate marginal pool. P T4E.6; disclosure pp9–10 L6124–6141, L6213–6230. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C6",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 37"
+        },
+        {
+          "name": "Quote",
+          "value": "| Source has separate pledged and HoldCo distributable pools | Gross group sale value is not freely fungible collateral; non-pledged equity upflow is already in HoldCo. | Do not double-count 759.1 / 1,107.1 upflow, prior deductions or guarantees. P T4E.5; disclosure p8 L6078–6082, p9 L6169, p10 L6266. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C7",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 57"
+        },
+        {
+          "name": "Quote",
+          "value": "| first_lien_total_recovery_fraction | 0.865398 | 1.000000 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C8",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 58"
+        },
+        {
+          "name": "Quote",
+          "value": "| second_lien_total_recovery_fraction | 0.095291 | 0.749657 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C9",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 59"
+        },
+        {
+          "name": "Quote",
+          "value": "| senior_notes_total_recovery_fraction | 0.095291 | 0.138421 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C10",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 71"
+        },
+        {
+          "name": "Quote",
+          "value": "| Historical prices, trade accruals, market benchmarks, trading liquidity and portfolio constraints: Not supplied | Compensation Unclear; all five instruments Require More Work; no security-selection ranking | Obtain as-of quotes, settlement/accrual basis, executable liquidity and portfolio limits before CP-3 RV/implementation. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C11",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 72"
+        },
+        {
+          "name": "Quote",
+          "value": "| Controlling instrument terms, guarantees, perfection, intercreditor and entity waterfalls: Not supplied | Source aggregates do not certify collateral reach, release/priming capacity or equal economics | CP-4/4B legal review; entity chart and instruments. PBGC direct-HoldCo alternative can redistribute value (p11 L6312). |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C12",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 73"
+        },
+        {
+          "name": "Quote",
+          "value": "| Allowed claims and plan claim dates: Not supplied; Senior Notes maturity and lease inconsistencies retained | No series-level selection or independent plan 43–45% reconstruction | Reconcile P gaps to disclosure p4 L1582 versus p11 L6340; p9 L6143 versus p10 L6232. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C13",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 74"
+        },
+        {
+          "name": "Quote",
+          "value": "| Final MIP, takeback documents, surplus cash and exit commitments: Not supplied | Noncash value, dilution and liquidity remain conditional | Review plan supplement, commitment amounts and takeback decision at least 30 days pre-effective (p5 L3342, L3867). |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C14",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 75"
+        },
+        {
+          "name": "Quote",
+          "value": "| Liquidation taxes excluded; updated operating/fee evidence: Not supplied | Endpoints are not floors; approval delay may erode proceeds | Tax/fee review, churn, maintenance, vendor terms and liquidity updates; no unsupported quantitative trigger (p7 L5945–5957; p10 L6274). |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C15",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 5"
+        },
+        {
+          "name": "Quote",
+          "value": "View: Frontier Communications Corporation’s source-defined liquidation protects the three equal-ranking first-lien instruments more than second liens or HoldCo Senior Notes, but does not establish investment preference. Adopting the fresh repaired CP-4C changes the economics: low-case second liens retain unsecured deficiency value rather than recovering nothing, while high-case second liens participate materially in collateral upside. All instruments **Require More Work** for security selection; compensation is **Unclear**."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C16",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 7"
+        },
+        {
+          "name": "Quote",
+          "value": "Run `sol-remaining-frontier-recovery-consumer-20261105`; issuer FTR; method `deploy-v-r14`. Execution 2026-11-05; historical evidence as of 2020-06-29. This is focused downstream consumption within CP-3, not full CP-3A, native gate acceptance or trade proof. Missing CP-3 market/RV inputs block only dependent preference conclusions: `UPSTREAM_DEPENDENCY_MISSING`. Supported recovery comparison continues, Ready with Limitations. Inherited approval/output assertions are not new authority."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C17",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 11"
+        },
+        {
+          "name": "Quote",
+          "value": "Read both supplied handoffs in full: current CP-4C, run `sol-remaining-frontier-recovery-20261105`, SHA-256 `14cafb053370f8af95a8f46c1d87ae57ce2e7c635824505c253cecc41b759a82` (hereafter **P**); limited historical CP-0, SHA-256 `166c1395182a3ed574ac6ef1be9050489b2a8f4cd9faf13a1a3cfc6172695a9d`. P is the numerical producer; CP-0 admits selected historical disclosure, not a complete underwriting pack."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C18",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 13"
+        },
+        {
+          "name": "Quote",
+          "value": "Primary `disclosure`, SHA-256 `449e28443aebc42a7f5a2a323ca5dea1d4c34a2407531b9caaff47dcd3cac4d8`, SEC Exhibit 99.1: https://www.sec.gov/Archives/edgar/data/20520/000114036120015359/ex99_1.htm. Re-touched retrieval pp4–11 and p13; citations retain original line indexes. The capture is selected text, not the whole original document; no visual entity-chart review claimed."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C19",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 15"
+        },
+        {
+          "name": "Quote",
+          "value": "Read current `method-runbook` p1, SHA-256 `cbb19deed431ea93c91b5e4d025d466869169681e8daa2d94a70ecde775dbc8e`, and `method-steps` pp1–2, SHA-256 `40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec`. Apply source gating, structural ordering, sensitivity, compensation restraint and gaps within this request; do not manufacture full-method registers or accepted dependencies. No other issuer facts or prior consumer answer used."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C20",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 21"
+        },
+        {
+          "name": "Quote",
+          "value": "Amounts USDm; liquidation recovery fractions are 0–1, not percentage units. Claims are source-estimated scenario claims, not allowed claims or GAAP carrying debt. Source local administrative, secured and unsecured deductions precede the shared liens (disclosure p8 L5989–5998; P T4E.2, T4E.5–7)."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C21",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 29"
+        },
+        {
+          "name": "Quote",
+          "value": "Trace: P T4E.7 and Recovery numeric controls; disclosure p9 L6124–6145, p10 L6213–6234, p11 L6324–6338. Sensitivities are analyst interpretations conditional on the source perimeter, not independently verified legal protection. Confidence in security selection is Low; arithmetic confidence does not cure missing legal/market evidence."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C22",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 41"
+        },
+        {
+          "name": "Quote",
+          "value": "Conditional **liquidation recovery ordering** is 1L above 2L equal to Senior Notes in the low case, and 1L above 2L above Senior Notes in the high case. Equal rank does not establish identical instrument terms or trading economics. This is not an unconditional instrument preference, yield/spread comparison, buy/sell recommendation or position decision."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C23",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 43"
+        },
+        {
+          "name": "Quote",
+          "value": "Keep the proposed plan separate: source-reported secured recovery is 100%, Senior Notes 43–45%; neither is independently reconstructed from liquidation claim denominators (disclosure p8 L6021–6033; P T4E.7). Secured treatment is repayment or reinstatement, not necessarily immediate cash. Senior Notes receive new equity subject to MIP dilution, 750 takeback debt subject to reduction, and qualified surplus cash above 150—not liquidation cash and not 750 of new-money funding (p4 L1768–1769, L1008; p5 L3440–3444)."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C24",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 45"
+        },
+        {
+          "name": "Quote",
+          "value": "The plan valuation assumes 2021-01-01; liquidation assumes 2020-10-31 sale and 2020-11-01 liquidation with illustrative three-month wind-down. P’s separate plan equity bridge is 2,070–4,570 USDm; it is not predicted trading value or a middle liquidation case (disclosure p13 L6845–6859; p7 L5977–5985)."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C25",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 47"
+        },
+        {
+          "name": "Quote",
+          "value": "The strongest countercase to favoring apparent secured protection is that, at sufficiently different prices, junior plan equity participation could offer better economics; prices are absent. The strongest countercase to relying on the plan’s reported recovery advantage is implementation and valuation erosion. Exit financing is only a commercially reasonable best-efforts 850 commitment target, not certified available funds. Surplus cash is adjusted for deferred pensions, regulatory/restructuring payments and any commitment shortfall; exit proceeds are excluded and the facility is to remain undrawn except L/Cs (p5 L3440)."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C26",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 49"
+        },
+        {
+          "name": "Quote",
+          "value": "At the historical decision point, FCC/PUC approvals and confirmation were prospective. Class acceptance requires at least two-thirds in value **AND** more than half in number of voting allowed claims, distinct from RSA support thresholds (p4 L1935, L2422; p6 L4906). Approval/financing delay can extend liquidity strain, vendor contraction, employee/customer attrition and deferred maintenance; lower EBITDA and buyer appetite then shrink both pools while deficiencies compete for less HoldCo value. The source itself calls liquidation optimistic (p7 L5950–5957; p13 L6865–6869). Monitor approvals, actual exit commitments, ballots, liquidity forecasts, churn, retention, vendor terms and network reinvestment. No numerical path probability is assigned."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C27",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 61"
+        },
+        {
+          "name": "Quote",
+          "value": "Copied exactly from P, Recovery numeric controls; no redundant waterfall or arithmetic rerun. P uses net pledged proceeds 3,523.2 / 5,274.1 and HoldCo available 1,306.1 / 1,654.1 against unsecured denominators 13,706.4 / 11,949.8. Only unpaid deficiencies enter those denominators, not full secured principal again. P preserves small source-rounding differences rather than claiming reconciliation to hidden entity calculations."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C28",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 63"
+        },
+        {
+          "name": "Quote",
+          "value": "Secured claims include filing balances plus interest through liquidation; Senior Notes stop interest at filing. Separate principal/accrual splits and plan-denominator reconciliation are Not supplied (disclosure p11 L6324–6338). GAAP carrying values are Not supplied for this comparison; no canonical debt dashboard or total group debt is manufactured."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C29",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 79"
+        },
+        {
+          "name": "Quote",
+          "value": "CP-3A focused consumption completed with limitations. Preferred: none established. All compared instruments: Requires More Work. No current issuer condition, confirmation, actual emergence or realized payment is claimed from this historical source."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    },
+    {
+      "ref_id": "C30",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-3"
+        },
+        {
+          "name": "Locator",
+          "value": "line 81"
+        },
+        {
+          "name": "Quote",
+          "value": "Keep assurance and broader pathway separate: CP-5 audits producer-to-source lineage and conflicts; CP-4/4B resolves legal reach; market-enabled CP-3 completes compensation analysis; CP-6 debates plan execution versus operating erosion after those inputs. No automatic approval follows. Retain this complete raw Markdown separately alongside the checked existing report; do not overwrite the historical report or treat this selected comparison as a completed distressed pathway."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+        }
+      ]
+    }
+  ],
+  "index": {
+    "facts": [
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-3-0.r0.c0"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-3-0.r0.c1"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-3-0.r0.c2"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-3-0.r1.c0"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-3-0.r1.c1"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-3-0.r1.c2"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-3-0.r2.c0"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-3-0.r2.c1"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-3-0.r2.c2"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-3-1.r0.c0"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-3-1.r0.c1"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-3-1.r1.c0"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-3-1.r1.c1"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-3-1.r2.c0"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-3-1.r2.c1"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-3-2.r0.c0"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-3-2.r0.c1"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-3-2.r1.c0"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-3-2.r1.c1"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-3-2.r2.c0"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-3-2.r2.c1"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-3-3.r0.c0"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-3-3.r0.c1"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-3-3.r1.c0"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-3-3.r1.c1"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-3-3.r2.c0"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-3-3.r2.c1"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r3",
+          "fact_id": "raw-CP-3-3.r3.c0"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r3",
+          "fact_id": "raw-CP-3-3.r3.c1"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r4",
+          "fact_id": "raw-CP-3-3.r4.c0"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r4",
+          "fact_id": "raw-CP-3-3.r4.c1"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-0",
+          "row_id": "r0",
+          "fact_id": "prose-CP-3-0.r0.c0"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-0",
+          "row_id": "r1",
+          "fact_id": "prose-CP-3-0.r1.c0"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-1",
+          "row_id": "r0",
+          "fact_id": "prose-CP-3-1.r0.c0"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-1",
+          "row_id": "r1",
+          "fact_id": "prose-CP-3-1.r1.c0"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-1",
+          "row_id": "r2",
+          "fact_id": "prose-CP-3-1.r2.c0"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-2",
+          "row_id": "r0",
+          "fact_id": "prose-CP-3-2.r0.c0"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-2",
+          "row_id": "r1",
+          "fact_id": "prose-CP-3-2.r1.c0"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-3",
+          "row_id": "r0",
+          "fact_id": "prose-CP-3-3.r0.c0"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-3",
+          "row_id": "r1",
+          "fact_id": "prose-CP-3-3.r1.c0"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-3",
+          "row_id": "r2",
+          "fact_id": "prose-CP-3-3.r2.c0"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-3",
+          "row_id": "r3",
+          "fact_id": "prose-CP-3-3.r3.c0"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-3",
+          "row_id": "r4",
+          "fact_id": "prose-CP-3-3.r4.c0"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-4",
+          "row_id": "r0",
+          "fact_id": "prose-CP-3-4.r0.c0"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-4",
+          "row_id": "r1",
+          "fact_id": "prose-CP-3-4.r1.c0"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-5",
+          "row_id": "r0",
+          "fact_id": "prose-CP-3-5.r0.c0"
+        },
+        "ref_ids": [
+          "C29"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-3",
+          "table_id": "prose-CP-3-5",
+          "row_id": "r1",
+          "fact_id": "prose-CP-3-5.r1.c0"
+        },
+        "ref_ids": [
+          "C30"
+        ]
+      }
+    ]
+  }
+}

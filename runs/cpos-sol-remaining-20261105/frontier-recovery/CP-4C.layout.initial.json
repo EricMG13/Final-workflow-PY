@@ -1,0 +1,116 @@
+{
+  "blocks": [
+    "distress-gate",
+    "recovery-by-class",
+    "value-allocation-claims",
+    "restructuring-paths"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-4C",
+      "heading": "Request",
+      "kind": "prose",
+      "prefix": "View:",
+      "block_id": "distress-gate",
+      "label": "Historical restructuring view"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "T4E.1 \u2014 distress gate",
+      "kind": "table",
+      "block_id": "distress-gate",
+      "label": "T4E.1 \u2014 distress gate"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "T4E.2 \u2014 claims and priority",
+      "kind": "table",
+      "block_id": "recovery-by-class",
+      "label": "T4E.2 \u2014 claims and priority"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "T4E.3 \u2014 valuation cases",
+      "kind": "table",
+      "block_id": "value-allocation-claims",
+      "label": "T4E.3 \u2014 valuation cases"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "T4E.4 \u2014 restructuring paths",
+      "kind": "table",
+      "block_id": "restructuring-paths",
+      "label": "T4E.4 \u2014 restructuring paths"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "T4E.5 \u2014 waterfall allocation",
+      "kind": "table",
+      "block_id": "value-allocation-claims",
+      "label": "T4E.5 \u2014 waterfall allocation"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "T4E.6 \u2014 fulcrum sensitivity",
+      "kind": "table",
+      "block_id": "value-allocation-claims",
+      "label": "T4E.6 \u2014 fulcrum sensitivity"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "T4E.7 \u2014 class recoveries",
+      "kind": "table",
+      "block_id": "recovery-by-class",
+      "label": "T4E.7 \u2014 class recoveries"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "T4E.8 \u2014 transfer and control mechanisms",
+      "kind": "table",
+      "block_id": "restructuring-paths",
+      "label": "T4E.8 \u2014 transfer and control mechanisms"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "T4E.9 \u2014 milestones",
+      "kind": "table",
+      "block_id": "distress-gate",
+      "label": "T4E.9 \u2014 milestones"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "T4E.10 \u2014 gaps",
+      "kind": "table",
+      "block_id": "distress-gate",
+      "label": "T4E.10 \u2014 gaps"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "Recovery numeric controls",
+      "kind": "table",
+      "block_id": "value-allocation-claims",
+      "label": "Recovery numeric controls"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "Plan equity bridge controls",
+      "kind": "table",
+      "block_id": "value-allocation-claims",
+      "label": "Plan equity bridge controls"
+    },
+    {
+      "module_id": "CP-4C",
+      "heading": "Restructuring conclusion",
+      "kind": "prose",
+      "block_id": "distress-gate",
+      "label": "Restructuring conclusion"
+    }
+  ],
+  "title": "Frontier historical liquidation recovery and plan comparison",
+  "question": "How do documented claims and valuation cases change class recoveries and the marginal pledged-pool class?",
+  "issuer_aliases": [
+    "Frontier",
+    "Frontier Communications"
+  ],
+  "scope": "Fresh sol-medium source-basedhistoricalCP4C numericalfunction. SourceJun29 2020scenarios/claims, notactualdistributions/currentvaluation/fullnativegates/fullpathway."
+}

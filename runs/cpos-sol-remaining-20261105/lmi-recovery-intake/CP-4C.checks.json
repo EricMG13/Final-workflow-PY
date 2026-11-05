@@ -1,0 +1,42 @@
+{
+  "required_terms": [
+    "2014-06-19",
+    "2026-11-05",
+    "Rule 3-16",
+    "180",
+    "15",
+    "nineteen",
+    "105%"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Recovery missing controls",
+      "columns": [
+        "Metric",
+        "Value"
+      ],
+      "rows": [
+        [
+          "actual_senior_claims_USDm",
+          "\u2014"
+        ],
+        [
+          "actual_junior_claims_USDm",
+          "\u2014"
+        ],
+        [
+          "entity_realizable_value_USDm",
+          "\u2014"
+        ],
+        [
+          "recovery_percent",
+          "\u2014"
+        ],
+        [
+          "fulcrum_value_USDm",
+          "\u2014"
+        ]
+      ]
+    }
+  ]
+}

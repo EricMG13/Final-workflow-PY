@@ -1,0 +1,49 @@
+{
+  "run": {
+    "run_id": "sol-remaining-lmi-structure-20261105",
+    "issuer_id": "LMI",
+    "issuer_name": "LMI Aerospace, Inc.",
+    "as_of": "2014-06-19",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-4B"
+    ]
+  },
+  "module_id": "CP-4",
+  "instructions": {
+    "path": "CP-4.instructions.md",
+    "sha256": "69bca1f84f43341c66c379bf31ab72407d2ee6916bed2a3b51cc2a061a6dc34d"
+  },
+  "sources": {
+    "ICA": {
+      "path": "../../lmi-2014-001/sources/source-lines.txt",
+      "sha256": "79d954d69435bc83728b8bf2f7592fe33712e9c16d465a814ea151510c9bedb7"
+    },
+    "selected-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/SKILL.md",
+      "sha256": "8a3b12f3f37359463434177759febac1ffcf0f8c484aa0508eb7119f7b6548b2"
+    },
+    "method-runbook": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/references/CP-4B_RUNBOOK.md",
+      "sha256": "31ed040b5604c63dac454a87206036f9b9a17f160843232d755cff4e48a019c1"
+    },
+    "method-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/references/REF_CP-4B_STEPS.md",
+      "sha256": "62c3fc234a4eeab776af3233d5013eb45ce2eebe53d8c612948b00b97cad284e"
+    },
+    "entity-source-index": {
+      "path": "entity-source-index.json",
+      "sha256": "689251195ca22c06f8d04328beb74783fbdd4a935cda5e438baa994533ee68f5"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../../lmi-2014-001/CP-0.md",
+      "sha256": "aefd1746676cfbf5a5f3d51f8c93ecaccbed0d3ba6e4ce5e78746a3c0898d1ff"
+    }
+  },
+  "layout": "CP-4.layout.json",
+  "checks": "CP-4.checks.json",
+  "output": "CP-4B.md"
+}

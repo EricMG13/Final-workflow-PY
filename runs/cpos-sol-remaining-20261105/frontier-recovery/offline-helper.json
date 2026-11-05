@@ -1,0 +1,136 @@
+{
+  "scope": "Unchanged helper on source-defined net pledged liquidation pools, independent Fraction recovery/deficiency/plan-bridge expectations. Not independent full valuation, current rights or realized distributions.",
+  "source_sha256": "449e28443aebc42a7f5a2a323ca5dea1d4c34a2407531b9caaff47dcd3cac4d8",
+  "source_rows_checked": 20,
+  "cases": [
+    {
+      "case": "low",
+      "net_pledged_proceeds_USDm": "3523.2",
+      "holdco_available_USDm": "1306.1",
+      "holdco_claims_USDm": {
+        "1L_deficiency": "615.8",
+        "2L_deficiency": "1600",
+        "Senior_Notes": "11445.4",
+        "OPEB_deficiency": "13.5",
+        "Lease_Rejection": "8.7",
+        "Trade": "7.6",
+        "Trade_deficiency": "15.4"
+      },
+      "helper_result": {
+        "enterprise_value": 3523.2,
+        "costs": [],
+        "claims": [
+          {
+            "claim_id": "1L_AGGREGATE",
+            "class": "three equal-rank first lien instruments",
+            "entities": [
+              "source aggregated pledged pool"
+            ],
+            "amount": 4139.0,
+            "recovered": 3523.2,
+            "recovery_pct": 0.85122,
+            "status": "partial",
+            "is_fulcrum": true
+          },
+          {
+            "claim_id": "2L",
+            "class": "second lien collateral component",
+            "entities": [
+              "source aggregated pledged pool"
+            ],
+            "amount": 1600.0,
+            "recovered": 0.0,
+            "recovery_pct": 0.0,
+            "status": "no recovery",
+            "is_fulcrum": false
+          }
+        ],
+        "fulcrum_claim_id": "1L_AGGREGATE",
+        "residual_to_equity": 0.0,
+        "fully_allocated": true,
+        "allocation_state": "partial recovery",
+        "status": "complete",
+        "note": null
+      }
+    },
+    {
+      "case": "high",
+      "net_pledged_proceeds_USDm": "5274.1",
+      "holdco_available_USDm": "1654.1",
+      "holdco_claims_USDm": {
+        "1L_deficiency": "0",
+        "2L_deficiency": "464.9",
+        "Senior_Notes": "11445.4",
+        "OPEB_deficiency": "8.2",
+        "Lease_Rejection": "8.3",
+        "Trade": "7.6",
+        "Trade_deficiency": "15.4"
+      },
+      "helper_result": {
+        "enterprise_value": 5274.1,
+        "costs": [],
+        "claims": [
+          {
+            "claim_id": "1L_AGGREGATE",
+            "class": "three equal-rank first lien instruments",
+            "entities": [
+              "source aggregated pledged pool"
+            ],
+            "amount": 4139.0,
+            "recovered": 4139.0,
+            "recovery_pct": 1.0,
+            "status": "full",
+            "is_fulcrum": false
+          },
+          {
+            "claim_id": "2L",
+            "class": "second lien collateral component",
+            "entities": [
+              "source aggregated pledged pool"
+            ],
+            "amount": 1600.0,
+            "recovered": 1135.1,
+            "recovery_pct": 0.709438,
+            "status": "partial",
+            "is_fulcrum": true
+          }
+        ],
+        "fulcrum_claim_id": "2L",
+        "residual_to_equity": 0.0,
+        "fully_allocated": true,
+        "allocation_state": "partial recovery",
+        "status": "complete",
+        "note": null
+      }
+    }
+  ],
+  "sensitivity": {
+    "cases": [
+      {
+        "case": "low",
+        "enterprise_value": 3523.2,
+        "fulcrum_claim_id": "1L_AGGREGATE",
+        "residual_to_equity": 0.0,
+        "allocation_state": "partial recovery",
+        "status": "complete"
+      },
+      {
+        "case": "high",
+        "enterprise_value": 5274.1,
+        "fulcrum_claim_id": "2L",
+        "residual_to_equity": 0.0,
+        "allocation_state": "partial recovery",
+        "status": "complete"
+      }
+    ],
+    "distinct_fulcra": [
+      "1L_AGGREGATE",
+      "2L"
+    ],
+    "fulcrum_stable": false,
+    "cases_computed": 2,
+    "status": "complete",
+    "note": "the fulcrum MOVES across the enterprise-value range \u2014 the instrument receiving marginal value depends on which case holds, and a single-case answer would be misleading"
+  },
+  "synthetic_controls": 6
+}

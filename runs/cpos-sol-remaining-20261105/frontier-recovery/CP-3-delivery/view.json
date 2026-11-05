@@ -1,0 +1,2486 @@
+{
+  "schema_version": "view/4",
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "sol-remaining-frontier-recovery-consumer-20261105",
+    "issuer_id": "FTR",
+    "issuer_name": "Frontier Communications Corporation",
+    "as_of": "2020-06-29",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "distressed_restructuring",
+    "requested_modules": [
+      "CP-3A"
+    ]
+  },
+  "mode": "candidate",
+  "modules": [
+    {
+      "module_id": "CP-3",
+      "title": "Relative value security selection",
+      "aliases": [
+        "CP-3A",
+        "CP-3B"
+      ],
+      "status": "candidate",
+      "artifact_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+      "facts": [
+        {
+          "fact_id": "raw-CP-3-0.r0.c0",
+          "label": "Revolver 749.0; 1L term loan 1,740.0; 1L notes 1,650.0; one equal-rank 4,139.0 class",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "0.865398",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 25",
+              "quote": "| Revolver 749.0; 1L term loan 1,740.0; 1L notes 1,650.0; one equal-rank 4,139.0 class | 0.865398 | 1.000000 | Shared collateral 3,523.2 / 4,139.0 plus HoldCo deficiency payment 58.680352 / 0. Moderate sensitivity within these cases; no preference among the three from rank. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-0.r0.c1",
+          "label": "Revolver 749.0; 1L term loan 1,740.0; 1L notes 1,650.0; one equal-rank 4,139.0 class",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "1.000000",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 25",
+              "quote": "| Revolver 749.0; 1L term loan 1,740.0; 1L notes 1,650.0; one equal-rank 4,139.0 class | 0.865398 | 1.000000 | Shared collateral 3,523.2 / 4,139.0 plus HoldCo deficiency payment 58.680352 / 0. Moderate sensitivity within these cases; no preference among the three from rank. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-0.r0.c2",
+          "label": "Revolver 749.0; 1L term loan 1,740.0; 1L notes 1,650.0; one equal-rank 4,139.0 class",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "Shared collateral 3,523.2 / 4,139.0 plus HoldCo deficiency payment 58.680352 / 0. Moderate sensitivity within these cases; no preference among the three from rank.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 25",
+              "quote": "| Revolver 749.0; 1L term loan 1,740.0; 1L notes 1,650.0; one equal-rank 4,139.0 class | 0.865398 | 1.000000 | Shared collateral 3,523.2 / 4,139.0 plus HoldCo deficiency payment 58.680352 / 0. Moderate sensitivity within these cases; no preference among the three from rank. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-0.r1.c0",
+          "label": "2L notes 1,600.0",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "0.095291",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 26",
+              "quote": "| 2L notes 1,600.0 | 0.095291 | 0.749657 | Collateral 0 / 1,135.1 plus deficiency cash 152.466001 / 64.351796. High sensitivity: upside reaches junior collateral only after shared 1L coverage. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-0.r1.c1",
+          "label": "2L notes 1,600.0",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "0.749657",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 26",
+              "quote": "| 2L notes 1,600.0 | 0.095291 | 0.749657 | Collateral 0 / 1,135.1 plus deficiency cash 152.466001 / 64.351796. High sensitivity: upside reaches junior collateral only after shared 1L coverage. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-0.r1.c2",
+          "label": "2L notes 1,600.0",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "Collateral 0 / 1,135.1 plus deficiency cash 152.466001 / 64.351796. High sensitivity: upside reaches junior collateral only after shared 1L coverage.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 26",
+              "quote": "| 2L notes 1,600.0 | 0.095291 | 0.749657 | Collateral 0 / 1,135.1 plus deficiency cash 152.466001 / 64.351796. High sensitivity: upside reaches junior collateral only after shared 1L coverage. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-0.r2.c0",
+          "label": "HoldCo Senior Notes 11,445.4",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "0.095291",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 27",
+              "quote": "| HoldCo Senior Notes 11,445.4 | 0.095291 | 0.138421 | Unsecured cash 1,090.646482 / 1,584.280585; structurally subordinated to local liabilities and exposed to competing deficiencies. High sensitivity despite the relatively narrow disclosed endpoint range. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-0.r2.c1",
+          "label": "HoldCo Senior Notes 11,445.4",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "0.138421",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 27",
+              "quote": "| HoldCo Senior Notes 11,445.4 | 0.095291 | 0.138421 | Unsecured cash 1,090.646482 / 1,584.280585; structurally subordinated to local liabilities and exposed to competing deficiencies. High sensitivity despite the relatively narrow disclosed endpoint range. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-0.r2.c2",
+          "label": "HoldCo Senior Notes 11,445.4",
+          "table_id": "raw-CP-3-0",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "Unsecured cash 1,090.646482 / 1,584.280585; structurally subordinated to local liabilities and exposed to competing deficiencies. High sensitivity despite the relatively narrow disclosed endpoint range.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 27",
+              "quote": "| HoldCo Senior Notes 11,445.4 | 0.095291 | 0.138421 | Unsecured cash 1,090.646482 / 1,584.280585; structurally subordinated to local liabilities and exposed to competing deficiencies. High sensitivity despite the relatively narrow disclosed endpoint range. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-1.r0.c0",
+          "label": "Unpaid secured claims share HoldCo pari passu",
+          "table_id": "raw-CP-3-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Low 2L is not zero total recovery: it matches Senior Notes’ fraction through its deficiency claim. Low 1L also has value beyond collateral.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 35",
+              "quote": "| Unpaid secured claims share HoldCo pari passu | Low 2L is not zero total recovery: it matches Senior Notes’ fraction through its deficiency claim. Low 1L also has value beyond collateral. | Do not confuse collateral rows with total recoveries. P T4E.7; disclosure p9 L6134–6141 and p11 L6324–6336. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-1.r0.c1",
+          "label": "Unpaid secured claims share HoldCo pari passu",
+          "table_id": "raw-CP-3-1",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Do not confuse collateral rows with total recoveries. P T4E.7; disclosure p9 L6134–6141 and p11 L6324–6336.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 35",
+              "quote": "| Unpaid secured claims share HoldCo pari passu | Low 2L is not zero total recovery: it matches Senior Notes’ fraction through its deficiency claim. Low 1L also has value beyond collateral. | Do not confuse collateral rows with total recoveries. P T4E.7; disclosure p9 L6134–6141 and p11 L6324–6336. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-1.r1.c0",
+          "label": "Pledged marginal class moves from 1L low to 2L high",
+          "table_id": "raw-CP-3-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "2L has substantial collateral upside, not merely the same unsecured exposure as Senior Notes in every case.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 36",
+              "quote": "| Pledged marginal class moves from 1L low to 2L high | 2L has substantial collateral upside, not merely the same unsecured exposure as Senior Notes in every case. | No unique group-wide fulcrum: HoldCo remains a separate marginal pool. P T4E.6; disclosure pp9–10 L6124–6141, L6213–6230. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-1.r1.c1",
+          "label": "Pledged marginal class moves from 1L low to 2L high",
+          "table_id": "raw-CP-3-1",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "No unique group-wide fulcrum: HoldCo remains a separate marginal pool. P T4E.6; disclosure pp9–10 L6124–6141, L6213–6230.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 36",
+              "quote": "| Pledged marginal class moves from 1L low to 2L high | 2L has substantial collateral upside, not merely the same unsecured exposure as Senior Notes in every case. | No unique group-wide fulcrum: HoldCo remains a separate marginal pool. P T4E.6; disclosure pp9–10 L6124–6141, L6213–6230. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-1.r2.c0",
+          "label": "Source has separate pledged and HoldCo distributable pools",
+          "table_id": "raw-CP-3-1",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Gross group sale value is not freely fungible collateral; non-pledged equity upflow is already in HoldCo.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 37",
+              "quote": "| Source has separate pledged and HoldCo distributable pools | Gross group sale value is not freely fungible collateral; non-pledged equity upflow is already in HoldCo. | Do not double-count 759.1 / 1,107.1 upflow, prior deductions or guarantees. P T4E.5; disclosure p8 L6078–6082, p9 L6169, p10 L6266. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-1.r2.c1",
+          "label": "Source has separate pledged and HoldCo distributable pools",
+          "table_id": "raw-CP-3-1",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Do not double-count 759.1 / 1,107.1 upflow, prior deductions or guarantees. P T4E.5; disclosure p8 L6078–6082, p9 L6169, p10 L6266.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 37",
+              "quote": "| Source has separate pledged and HoldCo distributable pools | Gross group sale value is not freely fungible collateral; non-pledged equity upflow is already in HoldCo. | Do not double-count 759.1 / 1,107.1 upflow, prior deductions or guarantees. P T4E.5; disclosure p8 L6078–6082, p9 L6169, p10 L6266. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-2.r0.c0",
+          "label": "first_lien_total_recovery_fraction",
+          "table_id": "raw-CP-3-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "0.865398",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 57",
+              "quote": "| first_lien_total_recovery_fraction | 0.865398 | 1.000000 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-2.r0.c1",
+          "label": "first_lien_total_recovery_fraction",
+          "table_id": "raw-CP-3-2",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "1.000000",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 57",
+              "quote": "| first_lien_total_recovery_fraction | 0.865398 | 1.000000 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-2.r1.c0",
+          "label": "second_lien_total_recovery_fraction",
+          "table_id": "raw-CP-3-2",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "0.095291",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 58",
+              "quote": "| second_lien_total_recovery_fraction | 0.095291 | 0.749657 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-2.r1.c1",
+          "label": "second_lien_total_recovery_fraction",
+          "table_id": "raw-CP-3-2",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "0.749657",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 58",
+              "quote": "| second_lien_total_recovery_fraction | 0.095291 | 0.749657 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-2.r2.c0",
+          "label": "senior_notes_total_recovery_fraction",
+          "table_id": "raw-CP-3-2",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "0.095291",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 59",
+              "quote": "| senior_notes_total_recovery_fraction | 0.095291 | 0.138421 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-2.r2.c1",
+          "label": "senior_notes_total_recovery_fraction",
+          "table_id": "raw-CP-3-2",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "0.138421",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 59",
+              "quote": "| senior_notes_total_recovery_fraction | 0.095291 | 0.138421 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-3.r0.c0",
+          "label": "Historical prices, trade accruals, market benchmarks, trading liquidity and portfolio constraints: Not supplied",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Compensation Unclear; all five instruments Require More Work; no security-selection ranking",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 71",
+              "quote": "| Historical prices, trade accruals, market benchmarks, trading liquidity and portfolio constraints: Not supplied | Compensation Unclear; all five instruments Require More Work; no security-selection ranking | Obtain as-of quotes, settlement/accrual basis, executable liquidity and portfolio limits before CP-3 RV/implementation. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-3.r0.c1",
+          "label": "Historical prices, trade accruals, market benchmarks, trading liquidity and portfolio constraints: Not supplied",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Obtain as-of quotes, settlement/accrual basis, executable liquidity and portfolio limits before CP-3 RV/implementation.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 71",
+              "quote": "| Historical prices, trade accruals, market benchmarks, trading liquidity and portfolio constraints: Not supplied | Compensation Unclear; all five instruments Require More Work; no security-selection ranking | Obtain as-of quotes, settlement/accrual basis, executable liquidity and portfolio limits before CP-3 RV/implementation. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-3.r1.c0",
+          "label": "Controlling instrument terms, guarantees, perfection, intercreditor and entity waterfalls: Not supplied",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Source aggregates do not certify collateral reach, release/priming capacity or equal economics",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 72",
+              "quote": "| Controlling instrument terms, guarantees, perfection, intercreditor and entity waterfalls: Not supplied | Source aggregates do not certify collateral reach, release/priming capacity or equal economics | CP-4/4B legal review; entity chart and instruments. PBGC direct-HoldCo alternative can redistribute value (p11 L6312). |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-3.r1.c1",
+          "label": "Controlling instrument terms, guarantees, perfection, intercreditor and entity waterfalls: Not supplied",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "CP-4/4B legal review; entity chart and instruments. PBGC direct-HoldCo alternative can redistribute value (p11 L6312).",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 72",
+              "quote": "| Controlling instrument terms, guarantees, perfection, intercreditor and entity waterfalls: Not supplied | Source aggregates do not certify collateral reach, release/priming capacity or equal economics | CP-4/4B legal review; entity chart and instruments. PBGC direct-HoldCo alternative can redistribute value (p11 L6312). |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-3.r2.c0",
+          "label": "Allowed claims and plan claim dates: Not supplied; Senior Notes maturity and lease inconsistencies retained",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "No series-level selection or independent plan 43–45% reconstruction",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 73",
+              "quote": "| Allowed claims and plan claim dates: Not supplied; Senior Notes maturity and lease inconsistencies retained | No series-level selection or independent plan 43–45% reconstruction | Reconcile P gaps to disclosure p4 L1582 versus p11 L6340; p9 L6143 versus p10 L6232. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-3.r2.c1",
+          "label": "Allowed claims and plan claim dates: Not supplied; Senior Notes maturity and lease inconsistencies retained",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Reconcile P gaps to disclosure p4 L1582 versus p11 L6340; p9 L6143 versus p10 L6232.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 73",
+              "quote": "| Allowed claims and plan claim dates: Not supplied; Senior Notes maturity and lease inconsistencies retained | No series-level selection or independent plan 43–45% reconstruction | Reconcile P gaps to disclosure p4 L1582 versus p11 L6340; p9 L6143 versus p10 L6232. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-3.r3.c0",
+          "label": "Final MIP, takeback documents, surplus cash and exit commitments: Not supplied",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Noncash value, dilution and liquidity remain conditional",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 74",
+              "quote": "| Final MIP, takeback documents, surplus cash and exit commitments: Not supplied | Noncash value, dilution and liquidity remain conditional | Review plan supplement, commitment amounts and takeback decision at least 30 days pre-effective (p5 L3342, L3867). |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-3.r3.c1",
+          "label": "Final MIP, takeback documents, surplus cash and exit commitments: Not supplied",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Review plan supplement, commitment amounts and takeback decision at least 30 days pre-effective (p5 L3342, L3867).",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 74",
+              "quote": "| Final MIP, takeback documents, surplus cash and exit commitments: Not supplied | Noncash value, dilution and liquidity remain conditional | Review plan supplement, commitment amounts and takeback decision at least 30 days pre-effective (p5 L3342, L3867). |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-3.r4.c0",
+          "label": "Liquidation taxes excluded; updated operating/fee evidence: Not supplied",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "Endpoints are not floors; approval delay may erode proceeds",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 75",
+              "quote": "| Liquidation taxes excluded; updated operating/fee evidence: Not supplied | Endpoints are not floors; approval delay may erode proceeds | Tax/fee review, churn, maintenance, vendor terms and liquidity updates; no unsupported quantitative trigger (p7 L5945–5957; p10 L6274). |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3-3.r4.c1",
+          "label": "Liquidation taxes excluded; updated operating/fee evidence: Not supplied",
+          "table_id": "raw-CP-3-3",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "Tax/fee review, churn, maintenance, vendor terms and liquidity updates; no unsupported quantitative trigger (p7 L5945–5957; p10 L6274).",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 75",
+              "quote": "| Liquidation taxes excluded; updated operating/fee evidence: Not supplied | Endpoints are not floors; approval delay may erode proceeds | Tax/fee review, churn, maintenance, vendor terms and liquidity updates; no unsupported quantitative trigger (p7 L5945–5957; p10 L6274). |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-0.r0.c0",
+          "label": "Request",
+          "table_id": "prose-CP-3-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "View: Frontier Communications Corporation’s source-defined liquidation protects the three equal-ranking first-lien instruments more than second liens or HoldCo Senior Notes, but does not establish investment preference. Adopting the fresh repaired CP-4C changes the economics: low-case second liens retain unsecured deficiency value rather than recovering nothing, while high-case second liens participate materially in collateral upside. All instruments Require More Work for security selection; compensation is Unclear.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 5",
+              "quote": "View: Frontier Communications Corporation’s source-defined liquidation protects the three equal-ranking first-lien instruments more than second liens or HoldCo Senior Notes, but does not establish investment preference. Adopting the fresh repaired CP-4C changes the economics: low-case second liens retain unsecured deficiency value rather than recovering nothing, while high-case second liens participate materially in collateral upside. All instruments **Require More Work** for security selection; compensation is **Unclear**."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-0.r1.c0",
+          "label": "Request",
+          "table_id": "prose-CP-3-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Run sol-remaining-frontier-recovery-consumer-20261105; issuer FTR; method deploy-v-r14. Execution 2026-11-05; historical evidence as of 2020-06-29. This is focused downstream consumption within CP-3, not full CP-3A, native gate acceptance or trade proof. Missing CP-3 market/RV inputs block only dependent preference conclusions: UPSTREAM_DEPENDENCY_MISSING. Supported recovery comparison continues, Ready with Limitations. Inherited approval/output assertions are not new authority.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 7",
+              "quote": "Run `sol-remaining-frontier-recovery-consumer-20261105`; issuer FTR; method `deploy-v-r14`. Execution 2026-11-05; historical evidence as of 2020-06-29. This is focused downstream consumption within CP-3, not full CP-3A, native gate acceptance or trade proof. Missing CP-3 market/RV inputs block only dependent preference conclusions: `UPSTREAM_DEPENDENCY_MISSING`. Supported recovery comparison continues, Ready with Limitations. Inherited approval/output assertions are not new authority."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-1.r0.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-3-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Read both supplied handoffs in full: current CP-4C, run sol-remaining-frontier-recovery-20261105, SHA-256 14cafb053370f8af95a8f46c1d87ae57ce2e7c635824505c253cecc41b759a82 (hereafter P); limited historical CP-0, SHA-256 166c1395182a3ed574ac6ef1be9050489b2a8f4cd9faf13a1a3cfc6172695a9d. P is the numerical producer; CP-0 admits selected historical disclosure, not a complete underwriting pack.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 11",
+              "quote": "Read both supplied handoffs in full: current CP-4C, run `sol-remaining-frontier-recovery-20261105`, SHA-256 `14cafb053370f8af95a8f46c1d87ae57ce2e7c635824505c253cecc41b759a82` (hereafter **P**); limited historical CP-0, SHA-256 `166c1395182a3ed574ac6ef1be9050489b2a8f4cd9faf13a1a3cfc6172695a9d`. P is the numerical producer; CP-0 admits selected historical disclosure, not a complete underwriting pack."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-1.r1.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-3-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Primary disclosure, SHA-256 449e28443aebc42a7f5a2a323ca5dea1d4c34a2407531b9caaff47dcd3cac4d8, SEC Exhibit 99.1: https://www.sec.gov/Archives/edgar/data/20520/000114036120015359/ex99_1.htm. Re-touched retrieval pp4–11 and p13; citations retain original line indexes. The capture is selected text, not the whole original document; no visual entity-chart review claimed.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 13",
+              "quote": "Primary `disclosure`, SHA-256 `449e28443aebc42a7f5a2a323ca5dea1d4c34a2407531b9caaff47dcd3cac4d8`, SEC Exhibit 99.1: https://www.sec.gov/Archives/edgar/data/20520/000114036120015359/ex99_1.htm. Re-touched retrieval pp4–11 and p13; citations retain original line indexes. The capture is selected text, not the whole original document; no visual entity-chart review claimed."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-1.r2.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-3-1",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Read current method-runbook p1, SHA-256 cbb19deed431ea93c91b5e4d025d466869169681e8daa2d94a70ecde775dbc8e, and method-steps pp1–2, SHA-256 40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec. Apply source gating, structural ordering, sensitivity, compensation restraint and gaps within this request; do not manufacture full-method registers or accepted dependencies. No other issuer facts or prior consumer answer used.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 15",
+              "quote": "Read current `method-runbook` p1, SHA-256 `cbb19deed431ea93c91b5e4d025d466869169681e8daa2d94a70ecde775dbc8e`, and `method-steps` pp1–2, SHA-256 `40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec`. Apply source gating, structural ordering, sensitivity, compensation restraint and gaps within this request; do not manufacture full-method registers or accepted dependencies. No other issuer facts or prior consumer answer used."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-2.r0.c0",
+          "label": "Recovery comparison",
+          "table_id": "prose-CP-3-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Amounts USDm; liquidation recovery fractions are 0–1, not percentage units. Claims are source-estimated scenario claims, not allowed claims or GAAP carrying debt. Source local administrative, secured and unsecured deductions precede the shared liens (disclosure p8 L5989–5998; P T4E.2, T4E.5–7).",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 21",
+              "quote": "Amounts USDm; liquidation recovery fractions are 0–1, not percentage units. Claims are source-estimated scenario claims, not allowed claims or GAAP carrying debt. Source local administrative, secured and unsecured deductions precede the shared liens (disclosure p8 L5989–5998; P T4E.2, T4E.5–7)."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-2.r1.c0",
+          "label": "Recovery comparison",
+          "table_id": "prose-CP-3-2",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Trace: P T4E.7 and Recovery numeric controls; disclosure p9 L6124–6145, p10 L6213–6234, p11 L6324–6338. Sensitivities are analyst interpretations conditional on the source perimeter, not independently verified legal protection. Confidence in security selection is Low; arithmetic confidence does not cure missing legal/market evidence.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 29",
+              "quote": "Trace: P T4E.7 and Recovery numeric controls; disclosure p9 L6124–6145, p10 L6213–6234, p11 L6324–6338. Sensitivities are analyst interpretations conditional on the source perimeter, not independently verified legal protection. Confidence in security selection is Low; arithmetic confidence does not cure missing legal/market evidence."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-3.r0.c0",
+          "label": "Instrument conclusion",
+          "table_id": "prose-CP-3-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Conditional liquidation recovery ordering is 1L above 2L equal to Senior Notes in the low case, and 1L above 2L above Senior Notes in the high case. Equal rank does not establish identical instrument terms or trading economics. This is not an unconditional instrument preference, yield/spread comparison, buy/sell recommendation or position decision.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 41",
+              "quote": "Conditional **liquidation recovery ordering** is 1L above 2L equal to Senior Notes in the low case, and 1L above 2L above Senior Notes in the high case. Equal rank does not establish identical instrument terms or trading economics. This is not an unconditional instrument preference, yield/spread comparison, buy/sell recommendation or position decision."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-3.r1.c0",
+          "label": "Instrument conclusion",
+          "table_id": "prose-CP-3-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Keep the proposed plan separate: source-reported secured recovery is 100%, Senior Notes 43–45%; neither is independently reconstructed from liquidation claim denominators (disclosure p8 L6021–6033; P T4E.7). Secured treatment is repayment or reinstatement, not necessarily immediate cash. Senior Notes receive new equity subject to MIP dilution, 750 takeback debt subject to reduction, and qualified surplus cash above 150—not liquidation cash and not 750 of new-money funding (p4 L1768–1769, L1008; p5 L3440–3444).",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 43",
+              "quote": "Keep the proposed plan separate: source-reported secured recovery is 100%, Senior Notes 43–45%; neither is independently reconstructed from liquidation claim denominators (disclosure p8 L6021–6033; P T4E.7). Secured treatment is repayment or reinstatement, not necessarily immediate cash. Senior Notes receive new equity subject to MIP dilution, 750 takeback debt subject to reduction, and qualified surplus cash above 150—not liquidation cash and not 750 of new-money funding (p4 L1768–1769, L1008; p5 L3440–3444)."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-3.r2.c0",
+          "label": "Instrument conclusion",
+          "table_id": "prose-CP-3-3",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "The plan valuation assumes 2021-01-01; liquidation assumes 2020-10-31 sale and 2020-11-01 liquidation with illustrative three-month wind-down. P’s separate plan equity bridge is 2,070–4,570 USDm; it is not predicted trading value or a middle liquidation case (disclosure p13 L6845–6859; p7 L5977–5985).",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 45",
+              "quote": "The plan valuation assumes 2021-01-01; liquidation assumes 2020-10-31 sale and 2020-11-01 liquidation with illustrative three-month wind-down. P’s separate plan equity bridge is 2,070–4,570 USDm; it is not predicted trading value or a middle liquidation case (disclosure p13 L6845–6859; p7 L5977–5985)."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-3.r3.c0",
+          "label": "Instrument conclusion",
+          "table_id": "prose-CP-3-3",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "The strongest countercase to favoring apparent secured protection is that, at sufficiently different prices, junior plan equity participation could offer better economics; prices are absent. The strongest countercase to relying on the plan’s reported recovery advantage is implementation and valuation erosion. Exit financing is only a commercially reasonable best-efforts 850 commitment target, not certified available funds. Surplus cash is adjusted for deferred pensions, regulatory/restructuring payments and any commitment shortfall; exit proceeds are excluded and the facility is to remain undrawn except L/Cs (p5 L3440).",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 47",
+              "quote": "The strongest countercase to favoring apparent secured protection is that, at sufficiently different prices, junior plan equity participation could offer better economics; prices are absent. The strongest countercase to relying on the plan’s reported recovery advantage is implementation and valuation erosion. Exit financing is only a commercially reasonable best-efforts 850 commitment target, not certified available funds. Surplus cash is adjusted for deferred pensions, regulatory/restructuring payments and any commitment shortfall; exit proceeds are excluded and the facility is to remain undrawn except L/Cs (p5 L3440)."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-3.r4.c0",
+          "label": "Instrument conclusion",
+          "table_id": "prose-CP-3-3",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "At the historical decision point, FCC/PUC approvals and confirmation were prospective. Class acceptance requires at least two-thirds in value AND more than half in number of voting allowed claims, distinct from RSA support thresholds (p4 L1935, L2422; p6 L4906). Approval/financing delay can extend liquidity strain, vendor contraction, employee/customer attrition and deferred maintenance; lower EBITDA and buyer appetite then shrink both pools while deficiencies compete for less HoldCo value. The source itself calls liquidation optimistic (p7 L5950–5957; p13 L6865–6869). Monitor approvals, actual exit commitments, ballots, liquidity forecasts, churn, retention, vendor terms and network reinvestment. No numerical path probability is assigned.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 49",
+              "quote": "At the historical decision point, FCC/PUC approvals and confirmation were prospective. Class acceptance requires at least two-thirds in value **AND** more than half in number of voting allowed claims, distinct from RSA support thresholds (p4 L1935, L2422; p6 L4906). Approval/financing delay can extend liquidity strain, vendor contraction, employee/customer attrition and deferred maintenance; lower EBITDA and buyer appetite then shrink both pools while deficiencies compete for less HoldCo value. The source itself calls liquidation optimistic (p7 L5950–5957; p13 L6865–6869). Monitor approvals, actual exit commitments, ballots, liquidity forecasts, churn, retention, vendor terms and network reinvestment. No numerical path probability is assigned."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-4.r0.c0",
+          "label": "Recovery basis controls",
+          "table_id": "prose-CP-3-4",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Copied exactly from P, Recovery numeric controls; no redundant waterfall or arithmetic rerun. P uses net pledged proceeds 3,523.2 / 5,274.1 and HoldCo available 1,306.1 / 1,654.1 against unsecured denominators 13,706.4 / 11,949.8. Only unpaid deficiencies enter those denominators, not full secured principal again. P preserves small source-rounding differences rather than claiming reconciliation to hidden entity calculations.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 61",
+              "quote": "Copied exactly from P, Recovery numeric controls; no redundant waterfall or arithmetic rerun. P uses net pledged proceeds 3,523.2 / 5,274.1 and HoldCo available 1,306.1 / 1,654.1 against unsecured denominators 13,706.4 / 11,949.8. Only unpaid deficiencies enter those denominators, not full secured principal again. P preserves small source-rounding differences rather than claiming reconciliation to hidden entity calculations."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-4.r1.c0",
+          "label": "Recovery basis controls",
+          "table_id": "prose-CP-3-4",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Secured claims include filing balances plus interest through liquidation; Senior Notes stop interest at filing. Separate principal/accrual splits and plan-denominator reconciliation are Not supplied (disclosure p11 L6324–6338). GAAP carrying values are Not supplied for this comparison; no canonical debt dashboard or total group debt is manufactured.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 63",
+              "quote": "Secured claims include filing balances plus interest through liquidation; Senior Notes stop interest at filing. Separate principal/accrual splits and plan-denominator reconciliation are Not supplied (disclosure p11 L6324–6338). GAAP carrying values are Not supplied for this comparison; no canonical debt dashboard or total group debt is manufactured."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-5.r0.c0",
+          "label": "Next module",
+          "table_id": "prose-CP-3-5",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-3A focused consumption completed with limitations. Preferred: none established. All compared instruments: Requires More Work. No current issuer condition, confirmation, actual emergence or realized payment is claimed from this historical source.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 79",
+              "quote": "CP-3A focused consumption completed with limitations. Preferred: none established. All compared instruments: Requires More Work. No current issuer condition, confirmation, actual emergence or realized payment is claimed from this historical source."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3-5.r1.c0",
+          "label": "Next module",
+          "table_id": "prose-CP-3-5",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Keep assurance and broader pathway separate: CP-5 audits producer-to-source lineage and conflicts; CP-4/4B resolves legal reach; market-enabled CP-3 completes compensation analysis; CP-6 debates plan execution versus operating erosion after those inputs. No automatic approval follows. Retain this complete raw Markdown separately alongside the checked existing report; do not overwrite the historical report or treat this selected comparison as a completed distressed pathway.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3",
+              "source_sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+              "locator": "line 81",
+              "quote": "Keep assurance and broader pathway separate: CP-5 audits producer-to-source lineage and conflicts; CP-4/4B resolves legal reach; market-enabled CP-3 completes compensation analysis; CP-6 debates plan execution versus operating erosion after those inputs. No automatic approval follows. Retain this complete raw Markdown separately alongside the checked existing report; do not overwrite the historical report or treat this selected comparison as a completed distressed pathway."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "raw-CP-3-0",
+          "title": "Recovery comparison — Instrument / source claim",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Low total fraction"
+            },
+            {
+              "field": "c1",
+              "label": "High total fraction"
+            },
+            {
+              "field": "c2",
+              "label": "Recovery mechanic / sensitivity interpretation"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Revolver 749.0; 1L term loan 1,740.0; 1L notes 1,650.0; one equal-rank 4,139.0 class",
+              "fact_ids": [
+                "raw-CP-3-0.r0.c0",
+                "raw-CP-3-0.r0.c1",
+                "raw-CP-3-0.r0.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "2L notes 1,600.0",
+              "fact_ids": [
+                "raw-CP-3-0.r1.c0",
+                "raw-CP-3-0.r1.c1",
+                "raw-CP-3-0.r1.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "HoldCo Senior Notes 11,445.4",
+              "fact_ids": [
+                "raw-CP-3-0.r2.c0",
+                "raw-CP-3-0.r2.c1",
+                "raw-CP-3-0.r2.c2"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Instrument / source claim",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-3-1",
+          "title": "Adoption consequences — Adopted producer finding",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Changed economic interpretation"
+            },
+            {
+              "field": "c1",
+              "label": "Decision consequence / trace"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Unpaid secured claims share HoldCo pari passu",
+              "fact_ids": [
+                "raw-CP-3-1.r0.c0",
+                "raw-CP-3-1.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Pledged marginal class moves from 1L low to 2L high",
+              "fact_ids": [
+                "raw-CP-3-1.r1.c0",
+                "raw-CP-3-1.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Source has separate pledged and HoldCo distributable pools",
+              "fact_ids": [
+                "raw-CP-3-1.r2.c0",
+                "raw-CP-3-1.r2.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Adopted producer finding",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-3-2",
+          "title": "Recovery basis controls — Metric",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Low"
+            },
+            {
+              "field": "c1",
+              "label": "High"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "first_lien_total_recovery_fraction",
+              "fact_ids": [
+                "raw-CP-3-2.r0.c0",
+                "raw-CP-3-2.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "second_lien_total_recovery_fraction",
+              "fact_ids": [
+                "raw-CP-3-2.r1.c0",
+                "raw-CP-3-2.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "senior_notes_total_recovery_fraction",
+              "fact_ids": [
+                "raw-CP-3-2.r2.c0",
+                "raw-CP-3-2.r2.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Metric",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-3-3",
+          "title": "Decision evidence gaps — Missing evidence / conflict",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Decision affected"
+            },
+            {
+              "field": "c1",
+              "label": "Required follow-up / observable"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Historical prices, trade accruals, market benchmarks, trading liquidity and portfolio constraints: Not supplied",
+              "fact_ids": [
+                "raw-CP-3-3.r0.c0",
+                "raw-CP-3-3.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Controlling instrument terms, guarantees, perfection, intercreditor and entity waterfalls: Not supplied",
+              "fact_ids": [
+                "raw-CP-3-3.r1.c0",
+                "raw-CP-3-3.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Allowed claims and plan claim dates: Not supplied; Senior Notes maturity and lease inconsistencies retained",
+              "fact_ids": [
+                "raw-CP-3-3.r2.c0",
+                "raw-CP-3-3.r2.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Final MIP, takeback documents, surplus cash and exit commitments: Not supplied",
+              "fact_ids": [
+                "raw-CP-3-3.r3.c0",
+                "raw-CP-3-3.r3.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Liquidation taxes excluded; updated operating/fee evidence: Not supplied",
+              "fact_ids": [
+                "raw-CP-3-3.r4.c0",
+                "raw-CP-3-3.r4.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Missing evidence / conflict",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3-0",
+          "title": "Request",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Request — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3-0.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Request — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3-0.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3-1",
+          "title": "Sources",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Sources — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3-1.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Sources — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3-1.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Sources — paragraph 3",
+              "fact_ids": [
+                "prose-CP-3-1.r2.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3-2",
+          "title": "Recovery comparison",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Recovery comparison — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3-2.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Recovery comparison — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3-2.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3-3",
+          "title": "Instrument conclusion",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Instrument conclusion — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3-3.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Instrument conclusion — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3-3.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Instrument conclusion — paragraph 3",
+              "fact_ids": [
+                "prose-CP-3-3.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Instrument conclusion — paragraph 4",
+              "fact_ids": [
+                "prose-CP-3-3.r3.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Instrument conclusion — paragraph 5",
+              "fact_ids": [
+                "prose-CP-3-3.r4.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3-4",
+          "title": "Recovery basis controls",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Recovery basis controls — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3-4.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Recovery basis controls — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3-4.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3-5",
+          "title": "Next module",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Next module — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3-5.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Next module — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3-5.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        }
+      ],
+      "claims": [],
+      "limitations": [
+        "Literal checked analytical handoff, not native contract acceptance; source qualifications and gaps remain."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "schema_version": "source/1",
+      "source_id": "CP-3",
+      "name": "CP-3.md",
+      "status": "ready",
+      "sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+      "media_type": "text/markdown",
+      "spans": [
+        {
+          "locator": "line 1",
+          "text": "# Frontier — CP-3 selected CP-3A recovery/security comparison",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 3",
+          "text": "## Request",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 5",
+          "text": "View: Frontier Communications Corporation’s source-defined liquidation protects the three equal-ranking first-lien instruments more than second liens or HoldCo Senior Notes, but does not establish investment preference. Adopting the fresh repaired CP-4C changes the economics: low-case second liens retain unsecured deficiency value rather than recovering nothing, while high-case second liens participate materially in collateral upside. All instruments **Require More Work** for security selection; compensation is **Unclear**.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 7",
+          "text": "Run `sol-remaining-frontier-recovery-consumer-20261105`; issuer FTR; method `deploy-v-r14`. Execution 2026-11-05; historical evidence as of 2020-06-29. This is focused downstream consumption within CP-3, not full CP-3A, native gate acceptance or trade proof. Missing CP-3 market/RV inputs block only dependent preference conclusions: `UPSTREAM_DEPENDENCY_MISSING`. Supported recovery comparison continues, Ready with Limitations. Inherited approval/output assertions are not new authority.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 9",
+          "text": "## Sources",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 11",
+          "text": "Read both supplied handoffs in full: current CP-4C, run `sol-remaining-frontier-recovery-20261105`, SHA-256 `14cafb053370f8af95a8f46c1d87ae57ce2e7c635824505c253cecc41b759a82` (hereafter **P**); limited historical CP-0, SHA-256 `166c1395182a3ed574ac6ef1be9050489b2a8f4cd9faf13a1a3cfc6172695a9d`. P is the numerical producer; CP-0 admits selected historical disclosure, not a complete underwriting pack.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 13",
+          "text": "Primary `disclosure`, SHA-256 `449e28443aebc42a7f5a2a323ca5dea1d4c34a2407531b9caaff47dcd3cac4d8`, SEC Exhibit 99.1: https://www.sec.gov/Archives/edgar/data/20520/000114036120015359/ex99_1.htm. Re-touched retrieval pp4–11 and p13; citations retain original line indexes. The capture is selected text, not the whole original document; no visual entity-chart review claimed.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 15",
+          "text": "Read current `method-runbook` p1, SHA-256 `cbb19deed431ea93c91b5e4d025d466869169681e8daa2d94a70ecde775dbc8e`, and `method-steps` pp1–2, SHA-256 `40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec`. Apply source gating, structural ordering, sensitivity, compensation restraint and gaps within this request; do not manufacture full-method registers or accepted dependencies. No other issuer facts or prior consumer answer used.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 17",
+          "text": "## Findings",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 19",
+          "text": "### Recovery comparison",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 21",
+          "text": "Amounts USDm; liquidation recovery fractions are 0–1, not percentage units. Claims are source-estimated scenario claims, not allowed claims or GAAP carrying debt. Source local administrative, secured and unsecured deductions precede the shared liens (disclosure p8 L5989–5998; P T4E.2, T4E.5–7).",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 23",
+          "text": "| Instrument / source claim | Low total fraction | High total fraction | Recovery mechanic / sensitivity interpretation |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 24",
+          "text": "| --- | --- | --- | --- |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 25",
+          "text": "| Revolver 749.0; 1L term loan 1,740.0; 1L notes 1,650.0; one equal-rank 4,139.0 class | 0.865398 | 1.000000 | Shared collateral 3,523.2 / 4,139.0 plus HoldCo deficiency payment 58.680352 / 0. Moderate sensitivity within these cases; no preference among the three from rank. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 26",
+          "text": "| 2L notes 1,600.0 | 0.095291 | 0.749657 | Collateral 0 / 1,135.1 plus deficiency cash 152.466001 / 64.351796. High sensitivity: upside reaches junior collateral only after shared 1L coverage. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 27",
+          "text": "| HoldCo Senior Notes 11,445.4 | 0.095291 | 0.138421 | Unsecured cash 1,090.646482 / 1,584.280585; structurally subordinated to local liabilities and exposed to competing deficiencies. High sensitivity despite the relatively narrow disclosed endpoint range. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 29",
+          "text": "Trace: P T4E.7 and Recovery numeric controls; disclosure p9 L6124–6145, p10 L6213–6234, p11 L6324–6338. Sensitivities are analyst interpretations conditional on the source perimeter, not independently verified legal protection. Confidence in security selection is Low; arithmetic confidence does not cure missing legal/market evidence.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 31",
+          "text": "### Adoption consequences",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 33",
+          "text": "| Adopted producer finding | Changed economic interpretation | Decision consequence / trace |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 34",
+          "text": "| --- | --- | --- |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 35",
+          "text": "| Unpaid secured claims share HoldCo pari passu | Low 2L is not zero total recovery: it matches Senior Notes’ fraction through its deficiency claim. Low 1L also has value beyond collateral. | Do not confuse collateral rows with total recoveries. P T4E.7; disclosure p9 L6134–6141 and p11 L6324–6336. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 36",
+          "text": "| Pledged marginal class moves from 1L low to 2L high | 2L has substantial collateral upside, not merely the same unsecured exposure as Senior Notes in every case. | No unique group-wide fulcrum: HoldCo remains a separate marginal pool. P T4E.6; disclosure pp9–10 L6124–6141, L6213–6230. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 37",
+          "text": "| Source has separate pledged and HoldCo distributable pools | Gross group sale value is not freely fungible collateral; non-pledged equity upflow is already in HoldCo. | Do not double-count 759.1 / 1,107.1 upflow, prior deductions or guarantees. P T4E.5; disclosure p8 L6078–6082, p9 L6169, p10 L6266. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 39",
+          "text": "### Instrument conclusion",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 41",
+          "text": "Conditional **liquidation recovery ordering** is 1L above 2L equal to Senior Notes in the low case, and 1L above 2L above Senior Notes in the high case. Equal rank does not establish identical instrument terms or trading economics. This is not an unconditional instrument preference, yield/spread comparison, buy/sell recommendation or position decision.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 43",
+          "text": "Keep the proposed plan separate: source-reported secured recovery is 100%, Senior Notes 43–45%; neither is independently reconstructed from liquidation claim denominators (disclosure p8 L6021–6033; P T4E.7). Secured treatment is repayment or reinstatement, not necessarily immediate cash. Senior Notes receive new equity subject to MIP dilution, 750 takeback debt subject to reduction, and qualified surplus cash above 150—not liquidation cash and not 750 of new-money funding (p4 L1768–1769, L1008; p5 L3440–3444).",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 45",
+          "text": "The plan valuation assumes 2021-01-01; liquidation assumes 2020-10-31 sale and 2020-11-01 liquidation with illustrative three-month wind-down. P’s separate plan equity bridge is 2,070–4,570 USDm; it is not predicted trading value or a middle liquidation case (disclosure p13 L6845–6859; p7 L5977–5985).",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 47",
+          "text": "The strongest countercase to favoring apparent secured protection is that, at sufficiently different prices, junior plan equity participation could offer better economics; prices are absent. The strongest countercase to relying on the plan’s reported recovery advantage is implementation and valuation erosion. Exit financing is only a commercially reasonable best-efforts 850 commitment target, not certified available funds. Surplus cash is adjusted for deferred pensions, regulatory/restructuring payments and any commitment shortfall; exit proceeds are excluded and the facility is to remain undrawn except L/Cs (p5 L3440).",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 49",
+          "text": "At the historical decision point, FCC/PUC approvals and confirmation were prospective. Class acceptance requires at least two-thirds in value **AND** more than half in number of voting allowed claims, distinct from RSA support thresholds (p4 L1935, L2422; p6 L4906). Approval/financing delay can extend liquidity strain, vendor contraction, employee/customer attrition and deferred maintenance; lower EBITDA and buyer appetite then shrink both pools while deficiencies compete for less HoldCo value. The source itself calls liquidation optimistic (p7 L5950–5957; p13 L6865–6869). Monitor approvals, actual exit commitments, ballots, liquidity forecasts, churn, retention, vendor terms and network reinvestment. No numerical path probability is assigned.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 51",
+          "text": "## Calculations",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 53",
+          "text": "### Recovery basis controls",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 55",
+          "text": "| Metric | Low | High |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 56",
+          "text": "| --- | --- | --- |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 57",
+          "text": "| first_lien_total_recovery_fraction | 0.865398 | 1.000000 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 58",
+          "text": "| second_lien_total_recovery_fraction | 0.095291 | 0.749657 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 59",
+          "text": "| senior_notes_total_recovery_fraction | 0.095291 | 0.138421 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 61",
+          "text": "Copied exactly from P, Recovery numeric controls; no redundant waterfall or arithmetic rerun. P uses net pledged proceeds 3,523.2 / 5,274.1 and HoldCo available 1,306.1 / 1,654.1 against unsecured denominators 13,706.4 / 11,949.8. Only unpaid deficiencies enter those denominators, not full secured principal again. P preserves small source-rounding differences rather than claiming reconciliation to hidden entity calculations.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 63",
+          "text": "Secured claims include filing balances plus interest through liquidation; Senior Notes stop interest at filing. Separate principal/accrual splits and plan-denominator reconciliation are Not supplied (disclosure p11 L6324–6338). GAAP carrying values are Not supplied for this comparison; no canonical debt dashboard or total group debt is manufactured.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 65",
+          "text": "## Gaps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 67",
+          "text": "### Decision evidence gaps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 69",
+          "text": "| Missing evidence / conflict | Decision affected | Required follow-up / observable |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 70",
+          "text": "| --- | --- | --- |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 71",
+          "text": "| Historical prices, trade accruals, market benchmarks, trading liquidity and portfolio constraints: Not supplied | Compensation Unclear; all five instruments Require More Work; no security-selection ranking | Obtain as-of quotes, settlement/accrual basis, executable liquidity and portfolio limits before CP-3 RV/implementation. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 72",
+          "text": "| Controlling instrument terms, guarantees, perfection, intercreditor and entity waterfalls: Not supplied | Source aggregates do not certify collateral reach, release/priming capacity or equal economics | CP-4/4B legal review; entity chart and instruments. PBGC direct-HoldCo alternative can redistribute value (p11 L6312). |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 73",
+          "text": "| Allowed claims and plan claim dates: Not supplied; Senior Notes maturity and lease inconsistencies retained | No series-level selection or independent plan 43–45% reconstruction | Reconcile P gaps to disclosure p4 L1582 versus p11 L6340; p9 L6143 versus p10 L6232. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 74",
+          "text": "| Final MIP, takeback documents, surplus cash and exit commitments: Not supplied | Noncash value, dilution and liquidity remain conditional | Review plan supplement, commitment amounts and takeback decision at least 30 days pre-effective (p5 L3342, L3867). |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 75",
+          "text": "| Liquidation taxes excluded; updated operating/fee evidence: Not supplied | Endpoints are not floors; approval delay may erode proceeds | Tax/fee review, churn, maintenance, vendor terms and liquidity updates; no unsupported quantitative trigger (p7 L5945–5957; p10 L6274). |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 77",
+          "text": "## Next module",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 79",
+          "text": "CP-3A focused consumption completed with limitations. Preferred: none established. All compared instruments: Requires More Work. No current issuer condition, confirmation, actual emergence or realized payment is claimed from this historical source.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 81",
+          "text": "Keep assurance and broader pathway separate: CP-5 audits producer-to-source lineage and conflicts; CP-4/4B resolves legal reach; market-enabled CP-3 completes compensation analysis; CP-6 debates plan execution versus operating erosion after those inputs. No automatic approval follows. Retain this complete raw Markdown separately alongside the checked existing report; do not overwrite the historical report or treat this selected comparison as a completed distressed pathway.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        }
+      ],
+      "limitation": "Actual analytical handoff; underlying source qualifications and scope remain.",
+      "extractor": "literal-markdown-lines",
+      "extraction_status": "complete",
+      "coverage": []
+    }
+  ],
+  "analytical_qualification": "partial",
+  "native_host_qualification": "unrun"
+}

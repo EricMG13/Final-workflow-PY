@@ -1,0 +1,40 @@
+{
+  "required_terms": [
+    "Frontier",
+    "2020-06-29",
+    "2026-11-05",
+    "2020-10-31",
+    "2020-11-01",
+    "2021-01-01",
+    "750",
+    "850",
+    "150"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Recovery basis controls",
+      "columns": [
+        "Metric",
+        "Low",
+        "High"
+      ],
+      "rows": [
+        [
+          "first_lien_total_recovery_fraction",
+          "0.865398",
+          "1.000000"
+        ],
+        [
+          "second_lien_total_recovery_fraction",
+          "0.095291",
+          "0.749657"
+        ],
+        [
+          "senior_notes_total_recovery_fraction",
+          "0.095291",
+          "0.138421"
+        ]
+      ]
+    }
+  ]
+}

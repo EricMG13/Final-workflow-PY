@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Fresh sol-medium CP4D phase consumes current CP4B, historical 2014 ICA. Qualitative control proof and explicitly synthetic calendar fixtures, no numerical recovery/current rights/full pathway.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-4.md": "3ae37060a3d6ac729a3f99fdbb8236a38bcd0e2c5c2b71e28046f39450c5d45f",
+    "view.json": "cc4b510337bbae235858ef4a8fd8ee01e58a2db18a8c59cd951a88aeeaf80647",
+    "report-view.json": "ef27065260cbc39714f9e40beb8e037f2aacce2aade39f1a0228b6e7446d7408",
+    "report.html": "5e35d5c7c52c2f5a9b63017e4247f4b792faa71da962768d876ee1de478dbb79"
+  }
+}

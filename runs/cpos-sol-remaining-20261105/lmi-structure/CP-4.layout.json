@@ -1,0 +1,66 @@
+{
+  "blocks": [
+    "capacity",
+    "lme-creditor-exposure",
+    "red-flags"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-4",
+      "heading": "Request",
+      "kind": "prose",
+      "prefix": "View:",
+      "block_id": "lme-creditor-exposure",
+      "label": "Historical structural view"
+    },
+    {
+      "module_id": "CP-4",
+      "heading": "T4D.2\u20135 \u2014 combined entity map",
+      "kind": "table",
+      "block_id": "lme-creditor-exposure",
+      "label": "T4D.2\u20135 \u2014 combined entity map"
+    },
+    {
+      "module_id": "CP-4",
+      "heading": "Creditor class and priority map",
+      "kind": "table",
+      "block_id": "lme-creditor-exposure",
+      "label": "Creditor class and priority map"
+    },
+    {
+      "module_id": "CP-4",
+      "heading": "Quantity and definition controls",
+      "kind": "table",
+      "block_id": "capacity",
+      "label": "Quantity and definition controls"
+    },
+    {
+      "module_id": "CP-4",
+      "heading": "T4D.6 \u2014 leakage routes",
+      "kind": "table",
+      "block_id": "capacity",
+      "label": "T4D.6 \u2014 leakage routes"
+    },
+    {
+      "module_id": "CP-4",
+      "heading": "T4D.7 \u2014 priming and control findings",
+      "kind": "table",
+      "block_id": "red-flags",
+      "label": "T4D.7 \u2014 priming and control findings"
+    },
+    {
+      "module_id": "CP-4",
+      "heading": "Overall structural view",
+      "kind": "prose",
+      "block_id": "red-flags",
+      "label": "Overall structural view"
+    }
+  ],
+  "title": "LMI Aerospace historical structural-priority map",
+  "question": "Which documented entities and relative rights can be mapped without inventing asset values?",
+  "issuer_aliases": [
+    "LMI Aerospace",
+    "LMI"
+  ],
+  "scope": "Fresh sol-medium CP-4Bphase canonicalCP4, actualJune2014ICAand19namedacknowledgers. Partialdocumentarymap,no currententity/perfection/unusedcapacity/numericalrecovery/fullpathwayclaim. Existingreport/fullMarkdown, noExcel."
+}

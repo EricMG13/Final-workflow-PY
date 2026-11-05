@@ -1,0 +1,45 @@
+{
+  "run": {
+    "run_id": "sol-remaining-lmi-recovery-intake-20261105",
+    "issuer_id": "LMI",
+    "issuer_name": "LMI Aerospace, Inc.",
+    "as_of": "2014-06-19",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-4C"
+    ]
+  },
+  "module_id": "CP-4C",
+  "instructions": {
+    "path": "CP-4C.instructions.md",
+    "sha256": "c45683f97e03581f6141d29ff7ea9b7dc5a3f09c1cfa4d78dbbb652fb24cf9b4"
+  },
+  "sources": {
+    "ICA": {
+      "path": "../../lmi-2014-001/sources/source-lines.txt",
+      "sha256": "79d954d69435bc83728b8bf2f7592fe33712e9c16d465a814ea151510c9bedb7"
+    },
+    "selected-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-4c-restructuring-fulcrum/SKILL.md",
+      "sha256": "9e1a16330a06e98cd22ef7aa97be526c131d962ec3d3ff1ef9a3e42ca9bb311c"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../../lmi-2014-001/CP-0.md",
+      "sha256": "aefd1746676cfbf5a5f3d51f8c93ecaccbed0d3ba6e4ce5e78746a3c0898d1ff"
+    },
+    "CP-4B": {
+      "path": "../lmi-structure/CP-4B.md",
+      "sha256": "84167ceccba6285b7164f5e0060490bc412b8cbba3f642c4aea47f15452f98ab"
+    },
+    "CP-4D": {
+      "path": "../lmi-controls/CP-4D.md",
+      "sha256": "3ae37060a3d6ac729a3f99fdbb8236a38bcd0e2c5c2b71e28046f39450c5d45f"
+    }
+  },
+  "layout": "CP-4C.layout.json",
+  "checks": "CP-4C.checks.json",
+  "output": "CP-4C.md"
+}

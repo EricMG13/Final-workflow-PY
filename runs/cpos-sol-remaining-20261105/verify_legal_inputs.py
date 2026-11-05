@@ -137,6 +137,89 @@ def check_arcc():
     )
 
 
+def check_lmi():
+    """Recheck nineteen documentary names and existing hypothetical date controls."""
+    import json
+    from datetime import date, timedelta
+
+    base = Path(__file__).resolve().parents[2] / "runs/lmi-2014-001"
+    raw = (base / "sources/source-lines.txt").read_bytes()
+    assert hashlib.sha256(raw).hexdigest() == (
+        "79d954d69435bc83728b8bf2f7592fe33712e9c16d465a814ea151510c9bedb7"
+    )
+    lines = raw.decode().splitlines()
+    assert len(lines) == 708
+    assert all(line.startswith(f"L{i}:") for i, line in enumerate(lines))
+    frozen = json.loads((base / "verification.json").read_bytes())
+    entities = frozen["acknowledging_entities"]
+    assert len(entities) == len({r["name"] for r in entities}) == 19
+    for row in entities:
+        assert row["name"] in lines[row["source_index"]]
+        assert all(
+            row[k] is None
+            for k in [
+                "assets",
+                "ebitda",
+                "carrying_debt",
+                "immediate_parent",
+                "ownership_percent",
+                "jurisdiction",
+                "restricted_designation",
+            ]
+        )
+    for index, terms in [
+        (193, ["does not subordinate", "right of payment"]),
+        (225, ["180 days", "later of:", "15 days", "diligently pursuing", "stay"]),
+        (212, ["Foreign Subsidiary", "elects in writing", "prior written notice"]),
+        (349, ["$10.0 million", "Maximum First Lien Indebtedness Amount"]),
+    ]:
+        assert all(term in lines[index] for term in terms)
+    cases = frozen["cp4d_preparation"]["synthetic_calendar_controls"]
+    for row, expected in zip(cases, ["2015-01-06", "2015-01-15", "2015-01-16"], strict=True):
+        start = max(
+            date.fromisoformat(row["declaration_and_demand"]),
+            date.fromisoformat(row["first_agent_receipt"]),
+        )
+        notice = date.fromisoformat(row["action_intention_notice"])
+        assert max(start + timedelta(days=180), notice + timedelta(days=15)).isoformat() == expected
+        assert row["calendar_only_marker"] == expected
+        assert row["legal_or_actual_eligibility"] is None
+    return {
+        "scope": "Source-index and name controls only; nineteen acknowledgers are not a complete group or certified collateral map. Calendar controls are historical synthetic fixtures, not issuer events or automatic legal eligibility.",
+        "entities": entities,
+        "synthetic_calendar_controls": cases,
+    }
+
+
+def verify_lmi_map(path):
+    """Check exact names, line identities and missing financial values after model output."""
+    from deploy_workflow.handoff_delivery import section, table
+
+    headers, rows = table(
+        section(Path(path).read_text().splitlines(), "T4D.2–5 — combined entity map")
+    )
+    assert headers == [
+        "Entity",
+        "Role",
+        "Jurisdiction",
+        "Parent",
+        "Designation",
+        "Guarantee/security status",
+        "Priority limitation",
+        "Assets_USDm",
+        "EBITDA_USDm",
+        "Carrying_debt_USDm",
+        "Evidence",
+    ]
+    expected = check_lmi()["entities"]
+    assert len(rows) == 19
+    for (_, _, cells), source in zip(rows, expected, strict=True):
+        assert cells[0] == source["name"]
+        assert cells[7:10] == ["—", "—", "—"]
+        assert f"L{source['source_index']}" in cells[10]
+    return "19 exact source entities, 57 financial missing cells and source locators preserved"
+
+
 if __name__ == "__main__":
     import json
 

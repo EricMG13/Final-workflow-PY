@@ -1,0 +1,41 @@
+[
+  {
+    "synthetic": true,
+    "case": "later-receipt-controls",
+    "declaration_and_demand": "2014-07-01",
+    "first_agent_receipt": "2014-07-10",
+    "action_intention_notice": "2014-12-20",
+    "later_start": "2014-07-10",
+    "elapsed_180_day_marker": "2015-01-06",
+    "elapsed_15_day_notice_marker": "2015-01-04",
+    "calendar_only_marker": "2015-01-06",
+    "legal_or_actual_eligibility": null,
+    "source": "I1 Section3.1(a), L225"
+  },
+  {
+    "synthetic": true,
+    "case": "later-intention-notice-controls",
+    "declaration_and_demand": "2014-07-01",
+    "first_agent_receipt": "2014-07-10",
+    "action_intention_notice": "2014-12-31",
+    "later_start": "2014-07-10",
+    "elapsed_180_day_marker": "2015-01-06",
+    "elapsed_15_day_notice_marker": "2015-01-15",
+    "calendar_only_marker": "2015-01-15",
+    "legal_or_actual_eligibility": null,
+    "source": "I1 Section3.1(a), L225"
+  },
+  {
+    "synthetic": true,
+    "case": "later-declaration-controls",
+    "declaration_and_demand": "2014-07-20",
+    "first_agent_receipt": "2014-07-10",
+    "action_intention_notice": "2014-12-20",
+    "later_start": "2014-07-20",
+    "elapsed_180_day_marker": "2015-01-16",
+    "elapsed_15_day_notice_marker": "2015-01-04",
+    "calendar_only_marker": "2015-01-16",
+    "legal_or_actual_eligibility": null,
+    "source": "I1 Section3.1(a), L225"
+  }
+]

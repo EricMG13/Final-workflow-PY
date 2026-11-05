@@ -1,0 +1,1456 @@
+{
+  "schema_version": "report-view/1",
+  "pathway": {
+    "id": "covenant_refinancing",
+    "title": "LMI Aerospace recovery input requirements",
+    "question": "How do current structural and control findings constrain a recovery model?",
+    "requested_modules": [
+      "CP-4C"
+    ],
+    "blocks": [
+      "capacity",
+      "lme-creditor-exposure",
+      "red-flags"
+    ]
+  },
+  "call": [
+    {
+      "kind": "na",
+      "label": "Assessment",
+      "value_text": "Assessment pending",
+      "meter": null,
+      "ref_id": null,
+      "direction": null,
+      "line": false
+    }
+  ],
+  "call_withheld": "not_requested",
+  "blocks": [
+    {
+      "block_id": "capacity",
+      "title": "Capacity and baskets",
+      "owner": "CP-4C",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Metric",
+      "columns": [
+        "Value"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "actual_senior_claims_USDm",
+          "cells": [
+            {
+              "text": "—",
+              "prov": "cited",
+              "ref_id": "C7",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "actual_junior_claims_USDm",
+          "cells": [
+            {
+              "text": "—",
+              "prov": "cited",
+              "ref_id": "C8",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r2",
+          "label": "entity_realizable_value_USDm",
+          "cells": [
+            {
+              "text": "—",
+              "prov": "cited",
+              "ref_id": "C9",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r3",
+          "label": "recovery_percent",
+          "cells": [
+            {
+              "text": "—",
+              "prov": "cited",
+              "ref_id": "C10",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r4",
+          "label": "fulcrum_value_USDm",
+          "cells": [
+            {
+              "text": "—",
+              "prov": "cited",
+              "ref_id": "C11",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-4C",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "lme-creditor-exposure",
+      "title": "LME capacity and creditor exposure",
+      "owner": "CP-4C",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": null,
+      "columns": [
+        "Value"
+      ],
+      "rows": [
+        {
+          "row_id": "prose-CP-4C-0.r1.c0",
+          "label": "Request",
+          "cells": [
+            {
+              "text": "View: The fresh structural map and control assessment change what a recovery model must claim, reach, allocate and time. They establish senior-led shared-collateral access, not low junior recovery. No documented distress gate, reconciled claims or financial values is supplied; restructuring scenarios and numerical outcomes remain blocked. This is not an assumption that historical or current LMI is distressed.",
+              "prov": "cited",
+              "ref_id": "C13",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": "Recovery intake view",
+      "tabs": [
+        {
+          "label": "Recovery operand consequences",
+          "scale": null,
+          "row_header": "Operand",
+          "columns": [
+            "Adopted evidence and rule",
+            "Required input or constraint",
+            "Consequence"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "First claims",
+              "cells": [
+                {
+                  "text": "CP-4B quantity controls and CP-4D D2: USD90m is revolving commitment, not drawn principal or full claims. First Lien Obligations include specified LC, hedge, cash-management, interest, fees and other liabilities; disallowed charges can remain relevant inter-class (ICA pp.1–2, L11, L62, L98–L105).",
+                  "prov": "cited",
+                  "ref_id": "C1",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Dated funded balances, contingent exposures, accrued charges and discharge requirements; distinguish estate allowance from contractual allocation.",
+                  "prov": "cited",
+                  "ref_id": "C1",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Senior deduction cannot be populated with USD90m; no unused capacity inferred.",
+                  "prov": "cited",
+                  "ref_id": "C1",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Second claims",
+              "cells": [
+                {
+                  "text": "CP-4B/4D distinguish USD250m original issued face from complete outstanding/allowed claims. Indenture Cap Amount includes expressly permitted additional Notes; covered principal and associated interest are qualified by that cap (ICA pp.1–3, L13, L121, L159–L162).",
+                  "prov": "cited",
+                  "ref_id": "C2",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Outstanding principal, changes, accrued/PIK amounts, disputed status, underlying indenture and cap treatment.",
+                  "prov": "cited",
+                  "ref_id": "C2",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Neither USD250m alone nor USD90m plus USD250m is an actual claim total.",
+                  "prov": "cited",
+                  "ref_id": "C2",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Entity/guarantee reach",
+              "cells": [
+                {
+                  "text": "Adopt CP-4B exact nineteen-row map, Company plus eighteen Guarantor acknowledgers, without aggregation or renaming; ICA p.11 L588–L704 confirms names. Described support is not audited grants.",
+                  "prov": "cited",
+                  "ref_id": "C3",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Preserve each row’s missing assets, EBITDA and carrying debt, unproved ownership, jurisdiction/designation, guarantee direction/caps/local-law and perfection limits. No foreign status inferred from a name.",
+                  "prov": "cited",
+                  "ref_id": "C3",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Nineteen acknowledgers are not nineteen independent duplicate claims or value pools. Reconcile guarantee/intercompany overlap and asset/equity value before allocation.",
+                  "prov": "cited",
+                  "ref_id": "C3",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Collateral proceeds",
+              "cells": [
+                {
+                  "text": "CP-4B F1–F2 and CP-4D shared/class-only distinction: Collateral is the intersection; §4 allocates shared proceeds senior then junior. §2.1 is lien, not payment, subordination (ICA pp.1,3–5, L58, L193–L212, L253–L265).",
+                  "prov": "cited",
+                  "ref_id": "C4",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Rule 3-16 excludes equity only to the otherwise-unrequired separate-financials extent not filed; foreign-equity exception requires local prohibition/unenforceability, subject to bailee/custodian/agent qualification. Specified later asset types may diverge after prior written notice and written election. Obtain schedules, filings, legal analysis and elections.",
+                  "prov": "cited",
+                  "ref_id": "C4",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Partition shared/class-only assets before allocating proceeds; do not apply shared-pool rank universally or certify external perfection. Qualified ordinary payments/unsecured remedies survive (§5.4).",
+                  "prov": "cited",
+                  "ref_id": "C4",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Control/timing",
+              "cells": [
+                {
+                  "text": "CP-4D T4F.3: ≥180 days from later of junior declaration AND full-principal demand and senior receipt; ≥15 days written action notice may overlap (ICA p.4 L225).",
+                  "prov": "cited",
+                  "ref_id": "C5",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Actual receipt/demand/action dates; continuing diligent senior material-collateral enforcement or specified stay requests override elapsed markers. Junior stay relief separately requires prior written senior consent (§6.2, p.7 L359).",
+                  "prov": "cited",
+                  "ref_id": "C5",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Calendar expiry is not automatic permission. Delay could change realizable proceeds and accruals; actual eligibility is not determinable.",
+                  "prov": "cited",
+                  "ref_id": "C5",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Dynamic priorities",
+              "cells": [
+                {
+                  "text": "CP-4D T4F.4–5 adopts conditional DIP/AP, refinancing continuity, avoidance reinstatement, bid/release and postdischarge rules (ICA pp.5–8 §§5.1,5.5–5.6,6.1–6.13).",
+                  "prov": "cited",
+                  "ref_id": "C6",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Obtain financing/orders, cap formula/usage, AP payments, sale/release terms, avoidance and discharge records. Preserve conditions explained below.",
+                  "prov": "cited",
+                  "ref_id": "C6",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Priority and reachable support must be tested by event, not frozen as two static balances. No financing headroom or recovery follows.",
+                  "prov": "cited",
+                  "ref_id": "C6",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        }
+      ],
+      "note": null,
+      "full_analysis_route": "CP-4C",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "red-flags",
+      "title": "Red flags",
+      "owner": "CP-4C",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Paragraph",
+      "columns": [
+        "Text"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "Recovery intake conclusion — paragraph 1",
+          "cells": [
+            {
+              "text": "The positive finding is contractual access asymmetry, not a quantified loss. Conditionally, declaration/demand and receipt initiate restrictions; loss of unilateral realization timing is the first legal break. If assets deteriorate during delay, senior accruals or qualifying financing could absorb more proceeds; a conditioned sale/release could replace guarantee/asset access with residual proceeds. Observable tests are notices, diligence/stay filings, claims, valuations, DIP/AP orders, sale consideration and discharge records—not assumed issuer events.",
+              "prov": "cited",
+              "ref_id": "C22",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "Recovery intake conclusion — paragraph 2",
+          "cells": [
+            {
+              "text": "The strongest countercase combines reciprocal grants and matching-collateral intent, residual proceeds, qualified payments, conditional bidding/AP rights and anti-disproportionate-amendment safeguards (§§2.3–2.4,5.3). It wins economically if verified coextensive perfected coverage, immaterial exceptions and ample net value after actual senior claims are demonstrated. Control asymmetry alone cannot defeat that case or establish the fulcrum.",
+              "prov": "cited",
+              "ref_id": "C23",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-4C",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    }
+  ],
+  "unplaced": [],
+  "passports": [
+    {
+      "ref_id": "C1",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 27"
+        },
+        {
+          "name": "Quote",
+          "value": "| First claims | CP-4B quantity controls and CP-4D D2: USD90m is revolving commitment, not drawn principal or full claims. First Lien Obligations include specified LC, hedge, cash-management, interest, fees and other liabilities; disallowed charges can remain relevant inter-class (ICA pp.1–2, L11, L62, L98–L105). | Dated funded balances, contingent exposures, accrued charges and discharge requirements; distinguish estate allowance from contractual allocation. | Senior deduction cannot be populated with USD90m; no unused capacity inferred. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C2",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 28"
+        },
+        {
+          "name": "Quote",
+          "value": "| Second claims | CP-4B/4D distinguish USD250m original issued face from complete outstanding/allowed claims. Indenture Cap Amount includes expressly permitted additional Notes; covered principal and associated interest are qualified by that cap (ICA pp.1–3, L13, L121, L159–L162). | Outstanding principal, changes, accrued/PIK amounts, disputed status, underlying indenture and cap treatment. | Neither USD250m alone nor USD90m plus USD250m is an actual claim total. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C3",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 29"
+        },
+        {
+          "name": "Quote",
+          "value": "| Entity/guarantee reach | Adopt CP-4B exact nineteen-row map, Company plus eighteen Guarantor acknowledgers, without aggregation or renaming; ICA p.11 L588–L704 confirms names. Described support is not audited grants. | Preserve each row’s missing assets, EBITDA and carrying debt, unproved ownership, jurisdiction/designation, guarantee direction/caps/local-law and perfection limits. No foreign status inferred from a name. | Nineteen acknowledgers are not nineteen independent duplicate claims or value pools. Reconcile guarantee/intercompany overlap and asset/equity value before allocation. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C4",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 30"
+        },
+        {
+          "name": "Quote",
+          "value": "| Collateral proceeds | CP-4B F1–F2 and CP-4D shared/class-only distinction: Collateral is the intersection; §4 allocates shared proceeds senior then junior. §2.1 is lien, not payment, subordination (ICA pp.1,3–5, L58, L193–L212, L253–L265). | Rule 3-16 excludes equity only to the otherwise-unrequired separate-financials extent not filed; foreign-equity exception requires local prohibition/unenforceability, subject to bailee/custodian/agent qualification. Specified later asset types may diverge after prior written notice and written election. Obtain schedules, filings, legal analysis and elections. | Partition shared/class-only assets before allocating proceeds; do not apply shared-pool rank universally or certify external perfection. Qualified ordinary payments/unsecured remedies survive (§5.4). |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C5",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 31"
+        },
+        {
+          "name": "Quote",
+          "value": "| Control/timing | CP-4D T4F.3: ≥180 days from later of junior declaration AND full-principal demand and senior receipt; ≥15 days written action notice may overlap (ICA p.4 L225). | Actual receipt/demand/action dates; continuing diligent senior material-collateral enforcement or specified stay requests override elapsed markers. Junior stay relief separately requires prior written senior consent (§6.2, p.7 L359). | Calendar expiry is not automatic permission. Delay could change realizable proceeds and accruals; actual eligibility is not determinable. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C6",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 32"
+        },
+        {
+          "name": "Quote",
+          "value": "| Dynamic priorities | CP-4D T4F.4–5 adopts conditional DIP/AP, refinancing continuity, avoidance reinstatement, bid/release and postdischarge rules (ICA pp.5–8 §§5.1,5.5–5.6,6.1–6.13). | Obtain financing/orders, cap formula/usage, AP payments, sale/release terms, avoidance and discharge records. Preserve conditions explained below. | Priority and reachable support must be tested by event, not frozen as two static balances. No financing headroom or recovery follows. |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C7",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 52"
+        },
+        {
+          "name": "Quote",
+          "value": "| actual_senior_claims_USDm | — |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C8",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 53"
+        },
+        {
+          "name": "Quote",
+          "value": "| actual_junior_claims_USDm | — |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C9",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 54"
+        },
+        {
+          "name": "Quote",
+          "value": "| entity_realizable_value_USDm | — |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C10",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 55"
+        },
+        {
+          "name": "Quote",
+          "value": "| recovery_percent | — |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C11",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 56"
+        },
+        {
+          "name": "Quote",
+          "value": "| fulcrum_value_USDm | — |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C12",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 5"
+        },
+        {
+          "name": "Quote",
+          "value": "Execute downstream intake only for LMI Aerospace, Inc., run `sol-remaining-lmi-recovery-intake-20261105`, method `deploy-v-r14`, public / covenant_refinancing. Historical as-of **2014-06-19**; execution **2026-11-05**. This completes the bounded intake, not numerical CP-4C, a fulcrum analysis or the full/native pathway."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C13",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 7"
+        },
+        {
+          "name": "Quote",
+          "value": "View: The fresh structural map and control assessment change what a recovery model must claim, reach, allocate and time. They establish senior-led shared-collateral access, not low junior recovery. No documented distress gate, reconciled claims or financial values is supplied; restructuring scenarios and numerical outcomes remain blocked. This is not an assumption that historical or current LMI is distressed."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C14",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 11"
+        },
+        {
+          "name": "Quote",
+          "value": "Actual supplied handoffs read and adopted:"
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C15",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 13"
+        },
+        {
+          "name": "Quote",
+          "value": "- **CP-4B**, SHA-256 `84167ceccba6285b7164f5e0060490bc412b8cbba3f642c4aea47f15452f98ab`: exact **“T4D.2–5 — combined entity map”**, creditor map, F1–F7 and G1–G7."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C16",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 14"
+        },
+        {
+          "name": "Quote",
+          "value": "- **CP-4D**, SHA-256 `3ae37060a3d6ac729a3f99fdbb8236a38bcd0e2c5c2b71e28046f39450c5d45f`: T4F.2–5 control, turnover, release, purchase and insolvency findings; G1–G7."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C17",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 15"
+        },
+        {
+          "name": "Quote",
+          "value": "- Historical **CP-0**, SHA-256 `aefd1746676cfbf5a5f3d51f8c93ecaccbed0d3ba6e4ce5e78746a3c0898d1ff`: limited source admission only, not CP-1 financial readiness."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C18",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 17"
+        },
+        {
+          "name": "Quote",
+          "value": "Independently re-read **ICA pp.1–11**, indexed L0–L707, SEC Exhibit 4.6, Execution Version dated June 19, 2014; pinned SHA-256 `79d954d69435bc83728b8bf2f7592fe33712e9c16d465a814ea151510c9bedb7`. This is extracted-text review, not visual/authenticity assurance or an enforceability opinion."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C19",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 19"
+        },
+        {
+          "name": "Quote",
+          "value": "Read **selected-method pp.1–2**, SHA-256 `9e1a16330a06e98cd22ef7aa97be526c131d962ec3d3ff1ef9a3e42ca9bb311c`: distress first, then claims/value/priority lock before paths and recoveries. Its inherited invocation, approval and native-output language is not execution authority here. No CP-1, CP-2A or CP-2G foundation is invented."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C20",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 34"
+        },
+        {
+          "name": "Quote",
+          "value": "DIP non-objection/subordination requires DIP principal plus specified senior borrowed-money principal and LC face within Maximum First Lien Indebtedness Amount plus USD10m; exclusions from that test do not remove broader discharge obligations. The maximum refers to indenture §4.09(b)(1), with reduction/increase qualifications—not automatically USD90m. Junior AP additional/replacement liens and administrative claims require specified senior priority; cash AP remains objectionable. Pay-over is limited to the lesser of junior receipts and senior cash shortfall, with the prescribed equal-value property exchange (ICA pp.7–8 L349–L373)."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C21",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 36"
+        },
+        {
+          "name": "Quote",
+          "value": "Discharge requires the specified cash payments, hedge/bank-product satisfaction or collateralization and transaction termination, commitment termination, and LC termination or satisfactory cash collateralization no greater than 105% of aggregate undrawn LC face; undemanded indemnities receive the stated exception (ICA p.1 L62). Refinancing can deem discharge not to have occurred; avoidance restores obligations and the ICA. After genuine discharge, remaining senior obligations receive only the stated pari passu benefits, subject to §5.6 (pp.6–8 L325–L337, L375–L378). Releases require the §5.1 enforcement or permitted-disposition conditions; guarantee release is linked to all-equity sale and senior guarantee release. Ordinary dispositions require senior permission and no express junior prohibition. A cash bid buys **Collateral**, not senior debt; junior credit bidding requires cash sufficient to cause senior discharge. No standalone debt-buyout option is identified in the examined ICA; other documents remain missing (§3.1(e), §6.12)."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C22",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 40"
+        },
+        {
+          "name": "Quote",
+          "value": "The positive finding is contractual access asymmetry, not a quantified loss. Conditionally, declaration/demand and receipt initiate restrictions; loss of unilateral realization timing is the first legal break. If assets deteriorate during delay, senior accruals or qualifying financing could absorb more proceeds; a conditioned sale/release could replace guarantee/asset access with residual proceeds. Observable tests are notices, diligence/stay filings, claims, valuations, DIP/AP orders, sale consideration and discharge records—not assumed issuer events."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C23",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 42"
+        },
+        {
+          "name": "Quote",
+          "value": "The strongest countercase combines reciprocal grants and matching-collateral intent, residual proceeds, qualified payments, conditional bidding/AP rights and anti-disproportionate-amendment safeguards (§§2.3–2.4,5.3). It wins economically if verified coextensive perfected coverage, immaterial exceptions and ample net value after actual senior claims are demonstrated. Control asymmetry alone cannot defeat that case or establish the fulcrum."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C24",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 46"
+        },
+        {
+          "name": "Quote",
+          "value": "No financial arithmetic is performed: source-backed financial values are absent. EV, waterfall, recoveries, fulcrum, unused capacity and total claims are **Not calculable**. Prior CP-4D calendar fixtures remain **synthetic**, not distress evidence or actual event dates."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C25",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 58"
+        },
+        {
+          "name": "Quote",
+          "value": "Every dash means missing, not zero: claims/values are Not supplied; recovery/fulcrum are Not calculable without them."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C26",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 62"
+        },
+        {
+          "name": "Quote",
+          "value": "Both handoffs’ G1–G7 remain open. Decisive evidence comprises dated distress evidence and relevant proceeding jurisdictions; complete instrument/amendment chain; verified entity guarantees, collateral/perfection and exceptions; reconciled claims and competing priorities; entity/asset valuations, costs and forecast support; and actual notice, enforcement, financing, release and discharge chronology. ICA New York law does not establish every entity’s or collateral’s jurisdiction. Later amendments/events are Not supplied; execution in 2026 does not update 2014 rights."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    },
+    {
+      "ref_id": "C27",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-4C"
+        },
+        {
+          "name": "Locator",
+          "value": "line 66"
+        },
+        {
+          "name": "Quote",
+          "value": "Retain this bounded legal-to-recovery intake for CP-5 trace and subsequent financial/legal evidence collection. A **separate real historical distressed case** with documented distress and reconciled claims/value foundations is needed to demonstrate the positive numerical CP-4C function. Do not manufacture that foundation for LMI or designate a path, recovery or fulcrum here. This handoff is separate from the concise delivery notice; no full/native completion or downstream approval is claimed."
+        },
+        {
+          "name": "SHA-256",
+          "value": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188"
+        }
+      ]
+    }
+  ],
+  "index": {
+    "facts": [
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-4C-0.r0.c0"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-4C-0.r0.c1"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-4C-0.r0.c2"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-4C-0.r1.c0"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-4C-0.r1.c1"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-4C-0.r1.c2"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-4C-0.r2.c0"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-4C-0.r2.c1"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-4C-0.r2.c2"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-4C-0.r3.c0"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-4C-0.r3.c1"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-4C-0.r3.c2"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r4",
+          "fact_id": "raw-CP-4C-0.r4.c0"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r4",
+          "fact_id": "raw-CP-4C-0.r4.c1"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r4",
+          "fact_id": "raw-CP-4C-0.r4.c2"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r5",
+          "fact_id": "raw-CP-4C-0.r5.c0"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r5",
+          "fact_id": "raw-CP-4C-0.r5.c1"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-0",
+          "row_id": "r5",
+          "fact_id": "raw-CP-4C-0.r5.c2"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-4C-1.r0.c0"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-4C-1.r1.c0"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-4C-1.r2.c0"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-4C-1.r3.c0"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "raw-CP-4C-1",
+          "row_id": "r4",
+          "fact_id": "raw-CP-4C-1.r4.c0"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "prose-CP-4C-0",
+          "row_id": "r0",
+          "fact_id": "prose-CP-4C-0.r0.c0"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "prose-CP-4C-0",
+          "row_id": "r1",
+          "fact_id": "prose-CP-4C-0.r1.c0"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "prose-CP-4C-1",
+          "row_id": "r0",
+          "fact_id": "prose-CP-4C-1.r0.c0"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "prose-CP-4C-1",
+          "row_id": "r1",
+          "fact_id": "prose-CP-4C-1.r1.c0"
+        },
+        "ref_ids": [
+          "C15",
+          "C16",
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "prose-CP-4C-1",
+          "row_id": "r2",
+          "fact_id": "prose-CP-4C-1.r2.c0"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "prose-CP-4C-1",
+          "row_id": "r3",
+          "fact_id": "prose-CP-4C-1.r3.c0"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "prose-CP-4C-2",
+          "row_id": "r0",
+          "fact_id": "prose-CP-4C-2.r0.c0"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "prose-CP-4C-2",
+          "row_id": "r1",
+          "fact_id": "prose-CP-4C-2.r1.c0"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "prose-CP-4C-3",
+          "row_id": "r0",
+          "fact_id": "prose-CP-4C-3.r0.c0"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "prose-CP-4C-3",
+          "row_id": "r1",
+          "fact_id": "prose-CP-4C-3.r1.c0"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "prose-CP-4C-4",
+          "row_id": "r0",
+          "fact_id": "prose-CP-4C-4.r0.c0"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "prose-CP-4C-5",
+          "row_id": "r0",
+          "fact_id": "prose-CP-4C-5.r0.c0"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "prose-CP-4C-6",
+          "row_id": "r0",
+          "fact_id": "prose-CP-4C-6.r0.c0"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-4C",
+          "table_id": "prose-CP-4C-7",
+          "row_id": "r0",
+          "fact_id": "prose-CP-4C-7.r0.c0"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      }
+    ]
+  }
+}

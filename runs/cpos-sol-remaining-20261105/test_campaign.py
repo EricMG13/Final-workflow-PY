@@ -12,6 +12,36 @@ ROOT = CASE.parents[1]
 HARNESS = runpy.run_path(str(CASE / "run_module.py"))
 
 
+@pytest.mark.parametrize("mutation", ["missing_as_zero", "wrong_entity", "wrong_locator"])
+def test_lmi_map_refuses_source_corruption(tmp_path, mutation):
+    checks = runpy.run_path(str(CASE / "verify_legal_inputs.py"))
+    original = CASE / "lmi-structure/CP-4B.md"
+    assert checks["verify_lmi_map"](original)
+    raw = original.read_text()
+    replacements = {
+        "missing_as_zero": ("| — | — | — | ICA p.11 L592", "| 0 | — | — | ICA p.11 L592"),
+        "wrong_entity": ("| LMI AEROSPACE, INC. |", "| Different issuer |"),
+        "wrong_locator": ("| ICA p.11 L592–L596; P; Q |", "| ICA p.11 L597–L601; P; Q |"),
+    }
+    before, after = replacements[mutation]
+    assert raw.count(before) == 1
+    path = tmp_path / "mutated.md"
+    path.write_text(raw.replace(before, after))
+    with pytest.raises(AssertionError):
+        checks["verify_lmi_map"](path)
+
+
+def test_frontier_source_recovery_and_null_boundaries_ignore_decimal_context():
+    from decimal import ROUND_FLOOR, localcontext
+
+    check = runpy.run_path(str(CASE / "verify_recovery_inputs.py"))["check"]
+    expected = check()
+    with localcontext() as context:
+        context.prec = 7
+        context.rounding = ROUND_FLOOR
+        assert check() == expected
+
+
 def sample():
     _, task, check = HARNESS["load_task"](CASE / "tdg-earnings/CP-1B.task.json")
     raw = (ROOT / "runs/tdg-003/CP-1B-attempt-1.md").read_text()

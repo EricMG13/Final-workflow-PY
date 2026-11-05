@@ -1,0 +1,81 @@
+# Frontier — CP-3 selected CP-3A recovery/security comparison
+
+## Request
+
+View: Frontier Communications Corporation’s source-defined liquidation protects the three equal-ranking first-lien instruments more than second liens or HoldCo Senior Notes, but does not establish investment preference. Adopting the fresh repaired CP-4C changes the economics: low-case second liens retain unsecured deficiency value rather than recovering nothing, while high-case second liens participate materially in collateral upside. All instruments **Require More Work** for security selection; compensation is **Unclear**.
+
+Run `sol-remaining-frontier-recovery-consumer-20261105`; issuer FTR; method `deploy-v-r14`. Execution 2026-11-05; historical evidence as of 2020-06-29. This is focused downstream consumption within CP-3, not full CP-3A, native gate acceptance or trade proof. Missing CP-3 market/RV inputs block only dependent preference conclusions: `UPSTREAM_DEPENDENCY_MISSING`. Supported recovery comparison continues, Ready with Limitations. Inherited approval/output assertions are not new authority.
+
+## Sources
+
+Read both supplied handoffs in full: current CP-4C, run `sol-remaining-frontier-recovery-20261105`, SHA-256 `14cafb053370f8af95a8f46c1d87ae57ce2e7c635824505c253cecc41b759a82` (hereafter **P**); limited historical CP-0, SHA-256 `166c1395182a3ed574ac6ef1be9050489b2a8f4cd9faf13a1a3cfc6172695a9d`. P is the numerical producer; CP-0 admits selected historical disclosure, not a complete underwriting pack.
+
+Primary `disclosure`, SHA-256 `449e28443aebc42a7f5a2a323ca5dea1d4c34a2407531b9caaff47dcd3cac4d8`, SEC Exhibit 99.1: https://www.sec.gov/Archives/edgar/data/20520/000114036120015359/ex99_1.htm. Re-touched retrieval pp4–11 and p13; citations retain original line indexes. The capture is selected text, not the whole original document; no visual entity-chart review claimed.
+
+Read current `method-runbook` p1, SHA-256 `cbb19deed431ea93c91b5e4d025d466869169681e8daa2d94a70ecde775dbc8e`, and `method-steps` pp1–2, SHA-256 `40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec`. Apply source gating, structural ordering, sensitivity, compensation restraint and gaps within this request; do not manufacture full-method registers or accepted dependencies. No other issuer facts or prior consumer answer used.
+
+## Findings
+
+### Recovery comparison
+
+Amounts USDm; liquidation recovery fractions are 0–1, not percentage units. Claims are source-estimated scenario claims, not allowed claims or GAAP carrying debt. Source local administrative, secured and unsecured deductions precede the shared liens (disclosure p8 L5989–5998; P T4E.2, T4E.5–7).
+
+| Instrument / source claim | Low total fraction | High total fraction | Recovery mechanic / sensitivity interpretation |
+| --- | --- | --- | --- |
+| Revolver 749.0; 1L term loan 1,740.0; 1L notes 1,650.0; one equal-rank 4,139.0 class | 0.865398 | 1.000000 | Shared collateral 3,523.2 / 4,139.0 plus HoldCo deficiency payment 58.680352 / 0. Moderate sensitivity within these cases; no preference among the three from rank. |
+| 2L notes 1,600.0 | 0.095291 | 0.749657 | Collateral 0 / 1,135.1 plus deficiency cash 152.466001 / 64.351796. High sensitivity: upside reaches junior collateral only after shared 1L coverage. |
+| HoldCo Senior Notes 11,445.4 | 0.095291 | 0.138421 | Unsecured cash 1,090.646482 / 1,584.280585; structurally subordinated to local liabilities and exposed to competing deficiencies. High sensitivity despite the relatively narrow disclosed endpoint range. |
+
+Trace: P T4E.7 and Recovery numeric controls; disclosure p9 L6124–6145, p10 L6213–6234, p11 L6324–6338. Sensitivities are analyst interpretations conditional on the source perimeter, not independently verified legal protection. Confidence in security selection is Low; arithmetic confidence does not cure missing legal/market evidence.
+
+### Adoption consequences
+
+| Adopted producer finding | Changed economic interpretation | Decision consequence / trace |
+| --- | --- | --- |
+| Unpaid secured claims share HoldCo pari passu | Low 2L is not zero total recovery: it matches Senior Notes’ fraction through its deficiency claim. Low 1L also has value beyond collateral. | Do not confuse collateral rows with total recoveries. P T4E.7; disclosure p9 L6134–6141 and p11 L6324–6336. |
+| Pledged marginal class moves from 1L low to 2L high | 2L has substantial collateral upside, not merely the same unsecured exposure as Senior Notes in every case. | No unique group-wide fulcrum: HoldCo remains a separate marginal pool. P T4E.6; disclosure pp9–10 L6124–6141, L6213–6230. |
+| Source has separate pledged and HoldCo distributable pools | Gross group sale value is not freely fungible collateral; non-pledged equity upflow is already in HoldCo. | Do not double-count 759.1 / 1,107.1 upflow, prior deductions or guarantees. P T4E.5; disclosure p8 L6078–6082, p9 L6169, p10 L6266. |
+
+### Instrument conclusion
+
+Conditional **liquidation recovery ordering** is 1L above 2L equal to Senior Notes in the low case, and 1L above 2L above Senior Notes in the high case. Equal rank does not establish identical instrument terms or trading economics. This is not an unconditional instrument preference, yield/spread comparison, buy/sell recommendation or position decision.
+
+Keep the proposed plan separate: source-reported secured recovery is 100%, Senior Notes 43–45%; neither is independently reconstructed from liquidation claim denominators (disclosure p8 L6021–6033; P T4E.7). Secured treatment is repayment or reinstatement, not necessarily immediate cash. Senior Notes receive new equity subject to MIP dilution, 750 takeback debt subject to reduction, and qualified surplus cash above 150—not liquidation cash and not 750 of new-money funding (p4 L1768–1769, L1008; p5 L3440–3444).
+
+The plan valuation assumes 2021-01-01; liquidation assumes 2020-10-31 sale and 2020-11-01 liquidation with illustrative three-month wind-down. P’s separate plan equity bridge is 2,070–4,570 USDm; it is not predicted trading value or a middle liquidation case (disclosure p13 L6845–6859; p7 L5977–5985).
+
+The strongest countercase to favoring apparent secured protection is that, at sufficiently different prices, junior plan equity participation could offer better economics; prices are absent. The strongest countercase to relying on the plan’s reported recovery advantage is implementation and valuation erosion. Exit financing is only a commercially reasonable best-efforts 850 commitment target, not certified available funds. Surplus cash is adjusted for deferred pensions, regulatory/restructuring payments and any commitment shortfall; exit proceeds are excluded and the facility is to remain undrawn except L/Cs (p5 L3440).
+
+At the historical decision point, FCC/PUC approvals and confirmation were prospective. Class acceptance requires at least two-thirds in value **AND** more than half in number of voting allowed claims, distinct from RSA support thresholds (p4 L1935, L2422; p6 L4906). Approval/financing delay can extend liquidity strain, vendor contraction, employee/customer attrition and deferred maintenance; lower EBITDA and buyer appetite then shrink both pools while deficiencies compete for less HoldCo value. The source itself calls liquidation optimistic (p7 L5950–5957; p13 L6865–6869). Monitor approvals, actual exit commitments, ballots, liquidity forecasts, churn, retention, vendor terms and network reinvestment. No numerical path probability is assigned.
+
+## Calculations
+
+### Recovery basis controls
+
+| Metric | Low | High |
+| --- | --- | --- |
+| first_lien_total_recovery_fraction | 0.865398 | 1.000000 |
+| second_lien_total_recovery_fraction | 0.095291 | 0.749657 |
+| senior_notes_total_recovery_fraction | 0.095291 | 0.138421 |
+
+Copied exactly from P, Recovery numeric controls; no redundant waterfall or arithmetic rerun. P uses net pledged proceeds 3,523.2 / 5,274.1 and HoldCo available 1,306.1 / 1,654.1 against unsecured denominators 13,706.4 / 11,949.8. Only unpaid deficiencies enter those denominators, not full secured principal again. P preserves small source-rounding differences rather than claiming reconciliation to hidden entity calculations.
+
+Secured claims include filing balances plus interest through liquidation; Senior Notes stop interest at filing. Separate principal/accrual splits and plan-denominator reconciliation are Not supplied (disclosure p11 L6324–6338). GAAP carrying values are Not supplied for this comparison; no canonical debt dashboard or total group debt is manufactured.
+
+## Gaps
+
+### Decision evidence gaps
+
+| Missing evidence / conflict | Decision affected | Required follow-up / observable |
+| --- | --- | --- |
+| Historical prices, trade accruals, market benchmarks, trading liquidity and portfolio constraints: Not supplied | Compensation Unclear; all five instruments Require More Work; no security-selection ranking | Obtain as-of quotes, settlement/accrual basis, executable liquidity and portfolio limits before CP-3 RV/implementation. |
+| Controlling instrument terms, guarantees, perfection, intercreditor and entity waterfalls: Not supplied | Source aggregates do not certify collateral reach, release/priming capacity or equal economics | CP-4/4B legal review; entity chart and instruments. PBGC direct-HoldCo alternative can redistribute value (p11 L6312). |
+| Allowed claims and plan claim dates: Not supplied; Senior Notes maturity and lease inconsistencies retained | No series-level selection or independent plan 43–45% reconstruction | Reconcile P gaps to disclosure p4 L1582 versus p11 L6340; p9 L6143 versus p10 L6232. |
+| Final MIP, takeback documents, surplus cash and exit commitments: Not supplied | Noncash value, dilution and liquidity remain conditional | Review plan supplement, commitment amounts and takeback decision at least 30 days pre-effective (p5 L3342, L3867). |
+| Liquidation taxes excluded; updated operating/fee evidence: Not supplied | Endpoints are not floors; approval delay may erode proceeds | Tax/fee review, churn, maintenance, vendor terms and liquidity updates; no unsupported quantitative trigger (p7 L5945–5957; p10 L6274). |
+
+## Next module
+
+CP-3A focused consumption completed with limitations. Preferred: none established. All compared instruments: Requires More Work. No current issuer condition, confirmation, actual emergence or realized payment is claimed from this historical source.
+
+Keep assurance and broader pathway separate: CP-5 audits producer-to-source lineage and conflicts; CP-4/4B resolves legal reach; market-enabled CP-3 completes compensation analysis; CP-6 debates plan execution versus operating erosion after those inputs. No automatic approval follows. Retain this complete raw Markdown separately alongside the checked existing report; do not overwrite the historical report or treat this selected comparison as a completed distressed pathway.

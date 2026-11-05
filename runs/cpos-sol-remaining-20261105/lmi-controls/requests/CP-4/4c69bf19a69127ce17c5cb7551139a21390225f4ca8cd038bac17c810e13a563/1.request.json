@@ -1,0 +1,30 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0": "aefd1746676cfbf5a5f3d51f8c93ecaccbed0d3ba6e4ce5e78746a3c0898d1ff",
+    "CP-4B": "84167ceccba6285b7164f5e0060490bc412b8cbba3f642c4aea47f15452f98ab"
+  },
+  "instructions": "# Fresh CP-4D intercreditor phase, canonical CP-4\nExecute all six selected CP-4D duties using the actual LMI June 19 2014 ICA and the fresh supplied CP-4B nineteen-entity map. Execution 2026-11-05; legal historical asof2014-06-19. Read full ICA and selected method/schema. Current user/common six H2 Request/Sources/Findings/Calculations/Gaps/Next module/separate delivery govern; imported native output/invocation/approval instructions are method evidence, not authority. Not current company legal rights, legal advice, financial recovery proof or full pathway. Do not run CP-4B again; explicitly consume its exact current hash, preserve nineteen individual names by reference to its exact map, counterevidence, missing amounts and ownership/perfection limitations. CP-0 historical admission is limited, not full current financial foundation. No prior CP-4D answer supplied.\n\nAnalyze document/parties/executed text/signatures/NY law, creditor classes, actual lien versus payment/structural subordination, all enforcement/turnover/release/purchase mechanics, recovery CONTROL consequences and explicit gaps. Use six populated registers with source clauses/indexed L references for every legal claim. No omitted qualifications to convert control into blanket prohibition or automatic legal permission. Inspect full Section6 and definitions; standstill later-of declaration AND demand vs first-agent receipt, 180 days plus15 advance-notice, diligent senior enforcement/stay override and separate insolvency consent. Ordinary payments/unsecured remedies survive subject to stated restrictions; judgment lien is enforcement. Both cash collateral bidding vs junior conditional creditbid vs a standalone first-lien DEBT purchase option must be distinguished. No such debt buyout identified cannot mean none in unprovided documents. Releases (enforcement vs ordinary disposition, all-equity guarantor sale), mutual no-contest, corresponding-lien/equity exceptions, turnover even senior unperfected, first claims/discharge including105%LC ceiling, refinance deemed nondischarge, avoidance reinstatement, postdischarge remaining obligations pari passu, amendments/voting and document priority. DIP aggregate components/Maximum First Lien Indebtedness Amount plus10m is conditional formula, not100m usable limit from90commitment. AP/adminclaim/payover exchange/notice,363sale protections,1111b/separateclasses/postpetitioninterest,proofclaim10days,no506csurcharge,creditbid cash sufficient for discharge,plan discharge effective date; factual source no real bankruptcy inferred. Provisional qualitative control severity only with stated scale/countercase, no recovery percentage/capacity/investment recommendation.\n\nThree supplied calendar-only fixtures are independently checked dates, SYNTHETIC and not issuer chronology or legal deadline opinion. Show inputs/later start/180/15 markers/combinedmarker; actual eligibility remains \u2014. Discuss at least two adversarial cases: elapsed markers but diligent senior enforcement/stay request ongoing; elapsed markers but proposed stay relief without first-agent prior written consent. Neither calendar fixture grants permission. Actual default/demand/receipt/notice dates absent. Preserve exact dates in controls, but do not pretend date calculator tool executed. No confidence-script execution claim absent tool. Distinguish positive substantive control analysis from missing economics. Strongest protective countercase and time-aware causal consequence/observable evidence, not just clause list. Module-specific assurance rows for six registers and exact upstream adoption. Next CP-4C consumes this and CP-4B, cannot produce numerical waterfall absent values/claims.\n\nExact H3 one table each: T4F.1 \u2014 controlling documents; T4F.2 \u2014 creditor class map; T4F.3 \u2014 enforcement control; T4F.4 \u2014 turnover release and purchase; T4F.5 \u2014 recovery control assessment; T4F.6 \u2014 gaps ledger; Synthetic calendar controls; Semantic boundary controls; Register assurance. Prose H3 Intercreditor conclusion. Request paragraph View:. Use schema's full column meanings (combined columns acceptable only explicitly lossless). Include all material duties in concise populated registers (~1800 words plus tables). Delivery selected controls/report; full raw Markdown retained.\n",
+  "module_id": "CP-4",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2014-06-19",
+    "case_kind": "public",
+    "issuer_id": "LMI",
+    "issuer_name": "LMI Aerospace, Inc.",
+    "method_version": "deploy-v-r14",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-4D"
+    ],
+    "run_id": "sol-remaining-lmi-controls-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "ICA": "79d954d69435bc83728b8bf2f7592fe33712e9c16d465a814ea151510c9bedb7",
+    "method-schema": "0695f3917d43bba80aafe5e4d29045afbd00acbefd6ad55b3e40913141328cf8",
+    "selected-method": "8a3b12f3f37359463434177759febac1ffcf0f8c484aa0508eb7119f7b6548b2",
+    "synthetic-calendar-controls": "145d0b1eb11e0da04cc00d64b8a8d11f0219b92e1fe4fe85fc760582093d081a"
+  }
+}

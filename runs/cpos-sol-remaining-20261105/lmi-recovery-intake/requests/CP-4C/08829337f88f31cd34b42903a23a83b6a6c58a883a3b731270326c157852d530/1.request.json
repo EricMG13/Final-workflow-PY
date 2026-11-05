@@ -1,0 +1,29 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0": "aefd1746676cfbf5a5f3d51f8c93ecaccbed0d3ba6e4ce5e78746a3c0898d1ff",
+    "CP-4B": "84167ceccba6285b7164f5e0060490bc412b8cbba3f642c4aea47f15452f98ab",
+    "CP-4D": "3ae37060a3d6ac729a3f99fdbb8236a38bcd0e2c5c2b71e28046f39450c5d45f"
+  },
+  "instructions": "# Fresh recovery intake of actual LMI structural/control handoffs\nExecute a focused CP-4C downstream intake only, historical LMI 2014-06-19, execution2026-11-05. This is NOT completion of numerical CP-4C/fulcrum or a full/native pathway. Read actual supplied fresh CP-4B map and CP-4D control assessment and anchor exact hashes, not prior historical answers. Source ICA full indexed text is available for independent re-touch; read selected CP4C method for its distress/claims/value gates, not inherited approval/native output authority. Current six H2 Request/Sources/Findings/Calculations/Gaps/Next module and separate delivery govern. Historical CP0 limitedadmission; noCP1/2A/2G/distress/values/claims foundation invented. Do not produce ten filler registers to pretend a full CP4C function.\n\nShow how specific upstream content changes six recovery operands: first claims (90m commitment not drawn/fullclaims), second claims (250m original issued face not complete current allowed), entity/guarantee reach (19namedacknowledgers not19independent duplicateclaims/valuepools), collateral proceeds (intersection vs classonlyRule3-16/foreignlaw/election, lien notpaymentsubordination), control/timing (180/15notautomaticpermission), dynamic priorities (DIP/AP, refinance continuity, avoidance reinstatement, conditional bidandrelease, postdischargepari qualification). Preserve all nineteen names through exact map reference, missingfinancialvalues and alllegalqualifications; no inference whichentityisforeign fromname. Cashbidassetrightnotstandalonedebtbuyoutoption. No source-backed financialvalues available therefore do not calculate a false waterfall, recoveries, EV,fulcrum,unusedcapacity or claimtotal90+250. Currentactualeventdates missing; prior syntheticcalendarcontrols remain synthetic notdistress evidence. Adoption must be substantive, nothashalone. Strongcountercase/protectiverights and required decisive evidence; chain control to consequence withobservables. ~800-1200words with one sixrowtable. Include exact H3 Recovery operand consequences(table columns Operand|Adopted evidence and rule|Required input or constraint|Consequence) and Recovery intake conclusion(prose). Request paragraph View:. Add H3 Recovery missing controls table exactcolumns Metric|Value rows inthisorder: actual_senior_claims_USDm,actual_junior_claims_USDm,entity_realizable_value_USDm,recovery_percent,fulcrum_value_USDm allvalue \u2014. Missingnotzero. No unavailable tools/scriptclaims. Next separate realhistoricalcase needed for positive numericalfunction; no assumption currentLMIisdistressed.\n",
+  "module_id": "CP-4C",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2014-06-19",
+    "case_kind": "public",
+    "issuer_id": "LMI",
+    "issuer_name": "LMI Aerospace, Inc.",
+    "method_version": "deploy-v-r14",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-4C"
+    ],
+    "run_id": "sol-remaining-lmi-recovery-intake-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "ICA": "79d954d69435bc83728b8bf2f7592fe33712e9c16d465a814ea151510c9bedb7",
+    "selected-method": "9e1a16330a06e98cd22ef7aa97be526c131d962ec3d3ff1ef9a3e42ca9bb311c"
+  }
+}

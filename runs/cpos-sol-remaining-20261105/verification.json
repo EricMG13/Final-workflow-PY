@@ -146,7 +146,7 @@
         "CP-4B",
         "CP-4D"
       ],
-      "status": "TDG fourteen-step legal and ARCC thirteen-step positive capacity phases reviewed, report-published and freshly consumed; LMI CP-4B/4D still pending",
+      "status": "Selected TDGlegal/ARCCcapacity/LMIstructuralandintercreditor functions source-reviewed, separatelyreported and freshliveconsumed. Not fullnativeorbroaderpathwaycompletion.",
       "tdg_case": {
         "path": "tdg-legal/CP-4.md",
         "report": "tdg-legal/CP-4-delivery/report.html",
@@ -170,11 +170,47 @@
           "sha256": "eaefc9598190f7756adc39c9defe801ff1e87271a12accb14a9407559f816741",
           "review": "Entire fresh focused challenge read against currentproducer and actualselectedannualpages. Eight controls exact; positivepublishedcushion anddatedexecution survive, executableborrowablecash/46.2%assetlossrunway/duplicate5.1bn+3348+2219 inference rejected. Same-numberfacility vsnotes tests/defaultduration, allthreeagencycombined100%CoCtrigger andcollateralexclusions preserved. Jan2025debt andFebauthorizationseparatefromDec/actualusage. Monitoring andstrongcountercase specific; no arithmeticrerunor fullCP6gateclaim, no repair."
         }
+      },
+      "lmi_structure": {
+        "path": "lmi-structure/CP-4B.md",
+        "report": "lmi-structure/CP-4-delivery/report.html",
+        "sha256": "84167ceccba6285b7164f5e0060490bc412b8cbba3f642c4aea47f15452f98ab",
+        "review": "Entire live response reviewed against exact instructions and primary ICA definitions/recitals/signatures and sections2-8. Nineteen source-order names and57missing financial cells verified; no entity jurisdiction from name or unknown ownership invented. Full9duties represented through combinedentitymatrix and6functional registers. Rule3-16, foreign equity/bailee and writtenelection/priornotice exceptions preserved; lien priority not payment/structural subordination, reciprocal grants/no-contest countercase, conditional all-equity guarantee releases. Claims90commitment/250originalface versusallobligations/IndentureCap/MaximumFirstLien definitions distinct. No dollar recovery/leakage capacity/current rights inferred. Qualitative source-backed control consequence and explicit economic gaps. Four actual sol-medium calls, no new financial calculation, no repair; fresh CP4D consuming this map now."
+      },
+      "lmi_controls": {
+        "path": "lmi-controls/CP-4D.md",
+        "report": "lmi-controls/CP-4-delivery/report.html",
+        "sha256": "3ae37060a3d6ac729a3f99fdbb8236a38bcd0e2c5c2b71e28046f39450c5d45f",
+        "review": "Entire actual response reviewed against full primary ICA, six selected duties/fullschema columns and exact currentCP4B adoption. All11source toolpages read. Three synthetic calendar rows match independent datetime/frozen dates and actualeligibility staysmissing; elapsed180/15 plus senior diligence/stay override andseparatewrittenconsent preserved. Fullsixregisters includecashvscreditbidvsdebtbuyout, conditionalrelease/all-equityguarantee, ordinarypayments/judgmentlien, broadclaims/105LC/discharge, DIPaggregateandAPexchangecap, section6.6-13postpetition/separateclass/proof10days/nosurcharge/plan, amendmentmajorityandprotections andlaterchainmissing. Two qualitativecontrolseverity scales2/4explicitnotrecovery; strongestcountercase intact. Three live calls,no new financialcalcs,no repair. Published selectedreport andfullrawMarkdown; freshCP4Cintake pending.",
+        "consumer": {
+          "path": "lmi-recovery-intake/CP-4C.md",
+          "report": "lmi-recovery-intake/CP-4C-delivery/report.html",
+          "sha256": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188",
+          "review": "Entire actual response read against both currentproducerhashes and fullprimaryICA. Six specificoperandconsequences substantivelyadopt19entitymap/nullvalues,90commitmentvs250originalface, claims/perfection/sharedpool/Rule3-16/foreign/election, timingoverrides/consent,dynamicDIP/AP/release/refinance/reinstatement/postdischargepari. Five missingcontrolsremainemdash, no90+250debt/no19duplicateclaims/noinventeddistress. Cashvscreditbidvsbuyoutbounded,105LCandAPexchange preserved; explicitstrongcountercase/observables. All11ICAtoolpagesread; no arithmetic,no repair. Positive numericalCP4Cstillrequiresseparatecase."
+        }
       }
     },
     "CP-4C": {
       "aliases": [],
-      "status": "pending live module proof; historical host proof remains separately recorded"
+      "status": "Source-based positive Frontier numerical recovery/fulcrum phases and freshCP3Aconsumer verified andpublished; LMIactualintake alsoverified. Fullnativegates/independentvaluation/currentoutcomesandbroaderpathwayremainseparate.",
+      "lmi_intake": {
+        "path": "lmi-recovery-intake/CP-4C.md",
+        "report": "lmi-recovery-intake/CP-4C-delivery/report.html",
+        "sha256": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188",
+        "review": "Entire actual response read against both currentproducerhashes and fullprimaryICA. Six specificoperandconsequences substantivelyadopt19entitymap/nullvalues,90commitmentvs250originalface, claims/perfection/sharedpool/Rule3-16/foreign/election, timingoverrides/consent,dynamicDIP/AP/release/refinance/reinstatement/postdischargepari. Five missingcontrolsremainemdash, no90+250debt/no19duplicateclaims/noinventeddistress. Cashvscreditbidvsbuyoutbounded,105LCandAPexchange preserved; explicitstrongcountercase/observables. All11ICAtoolpagesread; no arithmetic,no repair. Positive numericalCP4Cstillrequiresseparatecase."
+      },
+      "frontier": {
+        "path": "frontier-recovery/CP-4C-repaired.md",
+        "report": "frontier-recovery/CP-4C-delivery/report.html",
+        "sha256": "14cafb053370f8af95a8f46c1d87ae57ce2e7c635824505c253cecc41b759a82",
+        "review": "Allsixselectedphases/tenregisters andwholeactualresponse reviewed against1456indexedprimarycapture,methodand56independentnumericcells. Actual39newarithmeticcalls. Netpledged3523.2/5274.1notgrossEV,1L4139equalrank,2L1600andonlyunpaiddeficiencies atHoldCo13706.4/11949.8;7claims prorata withsourcepayoutresiduals retained. Liquidationfull1L0.865398/1,2L0.095291/.749657,SeniorNotes.095291/.138421 vs collateralonly85%/71% distinct. No secondcost/upflow/guaranteedclaimcount. Jan2021planEV10000/11250/12500minus6560/1370equity2070/3320/4570differentfromOct/Nov2020sale/liquidation; reportedplan43-45%notreproducedfromdifferentclaimdates. Source750takebacknotnewcash,850exitcommitments/150cashbuffersandadjustments/undrawnexceptLC, votes2/3valueANDmajoritynumber vsRSA75/66two-thirds/required>50.1consent, planconditions/alternatives reviewed. PBGCdirectparentalternative,datedclaims,sourcelease8.7/8.3andmaturityconflicts,tax/feesgaps andnoactualoutcomes preserved. Initialhostselectorandidentityformatissues documentedseparately; allrawdrafts retained. Chosefullsecondratherthancompressedthird; targetedliveeditexactissuerphraseonly, no economicrepair. FreshCP3consumer next.",
+        "consumer": {
+          "path": "frontier-recovery/CP-3.md",
+          "report": "frontier-recovery/CP-3-delivery/report.html",
+          "sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c",
+          "review": "Entireactualresponse source/currentproducerreviewpassed. Sixcurrentrecoveryfractions exact, low2Ldeficiencynotzero andhighcollateralupside changesclasscomparison; equallienranknotinstrumentterms/preference. Netpools/claimdate/no secondcost/upflow/guarantee preserved. Planreported43-45/100separatefromliquidation/dates/noncash/MIP/750notnewmoney/850conditionalcommitment/150qualifiedcash, voteANDnumber/value,missingprice/portfolio/legal evidence restrictsselectionbutnotpositivecomparison. Sourceuncertainty/PBGC/maturity/leaseconflictsretained. Firstdraftcorrectcalendarworddates;seconddiffonlyconvertsfive datestoISOforchecker. Noeconomicrepair,no arithmeticrerun; sixlivecalls."
+        }
+      }
     },
     "CP-5": {
       "aliases": [
@@ -342,12 +378,24 @@
       {
         "point": "ARCC published ratio, conditional facility expansion and usable dollars could be conflated by a shared helper",
         "finding": "New test-only check_arcc pins original annual/base/supplement, reads p65 per-unit1962/1000 and p274 minimum150% after borrowing. Independent Fraction0.462 and46.2pp versus unchanged minimum headroom helper; three inclusive boundary cases and ambient precision7/ROUND_FLOOR pass. Conditional6732-4513=2219 is an expansion ceiling difference, not debt outstanding or borrowable cash; p276 separately3348 subject borrowing base withinaggregate5.1bn. Contractual/source currency/date and null capacity remain distinct. No production change; rewrite tournament test-only skip."
+      },
+      {
+        "point": "Combined LMI entity view could silently drop names, turn missing values into zero or detach a row from its legal source",
+        "finding": "Pinned all708primary indexedlines; nineteen names checked individually against independent old source-index fixture. Every entity has all7unknownfinancial/ownership/jurisdiction/designation attributes, notzero. Actual new live response preserves19sourceorder names/57missing financialcells. Three adversarial mutations (zero filling, differententity, wronglocator) all rejected by newtest-onlychecker. Three independently frozen datetime fixtures recomputed; calendar markers never issuer events or legal permission. Existing source full terms including overrides checked. No production function change."
+      },
+      {
+        "point": "Numerical recovery could double-count guarantees, rank equal first liens serially, deduct costs twice, or use a pledged pool as group EV",
+        "finding": "New test-onlyFrontier fixture pins1456sourceindexes and20literalnumericrows, rechecks selectedrange completeness/claimaccrual/sale/plan/vote terms. Independent Fraction formulas establish two pledgeallocations, two sevenclaimHoldCo proratasums andthreeplanbridges;56 displayednumericcells. Unchanged existingrecovery_waterfall takes netpledged3523.2/5274.1 with no secondcostdeduction and aggregated749+1740+1650 equalrank firstclaims. Duplicateclaimrefusal,missing-seniorpropagation,andzero/exactfirst/exacttotal/excessequity boundaries pass. Ambientprecision7/FLOOR doesnotalterresults. Test-onlychanges, no productionrewrite."
+      },
+      {
+        "point": "Frontier case delivery selectors initially routed tables into prose blocks",
+        "finding": "Offline synthetic preflight foundtable/prose mismatch but paidlaunch incorrectly followed a shell block whose finalruffexitwas0. Rootcausehost result handling, not model economics. Initialcase layout retained; table routes corrected toexistingdensevalue-allocation-claims; threeblocks/selectors passed syntheticcheck. Fullactualdraft2 passes all56numericcells but issueronlyinfrontmatter is outside existing first-line/Request identitycheck; datesaddedasISO frontmatter in2nddraft, third unnecessarilyshortenedtwotables. Retainallthree, usefull2nddraft for exactliveedit insertingissuernameinRequestonly. A hypothetical exacteditpassesoffline, actualmodelrepairpending. No productionchange. Laterpaidlaunch nowexplicitlydepends on inspectedexitcode0; preflightfailure preventedtwo repairlaunches before finalconfigurationpassed. Actualtitle/Request repaircompleted: exactonephraseinsertverified; all56numericcells andreportchecks pass."
       }
     ]
   },
   "rewrite_tournament": {
-    "decision": "Skipped: new legal-source checks are test-only; current case instructions/selectors and retained responses are data. No nontrivial production function changed.",
-    "verification": "66 focused tests pass; independent TDG and ARCC source/parser/headroom checks and adversarial Decimal context pass; ruff passes; proper single-directory gitleaks95.37MB no findings. Source extracts and actual model Markdown retain original whitespace and pinned bytes; code/JSON diff whitespace checked separately."
+    "decision": "Skipped: onlynewtest-fixture functions/tests andcaseinstructions/selectors/data; no nontrivial productionfunctionchanged. Existinghelpersreusedunchanged.",
+    "verification": "70focusedtests passed including3LMIcorruptioncontrols andFrontiernull/rank/doubleclaim/boundary/adverseDecimalchecks. Ruffpasses; rawsource/modelMarkdownretainsoriginalbytes/whitespace; code/JSONdiffchecked. Campaign-only gitleaks110.05MB passed with no findings."
   },
   "live": {
     "calls": {
@@ -362,11 +410,13 @@
       "CP-2E": 10,
       "CP-2G": 6,
       "CP-2H": 6,
-      "CP-4": 13,
-      "CP-6": 3
+      "CP-4": 20,
+      "CP-6": 3,
+      "CP-4C": 15,
+      "CP-3": 6
     },
-    "cost_usd": "7.35486530",
-    "independent_calculations": 319,
+    "cost_usd": "8.60143810",
+    "independent_calculations": 358,
     "declined_nonpositive_ratios": 2
   },
   "checkpoint_scope": "Verified module progress only; remaining modules and all six broader pathway proofs are still pending. Continuing this task after checkpoint."

@@ -1,0 +1,78 @@
+{
+  "run": {
+    "run_id": "sol-remaining-frontier-recovery-consumer-20261105",
+    "issuer_id": "FTR",
+    "issuer_name": "Frontier Communications Corporation",
+    "as_of": "2020-06-29",
+    "case_kind": "public",
+    "pathway": "distressed_restructuring",
+    "requested_modules": [
+      "CP-3A"
+    ]
+  },
+  "handoffs": {
+    "CP-3": {
+      "path": "CP-3.md",
+      "sha256": "bdf23a2b118bccf992254577972cf6a9bb4e7a7e7bf02db43b9e690cb4f0303c"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "recovery-by-class",
+      "value-allocation-claims",
+      "instrument-decision"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-3",
+        "heading": "Request",
+        "kind": "prose",
+        "prefix": "View:",
+        "block_id": "instrument-decision",
+        "label": "Recovery-based selection view"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Recovery comparison",
+        "kind": "table",
+        "block_id": "recovery-by-class",
+        "label": "Recovery comparison"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Adoption consequences",
+        "kind": "table",
+        "block_id": "value-allocation-claims",
+        "label": "Adoption consequences"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Decision evidence gaps",
+        "kind": "table",
+        "block_id": "value-allocation-claims",
+        "label": "Decision evidence gaps"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Recovery basis controls",
+        "kind": "table",
+        "block_id": "recovery-by-class",
+        "label": "Recovery basis controls"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Instrument conclusion",
+        "kind": "prose",
+        "block_id": "instrument-decision",
+        "label": "Instrument conclusion"
+      }
+    ],
+    "title": "Frontier historical recovery differences and security-selection limits",
+    "question": "What do actual fresh recovery results change about conditional creditor-class comparison?",
+    "issuer_aliases": [
+      "Frontier",
+      "FTR"
+    ],
+    "scope": "Fresh sol-medium CP3Afocusedconsumer ofcurrentCP4C. Historical source-definedscenarios,notfullmodule/nativepathway/currenttradeorrealizedrecovery."
+  }
+}

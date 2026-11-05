@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Fresh downstream intake of current CP4B/CP4D, historical2014ICA. No positive numericalrecovery/fullCP4C/nativepathwayproof.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-4C.md": "bad2ca1c15e3cfff65b720040841a330979f7f1b3006cca69e7857e97b022188",
+    "view.json": "2397ef06200815957be7d0559c5df4bdda0a70c246539ebf38e6935b6a4fd38f",
+    "report-view.json": "b1226baa3e1ee6eef271ce6424f229ae996efa3ad8b66e87348d3614cb1d3aac",
+    "report.html": "f60f74774a4af958d4131bb200e238efca257028ac3d740dc59ab2bbe05c2263"
+  }
+}

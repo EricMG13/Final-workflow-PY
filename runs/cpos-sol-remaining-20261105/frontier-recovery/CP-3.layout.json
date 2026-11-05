@@ -1,0 +1,59 @@
+{
+  "blocks": [
+    "recovery-by-class",
+    "value-allocation-claims",
+    "instrument-decision"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-3",
+      "heading": "Request",
+      "kind": "prose",
+      "prefix": "View:",
+      "block_id": "instrument-decision",
+      "label": "Recovery-based selection view"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Recovery comparison",
+      "kind": "table",
+      "block_id": "recovery-by-class",
+      "label": "Recovery comparison"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Adoption consequences",
+      "kind": "table",
+      "block_id": "value-allocation-claims",
+      "label": "Adoption consequences"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Decision evidence gaps",
+      "kind": "table",
+      "block_id": "value-allocation-claims",
+      "label": "Decision evidence gaps"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Recovery basis controls",
+      "kind": "table",
+      "block_id": "recovery-by-class",
+      "label": "Recovery basis controls"
+    },
+    {
+      "module_id": "CP-3",
+      "heading": "Instrument conclusion",
+      "kind": "prose",
+      "block_id": "instrument-decision",
+      "label": "Instrument conclusion"
+    }
+  ],
+  "title": "Frontier historical recovery differences and security-selection limits",
+  "question": "What do actual fresh recovery results change about conditional creditor-class comparison?",
+  "issuer_aliases": [
+    "Frontier",
+    "FTR"
+  ],
+  "scope": "Fresh sol-medium CP3Afocusedconsumer ofcurrentCP4C. Historical source-definedscenarios,notfullmodule/nativepathway/currenttradeorrealizedrecovery."
+}
