@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Full trace and absorbed QA method on current historical CP3B/CP6A portfolio handoffs. Actual model assurance plus mechanical publication checks; not native full underwriting or a fresh whole pathway.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-5.md": "475284bdcf6b4ff2109e5037d0732b08b7a2d88a4db437ca45558a2d79459c38",
+    "view.json": "68b1514c9368954d9f71859d5cf5524d0d1addf33af489859e6daa7fbca62a70",
+    "report-view.json": "e9b056965017f3bccd07a0b213e33ae76d30d6aff1283f85aedc85f7d5ccef32",
+    "report.html": "e4601a33bb385e045682fd6c81f1cb6672c8a4f46aa4eeb502bedef7b38c94f3"
+  }
+}

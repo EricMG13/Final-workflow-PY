@@ -1,0 +1,38 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0-annual": "ece2808828294951bfbed08636a37d75319e7ac4d6ccc28e865c547e2b90942b",
+    "CP-1-annual": "9d57bc5d5baac5c16a3f12fc2c017b8405e3e3b3db327002890f8cf8f7a1eb03",
+    "CP-1A-annual": "3da9bf55281dc9a86e15bbb438ddd3b8aa04244344ab5ee7e5c059fc2da9054f",
+    "CP-1B-quarter": "42ee44c8350150abd3875adc4ee30ba2cdc4658d0db3ed905251f4825be6e377",
+    "CP-1D-quality": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
+    "CP-2-annual": "e7b46ceeedf76db7143359e7cef97b64c6a210dd7b63d3362cc2a7943018ee3a",
+    "CP-2A-downside": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3",
+    "CP-2D-liquidity": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565",
+    "CP-3C-funding": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+    "CP-4-legal": "267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43"
+  },
+  "instructions": "# Targeted TDG IC fidelity correction\nUse the supplied immutable draft and edit_handoff. Make ONLY the exact replacements below. Source CP1A GT08 reports effective ICFR with named new-acquisition exclusions; it does not report a qualified audit opinion. The Bear explicitly accepts bounded note protections and makes no unlimited-priming allegation. Do not award a victory over that unasserted claim. The Bull claim is itself expressly qualified, while actual sufficient cash/claim coverage lacks evidence; use Insufficient Information as the method requires. Preserve all other substantive analysis, scores, numbers, dates, sources, Watchlist posture and no overall winner. No new issuer calculation or analysis.\n\n[\n  {\n    \"old\": \"Audited reporting/qualified ICFR opinion is supportive.\",\n    \"new\": \"Audited reporting and an effective-ICFR opinion with explicit named-acquisition scope exclusions are supportive; this is not a qualified audit opinion.\"\n  },\n  {\n    \"old\": \"Reporting/qualified ICFR support and par redemptions.\",\n    \"new\": \"Reporting/effective-ICFR opinion with named-acquisition scope exclusions and par redemptions.\"\n  },\n  {\n    \"old\": \"2. **Defense to Attack 2 \\u2014 Status: Failed.** The Bull invokes genuine junior-or-permitted lien rules, protected payment/ranking rights and the special consent threshold [S p.3/L1338; p.5/L1840\\u20131860]. These limit extraordinary changes but were already accepted in the attack. They do not stop all permitted RP/designation/release routes or prove cash accessibility and continuing collateral value. No new access certificate, retention commitment or entity/security/ICA map defeats the alleged fragility. The Bull concedes that meaningful protection is not comprehensive cash-retention or recovery assurance.\",\n    \"new\": \"2. **Defense to Attack 2 \\u2014 Status: Insufficient Information.** The Bull invokes genuine junior-or-permitted lien rules, protected payment/ranking rights and the special consent threshold [S p.3/L1338; p.5/L1840\\u20131860]. These were already accepted in the attack. The narrow Bull claim expressly described meaningful, qualified protection, not comprehensive retention or recovery assurance, so the Bear has not disproved that qualified proposition. The actual issue remains whether these protections and accessible resources are sufficient after permitted RP/designation/release routes. Access certificates, retention commitments and the entity/security/ICA map needed to resolve that issue are absent. Repeating agreed legal conditions is not a rebuttal, and missing evidence is Insufficient Information rather than Failed. Actual cash payouts and the conditional legal vulnerabilities remain supported negative evidence.\"\n  },\n  {\n    \"old\": \"| Unrestricted priming or arbitrary payment-right rewrite | Express lien and affected-holder protections matter | Conditional debt, releases and collective amendments can weaken protection | Bull Sustained | S p.3/L1338; pp.4\\u20135/L1835\\u20131860; CP-4 P07/P12 | Neutral \\u2014 Stable: reject unlimited permission; actual transaction must satisfy applicable rights and conditions |\",\n    \"new\": \"| Continuing claim reach under conditional permissions | Express lien and affected-holder protections constrain extraordinary changes | Permitted debt, releases and collective amendments can weaken protection subject to their conditions; no unlimited-priming claim | Unresolved | S p.3/L1338; pp.4\\u20135/L1835\\u20131860; CP-4 P07/P12; missing actual usage and security/ICA application | Insufficient Information for continuing value coverage: both sides agree permission is bounded; actual transaction compliance and retained claim reach remain unproved |\"\n  },\n  {\n    \"old\": \"Bull wins observed operating support and the rejection of unlimited legal permission; Bear wins the inference about retained cash and early legal control.\",\n    \"new\": \"The Bull's narrow observed operating-support claim is sustained; both sides agree legal permission is bounded. The Bear establishes actual allocation exposure and conditional-retention vulnerabilities, without disproving the Bull's expressly qualified protection claim. The sufficiency of accessible resources and retained claim reach remains unresolved.\"\n  },\n  {\n    \"old\": \"Recovery score and instrument preference gated; Defense2 fails retention/coverage assurance\",\n    \"new\": \"Recovery score and instrument preference gated; Defense2 lacks evidence to resolve retention/coverage sufficiency\"\n  }\n]\n",
+  "module_id": "CP-6",
+  "repair_draft_sha256": "313b45b301f306354b49b9b26dcf103954ed83ccfe0af8c3d5c7b5137137d2d4",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2024-12-28",
+    "case_kind": "public",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-6"
+    ],
+    "run_id": "sol-remaining-tdg-ic-fidelity-repair-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "method-base-steps": "6141d27e800d45d2d0208173f38060c75d97005ee9b93013e24a16a40570f1e1",
+    "method-entry": "0ae74db02dd569fe7805e62a661f22cd436494183ba5cb928f8be37aa549a96b",
+    "primary-legal-selection": "ff0a65f7e9255a060f74e01c74459a8c5bdfcbffbd9d907abe09eb2f922b221a"
+  }
+}

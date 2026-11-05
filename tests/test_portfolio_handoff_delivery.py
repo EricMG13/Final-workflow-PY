@@ -109,6 +109,66 @@ def test_terminal_posture_requires_a_source_reference():
         _portfolio_call(module, metadata, {})
 
 
+@pytest.mark.parametrize(
+    "posture",
+    [
+        "Avoid",
+        "Watchlist",
+        "Starter Position",
+        "Core Hold",
+        "Add / Increase",
+        "Reduce / Trim",
+        "Exit",
+        "Requires More Work",
+    ],
+)
+def test_base_committee_action_is_copied_without_portfolio_translation(posture):
+    inputs = posture_input(
+        f"**Final Action Bias: {posture}.** Historical issuer case only.",
+        heading="Action Bias Determination",
+    )
+    result = _portfolio_call(*inputs, portfolio=False)
+    assert (result.label, result.value_text, result.ref_id) == ("Action bias", posture, "C1")
+    assert result.meter is None and result.direction is None
+    assert _portfolio_call(*inputs) is None
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "Final Action Bias: Watchlist if evidence arrives.",
+        "Final Action Bias: Watchlistish.",
+        "Final Action Bias: Include.",
+        "Final Action Bias: Watchlist.\n\nFinal Action Bias: Avoid.",
+    ],
+)
+def test_base_committee_conditional_unknown_or_conflicting_action_is_refused(text):
+    with pytest.raises(ValueError, match="markdown_posture"):
+        _portfolio_call(*posture_input(text, heading="Action Bias Determination"), portfolio=False)
+
+
+def test_actual_tdg_action_reaches_header_with_exact_source_trace():
+    import hashlib
+
+    from deploy_workflow.handoff_delivery import delivery_files
+
+    manifest = ROOT / "runs/cpos-sol-remaining-20261105/pathways/earnings_update/delivery.json"
+    files = delivery_files(manifest)
+    report = json.loads(files["report-view.json"])
+    call = report["call"][0]
+    assert (call["label"], call["value_text"]) == ("Action bias", "Watchlist")
+    assert report["call_withheld"] is None
+    view = json.loads(files["view.json"])
+    module = next(m for m in view["modules"] if m["module_id"] == "CP-6")
+    fact = next(
+        f for f in module["facts"] if (f.get("text") or "").startswith("Final Action Bias:")
+    )
+    citation = fact["citations"][0]
+    raw = files["CP-6.md"]
+    assert citation["source_sha256"] == hashlib.sha256(raw).hexdigest()
+    assert raw.decode().splitlines()[int(citation["locator"].split()[-1]) - 1] == citation["quote"]
+
+
 def test_other_pathway_keeps_its_existing_header_contract():
     data = json.loads((CASE / "workflow.json").read_bytes())
     request = DeliveryRequest.model_validate_json(

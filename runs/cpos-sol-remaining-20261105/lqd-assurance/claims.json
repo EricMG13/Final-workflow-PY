@@ -1,0 +1,105 @@
+{
+  "scope": "Minimum20claim audit population; evaluate against actual handoffs and primary evidence, not predetermined support or severity. Review all other material claims as required. No prior answer supplied.",
+  "claims": [
+    {
+      "id": "C01",
+      "module": "CP-3",
+      "assertion": "Portfolio date2025-05-31 versus fiscal year-end2026-02-28 and fund/issuer identity are distinct."
+    },
+    {
+      "id": "C02",
+      "module": "CP-3",
+      "assertion": "NAV USD30823830378.19 equals reported assets less liabilities and is the matched historical denominator."
+    },
+    {
+      "id": "C03",
+      "module": "CP-3",
+      "assertion": "Five exact ARCC LEI positions are included; two Ares Strategic Income Fund positions with a different LEI are excluded."
+    },
+    {
+      "id": "C04",
+      "module": "CP-3",
+      "assertion": "Held issuer par33773000 and value33762233.40 USD are different quantities, not issuer outstanding debt."
+    },
+    {
+      "id": "C05",
+      "module": "CP-3",
+      "assertion": "Issuer value is0.109532894 percent NAV, not a fraction or a percentage of issuer debt."
+    },
+    {
+      "id": "C06",
+      "module": "CP-3",
+      "assertion": "Selected July2029 held par10247000/value10424576.41 USD is0.033819860 percent NAV and is within issuer exposure."
+    },
+    {
+      "id": "C07",
+      "module": "CP-3",
+      "assertion": "The two2029 held values total17698117.83 USD and52.419866957 percent issuer-held value, not whole-fund maturity concentration."
+    },
+    {
+      "id": "C08",
+      "module": "CP-3",
+      "assertion": "1519736.5658 USD on-loan value is already-held subset; explicitN loan flags alone justify corresponding zeros."
+    },
+    {
+      "id": "C09",
+      "module": "CP-3",
+      "assertion": "All5published12decimal pctVal literals are preserved and consistent with truncation; recalculated9decimal percentages separate."
+    },
+    {
+      "id": "C10",
+      "module": "CP-3",
+      "assertion": "NPORT reported coupons2.88/5.88 are rounded values, not actual2.875/5.875 term amendments or note yields."
+    },
+    {
+      "id": "C11",
+      "module": "CP-3/CP-6",
+      "assertion": "Level2 marks, existing ownership and maturity dates do not establish executable exit or approved sizing."
+    },
+    {
+      "id": "C12",
+      "module": "CP-3/CP-6",
+      "assertion": "Analyst10percent held-value loss3376223.34 USD/1.095328938 NAVbps is a conditional sensitivity, not expected loss."
+    },
+    {
+      "id": "C13",
+      "module": "CP-3/CP-6",
+      "assertion": "40percent held-par scenario proceeds13509200/loss20253033.40 USD/6.570576451 NAVbps has no PD or legal recovery claim."
+    },
+    {
+      "id": "C14",
+      "module": "CP-3/CP-6",
+      "assertion": "60percent held-par alternative proceeds20263800/loss13498433.40 USD/4.379219985 NAVbps is not additive to40percent."
+    },
+    {
+      "id": "C15",
+      "module": "CP-3/CP-6",
+      "assertion": "Selected July40percent proceeds4098800/loss6325776.41 USD/2.052235667 NAVbps is nested within group scenario."
+    },
+    {
+      "id": "C16",
+      "module": "CP-3/CP-6",
+      "assertion": "December2024 CP3A analysis is explicitly historical lineage, not May price/yield/coverage/current debt or five-note terms."
+    },
+    {
+      "id": "C17",
+      "module": "CP-3/CP-6",
+      "assertion": "Actual LQD mandate, limits, requested size and loss budget are missing; absence establishes neither compliance nor breach."
+    },
+    {
+      "id": "C18",
+      "module": "CP-6",
+      "assertion": "Exactly3ordered pitches,3matching attacks and3direct defenses address the same propositions without replacing them."
+    },
+    {
+      "id": "C19",
+      "module": "CP-6",
+      "assertion": "Nine CIO dimensions are addressed with supported scores only, no partial average and no unsupported winner from missing data."
+    },
+    {
+      "id": "C20",
+      "module": "CP-3/CP-6",
+      "assertion": "Requires More Work and monitoring only follow scoped evidence; exact binding mandate constraint/proposed size remain unavailable, not invented zero."
+    }
+  ]
+}

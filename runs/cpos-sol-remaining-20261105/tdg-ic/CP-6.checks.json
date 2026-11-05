@@ -1,0 +1,80 @@
+{
+  "required_terms": [
+    "2024-09-30",
+    "2024-12-28",
+    "25002",
+    "IC Debate Source Gate",
+    "Pre-Debate Thesis Map",
+    "Bull Analyst Opening Statement",
+    "Bear Analyst Cross-Examination",
+    "Bull Analyst Defense",
+    "IC Chair Evidence Weighting",
+    "Debate Resolution Matrix",
+    "Action Bias Determination",
+    "Single Greatest Uncertainty",
+    "IC Chair Final Memo",
+    "Gaps Ledger",
+    "Final Action Bias",
+    "CP-6-GAP-001",
+    "Decision boundary"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Consumption controls",
+      "columns": [
+        "Metric",
+        "Value"
+      ],
+      "rows": [
+        [
+          "september_AR_principal_USDm",
+          "487"
+        ],
+        [
+          "september_AR_carrying_USDm",
+          "486"
+        ],
+        [
+          "december_AR_principal_USDm",
+          "650"
+        ],
+        [
+          "december_AR_carrying_USDm",
+          "649"
+        ],
+        [
+          "december_cash_USDm",
+          "2459"
+        ],
+        [
+          "issuer_december_liquidity_USDm",
+          "3308"
+        ],
+        [
+          "original_notes_principal_USDm",
+          "1500"
+        ],
+        [
+          "conditional_CoC_principal_component_USDm",
+          "1515"
+        ],
+        [
+          "conditional_CoC_premium_USDm",
+          "15"
+        ],
+        [
+          "actual_notes_unused_debt_capacity_USDm",
+          "\u2014"
+        ],
+        [
+          "certified_AR_future_access_USDm",
+          "\u2014"
+        ],
+        [
+          "conditional_CoC_accrued_interest_USDm",
+          "\u2014"
+        ]
+      ]
+    }
+  ]
+}

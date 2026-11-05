@@ -30,7 +30,7 @@
     },
     "CP-1C": {
       "aliases": [],
-      "status": "Three separately dated positive live functions reviewed/reportpublished; fresh CP-2 actualconsumption checked and published; broaderpathwayspending",
+      "status": "Three separately dated positive live functions reviewed/reportpublished; fresh CP-2 actualconsumption checked and published; five broader report publications verified with explicit reuse/case scope",
       "valuation_case": {
         "case": "Moog/TDG FY2025 historical; one specified peer, no contemporaneous transaction case",
         "report": "tdg-valuation/CP-1C-delivery/report.html",
@@ -61,7 +61,7 @@
       "aliases": [
         "CP-1E"
       ],
-      "status": "bounded live module reviewed, report published and fresh CP-2D consumed; broader pathways pending",
+      "status": "bounded live module reviewed, report published and fresh CP-2D consumed; five broader report publications verified with explicit reuse/case scope",
       "case": "TDG FY2024, September 2024 balance and separate December quarter evidence",
       "report": "tdg-earnings/CP-1D-delivery/report.html",
       "handoff_sha256": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
@@ -72,7 +72,7 @@
       "aliases": [
         "CP-2B"
       ],
-      "status": "bounded live module reviewed, report published and fresh CP-2D consumed; broader pathways pending",
+      "status": "bounded live module reviewed, report published and fresh CP-2D consumed; five broader report publications verified with explicit reuse/case scope",
       "case": "TDG FY2024 static stress; calendar reference2024-11-07 through2025-11-07",
       "offline": "Existing stress/break_points/rank/crossing re-executed;21 values/four exact rational breaks/12 scenario crossings/zero-interest/missing-cash controls passed independently. Primary calendar pages130/133/148/151 read; gross487/carrying486/commitment650 distinct; FY2025 debt93/operatinglease22/financelease20 have different quantity scopes.",
       "report": "tdg-stress/CP-2A-delivery/report.html",
@@ -105,7 +105,7 @@
     },
     "CP-2G": {
       "aliases": [],
-      "status": "Live full-method conditional forecast reviewed, report published and fresh CP-2 substantive adoption checked/published; broader pathways pending",
+      "status": "Live full-method conditional forecast reviewed, report published and fresh CP-2 substantive adoption checked/published; five broader report publications verified with explicit reuse/case scope",
       "case": "TDG FY2024 opening, Nov7 2024 guidance, separate December quarter retrospective context; FY2025-27 conditional annual paths",
       "report": "tdg-forecast/CP-2G-delivery/report.html",
       "handoff_sha256": "20314e01d39b87d2e50d4a50ab048371175bccc4c8330ff1170811254b38a2c6",
@@ -120,7 +120,7 @@
     },
     "CP-2H": {
       "aliases": [],
-      "status": "Ten-register live ratings response reviewed, repaired, report published and fresh CP-3C funding consumption reviewed/published; broader pathways pending",
+      "status": "Ten-register live ratings response reviewed, repaired, report published and fresh CP-3C funding consumption reviewed/published; five broader report publications verified with explicit reuse/case scope",
       "case": "Ford Otomotiv Sanayi A.S. / Ford Otosan, agency reports April11 2024; separate from TDG/Enel and current ratings",
       "report": "ford-ratings/CP-2H-delivery/report.html",
       "handoff_sha256": "b5b197396d7df31a4997dbc58c7879caca9a23063858cb362e26fa08ae216ecb",
@@ -138,7 +138,7 @@
         "CP-3A",
         "CP-3B"
       ],
-      "status": "Fresh CP-3/3A two-note source-based comparison reviewed/published; CP-3B live proof next. Broader/current/native pathway remains separate.",
+      "status": "CP3/3A and absorbed3B functions live reviewed and published in separate ARCC and LQD cases; fresh TDG conditional full-stack CP3 reviewed. Portfolio/RV broader reports verified; native/current underwriting remains outside this historical proof.",
       "arcc_selection": {
         "path": "arcc-selection/CP-3.md",
         "report": "arcc-selection/CP-3-delivery/report.html",
@@ -147,7 +147,7 @@
       },
       "portfolio_preflight": {
         "case": "lqd-portfolio",
-        "status": "Offline ready only; live launch follows this checkpoint.",
+        "status": "Preflight followed by completed live CP3B, CP6A and CP5 consumption; see those records.",
         "checks": "Exact five ARCC positions from2910,NAV/repPdDate/repPdEnd,two relatedissuer exclusions,44independentcells, sourcepcttruncation andadverseDecimalcontext, fullselectedlayout synthetic preflight passed. CurrentreviewedCP3A is historicalDecembercontext only, notMayselectionauthority."
       }
     },
@@ -227,13 +227,32 @@
       "aliases": [
         "CP-5A"
       ],
-      "status": "pending live module proof; historical host proof remains separately recorded"
+      "status": "Full selected trace/integrity functions live reviewed; actual helper output adopted and final report published; five broader report publications verified with explicit reuse/case scope",
+      "case": "ARCC in LQD May31 2025 historical holdings, dated December2024 context not transferred",
+      "report": "lqd-assurance/CP-5-delivery/report.html",
+      "handoff_sha256": "475284bdcf6b4ff2109e5037d0732b08b7a2d88a4db437ca45558a2d79459c38",
+      "review": "Full 410-line response compared to all selected instructions and primary fragments. All9trace/11integrity duties,8lanes,17exact schema registers,25claim classifications/225trace fields and19numerical controls checked. No current confirmed defects; historical missing primary/legal/market/mandate merits remain explicit. Four counterfactual CRITICAL controls excluded from actual0/0/0 counts. Actual unchanged archived confidence helper E67.6/C100/S0.7/P0 yields56 Low andQA Passed, independently Fraction verified. Targeted live continuation makes exactly12 helper/procedure edits; all original claim judgments/economics unchanged. Qualified historical publication clearance is not allocation permission.",
+      "confidence_receipt": "lqd-assurance/confidence-helper-executed.json",
+      "consumer": "Existing delivery consumes exact final handoff; CP3B/CP6A upstream reviewed in this separate actual live CP5."
     },
     "CP-6": {
       "aliases": [
         "CP-6A"
       ],
-      "status": "pending live module proof; historical host proof remains separately recorded"
+      "status": "Both full eleven-duty base and portfolio functions live reviewed, targeted repairs retained and reports published; current fresh TDG committee stage follows assurance.",
+      "portfolio": {
+        "handoff": "lqd-debate/CP-6-repaired.md",
+        "sha256": "554455c01803a0ae794e49dacc7ceb98c30f0b81be1a2b81f668ecb53de117f8",
+        "report": "lqd-debate/CP-6-delivery/report.html",
+        "review": "Entire228line original response reviewed: all11duties,4schema tables,3pitches/attacks/defenses,9dimensions(two3scoreslimitedtoobservedriskoppositions;7unscored/noaverage),19verbatimmetrics,all5primarypositions/formsource distinctions. ConfirmedDefense3partialrebuttalansweredanunassertedimpairmentallegation; Attack3alreadyacceptedsmallimpactsandrequestedmandate/factor/exit evidence. Defense1/2alsorepeatedacceptedobservationsasifcounterclaims. Targetedactualmodelseededrepairmadeexact10requestedreplacements, preservingeveryfinancialnumber/score/source/posture; thirdstatusInsufficientInformation/matrixUnresolved and downstreamrationalesaligned. Removedsame-responseclaimofCP5executioncausedbyoldcaseinstructions; nextmoduleisnowseparateactualCP5. Originalrawresponseandallcallsretained. No analyticalenginechangejustified. 3initialmodelcalls+1repair, no newcalculations. Bothproducer146andchallenge104reportline/hashquotescheckedexactly."
+      },
+      "base_IC": {
+        "status": "Full base functions live reviewed, exact six-edit repair retained, consumed by broader earnings and conditional-distress publications.",
+        "case": "TDG historical December28 2024, annual/quarter/legal/scenario/checkpoint dates separately scoped",
+        "handoff_sha256": "d999e6a0af14925a14dfe6c6cb414d65bd458e62d14535af322fc4e811540d3f",
+        "report": "tdg-ic/CP-6-delivery/report.html",
+        "review": "All258lines compared to current10handoff pins, selected primary legal text and fullmethod. Three exact pitch/attack/defense pairs; all10neutralmap dimensions,9Chairdimensions(no partialaverage/4unscored),4exactschemas,12verbatimcontrols. Full conditionalZeroBound chain and11legalweakening vectors preserve unproven links, actualpositiveOCF and conditional protections. No currentinvest/RV/portfolio approval. ConfirmedICFR wording bug corrected to effectiveopinion with acquisitionexclusions; no Bullwin over unassertedunlimitedpriming; missing sufficiency evidence Defense2 nowInsufficientInformation. Actual6exactedits verified byteforbyte; numbers/scores/Watchlist unchanged."
+      }
     },
     "CP-8": {
       "aliases": [],
@@ -246,7 +265,17 @@
         "CP-L30",
         "CP-L40"
       ],
-      "status": "pending live module proof; historical host proof remains separately recorded"
+      "status": "All five screens live reviewed; twenty schemas, thirty topics and exact ranks checked; targeted authority repair consumed by separate live CP5 and published relative-value pathway.",
+      "case": "ARCC FY2024/FY2023 andDecember31 2024 withJan/Feb2025subsequent context explicitlyseparate; historicalsource",
+      "report": "arcc-lite/CP-L10-delivery/report.html",
+      "handoff_sha256": "08c4132947ce27d2bfddb818ffd62c81dbb2602b060ba5b63c752fdb92410661",
+      "review": "Readall362lines against selectedprimaryannual20pages andactualcurrent3D/3A/4A. 20originalschemaheaders,30canonicaltopic/ownerrows,5OVERALLs,allDEEPEN/materialGAP_ONLYownedupgrades and30independentlysortedordinalrankinputs pass. All3HIGH/MISSING topics remainGAP_ONLY andnoanalyticalconclusion indecision/synthesis. Threeactual arithmeticdifferences376USDm/137USDm/-.24USDshare independentlyaudited. SourceA100 -300bp net-328 rechecked; no newforecast. BDCdeploymentCFO,PIKrecognition/collections,ordinary/restrictedcash,conditionalfacilities,noteholdercoupon/issuercost,statichedges,source swapdateconflict remainexplicit. Confirmedimportedapprovalgate at2closingphrases correctedbyexactliveedit; noeconomics/postures/rankschanged.",
+      "separate_CP5": {
+        "status": "Actual sol-medium separate consumption, all five screens and30exactranks checked; no confirmed scoped defect",
+        "handoff_sha256": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea",
+        "report": "arcc-lite-assurance/CP-5-delivery/report.html",
+        "review": "Full actual response compared against pinned instructions/current4handoffs/selectedannualandlegal evidence.30claims correctly distinguish direct primary support from producer-dependent unavailable sourcepack.20schemas30topics28upgrades counts agree; 3signeddifferences and30priorityranks independently verified. All3HIGH/MISSING remain requestonly; no current approval orfullCP5overclaim. No change justified."
+      }
     },
     "CP-2D": {
       "aliases": [],
@@ -288,15 +317,93 @@
         "method": "Existing HandoffTask.draft and edit_handoff, no new production logic; immutable original plus targeted repaired response retained.",
         "verification": "Source dates yield176days, separately checked with datetime; actual model sum/month segments and176/365 toolcall match exactFraction. ACT/365F explicit comparison convention, not contractual coupon or actual outcome. Diff contains only two cells, operation-count sentence and new calculation paragraph."
       }
+    },
+    "CP-3B": {
+      "status": "Full ten-step live portfolio method source reviewed, separately published, consumed by live CP6A/CP5 and complete eight-panel portfolio report.",
+      "case": "LQD actual May31 2025 ARCC five-note holdings; December2024 selection explicitly historical",
+      "handoff": "lqd-portfolio/CP-3.md",
+      "sha256": "183c91f1b5ca67fcecad5ce64ac99cbc0a42c9bed422880c6102e9c9501677f3",
+      "report": "lqd-portfolio/CP-3-delivery/report.html",
+      "review": "Entire280line response reviewed against actual5positions/excluded2LEIs/form semantics and full10step/9register instructions.44independent numericcells andexactfirstDefinitionconflicts table preserved. All7Core/Starterconditions,7concentration/4liquidity/4downside dimensions assessed.19controlmetrics correct; all26newcalculatecalls independentlyaudited. Reported12decimaltruncation separatefrom9decimalratios; explicitNallows0loanonly; no holdings/lending/selectedloss doublecount, NAVdate substitution, Mayyieldtransfer or inventedlimits. Added2029percentNAV0.057416997/onloan0.004930395 independentlyaudited. No factual repair justified. Eightactualmodelcalls; originalraw retained."
     }
   },
   "pathways": {
     "credit_snapshot": "pending full selected scope",
-    "earnings_update": "pending",
-    "relative_value": "pending",
-    "covenant_refinancing": "pending",
-    "distressed_restructuring": "pending",
-    "portfolio_decision": "pending"
+    "earnings_update": {
+      "report": "pathways/earnings_update/published/report.html",
+      "panels": 14,
+      "scope": "TDG historical earnings update for December 28, 2024 versus December 30, 2023. The FY2022\u2013FY2024 annual Model and separately dated November 2024/February 2025 guidance remain distinct. What Changed compares reported and guided periods; CP-8 prior-run comparison is separate. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+      "report_sha256": "75910545f9f8acffcd10d2e60f54f44d18ebb7c1ff6a5d8b244c5229fef193c7",
+      "handoff_hashes": {
+        "CP-1": "9d57bc5d5baac5c16a3f12fc2c017b8405e3e3b3db327002890f8cf8f7a1eb03",
+        "CP-1A": "3da9bf55281dc9a86e15bbb438ddd3b8aa04244344ab5ee7e5c059fc2da9054f",
+        "CP-2": "e7b46ceeedf76db7143359e7cef97b64c6a210dd7b63d3362cc2a7943018ee3a",
+        "CP-1B": "42ee44c8350150abd3875adc4ee30ba2cdc4658d0db3ed905251f4825be6e377",
+        "CP-1D": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
+        "CP-DR": "0463a4b16e8ed7de1e1ed9a219587bbf4ee2b6fc2e98228d4f0090c22d487b03",
+        "CP-6": "d999e6a0af14925a14dfe6c6cb414d65bd458e62d14535af322fc4e811540d3f"
+      },
+      "verification": "Exact preset panelset, populated blocks, immutable handoff byte parity, every fact citation/physical line/sourcehash, complete CP8-ready bundle verified; chart/Model/portfolio independent expected values checked where applicable."
+    },
+    "relative_value": {
+      "report": "pathways/relative_value/published/report.html",
+      "panels": 10,
+      "scope": "ARCC retrospective December 31, 2024 evaluated valuations, with separate clean- and dirty-price assumptions. The March/July 2029 pair is a same-issuer comparison; external peers and loan/HY pricing were not supplied. The chart copies the current handoff\u2019s six-decimal fractional yields; higher-precision narrative remains in the evidence. No repricing or current executable preference. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+      "report_sha256": "edfda944e1549406686046a2e14cf4a4dfd62794f3d2a25a2ba6d71e31a9228d",
+      "handoff_hashes": {
+        "CP-3D": "0f90e8e5a1b58f5174fe60281244347dfd15f0da1608152a1f53cfe8132b6f61",
+        "CP-3": "9d266261a1eb5c92c9e7052a999e087fc39cde506e4fdb9be47c00d65218b1c6",
+        "CP-4": "fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738",
+        "CP-L10": "08c4132947ce27d2bfddb818ffd62c81dbb2602b060ba5b63c752fdb92410661",
+        "CP-5": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+      },
+      "verification": "Exact preset panelset, populated blocks, immutable handoff byte parity, every fact citation/physical line/sourcehash, complete CP8-ready bundle verified; chart/Model/portfolio independent expected values checked where applicable."
+    },
+    "covenant_refinancing": {
+      "report": "pathways/covenant_refinancing/published/report.html",
+      "panels": 11,
+      "scope": "TDG\u2019s executed September 19, 2024 indenture for the 6% 2033 notes, with December 28, 2024 liquidity context. Annual, quarter and instrument dates remain separate. The reported Note 10 maturity schedule contains an unresolved FY2027 conflict: 92 versus notes of 2,650 due that year. It excludes receivables financing and finance leases. It is not a reconciled maturity wall. Current certificates, the complete intercreditor package and forward cash inputs remain gaps. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+      "report_sha256": "357bed189cbb728e06c500176842abcfbdca7a09fa7be62e7c75d446a8e1e62a",
+      "handoff_hashes": {
+        "CP-1": "89dced9cb71499d2c18ae55dda6bfcb524f060b86c43b52e9f35ece4e1c38c9e",
+        "CP-1A": "3da9bf55281dc9a86e15bbb438ddd3b8aa04244344ab5ee7e5c059fc2da9054f",
+        "CP-2": "e7b46ceeedf76db7143359e7cef97b64c6a210dd7b63d3362cc2a7943018ee3a",
+        "CP-4": "267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43",
+        "CP-3C": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+        "CP-2D": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565",
+        "CP-1D": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807"
+      },
+      "verification": "Exact preset panelset, populated blocks, immutable handoff byte parity, every fact citation/physical line/sourcehash, complete CP8-ready bundle verified; chart/Model/portfolio independent expected values checked where applicable."
+    },
+    "distressed_restructuring": {
+      "report": "pathways/distressed_restructuring/published/report.html",
+      "panels": 15,
+      "scope": "TDG conditional downside and restructuring route. Actual distress is not established. Annual static stress, conditional forecasts and December liquidity use their own periods and assumptions. Recovery by class, realizable-value allocation and agency rating triggers remain explicit gaps. Positive recovery-function proof on Frontier\u2019s 2020 case is separate and supplies no TDG facts. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+      "report_sha256": "4592efddf6adba6c97d084371ecbf3341f372dee5fd129cab623138c26b7bd54",
+      "handoff_hashes": {
+        "CP-1D": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
+        "CP-2A": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3",
+        "CP-2D": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565",
+        "CP-2G": "20314e01d39b87d2e50d4a50ab048371175bccc4c8330ff1170811254b38a2c6",
+        "CP-2": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+        "CP-4": "267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43",
+        "CP-3C": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e",
+        "CP-6": "d999e6a0af14925a14dfe6c6cb414d65bd458e62d14535af322fc4e811540d3f"
+      },
+      "verification": "Exact preset panelset, populated blocks, immutable handoff byte parity, every fact citation/physical line/sourcehash, complete CP8-ready bundle verified; chart/Model/portfolio independent expected values checked where applicable."
+    },
+    "portfolio_decision": {
+      "report": "pathways/portfolio_decision/published/report.html",
+      "panels": 8,
+      "scope": "LQD holdings dated May 31, 2025: the five identified ARCC positions and selected July note, with December 2024 issuer context kept separate. Observed exposures, conditional losses and actual argument challenge are retained. Mandate limits and current trading evidence were not supplied. CP-5\u2019s score of 56 measures evidence confidence, not investment conviction. Final posture: Requires More Work. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+      "report_sha256": "892c018f77ffaeb53ae2a323c7819063aab2122196255b9647e0e1cd7e43f541",
+      "handoff_hashes": {
+        "CP-3": "183c91f1b5ca67fcecad5ce64ac99cbc0a42c9bed422880c6102e9c9501677f3",
+        "CP-6": "554455c01803a0ae794e49dacc7ceb98c30f0b81be1a2b81f668ecb53de117f8",
+        "CP-5": "475284bdcf6b4ff2109e5037d0732b08b7a2d88a4db437ca45558a2d79459c38"
+      },
+      "verification": "Exact preset panelset, populated blocks, immutable handoff byte parity, every fact citation/physical line/sourcehash, complete CP8-ready bundle verified; chart/Model/portfolio independent expected values checked where applicable."
+    }
   },
   "confidence_review": {
     "scope": "campaign fixture and observed tool/presentation instruction ambiguity",
@@ -416,12 +523,136 @@
       {
         "point": "N-PORT holdings could be matched by similar names, duplicated through lending, divided by wrong-date NAV or falsely rejected for reported percentage rounding.",
         "finding": "New test-only verifier scans2910XMLholdings, matchesexactARCCLEI only5ordinals andexcludes2AresStrategicIncomeFund positions. Literalpar/value/currency/maturity/coupon/lending flags and5published12decimalpctVal independentlytranscribed. Fundseries/date/NAVchecked assets-minusliabilities. Firstnearest-rounding assertion failedactualselectedpctresidual~0.995lastdigit; all5areconsistenttruncation, so preservepublishedvaluesseparatelyandtest0<=recomputed-published<1lastdigit. LoanYamountsarealready-heldsubsets; explicitNallows0onlythere. IndependentFraction44cells/3groupscenarios andselected40case, adverseDecimalcontextpassed; no productionchanges. Fullmodelconsumptionpending."
+      },
+      {
+        "point": "Actualmodeldebatecouldpassnumerical/schema checkswhileansweringastrowmanorclaiminganothermoduleexecutedinsideitself.",
+        "finding": "Fullmanualcomparisonconfirmedpartialrebuttalofunassertedimpairmentallegationandoldinstruction-inducedselfCP5claim. Existingatomicdraftloopmade10exactlocaledits; allnumbersandpostureretained. SubsequentseparateCP5willauditactualcorrectedarguments; no neworchestrator/reviewframework."
+      },
+      {
+        "point": "FullIC could confuse an audit scope exclusion with a qualified opinion or award victory against an unasserted argument.",
+        "finding": "FullreadagainstCP1A GT08 and actualBearattack confirmedbothissues. Existinglive seededrepair made6exactlocaledits and preservedallnumbers/posture/scores. Fourmethodschemaheaders/3attacks/9dimensions/7resolutions/15gaps and12verbatimconsumercontrols passed."
+      },
+      {
+        "point": "Live CP8 could bypass the provider cap, resume identity, or fail without internal dimension repair.",
+        "finding": "Confirmed historical integer0 identity would become Decimal JSON string0; preserve legacy nonlive0 explicitly and reproduce prioridentityresume. Fake transport sends duplicate dimension then receives targetedfeedback and publishes correctedanswer in2innercalls/1outerattempt; resumed run sends0more. Five mismatched callback/mode/cap/state/checker cases refuse beforedispatch; three invalidbudget combinations refuse. Existing interruption/hash/publication tests remainpassing. Tests prove wiring only, actualCP8livepending."
+      },
+      {
+        "point": "Confidence adoption might change economics or use unmatched helper inputs.",
+        "finding": "New retaineddata regression reexecutes pinnedhelper, matches authored25lineages/225fields, compares all original/current claim and controlrows, independently expectsFraction7049/125, score56LowPassed withpartialsourcegate. Initialtest-only missing sys import fixed;73campaign+handoff/legaltests passed. No productionconfidencealgorithm change."
+      },
+      {
+        "point": "Lite could preserve source numbers but import superseded approval rules or silently alter topics/rank evidence.",
+        "finding": "Fullsource/instructionread foundtwo closinggatephrases incorrectlytreated archivedprofileapproval asactiveauthority. Twoexactmodel edits verified byteforbyte. Test-only30topic/owner/ordinal/schema/upgraderow regression covers20schemas/5screens; userauthorization alreadycoverscontinuedwork. No change to productionLite method."
+      },
+      {
+        "point": "Chart projections could alter canonical Model identity or discard calculation lineage.",
+        "finding": "Reproduced `_comparison_bundle` identity mismatch with appended Model facts. Fixed at source: Model charts reference original canonical Fact IDs, with no Model mutation. Preserves exact formula/calculation/period/source metadata; complete bundle test passes."
+      },
+      {
+        "point": "Text numbers, missing cells, scale/currency and duplicate selectors might become valid-looking incorrect marks.",
+        "finding": "Strict numeric parsing refuses units/percent/exponents/nonfinite andwrongcomma. Addedcurrency/quantity/scale/nonfinite adversarialtyped tests. Existingrenderer puts Grefs in chart and twintext ratherthan optionalreason/refid; correctedtestexpectation toactualcontract. Duplicate/missing/wrongfigure refused."
+      },
+      {
+        "point": "Host review stop might leave a started request and force redispatch or publication before review.",
+        "finding": "on_handoff executes onlyafter response andcheck durable, before nextrequest. SyntheticpauseafterCP0/resume provesfour dispatches total, zero prematurecompletion/nextrequest. Exception releases existing singlewriter. Callbackreadonlybytes/task, no neworchestrator."
+      },
+      {
+        "point": "Sharedbudget state path might be unsafe or reset cap.",
+        "finding": "Budget rejected new symlink location beforeanyprovider call. Removedthatnewsymlink andused actualcampaign rootstate with existing durable25USD budget; unchanged balances/ruling/looplimits. No bypassorcopiedaudit."
+      },
+      {
+        "point": "FreshCP1couldcopy allnumeric sourcecells whilelosing an unresolved maturityallocationconflict.",
+        "finding": "Readall574linesagainstactualinstructions andannualprimarysource; statements andactual kernel calculations independentlyaudited. Confirmed annualFY2027 92 versus2650notes conflict omitted despite exacttotals. Targetedtwoexactedits requested; no financialrestatement."
+      },
+      {
+        "point": "Single-table route captions could disappear, allowing a recovery panel title to imply quantified recovery.",
+        "finding": "Confirmed prior Block onlyused primarylabel when tabs existed. Set existingrenderer blocknote from explicitroute labels forsingle tables/prose; no rendererredesign. Actualdistressedpublication nowpreservesnoquantifiedrecovery/noallocation qualifications directlyoneachpanel; testsverify notes."
+      },
+      {
+        "point": "Provider-free pathwaypublication might be mistaken forfreshfullanalysis or missingrecoverydatahiddenbehindcompletepanels.",
+        "finding": "All5reusepublications explicitlylabelorigin andsourcecase; rawactualsolhandoffs retainedexactly; everycellcitationlinechecked. Distressedrouteexplicitlydoesnotestablishactualdistressorquantifiedrecovery; directpanelnotesretained. Freshsource-tofullcreditCPOSproof trackedseparately. No isolatedFrontier/LQD/ARCCfacts blendedintoTDG."
+      },
+      {
+        "point": "Header may erase a real CP6 action outside portfolio mode.",
+        "finding": "Browser reproduced no judgment despite retained Final Action Bias Watchlist. Existing posture adapter extended to exact base-committee vocabulary under exact heading, with mandatory source citation. No inferred score/recommendation; actual TDG regression verifies parity."
+      },
+      {
+        "point": "Recipient-role check may reject correct content due to Markdown emphasis.",
+        "finding": "All three CP2 repair attempts already correct roles; old regex required bare cells. Current campaign normalizes only presentation markup, with actual retained positive and mutated wrong-role negative tests. No predecessor changed."
+      },
+      {
+        "point": "Fresh CP5 may manufacture producer defects without their exact instruction context.",
+        "finding": "Full237line/source/instruction review confirms four real source conflicts, but flags three false positives: explicit CP1 blank numeric convention, CP3 conflict-withheld display, and March/June non-inference wording. Original retained; exact15 substitutions requested from actual model. Source numbers/real conflicts preserved; no producer regeneration. Existing81value/18chart preflight confirms blank handling.",
+        "status": "Closed: actual model returned exact fifteen edits; original preserved, no producer or source mutation."
       }
-    ]
+    ],
+    "verification_current": {
+      "tests": "208 passed in 19.44s: focused handoff/delivery/chart/Model/CPOS/comparison/loop/portfolio/campaign suites",
+      "types": "mypy --follow-imports=silent: no issues in three changed production files",
+      "browser": "Five pathway scopes observed, RV table values and exact source line/hash verified. TDG Watchlist header reproduced and fixed. Model keyboard inspection exposes exact K12 formula/period; nearby line-chart mouse hit boxes overlap, so this does not certify every pointer target.",
+      "secrets": "Checkpoint gitleaks --redact scan passed: no leaks across262.18MB; no credential-file content or key copied to repository.",
+      "fresh_model_preflight": "Actual fresh CP1/CP2 consumed by existing build_model: all81 frozen Fraction source expectations and18 chart/table twin controls pass. Initial verification-script model_validate used strictPythoninput incorrectly; switched to model_validate_json for dated/list JSON, no production defect.",
+      "checkpoint": "Before requested checkpoint commit: git diff --check, Ruff on changed production/tests/current fixtures and mypy on three production files pass. Existing208 focused tests passed on this production diff. New final-proof scripts remain unexecuted pending corrected live artifacts; no end-to-end completion claim.",
+      "diff_scope": "Code, tests and authored docs pass whitespace checks. Full staged raw-evidence check reports preserved source/Markdown trailing whitespace; these pinned bytes must not be normalized because source identity and actual model responses are retained exactly."
+    }
   },
   "rewrite_tournament": {
-    "decision": "Skipped test-only fixture/checker additions andcaseinstructions/selectors/data; no nontrivial productionfunction changed. Existinglowlevelyield/PV andCPOSloopreusedunchanged.",
-    "verification": "72focusedtests passed;22campaigntests include market/paircontext andNPORTactualtruncation controls. Ruffclean andcode/JSON/JSONLdiffcheckpassed. Campaign-onlygitleaks121.24MB scannedclean. Rawrequests/responses/sourceMarkdown originalbytes retained. No productionfunctionrewritten."
+    "scope": "Post-edit inline; no subagents. run_comparison and run_live_comparison; validator same boundedmodecontract, test-onlyfixtures excluded. GitNexuscontext/impact both report final-workflow notindexed, so rg all callers/imports used.",
+    "winner": "Snippet A speed/memory challenger for run_live_comparison; run_comparison incumbent holds.",
+    "justification": [
+      "The inner check discards its generated files, so building a complete source-hash dictionary has no behavioral role; actual published hashes remain mandatory in run_comparison.",
+      "Speed and memory alternatives converge on an empty temporary input map, eliminating redundant hashing/allocation without changing validation, signatures, errors, callbacks or provider behavior.",
+      "Readability helper adds indirection without reducing the entry flow. Rewriting existing comparison source-map assembly saves negligible temporary references and adds unrelated churn; keep its established implementation."
+    ],
+    "final_code": "def run_live_comparison(\n    manifest: Path,\n    directory: Path,\n    *,\n    ruling: Path,\n    check: Callable[[HandoffTask, bytes], tuple[str, ...]],\n    environ: Mapping[str, str] | None = None,\n    max_turns: int = 24,\n    max_output_tokens: int = 16000,\n) -> Path:\n    \"\"\"Explicit bounded CP-8 execution over the existing verified bundle exchange.\"\"\"\n    import os\n\n    from deploy_workflow.model.adapter import LiveAdapter\n    from deploy_workflow.model.handoff import HandoffExecutor\n    from deploy_workflow.model.redact import Redactor\n    from deploy_workflow.model.turn import ModelSpec\n\n    request = ComparisonPlan.model_validate_json(manifest.read_bytes())\n    if request.execution != \"live-provider\":\n        raise ValueError(\"cpos_live_mode: manifest must explicitly declare live-provider\")\n\n    def checked_response(task: HandoffTask, raw: bytes) -> tuple[str, ...]:\n        # Supply dimension feedback inside the paid repair loop, before outer publication.\n        # This validation's files are discarded; run_comparison binds the published input hashes.\n        try:\n            comparison_files(task.run, raw, {})\n        except ValueError as error:\n            if str(error).startswith(\"cp8_dimensions:\"):\n                return (str(error),)\n            raise\n        return check(task, raw)\n\n    environment = os.environ if environ is None else environ\n    executor = HandoffExecutor(\n        directory / \"live\",\n        adapter=LiveAdapter(\n            ModelSpec(\"sol-medium\", \"openai\", \"gpt-6.1-sol\", \"medium\"), ruling, environ=environment\n        ),\n        cap_usd=request.provider_cap_usd,\n        check=checked_response,\n        redactor=Redactor.from_environ(environment),\n        max_turns=max_turns,\n        max_output_tokens=max_output_tokens,\n    )\n    return run_comparison(manifest, directory, execute=executor, check=checked_response)",
+    "verification": "PYTHONPATH=src .venv/bin/pytest -q tests/test_cpos_comparison.py tests/test_cpos_handoffs.py tests/test_handoff_loop.py:77passed. All actualcallers CLI/newliveentry/tests rechecked. Targeted mypy --follow-imports=silent passes; normalmypy reports11preexisting imported inline_xbrl typing errors. Ruffcheck/format pass. Exactsyntheticbad-dimension->repair->publication->zeroadditionalcallresume verifies decisiveinvariant. Fullalternatives andincumbentbackup in/tmp only.",
+    "delivery_adapter": {
+      "scope": "Post-edit pass: _numeric_observations and markdown_files. Full code alternatives written and syntax parsed inline; no subagents. Signature, bytes/provenance, unit/scale, zero-vs-missing, Model identity and original cells invariant. Impact markdown_files via delivery_files->deliver/verify_delivery->CPOS; _numeric_observations only markdown_files and focusedtests. GitNexus notindexed previously, rg andmypy used.",
+      "winner": "Incumbent holds",
+      "justification": [
+        "Numeric lookup speed and generator memory candidates preserve semantics but add machinery for very small explicitly selected matrices; no measured material gain.",
+        "Delivery module-position cache depends on parallel index metadata through replacements; incumbent linear lookup is simple for bounded module count. Conditional fact-map allocation saves small memory but adds a control path.",
+        "Readability candidates change names/annotations without reducing validation obligations. Keep the already tested canonical Model reuse, exact source copying and existing rendering interfaces."
+      ],
+      "final_code": "Incumbent unchanged in src/deploy_workflow/markdown_delivery.py; full _numeric_observations and markdown_files and allthreecompletealternatives retained in /tmp/chart-tournament. Exact code sha256 a4b0996358dcb6dd6f4c97525fdf3b9d06826fb28927c1af0ef304a2ad7121e7",
+      "verification": "PYTHONPATH=src .venv/bin/pytest -q tests/test_pathway_handoff_charts.py tests/test_markdown_delivery.py tests/test_model_handoff_delivery.py tests/test_cpos_handoffs.py tests/test_cpos_comparison.py tests/test_handoff_loop.py tests/test_portfolio_handoff_delivery.py:152passed. mypy --follow-imports=silent all3productionfiles passed. Independentfixture22charttests; actualfivepathwaypublications verified. LatestRVfractionselectors/currentpathwaycaptions included inthispass."
+    },
+    "review_checkpoint": {
+      "scope": "Posteditpassrun_handoffs; run_live_handoffs iskeyword-onlyforwardingexcludedasmechanical. chart_selection validator checkedinprioradapterpass. Paidfixturecheck/main/observe reviewedinline; testfixtureonlyverification excluded. Noagents. Impactpublicrun/replay/newliveentry, CLI,tests andfreshcampaignlauncher.",
+      "winner": "Incumbent holds",
+      "justification": [
+        "Speedcacheaddssecondmutablehashmap withan ordering obligation; bounded8modulewalkdoesnotjustifyit.",
+        "Memorychainavoidsasmalltupleofreferencesbutaddsimport/indirection; sourcebytepinsstillmustallvalidatebeforedispatch.",
+        "Readabilityearlycontinueaddscontrolflow. Existingifcallbackafterdurableresponseandbefore nextrequestisclearest. Allsignatures,costguards,sourcepins,exceptionsandpublicationcontracts unchanged."
+      ],
+      "final_code": "Incumbent unchanged: src/deploy_workflow/owners/cpos.py run_handoffs; fullwinning function andthreecompletealternatives retained in /tmp/cpos-review-tournament for thisreview.",
+      "verification": "Actualobserverpause/resumetestand151then152focusedtests pass; targetedmypyall3files pass. Fullsuiteinprogress. CP0 actualnewlivehandoffpausefollowedbyCP1sourceconsumptionprovedcheckpointwithoutredispatch; CP1targetedrepair only afterchangedinstructionfingerprint."
+    },
+    "final_posture_and_role_check": {
+      "targets": "src/deploy_workflow/markdown_delivery.py:157; runs/cpos-sol-remaining-20261105/fresh-tdg/run.py:19",
+      "mode": "No-argument post-edit, inline per project no-agents rule. Full candidates and backups in /tmp/final-posture-tournament.",
+      "impact": "GitNexus context returned repository not indexed; rg found markdown_files sole production caller of posture helper and tests. markdown_files called only via handoff_delivery.delivery_files; deliver/verify/CPOS consume it. Campaign check used by CPOS launcher and campaign regression. Existing default portfolio interface preserved.",
+      "invariants": [
+        "Copy only exact single explicit CP6 terminal posture under its proper heading, citation required; no conditional or ambiguous decision and no invented scoring.",
+        "Normalize Markdown emphasis only for recipient check; retain exact one row, required correct registry role, all independent financial/selector checks, unchanged model bytes."
+      ],
+      "bracket": [
+        "Speed vs memory: speed wins, avoids needless tuple conversion and can stop after detecting second match; both preserve error behavior.",
+        "Speed vs readability: readability wins, clearer than extra iterator/break state for small modules.",
+        "Readability vs incumbent: incumbent holds; pattern is already localized, extra variable/name changes do not materially reduce complexity. Same result for checker: caching three tiny scans and renaming/tuple conversion does not simplify the validation contract."
+      ],
+      "winner": "Incumbent holds",
+      "justification": [
+        "No material hot-path gain justifies added traversal state.",
+        "Current records explicitly enforce uniqueness and retain direct source trace.",
+        "Current three-role normalization keeps existing independent checks intact without changing live instructions or output."
+      ],
+      "final_code": {
+        "_portfolio_call": "def _portfolio_call(\n    module: ModuleView | None,\n    metadata: dict[str, tuple[str, str]],\n    refs: dict[tuple[str, str], tuple[str, ...]],\n    *,\n    portfolio: bool = True,\n) -> CallItem | None:\n    \"\"\"Copy CP-6's explicit terminal posture; never infer a decision or confidence.\"\"\"\n    if module is None or module.module_id != \"CP-6\":\n        return None\n    heading = \"Final Sizing Posture\" if portfolio else \"Action Bias Determination\"\n    prefix = \"Final Sizing Posture:\" if portfolio else \"Final Action Bias:\"\n    choices = (\n        r\"Include|Avoid|Resize-Reduce|Resize-Increase|Maintain-Hold|Requires More Work\"\n        if portfolio\n        else r\"Avoid|Watchlist|Starter Position|Core Hold|Add / Increase|Reduce / Trim|Exit|Requires More Work\"\n    )\n    records = [\n        fact\n        for fact in module.facts\n        if metadata.get(fact.table_id) == (heading, \"prose\")\n        and (fact.text or \"\").startswith(prefix)\n    ]\n    if not records:\n        return None\n    match = re.match(\n        re.escape(prefix) + \" (\" + choices + r\")(?:\\.(?:\\s|$)|$)\",\n        records[0].text or \"\",\n    )\n    source_ref = next(\n        (\n            ref\n            for ref in refs.get((module.module_id, records[0].fact_id), ())\n            if ref.startswith(\"C\")\n        ),\n        None,\n    )\n    if len(records) != 1 or match is None or source_ref is None:\n        raise ValueError(\n            \"markdown_posture: one explicit terminal CP-6 posture with a citation required\"\n        )\n    return CallItem(\n        kind=\"fact\",\n        label=\"Portfolio posture\" if portfolio else \"Action bias\",\n        value_text=match[1],\n        ref_id=source_ref,\n    )",
+        "check": "def check(task, raw):\n    issues = (\n        list(ORIGINAL[\"check\"](task, raw))\n        if task.module_id in {\"CP-0\", \"CP-1\", \"CP-1A\", \"CP-2\"}\n        else []\n    )\n    text = raw.decode()\n    if task.module_id == \"CP-2\":\n        # The inherited check reads bare Markdown cells; emphasis is presentation.\n        for recipient, words in {\n            \"CP-3C\": (\"refinancing\",),\n            \"CP-4\": (\"legal\", \"covenant\"),\n            \"CP-6\": (\"committee\", \"challenge\"),\n        }.items():\n            rows = [\n                plain(line).lower()\n                for line in text.splitlines()\n                if re.match(r\"^\\|\\s*\" + re.escape(recipient) + r\"\\s*(?:\\||/|\u2014)\", plain(line))\n            ]\n            issue = \"Use the current registry recipient role for \" + recipient\n            if len(rows) == 1 and all(word in rows[0] for word in words) and issue in issues:\n                issues.remove(issue)\n    for name, content in task.handoffs.items():\n        if hashlib.sha256(content).hexdigest() not in text:\n            issues.append(\"Re-anchor exact current supplied handoff hash: \" + name)\n    data = json.loads((CASE / \"workflow.json\").read_bytes())\n    module, _, metadata = literal_module(task.module_id, raw)\n    for route in data[\"layout\"][\"routes\"]:\n        if route[\"module_id\"] != task.module_id:\n            continue\n        kind = \"table\" if route[\"kind\"] == \"chart\" else route[\"kind\"]\n        found = [t for t in module.tables if metadata[t.table_id] == (route[\"heading\"], kind)]\n        if len(found) != 1:\n            issues.append(\n                \"Existing delivery selector needs exactly one populated \"\n                + kind\n                + \" under H3/H2 \"\n                + route[\"heading\"]\n                + \". Preserve all source values and analysis.\"\n            )\n    return tuple(issues)"
+      },
+      "verification": "63 focused delivery tests passed including actual TDG Watchlist/header/sourcehash and eight posture choices; conditional/unknown/conflicting cases refused. Final expanded tests/typecheck recorded below."
+    }
   },
   "live": {
     "calls": {
@@ -437,14 +668,120 @@
       "CP-2G": 6,
       "CP-2H": 6,
       "CP-4": 20,
-      "CP-6": 3,
+      "CP-6": 11,
       "CP-4C": 15,
-      "CP-3": 11,
-      "CP-3D": 6
+      "CP-3": 19,
+      "CP-3D": 6,
+      "CP-5": 14,
+      "CP-L10": 6,
+      "CP-0": 7,
+      "CP-1": 14
     },
-    "cost_usd": "9.44196050",
-    "independent_calculations": 415,
+    "cost_usd": "13.79295020",
+    "independent_calculations": 582,
     "declined_nonpositive_ratios": 2
   },
-  "checkpoint_scope": "Current checkpoint addsactualsol-mediumCP3D->CP3/3A market/securityselection consumption andpopulatedreports.110+48numericcells and57newarithmeticcalls verified; portfolio44cell fixture/offlinepreflightready, no liveportfolio success yet. PendingbroaderCP3B,CP5,fullCP6,CP8,Liteandall6broaderpathways remain explicitlypending. ExistingCPOS/livehelpers/renderers reused;no rebuild."
+  "checkpoint_scope": "User requested commit/push of current checkpoint while the sleep-interrupted CP6 request is pending. Production adapter checks passed, but final source-completeness repairs and CP8 live comparison are unfinished. Affected TDG publications are not final verified analytical outputs; prior calendar/fiscal conflict findings are withdrawn.",
+  "fresh_reviews": {
+    "CP-0": {
+      "sha256": "8a0611cc768e043abd52c2bf4899f6b0a6d560a1c264f7fbc991fa6d10863963",
+      "review": "Full sourceadmissionread:13exactpins, annualphysical105-109statementlocators andshare/per-share/moneyfamilies, 160PDFvs37legaltoolpages, actualtextreadcoverage, executioncover/signatures, sourceauditdate, consolidationandperiods verifiedagainst earlierdirectprimaryreview. All future/current/visual gaps explicit; nofinancialorlegalanalysis invented. CP3/6 decisionlimitations do not blocksourceanalysis. No confirmedrepairnecessary."
+    }
+  },
+  "repository_suite": {
+    "command": "PYTHONPATH=src .venv/bin/pytest -q",
+    "result": "Collection stopped with6errors; no suitepass claim",
+    "baseline": "Missing scripts.build_templates (nottrackedatHEAD), docs/OWNER-RENDERING-LEASE.md(nottrackedatHEAD); tests/prompts/research require tests directory onPYTHONPATH for o2_case/cpdr_consumers. Currentchangefocused tests runseparately withPYTHONPATHsrc:tests. No unrelated predecessor scaffoldrecreated."
+  },
+  "live_audit": {
+    "calls": {
+      "CP-1B": 10,
+      "CP-1D": 7,
+      "CP-DR": 7,
+      "CP-2A": 7,
+      "CP-2D": 15,
+      "CP-3C": 25,
+      "CP-1C": 18,
+      "CP-2": 8,
+      "CP-2E": 10,
+      "CP-2G": 6,
+      "CP-2H": 6,
+      "CP-4": 25,
+      "CP-6": 11,
+      "CP-4C": 15,
+      "CP-3": 23,
+      "CP-3D": 6,
+      "CP-5": 22,
+      "CP-L10": 6,
+      "CP-0": 7,
+      "CP-1": 14,
+      "CP-1A": 7
+    },
+    "cost_usd": "16.73874290",
+    "independent_calculations": 604,
+    "declined_nonpositive_ratios": 2
+  },
+  "source_completion": {
+    "status": "Targeted live correction pending; current publications not final",
+    "confirmed_root_cause": "Host compared calendar due-year2027 with fiscal2027 and missed annualPDF43/45/46. PDF43 explicitly maps November2027 to fiscal2028; PDF46 gives November15 2027 and January15 2033 dates; PDF45 supplies67letters of credit and February27 2029 revolver maturity. Prior host-imposed conflict is false.",
+    "affected": "Fresh CP1/1A/2/4/3/5/6 and three broader TDG publications; historical source/run artifacts preserved. Current corrections must propagate exact new upstream identities before final delivery.",
+    "superseded_reviews": {
+      "CP-0": {
+        "sha256": "8a0611cc768e043abd52c2bf4899f6b0a6d560a1c264f7fbc991fa6d10863963",
+        "review": "Full sourceadmissionread:13exactpins, annualphysical105-109statementlocators andshare/per-share/moneyfamilies, 160PDFvs37legaltoolpages, actualtextreadcoverage, executioncover/signatures, sourceauditdate, consolidationandperiods verifiedagainst earlierdirectprimaryreview. All future/current/visual gaps explicit; nofinancialorlegalanalysis invented. CP3/6 decisionlimitations do not blocksourceanalysis. No confirmedrepairnecessary."
+      },
+      "CP-1": {
+        "sha256": "89dced9cb71499d2c18ae55dda6bfcb524f060b86c43b52e9f35ece4e1c38c9e",
+        "review": "Readall574lines againstsentinstructions andprimaryannual. Independentfrozen income/cash/balance/comprehensive/equity tablelexemes allpassed; allnewDecimal calls independentlyFractionaudited. All18financialduties,nondebtfunding,exactdashes/shares/per-share/periods/sources verified; no oldresponseinput inoriginalrun. Confirmedmaturityconflictomission repaired inexacttwoedits; wholemodelresponsebyteequalexpected, alleconomics/calcsunchanged. FY2027source92versus2650notesconflict retained, not reallocated."
+      },
+      "CP-1A": {
+        "sha256": "b58fdbea15b292eece7b49baae234822f5c36ddcbe80c78f1729fa9faaf8c56b",
+        "scope": "Full retained response compared with sent CP-1A/absorbed CP-2C duties, current CP-0/CP-1, annual business/control/acquisition/debt/dividend passages and actual tool traces.",
+        "checks": [
+          "All eleven governance input rows and exact returned scores; three unsupported dimensions remain Not Scorable; debt-funded distribution evidence distinct from legal capacity and future support.",
+          "Source channel estimates and customer mix, primary ICFR effective opinion with scope exclusions, dates and financial row IDs preserved; CP-1 maturity conflict propagated.",
+          "Located source-read trace matches declared coverage; five recipient roles and substantive business/governance registers retained.",
+          "All13 annual-source quotations in the actual governance scorer inputs independently matched normalized text at their exact cited PDF pages; no quote mismatch."
+        ],
+        "confirmed_defects": []
+      },
+      "CP-2": {
+        "sha256": "587ad984c29a883648ca2e6b0b01a79d650d69e1c2e2ca1faa68963e1d40ddb7",
+        "review": "Read all252lines against actualsentinstructions andcurrentCP1/CP1A. Fourpriorityfindings,nineprofiledimensions,sixfactors,twohorizons,causaldownside,rankedstrengths/weaknesses,counterevidence,monitoring,allnumericcontrols andgap/recipientboundaries retained. No new arithmetic; exact upstream values andFY2027conflict preserved. Mediumconfidence; liquidity NotAssessable, no foreigncurrent/quarterfacts orinvestmentapproval.",
+        "repair": "Confirmed checker false-positive: inherited regex didnotstrip boldemphasis from firstrecipientcell. Normalized onlyrecipientrow matching in currentcampaign checker, preserving exact1row/requiredroles. Actual3.draft.md unchanged, all3 rejectionrecords preserved. Recovered exactraw into matching originalouterrequest after checking instruction/upstreamidentity; no paidrerun."
+      },
+      "CP-4": {
+        "sha256": "2860d8ab33f46ab1cf8c4553a0505d60336510169cc2333f1af5b1bda638132a",
+        "review": "All251lines read against instructions,currentupstreams and primaryindenture. Actual toolcoverage independently confirms all37legaltextpages and selectedmethodsteps. Fourteenfamilies,capacity/entity/ICA/remedies/oppositecase/scores/conflicts/gaps present. Rechecked operative403-424,1295-1304,1511-1527,1835-1860: strict>2,clauseM35%postadjustment/24months,separate5.25route,Company-onlyautomaticacceleration vsformsummary,affected-holderranking and66\u2154controls preserved. Historicalfigures matchcanonicalCP1; no certifiedcapacity orcurrentclearance.",
+        "notes": [
+          "CP6 is next explicitly requested module in run.requested_modules; CPOS dependency order inserts CP3 andCP5 before it. Module prose doesnotcontrol dispatch.",
+          "Newextra conflictingformsummary retained withoperativeauthority; allotherinstrument/facilitylimits remainexplicit."
+        ],
+        "confirmed_defects": []
+      },
+      "CP-3": {
+        "sha256": "78b5da47bf2ad37c6065798878d1ef558c0f8416f5cb484374f8518b59e8a401",
+        "review": "Read all231lines against instructions and five current handoffs. Direct annual126/128/132/133 recheck confirms instrument amounts, dates, rates, principal25068 versus carrying24880 and FY2027 conflicted missing display. All17claim rows, conditional relative compensation, legal/recovery reach, optionality, downside, countercases, portfolio boundary and owned gaps substantive. Four new arithmetic calculations independently verified by Fraction audit. No forced quote, recovery, price preference, size or current underwriting.",
+        "confirmed_defects": [],
+        "notes": [
+          "CP6 is next requested root module; CPOS still inserts CP5 assurance dependency before committee."
+        ]
+      },
+      "CP-5": {
+        "sha256": "c9ff889360763dfe6f7150ba31ac7ae7598ad4f62ee19c7f198434c6f8b56e46",
+        "review": "Read original237lines and all52materialclaim traces, five drivers/eightQA lanes, eighteen actual arithmetic calls and source/definition/period controls. Four actual source conflicts remain correctly Restricted/Medium qualitative; no invented helper score. Rechecked original sent CP1/CP3 instructions: three format findings false positives. Actual model correction is byte-exact fifteen requested substitutions; every amount/calculation/source identity and real conflict preserved. Host preflight is labeled host evidence, not CP5 execution. Current six handoff identities exact.",
+        "confirmed_defects": [
+          "Original CP5 audit lacked specific producer instruction context; three false-positive findings withdrawn by actual retained live correction."
+        ],
+        "repair": "CP-5.repair-edits.json"
+      }
+    },
+    "pending_request": {
+      "module": "CP-6",
+      "invocation": "c4b8646b27f11b6fc1bc40b8347c5ca3fc6a941561dce3b8928857b746246a50",
+      "call_index": 3,
+      "reservation": "call-21d687e539ab47968dce21c887d98508",
+      "status": "Awaiting the original HTTP response after confirmed host sleep/wake; no duplicate dispatch. Temporary caffeinate -i tied to PID52684 prevents idle sleep until this process exits."
+    }
+  }
 }

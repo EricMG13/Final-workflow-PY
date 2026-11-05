@@ -1,0 +1,25 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "TDG historical earnings update for December 28, 2024 versus December 30, 2023. The FY2022\u2013FY2024 annual Model and separately dated November 2024/February 2025 guidance remain distinct. What Changed compares reported and guided periods; CP-8 prior-run comparison is separate. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": true,
+  "excel_output": false,
+  "files": {
+    "CP-1.md": "9d57bc5d5baac5c16a3f12fc2c017b8405e3e3b3db327002890f8cf8f7a1eb03",
+    "CP-1A.md": "3da9bf55281dc9a86e15bbb438ddd3b8aa04244344ab5ee7e5c059fc2da9054f",
+    "CP-2.md": "e7b46ceeedf76db7143359e7cef97b64c6a210dd7b63d3362cc2a7943018ee3a",
+    "CP-1B.md": "42ee44c8350150abd3875adc4ee30ba2cdc4658d0db3ed905251f4825be6e377",
+    "CP-1D.md": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
+    "CP-DR.md": "0463a4b16e8ed7de1e1ed9a219587bbf4ee2b6fc2e98228d4f0090c22d487b03",
+    "CP-6.md": "d999e6a0af14925a14dfe6c6cb414d65bd458e62d14535af322fc4e811540d3f",
+    "annual.md": "9d57bc5d5baac5c16a3f12fc2c017b8405e3e3b3db327002890f8cf8f7a1eb03",
+    "current_synthesis.md": "e7b46ceeedf76db7143359e7cef97b64c6a210dd7b63d3362cc2a7943018ee3a",
+    "calculation.json": "1fcbe7788cef0cf523ab3a1dc4dbd506951d5bca8c7a82f92b9458e4fea12797",
+    "model-view.json": "8108edad194699462656055b008a877e2bdbc599218fc2468bd7a6afcb22311b",
+    "model-report-view.json": "19a8ff0e43cf2458bafc01334a41a68cbdc9475c0c760faeff100347edf52b18",
+    "model.html": "94f9886f23253dc15eaa466fda5d285edf44b8f4dc01d137c7bfedff5792c388",
+    "view.json": "879be2390b6bea3fbd822c3ea816b3c8206e07fc0cb5f4aa52b111edec25d3d9",
+    "report-view.json": "fe73f4b6549bd2d7dafc176193543fef12950c795f031a65336cd783c61e832b",
+    "report.html": "75910545f9f8acffcd10d2e60f54f44d18ebb7c1ff6a5d8b244c5229fef193c7"
+  }
+}

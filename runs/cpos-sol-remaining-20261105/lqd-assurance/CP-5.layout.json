@@ -1,0 +1,177 @@
+{
+  "blocks": [
+    "capital-structure",
+    "portfolio-fit",
+    "binding-limitations"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-5",
+      "heading": "T5B.1",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5B.1"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5B.2",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5B.2"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5B.3",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5B.3"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5B.4",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5B.4"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5B.5",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5B.5"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5B.6",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5B.6"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5B.7",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5B.7"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5B.8",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5B.8"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5.1",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5.1"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5.2",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5.2"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5.3",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5.3"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5.4",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5.4"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5.5",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5.5"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5.6",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5.6"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5.7",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5.7"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5.8",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5.8"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "T5.9",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "T5.9"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "Exposure and loss controls",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Exposure and loss controls"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "Trace completeness",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Trace completeness"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "Counterfactual probes",
+      "kind": "table",
+      "block_id": "capital-structure",
+      "label": "Counterfactual probes"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "Overall Traceability View",
+      "kind": "prose",
+      "block_id": "portfolio-fit",
+      "label": "Overall Traceability View"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "Clearance Decision",
+      "kind": "prose",
+      "block_id": "binding-limitations",
+      "label": "Clearance Decision"
+    },
+    {
+      "module_id": "CP-5",
+      "heading": "Decision boundary",
+      "kind": "prose",
+      "block_id": "binding-limitations",
+      "label": "Decision boundary"
+    }
+  ],
+  "title": "LQD historical portfolio evidence and integrity review",
+  "question": "Which conclusions are traceable and what use is supported?",
+  "issuer_aliases": [
+    "ARCC",
+    "Ares Capital"
+  ],
+  "scope": "Full trace and absorbed QA method on current historical CP3B/CP6A portfolio handoffs. Actual model assurance plus mechanical publication checks; not native full underwriting or a fresh whole pathway."
+}

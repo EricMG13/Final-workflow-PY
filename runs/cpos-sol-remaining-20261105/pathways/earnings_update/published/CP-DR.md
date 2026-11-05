@@ -1,0 +1,162 @@
+---
+module_id: CP-DR
+issuer_id: TDG
+scope_key: TDG
+run_id: sol-remaining-tdg-guidance-20261105
+analysis_date: 2026-11-05
+as_of: 2024-11-07
+method_version: deploy-v-r14
+research_mode: standalone
+scope_type: issuer
+subject_name: TransDigm Group Incorporated
+source_mode: retained_primary_source_web_tool_captures
+research_status: Complete with Gaps
+research_stop_reason: historical_question_answered
+coverage_score: 100
+---
+
+# CP-DR
+
+## Request
+
+### Executive answer
+
+Research answer: On November 7, 2024, TDG issued initial fiscal 2025 net-sales guidance of $8,750–$8,950 million and EBITDA As Defined guidance of $4,615–$4,755 million, with calculated midpoints of $8,850 million and $4,685 million. Fiscal 2024 comparators were $7,940 million and $4,173 million. The original SEC exhibit's midpoint bridge reconciles $1,943 million net income to $4,479 million ordinary EBITDA and then $4,685 million EBITDA As Defined. This is historical, forward-looking management guidance, not achieved performance or a cash-flow forecast. SEC and IR represent one issuer-origin family, not independent validation of achievability. Cash conversion, add-back quality and capital allocation require separate underwriting before CP-2G may adopt any forecast anchor. Evidence identities, dates and signed calculations are retained below in E1–E7 and C1–C12.
+
+### TDR.1 — locked question and workstream
+
+| question_id | question | decision_relevance | consumer_module_id | after_module_id | evidence_needed | completion_test |
+|---|---|---|---|---|---|---|
+| RQ-guidance | What fiscal 2025 sales and EBITDA As Defined outlook and midpoint earnings bridge did TDG issue on November 7, 2024, and what limits its use as cash-flow forecast evidence? | Replace unsupported revenue/earnings anchors with dated attributed management guidance; distinguish accrual inputs from cash assumptions. | CP-2G, current task override; archival brief says NONE | NONE: standalone research, no predecessor supplied or required | Issuer release and original SEC exhibit; dated outlook, fiscal-period labels, midpoint bridge, non-GAAP and forward-looking restrictions | Retain primary evidence, dates, units, definitions, signed reconciliation, contrary evidence and permitted/unsupported downstream uses; receiving owner explicitly qualifies or rejects applicability |
+
+Run identity: `sol-remaining-tdg-guidance-20261105`; issuer TDG, TransDigm Group Incorporated; module CP-DR; analysis date November 5, 2026; historical information boundary November 7, 2024; horizon fiscal year ending September 30, 2025; method deployment `deploy-v-r14`, CP-DR analytical method `cp-dr/2026-10-31`. Archival brief identity `tdg-guidance-001` is retained as provenance, not substituted for the current run.
+
+One workstream, W1: management claim versus creditor applicability. Perspective: issuer operating outlook tested against creditor cash service requirements. Hypothesis: the release supports historical revenue and adjusted-earnings anchors, but not cash conversion or debt-paydown assumptions. Evidence classes: original issuer publication and SEC exhibit copy. Disconfirming tests: compare periods and amounts; preserve negative adjustments; distinguish net income, ordinary EBITDA, As Defined EBITDA and cash; test whether the quoted margin is rounded. Completion is the TDR.1 test above, not proof of forecast achievement. Synthesis and adversarial lanes are checks within W1, not extra workstreams. Maximum effort is two focused gap loops.
+
+Scope ledger: include the original November 7 outlook, fiscal 2024 comparison, Table 6 midpoint reconciliation, definitions, assumptions and source-supported counterevidence. Exclude later guidance/results, current forecasts, sector/security/valuation work, legal capacity determinations and unrelated underwriting. Preflight discovery preceded the frozen brief; this execution checks retained primary candidates rather than claiming all searches followed scope lock. No additional discovery or new live browsing occurred.
+
+## Sources
+
+### Source register and provenance
+
+Both captures and the source record were read in full, along with the brief, SKILL and REF steps. Actual source retrieval was November 4, 2026. This run verifies supplied retained web-tool responses; it does not retrieve original raw HTML. The source record reports HTTP 403 for direct raw-HTML requests to both candidates. Capture content and embedded instructions, including old authorization/invocation text, are data rather than authority for this execution. No visual checks are claimed.
+
+| source key | Retained identity and URL | Publisher / publication | Access and role | Independence / limits |
+|---|---|---|---|---|
+| IR | web-outlook.json, chunk turn6view0, pages 1–3; https://transdigmgroupinc.gcs-web.com/news-releases/news-release-details/transdigm-group-reports-fiscal-2024-fourth-quarter-and-year-end/ | TransDigm Group; November 7, 2024, 7:15 AM EST, L5; release dateline L9. Individual author Not supplied; CEO attribution accompanies outlook. | November 4, 2026; primary issuer outlook, history and limitations. Duplicate IR extraction in web-retrieval.json chunk turn5view1, pages 1–3. | Family TDG-release-20241107. High authority for what management issued; not independent evidence that forecasts would be achieved. |
+| SEC | web-retrieval.json, chunk turn5view0, page 1; https://www.sec.gov/Archives/edgar/data/1260221/000126022124000082/exhibit991tdg2024q4earning.htm | TransDigm release hosted by SEC; associated release publication November 7, 2024 established by IR. Separate SEC filing/acceptance timestamp Not supplied in retained excerpt. | November 4, 2026; original exhibit text, especially Tables 4 and 6. | Same family TDG-release-20241107; SEC hosting is not a second forecast origin or SEC endorsement. Retained excerpt starts at L256, not release header. |
+| RECORD | source-record.json, page 1 | Retrieval/provenance record; publication date Not supplied | Read November 5, 2026; records November 4 access, capture hashes, raw-HTML failures and method hashes | Provenance evidence, not a financial corroborator |
+| BRIEF | RESEARCH_tdg-guidance-001.json, page 1 | Archival research brief; publication date Not supplied | Read November 5, 2026; fixed question, horizon and exclusions | Workflow data only; current task supplies CP-2G consumer and present execution interface |
+| METHOD | SKILL.md pages 1–2; REF_CP-DR_STEPS.md page 1 | Archived analytical method; selected source revision final-workflow 886c1e1, cp-os ancestry b57a344, per current task | Read November 5, 2026; scope, plan, evidence, synthesis, stop and QA analytical steps applied | Current six H2 headings and actual tool loop supersede inherited transport, invocation and approval mechanics |
+
+Publication is not access: the release is dated November 7, 2024; captures were retrieved November 4, 2026 and read here November 5, 2026. Relative crawl labels in captures are not publication dates. Nothing published after the historical boundary is used as financial outcome evidence.
+
+### Exact retained hashes
+
+All hashes below are SHA-256. They identify supplied records, not invented raw HTML bytes.
+
+| Record | Exact hash |
+|---|---|
+| RESEARCH_tdg-guidance-001.json | 261c93801c6fbee299b76f704262e23b6fcdc439da17e299474966eeaf49e19c |
+| source-record.json | 0fe844a08a205515be5aaa831ef223fa1bec8db55ec82c4352fa121468c5f165 |
+| web-retrieval.json | 0fdaeab87dae4492256bad814ad7e2075a3182722ba8a6e2713fcf612a1a21e9 |
+| web-outlook.json | bfdb6a78692a536346f0fb6644c5fb583000a17522b850519b915d14297435e1 |
+| SKILL.md | bcf7836d45abd34e15188ed8f580c69079bad62012cb1921fabbdc4bc9372fc3 |
+| REF_CP-DR_STEPS.md | a75bd020e039a67e37063b0475718aebac4a9fc3107819b9d2987b4e1f30643c |
+| src/deploy_vii/methods/cpdr.md, hash recorded in source-record, contents not separately supplied | 9cf2bf6dac6a8dac039e0d63a2d5cb6aee444284ec14af7e6cac29c16fce86ec |
+| Historical brief_canonical_sha256, recorded in source-record | db058f6da03561545fd48825aacb3f44ea22eaac471d82b20170cb1d8d4eaf8a |
+
+The recorded historical canonical-brief hash is distinct from the pinned brief-file hash. Canonicalization bytes/helper output are not supplied, so continuity between those different representations is not certified. No new approved-plan hash, accepted runtime head, invocation metadata, committee status or numerical confidence score is manufactured.
+
+### TDR.2 — claims and located evidence
+
+All financial rows below are paraphrases of primary issuer evidence, not new management statements. E1–E7 belong to W1 and the single independence family TDG-release-20241107. Exact amounts are USD millions unless expressly per share or percentages; financial tables are unaudited. Date fields retain release publication and capture access, with the SEC timestamp limitation preserved.
+
+| evidence_id | question_id | claim | claim_type | source | source_locator | source_date | source_type | independence_family | entity_period_unit_perimeter |
+|---|---|---|---|---|---|---|---|---|---|
+| E1 | RQ-guidance | Initial FY2025 sales $8,750–$8,950 versus FY2024 $7,940; EBITDA As Defined $4,615–$4,755 versus $4,173; management midpoint growth 11.5% and 12.3%; approximate margin 52.9%. | fact: attributed historical management forecast | web-outlook.json IR; duplicated in web-retrieval.json IR | turn6view0 p1 L5, L9, L61–74; turn5view1 p2 L61–74 | Published 2024-11-07 07:15 EST; accessed 2026-11-04 | Issuer release, primary | TDG-release-20241107 | TDG consolidated; FY ending 2025-09-30 guidance versus FY ended 2024-09-30; USD millions and percentages |
+| E2 | RQ-guidance | FY2025 net income range $1,887–$1,999; EPS $31.47–$33.39; adjusted EPS $35.36–$37.28; 58.4 million weighted-average shares. FY2024 net income $1,715, EPS $25.62 and adjusted EPS $33.99. | fact: attributed forecast and reported comparison | web-outlook.json IR; duplicated in web-retrieval.json IR | turn6view0 p1 L66–69; turn5view1 p2 L66–69 | Published 2024-11-07; accessed 2026-11-04 | Issuer release, primary | TDG-release-20241107 | TDG consolidated FY2025 guidance versus FY2024; USD millions except USD/share and million shares; EPS subject to two-class mechanics |
+| E3 | RQ-guidance | Guidance midpoint net income $1,943; D&A $380; net interest $1,540; tax provision $616; ordinary EBITDA $4,479; acquisition transaction adjustments $30, noncash compensation $180, other net minus $4; gross adjustments $206; As Defined EBITDA $4,685; margin 52.9%. EPS $32.43 plus $0.83 dividend equivalents, $0.76 acquisition adjustments, $2.35 compensation and minus $0.05 other yields adjusted EPS $36.32; shares 58.4 million. | fact: attributed forecast reconciliation | web-retrieval.json SEC | turn5view0 p1 Table 6 L350–389, especially L355–373 and L375–384 | Associated release 2024-11-07; separate SEC timestamp Not supplied; accessed 2026-11-04 | Original SEC-hosted issuer exhibit | TDG-release-20241107 | TDG consolidated; FY ending 2025-09-30 midpoint; USD millions, USD/share, percentages and million shares |
+| E4 | RQ-guidance | EBITDA excludes interest, tax and D&A; As Defined further adjusts corporate items. Measures are non-GAAP, potentially noncomparable and not substitutes for operating cash flow. Interest servicing, replacement investment, taxes and cash integration expenses are excluded limitations. Issuer describes covenant and liquidity uses, not an independently verified legal capacity calculation. | source_characterisation | web-outlook.json IR; duplicate in web-retrieval.json IR | turn6view0 p2 L84–101; turn5view1 p2 L84–90 and p3 L91–101 | Published 2024-11-07; accessed 2026-11-04 | Issuer definitions and warnings | TDG-release-20241107 | TDG measurement definitions; not cash guidance or verified covenant documentation |
+| E5 | RQ-guidance | FY2024 operating cash $2,045; cash-to-ordinary-EBITDA bridge: assets/liabilities $272, interest $1,246, current taxes $490, loss-contract amortization $35, noncash compensation minus $217 and refinancing minus $58, yielding $3,813; add $70 acquisition/integration, $217 compensation, $58 refinancing and $15 other for As Defined $4,173. | fact: reported historical reconciliation | web-retrieval.json SEC; ordinary/adjusted EBITDA corroborated in IR | turn5view0 p1 Table 4 L292–327; turn6view0 p1 L53 and p3 Table 2 L296–397 | Associated release 2024-11-07; separate SEC timestamp Not supplied; accessed 2026-11-04 | Issuer unaudited historical reconciliation | TDG-release-20241107 | TDG consolidated FY ended 2024-09-30; USD millions; CFO is not free cash flow |
+| E6 | RQ-guidance | Approximately $4,348 cash special dividend and dividend-equivalent payments occurred October 18, 2024, funded with $3,000 new secured debt and existing cash. Declaration/debt issuance were September 19, 2024. | fact: dated event and funding roles | web-outlook.json IR; duplicate web-retrieval.json IR | turn6view0 p1 L40–45; turn5view1 p2 L40–45 | Published 2024-11-07; events 2024-09-19 and 2024-10-18; accessed 2026-11-04 | Issuer financing and distribution disclosure | TDG-release-20241107 | TDG; USD millions; October payment is after FY2024 end but before as-of and within FY2025 |
+| E7 | RQ-guidance | Market assumptions: commercial OEM mid-single-digit growth, aftermarket high-single to low-double-digit growth, defense high-single-digit growth. OEM build-rate risk acknowledged; forward-looking warning cites flight activity/customer profitability, supply constraints, unrecovered input costs, integration and indebtedness among risks; issuer disclaims updating except as legally required. | source_characterisation | web-outlook.json IR; duplicate web-retrieval.json IR | turn6view0 p1 L62–73 and p2 L102–107; turn5view1 p2 L62–73 and p3 L102–107 | Published 2024-11-07; accessed 2026-11-04 | Issuer assumptions and risk warnings | TDG-release-20241107 | TDG FY2025 expectations; qualitative growth assumptions, not independent demand verification |
+
+## Findings
+
+### TDR.3 — answer, uncertainty and proposed use
+
+| question_id | answer | evidence_ids | contrary_evidence | resolution_status | uncertainty | proposed_consequence |
+|---|---|---|---|---|---|---|
+| RQ-guidance | TDG's original FY2025 sales and EBITDA As Defined ranges were $8,750–$8,950m and $4,615–$4,755m. Calculated midpoints $8,850m and $4,685m compare with FY2024 $7,940m and $4,173m. Table 6 reconciles net income $1,943m through ordinary EBITDA $4,479m and signed $206m adjustments to As Defined EBITDA $4,685m; adjusted EPS midpoint is $36.32. These are dated management accrual/non-GAAP expectations, not cash-flow outcomes. | E1–E7; calculations C1–C12 | E4 explicitly warns against cash-flow substitution; E5 operating cash differs materially from adjusted earnings; E6 shows an actual cash distribution funded partly by debt; E7 provides forecast failure risks. | ANSWERED for historical issuance and limits; research Complete with Gaps on provenance detail and cash-model applicability | One issuer origin; SEC header/range narrative not retained in excerpt; forecast achievability, future cash conversion and normalized quality EBITDA not established; raw HTML unavailable | CP-2G must explicitly qualify or reject historical guidance after source, scope, period and definition checks; do not automatically import as base-case cash flow, current forecast or debt-paydown capacity |
+
+### Comparison and causal synthesis
+
+The two IR captures agree exactly on the date-sensitive outlook ranges and fiscal 2024 comparators (E1–E2). Table 6 in the original SEC exhibit independently checks the arithmetic location, not the forecast's economic truth: its $1,943 million income, $4,685 million adjusted EBITDA and $36.32 adjusted EPS agree with range averages from IR (C1–C5). SEC Table 4's $3,813 million ordinary EBITDA and $4,173 million As Defined EBITDA agree with IR historical disclosures (E5). The supplied SEC excerpt does not include the outlook-range narrative or release header; a full-document equality or independently observed SEC timestamp is therefore not claimed. There is no observed numerical conflict on overlapping retained evidence. Two URLs and repeated captures remain one origin family.
+
+Ordinary EBITDA is already non-GAAP and accrual-based; adding back D&A, interest and tax to net income does not create cash. As Defined adds selected management adjustments, including expenses that can involve cash. The FY2025 signed other-net item is negative, not an add-back. Neither ordinary EBITDA nor As Defined EBITDA is automatically creditor-quality EBITDA. Quality EBITDA would require evidence-based testing of recurrence, cash content, acquired-business contributions and each normalization; an analyst-approved quality EBITDA amount is Not calculable because that underwriting evidence is not supplied. Issuer statements about covenant use do not establish current legal EBITDA, covenant headroom or capacity.
+
+Strongest contrary evidence to using guidance as cash-flow proof is the issuer's own E4 warning combined with E5's actual historical reconciliation. FY2024 operating cash of $2,045 million was not the $4,173 million adjusted earnings measure; C10–C11 preserve the intervening working-capital, financing/tax and adjustment effects. The reconciliation is not a reusable cash-conversion forecast. In particular, its $1,246 million interest adjustment excludes debt-cost/premium/discount amortization under the Table 4 footnote; it must not be silently substituted for FY2025 Table 6 net-interest expense of $1,540 million or treated as forecast cash interest. Tax provision likewise differs from taxes paid. Replacement capex and acquisition/distribution flows require separate cash schedules.
+
+E6 makes timing material: the October 18 payment belongs after the September 30, 2024 balance-sheet date but was known by the November 7 outlook. A forecast anchored to fiscal 2024 closing cash without the subsequent payment would overstate available cash; stronger earnings alone do not imply deleveraging when distributions and financing absorb liquidity. The funding disclosure is contextual counterevidence, not a governance score or determination of legal distribution capacity.
+
+The strongest supported argument for provisional use is direct, dated primary guidance, internally consistent arithmetic and explicit end-market assumptions (E1–E3, E7). This supports an attributed historical management scenario. It would become a cash-model input only if CP-2G can separately validate timing, cash conversion and adjustment quality. No independent publication validates achievability in this evidence set.
+
+### Downside pathway and observable triggers
+
+If OEM production or flight-driven aftermarket demand undershoots the E7 assumptions during FY2025, sales and mix would first weaken; earnings delivery could then fall below management's range. Supply bottlenecks or unrecovered labor/material costs could simultaneously pressure margins and inventory cash conversion. Cash interest, taxes and replacement expenditure would still need funding, while the known October distribution reduces the opening liquidity available to absorb misses. The creditor consequence is less cash for debt reduction and greater refinancing dependence, not an automatically quantifiable leverage change. Monitor OEM build-rate delivery against the stated assumption, end-market sales growth, margin realization, inventory/receivables absorption and cash debt service. No unsupported numerical stress or trigger threshold is assigned.
+
+## Calculations
+
+### Decimal-38 calculation trace
+
+All calculations below were executed with `calculate` using signed decimal-string operands and the existing Decimal-38 half-even kernel. Ratios are fractions, with percentage displays labeled separately. Each midpoint uses a tool sum followed by a tool division by 2; the count is the number of range endpoints, not a financial quantity. C1–C9 relate to TDG consolidated FY ending September 30, 2025; money is USD millions unless USD/share. Inputs are E1–E3, with publication November 7, 2024 and access November 4, 2026 as located there. C10–C11 are FY ended September 30, 2024, E5, same release/access dates. Rounded percentage displays are analytical presentation, not added precision in management guidance.
+
+| calculation | Operation and signed operands | Tool result / interpretation | Input identity |
+|---|---|---|---|
+| C1 Sales midpoint | sum(8750, 8950) = 17700; ratio(17700, 2) | 8850 USDm | E1: web-outlook.json turn6view0 p1 L65 |
+| C2 As Defined midpoint | sum(4615, 4755) = 9370; ratio(9370, 2) | 4685 USDm | E1: turn6view0 p1 L68 |
+| C3 Net-income midpoint | sum(1887, 1999) = 3886; ratio(3886, 2) | 1943 USDm | E2: turn6view0 p1 L66 |
+| C4 EPS midpoint | sum(31.47, 33.39) = 64.86; ratio(64.86, 2) | 32.43 USD/share | E2: turn6view0 p1 L67 |
+| C5 Adjusted-EPS midpoint | sum(35.36, 37.28) = 72.64; ratio(72.64, 2) | 36.32 USD/share | E2: turn6view0 p1 L69 |
+| C6 Signed earnings bridge, forward and reverse | sum(1943, 380, 1540, 616) = 4479; sum(30, 180, -4) = 206; sum(1943, 380, 1540, 616, 30, 180, -4) = 4685; reverse sum(4685, -30, -180, 4, -380, -1540, -616) | Ordinary EBITDA 4479; As Defined 4685; reverse net income 1943 USDm. Negative other-net preserved. | E3: web-retrieval.json turn5view0 p1 Table 6 L360–372 |
+| C7 Signed EPS bridge, forward and reverse | sum(32.43, 0.83, 0.76, 2.35, -0.05); reverse sum(36.32, -0.83, -0.76, -2.35, 0.05) | Adjusted EPS 36.32; reverse reported EPS 32.43 USD/share | E3: turn5view0 p1 L375–384; do not replace the two-class EPS bridge with simple net income/shares |
+| C8 Midpoint margin | ratio(4685, 8850) | 0.52937853107344632768361581920903954802; approximately 52.937853%, rounding to the issuer's approximate 52.9% | C1–C2 and E3 L373 |
+| C9 Historical sales and As Defined growth | sum(8850, -7940) = 910; ratio(910, 7940); sum(4685, -4173) = 512; ratio(512, 4173) | Sales fraction 0.11460957178841309823677581863979848866, approximately 11.460957%; As Defined fraction 0.12269350587107596453390845914210400192, approximately 12.269351%; consistent with reported 11.5% and 12.3% | E1: turn6view0 p1 L65, L68; USDm deltas against FY2024 |
+| C10 Historical cash-to-ordinary-EBITDA signed bridge | sum(2045, 272, 1246, 490, 35, -217, -58) | 3813 USDm ordinary EBITDA; historical cash reconciliation only | E5: turn5view0 p1 Table 4 L301–309 |
+| C11 Historical ordinary-to-As-Defined bridge | sum(3813, 70, 217, 58, 15) | 4173 USDm As Defined EBITDA | E5: turn5view0 p1 L309–315 |
+| C12 Fixed-denominator question coverage | ratio(1, 1) | 1, displayed as 100%; one answered question / one locked question | TDR.1 fixes denominator; TDR.3 supplies one answered finding; dimensionless run coverage, not probability or confidence |
+
+The approximate 52.9% margin is not an exact constraint for back-solving sales, not assurance of each endpoint combination and not a cash margin. C8 uses independently calculated midpoints; input amounts and the issuer margin are rounded. Multiplying the rounded margin by sales would not be a replacement for the stated EBITDA range. Fixed-denominator coverage measures completion of the historical question, not completeness of a cash model.
+
+## Gaps
+
+### Gap, disagreement and stop register
+
+| Item | Evidence and consequence | Disposition / stop condition |
+|---|---|---|
+| Raw-source access | source-record.json p1 records 403 responses. Retained responses provide text, URLs and line locators, not raw HTML or visual verification. | Accept only for the bounded retained-capture synthesis; stop short of claiming original byte or layout verification. |
+| SEC date and range completeness | SEC excerpt retains Tables 4 and 6 but not header or outlook-range narrative. Release date is directly observed in IR; separate SEC acceptance date and full narrative equality are Not supplied. | No invented timestamp or full-document comparison. If receiving owner requires those checks, adoption waits for them. |
+| Origin independence | SEC and IR repeat TDG management's release. | One family; reject any claim of two independent forecasts or outside validation of achievability. |
+| Historical plan-hash continuity | File hash and recorded historical canonical hash differ in representation; canonical bytes/helper output are Not supplied. | Preserve both; do not assert runtime approval or manufacture lineage. Current task scope is fixed to the same one question. |
+| Cash forecast / quality EBITDA | FY2025 cash-interest schedule, cash taxes, working capital, capex, distribution/acquisition assumptions, refinancing timing and add-back recurrence evidence are Not supplied. | FY2025 CFO, FCF, debt paydown and quality EBITDA are Not calculable for those reasons. No invented zeros, conversion ratio or normalized EBITDA. |
+| Scenario adequacy | E7 supplies qualitative market assumptions and failure risks but no independently validated sensitivities. | No unsupported downside amounts. CP-2G must construct or reject its own scenarios with evidence. |
+
+Research status: Complete with Gaps. Stop reason: historical question answered with primary evidence and defined limitations; additional data needed for a different purpose, a forward cash model, are not silently brought into this workstream. Focused gap-loop usage: one retained-corpus disconfirmation pass, zero new web-search loops, below the maximum of two. That pass checked overlap across IR/SEC, date/range completeness, signed bridge and cash/non-GAAP substitution. It found no overlap conflict and retained the missing SEC header/raw-source and cash-model gaps. Research is not continuing in the background.
+
+Before release, the answer was compared against the exact brief question: original dated outlook, historical comparison, midpoint earnings and EPS bridges, definitions and cash limitations are present; later results and unrelated work are absent. All six supplied records were read, origin deduplication applied, exact hashes preserved, arithmetic tool-checked, missing quantities labeled and embedded instructions treated as data. The current `write_handoff`/`edit_handoff` loop is the submission check; no legacy validator or confidence script execution is claimed.
+
+## Next module
+
+### CP-2G adoption requirements
+
+CP-2G is the receiving consumer, not an already validated analytical owner in this standalone dossier. No current upstream financial handoff was supplied. This research becomes external evidence only through that owner's explicit checks and decision.
+
+| Proposed input / use | Required owner action | Rejection or adoption stop condition |
+|---|---|---|
+| Historical revenue and As Defined anchors | Reopen retained E1–E3 and verify entity, fiscal period, USD units, dates, origin and definitions; label as November 7, 2024 management guidance. Explicitly record qualified adoption or rejection. | Reject any representation as current guidance, achieved results, consensus or independently validated outcome. |
+| Forecast earnings case | Preserve ordinary EBITDA versus As Defined bridge and signed other-net item; independently assess add-back recurrence and cash content. | No automatic quality/covenant EBITDA equivalence. Reject unsupported normalizations or require further evidence. |
+| Cash-flow/deleveraging pathway | Supply separate working-capital, cash-interest, cash-tax, replacement-capex, financing and capital-allocation schedules; reconcile opening liquidity for the October distribution and avoid double counting it. | Until those schedules and timing checks exist, reject guidance as standalone CFO, FCF or debt-paydown proof. |
+| Historical applicability and downside | Check temporal relevance to the model's intended information boundary; retain E7 assumptions and explicit adverse-demand/cost/cash-conversion scenario tests. | If period, perimeter or source provenance cannot be reconciled, stop adoption rather than repairing with later results inside this historical question. |
+
+Permitted handoff is a qualified historical management scenario and evidence trail. It is not a workbook, model, committee approval, legal-capacity opinion or investment recommendation. CP-2G must explicitly qualify or reject it; source checks and cash-model assumptions remain with that owner.

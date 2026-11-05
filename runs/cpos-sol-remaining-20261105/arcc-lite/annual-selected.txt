@@ -1,0 +1,862 @@
+=== PDF PAGE 3 ===
+PART I
+Item 1.    Business
+GENERAL
+Ares Capital Corporation
+Ares Capital Corporation, a Maryland corporation (together with its subsidiaries, where applicable, “Ares Capital” or the “Company,” which may also be
+referred to as “we,” “us” or “our”), is a specialty finance company that is a closed-end, non-diversified management investment company. We have elected to be
+regulated as a business development company (“BDC”) under the Investment Company Act of 1940, as amended, and the rules and regulations promulgated thereunder,
+the “Investment Company Act.” We were founded on April 16, 2004, were initially funded on June 23, 2004 and completed our initial public offering (“IPO”) on
+October 8, 2004. As of December 31, 2024, we were the largest publicly traded BDC by market capitalization and had approximately $28.3 billion of total assets.
+We are externally managed by Ares Capital Management LLC (“Ares Capital Management” or our “investment adviser”), a subsidiary of Ares
+Management Corporation (“Ares Management” or “Ares”), a publicly traded, leading global alternative investment manager, pursuant to our investment advisory and
+management agreement. Ares Operations LLC (“Ares Operations” or our “administrator”), a subsidiary of Ares Management, provides certain administrative and other
+services necessary for us to operate.
+Our investment objective is to generate both current income and capital appreciation through debt and equity investments. We invest primarily in U.S. middle-
+market companies, where we believe the supply of primary capital is limited and the investment opportunities are most attractive. However, we may from time to time
+invest in larger or smaller companies. We generally use the term “middle-market” to refer to companies with annual EBITDA between $10 million and $250 million. As
+used herein, EBITDA represents net income before net interest expense, income tax expense, depreciation and amortization.
+We invest primarily in first lien senior secured loans (including “unitranche” loans, which are loans that combine both senior and subordinated debt, generally
+in a first lien position), and second lien senior secured loans. In addition to senior secured loans, we also invest in subordinated debt (sometimes referred to as
+mezzanine debt), which in some cases includes an equity component, and preferred equity. First and second lien senior secured loans generally are senior debt
+instruments that rank ahead of subordinated debt of a given portfolio company. Subordinated debt and preferred equity are subordinated to senior loans and are
+generally unsecured. Our investments in corporate borrowers generally range between $30 million and $500 million each. However, the investment sizes may be more
+or less than these ranges and may vary based on, among other things, our capital availability, the composition of our portfolio and general micro- and macro-economic
+factors.
+To a lesser extent, we also make common equity investments, which have generally been non-control equity investments of less than $20 million (usually in
+conjunction with a concurrent debt investment). However, we may increase the size or change the nature of these investments.
+The proportion of these types of investments will change over time given our views on, among other things, the economic and credit environment in which we
+are operating. In pursuit of our investment objective, we generally seek to self-originate investments and lead the investment process.
+The instruments in which we invest typically are not rated by any rating agency, but we believe that if such instruments were rated, they would be below
+investment grade (rated lower than “Baa3” by Moody’s Investors Service, lower than “BBB-” by Fitch Ratings or lower than “BBB-” by Standard & Poor’s Ratings
+Services), which, under the guidelines established by these entities, is an indication of having predominantly speculative characteristics with respect to the issuer’s
+capacity to pay interest and repay principal. Bonds that are rated below investment grade are sometimes referred to as “high yield bonds” or “junk bonds.” We may
+invest without limit in debt or other securities of any rating, as well as debt or other securities that have not been rated by any nationally recognized statistical rating
+organization.
+We believe that our investment adviser, Ares Capital Management, is able to leverage the current investment platform, resources and existing relationships of
+Ares Management with financial sponsors, financial institutions, hedge funds and other investment firms to provide us with attractive investment opportunities. For
+purposes of this document, we refer to Ares Management and its affiliated companies (other than portfolio companies of its affiliated funds) as “Ares” and to funds or
+other investment vehicles managed by Ares or its affiliated companies, including our investment adviser, as “Ares funds.” In addition to deal flow, the Ares investment
+platform assists our investment adviser in analyzing, structuring and monitoring investments.
+3
+
+=== PDF PAGE 4 ===
+Ares has been in existence for over 25 years and its partners have an average of approximately 25 years of investment experience in managing, advising, underwriting
+and restructuring companies. We have access to Ares’ investment professionals and operations management professionals, who provide assistance in accounting,
+finance, legal, compliance, operations, information technology, human resources and investor relations. As of December 31, 2024, Ares had over 1,100 investment
+professionals and over 2,100 operations management professionals.
+While our primary focus is to generate current income and capital appreciation through investments in first and second lien senior secured loans, subordinated
+debt and preferred equity and, to a lesser extent, equity securities of eligible portfolio companies, we also may invest up to 30% of our portfolio in non‑qualifying
+assets, as permitted by the Investment Company Act. Specifically, as part of this 30% basket, we may invest in entities that are not considered “eligible portfolio
+companies” (as defined in the Investment Company Act), including companies located outside of the United States, entities that are operating pursuant to certain
+exceptions under the Investment Company Act, and publicly traded entities whose public equity market capitalization exceeds the levels provided for under the
+Investment Company Act.
+Ares Management Corporation
+Ares is a publicly traded, leading global alternative investment manager. As of December 31, 2024, Ares had over 3,200 employees in over 35 offices in more
+than 15 countries. Since its inception in 1997, Ares has adhered to a disciplined investment philosophy that focuses on delivering strong risk-adjusted investment
+returns throughout market cycles. Ares believes each of its distinct but complementary investment groups in credit, real assets, private equity and secondaries is a
+market leader based on assets under management and investment performance. Ares was built upon the fundamental principle that each group benefits from being part
+of the greater whole.
+Ares Capital Management LLC
+Ares Capital Management, our investment adviser, is served by origination, investment and portfolio management and valuation teams of approximately 230
+U.S.-based investment professionals as of December 31, 2024 and led by certain partners of the Ares Credit Group: Kipp deVeer, Mitchell Goldstein and Michael
+Smith. Ares Capital Management leverages off of Ares’ investment platform and benefits from the significant capital markets, trading and research expertise of Ares’
+investment professionals. Ares Capital Management’s investment committee has eight members primarily comprised of certain of the U.S.-based partners of the Ares
+Credit Group.
+MARKET OPPORTUNITY
+We believe that current market conditions present attractive opportunities for us to invest in middle-market companies, specifically:
+• We believe that many commercial and investment banks have de-emphasized their service and product offerings to middle-market businesses in favor of
+lending to large corporate clients and managing capital markets transactions. In addition, these lenders may be constrained in their ability to underwrite
+and hold bank loans and high yield securities for middle-market issuers as they seek to meet existing and future regulatory capital requirements. These
+factors may result in opportunities for alternative funding sources to middle-market companies and therefore more new-issue market opportunities for us.
+• We believe the disruption and volatility that occurs periodically in the credit markets reduces capital available to certain capital providers, causing a
+reduction in competition. Furthermore, in our view, the stable capital solutions provided by direct lenders is increasingly valuable and, as a result, widens
+the market opportunity for direct lending.
+• We believe that there is a lack of market participants that are willing to hold meaningful amounts of certain middle-market loans. As a result, we believe
+our ability to minimize syndication risk for a company seeking financing by being able to hold our loans without having to syndicate or sell them is a
+competitive advantage.
+• We believe that middle-market companies have faced difficulty in raising debt through the capital markets. This approach to financing may become more
+difficult to the extent institutional investors seek to invest in larger, more liquid offerings, leaving less competition and fewer financing alternatives for
+middle-market companies.  
+4
+
+=== PDF PAGE 35 ===
+once during a trailing 12-month period (with certain de minimis exceptions) and under a valuation policy and a consistently applied valuation process. The valuation
+process is conducted at the end of each fiscal quarter by our investment adviser, and a portion of our investment portfolio at fair value is subject to review by an IVP
+each quarter. However, we may use these IVPs to review the value of our investments more frequently, including in connection with the occurrence of significant
+events or changes in value affecting a particular investment. In addition, our independent registered public accounting firm obtains an understanding of, and performs
+select procedures relating to, our valuation process within the context of performing our integrated audit.
+The types of factors that may be considered in valuing our investments include the enterprise value of the portfolio company (the entire value of the portfolio
+company to a market participant, including the sum of the values of debt and equity securities used to capitalize the enterprise at a point in time), the nature and
+realizable value of any collateral, the portfolio company’s ability to make payments and its earnings and discounted cash flows, the markets in which the portfolio
+company does business, a comparison of the portfolio company’s securities to similar publicly traded securities, changes in the interest rate environment and the credit
+markets generally that may affect the price at which similar investments would trade in their principal markets and other relevant factors. When an external event such
+as a purchase transaction, public offering or subsequent sale occurs, we consider the pricing indicated by the external event to corroborate our valuation. Because such
+valuations, and particularly valuations of private investments and private companies, are inherently uncertain, may fluctuate over short periods of time and may be
+based on estimates, our determinations of fair value may differ materially from the values that would have been used if a ready market for these investments existed and
+may differ materially from the values that we may ultimately realize. Our net asset value per share could be adversely affected if our determinations regarding the fair
+value of these investments are higher than the values that we realize upon disposition of such investments.
+The lack of liquidity in our investments may adversely affect our business.
+As we generally make investments in private companies, substantially all of these investments are subject to legal and other restrictions on resale or are
+otherwise less liquid than publicly traded securities. The illiquidity of our investments may make it difficult for us to sell such investments if the need arises. In
+addition, if we are required to liquidate all or a portion of our portfolio quickly, we could realize significantly less than the value at which we have recorded our
+investments or could be unable to dispose of our investments in a timely manner. In addition, we may face other restrictions on our ability to liquidate an investment in
+a portfolio company to the extent that we or an affiliated manager of Ares has material non-public information regarding such portfolio company.
+Our financial condition and results of operations could be negatively affected if a significant investment fails to perform as expected.
+Our investment portfolio includes investments that may be significant individually or in the aggregate. If a significant investment in one or more companies
+fails to perform as expected, such a failure could have a material adverse effect on our business, financial condition and operating results, and the magnitude of such
+effect could be more significant than if we had further diversified our portfolio.
+Our investment portfolio includes our investment in IHAM, a wholly owned portfolio company, which as of December 31, 2024, represented 7.1% of our total
+portfolio at fair value. In addition, for the year ended December 31, 2024, approximately 9.6% of our total investment income was earned from our investment in
+IHAM. For more information, see “Management’s Discussion and Analysis of Financial Condition and Results of Operations—Portfolio and Investment Activity—Ivy
+Hill Asset Management, L.P.” and Note 4 to our consolidated financial statements for the year ended December 31, 2024.
+Increasing scrutiny from stakeholders and regulators with respect to ESG matters may impose additional costs and expose us to additional risks.
+ 
+Our business (including that of our portfolio companies) faces increasing public scrutiny related to ESG activities. A variety of organizations measure the
+performance of companies on ESG topics, and the results of these assessments are widely publicized. If our ESG ratings or performance do not meet the standards set
+by such investors or our stockholders, they may choose to exclude our securities from their investments. In addition, investment in funds that specialize in companies
+that perform well in such assessments remain popular, and major institutional investors have publicly discussed their consideration of such ESG ratings and measures in
+making their investment decisions.
+We risk damage to our brand and reputation if we fail to act responsibly in a number of areas, including, but not limited to human rights, climate change and
+environmental stewardship, support for local communities, corporate governance and transparency, or consideration of ESG factors in our investment processes.
+Adverse incidents with respect to ESG activities
+35
+
+=== PDF PAGE 36 ===
+could impact the value of our brand, our relationship with existing and future portfolio companies, the cost of our operations and relationships with investors, all of
+which could adversely affect our business and results of operations.
+“Anti-ESG” sentiment has gained momentum across the U.S., with a growing number of states, federal agencies, the executive branch and Congress having
+enacted, proposed or indicated an intent to pursue “anti-ESG” policies, legislation or issued related legal opinions and engaged in related investigations and litigation. If
+investors subject to “anti-ESG” legislation view our investment adviser’s responsible investing or ESG practices as being in contradiction of such “anti-ESG” policies,
+legislation or legal opinions, such investors may not invest in us and it could negatively impact the price of our common stock. In addition, corporate diversity, equity
+and inclusion (“DEI”) practices have recently come under increasing scrutiny. For example, some advocacy groups and federal and state officials have asserted that the
+U.S. Supreme Court’s decision striking down race-based affirmative action in higher education in June 2023 should be analogized to private employment matters and
+private contract matters and several media campaigns and cases alleging discrimination based on such arguments have been initiated since the decision. Additionally, in
+January 2025, President Trump signed a number of Executive Orders focused on DEI, which indicate continued scrutiny of DEI initiatives and potential related
+investigations of certain private entities with respect to DEI initiatives, including publicly traded companies. If we do not successfully manage expectations across
+varied stakeholder interests, it could erode stakeholder trust, impact our reputation and constrain our investment opportunities. Such scrutiny of both ESG and DEI
+related practices could expose our investment adviser to the risk of litigation, investigations or challenges by federal or state authorities or result in reputational harm.
+Additionally, certain regulations related to ESG that are applicable to us and our portfolio companies could adversely affect our business. For example, the
+European Commission’s “action plan on financing sustainable growth” (“Action Plan”) is designed to, among other things, define and reorient investment toward more
+sustainable economic activity. The Action Plan contemplates, among other things: establishing European Union (the “EU”) labels for green financial products;
+clarifying asset managers’ and institutional investors’ duties regarding sustainability in their investment decision-making processes; increasing disclosure requirements
+in the financial services sector around sustainability and increasing the transparency of companies on their ESG policies and related processes and management
+systems; and introducing a ‘green supporting factor’ in the EU prudential rules for banks and insurance companies to incorporate climate risks into banks’ and
+insurance companies’ risk management policies. Moreover, on January 5, 2023, the Corporate Sustainability Reporting Directive (“CSRD”) came into effect. The
+CSRD amends and strengthens the rules introduced on sustainability reporting for companies, banks and insurance companies under the Non-Financial Reporting
+Directive (2014/95/EU) (“NFRD”). The CSRD requires a much broader range of companies, including non-EU companies with significant turnover and a legal
+presence in EU markets, to produce detailed and prescriptive reports on sustainability-related matters within their financial statements. There can be no assurance that
+adverse developments with respect to CSRD will not adversely affect our assets or the returns from those assets. One or more of our portfolio companies may fall
+within scope of CSRD and this may lead to increased management burdens and costs. There is a risk that a significant reorientation in the market following the
+implementation of these regulations could be adverse to our portfolio companies if they are perceived to be less valuable as a consequence of, e.g., their carbon
+footprint or allegations or evidence of “greenwashing” (i.e., the holding out of a product as having green or sustainable characteristics where this is not, in fact, the
+case). We and our portfolio companies are subject to the risk that similar measures might be introduced in other jurisdictions in the future.
+There is also regulatory interest across jurisdictions in improving transparency regarding the definition, measurement and disclosure of ESG factors in order to
+allow investors to validate and better understand sustainability claims. For example, the SEC sometimes reviews compliance with ESG commitments in examinations
+and has taken enforcement actions against registered investment advisers for not establishing adequate or consistently implementing ESG policies and procedures to
+meet ESG commitments to investors. In March 2024, the SEC adopted rules aimed at enhancing and standardizing climate-related disclosures; however, these rules are
+stayed pending the outcome of consolidated legal challenges in the Eighth Circuit Court of Appeals. At the state level, in October 2023, California enacted legislation
+that will ultimately require certain companies that do business in California to publicly disclose their Scopes 1, 2, and 3 greenhouse gas emissions, with third party
+assurance of such data, and issue public reports on their climate-related financial risk and related mitigation measures. Compliance with any new laws or regulations
+increases our regulatory burden and could result in increased legal, accounting and compliance costs, make some activities more difficult, time-consuming and costly,
+affect the manner in which we or our portfolio companies conduct our businesses and adversely affect our profitability.
+We and/or our portfolio companies may be materially and adversely impacted by global climate change.
+Climate change is widely considered to be a significant threat to the global economy. Our business operations and our portfolio companies may face risks
+associated with climate change, including risks related to the impact of climate-related legislation and regulation (both domestically and internationally), risks related to
+climate-related business trends (such as the
+36
+
+=== PDF PAGE 73 ===
+of the investment and other relevant factors. The grade of a portfolio investment may be reduced or increased over time. The following is a description of each
+investment grade:
+Investment grade Description
+4 Involves the least amount of risk to our initial cost basis. The trends and risk factors for this investment since origination or
+acquisition are generally favorable, which may include the performance of the portfolio company or a potential exit.
+3 Involves a level of risk to our initial cost basis that is similar to the risk to our initial cost basis at the time of origination or
+acquisition. This portfolio company is generally performing as expected and the risk factors to our ability to ultimately recoup
+the cost of our investment are neutral to favorable. All investments or acquired investments in new portfolio companies are
+initially assessed a grade of 3.
+2 Indicates that the risk to our ability to recoup the initial cost basis of such investment has increased materially since origination
+or acquisition, including as a result of factors such as declining performance and non-compliance with debt covenants; however,
+payments are generally not more than 120 days past due. For investments graded 2, our investment adviser enhances its level of
+scrutiny over the monitoring of such portfolio company.
+1 Indicates that the risk to our ability to recoup the initial cost basis of such investment has substantially increased since
+origination or acquisition, and the portfolio company likely has materially declining performance. For debt investments with an
+investment grade of 1, most or all of the debt covenants are out of compliance and payments are substantially delinquent. For
+investments graded 1, it is anticipated that we will not recoup our initial cost basis and may realize a substantial loss of our initial
+cost basis upon exit. For investments graded 1, our investment adviser enhances its level of scrutiny over the monitoring of such
+portfolio company.
+    
+Set forth below is the grade distribution of our portfolio companies as of December 31, 2024 and 2023:
+ As of December 31,
+ 2024 2023
+(dollar amounts in millions) Fair Value %
+Number of
+Companies % Fair Value %
+Number of
+Companies %
+Grade 4 $ 4,792 17.9 % 64 11.6 % $ 4,222 18.5 % 64 12.7 %
+Grade 3 21,156 79.2 432 78.6 17,174 75.1 386 76.4 
+Grade 2 513 1.9 31 5.6 1,333 5.8 35 6.9 
+Grade 1 259 1.0 23 4.2 145 0.6 20 4.0 
+Total $ 26,720 100.0 % 550 100.0 % $ 22,874 100.0 % 505 100.0 %
+As of December 31, 2024 and 2023, the weighted average grade of the investments in our portfolio at fair value was 3.1 and 3.1, respectively.
+As of December 31, 2024 and 2023, loans on non-accrual status represented 1.7% of the total investments at amortized cost (or 1.0% at fair value) and 1.3% at
+amortized cost (or 0.6% at fair value), respectively.
+Ivy Hill Asset Management, L.P.
+Ivy Hill Asset Management, L.P. (“IHAM”), our wholly owned portfolio company, is an asset manager and an SEC-registered investment adviser. As of
+December 31, 2024, IHAM had assets under management of approximately $12.8 billion. As of December 31, 2024, IHAM managed 20 vehicles (the “IHAM
+Vehicles”). IHAM earns fee income from managing the IHAM Vehicles and has also invested in certain of these vehicles as part of its business strategy. The amortized
+cost of IHAM’s total investments as of December 31, 2024 and 2023 was $2,237 million and $2,288 million, respectively. For the years ended December 31, 2024 and
+2023, IHAM had management and incentive fee income of $53 million and $56 million, respectively, and other investment-related income of $344 million and
+$328 million, respectively, which included net realized gains or losses on investments and other transactions.
+ The amortized cost and fair value of our investments in IHAM as of December 31, 2024 and 2023 were as follows:
+73
+
+=== PDF PAGE 88 ===
+The changes in net unrealized appreciation and depreciation on investments during the year ended December 31, 2023 consisted of the following:
+(in millions)
+Portfolio Company
+Net Unrealized
+Appreciation
+(Depreciation)
+Ivy Hill Asset Management, L.P. $ 70 
+Heelstone Renewable Energy, LLC 65 
+Cloud Software Group, Inc. 42 
+Imaging Business Machines, L.L.C. and Scanner Holdings Corporation 35 
+Storm Investment S.a.r.l. 33 
+Accommodations Plus Technologies LLC and Accommodations Plus Technologies Holdings LLC 23 
+Benecon Midco II LLC 22 
+High Street Buyer, Inc. and High Street Holdco LLC 15 
+Cornerstone OnDemand, Inc. 15 
+Mitchell International, Inc. 15 
+SHO Holding I Corporation, Shoes For Crews (Europe) Limited and Never Slip TopCo, Inc. (50)
+Potomac Intermediate Holdings II LLC (68)
+Other, net 75 
+Total $ 292 
+During the year ended December 31, 2023, we also recognized net unrealized gains on foreign currency and other transactions of $6 million.
+For the years ended December 31, 2023 and 2022
+The comparison of the fiscal years ended December 31, 2023 and 2022 can be found in our Annual Report on Form 10-K for the fiscal year ended December
+31, 2023 located within Part II, Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations, which is incorporated herein by
+reference.
+FINANCIAL CONDITION, LIQUIDITY AND CAPITAL RESOURCES
+Our liquidity and capital resources are generated primarily from the net proceeds of public offerings of equity and debt securities, advances from our credit
+facilities (the Revolving Credit Facility, the Revolving Funding Facility, the SMBC Funding Facility and the BNP Funding Facility (each as defined below, and
+together, the “Facilities”)), net proceeds from the issuance of other securities, including unsecured notes and debt securitizations, as well as cash flows from operations.
+In accordance with the Investment Company Act, we are allowed to borrow amounts such that our asset coverage, calculated pursuant to the Investment
+Company Act, is at least 150% after such borrowings (i.e., we are able to borrow up to two dollars for every dollar we have in assets less all liabilities and indebtedness
+not represented by senior securities issued by us). As of December 31, 2024, we had $635 million in cash and cash equivalents and $13.8 billion in total aggregate
+principal amount of debt outstanding ($13.7 billion at carrying value) and our asset coverage was 196%. Subject to borrowing base and other restrictions, we had
+approximately $5.1 billion available for additional borrowings under the Facilities as of December 31, 2024.
+ 
+We may from time to time seek to retire or repurchase our common stock through cash purchases, as well as retire, cancel or purchase our outstanding debt
+through cash purchases and/or exchanges, in open market purchases, privately negotiated transactions or otherwise. The amounts involved may be material. In addition,
+we may from time to time enter into additional debt facilities, increase the size of existing facilities or issue additional debt securities, including secured debt, unsecured
+debt and/or debt securities convertible into common stock. Any such purchases or exchanges of common stock or outstanding debt, or incurrence or issuance of
+additional debt would be subject to prevailing market conditions, our liquidity requirements, contractual and regulatory restrictions and other factors.
+Equity Capital Activities
+88
+
+=== PDF PAGE 89 ===
+As of December 31, 2024 and 2023, our total equity market capitalization was $14.7 billion and $11.7 billion, respectively.
+    
+We may from time to time issue and sell shares of our common stock through public or “at the market” offerings. During the year ended December 31, 2024,
+we issued and sold the following shares of common stock:
+(in millions, except per share amount)
+Issuances of Common Stock Number of Shares Issued Gross Proceeds
+Underwriting Fees/Offering
+Expenses Net Proceeds
+Average Offering Price
+Per Share(1)
+“At the market” offerings 65.2 $ 1,376.4 $ 13.7 $ 1,362.7 $ 21.12 
+Total 65.2 $ 1,376.4 $ 13.7 $ 1,362.7 
+________________________________________
+(1)    Represents the gross offering price per share before deducting underwriting discounts and commissions and offering expenses.
+“At the Market” Offerings
+We are a party to equity distribution agreements with several banks (the “Equity Distribution Agreements”). The Equity Distribution Agreements provide that
+we may from time to time issue and sell, by means of “at the market” offerings, up to $1.0 billion of our common stock. Subject to the terms and conditions of the
+Equity Distribution Agreements, sales of common stock, if any, may be made in transactions that are deemed to be “at the market” offerings as defined in Rule 415(a)
+(4) under the Securities Act of 1933, as amended. Under the currently effective Equity Distribution Agreements, common stock with an aggregate offering amount of
+$162 million remained available for issuance as of December 31, 2024.
+Conversion of the 2024 Convertible Notes
+In March 2024, in connection with the repayment of the 2024 Convertible Notes, we issued approximately 20 million shares of our common stock at a
+conversion price of $20.12 per share for a total value of $407 million. See Note 5 to our consolidated financial statements for the year ended December 31, 2024 for
+more information relating to the repayment of the 2024 Convertible Notes.
+Dividend Reinvestment Plan
+See Note 12 to our consolidated financial statements for the year ended December 31, 2024 for information regarding shares of common stock issued or
+purchased in accordance with our dividend reinvestment plan.
+Stock Repurchase Program
+We are authorized under our stock repurchase program to purchase up to $1.0 billion in the aggregate of our outstanding common stock in the open market at
+certain thresholds below our net asset value per share, in accordance with the guidelines specified in Rule 10b-18 under the Securities Exchange Act of 1934, as
+amended (the “Exchange Act”). The timing, manner, price and amount of any share repurchases will be determined by us, in our sole discretion, based upon an
+evaluation of economic and market conditions, stock price, applicable legal and regulatory requirements and other factors. The stock repurchase program does not
+require us to repurchase any specific number of shares of common stock or any shares of common stock at all. Consequently, we cannot assure stockholders that any
+specific number of shares of common stock, if any, will be repurchased under the stock repurchase program. As of December 31, 2024, the expiration date of the stock
+repurchase program was February 15, 2025. The program may be suspended, extended, modified or discontinued at any time. As of December 31, 2024, there was
+$1.0 billion available for additional repurchases under the program.
+ 
+During the years ended December 31, 2024 and 2023, we did not repurchase any shares of our common stock in the open market under the stock repurchase
+program.
+See “Recent Developments,” as well as Note 16 to our consolidated financial statements for the year ended December 31, 2024 for a subsequent event relating
+to our stock repurchase program.
+Debt Capital Activities
+89
+
+=== PDF PAGE 94 ===
+In March 2024, we repaid in full the $403 million in aggregate principal amount of unsecured convertible notes which bore interest at a rate of 4.625% per
+year, payable semi-annually (the “2024 Convertible Notes”) upon their maturity, resulting in a realized loss on extinguishment of debt of $14 million. In accordance
+with the indenture governing the 2024 Convertible Notes, we settled the repayment of the 2024 Convertible Notes with a combination of cash and shares of our
+common stock. Approximately $393 million of aggregate principal amount was settled with approximately 20 million shares of our common stock and the remaining
+$10 million of aggregate principal amount was settled with available cash.
+Unsecured Notes
+ 
+We issued certain unsecured notes (we refer to each series of unsecured notes using the defined term set forth under the “Unsecured Notes” column of the table
+below and collectively referred all such series as the “Unsecured Notes”), that pay interest semi-annually and all principal amounts are due upon maturity. Each of the
+Unsecured Notes may be redeemed in whole or in part at any time at our option at a redemption price equal to par plus a “make whole” premium, if applicable, as
+determined pursuant to the indentures governing each of the Unsecured Notes, plus any accrued and unpaid interest. Certain key terms related to the features for the
+Unsecured Notes as of December 31, 2024 are listed below.
+(dollar amounts in millions)
+Unsecured Notes
+Aggregate Principal
+Amount Issued Effective Stated Interest Rate Original Issuance Date Maturity Date
+March 2025 Notes $ 600 4.250% January 11, 2018 March 1, 2025
+July 2025 Notes $ 1,250 3.250% January 15, 2020 July 15, 2025
+January 2026 Notes $ 1,150 3.875% July 15, 2020 January 15, 2026
+July 2026 Notes $ 1,000 2.150% January 13, 2021 July 15, 2026
+January 2027 Notes(1) $ 900 6.978% August 3, 2023 January 15, 2027
+June 2027 Notes $ 500 2.875% January 13, 2022 June 15, 2027
+June 2028 Notes $ 1,250 2.875% June 10, 2021 June 15, 2028
+March 2029 Notes(1) $ 1,000 6.575% January 23, 2024 March 1, 2029
+July 2029 Notes(1) $ 850 6.040% May 13, 2024 July 15, 2029
+November 2031 Notes $ 700 3.200% November 4, 2021 November 15, 2031
+________________________________________
+(1) The effective stated interest rates of the January 2027 Notes, the March 2029 Notes and the July 2029 Notes include the impact of interest rate swaps.
+In June 2024, we repaid in full the $900 million in aggregate principal amount outstanding of unsecured notes (the “June 2024 Notes”) upon their maturity.
+The June 2024 Notes bore interest at a rate of 4.200% per annum, payable semi-annually.
+In connection with certain of the unsecured notes issued by us, we have entered into interest rate swaps to more closely align the interest rates of such
+liabilities with our investment portfolio, which consists primarily of floating rate loans. We designated these interest rate swaps and the associated unsecured notes as
+qualifying fair value hedge accounting relationships. Under the interest rate swaps, we receive a fixed interest rate and pay a floating interest rate of one-month SOFR
+plus an applicable spread, as disclosed below. Certain information related to our interest rate swaps as of December 31, 2024 is presented below.
+(dollar amounts in millions) Description Hedged Item Company Receives Company Pays Maturity Date Notional Amount
+Interest rate swap January 2027 Notes 7.000 % SOFR +2.581% January 15, 2027 $ 900 
+Interest rate swap March 2029 Notes 5.875 % SOFR +2.023% March 1, 2029 $ 1,000 
+Interest rate swap July 2029 Notes 5.950 % SOFR +1.643% July 15, 2029 $ 850 
+See Note 6 to our consolidated financial statements for the year ended December 31, 2024 for more information on our interest rate swaps.
+See “Recent Developments,” as well as Note 16 to our consolidated financial statements for the year ended December 31, 2024 for a subsequent event relating
+to an additional issuance of unsecured notes.
+94
+
+=== PDF PAGE 95 ===
+As of December 31, 2024, we were in compliance in all material respects with the indentures governing the Unsecured Notes.
+The Unsecured Notes are our senior unsecured obligations and rank senior in right of payment to any future indebtedness that is expressly subordinated in
+right of payment to the Unsecured Notes; equal in right of payment to our existing and future unsecured indebtedness that is not expressly subordinated; effectively
+junior in right of payment to any of our secured indebtedness (including existing unsecured indebtedness that we later secure) to the extent of the value of the assets
+securing such indebtedness; and structurally junior to all existing and future indebtedness (including trade payables) incurred by our subsidiaries, financing vehicles or
+similar facilities.
+RECENT DEVELOPMENTS
+In January 2025, we issued $1.0 billion in aggregate principal amount of unsecured notes that mature on March 8, 2032 and bear interest at a rate of 5.800%
+per annum (the “March 2032 Notes”). The March 2032 Notes pay interest semi-annually and all principal is due upon maturity. The March 2032 Notes may be
+redeemed in whole or in part at any time at our option at a redemption price equal to par plus a “make whole” premium, if applicable, as determined pursuant to the
+indenture governing the March 2032 Notes, and any accrued and unpaid interest. The March 2032 Notes were issued at a discount to the principal amount. In
+connection with the March 2032 Notes, we entered into a forward-starting interest rate swap for a total notional amount of $1.0 billion that matures on March 8, 2032
+with an effective date of January 8, 2032. Under the forward-starting interest rate swap, we will receive a fixed interest rate of 5.800% and pay a floating interest rate of
+one-month SOFR plus 1.6995%.
+In February 2025, our board of directors authorized an amendment to our existing stock repurchase program to extend the expiration date of the program from
+February 15, 2025 to February 15, 2026. Under the program, we may repurchase up to $1.0 billion in the aggregate of our outstanding common stock in the open
+market at a price per share that meets certain thresholds below our net asset value per share, in accordance with the guidelines specified in Rule 10b-18 of the Exchange
+Act. The timing, manner, price and amount of any share repurchases will be determined by us, in our discretion, based upon the evaluation of economic and market
+conditions, stock price, applicable legal and regulatory requirements and other factors.
+From January 1, 2025 through January 28, 2025, we made new investment commitments of approximately $1.2 billion, of which approximately $864 million
+were funded. Of the approximately $1.2 billion in new investment commitments, 90% were in first lien senior secured loans, 1% were in second lien senior secured
+loans, 6% were in preferred equity and 3% were in other equity. Of the approximately $1.2 billion in new investment commitments, 79% were floating rate, 18% were
+fixed rate and 3% were non-income producing. The weighted average yield of debt and other income producing securities funded during the period at amortized cost
+was 10.1% and the weighted average yield on total investments funded during the period at amortized cost was 9.8%. We may seek to sell all or a portion of these new
+investment commitments, although there can be no assurance that we will be able to do so.
+From January 1, 2025 through January 28, 2025, we exited approximately $498 million of investment commitments. Of the approximately $498 million of
+exited investment commitments, 69% were first lien senior secured loans, 11% were second lien senior secured loans, 11% were subordinated certificates of the SDLP,
+7% were senior subordinated loans, 1% were preferred equity and 1% were other equity. Of the approximately $498 million of exited investment commitments, 80%
+were floating rate, 18% were fixed rate and 2% were non-income producing. The weighted average yield of debt and other income producing securities exited or repaid
+during the period at amortized cost was 10.8% and the weighted average yield on total investments exited or repaid during the period at amortized cost was 10.6%. Of
+the approximately $498 million of investment commitments exited from January 1, 2025 through January 28, 2025, we recognized total net realized gains of
+approximately $1 million.
+In addition, as of January 28, 2025, we had an investment backlog of approximately $1.8 billion. Investment backlog includes transactions approved by our
+investment adviser’s investment committee and/or for which a formal mandate, letter of intent or a signed commitment have been issued, and therefore we believe are
+likely to close. The consummation of any of the investments in this backlog depends upon, among other things, one or more of the following: our acceptance of the
+terms and structure of such investment and the execution and delivery of satisfactory transaction documentation. In addition, we may sell all or a portion of these
+investments and certain of these investments may result in the repayment of existing investments. We cannot assure you that we will make any of these investments or
+that we will sell all or any portion of these investments.
+CRITICAL ACCOUNTING ESTIMATES
+95
+
+=== PDF PAGE 96 ===
+The preparation of our consolidated financial statements requires us to make estimates and assumptions that affect the reported amounts of assets, liabilities,
+revenues, and expenses. Changes in the economic environment, financial markets, and any other parameters used in determining such estimates could cause actual
+results to differ. Our critical accounting estimates, including those relating to the valuation of our investment portfolio, are described below. The critical accounting
+estimates should be read in conjunction with our risk factors as disclosed in “Item 1A. Risk Factors.” See Note 2 to our consolidated financial statements for the year
+ended December 31, 2024 for more information on our critical accounting policies.
+Investments
+Investment transactions are recorded on the trade date. Realized gains or losses are measured by the difference between the net proceeds from the repayment or
+sale and the amortized cost basis of the investment using the specific identification method without regard to unrealized gains or losses previously recognized, and
+include investments charged off during the period, net of recoveries. Unrealized gains or losses primarily reflect the change in investment values, including the reversal
+of previously recorded unrealized gains or losses when gains or losses are realized.
+Pursuant to Rule 2a-5 under the Investment Company Act, our board of directors designated our investment adviser as our valuation designee (the “Valuation
+Designee”) to perform the fair value determinations for investments held by us without readily available market quotations, subject to the oversight of our board of
+directors. All investments are recorded at their fair value.
+Investments for which market quotations are readily available are typically valued at such market quotations. In order to validate market quotations, the
+Valuation Designee looks at a number of factors to determine if the quotations are representative of fair value, including the source and nature of the quotations. Debt
+and equity securities that are not publicly traded or whose market prices are not readily available (i.e., substantially all of our investments) are valued at least quarterly
+at fair value as determined in good faith by the Valuation Designee, subject to the oversight of our board of directors, based on, among other things, the input of our
+independent third‑party valuation providers (“IVPs”) that have been engaged to support the valuation of such portfolio investments at least once during a trailing
+12‑month period (with certain de minimis exceptions) and under a valuation policy and a consistently applied valuation process. The valuation process is conducted at
+the end of each fiscal quarter by the Valuation Designee, and a portion of our investment portfolio at fair value is subject to review by an IVP each quarter, as discussed
+further below. However, we may use these IVPs to review the value of our investments more frequently, including in connection with the occurrence of significant
+events or changes in value affecting a particular investment. In addition, our independent registered public accounting firm obtains an understanding of, and performs
+select procedures relating to, our valuation process within the context of performing our integrated audit.
+ 
+As part of the valuation process, the Valuation Designee may take into account the following types of factors, if relevant, in determining the fair value of our
+investments: the enterprise value of a portfolio company (the entire value of the portfolio company to a market participant, including the sum of the values of debt and
+equity securities used to capitalize the enterprise at a point in time), the nature and realizable value of any collateral, the portfolio company’s ability to make payments
+and its earnings and discounted cash flow, the markets in which the portfolio company does business, a comparison of the portfolio company’s securities to any similar
+publicly traded securities, changes in the interest rate environment and the credit markets, which may affect the price at which similar investments would trade in their
+principal markets and other relevant factors. When an external event such as a purchase transaction, public offering or subsequent sale occurs, the Valuation Designee
+considers the pricing indicated by the external event to corroborate the valuation.
+Because there is not a readily available market value for most of the investments in our portfolio, substantially all of our portfolio investments are valued at
+fair value as determined in good faith by the Valuation Designee, as described herein. Due to the inherent uncertainty of determining the fair value of investments that
+do not have a readily available market value, the fair value of our investments may fluctuate from period to period. Additionally, the fair value of our investments may
+differ significantly from the values that would have been used had a ready market existed for such investments and may differ materially from the values that we may
+ultimately realize. Further, such investments are generally subject to legal and other restrictions on resale or otherwise are less liquid than publicly traded securities. If
+we were required to liquidate a portfolio investment in a forced or liquidation sale, we could realize significantly less than the value at which we have recorded it.
+In addition, changes in the market environment and other events that may occur over the life of the investments may cause the gains or losses ultimately
+realized on these investments to be different than the unrealized gains or losses reflected in the valuations currently assigned.
+The Valuation Designee, subject to the oversight of our board of directors, undertakes a multi‑step valuation process each quarter, as described below:
+96
+
+=== PDF PAGE 97 ===
+• Our quarterly valuation process begins with a preliminary valuation being prepared by the investment professionals responsible for the portfolio
+investment in conjunction with our portfolio management and valuation team.
+• Preliminary valuations are reviewed and discussed by the valuation committee of the Valuation Designee.
+• For portfolio investments selected for review by an IVP,
+◦ Relevant information related to the portfolio investment is made available by the Valuation Designee to the IVP, who does not independently
+verify such information.
+◦ The IVP reviews and analyzes the information provided by the Valuation Designee, along with relevant market and economic data, and
+independently determines a range of values for each of the selected portfolio investments.
+◦ The IVP provides its analysis to the Valuation Designee to support the IVP’s valuation methodology and calculations.
+• The valuation committee of the Valuation Designee determines the fair value of each investment in our portfolio without a readily available market
+quotation in good faith based on, among other things, the input of the IVPs, where applicable.
+• For portfolio investments selected for review by an IVP, a positive assurance opinion or independent valuation report is issued by the IVP that confirms
+the fair value determined by the Valuation Designee for a selected portfolio investment is within the range of values independently calculated by such IVP.
+Fair Value of Financial Instruments
+We follow ASC 825-10, Recognition and Measurement of Financial Assets and Financial Liabilities (“ASC 825-10”), which provides companies the option
+to report selected financial assets and liabilities at fair value. ASC 825-10 also establishes presentation and disclosure requirements designed to facilitate comparisons
+between companies that choose different measurement attributes for similar types of assets and liabilities and a better understanding of the effect of the company’s
+choice to use fair value on its earnings. ASC 825-10 also requires entities to display the fair value of the selected assets and liabilities on the face of the balance sheet.
+We have not elected the ASC 825-10 option to report selected financial assets and liabilities at fair value. With the exception of the line items entitled “other assets” and
+“debt,” which are reported at amortized cost, the carrying value of all other assets and liabilities approximate fair value.
+We also follow ASC 820-10, which expands the application of fair value accounting. ASC 820-10 defines fair value, establishes a framework for measuring
+fair value in accordance with GAAP and expands disclosure of fair value measurements. ASC 820-10 determines fair value to be the price that would be received for an
+investment in a current sale, which assumes an orderly transaction between market participants on the measurement date. ASC 820-10 requires us to assume that the
+portfolio investment is sold in its principal market to market participants or, in the absence of a principal market, the most advantageous market, which may be a
+hypothetical market. Market participants are defined as buyers and sellers in the principal or most advantageous market that are independent, knowledgeable, and
+willing and able to transact. In accordance with ASC 820-10, we have considered its principal market as the market in which we exit our portfolio investments with the
+greatest volume and level of activity. ASC 820-10 specifies a hierarchy of valuation techniques based on whether the inputs to those valuation techniques are
+observable or unobservable. In accordance with ASC 820-10, these inputs are summarized in the three broad levels listed below:
+• Level 1 - Valuations based on quoted prices in active markets for identical assets or liabilities that we have the ability to access.
+• Level 2 - Valuations based on quoted prices in markets that are not active or for which all significant inputs are observable, either directly or indirectly.
+• Level 3 - Valuations based on inputs that are unobservable and significant to the overall fair value measurement.
+97
+
+=== PDF PAGE 98 ===
+In addition to using the above inputs in investment valuations, the Valuation Designee continues to employ its net asset valuation policy and procedures that
+have been reviewed by our board of directors in connection with their designation of our investment adviser as the valuation designee and are consistent with the
+provisions of Rule 2a-5 under the Investment Company Act and ASC 820-10. Consistent with its valuation policy and procedures, the Valuation Designee evaluates the
+source of inputs, including any markets in which our investments are trading (or any markets in which securities with similar attributes are trading), in determining fair
+value. Because there is not a readily available market value for most of the investments in our portfolio, the fair value of the investments must typically be determined
+using unobservable inputs.
+Our portfolio investments (other than as described below in the following paragraph) are typically valued using two different valuation techniques. The first
+valuation technique is an analysis of the enterprise value (“EV”) of the portfolio company. EV means the entire value of the portfolio company to a market participant,
+including the sum of the values of debt and equity securities used to capitalize the enterprise at a point in time. The primary method for determining EV uses a multiple
+analysis whereby appropriate multiples are applied to the portfolio company’s EBITDA (generally defined as net income before net interest expense, income tax
+expense, depreciation and amortization). EBITDA multiples are typically determined based upon review of market comparable transactions and publicly traded
+comparable companies, if any. The Valuation Designee may also employ other valuation multiples to determine EV, such as revenues or, in the case of certain portfolio
+companies in the power generation industry, kilowatt capacity. The second method for determining EV uses a discounted cash flow analysis whereby future expected
+cash flows of the portfolio company are discounted to determine a present value using estimated discount rates (typically a weighted average cost of capital based on
+costs of debt and equity consistent with current market conditions). The EV analysis is performed to determine the value of equity investments, the value of debt
+investments in portfolio companies where we have control or could gain control through an option or warrant security, and to determine if there is credit impairment for
+debt investments. If debt investments are credit impaired, an EV analysis may be used to value such debt investments; however, in addition to the methods outlined
+above, other methods such as a liquidation or wind-down analysis may be utilized to estimate EV. The second valuation technique is a yield analysis, which is typically
+performed for non-credit impaired debt investments in portfolio companies where we do not own a controlling equity position. To determine fair value using a yield
+analysis, a current price is imputed for the investment based upon an assessment of the expected market yield for a similarly structured investment with a similar level
+of risk. In the yield analysis, the Valuation Designee considers the current contractual interest rate, the maturity and other terms of the investment relative to the risk of
+the company and the specific investment. A key determinant of risk, among other things, is the leverage through the investment relative to the EV of the portfolio
+company. As debt investments held by us are substantially illiquid with no active transaction market, the Valuation Designee depends on primary market data, including
+newly funded transactions, as well as secondary market data with respect to high yield debt instruments and syndicated loans, as inputs in determining the appropriate
+market yield, as applicable.
+For other portfolio investments such as investments in the SDLP Certificates and IHAM, discounted cash flow analysis is the primary technique utilized to
+determine fair value. Expected future cash flows associated with the investment are discounted to determine a present value using a discount rate that reflects estimated
+market return requirements.
+See Note 8 to our consolidated financial statements for the year ended December 31, 2024 for more information on our valuation process.
+Item 7A.    Quantitative and Qualitative Disclosures About Market Risk
+We are subject to financial market risks, including changes in interest rates and the valuations of our investment portfolio. Uncertainty with respect to the
+fluctuations in global interest rates, inflationary pressures, the Russia-Ukraine war and more recently the ongoing conflicts in the Middle East introduced significant
+volatility in the financial markets, and the effects of this volatility has materially impacted and could continue to materially impact our market risks, including those
+listed below. For more information concerning these risks and their potential impact on our business and our operating results, see “Risk Factors—General Risk Factors
+—Global economic, political and market conditions, including uncertainty about the financial stability of the United States, could have a significant adverse effect on
+our business, financial condition and results of operations”, “Risk Factors—Risks Relating to Our Investments—Economic recessions or downturns could impair our
+portfolio companies and harm our operating results” and “Risk Factors—Risks Relating to Our Business—Inflation has adversely affected and may continue to
+adversely affect the business, results of operations and financial condition of our portfolio companies.”
+98
+
+=== PDF PAGE 99 ===
+Investment Valuation Risk
+Because there is not a readily available market value for most of the investments in our portfolio, substantially all of our portfolio investments are valued at
+fair value as determined in good faith by our investment adviser, as the valuation designee, subject to the oversight of our board of directors based on, among other
+things, the input of the independent third-party valuation providers (“IVPs”) that have been engaged to support the valuation of each portfolio investment without a
+readily available market quotation at least once during a trailing 12-month period (with certain de minimis exceptions). Due to the inherent uncertainty of determining
+the fair value of investments that do not have a readily available market value, the fair value of our investments may fluctuate from period to period. Additionally, the
+fair value of our investments may differ significantly from the values that would have been used had a ready market existed for such investments and may differ
+materially from the values that we may ultimately realize. Further, such investments are generally subject to legal and other restrictions on resale or otherwise are less
+liquid than publicly traded securities. If we were required to liquidate a portfolio investment in a forced or liquidation sale, we could realize significantly less than the
+value at which we have recorded it. In addition, changes in the market environment and other events that may occur over the life of the investments may cause the gains
+or losses ultimately realized on these investments to be different than the unrealized gains or losses reflected in the valuations currently assigned. See “Management’s
+Discussion and Analysis of Financial Condition and Results of Operations—Critical Accounting Estimates” as well as Notes 2 and 8 to our consolidated financial
+statements for the year ended December 31, 2024 for more information relating to our investment valuation.
+Interest Rate Risk
+ 
+Interest rate sensitivity refers to the change in our earnings that may result from changes in the level of interest rates. Because we fund a portion of our
+investments with borrowings, our net investment income is affected by the difference between the rate at which we invest and the rate at which we borrow. As a result,
+there can be no assurance that a significant change in market interest rates will not have a material adverse effect on our net investment income. See “Risk Factors—
+Risks Relating to Our Business—We are exposed to risks associated with changes in interest rates, including the current interest rate environment.”
+ 
+In a prolonged low interest rate environment, the difference between the total interest income earned on interest earning assets and the total interest expense
+incurred on interest bearing liabilities may be compressed, reducing our net income and potentially adversely affecting our operating results. Conversely, in a rising
+interest rate environment, such difference could potentially increase thereby increasing our net income as indicated per the table below.
+As of December 31, 2024, 69% of the investments at fair value in our portfolio bore interest and dividends at variable rates (including our investment in the
+SDLP Certificates which accounted for 5% of our total investments at fair value), 12% bore interest at fixed rates, 11% were non-income producing, 1% were on non-
+accrual status and 7% was our equity investment in IHAM which generally pays a quarterly dividend. Additionally, excluding our investment in the SDLP Certificates,
+99% of the remaining variable rate investments at fair value contained interest rate floors. The Facilities, the April 2036 CLO Notes and the October 2036 CLO Secured
+Loans bear interest at variable rates with no interest rate floors. The Unsecured Notes bear interest at fixed rates, except that the January 2027 Notes, the March 2029
+Notes and the July 2029 Notes have been swapped from a fixed rate to a floating rate through interest rate swaps. See Note 5 to our consolidated financial statements
+for the year ended December 31, 2024 for more information on our debt obligations. See Note 6 to our consolidated financial statements for the year ended December
+31, 2024 for more information on the interest rate swaps.
+ 
+We regularly measure our exposure to interest rate risk. We assess interest rate risk and manage our interest rate exposure on an ongoing basis by comparing
+our interest rate sensitive assets to our interest rate sensitive liabilities. Based on that review, we determine whether or not any hedging transactions are necessary to
+mitigate exposure to changes in interest rates.
+Based on our December 31, 2024 balance sheet, the following table shows the annualized impact on net income of base rate changes in interest rates
+(considering interest rate floors for variable rate instruments) assuming no changes in our investment and borrowing structure:
+99
+
+=== PDF PAGE 100 ===
+(in millions)
+Basis Point Change
+Interest and Dividend
+Income
+Interest
+Expense(1)
+Net
+Income(2)
+Up 300 basis points $ 553 $ 220 $ 333 
+Up 200 basis points $ 368 $ 147 $ 221 
+Up 100 basis points $ 184 $ 73 $ 111 
+Down 100 basis points $ (185) $ (73) $ (112)
+Down 200 basis points $ (369) $ (147) $ (222)
+Down 300 basis points $ (548) $ (220) $ (328)
+________________________________________
+(1) Includes the impact to interest expense related to the interest rate swaps.
+(2) Excludes the impact of the income based fee. See Note 3 to our consolidated financial statements for the year ended December 31, 2024 for more information
+on the income based fee.
+Item 8.    Financial Statements and Supplementary Data
+See the Index to Consolidated Financial Statements.
+Item 9.    Changes in and Disagreements With Accountants on Accounting and Financial Disclosure
+None.
+Item 9A.    Controls and Procedures
+(a)    Evaluation of Disclosure Controls and Procedures.    We maintain disclosure controls and procedures (as that term is defined in Rules 13a‑15(e) and
+15d‑15(e) under the Exchange Act) that are designed to ensure that information required to be disclosed in our reports under the Exchange Act is recorded, processed,
+summarized and reported within the time periods specified in the SEC’s rules and forms, and that such information is accumulated and communicated to our
+management, including our principal executive officer and principal financial officer, as appropriate, to allow timely decisions regarding required disclosures. Any
+controls and procedures, no matter how well designed and operated, can provide only reasonable assurance of achieving the desired control objectives. Our
+management, with the participation of our principal executive officer and principal financial officer, has evaluated the effectiveness of the design and operation of our
+disclosure controls and procedures as of December 31, 2024. Based upon that evaluation and subject to the foregoing, our principal executive officer and principal
+financial officer concluded that, as of December 31, 2024, the design and operation of our disclosure controls and procedures were effective to accomplish their
+objectives at the reasonable assurance level.
+(b)    Management’s Annual Report on Internal Control over Financial Reporting.    Our management is responsible for establishing and maintaining
+adequate internal control over financial reporting for the Company. Internal control over financial reporting is a process to provide reasonable assurance regarding the
+reliability of our financial reporting for external purposes in accordance with accounting principles generally accepted in the United States of America. Internal control
+over financial reporting includes maintaining records that in reasonable detail accurately and fairly reflect our transactions; providing reasonable assurance that
+transactions are recorded as necessary for preparation of our consolidated financial statements; providing reasonable assurance that receipts and expenditures of
+company assets are made in accordance with management authorization; and providing reasonable assurance that unauthorized acquisition, use or disposition of
+company assets that could have a material effect on our consolidated financial statements would be prevented or detected on a timely basis. Because of its inherent
+limitations, internal control over financial reporting is not intended to provide absolute assurance that a material misstatement of our consolidated financial statements
+would be prevented or detected.
+Management conducted an evaluation of the effectiveness of our internal control over financial reporting based on the framework in Internal Control —
+Integrated Framework (2013) issued by the Committee of Sponsoring Organizations of the Treadway Commission. Based on this evaluation, management concluded
+that the Company's internal control over financial reporting was effective as of December 31, 2024. The Company's independent registered public accounting firm,
+KPMG LLP, has issued an audit report on the effectiveness of the Company's internal control over financial reporting.
+100
+
+=== PDF PAGE 115 ===
+ARES CAPITAL CORPORATION AND SUBSIDIARIES
+CONSOLIDATED BALANCE SHEET
+(in millions, except per share data)
+ As of December 31,
+2024 2023
+ASSETS
+Investments at fair value   
+Non-controlled/non-affiliate company investments $ 22,145 $ 18,283 
+Non-controlled affiliate company investments 707 424 
+Controlled affiliate company investments 3,868 4,167 
+Total investments at fair value (amortized cost of $26,374 and $22,668, respectively) 26,720 22,874 
+Cash and cash equivalents 635 535 
+Restricted cash 225 29 
+Interest receivable 292 245 
+Receivable for open trades 224 16 
+Other assets 158 101 
+Total assets $ 28,254 $ 23,800 
+LIABILITIES  
+Debt $ 13,727 $ 11,884 
+Base management fee payable 100 84 
+Income based fee payable 91 90 
+Capital gains incentive fee payable 105 88 
+Interest and facility fees payable 170 132 
+Payable to participants 163 29 
+Payable for open trades 236 7 
+Accounts payable and other liabilities 275 251 
+Secured borrowings 32 34 
+Total liabilities 14,899 12,599 
+Commitments and contingencies (Note 7)
+STOCKHOLDERS’ EQUITY  
+Common stock, par value $0.001 per share, 1,000 common shares authorized; 672 and 582 common shares issued
+and outstanding, respectively 1 1 
+Capital in excess of par value 12,502 10,738 
+Accumulated undistributed earnings 852 462 
+Total stockholders’ equity 13,355 11,201 
+Total liabilities and stockholders’ equity $ 28,254 $ 23,800 
+NET ASSETS PER SHARE $ 19.89 $ 19.24 
+See accompanying notes to consolidated financial statements.
+F-5
+
+=== PDF PAGE 116 ===
+ARES CAPITAL CORPORATION AND SUBSIDIARIES
+CONSOLIDATED STATEMENT OF OPERATIONS
+(in millions, except per share data)
+ For the Years Ended December 31,
+ 2024 2023 2022
+INVESTMENT INCOME:  
+From non-controlled/non-affiliate company investments:  
+Interest income (excluding payment-in-kind (“PIK”) interest income) $ 1,749 $ 1,564 $ 1,141 
+PIK interest income 174 143 121 
+Capital structuring service fees 156 83 133 
+Dividend income 49 47 25 
+PIK dividend income 253 195 169 
+Other income 55 53 43 
+Total investment income from non-controlled/non-affiliate company investments 2,436 2,085 1,632 
+From non-controlled affiliate company investments:
+Interest income (excluding PIK interest income) 20 12 8 
+PIK interest income 14 5 5 
+Capital structuring service fees 3 — — 
+Dividend income 2 7 2 
+Other income 2 — — 
+Total investment income from non-controlled affiliate company investments 41 24 15 
+From controlled affiliate company investments:
+Interest income (excluding PIK interest income) 187 220 183 
+PIK interest income 18 18 12 
+Capital structuring service fees 13 9 20 
+Dividend income 286 250 224 
+PIK dividend income 4 2 4 
+Other income 5 6 6 
+Total investment income from controlled affiliate company investments 513 505 449 
+Total investment income 2,990 2,614 2,096 
+EXPENSES:
+Interest and credit facility fees 715 582 455 
+Base management fee 374 323 305 
+Income based fee 364 328 252 
+Capital gains incentive fee 18 53 (101)
+Administrative and other fees 12 13 11 
+Other general and administrative 31 29 27 
+Total expenses 1,514 1,328 949 
+NET INVESTMENT INCOME BEFORE INCOME TAXES 1,476 1,286 1,147 
+Income tax expense, including excise tax 73 20 55 
+NET INVESTMENT INCOME 1,403 1,266 1,092 
+REALIZED AND UNREALIZED GAINS (LOSSES) ON INVESTMENTS, FOREIGN CURRENCY AND OTHER TRANSACTIONS:
+Net realized gains (losses):
+Non-controlled/non-affiliate company investments (78) (146) 56 
+Non-controlled affiliate company investments (6) (10) 6 
+Controlled affiliate company investments 24 1 (38)
+Foreign currency and other transactions 5 (24) 57 
+Net realized (losses) gains (55) (179) 81 
+Net unrealized gains (losses):
+Non-controlled/non-affiliate company investments 56 379 (585)
+Non-controlled affiliate company investments 23 34 71 
+Controlled affiliate company investments 59 16 1 
+Foreign currency and other transactions 50 6 (12)
+Net unrealized gains (losses) 188 435 (525)
+Net realized and unrealized gains (losses) on investments, foreign currency and other transactions 133 256 (444)
+REALIZED LOSS ON EXTINGUISHMENT OF DEBT (14) — (48)
+NET INCREASE IN STOCKHOLDERS’ EQUITY RESULTING FROM OPERATIONS $ 1,522 $ 1,522 $ 600 
+NET INCOME PER COMMON SHARE (see Note 10)
+Basic $ 2.44 $ 2.75 $ 1.21 
+Diluted $ 2.44 $ 2.68 $ 1.19 
+WEIGHTED AVERAGE SHARES OF COMMON STOCK OUTSTANDING (see Note 10)
+Basic 624 554 498 
+Diluted 624 575 518 
+See accompanying notes to consolidated financial statements.
+F-6
+
+=== PDF PAGE 255 ===
+ARES CAPITAL CORPORATION AND SUBSIDIARIES
+CONSOLIDATED STATEMENT OF CASH FLOWS
+(in millions)
+ For the Years Ended December 31,
+ 2024 2023 2022
+OPERATING ACTIVITIES:  
+Net increase in stockholders' equity resulting from operations $ 1,522 $ 1,522 $ 600 
+Adjustments to reconcile net increase in stockholders’ equity resulting from operations:
+Net realized losses (gains) on investments, foreign currency and other transactions 55 179 (81)
+Net unrealized (gains) losses on investments, foreign currency and other transactions (188) (435) 525 
+Realized loss on extinguishment of debt 14 — 48 
+Net accretion of discount on investments (17) (18) (13)
+PIK interest (206) (166) (138)
+Collections of PIK interest 109 48 30 
+PIK dividends (257) (198) (175)
+Collections of PIK dividends 33 11 71 
+Amortization of debt issuance costs 33 31 30 
+Net amortization of premium on notes payable (6) (5) (4)
+Proceeds from sales and repayments of investments and other transactions 9,212 5,315 7,747 
+Purchases of investments (12,622) (5,804) (9,852)
+Changes in operating assets and liabilities:
+Interest receivable (45) (60) (34)
+Other assets 5 (8) 65 
+Base management fee payable 16 5 10 
+Income based fee payable 1 9 14 
+Capital gains incentive fee payable 17 53 (126)
+Interest and facility fees payable 38 27 5 
+Payable to participants 134 (5) (80)
+Accounts payable and other liabilities 24 10 (1)
+Net cash (used in) provided by operating activities (2,128) 511 (1,359)
+FINANCING ACTIVITIES:  
+Borrowings on debt 13,238 5,215 7,950 
+Repayments and repurchases of debt (10,968) (5,558) (6,818)
+Debt issuance costs (59) (20) (16)
+ Repayment of 2024 Convertible Notes (10) — — 
+Net proceeds from issuance of common stock 1,364 1,155 1,001 
+Dividends paid (1,139) (1,031) (912)
+Secured borrowings, net (2) (45) 5 
+Net cash provided by (used in) financing activities 2,424 (284) 1,210 
+CHANGE IN CASH, CASH EQUIVALENTS AND RESTRICTED CASH 296 227 (149)
+CASH, CASH EQUIVALENTS AND RESTRICTED CASH, BEGINNING OF PERIOD 564 337 486 
+CASH, CASH EQUIVALENTS AND RESTRICTED CASH, END OF PERIOD $ 860 $ 564 $ 337 
+Supplemental Information:  
+Interest paid during the period $ 676 $ 524 $ 402 
+Taxes, including excise tax, paid during the period $ 66 $ 36 $ 39 
+Dividends declared and payable during the period $ 1,219 $ 1,078 $ 941 
+See accompanying notes to consolidated financial statements.
+F-145
+
+=== PDF PAGE 283 ===
+The Unsecured Notes contain certain covenants, including covenants requiring the Company to comply with Section 18(a)(1)(A) as modified by
+Section 61(a) of the Investment Company Act, or any successor provisions, and to provide financial information to the holders of such notes under certain
+circumstances. These covenants are subject to important limitations and exceptions set forth in the indentures governing such notes. As of December 31, 2024, the
+Company was in compliance in all material respects with the terms of the respective indentures governing each of the Unsecured Notes.
+ 
+The Unsecured Notes are the Company’s senior unsecured obligations and rank senior in right of payment to any future indebtedness that is expressly
+subordinated in right of payment to the Unsecured Notes; equal in right of payment to the Company’s existing and future unsecured indebtedness that is not expressly
+subordinated; effectively junior in right of payment to any of its secured indebtedness (including existing unsecured indebtedness that the Company later secures) to the
+extent of the value of the assets securing such indebtedness; and structurally junior to all existing and future indebtedness (including trade payables) incurred by the
+Company’s subsidiaries, financing vehicles or similar facilities.
+6. DERIVATIVE INSTRUMENTS
+The Company enters into derivative instruments from time to time to help mitigate its foreign currency and interest rate risk exposures.
+Foreign Currency Forward Contracts
+Certain information related to the Company’s foreign currency forward derivative instruments as of December 31, 2024 and 2023 is presented below.
+ 
+As of December 31, 2024
+Derivative Instrument
+Notional
+Amount
+Gross Amount of
+Recognized Assets
+Gross Amount of
+Recognized
+Liabilities
+Balance Sheet
+Location of Net Amounts
+Foreign currency forward contract  CAD 240 $ 184 $ (179)  Other Assets
+Foreign currency forward contract  CAD 188 133 (131)  Other Assets
+Foreign currency forward contract € 182 195 (189)  Other Assets
+Foreign currency forward contract £ 133 168 (166)  Other Assets
+Foreign currency forward contract € 103 109 (105)  Other Assets
+Foreign currency forward contract  NOK 97 96 (96)  Other Assets
+Foreign currency forward contract £ 74 95 (93)  Other Assets
+Foreign currency forward contract  NZD 68 41 (38)  Other Assets
+Foreign currency forward contract  NOK 63 6 (6)  Other Assets
+Foreign currency forward contract  AUD 21 14 (14)  Other Assets
+Total $ 1,041 $ (1,017)
+ 
+As of December 31, 2023
+Derivative Instrument
+Notional
+Amount
+Gross Amount of
+Recognized Assets
+Gross Amount of
+Recognized
+Liabilities
+Balance Sheet
+Location of Net Amounts
+Foreign currency forward contract CAD 321 $ 234 $ (239) Accounts payable and other liabilities
+Foreign currency forward contract € 190 200 (207) Accounts payable and other liabilities
+Foreign currency forward contract £ 172 209 (217) Accounts payable and other liabilities
+Foreign currency forward contract NZD 71 41 (45) Accounts payable and other liabilities
+Foreign currency forward contract $ 10 9 (9) Accounts payable and other liabilities
+Foreign currency forward contract AUD 10 7 (7) Accounts payable and other liabilities
+Foreign currency forward contract CAD 4 3 (3) Accounts payable and other liabilities
+Total $ 703 $ (727)
+F-173
+
+=== PDF PAGE 300 ===
+ For the Years Ended December 31,
+2024 2023 2022 2021 2020
+Base management fee 3.03 % 3.11 % 3.27 % 3.14 % 3.10 %
+Income based fee and capital gains incentive fee, net of
+the fee waiver 3.08 % 3.66 % 1.61 % 4.80 % 1.80 %
+Income based fee and capital gains incentive fee,
+excluding the fee waiver 3.08 % 3.66 % 1.61 % 4.80 % 1.80 %
+Interest and credit facility fees 5.79 % 5.60 % 4.89 % 4.61 % 4.54 %
+Other operating expenses 0.36 % 0.41 % 0.42 % 0.50 % 0.83 %
+ For the Years Ended December 31,
+2019 2018 2017 2016 2015
+Base management fee 2.78 % 2.49 % 2.57 % 2.64 % 2.55 %
+Income based fee and capital gains incentive fee, net of
+the fee waiver 2.23 % 2.24 % 2.18 % 2.29 % 2.31 %
+Income based fee and capital gains incentive fee,
+excluding the fee waiver 2.64 % 2.79 % 2.32 % 2.29 % 2.31 %
+Interest and credit facility fees 3.94 % 3.33 % 3.37 % 3.58 % 4.32 %
+Other operating expenses 0.97 % 0.57 % 1.33 % 1.08 % 0.33 %
+(8) The ratio of net investment income to average net assets excludes income taxes related to realized gains and losses.
+15. SEGMENT REPORTING
+The Company operates through a single operating and reporting segment with an investment objective to generate both current income and capital appreciation
+through debt and equity investments. The CODM is comprised of the Company’s chief executive officer, co-presidents, chief financial officer and chief operating
+officer and the CODM assesses the performance and makes operating decisions of the Company on a consolidated basis primarily based on the Company’s net increase
+in stockholders’ equity resulting from operations (“net income”). In addition to numerous other factors and metrics, the CODM utilizes net income as a key metric in
+determining the amount of dividends to be distributed to the Company’s stockholders. As the Company’s operations comprise of a single reporting segment, the
+segment assets are reflected on the accompanying consolidated balance sheet as “total assets” and the significant segment expenses are listed on the accompanying
+consolidated statement of operations.
+16. SUBSEQUENT EVENTS
+The Company’s management has evaluated subsequent events through the date of issuance of the consolidated financial statements included herein. There
+have been no subsequent events that occurred during such period that would require disclosure in this Form 10-K or would be required to be recognized in the
+consolidated financial statements as of and for the year ended December 31, 2024, except as discussed below.
+In January 2025, the Company issued $1,000 in aggregate principal amount of unsecured notes that mature on March 8, 2032 and bear interest at a rate of
+5.800% per annum (the “March 2032 Notes”). The March 2032 Notes pay interest semi-annually and all principal is due upon maturity. The March 2032 Notes may be
+redeemed in whole or in part at any time at the Company’s option at a redemption price equal to par plus a “make whole” premium, if applicable, as determined
+pursuant to the indenture governing the March 2032 Notes, and any accrued and unpaid interest. The March 2032 Notes were issued at a discount to the principal
+amount. In connection with the March 2032 Notes, the Company entered into a forward-starting interest rate swap for a total notional amount of $1,000 that matures on
+March 8, 2032 with an effective date of January 8, 2026. Under the forward-starting interest rate swap, the Company receives a fixed interest rate of 5.800% and pays a
+floating interest rate of one-month SOFR plus 1.6995%.
+In February 2025, the Company’s board of directors authorized an amendment to the Company’s existing stock repurchase program to extend the expiration
+date of the program from February 15, 2025 to February 15, 2026. Under the program, the Company may repurchase up to $1,000 in the aggregate of its outstanding
+common stock in the open market at a price per share that meets certain thresholds below its net asset value per share, in accordance with the guidelines specified in
+Rule 10b-18 of the Exchange Act. The timing, manner, price and amount of any share repurchases will be determined by the
+F-190
+
+=== PDF PAGE 301 ===
+Company, in its discretion, based upon the evaluation of economic and market conditions, stock price, applicable legal and regulatory requirements and other factors.
+F-191

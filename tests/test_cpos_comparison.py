@@ -276,6 +276,120 @@ def test_dispatched_missing_response_never_repeats_automatically(tmp_path: Path)
         )
 
 
+@pytest.mark.parametrize(
+    "mode,cap,attempts",
+    [("live-provider", "0", 1), ("live-provider", "1", 2), ("synthetic", "1", 1)],
+)
+def test_comparison_execution_budget_refuses_invalid_combinations(tmp_path, mode, cap, attempts):
+    path = job(tmp_path)
+    data = json.loads(path.read_bytes())
+    data.update(execution=mode, provider_cap_usd=cap, max_attempts=attempts)
+    path.write_text(json.dumps(data))
+    with pytest.raises(ValueError):
+        cpos.run_comparison(
+            path, tmp_path / "state", execute=lambda t: pytest.fail("dispatched"), check=check
+        )
+    assert not (tmp_path / "state").exists()
+
+
+def test_live_comparison_repairs_dimensions_inside_loop_and_resumes(tmp_path, monkeypatch):
+    """Fake transport checks wiring; retained real provider proof is separate."""
+    from deploy_workflow.model.adapter import AdapterReply, LiveAdapter
+    from deploy_workflow.model.turn import ToolCall, Turn, Usage
+
+    path = job(tmp_path)
+    data = json.loads(path.read_bytes())
+    data.update(execution="live-provider", provider_cap_usd="10", max_attempts=1)
+    path.write_text(json.dumps(data))
+    seen = []
+
+    def complete(self, request, **kwargs):
+        context = json.loads(request.messages[1].text)
+        assert context["module_id"] == "CP-8" and not context["handoffs"]
+        assert "current/model.html" in context["sources"]
+        seen.append(request)
+        response = RESPONSE
+        if len(seen) == 1:
+            response = response.replace(b"| Values |", b"| Periods |")
+        else:
+            assert any("cp8_dimensions:" in m.text for m in request.messages)
+        answer = Turn(
+            "",
+            (ToolCall(str(len(seen)), "write_handoff", {"markdown": response.decode()}),),
+            Usage(input_tokens=100, output_tokens=50),
+            "tool_use",
+            "gpt-6.1-sol",
+            "fake",
+            200,
+        )
+        return AdapterReply("ok", answer, None, 200, None, None, 1, 2, answer.usage)
+
+    monkeypatch.setattr(LiveAdapter, "complete", complete)
+    state = tmp_path / "state"
+    kwargs = {
+        "ruling": ROOT / "docs/rulings/2026-11-05-remaining-modules.md",
+        "check": check,
+        "environ": {},
+    }
+    report = cpos.run_live_comparison(path, state, **kwargs)
+    assert len(seen) == 2 and (report.parent / "CP-8.md").read_bytes() == RESPONSE
+    assert cpos.run_live_comparison(path, state, **kwargs) == report
+    assert len(seen) == 2
+    (completion,) = state.glob("completed-*.json")
+    record = json.loads(completion.read_bytes())
+    assert record["execution"] == "live-provider" and record["provider_cap_usd"] == "10"
+    assert len(list(state.glob("requests/CP-8/*/1.response.md"))) == 1
+
+
+@pytest.mark.parametrize("fault", ["callback", "mode", "cap", "state", "checker"])
+def test_live_comparison_executor_binding_cannot_be_forged(tmp_path, fault):
+    from decimal import Decimal
+
+    from deploy_workflow.model.adapter import LiveAdapter
+    from deploy_workflow.model.handoff import HandoffExecutor
+    from deploy_workflow.model.turn import ModelSpec
+
+    path = job(tmp_path)
+    data = json.loads(path.read_bytes())
+    data.update(execution="live-provider", provider_cap_usd="10", max_attempts=1)
+    if fault == "mode":
+        data.update(execution="host-session", provider_cap_usd=0)
+    path.write_text(json.dumps(data))
+    state = tmp_path / "state"
+    adapter = LiveAdapter(
+        ModelSpec("sol-medium", "openai", "gpt-6.1-sol", "medium"),
+        ROOT / "docs/rulings/2026-11-05-remaining-modules.md",
+        environ={},
+    )
+    executor = HandoffExecutor(
+        (tmp_path / "other" if fault == "state" else state) / "live",
+        adapter=adapter,
+        cap_usd=Decimal(9 if fault == "cap" else 10),
+        check=(lambda *_: ()) if fault == "checker" else check,
+    )
+    with pytest.raises(ValueError, match="cpos_(execution_mode|live_binding):"):
+        cpos.run_comparison(
+            path,
+            state,
+            execute=(lambda _: pytest.fail("dispatched")) if fault == "callback" else executor,
+            check=check,
+        )
+    assert not (state / "identity.json").exists()
+
+
+def test_nonlive_comparison_preserves_legacy_zero_identity(tmp_path):
+    path = job(tmp_path)
+    state = tmp_path / "state"
+    state.mkdir()
+    legacy = json.loads(path.read_bytes())
+    for key in ("prior", "current", "instructions"):
+        del legacy[key]
+    legacy["run"] = cpos.Run.model_validate_json(json.dumps(legacy["run"])).model_dump(mode="json")
+    legacy["max_attempts"] = 2
+    (state / "identity.json").write_text(json.dumps(legacy, sort_keys=True))
+    assert cpos.run_comparison(path, state, execute=lambda _: RESPONSE, check=check).is_file()
+
+
 def test_cli_comparison_replay_requires_explicit_mode_and_pinned_answer(
     tmp_path: Path, monkeypatch, capsys
 ):

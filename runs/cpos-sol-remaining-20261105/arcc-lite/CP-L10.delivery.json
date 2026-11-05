@@ -1,0 +1,196 @@
+{
+  "run": {
+    "run_id": "sol-remaining-arcc-lite-authority-repair-20261105",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2024-12-31",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-L10"
+    ]
+  },
+  "handoffs": {
+    "CP-L10": {
+      "path": "CP-L10-repaired.md",
+      "sha256": "08c4132947ce27d2bfddb818ffd62c81dbb2602b060ba5b63c752fdb92410661"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "key-findings",
+      "capital-structure",
+      "strengths-weaknesses"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-L10",
+        "heading": "TL10.1",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL10.1"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL10.2",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL10.2"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL10.3",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL10.3"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL10.4",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL10.4"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL20.1",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL20.1"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL20.2",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL20.2"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL20.3",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL20.3"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL20.4",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL20.4"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL23.1",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL23.1"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL23.2",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL23.2"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL23.3",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL23.3"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL23.4",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL23.4"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL30.1",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL30.1"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL30.2",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL30.2"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL30.3",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL30.3"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL30.4",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL30.4"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL40.1",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL40.1"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL40.2",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL40.2"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL40.3",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL40.3"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "TL40.4",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "TL40.4"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "Attention ranking inputs",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "Attention ranking inputs"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "Combined screening conclusion",
+        "kind": "prose",
+        "block_id": "key-findings",
+        "label": "Combined screening conclusion"
+      },
+      {
+        "module_id": "CP-L10",
+        "heading": "Screening boundary",
+        "kind": "prose",
+        "block_id": "strengths-weaknesses",
+        "label": "Screening boundary"
+      }
+    ],
+    "title": "ARCC historical five-screen Lite review",
+    "question": "Which issuer-specific evidence warrants deeper analysis and what remains missing?",
+    "issuer_aliases": [
+      "ARCC",
+      "Ares Capital"
+    ],
+    "scope": "Fresh combined five-screen30topic Lite method. HistoricalFY2024/2023financials andDecembermarket/legal scope; subsequenteventsseparate. Screeningonly, no fullowner/nativecurrentunderwritingorwholepathwayacceptance."
+  }
+}

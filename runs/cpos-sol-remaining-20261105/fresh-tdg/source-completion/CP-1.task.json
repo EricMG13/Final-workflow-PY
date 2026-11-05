@@ -1,0 +1,85 @@
+{
+  "run": {
+    "run_id": "sol-fresh-tdg-complete-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-4",
+      "CP-6"
+    ]
+  },
+  "module_id": "CP-1",
+  "instructions": {
+    "path": "CP-1.instructions.md",
+    "sha256": "b0a635c4152c6c5a687c4bd8fc16e7177a4a410e41c6512788b3b83a1df8c1dd"
+  },
+  "sources": {
+    "S1-annual-report.pdf": {
+      "path": "../../../../data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+    },
+    "S1-text-aid.jsonl": {
+      "path": "../../../cpos-tdg-fresh-001/source-pages.jsonl",
+      "sha256": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+    },
+    "legal-text": {
+      "path": "../../../tdg-004/legal-source/source-lines.txt",
+      "sha256": "cb2c0c77e7ec1f90e5a7117a5df7e16cd2556b02e7be7ca43fbf4d64ed585b05"
+    },
+    "CP-4-method": {
+      "path": "../../../../docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/SKILL.md",
+      "sha256": "8a3b12f3f37359463434177759febac1ffcf0f8c484aa0508eb7119f7b6548b2"
+    },
+    "CP-4-REF_CP-4_STEPS": {
+      "path": "../../../../docs/reuse/selected-methods/skills/cp-4-legal-covenant-interpreter/references/REF_CP-4_STEPS.md",
+      "sha256": "ef5eb569be59ec30dd3a66c1bcc81c5cc0bcc2e9d2ac3909b04caa23339b6b94"
+    },
+    "CP-3-method": {
+      "path": "../../../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/SKILL.md",
+      "sha256": "7e85b2f545fffcb3ad17f4997e5c577ae9620d279f1ffe8e12aefa8ce38abcd1"
+    },
+    "CP-3-REF_CP-3A_STEPS": {
+      "path": "../../../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/REF_CP-3A_STEPS.md",
+      "sha256": "40ab91d6bd3bf7159eb15b6d11f36f46728306c0afa045a6b36bdd8eb4de08ec"
+    },
+    "CP-3-REF_CP-3_STEPS": {
+      "path": "../../../../docs/reuse/selected-methods/skills/cp-3-relative-value-security-selection/references/REF_CP-3_STEPS.md",
+      "sha256": "a142dd66006ea876e3abc9166e0184fcb0685b32bc5cff703e9158da22fe8767"
+    },
+    "CP-5-method": {
+      "path": "../../../../docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/SKILL.md",
+      "sha256": "7f21c8712cb40e871abaa1f855fdb95dded5df9887e354c39253e0492dd93390"
+    },
+    "CP-5-REF_CP-5A_STEPS": {
+      "path": "../../../../docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/references/REF_CP-5A_STEPS.md",
+      "sha256": "e93781b8055e0c33e744b06fb0706161885400d6f8c7ef07a743497d4a865e8d"
+    },
+    "CP-5-REF_CP-5_STEPS": {
+      "path": "../../../../docs/reuse/selected-methods/skills/cp-5-evidence-trace-validator/references/REF_CP-5_STEPS.md",
+      "sha256": "0b5beddbc0a5d3c99065379b7110e3b87fbc5392d38ed243ccbf7fdce70e506a"
+    },
+    "CP-6-method": {
+      "path": "../../../../docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/SKILL.md",
+      "sha256": "0ae74db02dd569fe7805e62a661f22cd436494183ba5cb928f8be37aa549a96b"
+    },
+    "CP-6-REF_CP-6_STEPS": {
+      "path": "../../../../docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/references/REF_CP-6_STEPS.md",
+      "sha256": "6141d27e800d45d2d0208173f38060c75d97005ee9b93013e24a16a40570f1e1"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../CP-0.md",
+      "sha256": "8a0611cc768e043abd52c2bf4899f6b0a6d560a1c264f7fbc991fa6d10863963"
+    }
+  },
+  "draft": {
+    "path": "CP-1.original.md",
+    "sha256": "89dced9cb71499d2c18ae55dda6bfcb524f060b86c43b52e9f35ece4e1c38c9e"
+  },
+  "checks": "CP-1.checks.json",
+  "output": "CP-1.corrected.md"
+}

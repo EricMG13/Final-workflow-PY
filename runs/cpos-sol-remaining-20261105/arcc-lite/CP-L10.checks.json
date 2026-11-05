@@ -1,0 +1,31 @@
+{
+  "required_terms": [
+    "2024",
+    "2023",
+    "SCREENING_ONLY",
+    "COMPLETE_WITH_GAPS",
+    "Combined screening conclusion",
+    "Screening boundary",
+    "Attention ranking inputs",
+    "TL10.1",
+    "TL10.2",
+    "TL10.3",
+    "TL10.4",
+    "TL20.1",
+    "TL20.2",
+    "TL20.3",
+    "TL20.4",
+    "TL23.1",
+    "TL23.2",
+    "TL23.3",
+    "TL23.4",
+    "TL30.1",
+    "TL30.2",
+    "TL30.3",
+    "TL30.4",
+    "TL40.1",
+    "TL40.2",
+    "TL40.3",
+    "TL40.4"
+  ]
+}

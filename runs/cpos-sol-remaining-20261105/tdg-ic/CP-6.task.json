@@ -1,0 +1,77 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-ic-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-12-28",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-6"
+    ]
+  },
+  "module_id": "CP-6",
+  "instructions": {
+    "path": "CP-6.instructions.md",
+    "sha256": "c2f664d8228b13d82c9dcd60d75cb1cbbfa96467c6f1eb56ee016a94575b0111"
+  },
+  "sources": {
+    "method-entry": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/SKILL.md",
+      "sha256": "0ae74db02dd569fe7805e62a661f22cd436494183ba5cb928f8be37aa549a96b"
+    },
+    "method-base-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-6-ic-debate-challenge/references/REF_CP-6_STEPS.md",
+      "sha256": "6141d27e800d45d2d0208173f38060c75d97005ee9b93013e24a16a40570f1e1"
+    },
+    "primary-legal-selection": {
+      "path": "../tdg-legal/refinancing-source-lines.txt",
+      "sha256": "ff0a65f7e9255a060f74e01c74459a8c5bdfcbffbd9d907abe09eb2f922b221a"
+    }
+  },
+  "handoffs": {
+    "CP-0-annual": {
+      "path": "../../cpos-sol-medium-20261105/CP-0.md",
+      "sha256": "ece2808828294951bfbed08636a37d75319e7ac4d6ccc28e865c547e2b90942b"
+    },
+    "CP-1-annual": {
+      "path": "../../cpos-sol-medium-20261105/deliveries/ff9a58944ddfb17f1876151a30020200a622d0d7238d3a79eb1ddba1d7e050fa/CP-1.md",
+      "sha256": "9d57bc5d5baac5c16a3f12fc2c017b8405e3e3b3db327002890f8cf8f7a1eb03"
+    },
+    "CP-1A-annual": {
+      "path": "../../cpos-sol-medium-20261105/deliveries/ff9a58944ddfb17f1876151a30020200a622d0d7238d3a79eb1ddba1d7e050fa/CP-1A.md",
+      "sha256": "3da9bf55281dc9a86e15bbb438ddd3b8aa04244344ab5ee7e5c059fc2da9054f"
+    },
+    "CP-2-annual": {
+      "path": "../../cpos-sol-medium-20261105/deliveries/ff9a58944ddfb17f1876151a30020200a622d0d7238d3a79eb1ddba1d7e050fa/CP-2.md",
+      "sha256": "e7b46ceeedf76db7143359e7cef97b64c6a210dd7b63d3362cc2a7943018ee3a"
+    },
+    "CP-1B-quarter": {
+      "path": "../tdg-earnings/CP-1B.md",
+      "sha256": "42ee44c8350150abd3875adc4ee30ba2cdc4658d0db3ed905251f4825be6e377"
+    },
+    "CP-1D-quality": {
+      "path": "../tdg-earnings/CP-1D.md",
+      "sha256": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807"
+    },
+    "CP-2A-downside": {
+      "path": "../tdg-stress/CP-2A.md",
+      "sha256": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3"
+    },
+    "CP-2D-liquidity": {
+      "path": "../tdg-earnings/CP-2D.md",
+      "sha256": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565"
+    },
+    "CP-4-legal": {
+      "path": "../tdg-legal/CP-4.md",
+      "sha256": "267d429c7bc749f4f5a832e8cd90dfdfb09556697221f4b022a2a37196d93b43"
+    },
+    "CP-3C-funding": {
+      "path": "../tdg-legal/CP-3C.md",
+      "sha256": "2a093ac35ac5554c49958676c2ec040a2a3ec92886a92f9ac7197bb5f89b812e"
+    }
+  },
+  "layout": "CP-6.layout.json",
+  "checks": "CP-6.checks.json",
+  "output": "CP-6.md"
+}

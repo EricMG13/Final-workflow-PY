@@ -1,0 +1,127 @@
+{
+  "run": {
+    "run_id": "sol-current-relative_value-20261105",
+    "issuer_id": "ARCC",
+    "issuer_name": "Ares Capital Corporation",
+    "as_of": "2024-12-31",
+    "case_kind": "public",
+    "pathway": "relative_value",
+    "requested_modules": [
+      "CP-3D",
+      "CP-3",
+      "CP-4",
+      "CP-L10",
+      "CP-5"
+    ]
+  },
+  "handoffs": {
+    "CP-3D": {
+      "path": "../../arcc-market/CP-3D.md",
+      "sha256": "0f90e8e5a1b58f5174fe60281244347dfd15f0da1608152a1f53cfe8132b6f61"
+    },
+    "CP-3": {
+      "path": "../../arcc-selection/CP-3.md",
+      "sha256": "9d266261a1eb5c92c9e7052a999e087fc39cde506e4fdb9be47c00d65218b1c6"
+    },
+    "CP-4": {
+      "path": "../../arcc-capacity/CP-4A.md",
+      "sha256": "fe5f4dc0f9bfb70ff9947c6ae98a19f7e0ecdede9e45b6be6b706b2142ced738"
+    },
+    "CP-L10": {
+      "path": "../../arcc-lite/CP-L10-repaired.md",
+      "sha256": "08c4132947ce27d2bfddb818ffd62c81dbb2602b060ba5b63c752fdb92410661"
+    },
+    "CP-5": {
+      "path": "../../arcc-lite-assurance/CP-5.md",
+      "sha256": "23d1fe9d482df7393afca92e81f7a3b3d9f8a3db0cd9e0dfd28ce427664b7eea"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "instrument-levels",
+      "yield-against-maturity",
+      "market-against-fundamentals",
+      "compensation-preference",
+      "peer-positioning",
+      "recommendation-portfolio-fit",
+      "capital-structure",
+      "loan-hy-relative-value",
+      "credit-view",
+      "what-changed"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-3",
+        "heading": "T3.5 \u2014 relative value",
+        "kind": "table",
+        "block_id": "instrument-levels"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Pair pricing controls",
+        "kind": "chart",
+        "block_id": "yield-against-maturity",
+        "figure_id": "RV.1",
+        "value_columns": [
+          "Maturity_yield_fraction"
+        ],
+        "orientation": "period-rows",
+        "chart_unit": "%",
+        "label": "Conditional maturity yields by security and price case; copied rounded fractions, not a fitted curve"
+      },
+      {
+        "module_id": "CP-3D",
+        "heading": "T3E.7 \u2014 fundamental reconciliation",
+        "kind": "table",
+        "block_id": "market-against-fundamentals"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Security-selection conclusion",
+        "kind": "prose",
+        "block_id": "compensation-preference"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "T3.6 \u2014 fundamental value matrix",
+        "kind": "table",
+        "block_id": "peer-positioning",
+        "label": "Same-issuer security comparison; external corporate peer cohort not supplied"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Portfolio implementation boundary",
+        "kind": "prose",
+        "block_id": "recommendation-portfolio-fit"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "T3B.2 \u2014 selected capital structure",
+        "kind": "table",
+        "block_id": "capital-structure"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Instrument trade-offs",
+        "kind": "prose",
+        "block_id": "loan-hy-relative-value",
+        "label": "Same-issuer bond trade-offs; loan/HY pricing inputs not supplied"
+      },
+      {
+        "module_id": "CP-3",
+        "heading": "Fundamental credit context",
+        "kind": "prose",
+        "block_id": "credit-view"
+      },
+      {
+        "module_id": "CP-3D",
+        "heading": "Market conclusion",
+        "kind": "prose",
+        "block_id": "what-changed",
+        "label": "Current historical market assessment; no new dated market observation"
+      }
+    ],
+    "scope": "ARCC retrospective December 31, 2024 evaluated valuations, with separate clean- and dirty-price assumptions. The March/July 2029 pair is a same-issuer comparison; external peers and loan/HY pricing were not supplied. The chart copies the current handoff\u2019s six-decimal fractional yields; higher-precision narrative remains in the evidence. No repricing or current executable preference. All requested panels are populated from checked live handoffs through provider-free delivery reuse. This publication is not a fresh model execution of the whole pathway or current investment clearance. No replacement analysis or Excel output.",
+    "title": "Ares Capital Corporation \u2014 relative value"
+  }
+}

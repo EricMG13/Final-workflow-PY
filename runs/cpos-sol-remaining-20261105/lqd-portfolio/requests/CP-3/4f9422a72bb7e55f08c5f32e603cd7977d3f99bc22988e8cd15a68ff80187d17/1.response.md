@@ -1,0 +1,281 @@
+# CP-3 — Ares Capital Corporation in LQD
+
+## Request
+
+View: Ares Capital Corporation is **Requires More Work** for portfolio implementation in LQD. The five actual historical holdings total USD 33762233.400000000, or 0.109532894 percent of matched filing NAV. July 2029 accounts for USD 10424576.410000000; the two 2029 maturities account for 52.419866957 percent of issuer-held value. These are measured holdings, not proposed sizes. Conditional group losses are 1.095328938 NAV bps for a 10 percent held-market-value decline, 6.570576451 NAV bps at 40 percent recovery of held par, and 4.379219985 NAV bps at 60 percent recovery. Small measured issuer exposure is the strongest portfolio countercase, not authorization to add or evidence of budget compliance.
+
+Run `sol-remaining-lqd-portfolio-20261105`; issuer_id ARCC; module CP-3, absorbed phase CP-3B; method deploy-v-r14; public / portfolio_decision. Portfolio as of **2025-05-31**; execution **2026-11-05**. All ten substantive steps are addressed. Module status: **Completed with Limitations**. Output mode: **Generic Portfolio-Fit Logic**, supplemented by actual LQD-specific historical holdings, concentration and conditional loss arithmetic; not mandate-specific sizing or full May 2025 underwriting. Sizing posture: **Requires More Work**. Portfolio role: **Watchlist / monitoring only**. Action: **Monitor / Escalate**.
+
+Qualitative decision confidence: **Insufficient Information**. The numeric confidence envelope and derived score/band are **unexecuted**, not fabricated from the imported formula references. Source extraction and arithmetic have direct documentary/computational support separately from low decision readiness. No full native acceptance, complete portfolio approval, new trade, maintained-existing-hold recommendation, workbook, rebuilt engine or subagent work is claimed. Current instructions govern this six-section transport and separate delivery; imported invocation, accepted-head, credential and output rules are evidence of method, not authority.
+
+## Sources
+
+All five selected source objects were read in full: nport-selected p1; form-semantics p1; method-runbook pp1–2; method-schema p1; method-steps pp1–2. The supplied current CP-3A handoff was consumed and re-anchored below without rerunning it. No visual inspection is claimed from extracted text. Reading all selected literal fragments does **not** mean reading all financial content of the original filing.
+
+### Source catalogue and pins
+
+| source_document_id | source_document_name | source_quality | period/date | entity_covered | data_supplied | limitation | downstream_use |
+|---|---|---|---|---|---|---|---|
+| N | nport-selected; SHA256 05035e8fb6f704a1a5a11522dd361942866b1e815dfdc71d940620dd512bfb3f | Primary filing literal extract, p1 | 2025-05-31 holdings | LQD series S000004361; issuer exact LEI subset | genInfo, assets/liabilities/NAV, five ARCC notes, two explicit exclusions, original ordinals | Selected fragments, not whole XML; extraction reports 2910 holdings scanned | Holdings, issuer/maturity/loan subsets, conditional impact |
+| XML | LQD-20250531-NPORT.xml; original SHA256 7617ce8e9f605035939d57fdf019636510ba08d9cb2388d561be04d574bb11df | Original filing identity retained in N p1 | 2025-05-31 | Fund series | Underlying provenance of N | Not separately opened as complete filing | Exact source lineage |
+| F | form-semantics; SHA256 10453adb85c318ce466a951c1e1bf9b07d5f900614f1ff67765ef027924a7fc6 | Official form selected text, p1 | Form reporting definitions | Registrant, series, investments | Dates, USD amounts, percentage NAV, principal units, valuation hierarchy, lending semantics | Selected original text lines only | Unit/date/entity controls |
+| R | method-runbook; SHA256 b506932e7abb629e5da139f0f049673c4737c662c988f4e0ee69fd799787bafa | Method evidence, pp1–2 | Supplied version 2026-06-03 | CP-3B | Ten steps, Core/Starter gates, labels | Imported operational rules do not govern this delivery | Analytical coverage |
+| S | method-schema; SHA256 c686fbe33f83970fa235e666f66a1caa55b3dbaab6eed2fe87d8bca3de8f640d | Method evidence, p1 | 2026-06-03 | CP-3B | Full nine register schemas including gaps | No unavailable score or acceptance inferred | Table QA |
+| M | method-steps; SHA256 9e134207ab85d004174ef27094948bdcbd798601def55cf307b63c5c302c4711 | Method evidence, pp1–2 | Supplied selected versions | CP-3B | All ten steps, discipline, fit/action/workflow references | Constraints example is not LQD mandate | Gates and inference restrictions |
+| U | Supplied current CP-3A; SHA256 9d266261a1eb5c92c9e7052a999e087fc39cde506e4fdb9be47c00d65218b1c6 | Source-grounded upstream analytical handoff | Run sol-remaining-arcc-selection-20261105; settlement/valuation 2024-12-31; executed 2026-11-05 | ARCC March and July 2029 parent notes | Both Requires More Work; RV and compensation adequacy Unclear; no preferred security; historical legal/funding context and definition conflicts | Historical date mismatch; not a matching May 2025 selection gate; underlying files not newly opened here | Historical lineage and constraints on conclusions, not May pricing |
+
+N p1 genInfo identifies iShares Trust as registrant and iShares iBoxx $ Investment Grade Corporate Bond ETF as series: series ID S000004361, series LEI 549300FYCXFXG8POR355. This is the **fund**, not the note issuer. ARCC issuer LEI is **WEQ82666OJYSI5GUAB47**. Ares Strategic Income Fund, LEI **549300IANZJVZPTICV54**, at original ordinals 887 (US04020EAD94) and 2092 (US04020EAJ64), is excluded; related names and its loaned securities are not ARCC exposure.
+
+F p1 lines 215–217 distinguishes fiscal year-end from reporting date. Thus `repPdDate=2025-05-31` is portfolio as-of; `repPdEnd=2026-02-28` is fiscal year-end, **not valuation date**. N p1 reports total assets USD 34826064750.43, liabilities USD 4002234372.24 and net assets USD 30823830378.19. Only that historical matched NAV is used; no current website NAV is substituted. F p1 lines 434–440 and 180–181 establish balance units, USD value and percentage—not fractional—NAV reporting. PA balances here are **held par USD**, not issuer outstanding debt.
+
+### Upstream re-anchor and dated limitations
+
+U is current as an analytical handoff, but its economic scope remains December 31, 2024. March US04010LBF94 and July US04010LBG77 were both Requires More Work; no Preferred or Secondary was established. RV and compensation adequacy were Unclear. Its common-clean July premium failed independent source rounding; its common-dirty premium survived rounding but was not proved adequate after duration, liquidity, calls and protection differences. Mixed bases could reverse ordering. Those outcomes are upstream historical uncertainties, including the CP-3D evaluated-price/basis gap, **not May yield inputs**. No December evaluated price, yield, coverage or rate sensitivity is transferred into May holdings. U's historical lowercase `requiresmorework`, wherever serialized, cannot be stitched into a new Core Hold.
+
+U's own January 2025 issuance discussion is subsequent to its December valuation. It is not a December liability. N now documents a held March 2032 series as of May; that observation does not supply complete operative terms for the newer 2025 series. Historical 2024 terms are not applied to all five notes. U's current CP-4A context is July-specific and historical; no fresh May certificate, current legal capacity or legal eligibility is established here. No prior stage was rerun merely to create a matching contract.
+
+### Inherited historical definition conflicts
+
+The following **Definition conflicts** table is inherited verbatim from U. Its accounting, debt, cash, rates and locators concern **December 2024 only** and U's selected sources, not May market values, current debt, or newly opened primary files. These source values are not re-reconciled here.
+
+| Instrument / definition | All figures and economic roles | Sources / locators | Treatment and creditor consequence |
+|---|---|---|---|
+| March US04010LBF94 | Initial and December face 1000 USDm; carrying 985; estimated fair 1010; actual coupon 5.875%; effective issuer rate 6.575% including swap; swap receives 5.875%, pays one-month SOFR+2.023% | M p1 §1.01(a)–(d); A94 selected p2; A291 selected p5 fn3–4,6 | One full-set instrument conflict entry. T3B.2 uses carrying 985; fair/face determines equivalent 101. Accounting costs/discounts/hedge adjustments do not retire face. Issuer effective rate is not noteholder coupon. |
+| July US04010LBG77 | Initial and December face 850 USDm; carrying 835; estimated fair 861; actual coupon 5.950%; effective issuer rate 6.040% including swap; swap receives 5.950%, pays one-month SOFR+1.643% | J p1 L73–83; A94 selected p2; A291 selected p5 fn3–4,6 | One full-set instrument conflict entry. T3B.2 uses carrying 835; fair/face determines equivalent 101.294118. No averaging of roles; use actual cash coupon in PV. |
+| Group debt and separate borrowings | Debt caption 13727 carrying versus principal 13789 and estimated fair 13552 USDm; separate balance-sheet Secured borrowings 32 (prior 34); prior Debt caption 11884 | A115 selected p4; A291 selected p5 | Preserve separate caption and principal/carry/fair roles. No reconstructed legal debt denominator or fabricated all-secured total. |
+| Cash | Ordinary 635 versus 535; restricted 225 versus 29; combined cash-flow ending 860 versus 564 USDm | A115/A255 selected p4 | Combined total is not unrestricted cash or a coverage numerator. |
+| Earnings / cash common issuance | NII 1403/1266; net operations 1522/1522; diluted EPS 2.44/2.68; common-stock CF net proceeds 1364 versus A89 ATM net 1362.7 USDm | A116/A255 selected p4; A89 selected p2 | Different metrics, per-share denominators and issuance scopes; retain all, do not force agreement or call operations cash. |
+| Subsequent swap effective date | A95 says January 8, 2032; C Calculations/A300 says January 8, 2026; both refer to subsequent March 2032 issuance-related forward swap | A95 selected p2; C Calculations, Subsequent events | Unresolved upstream date conflict, excluded from December stack, pricing, coverage and preference inputs; obtain operative swap. |
+
+## Findings
+
+### Held instrument evidence
+
+All rows are Source Fact from N p1, original 1-based `invstOrSec` ordinals among 2910 scanned holdings. Amounts below preserve exact source amounts through nine-decimal display; Reported_pct_NAV preserves the literal twelve decimals. All are USD, long, DBT, CORP, fixed coupon, and report unrestricted N, default N, interest arrears N and PIK N. These flags describe the reporting period, not permanent guarantees. Loan values of zero below arise only from explicit `isLoanByFund=N`, not missing-value zero filling.
+
+| Ordinal | ISIN | Par_USD | Value_USD | Reported_pct_NAV | Maturity | Reported_coupon_pct | On_loan_value_USD | Valuation_level |
+|---|---|---|---|---|---|---|---|---|
+| 888 | US04010LBK89 | 4430000.000000000 | 4393034.750000000 | 0.014252072815 | 2030-09-01 | 5.500000000 | 0.000000000 | 2 |
+| 1453 | US04010LBB80 | 1347000.000000000 | 1256309.720000000 | 0.004075774180 | 2028-06-15 | 2.880000000 | 0.000000000 | 2 |
+| 1780 | US04010LBG77 | 10247000.000000000 | 10424576.410000000 | 0.033819860419 | 2029-07-15 | 5.950000000 | 1213674.212800000 | 2 |
+| 2173 | US04010LBH50 | 10572000.000000000 | 10414771.100000000 | 0.033788049610 | 2032-03-08 | 5.800000000 | 0.000000000 | 2 |
+| 2561 | US04010LBF94 | 7177000.000000000 | 7273541.420000000 | 0.023597136795 | 2029-03-01 | 5.880000000 | 306062.353000000 | 2 |
+
+N's reported coupons 2.88 and 5.88 are rounded reported values; they do not amend actual 2.875 and 5.875 terms. The latter March contractual coupon is also retained in U. This module does not use the rounded filing coupons to build dated pricing or amend legal terms. Level 2 is a fair-value hierarchy designation (F p1 lines 493–497), not evidence of executable bids, trading depth, legal approval or liquidity classification.
+
+July and March loan values are already included in their holding values. Their USD 1519736.565800000 sum is an **on-loan subset**, not added exposure. F p1 lines 649–661 distinguishes securities on loan from reinvested cash collateral and noncash collateral. N reports cash-collateral N and noncash-collateral N for these positions; the on-loan fields are not reinvestment collateral and neither loan valuation adds to issuer credit exposure.
+
+### T3C.1 — portfolio input gate
+
+| Input | Available / Missing | Source | Limitation | Portfolio Impact |
+|---|---|---|---|---|
+| CP-3 / CP-3A selection | Available historical only; matching-date gate missing | U Request, T3B.8, Portfolio implementation boundary | 2024-12-31 pair analysis, not 2025-05-31 selection; Requires More Work, RV Unclear | Gate positive selection/current-market-dependent sizing; continue independent holdings arithmetic |
+| Issuer and instrument identity | Available | N p1 genInfo and five original ordinals; F p1 C.1/C.2 | Exact issuer LEI match, not group-name aggregation | Five actual notes; related issuer and fund LEIs excluded |
+| Current holdings / exposure | Available for historical requested date | N p1 | Not execution-date holdings; selected fragments rather than full portfolio analytics | Quantify issuer, selected note, 2029 and loan subsets without sizing gate |
+| Mandate / limits / requested size | Missing | M p1 step 1; no LQD governing constraints supplied | Test CLO template is schema-only, not an LQD limit | No eligibility, headroom, compliance, numeric proposed size or pro forma calculation |
+| Concentration / correlation reports | Partial | N p1; Calculations below | Issuer and issuer 2029 subset calculable; whole-fund sector/rating/sponsor/layer/correlation unavailable | Retain measured concentration and withhold limit conclusions |
+| Market / liquidity / operations | Missing for decision date | N p1 Level 2; U historical limits | No matched May executable two-way markets, depth, stress bids, recall or settlement evidence | Liquidity/scaling restricted; exit risk not assessable |
+| Downside / recovery / loss budget | Partial | N p1; analyst assumptions in Calculations; U T3B.6 | Conditional arithmetic, no probability, budget or waterfall | Compute actual-held-value/par sensitivities; no expected loss or budget utilization |
+| Legal / covenant / refinancing / LME | Historical partial only | U T3B.4–6 and gaps | No May operative five-note perimeter, certificates, financing bridge, proposed LME | Larger-exposure suitability not established; no current breach inferred |
+
+### T3C.2 — portfolio fit
+
+| Name / Instrument | Fit Category | Evidence | Risk Mechanic | Why It Fits / Does Not Fit | Constraints / Notes | Source Trace |
+|---|---|---|---|---|---|---|
+| ARCC five-note aggregate | Not assessable | Source Fact: fund ownership; Calculation: 0.109532894 percent NAV | Common issuer exposure transmits asset/financing stress across notes | Ownership demonstrates historical allocation, not legal eligibility or fresh attractiveness | Role Watchlist / monitoring only; mandate and selection gaps CP-3B-GAP-001/002 | N p1; U Request; Exposure controls |
+| July US04010LBG77 | Not assessable | USD 10424576.410000000 value; U Requires More Work on older date | Later repayment than March extends common-credit exposure; current premium untested | Historical analytical relevance but neither current RV fit nor liquidity fit proved | Selected instrument, not incremental position; no yield carry mandate inferred | N p1 ordinal 1780; U T3B.7–8 |
+| March US04010LBF94 | Not assessable | USD 7273541.420000000 value; U unresolved preference | Earlier maturity is not a higher payment rank or fund exit route | Conditional historical shorter-exposure case does not prove current fit | No RV switch proposed | N p1 ordinal 2561; U T3B.4/8 |
+| US04010LBK89 / US04010LBB80 / US04010LBH50 | Not assessable | Actual other held notes; maturities 2030/2028/2032 | Additional series diversify calendar, not issuer-default factor | No security-selection or full legal review supplied for these series | Do not extend 2024 pair terms to new 2025 issuance or other series | N p1 ordinals 888/1453/2173; U scope |
+
+### Core and Starter condition assessment
+
+All seven Core conditions are assessed before assigning posture. (1) CP-3 recommendation plus current market context: **not met**; U is historical and unresolved, with no May market alignment. (2) Mandate eligibility: **not established**; ownership is not eligibility. (3) Current and pro forma exposure capacity: **partial only**; historical current exposure is calculated, but proposed size and limits are Not supplied. (4) Liquidity and exit feasibility: **not established**, including recalls and stressed execution. (5) Downside loss budget/recovery sensitivity: **partial only**; sensitivities are calculated, but no authorized loss budget or legal recovery evidence. (6) Concentration/correlation with existing holdings: **partial only**; issuer/maturity arithmetic is positive work, but whole-fund cross-factor capacity is absent. (7) Legal/covenant/refinancing/maturity-wall risk consistent with larger exposure: **not established**; U's bounded historical pair review is not five-note May underwriting. Core Hold is unavailable, not assigned hypothetically.
+
+Starter conditions: favourable/conditional selection is **not established on a matching-date basis** (historical unresolved cases are not approval); identifiable and monitorable downside is **partially met** through marks, asset quality and financing observables; incomplete mandate data are **not demonstrated adverse**, but this is not affirmative eligibility or an approved cap; liquidity permitting exit without disproportionate cost at proposed size is **not established**, and no size was proposed. Thus Starter Position is also unsupported. Neither ownership nor missing limits supports Hold Existing Only, Hold / Maintain, Trim / Reduce, Avoid, or a new numerical recommendation.
+
+### T3C.3 — sizing posture
+
+| Name / Instrument | Sizing Posture | Evidence | Reason | Key Risk | Implementation Note | Confidence | Source Trace |
+|---|---|---|---|---|---|---|---|
+| ARCC aggregate / all five notes | Requires More Work | Actual historical exposure quantified; all seven Core conditions not fully met | Measured exposure cannot establish eligibility, current compensation or deployable capacity | Missing limits, current selection, exit and downside budget | Watchlist / monitoring only; Monitor / Escalate; no numeric proposed size | Insufficient Information | N p1; U scope; Core/Starter assessment; GAP-001–006 below |
+| July US04010LBG77 selected | Requires More Work | 0.033819860 percent NAV; historical preference unresolved | Historical premium uncertainty and current-market gap prevent scaling inference | Additional tenor and untested liquidity/protection compensation | No incremental sizing; selected loss is nested within group scenarios | Insufficient Information | N p1 ordinal 1780; U T3B.8; Calculations |
+| March US04010LBF94 | Requires More Work | Actual held value; older Requires More Work conclusion | Earlier maturity does not cure mandate or full legal/market gaps | Parent unsecured asset reach in U; no updated certificates | No maintained-existing-hold recommendation inferred | Insufficient Information | N p1 ordinal 2561; U T3B.4–8 |
+| US04010LBK89 / US04010LBB80 / US04010LBH50 | Requires More Work | Actual held observations, no matching selection review | Filing value and period flags are not complete security underwriting | Unreviewed affected terms and execution feasibility | Monitor / Escalate; no 2024 terms transfer | Insufficient Information | N p1 ordinals 888/1453/2173; GAP-002/005 |
+
+Confidence entries are qualitative decision assessments, not invented derived numeric-score bands; the numeric envelope remains unexecuted as stated in Request.
+
+### T3C.4 — risk budget flags
+
+| Flag | Evidence | Risk Mechanic | Why It Matters | Caution Level | Portfolio Impact | Source Trace |
+|---|---|---|---|---|---|---|
+| RF-01 Mandate / capacity / rating budget unknown | No LQD limits, sector/rating allowances, budget or proposed size | Unknown constraint perimeter prevents capacity and compliance testing | Missing threshold is neither breach nor compliance | Not Assessable | No proposed/pro forma size or budget utilization; GAP-001/003/006 | T3C.1; M p1 steps 1/3/5 |
+| RF-02 Issuer / calendar / common factor | Five exact issuer notes; 2029 value USD 17698117.830000000 | Issuer deterioration affects multiple series and two calendar repayments | Calendar spread is not independent issuer diversification | Medium | Monitor common issuer exposure and maturity financing, not a limit breach; GAP-003/005 | N p1; controls |
+| RF-03 Liquidity / lending / execution | Level 2 marks; July/March portions on loan; no dealer depth | Marks may not be executable; recall and stressed selling can delay exit or widen discounts | Securities maturity is not fund exit liquidity | Not Assessable | Exit/scaling restricted; GAP-004 | N p1; F p1 lines 493–497/649–661 |
+| RF-04 Downside / recovery budget | Three conditional group losses calculated; authorized budget absent | Held par recovery sensitivity differs from mark-only sensitivity | Loss arithmetic alone does not show acceptability | Not Assessable | Budget comparison unavailable; recovery sensitivity not expected loss; GAP-006 | N p1; T3C.7; Calculations |
+| RF-05 Legal / priming / leakage / refinancing | U parent unsecured historical pair; incomplete current claim/collateral/financing map | Weaker assets reduce coverage/eligibility; new secured or subsidiary claims can weaken residual access | Funding support may preserve liquidity while reducing unsecured recovery access | Not Assessable | Larger exposure not supported; no actual LME, breach or leakage alleged; GAP-005 | U Fundamental context, T3B.4–6, gaps |
+| RF-06 Selection / valuation-date mismatch | December U unresolved; May held values only | Old evaluated basis/yields can misstate new compensation | Uncertain valuation premium cannot justify current sizing | High | Gate any preference/size update on dated selection; GAP-002 | U Request/T3B.8; N p1 |
+
+### T3C.5 — concentration and correlation
+
+| Exposure Dimension | Current Exposure | Proposed / Pro Forma Exposure | Limit / Capacity | Evidence Status | Risk Mechanic | Portfolio Implication | Source Trace |
+|---|---|---|---|---|---|---|---|
+| Issuer/group | ARCC held par USD 33773000.000000000; value USD 33762233.400000000; 0.109532894 percent NAV | Not supplied: no proposed size | Not supplied: no issuer limit | Calculation | Five series share one issuer; excludes different-LEI related fund | Small measured exposure is countercase, not approved headroom | N p1 five ordinals; controls |
+| Sector/subsector | Not supplied: no full-fund mapped sector exposure | Not supplied: no proposed size | Not supplied: no sector limits | Not Provided | BDC/financial credit exposure could overlap fund factors | No sector budget or diversification claim from five notes | U business context; GAP-003 |
+| Sponsor/ownership | Not supplied: no portfolio sponsor aggregation | Not supplied: no proposed size | Not supplied: no sponsor limit | Not Provided | Common management/ownership may generate overlapping exposures | Ares name is neither guarantee nor permission to combine different issuers | N p1 LEIs; U context; GAP-003 |
+| Rating bucket | Not supplied: no matching-date rating map | Not supplied: no proposed size | Not supplied: no rating allowances | Not Provided | Migration/forced-seller constraints could amplify exits | Investment-grade fund name does not prove note eligibility or capacity | N p1 seriesName; GAP-001/003 |
+| Maturity year/wall | ARCC 2029 value USD 17698117.830000000; 52.419866957 percent issuer value; 0.057416997 percent fund NAV | Not supplied: no proposed size | Not supplied: no calendar limit | Calculation | March and July repayments cluster issuer financing needs | This is issuer-held subset, not whole-fund 2029 wall or funded exit plan | N p1 ordinals 1780/2561; controls |
+| Capital-structure layer | Not supplied: no complete fund layer map; historical pair parent unsecured only | Not supplied: no proposed size | Not supplied: no layer limits | Not Provided | Collateral/local-claim priority can correlate residual losses | Do not quantify full-fund unsecured share or assign other series complete terms | U T3B.4; GAP-003/005 |
+| Correlated holdings/common factor | Qualitative same-issuer factor only; whole-fund numeric correlation Not calculable: missing mapped holdings/returns | Not supplied: no proposed size | Not supplied: no correlation budget | Not Provided | Borrower performance/valuation/funding shocks can affect all ARCC notes | No coefficient or whole-fund diversification benefit inferred | N p1 exact LEI; U pathway; GAP-003 |
+
+### T3C.6 — liquidity and implementation
+
+| Liquidity / Implementation Factor | Evidence | Risk Mechanic | Implementation Consequence | Constraint / Action | Source Trace |
+|---|---|---|---|---|---|
+| Trading depth / bid-ask / dealer colour | Level 2 only; executable quotes/lot depth Not supplied | Evaluated marks may differ from transaction prices under size/stress | Price impact and exit risk not assessable | Obtain same-date two-way executable lots and costs; no assumption of frictionless scaling | N p1; F p1 lines 493–497; GAP-004 |
+| Settlement / minimum size / operational constraint | USD notes held; July/March portions on loan; recall, dealer settlement and minimum lots Not supplied | Loan recall/delivery and denominations can constrain timing | No implementation-ready order or assumed immediate availability | Obtain custodian/lending recall and settlement/denomination records | N p1 lending fields; F p1 C.12; GAP-004/005 |
+| Exit route under stress | No stress bids, liquidity time horizon or authorized exit plan | Asset marks/financing stress can coincide with wider bids and forced-sale discounts | Maturity calendar cannot substitute for exit feasibility | Monitor executable stress markets and financing events; no fund liquidation time estimated | U realization pathway; N maturities; GAP-004 |
+| Ability to add / trim | Actual ownership only; no proposed size, limits or market depth | Existing ownership does not establish marginal capacity or cost | Neither Add / Initiate nor Trim / Reduce mechanically supported | Monitor / Escalate pending mandate, selection and executable-depth evidence | T3C.1–5; GAP-001/002/004 |
+
+### T3C.7 — downside budget
+
+| Downside Scenario / Driver | Input Basis | Formula / Method | Result / Directional View | Portfolio Loss / Risk-Budget Implication | Status | Source Trace |
+|---|---|---|---|---|---|---|
+| Price downside: analyst 10 percent held-value decline | Five-note value USD 33762233.400000000; matched NAV USD 30823830378.190000000 | Loss=value/10; NAVbps=loss/NAV*10000 | Loss USD 3376223.340000000; 1.095328938 NAV bps | Actual-held sensitivity; approved loss budget Not supplied; no proposed-size loss | Calculated | N p1; controls/trace |
+| Recovery / LGD sensitivity: analyst 40 percent held-par recovery | Held par USD 33773000.000000000, not issuer debt; same held value/NAV | Proceeds=par*0.4; loss=value-proceeds | Proceeds USD 13509200.000000000; loss USD 20253033.400000000; 6.570576451 NAV bps | Conditional terminal par-proceeds arithmetic, not factual LGD, default probability or waterfall recovery | Calculated | N p1; controls/trace; GAP-006 |
+| Recovery / LGD sensitivity: analyst 60 percent held-par recovery | Same five-note par/value and exact NAV | Proceeds=par*0.6; loss=value-proceeds | Proceeds USD 20263800.000000000; loss USD 13498433.400000000; 4.379219985 NAV bps | Alternative scenario, not additive to 40 percent or price case; budget comparison unavailable | Calculated | N p1; controls/trace; GAP-006 |
+| Selected July: analyst 40 percent held-par recovery | Par USD 10247000.000000000; held value USD 10424576.410000000; same NAV | Proceeds=selected par*0.4; loss=selected value-proceeds | Proceeds USD 4098800.000000000; loss USD 6325776.410000000; 2.052235667 NAV bps | Nested component of group 40 percent case; never add selected loss to group loss | Calculated | N p1 ordinal 1780; controls/trace |
+| Refinancing / maturity-wall downside | Two 2029 held maturities; U historical asset/funding pathway | Borrower deterioration → weaker collections/marks → coverage/borrowing-base pressure → financing constraints → maturity/exit pressure | Directional common-issuer risk; quantitative financing failure loss Not calculable: no dated funding plan | A concentrated held calendar can magnify monitoring need; fund exit need not wait for maturity | Directional Only | N p1; U Fundamental context; GAP-005 |
+| Legal / priming / leakage downside | U disclosed parent unsecured layer for pair; current permissions/claims incomplete | More pledged/local priority claims or asset transfers can shrink residual access | Directional; quantitative incremental loss Not calculable: no current waterfall/transaction | No uniform haircut across five notes, certified priming dollars or breach inference | Directional Only | U T3B.4–6; GAP-005/006 |
+
+All three group scenarios use exactly the same filing NAV and existing held positions. They are **analyst sensitivities**, not expected losses, PDs or predictions. No costs, timing, interest realization, default assumption or legal waterfall is embedded; no cross-scenario addition is permitted. No recovery inference is borrowed from U, which expressly lacked numerical recovery. No downside-budget utilization, loss capacity or proposed-size consequence is calculable without the missing authorized budget and proposed size.
+
+### Causal transmission, countercase and decision boundary
+
+Source evidence is separated from inference: N supplies actual values, maturities and lending status; U supplies a historical BDC realization/funding concern and unresolved selection, not a fresh deterioration finding. Analyst inference is conditional: weaker underlying borrower performance can weaken collections and investment marks; lower asset values/eligible collateral can constrain financing; additional pledging may preserve funding but reduce unsecured residual access; impaired refinancing and thinner stressed markets can then widen note discounts and obstruct LQD's exit. None of these links demonstrates that deterioration, breach, default or an LME has occurred. Observable tests are changes in nonaccruals/collections and realized-versus-marked values, dated coverage/base certificates, collateral and claims changes, actual funding commitments/uses, notice records and executable stressed bids.
+
+The strongest countercase combines **small measured issuer NAV exposure**, modest conditional NAV impacts relative to total NAV, five dated maturities rather than a single repayment, and U's historical higher-NII/financing-flexibility counterevidence. It defeats a claim that these holdings alone prove immediate portfolio impairment. It wins a positive implementation case only if matching-date selection and net executable compensation, LQD legal eligibility and limits, whole-fund factor capacity, usable financing and exit evidence, and authorized downside budgets support the intended size. None is established by ownership or by the absence of a threshold. Accordingly the evidence supports monitoring and escalation, not a disguised hold/add decision.
+
+### T3C.8 — monitoring
+
+| Trigger ID | Indicator | Leading / Lagging | Threshold or Qualitative Signal | Linked Risk Flag | Portfolio Action | Source Trace | Limitation |
+|---|---|---|---|---|---|---|---|
+| CP-3B-MON-001 | Mandate and portfolio capacity admission | Leading | Signed LQD rules, matched-date factor reports, authorized budget and any proposed size become available | RF-01; CP-3B-GAP-001/003/006 | Monitor / Escalate; reassess capacity before any posture change | T3C.1/5; M p1 steps 1/3/5 | Quantitative threshold not available in provided materials; no inferred compliance |
+| CP-3B-MON-002 | Selection and executable compensation | Leading | Aligned dated selection, terms and same-settlement two-way dealer lots resolve December/May mismatch | RF-06; CP-3B-GAP-002/004 | Monitor / Escalate to CP-3/CP-3D before any sizing update | U Request/T3B.8; N p1; T3C.6 | Quantitative threshold not available in provided materials; historical yield is not May input |
+| CP-3B-MON-003 | Asset quality, collections and realization marks | Leading / Lagging | New disclosure shows weaker collections/nonaccrual performance or realized values diverging adversely from marks | RF-02/RF-04/RF-05; CP-3B-GAP-005/006 | Monitor / Escalate to updated downside/funding review | U Fundamental credit context; T3C.7 pathway | Quantitative threshold not available in provided materials; no May deterioration asserted |
+| CP-3B-MON-004 | Financing / collateral / maturity execution | Leading | Dated certificates, collateral-eligibility changes, withdrawn/restricted funding, new secured claims or announced maturity funding uses | RF-02/RF-05; CP-3B-GAP-005 | Monitor / Escalate to CP-2D/CP-3C/CP-4 affected review | N p1 2029 maturities; U T3B.4–6 | Quantitative threshold not available in provided materials; no old coverage threshold treated as current compliance test |
+| CP-3B-MON-005 | Executable exit and loan recall | Leading | Dealer depth or stress bids deteriorate, recalls/delivery are delayed, or settlement constraints emerge | RF-03; CP-3B-GAP-004 | Monitor / Escalate; require documented executable exit before add/trim instruction | N p1 ordinals 1780/2561; F p1 C.12; T3C.6 | Quantitative threshold not available in provided materials; on-loan subset is not extra exposure |
+| CP-3B-MON-006 | Legal/control/rating/LME event | Leading / Lagging | Actual call, consent, transfer, new collateral/guarantee change, rating action or proposed LME affecting held series | RF-01/RF-05/RF-06; CP-3B-GAP-002/003/005 | Monitor / Escalate for affected-document, mandate and compensation review | U T3B.5 and gaps; N five ISINs | Quantitative threshold not available in provided materials; no automatic put, current breach or mandatory sale inferred |
+
+### Portfolio conclusion
+
+Overall, Ares Capital Corporation is **Requires More Work** for portfolio implementation. The sizing posture is driven by actual five-note exposure of USD 33762233.400000000, 0.109532894 percent NAV, and a 52.419866957 percent issuer-value cluster in 2029, alongside a mismatched December selection and missing LQD mandate, capacity, liquidity and budget inputs. Common issuer/financing transmission matters even where measured NAV exposure is small; the proper implication is **Watchlist / monitoring only**, **Monitor / Escalate**, not approval to add, hold or trim.
+
+The three conditional group losses of 1.095328938, 6.570576451 and 4.379219985 NAV bps quantify actual-held impacts, not permissible losses. Exit feasibility remains unassessable; neither Level 2 marks, on-loan status nor maturity dates fills that gap. The first implementation gate is CP-3B-MON-001/002: obtain actual LQD rules/budgets and date-aligned selection/executable evidence. Further analysis requires the precise gaps in T3C.9, including full factor exposures, affected legal terms and financing evidence. This is synthesis of Steps 1–9, not new analysis.
+
+### Implementation boundary
+
+Historical ownership is a source fact, not legal eligibility, ongoing suitability, recommended new size or a recommendation to maintain an existing holding. Missing mandate thresholds mean neither breach nor compliance. All unavailable limits are Not supplied, never zero. No numeric proposed size, pro forma exposure, capacity or budget utilization is reported. Template Test CLO constraints are not an LQD mandate. Issuer maturity financing is distinct from fund exit liquidity. The source holdings and conditional arithmetic are valid independently of a blocked positive selection/sizing gate.
+
+CP-3B **Completed with Limitations**. Sizing Posture: **Requires More Work**. Missing Inputs: matching-date selection/current market evidence, LQD mandate and limits, proposed size, whole-fund factor/correlation reports, liquidity/operational exit evidence, authorized loss budget, and current five-note legal/recovery/refinancing support. Function-complete with limitations does not mean full native acceptance, complete May underwriting or portfolio approval.
+
+## Calculations
+
+### Holding controls
+
+| ISIN | Par_USD | Value_USD | Reported_pct_NAV | Reported_coupon_pct | On_loan_value_USD |
+|---|---|---|---|---|---|
+| US04010LBK89 | 4430000.000000000 | 4393034.750000000 | 0.014252072815 | 5.500000000 | 0.000000000 |
+| US04010LBB80 | 1347000.000000000 | 1256309.720000000 | 0.004075774180 | 2.880000000 | 0.000000000 |
+| US04010LBG77 | 10247000.000000000 | 10424576.410000000 | 0.033819860419 | 5.950000000 | 1213674.212800000 |
+| US04010LBH50 | 10572000.000000000 | 10414771.100000000 | 0.033788049610 | 5.800000000 | 0.000000000 |
+| US04010LBF94 | 7177000.000000000 | 7273541.420000000 | 0.023597136795 | 5.880000000 | 306062.353000000 |
+
+### Exposure and loss controls
+
+| Metric | Value |
+|---|---|
+| fund_nav_USD | 30823830378.190000000 |
+| issuer_par_USD | 33773000.000000000 |
+| issuer_value_USD | 33762233.400000000 |
+| maturity2029_value_USD | 17698117.830000000 |
+| on_loan_subset_USD | 1519736.565800000 |
+| issuer_pct_NAV | 0.109532894 |
+| selected_pct_NAV | 0.033819860 |
+| maturity2029_pct_issuer | 52.419866957 |
+| price10_loss_USD | 3376223.340000000 |
+| price10_loss_NAV_bps | 1.095328938 |
+| recovery40_proceeds_USD | 13509200.000000000 |
+| recovery40_loss_USD | 20253033.400000000 |
+| recovery40_loss_NAV_bps | 6.570576451 |
+| recovery60_proceeds_USD | 20263800.000000000 |
+| recovery60_loss_USD | 13498433.400000000 |
+| recovery60_loss_NAV_bps | 4.379219985 |
+| selected_recovery40_proceeds_USD | 4098800.000000000 |
+| selected_recovery40_loss_USD | 6325776.410000000 |
+| selected_recovery40_loss_NAV_bps | 2.052235667 |
+
+Control pct metrics are **percent**, not fractions; loss_NAV_bps metrics are NAV basis points. No percent signs or thousands separators are used inside controls. Amounts retain exact primary precision with display padding; derived ratios are rounded only at final nine-decimal display. Reported_pct_NAV remains literal and separate.
+
+### Decimal-38 calculation trace
+
+Every material new sum/ratio was executed with the existing calculate kernel, Decimal-38 half-even. All operands are exact USD decimals as of 2025-05-31 from N p1 unless explicitly analyst scenario inputs. Percentage and bps scaling is implemented by exact decimal unit conversion of the denominator: NAV/100 = 308238303.7819 for percentages; NAV/10000 = 3082383.037819 for bps. No rounded output was fed back into a downstream calculation.
+
+| Calculation | Signed sum or ratio operands | Period / currency / quantity / source | Result |
+|---|---|---|---|
+| NAV check | sum 34826064750.43 - 4002234372.24 | 2025-05-31; USD assets less liabilities; N p1 | 30823830378.190000000; equals stated netAssets |
+| Issuer held par | sum 4430000 + 1347000 + 10247000 + 10572000 + 7177000 | Same date; USD held par; N five ordinals | 33773000.000000000 |
+| Issuer held value | sum 4393034.75 + 1256309.72 + 10424576.41 + 10414771.10 + 7273541.42 | Same date; USD held value; N five ordinals | 33762233.400000000 |
+| 2029 held value | sum 10424576.41 + 7273541.42 | Same date; USD value; N ordinals 1780/2561 | 17698117.830000000 |
+| On-loan subset | sum 1213674.2128 + 306062.353 | Same date; USD on loan, already inside values; N ordinals 1780/2561 | 1519736.565800000 |
+| Issuer percent NAV | ratio 33762233.40 / 308238303.7819 | Same date; percent NAV; N fund/issuer | 0.109532894 |
+| Selected percent NAV | ratio 10424576.41 / 308238303.7819 | Same date; percent NAV; N ordinal 1780 | 0.033819860 |
+| 2029 percent issuer value | ratio 17698117.83 / 337622.334 | Same date; percent issuer held value; N | 52.419866957 |
+| 2029 percent fund NAV | ratio 17698117.83 / 308238303.7819 | Same date; percent NAV; N | 0.057416997 |
+| On-loan percent NAV | ratio 1519736.5658 / 308238303.7819 | Same date; percent NAV, subset only; N | 0.004930395 |
+| Price10 group loss | ratio 33762233.40 / 10 | Same date holdings; analyst 10 percent value shock; USD loss | 3376223.340000000 |
+| Price10 impact | ratio 3376223.34 / 3082383.037819 | Same matched NAV; NAV bps | 1.095328938 |
+| Recovery40 proceeds | ratio 33773000 / 2.5 | Same held par; analyst 40 percent par recovery; USD | 13509200.000000000 |
+| Recovery40 loss / impact | sum 33762233.40 - 13509200; ratio 20253033.40 / 3082383.037819 | Same holdings/NAV; USD loss / NAV bps | 20253033.400000000 / 6.570576451 |
+| Recovery60 proceeds | ratio 33773000 / 5 = 6754600; sum 6754600 + 6754600 + 6754600 | Same held par; analyst 60 percent par recovery; USD | 20263800.000000000 |
+| Recovery60 loss / impact | sum 33762233.40 - 20263800; ratio 13498433.40 / 3082383.037819 | Same holdings/NAV; USD loss / NAV bps | 13498433.400000000 / 4.379219985 |
+| Selected recovery40 proceeds | ratio 10247000 / 2.5 | Same date selected held par; analyst 40 percent recovery; USD | 4098800.000000000 |
+| Selected recovery40 loss / impact | sum 10424576.41 - 4098800; ratio 6325776.41 / 3082383.037819 | Same selected holdings and fund NAV; USD loss / NAV bps | 6325776.410000000 / 2.052235667 |
+
+### Published versus recomputed percentage controls
+
+Each recomputation below used calculate as held value divided by 308238303.7819, giving percent NAV. Extra kernel precision is shown in the trace excerpt solely to test the literal reporting precision; the final displayed ratios remain nine decimals. All five published twelve-decimal percentages are consistent with **truncation** of the recalculated positive ratios. They are not forced to equal an incorrectly rounded twelve-decimal number, and published percentages are not used as fractional NAV weights.
+
+| ISIN / N p1 ordinal | Published percentage literal | Kernel percent-NAV excerpt before display | Recomputed percent NAV, final display |
+|---|---|---|---|
+| US04010LBK89 / 888 | 0.014252072815 | 0.014252072815416143352002938820581626860 | 0.014252073 |
+| US04010LBB80 / 1453 | 0.004075774180 | 0.0040757741805149769730445846140557012159 | 0.004075774 |
+| US04010LBG77 / 1780 | 0.033819860419 | 0.033819860419995405754636510052580041585 | 0.033819860 |
+| US04010LBH50 / 2173 | 0.033788049610 | 0.033788049610372803050532967977014434636 | 0.033788050 |
+| US04010LBF94 / 2561 | 0.023597136795 | 0.023597136795648004652695045372274009773 | 0.023597137 |
+
+## Gaps
+
+### T3C.9 — gaps
+
+| Gap ID | Missing Data | Why It Matters | Affected Sizing / Risk Budget / Trigger | Consequence for Confidence | Required Follow-Up Source |
+|---|---|---|---|---|---|
+| CP-3B-GAP-001 | LQD governing mandate, issuer/sector/rating/layer/calendar limits, legal eligibility, proposed size and approval authority | Ownership is not permission; missing thresholds cannot establish compliance/headroom | Core/Starter unavailable; RF-01; CP-3B-MON-001 | High impact; decision confidence Insufficient Information | Actual LQD guidelines and dated PM/committee proposed-size request, not Test CLO template |
+| CP-3B-GAP-002 | Matching May selection/current-market context for five notes, basis, callable valuation and compensation adequacy | U run sol-remaining-arcc-selection-20261105 is December 2024 only; historical uncertainty is not May yield input | Requires More Work; RF-06; CP-3B-MON-002/006 | High impact; no fresh preference or RV fit | Date-aligned CP-3/CP-3D evidence and affected security review; do not rerun old stage just for a contract |
+| CP-3B-GAP-003 | Whole-fund sector, sponsor, rating, layer, calendar and correlation mapping and capacity | Five issuer positions cannot establish full-fund factors or diversification | RF-01/02; T3C.5; CP-3B-MON-001/006 | High impact; concentration capacity not assessable beyond measured subsets | Matched-date full holdings/risk reports, rating map and limits; current exposure changes require a new dated snapshot |
+| CP-3B-GAP-004 | Same-date executable bid/ask/depth/costs, stress exit route, settlement/minimum denominations, loan recall/delivery records | Marks and loan values do not demonstrate scalable trading or prompt exit | RF-03; T3C.6; CP-3B-MON-002/005 | High impact; exit/scaling restricted | Dealer/custodian/lending-agent dated records and approved liquidity plan |
+| CP-3B-GAP-005 | Current operative five-note documents, claims/entity/collateral map, notices, certificates, accessible cash and timed financing/uses; transaction-specific LME if any | Historical pair rank/coverage is not new-series terms, current drawability, permissions or funded maturities | RF-02/05; Core condition 7; CP-3B-MON-003/004/006 | High impact; larger-exposure suitability and legal/refinancing loss unavailable | CP-4/CP-4A affected-document work, CP-2D/CP-3C dated bridge; retain U swap-date conflict pending operative evidence |
+| CP-3B-GAP-006 | Authorized loss budget/tolerances, supported recovery values/waterfall, proposed-size and full downside/rating/forced-seller inputs | Conditional actual-held arithmetic is not expected loss, recovery estimate or budget utilization | RF-01/04/05; T3C.7; CP-3B-MON-001/003 | High impact; no loss capacity, expected loss or numeric decision confidence | LQD risk policy, dated CP-2A and CP-4C inputs as needed; no generic recovery percentage treated as fact |
+
+### Execution coverage and assurance boundary
+
+Step 1: source/input gate and U re-anchor completed with date restrictions. Step 2: fit assessed per issuer/selected and other series without inferred eligibility. Step 3: all seven Core and all Starter conditions assessed before canonical Requires More Work posture. Step 4: risk flags link evidence to mechanics and budget consequences. Step 5: all seven concentration dimensions addressed, including positive issuer/2029 calculations. Step 6: all four liquidity dimensions addressed with missing exit evidence explicit. Step 7: all four downside dimensions addressed, three conditional group scenarios plus nested selected recovery sensitivity. Step 8: monitoring IDs link actual flags and gaps to observable signals/actions. Step 9: cumulative gaps cover all affected conclusions. Step 10: Portfolio conclusion and Implementation boundary synthesize without new data.
+
+The exact source and upstream hashes, original ordinal/ISIN/LEI distinctions, literal percentages, matched NAV, held par/value units, loan subset handling and inherited historical conflicts are retained for CP-5. calculate executed each material new sum/ratio; checks do not certify market execution, legal capacity or complete native acceptance. No confidence engine, portfolio engine, script or workbook was rebuilt or run. Arithmetic support is independent of the unexecuted numerical decision-confidence envelope.
+
+## Next module
+
+Pass this complete raw CP-3/CP-3B Markdown and exact supplied U lineage to **CP-6 for the next full inline portfolio challenge**, not a generic issuer debate or compressed approval summary. Challenge the positive case first: are measured issuer exposure and conditional NAV losses enough once actual LQD rules, whole-fund factors, authorized loss budgets and stressed exits are known? They currently are not permission. Challenge the restrictive case fairly: absence of rules does not prove breach, and U's historical counterevidence does not prove immediate financing closure. Require the winning conditions stated above before changing Requires More Work, Watchlist / monitoring only, Monitor / Escalate.
+
+CP-6 must preserve 2025-05-31 holdings versus 2024-12-31 selection and 2026-11-05 execution, the 2026-02-28 fiscal-year-end semantics, exact issuer/fund/related-issuer LEIs, all five ISINs and source ordinals, literal versus recomputed percentages, held par versus issuer debt, and nested loan/selected-loss treatment. Challenge the deterioration → marks/eligibility → financing → maturity/exit transmission with observable certificates, realizations and executable bids, not presumed default or recovery. Target evidence requests to CP-3/CP-3D, CP-2D/CP-3C and CP-4/CP-4C as needed; none is claimed newly run here.
+
+**CP-5 assurance** should audit exact hashes and locators, the verbatim historical conflict table, source-form units/dates, Decimal-38 trace and nine-decimal controls, all Core/Starter tests, canonical labels, linked monitoring/gaps and explicit withheld capacity/budget conclusions. Preserve the raw upstream handoff rather than replacing it with this synthesis. Deliver the existing complete Markdown separately with a delivery-only status report; that report adds no analysis, new price, proposed size, rebuilt model or workbook. The bounded conclusion remains CP-3B Completed with Limitations; Requires More Work, with the actual measured exposure and conditional impacts already reported above.

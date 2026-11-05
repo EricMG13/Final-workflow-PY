@@ -11,6 +11,19 @@ This transport choice does not import cp-os's old CP-8, memo or workbook duties.
 The [campaign record](runs/cpos-sol-medium-20261105/verification.json) separates
 module proof, fresh orchestration and retained broader-pathway regression scope.
 
+**Observed source and instruction corrections, 2026-11-05:** compare contractual
+dates with the issuer's fiscal calendar before declaring a maturity conflict.
+Inspect the MD&A debt/liquidity tables as well as the financial notes; an
+unsuccessful phrase search is not evidence that a date or facility attribute is
+absent. TDG's annual PDF pages 43 and 46 explicitly place November 15, 2027 in
+fiscal 2028, so the previously alleged conflict with the fiscal-2027 bucket is
+withdrawn. Pages 45–46 also supply letters of credit and exact reported maturities.
+CP-5 must assess presentation against the instructions actually sent to each
+producer, including explicit numeric-cell conventions. These observed corrections
+and the affected live repairs are tracked in the
+[remaining-module campaign record](runs/cpos-sol-remaining-20261105/verification.json);
+they supersede contrary historical review findings without altering source files.
+
 Current user correction: CP-MEMO is replaced by the actual deliverables assembled
 from analytical handoffs. The historical catalog/Word findings below describe
 the imported projects; they do not require another memo module in this version.

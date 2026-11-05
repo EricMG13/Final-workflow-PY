@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "All eleven base CP6 analytical duties over actual live annual/quarter/stress/liquidity/quality/legal handoffs. Historical mixed periods explicitly separated. Full current underwriting, pricing, portfolio approval and broader pathway remain unproved by this selected module report.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-6.md": "d999e6a0af14925a14dfe6c6cb414d65bd458e62d14535af322fc4e811540d3f",
+    "view.json": "70cc5cca1e65a0b6775d8cf7f356e5c684a368e36687c48e7c225d5e5773c902",
+    "report-view.json": "03cc8eccca566715a08eec4e55091884adc1d6790d39ffedf2153b45adfa917a",
+    "report.html": "1b983b96cd3885ec507b72c1431d3d8656976f9801f554ca7b2481c85ec2a6c3"
+  }
+}

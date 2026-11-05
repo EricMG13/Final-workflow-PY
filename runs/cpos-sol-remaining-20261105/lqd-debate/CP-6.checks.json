@@ -1,0 +1,110 @@
+{
+  "required_terms": [
+    "2025-05-31",
+    "2026-02-28",
+    "2024-12-31",
+    "Requires More Work",
+    "Insufficient Information",
+    "WEQ82666OJYSI5GUAB47",
+    "Portfolio Debate Source Gate",
+    "Pre-Debate Portfolio Thesis Map",
+    "The RV Trader's Pitch",
+    "The Mandate Compliance Officer's Attack",
+    "The RV Trader's Defense",
+    "CIO Evidence Weighting",
+    "Allocation Decision Matrix",
+    "Final Sizing Posture",
+    "Exact Portfolio Constraint",
+    "CIO Final Memo",
+    "Gaps Ledger",
+    "CP-6A-GAP-001",
+    "Decision boundary"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Exposure and loss controls",
+      "columns": [
+        "Metric",
+        "Value"
+      ],
+      "rows": [
+        [
+          "fund_nav_USD",
+          "30823830378.190000000"
+        ],
+        [
+          "issuer_par_USD",
+          "33773000.000000000"
+        ],
+        [
+          "issuer_value_USD",
+          "33762233.400000000"
+        ],
+        [
+          "maturity2029_value_USD",
+          "17698117.830000000"
+        ],
+        [
+          "on_loan_subset_USD",
+          "1519736.565800000"
+        ],
+        [
+          "issuer_pct_NAV",
+          "0.109532894"
+        ],
+        [
+          "selected_pct_NAV",
+          "0.033819860"
+        ],
+        [
+          "maturity2029_pct_issuer",
+          "52.419866957"
+        ],
+        [
+          "price10_loss_USD",
+          "3376223.340000000"
+        ],
+        [
+          "price10_loss_NAV_bps",
+          "1.095328938"
+        ],
+        [
+          "recovery40_proceeds_USD",
+          "13509200.000000000"
+        ],
+        [
+          "recovery40_loss_USD",
+          "20253033.400000000"
+        ],
+        [
+          "recovery40_loss_NAV_bps",
+          "6.570576451"
+        ],
+        [
+          "recovery60_proceeds_USD",
+          "20263800.000000000"
+        ],
+        [
+          "recovery60_loss_USD",
+          "13498433.400000000"
+        ],
+        [
+          "recovery60_loss_NAV_bps",
+          "4.379219985"
+        ],
+        [
+          "selected_recovery40_proceeds_USD",
+          "4098800.000000000"
+        ],
+        [
+          "selected_recovery40_loss_USD",
+          "6325776.410000000"
+        ],
+        [
+          "selected_recovery40_loss_NAV_bps",
+          "2.052235667"
+        ]
+      ]
+    }
+  ]
+}

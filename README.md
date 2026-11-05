@@ -7,6 +7,35 @@ applicable later corrections and additions, to Deploy Workflow's existing delive
 separate delivery process → Deploy Workflow reports, HTML Model, charts and calculation JSON.**
 
 Excel files are supported as analytical inputs only. Deliverables do not include Excel workbooks.
+
+The [remaining-module campaign record](runs/cpos-sol-remaining-20261105/verification.json)
+records sequential sol-medium responses, source/instruction reviews, targeted
+repairs and actual downstream consumption. Positive functional cases use TDG,
+ARCC, LQD, Ford Otosan, Enel, Moog/Wencor, CRC, LMI and Frontier with each
+issuer and evidence date kept separate. These are bounded historical proofs,
+not current underwriting or universal native-contract acceptance.
+
+Five broader report designs consume live handoffs through the existing delivery
+process. Final source-completeness corrections are in progress: the annual report
+explicitly places the November 2027 note maturity in fiscal 2028, resolving the
+previously alleged fiscal-2027 conflict. This is provider-free publication reuse,
+not fresh execution of every module in each pathway:
+
+| Pathway | Populated panels | Evidence boundary |
+|---|---:|---|
+| [Earnings update](runs/cpos-sol-remaining-20261105/pathways/earnings_update/published/report.html) | 14 | TDG December 2024 quarter, separate annual Model and dated guidance |
+| [Relative value](runs/cpos-sol-remaining-20261105/pathways/relative_value/published/report.html) | 10 | ARCC December 2024 same-issuer bond comparison; conditional price basis |
+| [Portfolio decision](runs/cpos-sol-remaining-20261105/pathways/portfolio_decision/published/report.html) | 8 | LQD May 2025 holdings; Requires More Work, with missing mandate inputs |
+| [Covenant/refinancing](runs/cpos-sol-remaining-20261105/pathways/covenant_refinancing/published/report.html) | 11 | TDG executed 2033 indenture; conditional capacity and liquidity |
+| [Distressed/restructuring](runs/cpos-sol-remaining-20261105/pathways/distressed_restructuring/published/report.html) | 15 | TDG conditional downside; actual distress and quantified recovery not established |
+
+Offline reproduction checks raw handoff bytes, every citation's physical line
+and source hash, chart values, Model calculations and complete publication
+bundles: `PYTHONPATH=src .venv/bin/python runs/cpos-sol-remaining-20261105/pathways/verify.py`.
+The literal adapter copies explicit committee action biases as well as portfolio
+postures, and keeps Model identity unchanged when sharing its facts with report
+charts. It does not generate replacement analysis or infer missing decisions.
+
 The [historical Erste source-intake report](deliverables/erste-source-intake-1/report.html)
 now exercises that boundary on real issuer spreadsheets: checked preparation,
 actual CP-1 consumption and HTML publication, with conflicting source values

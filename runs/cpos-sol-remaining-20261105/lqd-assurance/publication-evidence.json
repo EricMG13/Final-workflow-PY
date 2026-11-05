@@ -1,0 +1,55 @@
+{
+  "scope": "Actual offline verify_delivery rederivation plus independent literal handoff line/hash/quote checks. Mechanical parity only, no source truth or native analytical acceptance claim. Entire selected report block scope, not full pathway.",
+  "publications": [
+    {
+      "handoff": "../lqd-portfolio/CP-3-delivery/CP-3.md",
+      "handoff_sha256": "183c91f1b5ca67fcecad5ce64ac99cbc0a42c9bed422880c6102e9c9501677f3",
+      "report": "../lqd-portfolio/CP-3-delivery/report.html",
+      "report_sha256": "21054bfedabbec1f4b708b593d6da69be0a419d8a88741159c480a50d86cf0f1",
+      "all_exact_line_hash_quotes_checked": 146,
+      "blocks": [
+        {
+          "id": "portfolio-fit",
+          "state": "populated",
+          "kind": "prose"
+        },
+        {
+          "id": "capital-structure",
+          "state": "populated",
+          "kind": "dense"
+        },
+        {
+          "id": "binding-limitations",
+          "state": "populated",
+          "kind": "prose"
+        }
+      ],
+      "scope": "Fresh CP-3B historical positive holdings/downside function. December2024 security context kept separate fromMay2025 holdings; no investment approval or complete native portfolio pathway."
+    },
+    {
+      "handoff": "../lqd-debate/CP-6-delivery/CP-6.md",
+      "handoff_sha256": "554455c01803a0ae794e49dacc7ceb98c30f0b81be1a2b81f668ecb53de117f8",
+      "report": "../lqd-debate/CP-6-delivery/report.html",
+      "report_sha256": "dfbee2de4fdd32401f4c862d15a2724e68959c57d0763311f6ea4e74613b0905",
+      "all_exact_line_hash_quotes_checked": 104,
+      "blocks": [
+        {
+          "id": "capital-structure",
+          "state": "populated",
+          "kind": "dense"
+        },
+        {
+          "id": "portfolio-fit",
+          "state": "populated",
+          "kind": "prose"
+        },
+        {
+          "id": "binding-limitations",
+          "state": "populated",
+          "kind": "prose"
+        }
+      ],
+      "scope": "All eleven CP-6A portfolio-debate duties using actual current CP-3B and historical May2025 filing. Not complete base IC, current market recommendation or full native pathway. Raw full handoff retained; conditional scenarios are not expected losses."
+    }
+  ]
+}
