@@ -1,0 +1,78 @@
+{
+  "blocks": [
+    "liquidity-runway",
+    "funding-gap",
+    "red-flags",
+    "refinancing-paths"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-2D",
+      "heading": "Request",
+      "kind": "prose",
+      "block_id": "red-flags",
+      "prefix": "Liquidity view:"
+    },
+    {
+      "module_id": "CP-2D",
+      "heading": "T2E.1 \u2014 source gate",
+      "kind": "table",
+      "block_id": "red-flags"
+    },
+    {
+      "module_id": "CP-2D",
+      "heading": "T2E.2 \u2014 beginning liquidity",
+      "kind": "table",
+      "block_id": "liquidity-runway"
+    },
+    {
+      "module_id": "CP-2D",
+      "heading": "T2E.3 \u2014 cash uses",
+      "kind": "table",
+      "block_id": "funding-gap"
+    },
+    {
+      "module_id": "CP-2D",
+      "heading": "T2E.4 \u2014 working capital and capex",
+      "kind": "table",
+      "block_id": "liquidity-runway"
+    },
+    {
+      "module_id": "CP-2D",
+      "heading": "T2E.5 \u2014 forward liquidity bridge",
+      "kind": "table",
+      "block_id": "funding-gap"
+    },
+    {
+      "module_id": "CP-2D",
+      "heading": "T2E.6 \u2014 months to empty",
+      "kind": "table",
+      "block_id": "funding-gap"
+    },
+    {
+      "module_id": "CP-2D",
+      "heading": "T2E.7 \u2014 mitigants and constraints",
+      "kind": "table",
+      "block_id": "refinancing-paths"
+    },
+    {
+      "module_id": "CP-2D",
+      "heading": "T2E.8 \u2014 liquidity risk assessment",
+      "kind": "table",
+      "block_id": "red-flags"
+    },
+    {
+      "module_id": "CP-2D",
+      "heading": "T2E.9 \u2014 gaps ledger",
+      "kind": "table",
+      "block_id": "red-flags"
+    },
+    {
+      "module_id": "CP-2D",
+      "heading": "Observed quarterly cash bridge",
+      "kind": "table",
+      "block_id": "liquidity-runway"
+    }
+  ],
+  "scope": "Historical TDG December2024 liquidity update. Fresh sol-medium CP-2D consumes fresh CP-1B/CP-1D/CP-2A and retained financial/source context. Actual historical cash bridge and event timing; forward accessible liquidity/funding gap/runway remain unestablished. Selected module publication, not complete covenant/refinancing pathway."
+}

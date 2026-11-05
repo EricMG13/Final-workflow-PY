@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Fresh CRC historical CP-3C consumes actual fresh CP-2D and primary retained SEC evidence. Twelve duties/eleven registers with conditional funding and explicit market/legal/exit gaps; selected functional report, not complete covenant/current/native pathway.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-3C.md": "d7303d212b68df78303e500fdd35e53142d7d58456b225c8c201e6c15a4faf72",
+    "view.json": "264adef1f6e2dc832253e1b5a59647b3c416a696ecf2731b8055c5ae76dfa119",
+    "report-view.json": "b649cbce5a9da1b9792bb4b1d62883d4a0278d6b4bbe23c754559e020674bd2a",
+    "report.html": "076f2454c2f12a80d21c88cb0308e9bb08e138c1c809ead2b0001b1438444001"
+  }
+}

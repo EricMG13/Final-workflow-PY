@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Historical TDG FY2024 earnings quality and adjusted-debt analysis with Q1 December 2024 recurrence evidence. Fresh sol-medium CP-1D consumes fresh CP-1B and checked retained CP-0/CP-1. Module proof, not a complete issuer pathway; unresolved quality EBITDA and obligation classes remain explicit gaps.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-1D.md": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
+    "view.json": "450031b1250620170db0f8c8bfd8fe69fc2325f7691bd92e8340467806d93ffb",
+    "report-view.json": "e5f8df1c93ca7131ced9cbab96ce686a038c63f1d5ca47a8d779d8d61544d4d0",
+    "report.html": "52d91ad57e04f284a807ceb4cafb4edc52beada6585782492f5cd494381a35ad"
+  }
+}

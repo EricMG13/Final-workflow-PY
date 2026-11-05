@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Historical TDG guidance issued November 7, 2024 for FY2025. Fresh sol-medium synthesis of retained SEC/issuer web-tool captures accessed November 4, 2026; no new browsing or raw HTML retrieval. One factual research question, not current guidance or complete earnings pathway.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-DR.md": "0463a4b16e8ed7de1e1ed9a219587bbf4ee2b6fc2e98228d4f0090c22d487b03",
+    "view.json": "a0466fbfe9e6a1935bce50935c42d3954aa00665e0f39bd9db79e360be5316c0",
+    "report-view.json": "3cce595c355d3dcc9486d469ba0189843875c9d3713ac5ffd4a5e13cdab0e5fc",
+    "report.html": "af4e10fc00eb4c31c503a8299fa97f5028a3e20d0fdff86452e5f8fe78027865"
+  }
+}

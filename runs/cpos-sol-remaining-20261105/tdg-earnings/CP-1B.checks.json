@@ -1,0 +1,82 @@
+{
+  "source": "H4 raw HTML and original visible tables 10, 14, 66; source amounts manually checked against CP-1 register; cash proxy explicitly 636-36 / 752-42",
+  "source_sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a",
+  "pairs": {
+    "Revenue": [
+      "1789",
+      "2006"
+    ],
+    "COGS": [
+      "747",
+      "771"
+    ],
+    "Gross profit": [
+      "1042",
+      "1235"
+    ],
+    "SG&A": [
+      "220",
+      "211"
+    ],
+    "Intangible amortization": [
+      "35",
+      "50"
+    ],
+    "EBITDA": [
+      "859",
+      "1087"
+    ],
+    "EBITDA As Defined": [
+      "912",
+      "1061"
+    ],
+    "EBIT": [
+      "787",
+      "974"
+    ],
+    "Net interest expense": [
+      "300",
+      "378"
+    ],
+    "Cash interest paid": [
+      "205",
+      "162"
+    ],
+    "Cash taxes paid": [
+      "11",
+      "37"
+    ],
+    "OCF": [
+      "636",
+      "752"
+    ],
+    "Capex signed cash flow": [
+      "-36",
+      "-42"
+    ],
+    "OCF minus capex proxy": [
+      "600",
+      "710"
+    ],
+    "Net income": [
+      "382",
+      "493"
+    ],
+    "Closing cash": [
+      "4135",
+      "2459"
+    ]
+  },
+  "required_terms": [
+    "2024-10-01",
+    "2024-12-28",
+    "2023-10-01",
+    "2023-12-30",
+    "89",
+    "91",
+    "U.S. GAAP",
+    "percentage point",
+    "CP-1D",
+    "CP-2D"
+  ]
+}

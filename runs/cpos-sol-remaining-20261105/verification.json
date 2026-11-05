@@ -1,0 +1,230 @@
+{
+  "request": "Remaining modules one at a time with sol-medium, then broader pathways; reuse existing work, commit/push verified results.",
+  "prior_verified_commit": "886c1e16403828fb9c2d26e611f73ee290f010fc",
+  "continuation_cap_usd": "25",
+  "prior_live_cost_usd": "3.28393980",
+  "modules": {
+    "CP-1B": {
+      "aliases": [],
+      "status": "bounded live module passed: source/math reviewed, report published, fresh CP-1D consumed exact handoff and limitations",
+      "case": "TDG fiscal Q1 ended 2024-12-28 versus 2023-12-30, historical",
+      "report": "tdg-earnings/CP-1B-delivery/report.html",
+      "review": "16 comparator pairs checked against H4 source; 125 executed arithmetic calls checked independently. Capex negative denominator declined by design then repaired with both signs inverted; final signed -36/-42 pair and 16.67% correct. All 14 duties retained with explicit canonical-ID, FCF, benchmark and LTM gaps. Human table missing labels repaired, JSON null preserved. No production change justified.",
+      "handoff_sha256": "42ee44c8350150abd3875adc4ee30ba2cdc4658d0db3ed905251f4825be6e377",
+      "consumer": "tdg-earnings/CP-1D.md"
+    },
+    "CP-DR": {
+      "aliases": [],
+      "status": "bounded live research synthesis reviewed and report consumed; CP-2G adoption pending",
+      "case": "TDG guidance issued2024-11-07 for FY2025, captures retrieved2026-11-04",
+      "report": "tdg-guidance/CP-DR-delivery/report.html",
+      "handoff_sha256": "0463a4b16e8ed7de1e1ed9a219587bbf4ee2b6fc2e98228d4f0090c22d487b03",
+      "review": "Seven evidence claims read against IR/SEC retained text and source-record. Ranges8750-8950/4615-4755, midpoint8850/4685, signed1943+380+1540+616=4479;30+180-4=206;24 executed calculations independently audited. One origin family, positive question coverage, historical dates, cash/accrual and rounded52.9% limits preserved. Scope is synthesis over supplied captured evidence, not new browsing or open-ended discovery.",
+      "repair": {
+        "cause": "Existing selectors named Request/Gaps while actual prose belongs to nested Executive answer/Gap, disagreement and stop register. No economic defect.",
+        "action": "Changed only two report selectors after source/instruction review; exact latest model draft retained unchanged. Original three rejection reviews and initial layout retained. Original interrupted outer request response recovered from that reviewed draft and resumed with provider-refusing executor.",
+        "model_draft": "live/modules/c0695f5fde14a687e404f08c23d4108591c62f6d4b5fc0d7c5b5fca18f15305e/3.draft.md",
+        "new_provider_calls": 0
+      },
+      "consumer": "tdg-stress/CP-2A.md (qualified historical guidance); CP-2G adoption remains next"
+    },
+    "CP-1C": {
+      "aliases": [],
+      "status": "pending live module proof; historical host proof remains separately recorded"
+    },
+    "CP-1D": {
+      "aliases": [
+        "CP-1E"
+      ],
+      "status": "bounded live module reviewed, report published and fresh CP-2D consumed; broader pathways pending",
+      "case": "TDG FY2024, September 2024 balance and separate December quarter evidence",
+      "report": "tdg-earnings/CP-1D-delivery/report.html",
+      "handoff_sha256": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
+      "review": "All 13 registers read against instructions and source. A53/A54/A142 support signed annual bridge 3813+70+217+58+15=4173 and recurrence; CP-1B exact hash/negative quarterly Other/89-91 days preserved. Independently rechecked A134 pension image: liabilities 3+16, assets separate13, net6. A148 leases19+43=62; finance262 already counted. A139 environmental5+36=41 justifies broader disclosed subtotal24880+62+19+41=25002, not complete debt. 34 executed calculations audited with Fraction. Missing quality EBITDA, agency/legal/cash and other obligation gaps retained; no haircut or accepted canonical IDs invented.",
+      "consumer": "tdg-earnings/CP-2D.md, actual exact hash and findings consumed"
+    },
+    "CP-2A": {
+      "aliases": [
+        "CP-2B"
+      ],
+      "status": "bounded live module reviewed, report published and fresh CP-2D consumed; broader pathways pending",
+      "case": "TDG FY2024 static stress; calendar reference2024-11-07 through2025-11-07",
+      "offline": "Existing stress/break_points/rank/crossing re-executed;21 values/four exact rational breaks/12 scenario crossings/zero-interest/missing-cash controls passed independently. Primary calendar pages130/133/148/151 read; gross487/carrying486/commitment650 distinct; FY2025 debt93/operatinglease22/financelease20 have different quantity scopes.",
+      "report": "tdg-stress/CP-2A-delivery/report.html",
+      "handoff_sha256": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3",
+      "review": "All9 static and7 calendar registers plus6 projection rows reviewed. Live response preserves all21 independently verified kernel values,4 rational breakpoints and12 crossing statuses. Three additional calculate calls independently checked. Read annual primary130/133/148/151 and signer100: three dated transitions distinct from threeFY cash windows; 487principal/486carrying/650commitment and93/22/20 quantity families preserved; no overlapping-notional sum, annual-as-remaining use or event probability asPD. Current CP-DR explicitly qualified by exact hash, guidance not used to calibrate stresses.",
+      "consumer": "tdg-earnings/CP-2D.md, actual exact hash and findings consumed"
+    },
+    "CP-2E": {
+      "aliases": [
+        "CP-2F"
+      ],
+      "status": "pending live module proof; historical host proof remains separately recorded"
+    },
+    "CP-2G": {
+      "aliases": [],
+      "status": "pending live module proof; historical host proof remains separately recorded"
+    },
+    "CP-2H": {
+      "aliases": [],
+      "status": "pending live module proof; historical host proof remains separately recorded"
+    },
+    "CP-3": {
+      "aliases": [
+        "CP-3A",
+        "CP-3B"
+      ],
+      "status": "pending live module proof; historical host proof remains separately recorded"
+    },
+    "CP-4": {
+      "aliases": [
+        "CP-4A",
+        "CP-4B",
+        "CP-4D"
+      ],
+      "status": "pending live module proof; historical host proof remains separately recorded"
+    },
+    "CP-4C": {
+      "aliases": [],
+      "status": "pending live module proof; historical host proof remains separately recorded"
+    },
+    "CP-5": {
+      "aliases": [
+        "CP-5A"
+      ],
+      "status": "pending live module proof; historical host proof remains separately recorded"
+    },
+    "CP-6": {
+      "aliases": [
+        "CP-6A"
+      ],
+      "status": "pending live module proof; historical host proof remains separately recorded"
+    },
+    "CP-8": {
+      "aliases": [],
+      "status": "pending live module proof; historical host proof remains separately recorded"
+    },
+    "CP-L10": {
+      "aliases": [
+        "CP-L20",
+        "CP-L23",
+        "CP-L30",
+        "CP-L40"
+      ],
+      "status": "pending live module proof; historical host proof remains separately recorded"
+    },
+    "CP-2D": {
+      "aliases": [],
+      "status": "TDG historical bridge and CRC positive dated-budget live functions reviewed/report-published; freshCP3C consumesCRC",
+      "case": "TDG fiscal Q1 ended2024-12-28; not current conditions or a complete forecast",
+      "report": "tdg-earnings/CP-2D-delivery/report.html",
+      "handoff_sha256": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565",
+      "review": "All nine T2E registers, historical bridge and six CP-2A calendar objects compared with instructions and primary H4. 33 calculate calls independently audited. 6261+752-24-4516-14=2459; financing -4396-316+163+35-2=-4516. New quarter remaining FY lease21/19 verified H4 lines482-492; finance principal/interest not conflated. July650gross/649carrying, issuer3308 versus certified access, annual25002 versus December25049, 131/132 disclosure conflict preserved. Forward accessible liquidity/forecast/MTE missing, no annualization or double OCF deduction.",
+      "crc_case": {
+        "status": "positive dated-budget live response reviewed; report consumed; fresh CP-3C receiver next",
+        "case": "CRC initial discussion budget2020-07-09 and executed agreement2020-07-23, not achieved/access-certified",
+        "report": "crc-liquidity/CP-2D-delivery/report.html",
+        "handoff_sha256": "480e78d0bd4cd66782e94a391c3b63f8efde91f85f9d38b79819594a52168296",
+        "review": "All ten duties/nine registers,13weekly+7monthly-stub rows compared against original SEC captures and independent Fraction expectations. 15 new calculate calls audited. First unfinanced -21;peak -110;gross215/paydown133/net82/peak120; reported-rounding residuals retained. Source-specific September dashes preserved. Exact legal483010655.62-82871057.00-150139598.62 gives250m, conditional incrementalLC31 gives219m, terminaltargetgap30. Read primary Liquidity definitionL908, conditions1215/1694, floors2180, LC1439/1469, principal1253 and commitment1507: no actual breach/draw/access certification. New principal331.871057m/cash-applied321.871057m correctly qualified as mixed exactlegal/roundedforecast, not completeexit. All new numeric conclusions source/tool supported; no production arithmetic change.",
+        "repair": "First model draft failed requested heading selectors; model repaired headings in retained second draft. No host replacement of analytical text.",
+        "consumer": "crc-liquidity/CP-3C-repaired.md, exact current hash and qualified conclusions consumed"
+      }
+    },
+    "CP-3D": {
+      "aliases": [],
+      "status": "pending live module proof; historical host proof remains separately recorded"
+    },
+    "CP-3C": {
+      "aliases": [],
+      "status": "bounded live full-method response source/instruction reviewed, targeted tenor omission repaired through existing seeded draft loop, report consumed",
+      "case": "CRC initial2020 discussion budget and executed seniorDIP terms; conditional historical funding/LME assessment",
+      "report": "crc-liquidity/CP-3C-delivery/report.html",
+      "handoff_sha256": "d7303d212b68df78303e500fdd35e53142d7d58456b225c8c201e6c15a4faf72",
+      "review": "All12 duties/11 original registers,14 legal indicators,12 fundingpaths,5 dimensions,8 actual creditor groups and3 differentiated scenarios reviewed. Exact freshCP2D hash and first/peak/end/gross/net figures actively change access/LC/takeout actions. Verified originalSEC clauses1983/2018/2419-2423/2520/912/3986-3987/4063: 5m documentary ceilings not headroom, affected/every-lender protections and sharing exceptions not transaction permission, superpriority and1809msecondlien class not full waterfall. New332mrounded principal versus331.871057m exact-rollup diagnostic difference128943 checked; no invented repricing/marketaccess/intent/recovery. High funding pressure separate from aggregate Insufficient Information.",
+      "repair": {
+        "finding": "Both known-date senior rows left time to stated maturity uncalculated because actual early termination unknown. Supported stated-date comparison is still possible.",
+        "method": "Existing HandoffTask.draft and edit_handoff, no new production logic; immutable original plus targeted repaired response retained.",
+        "verification": "Source dates yield176days, separately checked with datetime; actual model sum/month segments and176/365 toolcall match exactFraction. ACT/365F explicit comparison convention, not contractual coupon or actual outcome. Diff contains only two cells, operation-count sentence and new calculation paragraph."
+      }
+    }
+  },
+  "pathways": {
+    "credit_snapshot": "pending full selected scope",
+    "earnings_update": "pending",
+    "relative_value": "pending",
+    "covenant_refinancing": "pending",
+    "distressed_restructuring": "pending",
+    "portfolio_decision": "pending"
+  },
+  "confidence_review": {
+    "scope": "campaign fixture and observed tool/presentation instruction ambiguity",
+    "doubts": [
+      {
+        "point": "Expected values could mirror production calculations",
+        "finding": "CP-1B checker uses separately retained source observations and Fraction-derived deltas/growth, not the production Decimal tool. Deliberate delta/growth/sign/date corruptions are rejected."
+      },
+      {
+        "point": "Repeated paid send or source drift",
+        "finding": "Existing immutable CP-OS request/response exchange and pinned inputs reused. Shared conservative Budget and unknown-charge stop unchanged. Changed instruction hash refuses before provider construction."
+      },
+      {
+        "point": "Checker could accept an output unconsumable by delivery",
+        "finding": "Runs the existing Markdown delivery adapter on temporary exact response bytes. Existing report selectors and structural checks remain authoritative."
+      },
+      {
+        "point": "Prior host answer confused with live proof",
+        "finding": "Fixture explicitly labels retained upstreams; no prior CP-1B answer/oracle is supplied to the model. Module not passed until manual comparison and downstream consumption."
+      },
+      {
+        "point": "Calculation tool advertised generic division but rejects nonpositive denominators",
+        "finding": "Confirmed with actual CP-1B ratio(-6,-36) refusal. Financial kernel intentionally preserves this gate. Tool description now states it. Regression verifies refusal reason and the legitimate signed-capex equivalent 6/36; no production math changed."
+      },
+      {
+        "point": "Bare null table text cannot pass existing report Cell validation",
+        "finding": "Confirmed in CP-1B draft 2. Existing refusal caused live repair to Not supplied/Not calculable labels while JSON null and missing-vs-zero semantics remain. System now states that convention before future calls; renderer unchanged."
+      },
+      {
+        "point": "Fresh metadata could silently change already running module context",
+        "finding": "CP-1D loaded the prior tool strings before the clarification; retained request bytes remain authoritative. New invocations hash the new strings; historical requests untouched."
+      },
+      {
+        "point": "Audit publication helper relative versus absolute task path",
+        "finding": "Observed post-publication return-path failure for relative caller. Normalize path at entry; rerun verified the exact existing publication without rewriting it."
+      },
+      {
+        "point": "Reusing historical stress calculations could be mislabelled as a new model calculation",
+        "finding": "recalculate_stress.py re-executes existing pure functions and freezes output separately. Live task explicitly calls it supplied deterministic evidence, not provider-produced math or native-owner execution. Expected values are separately derived from frozen source observations with Fraction, including twelve crossings and missing/zero controls."
+      },
+      {
+        "point": "Report selector rejection could be mistaken for a factual research failure",
+        "finding": "CP-DR three drafts contained the supported answer under nested headings. The two case selectors were corrected; no model text changed and no new paid call. Source arithmetic and every material finding checked first; prior rejected artifacts retained."
+      },
+      {
+        "point": "New positive-budget checker could hide source dashes, stub periods or signed numbers",
+        "finding": "Exact20-row source/independent Fraction grid added, with source-specific literal dash preservation. Offline synthetic controls accept exact grid and reject changed date/sign, dash-to-zero or missing, full-month replacement and blank cells. 28 focused tests pass. These are checker controls, not live analytical proof."
+      },
+      {
+        "point": "Targeted manual review repair could regenerate unrelated analysis or replace original evidence",
+        "finding": "Test fixture now passes pinned draft to existingHandoffTask. All29 focused tests pass. ActualCP3C edit_handoff retained exact original; diffonlytwo tenor cells and calculation explanation. Source dates independently verified; no source or historicalrun mutated."
+      }
+    ]
+  },
+  "rewrite_tournament": {
+    "decision": "Skipped: production changes are instruction strings only, no new branching; campaign audit and fixtures are test-only. No nontrivial production function changed.",
+    "verification": "29 focused tests andruff pass. Production diff remains4 tool-instruction stringlines; all added scripts are campaignfixtures. Rewrite skipped per test-only/string-only rule."
+  },
+  "live": {
+    "calls": {
+      "CP-1B": 10,
+      "CP-1D": 7,
+      "CP-DR": 7,
+      "CP-2A": 7,
+      "CP-2D": 15,
+      "CP-3C": 10
+    },
+    "cost_usd": "2.79890380",
+    "independent_calculations": 238,
+    "declined_nonpositive_ratios": 2
+  },
+  "checkpoint_scope": "Verified module progress only; remaining modules and all six broader pathway proofs are still pending. Continuing this task after checkpoint."
+}

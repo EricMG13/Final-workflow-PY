@@ -1,0 +1,65 @@
+{
+  "run": {
+    "run_id": "sol-remaining-crc-funding-20261105",
+    "issuer_id": "CRC",
+    "issuer_name": "California Resources Corporation",
+    "as_of": "2020-07-23",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-3C"
+    ]
+  },
+  "module_id": "CP-3C",
+  "instructions": {
+    "path": "CP-3C.tenor-repair.instructions.md",
+    "sha256": "59cf9b9d206b80a135c2041000090e3e3856d07637379c2824f56f4bd5231a0c"
+  },
+  "sources": {
+    "budget-inputs": {
+      "path": "../../crc-liquidity-2020-001/budget-inputs.json",
+      "sha256": "f39aa7eb9aaa21ac996a9b069fd68ca6bf3ed792f7ad53e393c214a62151dd4e"
+    },
+    "filing-captures": {
+      "path": "../../crc-liquidity-2020-001/sources/filing-captures.txt",
+      "sha256": "98dc337f9d9bca72dab812f3dcc68e4ce366435bc16f9a12f09c4a971ce56200"
+    },
+    "maturity-supplement": {
+      "path": "../../crc-liquidity-2020-001/sources/maturity-supplement.txt",
+      "sha256": "ead2ce25043c2be4645f23a563b46bd2ebaea97d50c6bf4f61a17e01b1574153"
+    },
+    "retained-calculations": {
+      "path": "../../crc-liquidity-2020-001/calculations.json",
+      "sha256": "103aa2ce489cd4b7c490d7208883e5abca95d675fd6f3f72e661c975c8db93d5"
+    },
+    "funding-method": {
+      "path": "../methods/cp-3c/SKILL.md",
+      "sha256": "8c8c0534932f653288c68954406262c40e2fd6dcb6f23916220b5cec3e42d4bd"
+    },
+    "funding-steps": {
+      "path": "../methods/cp-3c/REF_CP-3C_STEPS.md",
+      "sha256": "a0b1abe8f5ce28cf7d962aa26e72ae12326c102fba34f4d66f52b620dd40bf84"
+    },
+    "funding-runbook": {
+      "path": "../methods/cp-3c/CP-3C_RUNBOOK.md",
+      "sha256": "13a2525bee2aae103114e7f5bd0ef7f7e6942c82e53041ea61e82aec4a498753"
+    },
+    "later-method": {
+      "path": "../../../src/deploy_vii/methods/cp3c.md",
+      "sha256": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72"
+    }
+  },
+  "handoffs": {
+    "CP-2D": {
+      "path": "CP-2D.md",
+      "sha256": "480e78d0bd4cd66782e94a391c3b63f8efde91f85f9d38b79819594a52168296"
+    }
+  },
+  "checks": "CP-3C.tenor-repair.checks.json",
+  "layout": "CP-3C.layout.json",
+  "output": "CP-3C-repaired.md",
+  "draft": {
+    "path": "CP-3C.md",
+    "sha256": "6d9c0564b690144f44330e53d81f2e174a80f0dc165755641774369b1a552d43"
+  }
+}

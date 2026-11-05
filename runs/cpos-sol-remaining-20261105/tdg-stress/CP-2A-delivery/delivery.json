@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Historical TDG FY2024 static stress and November2024-November2025 catalyst calendar. Fresh sol-medium analysis consumes rechecked retained annual handoffs, fresh CP-DR and newly executed existing kernel. Hypothetical shocks/watch levels are not forecasts/covenants/default probabilities. Calendar registers retained in Evidence. Selected module publication, not full distressed pathway/current underwriting.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-2A.md": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3",
+    "view.json": "00e16744dfb35e9350429874808f40de58f560482429c2995f068a14dcd14d07",
+    "report-view.json": "29334ca5d4f9b2cd9b59ccf6a80e2c8991158c4758e9724bf906e2fc5462c3ea",
+    "report.html": "5b095534e46291b13854aafb9d5856c0adf4ed4efd6a6bed177a7dfddb7cd5af"
+  }
+}

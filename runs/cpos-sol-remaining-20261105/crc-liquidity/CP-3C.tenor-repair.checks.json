@@ -1,0 +1,32 @@
+{
+  "required_terms": [
+    "T3D.1 \u2014 source gate",
+    "T3D.2 \u2014 maturity wall",
+    "T3D.3 \u2014 liquidity and market access",
+    "T3D.4 \u2014 legal capacity",
+    "T3D.5 \u2014 willingness",
+    "T3D.6 \u2014 funding paths",
+    "T3D.7 \u2014 vulnerability dimensions",
+    "T3D.8 \u2014 creditor exposure",
+    "T3D.9 \u2014 monitoring",
+    "T3D.10 \u2014 scenarios",
+    "T3D.11 \u2014 gaps",
+    "Consumed funding findings",
+    "2020-07-09",
+    "2020-07-23",
+    "2021-01-15",
+    "219",
+    "249",
+    "85",
+    "120",
+    "215",
+    "133",
+    "35",
+    "50",
+    "331.871057",
+    "321.871057",
+    "176 days",
+    "0.482192",
+    "ACT/365F"
+  ]
+}

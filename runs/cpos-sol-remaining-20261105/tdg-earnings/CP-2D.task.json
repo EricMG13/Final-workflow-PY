@@ -1,0 +1,129 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-liquidity-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-12-28",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-2D"
+    ]
+  },
+  "module_id": "CP-2D",
+  "instructions": {
+    "path": "CP-2D.instructions.md",
+    "sha256": "15918685d187659ecde22b10b6918b739a1abc621647e118bbe22bc2bb535412"
+  },
+  "sources": {
+    "H1-raw": {
+      "path": "../../../data/public-corpus/v1/TDG/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm",
+      "sha256": "7e902c48d87067b4ea96c388ab2ca460c9c1c3c2e2960da09629377a7b359b0d"
+    },
+    "H1-text": {
+      "path": "../../tdg-003/source-preparation/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.txt",
+      "sha256": "191aaf6cc1203f4448060005329f004e2279bb57fce9da63eb832b8a80691340"
+    },
+    "H1-xbrl": {
+      "path": "../../tdg-003/source-preparation/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.xbrl.json",
+      "sha256": "e2850aaea64c7611b764f0884196a458804c08c3f13f8a80e6cfe2c28b198630"
+    },
+    "H2-raw": {
+      "path": "../../../data/public-corpus/v1/TDG/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm",
+      "sha256": "74876b8874a3a396efd700114b280f45fcfcd3f11ceae31adee98c93bfacbf03"
+    },
+    "H2-text": {
+      "path": "../../tdg-003/source-preparation/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.txt",
+      "sha256": "40634987739c484b40c6891c908bf83f45de869f6d07d8482262006e31221053"
+    },
+    "H2-xbrl": {
+      "path": "../../tdg-003/source-preparation/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.xbrl.json",
+      "sha256": "9e94555a5133646e0675305ab9abe04c55932a63e8aeea755b2d4a275b06761e"
+    },
+    "H3-raw": {
+      "path": "../../../data/public-corpus/v1/TDG/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm",
+      "sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121"
+    },
+    "H3-text": {
+      "path": "../../tdg-003/source-preparation/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.txt",
+      "sha256": "d94c5e2a382127f2f016413ad1e7f7837cfd188e4dc3a86f16ef0d4544c557de"
+    },
+    "H3-xbrl": {
+      "path": "../../tdg-003/source-preparation/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.xbrl.json",
+      "sha256": "e0daf256ed189fbebf405499f34fc77cf04a126da929f0d7b4969fb69736919b"
+    },
+    "H4-raw": {
+      "path": "../../../data/public-corpus/v1/TDG/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm",
+      "sha256": "9bdfd29ebc3c57b72d506e7dff2a2ca2e3179035deb4941dcd026523a5b8595a"
+    },
+    "H4-text": {
+      "path": "../../tdg-003/source-preparation/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.txt",
+      "sha256": "38b4642199a5381aca22f1ff4f5973ecc3430dfb24d068bf8058e962db99db71"
+    },
+    "H4-xbrl": {
+      "path": "../../tdg-003/source-preparation/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.xbrl.json",
+      "sha256": "85418fd03517a339b5d54c5bfd1b37769c37a7c0752237f593ff2833d5273448"
+    },
+    "raw-unit-definitions": {
+      "path": "../../tdg-003/source-preparation/raw-unit-definitions.json",
+      "sha256": "43065ea24743ed74c91bf75155e4036b772c6c18b538bd4034ad7cfbf0398dc1"
+    },
+    "source-preparation-manifest": {
+      "path": "../../tdg-003/source-preparation/manifest.json",
+      "sha256": "b75c003aabd0e05db5bf74f078b84943468c9d06b5609afbcbdbc341b29d310a"
+    },
+    "annual-CP1-reference": {
+      "path": "../../tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "annual-pdf": {
+      "path": "../../../data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+    },
+    "annual-reading-aid": {
+      "path": "../../tdg-001/source-pages.jsonl",
+      "sha256": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+    },
+    "H4-numbered.jsonl": {
+      "path": "H4-numbered.jsonl",
+      "sha256": "8c39f608f823f84d274ec27bf35ce2db297644f93d82f6a2e6e0079aede5ba74"
+    },
+    "liquidity-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/SKILL.md",
+      "sha256": "5009ee06f28d739d7ba921299c7d14465b28177ab3fa61372c173028f9c6fd67"
+    },
+    "liquidity-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/references/REF_CP-2D_STEPS.md",
+      "sha256": "84bdff527a5575b900fc94d2bf94eb433a508f8c2883ee84f40ca9dcf94ce595"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../../tdg-003/CP-0.md",
+      "sha256": "aa6752f51236ca51dc452f247c212764947878eb21ffd36e6caa75fbfecb809d"
+    },
+    "CP-1": {
+      "path": "../../tdg-003/CP-1-attempt-2.md",
+      "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+    },
+    "CP-1B": {
+      "path": "CP-1B.md",
+      "sha256": "42ee44c8350150abd3875adc4ee30ba2cdc4658d0db3ed905251f4825be6e377"
+    },
+    "CP-1D": {
+      "path": "CP-1D.md",
+      "sha256": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807"
+    },
+    "CP-2A": {
+      "path": "../tdg-stress/CP-2A.md",
+      "sha256": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3"
+    },
+    "CP-2": {
+      "path": "../../tdg-002/CP-2-attempt-2.md",
+      "sha256": "249d0cbdf1ba8159dcae68d4ff3241c73ea092ff66353c0c2eef08691e0afa57"
+    }
+  },
+  "checks": "CP-2D.checks.json",
+  "layout": "CP-2D.layout.json",
+  "output": "CP-2D.md"
+}

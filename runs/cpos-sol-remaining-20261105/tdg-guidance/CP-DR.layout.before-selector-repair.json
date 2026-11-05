@@ -1,0 +1,41 @@
+{
+  "blocks": [
+    "headline-results",
+    "guidance-signals",
+    "watch-items"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-DR",
+      "heading": "TDR.1 \u2014 locked question and workstream",
+      "kind": "table",
+      "block_id": "headline-results"
+    },
+    {
+      "module_id": "CP-DR",
+      "heading": "TDR.2 \u2014 claims and located evidence",
+      "kind": "table",
+      "block_id": "headline-results"
+    },
+    {
+      "module_id": "CP-DR",
+      "heading": "TDR.3 \u2014 answer, uncertainty and proposed use",
+      "kind": "table",
+      "block_id": "headline-results"
+    },
+    {
+      "module_id": "CP-DR",
+      "heading": "Request",
+      "kind": "prose",
+      "block_id": "guidance-signals",
+      "prefix": "Research answer:"
+    },
+    {
+      "module_id": "CP-DR",
+      "heading": "Gaps",
+      "kind": "prose",
+      "block_id": "watch-items"
+    }
+  ],
+  "scope": "Historical TDG guidance issued November 7, 2024 for FY2025. Fresh sol-medium synthesis of retained SEC/issuer web-tool captures accessed November 4, 2026; no new browsing or raw HTML retrieval. One factual research question, not current guidance or complete earnings pathway."
+}

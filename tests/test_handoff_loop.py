@@ -200,6 +200,12 @@ def test_existing_calculation_kernel_preserves_missing_zero_and_exact_decimals(
     assert json.loads(module.calculate("sum", ["0", None]))["value"] is None
     assert json.loads(module.calculate("sum", ["0", "0"]))["value"] == "0"
     assert json.loads(module.calculate("ratio", ["1", "0"]))["value"] is None
+    declined = json.loads(module.calculate("ratio", ["-6", "-36"]))
+    assert declined["value"] is None
+    assert declined["reason"] == "ZERO_OR_NEGATIVE_DENOMINATOR"
+    assert json.loads(module.calculate("ratio", ["6", "36"]))["value"] == (
+        "0.16666666666666666666666666666666666667"
+    )
     assert module.calculate("sum", ["NaN"]).startswith("ERROR")
     assert module.calculate("sum", ["1e9999"]).startswith("ERROR")
 

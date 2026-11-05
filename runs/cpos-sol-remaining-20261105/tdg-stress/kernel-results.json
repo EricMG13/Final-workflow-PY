@@ -1,0 +1,200 @@
+{
+  "scope": "New deterministic re-execution of the existing static kernel; no provider/model/native-owner execution. Fixed illustrative assumptions, not calibrated forecasts.",
+  "input_sha256": "c4a6c348f3eae99dc4b3e2f3587a0f9aeb5a915aad196d74eda903ea630d9f49",
+  "code_sha256": "b246e5bdcb4622511ac557d4bb3a5afd7aa2f22960f69e00ac4fba235a76b5fe",
+  "base": {
+    "period": "FY2024: 2023-10-01 to 2024-09-30",
+    "closing_balance_instant": "2024-09-30",
+    "currency": "USD",
+    "unit": "USD millions",
+    "operands": {
+      "ebitda": {
+        "value": "4173",
+        "meaning": "issuer EBITDA As Defined, total company; non-GAAP; not ordinary EBITDA or operating cash",
+        "source": "CP-1 T4.10/T4.17, PDF 142"
+      },
+      "interest": {
+        "value": "1158",
+        "meaning": "positive magnitude of annual cash interest paid",
+        "source": "CP-1 T4.5 supplemental cash paid during period for interest, net, FY2024, PDF 109"
+      },
+      "fcf": {
+        "value": "1880",
+        "meaning": "calculated operating cash less capex proxy (2045 - 165); not issuer-defined FCF",
+        "source": "CP-1 T4.10; CP-1 T4.5 and CP-1-attempt-2-calculations.txt"
+      },
+      "total_debt": {
+        "value": "24880",
+        "meaning": "carrying-value classification sum including separate securitization (24296 + 98 + 486); not gross principal",
+        "source": "CP-1 T4.10/T4.6; long-term debt + current portion + separate securitization, PDF 105"
+      },
+      "cash": {
+        "value": "6261",
+        "meaning": "reported closing cash; unrestricted availability not established",
+        "source": "CP-1 T4.10/T4.6, PDF 105/109"
+      }
+    },
+    "reported_ratios": {
+      "status": "missing",
+      "meaning": "CP-1 accepted handoff supplies no reported total leverage, net leverage, interest coverage or FCF/debt ratio for reconciliation; calculated ratios below do not fill this gap"
+    }
+  },
+  "scenarios": [
+    {
+      "decline": "0",
+      "increase": "0",
+      "result": {
+        "ebitda": "4173",
+        "interest": "1158",
+        "fcf": "1880",
+        "total_leverage": "5.9621375509225976515696141864366163432",
+        "net_leverage": "4.4617780972921159837047687514977234603",
+        "interest_coverage": "3.6036269430051813471502590673575129534",
+        "fcf_to_debt": "0.075562700964630225080385852090032154341",
+        "why": {},
+        "not_applicable": []
+      },
+      "crossings": {
+        "b01": [
+          "1880",
+          "Not crossed"
+        ],
+        "b02": [
+          "3.6036269430051813471502590673575129534",
+          "Not crossed"
+        ],
+        "b03": [
+          "5.9621375509225976515696141864366163432",
+          "Not crossed"
+        ],
+        "b04": [
+          "3.6036269430051813471502590673575129534",
+          "Not crossed"
+        ]
+      }
+    },
+    {
+      "decline": "0.10",
+      "increase": "0",
+      "result": {
+        "ebitda": "3755.70",
+        "interest": "1158",
+        "fcf": "1462.70",
+        "total_leverage": "6.6245972788028862795217935404851292702",
+        "net_leverage": "4.9575312192134622041164097238863594004",
+        "interest_coverage": "3.2432642487046632124352331606217616580",
+        "fcf_to_debt": "0.058790192926045016077170418006430868167",
+        "why": {},
+        "not_applicable": []
+      },
+      "crossings": {
+        "b01": [
+          "1462.70",
+          "Not crossed"
+        ],
+        "b02": [
+          "3.2432642487046632124352331606217616580",
+          "Not crossed"
+        ],
+        "b03": [
+          "6.6245972788028862795217935404851292702",
+          "Not crossed"
+        ],
+        "b04": [
+          "3.2432642487046632124352331606217616580",
+          "Not crossed"
+        ]
+      }
+    },
+    {
+      "decline": "0.20",
+      "increase": "0.10",
+      "result": {
+        "ebitda": "3338.40",
+        "interest": "1273.80",
+        "fcf": "929.60",
+        "total_leverage": "7.4526719386532470644620177330457704289",
+        "net_leverage": "5.5772226216151449796309609393721543254",
+        "interest_coverage": "2.6208195949128591615638247762600094206",
+        "fcf_to_debt": "0.037363344051446945337620578778135048232",
+        "why": {},
+        "not_applicable": []
+      },
+      "crossings": {
+        "b01": [
+          "929.60",
+          "Not crossed"
+        ],
+        "b02": [
+          "2.6208195949128591615638247762600094206",
+          "Not crossed"
+        ],
+        "b03": [
+          "7.4526719386532470644620177330457704289",
+          "Crossed"
+        ],
+        "b04": [
+          "2.6208195949128591615638247762600094206",
+          "Crossed"
+        ]
+      }
+    }
+  ],
+  "breaks": [
+    {
+      "break_id": "b01",
+      "origin": "Definition",
+      "test": "Free cash flow at or below zero",
+      "kind": "fcf",
+      "level": "0",
+      "outcome": "Reached at the stated decline",
+      "required_exact": "1880/4173",
+      "required_decline": "0.45051521687035705727294512341241313204",
+      "ebitda_at_break": "2293",
+      "reason": null
+    },
+    {
+      "break_id": "b02",
+      "origin": "Definition",
+      "test": "EBITDA no longer covers cash interest",
+      "kind": "coverage",
+      "level": "1",
+      "outcome": "Reached at the stated decline",
+      "required_exact": "1005/1391",
+      "required_decline": "0.72250179726815240833932422717469446441",
+      "ebitda_at_break": "1158",
+      "reason": null
+    },
+    {
+      "break_id": "b03",
+      "origin": "Analyst assumption",
+      "test": "Analyst 7x carrying-debt watch",
+      "kind": "total_leverage",
+      "level": "7",
+      "outcome": "Reached at the stated decline",
+      "required_exact": "4331/29211",
+      "required_decline": "0.14826606415391462120434083050905480812",
+      "ebitda_at_break": "3554.2857142857142857142857142857142857",
+      "reason": null
+    },
+    {
+      "break_id": "b04",
+      "origin": "Analyst assumption",
+      "test": "Analyst 3x cash-interest watch",
+      "kind": "coverage",
+      "level": "3",
+      "outcome": "Reached at the stated decline",
+      "required_exact": "233/1391",
+      "required_decline": "0.16750539180445722501797268152408339324",
+      "ebitda_at_break": "3474",
+      "reason": null
+    }
+  ],
+  "rank": [
+    "b03",
+    "b04",
+    "b01",
+    "b02"
+  ],
+  "controls": "21 flow/ratio values and four exact break fractions independently checked; zero-interest and missing-cash controls passed, separate from issuer scenarios."
+}

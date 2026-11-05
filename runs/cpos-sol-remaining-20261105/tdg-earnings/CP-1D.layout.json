@@ -1,0 +1,124 @@
+{
+  "blocks": [
+    "ebitda-adjustments",
+    "earnings-quality",
+    "restated-leverage"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-1D",
+      "heading": "T1D.1 \u2014 inherited signed adjustment register",
+      "kind": "table",
+      "block_id": "ebitda-adjustments",
+      "label": "Signed issuer adjustments \u2014 annual and quarter"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "T1D.4 \u2014 issuer control bridge and unresolved quality bridge",
+      "kind": "table",
+      "block_id": "ebitda-adjustments",
+      "label": "FY2024 issuer bridge; quality earnings unresolved"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "T1D.7 \u2014 earnings-quality gaps",
+      "kind": "table",
+      "block_id": "ebitda-adjustments",
+      "label": "Earnings-quality evidence gaps"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "T1D.2 \u2014 achievability and normalisation assessment",
+      "kind": "table",
+      "block_id": "earnings-quality",
+      "label": "Achievability and normalisation"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "T1D.3 \u2014 recurrence test",
+      "kind": "table",
+      "block_id": "earnings-quality",
+      "label": "Recurrence across named periods"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "T1D.5 \u2014 annual cash-conversion test",
+      "kind": "table",
+      "block_id": "restated-leverage",
+      "label": "FY2024 cash conversion"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "T1D.6 \u2014 annual-balance leverage sensitivity",
+      "kind": "table",
+      "block_id": "restated-leverage",
+      "label": "September 2024 debt / FY2024 EBITDA"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "T1E.1 \u2014 obligation inventory, annual balance basis",
+      "kind": "table",
+      "block_id": "restated-leverage",
+      "label": "Obligation inventory \u2014 September 2024"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "T1E.2 \u2014 debt-like treatment and convention",
+      "kind": "table",
+      "block_id": "restated-leverage",
+      "label": "Debt treatment and conventions"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "T1E.3 \u2014 known-item adjusted-debt bridge",
+      "kind": "table",
+      "block_id": "restated-leverage",
+      "label": "Known-item debt subtotal \u2014 September 2024"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "T1E.4 \u2014 effect of the quantified subtotal",
+      "kind": "table",
+      "block_id": "restated-leverage",
+      "label": "Known-subtotal leverage sensitivity"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "T1E.5 \u2014 convention reconciliation",
+      "kind": "table",
+      "block_id": "restated-leverage",
+      "label": "Convention reconciliation"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "T1E.6 \u2014 adjusted-debt gaps",
+      "kind": "table",
+      "block_id": "restated-leverage",
+      "label": "Adjusted-debt evidence gaps"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "Request",
+      "kind": "prose",
+      "block_id": "earnings-quality",
+      "label": "Earnings-quality assessment",
+      "prefix": "Earnings-quality view"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "Request",
+      "kind": "prose",
+      "block_id": "earnings-quality",
+      "label": "Adjusted-debt assessment",
+      "prefix": "Adjusted-debt view"
+    },
+    {
+      "module_id": "CP-1D",
+      "heading": "Credit read-through, contrary evidence and monitoring",
+      "kind": "prose",
+      "block_id": "earnings-quality",
+      "label": "Creditor read-through and monitoring"
+    }
+  ],
+  "scope": "Historical TDG FY2024 earnings quality and adjusted-debt analysis with Q1 December 2024 recurrence evidence. Fresh sol-medium CP-1D consumes fresh CP-1B and checked retained CP-0/CP-1. Module proof, not a complete issuer pathway; unresolved quality EBITDA and obligation classes remain explicit gaps."
+}

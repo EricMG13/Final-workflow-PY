@@ -1,0 +1,48 @@
+{
+  "run": {
+    "run_id": "sol-remaining-crc-liquidity-20261105",
+    "issuer_id": "CRC",
+    "issuer_name": "California Resources Corporation",
+    "as_of": "2020-07-23",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-2D"
+    ]
+  },
+  "module_id": "CP-2D",
+  "instructions": {
+    "path": "CP-2D.instructions.md",
+    "sha256": "eec5c05d01f40403c0438ac767a61bf58c71f6a023e056690419e22137fff82a"
+  },
+  "sources": {
+    "budget-inputs": {
+      "path": "../../crc-liquidity-2020-001/budget-inputs.json",
+      "sha256": "f39aa7eb9aaa21ac996a9b069fd68ca6bf3ed792f7ad53e393c214a62151dd4e"
+    },
+    "filing-captures": {
+      "path": "../../crc-liquidity-2020-001/sources/filing-captures.txt",
+      "sha256": "98dc337f9d9bca72dab812f3dcc68e4ce366435bc16f9a12f09c4a971ce56200"
+    },
+    "maturity-supplement": {
+      "path": "../../crc-liquidity-2020-001/sources/maturity-supplement.txt",
+      "sha256": "ead2ce25043c2be4645f23a563b46bd2ebaea97d50c6bf4f61a17e01b1574153"
+    },
+    "retained-calculations": {
+      "path": "../../crc-liquidity-2020-001/calculations.json",
+      "sha256": "103aa2ce489cd4b7c490d7208883e5abca95d675fd6f3f72e661c975c8db93d5"
+    },
+    "liquidity-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/SKILL.md",
+      "sha256": "5009ee06f28d739d7ba921299c7d14465b28177ab3fa61372c173028f9c6fd67"
+    },
+    "liquidity-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-2d-liquidity-cash-flow-bridge/references/REF_CP-2D_STEPS.md",
+      "sha256": "84bdff527a5575b900fc94d2bf94eb433a508f8c2883ee84f40ca9dcf94ce595"
+    }
+  },
+  "handoffs": {},
+  "checks": "CP-2D.checks.json",
+  "layout": "CP-2D.layout.json",
+  "output": "CP-2D.md"
+}

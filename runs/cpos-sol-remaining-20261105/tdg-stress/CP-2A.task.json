@@ -1,0 +1,73 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-stress-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-11-07",
+    "case_kind": "public",
+    "pathway": "distressed_restructuring",
+    "requested_modules": [
+      "CP-2A"
+    ]
+  },
+  "module_id": "CP-2A",
+  "instructions": {
+    "path": "CP-2A.instructions.md",
+    "sha256": "ba2c646e1b5046b45bba1950ca4547fe1e04e7378939bb9387667e89dc0175f4"
+  },
+  "sources": {
+    "annual-pdf": {
+      "path": "../../../data/public-corpus/v1/TDG/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+    },
+    "annual-reading-aid": {
+      "path": "../../tdg-001/source-pages.jsonl",
+      "sha256": "3ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db"
+    },
+    "static-method": {
+      "path": "../../../src/deploy_vii/methods/cp2a.md",
+      "sha256": "28be81bfb97a83e739e4a514612a2db3bf12b72480128f54c66c33fc2ab06236"
+    },
+    "calendar-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-2a-downside-pathway/references/REF_CP-2B_STEPS.md",
+      "sha256": "75434b4a5602c97f001d144ee5934a6601105f76aad9ea0ed2d71638726d7415"
+    },
+    "selected-downside-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-2a-downside-pathway/SKILL.md",
+      "sha256": "4c23c05eb697a09ca557a10d922ba4baad6bd0659c953e2d443859df85d5b213"
+    },
+    "frozen-illustrative-inputs": {
+      "path": "../../tdg-002/CP-2A-attempt-1-inputs.json",
+      "sha256": "c4a6c348f3eae99dc4b3e2f3587a0f9aeb5a915aad196d74eda903ea630d9f49"
+    },
+    "kernel-results": {
+      "path": "kernel-results.json",
+      "sha256": "0910d00199892498edaddf94ca0b7c152eed8f31b3a4fd0f23662daf56f7197f"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../../tdg-001/CP-0.md",
+      "sha256": "b00dc9ded43bd41413143000b6e78799450f658667a85e4f3afcf54a9646a1f0"
+    },
+    "CP-1": {
+      "path": "../../tdg-002/CP-1-attempt-2.md",
+      "sha256": "301af0eeed2d90edd2671ef0c71dc759e66c000b3722a0c4ceacfba6fb1332bb"
+    },
+    "CP-1A": {
+      "path": "../../tdg-002/CP-1A-attempt-3.md",
+      "sha256": "6f63963177c2ea7d54bd043532e250e28625ea70c0ec229d63d55768c2c174fe"
+    },
+    "CP-2": {
+      "path": "../../tdg-002/CP-2-attempt-2.md",
+      "sha256": "249d0cbdf1ba8159dcae68d4ff3241c73ea092ff66353c0c2eef08691e0afa57"
+    },
+    "CP-DR": {
+      "path": "../tdg-guidance/CP-DR.md",
+      "sha256": "0463a4b16e8ed7de1e1ed9a219587bbf4ee2b6fc2e98228d4f0090c22d487b03"
+    }
+  },
+  "checks": "CP-2A.checks.json",
+  "layout": "CP-2A.layout.json",
+  "output": "CP-2A.md"
+}

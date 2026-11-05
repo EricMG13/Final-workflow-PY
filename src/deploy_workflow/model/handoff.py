@@ -91,6 +91,7 @@ TOOLS: tuple[ToolSpec, ...] = (
         "calculate",
         "Use the existing Decimal-38 kernel. Sum signed operands, or divide two operands. "
         "Values are decimal strings or null for missing; ratios are fractions, not percentages. "
+        "A ratio requires a strictly positive denominator; otherwise it returns null with a reason. "
         "Keep period, currency, quantity and source references in your calculation trace.",
         operation={"type": "string", "enum": ["sum", "ratio"]},
         values={
@@ -376,6 +377,9 @@ class HandoffExecutor:
             "repair rejection with edit_handoff. There are three submission attempts. "
             "The exact H2 headings are ## Request, ## Sources, ## Findings, ## Calculations, "
             "## Gaps, ## Next module, once each in that order. All subsections use ### or deeper. "
+            "Markdown tables require nonempty headers and cells. Display missing quantities as "
+            "Not supplied or Not calculable with a reason, never a bare null spelling or invented zero; "
+            "retain actual null in JSON. "
             "Respect the supplied run date, evidence dates and requested scope; distinguish subsequent events."
         )
         context = {

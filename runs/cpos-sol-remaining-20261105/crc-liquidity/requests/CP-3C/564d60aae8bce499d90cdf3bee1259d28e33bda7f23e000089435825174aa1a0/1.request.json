@@ -1,0 +1,33 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-2D": "480e78d0bd4cd66782e94a391c3b63f8efde91f85f9d38b79819594a52168296"
+  },
+  "instructions": "# Fresh live CP-3C: CRC funding and creditor consequences\n\nRead the actual supplied fresh CP-2D handoff in full, its exact hash, source evidence and selected full CP-3C method/steps/runbook. Selected source revision cp-os b57a344, Deploy V ancestry; later native method offers exact missingness/resource corrections but its narrower table IDs/annual run-rate restrictions do not replace the twelve duties. No prior own answer or oracle is provided.\n\nHistorical CRC case asof2020-07-23, initial discussion budget2020-07-09, capture2026-11-04, fresh live execution2026-11-05. One issuer/date only, no subsequent outcomes. Direct CP-2D consumption/source-grounded functional proof; CP-0/1 not supplied, don't invent heads, don't stop the bounded work for their absence. Current user request authorizes this alternative-source module proof. All imported approval/workbook/native-transport/Markdown-only completion rules superseded; analysis owns Markdown, separate existing renderer publishes it.\n\nComplete all twelve analytical duties, eleven registers with method's exact columns, fourteen legal indicators and all twelve named funding/LME paths (including canonical seven) with differentiated supported versus missing feasibility. Assess five vulnerability dimensions and aggregate only if evidence supports it; missing legal/willingness/market evidence is not Low and funding pressure alone is not High LME intent. No forced numeric confidence/score or helper-run claim. Trace evidence\u2192cash/legal mechanism\u2192creditor consequence, strongest supported countercase and what makes it win, causal/time-aware downside and observable triggers. State supported actual creditor classes, avoid invented ranking/recovery/dilution percentages.\n\nConsume first/peak/end/gross/net financing distinctions; interim authority and final-order timing; LC/rollup conditional capacity; daily35 and four-Friday50 legal Liquidity versus budgetcash10; separately bounded weekly/monthly and Jan15stub/maturity. Retain CP-2D's new exact-legal/roundedforecast principal and cash-applied takeout diagnostics with assumptions, fees/LC/junior exclusions and no double counting. Do not call unused same-facility availability takeout cash or extend it beyond termination. Do not rerun the whole cash bridge; use supplied checked values, calculate every new arithmetic operation. No unsupported cost sensitivity/interest cover, annualization, probability, cure, covenant capacity or current security recommendation. Formal MTE, full12months and actualaccess/compliance unestablished.\n\nCurrent six H2: Request, Sources, Findings, Calculations, Gaps, Next module. Start Request direct prose prefixed `Funding view:` naming CRC and historicaldate before anyH3. Required exact H3 table headings (one table each, nonempty cells with Not supplied/Not calculable reason):\n- T3D.1 \u2014 source gate\n- T3D.2 \u2014 maturity wall\n- T3D.3 \u2014 liquidity and market access\n- T3D.4 \u2014 legal capacity\n- T3D.5 \u2014 willingness\n- T3D.6 \u2014 funding paths\n- T3D.7 \u2014 vulnerability dimensions\n- T3D.8 \u2014 creditor exposure\n- T3D.9 \u2014 monitoring\n- T3D.10 \u2014 scenarios\n- T3D.11 \u2014 gaps\n\nInclude an additional `Consumed funding findings` table: Finding | Exact CP-2D evidence | Funding mechanism | Consequence / required evidence | Boundary. Explicitly state how actual fresh producer findings change the funding assessment and actions; quote its exact SHA256, preserve any disagreement instead of substituting oldstatus. All twelve duties apply even where evidence limits an output; use targeted gap cells with reasons. Read source provision before legal assertion. End with actual scope and delivery handoff, no claim of downstream execution.\n",
+  "module_id": "CP-3C",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2020-07-23",
+    "case_kind": "public",
+    "issuer_id": "CRC",
+    "issuer_name": "California Resources Corporation",
+    "method_version": "deploy-v-r14",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-3C"
+    ],
+    "run_id": "sol-remaining-crc-funding-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "budget-inputs": "f39aa7eb9aaa21ac996a9b069fd68ca6bf3ed792f7ad53e393c214a62151dd4e",
+    "filing-captures": "98dc337f9d9bca72dab812f3dcc68e4ce366435bc16f9a12f09c4a971ce56200",
+    "funding-method": "8c8c0534932f653288c68954406262c40e2fd6dcb6f23916220b5cec3e42d4bd",
+    "funding-runbook": "13a2525bee2aae103114e7f5bd0ef7f7e6942c82e53041ea61e82aec4a498753",
+    "funding-steps": "a0b1abe8f5ce28cf7d962aa26e72ae12326c102fba34f4d66f52b620dd40bf84",
+    "later-method": "b66438b5b6e17d8e8e21814c488e7a75f73c87544ee79bce5d338626f488de72",
+    "maturity-supplement": "ead2ce25043c2be4645f23a563b46bd2ebaea97d50c6bf4f61a17e01b1574153",
+    "retained-calculations": "103aa2ce489cd4b7c490d7208883e5abca95d675fd6f3f72e661c975c8db93d5"
+  }
+}

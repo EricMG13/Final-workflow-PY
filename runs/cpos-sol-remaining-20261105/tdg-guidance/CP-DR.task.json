@@ -1,0 +1,48 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-guidance-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-11-07",
+    "case_kind": "public",
+    "pathway": "earnings_update",
+    "requested_modules": [
+      "CP-DR"
+    ]
+  },
+  "module_id": "CP-DR",
+  "instructions": {
+    "path": "CP-DR.instructions.md",
+    "sha256": "3219603f5fadc3e25d91ce6b3487228ac80cff6f5042df353b655b036af7af10"
+  },
+  "sources": {
+    "RESEARCH_tdg-guidance-001.json": {
+      "path": "../../tdg-guidance-001/RESEARCH_tdg-guidance-001.json",
+      "sha256": "261c93801c6fbee299b76f704262e23b6fcdc439da17e299474966eeaf49e19c"
+    },
+    "source-record.json": {
+      "path": "../../tdg-guidance-001/source-record.json",
+      "sha256": "0fe844a08a205515be5aaa831ef223fa1bec8db55ec82c4352fa121468c5f165"
+    },
+    "web-retrieval.json": {
+      "path": "../../tdg-guidance-001/sources/web-retrieval.json",
+      "sha256": "0fdaeab87dae4492256bad814ad7e2075a3182722ba8a6e2713fcf612a1a21e9"
+    },
+    "web-outlook.json": {
+      "path": "../../tdg-guidance-001/sources/web-outlook.json",
+      "sha256": "bfdb6a78692a536346f0fb6644c5fb583000a17522b850519b915d14297435e1"
+    },
+    "SKILL.md": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-dr-deep-research/SKILL.md",
+      "sha256": "bcf7836d45abd34e15188ed8f580c69079bad62012cb1921fabbdc4bc9372fc3"
+    },
+    "REF_CP-DR_STEPS.md": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-dr-deep-research/references/REF_CP-DR_STEPS.md",
+      "sha256": "a75bd020e039a67e37063b0475718aebac4a9fc3107819b9d2987b4e1f30643c"
+    }
+  },
+  "handoffs": {},
+  "layout": "CP-DR.layout.json",
+  "checks": "CP-DR.checks.json",
+  "output": "CP-DR.md"
+}

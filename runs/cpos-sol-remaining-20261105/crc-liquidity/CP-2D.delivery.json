@@ -1,0 +1,103 @@
+{
+  "run": {
+    "run_id": "sol-remaining-crc-liquidity-20261105",
+    "issuer_id": "CRC",
+    "issuer_name": "California Resources Corporation",
+    "as_of": "2020-07-23",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-2D"
+    ]
+  },
+  "handoffs": {
+    "CP-2D": {
+      "path": "CP-2D.md",
+      "sha256": "480e78d0bd4cd66782e94a391c3b63f8efde91f85f9d38b79819594a52168296"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "liquidity-runway",
+      "funding-gap",
+      "red-flags",
+      "refinancing-paths"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2D",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "red-flags",
+        "prefix": "Liquidity view:"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "T2E.1 \u2014 source gate",
+        "kind": "table",
+        "block_id": "red-flags"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "T2E.2 \u2014 beginning liquidity and access",
+        "kind": "table",
+        "block_id": "liquidity-runway"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "T2E.3 \u2014 cash uses and timing",
+        "kind": "table",
+        "block_id": "funding-gap"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "T2E.4 \u2014 working-capital and capex pressure",
+        "kind": "table",
+        "block_id": "liquidity-runway"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "T2E.5 \u2014 bridge and twelve-month boundary",
+        "kind": "table",
+        "block_id": "funding-gap"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "T2E.6 \u2014 runway and Months to Empty",
+        "kind": "table",
+        "block_id": "funding-gap"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "T2E.7 \u2014 mitigants and constraints",
+        "kind": "table",
+        "block_id": "refinancing-paths"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "T2E.8 \u2014 liquidity risk assessment",
+        "kind": "table",
+        "block_id": "red-flags"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "T2E.9 \u2014 gaps ledger",
+        "kind": "table",
+        "block_id": "red-flags"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "Weekly funding bridge",
+        "kind": "table",
+        "block_id": "liquidity-runway"
+      },
+      {
+        "module_id": "CP-2D",
+        "heading": "Monthly and stub funding bridge",
+        "kind": "table",
+        "block_id": "liquidity-runway"
+      }
+    ],
+    "scope": "CRC historical2020 initial budget; positive dated13-week/monthly-stub cash/funding proof with source rounding. Conditional access and maturity restrictions; not full12-month/current or complete covenant pathway."
+  }
+}

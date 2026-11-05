@@ -1,0 +1,28 @@
+{
+  "required_terms": [
+    "T2B.1 \u2014 scenarios",
+    "T2B.2 \u2014 base operands",
+    "T2B.3 \u2014 stressed flows",
+    "T2B.4 \u2014 stressed metrics",
+    "T2B.5 \u2014 reported-ratio reconciliation",
+    "T2B.6 \u2014 break points",
+    "T2B.7 \u2014 break ranking",
+    "T2B.8 \u2014 scenario crossings",
+    "T2B.9 \u2014 static stress gaps",
+    "T5.1 \u2014 event source register",
+    "T5.2 \u2014 catalyst calendar",
+    "T5.3 \u2014 event-risk register",
+    "T5.4 \u2014 ordinal probability / impact matrix",
+    "T5.5 \u2014 ranked monitoring priorities",
+    "T5.6 \u2014 watchlist and cross-module handoff",
+    "T5.7 \u2014 gaps, exclusions and limitations",
+    "Historical catalyst projection",
+    "CP-2B",
+    "2024-09-30",
+    "2025-03-31",
+    "2025-07-11",
+    "2025-09-30",
+    "CP-2D",
+    "CP-2G"
+  ]
+}

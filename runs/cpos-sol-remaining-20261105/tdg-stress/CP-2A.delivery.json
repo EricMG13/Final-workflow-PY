@@ -1,0 +1,99 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-stress-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-11-07",
+    "case_kind": "public",
+    "pathway": "distressed_restructuring",
+    "requested_modules": [
+      "CP-2A"
+    ]
+  },
+  "handoffs": {
+    "CP-2A": {
+      "path": "CP-2A.md",
+      "sha256": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "distress-gate",
+      "downside-stress",
+      "break-points"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2A",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "distress-gate",
+        "prefix": "Downside view:",
+        "label": "Static downside assessment"
+      },
+      {
+        "module_id": "CP-2A",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "distress-gate",
+        "prefix": "Calendar view:",
+        "label": "Historical catalyst assessment"
+      },
+      {
+        "module_id": "CP-2A",
+        "heading": "T2B.1 \u2014 scenarios",
+        "kind": "table",
+        "block_id": "downside-stress"
+      },
+      {
+        "module_id": "CP-2A",
+        "heading": "T2B.2 \u2014 base operands",
+        "kind": "table",
+        "block_id": "downside-stress"
+      },
+      {
+        "module_id": "CP-2A",
+        "heading": "T2B.3 \u2014 stressed flows",
+        "kind": "table",
+        "block_id": "downside-stress"
+      },
+      {
+        "module_id": "CP-2A",
+        "heading": "T2B.4 \u2014 stressed metrics",
+        "kind": "table",
+        "block_id": "downside-stress"
+      },
+      {
+        "module_id": "CP-2A",
+        "heading": "T2B.5 \u2014 reported-ratio reconciliation",
+        "kind": "table",
+        "block_id": "break-points"
+      },
+      {
+        "module_id": "CP-2A",
+        "heading": "T2B.6 \u2014 break points",
+        "kind": "table",
+        "block_id": "break-points"
+      },
+      {
+        "module_id": "CP-2A",
+        "heading": "T2B.7 \u2014 break ranking",
+        "kind": "table",
+        "block_id": "break-points"
+      },
+      {
+        "module_id": "CP-2A",
+        "heading": "T2B.8 \u2014 scenario crossings",
+        "kind": "table",
+        "block_id": "break-points"
+      },
+      {
+        "module_id": "CP-2A",
+        "heading": "T2B.9 \u2014 static stress gaps",
+        "kind": "table",
+        "block_id": "break-points"
+      }
+    ],
+    "scope": "Historical TDG FY2024 static stress and November2024-November2025 catalyst calendar. Fresh sol-medium analysis consumes rechecked retained annual handoffs, fresh CP-DR and newly executed existing kernel. Hypothetical shocks/watch levels are not forecasts/covenants/default probabilities. Calendar registers retained in Evidence. Selected module publication, not full distressed pathway/current underwriting."
+  }
+}

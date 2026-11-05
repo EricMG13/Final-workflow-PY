@@ -1,0 +1,110 @@
+{
+  "run": {
+    "run_id": "sol-remaining-crc-funding-20261105",
+    "issuer_id": "CRC",
+    "issuer_name": "California Resources Corporation",
+    "as_of": "2020-07-23",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-3C"
+    ]
+  },
+  "handoffs": {
+    "CP-3C": {
+      "path": "CP-3C-repaired.md",
+      "sha256": "d7303d212b68df78303e500fdd35e53142d7d58456b225c8c201e6c15a4faf72"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "funding-gap",
+      "refinancing-paths",
+      "capacity",
+      "lme-creditor-exposure",
+      "red-flags"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-3C",
+        "heading": "Request",
+        "kind": "prose",
+        "prefix": "Funding view:",
+        "block_id": "red-flags"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "T3D.1 \u2014 source gate",
+        "kind": "table",
+        "block_id": "red-flags"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "T3D.2 \u2014 maturity wall",
+        "kind": "table",
+        "block_id": "funding-gap"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "T3D.3 \u2014 liquidity and market access",
+        "kind": "table",
+        "block_id": "funding-gap"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "T3D.4 \u2014 legal capacity",
+        "kind": "table",
+        "block_id": "capacity"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "T3D.5 \u2014 willingness",
+        "kind": "table",
+        "block_id": "refinancing-paths"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "T3D.6 \u2014 funding paths",
+        "kind": "table",
+        "block_id": "refinancing-paths"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "T3D.7 \u2014 vulnerability dimensions",
+        "kind": "table",
+        "block_id": "lme-creditor-exposure"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "T3D.8 \u2014 creditor exposure",
+        "kind": "table",
+        "block_id": "lme-creditor-exposure"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "T3D.9 \u2014 monitoring",
+        "kind": "table",
+        "block_id": "red-flags"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "T3D.10 \u2014 scenarios",
+        "kind": "table",
+        "block_id": "refinancing-paths"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "T3D.11 \u2014 gaps",
+        "kind": "table",
+        "block_id": "red-flags"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Consumed funding findings",
+        "kind": "table",
+        "block_id": "funding-gap"
+      }
+    ],
+    "scope": "Fresh CRC historical CP-3C consumes actual fresh CP-2D and primary retained SEC evidence. Twelve duties/eleven registers with conditional funding and explicit market/legal/exit gaps; selected functional report, not complete covenant/current/native pathway."
+  }
+}

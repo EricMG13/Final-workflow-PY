@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Historical TDG reported fiscal Q1 2024-10-01\u20132024-12-28 versus 2023-10-01\u20132023-12-30. Fresh sol-medium CP-1B with checked retained CP-0/CP-1 inputs. Unequal date windows remain explicit. Module publication, not full earnings pathway or current underwriting.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-1B.md": "42ee44c8350150abd3875adc4ee30ba2cdc4658d0db3ed905251f4825be6e377",
+    "view.json": "f07fa3a2d42e919092a6c1be61ae9cd04a725530c6b9e47ad762bce8c3153a8e",
+    "report-view.json": "f3498bc54ec4714329c910d905570427227c6a35c8ba16410d900e0c058880da",
+    "report.html": "6165707023a8f881299104f324fc4b679168cec5649789bd7e8b67beeb8301d3"
+  }
+}

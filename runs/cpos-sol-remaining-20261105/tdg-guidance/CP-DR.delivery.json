@@ -1,0 +1,60 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-guidance-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-11-07",
+    "case_kind": "public",
+    "pathway": "earnings_update",
+    "requested_modules": [
+      "CP-DR"
+    ]
+  },
+  "handoffs": {
+    "CP-DR": {
+      "path": "CP-DR.md",
+      "sha256": "0463a4b16e8ed7de1e1ed9a219587bbf4ee2b6fc2e98228d4f0090c22d487b03"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "headline-results",
+      "guidance-signals",
+      "watch-items"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-DR",
+        "heading": "TDR.1 \u2014 locked question and workstream",
+        "kind": "table",
+        "block_id": "headline-results"
+      },
+      {
+        "module_id": "CP-DR",
+        "heading": "TDR.2 \u2014 claims and located evidence",
+        "kind": "table",
+        "block_id": "headline-results"
+      },
+      {
+        "module_id": "CP-DR",
+        "heading": "TDR.3 \u2014 answer, uncertainty and proposed use",
+        "kind": "table",
+        "block_id": "headline-results"
+      },
+      {
+        "module_id": "CP-DR",
+        "heading": "Executive answer",
+        "kind": "prose",
+        "block_id": "guidance-signals",
+        "prefix": "Research answer:"
+      },
+      {
+        "module_id": "CP-DR",
+        "heading": "Gap, disagreement and stop register",
+        "kind": "prose",
+        "block_id": "watch-items"
+      }
+    ],
+    "scope": "Historical TDG guidance issued November 7, 2024 for FY2025. Fresh sol-medium synthesis of retained SEC/issuer web-tool captures accessed November 4, 2026; no new browsing or raw HTML retrieval. One factual research question, not current guidance or complete earnings pathway."
+  }
+}

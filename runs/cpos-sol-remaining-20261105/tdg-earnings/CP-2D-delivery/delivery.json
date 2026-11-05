@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Historical TDG December2024 liquidity update. Fresh sol-medium CP-2D consumes fresh CP-1B/CP-1D/CP-2A and retained financial/source context. Actual historical cash bridge and event timing; forward accessible liquidity/funding gap/runway remain unestablished. Selected module publication, not complete covenant/refinancing pathway.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-2D.md": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565",
+    "view.json": "fbb3acbd1dd51b86171cd9e691341d027c151ce8d2ac8f842dff694dee1a46f0",
+    "report-view.json": "3f8d4fd8e3504f5a677ef910c19a2be20f6b16940f6f9675a974d77c8315a282",
+    "report.html": "10368b733e910131086472871a45d0ffbbe06efadeaddf55635c9fe0c36c3dc1"
+  }
+}

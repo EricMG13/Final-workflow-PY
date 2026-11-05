@@ -1,0 +1,81 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-earnings-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-12-28",
+    "case_kind": "public",
+    "pathway": "earnings_update",
+    "requested_modules": [
+      "CP-1B"
+    ]
+  },
+  "handoffs": {
+    "CP-1B": {
+      "path": "CP-1B.md",
+      "sha256": "42ee44c8350150abd3875adc4ee30ba2cdc4658d0db3ed905251f4825be6e377"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "headline-results",
+      "variance-drivers",
+      "kpi-changes",
+      "guidance-signals",
+      "watch-items"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-1B",
+        "heading": "Financial performance / comparator register",
+        "kind": "table",
+        "block_id": "headline-results",
+        "table_header": "Metric",
+        "label": "Reported fiscal-quarter comparisons"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "headline-results",
+        "prefix": "Earnings view",
+        "label": "Earnings assessment"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Financial performance / comparator register",
+        "kind": "table",
+        "block_id": "kpi-changes",
+        "table_header": "Additional required measure"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Definition lock and top sheet",
+        "kind": "prose",
+        "block_id": "kpi-changes",
+        "label": "Definitions and balance dates"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Variance mechanics and comparative credit evaluation",
+        "kind": "prose",
+        "block_id": "guidance-signals",
+        "prefix": "No accepted budget"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Variance mechanics and comparative credit evaluation",
+        "kind": "prose",
+        "block_id": "variance-drivers"
+      },
+      {
+        "module_id": "CP-1B",
+        "heading": "Monitoring and method changes justified by observed output",
+        "kind": "prose",
+        "block_id": "watch-items",
+        "prefix": "Track dated cash"
+      }
+    ],
+    "scope": "Historical TDG reported fiscal Q1 2024-10-01\u20132024-12-28 versus 2023-10-01\u20132023-12-30. Fresh sol-medium CP-1B with checked retained CP-0/CP-1 inputs. Unequal date windows remain explicit. Module publication, not full earnings pathway or current underwriting."
+  }
+}
