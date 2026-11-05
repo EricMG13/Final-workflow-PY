@@ -108,19 +108,28 @@ NON_USD_TABLES = {
 }
 
 
+# Deploy V CANON_SHARED.md "Credit-research reading order": the H3 a reader meets first. A copy,
+# not an import: the answer key stays independent of cpos_launch.OPENING.
+OPENING = {"CP-2": "Credit view"}
+
+
 def answer(context: dict, plan_routes: list) -> str:
     lines = [f"# {context['module_id']}", "", "## Request", f"{ISSUER} as of {AS_OF}.", ""]
     lines += ["## Sources", ""]
     lines += [f"- {n} {h}" for n, h in context["sources"].items()]
     lines += [f"- {n} {h['sha256']}" for n, h in context["handoffs"].items()]
-    lines += ["", "## Findings", "", "### Reader summary", ""]
+    lines += ["", "## Findings", ""]
+    own = [r for r in plan_routes if r.module_id == context["module_id"]]
+    opening = OPENING.get(context["module_id"])
+    if opening:  # The opening view comes first, whether or not a report section selects it.
+        lines += [f"### {opening}", "", "The issuer's credit view, stated first.", ""]
+        own = [r for r in own if r.heading != opening]
+    lines += ["### Reader summary", ""]
     lines += ["| Bottom line | Confidence | Main limitation |"]
     lines += ["| --- | --- | --- |", f"| {READER_BOTTOM_LINE} | Low | Synthetic data only. |", ""]
     lines += ["| Finding | Creditor impact | Confidence |", "| --- | --- | --- |"]
     lines += ["| One item was observed. | None for this synthetic case. | Low |", ""]
-    for route in plan_routes:
-        if route.module_id != context["module_id"]:
-            continue
+    for route in own:
         lines += [f"### {route.heading}", ""]
         if route.kind == "chart":
             lines += [CHART_TABLES[route.heading], ""]
@@ -664,6 +673,83 @@ def test_module_without_report_sections_still_needs_the_issuer(tmp_path):
     assert any(
         "selected issuer" in i for i in _checked_handoff(task, raw, checker(prepared.layout))
     )
+
+
+def test_cp2_instructions_carry_the_reader_standard_and_its_opening(tmp_path):
+    prepared = prepare(
+        context_file(tmp_path, "credit_snapshot"),
+        issuer_folder(tmp_path),
+        tmp_path / "out",
+        config="sol-medium",
+        cap="50",
+    )
+
+    def read(module: str) -> str:
+        return (tmp_path / "out" / prepared.plan.instructions[module].path).read_text()
+
+    cp2 = read("CP-2")
+    assert "open `## Findings` with `### Credit view`" in cp2
+    assert "CANON_SHARED.md" in cp2
+    assert "State each limitation once" in cp2 and "currency and unit" in cp2
+    # The user's Microsoft 365 Copilot custom instruction, which Deploy V's M365 runs carried.
+    assert "senior credit research analyst" in cp2 and "senior credit committees" in cp2
+    assert "external sources" in cp2
+    assert "CANON_SHARED.md" not in read("CP-1A")  # One analytical module at a time.
+
+
+def test_cp2_instructions_place_the_reader_summary_after_the_credit_view(tmp_path):
+    prepared = prepare(
+        context_file(tmp_path),
+        issuer_folder(tmp_path),
+        tmp_path / "out",
+        config="sol-medium",
+        cap="50",
+    )
+    read = lambda m: (tmp_path / "out" / prepared.plan.instructions[m].path).read_text()  # noqa: E731
+    assert "directly after `### Credit view`" in read("CP-2")
+    assert "first under `## Findings`" not in read("CP-2")
+    assert "first under `## Findings`" in read("CP-4")
+
+
+@pytest.mark.parametrize("pathway", ["credit_snapshot", "relative_value"])
+def test_checker_accepts_cp2_opening_with_its_view(tmp_path, pathway):
+    prepared, task, context = good_task(tmp_path, "CP-2", pathway)
+    raw = answer(context, list(prepared.plan.layout.routes))
+    assert raw.count("### Credit view") == 1
+    assert _checked_handoff(task, raw.encode(), checker(prepared.layout)) == ()
+
+
+VIEW = "### Credit view\n\nThe issuer's credit view, stated first.\n\n"
+
+
+@pytest.mark.parametrize("pathway", ["credit_snapshot", "relative_value"])
+@pytest.mark.parametrize(
+    ("old", "new"),
+    [
+        (VIEW, ""),
+        ("## Findings\n\n", "## Findings\n\nPreamble before the view.\n\n"),
+        (VIEW, "### Overview\n\nText.\n\n" + VIEW),
+        ("The issuer's credit view, stated first.", "| A | B |\n| --- | --- |\n| x | y |"),
+        ("The issuer's credit view, stated first.", "- a bullet, not a paragraph"),
+        ("The issuer's credit view, stated first.", "```json\n{}\n```"),
+        ("The issuer's credit view, stated first.", "<!-- a comment -->"),
+    ],
+    ids=[
+        "missing",
+        "prose-first",
+        "other-section-first",
+        "table-first",
+        "bullet",
+        "fence",
+        "comment",
+    ],
+)
+def test_checker_rejects_cp2_that_does_not_open_with_its_view(tmp_path, pathway, old, new):
+    prepared, task, context = good_task(tmp_path, "CP-2", pathway)
+    raw = answer(context, list(prepared.plan.layout.routes))
+    assert old in raw
+    issues = _checked_handoff(task, raw.replace(old, new).encode(), checker(prepared.layout))
+    assert any("Open ## Findings with ### Credit view" in issue for issue in issues), issues
 
 
 def test_every_selected_method_file_exists():

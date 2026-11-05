@@ -34,6 +34,7 @@ from deploy_workflow.handoff_delivery import (
     HandoffInput,
     MarkdownLayout,
     MarkdownRoute,
+    section,
 )
 from deploy_workflow.html_text import convert_html
 from deploy_workflow.markdown_delivery import (
@@ -163,6 +164,39 @@ BLOCK_OWNERS: dict[str, tuple[str, ...]] = {
 }
 # CP-8 owns this section and compares two completed deliveries; a single run has nothing to compare.
 SECOND_RUN_ONLY = "what-changed"
+# The H3 that opens a module's analysis, from Deploy V CANON_SHARED.md "Credit-research reading
+# order", so the reader meets the view before any table. One module at a time: add the next here.
+# This launcher route only: the owner route (`deploy_vii.cp2_synthesis`, Python-composed
+# Markdown) is unchanged.
+OPENING: dict[str, str] = {"CP-2": "Credit view"}
+# For each module in OPENING, what Deploy V's M365 runs had and the web app lacked: the user's
+# Microsoft 365 Copilot custom instruction (supplied 2026-11-05, every clause kept),
+# CANON_SHARED.md's reader-facing layer, and two habits of those runs' handoffs (VMO2 2026-09-20,
+# Wood Mackenzie 2026-08-27): units on amounts, the issuer as subject. ponytail: instructions
+# only; the checker enforces the opening, not the prose.
+READER_STANDARD = (
+    "You are a senior credit research analyst at a leading credit fund, specialising in high "
+    "yield credit and leveraged loans. Your research is used throughout the firm for key "
+    "investment decisions; it is presented to senior credit committees and affects portfolio "
+    "management. Your findings are institutional-grade, deeply analytical and data-dense, fully "
+    "reasoned with explicit links from data to risk to credit implication. Say nothing generic "
+    "unless it is tied to issuer-specific mechanics. Write in a detailed, structured style "
+    "grounded in the provided data, and say when information is insufficient. State explicitly "
+    "when information comes from external sources.\n\n"
+    "Presentation rules, from the reader-facing standard of Deploy V's CANON_SHARED.md. They "
+    "never remove a method duty, category tag, limitation or gap:\n"
+    "- In the opening section, state the credit view in plain English in the first sentence. In "
+    "90–150 words, give the strongest support, the weakest point and what decides the outcome.\n"
+    "- Keep `## Request` to the issuer, as-of date, pathway and scope, in at most three "
+    "sentences. Readiness status, revision history and scope disclaimers belong in `## Gaps`.\n"
+    "- State each limitation once, where it changes a conclusion, and say what it changes. Do not "
+    "repeat a caveat in sentence after sentence.\n"
+    "- In prose, give every amount its currency and unit, for example USD 1,250 million, 3.1x "
+    "or 61 bp.\n"
+    "- Make the issuer, its debt or its creditors the subject of a sentence, not a module. Cite "
+    "modules and locators in brackets or tables.\n"
+    "- Use plain-English labels. Hashes and raw locators belong in `## Sources` and tables.\n\n"
+)
 
 
 class LaunchRefused(ValueError):
@@ -375,6 +409,15 @@ READER_SECTION_RULES = (
 )
 
 
+def reader_section_rules(after: str | None) -> str:
+    """The reader rules, placed after the module's opening section where it has one."""
+    if not after:
+        return READER_SECTION_RULES
+    return READER_SECTION_RULES.replace(
+        "first under `## Findings`", f"directly after `### {after}`"
+    )
+
+
 def _selector(route: MarkdownRoute) -> str:
     if route.kind == "chart":
         return (
@@ -399,6 +442,7 @@ def _instructions(run: Run, module: str, routes: Sequence[MarkdownRoute]) -> byt
     method = "\n\n".join(
         f"=== {name} sha256 {_sha(text.encode())} ===\n{text}" for name, text in sections
     )
+    opening = OPENING.get(module)
     return (
         f"# {module} for {run.issuer_name} ({run.issuer_id}), as of {run.as_of}\n\n"
         f"Pathway: {run.pathway}. Run the complete selected method below on this issuer's supplied "
@@ -414,8 +458,14 @@ def _instructions(run: Run, module: str, routes: Sequence[MarkdownRoute]) -> byt
         "A handoff is rejected unless it does all of this:\n"
         f"- name {run.issuer_name} in `## Request`, and state the as-of date {run.as_of} there;\n"
         "- list each issuer source it relied on in `## Sources`, with its exact name and sha256;\n"
-        "- list each supplied handoff in `## Sources`, with its module and exact sha256.\n\n"
-        + READER_SECTION_RULES
+        "- list each supplied handoff in `## Sources`, with its module and exact sha256"
+        + (
+            f";\n- open `## Findings` with `### {opening}`, once: prose that states the view, "
+            "before any table.\n\n" + READER_STANDARD
+            if opening
+            else ".\n\n"
+        )
+        + reader_section_rules(opening)
         + (
             "Report selectors, each exactly once inside `## Findings`, using these exact "
             f"headings. They place content in the report and are not analytical completion:\n"
@@ -515,7 +565,13 @@ def checker(layout: MarkdownLayout) -> Check:
         evidence = {_sha(v) for k, v in task.sources.items() if k != CONTEXT_SOURCE_ID}
         if not any(digest in text for digest in evidence):
             issues.append("List each issuer source relied on with its exact name and sha256.")
-        issues += reader_issues(text)
+        issues += reader_issues(text, after=OPENING.get(task.module_id))
+        opening = OPENING.get(task.module_id)
+        if opening and not _opens_with(text.splitlines(), opening):
+            issues.append(
+                f"Open ## Findings with ### {opening}, once: prose that states the view, "
+                "before any table."
+            )
         routes = tuple(r for r in layout.routes if r.module_id == task.module_id)
         try:
             if routes:
@@ -543,6 +599,21 @@ def checker(layout: MarkdownLayout) -> Check:
         return tuple(issues)
 
     return check
+
+
+def _opens_with(lines: list[str], heading: str) -> bool:
+    """`## Findings` starts with the one `### heading`, whose first content is a paragraph: a
+    line opening with a letter, a quote mark or bold, not a table, list, fence, comment or heading.
+    """
+    try:
+        findings = [line for _, line in section(lines, "Findings") if line.strip()]
+        body = [line.strip() for _, line in section(lines, heading) if line.strip()]
+    except ValueError:  # Missing or repeated.
+        return False
+    first = body[0] if body else ""
+    return findings[:1] == [f"### {heading}"] and (
+        first[:1].isalpha() or first.startswith(("**", '"', "“"))
+    )
 
 
 def _cap(text: str) -> Decimal:
