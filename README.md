@@ -1,4 +1,8 @@
-# Final Workflow
+# Final Workflow (Python variant)
+
+This repository is the Python variant of `EricMG13/final-workflow`. The Issuer Library
+server is FastAPI on uvicorn (`src/issuer_library`), and its browser checks use pytest with
+Playwright. The original repository keeps the Go server and the Node test harness.
 
 A local workflow joining the Deploy V-derived analytical methods, including
 applicable later corrections and additions, to Deploy Workflow's existing deliverables:
