@@ -69,7 +69,8 @@ def issuer_folder(tmp_path: Path) -> Path:
     return folder
 
 
-# Deploy V CANON_SHARED.md "Credit-research reading order": the H3 a reader meets first.
+# Deploy V CANON_SHARED.md "Credit-research reading order": the H3 a reader meets first. A copy,
+# not an import: the answer key stays independent of cpos_launch.OPENING.
 OPENING = {"CP-2": "Credit view"}
 
 
@@ -648,8 +649,19 @@ VIEW = "### Credit view\n\nThe issuer's credit view, stated first.\n\n"
         ("## Findings\n\n", "## Findings\n\nPreamble before the view.\n\n"),
         (VIEW, "### Overview\n\nText.\n\n" + VIEW),
         ("The issuer's credit view, stated first.", "| A | B |\n| --- | --- |\n| x | y |"),
+        ("The issuer's credit view, stated first.", "- a bullet, not a paragraph"),
+        ("The issuer's credit view, stated first.", "```json\n{}\n```"),
+        ("The issuer's credit view, stated first.", "<!-- a comment -->"),
     ],
-    ids=["missing", "prose-first", "other-section-first", "table-first"],
+    ids=[
+        "missing",
+        "prose-first",
+        "other-section-first",
+        "table-first",
+        "bullet",
+        "fence",
+        "comment",
+    ],
 )
 def test_checker_rejects_cp2_that_does_not_open_with_its_view(tmp_path, pathway, old, new):
     prepared, task, context = good_task(tmp_path, "CP-2", pathway)

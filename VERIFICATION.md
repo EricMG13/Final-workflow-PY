@@ -21,7 +21,9 @@ credit-analyst persona), which no web-app prompt carried.
 `cpos_launch` now gives CP-2 that custom instruction, the reader-facing rules of Deploy V
 `CANON_SHARED.md` (sha256 `1ab484c5072a92944e1ed8b1591f96dfff2a021baf2cc230b8033eaa913a232d`)
 and the `### Credit view` opening. The checker rejects a CP-2 handoff whose `## Findings` does
-not open with that section in prose. Other modules are unchanged.
+not open with that section in a paragraph (not a table, list, fence or comment). Other modules are
+unchanged, and so is CP-2's owner route (`deploy_vii.cp2_synthesis`, Python-composed Markdown),
+which produced `deliverables/tdg-fy2024-snapshot-7/CP-2.md`; only the launcher route changed.
 
 Checks: `tests/test_cpos_launch.py` passes (73, live test deselected). The new tests failed
 first. Ruff and format are clean on both changed files, and mypy reports nothing in

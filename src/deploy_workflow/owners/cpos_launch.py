@@ -152,6 +152,8 @@ BLOCK_OWNERS: dict[str, tuple[str, ...]] = {
 SECOND_RUN_ONLY = "what-changed"
 # The H3 that opens a module's analysis, from Deploy V CANON_SHARED.md "Credit-research reading
 # order", so the reader meets the view before any table. One module at a time: add the next here.
+# This launcher route only: the owner route (`deploy_vii.cp2_synthesis`, Python-composed
+# Markdown) is unchanged.
 OPENING: dict[str, str] = {"CP-2": "Credit view"}
 # For each module in OPENING, what Deploy V's M365 runs had and the web app lacked: the user's
 # Microsoft 365 Copilot custom instruction (supplied 2026-11-05, every clause kept),
@@ -473,13 +475,18 @@ def checker(layout: MarkdownLayout) -> Check:
 
 
 def _opens_with(lines: list[str], heading: str) -> bool:
-    """`## Findings` starts with the one `### heading`, whose first content is prose."""
+    """`## Findings` starts with the one `### heading`, whose first content is a paragraph: a
+    line opening with a letter, a quote mark or bold, not a table, list, fence, comment or heading.
+    """
     try:
         findings = [line for _, line in section(lines, "Findings") if line.strip()]
-        body = [line for _, line in section(lines, heading) if line.strip()]
+        body = [line.strip() for _, line in section(lines, heading) if line.strip()]
     except ValueError:  # Missing or repeated.
         return False
-    return findings[:1] == [f"### {heading}"] and bool(body) and not body[0].startswith(("|", "#"))
+    first = body[0] if body else ""
+    return findings[:1] == [f"### {heading}"] and (
+        first[:1].isalpha() or first.startswith(("**", '"', "“"))
+    )
 
 
 def _cap(text: str) -> Decimal:
