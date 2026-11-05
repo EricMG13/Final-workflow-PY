@@ -826,4 +826,54 @@ test('The app is organised by credit question and its chrome shows names, not co
   assert.equal(w.eval('current.module'),'CP-2G','the code still works as a link');
   dom.window.close();
 });
+test('Summary leads with the stored call and never promotes a finding',()=>{
+  const dom=fixture('W-Overview/overview?c=tdg-002'),w=dom.window,d=w.document;
+  const band=norm(d.querySelector('.summary-lead').textContent);
+  assert.ok(band.includes('Overall, TransDigm presents an established but not fully assessable business profile'));
+  assert.ok(band.includes('Fundamental credit'));
+  const source=d.querySelector('.summary-lead [data-evidence$=":132"]');
+  assert.ok(source,'the band links its source line');
+  assert.ok(norm(d.querySelector('[data-module="CP-1A"]').textContent).includes('Control rights, economic interest, shareholder concentration and private-equity sponsor status are therefore unestablished'));
+  assert.equal(d.querySelector('.summary-lead').closest('.summary-text'),null,'the bottom line is never clamped');
+  source.click();w.eval('renderRoute()');
+  assert.equal(d.getElementById('inspector').hidden,false,'its source opens from the Summary');
+  assert.equal(w.eval('current.module'),'W-Overview');
+  dom.window.close();
+});
+test('A one-section page does not repeat its heading or show a pager',()=>{
+  const dom=fixture('W-Overview/overview?c=tdg-002'),d=dom.window.document;
+  assert.ok(d.getElementById('section-title').classList.contains('sr-only'));
+  assert.equal(d.getElementById('next-section'),null);
+  dom.window.close();
+});
+test('A run with no stored call says so and shows its findings without a bottom line',()=>{
+  const dom=appFixture('W-Overview?c=web-1',NORTHBRIDGE,NORTHBRIDGE_REPORTS),d=dom.window.document;
+  assert.equal(norm(d.querySelector('.summary-lead').textContent),'No bottom line is stored for this run. Read the findings below.');
+  assert.equal(d.querySelector('.call-quote'),null);
+  assert.ok(d.querySelector('[data-module]'),'each module with an output still has a card');
+  dom.window.close();
+});
+test('Every card on a Summary quotes its own handoff',()=>{
+  const dom=fixture(),w=dom.window;
+  let checked=0;
+  for(const run of w.eval('Object.keys(contexts)')){
+    const content=contentOf(dom,`W-Overview/overview?c=${run}`);
+    assert.ok(content.querySelector('.summary-lead'),run);
+    for(const card of content.querySelectorAll('[data-output]')){
+      const text=card.querySelector('.summary-text');
+      if(!text)continue;
+      const raw=norm(fs.readFileSync(path.join(repo,'runs',card.dataset.output),'utf8').replace(/\n/g,' '));
+      assert.ok(raw.includes(retainedText(text)),`${card.dataset.output}: ${text.textContent.slice(0,60)}`);
+      checked++;
+    }
+  }
+  assert.ok(checked>=10,`checked ${checked}`);
+  dom.window.close();
+});
+test('A run in the library opens on its Summary',()=>{
+  const dom=fixture('W-Library/cases'),d=dom.window.document;
+  const link=[...d.querySelectorAll('.run-list a')].find(a=>a.getAttribute('href').includes('c=tdg-002'));
+  assert.ok(link.getAttribute('href').startsWith('#W-Overview/overview?'));
+  dom.window.close();
+});
 

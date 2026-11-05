@@ -301,7 +301,7 @@ function parseRoute() {
   const sections=navigationSections(module,context,output),first=output?modules[output].first:modules[module]?.first;
   const selected=sections.find(s=>s[0]===requestedSection)||sections.find(s=>s[0]===first)||sections[0];
   const e=params.get('e'),key=e&&(e.includes(':')?e:`${output}:${e}`),item=evidence.get(key);
-  const permitted=item&&item.run===context&&(item.output===output||module==='W-Calendar');
+  const permitted=item&&item.run===context&&(item.output===output||module==='W-Calendar'||module==='W-Overview');
   const file=output&&output!==defaultOutput(module,context)?data[output].source:null;
   return {module,output,file,section:selected[0],context,evidence:permitted?key:null};
 }
@@ -346,8 +346,10 @@ function renderRoute() {
   if(changed) {
     const sections=navigationSections(next.module,next.context,next.output),index=sections.findIndex(s=>s[0]===next.section);
     $('module-head').innerHTML=moduleHead(next);
-    const title=`<h3 id="section-title" tabindex="-1">${esc(sections[index][1])}</h3>`;
-    $('section-nav').innerHTML=isAnalytical(next.module)&&!next.output?title:`${title}<span>${index+1} / ${sections.length}</span><button id="previous-section" ${index===0?'disabled':''} aria-label="Previous section">${icon('arrow-left')}</button><button id="next-section" ${index===sections.length-1?'disabled':''} aria-label="Next section">${icon('arrow-right')}</button>`;
+    // A page with one section already says its name in the heading above.
+    const only=sections.length===1&&!isAnalytical(next.module);
+    const title=`<h3 id="section-title" tabindex="-1" ${only?'class="sr-only"':''}>${esc(sections[index][1])}</h3>`;
+    $('section-nav').innerHTML=only||(isAnalytical(next.module)&&!next.output)?title:`${title}<span>${index+1} / ${sections.length}</span><button id="previous-section" ${index===0?'disabled':''} aria-label="Previous section">${icon('arrow-left')}</button><button id="next-section" ${index===sections.length-1?'disabled':''} aria-label="Next section">${icon('arrow-right')}</button>`;
     if(!showsCodes(next))nameCodes($('section-nav'));
     updateWorkspaceChrome(next.module);
     $('content').innerHTML=moduleBody(next);

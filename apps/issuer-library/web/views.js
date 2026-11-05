@@ -88,7 +88,7 @@ function comparisonChart(module,v,selection=0) {
   const max=Math.max(1,...points.map(p=>Math.abs(chartNumber(p.value)??0)));
   const hasNegative=points.some(p=>(chartNumber(p.value)??0)<0);
   const legend=v.columns&&v.kind!=='peers'?`<div class="chart-legend">${v.columns.map((c,i)=>`<span><i class="series-${i}"></i>${esc(table.headers[c])}</span>`).join('')}</div>`:'';
-  return `${chartIntro(module,v)}${selectable?`<label class="metric-control">Measure <select id="chart-metric">${v.rows.map((idx,i)=>`<option value="${i}" ${i===selection?'selected':''}>${esc(plain(table.rows[idx].cells[0]))}</option>`).join('')}</select></label>`:''}${legend}<div class="horizontal-chart ${hasNegative?'diverging':''}">${points.map(p=>{
+  return `${chartIntro(module,v)}${selectable&&!v.fixed?`<label class="metric-control">Measure <select id="chart-metric">${v.rows.map((idx,i)=>`<option value="${i}" ${i===selection?'selected':''}>${esc(plain(table.rows[idx].cells[0]))}</option>`).join('')}</select></label>`:''}${legend}<div class="horizontal-chart ${hasNegative?'diverging':''}">${points.map(p=>{
     const n=chartNumber(p.value),width=n===null?0:Math.abs(n)/max*100;
     return `<button class="chart-row" data-evidence="${module}:${p.row.line}"><span class="chart-label">${esc(p.label)}${v.columns&&v.kind!=='peers'?`<small>${esc(table.headers[p.column])}</small>`:''}</span><span class="track ${n===null?'missing':''}">${hasNegative?`<span class="zero-rule"></span><i class="series-${p.series} ${n<0?'negative':''}" style="left:${n<0?50-width/2:50}%;width:${width/2}%"></i>`:`<i class="series-${p.series}" style="width:${width}%"></i>`}</span><strong>${n===null?'Not available':esc(p.value)}</strong></button>`;
   }).join('')}</div><p class="matrix-note">Select a plotted row to inspect its exact source fields. Missing values have no bar.</p>`;
@@ -136,11 +136,12 @@ function qualitativeVisual(module,v) {
   if(v.kind==='agencies')return `${chartIntro(module,v)}<div class="agency-pair">${table.rows.map(r=>`<section><h3>${esc(r.cells[0])}</h3><p class="rating">${rich(r.cells[1])}</p><h4>Proposed issue</h4><p>${rich(r.cells[2])}</p><p class="matrix-note">${rich(r.cells[3])}</p>${sourceFooter(`${module}:${r.line}`)}</section>`).join('')}</div>`;
   return `${chartIntro(module,v)}<div class="qual-matrix">${table.rows.map(row=>`<section><h3>${rich(row.cells[v.columns[0]])}</h3><div>${v.columns.slice(1).map(c=>`<div><h4>${esc(table.headers[c])}</h4><p>${rich(row.cells[c])}</p></div>`).join('')}${sourceFooter(`${module}:${row.line}`)}</div></section>`).join('')}</div>`;
 }
+const CHART_RENDERERS={paired:comparisonChart,peers:comparisonChart,bars:comparisonChart,bridge:bridgeChart,waterfall:bridgeChart,paths:pathChart,hedges:hedgeChart};
+const visualMarkup=(module,v)=>(CHART_RENDERERS[v.kind]||qualitativeVisual)(module,v);
 function galleryVisual(module,section) {
   const out=data[module],v=out.visual;
   if(!v||!sectionData(module,section).some(s=>s.blocks.some(b=>b.line===v.table)))return '';
-  const renderer={paired:comparisonChart,peers:comparisonChart,bars:comparisonChart,bridge:bridgeChart,waterfall:bridgeChart,paths:pathChart,hedges:hedgeChart};
-  return `<div id="module-visual">${(renderer[v.kind]||qualitativeVisual)(module,v)}</div>${visualCoversTable(module,fixtureTable(module,v.table))?'':'<div class="section-heading compact"><h2>Complete findings & exact data</h2><span>Retained output</span></div>'}`;
+  return `<div id="module-visual">${visualMarkup(module,v)}</div>${visualCoversTable(module,fixtureTable(module,v.table))?'':'<div class="section-heading compact"><h2>Complete findings & exact data</h2><span>Retained output</span></div>'}`;
 }
 function visualCoversTable(module,block) {
   const v=data[module].visual;
@@ -260,7 +261,7 @@ function libraryResults(records) {
   if(!records.length)return '<div class="library-empty"><h2>No matching issuers or runs</h2><p>Try a shorter issuer name, another sector or a different content selection. Clear filters to see all retained cases.</p></div>';
   return `<div class="case-list">${[...new Set(records.map(r=>r.issuer))].map(issuer=>{
     const matches=records.filter(r=>r.issuer===issuer);
-    return `<section><div><h2>${esc(issuer)}</h2><p>${esc(matches[0].sector)} · separate runs</p></div><div class="run-list">${matches.map(record=>`<a href="${routeHref(record.first,firstSection(record.first,record.key),null,record.key)}"><strong>${esc(record.run)}</strong><span>${esc(record.period)}</span><small>${plural(record.modules.length,'module')} · ${plural(record.outputs,'saved output')} · ${plural(record.reports.length,'report')}</small>${icon('arrow-right')}</a>`).join('')}</div></section>`;
+    return `<section><div><h2>${esc(issuer)}</h2><p>${esc(matches[0].sector)} · separate runs</p></div><div class="run-list">${matches.map(record=>`<a href="${routeHref('W-Overview','overview',null,record.key)}"><strong>${esc(record.run)}</strong><span>${esc(record.period)}</span><small>${plural(record.modules.length,'module')} · ${plural(record.outputs,'saved output')} · ${plural(record.reports.length,'report')}</small>${icon('arrow-right')}</a>`).join('')}</div></section>`;
   }).join('')}</div>`;
 }
 function libraryView() {
@@ -303,12 +304,53 @@ function settingsView() {
   return `<div class="settings"><section><h2>Workspace folder</h2><label class="run-field">Folder holding runs and deliverables<input id="workspace-path" value="${esc(app.workspace)}" ${app.policy_locked?'disabled':''} autocomplete="off"></label><p class="hint">${app.policy_locked?'This location is managed by your IT configuration.':'Use a local folder for offline access. Network shares and cloud placeholders need a connection.'}</p><div class="step-actions"><button id="save-workspace" class="primary-action" type="button" ${app.policy_locked?'disabled':''}>Save and reload</button><button id="refresh-library" class="text-button" type="button">Refresh library</button><button id="quit-library" class="text-button" type="button">Quit library</button></div><p id="settings-status" role="status" aria-live="polite"></p></section><section><h2>Workspace issues · ${issues.length}</h2>${issues.length?`<ul>${issues.map(issue=>`<li>${esc(issue)}</li>`).join('')}</ul>`:'<p>None found.</p>'}</section></div>`;
 }
 const HELP=`<div class="help-copy"><h2>Find and read a run</h2><p>Choose a run in the library. The Summary, Analysis, Calendar, Deliverables and Evidence tabs keep that run selected. Browse by credit question or press / to search a name, section or module code, including absorbed aliases.</p><p>Select a finding’s View source action or a chart mark to open the evidence inspector. Escape returns to your reading position and source trigger.</p><h2>Move between the app and deliverables</h2><p>Deliverables lists every report in the workspace. A report opens inside the app, with this navigation beside it; its Built from list opens the module outputs it used, and a module output names the deliverables that used it.</p><h2>Start a new run</h2><p>Choose New run. Enter the issuer, workflow and dates, or load a saved context file. Choose the issuer folder, model and maximum USD spend. Validating is offline: the review shows the modules in order, the files no module can read and the report sections this run will not produce. Only Start run can call a model, after you approve the review, and only when the provider key is set in the environment that launched the app. If a module is rejected the run stops, keeps its work and makes no automatic paid retry.</p><p>A finished report has automated checks only: review the handoffs against the sources before relying on it.</p><h2>Runs stay separate</h2><p>Each run lists its own saved outputs. A module without one says so and offers other runs of the same issuer; another issuer is reached through the library. Reports list the runs they were built from, traced by SHA-256. Evidence is dated research, not current underwriting. Missing observations are not zero.</p><h2>Colour has a job</h2><div class="signal-key"><span><i class="series-0"></i>Blue · data and action</span><span><i class="series-1"></i>Navy · comparison</span><span><i class="signal-conditional"></i>Amber · conditional / attention</span><span>Grey · absent / unassessed</span></div><p>Dashed paths are conditional scenarios. Outflows use direction and signed values, not an adverse credit grade.</p><h2>Work offline, close or reopen</h2><p>The application, fonts and scripts are bundled; workspace files must also be available locally. Reports are sandboxed with external network requests blocked. Closing a tab leaves the library running; Quit library in Settings stops it.</p></div>`;
+// Modules most likely to state the run's overall credit view come first.
+const CALL_ORDER=['CP-6','CP-2','CP-3','CP-2D','CP-1','CP-0'];
+function firstFinding(id) {
+  const sections=data[id].sections,start=sections.findIndex(s=>s.heading==='Findings');
+  if(start<0)return null;
+  for(const section of sections.slice(start)) {
+    if(section.heading==='Calculations')break;
+    const block=section.blocks.find(b=>b.type==='text');
+    if(block)return {text:block.text,line:block.line};
+  }
+  return null;
+}
+function moduleSummary(id) {
+  const {call}=data[id];
+  if(call)return {kind:'call',text:call.text,line:call.line};
+  const finding=firstFinding(id);
+  return finding&&{kind:'finding',...finding};
+}
+function summaryLead(context,available) {
+  const order=[...new Set([...CALL_ORDER,...groups.flatMap(g=>g[1].map(item=>item[0]))])].filter(id=>available.includes(id));
+  for(const module of order) {
+    const id=defaultOutput(module,context),summary=id&&moduleSummary(id);
+    // A first finding is one paragraph of a module's work, so it never stands as the run's bottom line.
+    if(summary&&summary.kind!=='finding')return `<section class="summary-lead"><p class="summary-owner">${esc(moduleNames[module])}</p><p class="call-quote">${rich(summary.text.replace(/\n/g,' '))}</p>${sourceFooter(`${id}:${summary.line}`)}</section>`;
+  }
+  return '<section class="summary-lead empty"><p>No bottom line is stored for this run. Read the findings below.</p></section>';
+}
+function summaryCharts(available,context) {
+  const charts=available.map(module=>defaultOutput(module,context)).filter(id=>id&&CHART_RENDERERS[data[id].visual?.kind]).slice(0,4);
+  return charts.length?`<div class="summary-charts">${charts.map(id=>`<div class="summary-chart">${visualMarkup(id,{...data[id].visual,fixed:true})}</div>`).join('')}</div>`:'';
+}
+function summaryCard(module,context) {
+  const id=defaultOutput(module,context),summary=id&&moduleSummary(id);
+  const body=!id?`<p class="summary-note">${plural(moduleEntry(module,context).outputs.length,'saved output')}. Choose one to read its findings.</p>`:summary?`<div class="summary-text">${rich(summary.text.replace(/\n/g,' '))}</div>${sourceLink(`${id}:${summary.line}`)}`:'<p class="summary-note">No written findings in this output.</p>';
+  return `<article class="summary-card" data-module="${esc(module)}" ${id?`data-output="${esc(id)}"`:''}><h3>${moduleLink(module)}</h3>${body}</article>`;
+}
+function summaryView(context) {
+  const available=contextModules(context),built=reportsBuiltFrom(context);
+  const questions=groups.map(([title,items])=>[title,items.filter(([id])=>available.includes(id))]).filter(([,items])=>items.length);
+  return `${summaryLead(context,available)}${summaryCharts(available,context)}<div class="question-map">${questions.map(([title,items])=>`<section><h2>${esc(title)}</h2><div>${items.map(([id])=>summaryCard(id,context)).join('')}</div></section>`).join('')}</div>${built.length?`<section class="summary-deliverables"><h2>Deliverables from this run</h2>${built.map(r=>`<a class="text-action" href="${routeHref('W-Reports',r.id,null,context)}">${esc(reportName(r))}${icon('arrow-right')}</a>`).join('')}</section>`:''}`;
+}
 function workspaceView(module,section) {
   const context=current?.context,ctx=contexts[context],available=ctx?contextModules(context):[];
   if(module==='W-Library')return libraryView();
   if(module==='W-NewRun')return '';
   if(module==='W-Settings')return settingsView();
-  if(module==='W-Overview')return `<p class="intro">${plural(available.length,'module')} · ${plural(outputCount(context),'saved output')} in ${esc(ctx.run)}. Open a module to read its findings, visuals and evidence together.</p><div class="question-map">${groups.map(([title,items])=>[title,items.filter(([id])=>available.includes(id))]).filter(([,items])=>items.length).map(([title,items])=>`<section><h2>${esc(title)}</h2><div>${items.map(([id])=>moduleLink(id)).join('')}</div></section>`).join('')}</div>`;
+  if(module==='W-Overview')return summaryView(context);
   if(module==='W-Calendar') {
     const events=context===calendarRun('CP-1A'),hedges=context===calendarRun('CP-2E');
     if(!events&&!hedges)return `<div class="missing-state"><h2>No calendar retained for this run</h2><p>${esc(ctx.title)} · ${esc(ctx.run)} remains selected. No dates are inferred from other cases.</p></div>${moduleLink('W-Evidence','Review available evidence')}<a class="text-action switch-case" href="#W-Library/cases">Choose another case</a>`;

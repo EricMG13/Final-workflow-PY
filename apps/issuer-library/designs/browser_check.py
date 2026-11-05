@@ -175,6 +175,25 @@ def real_workspace(browser, name, port, full):
         page.evaluate("document.activeElement.id") == "library-query" and "W-Library" in page.url,
         f"{name}: / from Help opens the library search",
     )
+    for width, height in ((1280, 600), (1536, 730)):
+        page.set_viewport_size({"width": width, "height": height})
+        page.goto(f"http://127.0.0.1:{port}/#W-Overview/overview?c=tdg-002")
+        page.reload()
+        page.wait_for_selector(".summary-lead")
+        lead = page.locator(".summary-lead")
+        lead.scroll_into_view_if_needed()
+        box = lead.bounding_box()
+        scroller = page.locator("#content").bounding_box()
+        note(
+            box["height"] <= scroller["height"]
+            and lead.evaluate("e=>e.scrollHeight<=e.clientHeight"),
+            f"{name}: the bottom line is fully visible at {width}x{height}",
+        )
+        note(
+            page.evaluate("document.documentElement.scrollWidth<=innerWidth"),
+            f"{name}: no horizontal overflow at {width}x{height}",
+        )
+        page.screenshot(path=str(S / f"{name}-summary-{width}.png"))
     page.set_viewport_size({"width": 390, "height": 800})
     page.goto(f"http://127.0.0.1:{port}/#W-Library/cases")
     page.reload()
