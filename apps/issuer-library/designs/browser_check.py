@@ -367,6 +367,24 @@ def new_run(browser, name, port, workspace, start):
         f"{name}: synthetic fake-provider run, Summary shows the CP-1 reader text and charts",
     )
     page.screenshot(path=str(S / f"{name}-synthetic-summary.png"))
+    size = page.viewport_size
+    for width, height in ((1280, 600), (1536, 730)):
+        page.set_viewport_size({"width": width, "height": height})
+        page.locator(".summary-lead .summary-facts").scroll_into_view_if_needed()
+        note(
+            page.evaluate(
+                """(() => {
+                  const lead = document.querySelector('.summary-lead').getBoundingClientRect();
+                  const facts = document.querySelector('.summary-facts').getBoundingClientRect();
+                  return facts.left >= lead.left && facts.right <= lead.right
+                    && facts.bottom <= lead.bottom
+                    && document.documentElement.scrollWidth <= innerWidth;
+                })()"""
+            ),
+            f"{name}: confidence and limitation fit the lead at {width}x{height}, with no overflow",
+        )
+        page.screenshot(path=str(S / f"{name}-synthetic-summary-{width}.png"))
+    page.set_viewport_size(size)
     page.click(".rail a[aria-label='Issuer library']")
     page.wait_for_selector(".run-list a")
     note(
