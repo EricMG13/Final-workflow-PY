@@ -96,8 +96,11 @@ are bundled locally with their ISC/MIT license notices. Icons accompany labels.
 Controls follow Untitled UI React (MIT): 40px buttons, inputs and selects with
 8px corners and an xs shadow; a 4px blue focus ring; pill badges; removable
 chips; tables with a grey header row. Colours, fonts and the rail stay the
-company's, and the greys lean toward its navy. The Library uses these first;
-other screens move to them one at a time.
+company's, and the greys lean toward its navy. The Library and the run header
+use them; other screens move to them one at a time. The run header is one line:
+issuer name, the run as a grey mono badge, Change case, and the period with a
+calendar icon on the right. Underline tabs follow: grey text, the current tab
+blue with a 2px underline; on phones they scroll sideways without icons.
 
 - Run changes preserve the active module; unavailable output remains explicit.
 - The module opens selected analytical sections, not the entire Markdown handoff.

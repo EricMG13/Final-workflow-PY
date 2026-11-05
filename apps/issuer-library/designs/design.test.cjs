@@ -374,6 +374,16 @@ test('Grey text: run pages drop state narration, hash notes, design specs and em
   c=at('W-Help/help');assert.ok(!c.textContent.includes('Visualisation coverage'));
   dom.window.close();
 });
+test('The run header names the issuer, its run and period on one line, and the tabs mark the current one',()=>{
+  const dom=fixture('W-Overview/overview?c=tdg-002'),d=dom.window.document;
+  const header=d.querySelector('.issuer');
+  assert.equal(header.querySelector('h1').textContent,'TransDigm Group');
+  assert.equal(header.querySelector('.issuer-meta .code').textContent,'TDG-002');
+  assert.equal(header.querySelector('.issuer-meta a').getAttribute('href'),'#W-Library/cases');
+  assert.ok(header.querySelector('.scope img[src$="calendar-days.svg"]'),'the period carries a calendar icon');
+  assert.deepEqual([...d.querySelectorAll('.workspace-tabs a[aria-current="page"]')].map(a=>a.textContent),['Summary']);
+  dom.window.close();
+});
 test('The library says what it is once and puts New run beside its title',()=>{
   const dom=fixture('W-Library/cases'),d=dom.window.document;
   assert.equal(d.querySelector('.issuer-meta'),null,'the title stands alone');
