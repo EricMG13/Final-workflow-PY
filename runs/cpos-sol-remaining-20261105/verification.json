@@ -681,7 +681,7 @@
     "independent_calculations": 582,
     "declined_nonpositive_ratios": 2
   },
-  "checkpoint_scope": "User requested commit/push of current checkpoint while the sleep-interrupted CP6 request is pending. Production adapter checks passed, but final source-completeness repairs and CP8 live comparison are unfinished. Affected TDG publications are not final verified analytical outputs; prior calendar/fiscal conflict findings are withdrawn.",
+  "checkpoint_scope": "User-requested checkpoint committed/pushed. Final source-completeness repairs and CP8 live comparison remain unfinished. CP6 timed out with unknown charge; existing paid budget is stopped. Affected TDG publications are not final verified analytical outputs; prior calendar/fiscal conflict findings are withdrawn.",
   "fresh_reviews": {
     "CP-0": {
       "sha256": "8a0611cc768e043abd52c2bf4899f6b0a6d560a1c264f7fbc991fa6d10863963",
@@ -722,7 +722,7 @@
     "declined_nonpositive_ratios": 2
   },
   "source_completion": {
-    "status": "Targeted live correction pending; current publications not final",
+    "status": "Blocked on the existing unknown-charge stop; correction instructions and offline publication checks prepared, no unreviewed handoff approved.",
     "confirmed_root_cause": "Host compared calendar due-year2027 with fiscal2027 and missed annualPDF43/45/46. PDF43 explicitly maps November2027 to fiscal2028; PDF46 gives November15 2027 and January15 2033 dates; PDF45 supplies67letters of credit and February27 2029 revolver maturity. Prior host-imposed conflict is false.",
     "affected": "Fresh CP1/1A/2/4/3/5/6 and three broader TDG publications; historical source/run artifacts preserved. Current corrections must propagate exact new upstream identities before final delivery.",
     "superseded_reviews": {
@@ -781,7 +781,11 @@
       "invocation": "c4b8646b27f11b6fc1bc40b8347c5ca3fc6a941561dce3b8928857b746246a50",
       "call_index": 3,
       "reservation": "call-21d687e539ab47968dce21c887d98508",
-      "status": "Awaiting the original HTTP response after confirmed host sleep/wake; no duplicate dispatch. Temporary caffeinate -i tied to PID52684 prevents idle sleep until this process exits."
+      "status": "OverallTimeout after host sleep/wake; sent_unknown, no model handoff or usage returned. Existing budget stop prevents further paid execution. No retry or cap reset performed.",
+      "error_class": "OverallTimeout",
+      "known_campaign_cost_usd": "17.03720670",
+      "unknown_call_hold_usd": "5.610000",
+      "conservative_campaign_bound_usd": "22.64720670"
     }
   }
 }
