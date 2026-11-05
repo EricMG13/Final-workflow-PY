@@ -1,0 +1,40 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0": "ece2808828294951bfbed08636a37d75319e7ac4d6ccc28e865c547e2b90942b",
+    "CP-1-annual": "bd6face3d8f0dda4826c348bf61197b17936206ad47089b58c39c509620debf6",
+    "CP-1D": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807",
+    "CP-2": "1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be",
+    "CP-2A": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3",
+    "CP-2D": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565",
+    "CP-2E": "7d7d0d93f57aa3acd7b11ed0fd9eb63449bd82640f1653239dc8c9bddd820afa",
+    "CP-DR": "0463a4b16e8ed7de1e1ed9a219587bbf4ee2b6fc2e98228d4f0090c22d487b03"
+  },
+  "instructions": "# Fresh live CP-2G \u2014 historical TDG conditional forecast\n\nExecute one authorized sol-medium full-method CP-2G response using the supplied actual current handoffs. Execution date2026-11-05, FY2024/2024-09-30 annual opening base; guidance dated2024-11-07; observed December2024 quarter is separate retrospective context, not a new annual opening or an as-of-November backtest. No realized FY2025 outcome may enter these illustrations. Record deploy-v-r14 selected-method ancestry and exact SHA256 of every supplied handoff. Current instructions supersede old host/provider prohibitions, native wrapper preparation/acceptance, Excel exports and navigation-only CP-OS. Keep original source dates, units, conclusions and limits.\n\nRead full selected-method and six-step reference; apply all analytical duties and nine T2H registers. Historical CP-2G-instructions supplies explicit stipulated scenario inputs, not a prior answer. Reuse freshly re-executed unchanged pure forecast/break results in kernel-results. They were independently Fraction checked before launch (180amounts including18missing,15break rows/45hits,missing-cash controls). They are supplied deterministic computations, not model tool calls or your own Python execution. Use calculate for any additional sums/ratios; do not invent a tool run. Missing model undrawn/access/minimum cash stays missing.\n\nRead fresh CP-DR and its original issuer/SEC captures; explicitly qualify/adopt each guidance question with exact current CP-DR hash, evidence and analytical effect. Keep exact source midpoints8850/4685 separate from finite-driver revenue8849.924 and EBITDA4685.1497656 residuals -0.076/+0.1497656. Source interest1540 and tax616 are accrual guidance, not cash drivers. CurrentCP-1D keeps quality-adjusted earnings unresolved. CurrentCP-2A supplies uncalibrated20%earnings/10%interest stress and7x/3xanalyst watches; not covenants/probabilities. FreshCP-2D shows observed financing/distributions and cash-access uncertainty, so the simplified excluded-financing/1000annualrepayment/4348firstyeardistribution scenario must not be presented as complete issuer cash forecast or actual maturity schedule. Quarters89/91days must not annualize. CurrentCP-2E resolves explicit no-SOFR-floor wording for termloans, not all facilities; net hedged exposure and forwardcoverage remain insufficient. Do not add gross91.89 or approximateissuer30 to the stipulated6% rate scenario without a separate supported assumption, or call the10%interest stress a calibrated100bp response. Explain why the fixed scenario cannot use macro/environment liabilities as duplicate cash uses. Broader obligations25002 are not the carrying24880 engine base. Only CP-2 owns the integrated view; no rating or security recommendation.\n\nExplicit equations: annual revenue previous*(1+growth); EBITDA revenue*margin*(1-downside decline); interest opening carrying debt*rate*(1+downside interest increase); tax/WC revenue*share; modelCFO EBITDA-interest-tax/WC; cashproxy modelCFO-capex; closingdebt openingdebt-1000; closingcash openingcash+proxy-distribution-1000. No cash sweep, no cash plug. Use source planning windows2024-10-01 to2025-09-30,2025-10-01 to2026-09-30,2026-10-01 to2027-09-30; later windows assumptions. Retain the actual unchanged native fiscal-wrapper refusal and its January-December labels as incompatible diagnostics, not authority to relabel source periods. No complete issuer forecast or native owner acceptance is claimed.\n\nUse six H2s Request, Sources, Findings, Calculations, Gaps, Next module; Request begins conclusion-first View:. All nine full registers under these exact H3 headings (ordinary Markdowntables, one unless specified):\n- T2H.4 \u2014 operating paths\n- T2H.5 \u2014 debt and cash roll-forward\n- T2H.6 \u2014 calculated metrics and definitions\n- T2H.2 \u2014 historical-to-conditional bridge and definitions\n- T2H.3 \u2014 assumption register\n- T2H.1 \u2014 upstream and research adoption\n- T2H.8 \u2014 deleveraging and disconfirmation\n- T2H.7 \u2014 first tests and consequences\n- T2H.9 \u2014 gaps and delivery-driver readiness\n\nT2H.1 has two tables first columns Producer and question_id, respectively; T2H.8 is substantive prose (and optionaltable) on trajectories/countercase/dependencies; T2H.9 has tables starting Gap and Driver family. Full period/case/method definitions preserved. T2H.4 has9case/yearrows, T2H.5 has9rollforwards, T2H.6 has9metricrows, T2H.7 records all5tests for each3cases and monitoring/action/consequence. Cover scenario isolation, debt/cash recurrence/residuals, causal operational break and observable triggers. No probability or invented claim of issuer plan. CP-MODEL/delivery driver readiness must explicitly list supported and missing rows, no fabricated segment/tax/WC/refinancing inputs or workbook task. Six-heading transport and separate existing final deliverables govern.\n\nIn Calculations additionally include three complete six-decimal grids under headings Forecast controls REFERENCE, Forecast controls DOWNSIDE, Forecast controls UPSIDE. Columns exactly Metric | FY2025 | FY2026 | FY2027. Rows in this order: revenue,ebitda,interest,tax_wc,capex,cfo,fcf,opening_debt,repayment,closing_debt,opening_cash,dividends,closing_cash,undrawn,liquidity,total_leverage,net_debt,net_leverage,coverage,fcf_to_debt. Ratios are decimal amounts (fcf_to_debt is a fraction, not percent) here. For undrawn/liquidity use literal em dash \u2014 with explicit missing reason; others use plain numeric six-place half-even rounded kernel output. These are control grids, not canonical issuer measurements. Any percent display elsewhere must convert properly; do not truncate. Preserve all raw model drafts; separate renderer consumes the exact response. Next real consumer still required; do not self-declare that already executed.\n",
+  "module_id": "CP-2G",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "distressed_restructuring",
+    "requested_modules": [
+      "CP-2G"
+    ],
+    "run_id": "sol-remaining-tdg-forecast-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "RESEARCH_tdg-guidance-001.json": "261c93801c6fbee299b76f704262e23b6fcdc439da17e299474966eeaf49e19c",
+    "kernel-results": "96134aab60da4cb0b7d6b0abfeb5ab891bd4719c351190634871a0912a9e9153",
+    "method-steps": "b59d94f04dd2b7d4f243856433bdc46896be3765faf9d20acd77e0f56cf57536",
+    "scenario-instructions": "73703f8c0b466c774dae67c69d120d9c608f6b420d1286630d94945d8dbe7760",
+    "selected-method": "0337a01d8379f73c3aa9e0697742900c95f8d6b71d286cafe77fa66c8f770207",
+    "source-record.json": "0fe844a08a205515be5aaa831ef223fa1bec8db55ec82c4352fa121468c5f165",
+    "web-outlook.json": "bfdb6a78692a536346f0fb6644c5fb583000a17522b850519b915d14297435e1",
+    "web-retrieval.json": "0fdaeab87dae4492256bad814ad7e2075a3182722ba8a6e2713fcf612a1a21e9"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+    "CP-1-selected": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+    "CP-2G-published": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931",
+    "CP-2H": "b5b197396d7df31a4997dbc58c7879caca9a23063858cb362e26fa08ae216ecb"
+  },
+  "instructions": "# Fresh CP-3C ratings-to-funding consumption \u2014 Ford Otosan\n\nAuthorized sol-medium live consumer, execution2026-11-05, historicalasof2024-04-11 FordOtomotivSanayiA.S./FordOtosan. Actuallyread currentfreshCP-2H and priorselectedCP-1/publishedCP-2G/CP-0 handoffs and each exacthash. Read primaryS&P/Fitch source liquidity/ratings/terms. This scopedCP-3C fundingintake is additional to separatelyproven fullCRCmethod, not fullFordrefinancing/LMEacceptance; noissuer/date/currencymixing. Do notclaimoldCP-3C answer isnewresponse; notsupplied. Current sixheadingtransportanduserauthorityoverridearchivalnoprovider/native/Excelrestrictions.\n\nUse freshCP-2H findings to materiallychangeuseofpublishedfundingplan: preliminary/expectednoteratings and documentation/refinancing/performanceconditions do notmeancompletedfunding. S&P's plan is 2024starting2024-01-01, not12newmonthsfromApril. ApproximateTRYbillions cash15.2+cashFFO63+plannedbond16+capexfacility15=109.2; uses33.8maturities+8.6WC+fullup-to2extraWCswing+46.3unstressedreportedcapex=90.7. Roundedcomponentreproductionapprox1.2xnotagency'sundisclosedexactmodel. Do notreplace cashFFO63withadjustedFFO48.717, nor S&Pcash15.2withFitchavailable5.0. DistinctUSD500mproposedbond/EUR435mcapexpurposefacilityandTRYtranslation\u2014notownFXconversion. Signedfacilitynotunconditionalaccess/fungibility, usecontrolsanddrawconditionsneeded.\n\nfunding-kernel contains actual fresh offline calls of unchanged total/difference/ratio functions; independentFraction/source-literalverification. Retainedoutputs notnewmodeltoolcall. Sixcases areseparate: publishedplan, removebond, removefacility, removeboth, unstresseddividend27.1overlay, exactly15%capexcut. Explain missingmoney consequences, smallsingle-sourcebuffers, combineddeficit, distributioneffect; notactualfinancingfailure. Source excludescommitteddividendsunderpotentialstress, unstressedplanhas27.1; overlaychangesassumptionanddoesn'tprovefundscouldpaydividends. Atleast15%potentialcapexflexibility doesn'tguaranteeexacttiming/feasibility. Conditionalnominalexcessnotlegalcapacity/unrestrictedliquidity. No default/LMEintentorpricingadvantagefromratingdifference. Strongestsupportedordinaryfunding/operatingprotectioncountercase and evidencewhatwouldmakeitwin.\n\nUse Request,Sources,Findings,Calculations,Gaps,Nextmodule sixH2s. Requestbegin View:. Findings: ### Funding cases table columns Case | Assumption and period | Creditor consequence | Boundary and source; ### Funding conclusion substantiveprose; ### Monitoring table Evidence | Decision enabled | Current gap. Calculations: ### Funding controls table exact columns Case | Sources TRY bn | Uses TRY bn | Difference TRY bn | Ratio, six rows exactorder/casenamesfromfunding-kernel. Ratiosplain4dp,moneyexactprovideddecimals, negativesignednotparentheticalincontrolgrid. No newcalculationsneeded; if any uses calculate. Preserve sourceapproximation/scalemeaning nextto grid. Approximately1200-1600words plus tables. Other outputsempty/missing useNot supplied. No exactfullmaturitywall/operativeterms/covenantheadroom/recovery/fullfinancingapproval; noactualoutcomeassumed. Discussproposedfundingandconditional2026-28maturitycluster asatApril2024, historicalnotupcoming2026monitor. Separateexistingdeliveryreusesexacthandoff; noExcelorrebuild.\n",
+  "module_id": "CP-3C",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2024-04-11",
+    "case_kind": "public",
+    "issuer_id": "FORD-OTOSAN",
+    "issuer_name": "Ford Otomotiv Sanayi A.S.",
+    "method_version": "deploy-v-r14",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-3C"
+    ],
+    "run_id": "sol-remaining-ford-funding-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "fitch-and-metrics.json": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+    "fitch-terms.json": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+    "funding-kernel": "7610d6a085342969e42d6c4c9658f256f0aff0b345a70746385f2a1059b3b183",
+    "sp-retry.json": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8"
+  }
+}

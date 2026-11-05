@@ -1,0 +1,57 @@
+{
+  "run": {
+    "run_id": "sol-remaining-ford-funding-20261105",
+    "issuer_id": "FORD-OTOSAN",
+    "issuer_name": "Ford Otomotiv Sanayi A.S.",
+    "as_of": "2024-04-11",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-3C"
+    ]
+  },
+  "module_id": "CP-3C",
+  "instructions": {
+    "path": "CP-3C.instructions.md",
+    "sha256": "b8228f90c334cfd6a0e80d9f7cac0084242c091150f37856ad59900f39b9fd7e"
+  },
+  "sources": {
+    "sp-retry.json": {
+      "path": "../../ford-otosan-2024-001/sources/sp-retry.json",
+      "sha256": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8"
+    },
+    "fitch-and-metrics.json": {
+      "path": "../../ford-otosan-2024-001/sources/fitch-and-metrics.json",
+      "sha256": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9"
+    },
+    "fitch-terms.json": {
+      "path": "../../ford-otosan-2024-001/sources/fitch-terms.json",
+      "sha256": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf"
+    },
+    "funding-kernel": {
+      "path": "funding-kernel.json",
+      "sha256": "7610d6a085342969e42d6c4c9658f256f0aff0b345a70746385f2a1059b3b183"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../../ford-otosan-2024-001/CP-0.md",
+      "sha256": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79"
+    },
+    "CP-1-selected": {
+      "path": "../../ford-otosan-2024-001/CP-1-selected-input.md",
+      "sha256": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af"
+    },
+    "CP-2G-published": {
+      "path": "../../ford-otosan-2024-001/CP-2G-published-forecast.md",
+      "sha256": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931"
+    },
+    "CP-2H": {
+      "path": "CP-2H-repaired.md",
+      "sha256": "b5b197396d7df31a4997dbc58c7879caca9a23063858cb362e26fa08ae216ecb"
+    }
+  },
+  "layout": "CP-3C.layout.json",
+  "checks": "CP-3C.checks.json",
+  "output": "CP-3C.md"
+}

@@ -1,0 +1,89 @@
+{
+  "run": {
+    "run_id": "sol-remaining-enel-sdg-20261105",
+    "issuer_id": "ENEL-EFI",
+    "issuer_name": "Enel Finance International N.V.",
+    "as_of": "2021-08-03",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-2F"
+    ]
+  },
+  "handoffs": {
+    "CP-2E": {
+      "path": "CP-2E.md",
+      "sha256": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "key-findings",
+      "capital-structure"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2E",
+        "heading": "Request",
+        "kind": "prose",
+        "prefix": "View:",
+        "block_id": "key-findings",
+        "label": "Historical conditional pricing view"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2G.7 \u2014 credit implication",
+        "kind": "prose",
+        "block_id": "key-findings",
+        "label": "Cash mechanism and contrary case"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2G.5 \u2014 instrument mechanics",
+        "kind": "table",
+        "table_header": "Term",
+        "block_id": "capital-structure",
+        "label": "Specific note and source terms"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2G.5 \u2014 instrument mechanics",
+        "kind": "table",
+        "table_header": "Condition",
+        "block_id": "capital-structure",
+        "label": "Performance, verification and notification"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2G.6 \u2014 conditional funding cost",
+        "kind": "table",
+        "table_header": "Scenario",
+        "block_id": "capital-structure",
+        "label": "Coupon equivalents \u00b7 EUR millions per full year"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2G.2 \u2014 KPI and transition exposure",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "June observation \u00b7 not the December target result"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2G.8 \u2014 gaps",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "Unproven fields and targeted follow-up"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "Sustainability calculation controls",
+        "kind": "table",
+        "block_id": "capital-structure"
+      }
+    ],
+    "title": "Enel EFI \u00b7 historical sustainability-linked coupon test",
+    "question": "What cash coupon could the documented ratchet add, and which conditions remain unproven?",
+    "scope": "Freshsol-medium positivehistoricalEnelsustainability-linked pricingincrement. TargetnoteXS2066706818, asof2021-08-03, originalEUR1000m; full-yearconditionalcouponsnotactualpayments/currentoutcomes orcompleteissuerunderwriting. SeparateCPOSdelivery, noExcel."
+  }
+}

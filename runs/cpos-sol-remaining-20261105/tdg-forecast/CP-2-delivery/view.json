@@ -1,0 +1,2757 @@
+{
+  "schema_version": "view/4",
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "sol-remaining-tdg-forecast-consumer-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-2"
+    ]
+  },
+  "mode": "candidate",
+  "modules": [
+    {
+      "module_id": "CP-2",
+      "title": "Fundamental credit synthesizer",
+      "aliases": [],
+      "status": "candidate",
+      "artifact_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+      "facts": [
+        {
+          "fact_id": "raw-CP-2-0.r0.c0",
+          "label": "P: prior annual CP-2",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 13",
+              "quote": "| P: prior annual CP-2 | `1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be` | Historical resilience, financial policy and inherited restrictions |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r0.c1",
+          "label": "P: prior annual CP-2",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Historical resilience, financial policy and inherited restrictions",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 13",
+              "quote": "| P: prior annual CP-2 | `1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be` | Historical resilience, financial policy and inherited restrictions |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r1.c0",
+          "label": "F: fresh CP-2G",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "20314e01d39b87d2e50d4a50ab048371175bccc4c8330ff1170811254b38a2c6",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 14",
+              "quote": "| F: fresh CP-2G | `20314e01d39b87d2e50d4a50ab048371175bccc4c8330ff1170811254b38a2c6` | Conditional paths, guidance qualification, December counterevidence and controls |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-0.r1.c1",
+          "label": "F: fresh CP-2G",
+          "table_id": "raw-CP-2-0",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Conditional paths, guidance qualification, December counterevidence and controls",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 14",
+              "quote": "| F: fresh CP-2G | `20314e01d39b87d2e50d4a50ab048371175bccc4c8330ff1170811254b38a2c6` | Conditional paths, guidance qualification, December counterevidence and controls |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r0.c0",
+          "label": "Reference supports conditional improvement",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "FY2025–27 coverage rises 3.138498x to 3.762659x; carrying leverage falls 5.096956x to 4.235896x. [F T2H.6/8]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 26",
+              "quote": "| Reference supports conditional improvement | FY2025–27 coverage rises 3.138498x to 3.762659x; carrying leverage falls 5.096956x to 4.235896x. [F T2H.6/8] | Supports the historical earnings buffer, but only under retention and payment assumptions. | USD1000m annual repayment is commanded; no cash sweep. Cash rebuilding is not additional debt-paydown evidence. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r0.c1",
+          "label": "Reference supports conditional improvement",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Supports the historical earnings buffer, but only under retention and payment assumptions.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 26",
+              "quote": "| Reference supports conditional improvement | FY2025–27 coverage rises 3.138498x to 3.762659x; carrying leverage falls 5.096956x to 4.235896x. [F T2H.6/8] | Supports the historical earnings buffer, but only under retention and payment assumptions. | USD1000m annual repayment is commanded; no cash sweep. Cash rebuilding is not additional debt-paydown evidence. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r0.c2",
+          "label": "Reference supports conditional improvement",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "USD1000m annual repayment is commanded; no cash sweep. Cash rebuilding is not additional debt-paydown evidence.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 26",
+              "quote": "| Reference supports conditional improvement | FY2025–27 coverage rises 3.138498x to 3.762659x; carrying leverage falls 5.096956x to 4.235896x. [F T2H.6/8] | Supports the historical earnings buffer, but only under retention and payment assumptions. | USD1000m annual repayment is commanded; no cash sweep. Cash rebuilding is not additional debt-paydown evidence. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r1.c0",
+          "label": "Downside prioritizes interest risk",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Coverage is 2.282544x in FY2025 and remains below 3x through FY2027; carrying leverage ends at 5.294869x. [F T2H.6–8]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 27",
+              "quote": "| Downside prioritizes interest risk | Coverage is 2.282544x in FY2025 and remains below 3x through FY2027; carrying leverage ends at 5.294869x. [F T2H.6–8] | Makes service resilience the earliest calculable watch, ahead of a 7x leverage hit. | A 20% earnings haircut holds revenue unchanged; the 10% interest increase is uncalibrated, not a sales shock or legal trigger. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r1.c1",
+          "label": "Downside prioritizes interest risk",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Makes service resilience the earliest calculable watch, ahead of a 7x leverage hit.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 27",
+              "quote": "| Downside prioritizes interest risk | Coverage is 2.282544x in FY2025 and remains below 3x through FY2027; carrying leverage ends at 5.294869x. [F T2H.6–8] | Makes service resilience the earliest calculable watch, ahead of a 7x leverage hit. | A 20% earnings haircut holds revenue unchanged; the 10% interest increase is uncalibrated, not a sales shock or legal trigger. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r1.c2",
+          "label": "Downside prioritizes interest risk",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "A 20% earnings haircut holds revenue unchanged; the 10% interest increase is uncalibrated, not a sales shock or legal trigger.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 27",
+              "quote": "| Downside prioritizes interest risk | Coverage is 2.282544x in FY2025 and remains below 3x through FY2027; carrying leverage ends at 5.294869x. [F T2H.6–8] | Makes service resilience the earliest calculable watch, ahead of a 7x leverage hit. | A 20% earnings haircut holds revenue unchanged; the 10% interest increase is uncalibrated, not a sales shock or legal trigger. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r2.c0",
+          "label": "Moving and static tests differ legitimately",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "No moving-model 7x hit; F retains CP-2A’s combined static 7x/3x crossing. [F T2H.7]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 28",
+              "quote": "| Moving and static tests differ legitimately | No moving-model 7x hit; F retains CP-2A’s combined static 7x/3x crossing. [F T2H.7] | Static vulnerability remains relevant; the moving result does not invalidate it. | September debt and USD1158m historical cash interest differ from forward earnings, closing-debt repayments and opening-debt interest at 6%. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r2.c1",
+          "label": "Moving and static tests differ legitimately",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Static vulnerability remains relevant; the moving result does not invalidate it.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 28",
+              "quote": "| Moving and static tests differ legitimately | No moving-model 7x hit; F retains CP-2A’s combined static 7x/3x crossing. [F T2H.7] | Static vulnerability remains relevant; the moving result does not invalidate it. | September debt and USD1158m historical cash interest differ from forward earnings, closing-debt repayments and opening-debt interest at 6%. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r2.c2",
+          "label": "Moving and static tests differ legitimately",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "September debt and USD1158m historical cash interest differ from forward earnings, closing-debt repayments and opening-debt interest at 6%.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 28",
+              "quote": "| Moving and static tests differ legitimately | No moving-model 7x hit; F retains CP-2A’s combined static 7x/3x crossing. [F T2H.7] | Static vulnerability remains relevant; the moving result does not invalidate it. | September debt and USD1158m historical cash interest differ from forward earnings, closing-debt repayments and opening-debt interest at 6%. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r3.c0",
+          "label": "Upside is substantive counterevidence",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Margin 0.5494 yields FY2027 coverage 3.904807x and cash USD6594.596095m. [F T2H.4/6/8]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 29",
+              "quote": "| Upside is substantive counterevidence | Margin 0.5494 yields FY2027 coverage 3.904807x and cash USD6594.596095m. [F T2H.4/6/8] | Cash-backed margin delivery could materially strengthen the view. | Same sales and repayment; improved margins do not accelerate debt reduction without a sweep. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r3.c1",
+          "label": "Upside is substantive counterevidence",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Cash-backed margin delivery could materially strengthen the view.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 29",
+              "quote": "| Upside is substantive counterevidence | Margin 0.5494 yields FY2027 coverage 3.904807x and cash USD6594.596095m. [F T2H.4/6/8] | Cash-backed margin delivery could materially strengthen the view. | Same sales and repayment; improved margins do not accelerate debt reduction without a sweep. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r3.c2",
+          "label": "Upside is substantive counterevidence",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r3",
+          "field": "c2",
+          "amount": null,
+          "text": "Same sales and repayment; improved margins do not accelerate debt reduction without a sweep.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 29",
+              "quote": "| Upside is substantive counterevidence | Margin 0.5494 yields FY2027 coverage 3.904807x and cash USD6594.596095m. [F T2H.4/6/8] | Cash-backed margin delivery could materially strengthen the view. | Same sales and repayment; improved margins do not accelerate debt reduction without a sweep. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r4.c0",
+          "label": "Guidance anchors, not validates, the engine",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "November 7, 2024 exact FY2025 midpoints: sales USD8850m, EBITDA As Defined USD4685m; ordinary EBITDA USD4479m. [F T2H.2/3, research adoption]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 30",
+              "quote": "| Guidance anchors, not validates, the engine | November 7, 2024 exact FY2025 midpoints: sales USD8850m, EBITDA As Defined USD4685m; ordinary EBITDA USD4479m. [F T2H.2/3, research adoption] | Supports an operating reference, not an accepted central cash forecast. | Finite growth 0.1146/margin 0.5294 produce USD8849.924m/USD4685.1497656m. Guidance net interest USD1540m and tax provision USD616m are not cash drivers. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r4.c1",
+          "label": "Guidance anchors, not validates, the engine",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "Supports an operating reference, not an accepted central cash forecast.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 30",
+              "quote": "| Guidance anchors, not validates, the engine | November 7, 2024 exact FY2025 midpoints: sales USD8850m, EBITDA As Defined USD4685m; ordinary EBITDA USD4479m. [F T2H.2/3, research adoption] | Supports an operating reference, not an accepted central cash forecast. | Finite growth 0.1146/margin 0.5294 produce USD8849.924m/USD4685.1497656m. Guidance net interest USD1540m and tax provision USD616m are not cash drivers. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r4.c2",
+          "label": "Guidance anchors, not validates, the engine",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r4",
+          "field": "c2",
+          "amount": null,
+          "text": "Finite growth 0.1146/margin 0.5294 produce USD8849.924m/USD4685.1497656m. Guidance net interest USD1540m and tax provision USD616m are not cash drivers.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 30",
+              "quote": "| Guidance anchors, not validates, the engine | November 7, 2024 exact FY2025 midpoints: sales USD8850m, EBITDA As Defined USD4685m; ordinary EBITDA USD4479m. [F T2H.2/3, research adoption] | Supports an operating reference, not an accepted central cash forecast. | Finite growth 0.1146/margin 0.5294 produce USD8849.924m/USD4685.1497656m. Guidance net interest USD1540m and tax provision USD616m are not cash drivers. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r5.c0",
+          "label": "Actual allocation limits forecast adoption",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "December 28, 2024 cash USD2459m and carrying debt USD25049m; Q1 OCF USD752m, distributions USD4396m, repurchases USD316m, securitization proceeds USD163m and option proceeds USD35m. [F T2H.2/8]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 31",
+              "quote": "| Actual allocation limits forecast adoption | December 28, 2024 cash USD2459m and carrying debt USD25049m; Q1 OCF USD752m, distributions USD4396m, repurchases USD316m, securitization proceeds USD163m and option proceeds USD35m. [F T2H.2/8] | Positive operations coexist with extraction: retention cannot be inferred. | Incomplete USD4348m annual distribution stipulation excludes other financing/payouts. Q1’s 89 days versus 91 comparative days are not annualized; October USD4348m/4347m precision conflict remains unresolved. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r5.c1",
+          "label": "Actual allocation limits forecast adoption",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "Positive operations coexist with extraction: retention cannot be inferred.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 31",
+              "quote": "| Actual allocation limits forecast adoption | December 28, 2024 cash USD2459m and carrying debt USD25049m; Q1 OCF USD752m, distributions USD4396m, repurchases USD316m, securitization proceeds USD163m and option proceeds USD35m. [F T2H.2/8] | Positive operations coexist with extraction: retention cannot be inferred. | Incomplete USD4348m annual distribution stipulation excludes other financing/payouts. Q1’s 89 days versus 91 comparative days are not annualized; October USD4348m/4347m precision conflict remains unresolved. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-1.r5.c2",
+          "label": "Actual allocation limits forecast adoption",
+          "table_id": "raw-CP-2-1",
+          "row_id": "r5",
+          "field": "c2",
+          "amount": null,
+          "text": "Incomplete USD4348m annual distribution stipulation excludes other financing/payouts. Q1’s 89 days versus 91 comparative days are not annualized; October USD4348m/4347m precision conflict remains unresolved.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 31",
+              "quote": "| Actual allocation limits forecast adoption | December 28, 2024 cash USD2459m and carrying debt USD25049m; Q1 OCF USD752m, distributions USD4396m, repurchases USD316m, securitization proceeds USD163m and option proceeds USD35m. [F T2H.2/8] | Positive operations coexist with extraction: retention cannot be inferred. | Incomplete USD4348m annual distribution stipulation excludes other financing/payouts. Q1’s 89 days versus 91 comparative days are not annualized; October USD4348m/4347m precision conflict remains unresolved. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r0.c0",
+          "label": "Coverage approaches/below 3x; delivery or cash-margin miss",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Less interest cushion and retained cash",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 43",
+              "quote": "| Coverage approaches/below 3x; delivery or cash-margin miss | Less interest cushion and retained cash | Refresh earnings/service bridge; challenge uncommitted extraction. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r0.c1",
+          "label": "Coverage approaches/below 3x; delivery or cash-margin miss",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Refresh earnings/service bridge; challenge uncommitted extraction.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 43",
+              "quote": "| Coverage approaches/below 3x; delivery or cash-margin miss | Less interest cushion and retained cash | Refresh earnings/service bridge; challenge uncommitted extraction. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r1.c0",
+          "label": "New payouts, deals or missed USD1000m assumed repayment",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Policy overwhelms modeled improvement",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 44",
+              "quote": "| New payouts, deals or missed USD1000m assumed repayment | Policy overwhelms modeled improvement | Replace exclusions with dated sources/uses; distinguish actual payments from assumptions. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r1.c1",
+          "label": "New payouts, deals or missed USD1000m assumed repayment",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Replace exclusions with dated sources/uses; distinguish actual payments from assumptions.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 44",
+              "quote": "| New payouts, deals or missed USD1000m assumed repayment | Policy overwhelms modeled improvement | Replace exclusions with dated sources/uses; distinguish actual payments from assumptions. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r2.c0",
+          "label": "March 31/September 30, 2025 hedge transitions; July 11, 2025 securitization expiry",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Reset/settlement and renewal dependence",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 45",
+              "quote": "| March 31/September 30, 2025 hedge transitions; July 11, 2025 securitization expiry | Reset/settlement and renewal dependence | Verify historically dated terms and outcomes separately; infer neither renewal nor failure. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r2.c1",
+          "label": "March 31/September 30, 2025 hedge transitions; July 11, 2025 securitization expiry",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Verify historically dated terms and outcomes separately; infer neither renewal nor failure.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 45",
+              "quote": "| March 31/September 30, 2025 hedge transitions; July 11, 2025 securitization expiry | Reset/settlement and renewal dependence | Verify historically dated terms and outcomes separately; infer neither renewal nor failure. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r3.c0",
+          "label": "Restrictions, draw conditions or cash trough emerge",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Positive annual cash may be inaccessible when needed",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 46",
+              "quote": "| Restrictions, draw conditions or cash trough emerge | Positive annual cash may be inaccessible when needed | Obtain weekly/monthly treasury bridge, access certificates and minimum cash requirement. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-2.r3.c1",
+          "label": "Restrictions, draw conditions or cash trough emerge",
+          "table_id": "raw-CP-2-2",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Obtain weekly/monthly treasury bridge, access certificates and minimum cash requirement.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 46",
+              "quote": "| Restrictions, draw conditions or cash trough emerge | Positive annual cash may be inaccessible when needed | Obtain weekly/monthly treasury bridge, access certificates and minimum cash requirement. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r0.c0",
+          "label": "Reference_FY2025_closing_cash_USDm",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "3043.358886",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 58",
+              "quote": "| Reference_FY2025_closing_cash_USDm | 3043.358886 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r1.c0",
+          "label": "Reference_FY2027_closing_cash_USDm",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "6036.608387",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 59",
+              "quote": "| Reference_FY2027_closing_cash_USDm | 6036.608387 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r2.c0",
+          "label": "Downside_FY2025_closing_cash_USDm",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "1957.048932",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 60",
+              "quote": "| Downside_FY2025_closing_cash_USDm | 1957.048932 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r3.c0",
+          "label": "Downside_FY2027_closing_cash_USDm",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "2652.781460",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 61",
+              "quote": "| Downside_FY2027_closing_cash_USDm | 2652.781460 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r4.c0",
+          "label": "Upside_FY2027_closing_cash_USDm",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "6594.596095",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 62",
+              "quote": "| Upside_FY2027_closing_cash_USDm | 6594.596095 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r5.c0",
+          "label": "Downside_FY2025_coverage_x",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "2.282544",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 63",
+              "quote": "| Downside_FY2025_coverage_x | 2.282544 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r6.c0",
+          "label": "Downside_FY2027_coverage_x",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r6",
+          "field": "c0",
+          "amount": null,
+          "text": "2.736479",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 64",
+              "quote": "| Downside_FY2027_coverage_x | 2.736479 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-2-3.r7.c0",
+          "label": "Downside_FY2027_carrying_leverage_x",
+          "table_id": "raw-CP-2-3",
+          "row_id": "r7",
+          "field": "c0",
+          "amount": null,
+          "text": "5.294869",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 65",
+              "quote": "| Downside_FY2027_carrying_leverage_x | 5.294869 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-0.r0.c0",
+          "label": "Request",
+          "table_id": "prose-CP-2-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "View: TDG’s operating resilience remains supported, but the conditional forecast makes interest-service vulnerability more immediate and restricts confidence in creditor improvement from cash accumulation. The downside reaches the 3x coverage watch in FY2025 despite declining carrying leverage; capital retention, not earnings growth alone, remains decisive. Confidence is Medium for this bounded synthesis, not full forecast acceptance.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 3",
+              "quote": "View: TDG’s operating resilience remains supported, but the conditional forecast makes interest-service vulnerability more immediate and restricts confidence in creditor improvement from cash accumulation. The downside reaches the 3x coverage watch in FY2025 despite declining carrying leverage; capital retention, not earnings growth alone, remains decisive. Confidence is Medium for this bounded synthesis, not full forecast acceptance."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-0.r1.c0",
+          "label": "Request",
+          "table_id": "prose-CP-2-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "This incremental CP-2 consumption uses deploy-v-r14’s prior live CP-2 adaptation for run sol-remaining-tdg-forecast-consumer-20261105, executed 2026-11-05. Historical as-of remains 2024-09-30; November guidance and December context are separately dated subsequent evidence. Scope is consolidated TransDigm Group Incorporated, including controlled subsidiaries, not a guarantor-only assessment. This is neither new full underwriting nor a second native-contract execution. No rating, covenant-breach finding, refinancing guarantee, recovery outcome or probability is assigned.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 5",
+              "quote": "This incremental CP-2 consumption uses deploy-v-r14’s prior live CP-2 adaptation for run `sol-remaining-tdg-forecast-consumer-20261105`, executed **2026-11-05**. Historical as-of remains **2024-09-30**; November guidance and December context are separately dated subsequent evidence. Scope is consolidated TransDigm Group Incorporated, including controlled subsidiaries, not a guarantor-only assessment. This is neither new full underwriting nor a second native-contract execution. No rating, covenant-breach finding, refinancing guarantee, recovery outcome or probability is assigned."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-1.r0.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-2-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Both supplied exact handoffs were read in full; citations below use these current identities, not predecessor hashes embedded within them.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 9",
+              "quote": "Both supplied exact handoffs were read in full; citations below use these current identities, not predecessor hashes embedded within them."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-1.r1.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-2-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Facts and checks are upstream-reviewed inputs, not fresh primary-source extraction, independently recomputed hashes or visual checks. F’s CP-DR adoption retains one issuer-origin family despite SEC/IR hosting; retained extracts, incomplete SEC timing/header evidence and 2026 access do not establish contemporaneous availability or independent corroboration.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 16",
+              "quote": "Facts and checks are upstream-reviewed inputs, not fresh primary-source extraction, independently recomputed hashes or visual checks. F’s CP-DR adoption retains one issuer-origin family despite SEC/IR hosting; retained extracts, incomplete SEC timing/header evidence and 2026 access do not establish contemporaneous availability or independent corroboration."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-1.r2.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-2-1",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "FY2024 spans 2023-10-01–2024-09-30. Conditional FY2025, FY2026 and FY2027 span respectively 2024-10-01–2025-09-30, 2025-10-01–2026-09-30 and 2026-10-01–2027-09-30. Later windows are planning assumptions. No future annual actuals, synthetic LTM or other issuers enter. [P Sources; F Request, T2H.1–3]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 18",
+              "quote": "FY2024 spans 2023-10-01–2024-09-30. Conditional FY2025, FY2026 and FY2027 span respectively 2024-10-01–2025-09-30, 2025-10-01–2026-09-30 and 2026-10-01–2027-09-30. Later windows are planning assumptions. No future annual actuals, synthetic LTM or other issuers enter. [P Sources; F Request, T2H.1–3]"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-2.r0.c0",
+          "label": "Integrated implication",
+          "table_id": "prose-CP-2-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "The prior thesis survives but becomes more conditional: installed-product replacement economics, qualification friction and observed margins support debt service, while debt-funded extraction can prevent those strengths benefiting creditors. The reference and upside support operating resilience; persistent downside coverage below 3x shifts monitoring toward cash interest and allocation before headline leverage. Positive cash proxies do not establish funded obligations or accessible liquidity. [P Findings; F T2H.7–8]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 35",
+              "quote": "The prior thesis survives but becomes more conditional: installed-product replacement economics, qualification friction and observed margins support debt service, while debt-funded extraction can prevent those strengths benefiting creditors. The reference and upside support operating resilience; persistent downside coverage below 3x shifts monitoring toward cash interest and allocation before headline leverage. Positive cash proxies do not establish funded obligations or accessible liquidity. [P Findings; F T2H.7–8]"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-2.r1.c0",
+          "label": "Integrated implication",
+          "table_id": "prose-CP-2-2",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "The strongest countercase combines installed-base demand, original growth guidance, positive historical/Q1 operations, historical financing execution and documented fixed coupons/hedges. It would strengthen the conclusion if margins survive recurring integration/remuneration costs, collections translate earnings into retained accessible cash, actual debt payments occur and dated funding is documented. Conversely, larger adjustments without cash, inventory absorption, new debt-financed distributions or failed access verification would weaken it—even with revenue growth. No issuer retention commitment or leverage target/date is supplied. [P Findings; F T2H.8]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 37",
+              "quote": "The strongest countercase combines installed-base demand, original growth guidance, positive historical/Q1 operations, historical financing execution and documented fixed coupons/hedges. It would strengthen the conclusion if margins survive recurring integration/remuneration costs, collections translate earnings into retained accessible cash, actual debt payments occur and dated funding is documented. Conversely, larger adjustments without cash, inventory absorption, new debt-financed distributions or failed access verification would weaken it—even with revenue growth. No issuer retention commitment or leverage target/date is supplied. [P Findings; F T2H.8]"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-3.r0.c0",
+          "label": "Monitoring",
+          "table_id": "prose-CP-2-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Monitoring dates are historical-calendar checkpoints, not upcoming events as of execution. [F T2H.7–8]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 48",
+              "quote": "Monitoring dates are historical-calendar checkpoints, not upcoming events as of execution. [F T2H.7–8]"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-4.r0.c0",
+          "label": "Consumption controls",
+          "table_id": "prose-CP-2-4",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Copied from F’s controls/T2H.6; no new arithmetic or model execution. Cash is USDm; coverage and carrying leverage are x, for the fiscal periods named.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 54",
+              "quote": "Copied from F’s controls/T2H.6; no new arithmetic or model execution. Cash is USDm; coverage and carrying leverage are x, for the fiscal periods named."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-5.r0.c0",
+          "label": "Gaps",
+          "table_id": "prose-CP-2-5",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Accessible liquidity, runway and minimum-liquidity test remain Not calculable: access/minimum cash evidence missing; annual-end lows are not intra-year troughs. Model CFO/FCF are simplified proxies using 10% combined tax/WC and 2% capex assumptions, not normalized GAAP cash forecasts. Separate taxes/WC, maintenance capex, acquired/organic earnings and accepted quality EBITDA remain unresolved. [F G1–4/11]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 69",
+              "quote": "Accessible liquidity, runway and minimum-liquidity test remain **Not calculable: access/minimum cash evidence missing**; annual-end lows are not intra-year troughs. Model CFO/FCF are simplified proxies using 10% combined tax/WC and 2% capex assumptions, not normalized GAAP cash forecasts. Separate taxes/WC, maintenance capex, acquired/organic earnings and accepted quality EBITDA remain unresolved. [F G1–4/11]"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-5.r1.c0",
+          "label": "Gaps",
+          "table_id": "prose-CP-2-5",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Opening debt is USD24880m carrying, not USD25002m broader known claims. Finance leases/securitization are embedded; operating leases USD62m, pension USD19m and remediation USD41m do not become immediate debt or cash deductions. Avoid duplicate reserve/settlement costs. [F T2H.2; Calculations]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 71",
+              "quote": "Opening debt is USD24880m carrying, not USD25002m broader known claims. Finance leases/securitization are embedded; operating leases USD62m, pension USD19m and remediation USD41m do not become immediate debt or cash deductions. Avoid duplicate reserve/settlement costs. [F T2H.2; Calculations]"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-5.r2.c0",
+          "label": "Gaps",
+          "table_id": "prose-CP-2-5",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "The 6% rate and 10% shock lack calibration. Term-loan no-floor evidence does not resolve qualified hedge coverage; neither USD91.89m gross sensitivity nor issuer USD30m sensitivity may be added again. Ownership/support, legal capacity, platform concentration and source-representation conflicts remain restricted. [P Gaps; F Calculations/Gaps]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 73",
+              "quote": "The 6% rate and 10% shock lack calibration. Term-loan no-floor evidence does not resolve qualified hedge coverage; neither USD91.89m gross sensitivity nor issuer USD30m sensitivity may be added again. Ownership/support, legal capacity, platform concentration and source-representation conflicts remain restricted. [P Gaps; F Calculations/Gaps]"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-5.r3.c0",
+          "label": "Gaps",
+          "table_id": "prose-CP-2-5",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Native January–December wrapper incompatibility remains unresolved. Preserve October–September fiscal dates; pure conditional controls do not imply native acceptance. Missing segment mappings and complete financing schedules prevent renderer-ready forecast claims. [F G8–11]",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 75",
+              "quote": "Native January–December wrapper incompatibility remains unresolved. Preserve October–September fiscal dates; pure conditional controls do not imply native acceptance. Missing segment mappings and complete financing schedules prevent renderer-ready forecast claims. [F G8–11]"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-6.r0.c0",
+          "label": "Next module",
+          "table_id": "prose-CP-2-6",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-5 must verify exact handoff lineage, evidence traces, guidance/non-GAAP definitions, precision conflicts and control transcription. CP-3C needs dated renewal outcomes, executable funding, instrument payments and later FY2028/29 maturity coverage. CP-4 needs executed agreements, certificates, guarantor/collateral terms and cash-access conditions before permission/headroom findings. CP-2H needs dated agency definitions and trigger conventions before interpreting these non-agency ratios.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 79",
+              "quote": "CP-5 must verify exact handoff lineage, evidence traces, guidance/non-GAAP definitions, precision conflicts and control transcription. CP-3C needs dated renewal outcomes, executable funding, instrument payments and later FY2028/29 maturity coverage. CP-4 needs executed agreements, certificates, guarantor/collateral terms and cash-access conditions before permission/headroom findings. CP-2H needs dated agency definitions and trigger conventions before interpreting these non-agency ratios."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-2-6.r1.c0",
+          "label": "Next module",
+          "table_id": "prose-CP-2-6",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "This CP-2 consumption is complete with limitations; those downstream reviews are not claimed complete. Preserve both exact inputs and this synthesis for separate report/HTML Model/charts/calculation-JSON delivery verification. No Excel, rebuild, renderer execution, delivery acceptance or broader pathway completion is asserted.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-2",
+              "source_sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+              "locator": "line 81",
+              "quote": "This CP-2 consumption is complete with limitations; those downstream reviews are not claimed complete. Preserve both exact inputs and this synthesis for separate report/HTML Model/charts/calculation-JSON delivery verification. No Excel, rebuild, renderer execution, delivery acceptance or broader pathway completion is asserted."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "raw-CP-2-0",
+          "title": "Sources — Input",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Current SHA-256"
+            },
+            {
+              "field": "c1",
+              "label": "Use"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "P: prior annual CP-2",
+              "fact_ids": [
+                "raw-CP-2-0.r0.c0",
+                "raw-CP-2-0.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "F: fresh CP-2G",
+              "fact_ids": [
+                "raw-CP-2-0.r1.c0",
+                "raw-CP-2-0.r1.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Input",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-2-1",
+          "title": "Forecast adoption — Finding",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Evidence and period"
+            },
+            {
+              "field": "c1",
+              "label": "Effect on credit view"
+            },
+            {
+              "field": "c2",
+              "label": "Boundary"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Reference supports conditional improvement",
+              "fact_ids": [
+                "raw-CP-2-1.r0.c0",
+                "raw-CP-2-1.r0.c1",
+                "raw-CP-2-1.r0.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Downside prioritizes interest risk",
+              "fact_ids": [
+                "raw-CP-2-1.r1.c0",
+                "raw-CP-2-1.r1.c1",
+                "raw-CP-2-1.r1.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Moving and static tests differ legitimately",
+              "fact_ids": [
+                "raw-CP-2-1.r2.c0",
+                "raw-CP-2-1.r2.c1",
+                "raw-CP-2-1.r2.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Upside is substantive counterevidence",
+              "fact_ids": [
+                "raw-CP-2-1.r3.c0",
+                "raw-CP-2-1.r3.c1",
+                "raw-CP-2-1.r3.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Guidance anchors, not validates, the engine",
+              "fact_ids": [
+                "raw-CP-2-1.r4.c0",
+                "raw-CP-2-1.r4.c1",
+                "raw-CP-2-1.r4.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Actual allocation limits forecast adoption",
+              "fact_ids": [
+                "raw-CP-2-1.r5.c0",
+                "raw-CP-2-1.r5.c1",
+                "raw-CP-2-1.r5.c2"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Finding",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-2-2",
+          "title": "Monitoring — Trigger",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Credit mechanism"
+            },
+            {
+              "field": "c1",
+              "label": "Required action"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Coverage approaches/below 3x; delivery or cash-margin miss",
+              "fact_ids": [
+                "raw-CP-2-2.r0.c0",
+                "raw-CP-2-2.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "New payouts, deals or missed USD1000m assumed repayment",
+              "fact_ids": [
+                "raw-CP-2-2.r1.c0",
+                "raw-CP-2-2.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "March 31/September 30, 2025 hedge transitions; July 11, 2025 securitization expiry",
+              "fact_ids": [
+                "raw-CP-2-2.r2.c0",
+                "raw-CP-2-2.r2.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Restrictions, draw conditions or cash trough emerge",
+              "fact_ids": [
+                "raw-CP-2-2.r3.c0",
+                "raw-CP-2-2.r3.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Trigger",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-2-3",
+          "title": "Consumption controls — Metric",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Value"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Reference_FY2025_closing_cash_USDm",
+              "fact_ids": [
+                "raw-CP-2-3.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Reference_FY2027_closing_cash_USDm",
+              "fact_ids": [
+                "raw-CP-2-3.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Downside_FY2025_closing_cash_USDm",
+              "fact_ids": [
+                "raw-CP-2-3.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Downside_FY2027_closing_cash_USDm",
+              "fact_ids": [
+                "raw-CP-2-3.r3.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Upside_FY2027_closing_cash_USDm",
+              "fact_ids": [
+                "raw-CP-2-3.r4.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Downside_FY2025_coverage_x",
+              "fact_ids": [
+                "raw-CP-2-3.r5.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "Downside_FY2027_coverage_x",
+              "fact_ids": [
+                "raw-CP-2-3.r6.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r7",
+              "label": "Downside_FY2027_carrying_leverage_x",
+              "fact_ids": [
+                "raw-CP-2-3.r7.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Metric",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2-0",
+          "title": "Request",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Request — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2-0.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Request — paragraph 2",
+              "fact_ids": [
+                "prose-CP-2-0.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2-1",
+          "title": "Sources",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Sources — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2-1.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Sources — paragraph 2",
+              "fact_ids": [
+                "prose-CP-2-1.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Sources — paragraph 3",
+              "fact_ids": [
+                "prose-CP-2-1.r2.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2-2",
+          "title": "Integrated implication",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Integrated implication — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2-2.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Integrated implication — paragraph 2",
+              "fact_ids": [
+                "prose-CP-2-2.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2-3",
+          "title": "Monitoring",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Monitoring — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2-3.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2-4",
+          "title": "Consumption controls",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Consumption controls — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2-4.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2-5",
+          "title": "Gaps",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Gaps — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2-5.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Gaps — paragraph 2",
+              "fact_ids": [
+                "prose-CP-2-5.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Gaps — paragraph 3",
+              "fact_ids": [
+                "prose-CP-2-5.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Gaps — paragraph 4",
+              "fact_ids": [
+                "prose-CP-2-5.r3.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-2-6",
+          "title": "Next module",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Next module — paragraph 1",
+              "fact_ids": [
+                "prose-CP-2-6.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Next module — paragraph 2",
+              "fact_ids": [
+                "prose-CP-2-6.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        }
+      ],
+      "claims": [],
+      "limitations": [
+        "Literal checked analytical handoff, not native contract acceptance; source qualifications and gaps remain."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "schema_version": "source/1",
+      "source_id": "CP-2",
+      "name": "CP-2.md",
+      "status": "ready",
+      "sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+      "media_type": "text/markdown",
+      "spans": [
+        {
+          "locator": "line 1",
+          "text": "## Request",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 3",
+          "text": "View: TDG’s operating resilience remains supported, but the conditional forecast makes interest-service vulnerability more immediate and restricts confidence in creditor improvement from cash accumulation. The downside reaches the 3x coverage watch in FY2025 despite declining carrying leverage; capital retention, not earnings growth alone, remains decisive. Confidence is Medium for this bounded synthesis, not full forecast acceptance.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 5",
+          "text": "This incremental CP-2 consumption uses deploy-v-r14’s prior live CP-2 adaptation for run `sol-remaining-tdg-forecast-consumer-20261105`, executed **2026-11-05**. Historical as-of remains **2024-09-30**; November guidance and December context are separately dated subsequent evidence. Scope is consolidated TransDigm Group Incorporated, including controlled subsidiaries, not a guarantor-only assessment. This is neither new full underwriting nor a second native-contract execution. No rating, covenant-breach finding, refinancing guarantee, recovery outcome or probability is assigned.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 7",
+          "text": "## Sources",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 9",
+          "text": "Both supplied exact handoffs were read in full; citations below use these current identities, not predecessor hashes embedded within them.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 11",
+          "text": "| Input | Current SHA-256 | Use |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 12",
+          "text": "|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 13",
+          "text": "| P: prior annual CP-2 | `1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be` | Historical resilience, financial policy and inherited restrictions |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 14",
+          "text": "| F: fresh CP-2G | `20314e01d39b87d2e50d4a50ab048371175bccc4c8330ff1170811254b38a2c6` | Conditional paths, guidance qualification, December counterevidence and controls |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 16",
+          "text": "Facts and checks are upstream-reviewed inputs, not fresh primary-source extraction, independently recomputed hashes or visual checks. F’s CP-DR adoption retains one issuer-origin family despite SEC/IR hosting; retained extracts, incomplete SEC timing/header evidence and 2026 access do not establish contemporaneous availability or independent corroboration.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 18",
+          "text": "FY2024 spans 2023-10-01–2024-09-30. Conditional FY2025, FY2026 and FY2027 span respectively 2024-10-01–2025-09-30, 2025-10-01–2026-09-30 and 2026-10-01–2027-09-30. Later windows are planning assumptions. No future annual actuals, synthetic LTM or other issuers enter. [P Sources; F Request, T2H.1–3]",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 20",
+          "text": "## Findings",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 22",
+          "text": "### Forecast adoption",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 24",
+          "text": "| Finding | Evidence and period | Effect on credit view | Boundary |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 25",
+          "text": "|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 26",
+          "text": "| Reference supports conditional improvement | FY2025–27 coverage rises 3.138498x to 3.762659x; carrying leverage falls 5.096956x to 4.235896x. [F T2H.6/8] | Supports the historical earnings buffer, but only under retention and payment assumptions. | USD1000m annual repayment is commanded; no cash sweep. Cash rebuilding is not additional debt-paydown evidence. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 27",
+          "text": "| Downside prioritizes interest risk | Coverage is 2.282544x in FY2025 and remains below 3x through FY2027; carrying leverage ends at 5.294869x. [F T2H.6–8] | Makes service resilience the earliest calculable watch, ahead of a 7x leverage hit. | A 20% earnings haircut holds revenue unchanged; the 10% interest increase is uncalibrated, not a sales shock or legal trigger. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 28",
+          "text": "| Moving and static tests differ legitimately | No moving-model 7x hit; F retains CP-2A’s combined static 7x/3x crossing. [F T2H.7] | Static vulnerability remains relevant; the moving result does not invalidate it. | September debt and USD1158m historical cash interest differ from forward earnings, closing-debt repayments and opening-debt interest at 6%. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 29",
+          "text": "| Upside is substantive counterevidence | Margin 0.5494 yields FY2027 coverage 3.904807x and cash USD6594.596095m. [F T2H.4/6/8] | Cash-backed margin delivery could materially strengthen the view. | Same sales and repayment; improved margins do not accelerate debt reduction without a sweep. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 30",
+          "text": "| Guidance anchors, not validates, the engine | November 7, 2024 exact FY2025 midpoints: sales USD8850m, EBITDA As Defined USD4685m; ordinary EBITDA USD4479m. [F T2H.2/3, research adoption] | Supports an operating reference, not an accepted central cash forecast. | Finite growth 0.1146/margin 0.5294 produce USD8849.924m/USD4685.1497656m. Guidance net interest USD1540m and tax provision USD616m are not cash drivers. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 31",
+          "text": "| Actual allocation limits forecast adoption | December 28, 2024 cash USD2459m and carrying debt USD25049m; Q1 OCF USD752m, distributions USD4396m, repurchases USD316m, securitization proceeds USD163m and option proceeds USD35m. [F T2H.2/8] | Positive operations coexist with extraction: retention cannot be inferred. | Incomplete USD4348m annual distribution stipulation excludes other financing/payouts. Q1’s 89 days versus 91 comparative days are not annualized; October USD4348m/4347m precision conflict remains unresolved. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 33",
+          "text": "### Integrated implication",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 35",
+          "text": "The prior thesis survives but becomes more conditional: installed-product replacement economics, qualification friction and observed margins support debt service, while debt-funded extraction can prevent those strengths benefiting creditors. The reference and upside support operating resilience; persistent downside coverage below 3x shifts monitoring toward cash interest and allocation before headline leverage. Positive cash proxies do not establish funded obligations or accessible liquidity. [P Findings; F T2H.7–8]",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 37",
+          "text": "The strongest countercase combines installed-base demand, original growth guidance, positive historical/Q1 operations, historical financing execution and documented fixed coupons/hedges. It would strengthen the conclusion if margins survive recurring integration/remuneration costs, collections translate earnings into retained accessible cash, actual debt payments occur and dated funding is documented. Conversely, larger adjustments without cash, inventory absorption, new debt-financed distributions or failed access verification would weaken it—even with revenue growth. No issuer retention commitment or leverage target/date is supplied. [P Findings; F T2H.8]",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 39",
+          "text": "### Monitoring",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 41",
+          "text": "| Trigger | Credit mechanism | Required action |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 42",
+          "text": "|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 43",
+          "text": "| Coverage approaches/below 3x; delivery or cash-margin miss | Less interest cushion and retained cash | Refresh earnings/service bridge; challenge uncommitted extraction. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 44",
+          "text": "| New payouts, deals or missed USD1000m assumed repayment | Policy overwhelms modeled improvement | Replace exclusions with dated sources/uses; distinguish actual payments from assumptions. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 45",
+          "text": "| March 31/September 30, 2025 hedge transitions; July 11, 2025 securitization expiry | Reset/settlement and renewal dependence | Verify historically dated terms and outcomes separately; infer neither renewal nor failure. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 46",
+          "text": "| Restrictions, draw conditions or cash trough emerge | Positive annual cash may be inaccessible when needed | Obtain weekly/monthly treasury bridge, access certificates and minimum cash requirement. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 48",
+          "text": "Monitoring dates are historical-calendar checkpoints, not upcoming events as of execution. [F T2H.7–8]",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 50",
+          "text": "## Calculations",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 52",
+          "text": "### Consumption controls",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 54",
+          "text": "Copied from F’s controls/T2H.6; no new arithmetic or model execution. Cash is USDm; coverage and carrying leverage are x, for the fiscal periods named.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 56",
+          "text": "| Metric | Value |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 57",
+          "text": "|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 58",
+          "text": "| Reference_FY2025_closing_cash_USDm | 3043.358886 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 59",
+          "text": "| Reference_FY2027_closing_cash_USDm | 6036.608387 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 60",
+          "text": "| Downside_FY2025_closing_cash_USDm | 1957.048932 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 61",
+          "text": "| Downside_FY2027_closing_cash_USDm | 2652.781460 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 62",
+          "text": "| Upside_FY2027_closing_cash_USDm | 6594.596095 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 63",
+          "text": "| Downside_FY2025_coverage_x | 2.282544 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 64",
+          "text": "| Downside_FY2027_coverage_x | 2.736479 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 65",
+          "text": "| Downside_FY2027_carrying_leverage_x | 5.294869 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 67",
+          "text": "## Gaps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 69",
+          "text": "Accessible liquidity, runway and minimum-liquidity test remain **Not calculable: access/minimum cash evidence missing**; annual-end lows are not intra-year troughs. Model CFO/FCF are simplified proxies using 10% combined tax/WC and 2% capex assumptions, not normalized GAAP cash forecasts. Separate taxes/WC, maintenance capex, acquired/organic earnings and accepted quality EBITDA remain unresolved. [F G1–4/11]",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 71",
+          "text": "Opening debt is USD24880m carrying, not USD25002m broader known claims. Finance leases/securitization are embedded; operating leases USD62m, pension USD19m and remediation USD41m do not become immediate debt or cash deductions. Avoid duplicate reserve/settlement costs. [F T2H.2; Calculations]",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 73",
+          "text": "The 6% rate and 10% shock lack calibration. Term-loan no-floor evidence does not resolve qualified hedge coverage; neither USD91.89m gross sensitivity nor issuer USD30m sensitivity may be added again. Ownership/support, legal capacity, platform concentration and source-representation conflicts remain restricted. [P Gaps; F Calculations/Gaps]",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 75",
+          "text": "Native January–December wrapper incompatibility remains unresolved. Preserve October–September fiscal dates; pure conditional controls do not imply native acceptance. Missing segment mappings and complete financing schedules prevent renderer-ready forecast claims. [F G8–11]",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 77",
+          "text": "## Next module",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 79",
+          "text": "CP-5 must verify exact handoff lineage, evidence traces, guidance/non-GAAP definitions, precision conflicts and control transcription. CP-3C needs dated renewal outcomes, executable funding, instrument payments and later FY2028/29 maturity coverage. CP-4 needs executed agreements, certificates, guarantor/collateral terms and cash-access conditions before permission/headroom findings. CP-2H needs dated agency definitions and trigger conventions before interpreting these non-agency ratios.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 81",
+          "text": "This CP-2 consumption is complete with limitations; those downstream reviews are not claimed complete. Preserve both exact inputs and this synthesis for separate report/HTML Model/charts/calculation-JSON delivery verification. No Excel, rebuild, renderer execution, delivery acceptance or broader pathway completion is asserted.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        }
+      ],
+      "limitation": "Actual analytical handoff; underlying source qualifications and scope remain.",
+      "extractor": "literal-markdown-lines",
+      "extraction_status": "complete",
+      "coverage": []
+    }
+  ],
+  "analytical_qualification": "partial",
+  "native_host_qualification": "unrun"
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Historical Ford Otomotiv Sanayi A.S. (Ford Otosan), April 11, 2024. Fresh sol-medium ratings chapter using pinned selected financial and published-forecast handoffs; no distress classification or current rating/underwriting conclusion. S&P issuer/issue ratings are preliminary; Fitch issue rating is expected. Published agency forecasts are not a new stress/management model. Exact aligned headroom, sustained windows, operative terms, later outcomes and raw-PDF/visual verification remain incomplete. Fresh provider response; selected inputs do not claim full native CP-1/CP-2G acceptance. TRY millions and billions and USD/EUR instruments retain their distinct source units.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-2H.md": "b5b197396d7df31a4997dbc58c7879caca9a23063858cb362e26fa08ae216ecb",
+    "view.json": "0cc782d2e77af33205d986949ae4bbf7c3584d83acdd958b9516b32fff4b289b",
+    "report-view.json": "29fcb046f2d986093026066fe842dff044e1b040032557f64e0eb614ff973449",
+    "report.html": "8a766ef4ed7d40acd6d6822b84ff7a9225bdb96b3ff818d457f2d3ac51015855"
+  }
+}

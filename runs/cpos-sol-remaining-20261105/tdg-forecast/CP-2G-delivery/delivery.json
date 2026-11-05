@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Historical consolidated TDG, FY2024/September 30 base; guidance dated November 7, 2024 and separately dated December-quarter context. This retrospective illustration is not an as-of-November-7 backtest or evidence-supported central forecast. USD millions; October\u2013September planning years FY2025\u2013FY2027. Stipulated cash drivers, annual repayments and excluded financing/other uses are assumptions, not a complete issuer plan. Model CFO/cash proxy and mechanical net debt are not issuer CFO/FCF or accessible liquidity. Missing minimum cash/access, quarterly troughs, complete maturities/refinancing, quality earnings and segment-driver mapping remain gaps. Analyst watches are not covenants or probabilities. All nine analytical registers are preserved. Existing native fiscal-wrapper refusal remains unpassed; this report preserves the explicit source planning dates. Fresh sol-medium analytical response using current reviewed Markdown handoffs and freshly re-executed unchanged deterministic kernels; not native-contract acceptance. Excel is ingestion-only; historical workbook-readiness language is superseded.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-2G.md": "20314e01d39b87d2e50d4a50ab048371175bccc4c8330ff1170811254b38a2c6",
+    "view.json": "f0e34e9ffefbddbb1c7e957c4020b415e5295763130264328fb2450ae2ddbf3e",
+    "report-view.json": "fd3c23af72e0fe8a3f9c005ace2cddac7203604db68c601394aaff19066bdcc0",
+    "report.html": "fa254c8faaa1fd0c4f7d3d581293b8702e1db45321a6dc138f1ec1d26cc1f1b9"
+  }
+}

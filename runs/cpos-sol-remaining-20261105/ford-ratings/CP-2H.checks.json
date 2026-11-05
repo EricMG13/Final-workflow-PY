@@ -1,0 +1,50 @@
+{
+  "required_terms": [
+    "2024-04-11",
+    "2026-11-05",
+    "BB+",
+    "BB-",
+    "preliminary",
+    "RR4",
+    "Financial definition controls"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Financial definition controls",
+      "columns": [
+        "Year",
+        "SP debt/EBITDA",
+        "FFO/debt fraction",
+        "EBITDA margin fraction",
+        "Known EBITDA residual TRY m",
+        "DCF residual TRY m"
+      ],
+      "rows": [
+        [
+          "2023",
+          "1.595055",
+          "0.546200",
+          "0.117051",
+          "-1",
+          "0"
+        ],
+        [
+          "2024",
+          "2.216176",
+          "0.383170",
+          "0.077241",
+          "0",
+          "1"
+        ],
+        [
+          "2025",
+          "2.007731",
+          "0.381831",
+          "0.068168",
+          "0",
+          "0"
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "run": {
+    "run_id": "sol-remaining-ford-funding-20261105",
+    "issuer_id": "FORD-OTOSAN",
+    "issuer_name": "Ford Otomotiv Sanayi A.S.",
+    "as_of": "2024-04-11",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-3C"
+    ]
+  },
+  "handoffs": {
+    "CP-3C": {
+      "path": "CP-3C-repaired.md",
+      "sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "funding-gap",
+      "refinancing-paths"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-3C",
+        "heading": "Request",
+        "kind": "prose",
+        "prefix": "View:",
+        "block_id": "refinancing-paths",
+        "label": "Historical funding assessment"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Funding conclusion",
+        "kind": "prose",
+        "block_id": "refinancing-paths",
+        "label": "Rating conditions and funding implications"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Funding cases",
+        "kind": "table",
+        "block_id": "funding-gap",
+        "label": "Separate assumptions and consequences"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Funding controls",
+        "kind": "table",
+        "block_id": "funding-gap",
+        "label": "Conditional amounts \u00b7 TRY billions"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Monitoring",
+        "kind": "table",
+        "block_id": "refinancing-paths",
+        "label": "Unproven access and execution"
+      }
+    ],
+    "title": "Ford Otosan historical ratings-to-funding intake",
+    "question": "How do provisional ratings and funding conditions change the published liquidity plan?",
+    "issuer_aliases": [
+      "Ford Otosan"
+    ],
+    "scope": "Fresh sol-medium downstream consumption of current CP-2H. Historical April11 2024 source plan, January-December2024, TRY billions versus separate agency forecast TRY millions. Six independent conditional cases, not actual financing failure, unrestricted liquidity, current ratings, full legal review or complete pathway. Existing report delivery, no workbook."
+  }
+}

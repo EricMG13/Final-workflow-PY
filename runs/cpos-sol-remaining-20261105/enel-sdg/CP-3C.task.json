@@ -1,0 +1,41 @@
+{
+  "run": {
+    "run_id": "sol-remaining-enel-funding-consumer-20261105",
+    "issuer_id": "ENEL-EFI",
+    "issuer_name": "Enel Finance International N.V.",
+    "as_of": "2021-08-03",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-3C"
+    ]
+  },
+  "module_id": "CP-3C",
+  "instructions": {
+    "path": "CP-3C.instructions.md",
+    "sha256": "9934c450a0fba24434ca9b9d2f3f5dbc95549a1a2c1f28cf46a06b93d91eb53a"
+  },
+  "sources": {
+    "S1-efi-2019": {
+      "path": "S1-efi-2019-selected.txt",
+      "sha256": "a244ed68193015b36373883c968f04a802208e5db1b7955dffaf4c8787caef0b"
+    },
+    "S2-supplement-2019": {
+      "path": "S2-supplement-2019-selected.txt",
+      "sha256": "0bd60e93dbbbb6245fdb3b0616a14fd0513a8ac1aaddc209c7b24bb76b354a75"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../../enel-sdg-2021-001/CP-0-attempt-1.md",
+      "sha256": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be"
+    },
+    "CP-2E": {
+      "path": "CP-2E.md",
+      "sha256": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+    }
+  },
+  "checks": "CP-3C.checks.json",
+  "layout": "CP-3C.layout.json",
+  "output": "CP-3C.md"
+}

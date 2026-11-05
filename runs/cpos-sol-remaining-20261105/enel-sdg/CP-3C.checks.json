@@ -1,0 +1,41 @@
+{
+  "required_terms": [
+    "Funding bridge",
+    "Monitoring",
+    "Funding conclusion",
+    "2021-08-03",
+    "2026-11-05",
+    "XS2066706818"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Consumption controls",
+      "columns": [
+        "Metric",
+        "Value"
+      ],
+      "rows": [
+        [
+          "initial_coupon_eur_m",
+          "0"
+        ],
+        [
+          "conditional_coupon_eur_m",
+          "2.5"
+        ],
+        [
+          "increment_eur_m",
+          "2.5"
+        ],
+        [
+          "gross_issue_proceeds_eur_m",
+          "991.23"
+        ],
+        [
+          "par_discount_eur_m",
+          "8.77"
+        ]
+      ]
+    }
+  ]
+}

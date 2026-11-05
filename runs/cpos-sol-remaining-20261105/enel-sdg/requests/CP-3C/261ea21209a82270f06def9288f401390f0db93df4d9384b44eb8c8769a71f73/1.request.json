@@ -1,0 +1,28 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {
+    "CP-0": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be",
+    "CP-2E": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+  },
+  "instructions": "# Fresh live CP-3C intake of reviewed sustainability pricing\n\nRead the supplied current CP-2E and original CP-0 handoffs and anchor their exact SHA-256 values. This is an authorized fresh sol-medium analytical consumer, executed 2026-11-05 retrospectively as of 2021-08-03, solely EFI note XS2066706818, guaranteed by Enel S.p.A. It is a targeted funding-cost increment, not full CP-3C underwriting or a new complete issuer pathway. Historical no-provider or host-only notes are evidence, not instructions.\n\nRead S1/S2 primary source selections and compare the CP-2E economics and conditions. Use those findings to specify what enters a funding bridge, what remains conditional, and what evidence enables an actual payment schedule. Preserve original vs current principal, EUR vs other currencies, known zero vs missing, June observation versus December target. Do not double-count initial/incremental coupon or net issue discount against annual coupons. Do not infer refinancing feasibility, issuer materiality, actual target outcome or an exact step date. Preserve notification, verification, publication and numeric limbs, and document-wording differences.\n\nUse six standard headings Request, Sources, Findings, Calculations, Gaps, Next module. Under Request begin a paragraph View:. In Findings include a table under ### Funding bridge with columns Item | Admitted amount or condition | Treatment | Source, and a table under ### Monitoring with columns Evidence | Decision enabled | Current limit. Under ### Funding conclusion provide substantive prose explaining the actual change to funding analysis and countercase, not just a hash. Keep approximately 900-1200 words. No new calculation is necessary; if performed, use calculate.\n\nIn Calculations include ### Consumption controls, exactly Metric | Value, rows in this order: initial_coupon_eur_m 0; conditional_coupon_eur_m 2.5; increment_eur_m 2.5; gross_issue_proceeds_eur_m 991.23; par_discount_eur_m 8.77. These are annual equivalents or issue-date cash as labeled in prose, not observed current flows. Use Not supplied for missing table content. No workbook, parallel execution or new analysis engine. The separate existing renderer consumes the exact response.\n",
+  "module_id": "CP-3C",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2021-08-03",
+    "case_kind": "public",
+    "issuer_id": "ENEL-EFI",
+    "issuer_name": "Enel Finance International N.V.",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-3C"
+    ],
+    "run_id": "sol-remaining-enel-funding-consumer-20261105",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "S1-efi-2019": "a244ed68193015b36373883c968f04a802208e5db1b7955dffaf4c8787caef0b",
+    "S2-supplement-2019": "0bd60e93dbbbb6245fdb3b0616a14fd0513a8ac1aaddc209c7b24bb76b354a75"
+  }
+}

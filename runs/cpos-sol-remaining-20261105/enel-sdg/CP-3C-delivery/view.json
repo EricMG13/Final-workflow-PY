@@ -1,0 +1,2933 @@
+{
+  "schema_version": "view/4",
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "sol-remaining-enel-funding-consumer-20261105",
+    "issuer_id": "ENEL-EFI",
+    "issuer_name": "Enel Finance International N.V.",
+    "as_of": "2021-08-03",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-3C"
+    ]
+  },
+  "mode": "candidate",
+  "modules": [
+    {
+      "module_id": "CP-3C",
+      "title": "Refinancing lme risk",
+      "aliases": [],
+      "status": "candidate",
+      "artifact_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+      "facts": [
+        {
+          "fact_id": "raw-CP-3C-0.r0.c0",
+          "label": "Current CP-2E",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 13",
+              "quote": "| Current CP-2E | `332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af` |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r1.c0",
+          "label": "Original CP-0",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 14",
+              "quote": "| Original CP-0 | `7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be` |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r0.c0",
+          "label": "S1-efi-2019",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "a244ed68193015b36373883c968f04a802208e5db1b7955dffaf4c8787caef0b",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 20",
+              "quote": "| S1-efi-2019 | `a244ed68193015b36373883c968f04a802208e5db1b7955dffaf4c8787caef0b` | 2019 annual report, original pp.1,4–5,50–52 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r0.c1",
+          "label": "S1-efi-2019",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "2019 annual report, original pp.1,4–5,50–52",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 20",
+              "quote": "| S1-efi-2019 | `a244ed68193015b36373883c968f04a802208e5db1b7955dffaf4c8787caef0b` | 2019 annual report, original pp.1,4–5,50–52 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r1.c0",
+          "label": "S2-supplement-2019",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "0bd60e93dbbbb6245fdb3b0616a14fd0513a8ac1aaddc209c7b24bb76b354a75",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 21",
+              "quote": "| S2-supplement-2019 | `0bd60e93dbbbb6245fdb3b0616a14fd0513a8ac1aaddc209c7b24bb76b354a75` | October 8, 2019 supplement, original pp.1,12,70–73,90–91 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r1.c1",
+          "label": "S2-supplement-2019",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "October 8, 2019 supplement, original pp.1,12,70–73,90–91",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 21",
+              "quote": "| S2-supplement-2019 | `0bd60e93dbbbb6245fdb3b0616a14fd0513a8ac1aaddc209c7b24bb76b354a75` | October 8, 2019 supplement, original pp.1,12,70–73,90–91 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r0.c0",
+          "label": "Principal/maturity",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Original EUR1,000m; June 17, 2024; current outstanding: Not supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 31",
+              "quote": "| Principal/maturity | Original EUR1,000m; June 17, 2024; current outstanding: Not supplied | Original-principal sensitivity only; do not assume current redemption requirement | S1 p.51; CP-2E identity |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r0.c1",
+          "label": "Principal/maturity",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Original-principal sensitivity only; do not assume current redemption requirement",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 31",
+              "quote": "| Principal/maturity | Original EUR1,000m; June 17, 2024; current outstanding: Not supplied | Original-principal sensitivity only; do not assume current redemption requirement | S1 p.51; CP-2E identity |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r0.c2",
+          "label": "Principal/maturity",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "S1 p.51; CP-2E identity",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 31",
+              "quote": "| Principal/maturity | Original EUR1,000m; June 17, 2024; current outstanding: Not supplied | Original-principal sensitivity only; do not assume current redemption requirement | S1 p.51; CP-2E identity |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r1.c0",
+          "label": "Initial coupon",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Known 0%; EUR0m annual equivalent",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 32",
+              "quote": "| Initial coupon | Known 0%; EUR0m annual equivalent | Baseline cash interest, not missing data | S1 p.51 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r1.c1",
+          "label": "Initial coupon",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Baseline cash interest, not missing data",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 32",
+              "quote": "| Initial coupon | Known 0%; EUR0m annual equivalent | Baseline cash interest, not missing data | S1 p.51 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r1.c2",
+          "label": "Initial coupon",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "S1 p.51",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 32",
+              "quote": "| Initial coupon | Known 0%; EUR0m annual equivalent | Baseline cash interest, not missing data | S1 p.51 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r2.c0",
+          "label": "Conditional coupon",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "One-time +25bp gives 0.25%; EUR2.5m annual equivalent",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 33",
+              "quote": "| Conditional coupon | One-time +25bp gives 0.25%; EUR2.5m annual equivalent | Contingent gross cash interest; incremental and total stepped coupon coincide, not additive entries | S1 p.51; S2 p.70 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r2.c1",
+          "label": "Conditional coupon",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Contingent gross cash interest; incremental and total stepped coupon coincide, not additive entries",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 33",
+              "quote": "| Conditional coupon | One-time +25bp gives 0.25%; EUR2.5m annual equivalent | Contingent gross cash interest; incremental and total stepped coupon coincide, not additive entries | S1 p.51; S2 p.70 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r2.c2",
+          "label": "Conditional coupon",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "S1 p.51; S2 p.70",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 33",
+              "quote": "| Conditional coupon | One-time +25bp gives 0.25%; EUR2.5m annual equivalent | Contingent gross cash interest; incremental and total stepped coupon coincide, not additive entries | S1 p.51; S2 p.70 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r3.c0",
+          "label": "Issue cash",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Price 99.123%; EUR991.23m gross proceeds; EUR8.77m par discount",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 34",
+              "quote": "| Issue cash | Price 99.123%; EUR991.23m gross proceeds; EUR8.77m par discount | Historical issue-date cash, before fees; neither current liquidity nor annual coupon | S1 p.51; CP-2E calculations |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r3.c1",
+          "label": "Issue cash",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Historical issue-date cash, before fees; neither current liquidity nor annual coupon",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 34",
+              "quote": "| Issue cash | Price 99.123%; EUR991.23m gross proceeds; EUR8.77m par discount | Historical issue-date cash, before fees; neither current liquidity nor annual coupon | S1 p.51; CP-2E calculations |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r3.c2",
+          "label": "Issue cash",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r3",
+          "field": "c2",
+          "amount": null,
+          "text": "S1 p.51; CP-2E calculations",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 34",
+              "quote": "| Issue cash | Price 99.123%; EUR991.23m gross proceeds; EUR8.77m par discount | Historical issue-date cash, before fees; neither current liquidity nor annual coupon | S1 p.51; CP-2E calculations |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r4.c0",
+          "label": "Reported effective yield",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "0.189%",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 35",
+              "quote": "| Reported effective yield | 0.189% | Distinct from cash coupon; do not add discount again to annual coupons | S1 p.51 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r4.c1",
+          "label": "Reported effective yield",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "Distinct from cash coupon; do not add discount again to annual coupons",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 35",
+              "quote": "| Reported effective yield | 0.189% | Distinct from cash coupon; do not add discount again to annual coupons | S1 p.51 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r4.c2",
+          "label": "Reported effective yield",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r4",
+          "field": "c2",
+          "amount": null,
+          "text": "S1 p.51",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 35",
+              "quote": "| Reported effective yield | 0.189% | Distinct from cash coupon; do not add discount again to annual coupons | S1 p.51 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r5.c0",
+          "label": "Application",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "Full renewable-capacity condition fails and contractual timing applies",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 36",
+              "quote": "| Application | Full renewable-capacity condition fails and contractual timing applies | No actual payment schedule admitted | S2 pp.70–73 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r5.c1",
+          "label": "Application",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "No actual payment schedule admitted",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 36",
+              "quote": "| Application | Full renewable-capacity condition fails and contractual timing applies | No actual payment schedule admitted | S2 pp.70–73 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r5.c2",
+          "label": "Application",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r5",
+          "field": "c2",
+          "amount": null,
+          "text": "S2 pp.70–73",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 36",
+              "quote": "| Application | Full renewable-capacity condition fails and contractual timing applies | No actual payment schedule admitted | S2 pp.70–73 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r0.c0",
+          "label": "December-reference KPI on contractual perimeter",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Test numerical limb against 55%",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 54",
+              "quote": "| December-reference KPI on contractual perimeter | Test numerical limb against 55% | Not supplied; June observation is insufficient |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r0.c1",
+          "label": "December-reference KPI on contractual perimeter",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Not supplied; June observation is insufficient",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 54",
+              "quote": "| December-reference KPI on contractual perimeter | Test numerical limb against 55% | Not supplied; June observation is insufficient |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r1.c0",
+          "label": "Target-date assurance and verifier appointment",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Establish confirmation and qualified verifier",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 55",
+              "quote": "| Target-date assurance and verifier appointment | Establish confirmation and qualified verifier | Not supplied; June limited assurance does not substitute |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r1.c1",
+          "label": "Target-date assurance and verifier appointment",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Not supplied; June limited assurance does not substitute",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 55",
+              "quote": "| Target-date assurance and verifier appointment | Establish confirmation and qualified verifier | Not supplied; June limited assurance does not substitute |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r2.c0",
+          "label": "Publication timestamps and auditor-report dates",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Test publication deadline and permitted delay",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 56",
+              "quote": "| Publication timestamps and auditor-report dates | Test publication deadline and permitted delay | Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r2.c1",
+          "label": "Publication timestamps and auditor-report dates",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Not supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 56",
+              "quote": "| Publication timestamps and auditor-report dates | Test publication deadline and permitted delay | Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r3.c0",
+          "label": "Written notice and Condition 14 delivery evidence",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Test timely notification to agent/holders",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 57",
+              "quote": "| Written notice and Condition 14 delivery evidence | Test timely notification to agent/holders | Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r3.c1",
+          "label": "Written notice and Condition 14 delivery evidence",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Not supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 57",
+              "quote": "| Written notice and Condition 14 delivery evidence | Test timely notification to agent/holders | Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r4.c0",
+          "label": "Completed Final Terms, incorporated contract, payment/accrual/day-count terms",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "Reconcile wording and identify affected periods",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 58",
+              "quote": "| Completed Final Terms, incorporated contract, payment/accrual/day-count terms | Reconcile wording and identify affected periods | Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r4.c1",
+          "label": "Completed Final Terms, incorporated contract, payment/accrual/day-count terms",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "Not supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 58",
+              "quote": "| Completed Final Terms, incorporated contract, payment/accrual/day-count terms | Reconcile wording and identify affected periods | Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r5.c0",
+          "label": "Outstanding-principal history and payment records",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "Size dated cash flows and establish payments",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 59",
+              "quote": "| Outstanding-principal history and payment records | Size dated cash flows and establish payments | Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r5.c1",
+          "label": "Outstanding-principal history and payment records",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "Not supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 59",
+              "quote": "| Outstanding-principal history and payment records | Size dated cash flows and establish payments | Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r0.c0",
+          "label": "initial_coupon_eur_m",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "0",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 75",
+              "quote": "| initial_coupon_eur_m | 0 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r1.c0",
+          "label": "conditional_coupon_eur_m",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "2.5",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 76",
+              "quote": "| conditional_coupon_eur_m | 2.5 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r2.c0",
+          "label": "increment_eur_m",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "2.5",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 77",
+              "quote": "| increment_eur_m | 2.5 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r3.c0",
+          "label": "gross_issue_proceeds_eur_m",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "991.23",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 78",
+              "quote": "| gross_issue_proceeds_eur_m | 991.23 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-4.r4.c0",
+          "label": "par_discount_eur_m",
+          "table_id": "raw-CP-3C-4",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "8.77",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 79",
+              "quote": "| par_discount_eur_m | 8.77 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-0.r0.c0",
+          "label": "Request",
+          "table_id": "prose-CP-3C-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "View: CP-3C admits CP-2E’s reviewed sustainability pricing as a conditional funding-bridge sensitivity for Enel Finance International N.V. (EFI) note XS2066706818, guaranteed by Enel S.p.A., not as an observed payment. The supported change is a one-time 25bp increase from 0% to 0.25%, equivalent to EUR2.5m annually on original EUR1,000m principal; actual outstanding principal and affected periods remain unestablished.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 3",
+              "quote": "View: CP-3C admits CP-2E’s reviewed sustainability pricing as a conditional funding-bridge sensitivity for Enel Finance International N.V. (EFI) note XS2066706818, guaranteed by Enel S.p.A., not as an observed payment. The supported change is a one-time 25bp increase from 0% to 0.25%, equivalent to EUR2.5m annually on original EUR1,000m principal; actual outstanding principal and affected periods remain unestablished."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-0.r1.c0",
+          "label": "Request",
+          "table_id": "prose-CP-3C-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "This fresh sol-medium CP-3C consumer, run sol-remaining-enel-funding-consumer-20261105, method deploy-v-r14, executes on 2026-11-05 retrospectively as of 2021-08-03. It is solely a targeted funding-cost increment, not full CP-3C underwriting or a complete issuer pathway. December 2021 performance was prospective at the cutoff; no subsequently observed outcome is imported.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 5",
+              "quote": "This fresh sol-medium CP-3C consumer, run `sol-remaining-enel-funding-consumer-20261105`, method `deploy-v-r14`, executes on 2026-11-05 retrospectively as of 2021-08-03. It is solely a targeted funding-cost increment, not full CP-3C underwriting or a complete issuer pathway. December 2021 performance was prospective at the cutoff; no subsequently observed outcome is imported."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-1.r0.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-3C-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Read the supplied current CP-2E and original CP-0 handoffs. Their exact SHA-256 anchors are:",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 9",
+              "quote": "Read the supplied current CP-2E and original CP-0 handoffs. Their exact SHA-256 anchors are:"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-1.r1.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-3C-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Read all pinned S1/S2 selections directly, rather than relying solely on the handoff. Citations below identify original PDF pages; selections occupy two and three tool pages respectively. This was extracted-text review, not visual inspection.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 16",
+              "quote": "Read all pinned S1/S2 selections directly, rather than relying solely on the handoff. Citations below identify original PDF pages; selections occupy two and three tool pages respectively. This was extracted-text review, not visual inspection."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-1.r2.c0",
+          "label": "Sources",
+          "table_id": "prose-CP-3C-1",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "S3 interim KPI and S4 target information are inherited evidence from CP-2E, not newly read primary sources here. Historical host/provider limitations describe prior work, not restrictions on this authorized fresh consumption.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 23",
+              "quote": "S3 interim KPI and S4 target information are inherited evidence from CP-2E, not newly read primary sources here. Historical host/provider limitations describe prior work, not restrictions on this authorized fresh consumption."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-2.r0.c0",
+          "label": "Funding bridge",
+          "table_id": "prose-CP-3C-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "The primary selections support CP-2E’s economics. EFI is the financing company, whereas the contractual KPI concerns the guarantor/group perimeter. The USD1,500m transaction and other EUR tranches in S1 are excluded; their coupons, swaps and maturities cannot populate this note’s bridge.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 38",
+              "quote": "The primary selections support CP-2E’s economics. EFI is the financing company, whereas the contractual KPI concerns the guarantor/group perimeter. The USD1,500m transaction and other EUR tranches in S1 are excluded; their coupons, swaps and maturities cannot populate this note’s bridge."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-3.r0.c0",
+          "label": "Conditions and wording",
+          "table_id": "prose-CP-3C-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "The numerical limb is at least 55% at December 31, 2021, as carried by CP-2E; S2 leaves threshold/reference date to applicable Final Terms. Equality passes that limb only. CP-2E’s June 30 observation of 54.5% is interim, not December failure. Preserve the defined capacity perimeter: specified post-issue acquisitions are excluded unless primarily constructed/developed/installed by the group; nuclear is excluded from the renewable numerator (S2 pp.72–73).",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 42",
+              "quote": "The numerical limb is at least 55% at December 31, 2021, as carried by CP-2E; S2 leaves threshold/reference date to applicable Final Terms. Equality passes that limb only. CP-2E’s June 30 observation of 54.5% is interim, not December failure. Preserve the defined capacity perimeter: specified post-issue acquisitions are excluded unless primarily constructed/developed/installed by the group; nuclear is excluded from the renewable numerator (S2 pp.72–73)."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-3.r1.c0",
+          "label": "Conditions and wording",
+          "table_id": "prose-CP-3C-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Separate gates remain: good-faith calculation, External Verifier confirmation under customary procedures, website publication by the notification date, and written guarantor notification to the Principal Paying Agent and noteholders under Condition 14. The notification date is a business day no later than 45 days before the Step Up Date. Condition 14A requires semiannual/annual statements and assurance concurrently with auditor reports, allowing reasonable delay capped at 30 days (S2 pp.72–73,90–91).",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 44",
+              "quote": "Separate gates remain: good-faith calculation, External Verifier confirmation under customary procedures, website publication by the notification date, and written guarantor notification to the Principal Paying Agent and noteholders under Condition 14. The notification date is a business day no later than 45 days before the Step Up Date. Condition 14A requires semiannual/annual statements and assurance concurrently with auditor reports, allowing reasonable delay capped at 30 days (S2 pp.72–73,90–91)."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-3.r2.c0",
+          "label": "Conditions and wording",
+          "table_id": "prose-CP-3C-3",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "S2 names EY or an appointed qualified replacement; CP-2E describes KPMG’s June limited assurance. Appointment evidence is Not supplied, not proof of invalid verification. That interim assurance is not target-date confirmation.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 46",
+              "quote": "S2 names EY or an appointed qualified replacement; CP-2E describes KPMG’s June limited assurance. Appointment evidence is Not supplied, not proof of invalid verification. That interim assurance is not target-date confirmation."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-3.r3.c0",
+          "label": "Conditions and wording",
+          "table_id": "prose-CP-3C-3",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "S1 p.51 describes the first interest period subsequent to assurance publication. S2 p.73 defines Step Up Date by required publication; p.70 applies the increased rate to periods commencing on/after the payment date immediately following a Step Up Event. Preserve these wording differences pending completed terms; no exact step date is inferred.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 48",
+              "quote": "S1 p.51 describes the first interest period subsequent to assurance publication. S2 p.73 defines Step Up Date by required publication; p.70 applies the increased rate to periods commencing on/after the payment date immediately following a Step Up Event. Preserve these wording differences pending completed terms; no exact step date is inferred."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-4.r0.c0",
+          "label": "Funding conclusion",
+          "table_id": "prose-CP-3C-4",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "The actual analytical change is a separately identifiable contingent cash-interest line in the funding bridge, rather than treating the zero-coupon note as having no funding cost or treating sustainability performance as a refinancing event. Relative to timely satisfaction, an applicable step increases cash outflow in affected periods; EUR2.5m is the full-year equivalent on original principal, not an amount already paid or a multi-year aggregate.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 63",
+              "quote": "The actual analytical change is a separately identifiable contingent cash-interest line in the funding bridge, rather than treating the zero-coupon note as having no funding cost or treating sustainability performance as a refinancing event. Relative to timely satisfaction, an applicable step increases cash outflow in affected periods; EUR2.5m is the full-year equivalent on original principal, not an amount already paid or a multi-year aggregate."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-4.r1.c0",
+          "label": "Funding conclusion",
+          "table_id": "prose-CP-3C-4",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "The strongest countercase is timely satisfaction of every numerical, verification, publication and notification limb: the coupon stays zero and the increment is zero. Missing future evidence at the historical cutoff is not an observed breach. S2 p.12 expressly excludes automatic default or required repurchase/redemption from failure to increase renewable capacity. Accordingly, this channel supports neither acceleration nor demonstrated refinancing impairment. Issue discount establishes nonzero issue economics despite zero cash coupon; it does not establish market access, a security-specific greenium, or issuer-wide materiality.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 65",
+              "quote": "The strongest countercase is timely satisfaction of every numerical, verification, publication and notification limb: the coupon stays zero and the increment is zero. Missing future evidence at the historical cutoff is not an observed breach. S2 p.12 expressly excludes automatic default or required repurchase/redemption from failure to increase renewable capacity. Accordingly, this channel supports neither acceleration nor demonstrated refinancing impairment. Issue discount establishes nonzero issue economics despite zero cash coupon; it does not establish market access, a security-specific greenium, or issuer-wide materiality."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-5.r0.c0",
+          "label": "Calculations",
+          "table_id": "prose-CP-3C-5",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "No new calculation performed. Reuse CP-2E’s reviewed results, checked against S1’s operands. Coupon figures below are annual equivalents on original principal; proceeds and discount are issue-date EURm, not observed current flows. Fees and net hedged cost are Not supplied.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 69",
+              "quote": "No new calculation performed. Reuse CP-2E’s reviewed results, checked against S1’s operands. Coupon figures below are annual equivalents on original principal; proceeds and discount are issue-date EURm, not observed current flows. Fees and net hedged cost are Not supplied."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-6.r0.c0",
+          "label": "Gaps",
+          "table_id": "prose-CP-3C-6",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Actual outcome, notice, publication, verifier appointment, current balance and exact schedule remain Not supplied. Aggregate incremental payments are Not calculable because applicable periods and principal are missing. No accepted financial foundation, liquidity bridge, maturity ladder or market/refinancing evidence supports capacity, coverage or materiality conclusions. The 2019 report is not a current issuer/parent credit base.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 83",
+              "quote": "Actual outcome, notice, publication, verifier appointment, current balance and exact schedule remain Not supplied. Aggregate incremental payments are Not calculable because applicable periods and principal are missing. No accepted financial foundation, liquidity bridge, maturity ladder or market/refinancing evidence supports capacity, coverage or materiality conclusions. The 2019 report is not a current issuer/parent credit base."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-7.r0.c0",
+          "label": "Next module",
+          "table_id": "prose-CP-3C-7",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Pass this bounded increment and countercase to the existing funding consumer/renderer. Obtain the contractual and monitoring evidence before scheduling payments; obtain validated issuer/parent financial and market inputs before broader CP-3C underwriting. No workbook, parallel execution or new analysis engine was used.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+              "locator": "line 87",
+              "quote": "Pass this bounded increment and countercase to the existing funding consumer/renderer. Obtain the contractual and monitoring evidence before scheduling payments; obtain validated issuer/parent financial and market inputs before broader CP-3C underwriting. No workbook, parallel execution or new analysis engine was used."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "raw-CP-3C-0",
+          "title": "Sources — Handoff",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "SHA-256"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Current CP-2E",
+              "fact_ids": [
+                "raw-CP-3C-0.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Original CP-0",
+              "fact_ids": [
+                "raw-CP-3C-0.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Handoff",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-3C-1",
+          "title": "Sources — Selection",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Exact SHA-256"
+            },
+            {
+              "field": "c1",
+              "label": "Coverage"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "S1-efi-2019",
+              "fact_ids": [
+                "raw-CP-3C-1.r0.c0",
+                "raw-CP-3C-1.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "S2-supplement-2019",
+              "fact_ids": [
+                "raw-CP-3C-1.r1.c0",
+                "raw-CP-3C-1.r1.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Selection",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-3C-2",
+          "title": "Funding bridge — Item",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Admitted amount or condition"
+            },
+            {
+              "field": "c1",
+              "label": "Treatment"
+            },
+            {
+              "field": "c2",
+              "label": "Source"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Principal/maturity",
+              "fact_ids": [
+                "raw-CP-3C-2.r0.c0",
+                "raw-CP-3C-2.r0.c1",
+                "raw-CP-3C-2.r0.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Initial coupon",
+              "fact_ids": [
+                "raw-CP-3C-2.r1.c0",
+                "raw-CP-3C-2.r1.c1",
+                "raw-CP-3C-2.r1.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Conditional coupon",
+              "fact_ids": [
+                "raw-CP-3C-2.r2.c0",
+                "raw-CP-3C-2.r2.c1",
+                "raw-CP-3C-2.r2.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Issue cash",
+              "fact_ids": [
+                "raw-CP-3C-2.r3.c0",
+                "raw-CP-3C-2.r3.c1",
+                "raw-CP-3C-2.r3.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Reported effective yield",
+              "fact_ids": [
+                "raw-CP-3C-2.r4.c0",
+                "raw-CP-3C-2.r4.c1",
+                "raw-CP-3C-2.r4.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Application",
+              "fact_ids": [
+                "raw-CP-3C-2.r5.c0",
+                "raw-CP-3C-2.r5.c1",
+                "raw-CP-3C-2.r5.c2"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Item",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-3C-3",
+          "title": "Monitoring — Evidence",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Decision enabled"
+            },
+            {
+              "field": "c1",
+              "label": "Current limit"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "December-reference KPI on contractual perimeter",
+              "fact_ids": [
+                "raw-CP-3C-3.r0.c0",
+                "raw-CP-3C-3.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Target-date assurance and verifier appointment",
+              "fact_ids": [
+                "raw-CP-3C-3.r1.c0",
+                "raw-CP-3C-3.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Publication timestamps and auditor-report dates",
+              "fact_ids": [
+                "raw-CP-3C-3.r2.c0",
+                "raw-CP-3C-3.r2.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Written notice and Condition 14 delivery evidence",
+              "fact_ids": [
+                "raw-CP-3C-3.r3.c0",
+                "raw-CP-3C-3.r3.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Completed Final Terms, incorporated contract, payment/accrual/day-count terms",
+              "fact_ids": [
+                "raw-CP-3C-3.r4.c0",
+                "raw-CP-3C-3.r4.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Outstanding-principal history and payment records",
+              "fact_ids": [
+                "raw-CP-3C-3.r5.c0",
+                "raw-CP-3C-3.r5.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Evidence",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-3C-4",
+          "title": "Consumption controls — Metric",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Value"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "initial_coupon_eur_m",
+              "fact_ids": [
+                "raw-CP-3C-4.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "conditional_coupon_eur_m",
+              "fact_ids": [
+                "raw-CP-3C-4.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "increment_eur_m",
+              "fact_ids": [
+                "raw-CP-3C-4.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "gross_issue_proceeds_eur_m",
+              "fact_ids": [
+                "raw-CP-3C-4.r3.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "par_discount_eur_m",
+              "fact_ids": [
+                "raw-CP-3C-4.r4.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Metric",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-0",
+          "title": "Request",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Request — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-0.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Request — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-0.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-1",
+          "title": "Sources",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Sources — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-1.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Sources — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-1.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Sources — paragraph 3",
+              "fact_ids": [
+                "prose-CP-3C-1.r2.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-2",
+          "title": "Funding bridge",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Funding bridge — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-2.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-3",
+          "title": "Conditions and wording",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Conditions and wording — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-3.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Conditions and wording — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-3.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Conditions and wording — paragraph 3",
+              "fact_ids": [
+                "prose-CP-3C-3.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Conditions and wording — paragraph 4",
+              "fact_ids": [
+                "prose-CP-3C-3.r3.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-4",
+          "title": "Funding conclusion",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Funding conclusion — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-4.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Funding conclusion — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-4.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-5",
+          "title": "Calculations",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Calculations — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-5.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-6",
+          "title": "Gaps",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Gaps — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-6.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-7",
+          "title": "Next module",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Next module — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-7.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        }
+      ],
+      "claims": [],
+      "limitations": [
+        "Literal checked analytical handoff, not native contract acceptance; source qualifications and gaps remain."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "schema_version": "source/1",
+      "source_id": "CP-3C",
+      "name": "CP-3C.md",
+      "status": "ready",
+      "sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+      "media_type": "text/markdown",
+      "spans": [
+        {
+          "locator": "line 1",
+          "text": "## Request",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 3",
+          "text": "View: CP-3C admits CP-2E’s reviewed sustainability pricing as a conditional funding-bridge sensitivity for Enel Finance International N.V. (EFI) note XS2066706818, guaranteed by Enel S.p.A., not as an observed payment. The supported change is a one-time 25bp increase from 0% to 0.25%, equivalent to EUR2.5m annually on original EUR1,000m principal; actual outstanding principal and affected periods remain unestablished.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 5",
+          "text": "This fresh sol-medium CP-3C consumer, run `sol-remaining-enel-funding-consumer-20261105`, method `deploy-v-r14`, executes on 2026-11-05 retrospectively as of 2021-08-03. It is solely a targeted funding-cost increment, not full CP-3C underwriting or a complete issuer pathway. December 2021 performance was prospective at the cutoff; no subsequently observed outcome is imported.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 7",
+          "text": "## Sources",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 9",
+          "text": "Read the supplied current CP-2E and original CP-0 handoffs. Their exact SHA-256 anchors are:",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 11",
+          "text": "| Handoff | SHA-256 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 12",
+          "text": "|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 13",
+          "text": "| Current CP-2E | `332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af` |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 14",
+          "text": "| Original CP-0 | `7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be` |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 16",
+          "text": "Read all pinned S1/S2 selections directly, rather than relying solely on the handoff. Citations below identify original PDF pages; selections occupy two and three tool pages respectively. This was extracted-text review, not visual inspection.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 18",
+          "text": "| Selection | Exact SHA-256 | Coverage |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 19",
+          "text": "|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 20",
+          "text": "| S1-efi-2019 | `a244ed68193015b36373883c968f04a802208e5db1b7955dffaf4c8787caef0b` | 2019 annual report, original pp.1,4–5,50–52 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 21",
+          "text": "| S2-supplement-2019 | `0bd60e93dbbbb6245fdb3b0616a14fd0513a8ac1aaddc209c7b24bb76b354a75` | October 8, 2019 supplement, original pp.1,12,70–73,90–91 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 23",
+          "text": "S3 interim KPI and S4 target information are inherited evidence from CP-2E, not newly read primary sources here. Historical host/provider limitations describe prior work, not restrictions on this authorized fresh consumption.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 25",
+          "text": "## Findings",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 27",
+          "text": "### Funding bridge",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 29",
+          "text": "| Item | Admitted amount or condition | Treatment | Source |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 30",
+          "text": "|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 31",
+          "text": "| Principal/maturity | Original EUR1,000m; June 17, 2024; current outstanding: Not supplied | Original-principal sensitivity only; do not assume current redemption requirement | S1 p.51; CP-2E identity |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 32",
+          "text": "| Initial coupon | Known 0%; EUR0m annual equivalent | Baseline cash interest, not missing data | S1 p.51 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 33",
+          "text": "| Conditional coupon | One-time +25bp gives 0.25%; EUR2.5m annual equivalent | Contingent gross cash interest; incremental and total stepped coupon coincide, not additive entries | S1 p.51; S2 p.70 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 34",
+          "text": "| Issue cash | Price 99.123%; EUR991.23m gross proceeds; EUR8.77m par discount | Historical issue-date cash, before fees; neither current liquidity nor annual coupon | S1 p.51; CP-2E calculations |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 35",
+          "text": "| Reported effective yield | 0.189% | Distinct from cash coupon; do not add discount again to annual coupons | S1 p.51 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 36",
+          "text": "| Application | Full renewable-capacity condition fails and contractual timing applies | No actual payment schedule admitted | S2 pp.70–73 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 38",
+          "text": "The primary selections support CP-2E’s economics. EFI is the financing company, whereas the contractual KPI concerns the guarantor/group perimeter. The USD1,500m transaction and other EUR tranches in S1 are excluded; their coupons, swaps and maturities cannot populate this note’s bridge.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 40",
+          "text": "### Conditions and wording",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 42",
+          "text": "The numerical limb is at least 55% at December 31, 2021, as carried by CP-2E; S2 leaves threshold/reference date to applicable Final Terms. Equality passes that limb only. CP-2E’s June 30 observation of 54.5% is interim, not December failure. Preserve the defined capacity perimeter: specified post-issue acquisitions are excluded unless primarily constructed/developed/installed by the group; nuclear is excluded from the renewable numerator (S2 pp.72–73).",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 44",
+          "text": "Separate gates remain: good-faith calculation, External Verifier confirmation under customary procedures, website publication by the notification date, and written guarantor notification to the Principal Paying Agent and noteholders under Condition 14. The notification date is a business day no later than 45 days before the Step Up Date. Condition 14A requires semiannual/annual statements and assurance concurrently with auditor reports, allowing reasonable delay capped at 30 days (S2 pp.72–73,90–91).",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 46",
+          "text": "S2 names EY or an appointed qualified replacement; CP-2E describes KPMG’s June limited assurance. Appointment evidence is Not supplied, not proof of invalid verification. That interim assurance is not target-date confirmation.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 48",
+          "text": "S1 p.51 describes the first interest period subsequent to assurance publication. S2 p.73 defines Step Up Date by required publication; p.70 applies the increased rate to periods commencing on/after the payment date immediately following a Step Up Event. Preserve these wording differences pending completed terms; no exact step date is inferred.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 50",
+          "text": "### Monitoring",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 52",
+          "text": "| Evidence | Decision enabled | Current limit |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 53",
+          "text": "|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 54",
+          "text": "| December-reference KPI on contractual perimeter | Test numerical limb against 55% | Not supplied; June observation is insufficient |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 55",
+          "text": "| Target-date assurance and verifier appointment | Establish confirmation and qualified verifier | Not supplied; June limited assurance does not substitute |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 56",
+          "text": "| Publication timestamps and auditor-report dates | Test publication deadline and permitted delay | Not supplied |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 57",
+          "text": "| Written notice and Condition 14 delivery evidence | Test timely notification to agent/holders | Not supplied |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 58",
+          "text": "| Completed Final Terms, incorporated contract, payment/accrual/day-count terms | Reconcile wording and identify affected periods | Not supplied |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 59",
+          "text": "| Outstanding-principal history and payment records | Size dated cash flows and establish payments | Not supplied |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 61",
+          "text": "### Funding conclusion",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 63",
+          "text": "The actual analytical change is a separately identifiable contingent cash-interest line in the funding bridge, rather than treating the zero-coupon note as having no funding cost or treating sustainability performance as a refinancing event. Relative to timely satisfaction, an applicable step increases cash outflow in affected periods; EUR2.5m is the full-year equivalent on original principal, not an amount already paid or a multi-year aggregate.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 65",
+          "text": "The strongest countercase is timely satisfaction of every numerical, verification, publication and notification limb: the coupon stays zero and the increment is zero. Missing future evidence at the historical cutoff is not an observed breach. S2 p.12 expressly excludes automatic default or required repurchase/redemption from failure to increase renewable capacity. Accordingly, this channel supports neither acceleration nor demonstrated refinancing impairment. Issue discount establishes nonzero issue economics despite zero cash coupon; it does not establish market access, a security-specific greenium, or issuer-wide materiality.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 67",
+          "text": "## Calculations",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 69",
+          "text": "No new calculation performed. Reuse CP-2E’s reviewed results, checked against S1’s operands. Coupon figures below are annual equivalents on original principal; proceeds and discount are issue-date EURm, not observed current flows. Fees and net hedged cost are Not supplied.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 71",
+          "text": "### Consumption controls",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 73",
+          "text": "| Metric | Value |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 74",
+          "text": "|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 75",
+          "text": "| initial_coupon_eur_m | 0 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 76",
+          "text": "| conditional_coupon_eur_m | 2.5 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 77",
+          "text": "| increment_eur_m | 2.5 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 78",
+          "text": "| gross_issue_proceeds_eur_m | 991.23 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 79",
+          "text": "| par_discount_eur_m | 8.77 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 81",
+          "text": "## Gaps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 83",
+          "text": "Actual outcome, notice, publication, verifier appointment, current balance and exact schedule remain Not supplied. Aggregate incremental payments are Not calculable because applicable periods and principal are missing. No accepted financial foundation, liquidity bridge, maturity ladder or market/refinancing evidence supports capacity, coverage or materiality conclusions. The 2019 report is not a current issuer/parent credit base.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 85",
+          "text": "## Next module",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 87",
+          "text": "Pass this bounded increment and countercase to the existing funding consumer/renderer. Obtain the contractual and monitoring evidence before scheduling payments; obtain validated issuer/parent financial and market inputs before broader CP-3C underwriting. No workbook, parallel execution or new analysis engine was used.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        }
+      ],
+      "limitation": "Actual analytical handoff; underlying source qualifications and scope remain.",
+      "extractor": "literal-markdown-lines",
+      "extraction_status": "complete",
+      "coverage": []
+    }
+  ],
+  "analytical_qualification": "partial",
+  "native_host_qualification": "unrun"
+}

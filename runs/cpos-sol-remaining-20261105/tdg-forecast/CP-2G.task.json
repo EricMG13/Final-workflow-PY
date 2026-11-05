@@ -1,0 +1,89 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-forecast-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "distressed_restructuring",
+    "requested_modules": [
+      "CP-2G"
+    ]
+  },
+  "module_id": "CP-2G",
+  "instructions": {
+    "path": "CP-2G.instructions.md",
+    "sha256": "354112249754790c1cf7b798290739bf5569a78cfe6e92b50e9536e402bb7f65"
+  },
+  "sources": {
+    "kernel-results": {
+      "path": "kernel-results.json",
+      "sha256": "96134aab60da4cb0b7d6b0abfeb5ab891bd4719c351190634871a0912a9e9153"
+    },
+    "scenario-instructions": {
+      "path": "../../tdg-003/CP-2G-instructions.md",
+      "sha256": "73703f8c0b466c774dae67c69d120d9c608f6b420d1286630d94945d8dbe7760"
+    },
+    "selected-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-2g-forward-credit-model/SKILL.md",
+      "sha256": "0337a01d8379f73c3aa9e0697742900c95f8d6b71d286cafe77fa66c8f770207"
+    },
+    "method-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-2g-forward-credit-model/references/REF_CP-2G_STEPS.md",
+      "sha256": "b59d94f04dd2b7d4f243856433bdc46896be3765faf9d20acd77e0f56cf57536"
+    },
+    "source-record.json": {
+      "path": "../../tdg-guidance-001/source-record.json",
+      "sha256": "0fe844a08a205515be5aaa831ef223fa1bec8db55ec82c4352fa121468c5f165"
+    },
+    "web-retrieval.json": {
+      "path": "../../tdg-guidance-001/sources/web-retrieval.json",
+      "sha256": "0fdaeab87dae4492256bad814ad7e2075a3182722ba8a6e2713fcf612a1a21e9"
+    },
+    "web-outlook.json": {
+      "path": "../../tdg-guidance-001/sources/web-outlook.json",
+      "sha256": "bfdb6a78692a536346f0fb6644c5fb583000a17522b850519b915d14297435e1"
+    },
+    "RESEARCH_tdg-guidance-001.json": {
+      "path": "../../tdg-guidance-001/RESEARCH_tdg-guidance-001.json",
+      "sha256": "261c93801c6fbee299b76f704262e23b6fcdc439da17e299474966eeaf49e19c"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../../cpos-sol-medium-20261105/CP-0.md",
+      "sha256": "ece2808828294951bfbed08636a37d75319e7ac4d6ccc28e865c547e2b90942b"
+    },
+    "CP-1-annual": {
+      "path": "../../cpos-sol-medium-20261105/CP-1.md",
+      "sha256": "bd6face3d8f0dda4826c348bf61197b17936206ad47089b58c39c509620debf6"
+    },
+    "CP-1D": {
+      "path": "../tdg-earnings/CP-1D.md",
+      "sha256": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807"
+    },
+    "CP-2": {
+      "path": "../../cpos-sol-medium-20261105/CP-2-v2.md",
+      "sha256": "1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be"
+    },
+    "CP-2A": {
+      "path": "../tdg-stress/CP-2A.md",
+      "sha256": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3"
+    },
+    "CP-2D": {
+      "path": "../tdg-earnings/CP-2D.md",
+      "sha256": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565"
+    },
+    "CP-2E": {
+      "path": "../tdg-macro-esg/CP-2E.md",
+      "sha256": "7d7d0d93f57aa3acd7b11ed0fd9eb63449bd82640f1653239dc8c9bddd820afa"
+    },
+    "CP-DR": {
+      "path": "../tdg-guidance/CP-DR.md",
+      "sha256": "0463a4b16e8ed7de1e1ed9a219587bbf4ee2b6fc2e98228d4f0090c22d487b03"
+    }
+  },
+  "layout": "CP-2G.layout.json",
+  "checks": "CP-2G.checks.json",
+  "output": "CP-2G.md"
+}

@@ -1,0 +1,5235 @@
+{
+  "schema_version": "report-view/1",
+  "pathway": {
+    "id": "credit_snapshot",
+    "title": "Enel EFI · historical sustainability-linked coupon test",
+    "question": "What cash coupon could the documented ratchet add, and which conditions remain unproven?",
+    "requested_modules": [
+      "CP-2F"
+    ],
+    "blocks": [
+      "key-findings",
+      "capital-structure"
+    ]
+  },
+  "call": [
+    {
+      "kind": "na",
+      "label": "Assessment",
+      "value_text": "Assessment pending",
+      "meter": null,
+      "ref_id": null,
+      "direction": null,
+      "line": false
+    }
+  ],
+  "call_withheld": "not_requested",
+  "blocks": [
+    {
+      "block_id": "key-findings",
+      "title": "Key findings",
+      "owner": "CP-2E",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "prose",
+      "scale": null,
+      "row_header": null,
+      "columns": [],
+      "rows": [],
+      "lines": [
+        {
+          "runs": [
+            {
+              "text": "View: A one-time conditional 25bp step-up raises this note’s cash coupon from 0% to 0.25%, equivalent to EUR2.5m per full year on its original EUR1,000m principal. This establishes a bounded contractual pricing channel, not an observed payment, target failure or issuer-wide credit-materiality conclusion.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C68",
+              "kind": "fig",
+              "ref_id": "C68"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "The highest-priority supported driver is the conditional cash-interest ratchet: documentary 25bp upward repricing transmits to EUR2.5m additional annual coupon equivalent on full original principal. If the full condition fails, the first established financing effect is higher contractual cash interest in affected periods, reducing cash retained relative to timely satisfaction. No sourced operating break, liquidity shortfall, leverage deterioration, refinancing impairment, PD or LGD change can be established without financial inputs and schedule evidence.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C76",
+              "kind": "fig",
+              "ref_id": "C76"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "The strongest contrary case is timely attainment of at least 55%, independently confirmed and properly published/notified: the coupon remains zero. June’s proximity to target permits neither a success forecast nor a failure forecast; missing later certificates are not observed breaches. Conviction is strong in the local arithmetic, bounded in documentary applicability/timing, and insufficient for issuer-wide materiality. No numeric confidence score is manufactured without its prescribed scoring facility.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C77",
+              "kind": "fig",
+              "ref_id": "C77"
+            }
+          ],
+          "label": null,
+          "section": null
+        },
+        {
+          "runs": [
+            {
+              "text": "At the historical cutoff, monitor December 31, 2021 performance and ensuing assurance, publication, appointment and notices; these were then prospective, not future events relative to the 2026 execution. Evidence of timely full satisfaction would defeat the step case; documented failure and applicable dates would establish affected cash flows. CP-6 debate handoff: the enforceable-looking conditional coupon channel is quantifiable locally, but its realized timing and whole-credit significance remain unproven.",
+              "kind": "text",
+              "ref_id": null
+            },
+            {
+              "text": "C78",
+              "kind": "fig",
+              "ref_id": "C78"
+            }
+          ],
+          "label": null,
+          "section": null
+        }
+      ],
+      "chart": null,
+      "figures": [],
+      "tab_label": null,
+      "tabs": [],
+      "note": null,
+      "full_analysis_route": "CP-2E",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    },
+    {
+      "block_id": "capital-structure",
+      "title": "Capital structure",
+      "owner": "CP-2E",
+      "fig_id": null,
+      "tags": [],
+      "state": "populated",
+      "kind": "dense",
+      "scale": null,
+      "row_header": "Term",
+      "columns": [
+        "Source fact / documentary term",
+        "Credit meaning",
+        "Evidence ID"
+      ],
+      "rows": [
+        {
+          "row_id": "r0",
+          "label": "Security/perimeter",
+          "cells": [
+            {
+              "text": "EFI EUR1,000m original principal; XS2066706818; initial 0.000%; due June 17, 2024; Enel unconditional irrevocable guarantee",
+              "prov": "cited",
+              "ref_id": "C28",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Parent KPI is not EFI operating performance; no other currency/tranche imported",
+              "prov": "cited",
+              "ref_id": "C28",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "S1 p.51; S3 p.5",
+              "prov": "cited",
+              "ref_id": "C28",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r1",
+          "label": "KPI/SPT",
+          "cells": [
+            {
+              "text": "Renewable Installed Capacity Percentage; at least 55% at December 31, 2021",
+              "prov": "cited",
+              "ref_id": "C29",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Capacity, not output/emissions metric; ambition cannot be independently benchmarked here",
+              "prov": "cited",
+              "ref_id": "C29",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "S2 pp.72–73; S4 pp.1–2; S1 p.51",
+              "prov": "cited",
+              "ref_id": "C29",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r2",
+          "label": "Ratchet/symmetry",
+          "cells": [
+            {
+              "text": "One-time 25bp upward only, giving 0.25%; no repeated increases or down-ratchet",
+              "prov": "cited",
+              "ref_id": "C30",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Nonzero cash consequence; not proven cosmetic or issuer-material without context; expected market-spread effect not calculable",
+              "prov": "cited",
+              "ref_id": "C30",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "S1 p.51; S2 p.70",
+              "prov": "cited",
+              "ref_id": "C30",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r3",
+          "label": "Issue economics",
+          "cells": [
+            {
+              "text": "Price 99.123%; attributed effective yield 0.189%; cash coupon 0%",
+              "prov": "cited",
+              "ref_id": "C31",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Discount/yield differ from coupon; zero coupon is not zero funding cost",
+              "prov": "cited",
+              "ref_id": "C31",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "S1 p.51",
+              "prov": "cited",
+              "ref_id": "C31",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        },
+        {
+          "row_id": "r4",
+          "label": "Use/protection",
+          "cells": [
+            {
+              "text": "General-purpose SDG-linked structure",
+              "prov": "cited",
+              "ref_id": "C32",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "Not project-ring-fencing or automatic extra covenant protection",
+              "prov": "cited",
+              "ref_id": "C32",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            },
+            {
+              "text": "S4 p.1; S2 p.12",
+              "prov": "cited",
+              "ref_id": "C32",
+              "gap_ref": null,
+              "unit_class": "text",
+              "state": "known"
+            }
+          ],
+          "style": "row"
+        }
+      ],
+      "lines": [],
+      "chart": null,
+      "figures": [],
+      "tab_label": "Specific note and source terms",
+      "tabs": [
+        {
+          "label": "Performance, verification and notification",
+          "scale": null,
+          "row_header": "Condition",
+          "columns": [
+            "Required test",
+            "Status as of August 3, 2021 / consequence",
+            "Evidence ID"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Numerical performance",
+              "cells": [
+                {
+                  "text": "Reference-date KPI equal to or above 55%",
+                  "prov": "cited",
+                  "ref_id": "C33",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Equality at 55% passes only numerical limb; December outcome Not supplied",
+                  "prov": "cited",
+                  "ref_id": "C33",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S2 p.72; S1 p.51; S4 p.1",
+                  "prov": "cited",
+                  "ref_id": "C33",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "External verification",
+              "cells": [
+                {
+                  "text": "External Verifier confirms under customary procedures",
+                  "prov": "cited",
+                  "ref_id": "C34",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "June limited assurance exists, not target-date confirmation. S2 names EY or qualified replacement; S3 is KPMG; appointment/replacement evidence Not supplied",
+                  "prov": "cited",
+                  "ref_id": "C34",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S2 pp.71–72; S3 pp.1–3",
+                  "prov": "cited",
+                  "ref_id": "C34",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Publication",
+              "cells": [
+                {
+                  "text": "KPI calculated in good faith, confirmed and published by notification date; semiannual/annual statement and assurance concurrently with auditor reports, permitted reasonable delay capped at 30 days",
+                  "prov": "cited",
+                  "ref_id": "C35",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Distinct reporting gate; target-date compliance Not supplied",
+                  "prov": "cited",
+                  "ref_id": "C35",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S2 pp.73,90–91",
+                  "prov": "cited",
+                  "ref_id": "C35",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Written notification",
+              "cells": [
+                {
+                  "text": "Guarantor notifies Principal Paying Agent and noteholders under Condition 14 on Step Up Event Notification Date, a business day no later than 45 days before Step Up Date",
+                  "prov": "cited",
+                  "ref_id": "C36",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Performance alone does not establish full satisfaction; actual notice Not supplied, not observed failure",
+                  "prov": "cited",
+                  "ref_id": "C36",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S2 pp.72–73,90",
+                  "prov": "cited",
+                  "ref_id": "C36",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Event/timing",
+              "cells": [
+                {
+                  "text": "Installed Capacity Event is failure to satisfy full Renewable Installed Capacity Condition",
+                  "prov": "cited",
+                  "ref_id": "C37",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S1 says first interest period after assurance publication; programme Step Up Date uses required publication date; p.70 links increased rate to periods commencing on/after payment date immediately following event. Do not collapse wording into an invented date/schedule",
+                  "prov": "cited",
+                  "ref_id": "C37",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S1 p.51; S2 pp.70,72–73",
+                  "prov": "cited",
+                  "ref_id": "C37",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Remedies",
+              "cells": [
+                {
+                  "text": "No automatic Event of Default or required repurchase/redemption for failure to increase renewable capacity",
+                  "prov": "cited",
+                  "ref_id": "C38",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Pricing consequence is not acceleration; other defaults unreviewed",
+                  "prov": "cited",
+                  "ref_id": "C38",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S2 p.12",
+                  "prov": "cited",
+                  "ref_id": "C38",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        },
+        {
+          "label": "Coupon equivalents · EUR millions per full year",
+          "scale": null,
+          "row_header": "Scenario",
+          "columns": [
+            "Condition / rate",
+            "Full-year coupon equivalent on original principal",
+            "Funding/access implication and evidence"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Initial known cash coupon",
+              "cells": [
+                {
+                  "text": "0.000%",
+                  "prov": "cited",
+                  "ref_id": "C39",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "EUR0m",
+                  "prov": "cited",
+                  "ref_id": "C39",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Known zero, not missing; S1 p.51",
+                  "prov": "cited",
+                  "ref_id": "C39",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Timely full satisfaction",
+              "cells": [
+                {
+                  "text": "Numerical, verification, publication and notification gates met; 0.000% maintained",
+                  "prov": "cited",
+                  "ref_id": "C40",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "EUR0m; increment EUR0m",
+                  "prov": "cited",
+                  "ref_id": "C40",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Strongest countercase to step-up; December outcome not observed; S1 p.51; S2 pp.72–73",
+                  "prov": "cited",
+                  "ref_id": "C40",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Condition failure, step applies",
+              "cells": [
+                {
+                  "text": "One-time +25bp; 0.250%",
+                  "prov": "cited",
+                  "ref_id": "C41",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "EUR2.5m; increment EUR2.5m",
+                  "prov": "cited",
+                  "ref_id": "C41",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Conditional gross cash-interest burden, not actual payment or net hedged cost; S1 p.51; S2 p.70",
+                  "prov": "cited",
+                  "ref_id": "C41",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Current evidence only",
+              "cells": [
+                {
+                  "text": "June 54.5%; target-date/gate results Not supplied",
+                  "prov": "cited",
+                  "ref_id": "C42",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not calculable as actual post-test payment: outcome and schedule missing",
+                  "prov": "cited",
+                  "ref_id": "C42",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "No probability weighting or automatic default inference; S3 p.4",
+                  "prov": "cited",
+                  "ref_id": "C42",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Issue proceeds / funding access",
+              "cells": [
+                {
+                  "text": "99.123% price; 0.189% reported yield; market benefit Not calculable",
+                  "prov": "cited",
+                  "ref_id": "C43",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "EUR991.23m gross proceeds; EUR8.77m par discount, not annual cash interest or fee",
+                  "prov": "cited",
+                  "ref_id": "C43",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Maturity June 17, 2024; no group refinancing calendar or demonstrated financing capacity; S1 p.51. S4 p.2’s approximate 15bp average benefit is issuer attribution, not this note’s greenium",
+                  "prov": "cited",
+                  "ref_id": "C43",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        },
+        {
+          "label": "June observation · not the December target result",
+          "scale": null,
+          "row_header": "Exposure",
+          "columns": [
+            "Source/Date",
+            "Transmission Mechanic",
+            "Affected Driver",
+            "Evidence ID"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Renewable capacity share below threshold at interim date",
+              "cells": [
+                {
+                  "text": "S3 p.4, June 30, 2021; S4 pp.1–2",
+                  "prov": "cited",
+                  "ref_id": "C17",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Potential subsequent failure of contractual condition creates one-time coupon increase; interim shortfall alone does not trigger it",
+                  "prov": "cited",
+                  "ref_id": "C17",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Gross contractual cash interest",
+                  "prov": "cited",
+                  "ref_id": "C17",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S1 p.51; S2 pp.70–73",
+                  "prov": "cited",
+                  "ref_id": "C17",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Restricted KPI perimeter",
+              "cells": [
+                {
+                  "text": "S2 p.72; S3 pp.5–6",
+                  "prov": "cited",
+                  "ref_id": "C18",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Excludes specified post-issue acquired capacity unless group primarily constructed/developed/installed it; nuclear excluded from renewable numerator, total spans technologies",
+                  "prov": "cited",
+                  "ref_id": "C18",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Measurement comparability and monitoring",
+                  "prov": "cited",
+                  "ref_id": "C18",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "S2 pp.72–73",
+                  "prov": "cited",
+                  "ref_id": "C18",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Emissions/carbon regulation, physical climate, stranded assets, remediation/decommissioning",
+              "cells": [
+                {
+                  "text": "Not supplied in admitted selections as issuer-specific exposure measurements",
+                  "prov": "cited",
+                  "ref_id": "C19",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Potential capex, margin or asset-value channels unassessed, not asserted",
+                  "prov": "cited",
+                  "ref_id": "C19",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Not calculable: exposure/cost base absent",
+                  "prov": "cited",
+                  "ref_id": "C19",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Gap E",
+                  "prov": "cited",
+                  "ref_id": "C19",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        },
+        {
+          "label": "Unproven fields and targeted follow-up",
+          "scale": null,
+          "row_header": "Gap",
+          "columns": [
+            "Missing Item",
+            "Why It Matters",
+            "Impact on Output",
+            "Required Follow-Up"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "L: legal/schedule",
+              "cells": [
+                {
+                  "text": "Completed Final Terms, base prospectus/incorporations, accrual/day-count/payment terms",
+                  "prov": "cited",
+                  "ref_id": "C44",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Determines exact applicability/timing and other defaults",
+                  "prov": "cited",
+                  "ref_id": "C44",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "No actual schedule, total increment or full legal conclusion",
+                  "prov": "cited",
+                  "ref_id": "C44",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Obtain original contract package",
+                  "prov": "cited",
+                  "ref_id": "C44",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "O: outcome/process",
+              "cells": [
+                {
+                  "text": "Target-date KPI, assurance, publication/notice evidence and verifier appointment",
+                  "prov": "cited",
+                  "ref_id": "C45",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Four separate gates; June is not target test",
+                  "prov": "cited",
+                  "ref_id": "C45",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "No success/failure or actual payment conclusion",
+                  "prov": "cited",
+                  "ref_id": "C45",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Historical-cutoff monitoring request; do not import later outcomes",
+                  "prov": "cited",
+                  "ref_id": "C45",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "F: financial/materiality",
+              "cells": [
+                {
+                  "text": "Accepted CP-1 issuer/parent finances, cash flow, interest, liquidity, debt/hedges, current principal and maturity profile",
+                  "prov": "cited",
+                  "ref_id": "C46",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Needed for coverage, capacity and aggregate significance",
+                  "prov": "cited",
+                  "ref_id": "C46",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "No issuer-wide ratios, liquidity, net funding cost or whole-structure judgement",
+                  "prov": "cited",
+                  "ref_id": "C46",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Supply validated financial handoff with perimeters separated",
+                  "prov": "cited",
+                  "ref_id": "C46",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "E: environmental",
+              "cells": [
+                {
+                  "text": "Issuer-specific emissions, climate, regulation, transition cost and liabilities",
+                  "prov": "cited",
+                  "ref_id": "C47",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Missing transmission sizing",
+                  "prov": "cited",
+                  "ref_id": "C47",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Broader environmental materiality unassessed",
+                  "prov": "cited",
+                  "ref_id": "C47",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Obtain dated risk disclosures",
+                  "prov": "cited",
+                  "ref_id": "C47",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "S: social/governance",
+              "cells": [
+                {
+                  "text": "Labor/safety/liability/permit disclosures and separate conduct analysis",
+                  "prov": "cited",
+                  "ref_id": "C48",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "No supported event or ongoing exposure",
+                  "prov": "cited",
+                  "ref_id": "C48",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "No favorable/adverse social or governance finding",
+                  "prov": "cited",
+                  "ref_id": "C48",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Obtain operating disclosures; refer conduct to governance module",
+                  "prov": "cited",
+                  "ref_id": "C48",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "M: market",
+              "cells": [
+                {
+                  "text": "Security-specific comparables, spread/mandate and refinancing evidence",
+                  "prov": "cited",
+                  "ref_id": "C49",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Promotional averages cannot identify counterfactual cost",
+                  "prov": "cited",
+                  "ref_id": "C49",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "No spread forecast, greenium, access or security-selection conclusion",
+                  "prov": "cited",
+                  "ref_id": "C49",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                },
+                {
+                  "text": "Obtain contemporaneous market evidence",
+                  "prov": "cited",
+                  "ref_id": "C49",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        },
+        {
+          "label": "Sustainability calculation controls — Metric",
+          "scale": null,
+          "row_header": "Metric",
+          "columns": [
+            "Value (6dp)"
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "step_decimal",
+              "cells": [
+                {
+                  "text": "0.002500",
+                  "prov": "cited",
+                  "ref_id": "C57",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "initial_coupon_decimal",
+              "cells": [
+                {
+                  "text": "0.000000",
+                  "prov": "cited",
+                  "ref_id": "C58",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "stepped_coupon_decimal",
+              "cells": [
+                {
+                  "text": "0.002500",
+                  "prov": "cited",
+                  "ref_id": "C59",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "initial_annual_coupon_eur_m",
+              "cells": [
+                {
+                  "text": "0.000000",
+                  "prov": "cited",
+                  "ref_id": "C60",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "stepped_annual_coupon_eur_m",
+              "cells": [
+                {
+                  "text": "2.500000",
+                  "prov": "cited",
+                  "ref_id": "C61",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "increment_eur_m",
+              "cells": [
+                {
+                  "text": "2.500000",
+                  "prov": "cited",
+                  "ref_id": "C62",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "gross_issue_proceeds_eur_m",
+              "cells": [
+                {
+                  "text": "991.230000",
+                  "prov": "cited",
+                  "ref_id": "C63",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r7",
+              "label": "par_less_gross_proceeds_eur_m",
+              "cells": [
+                {
+                  "text": "8.770000",
+                  "prov": "cited",
+                  "ref_id": "C64",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r8",
+              "label": "recomputed_kpi_pct",
+              "cells": [
+                {
+                  "text": "54.457240",
+                  "prov": "cited",
+                  "ref_id": "C65",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r9",
+              "label": "recomputed_gap_pp",
+              "cells": [
+                {
+                  "text": "0.542760",
+                  "prov": "cited",
+                  "ref_id": "C66",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            },
+            {
+              "row_id": "r10",
+              "label": "displayed_kpi_gap_pp",
+              "cells": [
+                {
+                  "text": "0.500000",
+                  "prov": "cited",
+                  "ref_id": "C67",
+                  "gap_ref": null,
+                  "unit_class": "text",
+                  "state": "known"
+                }
+              ],
+              "style": "row"
+            }
+          ],
+          "note": null
+        }
+      ],
+      "note": null,
+      "full_analysis_route": "CP-2E",
+      "route_label": null,
+      "width": "full",
+      "numbered": false,
+      "pinned": false,
+      "meta": null,
+      "summary": null,
+      "groups": [],
+      "base_column": null,
+      "absent_columns": []
+    }
+  ],
+  "unplaced": [],
+  "passports": [
+    {
+      "ref_id": "C1",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 15"
+        },
+        {
+          "name": "Quote",
+          "value": "| S1-efi-2019 | EFI annual report at December 31, 2019; pp.1,4–5,50–52; financing-company identity and financial-note issued terms | Not a current parent financial/coverage/liquidity base; other tranches excluded |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C2",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 16"
+        },
+        {
+          "name": "Quote",
+          "value": "| S2-supplement-2019 | October 8, 2019 programme supplement; Enel issuer/guarantor and EFI issuer; pp.1,12,70–73,90–91 | Not completed instrument Final Terms or complete incorporated contract |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C3",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 17"
+        },
+        {
+          "name": "Quote",
+          "value": "| S3-kpi-june-2021 | Enel group June 30, 2021 statement; KPMG August 3, 2021 report; pp.1–6 | Interim, special-purpose limited assurance, not target-success or coupon certificate |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C4",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 18"
+        },
+        {
+          "name": "Quote",
+          "value": "| S4-issuer-target | Enel December 16, 2019 release; pp.1–2; attributed 55% target and EUR issuance link | Promotional demand/pricing claims, not independent market verification |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C5",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 26"
+        },
+        {
+          "name": "Quote",
+          "value": "| S1 | a244ed68193015b36373883c968f04a802208e5db1b7955dffaf4c8787caef0b | c708892b50f0ec8d43e245e127489ecc9a096b31055f02c298f25955f0bb8886 | 731f40ab8d10163c7cede3fcafda8da130f02dbff0f62be32aa9bf2866ba2a6d |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C6",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 27"
+        },
+        {
+          "name": "Quote",
+          "value": "| S2 | 0bd60e93dbbbb6245fdb3b0616a14fd0513a8ac1aaddc209c7b24bb76b354a75 | f72083f3810b2d0d8e0948d9317d85558c1c0e41a5b4fd9aece8921efa303d7c | f4a427e06bde2ba5cd6ded5289fa1277e812bb4b097695d4956577b4ca2b2441 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C7",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 28"
+        },
+        {
+          "name": "Quote",
+          "value": "| S3 | b019901918a2ee8f87739170b35da6e3fc885c35fc4001be89e42077e532f437 | 4932f80f79801c8eb73761bf87e2e0999daca7e21b15c22e517d99be8eb9bbcd | 6b0a8c5e9513e7ae870315031ec9589c9d06fe863535cff1f5b4cda53be12a00 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C8",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 29"
+        },
+        {
+          "name": "Quote",
+          "value": "| S4 | fa3da24c3fce3ab65831cb6e855a994f6eaa2792d442834d7db620d89cbb073a | 32bd2a80a946a40c5ad0e97304849198b99668563d6e205b6a18c1fd7a64af92 | 58173cde47b8049c001be0ab9f052aeb0fd5538f9502cf551a1cb626ce2b6a1c |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C9",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 33"
+        },
+        {
+          "name": "Quote",
+          "value": "| retained-calculations, p.1 | deb4ec343aa3a074cd56384480be101705c7821b4d9b664eae20710f36fd9dee |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C10",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 34"
+        },
+        {
+          "name": "Quote",
+          "value": "| selected-method, pp.1–4 | b931f41bb1ac7630c110f2a8b5d5bd4b5cf07d47232c333ef0a56d26923dfa95 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C11",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 35"
+        },
+        {
+          "name": "Quote",
+          "value": "| esg-steps, pp.1–2 | 312301c620990d3810d19125cde30224f9696860c3ef5f04b3f9473652555e08 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C12",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 36"
+        },
+        {
+          "name": "Quote",
+          "value": "| source-manifest, p.1 | 3c305c4e47e3dfe35168f2e6421f6bea63d34d509fb8363a1c2083ebe647c2de |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C13",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 46"
+        },
+        {
+          "name": "Quote",
+          "value": "| S1 pp.4–5,51–52 | Issuer financial-report description of issued terms | Not independent validation of sustainability ambition | Completed with Limitations |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C14",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 47"
+        },
+        {
+          "name": "Quote",
+          "value": "| S2 pp.12,70–73,90–91 | Primary programme documentary language | Definition/mandate mismatch explicitly warned; label is not protection | Completed with Limitations |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C15",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 48"
+        },
+        {
+          "name": "Quote",
+          "value": "| S3 pp.1–6 | Management statement with ISAE 3000 limited assurance; substantially below reasonable assurance | No finding of greenwashing; scope does not validate ambition or future outcome | Completed with Limitations |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C16",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 49"
+        },
+        {
+          "name": "Quote",
+          "value": "| S4 pp.1–2 | Issuer promotional release | Claimed average pricing benefit not established for this security | Completed with Limitations |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C17",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 57"
+        },
+        {
+          "name": "Quote",
+          "value": "| Renewable capacity share below threshold at interim date | S3 p.4, June 30, 2021; S4 pp.1–2 | Potential subsequent failure of contractual condition creates one-time coupon increase; interim shortfall alone does not trigger it | Gross contractual cash interest | S1 p.51; S2 pp.70–73 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C18",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 58"
+        },
+        {
+          "name": "Quote",
+          "value": "| Restricted KPI perimeter | S2 p.72; S3 pp.5–6 | Excludes specified post-issue acquired capacity unless group primarily constructed/developed/installed it; nuclear excluded from renewable numerator, total spans technologies | Measurement comparability and monitoring | S2 pp.72–73 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C19",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 59"
+        },
+        {
+          "name": "Quote",
+          "value": "| Emissions/carbon regulation, physical climate, stranded assets, remediation/decommissioning | Not supplied in admitted selections as issuer-specific exposure measurements | Potential capex, margin or asset-value channels unassessed, not asserted | Not calculable: exposure/cost base absent | Gap E |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C20",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 67"
+        },
+        {
+          "name": "Quote",
+          "value": "| Labor, safety, liability and operating permits | Not supplied in selected issuer evidence through cutoff | Costs, disruption and license loss could affect cash flow, but no issuer-specific event/exposure established | Both unassessed; missing evidence is not an adverse finding | Gap S |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C21",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 68"
+        },
+        {
+          "name": "Quote",
+          "value": "| Adverse impacts during investment development/operation | S2 p.12, October 2019 | Programme warning identifies possibility, not a demonstrated loss or incident | Contingent event-risk warning only | S2 p.12 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C22",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 69"
+        },
+        {
+          "name": "Quote",
+          "value": "| Management/sponsor governance | No CP-2C conduct handoff supplied | No duplicate governance scoring or assumed conduct | Not assessed in this pricing increment | Gap S |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C23",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 75"
+        },
+        {
+          "name": "Quote",
+          "value": "| Conditional cash coupon increment | Material — Quantified at instrument level only | 25bp on original EUR1,000m gives EUR2.5m full-year equivalent; issuer significance not established | Condition failure after relevant gates/date, not June observation | S1 p.51; S2 pp.70–73 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C24",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 76"
+        },
+        {
+          "name": "Quote",
+          "value": "| KPI progress | Watch | June shortfall requires monitoring rather than target-failure conclusion | December 31, 2021 measurement plus verification/publication/notice | S3 p.4; S4 pp.1–2 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C25",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 77"
+        },
+        {
+          "name": "Quote",
+          "value": "| Broader environmental/social factors | Insufficient Information | Exposure and financial bases absent; no sector-reputation inference | Obtain issuer-specific risk and financial disclosures | Gaps E/S/F |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C26",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 78"
+        },
+        {
+          "name": "Quote",
+          "value": "| Sustainable label as added protection | Immaterial to Credit as a standalone label | No additional protection established merely by label; documented ratchet considered separately | Not applicable: label alone supplies no channel | S2 p.12; S4 p.1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C27",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 79"
+        },
+        {
+          "name": "Quote",
+          "value": "| Financing-demand advantage | Watch | S4 claimed demand and average discount lack security-specific counterfactual | Comparable contemporaneous pricing and mandate evidence | S4 pp.1–2; Gap M |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C28",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 85"
+        },
+        {
+          "name": "Quote",
+          "value": "| Security/perimeter | EFI EUR1,000m original principal; XS2066706818; initial 0.000%; due June 17, 2024; Enel unconditional irrevocable guarantee | Parent KPI is not EFI operating performance; no other currency/tranche imported | S1 p.51; S3 p.5 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C29",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 86"
+        },
+        {
+          "name": "Quote",
+          "value": "| KPI/SPT | Renewable Installed Capacity Percentage; at least 55% at December 31, 2021 | Capacity, not output/emissions metric; ambition cannot be independently benchmarked here | S2 pp.72–73; S4 pp.1–2; S1 p.51 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C30",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 87"
+        },
+        {
+          "name": "Quote",
+          "value": "| Ratchet/symmetry | One-time 25bp upward only, giving 0.25%; no repeated increases or down-ratchet | Nonzero cash consequence; not proven cosmetic or issuer-material without context; expected market-spread effect not calculable | S1 p.51; S2 p.70 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C31",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 88"
+        },
+        {
+          "name": "Quote",
+          "value": "| Issue economics | Price 99.123%; attributed effective yield 0.189%; cash coupon 0% | Discount/yield differ from coupon; zero coupon is not zero funding cost | S1 p.51 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C32",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 89"
+        },
+        {
+          "name": "Quote",
+          "value": "| Use/protection | General-purpose SDG-linked structure | Not project-ring-fencing or automatic extra covenant protection | S4 p.1; S2 p.12 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C33",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 93"
+        },
+        {
+          "name": "Quote",
+          "value": "| Numerical performance | Reference-date KPI equal to or above 55% | Equality at 55% passes only numerical limb; December outcome Not supplied | S2 p.72; S1 p.51; S4 p.1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C34",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 94"
+        },
+        {
+          "name": "Quote",
+          "value": "| External verification | External Verifier confirms under customary procedures | June limited assurance exists, not target-date confirmation. S2 names EY or qualified replacement; S3 is KPMG; appointment/replacement evidence Not supplied | S2 pp.71–72; S3 pp.1–3 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C35",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 95"
+        },
+        {
+          "name": "Quote",
+          "value": "| Publication | KPI calculated in good faith, confirmed and published by notification date; semiannual/annual statement and assurance concurrently with auditor reports, permitted reasonable delay capped at 30 days | Distinct reporting gate; target-date compliance Not supplied | S2 pp.73,90–91 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C36",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 96"
+        },
+        {
+          "name": "Quote",
+          "value": "| Written notification | Guarantor notifies Principal Paying Agent and noteholders under Condition 14 on Step Up Event Notification Date, a business day no later than 45 days before Step Up Date | Performance alone does not establish full satisfaction; actual notice Not supplied, not observed failure | S2 pp.72–73,90 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C37",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 97"
+        },
+        {
+          "name": "Quote",
+          "value": "| Event/timing | Installed Capacity Event is failure to satisfy full Renewable Installed Capacity Condition | S1 says first interest period after assurance publication; programme Step Up Date uses required publication date; p.70 links increased rate to periods commencing on/after payment date immediately following event. Do not collapse wording into an invented date/schedule | S1 p.51; S2 pp.70,72–73 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C38",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 98"
+        },
+        {
+          "name": "Quote",
+          "value": "| Remedies | No automatic Event of Default or required repurchase/redemption for failure to increase renewable capacity | Pricing consequence is not acceleration; other defaults unreviewed | S2 p.12 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C39",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 106"
+        },
+        {
+          "name": "Quote",
+          "value": "| Initial known cash coupon | 0.000% | EUR0m | Known zero, not missing; S1 p.51 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C40",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 107"
+        },
+        {
+          "name": "Quote",
+          "value": "| Timely full satisfaction | Numerical, verification, publication and notification gates met; 0.000% maintained | EUR0m; increment EUR0m | Strongest countercase to step-up; December outcome not observed; S1 p.51; S2 pp.72–73 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C41",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 108"
+        },
+        {
+          "name": "Quote",
+          "value": "| Condition failure, step applies | One-time +25bp; 0.250% | EUR2.5m; increment EUR2.5m | Conditional gross cash-interest burden, not actual payment or net hedged cost; S1 p.51; S2 p.70 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C42",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 109"
+        },
+        {
+          "name": "Quote",
+          "value": "| Current evidence only | June 54.5%; target-date/gate results Not supplied | Not calculable as actual post-test payment: outcome and schedule missing | No probability weighting or automatic default inference; S3 p.4 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C43",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 110"
+        },
+        {
+          "name": "Quote",
+          "value": "| Issue proceeds / funding access | 99.123% price; 0.189% reported yield; market benefit Not calculable | EUR991.23m gross proceeds; EUR8.77m par discount, not annual cash interest or fee | Maturity June 17, 2024; no group refinancing calendar or demonstrated financing capacity; S1 p.51. S4 p.2’s approximate 15bp average benefit is issuer attribution, not this note’s greenium |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C44",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 124"
+        },
+        {
+          "name": "Quote",
+          "value": "| L: legal/schedule | Completed Final Terms, base prospectus/incorporations, accrual/day-count/payment terms | Determines exact applicability/timing and other defaults | No actual schedule, total increment or full legal conclusion | Obtain original contract package |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C45",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 125"
+        },
+        {
+          "name": "Quote",
+          "value": "| O: outcome/process | Target-date KPI, assurance, publication/notice evidence and verifier appointment | Four separate gates; June is not target test | No success/failure or actual payment conclusion | Historical-cutoff monitoring request; do not import later outcomes |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C46",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 126"
+        },
+        {
+          "name": "Quote",
+          "value": "| F: financial/materiality | Accepted CP-1 issuer/parent finances, cash flow, interest, liquidity, debt/hedges, current principal and maturity profile | Needed for coverage, capacity and aggregate significance | No issuer-wide ratios, liquidity, net funding cost or whole-structure judgement | Supply validated financial handoff with perimeters separated |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C47",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 127"
+        },
+        {
+          "name": "Quote",
+          "value": "| E: environmental | Issuer-specific emissions, climate, regulation, transition cost and liabilities | Missing transmission sizing | Broader environmental materiality unassessed | Obtain dated risk disclosures |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C48",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 128"
+        },
+        {
+          "name": "Quote",
+          "value": "| S: social/governance | Labor/safety/liability/permit disclosures and separate conduct analysis | No supported event or ongoing exposure | No favorable/adverse social or governance finding | Obtain operating disclosures; refer conduct to governance module |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C49",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 129"
+        },
+        {
+          "name": "Quote",
+          "value": "| M: market | Security-specific comparables, spread/mandate and refinancing evidence | Promotional averages cannot identify counterfactual cost | No spread forecast, greenium, access or security-selection conclusion | Obtain contemporaneous market evidence |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C50",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 139"
+        },
+        {
+          "name": "Quote",
+          "value": "| New ratio | Conditional annual rate, dimensionless | 25 / 10000 = 0.0025 = 0.25 percentage point | S1 p.51; retained p.1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C51",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 140"
+        },
+        {
+          "name": "Quote",
+          "value": "| New sum | Initial plus conditional annual coupon, dimensionless | 0 + 0.0025 = 0.0025 | S1 p.51 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C52",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 141"
+        },
+        {
+          "name": "Quote",
+          "value": "| Retained multiplication | Original EURm principal × annual coupon; full-year equivalent only | 1000 × 0 = 0; 1000 × 0.0025 = 2.5000 | S1 p.51; retained p.1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C53",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 142"
+        },
+        {
+          "name": "Quote",
+          "value": "| New signed sum | EURm annual-equivalent increment | 2.5 − 0 = 2.5 | Prior row; retained p.1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C54",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 143"
+        },
+        {
+          "name": "Quote",
+          "value": "| Retained multiplication; new difference | Issue-date gross EURm, before fees | 1000 × 99.123 / 100 = 991.23000; 1000 − 991.23 = 8.77 | S1 p.51; retained p.1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C55",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 144"
+        },
+        {
+          "name": "Quote",
+          "value": "| New ratio; retained percentage conversion | June 30, 2021 capacity MW/MW, group contractual perimeter | 46580 / 85535 = 0.54457239726427778102531127608581282516; retained ×100 = 54.457239726…% | S3 pp.4–6; retained p.1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C56",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 145"
+        },
+        {
+          "name": "Quote",
+          "value": "| New signed sums | June observation vs December threshold, percentage points | 55 − 54.457239726… = 0.542760273…; separately 55 − 54.5 = 0.5 | S3 p.4; S4 pp.1–2; retained p.1 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C57",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 151"
+        },
+        {
+          "name": "Quote",
+          "value": "| step_decimal | 0.002500 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C58",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 152"
+        },
+        {
+          "name": "Quote",
+          "value": "| initial_coupon_decimal | 0.000000 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C59",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 153"
+        },
+        {
+          "name": "Quote",
+          "value": "| stepped_coupon_decimal | 0.002500 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C60",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 154"
+        },
+        {
+          "name": "Quote",
+          "value": "| initial_annual_coupon_eur_m | 0.000000 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C61",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 155"
+        },
+        {
+          "name": "Quote",
+          "value": "| stepped_annual_coupon_eur_m | 2.500000 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C62",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 156"
+        },
+        {
+          "name": "Quote",
+          "value": "| increment_eur_m | 2.500000 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C63",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 157"
+        },
+        {
+          "name": "Quote",
+          "value": "| gross_issue_proceeds_eur_m | 991.230000 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C64",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 158"
+        },
+        {
+          "name": "Quote",
+          "value": "| par_less_gross_proceeds_eur_m | 8.770000 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C65",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 159"
+        },
+        {
+          "name": "Quote",
+          "value": "| recomputed_kpi_pct | 54.457240 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C66",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 160"
+        },
+        {
+          "name": "Quote",
+          "value": "| recomputed_gap_pp | 0.542760 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C67",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 161"
+        },
+        {
+          "name": "Quote",
+          "value": "| displayed_kpi_gap_pp | 0.500000 |"
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C68",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 3"
+        },
+        {
+          "name": "Quote",
+          "value": "View: A one-time conditional 25bp step-up raises this note’s cash coupon from 0% to 0.25%, equivalent to EUR2.5m per full year on its original EUR1,000m principal. This establishes a bounded contractual pricing channel, not an observed payment, target failure or issuer-wide credit-materiality conclusion."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C69",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 5"
+        },
+        {
+          "name": "Quote",
+          "value": "CP-2F, canonical CP-2E; run `sol-remaining-enel-sdg-20261105`; issuer `ENEL-EFI`; method `deploy-v-r14`. Executed 2026-11-05 (November 5, 2026), explicitly retrospectively as of 2021-08-03 (August 3, 2021). KPI observation date 2021-06-30; target reference date 2021-12-31; instrument maturity 2024-06-17. Scope is solely EFI’s XS2066706818 due June 17, 2024, guaranteed by Enel S.p.A.; the guarantor/group KPI perimeter is not the financing subsidiary. Separate from TDG and all other tranches. Status: Completed with Limitations for targeted sustainability pricing; full issuer underwriting remains unassessed."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C70",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 9"
+        },
+        {
+          "name": "Quote",
+          "value": "Consumed the supplied actual CP-0 handoff, SHA-256 `7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be`, and read all selected primary text, manifest, retained calculations, selected method and ESG reference. Citations below use original PDF pages; tool selections are unmodified text derivatives, not new visual examinations. CP-0’s prior visual work is not attributed to this execution. No accepted CP-1 financial foundation is supplied or required for this local coupon function."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C71",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 22"
+        },
+        {
+          "name": "Quote",
+          "value": "Selected-input hashes differ from original-PDF and full text-aid hashes; preserve all three layers. Manifest p.1 supplies original URLs, retained paths and extraction history."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C72",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 38"
+        },
+        {
+          "name": "Quote",
+          "value": "S3 original bytes were retained: pypdf failed for missing AES dependency (`cryptography>=3.1`); read-only Poppler `pdftotext -layout` succeeded. No source rewrite or new extraction/visual claim here."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C73",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 51"
+        },
+        {
+          "name": "Quote",
+          "value": "KPMG’s negative-form conclusion concerns preparation under the explanatory criteria. Its report solely assists specified financing compliance; other reliance is at the relying party’s risk, with responsibility/liability disclaimed to the extent permitted. This is neither assistant independent verification nor a performance/coupon certificate (S3 pp.2–3)."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C74",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 61"
+        },
+        {
+          "name": "Quote",
+          "value": "Raw `46.580` / `85.535` MW uses dot grouping: normalize to 46,580 / 85,535 MW; raw `54,5%` uses comma decimal: normalize to 54.5%. Reconstructed 54.457239726…% rounds consistently to the displayed figure but adds no measurement precision. The displayed gap to 55% is 0.5 percentage point; reconstructed gap is 0.542760273…pp. Neither observation is the December 31, 2021 result. Generic group capacity cannot replace this bond-defined perimeter."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C75",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 100"
+        },
+        {
+          "name": "Quote",
+          "value": "Specific Final Terms, full incorporated package, day-count and exact affected periods remain missing. This is not a full contract review or legal opinion."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C76",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 114"
+        },
+        {
+          "name": "Quote",
+          "value": "The highest-priority supported driver is the conditional cash-interest ratchet: documentary 25bp upward repricing transmits to EUR2.5m additional annual coupon equivalent on full original principal. If the full condition fails, the first established financing effect is higher contractual cash interest in affected periods, reducing cash retained relative to timely satisfaction. No sourced operating break, liquidity shortfall, leverage deterioration, refinancing impairment, PD or LGD change can be established without financial inputs and schedule evidence."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C77",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 116"
+        },
+        {
+          "name": "Quote",
+          "value": "The strongest contrary case is timely attainment of at least 55%, independently confirmed and properly published/notified: the coupon remains zero. June’s proximity to target permits neither a success forecast nor a failure forecast; missing later certificates are not observed breaches. Conviction is strong in the local arithmetic, bounded in documentary applicability/timing, and insufficient for issuer-wide materiality. No numeric confidence score is manufactured without its prescribed scoring facility."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C78",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 118"
+        },
+        {
+          "name": "Quote",
+          "value": "At the historical cutoff, monitor December 31, 2021 performance and ensuing assurance, publication, appointment and notices; these were then prospective, not future events relative to the 2026 execution. Evidence of timely full satisfaction would defeat the step case; documented failure and applicable dates would establish affected cash flows. CP-6 debate handoff: the enforceable-looking conditional coupon channel is quantifiable locally, but its realized timing and whole-credit significance remain unproven."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C79",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 133"
+        },
+        {
+          "name": "Quote",
+          "value": "Provenance: retained-calculations p.1 contains deterministic results independently source-literal Fraction-checked before this live invocation on November 5, 2026. Reused multiplication outputs after checking operands against S1/S3/S4; no new Python/helper run, engine or independent measurement verification is claimed. New sums/ratios were run with the available Decimal-38 kernel. Source/instruction applicability is assessed above, not certified by arithmetic."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C80",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 165"
+        },
+        {
+          "name": "Quote",
+          "value": "T2G.8 governs unresolved evidence. Known zero cash coupon remains distinct from Not supplied outcome, schedule, fees, outstanding balance, hedge coverage and financial quantities. The EUR8.77m issue discount is neither an annual coupon nor an invented fee. No subsequently observed year-end 2021 outcome, later rating or current market condition is used."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C81",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 167"
+        },
+        {
+          "name": "Quote",
+          "value": "Verification record: primary selections and full selected methodology/reference were read; source operands, entity/tranche boundaries, interim/target distinction, assurance limits and condition limbs were compared before submission. Retained arithmetic was cross-checked with new permitted sums/ratios as traced. This does not certify the complete contract or replace a real subsequent analytical reading. The output artifact hash is to be supplied by the handoff service, not invented in its own contents."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    },
+    {
+      "ref_id": "C82",
+      "kind": "cited",
+      "fields": [
+        {
+          "name": "Source",
+          "value": "CP-2E"
+        },
+        {
+          "name": "Locator",
+          "value": "line 171"
+        },
+        {
+          "name": "Quote",
+          "value": "CP-3C should read this ratchet, timely-satisfaction countercase and pricing unknowns; it has not executed. Require a subsequent analytical reading against the original evidence before declaring the targeted link proven. Preserve this attempt and any repairs. Use the existing separate report renderer for delivery; no new engine, workbook export or native internal-contract analysis. Excel remains input-only. The broader underwriting goal remains active, gated on the financial/legal/market evidence above."
+        },
+        {
+          "name": "SHA-256",
+          "value": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af"
+        }
+      ]
+    }
+  ],
+  "index": {
+    "facts": [
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-0.r0.c0"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-0.r0.c1"
+        },
+        "ref_ids": [
+          "C1"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-0.r1.c0"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-0.r1.c1"
+        },
+        "ref_ids": [
+          "C2"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-0.r2.c0"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-0.r2.c1"
+        },
+        "ref_ids": [
+          "C3"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-0.r3.c0"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-0",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-0.r3.c1"
+        },
+        "ref_ids": [
+          "C4"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-1.r0.c0"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-1.r0.c1"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-1.r0.c2"
+        },
+        "ref_ids": [
+          "C5"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-1.r1.c0"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-1.r1.c1"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-1.r1.c2"
+        },
+        "ref_ids": [
+          "C6"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-1.r2.c0"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-1.r2.c1"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-1.r2.c2"
+        },
+        "ref_ids": [
+          "C7"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-1.r3.c0"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-1.r3.c1"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-1",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-1.r3.c2"
+        },
+        "ref_ids": [
+          "C8"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-2",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-2.r0.c0"
+        },
+        "ref_ids": [
+          "C9"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-2",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-2.r1.c0"
+        },
+        "ref_ids": [
+          "C10"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-2",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-2.r2.c0"
+        },
+        "ref_ids": [
+          "C11"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-2",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-2.r3.c0"
+        },
+        "ref_ids": [
+          "C12"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-3.r0.c0"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-3.r0.c1"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-3.r0.c2"
+        },
+        "ref_ids": [
+          "C13"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-3.r1.c0"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-3.r1.c1"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-3.r1.c2"
+        },
+        "ref_ids": [
+          "C14"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-3.r2.c0"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-3.r2.c1"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-3.r2.c2"
+        },
+        "ref_ids": [
+          "C15"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-3.r3.c0"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-3.r3.c1"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-3",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-3.r3.c2"
+        },
+        "ref_ids": [
+          "C16"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-4.r0.c0"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-4.r0.c1"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-4.r0.c2"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-4.r0.c3"
+        },
+        "ref_ids": [
+          "C17"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-4.r1.c0"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-4.r1.c1"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-4.r1.c2"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-4.r1.c3"
+        },
+        "ref_ids": [
+          "C18"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-4.r2.c0"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-4.r2.c1"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-4.r2.c2"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-4",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-4.r2.c3"
+        },
+        "ref_ids": [
+          "C19"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-5.r0.c0"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-5.r0.c1"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-5.r0.c2"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-5.r0.c3"
+        },
+        "ref_ids": [
+          "C20"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-5.r1.c0"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-5.r1.c1"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-5.r1.c2"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-5.r1.c3"
+        },
+        "ref_ids": [
+          "C21"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-5.r2.c0"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-5.r2.c1"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-5.r2.c2"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-5",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-5.r2.c3"
+        },
+        "ref_ids": [
+          "C22"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-6.r0.c0"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-6.r0.c1"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-6.r0.c2"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-6.r0.c3"
+        },
+        "ref_ids": [
+          "C23"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-6.r1.c0"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-6.r1.c1"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-6.r1.c2"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-6.r1.c3"
+        },
+        "ref_ids": [
+          "C24"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-6.r2.c0"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-6.r2.c1"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-6.r2.c2"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-6.r2.c3"
+        },
+        "ref_ids": [
+          "C25"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-6.r3.c0"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-6.r3.c1"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-6.r3.c2"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-6.r3.c3"
+        },
+        "ref_ids": [
+          "C26"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-6.r4.c0"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-6.r4.c1"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-6.r4.c2"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-6",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-6.r4.c3"
+        },
+        "ref_ids": [
+          "C27"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-7.r0.c0"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-7.r0.c1"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-7.r0.c2"
+        },
+        "ref_ids": [
+          "C28"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-7.r1.c0"
+        },
+        "ref_ids": [
+          "C29"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-7.r1.c1"
+        },
+        "ref_ids": [
+          "C29"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-7.r1.c2"
+        },
+        "ref_ids": [
+          "C29"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-7.r2.c0"
+        },
+        "ref_ids": [
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-7.r2.c1"
+        },
+        "ref_ids": [
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-7.r2.c2"
+        },
+        "ref_ids": [
+          "C30"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-7.r3.c0"
+        },
+        "ref_ids": [
+          "C31"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-7.r3.c1"
+        },
+        "ref_ids": [
+          "C31"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-7.r3.c2"
+        },
+        "ref_ids": [
+          "C31"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-7.r4.c0"
+        },
+        "ref_ids": [
+          "C32"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-7.r4.c1"
+        },
+        "ref_ids": [
+          "C32"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-7",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-7.r4.c2"
+        },
+        "ref_ids": [
+          "C32"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-8.r0.c0"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-8.r0.c1"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-8.r0.c2"
+        },
+        "ref_ids": [
+          "C33"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-8.r1.c0"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-8.r1.c1"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-8.r1.c2"
+        },
+        "ref_ids": [
+          "C34"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-8.r2.c0"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-8.r2.c1"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-8.r2.c2"
+        },
+        "ref_ids": [
+          "C35"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-8.r3.c0"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-8.r3.c1"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-8.r3.c2"
+        },
+        "ref_ids": [
+          "C36"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-8.r4.c0"
+        },
+        "ref_ids": [
+          "C37"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-8.r4.c1"
+        },
+        "ref_ids": [
+          "C37"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-8.r4.c2"
+        },
+        "ref_ids": [
+          "C37"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-8.r5.c0"
+        },
+        "ref_ids": [
+          "C38"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-8.r5.c1"
+        },
+        "ref_ids": [
+          "C38"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-8",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-8.r5.c2"
+        },
+        "ref_ids": [
+          "C38"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-9.r0.c0"
+        },
+        "ref_ids": [
+          "C39"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-9.r0.c1"
+        },
+        "ref_ids": [
+          "C39"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-9.r0.c2"
+        },
+        "ref_ids": [
+          "C39"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-9.r1.c0"
+        },
+        "ref_ids": [
+          "C40"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-9.r1.c1"
+        },
+        "ref_ids": [
+          "C40"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-9.r1.c2"
+        },
+        "ref_ids": [
+          "C40"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-9.r2.c0"
+        },
+        "ref_ids": [
+          "C41"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-9.r2.c1"
+        },
+        "ref_ids": [
+          "C41"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-9.r2.c2"
+        },
+        "ref_ids": [
+          "C41"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-9.r3.c0"
+        },
+        "ref_ids": [
+          "C42"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-9.r3.c1"
+        },
+        "ref_ids": [
+          "C42"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-9.r3.c2"
+        },
+        "ref_ids": [
+          "C42"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-9.r4.c0"
+        },
+        "ref_ids": [
+          "C43"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-9.r4.c1"
+        },
+        "ref_ids": [
+          "C43"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-9",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-9.r4.c2"
+        },
+        "ref_ids": [
+          "C43"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-10.r0.c0"
+        },
+        "ref_ids": [
+          "C44"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-10.r0.c1"
+        },
+        "ref_ids": [
+          "C44"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-10.r0.c2"
+        },
+        "ref_ids": [
+          "C44"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-10.r0.c3"
+        },
+        "ref_ids": [
+          "C44"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-10.r1.c0"
+        },
+        "ref_ids": [
+          "C45"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-10.r1.c1"
+        },
+        "ref_ids": [
+          "C45"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-10.r1.c2"
+        },
+        "ref_ids": [
+          "C45"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-10.r1.c3"
+        },
+        "ref_ids": [
+          "C45"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-10.r2.c0"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-10.r2.c1"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-10.r2.c2"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-10.r2.c3"
+        },
+        "ref_ids": [
+          "C46"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-10.r3.c0"
+        },
+        "ref_ids": [
+          "C47"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-10.r3.c1"
+        },
+        "ref_ids": [
+          "C47"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-10.r3.c2"
+        },
+        "ref_ids": [
+          "C47"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-10.r3.c3"
+        },
+        "ref_ids": [
+          "C47"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-10.r4.c0"
+        },
+        "ref_ids": [
+          "C48"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-10.r4.c1"
+        },
+        "ref_ids": [
+          "C48"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-10.r4.c2"
+        },
+        "ref_ids": [
+          "C48"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-10.r4.c3"
+        },
+        "ref_ids": [
+          "C48"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-10.r5.c0"
+        },
+        "ref_ids": [
+          "C49"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-10.r5.c1"
+        },
+        "ref_ids": [
+          "C49"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-10.r5.c2"
+        },
+        "ref_ids": [
+          "C49"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-10",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-10.r5.c3"
+        },
+        "ref_ids": [
+          "C49"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-11.r0.c0"
+        },
+        "ref_ids": [
+          "C50"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-11.r0.c1"
+        },
+        "ref_ids": [
+          "C50"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-11.r0.c2"
+        },
+        "ref_ids": [
+          "C50"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-11.r1.c0"
+        },
+        "ref_ids": [
+          "C51"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-11.r1.c1"
+        },
+        "ref_ids": [
+          "C51"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-11.r1.c2"
+        },
+        "ref_ids": [
+          "C51"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-11.r2.c0"
+        },
+        "ref_ids": [
+          "C52"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-11.r2.c1"
+        },
+        "ref_ids": [
+          "C52"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-11.r2.c2"
+        },
+        "ref_ids": [
+          "C52"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-11.r3.c0"
+        },
+        "ref_ids": [
+          "C53"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-11.r3.c1"
+        },
+        "ref_ids": [
+          "C53"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-11.r3.c2"
+        },
+        "ref_ids": [
+          "C53"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-11.r4.c0"
+        },
+        "ref_ids": [
+          "C54"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-11.r4.c1"
+        },
+        "ref_ids": [
+          "C54"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-11.r4.c2"
+        },
+        "ref_ids": [
+          "C54"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-11.r5.c0"
+        },
+        "ref_ids": [
+          "C55"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-11.r5.c1"
+        },
+        "ref_ids": [
+          "C55"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-11.r5.c2"
+        },
+        "ref_ids": [
+          "C55"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r6",
+          "fact_id": "raw-CP-2E-11.r6.c0"
+        },
+        "ref_ids": [
+          "C56"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r6",
+          "fact_id": "raw-CP-2E-11.r6.c1"
+        },
+        "ref_ids": [
+          "C56"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-11",
+          "row_id": "r6",
+          "fact_id": "raw-CP-2E-11.r6.c2"
+        },
+        "ref_ids": [
+          "C56"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-12",
+          "row_id": "r0",
+          "fact_id": "raw-CP-2E-12.r0.c0"
+        },
+        "ref_ids": [
+          "C57"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-12",
+          "row_id": "r1",
+          "fact_id": "raw-CP-2E-12.r1.c0"
+        },
+        "ref_ids": [
+          "C58"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-12",
+          "row_id": "r2",
+          "fact_id": "raw-CP-2E-12.r2.c0"
+        },
+        "ref_ids": [
+          "C59"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-12",
+          "row_id": "r3",
+          "fact_id": "raw-CP-2E-12.r3.c0"
+        },
+        "ref_ids": [
+          "C60"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-12",
+          "row_id": "r4",
+          "fact_id": "raw-CP-2E-12.r4.c0"
+        },
+        "ref_ids": [
+          "C61"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-12",
+          "row_id": "r5",
+          "fact_id": "raw-CP-2E-12.r5.c0"
+        },
+        "ref_ids": [
+          "C62"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-12",
+          "row_id": "r6",
+          "fact_id": "raw-CP-2E-12.r6.c0"
+        },
+        "ref_ids": [
+          "C63"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-12",
+          "row_id": "r7",
+          "fact_id": "raw-CP-2E-12.r7.c0"
+        },
+        "ref_ids": [
+          "C64"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-12",
+          "row_id": "r8",
+          "fact_id": "raw-CP-2E-12.r8.c0"
+        },
+        "ref_ids": [
+          "C65"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-12",
+          "row_id": "r9",
+          "fact_id": "raw-CP-2E-12.r9.c0"
+        },
+        "ref_ids": [
+          "C66"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "raw-CP-2E-12",
+          "row_id": "r10",
+          "fact_id": "raw-CP-2E-12.r10.c0"
+        },
+        "ref_ids": [
+          "C67"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-0",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-0.r0.c0"
+        },
+        "ref_ids": [
+          "C68"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-0",
+          "row_id": "r1",
+          "fact_id": "prose-CP-2E-0.r1.c0"
+        },
+        "ref_ids": [
+          "C69"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-1",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-1.r0.c0"
+        },
+        "ref_ids": [
+          "C70"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-2",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-2.r0.c0"
+        },
+        "ref_ids": [
+          "C71"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-2",
+          "row_id": "r1",
+          "fact_id": "prose-CP-2E-2.r1.c0"
+        },
+        "ref_ids": [
+          "C72"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-3",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-3.r0.c0"
+        },
+        "ref_ids": [
+          "C73"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-4",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-4.r0.c0"
+        },
+        "ref_ids": [
+          "C74"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-5",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-5.r0.c0"
+        },
+        "ref_ids": [
+          "C75"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-6",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-6.r0.c0"
+        },
+        "ref_ids": [
+          "C76"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-6",
+          "row_id": "r1",
+          "fact_id": "prose-CP-2E-6.r1.c0"
+        },
+        "ref_ids": [
+          "C77"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-6",
+          "row_id": "r2",
+          "fact_id": "prose-CP-2E-6.r2.c0"
+        },
+        "ref_ids": [
+          "C78"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-7",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-7.r0.c0"
+        },
+        "ref_ids": [
+          "C79"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-8",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-8.r0.c0"
+        },
+        "ref_ids": [
+          "C80"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-8",
+          "row_id": "r1",
+          "fact_id": "prose-CP-2E-8.r1.c0"
+        },
+        "ref_ids": [
+          "C81"
+        ]
+      },
+      {
+        "coord": {
+          "module_id": "CP-2E",
+          "table_id": "prose-CP-2E-9",
+          "row_id": "r0",
+          "fact_id": "prose-CP-2E-9.r0.c0"
+        },
+        "ref_ids": [
+          "C82"
+        ]
+      }
+    ]
+  }
+}

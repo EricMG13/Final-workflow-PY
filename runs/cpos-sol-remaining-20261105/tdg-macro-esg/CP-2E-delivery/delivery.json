@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Freshsol-medium historicalTDGmacroandESGmodule; all17registers preserved, selectedoverview. Notcurrentrate/FXcalibration, completeTDGpathwayor positiveSLBmechanics. SeparateCPOSdelivery; noExcel.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-2E.md": "7d7d0d93f57aa3acd7b11ed0fd9eb63449bd82640f1653239dc8c9bddd820afa",
+    "view.json": "77deb670588d18cbb30c64ecf2230d41012627e2e60bb4699656b7d2d56c79ed",
+    "report-view.json": "75b32aedefa118dad4b42b913bc48713ea5493639c873be5d39e8110d99ef353",
+    "report.html": "a99180bad6f896a700f02e582e96f1cb50b2dcd772aa3a9d645308cec47b276a"
+  }
+}

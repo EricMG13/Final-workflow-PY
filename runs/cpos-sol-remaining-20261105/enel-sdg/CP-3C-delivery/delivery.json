@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Fresh live downstream consumption, historical2021-08-03 scoped pricing increment; not full underwriting or current funding access.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-3C.md": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+    "view.json": "73fe2548ea208223834cc03fd3d05f22a65705dd18045e9f437820f34b5cf6d7",
+    "report-view.json": "3ee362c40cb7ac499853d727c9b25b2d1abd1a5b8542d4f1273aee6e51a30f6f",
+    "report.html": "ff65485795505d2979685f5e63ad80861e98716b3dc67c485870dfadb079136f"
+  }
+}

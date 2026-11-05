@@ -1,0 +1,42 @@
+{
+  "blocks": [
+    "key-findings",
+    "capital-structure"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-3C",
+      "heading": "Request",
+      "kind": "prose",
+      "prefix": "View:",
+      "block_id": "key-findings"
+    },
+    {
+      "module_id": "CP-3C",
+      "heading": "Funding conclusion",
+      "kind": "prose",
+      "block_id": "key-findings"
+    },
+    {
+      "module_id": "CP-3C",
+      "heading": "Funding bridge",
+      "kind": "table",
+      "block_id": "capital-structure"
+    },
+    {
+      "module_id": "CP-3C",
+      "heading": "Monitoring",
+      "kind": "table",
+      "block_id": "capital-structure"
+    },
+    {
+      "module_id": "CP-3C",
+      "heading": "Consumption controls",
+      "kind": "table",
+      "block_id": "capital-structure"
+    }
+  ],
+  "title": "Enel EFI historical conditional funding-cost intake",
+  "question": "How does the fresh pricing handoff change the funding bridge?",
+  "scope": "Fresh live downstream consumption, historical2021-08-03 scoped pricing increment; not full underwriting or current funding access."
+}

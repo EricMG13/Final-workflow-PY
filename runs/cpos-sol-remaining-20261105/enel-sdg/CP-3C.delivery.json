@@ -1,0 +1,61 @@
+{
+  "run": {
+    "run_id": "sol-remaining-enel-funding-consumer-20261105",
+    "issuer_id": "ENEL-EFI",
+    "issuer_name": "Enel Finance International N.V.",
+    "as_of": "2021-08-03",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-3C"
+    ]
+  },
+  "handoffs": {
+    "CP-3C": {
+      "path": "CP-3C.md",
+      "sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "key-findings",
+      "capital-structure"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-3C",
+        "heading": "Request",
+        "kind": "prose",
+        "prefix": "View:",
+        "block_id": "key-findings"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Funding conclusion",
+        "kind": "prose",
+        "block_id": "key-findings"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Funding bridge",
+        "kind": "table",
+        "block_id": "capital-structure"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Monitoring",
+        "kind": "table",
+        "block_id": "capital-structure"
+      },
+      {
+        "module_id": "CP-3C",
+        "heading": "Consumption controls",
+        "kind": "table",
+        "block_id": "capital-structure"
+      }
+    ],
+    "title": "Enel EFI historical conditional funding-cost intake",
+    "question": "How does the fresh pricing handoff change the funding bridge?",
+    "scope": "Fresh live downstream consumption, historical2021-08-03 scoped pricing increment; not full underwriting or current funding access."
+  }
+}

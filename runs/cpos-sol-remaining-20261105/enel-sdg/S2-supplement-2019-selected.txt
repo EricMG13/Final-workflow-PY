@@ -1,0 +1,480 @@
+Selectedunmodifiedprimarytextpages. OriginalPDFsha256 f72083f3810b2d0d8e0948d9317d85558c1c0e41a5b4fd9aece8921efa303d7c; textaidsha256 f4a427e06bde2ba5cd6ded5289fa1277e812bb4b097695d4956577b4ca2b2441; notclaimednewvisualinspectionbymodel.
+
+=== S2-supplement-2019 ORIGINAL PDF PAGE 1 ===
+Supplement No. 2 dated 8 October 2019 to the Base Prospectus dated 17 December 2018
+
+
+
+
+
+
+
+                                                 ENEL — Società per Azioni
+                                         (incorporated with limited liability in Italy       )
+                                                   as an Issuer and Guarantor
+                                                                 and
+
+                                       ENEL FINANCE INTERNATIONAL N.V.
+                              (a limited liability company incorporated in The Netherlands,
+       having its registered office at Herengracht 471, 1017 BS Amsterdam, The Netherlands) as an Issuer
+
+                                                         €35,000,000,000
+                                           Euro Medium Term Note Programme
+
+ This supplement (the “Supplement”) is supplemental to, and should be read in conjunction with, the base
+ prospectus dated 17 December 2018, as supplemented by the supplement no. 1 dated 9 May 2019, (the “Base
+ Prospectus”) issued for the purpose of giving information with regard to the issue of notes (the “Notes”) by
+ ENEL – Società per Azioni (“ENEL”) and ENEL Finance International N.V. (“                        ENEL N.V.”) guaranteed, in
+ the  case  of  Notes  issued  by  ENEL  N.V.,  by  ENEL  under  the            €35,000,000,000  Euro  Medium  Term  Note
+ Programme (the “Programme”) during the period of twelve months after the date of the Base Prospectus.
+ This Supplement is issued in accordance with            Article 16 of Directive 2003/71/EC         , as amended or superseded
+ (the “Prospectus       Directive”) and constitutes a supplement to the Base Prospectus for the purposes of the
+ Prospectus Directive.
+ This Supplement has been approved by the Central Bank of Ireland (the “                   Central Bank”), as the competent
+ authority under the Prospectus         Directive. The Central Bank only approves this Supplement as meeting the
+ requirements imposed under Irish law and EU law pursuant to the Prospectus                    Directive.
+ The Central Bank has been requested to provide a certificate of approval and a copy of the Base Prospectus
+ and this Supplement to the relevant competent authority in Luxembourg.
+ Each of ENEL and ENEL N.V. accepts responsibility for the information contained in this Supplement. To
+ the best of the knowledge and belief of ENEL and ENEL N.V. (having taken all reasonable care                             to ensure
+ that such is the case), the information contained in this Supplement is in accordance with the facts and does
+ not omit anything likely to affect the import of such information.
+ This Supplement has been prepared to:
+ (1)       update the rating information       regarding the Issuer included in the front page of the Base Prospectus;
+ (2)       update the legends on page 5 of the Base Prospectus            ;
+ (3)       incorporate by reference in the section of the Base Prospectus entitled “Documents Incorporated by
+           Reference”     the  latest  interim  financial  statements  relating  to  ENEL  and  ENEL  N.V.  as  well  as
+           certain press releases;
+ (4)       update the section “Risk Factors” of the Base Prospectus;
+ (5)       update the section “Overview of the Programme”;
+ (6)       update the Form of Final Terms included in the Base Prospectus;
+ (7)       update the Terms and Conditions of the Notes included in the Base Prospectus;
+                                                                   1
+
+
+=== S2-supplement-2019 ORIGINAL PDF PAGE 12 ===
+specifically to projects or business activities meeting environmental or sustainability criteria, or be subject
+to any other limitations associated with green bonds.
+In addition, the interest rate adjustment in respect of the               above-mentioned Step Up Notes depends on a
+definition  of  Renewable  Energy  Installed  Capacity               or,  as  the  case  may  be,  Direct  Green  House  Gas
+Emissions,     that  may  be  inconsistent  with  investor  requirements  or  expectations  or  other  definitions
+relevant  to  renewable  energy        and/or  green  house  emissions        . ENEL     includes    within  Renewable  Energy
+Installed Capacity electricity generation facility exclusively using any of the following technologies: wind,
+solar,  hydro  (including  large  hydro)  and  geothermal  and  any  other  non              -fossil  fuel  source  of  generation
+deriving  from  natural  resources  (excluding,  for  the  avoidance  of  doubt,  nuclear  energy).                  ENEL     defines
+Direct Green House Gas Emissions as the Group Scope 1 CO                     2 equivalent emissions (grams per kWh) from
+the production of electricity and heat as of a given date reported by ENEL, in its Sustainability Report                             –
+Non  Financial  Statement.  In  each  case,  ENEL             has  not  obtained  third-party  analysis  of        its definition  of
+Renewable Energy Installed Capacity             or Direct Green House Gas Emissions              or how such definitions relate
+to  any  sustainability-related  standards  other  than  the         relevant External  Verifier’s  confirmation  of           (i) the
+Renewable Installed Capacity Percentage of                ENEL     and its consolidated subsidiaries as of           30   June 2019
+and  (ii)  the  Direct  Green  House  Gas  Emissions  of  ENEL  and  its  consolidated  subsidiaries  as  of  31
+December 2019, each according to ENEL’s definition thereof.
+
+Although ENEL targets (i) increasing the proportion of                its total installed capacity constituted by renewable
+sources and (ii) decreasing its direct green house gas emissions, there can be no assurance of the extent to
+which it will  be  successful  in  doing  so  or  that  any  future  investments             it makes in  furtherance  of  these
+targets   will   meet   investor   expectations   or   any   binding   or   non-binding   legal   standards   regarding
+sustainability performance, whether by any present or future applicable law or regulations or by its own
+by-laws or other governing rules or investment portfolio mandates, in particular with regard to any direct
+or indirect environmental, sustainability or social impact. Adverse environmental or social impacts may
+occur during the design, construction and operation of any investments ENEL makes in furtherance of this
+target or such investments may become controversial or criticized by activist groups or other stakeholders.
+Indeed,   a  Direct  Green  House  Gas  Emissions  Event  shall               not   occur  in   the  case  of  the  failure  of  the
+Guarantor to satisfy the Direct Green House Gas Emissions Condition as a result of certain events better
+described in the Conditions. Lastly, no Event of Default shall occur under the Step Up Notes, nor will the
+Issuer or the Guarantor be required to repurchase or redeem such Notes, if the Guarantor fails to increase
+its Renewable Energy Installed Capacity.
+
+A portion of the ENEL Group’s indebtedness includes certain triggers linked to sustainability key
+performance indicators
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                               12
+
+=== S2-supplement-2019 ORIGINAL PDF PAGE 70 ===
+                                 “D1” is the first calendar day, expressed as a number, of the Interest Period, unless (i)
+                                 that day is the last day of February or (ii) such number would be 31, in which case D1
+                                 will be 30; and
+
+                                 “D2” is  the  calendar  day,  expressed  as  a  number,  immediately  following  the  last  day
+                                 included in the Interest Period, unless (i) that day is the last day of February but not the
+                                 Maturity Date or (ii) such number would be 31, in which case D2 will be 30.
+
+               (v)      Notification of Rate of Interest and Interest Amounts
+
+                        The Principal Paying Agent will cause the Rate of Interest and each Interest Amount for each
+                        Interest Period and the relevant Interest Payment Date to be notified to the Issuer and any stock
+                        exchange  on  which  the  relevant  Floating  Rate  Notes  are  for  the  time  being  listed  and  notice
+                        thereof   to   be   given   in   accordance   with   Condition   14   as   soon   as   possible   after   their
+                        determination      but  in  no  event  later  than  the  fourth  London  Business  Day  thereafter.  Each
+                        Interest  Amount  and  Interest  Payment  Date  so  notified  may  subsequently  be  amended  (or
+                        appropriate  alternative  arrangements  made  by  way  of  adjustment)  without  prior  notice  in  the
+                        event  of  an  extension  or  shortening  of  the  Interest  Period.  Any  such  amendment  will  be
+                        promptly notified to each stock exchange on which the relevant Floating Rate Notes are for the
+                        time being listed and to the Noteholders in accordance with Condition 14. For the purposes of
+                        this paragraph, the expression “London Business Day” means a day (other than a Saturday or a
+                        Sunday)  on  which  banks  and  foreign  exchange  markets  are  open  for  general  business  in
+                        London.
+
+               (vi)     Certificates to be final
+
+                        All   certificates,     communications,   opinions,   determinations,   calculations,   quotations   and
+                        decisions  given,  expressed,  made  or  obtained  for  the  purposes  of  the  provisions  of  this
+                        Condition 5(b), whether by the Principal Paying Agent or, if applicable, the Calculation Agent,
+                        shall (in the absence of wilful default, bad faith or manifest error) be binding on the Issuer, the
+                        Guarantor, the Principal Paying Agent, the Calculation Agent (if applicable), the other Agents
+                        and all Noteholders and Couponholders and (in the absence of wilful default or bad faith) no
+                        liability to the Issuer, the Guarantor, the Noteholders or the Couponholders shall attach to the
+                        Principal Paying Agent or the Calculation Agent (if applicable) in connection with the exercise
+                        or non-exercise by it of its powers, duties and discretions pursuant to such provisions.
+    (c)        Step Up Option2
+
+               This Condition 5(c) applies to Notes in respect of which the applicable Final Terms indicates that the
+               Step Up Option is applicable (“Step Up Notes”). The Step Up Option only applies to Notes issued by
+               ENEL N.V.
+
+               The Rate of Interest for Step Up Notes will be the Initial Rate of Interest specified in the applicable
+               Final Terms, provided that for any Interest Period commencing on or after the Interest Payment Date
+               immediately following a Step Up Event, if any, the Rate of Interest shall be increased by the Step Up
+               Margin specified in the applicable Final Terms.
+
+               For the avoidance of doubt, an increase in the Rate of Interest may occur no more than once in respect
+               of the relevant Step Up Note.
+
+               In this Condition:
+
+
+2  This Condition 5(c) was added by way of the Supplement dated 8 October 2019.
+
+
+
+
+
+
+                                                                      70
+
+=== S2-supplement-2019 ORIGINAL PDF PAGE 71 ===
+               “Assurance Report” has the meaning given to it in Condition 14A (Available Information);
+
+               “Direct  Green  House  Gas  Emissions” means the Group Scope 1 CO2 equivalent emissions (grams
+               per kWh) from the production of electricity and heat as of a given date reported by the Guarantor, in its
+               Sustainability Report – Non Financial Statement;
+
+               “Direct  Green  House  Gas  Emissions  Amount”                   means  the  Direct  Green  House  Gas  Emissions
+               expressed in grams per kWh, as calculated in good faith by the Guarantor, confirmed by the External
+               Verifier and published by the Guarantor in accordance with Condition 14(A) (Available Information);
+
+               “Direct  Green  House  Gas  Emissions  Amount Full                  Threshold” means  the  threshold  expressed  in
+               grams  per  kWh  specified  in  the  applicable  Final  Terms  as  being  the  Direct  Green  House  Gas
+               Emissions Amount Full Threshold;
+
+               “Direct Green House Gas Emissions Amount Intermediate Threshold” means, if specified in the
+               relevant Final Terms as being applicable, the threshold expressed in grams per kWh specified in the
+               applicable  Final  Terms  as  being  the  Direct  Green  House  Gas  Emissions  Amount                         Intermediate
+               Threshold;
+
+               “Direct Green House Gas Emissions Amount Reference Date” is the date specified in the relevant
+               Final Terms;
+
+               “Direct  Green  House  Gas  Emissions  Condition” means  the  notification  by  the  Guarantor  to  the
+               Principal Paying Agent and the Noteholders in accordance with Condition 14 (Notices) in writing on
+               the Step Up Event  Notification Date that the Direct Green House Gas Emissions  Amount as of the
+               Direct Green House Gas Emissions Amount Reference Date was equal to or lower than                              the relevant
+               Direct Green House Gas Emissions Amount Intermediate Threshold, if specified in the relevant Final
+               Terms as being applicable, or the relevant Direct Green House Gas Emissions Amount Full Threshold,
+               as the case may be; and that such Direct Green House Gas Emissions Amount has been confirmed by
+               the External Verifier in accordance with its customary procedures;
+
+               “Direct Green House Gas Emissions Event” means the failure of the Guarantor, to satisfy the Direct
+               Green House Gas Emissions  Condition, provided that no  Direct Green House Gas Emissions Event
+               shall occur in case of the failure of the Guarantor to satisfy the Direct Green House Gas Emissions
+               Condition due to either:
+
+               (A)     an amendment to, or change in, any applicable laws, regulations, rules, guidelines and policies,
+                       applicable to and/or relating to (i) the operating life-time of the nuclear power plants owned by
+                       the Guarantor, or its consolidated subsidiaries or joint operations, is reduced or (ii) the closure
+                       of the thermo-electric power plants owned by the Guarantor, or its consolidated subsidiaries or
+                       joint  operations,  is  delayed  or  (iii)  a  required  conversion  of  the  thermo-electric  power  plants
+                       owned  by  the  Guarantor,  or  its  consolidated  subsidiaries  or  joint  operations,  to  gas  power
+                       plants; or
+
+               (B)     the  relevant  energy  concessions  granted  to  the  Guarantor,  or  its  consolidated  subsidiaries  or
+                       joint operations, being amended, revoked or the relevant expiration date is shortened;
+
+               “External Verifier” means
+
+               (1)     in relation to an Installed Capacity Event, EY S.p.A., or, in the event that EY S.p.A. resigns or
+                       is  otherwise  replaced,  such  other  qualified  provider  of  third-party  assurance  or  attestation
+                       services  appointed  by  the  Guarantor,  to  review  the  Guarantor’s  statement  of  the  Renewable
+                       Installed Capacity Percentage; and
+
+
+
+
+
+
+
+                                                                   71
+
+=== S2-supplement-2019 ORIGINAL PDF PAGE 72 ===
+               (2)      in relation to a Direct Green House Gas Emissions Event, means DNV GL Business Assurance
+                        Italia S.r.l. or, in the event that DNV GL Business Assurance Italia S.r.l. resigns or is otherwise
+                        replaced, such other qualified provider of third-party assurance or attestation services appointed
+                        by  the  Guarantor,  to  review  the  Guarantor’s  statement  of  the  Direct  Green  House  Gas
+                        Emissions Amount;
+
+               “Full  Threshold  Satisfaction  Level”             means,  in  relation  to  a  Direct  Green  House  Gas  Emissions
+               Event,  that  the  Direct  Green  House  Gas  Emissions  Amount  as  of  the  Direct  Green  House  Gas
+               Emissions Amount Reference Date was equal to or lower than the Direct Green House Gas Emissions
+               Amount Full Threshold and that such Direct Green House Gas Emissions Amount has been confirmed
+               by the External Verifier in accordance with its customary procedures;
+
+               “GHG Assurance Report” has the meaning given to it in Condition 14A (Available Information);
+
+               “Initial Rate of Interest” means the initial Rate of Interest specified in the applicable Final Terms;
+
+               “Installed  Capacity”        means  the  net  efficient  installed  capacity  of  an  electricity  generation  facility
+               owned by the Guarantor,  or its consolidated subsidiaries or joint operations as of a given date reported
+               by  the  Guarantor,  in  its  consolidated  financial  reports;  provided  that  Installed  Capacity  shall  not
+               include the installed or name-plate capacity of electricity generation facilities acquired (by acquisition
+               of  equity  interests,  merger  or  other  combination  or  amalgamation)  subsequent  to  the  relevant  Issue
+               Date  of  the  Notes  other  than  electricity  generation  facility  in  respect  of  which  the  Guarantor,  or  its
+               consolidated  subsidiaries  or  consolidated  joint  ventures  were  primarily  responsible  for  construction,
+               development and installation of such facility;
+
+               “Installed  Capacity  Event”          means  the  failure  of  the  Guarantor,  to  satisfy  the  Renewable  Installed
+               Capacity Condition;
+
+               “Intermediate Threshold Satisfaction Level” if any, means, in relation to a Direct Green House Gas
+               Emissions Event, that the Direct Green House Gas Emissions Amount as of the Direct Green House
+               Gas  Emissions  Amount  Reference  Date  was  (i)  higher  than  the  Direct  Green  House  Gas  Emissions
+               Amount Full Threshold and (ii) lower than or equal to the Direct Green House Gas Emissions Amount
+               Intermediate Threshold and that such Direct Green House Gas Emissions Amount has been confirmed
+               by the External Verifier in accordance with its customary procedures;
+
+               “No Threshold Satisfaction” means that the Guarantor has failed (i) to have satisfied the applicable
+               Full Threshold Satisfaction Level or, if specified in the relevant Final Terms as being applicable, the
+               applicable  Intermediate  Threshold  Satisfaction  Level  and/or  (ii)                to  notify  the  Noteholders  of  the
+               applicable  Full  Threshold  Satisfaction  Level  or,  if  specified  in  the  relevant  Final  Terms  as  being
+               applicable,    the  applicable  Intermediate  Threshold  Satisfaction  Level,  in  each  case  on  the  applicable
+               Step Up Event Notification Date;
+
+               “Renewable Energy Installed Capacity” means the sum of the Installed Capacities as of a given date
+               of each electricity generation facility exclusively using any of the following technologies: wind, solar,
+               hydro  and  geothermal  and  any  other  non-fossil  fuel  source  of  generation  deriving  from  natural
+               resources (excluding, from the avoidance of doubt, nuclear energy);
+
+               “Renewable Installed Capacity Condition” means the notification by the Guarantor to the Principal
+               Paying Agent and the Noteholders in accordance with Condition 14 (Notices) in writing on the Step Up
+               Event  Notification  Date  that  the  Renewable  Installed  Capacity  Percentage  as  of  the  Renewable
+               Installed  Capacity  Percentage  Reference  Date  was  equal  to  or  exceeded  the  relevant  Renewable
+               Installed Capacity Percentage Threshold; and that such Renewable Installed Capacity Percentage has
+               been confirmed by the External Verifier in accordance with its customary procedures;
+
+
+
+
+
+                                                                     72
+
+=== S2-supplement-2019 ORIGINAL PDF PAGE 73 ===
+               “Renewable Installed Capacity Percentage” means the proportion that Renewable Energy Installed
+               Capacity represents of Total Installed Capacity (expressed as a percentage), as calculated in good faith
+               by the Guarantor, confirmed by the External Verifier and published by the Guarantor, on or prior to the
+               Step Up Event Notification Date on its website and in accordance with applicable law;
+
+               “Renewable  Installed  Capacity  Percentage  Reference  Date”                     is  the  date  specified  in  the  relevant
+               Final Terms;
+
+               “Renewable  Installed  Capacity  Percentage  Threshold”                       means  the  threshold  specified  in  the
+               applicable Final Terms as being the Renewable Installed Capacity Percentage Threshold;
+
+               “Step Up Date” means
+
+               (1)      in relation to an Installed Capacity Event, the first day of the next Interest Period following the
+                        date on which the Guarantor is required to publish the Assurance Report as of and for the period
+                        ending on the Renewable Installed Capacity Percentage Reference Date pursuant to Condition
+                        14A (Available Information); and
+
+               (2)      in  relation  to  a  Direct  Green  House  Gas  Emissions  Event,  the  first  day  of  the  next Interest
+                        Period  following  the  date  on  which  the  Guarantor  is  required  to  publish  the              Sustainability
+                        Report – Non Financial Statement as of and for the period ending on the Direct Green House
+                        Gas Emissions Amount Reference Date pursuant to Condition 14A (Available Information                           );
+
+               “Step  Up Event”       means either an Installed Capacity Event or a Direct Green House Gas Emissions
+               Event, as specified in the applicable Final Terms;
+
+               “Step Up Event Notification Date” means a Business Day falling no later than 45 days prior to the
+               Step Up Date;
+
+               “Step Up Margin” means:
+
+               (1)      in relation to an Installed Capacity Event, the amount specified in the applicable Final Terms as
+                        being the Step Up Margin; and
+
+               (2)      in relation to a Direct Green House Gas Emissions Event,  the relevant step up margin set out
+                        opposite the relevant Threshold Satisfaction Level as indicated in the table below:
+
+               Threshold Satisfaction Level                                     Step Up Margin
+
+               Intermediate Threshold Satisfaction Level                        Step Up Margin 1
+
+               No Threshold Satisfaction                                        Step Up Margin 2
+
+
+
+               “Step Up Margin 1” means the amount specified in the applicable Final Terms as being the Step Up
+               Margin 1, if any;
+
+               “Step Up Margin         2” means the amount specified in the applicable Final Terms as being the Step Up
+               Margin 2;
+
+               “Sustainability  Report        – Non  Financial  Statement         ” has the meaning given to it in Condition 14A
+               (Available Information);
+
+               “Total  Installed  Capacity”         means  the  sum  of  the  Installed  Capacities  as  of  a  given  date  of  each
+               electricity generation facility without regard to electricity generation technology.
+
+
+
+
+
+
+
+                                                                    73
+
+=== S2-supplement-2019 ORIGINAL PDF PAGE 90 ===
+14    Notices
+
+      All notices regarding the Bearer Notes will be deemed to be validly given if published (i) in a leading English
+      language daily newspaper of general circulation in London and (ii) if and for so long as the Bearer Notes are
+      admitted  to  trading  on,  and  listed  on  Euronext  Dublin,  on  Euronext  Dublin’s  website,                     www.ise.ie.  It  is
+      expected that any such publication in a newspaper will be made in the Financial Times in London and the
+      Irish  Times  in  Ireland.  The  Issuer  (failing  which  the  Guarantor)  shall  also  ensure  that  notices  are  duly
+      published in a  manner  which complies  with  the rules and  regulations of any  stock exchange (or any other
+      relevant  authority)  on  which  the  Bearer          Notes  are  for  the  time  being  listed  or  by  which  they  have  been
+      admitted to trading. Any such notice will be deemed to have been given on the date of the first publication or,
+      where required to be published in more than one newspaper, on the date of the first publication in all required
+      newspapers.
+
+      All notices regarding the Registered Notes will be deemed to be validly given if sent by first class mail or (if
+      posted to an address overseas) by airmail to the holders (or the first named of joint holders) at their respective
+      addresses recorded in the Register and will be deemed to have been given on the fourth day after mailing and,
+      in addition, for so long as any Registered Notes are listed on a stock exchange or are admitted to listing by
+      another relevant authority and the rules of that stock exchange (or other relevant authority) so require, such
+      notice will be published in a daily newspaper of general circulation in the place or places required by those
+      rules.
+
+      Until such time as any definitive Notes are issued, there may, so long as any Global Notes representing the
+      Notes are held in their entirety on behalf of Euroclear and/or Clearstream, Luxembourg, be substituted for
+      such  publication  in  such  newspaper(s)  the  delivery  of  the  relevant  notice  to  Euroclear  and/or  Clearstream,
+      Luxembourg for communication by them to the holders of the Notes and, in addition, for so long as any Notes
+      are listed on a stock exchange or are admitted to trading by another relevant authority and the rules of that
+      stock  exchange  (or  relevant  authority)  so  require,  such  notice  will  be  published  in  a  daily  newspaper  of
+      general circulation in the place or places required by those rules. Any such notice shall be deemed to have
+      been given to the holders of the Notes on the date on which the said notice was given to Euroclear and/or
+      Clearstream, Luxembourg.
+
+      Notices to be given by any Noteholder shall be in writing and given by lodging the same, together (in the case
+      of any Note in definitive form) with the relative Note or Notes, with the Principal Paying Agent (in the case of
+      Bearer Notes) or the Registrar (in the case of Registered Notes). Whilst any of the Notes are represented by a
+      Global Note, such notice may be given by any holder of a Note to the Principal Paying Agent or the Registrar
+      through  Euroclear  and/or  Clearstream,  Luxembourg,  as  the  case  may  be,  in  such  manner  as  the  Principal
+      Paying Agent, the Registrar and Euroclear and/or Clearstream, Luxembourg, as the case may be, may approve
+      for this purpose.
+
+      In addition to the above, where the Issuer is ENEL, with respect to notices for a meeting of Noteholders, any
+      convening notice for such meeting shall be made in accordance with any applicable Italian law requirements
+      and provisions in ENEL’s by-laws.
+14A          Available Information8
+
+             This  Condition  14A  applies  to  Notes issued  by  ENEL  N.V. in  respect  of which  the  applicable  Final
+             Terms indicates that the Step Up Option is applicable.
+
+             Beginning  with  (a)  the  annual  financial  statements  of  the  Guarantor  for  the  fiscal  year  ending  on  31
+             December or (b) the semi-annual financial statements of the Guarantor for the fiscal half-year ended 30
+
+
+8  This Condition 14A was added by way of the Supplement dated 8 October 2019.
+
+
+
+
+
+
+                                                                     90
+
+=== S2-supplement-2019 ORIGINAL PDF PAGE 91 ===
+             June, in each case, published after the Issue Date, in relation to Step Up Notes in respect of which the
+             applicable Final  Terms specifies the Step  Up Event being  an Installed  Capacity Event, the Guarantor
+             will  publish  on  its  website,  and,  in  accordance  with  applicable  laws,  a  statement  of  its  Renewable
+             Installed Capacity Percentage, as of the end of each of its fiscal years and of each of its fiscal half-years,
+             as  well  as  an  assurance  report  in  respect  of  such  statement  issued  by  the  External  Verifier  (the
+             “Assurance  Report”).          The  Assurance  Report  and  the  statement  of  Renewable  Installed  Capacity
+             Percentage will be published concurrently with the publication of the independent auditor’s reports on
+             the annual reports and half-year financial reports and will have the same reference date as the relevant
+             independent  auditor’s  report;  provided  that  to  the  extent  the  Guarantor  reasonably  determines  that
+             additional time is required to complete the Assurance Report and the statement of Renewable Installed
+             Capacity  Percentage,  then  the  Assurance  Report  and  the  statement  of  Renewable  Installed  Capacity
+             Percentage  may  be  published  as  soon  as  reasonably  practicable,  but  in  no  event  later  than  30  days,
+             subsequent to the date of publication of the independent auditor’s report.
+
+             Beginning  with       the  annual  financial  statements  of  the  Guarantor  for  the  fiscal  year  ending  on  31
+             December published after the Issue Date, in relation to Step Up Notes in respect of which the applicable
+             Final Terms specifies the Step Up Event being a Direct Green House Gas Emissions Event, as the case
+             may be, the Guarantor will publish on its website, and, in accordance with applicable laws, (i) its Direct
+             Green     House  Gas  Emissions  Amount,              as  indicated  in  its  sustainability  report,  as  subsequentely
+             supplemented by its  non financial  statement pursuant to  Legislative Decree No. 254 of 30 December
+             2016 (as amended and supplemented from time to time) or equivalent document prepared pursuant to
+             applicable  legislation,  and  published  on  its  website  (the “Sustainability  Report                     –  Non  Financial
+             Statement”)       and  (ii)  an  assurance  report       issued  by  the  External  Verifier         (the  “GHG  Assurance
+             Report”) in  respect  of  its Direct  Green House  Gas  Emissions  Amount provided in  the  Sustainability
+             Report –     Non  Financial  Statement.  The  GHG  Assurance  Report  and  the  Sustainability  Report                      –  Non
+             Financial  Statement       will  be  published  concurrently  with  the  publication  of  the  independent  auditor’s
+             reports on the annual reports and will have the same reference date as the relevant independent auditor                           ’s
+             report; provided that to the extent the Guarantor reasonably determines that additional time is required to
+             complete the GHG Assurance Report and the Sustainability Report – Non Financial Statement, then the
+             GHG Assurance Report and the Sustainability Report – Non Financial Statement may be published as
+             soon as reasonably practicable, but in no event later than 30 days, subsequent to the date of publication
+             of the independent auditor’s report.
+
+15    Meetings of Noteholders, Modification and Waiver
+
+      (a)      Where the Issuer is ENEL
+
+               The Agency Agreement contains provisions consistent with the laws, legislation, rules and regulations
+               of  the  Republic  of  Italy  (including  without  limitation  the  Italian  Consolidated  Financial  Act,  as
+               amended) for convening meetings of the Noteholders to consider any matter affecting their interests,
+               including any modifications of the Conditions or of any provisions of the Agency Agreement.
+
+               According to the laws, legislation, rules and regulations of the Republic of Italy, such meetings will be
+               validly held as a single call meeting or, if Issuer          ’s by-laws provide for multiple calls, as a multiple call
+               meeting,  if  (i)  in  the  case  of  a  single  cal l  meeting,  there  are  one  or  more  persons  present,  being  or
+               representing Noteholders holding at least one             -fifth of the aggregate nominal amount of the Notes, for
+               the time being outstanding, or such a higher quorum as may be provided for in the Issuer                         ’s by-laws, or
+               (ii) in the case of multiple call meeting, (a) there are one or more persons present being or representing
+               Noteholders holding not less than one           -half of the aggregate nominal amount of the Notes, for the time
+               being outstanding; ; (b) in case of an          adjourned meeting, there are one or more persons present being
+
+
+
+
+
+
+                                                                     91

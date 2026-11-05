@@ -1,0 +1,4227 @@
+{
+  "schema_version": "view/4",
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "sol-remaining-ford-funding-20261105",
+    "issuer_id": "FORD-OTOSAN",
+    "issuer_name": "Ford Otomotiv Sanayi A.S.",
+    "as_of": "2024-04-11",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "covenant_refinancing",
+    "requested_modules": [
+      "CP-3C"
+    ]
+  },
+  "mode": "candidate",
+  "modules": [
+    {
+      "module_id": "CP-3C",
+      "title": "Refinancing lme risk",
+      "aliases": [],
+      "status": "candidate",
+      "artifact_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+      "facts": [
+        {
+          "fact_id": "raw-CP-3C-0.r0.c0",
+          "label": "S: sp-retry.json",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 15",
+              "quote": "| S: sp-retry.json | `8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8` | pp.1–3; S&P ratings, funding conditions and liquidity |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r0.c1",
+          "label": "S: sp-retry.json",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "pp.1–3; S&P ratings, funding conditions and liquidity",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 15",
+              "quote": "| S: sp-retry.json | `8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8` | pp.1–3; S&P ratings, funding conditions and liquidity |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r1.c0",
+          "label": "M: fitch-and-metrics.json",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 16",
+              "quote": "| M: fitch-and-metrics.json | `4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9` | pp.1–3; Fitch operating protection; S&P financial, liquidity and covenant text |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r1.c1",
+          "label": "M: fitch-and-metrics.json",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "pp.1–3; Fitch operating protection; S&P financial, liquidity and covenant text",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 16",
+              "quote": "| M: fitch-and-metrics.json | `4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9` | pp.1–3; Fitch operating protection; S&P financial, liquidity and covenant text |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r2.c0",
+          "label": "F: fitch-terms.json",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 17",
+              "quote": "| F: fitch-terms.json | `7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf` | pp.1–3; Fitch ratings, sensitivities and debt structure |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r2.c1",
+          "label": "F: fitch-terms.json",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "pp.1–3; Fitch ratings, sensitivities and debt structure",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 17",
+              "quote": "| F: fitch-terms.json | `7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf` | pp.1–3; Fitch ratings, sensitivities and debt structure |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r3.c0",
+          "label": "K: funding-kernel",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "7610d6a085342969e42d6c4c9658f256f0aff0b345a70746385f2a1059b3b183",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 18",
+              "quote": "| K: funding-kernel | `7610d6a085342969e42d6c4c9658f256f0aff0b345a70746385f2a1059b3b183` | p.1; six checked funding cases |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r3.c1",
+          "label": "K: funding-kernel",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "p.1; six checked funding cases",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 18",
+              "quote": "| K: funding-kernel | `7610d6a085342969e42d6c4c9658f256f0aff0b345a70746385f2a1059b3b183` | p.1; six checked funding cases |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r4.c0",
+          "label": "Current CP-2H",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "b5b197396d7df31a4997dbc58c7879caca9a23063858cb362e26fa08ae216ecb",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 19",
+              "quote": "| Current CP-2H | `b5b197396d7df31a4997dbc58c7879caca9a23063858cb362e26fa08ae216ecb` | Entire supplied handoff; ratings-to-funding conditions |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r4.c1",
+          "label": "Current CP-2H",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "Entire supplied handoff; ratings-to-funding conditions",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 19",
+              "quote": "| Current CP-2H | `b5b197396d7df31a4997dbc58c7879caca9a23063858cb362e26fa08ae216ecb` | Entire supplied handoff; ratings-to-funding conditions |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r5.c0",
+          "label": "CP-0",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 20",
+              "quote": "| CP-0 | `0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79` | Entire supplied handoff; entity/date admission and retrieval limitations |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r5.c1",
+          "label": "CP-0",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "Entire supplied handoff; entity/date admission and retrieval limitations",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 20",
+              "quote": "| CP-0 | `0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79` | Entire supplied handoff; entity/date admission and retrieval limitations |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r6.c0",
+          "label": "CP-1-selected",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r6",
+          "field": "c0",
+          "amount": null,
+          "text": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 21",
+              "quote": "| CP-1-selected | `a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af` | Entire supplied handoff; selected financial definitions and residuals |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r6.c1",
+          "label": "CP-1-selected",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r6",
+          "field": "c1",
+          "amount": null,
+          "text": "Entire supplied handoff; selected financial definitions and residuals",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 21",
+              "quote": "| CP-1-selected | `a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af` | Entire supplied handoff; selected financial definitions and residuals |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r7.c0",
+          "label": "CP-2G-published",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r7",
+          "field": "c0",
+          "amount": null,
+          "text": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 22",
+              "quote": "| CP-2G-published | `87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931` | Entire supplied handoff; published forecast, not a new independent model |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-0.r7.c1",
+          "label": "CP-2G-published",
+          "table_id": "raw-CP-3C-0",
+          "row_id": "r7",
+          "field": "c1",
+          "amount": null,
+          "text": "Entire supplied handoff; published forecast, not a new independent model",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 22",
+              "quote": "| CP-2G-published | `87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931` | Entire supplied handoff; published forecast, not a new independent model |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r0.c0",
+          "label": "agency-plan-reproduction",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Both planned sources; full up-to-2 working-capital swing; unstressed reported capex; no stressed committed dividend",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 34",
+              "quote": "| agency-plan-reproduction | Both planned sources; full up-to-2 working-capital swing; unstressed reported capex; no stressed committed dividend | Nominal excess 18.5 TRY bn, conditional on execution and cash generation | Rounded component reproduction, not certified access or S&P's exact model; M p.2 L475–505; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r0.c1",
+          "label": "agency-plan-reproduction",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Nominal excess 18.5 TRY bn, conditional on execution and cash generation",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 34",
+              "quote": "| agency-plan-reproduction | Both planned sources; full up-to-2 working-capital swing; unstressed reported capex; no stressed committed dividend | Nominal excess 18.5 TRY bn, conditional on execution and cash generation | Rounded component reproduction, not certified access or S&P's exact model; M p.2 L475–505; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r0.c2",
+          "label": "agency-plan-reproduction",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "Rounded component reproduction, not certified access or S&P's exact model; M p.2 L475–505; K p.1",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 34",
+              "quote": "| agency-plan-reproduction | Both planned sources; full up-to-2 working-capital swing; unstressed reported capex; no stressed committed dividend | Nominal excess 18.5 TRY bn, conditional on execution and cash generation | Rounded component reproduction, not certified access or S&P's exact model; M p.2 L475–505; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r1.c0",
+          "label": "no-proposed-bond",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Remove 16 TRY bn bond only; same 2024 uses",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 35",
+              "quote": "| no-proposed-bond | Remove 16 TRY bn bond only; same 2024 uses | Buffer shrinks to 2.5 TRY bn; slippage could require replacement funding or spending restraint | Remaining facility is capex-purpose funding, not proven freely fungible cash; M p.2 L490–517; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r1.c1",
+          "label": "no-proposed-bond",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Buffer shrinks to 2.5 TRY bn; slippage could require replacement funding or spending restraint",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 35",
+              "quote": "| no-proposed-bond | Remove 16 TRY bn bond only; same 2024 uses | Buffer shrinks to 2.5 TRY bn; slippage could require replacement funding or spending restraint | Remaining facility is capex-purpose funding, not proven freely fungible cash; M p.2 L490–517; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r1.c2",
+          "label": "no-proposed-bond",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "Remaining facility is capex-purpose funding, not proven freely fungible cash; M p.2 L490–517; K p.1",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 35",
+              "quote": "| no-proposed-bond | Remove 16 TRY bn bond only; same 2024 uses | Buffer shrinks to 2.5 TRY bn; slippage could require replacement funding or spending restraint | Remaining facility is capex-purpose funding, not proven freely fungible cash; M p.2 L490–517; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r2.c0",
+          "label": "no-new-capex-facility",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Remove 15 TRY bn facility only; same 2024 uses",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 36",
+              "quote": "| no-new-capex-facility | Remove 15 TRY bn facility only; same 2024 uses | Buffer is only 3.5 TRY bn; capex funding must compete with other needs | Proposed bond still must close; no automatic alternative line assumed; M p.2 L475–505; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r2.c1",
+          "label": "no-new-capex-facility",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Buffer is only 3.5 TRY bn; capex funding must compete with other needs",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 36",
+              "quote": "| no-new-capex-facility | Remove 15 TRY bn facility only; same 2024 uses | Buffer is only 3.5 TRY bn; capex funding must compete with other needs | Proposed bond still must close; no automatic alternative line assumed; M p.2 L475–505; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r2.c2",
+          "label": "no-new-capex-facility",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "Proposed bond still must close; no automatic alternative line assumed; M p.2 L475–505; K p.1",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 36",
+              "quote": "| no-new-capex-facility | Remove 15 TRY bn facility only; same 2024 uses | Buffer is only 3.5 TRY bn; capex funding must compete with other needs | Proposed bond still must close; no automatic alternative line assumed; M p.2 L475–505; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r3.c0",
+          "label": "neither-new-source",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Remove both sources; unchanged 2024 uses",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 37",
+              "quote": "| neither-new-source | Remove both sources; unchanged 2024 uses | Deficit 12.5 TRY bn requires replacement finance, reduced/deferred uses or improved cash generation | Hypothetical missing money, not observed default or failed placement; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r3.c1",
+          "label": "neither-new-source",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Deficit 12.5 TRY bn requires replacement finance, reduced/deferred uses or improved cash generation",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 37",
+              "quote": "| neither-new-source | Remove both sources; unchanged 2024 uses | Deficit 12.5 TRY bn requires replacement finance, reduced/deferred uses or improved cash generation | Hypothetical missing money, not observed default or failed placement; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r3.c2",
+          "label": "neither-new-source",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r3",
+          "field": "c2",
+          "amount": null,
+          "text": "Hypothetical missing money, not observed default or failed placement; K p.1",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 37",
+              "quote": "| neither-new-source | Remove both sources; unchanged 2024 uses | Deficit 12.5 TRY bn requires replacement finance, reduced/deferred uses or improved cash generation | Hypothetical missing money, not observed default or failed placement; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r4.c0",
+          "label": "unstressed-dividend-overlay",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "Both sources retained; add 27.1 TRY bn unstressed dividend to 2024 uses",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 38",
+              "quote": "| unstressed-dividend-overlay | Both sources retained; add 27.1 TRY bn unstressed dividend to 2024 uses | Deficit 8.6 TRY bn shows distributions can reverse apparent coverage | Changes the stressed-dividend assumption; does not establish permission or funding availability for dividends; M p.2 L504–505; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r4.c1",
+          "label": "unstressed-dividend-overlay",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "Deficit 8.6 TRY bn shows distributions can reverse apparent coverage",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 38",
+              "quote": "| unstressed-dividend-overlay | Both sources retained; add 27.1 TRY bn unstressed dividend to 2024 uses | Deficit 8.6 TRY bn shows distributions can reverse apparent coverage | Changes the stressed-dividend assumption; does not establish permission or funding availability for dividends; M p.2 L504–505; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r4.c2",
+          "label": "unstressed-dividend-overlay",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r4",
+          "field": "c2",
+          "amount": null,
+          "text": "Changes the stressed-dividend assumption; does not establish permission or funding availability for dividends; M p.2 L504–505; K p.1",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 38",
+              "quote": "| unstressed-dividend-overlay | Both sources retained; add 27.1 TRY bn unstressed dividend to 2024 uses | Deficit 8.6 TRY bn shows distributions can reverse apparent coverage | Changes the stressed-dividend assumption; does not establish permission or funding availability for dividends; M p.2 L504–505; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r5.c0",
+          "label": "illustrative-15pct-capex-cut",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "Both sources retained; exactly 15% reduction in 2024 reported capex only",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 39",
+              "quote": "| illustrative-15pct-capex-cut | Both sources retained; exactly 15% reduction in 2024 reported capex only | Nominal excess rises to 25.445 TRY bn | Separate illustration; source's at-least-15% flexibility is not a timing/feasibility guarantee; M p.2 L501–502; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r5.c1",
+          "label": "illustrative-15pct-capex-cut",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "Nominal excess rises to 25.445 TRY bn",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 39",
+              "quote": "| illustrative-15pct-capex-cut | Both sources retained; exactly 15% reduction in 2024 reported capex only | Nominal excess rises to 25.445 TRY bn | Separate illustration; source's at-least-15% flexibility is not a timing/feasibility guarantee; M p.2 L501–502; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-1.r5.c2",
+          "label": "illustrative-15pct-capex-cut",
+          "table_id": "raw-CP-3C-1",
+          "row_id": "r5",
+          "field": "c2",
+          "amount": null,
+          "text": "Separate illustration; source's at-least-15% flexibility is not a timing/feasibility guarantee; M p.2 L501–502; K p.1",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 39",
+              "quote": "| illustrative-15pct-capex-cut | Both sources retained; exactly 15% reduction in 2024 reported capex only | Nominal excess rises to 25.445 TRY bn | Separate illustration; source's at-least-15% flexibility is not a timing/feasibility guarantee; M p.2 L501–502; K p.1 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r0.c0",
+          "label": "Placement settlement, net proceeds, final agency review and final documents",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Replace assumed bond funding with verified usable proceeds",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 61",
+              "quote": "| Placement settlement, net proceeds, final agency review and final documents | Replace assumed bond funding with verified usable proceeds | Completion and final terms Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r0.c1",
+          "label": "Placement settlement, net proceeds, final agency review and final documents",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "Completion and final terms Not supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 61",
+              "quote": "| Placement settlement, net proceeds, final agency review and final documents | Replace assumed bond funding with verified usable proceeds | Completion and final terms Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r1.c0",
+          "label": "Facility conditions precedent, eligible capex, draw notices and local covenant certificate",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Establish when and where facility cash can fund expenditure",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 62",
+              "quote": "| Facility conditions precedent, eligible capex, draw notices and local covenant certificate | Establish when and where facility cash can fund expenditure | Operative access and use controls Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r1.c1",
+          "label": "Facility conditions precedent, eligible capex, draw notices and local covenant certificate",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "Operative access and use controls Not supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 62",
+              "quote": "| Facility conditions precedent, eligible capex, draw notices and local covenant certificate | Establish when and where facility cash can fund expenditure | Operative access and use controls Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r2.c0",
+          "label": "Dated cash ledger, restrictions, transferability and weekly uses",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "Test intra-year adequacy rather than annual nominal coverage",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 63",
+              "quote": "| Dated cash ledger, restrictions, transferability and weekly uses | Test intra-year adequacy rather than annual nominal coverage | Cash-access bridge and payment calendar Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r2.c1",
+          "label": "Dated cash ledger, restrictions, transferability and weekly uses",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "Cash-access bridge and payment calendar Not supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 63",
+              "quote": "| Dated cash ledger, restrictions, transferability and weekly uses | Test intra-year adequacy rather than annual nominal coverage | Cash-access bridge and payment calendar Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r3.c0",
+          "label": "Contract protections, invoices/collections and Romanian ramp performance",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "Validate strongest operating-protection countercase",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 64",
+              "quote": "| Contract protections, invoices/collections and Romanian ramp performance | Validate strongest operating-protection countercase | Executable contract detail and realised collections Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r3.c1",
+          "label": "Contract protections, invoices/collections and Romanian ramp performance",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "Executable contract detail and realised collections Not supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 64",
+              "quote": "| Contract protections, invoices/collections and Romanian ramp performance | Validate strongest operating-protection countercase | Executable contract detail and realised collections Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r4.c0",
+          "label": "Dividend decisions and executable capex deferral schedule",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "Determine whether protective flexibility arrives before funding pressure",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 65",
+              "quote": "| Dividend decisions and executable capex deferral schedule | Determine whether protective flexibility arrives before funding pressure | Binding restraint and implementation timing Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r4.c1",
+          "label": "Dividend decisions and executable capex deferral schedule",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "Binding restraint and implementation timing Not supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 65",
+              "quote": "| Dividend decisions and executable capex deferral schedule | Determine whether protective flexibility arrives before funding pressure | Binding restraint and implementation timing Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r5.c0",
+          "label": "Matched Fitch metrics and executed maturity schedule",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "Assess historical 2025 sensitivity and conditional 2026–28 cluster",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 66",
+              "quote": "| Matched Fitch metrics and executed maturity schedule | Assess historical 2025 sensitivity and conditional 2026–28 cluster | Exact agency-compatible operands and full wall Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-2.r5.c1",
+          "label": "Matched Fitch metrics and executed maturity schedule",
+          "table_id": "raw-CP-3C-2",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "Exact agency-compatible operands and full wall Not supplied",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 66",
+              "quote": "| Matched Fitch metrics and executed maturity schedule | Assess historical 2025 sensitivity and conditional 2026–28 cluster | Exact agency-compatible operands and full wall Not supplied |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r0.c0",
+          "label": "agency-plan-reproduction",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "109.2",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 76",
+              "quote": "| agency-plan-reproduction | 109.2 | 90.7 | 18.5 | 1.2040 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r0.c1",
+          "label": "agency-plan-reproduction",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "90.7",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 76",
+              "quote": "| agency-plan-reproduction | 109.2 | 90.7 | 18.5 | 1.2040 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r0.c2",
+          "label": "agency-plan-reproduction",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "18.5",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 76",
+              "quote": "| agency-plan-reproduction | 109.2 | 90.7 | 18.5 | 1.2040 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r0.c3",
+          "label": "agency-plan-reproduction",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r0",
+          "field": "c3",
+          "amount": null,
+          "text": "1.2040",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 76",
+              "quote": "| agency-plan-reproduction | 109.2 | 90.7 | 18.5 | 1.2040 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r1.c0",
+          "label": "no-proposed-bond",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "93.2",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 77",
+              "quote": "| no-proposed-bond | 93.2 | 90.7 | 2.5 | 1.0276 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r1.c1",
+          "label": "no-proposed-bond",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "90.7",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 77",
+              "quote": "| no-proposed-bond | 93.2 | 90.7 | 2.5 | 1.0276 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r1.c2",
+          "label": "no-proposed-bond",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "2.5",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 77",
+              "quote": "| no-proposed-bond | 93.2 | 90.7 | 2.5 | 1.0276 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r1.c3",
+          "label": "no-proposed-bond",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r1",
+          "field": "c3",
+          "amount": null,
+          "text": "1.0276",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 77",
+              "quote": "| no-proposed-bond | 93.2 | 90.7 | 2.5 | 1.0276 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r2.c0",
+          "label": "no-new-capex-facility",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "94.2",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 78",
+              "quote": "| no-new-capex-facility | 94.2 | 90.7 | 3.5 | 1.0386 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r2.c1",
+          "label": "no-new-capex-facility",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "90.7",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 78",
+              "quote": "| no-new-capex-facility | 94.2 | 90.7 | 3.5 | 1.0386 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r2.c2",
+          "label": "no-new-capex-facility",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "3.5",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 78",
+              "quote": "| no-new-capex-facility | 94.2 | 90.7 | 3.5 | 1.0386 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r2.c3",
+          "label": "no-new-capex-facility",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r2",
+          "field": "c3",
+          "amount": null,
+          "text": "1.0386",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 78",
+              "quote": "| no-new-capex-facility | 94.2 | 90.7 | 3.5 | 1.0386 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r3.c0",
+          "label": "neither-new-source",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "78.2",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 79",
+              "quote": "| neither-new-source | 78.2 | 90.7 | -12.5 | 0.8622 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r3.c1",
+          "label": "neither-new-source",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "90.7",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 79",
+              "quote": "| neither-new-source | 78.2 | 90.7 | -12.5 | 0.8622 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r3.c2",
+          "label": "neither-new-source",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r3",
+          "field": "c2",
+          "amount": null,
+          "text": "-12.5",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 79",
+              "quote": "| neither-new-source | 78.2 | 90.7 | -12.5 | 0.8622 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r3.c3",
+          "label": "neither-new-source",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r3",
+          "field": "c3",
+          "amount": null,
+          "text": "0.8622",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 79",
+              "quote": "| neither-new-source | 78.2 | 90.7 | -12.5 | 0.8622 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r4.c0",
+          "label": "unstressed-dividend-overlay",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "109.2",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 80",
+              "quote": "| unstressed-dividend-overlay | 109.2 | 117.8 | -8.6 | 0.9270 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r4.c1",
+          "label": "unstressed-dividend-overlay",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "117.8",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 80",
+              "quote": "| unstressed-dividend-overlay | 109.2 | 117.8 | -8.6 | 0.9270 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r4.c2",
+          "label": "unstressed-dividend-overlay",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r4",
+          "field": "c2",
+          "amount": null,
+          "text": "-8.6",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 80",
+              "quote": "| unstressed-dividend-overlay | 109.2 | 117.8 | -8.6 | 0.9270 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r4.c3",
+          "label": "unstressed-dividend-overlay",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r4",
+          "field": "c3",
+          "amount": null,
+          "text": "0.9270",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 80",
+              "quote": "| unstressed-dividend-overlay | 109.2 | 117.8 | -8.6 | 0.9270 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r5.c0",
+          "label": "illustrative-15pct-capex-cut",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "109.2",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 81",
+              "quote": "| illustrative-15pct-capex-cut | 109.2 | 83.755 | 25.445 | 1.3038 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r5.c1",
+          "label": "illustrative-15pct-capex-cut",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "83.755",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 81",
+              "quote": "| illustrative-15pct-capex-cut | 109.2 | 83.755 | 25.445 | 1.3038 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r5.c2",
+          "label": "illustrative-15pct-capex-cut",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r5",
+          "field": "c2",
+          "amount": null,
+          "text": "25.445",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 81",
+              "quote": "| illustrative-15pct-capex-cut | 109.2 | 83.755 | 25.445 | 1.3038 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-3C-3.r5.c3",
+          "label": "illustrative-15pct-capex-cut",
+          "table_id": "raw-CP-3C-3",
+          "row_id": "r5",
+          "field": "c3",
+          "amount": null,
+          "text": "1.3038",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 81",
+              "quote": "| illustrative-15pct-capex-cut | 109.2 | 83.755 | 25.445 | 1.3038 |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-0.r0.c0",
+          "label": "Request",
+          "table_id": "prose-CP-3C-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "View: As of 11 April 2024, Ford Otomotiv Sanayi A.S. / Ford Otosan's published liquidity plan supported conditional ordinary refinancing, not completed funding. Removing either planned source leaves only a small nominal buffer; removing both produces a deficit. Adding the unstressed dividend also produces a deficit despite retaining both sources. Fresh CP-2H therefore changes the funding inference: preliminary/expected note ratings and adequate/comfortable liquidity opinions cannot substitute for placement, usable proceeds, documentation and operating performance.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 3",
+              "quote": "View: As of 11 April 2024, Ford Otomotiv Sanayi A.S. / Ford Otosan's published liquidity plan supported conditional ordinary refinancing, not completed funding. Removing either planned source leaves only a small nominal buffer; removing both produces a deficit. Adding the unstressed dividend also produces a deficit despite retaining both sources. Fresh CP-2H therefore changes the funding inference: preliminary/expected note ratings and adequate/comfortable liquidity opinions cannot substitute for placement, usable proceeds, documentation and operating performance."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-0.r1.c0",
+          "label": "Request",
+          "table_id": "prose-CP-3C-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Fresh CP-3C funding intake executed 2026-11-05, run sol-remaining-ford-funding-20261105, issuer FORD-OTOSAN, method deploy-v-r14, historical as-of and evidence cutoff 2024-04-11. This authorized sol-medium consumer is additional to separately proven full CRC methodology, not full Ford refinancing/LME acceptance. No old CP-3C response was supplied or relabelled. The pathway is analytical metadata, not evidence of distress. Subsequent outcomes and current-2026 access are not assumed.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 5",
+              "quote": "Fresh CP-3C funding intake executed 2026-11-05, run `sol-remaining-ford-funding-20261105`, issuer `FORD-OTOSAN`, method `deploy-v-r14`, historical as-of and evidence cutoff 2024-04-11. This authorized sol-medium consumer is additional to separately proven full CRC methodology, not full Ford refinancing/LME acceptance. No old CP-3C response was supplied or relabelled. The pathway is analytical metadata, not evidence of distress. Subsequent outcomes and current-2026 access are not assumed."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-1.r0.c0",
+          "label": "Read evidence and exact lineage",
+          "table_id": "prose-CP-3C-1",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "All four pinned sources were read in full using source-tool pagination. The supplied current CP-2H and prior CP-0, selected CP-1 and published CP-2G Markdown handoffs were also read in full, with their exact supplied hashes retained below. S, M and F capture issuer-hosted primary S&P/Fitch reports dated 11 April 2024. They overlap and are not independent confirmations. K is a calculation artifact, not agency evidence.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 11",
+              "quote": "All four pinned sources were read in full using source-tool pagination. The supplied current CP-2H and prior CP-0, selected CP-1 and published CP-2G Markdown handoffs were also read in full, with their exact supplied hashes retained below. S, M and F capture issuer-hosted primary S&P/Fitch reports dated 11 April 2024. They overlap and are not independent confirmations. K is a calculation artifact, not agency evidence."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-1.r1.c0",
+          "label": "Read evidence and exact lineage",
+          "table_id": "prose-CP-3C-1",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "These are retained text captures, not original PDF bytes. No visual verification is claimed. Failed retrievals are excluded. Source-page references below identify capture pages, with retained report lines for precision. The handoffs' broader module acceptance and unsupplied artifacts are not silently adopted.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 24",
+              "quote": "These are retained text captures, not original PDF bytes. No visual verification is claimed. Failed retrievals are excluded. Source-page references below identify capture pages, with retained report lines for precision. The handoffs' broader module acceptance and unsupplied artifacts are not silently adopted."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-2.r0.c0",
+          "label": "Funding cases",
+          "table_id": "prose-CP-3C-2",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "All cases refer to calendar 2024, starting 2024-01-01, as assessed in April 2024—not twelve new months beginning in April. They are separate sensitivities, not a stacked downside or evidence of actual financing failure.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 30",
+              "quote": "All cases refer to calendar 2024, starting 2024-01-01, as assessed in April 2024—not twelve new months beginning in April. They are separate sensitivities, not a stacked downside or evidence of actual financing failure."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-3.r0.c0",
+          "label": "Funding conclusion",
+          "table_id": "prose-CP-3C-3",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-2H's rating distinctions materially constrain reliance on CP-2G. S&P's issuer rating was preliminary BB- with a Positive outlook, and its proposed unsecured-note rating was preliminary BB-; finalisation required successful issuance, satisfactory final documentation and operating performance consistent with its base case. Material departures could lead to revision or withdrawal. Fitch's BB+/Stable issuer rating was published, but its proposed-note BB+(EXP)/RR4 remained expected and conditional on refinancing completion and conforming documents. Neither rating status proves settlement. Their two-symbol-step difference establishes neither a pricing advantage nor default/LME intent. (S pp.1,3 L173–182; F pp.1–2 L5–8,153–166.)",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 43",
+              "quote": "CP-2H's rating distinctions materially constrain reliance on CP-2G. S&P's issuer rating was preliminary BB- with a Positive outlook, and its proposed unsecured-note rating was preliminary BB-; finalisation required successful issuance, satisfactory final documentation and operating performance consistent with its base case. Material departures could lead to revision or withdrawal. Fitch's BB+/Stable issuer rating was published, but its proposed-note BB+(EXP)/RR4 remained expected and conditional on refinancing completion and conforming documents. Neither rating status proves settlement. Their two-symbol-step difference establishes neither a pricing advantage nor default/LME intent. (S pp.1,3 L173–182; F pp.1–2 L5–8,153–166.)"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-3.r1.c0",
+          "label": "Funding conclusion",
+          "table_id": "prose-CP-3C-3",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "The proposed up-to-USD500 million parent unsecured bond serves general corporate purposes, including strategic capex and refinancing short debt. The EUR435 million Romanian subsidiary facility was signed in March 2024 for capex. These are distinct currencies, borrowers and purposes; the TRY amounts are S&P's approximate translations, not this module's FX conversions. Signing alone does not prove unconditional availability, upstream transferability or eligibility to meet parent maturities. Draw conditions, eligible expenditure, use controls and local covenant compliance must be checked. (S p.1 L173–179; M p.2 L475–517.)",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 45",
+              "quote": "The proposed up-to-USD500 million parent unsecured bond serves general corporate purposes, including strategic capex and refinancing short debt. The EUR435 million Romanian subsidiary facility was signed in March 2024 for capex. These are distinct currencies, borrowers and purposes; the TRY amounts are S&P's approximate translations, not this module's FX conversions. Signing alone does not prove unconditional availability, upstream transferability or eligibility to meet parent maturities. Draw conditions, eligible expenditure, use controls and local covenant compliance must be checked. (S p.1 L173–179; M p.2 L475–517.)"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-3.r2.c0",
+          "label": "Funding conclusion",
+          "table_id": "prose-CP-3C-3",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "The single-source cases retain nominal coverage but little room for weaker cash FFO, a delayed draw or intra-year mismatch. The combined deficit identifies the amount of unresolved annual funding need under those assumptions; it does not identify which payment would fail first. An annual surplus cannot establish daily cash adequacy. S&P identifies short maturities and absence of a long-term committed RCF as limitations. Fitch's EUR100 million working-capital revolver and expected rolling short-term renewals are supportive, but cannot be added as unverified incremental cash. (M p.2 L479–499; F p.2 L126–135.)",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 47",
+              "quote": "The single-source cases retain nominal coverage but little room for weaker cash FFO, a delayed draw or intra-year mismatch. The combined deficit identifies the amount of unresolved annual funding need under those assumptions; it does not identify which payment would fail first. An annual surplus cannot establish daily cash adequacy. S&P identifies short maturities and absence of a long-term committed RCF as limitations. Fitch's EUR100 million working-capital revolver and expected rolling short-term renewals are supportive, but cannot be added as unverified incremental cash. (M p.2 L479–499; F p.2 L126–135.)"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-3.r3.c0",
+          "label": "Funding conclusion",
+          "table_id": "prose-CP-3C-3",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-2G's improving leverage ratio is earnings-led, not debt repayment: its adjusted debt rises across both forecast years. CP-2H also preserves Fitch's approximate around-2x net-leverage outlook versus the strict above-2.0x-by-2025 sensitivity; an exact breach or buffer is not established. S&P gross leverage cannot fill that gap. Romanian hard-currency cash matters separately: reported earnings growth will not protect creditors if collections are unusable for foreign debt service and imports. (Supplied CP-2G/CP-2H; S p.3 L184–202; F pp.1–2 L94–124.)",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 49",
+              "quote": "CP-2G's improving leverage ratio is earnings-led, not debt repayment: its adjusted debt rises across both forecast years. CP-2H also preserves Fitch's approximate around-2x net-leverage outlook versus the strict above-2.0x-by-2025 sensitivity; an exact breach or buffer is not established. S&P gross leverage cannot fill that gap. Romanian hard-currency cash matters separately: reported earnings growth will not protect creditors if collections are unusable for foreign debt service and imports. (Supplied CP-2G/CP-2H; S p.3 L184–202; F pp.1–2 L94–124.)"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-3.r4.c0",
+          "label": "Funding conclusion",
+          "table_id": "prose-CP-3C-3",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "Fitch's April 2024 expectation places most term loan Bs and the planned bond in a conditional 2026–28 maturity cluster after refinancing. This would ease nearer-term needs while concentrating later refinancing risk; it is not a complete maturity wall or an upcoming-2026 monitoring assertion made with later knowledge. Exact dates, amortisation and executed tenor are Not supplied. (F p.2 L133–135.)",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 51",
+              "quote": "Fitch's April 2024 expectation places most term loan Bs and the planned bond in a conditional 2026–28 maturity cluster after refinancing. This would ease nearer-term needs while concentrating later refinancing risk; it is not a complete maturity wall or an upcoming-2026 monitoring assertion made with later knowledge. Exact dates, amortisation and executed tenor are Not supplied. (F p.2 L133–135.)"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-3.r5.c0",
+          "label": "Funding conclusion",
+          "table_id": "prose-CP-3C-3",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "The strongest contrary case is ordinary investment-cycle funding supported by contractual volumes, cost-plus expense recovery and capex recovery over the product cycle, rapid hard-currency collections and strategic importance to FMC. Dividend reductions have historical precedent; spending flexibility may bridge the investment trough. This countercase wins if closing evidence and executable draws arrive before uses, protected volumes become collected usable cash, Romanian ramp economics hold, and distributions/spending adjust before buffers disappear. Contract protection is not a corporate debt guarantee: Fitch notes absent debt guarantees/cross-default and does not apply its potential parent uplift. (M p.1 L24–39,51–80; S p.1 L135–158.)",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 53",
+              "quote": "The strongest contrary case is ordinary investment-cycle funding supported by contractual volumes, cost-plus expense recovery and capex recovery over the product cycle, rapid hard-currency collections and strategic importance to FMC. Dividend reductions have historical precedent; spending flexibility may bridge the investment trough. This countercase wins if closing evidence and executable draws arrive before uses, protected volumes become collected usable cash, Romanian ramp economics hold, and distributions/spending adjust before buffers disappear. Contract protection is not a corporate debt guarantee: Fitch notes absent debt guarantees/cross-default and does not apply its potential parent uplift. (M p.1 L24–39,51–80; S p.1 L135–158.)"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-4.r0.c0",
+          "label": "Monitoring",
+          "table_id": "prose-CP-3C-4",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "These are historical-case evidence gates, not claims of subsequent execution.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 57",
+              "quote": "These are historical-case evidence gates, not claims of subsequent execution."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-5.r0.c0",
+          "label": "Funding controls",
+          "table_id": "prose-CP-3C-5",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Amounts are TRY billions and approximate in economic meaning. Decimal precision below reproduces K exactly; it does not improve source accuracy. Ratios are plain fractions to four decimals, not percentages. All cases use the same 2024 issuer-group analytical period, while facility fungibility remains unverified.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 72",
+              "quote": "Amounts are TRY billions and approximate in economic meaning. Decimal precision below reproduces K exactly; it does not improve source accuracy. Ratios are plain fractions to four decimals, not percentages. All cases use the same 2024 issuer-group analytical period, while facility fungibility remains unverified."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-6.r0.c0",
+          "label": "Operand and execution trace",
+          "table_id": "prose-CP-3C-6",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "K p.1 retains actual fresh offline calls of unchanged total/difference/ratio functions, independently Fraction-checked with source-literal verification. These retained outputs are consumed here, not represented as new model tool calls. No new calculations were required.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 85",
+              "quote": "K p.1 retains actual fresh offline calls of unchanged total/difference/ratio functions, independently Fraction-checked with source-literal verification. These retained outputs are consumed here, not represented as new model tool calls. No new calculations were required."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-6.r1.c0",
+          "label": "Operand and execution trace",
+          "table_id": "prose-CP-3C-6",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "The source trace is cash 15.2 plus cash FFO 63 plus planned bond 16 plus capex facility 15, giving 109.2. Uses are maturities 33.8, working capital 8.6, the full up-to-2 extra swing and unstressed reported capex 46.3, giving 90.7. Difference means sources minus uses; ratio means sources divided by strictly positive uses. Each sensitivity changes only the named component. The dividend overlay uses 27.1; the capex illustration applies exactly 15% to 46.3. (M p.2 L484–505; K p.1.)",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 87",
+              "quote": "The source trace is cash 15.2 plus cash FFO 63 plus planned bond 16 plus capex facility 15, giving 109.2. Uses are maturities 33.8, working capital 8.6, the full up-to-2 extra swing and unstressed reported capex 46.3, giving 90.7. Difference means sources minus uses; ratio means sources divided by strictly positive uses. Each sensitivity changes only the named component. The dividend overlay uses 27.1; the capex illustration applies exactly 15% to 46.3. (M p.2 L484–505; K p.1.)"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-6.r2.c0",
+          "label": "Operand and execution trace",
+          "table_id": "prose-CP-3C-6",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "The resulting approximately 1.2x reproduces rounded components, not S&P's undisclosed exact liquidity model. Cash FFO 63 is not replaced with adjusted financial-summary FFO 48.717; reported capex 46.3 is not replaced with adjusted capex. S&P cash 15.2 is not replaced with Fitch restricted-adjusted available cash 5.0. Their reconciliation is Not supplied. The liquidity use list excludes committed dividends under potential stress even though its capex amount is unstressed; the separate overlay deliberately changes that dividend assumption. No conditional nominal excess establishes unrestricted liquidity, distribution capacity or legal borrowing capacity.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 89",
+              "quote": "The resulting approximately 1.2x reproduces rounded components, not S&P's undisclosed exact liquidity model. Cash FFO 63 is not replaced with adjusted financial-summary FFO 48.717; reported capex 46.3 is not replaced with adjusted capex. S&P cash 15.2 is not replaced with Fitch restricted-adjusted available cash 5.0. Their reconciliation is Not supplied. The liquidity use list excludes committed dividends under potential stress even though its capex amount is unstressed; the separate overlay deliberately changes that dividend assumption. No conditional nominal excess establishes unrestricted liquidity, distribution capacity or legal borrowing capacity."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-7.r0.c0",
+          "label": "Gaps",
+          "table_id": "prose-CP-3C-7",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "Full maturity wall, operative terms, exact covenant headroom, recovery and full financing approval are Not supplied. S&P reports consolidated EBRD/IFC and Romanian-local 3.5x tests with different perimeters, and no financial covenants on the proposed bond; those descriptions are not operative-document verification. Headroom is Not calculable without matching definitions, operands and certificates. Subsidiary debt introduces structural-priority questions; S&P's approximately 20% pro-forma priority ratio and Fitch RR4 do not provide a legal waterfall or independently modelled recovery. (M pp.2–3 L506–546.)",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 93",
+              "quote": "Full maturity wall, operative terms, exact covenant headroom, recovery and full financing approval are Not supplied. S&P reports consolidated EBRD/IFC and Romanian-local 3.5x tests with different perimeters, and no financial covenants on the proposed bond; those descriptions are not operative-document verification. Headroom is Not calculable without matching definitions, operands and certificates. Subsidiary debt introduces structural-priority questions; S&P's approximately 20% pro-forma priority ratio and Fitch RR4 do not provide a legal waterfall or independently modelled recovery. (M pp.2–3 L506–546.)"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-7.r1.c0",
+          "label": "Gaps",
+          "table_id": "prose-CP-3C-7",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "Upstream -1/+1 TRY-million display residuals remain unresolved and unchanged; they are not plugged into this rounded liquidity bridge. Exact cash availability, monthly sequencing, financing fees and executable spending cuts remain missing. No actual failure, subsequent rating action, realised forecast outcome or LME proposal is established. Other output artifacts are Not supplied. Handoff checking does not certify underwriting, legal capacity or full module acceptance.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 95",
+              "quote": "Upstream -1/+1 TRY-million display residuals remain unresolved and unchanged; they are not plugged into this rounded liquidity bridge. Exact cash availability, monthly sequencing, financing fees and executable spending cuts remain missing. No actual failure, subsequent rating action, realised forecast outcome or LME proposal is established. Other output artifacts are Not supplied. Handoff checking does not certify underwriting, legal capacity or full module acceptance."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-8.r0.c0",
+          "label": "Next module",
+          "table_id": "prose-CP-3C-8",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-4 should verify final note/facility terms, draw and use restrictions, covenant definitions, guarantees and subsidiary priority before instrument-specific decisions. CP-2D/CP-2G should supply dated cash sequencing and matching cash-flow definitions; CP-2H receives execution/performance evidence without cross-agency metric substitution. CP-6 receives both the funding-dependency conclusion and the strongest ordinary-funding countercase.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 99",
+              "quote": "CP-4 should verify final note/facility terms, draw and use restrictions, covenant definitions, guarantees and subsidiary priority before instrument-specific decisions. CP-2D/CP-2G should supply dated cash sequencing and matching cash-flow definitions; CP-2H receives execution/performance evidence without cross-agency metric substitution. CP-6 receives both the funding-dependency conclusion and the strongest ordinary-funding countercase."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "prose-CP-3C-8.r1.c0",
+          "label": "Next module",
+          "table_id": "prose-CP-3C-8",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-OS retains the execution loop. Any separate delivery must reuse this exact accepted handoff, not rebuild the analysis or produce Excel. This is the fresh scoped CP-3C ratings-to-funding consumption; it does not approve full refinancing, liability management, recovery or security selection. Further outcomes require a separate dated authorization.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal wrapped paragraph from the model-authored handoff; no new analysis.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-3C",
+              "source_sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+              "locator": "line 101",
+              "quote": "CP-OS retains the execution loop. Any separate delivery must reuse this exact accepted handoff, not rebuild the analysis or produce Excel. This is the fresh scoped CP-3C ratings-to-funding consumption; it does not approve full refinancing, liability management, recovery or security selection. Further outcomes require a separate dated authorization."
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "raw-CP-3C-0",
+          "title": "Read evidence and exact lineage — Reference",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Exact SHA256"
+            },
+            {
+              "field": "c1",
+              "label": "Read scope / role"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "S: sp-retry.json",
+              "fact_ids": [
+                "raw-CP-3C-0.r0.c0",
+                "raw-CP-3C-0.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "M: fitch-and-metrics.json",
+              "fact_ids": [
+                "raw-CP-3C-0.r1.c0",
+                "raw-CP-3C-0.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "F: fitch-terms.json",
+              "fact_ids": [
+                "raw-CP-3C-0.r2.c0",
+                "raw-CP-3C-0.r2.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "K: funding-kernel",
+              "fact_ids": [
+                "raw-CP-3C-0.r3.c0",
+                "raw-CP-3C-0.r3.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Current CP-2H",
+              "fact_ids": [
+                "raw-CP-3C-0.r4.c0",
+                "raw-CP-3C-0.r4.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "CP-0",
+              "fact_ids": [
+                "raw-CP-3C-0.r5.c0",
+                "raw-CP-3C-0.r5.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "CP-1-selected",
+              "fact_ids": [
+                "raw-CP-3C-0.r6.c0",
+                "raw-CP-3C-0.r6.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r7",
+              "label": "CP-2G-published",
+              "fact_ids": [
+                "raw-CP-3C-0.r7.c0",
+                "raw-CP-3C-0.r7.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Reference",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-3C-1",
+          "title": "Funding cases — Case",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Assumption and period"
+            },
+            {
+              "field": "c1",
+              "label": "Creditor consequence"
+            },
+            {
+              "field": "c2",
+              "label": "Boundary and source"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "agency-plan-reproduction",
+              "fact_ids": [
+                "raw-CP-3C-1.r0.c0",
+                "raw-CP-3C-1.r0.c1",
+                "raw-CP-3C-1.r0.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "no-proposed-bond",
+              "fact_ids": [
+                "raw-CP-3C-1.r1.c0",
+                "raw-CP-3C-1.r1.c1",
+                "raw-CP-3C-1.r1.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "no-new-capex-facility",
+              "fact_ids": [
+                "raw-CP-3C-1.r2.c0",
+                "raw-CP-3C-1.r2.c1",
+                "raw-CP-3C-1.r2.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "neither-new-source",
+              "fact_ids": [
+                "raw-CP-3C-1.r3.c0",
+                "raw-CP-3C-1.r3.c1",
+                "raw-CP-3C-1.r3.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "unstressed-dividend-overlay",
+              "fact_ids": [
+                "raw-CP-3C-1.r4.c0",
+                "raw-CP-3C-1.r4.c1",
+                "raw-CP-3C-1.r4.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "illustrative-15pct-capex-cut",
+              "fact_ids": [
+                "raw-CP-3C-1.r5.c0",
+                "raw-CP-3C-1.r5.c1",
+                "raw-CP-3C-1.r5.c2"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Case",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-3C-2",
+          "title": "Monitoring — Evidence",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Decision enabled"
+            },
+            {
+              "field": "c1",
+              "label": "Current gap"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Placement settlement, net proceeds, final agency review and final documents",
+              "fact_ids": [
+                "raw-CP-3C-2.r0.c0",
+                "raw-CP-3C-2.r0.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Facility conditions precedent, eligible capex, draw notices and local covenant certificate",
+              "fact_ids": [
+                "raw-CP-3C-2.r1.c0",
+                "raw-CP-3C-2.r1.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Dated cash ledger, restrictions, transferability and weekly uses",
+              "fact_ids": [
+                "raw-CP-3C-2.r2.c0",
+                "raw-CP-3C-2.r2.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Contract protections, invoices/collections and Romanian ramp performance",
+              "fact_ids": [
+                "raw-CP-3C-2.r3.c0",
+                "raw-CP-3C-2.r3.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Dividend decisions and executable capex deferral schedule",
+              "fact_ids": [
+                "raw-CP-3C-2.r4.c0",
+                "raw-CP-3C-2.r4.c1"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Matched Fitch metrics and executed maturity schedule",
+              "fact_ids": [
+                "raw-CP-3C-2.r5.c0",
+                "raw-CP-3C-2.r5.c1"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Evidence",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "raw-CP-3C-3",
+          "title": "Funding controls — Case",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Sources TRY bn"
+            },
+            {
+              "field": "c1",
+              "label": "Uses TRY bn"
+            },
+            {
+              "field": "c2",
+              "label": "Difference TRY bn"
+            },
+            {
+              "field": "c3",
+              "label": "Ratio"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "agency-plan-reproduction",
+              "fact_ids": [
+                "raw-CP-3C-3.r0.c0",
+                "raw-CP-3C-3.r0.c1",
+                "raw-CP-3C-3.r0.c2",
+                "raw-CP-3C-3.r0.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "no-proposed-bond",
+              "fact_ids": [
+                "raw-CP-3C-3.r1.c0",
+                "raw-CP-3C-3.r1.c1",
+                "raw-CP-3C-3.r1.c2",
+                "raw-CP-3C-3.r1.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "no-new-capex-facility",
+              "fact_ids": [
+                "raw-CP-3C-3.r2.c0",
+                "raw-CP-3C-3.r2.c1",
+                "raw-CP-3C-3.r2.c2",
+                "raw-CP-3C-3.r2.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "neither-new-source",
+              "fact_ids": [
+                "raw-CP-3C-3.r3.c0",
+                "raw-CP-3C-3.r3.c1",
+                "raw-CP-3C-3.r3.c2",
+                "raw-CP-3C-3.r3.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "unstressed-dividend-overlay",
+              "fact_ids": [
+                "raw-CP-3C-3.r4.c0",
+                "raw-CP-3C-3.r4.c1",
+                "raw-CP-3C-3.r4.c2",
+                "raw-CP-3C-3.r4.c3"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "illustrative-15pct-capex-cut",
+              "fact_ids": [
+                "raw-CP-3C-3.r5.c0",
+                "raw-CP-3C-3.r5.c1",
+                "raw-CP-3C-3.r5.c2",
+                "raw-CP-3C-3.r5.c3"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Case",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-0",
+          "title": "Request",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Request — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-0.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Request — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-0.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-1",
+          "title": "Read evidence and exact lineage",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Read evidence and exact lineage — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-1.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Read evidence and exact lineage — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-1.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-2",
+          "title": "Funding cases",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Funding cases — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-2.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-3",
+          "title": "Funding conclusion",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Funding conclusion — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-3.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Funding conclusion — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-3.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Funding conclusion — paragraph 3",
+              "fact_ids": [
+                "prose-CP-3C-3.r2.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Funding conclusion — paragraph 4",
+              "fact_ids": [
+                "prose-CP-3C-3.r3.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Funding conclusion — paragraph 5",
+              "fact_ids": [
+                "prose-CP-3C-3.r4.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Funding conclusion — paragraph 6",
+              "fact_ids": [
+                "prose-CP-3C-3.r5.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-4",
+          "title": "Monitoring",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Monitoring — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-4.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-5",
+          "title": "Funding controls",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Funding controls — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-5.r0.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-6",
+          "title": "Operand and execution trace",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Operand and execution trace — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-6.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Operand and execution trace — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-6.r1.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Operand and execution trace — paragraph 3",
+              "fact_ids": [
+                "prose-CP-3C-6.r2.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-7",
+          "title": "Gaps",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Gaps — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-7.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Gaps — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-7.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        },
+        {
+          "table_id": "prose-CP-3C-8",
+          "title": "Next module",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Text"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Next module — paragraph 1",
+              "fact_ids": [
+                "prose-CP-3C-8.r0.c0"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Next module — paragraph 2",
+              "fact_ids": [
+                "prose-CP-3C-8.r1.c0"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Paragraph",
+          "interface_id": null,
+          "limitation": null
+        }
+      ],
+      "claims": [],
+      "limitations": [
+        "Literal checked analytical handoff, not native contract acceptance; source qualifications and gaps remain."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "schema_version": "source/1",
+      "source_id": "CP-3C",
+      "name": "CP-3C.md",
+      "status": "ready",
+      "sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+      "media_type": "text/markdown",
+      "spans": [
+        {
+          "locator": "line 1",
+          "text": "## Request",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 3",
+          "text": "View: As of 11 April 2024, Ford Otomotiv Sanayi A.S. / Ford Otosan's published liquidity plan supported conditional ordinary refinancing, not completed funding. Removing either planned source leaves only a small nominal buffer; removing both produces a deficit. Adding the unstressed dividend also produces a deficit despite retaining both sources. Fresh CP-2H therefore changes the funding inference: preliminary/expected note ratings and adequate/comfortable liquidity opinions cannot substitute for placement, usable proceeds, documentation and operating performance.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 5",
+          "text": "Fresh CP-3C funding intake executed 2026-11-05, run `sol-remaining-ford-funding-20261105`, issuer `FORD-OTOSAN`, method `deploy-v-r14`, historical as-of and evidence cutoff 2024-04-11. This authorized sol-medium consumer is additional to separately proven full CRC methodology, not full Ford refinancing/LME acceptance. No old CP-3C response was supplied or relabelled. The pathway is analytical metadata, not evidence of distress. Subsequent outcomes and current-2026 access are not assumed.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 7",
+          "text": "## Sources",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 9",
+          "text": "### Read evidence and exact lineage",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 11",
+          "text": "All four pinned sources were read in full using source-tool pagination. The supplied current CP-2H and prior CP-0, selected CP-1 and published CP-2G Markdown handoffs were also read in full, with their exact supplied hashes retained below. S, M and F capture issuer-hosted primary S&P/Fitch reports dated 11 April 2024. They overlap and are not independent confirmations. K is a calculation artifact, not agency evidence.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 13",
+          "text": "| Reference | Exact SHA256 | Read scope / role |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 14",
+          "text": "|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 15",
+          "text": "| S: sp-retry.json | `8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8` | pp.1–3; S&P ratings, funding conditions and liquidity |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 16",
+          "text": "| M: fitch-and-metrics.json | `4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9` | pp.1–3; Fitch operating protection; S&P financial, liquidity and covenant text |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 17",
+          "text": "| F: fitch-terms.json | `7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf` | pp.1–3; Fitch ratings, sensitivities and debt structure |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 18",
+          "text": "| K: funding-kernel | `7610d6a085342969e42d6c4c9658f256f0aff0b345a70746385f2a1059b3b183` | p.1; six checked funding cases |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 19",
+          "text": "| Current CP-2H | `b5b197396d7df31a4997dbc58c7879caca9a23063858cb362e26fa08ae216ecb` | Entire supplied handoff; ratings-to-funding conditions |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 20",
+          "text": "| CP-0 | `0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79` | Entire supplied handoff; entity/date admission and retrieval limitations |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 21",
+          "text": "| CP-1-selected | `a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af` | Entire supplied handoff; selected financial definitions and residuals |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 22",
+          "text": "| CP-2G-published | `87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931` | Entire supplied handoff; published forecast, not a new independent model |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 24",
+          "text": "These are retained text captures, not original PDF bytes. No visual verification is claimed. Failed retrievals are excluded. Source-page references below identify capture pages, with retained report lines for precision. The handoffs' broader module acceptance and unsupplied artifacts are not silently adopted.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 26",
+          "text": "## Findings",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 28",
+          "text": "### Funding cases",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 30",
+          "text": "All cases refer to calendar 2024, starting 2024-01-01, as assessed in April 2024—not twelve new months beginning in April. They are separate sensitivities, not a stacked downside or evidence of actual financing failure.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 32",
+          "text": "| Case | Assumption and period | Creditor consequence | Boundary and source |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 33",
+          "text": "|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 34",
+          "text": "| agency-plan-reproduction | Both planned sources; full up-to-2 working-capital swing; unstressed reported capex; no stressed committed dividend | Nominal excess 18.5 TRY bn, conditional on execution and cash generation | Rounded component reproduction, not certified access or S&P's exact model; M p.2 L475–505; K p.1 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 35",
+          "text": "| no-proposed-bond | Remove 16 TRY bn bond only; same 2024 uses | Buffer shrinks to 2.5 TRY bn; slippage could require replacement funding or spending restraint | Remaining facility is capex-purpose funding, not proven freely fungible cash; M p.2 L490–517; K p.1 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 36",
+          "text": "| no-new-capex-facility | Remove 15 TRY bn facility only; same 2024 uses | Buffer is only 3.5 TRY bn; capex funding must compete with other needs | Proposed bond still must close; no automatic alternative line assumed; M p.2 L475–505; K p.1 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 37",
+          "text": "| neither-new-source | Remove both sources; unchanged 2024 uses | Deficit 12.5 TRY bn requires replacement finance, reduced/deferred uses or improved cash generation | Hypothetical missing money, not observed default or failed placement; K p.1 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 38",
+          "text": "| unstressed-dividend-overlay | Both sources retained; add 27.1 TRY bn unstressed dividend to 2024 uses | Deficit 8.6 TRY bn shows distributions can reverse apparent coverage | Changes the stressed-dividend assumption; does not establish permission or funding availability for dividends; M p.2 L504–505; K p.1 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 39",
+          "text": "| illustrative-15pct-capex-cut | Both sources retained; exactly 15% reduction in 2024 reported capex only | Nominal excess rises to 25.445 TRY bn | Separate illustration; source's at-least-15% flexibility is not a timing/feasibility guarantee; M p.2 L501–502; K p.1 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 41",
+          "text": "### Funding conclusion",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 43",
+          "text": "CP-2H's rating distinctions materially constrain reliance on CP-2G. S&P's issuer rating was preliminary BB- with a Positive outlook, and its proposed unsecured-note rating was preliminary BB-; finalisation required successful issuance, satisfactory final documentation and operating performance consistent with its base case. Material departures could lead to revision or withdrawal. Fitch's BB+/Stable issuer rating was published, but its proposed-note BB+(EXP)/RR4 remained expected and conditional on refinancing completion and conforming documents. Neither rating status proves settlement. Their two-symbol-step difference establishes neither a pricing advantage nor default/LME intent. (S pp.1,3 L173–182; F pp.1–2 L5–8,153–166.)",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 45",
+          "text": "The proposed up-to-USD500 million parent unsecured bond serves general corporate purposes, including strategic capex and refinancing short debt. The EUR435 million Romanian subsidiary facility was signed in March 2024 for capex. These are distinct currencies, borrowers and purposes; the TRY amounts are S&P's approximate translations, not this module's FX conversions. Signing alone does not prove unconditional availability, upstream transferability or eligibility to meet parent maturities. Draw conditions, eligible expenditure, use controls and local covenant compliance must be checked. (S p.1 L173–179; M p.2 L475–517.)",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 47",
+          "text": "The single-source cases retain nominal coverage but little room for weaker cash FFO, a delayed draw or intra-year mismatch. The combined deficit identifies the amount of unresolved annual funding need under those assumptions; it does not identify which payment would fail first. An annual surplus cannot establish daily cash adequacy. S&P identifies short maturities and absence of a long-term committed RCF as limitations. Fitch's EUR100 million working-capital revolver and expected rolling short-term renewals are supportive, but cannot be added as unverified incremental cash. (M p.2 L479–499; F p.2 L126–135.)",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 49",
+          "text": "CP-2G's improving leverage ratio is earnings-led, not debt repayment: its adjusted debt rises across both forecast years. CP-2H also preserves Fitch's approximate around-2x net-leverage outlook versus the strict above-2.0x-by-2025 sensitivity; an exact breach or buffer is not established. S&P gross leverage cannot fill that gap. Romanian hard-currency cash matters separately: reported earnings growth will not protect creditors if collections are unusable for foreign debt service and imports. (Supplied CP-2G/CP-2H; S p.3 L184–202; F pp.1–2 L94–124.)",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 51",
+          "text": "Fitch's April 2024 expectation places most term loan Bs and the planned bond in a conditional 2026–28 maturity cluster after refinancing. This would ease nearer-term needs while concentrating later refinancing risk; it is not a complete maturity wall or an upcoming-2026 monitoring assertion made with later knowledge. Exact dates, amortisation and executed tenor are Not supplied. (F p.2 L133–135.)",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 53",
+          "text": "The strongest contrary case is ordinary investment-cycle funding supported by contractual volumes, cost-plus expense recovery and capex recovery over the product cycle, rapid hard-currency collections and strategic importance to FMC. Dividend reductions have historical precedent; spending flexibility may bridge the investment trough. This countercase wins if closing evidence and executable draws arrive before uses, protected volumes become collected usable cash, Romanian ramp economics hold, and distributions/spending adjust before buffers disappear. Contract protection is not a corporate debt guarantee: Fitch notes absent debt guarantees/cross-default and does not apply its potential parent uplift. (M p.1 L24–39,51–80; S p.1 L135–158.)",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 55",
+          "text": "### Monitoring",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 57",
+          "text": "These are historical-case evidence gates, not claims of subsequent execution.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 59",
+          "text": "| Evidence | Decision enabled | Current gap |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 60",
+          "text": "|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 61",
+          "text": "| Placement settlement, net proceeds, final agency review and final documents | Replace assumed bond funding with verified usable proceeds | Completion and final terms Not supplied |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 62",
+          "text": "| Facility conditions precedent, eligible capex, draw notices and local covenant certificate | Establish when and where facility cash can fund expenditure | Operative access and use controls Not supplied |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 63",
+          "text": "| Dated cash ledger, restrictions, transferability and weekly uses | Test intra-year adequacy rather than annual nominal coverage | Cash-access bridge and payment calendar Not supplied |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 64",
+          "text": "| Contract protections, invoices/collections and Romanian ramp performance | Validate strongest operating-protection countercase | Executable contract detail and realised collections Not supplied |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 65",
+          "text": "| Dividend decisions and executable capex deferral schedule | Determine whether protective flexibility arrives before funding pressure | Binding restraint and implementation timing Not supplied |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 66",
+          "text": "| Matched Fitch metrics and executed maturity schedule | Assess historical 2025 sensitivity and conditional 2026–28 cluster | Exact agency-compatible operands and full wall Not supplied |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 68",
+          "text": "## Calculations",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 70",
+          "text": "### Funding controls",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 72",
+          "text": "Amounts are TRY billions and approximate in economic meaning. Decimal precision below reproduces K exactly; it does not improve source accuracy. Ratios are plain fractions to four decimals, not percentages. All cases use the same 2024 issuer-group analytical period, while facility fungibility remains unverified.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 74",
+          "text": "| Case | Sources TRY bn | Uses TRY bn | Difference TRY bn | Ratio |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 75",
+          "text": "|---|---|---|---|---|",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 76",
+          "text": "| agency-plan-reproduction | 109.2 | 90.7 | 18.5 | 1.2040 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 77",
+          "text": "| no-proposed-bond | 93.2 | 90.7 | 2.5 | 1.0276 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 78",
+          "text": "| no-new-capex-facility | 94.2 | 90.7 | 3.5 | 1.0386 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 79",
+          "text": "| neither-new-source | 78.2 | 90.7 | -12.5 | 0.8622 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 80",
+          "text": "| unstressed-dividend-overlay | 109.2 | 117.8 | -8.6 | 0.9270 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 81",
+          "text": "| illustrative-15pct-capex-cut | 109.2 | 83.755 | 25.445 | 1.3038 |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 83",
+          "text": "### Operand and execution trace",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 85",
+          "text": "K p.1 retains actual fresh offline calls of unchanged total/difference/ratio functions, independently Fraction-checked with source-literal verification. These retained outputs are consumed here, not represented as new model tool calls. No new calculations were required.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 87",
+          "text": "The source trace is cash 15.2 plus cash FFO 63 plus planned bond 16 plus capex facility 15, giving 109.2. Uses are maturities 33.8, working capital 8.6, the full up-to-2 extra swing and unstressed reported capex 46.3, giving 90.7. Difference means sources minus uses; ratio means sources divided by strictly positive uses. Each sensitivity changes only the named component. The dividend overlay uses 27.1; the capex illustration applies exactly 15% to 46.3. (M p.2 L484–505; K p.1.)",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 89",
+          "text": "The resulting approximately 1.2x reproduces rounded components, not S&P's undisclosed exact liquidity model. Cash FFO 63 is not replaced with adjusted financial-summary FFO 48.717; reported capex 46.3 is not replaced with adjusted capex. S&P cash 15.2 is not replaced with Fitch restricted-adjusted available cash 5.0. Their reconciliation is Not supplied. The liquidity use list excludes committed dividends under potential stress even though its capex amount is unstressed; the separate overlay deliberately changes that dividend assumption. No conditional nominal excess establishes unrestricted liquidity, distribution capacity or legal borrowing capacity.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 91",
+          "text": "## Gaps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 93",
+          "text": "Full maturity wall, operative terms, exact covenant headroom, recovery and full financing approval are Not supplied. S&P reports consolidated EBRD/IFC and Romanian-local 3.5x tests with different perimeters, and no financial covenants on the proposed bond; those descriptions are not operative-document verification. Headroom is Not calculable without matching definitions, operands and certificates. Subsidiary debt introduces structural-priority questions; S&P's approximately 20% pro-forma priority ratio and Fitch RR4 do not provide a legal waterfall or independently modelled recovery. (M pp.2–3 L506–546.)",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 95",
+          "text": "Upstream -1/+1 TRY-million display residuals remain unresolved and unchanged; they are not plugged into this rounded liquidity bridge. Exact cash availability, monthly sequencing, financing fees and executable spending cuts remain missing. No actual failure, subsequent rating action, realised forecast outcome or LME proposal is established. Other output artifacts are Not supplied. Handoff checking does not certify underwriting, legal capacity or full module acceptance.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 97",
+          "text": "## Next module",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 99",
+          "text": "CP-4 should verify final note/facility terms, draw and use restrictions, covenant definitions, guarantees and subsidiary priority before instrument-specific decisions. CP-2D/CP-2G should supply dated cash sequencing and matching cash-flow definitions; CP-2H receives execution/performance evidence without cross-agency metric substitution. CP-6 receives both the funding-dependency conclusion and the strongest ordinary-funding countercase.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 101",
+          "text": "CP-OS retains the execution loop. Any separate delivery must reuse this exact accepted handoff, not rebuild the analysis or produce Excel. This is the fresh scoped CP-3C ratings-to-funding consumption; it does not approve full refinancing, liability management, recovery or security selection. Further outcomes require a separate dated authorization.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        }
+      ],
+      "limitation": "Actual analytical handoff; underlying source qualifications and scope remain.",
+      "extractor": "literal-markdown-lines",
+      "extraction_status": "complete",
+      "coverage": []
+    }
+  ],
+  "analytical_qualification": "partial",
+  "native_host_qualification": "unrun"
+}

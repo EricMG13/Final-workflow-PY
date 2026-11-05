@@ -1,0 +1,99 @@
+{
+  "required_terms": [
+    "T2F.1 \u2014 source gate and evidence map",
+    "T2F.2 \u2014 debt and rate exposure register",
+    "T2F.3 \u2014 hedge schedule and coverage distinctions",
+    "T2F.4 \u2014 baseline exposure and reconciliation limits",
+    "T2F.5 \u2014 rate sensitivity and conditional illustration",
+    "T2F.6 \u2014 FX and natural-offset register",
+    "T2F.7 \u2014 raw materials, inflation and pass-through",
+    "T2F.8 \u2014 macro synthesis and monitoring",
+    "T2F.9 \u2014 macro gaps",
+    "T2G.1 \u2014 ESG source reliability and gate",
+    "T2G.2 \u2014 environmental and transition exposure",
+    "T2G.3 \u2014 social and operational exposure",
+    "T2G.4 \u2014 credit materiality before inference",
+    "T2G.5 \u2014 sustainability-linked instrument mechanics",
+    "T2G.6 \u2014 refinancing and cost-of-capital linkage",
+    "T2G.7 \u2014 ESG credit synthesis and counterevidence",
+    "T2G.8 \u2014 ESG gaps",
+    "Overall credit implication and CP-6 question",
+    "Macro calculation controls",
+    "2026-11-05",
+    "2024-09-30",
+    "2019",
+    "2031",
+    "77%"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Macro calculation controls",
+      "columns": [
+        "Metric",
+        "Value"
+      ],
+      "rows": [
+        [
+          "identified_floating_principal_USDm",
+          "9189"
+        ],
+        [
+          "classification_gross_debt_USDm",
+          "25068"
+        ],
+        [
+          "carrying_debt_USDm",
+          "24880"
+        ],
+        [
+          "active_swap_notional_USDm",
+          "2700"
+        ],
+        [
+          "cap_notional_USDm",
+          "700"
+        ],
+        [
+          "gross_100bp_control_USDm",
+          "91.89"
+        ],
+        [
+          "issuer_approximate_100bp_effect_USDm",
+          "30"
+        ],
+        [
+          "conditional_cash_interest_USDm",
+          "1188"
+        ],
+        [
+          "conditional_cash_after_capex_USDm",
+          "1850"
+        ],
+        [
+          "conditional_coverage_x",
+          "3.512626"
+        ],
+        [
+          "environment_current_total_USDm",
+          "41"
+        ],
+        [
+          "environment_prior_total_USDm",
+          "44"
+        ],
+        [
+          "qualified_unhedged_floating_USDm",
+          "\u2014"
+        ],
+        [
+          "qualified_hedge_ratio",
+          "\u2014"
+        ],
+        [
+          "fx_ebitda_share",
+          "\u2014"
+        ]
+      ]
+    }
+  ]
+}

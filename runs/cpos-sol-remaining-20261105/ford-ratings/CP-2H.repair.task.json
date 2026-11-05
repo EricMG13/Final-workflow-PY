@@ -1,0 +1,69 @@
+{
+  "run": {
+    "run_id": "sol-remaining-ford-ratings-20261105",
+    "issuer_id": "FORD-OTOSAN",
+    "issuer_name": "Ford Otomotiv Sanayi A.S.",
+    "as_of": "2024-04-11",
+    "case_kind": "public",
+    "pathway": "distressed_restructuring",
+    "requested_modules": [
+      "CP-2H"
+    ]
+  },
+  "module_id": "CP-2H",
+  "instructions": {
+    "path": "CP-2H.repair.instructions.md",
+    "sha256": "3e0b547e550cec1c5c6a9efab82f72f98425883554bd5f20d81a2a4de4d0a5e6"
+  },
+  "sources": {
+    "sp-retry.json": {
+      "path": "../../ford-otosan-2024-001/sources/sp-retry.json",
+      "sha256": "8e746baf3a094dad96bff7c2e2f5abfe47c14abeb9dde1f6324ccf57a84627a8"
+    },
+    "fitch-and-metrics.json": {
+      "path": "../../ford-otosan-2024-001/sources/fitch-and-metrics.json",
+      "sha256": "4592f83291ccd5545acb18fe6115158532940c7b63697d794cf2cc254385b0e9"
+    },
+    "fitch-terms.json": {
+      "path": "../../ford-otosan-2024-001/sources/fitch-terms.json",
+      "sha256": "7e14a66c2fd2a4f06eb22ee45e87a8b4a75cb21360399ddb35f26989607d95bf"
+    },
+    "selected-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/SKILL.md",
+      "sha256": "acf25aaea52bee5da74069fdfe3013c511b4cb2f3e1cb9d3c99fc950a27a62bb"
+    },
+    "method-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-2h-ratings-migration-trigger/references/REF_CP-2H_STEPS.md",
+      "sha256": "375615b8f373b15461233bb65e47a0f14c8ca34472cd84449d65dba4112c6b3e"
+    },
+    "historical-case-instructions": {
+      "path": "../../ford-otosan-2024-001/instructions.md",
+      "sha256": "b0a5fab7fee3b08a69e98c9adf76d4c9a48b011d7208b92aa2fdde2477863983"
+    },
+    "checked-inputs": {
+      "path": "checked-inputs.json",
+      "sha256": "37ba9dd109badfd7c212a40f89abf581c22aa3a12e636c50eb4dd94583e430a9"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../../ford-otosan-2024-001/CP-0.md",
+      "sha256": "0d42302b9cba18c381d8374db26e0350388dfa00b26d048122fdde8b801b1a79"
+    },
+    "CP-1-selected": {
+      "path": "../../ford-otosan-2024-001/CP-1-selected-input.md",
+      "sha256": "a9779359848e8e6c7fed50d4d01cb0c56e60b76b61643c4b00eedd6e429180af"
+    },
+    "CP-2G-published": {
+      "path": "../../ford-otosan-2024-001/CP-2G-published-forecast.md",
+      "sha256": "87fb2d2ac4f8941e8acf51facf2aa2d78fd938d808d6d5e5ea584cd9e3e3b931"
+    }
+  },
+  "layout": "CP-2H.layout.json",
+  "checks": "CP-2H.checks.json",
+  "output": "CP-2H-repaired.md",
+  "draft": {
+    "path": "CP-2H.md",
+    "sha256": "abcb30ea0928cb88c8df556b04da1b131d4ab55bef5dfc74b409f6639e22232c"
+  }
+}

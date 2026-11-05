@@ -1,0 +1,87 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-macro-esg-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-2F"
+    ]
+  },
+  "handoffs": {
+    "CP-2E": {
+      "path": "CP-2E.md",
+      "sha256": "7d7d0d93f57aa3acd7b11ed0fd9eb63449bd82640f1653239dc8c9bddd820afa"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "key-findings",
+      "capital-structure"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2E",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "key-findings",
+        "prefix": "View:",
+        "label": "Macro view"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "Request",
+        "kind": "prose",
+        "block_id": "key-findings",
+        "prefix": "ESG credit view:",
+        "label": "ESG credit view"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "Overall credit implication and CP-6 question",
+        "kind": "prose",
+        "block_id": "key-findings",
+        "label": "Credit mechanism, counterevidence and debate question"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2F.2 \u2014 debt and rate exposure register",
+        "kind": "table",
+        "label": "Source debt principal, rate basis and maturity",
+        "block_id": "capital-structure"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2F.3 \u2014 hedge schedule and coverage distinctions",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "Historical hedge dates and source terms"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2F.4 \u2014 baseline exposure and reconciliation limits",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "Exposure bases and unresolved effective coverage"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "Macro calculation controls",
+        "kind": "table",
+        "block_id": "capital-structure"
+      },
+      {
+        "module_id": "CP-2E",
+        "heading": "T2F.5 \u2014 rate sensitivity and conditional illustration",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "Reported, arithmetic and conditional rate cases"
+      }
+    ],
+    "title": "TransDigm \u00b7 historical macro and ESG review",
+    "question": "Which rate, hedge and ESG cash-risk claims are supported, and what cannot yet be quantified?",
+    "scope": "Freshsol-medium historicalTDGmacroandESGmodule; all17registers preserved, selectedoverview. Notcurrentrate/FXcalibration, completeTDGpathwayor positiveSLBmechanics. SeparateCPOSdelivery; noExcel."
+  }
+}

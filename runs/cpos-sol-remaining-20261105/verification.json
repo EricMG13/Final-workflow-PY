@@ -15,7 +15,7 @@
     },
     "CP-DR": {
       "aliases": [],
-      "status": "bounded live research synthesis reviewed and report consumed; CP-2G adoption pending",
+      "status": "Live historical research synthesis source reviewed, report published and fresh CP-2G substantive qualified adoption passed",
       "case": "TDG guidance issued2024-11-07 for FY2025, captures retrieved2026-11-04",
       "report": "tdg-guidance/CP-DR-delivery/report.html",
       "handoff_sha256": "0463a4b16e8ed7de1e1ed9a219587bbf4ee2b6fc2e98228d4f0090c22d487b03",
@@ -26,7 +26,7 @@
         "model_draft": "live/modules/c0695f5fde14a687e404f08c23d4108591c62f6d4b5fc0d7c5b5fca18f15305e/3.draft.md",
         "new_provider_calls": 0
       },
-      "consumer": "tdg-stress/CP-2A.md (qualified historical guidance); CP-2G adoption remains next"
+      "consumer": "tdg-forecast/CP-2G.md, exact current hash and question disposition with source-controlled midpoints/cash limits"
     },
     "CP-1C": {
       "aliases": [],
@@ -84,15 +84,54 @@
       "aliases": [
         "CP-2F"
       ],
-      "status": "pending live module proof; historical host proof remains separately recorded"
+      "status": "TDG macro/ESG and Enel positive pricing live functions reviewed/reports published; fresh CP-2G TDG and CP-3C Enel actual adoption passed",
+      "tdg_case": {
+        "report": "tdg-macro-esg/CP-2E-delivery/report.html",
+        "handoff_sha256": "7d7d0d93f57aa3acd7b11ed0fd9eb63449bd82640f1653239dc8c9bddd820afa",
+        "review": "All9macro+8ESGregisters and15numericcontrols read againstfullsentinstructions andprimarypages. 12newlivecalcs audited. PDF151imageall8ratehedgerows/dates/strikeschecked; fixedcoupons15600, gross25068/carry24880/floating9189 distinct; gross91.89USDm notbasispoints or reportedapprox30. Conditional1188/1850/3.512626 assumptions explicit. NewsourcePDF132 says termSOFRnot subjecttofloor: live response correctly resolves that termloanquestion while preserving legacydiagnosticmissinginput/effectivecoverage/securitizationunknowns, no fake rerun. PDF139reserve5+36=41 versus3+41=44 notpayment/incrementalloss/doubleaddedCP1D25002; PDF18target/lowdirect-carbon counterevidence, safety/approval/physicalchannels andnoinventedratchet. NewqualitativeModerateriskjudgment is explicitlybounded,notcalibratednetrisk.",
+        "consumer": "tdg-forecast/CP-2G.md, macro-to-fixed-scenario interpretation and no duplicate cash/rate/claims adjustments"
+      },
+      "enel_case": {
+        "report": "enel-sdg/CP-2E-delivery/report.html",
+        "handoff_sha256": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af",
+        "review": "All eight ESG views and eleven controls checked against sent instructions and primary selections. Preserves original EUR1000m, known zero, conditional one-time25bp/EUR2.5m annual equivalent, gross991.23/discount8.77 versus yield0.189%, interim capacity54.457240 versus displayed54.5 and December55 threshold. Numeric, external verification, publication and written notice are separate limbs;45days not45businessdays; limited assurance and EY/replacement/KPMG evidence gap explicit. Programme required-publication versus financial-note actual-publication wording unresolved without Final Terms. No target failure, actual payment, net hedge cost, issuer materiality or market-access claim. First draft repaired ISO dates only; no economic or production repair needed.",
+        "consumer": {
+          "path": "enel-sdg/CP-3C.md",
+          "report": "enel-sdg/CP-3C-delivery/report.html",
+          "sha256": "cf1242377c474517c09f14fc5a62448017ccbb503f5c8c95818f155dab4b08b3",
+          "review": "Fresh live receiver read exact producer and original terms; actively admits contingent funding cost while preventing duplicate coupon/discount, cross-tranche imports, invented principal or schedule, target-failure and refinancing claims. Five exact consumption controls pass. No new calculation; no repairs."
+        }
+      }
     },
     "CP-2G": {
       "aliases": [],
-      "status": "pending live module proof; historical host proof remains separately recorded"
+      "status": "Live full-method conditional forecast reviewed, report published and fresh CP-2 substantive adoption checked/published; broader pathways pending",
+      "case": "TDG FY2024 opening, Nov7 2024 guidance, separate December quarter retrospective context; FY2025-27 conditional annual paths",
+      "report": "tdg-forecast/CP-2G-delivery/report.html",
+      "handoff_sha256": "20314e01d39b87d2e50d4a50ab048371175bccc4c8330ff1170811254b38a2c6",
+      "review": "Read full actual response against eight current handoffs, scenario instructions and original guidance captures. Newly re-executed unchanged kernels independently Fraction-checked180cells including18missing,15break rows/45hits and missing-cash controls. Seven additional actual tool calculations checked. Exact source8850/4685 distinct from8849.924/4685.1497656, residuals-0.076/+0.1497656. Downside3x firstFY2025, no7x moving-model hit, versus staticCP2A differing bases explained. All nine recurrences, controls and42readiness rows retain original fiscal dates and missing access. FreshDR adoption substantive; fresh2E explicit no-termloan-floor with unknown net exposure, no gross91.89/issuer30 duplicate rate overlay; broad25002 notfunded24880 and41reserve notnewcashuse. ActualDecember financing/payouts disconfirm completeness of stipulated annual allocations. No full issuer forecast/native wrapper acceptance claimed.",
+      "repair": "Three retained live drafts failed only prose route Calculations; model added a source-supported five-row control table and H1, no changes to original economics. Complete final content reviewed. Case selectors targeted H2s with only nested prose: changed Calculations->Equations,lineage and recurrence controls and Gaps->QA and scope disposition. Also distinguished three control-grid tab labels required by existing renderer. Initial layout retained. Recovered exact third model draft through original pending request with provider-refusing executor, zero extra paid calls.",
+      "consumer": {
+        "path": "tdg-forecast/CP-2.md",
+        "report": "tdg-forecast/CP-2-delivery/report.html",
+        "sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+        "review": "Read entire actual incremental synthesis. Eight controls match; three scenarios materially change cash-service/retention conviction while preserving fixed commanded repayments, no sweep, qualified guidance, static-vs-moving test definitions, observed December contrary allocation, no duplicate rate/claims overlay and unknown access. No new arithmetic or primary-extraction claim; no repairs."
+      }
     },
     "CP-2H": {
       "aliases": [],
-      "status": "pending live module proof; historical host proof remains separately recorded"
+      "status": "Ten-register live ratings response reviewed, repaired, report published and fresh CP-3C funding consumption reviewed/published; broader pathways pending",
+      "case": "Ford Otomotiv Sanayi A.S. / Ford Otosan, agency reports April11 2024; separate from TDG/Enel and current ratings",
+      "report": "ford-ratings/CP-2H-delivery/report.html",
+      "handoff_sha256": "b5b197396d7df31a4997dbc58c7879caca9a23063858cb362e26fa08ae216ecb",
+      "review": "All ten actual registers read against primary agency captures and selected full method. 51 financial literals, nine ratios, source residuals-1/+1TRYm, six strict-boundary and four duration controls independently checked. Preliminary S&PBB-/Positive versus FitchBB+/Stable and expectedBB+(EXP)/RR4 preserved. Approx around2x has no exact Fitch headroom; S&P gross2.216176 not substituted. Rough15%outsideEBITDA/15pp proxy is not >30%totalearnings eligibility. All positive/negative sensitivities, dates/duration, country/T&C/parent/JV/contract guarantee distinctions and differing liquidity/cash definitions retained. Newly read source3.5x EBRD/IFC consolidated semiannual and Romanian local covenant differs from same-number policy; operative capacity unproved. All published forecasts remain historical opinions, no current or probability claim.",
+      "repair": "Actual original T2R.8 reversed Romanian net-debt/EBITDA and T2R.3 ambiguously said less signed negative adjustment. Existing pinned-draft live repair changed exactly those two phrases; diff verified against primary M L511-512 and signed financial rows. No numbers or other prose changed, original immutable. No production change.",
+      "consumer": {
+        "path": "ford-ratings/CP-3C-repaired.md",
+        "report": "ford-ratings/CP-3C-delivery/report.html",
+        "sha256": "fbf94aa34b6a763fb1bafcacaa8295826779fea11ddc83ac074c8d8811b684ae",
+        "review": "All six source-controlled funding cases read against actual S&P/Fitch reports and fresh CP-2H. TRYbn Jan-Dec2024 sources109.2/uses90.7/difference18.5/ratio1.2040; distinct no-bond/no-facility/neither/dividend/capex sensitivities retain independent operands, no current cash or settlement assertion. Two known totals, six balances/ratios and two missing controls rechecked independently. Proposed issue status, local-facility conditions, liquidity-vs-adjusted-financial definitions and stress-dividend exclusion qualified. One exact live repair removes erroneous extension of issuer Positive outlook to issue rating; diff verified, original retained."
+      }
     },
     "CP-3": {
       "aliases": [
@@ -243,12 +282,40 @@
       {
         "point": "Wencor announcement may be confused with closingenterprisevalue or realizedearnings",
         "finding": "PrimarySEC announcementHTMLretained and 8Kbrowsercapture retained afterdirect403. Sourcefacts andhiddenindependentexpectations preservefixedsharecount,stockvaluationrisk,20mescrowwithin1900cash,75estimatedtaxbenefitthrough2038 andforecast724/153 withFebruaryacquisition/diligenceadjustments. Live reviewpending; no completed/normalizedEVclaim authorized. Completedlive source/mathreview andfreshCP2 adoption nowconfirmallrestrictions preserved."
+      },
+      {
+        "point": "Historical single-facility diagnostic missing floor could be misrepresented as absent from actualissuer source",
+        "finding": "ActualliveCP2E readsPDF132 andcorrectly identifiesexplicitno-floor termloan wording; diagnostic is preserved asold-input purefunctiontest, notcurrentfacts. No numericalzero floor inventedforsecuritization/FX/qualifiedcoverage. Freshdownstreamforecast mustconsume this distinction."
+      },
+      {
+        "point": "New money/KPI oracle script could inherit ambient Decimal rounding or conflate sourceunits",
+        "finding": "verify_rate_esg_inputs uses Fractionexpectedamounts fromindependentliteraloracles, exactmissingemdashes andseparateissuer/date scopes. Fractiontwo-argumentstringconstructor correctedbeforeuse. Madehalf-even explicit; checks pass underadversarialambientprecision7/ROUND_FLOOR. No productionfunctionchanged; test-onlyrewrite skip."
+      },
+      {
+        "point": "Forecast reuse could silently inherit incorrect amounts or non-fiscal period labels",
+        "finding": "New read-only fixture recomputes180 amounts with independent Fraction equations and checks old retained outputs plus15 break rows/45hits and missing-cash propagation. The unchanged kernel runs separately; September fiscal-wrapper refusal and incompatible calendar labels remain explicit. Adversarial ambient precision7/ROUND_FLOOR passes. Test-fixture initial old-key lookup corrected before use; no production change."
+      },
+      {
+        "point": "Rating residual direction, source dashes or trigger equality could be silently normalized",
+        "finding": "51 original S&P line literals checked including dashes;9 ratios and3 FFO identities independent Fraction checked. Fixed test-fixture DCF direction to source-minus-derived, matching explicit source discrepancy +1, before fixture publication. Six pure signed/strict-boundary andfour duration helper controls match literal independent expectations; repeated/split-case observations do not invent duration. Selected helper lacked shared validator: reused existing byte-identical locally vendored validator by pinned hash, no predecessor mutation. Explicit leadingzero decimals required by existing parser. Ambient low-precision check passes."
+      },
+      {
+        "point": "Live forecast acceptance failed even though numeric controls were correct",
+        "finding": "Read all three actual drafts: only a five-row calculation summary and title added, economics unchanged. Confirmed route metadata targets nearestheading; two H2 prose selectors had no paragraphs. Corrected only case selectors and duplicate control-tab labels, retaining initial layout. Exact final model response passes existing delivery and provider-refusing recovery, zero additional paid calls."
+      },
+      {
+        "point": "A numerically checked rating response could still invert a legal ratio in prose",
+        "finding": "Manual full-response review found T2R.8 says Romanian EBITDA/debt, contrary to primary S&P L511-512 reported net debt/EBITDA and its own T2R.3. Also found ambiguous less-signed-negative EBITDA wording. Existing pinned-draft repair launched for exactly those two phrases; original retained, no global production change justified. All other ten registers, 51 source cells and thresholds/dates reviewed. Targeted live repair completed; exact diff is only those two phrases and all original numeric controls still pass."
+      },
+      {
+        "point": "Funding consumer could transfer issuer outlook to proposed note or turn annual sums into payment-date liquidity",
+        "finding": "Full response/source review found shared issuer/note BB-/Positive wording. Pinned-draft live repair changes exactly that phrase; no numbers changed. Independent six-case Fraction/unchanged helper controls pass under ambient low precision. Annual sums, currencies, mixed stress-dividend/unstressed-capex basis and conditional funding restrictions remain explicit."
       }
     ]
   },
   "rewrite_tournament": {
     "decision": "Skipped at this checkpoint: only campaign test fixtures, data and selectors changed; no nontrivial production function changed.",
-    "verification": "29focusedtests, read-only42literal/10statistics crosscheck,ruff anddiffcheck pass. gitleaks proper single-directoryscan passes50.97MB. Earlier two-path command scannedrepository instead; that result is not used as campaignverification."
+    "verification": "29 focused tests; five source/math fixture checks; ruff and diffcheck pass. Proper single-directory gitleaks scan78.06MB has no findings. Only test fixtures/data/selectors changed at this checkpoint."
   },
   "live": {
     "calls": {
@@ -257,12 +324,15 @@
       "CP-DR": 7,
       "CP-2A": 7,
       "CP-2D": 15,
-      "CP-3C": 10,
+      "CP-3C": 21,
       "CP-1C": 18,
-      "CP-2": 4
+      "CP-2": 5,
+      "CP-2E": 10,
+      "CP-2G": 6,
+      "CP-2H": 6
     },
-    "cost_usd": "3.77232760",
-    "independent_calculations": 284,
+    "cost_usd": "5.83335040",
+    "independent_calculations": 310,
     "declined_nonpositive_ratios": 2
   },
   "checkpoint_scope": "Verified module progress only; remaining modules and all six broader pathway proofs are still pending. Continuing this task after checkpoint."

@@ -1,0 +1,136 @@
+{
+  "scope": "Existing pure derive_sensitivity re-executed2026-11-05; singlefacilitydiagnostic, notfullmacroanalysis/nativeacceptance. Missingfloor/hedge/FXshare intentionallyremainmissing. Theliveanalystmaycitebutmustnotclaimtohaveexecutedit.",
+  "inputs": {
+    "total_debt": "25068",
+    "ebitda": "4173",
+    "interest": "1158",
+    "fcf": null,
+    "facility_balance": "8702",
+    "rate_type": "FLOATING",
+    "floor_bp": null,
+    "debt_foreign": null,
+    "foreign_ebitda_share": null
+  },
+  "actual": {
+    "floating": {
+      "state": "known",
+      "amount": "8702",
+      "reason": null
+    },
+    "floating_share": {
+      "state": "known",
+      "amount": "0.3471357906494335407691080261688208074",
+      "reason": null
+    },
+    "cov_base": {
+      "state": "known",
+      "amount": "3.6036269430051813471502590673575129534",
+      "reason": null
+    },
+    "lev_base": {
+      "state": "known",
+      "amount": "6.0071890726096333572969086987778576564",
+      "reason": null
+    },
+    "hedge": {
+      "state": "missing",
+      "amount": null,
+      "reason": "no hedge ratio is stated"
+    },
+    "floating_after_hedge": {
+      "state": "missing",
+      "amount": null,
+      "reason": "no hedge ratio is stated"
+    },
+    "rate": [
+      {
+        "shock_bp": {
+          "state": "known",
+          "amount": "100",
+          "reason": null
+        },
+        "gross": {
+          "state": "missing",
+          "amount": null,
+          "reason": "the floor of the facility is not stated"
+        },
+        "net": {
+          "state": "missing",
+          "amount": null,
+          "reason": "the floor of the facility is not stated"
+        },
+        "interest_after": {
+          "state": "missing",
+          "amount": null,
+          "reason": "the floor of the facility is not stated"
+        },
+        "cov_after": {
+          "state": "missing",
+          "amount": null,
+          "reason": "the floor of the facility is not stated"
+        },
+        "cov_change": {
+          "state": "missing",
+          "amount": null,
+          "reason": "the floor of the facility is not stated"
+        },
+        "fcf_after": {
+          "state": "missing",
+          "amount": null,
+          "reason": "the floor of the facility is not stated"
+        },
+        "share_of_ebitda": {
+          "state": "missing",
+          "amount": null,
+          "reason": "the floor of the facility is not stated"
+        }
+      }
+    ],
+    "foreign_debt": {
+      "state": "missing",
+      "amount": null,
+      "reason": "the currency of the debt is not stated"
+    },
+    "foreign_debt_share": {
+      "state": "missing",
+      "amount": null,
+      "reason": "the currency of the debt is not stated"
+    },
+    "fx": [
+      {
+        "shock": {
+          "state": "known",
+          "amount": "0.1",
+          "reason": null
+        },
+        "debt_change": {
+          "state": "missing",
+          "amount": null,
+          "reason": "the currency of the debt is not stated"
+        },
+        "debt_after": {
+          "state": "missing",
+          "amount": null,
+          "reason": "the currency of the debt is not stated"
+        },
+        "ebitda_change": {
+          "state": "missing",
+          "amount": null,
+          "reason": "the share of EBITDA earned in other currencies is not stated"
+        },
+        "ebitda_after": {
+          "state": "missing",
+          "amount": null,
+          "reason": "the share of EBITDA earned in other currencies is not stated"
+        },
+        "lev_after": {
+          "state": "missing",
+          "amount": null,
+          "reason": "the currency of the debt is not stated"
+        }
+      }
+    ]
+  },
+  "helper_path": "src/deploy_workflow/owners/cp2e.py",
+  "helper_sha256": "b5d87f314e733f7e642fa525340c5201a468e65f5958971858b8f60bfd01b85d"
+}

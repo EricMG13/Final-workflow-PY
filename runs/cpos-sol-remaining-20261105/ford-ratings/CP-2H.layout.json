@@ -1,0 +1,98 @@
+{
+  "blocks": [
+    "rating-triggers"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-2H",
+      "heading": "T2R.1 \u2014 dated rating posture",
+      "kind": "table",
+      "block_id": "rating-triggers",
+      "label": "Dated issuer and proposed issue ratings"
+    },
+    {
+      "module_id": "CP-2H",
+      "heading": "T2R.2 \u2014 applicable historical criteria",
+      "kind": "table",
+      "block_id": "rating-triggers",
+      "label": "Report-cited historical criteria"
+    },
+    {
+      "module_id": "CP-2H",
+      "heading": "T2R.3 \u2014 metric bridge",
+      "kind": "table",
+      "block_id": "rating-triggers",
+      "label": "Agency metric definitions"
+    },
+    {
+      "module_id": "CP-2H",
+      "heading": "T2R.4 \u2014 trigger headroom",
+      "kind": "table",
+      "block_id": "rating-triggers",
+      "label": "Conditional trigger headroom"
+    },
+    {
+      "module_id": "CP-2H",
+      "heading": "T2R.5 \u2014 qualitative modifiers and contrary evidence",
+      "kind": "table",
+      "block_id": "rating-triggers",
+      "label": "Qualitative modifiers and counterevidence"
+    },
+    {
+      "module_id": "CP-2H",
+      "heading": "T2R.6 \u2014 transition cases and timing",
+      "kind": "table",
+      "block_id": "rating-triggers",
+      "label": "Transition conditions and timing"
+    },
+    {
+      "module_id": "CP-2H",
+      "heading": "T2R.7 \u2014 agency divergence",
+      "kind": "table",
+      "block_id": "rating-triggers",
+      "label": "Agency divergence"
+    },
+    {
+      "module_id": "CP-2H",
+      "heading": "T2R.8 \u2014 instrument and notching implications",
+      "kind": "table",
+      "block_id": "rating-triggers",
+      "label": "Proposed instrument treatment"
+    },
+    {
+      "module_id": "CP-2H",
+      "heading": "T2R.9 \u2014 monitoring handoff",
+      "kind": "table",
+      "block_id": "rating-triggers",
+      "label": "Monitoring handoff"
+    },
+    {
+      "module_id": "CP-2H",
+      "heading": "T2R.10 \u2014 gaps",
+      "kind": "table",
+      "block_id": "rating-triggers",
+      "label": "Unresolved evidence gaps"
+    },
+    {
+      "module_id": "CP-2H",
+      "heading": "Request",
+      "kind": "prose",
+      "block_id": "rating-triggers",
+      "prefix": "View:",
+      "label": "Historical analytical view"
+    },
+    {
+      "module_id": "CP-2H",
+      "heading": "Financial definition controls",
+      "kind": "table",
+      "block_id": "rating-triggers",
+      "label": "Independent source-amount and definition controls"
+    }
+  ],
+  "title": "Ford Otosan \u00b7 historical ratings review",
+  "question": "Which agency differences and rating triggers are supported by the April 2024 reports?",
+  "issuer_aliases": [
+    "Ford Otosan"
+  ],
+  "scope": "Historical Ford Otomotiv Sanayi A.S. (Ford Otosan), April 11, 2024. Fresh sol-medium ratings chapter using pinned selected financial and published-forecast handoffs; no distress classification or current rating/underwriting conclusion. S&P issuer/issue ratings are preliminary; Fitch issue rating is expected. Published agency forecasts are not a new stress/management model. Exact aligned headroom, sustained windows, operative terms, later outcomes and raw-PDF/visual verification remain incomplete. Fresh provider response; selected inputs do not claim full native CP-1/CP-2G acceptance. TRY millions and billions and USD/EUR instruments retain their distinct source units."
+}

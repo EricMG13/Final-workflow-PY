@@ -1,0 +1,141 @@
+{
+  "blocks": [
+    "forward-credit-path",
+    "forward-breakpoints"
+  ],
+  "routes": [
+    {
+      "module_id": "CP-2G",
+      "heading": "T2H.4 \u2014 operating paths",
+      "kind": "table",
+      "block_id": "forward-credit-path",
+      "label": "Conditional operating paths \u00b7 USD millions"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "T2H.5 \u2014 debt and cash roll-forward",
+      "kind": "table",
+      "block_id": "forward-credit-path",
+      "label": "Debt and cash recurrences \u00b7 USD millions"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "T2H.6 \u2014 calculated metrics and definitions",
+      "kind": "table",
+      "block_id": "forward-credit-path",
+      "label": "Calculated metrics \u00b7 distinct definitions"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "T2H.2 \u2014 historical-to-conditional bridge and definitions",
+      "kind": "table",
+      "block_id": "forward-credit-path",
+      "label": "Historical anchors and unresolved definitions"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "T2H.3 \u2014 assumption register",
+      "kind": "table",
+      "block_id": "forward-credit-path",
+      "label": "Explicit assumptions \u00b7 not an issuer cash plan"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "T2H.1 \u2014 upstream and research adoption",
+      "kind": "table",
+      "block_id": "forward-credit-path",
+      "label": "Retained input contributions and restrictions",
+      "table_header": "Producer"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "T2H.1 \u2014 upstream and research adoption",
+      "kind": "table",
+      "block_id": "forward-credit-path",
+      "label": "Qualified historical guidance adoption",
+      "table_header": "question_id"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "T2H.8 \u2014 deleveraging and disconfirmation",
+      "kind": "prose",
+      "block_id": "forward-credit-path",
+      "label": "Deleveraging dependencies and contrary case"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "T2H.7 \u2014 first tests and consequences",
+      "kind": "table",
+      "block_id": "forward-breakpoints",
+      "label": "First analyst tests \u00b7 not covenants"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "T2H.9 \u2014 gaps and delivery-driver readiness",
+      "kind": "table",
+      "block_id": "forward-breakpoints",
+      "label": "Unresolved evidence and model consequences",
+      "table_header": "Gap"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "T2H.9 \u2014 gaps and delivery-driver readiness",
+      "kind": "table",
+      "block_id": "forward-breakpoints",
+      "label": "Driver readiness \u00b7 missing remains missing",
+      "table_header": "Driver family"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "Request",
+      "kind": "prose",
+      "block_id": "forward-credit-path",
+      "label": "Conditional view and historical scope"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "Calculations",
+      "kind": "prose",
+      "block_id": "forward-breakpoints",
+      "label": "Exact calculation record and fiscal-wrapper limit"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "Gaps",
+      "kind": "prose",
+      "block_id": "forward-breakpoints",
+      "label": "Unproven scope"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "Next module",
+      "kind": "prose",
+      "block_id": "forward-breakpoints",
+      "label": "Next consumer and evidence needs"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "Forecast controls REFERENCE",
+      "kind": "table",
+      "block_id": "forward-credit-path",
+      "label": "Independent six-place control grid"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "Forecast controls DOWNSIDE",
+      "kind": "table",
+      "block_id": "forward-credit-path",
+      "label": "Independent six-place control grid"
+    },
+    {
+      "module_id": "CP-2G",
+      "heading": "Forecast controls UPSIDE",
+      "kind": "table",
+      "block_id": "forward-credit-path",
+      "label": "Independent six-place control grid"
+    }
+  ],
+  "title": "TransDigm \u00b7 historical conditional credit paths",
+  "question": "How do the stated scenarios change debt-service coverage and cash, and what remains unsupported?",
+  "scope": "Historical consolidated TDG, FY2024/September 30 base; guidance dated November 7, 2024 and separately dated December-quarter context. This retrospective illustration is not an as-of-November-7 backtest or evidence-supported central forecast. USD millions; October\u2013September planning years FY2025\u2013FY2027. Stipulated cash drivers, annual repayments and excluded financing/other uses are assumptions, not a complete issuer plan. Model CFO/cash proxy and mechanical net debt are not issuer CFO/FCF or accessible liquidity. Missing minimum cash/access, quarterly troughs, complete maturities/refinancing, quality earnings and segment-driver mapping remain gaps. Analyst watches are not covenants or probabilities. All nine analytical registers are preserved. Existing native fiscal-wrapper refusal remains unpassed; this report preserves the explicit source planning dates. Fresh sol-medium analytical response using current reviewed Markdown handoffs and freshly re-executed unchanged deterministic kernels; not native-contract acceptance. Excel is ingestion-only; historical workbook-readiness language is superseded."
+}

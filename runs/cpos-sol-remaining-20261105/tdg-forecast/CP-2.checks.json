@@ -1,0 +1,51 @@
+{
+  "required_terms": [
+    "2026-11-05",
+    "Forecast adoption",
+    "Integrated implication",
+    "Monitoring"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Consumption controls",
+      "columns": [
+        "Metric",
+        "Value"
+      ],
+      "rows": [
+        [
+          "Reference_FY2025_closing_cash_USDm",
+          "3043.358886"
+        ],
+        [
+          "Reference_FY2027_closing_cash_USDm",
+          "6036.608387"
+        ],
+        [
+          "Downside_FY2025_closing_cash_USDm",
+          "1957.048932"
+        ],
+        [
+          "Downside_FY2027_closing_cash_USDm",
+          "2652.781460"
+        ],
+        [
+          "Upside_FY2027_closing_cash_USDm",
+          "6594.596095"
+        ],
+        [
+          "Downside_FY2025_coverage_x",
+          "2.282544"
+        ],
+        [
+          "Downside_FY2027_coverage_x",
+          "2.736479"
+        ],
+        [
+          "Downside_FY2027_carrying_leverage_x",
+          "5.294869"
+        ]
+      ]
+    }
+  ]
+}

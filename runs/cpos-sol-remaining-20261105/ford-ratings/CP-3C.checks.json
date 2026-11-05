@@ -1,0 +1,65 @@
+{
+  "required_terms": [
+    "2024-04-11",
+    "2026-11-05",
+    "2024-01-01",
+    "Funding cases",
+    "Funding conclusion"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Funding controls",
+      "columns": [
+        "Case",
+        "Sources TRY bn",
+        "Uses TRY bn",
+        "Difference TRY bn",
+        "Ratio"
+      ],
+      "rows": [
+        [
+          "agency-plan-reproduction",
+          "109.2",
+          "90.7",
+          "18.5",
+          "1.2040"
+        ],
+        [
+          "no-proposed-bond",
+          "93.2",
+          "90.7",
+          "2.5",
+          "1.0276"
+        ],
+        [
+          "no-new-capex-facility",
+          "94.2",
+          "90.7",
+          "3.5",
+          "1.0386"
+        ],
+        [
+          "neither-new-source",
+          "78.2",
+          "90.7",
+          "-12.5",
+          "0.8622"
+        ],
+        [
+          "unstressed-dividend-overlay",
+          "109.2",
+          "117.8",
+          "-8.6",
+          "0.9270"
+        ],
+        [
+          "illustrative-15pct-capex-cut",
+          "109.2",
+          "83.755",
+          "25.445",
+          "1.3038"
+        ]
+      ]
+    }
+  ]
+}

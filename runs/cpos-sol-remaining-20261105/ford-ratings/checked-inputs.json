@@ -1,0 +1,369 @@
+{
+  "execution": "Read-only source-literal and Fraction recheck; six unchanged pure headroom/boundary calls and four selected duration helper calls. Synthetic controls are not issuer forecasts.",
+  "verified_primary_cells": 51,
+  "financials": {
+    "selected_source": "S&P forecast summary, PDF page 7; years 2023a/2024f/2025f; TRY millions except ratios",
+    "values": {
+      "revenue": [
+        "411906",
+        "742742",
+        "1056981"
+      ],
+      "ebitda_reported": [
+        "50082",
+        "64619",
+        "82445"
+      ],
+      "capitalised_development_signed": [
+        "-1932",
+        "-7249",
+        "-10393"
+      ],
+      "disposal_adjustment": [
+        "65",
+        null,
+        null
+      ],
+      "ebitda_sp": [
+        "48214",
+        "57370",
+        "72052"
+      ],
+      "cash_interest_signed": [
+        "-4505",
+        "-8310",
+        "-11596"
+      ],
+      "cash_tax_signed": [
+        "-1704",
+        "-343",
+        "-5220"
+      ],
+      "ffo": [
+        "42005",
+        "48717",
+        "55236"
+      ],
+      "capex": [
+        "30128",
+        "38989",
+        "52010"
+      ],
+      "focf": [
+        "16425",
+        "8611",
+        "8834"
+      ],
+      "dividends": [
+        "18424",
+        "27087",
+        "30378"
+      ],
+      "dcf": [
+        "-1999",
+        "-18475",
+        "-21544"
+      ],
+      "debt_sp": [
+        "76904",
+        "127142",
+        "144661"
+      ],
+      "debt_ebitda_reported": [
+        "1.6",
+        "2.2",
+        "2.0"
+      ],
+      "ffo_debt_pct_reported": [
+        "54.6",
+        "38.3",
+        "38.2"
+      ],
+      "margin_pct_reported": [
+        "11.7",
+        "7.7",
+        "6.8"
+      ],
+      "ebitda_interest_cover_reported": [
+        "8.2",
+        "6.7",
+        "6.1"
+      ]
+    },
+    "calculations": [
+      {
+        "year": 2023,
+        "scope": "agency-reported historical actual",
+        "leverage_calculated": "1.5950553781059443315219645746048865475",
+        "ffo_debt_calculated": "0.54620045771351295121190055133673150941",
+        "margin_calculated": "0.11705097765024058887221841876544648536",
+        "identified_numeric_ebitda_bridge_residual": "-1",
+        "dcf_display_bridge_residual": "0"
+      },
+      {
+        "year": 2024,
+        "scope": "agency-published forecast, not our generated model",
+        "leverage_calculated": "2.2161757015861948753704026494683632561",
+        "ffo_debt_calculated": "0.38316999889886898113919869122713186830",
+        "margin_calculated": "0.077240818480710663999073702577745704430",
+        "identified_numeric_ebitda_bridge_residual": "0",
+        "dcf_display_bridge_residual": "1"
+      },
+      {
+        "year": 2025,
+        "scope": "agency-published forecast, not our generated model",
+        "leverage_calculated": "2.0077305279520346416476988841392327763",
+        "ffo_debt_calculated": "0.38183062470188924450957756409813287617",
+        "margin_calculated": "0.068167734330134600338132851962334233066",
+        "identified_numeric_ebitda_bridge_residual": "0",
+        "dcf_display_bridge_residual": "0"
+      }
+    ],
+    "limits": [
+      "Raw PDF bytes not retained; text/cell locators checked, visual attempt timed out",
+      "Agency-reported adjustments/forecasts, not independent issuer financial reconstruction",
+      "Display residuals retained; cause not conclusively resolved",
+      "Source -- remains null; known-numeric subtotal does not assert missing row is zero",
+      "No Fitch-to-SP metric equality or full CP1/CP2G acceptance claimed"
+    ]
+  },
+  "controls": {
+    "reported_fitch_central_illustration": {
+      "source_metric_literal": "around 2x",
+      "threshold": "above 2.0x by 2025",
+      "central_headroom": "0",
+      "precision": "approximately zero, NOT exact true headroom",
+      "strict_reached": null,
+      "reason": "approximate input has no disclosed uncertainty band; actual threshold crossing cannot be determined"
+    },
+    "sp_geography_proxy": {
+      "basis": "100% minus source approximately 85% Turkey EBITDA estimate; total earnings definition for the upgrade condition is not independently bridged",
+      "outside_ebitda_pct": "15",
+      "outside_earnings_condition_pct": "30",
+      "central_distance_to_positive_condition_pp": "15",
+      "true_agency_headroom": null,
+      "conditional": "Proxy only; source says more than, plus sustainable and other conditions; no upgrade conclusion"
+    },
+    "ordinal_symbol_distance": {
+      "fitch": "BB+",
+      "sp": "BB-",
+      "sp_qualifier": "preliminary",
+      "steps": 2,
+      "meaning": "ordinal comparison, not a probability, average rating, or automatic notch action"
+    },
+    "synthetic_boundary_controls": [
+      {
+        "comparison": "Above",
+        "metric": "2.1",
+        "threshold": "2",
+        "unit": "multiple",
+        "headroom": "-0.1",
+        "strict_reached": true
+      },
+      {
+        "comparison": "Above",
+        "metric": "1.9",
+        "threshold": "2",
+        "unit": "multiple",
+        "headroom": "0.1",
+        "strict_reached": false
+      },
+      {
+        "comparison": "Above",
+        "metric": "2",
+        "threshold": "2",
+        "unit": "multiple",
+        "headroom": "0",
+        "strict_reached": false
+      },
+      {
+        "comparison": "Below",
+        "metric": ".055",
+        "threshold": ".06",
+        "unit": "percent",
+        "headroom": "-0.5",
+        "strict_reached": true
+      },
+      {
+        "comparison": "Below",
+        "metric": ".065",
+        "threshold": ".06",
+        "unit": "percent",
+        "headroom": "0.5",
+        "strict_reached": false
+      },
+      {
+        "comparison": "Below",
+        "metric": ".06",
+        "threshold": ".06",
+        "unit": "percent",
+        "headroom": "0",
+        "strict_reached": false
+      }
+    ],
+    "synthetic_duration_controls": {
+      "repeated_without_rule": {
+        "trigger": "synthetic margin control",
+        "trigger_direction": "min-ratio",
+        "thresholds": {
+          "threshold": 0.06
+        },
+        "is_range": false,
+        "periods": [
+          {
+            "period": "2024",
+            "case": "D",
+            "value": 0.055,
+            "headroom": {
+              "threshold": -0.005
+            },
+            "binding_threshold": 0.06,
+            "binding_headroom": -0.005,
+            "status": "Breached"
+          },
+          {
+            "period": "2025",
+            "case": "D",
+            "value": 0.055,
+            "headroom": {
+              "threshold": -0.005
+            },
+            "binding_threshold": 0.06,
+            "binding_headroom": -0.005,
+            "status": "Breached"
+          }
+        ],
+        "breach_periods": [
+          "2024",
+          "2025"
+        ],
+        "classification": "multiple-period breaches \u2014 sustained duration not established",
+        "sustained": null,
+        "sustained_periods": null,
+        "sustained_cases": [],
+        "note": "point threshold; agencies often publish a range \u2014 confirm before treating this as a hard bound"
+      },
+      "explicit_same_case_rule": {
+        "trigger": "synthetic margin control",
+        "trigger_direction": "min-ratio",
+        "thresholds": {
+          "threshold": 0.06
+        },
+        "is_range": false,
+        "periods": [
+          {
+            "period": "2024",
+            "case": "D",
+            "value": 0.055,
+            "headroom": {
+              "threshold": -0.005
+            },
+            "binding_threshold": 0.06,
+            "binding_headroom": -0.005,
+            "status": "Breached"
+          },
+          {
+            "period": "2025",
+            "case": "D",
+            "value": 0.055,
+            "headroom": {
+              "threshold": -0.005
+            },
+            "binding_threshold": 0.06,
+            "binding_headroom": -0.005,
+            "status": "Breached"
+          }
+        ],
+        "breach_periods": [
+          "2024",
+          "2025"
+        ],
+        "classification": "sustained breach",
+        "sustained": true,
+        "sustained_periods": [
+          "2024",
+          "2025"
+        ],
+        "sustained_cases": [
+          "D"
+        ],
+        "note": "point threshold; agencies often publish a range \u2014 confirm before treating this as a hard bound"
+      },
+      "split_cases_not_duration": {
+        "trigger": "synthetic margin control",
+        "trigger_direction": "min-ratio",
+        "thresholds": {
+          "threshold": 0.06
+        },
+        "is_range": false,
+        "periods": [
+          {
+            "period": "2024",
+            "case": "A",
+            "value": 0.055,
+            "headroom": {
+              "threshold": -0.005
+            },
+            "binding_threshold": 0.06,
+            "binding_headroom": -0.005,
+            "status": "Breached"
+          },
+          {
+            "period": "2025",
+            "case": "B",
+            "value": 0.055,
+            "headroom": {
+              "threshold": -0.005
+            },
+            "binding_threshold": 0.06,
+            "binding_headroom": -0.005,
+            "status": "Breached"
+          }
+        ],
+        "breach_periods": [
+          "2024",
+          "2025"
+        ],
+        "classification": "point-in-time breach \u2014 not automatically a trigger",
+        "sustained": null,
+        "sustained_periods": [
+          "2024",
+          "2025"
+        ],
+        "sustained_cases": [],
+        "note": "point threshold; agencies often publish a range \u2014 confirm before treating this as a hard bound"
+      },
+      "range_endpoints": {
+        "trigger": "synthetic range control",
+        "trigger_direction": "max-ratio",
+        "thresholds": {
+          "lower": 2.0,
+          "upper": 2.2
+        },
+        "is_range": true,
+        "periods": [
+          {
+            "period": "P",
+            "case": "X",
+            "value": 2.1,
+            "headroom": {
+              "lower": -0.1,
+              "upper": 0.1
+            },
+            "binding_threshold": 2.0,
+            "binding_headroom": -0.1,
+            "status": "Breached"
+          }
+        ],
+        "breach_periods": [
+          "P"
+        ],
+        "classification": "point-in-time breach \u2014 not automatically a trigger",
+        "sustained": false,
+        "sustained_periods": null,
+        "sustained_cases": [],
+        "note": null
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-forecast-consumer-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-2"
+    ]
+  },
+  "handoffs": {
+    "CP-2": {
+      "path": "CP-2.md",
+      "sha256": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab"
+    }
+  },
+  "layout": {
+    "blocks": [
+      "key-findings",
+      "capital-structure"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-2",
+        "heading": "Request",
+        "kind": "prose",
+        "prefix": "View:",
+        "block_id": "key-findings"
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Integrated implication",
+        "kind": "prose",
+        "block_id": "key-findings"
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Forecast adoption",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "Forecast adoption"
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Monitoring",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "Monitoring"
+      },
+      {
+        "module_id": "CP-2",
+        "heading": "Consumption controls",
+        "kind": "table",
+        "block_id": "capital-structure",
+        "label": "Consumption controls"
+      }
+    ],
+    "title": "TDG historical forecast adoption",
+    "question": "How do the conditional paths change the credit assessment?",
+    "scope": "Fresh live CP-2 incremental adoption of current CP-2G, historical FY2024 baseline; conditional paths, not complete forecast/current underwriting or full pathway."
+  }
+}

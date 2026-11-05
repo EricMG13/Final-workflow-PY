@@ -1,0 +1,32 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-forecast-consumer-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-2"
+    ]
+  },
+  "module_id": "CP-2",
+  "instructions": {
+    "path": "CP-2.instructions.md",
+    "sha256": "476bfbdead298bae42445e7fa05e4197cc819f775110eb8c75c17150caacd70d"
+  },
+  "sources": {},
+  "handoffs": {
+    "CP-2-prior": {
+      "path": "../../cpos-sol-medium-20261105/CP-2-v2.md",
+      "sha256": "1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be"
+    },
+    "CP-2G": {
+      "path": "CP-2G.md",
+      "sha256": "20314e01d39b87d2e50d4a50ab048371175bccc4c8330ff1170811254b38a2c6"
+    }
+  },
+  "layout": "CP-2.layout.json",
+  "checks": "CP-2.checks.json",
+  "output": "CP-2.md"
+}

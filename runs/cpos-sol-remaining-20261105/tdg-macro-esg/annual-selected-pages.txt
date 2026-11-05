@@ -1,0 +1,1854 @@
+Unmodified selected pages from TDG FY2024 annualreport PDF sha256 dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af; textaidsha2563ef306e99b330ddf535f096a1a507d9a8feadc559101e4b410d061dce67778db; source is historical.
+
+=== ORIGINAL PDF PAGE 12 ===
+stock options, these plans are integral to our equity-based compensation strategy. As we cultivate a culture of
+growth and excellence, we firmly believe that the use of performance-based stock options will continue to be a
+key element in retaining our essential employees and attracting future talent.
+
+Diversity, Equity and Inclusion
+      At TransDigm, we highly value the contributions of diverse perspectives, fresh ideas and varied
+experiences. Our commitment to diversity is more than just an organizational goal; it is a fundamental principle
+that drives innovation, enhances our competitive edge and ultimately leads to better outcomes for all
+stakeholders. To gauge our progress, we annually review and assess our diversity initiatives and metrics. We
+strive for improvement each year.
+
+      We know that the tone is set from the top, and our commitment to diversity, equity and inclusion (“DEI”)
+must be reflected within our leadership team as well as our Board of Directors. Beginning in 2022, we worked to
+enhance DEI awareness among our leadership through the implementation of Unconscious Bias Training for our
+Board and management. Furthermore, our commitment to DEI is interwoven into our internal training programs,
+communications and conferences, ensuring that diversity remains at the forefront of our organizational culture.
+Total past and present MDP participants are approximately 34% gender and/or racially diverse and we
+continuously work to enhance the diversity of the program. We are committed to diversity at all levels of
+management and leadership, and our leadership team and Board of Directors are committed to improving
+diversity throughout the Company and fostering a more inclusive and open environment. Diversity, equity and
+inclusion make us stronger as a business so we can effectively serve all our stakeholders. Our workforce includes
+talented people from many backgrounds.
+
+      Discrimination is not tolerated at TransDigm. We are committed to high ethical standards and equal
+employment opportunities in all personnel actions without regard to race, color, religion, gender, national origin,
+citizenship status, age, marital status, gender identity or expression, sexual orientation, physical or mental
+disability, or veteran status.
+
+Health and Safety
+      We are focused on establishing, maintaining and operating our facilities, with a strong emphasis on process
+safety and risk mitigation. Equally, we strive to empower and support our employees in preventing accidents and
+promoting a healthy work environment. We require our personnel to report and communicate risks, potential
+hazards, incidents and near misses so that we can investigate and establish appropriate measures to prevent future
+occurrences. To underscore our commitment to employee safety and well-being, we require each operating unit
+to individually report environmental, health and safety matters to our executive team monthly.
+
+Seasonality
+      We do not believe our net sales are subject to significant seasonal variation; however, our net sales have
+generally been lower in the first quarter of our fiscal year compared to the subsequent quarters due to fewer
+working days resulting from the observance of various holidays.
+
+Available Information
+      TD Group’s Annual Report on Form 10-K, Quarterly Reports on Form 10-Q and Current Reports on
+Form 8-K, including any amendments, will be made available free of charge on the Company’s website,
+www.transdigm.com, as soon as reasonably practicable, following the filing of the reports with the Securities and
+Exchange Commission (“SEC”). In addition, the Company’s website allows investors and other interested
+persons to sign up to automatically receive e-mail alerts when news releases and financial information is posted
+on the website. The SEC also maintains a website, www.sec.gov, that contains reports, proxy and information
+statements and other information regarding issuers that file electronically with the SEC. The information on or
+obtainable through our website is not incorporated into this Annual Report on Form 10-K.
+
+                                                                    10
+
+=== ORIGINAL PDF PAGE 13 ===
+ITEM 1A.  RISK FACTORS
+
+      Set forth below are material risks and uncertainties that could negatively affect our business and financial
+condition and could cause our actual results to differ materially from those expressed in forward-looking
+statements contained in this report. Additional risks and uncertainties not presently known to us or that we
+currently deem immaterial also may impair our business operations and financial condition. You should not
+interpret the disclosure of any risk factor to imply that the risk has not already materialized.
+
+
+Risks Related to our Strategy
+
+Our business focuses almost exclusively on the aerospace and defense industry.
+
+      During a prolonged period of significant market disruption in the aerospace and defense industry, such as
+the adverse impact that the COVID-19 pandemic had on the commercial aerospace market, and other
+macroeconomic factors such as when recessions occur, our business may be disproportionately impacted
+compared to peer companies that are more diversified in the industries they serve. A more diversified company
+with significant sales and earnings derived from outside the aerospace and defense sector may be able to recover
+more quickly from significant market disruptions such as the COVID-19 pandemic.
+
+We rely heavily on certain customers for much of our sales.
+
+      In fiscal year 2024, no customer individually accounted for 10% or more of the Company’s net sales;
+however, our top ten customers for fiscal year 2024 accounted for approximately 42% of our net sales. A
+material reduction in purchasing by one of our larger customers for any reason, including but not limited to
+general economic or aerospace downturns, decreased production, strike or resourcing, could have a material
+adverse effect on results of operations, financial position and cash flows.
+
+We generally do not have guaranteed future sales of our products. Further, when we enter into fixed price
+contracts with some of our customers, we take the risk for cost overruns.
+
+      As is customary in our business, we do not generally have long-term contracts with most of our aftermarket
+customers and, therefore, do not have guaranteed future sales. Although we have long-term contracts with many
+of our OEM customers, many of those customers may terminate the contracts on short notice and, in most cases,
+our customers have not committed to buy any minimum quantity of our products. In addition, in certain cases, we
+must anticipate the future volume of orders based upon the historic purchasing patterns of customers and upon
+our discussions with customers as to their anticipated future requirements, and this anticipated future volume of
+orders may not materialize.
+
+      We also have entered into multi-year, fixed-price contracts with some of our customers, pursuant to which
+we have agreed to perform the work for a fixed price and, accordingly, realize all the benefit or detriment
+resulting from any decreases or increases in the costs of making these products. This risk is greater in a high
+inflationary environment, such as occurred in fiscal 2023 and fiscal 2024. Sometimes we accept a fixed-price
+contract for a product that we have not yet produced, and this increases the risk of cost overruns or delays in the
+completion of the design and manufacturing of the product. Most of our contracts do not permit us to recover
+increases in raw material prices, taxes or labor costs.
+
+We intend to pursue acquisitions. Our business may be adversely affected if we cannot consummate
+acquisitions on satisfactory terms, or if we cannot effectively integrate acquired operations.
+
+      A significant portion of our growth has occurred through acquisitions. Any future growth through
+acquisitions will be partially dependent upon the continued availability of suitable acquisition candidates at
+
+                                                                    11
+
+=== ORIGINAL PDF PAGE 14 ===
+favorable prices and upon advantageous terms and conditions. We intend to pursue acquisitions that we believe
+will present opportunities consistent with our overall business strategy. However, we may not be able to find
+suitable acquisition candidates to purchase or may be unable to acquire desired businesses or assets on
+economically acceptable terms or may be unable to receive necessary regulatory approvals or support. In
+addition, we may not be able to raise the capital necessary to fund future acquisitions. Because we may actively
+pursue a number of opportunities simultaneously, we may encounter unforeseen expenses, complications and
+delays, including regulatory complications or difficulties in employing sufficient staff and maintaining
+operational and management oversight.
+
+      We regularly engage in discussions with respect to potential acquisition and investment opportunities. If we
+consummate an acquisition, our capitalization and results of operations may change significantly. Future
+acquisitions could result in margin dilution and further likely result in the incurrence of additional debt and
+contingent liabilities and an increase in interest and amortization expenses or periodic impairment charges related
+to goodwill and other intangible assets as well as significant charges relating to integration costs.
+
+      Acquisitions involve risks that the businesses acquired will not perform in accordance with expectations and
+that business judgments concerning the value, strengths and weaknesses of businesses acquired will prove
+incorrect. In addition, we may not be able to successfully integrate any business we acquire into our existing
+business. The successful integration of new businesses depends on our ability to manage these new businesses
+and cut excess costs. The successful integration of future acquisitions may also require substantial attention from
+our senior management and the management of the acquired business, which could decrease the time that they
+have to service, attract customers and develop new products and services or attend to other acquisition
+opportunities.
+
+Our indebtedness could adversely affect our financial health and could harm our ability to react to
+changes to our business and prevent us from fulfilling our obligations under our indebtedness.
+
+      We have a significant amount of indebtedness. As of September 30, 2024, our total indebtedness, excluding
+approximately $67 million in letters of credit outstanding, approximately $262 million of finance lease obligation
+liabilities and approximately $17 million of government refundable advances, was approximately $24 billion,
+which was approximately 134% of our total book capitalization.
+
+      In addition, we may be able to incur substantial additional indebtedness in the future. As of September 30,
+2024, we had approximately $843 million of unused commitments under our revolving credit facility and
+$163 million of additional borrowing capacity under our trade receivable securitization facility (the
+“Securitization Facility”). The $163 million available under the Securitization Facility was subsequently drawn
+in October 2024. Although our senior secured credit facility and the indentures governing the various series of
+senior secured and senior subordinated notes outstanding (the “Notes”) contain restrictions on the incurrence of
+additional indebtedness, these restrictions are subject to a number of significant qualifications and exceptions,
+and the indebtedness incurred in compliance with these qualifications and exceptions could be substantial. A
+breach of any of the covenants or an inability to comply with the required leverage ratio could result in a default
+under the senior secured credit facility or the indentures.
+
+      An increase in our indebtedness could also have other important consequences to investors. For example, it
+could:
+       •    increase our vulnerability to general economic downturns and adverse competitive and industry
+            conditions;
+       •    increase the risk we are subjected to downgrade or put on a negative watch by the ratings agencies;
+       •    require us to dedicate a substantial portion of our cash flows from operations to payments on our
+            indebtedness, thereby reducing the availability of our cash flow to fund working capital requirements,
+            capital expenditures, acquisitions, research and development efforts and other general corporate
+            requirements;
+
+                                                                     12
+
+=== ORIGINAL PDF PAGE 15 ===
+       •    limit our flexibility in planning for, or reacting to, changes in our business and the industry in which we
+            operate;
+       •    place us at a competitive disadvantage compared to competitors that have less debt; and
+       •    limit, along with the financial and other restrictive covenants contained in the documents governing our
+            indebtedness, among other things, our ability to borrow additional funds, make investments and incur
+            liens.
+
+      All of the term loans under our term loan facility and the borrowings under our revolving credit facility and
+the Securitization Facility bear interest at variable rates primarily based on the Term Secured Overnight
+Financing Rate (“Term SOFR”). Accordingly, if Term SOFR or other variable interest rates increase, our debt
+service expense will also increase. In order to mitigate the interest rate risk of these variable rate borrowings, we
+have in the past entered into interest rate swap, cap, and collar agreements that cover a significant portion of the
+existing variable rate debt and may do so in the future, subject to market and other conditions. In connection with
+our existing term loans, we entered into various interest rate swap, cap and collar agreements associated with
+Term SOFR. The Company’s objective is to maintain an allocation of at least 75% fixed rate and 25% variable
+rate debt thereby limiting its exposure to changes in near-term interest rates. As of September 30, 2024,
+approximately 77% of our total debt was fixed rate. For information about our interest rate swap, cap and collar
+agreements, refer to Note 19, “Derivatives and Hedging Activities,” in the notes to the consolidated financial
+statements included herein.
+
+      Our indebtedness increases the possibility that we may be unable to generate cash sufficient to pay, when
+due, the principal of, interest on or other amounts due in respect of our indebtedness, including debt under the
+senior secured credit facility and the Notes. We cannot assure that our business will generate sufficient cash flow
+from operations or that future borrowings will be available to us under the senior secured credit facility or
+otherwise in amounts sufficient to enable us to service our indebtedness. If we cannot service our debt, we will
+have to take actions such as reducing or delaying capital investments, selling assets, restructuring or refinancing
+our debt or seeking additional equity capital.
+
+To service our indebtedness, we will require a significant amount of cash. Our ability to generate cash
+depends on many factors beyond our control and any failure to meet our debt service obligations could
+harm our business, financial condition and results of operations.
+
+      Our ability to make payments on and to refinance our indebtedness, including the Notes, amounts borrowed
+under the senior secured credit facility, amounts due under our Securitization Facility, and to fund our operations,
+will depend on our ability to generate cash in the future, which, to a certain extent, is subject to general
+economic, financial, competitive, legislative, regulatory and other factors that are beyond our control.
+
+      We cannot assure that our business will generate sufficient cash flow from operations, or that future
+borrowings will be available to us under the senior secured credit facility or otherwise in amounts sufficient to
+enable us to service our indebtedness, including the amounts borrowed under the senior secured credit facility,
+amounts borrowed under our Securitization Facility and the Notes, or to fund our other liquidity needs. If we
+cannot service our debt, we will have to take actions such as reducing or delaying capital investments, selling
+assets, restructuring or refinancing our debt or seeking additional equity capital. We cannot assure that any of
+these remedies could, if necessary, be effected on commercially reasonable terms, or at all. Our ability to
+restructure or refinance our debt will depend on the condition of the capital markets and our financial condition at
+such time. Any refinancing of our debt could be at higher interest rates and may require us to comply with more
+onerous covenants, which could further restrict our business operations. The terms of existing or future debt
+instruments, the Securitization Facility, the indentures governing the Notes and the senior secured credit facility
+may restrict us from adopting any of these alternatives. In addition, any failure to make payments of interest and
+principal on our outstanding indebtedness on a timely basis would likely result in a reduction of our credit rating,
+which could harm our ability to incur additional indebtedness on acceptable terms and could otherwise adversely
+affect our business, financial condition and results of operations.
+
+                                                                      13
+
+=== ORIGINAL PDF PAGE 16 ===
+The terms of the senior secured credit facility and indentures governing the Notes may restrict our current
+and future operations, particularly our ability to respond to changes or to take certain actions.
+      Our senior secured credit facility and the indentures governing the Notes contain a number of restrictive
+covenants that impose significant operating and financial restrictions on TD Group, TransDigm Inc. and its
+restricted subsidiaries (in the case of the senior secured credit facility) and TransDigm Inc. and its restricted
+subsidiaries (in the case of the indentures) and may limit their ability to engage in acts that may be in our long-
+term best interests. The senior secured credit facility and indentures governing the Notes include covenants
+restricting, among other things, the ability to (subject, in each case, to certain important exceptions):
+       •    incur or guarantee additional indebtedness or issue preferred stock;
+       •    pay distributions on, redeem or repurchase our capital stock or redeem or repurchase our subordinated
+            debt;
+       •    make investments;
+       •    sell assets;
+       •    enter into agreements that restrict distributions or other payments from our restricted subsidiaries to us;
+       •    incur or allow to exist liens;
+       •    consolidate, merge or transfer all or substantially all of our assets;
+       •    engage in transactions with affiliates;
+       •    create unrestricted subsidiaries; and
+       •    engage in certain business activities.
+
+      A breach of any of these covenants could result in a default under the senior secured credit facility or the
+indentures governing the Notes. If any such default occurs, the lenders under the senior secured credit facility
+and the holders of the Notes may elect to declare all outstanding borrowings, together with accrued interest and
+other amounts payable thereunder, to be immediately due and payable. The lenders under the senior secured
+credit facility also have the right in these circumstances to terminate any commitments they have to provide
+further borrowings. In addition, subject to the terms of an intercreditor agreement, following an event of default
+under the senior secured credit facility or the indentures governing our various series of outstanding senior
+secured notes, the lenders thereunder or the holders thereof, as applicable, will have the right to proceed against
+the collateral granted to them to secure the debt, which includes our available cash, and they will also have the
+right to prevent us from making debt service payments on the senior subordinated notes. If the debt under the
+senior secured credit facility or the Notes were to be accelerated, we cannot assure that our assets would be
+sufficient to repay in full the Notes and other debt.
+
+We are dependent on our executive officers, senior management team and highly trained employees and
+any work stoppage, difficulty hiring similar employees, or ineffective succession planning could adversely
+affect our business.
+
+      Because our products are complicated and highly engineered, we depend on an educated and trained
+workforce. Historically, there has been substantial competition for skilled personnel in the aerospace and defense
+industry, and we could be adversely affected by a shortage of skilled employees. We may not be able to fill new
+positions or vacancies created by expansion or turnover or attract and retain qualified personnel. We cannot be
+assured that we can continue to hire, train and retain qualified employees at current wage rates since we operate
+in a competitive labor market, and there are currently significant inflationary and other pressures on wages.
+
+      Although we believe that our relations with our employees are satisfactory, we cannot assure that we will be
+able to negotiate a satisfactory renewal of collective bargaining agreements or that our employee relations will
+remain stable. Because we strive to limit the volume of finished goods inventory, any work stoppage could
+materially and adversely affect our ability to provide products to our customers.
+
+                                                                      14
+
+=== ORIGINAL PDF PAGE 17 ===
+      In addition, our success depends in part on our ability to attract and motivate our senior management and
+key employees. Achieving this objective may be difficult due to a variety of factors, including fluctuations in
+economic and industry conditions, competitors’ hiring practices, and the effectiveness of our compensation
+programs. Competition for qualified personnel can be intense. If we are unable to effectively provide for the
+succession of key personnel, senior management and our executive officers, including our President, Chief
+Executive Officer and Director, our business, results of operations, cash flows and financial condition may be
+adversely affected. The Company’s Board of Directors continually monitors this risk and we believe that the
+Company’s succession plan, together with our straightforward strategy, clear value drivers, decentralized nature
+and the quality of managers running our operating units helps to mitigate this risk.
+
+Public health crises, such as the COVID-19 pandemic, and other health pandemics, epidemics and
+outbreaks could adversely affect our business.
+
+      A significant public health crisis, such as the COVID-19 pandemic, could cause disruption to our
+operations. The COVID-19 pandemic had a negative effect on our business, results of operations, cash flows and
+financial condition. It affected our business due to the impact on the global economy, including its effects on the
+commercial aerospace industry, the supply chain and raw material availability, production efforts and customer
+demand for our products and services. Our ability to predict and respond to future changes resulting from
+potential health crises is uncertain. Even after a public health crises subsides, there may be long-term effects on
+our business practices and customers in economies in which we operate that could severely disrupt our operations
+and could have a material adverse effect on our business, results of operations, cash flows and financial
+condition. As we cannot predict the duration, scope or severity of future public health crises, the negative
+financial impact to our results cannot be reasonably estimated and could be material.
+
+Risks Related to our Operations
+
+Our sales to manufacturers of aircraft are cyclical, and a downturn in sales to these manufacturers may
+adversely affect us.
+
+      Our sales to manufacturers of large commercial aircraft, such as Boeing, Airbus, and related OEM suppliers,
+as well as manufacturers of business jets have historically experienced periodic downturns. In the past, these
+sales have been affected by airline profitability, which is impacted by, among other things, fuel and labor costs,
+price competition, interest rates, downturns in the global economy and national and international events. In
+addition, sales of our products to manufacturers of business jets are impacted by, among other things, downturns
+in the global economy. In certain years, such as in fiscal 2021 and the second half of fiscal 2020, we experienced
+decreased sales across the commercial OEM sector driven primarily by the decrease in production by Boeing and
+Airbus related to reduced demand in the commercial aerospace industry from the COVID-19 pandemic, and
+airlines deferring or cancelling orders. Regulatory and quality challenges, such as with Boeing’s 737 MAX
+aircraft and 787 aircraft, also has had an adverse impact. Significant labor disagreements and supply chain issues
+may also negatively impact the production of aircraft. Downturns adversely affect our results of operations,
+financial position and cash flows.
+
+Our business is dependent on the availability of certain components and raw materials from suppliers.
+
+      Our business is affected by the price and availability of the raw materials and component parts that we use
+to manufacture our components. Our business, therefore, could be adversely impacted by factors affecting our
+suppliers (such as the destruction of our suppliers’ facilities or their distribution infrastructure, a work stoppage
+or strike by our suppliers’ employees or the failure of our suppliers to provide materials of the requisite quality),
+or by increased costs of such raw materials or components if we were unable to pass along such price increases to
+our customers. Changes to tariff and import and export regulations in the United States and abroad may also
+negatively impact the availability and pricing of raw materials.
+
+
+                                                                     15
+
+=== ORIGINAL PDF PAGE 18 ===
+      Because we strive to limit the volume of raw materials and component parts on hand, our business could be
+adversely affected if we were unable to obtain these raw materials and components from our suppliers in the
+quantities we require or on favorable terms. Although we believe in most cases that we could identify alternative
+suppliers, or alternative raw materials or component parts, the lengthy and expensive aviation authority and OEM
+certification processes associated with aerospace products could prevent efficient replacement of a supplier, raw
+material or component part.
+
+We face significant competition.
+
+      We operate in a highly competitive global industry and compete against a number of companies.
+Competitors in our product lines are both U.S. and foreign companies and range in size from divisions of large
+public corporations to small privately-held entities. We believe that our ability to compete depends on high
+product performance, consistent high quality, short lead-time and timely delivery, competitive pricing, superior
+customer service and support and continued certification under customer quality requirements and assurance
+programs. We may have to adjust the prices of some of our products to stay competitive.
+
+Climate-related regulations designed to address climate change may result in additional compliance costs.
+
+      Our operations and the products we sell are currently subject to rules limiting emissions and to other
+climate-related regulations in certain jurisdictions where we operate. The increased prevalence of global climate
+change concerns may result in new regulations that may negatively impact us, our suppliers and customers. We
+are continuing to evaluate short-, medium- and long-term risks related to climate change. We cannot predict what
+environmental legislation or regulations will be enacted in the future, how existing or future laws or regulations
+will be administered or interpreted, or what environmental conditions may be found to exist. Compliance with
+any new or more stringent laws or regulations, or stricter interpretations of existing laws, could require additional
+expenditures by us or our suppliers, in which case, the costs of raw materials and component parts could increase.
+
+      As a whole, because our manufacturing facilities primarily engage in assembly and light manufacturing and
+because we do not maintain any transportation infrastructure, we have relatively low Scope 1 and Scope 2
+emissions. Accordingly, we do not anticipate any material adverse impact from increased carbon regulation
+directly on our manufacturing operations. Further, because of our wide portfolio of hundreds of thousands of
+products, we do not anticipate any material adverse impact from the reliance on a supplier or group of suppliers
+that may be subject to climate risks. However, regulation that would have a material adverse impact on air travel
+could have a material adverse impact on our business. Given the political significance and uncertainty around
+these issues, we cannot predict how legislation, regulation, and increased awareness of these issues will affect
+our operations and financial condition. We have established a science-aligned greenhouse gas emissions
+reduction target of at least a 50% reduction in our Scope 1 and Scope 2 emissions on an absolute basis by the
+year 2031. Fiscal 2019 is the selected baseline year for TransDigm that we will compare against as we make
+progress towards our emissions reduction goal. We continue to evaluate ways to reduce our energy and water
+consumption and lower our greenhouse gas emissions through energy efficiency measures, the purchase of green
+power and other actions.
+
+Our operations depend on our manufacturing facilities, which are subject to physical and other risks that
+could disrupt production.
+
+      Our operations and those of our customers and suppliers have been and may again be subject to natural
+disasters, climate change-related events, pandemics or other business disruptions, which could seriously harm our
+results of operation and increase our costs and expenses. Some of our manufacturing facilities are located in
+regions that may be impacted by severe weather events, such as increased storm frequency or severity in the
+Atlantic and fires in hotter and drier climates. These could result in potential damage to our physical assets as
+well as disruptions in manufacturing activities. Some of our manufacturing facilities are located in areas that may
+be at risk due to rising sea levels. Moreover, some of our manufacturing facilities are located in areas that could
+experience decreased access to water due to climate issues.
+
+                                                                    16
+
+=== ORIGINAL PDF PAGE 19 ===
+      We are also vulnerable to damage from other types of disasters, including power loss, fire, explosions,
+floods, communications failures, terrorist attacks and similar events. Disruptions could also occur due to health-
+related outbreaks and crises, cyber-attacks, computer or equipment malfunction (accidental or intentional),
+operator error or process failures. Should insurance or other risk transfer mechanisms, such as our existing
+disaster recovery and business continuity plans, be insufficient to recover all costs, we could experience a
+material adverse effect on our business, results of operations, financial position and cash flows.
+
+Operations and sales outside of the United States may be subject to additional risks.
+
+      Our net sales to foreign customers were approximately $2.9 billion for the fiscal year ended September 30,
+2024. A number of risks inherent in international operations could have a material adverse effect on our results of
+operations, including war, sanctions, global health crises, currency fluctuations, difficulties in staffing and
+managing multinational operations, general economic and political uncertainties and potential for social unrest in
+countries in which we operate, limitations on our ability to enforce legal rights and remedies, restrictions on the
+repatriation of funds, change in trade policies, tariff regulation, difficulties in obtaining export and import
+licenses and the risk of government financed competition.
+
+      Issues with the global supply chain can also rise due to some of the aforementioned risks, as well as the
+availability and cost of raw materials to suppliers, merchandise quality or safety issues, shipping and transport
+availability and cost, increases in wage rates and taxes, transport security, inflation and other factors relating to
+the suppliers and the countries in which they are located or from which they import. Such issues are often beyond
+our control and could adversely affect our operations and profitability. Furthermore, the Company is subject to
+laws and regulations, such as the Foreign Corrupt Practices Act, U.K. Bribery Act and similar local anti-bribery
+laws, which generally prohibit companies and their employees, agents and contractors from making improper
+payments for the purpose of obtaining or retaining business. Failure to comply with these laws could subject the
+Company to civil and criminal penalties that could materially adversely affect the Company’s results of
+operations, financial position and cash flows.
+
+      We continue to monitor the ongoing conflicts between Israel and Hamas and between Russia and Ukraine
+and the related export controls and financial and economic sanctions imposed on certain industry sectors,
+including the aviation sector, and parties in Russia by the U.S., the U.K., the European Union and others.
+Although the conflicts have not, nor are expected to, have a direct material adverse impact on TransDigm’s
+business, the implications of the Israel and Hamas and Russia and Ukraine conflicts in the short-term and long-
+term are difficult to predict. Factors such as increased energy costs, the availability of certain raw materials for
+aircraft manufacturers, embargoes on flights from certain airlines, sanctions on certain companies, and the
+stability of certain customers could impact the global economy and aviation sector. In addition, there continues to
+be uncertainty about the future relationship between the U.S. and China, including with respect to trade policies,
+treaties, government regulations and tariffs. Any increased trade barriers or restrictions on global trade, including
+trade with China, could adversely affect the Company’s results of operations, financial position and cash flows.
+
+We are subject to certain unique business risks as a result of supplying equipment and services to the U.S.
+Government.
+
+      Companies engaged in supplying defense-related equipment and services to U.S. Government agencies,
+whether through direct contracts with the U.S. Government or as a subcontractor to customers contracting with
+the U.S. Government, are subject to business risks specific to the defense industry. These risks include the ability
+of the U.S. Government to unilaterally:
+       •    suspend or debar us from receiving new contracts based on alleged violations of procurement laws or
+            regulations;
+       •    terminate existing contracts;
+
+                                                                     17
+
+=== ORIGINAL PDF PAGE 20 ===
+       •    revoke required security clearances; and
+       •    audit contract-related costs and fees, including allocated indirect costs.
+
+      Most U.S. Government contracts can be terminated by the U.S. Government at its convenience without
+significant notice. Termination for convenience provisions provide only for recovery of costs incurred or
+committed, settlement expenses and profit on the work completed prior to termination.
+
+      Most of our U.S. Government contracts are based on a firm-fixed price. On contracts for which the price is
+based on the reimbursement of costs, the U.S. Government may review our costs and performance, as well as our
+accounting and general business practices. Based on the results of such audits, the U.S. Government may adjust
+our contract-related costs and fees, including allocated indirect costs. In addition, under U.S. Government
+purchasing regulations, some of our costs, including most financing costs, amortization of intangible assets,
+portions of research and development costs, and certain marketing expenses may not be subject to reimbursement
+under cost-reimbursement contracts.
+
+      Furthermore, even where the price is not based on cost, the U.S. Government may seek to review our costs
+to determine whether our pricing is “fair and reasonable.” Our subsidiaries are periodically subject to pricing
+reviews and government buying agencies that purchase some of our subsidiaries’ products are periodically
+subject to audits by the DOD with respect to prices paid for such products. As a result of these audits, we could
+be asked to enter into an arrangement whereby our prices would be based on cost, plus a nominal fee, the DOD
+could seek to pursue alternative sources of supply for our parts, or the U.S. Government could take other adverse
+actions with respect to our contracts. Any of those occurrences could lead to a reduction in our revenue from, or
+the profitability of certain of our supply arrangements with, certain agencies and buying organizations of the U.S.
+Government. Further, negative publicity relating to the results of any audit, inquiry or subsequent hearing or the
+like could negatively impact our stock price.
+
+      If a government inquiry or investigation uncovers improper or illegal activities, we could be subject to civil
+or criminal penalties or administrative sanctions, including contract termination, fines, forfeiture of fees,
+suspension of payment and suspension or debarment from doing business with U.S. Government agencies, any of
+which could materially adversely affect our reputation, business, financial condition, results of operations and
+cash flows.
+
+      Moreover, U.S. Government purchasing regulations contain a number of additional operational
+requirements, which do not apply to entities not engaged in government contracting. Failure to comply with such
+government contracting requirements could result in civil and criminal penalties that could have a material
+adverse effect on the Company’s results of operations.
+
+Our business may be adversely affected if we would lose our government or industry approvals or if more
+stringent government regulations are enacted or if industry oversight is increased.
+
+      The aerospace industry is highly regulated in the U.S. and in other countries. In order to sell our products,
+we and the products we manufacture must be certified by the FAA, the DOD and similar agencies in foreign
+countries and by individual manufacturers. If new and more stringent government regulations are adopted or if
+industry oversight increases, we might incur significant expenses to comply with any new regulations or
+heightened industry oversight. In addition, if material authorizations or approvals were revoked or suspended,
+our business would be adversely affected.
+
+      In addition to the aviation approvals, we are at times required to obtain approval from U.S. Government
+agencies and similar agencies elsewhere in the world to export our products. U.S. laws and regulations applicable
+to us include the Arms Export Control Act, the International Traffic in Arms Regulations (“ITAR”), the Export
+Administration Regulations (“EAR”) and the trade sanctions laws and regulations administered by the United
+
+                                                                    18
+
+=== ORIGINAL PDF PAGE 21 ===
+States Department of the Treasury’s Office of Foreign Assets Control (“OFAC”). EAR restricts the export of
+commercial and dual-use products and technical data to certain countries, while ITAR restricts the export of
+defense products, technical data and defense services.
+
+      Failure to obtain approval to export or determination by the U.S. Government or similar agencies elsewhere
+in the world that we failed to receive required approvals or licenses could eliminate or restrict our ability to sell
+our products outside the United States or other country of origin, and the penalties that could be imposed by the
+U.S. Government or other applicable government for failure to comply with these laws could be significant.
+
+We could incur substantial costs as a result of data protection concerns.
+
+      The interpretation and application of data protection laws in the U.S. and globally, including but not limited
+to the General Data Protection Regulation (the “GDPR”), the California Consumer Privacy Act (the “CCPA”),
+China’s Personal Information Protection Law (“PIPL”) and the EU AI Act, are uncertain and evolving. It is
+possible that these laws may be interpreted and applied in a manner that is inconsistent with our data practices.
+Complying with these various laws is difficult and could cause us to incur substantial costs or require us to
+change our business practices in a manner adverse to our business. Further, although we have implemented
+internal controls and procedures designed to ensure compliance with the GDPR, CCPA, PIPL, the EU AI Act and
+other privacy-related laws, rules and regulations (collectively, the “Data Protection Laws”), there can be no
+assurance that our controls and procedures will enable us to be fully compliant with all Data Protection Laws.
+The rapid evolution and increased adoption of artificial intelligence (“AI”) technologies may intensify these
+risks. Any failure to comply with Data Protection Laws could result in significant penalties, fines, legal
+challenges and reputational harm.
+
+Increased cybersecurity threats and more sophisticated and targeted computer crime have posed and
+could continue to pose a risk to our information technology systems and a disruption to or breach in the
+security of such systems, if material, could have adverse effects on our result of operations and financial
+condition.
+
+      We rely extensively on information technology systems to manage and operate our business, some of which
+are managed by third parties. The security and functionality of these information technology systems, and the
+processing of data by these systems, are critical to our business operations. If these systems, or any part of the
+systems, are damaged, intruded upon, attacked, shutdown or cease to function properly (whether by planned
+upgrades, force majeure, telecommunications failures, criminal acts, including hardware or software break-ins,
+ransomware attacks or extortion attempts, or viruses, or other cybersecurity incidents) and we suffer any
+resulting interruption in our ability to manage and operate our business or if our products are affected, our results
+of operations and financial condition could be materially adversely affected. In fact, we have experienced data
+security incidents, although these have not had a material impact on our financial results. Furthermore, the
+Company has access to classified, sensitive, confidential, proprietary, or personal data or information that is
+subject to privacy and security laws, regulations, or other contractually-imposed controls. The rapid evolution
+and increased adoption of AI technologies may intensify our cybersecurity risks.
+
+      Despite our use of reasonable and appropriate technical security controls and monitoring, security breaches,
+theft, misplaced, lost or corrupted data, programming, or employee errors and/or malfeasance have led and could
+in the future lead to the compromise or improper use of such sensitive, confidential, proprietary, or personal data
+or information. Such events may result in possible negative consequences, such as disruption to our business
+operations, loss of proprietary information, ransom demands, loss of revenue, penalties, failure to comply with
+laws governing sensitive data, government enforcement, litigation or regulatory proceedings, negative publicity,
+loss of reputation, loss of intellectual property, loss of competitiveness or customers, increased security and
+compliance costs or other negative consequences. Further, the amount of insurance coverage that we maintain
+may be inadequate to cover claims or liabilities relating to a cybersecurity incident. Depending on the nature and
+magnitude of these events, they may have an adverse impact on our results of operations or financial condition.
+
+                                                                     19
+
+=== ORIGINAL PDF PAGE 22 ===
+Risks Related to Legal and Regulatory Matters
+
+We could incur substantial costs as a result of violations of or liabilities under environmental laws and
+regulations.
+
+      Our operations and facilities are subject to a number of federal, state, local and foreign environmental laws
+and regulations that govern, among other things, discharges of pollutants into the air and water, the generation,
+handling, storage and disposal of hazardous materials and wastes, the remediation of contamination and the
+health and safety of our employees. Environmental laws and regulations may require that the Company
+investigate and remediate the effects of the release or disposal of materials at sites associated with past and
+present operations. Certain facilities and third-party sites utilized by subsidiaries of the Company have been
+identified as potentially responsible parties under the federal superfund laws and comparable state laws. The
+Company is currently involved in the investigation and remediation of a number of sites under applicable laws.
+
+      Estimates of the Company’s environmental liabilities are based on current facts, laws, regulations and
+technology. These estimates take into consideration the Company’s prior experience and professional judgment
+of the Company’s environmental advisors. Estimates of the Company’s environmental liabilities are further
+subject to uncertainties regarding the nature and extent of site contamination, the range of remediation
+alternatives available, evolving remediation standards, imprecise engineering evaluations and cost estimates, the
+extent of corrective actions that may be required and the number and financial condition of other potentially
+responsible parties, as well as the extent of their responsibility for the remediation.
+
+      Accordingly, as investigations and remediations proceed, it is likely that adjustments in the Company’s
+accruals will be necessary to reflect new information. The amounts of any such adjustments could have a
+material adverse effect on the Company’s results of operations or cash flows in a given period. Based on
+currently available information, however, the Company does not believe that future environmental costs in
+excess of those accrued with respect to sites for which the Company has been identified as a potentially
+responsible party are likely to have a material adverse effect on the Company’s financial condition.
+
+We may be subject to periodic litigation and regulatory proceedings, which may adversely affect our
+business and financial performance.
+
+      From time to time, we are involved in lawsuits and regulatory actions brought or threatened against us in the
+ordinary course of business. These actions and proceedings may involve claims for, among other things,
+compensation for alleged personal injury, workers’ compensation, employment discrimination, or breach of
+contract. In addition, we may be subject to class action lawsuits, including those involving allegations of
+violations of consumer product statutes or the Fair Labor Standards Act and state wage and hour laws. Due to the
+inherent uncertainties of litigation, we cannot accurately predict the ultimate outcome of any such actions or
+proceedings. The outcome of litigation, particularly class action lawsuits and regulatory actions, is difficult to
+assess or quantify, as plaintiffs may seek recovery of very large or indeterminate amounts in these types of
+lawsuits, and the magnitude of the potential loss may remain unknown for substantial periods of time. In
+addition, plaintiffs in many types of actions may seek punitive damages, civil penalties, consequential damages
+or other losses, or injunctive or declaratory relief. These proceedings could result in substantial cost and may
+require us to devote substantial resources to defend ourselves. The ultimate resolution of these matters through
+settlement, mediation, or court judgment could have a material impact on our financial condition, results of
+operations, and cash flows.
+
+We could be adversely affected if one of our products causes an aircraft to crash.
+
+      Our operations expose us to potential liabilities for personal injury or death as a result of the failure of an
+aircraft product that we have designed, manufactured or serviced. While we maintain liability insurance to
+protect us from future product liability claims, in the event of product liability claims our insurers may attempt to
+
+                                                                     20
+
+=== ORIGINAL PDF PAGE 40 ===
+      EBITDA As Defined for the Power & Control segment increased approximately $370 million, an increase
+of 19.8%, resulting from higher organic sales in the defense, commercial OEM and commercial aftermarket
+channels. Also contributing to the increase in EBITDA As Defined was the application of our three core value-
+driven operating strategy and positive leverage on our fixed overhead costs spread over a higher production
+volume despite the ongoing inflationary environment for freight, labor and certain raw materials.
+
+      EBITDA As Defined for the Airframe segment increased approximately $415 million, an increase of 26.8%.
+The increase in EBITDA As Defined for the Airframe segment is attributable to the same factors described in the
+paragraph above for the Power & Control segment.
+
+      EBITDA As Defined from acquisitions for the Power & Control and Airframe segments contributed
+approximately $97 million in aggregate to the increase in EBITDA As Defined. EBITDA As Defined from
+acquisitions represents EBITDA As Defined from acquired businesses for the period up to one year from the
+respective acquisition date.
+
+      The change in Non-aviation EBITDA as Defined compared to the prior fiscal year was not material.
+
+      Corporate expenses consist primarily of compensation, benefits, professional services and other
+administrative costs incurred by the corporate offices. An immaterial amount of corporate expenses is allocated
+to the operating segments. The increase compared to fiscal 2023 is primarily attributable to the current fiscal year
+portion of the deferred compensation plan adopted in the fourth quarter of 2022 for certain members of
+non-executive management and higher salaries and bonus expense. Corporate EBITDA as Defined is consistent
+as a percentage of net sales in fiscal 2024 compared to fiscal 2023.
+
+
+Fiscal year ended September 30, 2023 compared with fiscal year ended September 30, 2022
+      For our results of operations for fiscal 2023 compared with fiscal 2022, refer to the discussion in Item 7.
+“Management’s Discussion and Analysis of Financial Conditions and Results of Operations” of Form 10-K for
+the fiscal year ended September 30, 2023, as filed with the Securities and Exchange Commission on
+November 9, 2023.
+
+
+Liquidity and Capital Resources
+      We have historically maintained a capital structure comprising a mix of equity and debt financing. We vary
+our leverage both to optimize our equity return and to pursue acquisitions. We expect to meet our current debt
+obligations as they come due through internally generated funds from current levels of operations and/or through
+refinancing in the debt markets prior to the maturity dates of our debt.
+
+      The following tables present selected balance sheet, cash flow and other financial data relevant to the
+liquidity or capital resources of the Company for the periods specified below (amounts in millions):
+
+                                                                                               September 30, 2024      September 30, 2023
+Selected Balance Sheet Data:
+Cash and cash equivalents .......................................     $ 6,261                 $  3,472
+Working capital (Total current assets less total current liabilities) ........              3,690                     5,159
+Total assets ...................................................            25,586                   19,970
+Total debt  (1) ..................................................            24,880                   19,750
+TD Group stockholders’ deficit ...................................            (6,290)                   (1,984)
+
+(1)     Includes debt issuance costs and original issue discount and premiums. Reference Note 10, “Debt,” in the
+      notes to the consolidated financial statements included herein for additional information.
+
+
+
+                                                                    38
+
+=== ORIGINAL PDF PAGE 41 ===
+                                                                                                       Fiscal Years Ended September 30,
+                                                                                                             2024               2023
+Selected Cash Flow and Other Financial Data:
+Cash flows provided by (used in):
+      Operating activities ..............................................    $2,045             $1,375
+      Investing activities ..............................................         (2,441)                (900)
+      Financing activities ..............................................           3,171                   (16)
+Capital expenditures .................................................       165         139
+Ratio of earnings to fixed charges  (1) ....................................             2.7x                 2.5x
+
+(1)     For purposes of computing the ratio of earnings to fixed charges, earnings consist of earnings from continuing
+      operations before income taxes plus fixed charges. Fixed charges consist of interest expense, amortization of
+      debt issuance costs, original issue discount and premium and the “interest component” of rental expense.
+
+Significant Transactions of Fiscal 2024
+      During fiscal 2024, the Company completed approximately $21,000 million in debt financing transactions,
+inclusive of new issuances and refinancing of existing debt. Below is further information on the significant debt
+financing transactions occurring in fiscal 2024:
+       •    On November 28, 2023, the Company completed the issuance of $2,000 million in new senior debt
+            ($1,000 million in 7.125% senior secured notes due 2031 and $1,000 million in Tranche J term loans),
+            which was used to fund the acquisition of CPI’s Electron Device Business (completed in the third
+            quarter of fiscal 2024) and for general corporate purposes.
+       •    On February 27, 2024, the Company amended the terms under its revolving credit facility to, among
+            other things, extend the maturity date from May 2026 to February 2029 and increase the total
+            commitments capacity from $810 million to $910 million. Concurrently, the Company completed the
+            issuance of $4,400 million in new secured debt ($2,200 million in 6.375% senior secured notes due
+            2029 and $2,200 million in 6.625% senior secured notes due 2032), which was used to redeem all of its
+            outstanding $4,400 million in 6.25% senior secured notes due 2026.
+       •    On March 22, 2024, the Company repriced all of its $4,525 million in existing Tranche I term loans
+            maturing August 2028 to bear interest at Term SOFR plus 2.75% (a decrease from Term SOFR plus
+            3.25% previously applicable) and replaced all of its $1,708 million in existing Tranche H term loans
+            due February 2027 with new Tranche K term loans maturing March 2030 and bear interest at the same
+            rate applied to the existing Tranche I term loans. Concurrently, the Company issued an additional
+            $550 million in 6.375% senior secured notes due 2029 (tack-on to the $2,200 million issued during
+            February 2024), which was used to redeem all of its outstanding $550 million in 7.50% senior
+            subordinated notes due 2027 on April 22, 2024.
+       •    On June 4, 2024, the Company repriced all of its $997 million in existing Tranche J term loans to bear
+            interest at Term SOFR plus 2.50% compared to Term SOFR plus 3.25% applicable prior to the
+            transaction; and (ii) amended and extended $2,644 million in existing Tranche I term loans maturing
+            August 24, 2028 and converting such loans into Tranche J term loans maturing February 28, 2031.
+       •    On July 12, 2024, the Company amended the Securitization Facility to, among other things, (i) increase
+            the borrowing capacity from $450 million to $650 million; and (ii) extend the maturity date to July 11,
+            2025 at an interest rate of Term SOFR plus 1.45% compared to an interest rate of Term SOFR plus
+            1.60% that applied prior to the amendment. In fiscal 2024, the Company drew $137.5 million available
+            on Securitization Facility. The Company subsequently drew the remaining $162.5 million available
+            under the trade receivable securitization facility in October 2024.
+       •    On September 19, 2024, the Company completed the issuance of $3,000 million in new senior secured
+            debt ($1,500 million in 6.00% senior secured notes due January 15, 2033 and $1,500 million in
+            Tranche L term loans that bear interest at Term SOFR plus 2.50% and mature on January 19, 2032).
+
+                                                                   39
+
+=== ORIGINAL PDF PAGE 42 ===
+      During fiscal 2024, the Company completed approximately $2,347 million in acquisitions of businesses, net
+of cash acquired. Below is further information on the significant acquisitions occurring in fiscal 2024:
+       •    On May 21, 2024, the Company completed an acquisition of all the outstanding stock of SEI for
+            approximately $171 million in cash.
+       •    On June 6, 2024, the Company completed the acquisition of all the outstanding stock of CPI’s Electron
+            Device Business for approximately $1,385 million in cash. The acquisition was financed through
+            existing cash on hand, inclusive of a portion of the cash proceeds from the $2,000 million in new senior
+            debt issued in the first quarter of fiscal 2024.
+       •    On July 31, 2024, the Company completed the acquisition of all the outstanding stock of Raptor
+            Scientific for approximately $647 million in cash. The acquisition was financed through existing cash
+            on hand.
+
+      During fiscal 2024, the Company’s Board of Directors authorized and declared $110.00 in special
+dividends. Below is further information on these special dividends:
+       •    On November 27, 2023, the Company paid a special cash dividend of $35.00 on each outstanding share
+            of common stock and cash dividend equivalent payments on eligible vested options outstanding under
+            its stock option plans. Total cash payments, funded by existing cash on hand, of special dividend and
+            dividend equivalents from this declaration were approximately $2,020 million.
+       •     On September 19, 2024, concurrently with the $3,000 million issuance of new senior secured debt described
+            above, the Company’s Board of Directors authorized and declared a special cash dividend of $75.00 on each
+            outstanding share of common stock and cash dividend equivalent payments on eligible vested options
+            outstanding under its stock option plans. Total cash payments, funded by a combination of $3,000 million in
+            new senior secured debt (as previously noted) and existing cash on hand, related to the special dividend and
+            dividend equivalents were approximately $4,348 million. These payments were made in October 2024.
+
+      If the Company has excess cash, it generally prioritizes allocating the excess cash in the following manner:
+(1) capital spending at existing businesses, (2) acquisitions of businesses, (3) payment of a special dividend and/
+or repurchases of our common stock and (4) prepayment of indebtedness or repurchase of debt.
+
+      The Company’s ability to make scheduled interest payments on, or to refinance, the Company’s
+indebtedness, or to fund non-acquisition related capital expenditures and research and development efforts, will
+depend on the Company’s ability to generate cash in the future. This is subject to general economic, financial,
+competitive, legislative, regulatory and other factors that are beyond its control.
+
+      The Company’s objective is to maintain an allocation of at least 75% fixed rate and 25% variable rate debt
+thereby limiting its exposure to changes in near-term interest rates. Interest rate swaps, caps and collars used to
+hedge and offset, respectively, the variable interest rates on our term loans are further described in Note 19,
+“Derivatives and Hedging Activities,” in the notes to the consolidated financial statements included herein. As of
+September 30, 2024, approximately 77% of our gross debt was fixed rate.
+
+      As of September 30, 2024, the Company has significant cash liquidity as illustrated in the table presented
+below (in millions):
+
+                                                                                                                  As of September 30, 2024
+Cash and cash equivalents ..................................................              $6,261
+Availability on revolving credit facility ........................................          843
+Availability on Securitization Facility .........................................          163
+Cash liquidity  (1) ..........................................................              $7,267
+
+
+(1)     When considering the impact of the $4,348 million payment in special dividends and dividend equivalents
+      in October 2024, the pro forma cash liquidity as of September 30, 2024 is $2,919 million.
+
+                                                                    40
+
+=== ORIGINAL PDF PAGE 43 ===
+      We believe our significant cash liquidity will allow us to meet our anticipated funding requirements. We
+expect to meet our short-term cash liquidity requirements (including interest obligations and capital
+expenditures) through net cash from operating activities, cash on hand and, if needed, draws on the revolving
+credit facility. Long-term cash liquidity requirements consist primarily of obligations under our long-term debt
+agreements. There is no maturity on any tranche of term loans or notes until November 2027 (fiscal 2028).
+
+      The Company estimates its capital expenditures in fiscal year 2025 to be approximately 2.5% to 3.5% of net
+sales. The Company’s capital expenditures incurred from year-to-year are funded using existing cash on hand
+and are primarily for projects that are consistent with our three core value-driven operating strategies (obtaining
+profitable new business, continually improving our cost structure and providing highly engineered value-added
+products to customers) such as automation projects.
+
+      In connection with the continued application of our three core value-driven operating strategy (obtaining
+profitable new business, continually improving our cost structure and providing highly engineered value-added
+products to customers), we expect our efforts will continue to generate strong margins and provide sufficient
+cash provided by operating activities to meet our interest obligations and liquidity needs. We believe our cash
+provided by operating activities and available borrowing capacity will enable us to make strategic business
+acquisitions, pay special dividends to our shareholders and make opportunistic investments in our own stock,
+subject to any restrictions in our existing credit agreement and market conditions.
+
+      The Company may issue additional debt if prevailing market conditions are favorable to doing so. In
+addition, the Company may increase its borrowings in connection with acquisitions, if cash flow from operating
+activities becomes insufficient to fund current operations or for other short-term cash needs or for common stock
+repurchases or special dividends. Our future leverage will also be impacted by the then current conditions of the
+credit markets.
+
+      Operating Activities. The Company generated $2,045 million of net cash from operating activities during
+fiscal 2024 compared to $1,375 million during fiscal 2023.
+
+      The change in trade accounts receivable during fiscal 2024 was a use of cash of $84 million compared to a
+use of cash of $212 million in fiscal 2023. The decrease in the use of cash of $128 million is primarily
+attributable to the lower sequential increase in sales between fiscal 2024 and fiscal 2023 compared to fiscal 2023
+and fiscal 2022 and related timing of cash receipts as we move further from the impact of the pandemic on net
+sales. The Company continues to actively manage its accounts receivable, the related agings and collection
+efforts.
+
+      The change in inventories during fiscal 2024 was a use of cash of $104 million compared to a use of cash of
+$261 million in fiscal 2023. The decrease in the use of cash of $157 million is primarily driven by an easing of
+the supply chain challenges that were more prevalent in the prior fiscal year resulting in a higher rate of
+inventory purchased in fiscal 2023 compared to fiscal 2024. The Company continues to actively and strategically
+manage inventory levels.
+
+      The change in accounts payable during fiscal 2024 was a use of cash of $11 million compared to a source of
+cash of $12 million in fiscal 2023. The change is due to the timing of payments to suppliers.
+
+      Investing Activities. Net cash used in investing activities was $2,441 million during fiscal 2024, consisting
+of $2,347 million from the acquisitions of Raptor Scientific, CPI’s Electron Device Business, SEI, FPT and
+certain product lines completed during fiscal 2024, capital expenditures of $165 million; partially offset by other
+investing transactions of $71 million.
+
+
+
+
+
+                                                                     41
+
+=== ORIGINAL PDF PAGE 53 ===
+     The following table sets forth a reconciliation of net income to EBITDA and EBITDA As Defined (in
+millions):
+
+                                                                                                 Fiscal Years Ended September 30,
+                                                                                                      2024                 2023
+Net Income .....................................................         $1,715                 $1,299
+Adjustments:
+     Depreciation and amortization expense ...........................       312          268
+     Interest expense-net ...........................................           1,286                  1,164
+     Income tax provision ..........................................       500          417
+EBITDA .......................................................           3,813                  3,148
+Adjustments:
+     Acquisition transaction and integration-related expenses  (1) ............        70           18
+     Non-cash stock and deferred compensation expense  (2) ...............       217          157
+     Refinancing costs  (3) ..........................................        58           56
+     Other, net  (4) .................................................        15           16
+EBITDA As Defined ..............................................         $4,173                 $3,395
+
+
+(1)     Represents costs incurred to integrate acquired businesses into TD Group’s operations; facility relocation
+     costs and other acquisition-related costs; transaction and valuation-related costs for acquisitions comprising
+     deal fees, legal, financial and tax due diligence expenses; and amortization expense of inventory step-up
+     recorded in connection with the purchase accounting of acquired businesses.
+(2)     Represents the compensation expense recognized by TD Group under our stock incentive plans and deferred
+     compensation plans.
+(3)     Represents costs expensed related to debt financing activities, including new issuances, extinguishments,
+     refinancings and amendments to existing agreements.
+(4)     Primarily represents foreign currency transaction (gains) or losses, payroll withholding taxes related to
+     dividend equivalent payments and stock option exercises, non-service related pension costs, deferred
+     compensation payments and other miscellaneous (income) expense.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                 51
+
+=== ORIGINAL PDF PAGE 54 ===
+      The following table sets forth a reconciliation of net cash provided by operating activities to EBITDA and
+EBITDA As Defined (in millions):
+
+                                                                                                    Fiscal Years Ended September 30,
+                                                                                                        2024                 2023
+Net cash provided by operating activities ..............................         $2,045                 $1,375
+Adjustments:
+      Changes in assets and liabilities, net of effects from acquisitions and
+         sales of businesses ..........................................       272          415
+      Interest expense-net  (1) .........................................           1,246                  1,123
+      Income tax provision—current ..................................       490          414
+      Loss contract amortization .....................................        35           34
+      Non-cash stock and deferred compensation expense  (2) ...............             (217)                   (157)
+      Refinancing costs  (3) ..........................................               (58)                     (56)
+EBITDA .......................................................           3,813                  3,148
+Adjustments:
+      Acquisition transaction and integration-related expenses  (4) ............        70           18
+      Non-cash stock and deferred compensation expense  (2) ...............       217          157
+      Refinancing costs  (3) ..........................................        58           56
+      Other, net  (5) .................................................        15           16
+EBITDA As Defined ..............................................         $4,173                 $3,395
+
+
+(1)     Represents interest expense, net of interest income, excluding the amortization of debt issuance costs and
+      premium and discount on debt.
+(2)     Represents the compensation expense recognized by TD Group under our stock incentive plans and deferred
+      compensation plans.
+(3)     Represents costs expensed related to debt financing activities, including new issuances, extinguishments,
+      refinancings and amendments to existing agreements.
+(4)     Represents costs incurred to integrate acquired businesses into TD Group’s operations; facility relocation
+      costs and other acquisition-related costs; transaction and valuation-related costs for acquisitions comprising
+      deal fees, legal, financial and tax due diligence expenses; and amortization expense of inventory step-up
+      recorded in connection with the purchase accounting of acquired businesses.
+(5)     Primarily represents foreign currency transaction (gains) or losses, payroll withholding taxes related to
+      dividend equivalent payments and stock option exercises, non-service related pension costs, deferred
+      compensation payments and other miscellaneous (income) expense.
+
+
+ITEM 7A.  QUANTITATIVE AND QUALITATIVE DISCLOSURES ABOUT MARKET RISK
+      Interest Rate Risk
+      At September 30, 2024, we had borrowings under our Term Loans Facility, which consists of four tranches
+of term loans of approximately $8,702 million, as well as $487 million from the Securitization Facility, that are
+subject to interest rate risk, particularly movements in Term SOFR. Borrowings under our term loans bear
+interest, at our option, at a rate equal to either an alternate base rate or an adjusted Term SOFR for a one-, three-
+or six-month thereafter (in each case, subject to the availability thereof), interest period chosen by us, in each
+case, plus an applicable margin percentage. Our Securitization Facility bears interest at a rate of three-month
+Term SOFR plus 1.45%. Accordingly, the Company’s cash flows and earnings will be exposed to the market risk
+of interest rate changes resulting from variable rate borrowings under our term loans. The Company’s objective
+is to maintain an allocation of at least 75% fixed rate and 25% variable rate debt thereby limiting its exposure to
+changes in near-term interest rates. Interest rate swaps, caps and collars used to hedge and offset, respectively,
+the variable interest rates on the credit facility are described in Note 19, “Derivatives and Hedging Activities,” in
+
+
+                                                                   52
+
+=== ORIGINAL PDF PAGE 55 ===
+the notes to the consolidated financial statements included herein. We do not hold or issue derivative instruments
+for speculative purposes. As of September 30, 2024, approximately 77% of our gross debt was fixed rate. The
+effect of a hypothetical one percentage point increase in interest rates would increase the annual interest costs
+under our Term Loans Facility and Securitization Facility by approximately $30 million based on the amount of
+outstanding borrowings at September 30, 2024. The weighted average interest rate on the $8,702 million of term
+loans and the $487 million drawn on the Securitization Facility at September 30, 2024 was 6.5%.
+
+      For information about the fair value of the aggregate principal amount of borrowings under our term loans
+and the fair value of the senior secured and subordinated notes, refer to Note 18, “Fair Value Measurements,” in
+the notes to the consolidated financial statements included herein.
+
+
+      Foreign Currency Risk
+      Certain of our foreign subsidiaries’ sales and results of operations are subject to the impact of foreign
+currency fluctuations, primarily the British pound and the euro. Because our consolidated financial statements are
+presented in U.S. dollars, increases or decreases in the value of the U.S. dollar relative to other currencies in
+which we transact business could materially adversely affect our net sales, net income and the carrying values of
+our assets located outside the U.S. Global economic uncertainty continues to exist. Foreign currency forward
+exchange contracts provide for the purchase or sale of foreign currencies at specified future dates at specified
+exchange rates, and are used to offset changes in the fair value of certain assets or liabilities or forecasted cash
+flows resulting from transactions denominated in foreign currencies. The foreign currency forward exchange
+contracts entered into by the Company are described in Note 19, “Derivatives and Hedging Activities,” in the
+notes to the consolidated financial statements included herein. A 10% change in foreign currency exchange rates
+would not have resulted in a material impact to net income for the fiscal year ended September 30, 2024.
+
+
+ITEM 8.   FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA
+      The information required by this Item is contained on pages F-1 through F-52 of this Report.
+
+
+ITEM 9.   CHANGES IN AND DISAGREEMENTS WITH ACCOUNTANTS ON ACCOUNTING AND
+             FINANCIAL DISCLOSURE
+      None.
+
+
+ITEM 9A.  CONTROLS AND PROCEDURES
+Evaluation of Disclosure Controls and Procedures
+      As of September 30, 2024, TD Group carried out an evaluation, under the supervision and with the
+participation of TD Group’s management, including its President, Chief Executive Officer and Director
+(Principal Executive Officer) and Chief Financial Officer (Principal Financial Officer), of the effectiveness of the
+design and operation of TD Group’s disclosure controls and procedures. Based upon that evaluation, the
+President, Chief Executive Officer and Director and Chief Financial Officer concluded that TD Group’s
+disclosure controls and procedures are effective to ensure that information required to be disclosed by TD Group
+in the reports it files or submits under the Exchange Act is recorded, processed, summarized and reported, within
+the time periods specified by the Securities and Exchange Commission’s rules and forms, and that such
+information is accumulated and communicated to TD Group’s management, including its President, Chief
+Executive Officer and Director and Chief Financial Officer, as appropriate, to allow timely decisions regarding
+required disclosure. In designing and evaluating the disclosure controls and procedures, TD Group’s management
+recognized that any controls and procedures, no matter how well designed and operated, can provide only
+reasonable assurance of achieving the desired control objectives, and management necessarily was required to
+apply its judgment in designing and evaluating the controls and procedures.
+
+                                                                   53
+
+=== ORIGINAL PDF PAGE 105 ===
+                                   TRANSDIGM GROUP INCORPORATED
+                                     CONSOLIDATED BALANCE SHEETS
+                                     AS OF SEPTEMBER 30, 2024 AND 2023
+                                   (Amounts in millions, except share amounts)
+
+                                                                                                       2024       2023
+ASSETS
+CURRENT ASSETS:
+     Cash and cash equivalents ................................................. $ 6,261    $  3,472
+     Trade accounts receivable—Net ............................................       1,381        1,230
+     Inventories—Net ........................................................       1,876        1,616
+     Prepaid expenses and other ................................................     511     420
+          Total current assets ..................................................     10,029        6,738
+PROPERTY, PLANT AND EQUIPMENT—NET .................................       1,488        1,255
+GOODWILL ...............................................................     10,419        8,988
+OTHER INTANGIBLE ASSETS—NET .........................................       3,446        2,747
+OTHER NON-CURRENT ASSETS .............................................     204     242
+TOTAL ASSETS ...........................................................   $25,586    $19,970
+LIABILITIES AND STOCKHOLDERS’ DEFICIT
+CURRENT LIABILITIES:
+     Current portion of long-term debt ........................................... $   98 $   71
+     Short-term borrowings—trade receivable securitization facility ...................     486     349
+     Accounts payable .......................................................     323     305
+     Dividends payable .......................................................       4,216           —
+     Accrued and other current liabilities .........................................       1,216           854
+          Total current liabilities ...............................................       6,339        1,579
+LONG-TERM DEBT ........................................................     24,296      19,330
+DEFERRED INCOME TAXES ................................................     766     627
+OTHER NON-CURRENT LIABILITIES ........................................     468     412
+          Total liabilities  .....................................................     31,869      21,948
+TD GROUP STOCKHOLDERS’ DEFICIT:
+     Common stock—$.01 par value; authorized 224,400,000 shares; issued 61,904,833 and
+       60,995,513 at September 30, 2024 and September 30, 2023, respectively ..........       1       1
+     Additional paid-in capital .................................................       2,819        2,440
+     Accumulated deficit .....................................................      (7,362)     (2,621)
+     Accumulated other comprehensive loss ......................................          (42)          (98)
+     Treasury stock, at cost; 5,688,639 shares at September 30, 2024 and September 30,
+       2023, respectively .....................................................      (1,706)     (1,706)
+          Total TD Group stockholders’ deficit ....................................      (6,290)     (1,984)
+NONCONTROLLING INTERESTS ............................................       7       6
+          Total stockholders’ deficit .............................................      (6,283)     (1,978)
+TOTAL LIABILITIES AND STOCKHOLDERS’ DEFICIT .........................   $25,586    $19,970
+
+
+                                    See notes to consolidated financial statements
+
+
+
+
+
+                                                          F-3
+
+=== ORIGINAL PDF PAGE 106 ===
+                                    TRANSDIGM GROUP INCORPORATED
+                                CONSOLIDATED STATEMENTS OF INCOME
+                                 (Amounts in millions, except per share amounts)
+
+                                                                                        Fiscal Years Ended September 30,
+                                                                                         2024         2023        2022
+NET SALES .................................................... $   7,940    $    6,585    $    5,429
+COST OF SALES ...............................................         3,268          2,743          2,330
+GROSS PROFIT ................................................         4,672          3,842          3,099
+SELLING AND ADMINISTRATIVE EXPENSES .....................      980      780      748
+AMORTIZATION OF INTANGIBLE ASSETS ........................      161      139      136
+INCOME FROM OPERATIONS ...................................         3,531          2,923          2,215
+INTEREST EXPENSE—NET ......................................         1,286          1,164          1,076
+REFINANCING COSTS ..........................................       58       56        1
+OTHER (INCOME) EXPENSE .....................................            (28)            (13)             11
+INCOME FROM CONTINUING OPERATIONS BEFORE INCOME
+  TAXES ......................................................         2,215          1,716          1,127
+INCOME TAX PROVISION .......................................      500      417      261
+INCOME FROM CONTINUING OPERATIONS ......................         1,715          1,299             866
+INCOME FROM DISCONTINUED OPERATIONS, NET OF TAX .......      —       —         1
+NET INCOME ..................................................         1,715          1,299             867
+LESS: NET INCOME ATTRIBUTABLE TO NONCONTROLLING
+  INTERESTS ..................................................       (1)       (1)       (1)
+NET INCOME ATTRIBUTABLE TO TD GROUP ..................... $   1,714    $    1,298    $       866
+NET INCOME APPLICABLE TO TD GROUP COMMON
+  STOCKHOLDERS ............................................ $   1,481    $    1,260    $       780
+Earnings per share attributable to TD Group common stockholders:
+     Earnings per share from continuing operations—basic and diluted ..... $   25.62    $    22.03    $    13.38
+     Earnings per share from discontinued operations—basic and diluted ....      —       —             0.02
+     Earnings per share ........................................... $   25.62    $    22.03    $    13.40
+Cash dividends declared per common share ........................... $ 110.00    $       —      $    18.50
+Weighted-average shares outstanding:
+     Basic and diluted ............................................           57.8            57.2            58.2
+
+                                    See notes to consolidated financial statements
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                           F-4
+
+=== ORIGINAL PDF PAGE 109 ===
+                                            TRANSDIGM GROUP INCORPORATED
+                                   CONSOLIDATED STATEMENTS OF CASH FLOWS
+                                                           (Amounts in millions)
+
+                                                                                                              Fiscal Years Ended September 30,
+                                                                                                                 2024          2023          2022
+OPERATING ACTIVITIES:
+  Net income ................................................................  $1,715       $ 1,299       $    867
+  Income from discontinued operations, net of tax ...................................      —       —        (1)
+  Adjustments to reconcile net income to net cash provided by operating activities:
+           Depreciation .........................................................      149      129      116
+           Amortization of intangible assets and product certification costs ................      163      139      137
+           Amortization of debt issuance costs, original issue discount and premium ........       40       41       34
+           Amortization of inventory step-up ........................................       21        2        3
+           Amortization of loss contract reserves .....................................            (35)            (34)            (39)
+           Refinancing costs .....................................................       58       56        1
+           Gain on sale of businesses, net ...........................................            (11)            —                  (7)
+           Non-cash stock and deferred compensation expense ..........................      217      157      184
+           Deferred income taxes .................................................       10        3             (22)
+           Foreign currency exchange losses (gains) ..................................       20       14             (40)
+           (Gain) loss on settlement of the Esterline Retirement Plan (the “ERP”) ...........      —        (9)      22
+           Cash refund (contribution) for the ERP settlement, net ........................      —         9             (16)
+           Changes in assets/liabilities, net of effects from acquisitions and sales of businesses:
+                 Trade accounts receivable ..........................................            (84)           (212)           (190)
+                 Inventories ......................................................          (104)           (261)           (134)
+                 Income taxes (receivable) payable ....................................            (62)            168               58
+                 Other assets .....................................................            (60)            (44)            (56)
+                 Accounts payable .................................................            (11)              12               58
+                 Accrued interest ..................................................       60             (45)            (21)
+                 Accrued and other liabilities ........................................            (41)            (49)              (6)
+           Net cash provided by operating activities ..................................        2,045          1,375             948
+INVESTING ACTIVITIES:
+     Capital expenditures .......................................................          (165)           (139)           (119)
+     Acquisition of businesses, net of cash acquired ..................................       (2,347)           (762)           (437)
+     Other investing transactions .................................................       71        1        3
+           Net cash used in investing activities ......................................       (2,441)           (900)           (553)
+FINANCING ACTIVITIES:
+     Proceeds from exercise of stock options .......................................      245      215      132
+     Dividends and dividend equivalent payments ...................................       (2,038)            (38)        (1,091)
+     Repurchases of common stock ...............................................      —       —             (912)
+     Proceeds from issuance of senior secured notes, net ..............................        7,373          3,504             —
+     Repayments of senior secured notes ..........................................       (4,400)        (1,122)            —
+     Repayments of senior subordinated notes, net ...................................          (550)        (1,459)            —
+     Repayment on revolving credit facility ........................................      —       —             (200)
+     Proceeds from trade receivable securitization facility, net .........................      137      —       —
+     Proceeds from term loans, net ...............................................        6,815          6,238             —
+     Repayment on term loans ...................................................       (4,403)        (7,334)            (75)
+     Financing costs and other, net ...............................................       (8)           (20)              (2)
+           Net cash provided by (used in) financing activities ...........................        3,171              (16)        (2,148)
+EFFECT OF EXCHANGE RATE CHANGES ON CASH AND CASH EQUIVALENTS ....       14       12             (33)
+NET INCREASE (DECREASE) IN CASH AND CASH EQUIVALENTS ...............        2,789             471         (1,786)
+CASH AND CASH EQUIVALENTS, BEGINNING OF PERIOD ......................        3,472          3,001          4,787
+CASH AND CASH EQUIVALENTS, END OF PERIOD .............................  $6,261       $ 3,472       $ 3,001
+SUPPLEMENTAL DISCLOSURE OF CASH FLOW INFORMATION:
+     Cash paid during the period for interest, net ....................................  $1,158       $ 1,160       $ 1,057
+     Cash paid during the period for income taxes, net of refunds .......................  $  539   $  260   $  220
+
+
+                                            See notes to consolidated financial statements
+
+
+                                                                        F-7
+
+=== ORIGINAL PDF PAGE 126 ===
+10.   DEBT
+      The Company’s debt consists of the following (in millions):
+
+                                                                                           September 30, 2024
+                                                                                                        Original Issue
+                                                                        Gross        Debt Issuance        (Discount)          Net
+                                                                       Amount            Costs            Premium           Amount
+      Short-term borrowings—trade receivable
+         securitization facility ....................  $  487    $   (1)     $ —     $  486
+      Term loans .............................  $ 8,702         $     (25)            $     (35)        $  8,642
+      5.50% senior subordinated notes due 2027
+         (“5.50% 2027 Notes”) ...................         2,650                  (9)                 —               2,641
+      6.75% secured notes due 2028 (“2028 Secured
+         Notes”) ..............................         2,100                (15)                    (8)            2,077
+      4.625% senior subordinated notes due 2029
+         (“4.625% 2029 Notes”) ..................         1,200                  (6)                 —               1,194
+      6.375% secured notes due 2029 (“2029 Secured
+         Notes”) ..............................         2,750                (22)                    (1)            2,727
+      4.875% senior subordinated notes due 2029
+         (“4.875% 2029 Notes”) ..................      750        (4)        —         746
+      6.875% secured notes due 2030 (“2030 Secured
+         Notes”) ..............................         1,450                (12)                 —               1,438
+      7.125% secured notes due 2031 (“2031 Secured
+         Notes”) ..............................         1,000                  (9)                    (7)               984
+      6.625% secured notes due 2032 (“2032 Secured
+         Notes”) ..............................         2,200                (20)                 —               2,180
+      6.00% secured notes due 2033 (“2033 Secured
+         Notes”) ..............................         1,500                (14)                 —               1,486
+      Government refundable advances ............       17       —          —          17
+      Finance lease obligations ..................      262       —          —         262
+                                                                        24,581              (136)                  (51)          24,394
+      Less: current portion ......................       99        (1)        —          98
+      Long-term debt .........................     $24,482         $   (135)            $     (51)        $24,296
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                   F-24
+
+=== ORIGINAL PDF PAGE 127 ===
+                                                                                         September 30, 2023
+                                                                                                     Original Issue
+                                                                      Gross        Debt Issuance       (Discount)          Net
+                                                                     Amount            Costs            Premium          Amount
+     Short-term borrowings—trade receivable
+        securitization facility ....................  $  350    $   (1)     $ —     $  349
+     Term loans .............................  $ 6,249         $     (22)            $     (48)        $  6,179
+     6.25% secured notes due 2026 (“2026 Secured
+        Notes”) ..............................         4,400                (25)                     2             4,377
+     7.50% senior subordinated notes due 2027
+        (“7.50% 2027 Notes”) ...................      550        (2)        —         548
+     5.50% 2027 Notes ........................         2,650                (12)                 —               2,638
+     2028 Secured Notes ......................         2,100                (19)                  (10)            2,071
+     4.625% 2029 Notes .......................         1,200                  (7)                 —               1,193
+     4.875% 2029 Notes .......................      750        (5)        —         745
+     2030 Secured Notes ......................         1,450                (14)                 —               1,436
+     Government refundable advances ............       21       —          —          21
+     Finance lease obligations ..................      193       —          —         193
+                                                                      19,563              (106)                  (56)          19,401
+     Less: current portion ......................       71       —          —          71
+     Long-term debt .........................     $19,492         $   (106)            $     (56)        $19,330
+
+
+     First Quarter of Fiscal 2024 Activity
+     Amendment No. 13 and Incremental Term Loan Assumption Agreement—On November 28, 2023, the
+Company entered into Amendment No. 13 and Incremental Term Loan Assumption Agreement (herein,
+“Amendment No. 13”) to the Second Amended and Restated Credit Agreement dated as of June 4, 2014 (the
+“Credit Agreement”). Under the terms of Amendment No. 13, the Company, among other things, issued
+$1,000 million in Tranche J term loans maturing February 28, 2031. The Tranche J term loans bore interest at a
+rate of adjusted Term Secured Overnight Financing Rate (“Term SOFR”) plus 3.25%. The Tranche J term loans
+were issued at a discount of 0.25%, or approximately $3 million. The Tranche J term loans were fully drawn on
+November 28, 2023 and the other terms and conditions that apply to the Tranche J term loans were substantially
+the same as the terms and conditions that apply to the term loans immediately prior to Amendment No. 13.
+Principal payments commenced on March 31, 2024, in which $3 million was to be paid on a quarterly basis up to
+the maturity date.
+
+     The Company capitalized $10 million in debt issuance costs associated with the Tranche J term loans during
+the fiscal year ended September 30, 2024.
+
+     In the third quarter of fiscal 2024, the remaining $997 million of existing Tranche J term loans were
+refinanced. Refer to the section below, “Amendment No. 16 Loan Modification Agreement and Refinancing
+Facility Agreement” for further information.
+
+     Issuance of $1,000 million of Senior Secured Notes due 2031—On November 28, 2023, the Company
+entered into a purchase agreement in connection with a private offering of $1,000 million in aggregate principal
+amount of 7.125% senior secured notes due 2031 at an issue price of 99.25% of the principal amount, which
+represents an approximately $8 million discount. The 2031 Secured Notes were issued pursuant to an indenture,
+dated as of November 28, 2023, amongst TransDigm Inc., as issuer, TransDigm Group and the other subsidiaries
+of TransDigm Inc. named therein, as guarantors. The 2031 Secured Notes are guaranteed, on a senior secured
+basis, by TransDigm Group and each of TransDigm Inc.’s direct and indirect restricted subsidiaries that is a
+borrower or guarantor under TransDigm’s senior secured credit facilities or that issues or guarantees any capital
+
+                                                                 F-25
+
+=== ORIGINAL PDF PAGE 128 ===
+markets indebtedness of TransDigm or any of the guarantors in an aggregate principal amount of at least
+$200 million. The 2031 Secured Notes and guarantees rank equally in right of payment with all of TransDigm’s
+and the guarantors’ existing and future senior indebtedness, senior in right of payment to any of TransDigm’s and
+the guarantors’ existing and future indebtedness that is, by its terms, expressly subordinated in right of payment
+to the 2031 Secured Notes and guarantees, and structurally subordinated to all of the liabilities of TransDigm’s
+non-guarantor subsidiaries. The Company used the proceeds of the offering of the 2031 Secured Notes, along
+with the proceeds from the Tranche J term loans further described above, together with cash on hand, primarily
+to fund the acquisition of CPI’s Electron Device Business completed during the third quarter of fiscal 2024 (see
+Note 2, “Acquisitions,” for further information).
+
+      The 2031 Secured Notes bear interest at a rate of 7.125% per annum, which accrues from November 28,
+2023 and is payable in arrears on June 1st and December 1st of each year, commencing on June 1, 2024. The
+2031 Secured Notes mature on December 1, 2031, unless earlier redeemed or repurchased, and are subject to the
+terms and conditions set forth in the indenture.
+
+      The Company capitalized $10 million in debt issuance costs associated with the 2031 Secured Notes during
+the fiscal year ended September 30, 2024.
+
+      Second Quarter of Fiscal 2024 Activity
+      Amendment No. 14 and Incremental Revolving Credit Assumption Agreement—On February 27, 2024,
+the Company entered into Amendment No. 14 and Incremental Revolving Credit Assumption Agreement (herein,
+“Amendment No. 14”) to the Credit Agreement. Under the terms of Amendment No. 14, the Company, among
+other things, refinanced its revolving credit facility to (i) extend the maturity date from May 2026 to February
+2029; (ii) increased the total commitments capacity thereunder from $810 million to $910 million; and
+(iii) decreased the applicable interest rate to Term SOFR plus 2.25% compared to Term SOFR plus 2.50%
+applicable prior to Amendment No. 14. As of September 30, 2024, the borrowings available under the revolving
+commitments were $843 million.
+
+      The Company capitalized $1 million in debt issuance costs and wrote-off $3 million in unamortized debt
+issuance costs associated with Amendment No. 14 during the fiscal year ended September 30, 2024.
+
+      Issuance of $4,400 million of Senior Secured Notes due 2029 and 2032—On February 27, 2024, the
+Company entered into two separate purchase agreements in connection with private offerings of $2,200 million
+in aggregate principal amount of 6.375% senior secured notes due 2029 (the “$2,200 million 2029 Secured
+Notes”) at an issue price of 100% of the principal amount and $2,200 million in aggregate principal amount of
+6.625% senior secured notes due 2032 (the “2032 Secured Notes”) at an issue price of 100% of the principal
+amount. The proceeds were used to repurchase all outstanding 6.25% secured notes due 2026 (the “2026 Secured
+Notes”) further described below.
+
+      The $2,200 million 2029 Secured Notes and 2032 Secured Notes bear interest at the rate of 6.375% per
+annum and 6.625% per annum, respectively, which accrues from February 27, 2024 and is payable in arrears on
+March 1st and September 1st of each year, commencing on September 1, 2024. The $2,200 million 2029 Secured
+Notes mature on March 1, 2029 and the 2032 Secured Notes mature on March 1, 2032, unless earlier redeemed
+or repurchased, and are subject to the terms and conditions set forth in the applicable indenture.
+
+      The $2,200 million 2029 Secured Notes and 2032 Secured Notes were issued pursuant to an indenture, dated
+as of February 27, 2024 in each case, amongst TransDigm Inc., as issuer, TD Group and the subsidiaries of
+TransDigm party thereto, as guarantors. The secured notes are guaranteed, on a senior secured basis, by TD
+Group and each of TransDigm’s direct and indirect restricted subsidiaries that is a borrower or guarantor under
+TransDigm’s senior secured credit facilities or that issues or guarantees any capital markets indebtedness of
+TransDigm or any of the guarantors in an aggregate principal amount of at least $200 million. The secured notes
+
+                                                                  F-26
+
+=== ORIGINAL PDF PAGE 129 ===
+and the related guarantees rank equally in right of payment with all of TransDigm’s and the guarantors’ existing
+and future senior indebtedness, senior in right of payment to any of TransDigm’s and the guarantors’ existing and
+future indebtedness that is, by its terms, expressly subordinated in right of payment to the $2,200 million 2029
+Secured Notes and 2032 Secured Notes and related guarantees, and structurally subordinated to all of the
+liabilities of TransDigm’s non-guarantor subsidiaries.
+
+      The Company capitalized approximately $20 million and $21 million in debt issuance costs associated with
+the $2,200 million 2029 Secured Notes and the 2032 Secured Notes, respectively, during the fiscal year ended
+September 30, 2024.
+
+      Amendment No. 15 Loan Modification Agreement and Refinancing Facility Agreement—On March 22,
+2024, the Company entered into Amendment No. 15 Loan Modification Agreement and Incremental Term Loan
+Assumption Agreement (herein, “Amendment No. 15”) to the Credit Agreement. Under the terms of Amendment
+No. 15, the Company, among other things, (i) repriced all of its $4,525 million in existing Tranche I term loans
+maturing August 24, 2028 to bear interest at Term SOFR plus 2.75% compared to Term SOFR plus 3.25%
+applicable prior to Amendment No. 15; and (ii) repaid in full its existing approximately $1,708 million in
+Tranche H term loans maturing February 22, 2027 and replaced such loans with approximately $1,708 million in
+new Tranche K term loans maturing March 22, 2030. The Tranche K term loans were issued at a discount of
+0.25%, or approximately $4 million, and bear interest at Term SOFR plus 2.75%. The Tranche K term loans were
+fully drawn on March 22, 2024.
+
+      The other terms and conditions that apply to the Tranche I and Tranche K term loans are substantially the
+same as the terms and conditions that applied to the term loans immediately prior to Amendment No. 15.
+Principal payments for the Tranche I term loans and Tranche K term loans commenced on June 30, 2024, in
+which $11 million (subsequently revised in Amendment No. 16 detailed below) and $4 million will be paid on a
+quarterly basis up to the maturity date of each respective tranche of term loans.
+
+      The Company expensed approximately $5 million in refinancing costs associated with the refinancing
+during the fiscal year ended September 30, 2024. Additionally, the Company wrote-off $2 million of original
+issue discount associated with Amendment No. 15 during the fiscal year ended September 30, 2024.
+
+      In the third quarter of fiscal 2024, $2,644 million of existing Tranche I term loans were refinanced. Refer to
+the section below, “Amendment No. 16 Loan Modification Agreement and Refinancing Facility Agreement” for
+further information.
+
+      Redemption of $4,400 million of Senior Secured Notes due 2026—On March 28, 2024, the Company
+redeemed all $4,400 million aggregate principal amount of its outstanding 2026 Secured Notes at a redemption
+price of 100% of the principal amount thereof, plus accrued and unpaid interest thereon to, but not including, the
+redemption date, using the net proceeds of the offering of the $2,200 million 2029 Secured Notes and the 2032
+Secured Notes, together with cash on hand.
+
+      The Company recorded refinancing costs of $19 million, consisting primarily of the write-off of $21 million
+in unamortized debt issuance costs, slightly offset by the write-off of unamortized premium of $2 million during
+the fiscal year ended September 30, 2024 in conjunction with the redemption of the 2026 Secured Notes.
+
+      Issuance of $550 million of Senior Secured Notes due 2029—On March 22, 2024, the Company entered
+into a purchase agreement in connection with a private offering of $550 million in aggregate principal amount
+consisting of 6.375% senior secured notes due 2029 (the “$550 million 2029 Secured Notes”) at an issue price of
+99.75% of the principal amount, which represents an approximately $1 million discount. The $550 million 2029
+Secured Notes are an additional issuance of the Company’s existing $2,200 million 2029 Secured Notes (as
+further described above) and were issued under a supplemental indenture dated as of March 22, 2024, pursuant to
+which the Company previously issued the $2,200 million 2029 Secured Notes. The $550 million 2029 Secured
+
+                                                                 F-27
+
+=== ORIGINAL PDF PAGE 130 ===
+Notes are the same class and series as, and otherwise identical to, the $2,200 million 2029 Secured Notes other
+than with respect to the date of issuance and issue price (collectively, the $550 million 2029 Secured Notes and
+the $2,200 million 2029 Secured Notes are referred to herein as the “2029 Secured Notes”).
+
+      The Company capitalized $5 million in debt issuance costs associated with the $550 million 2029 Secured
+Notes during the fiscal year ended September 30, 2024.
+
+      Third Quarter of Fiscal 2024 Activity
+      Redemption of $550 million of Senior Subordinated Notes due 2027—On April 22, 2024, the Company
+redeemed all $550 million aggregate principal of its outstanding 7.50% senior subordinated notes due 2027 (the
+“7.50% 2027 Notes”) at a redemption price of 100% of the principal amount thereof, plus accrued and unpaid
+interest thereon to, but not including, the redemption date, using the net proceeds of the offering of the
+$550 million 2029 Secured Notes, together with cash on hand.
+
+      The Company wrote off $2 million in unamortized debt issuance costs during the fiscal year ended
+September 30, 2024 in conjunction with the redemption of the 7.50% 2027 Notes.
+
+      Amendment No. 16 Loan Modification Agreement and Refinancing Facility Agreement—On June 4,
+2024, the Company entered into Amendment No. 16 Loan Modification Agreement and Refinancing Facility
+Agreement (herein, “Amendment No. 16”) to the Credit Agreement. Under the terms of Amendment No. 16, the
+Company, among other things, (i) repriced all of its $997 million in existing Tranche J term loans to bear interest
+at Term SOFR plus 2.50% compared to Term SOFR plus 3.25% applicable prior to Amendment No. 16; and
+(ii) amended and extended $2,644 million of existing Tranche I term loans maturing August 24, 2028 and
+converting such loans into Tranche J term loans maturing February 28, 2031.
+
+      The other terms and conditions that apply to the Tranche I and Tranche J term loans are substantially the
+same as the terms and conditions that applied to the term loans immediately prior to Amendment No. 16.
+Principal payments for Tranche I and Tranche J term loans commence on June 30, 2024 and September 30, 2024
+respectively, in which $5 million and $9 million will be paid on a quarterly basis up to the maturity date of each
+respective tranche of term loans.
+
+      The Company capitalized $3 million in debt issuance costs associated with the refinancing during the fiscal
+year ended September 30, 2024. Additionally, the Company wrote-off $14 million in unamortized debt issuance
+costs and $12 million of original issue discount associated with Amendment No. 16 during the fiscal year ended
+September 30, 2024.
+
+      Trade Receivable Securitization Facility—The Company’s trade receivable securitization facility (the
+“Securitization Facility”) effectively increases the Company’s borrowing capacity depending on the amount of
+the domestic operations’ trade accounts receivable. The Securitization Facility includes the right for the
+Company to exercise annual one year extensions as long as there have been no termination events as defined by
+the agreement. The Company uses the proceeds from the Securitization Facility as an alternative to other forms
+of debt, effectively reducing borrowing costs.
+
+      On July 12, 2024, the Company amended the Securitization Facility to, among other things, (i) increase the
+borrowing capacity from $450 million to $650 million; and (ii) extend the maturity date to July 11, 2025 at an
+interest rate of Term SOFR plus 1.45% compared to an interest rate of Term SOFR plus 1.60% that applied prior
+to the amendment.
+
+      The Company drew $100 million and $37 million available under the Securitization Facility in December
+2023 and July 2024, respectively. As of September 30, 2024, the total drawn on the Securitization Facility is
+$487 million. For the fiscal years ended September 30, 2024 and 2023, the applicable interest rate was 6.73% and
+6.95%, respectively. The Securitization Facility is collateralized by substantially all of the Company’s domestic
+operations’ trade accounts receivable.
+
+                                                                  F-28
+
+=== ORIGINAL PDF PAGE 131 ===
+      Fourth Quarter of Fiscal 2024 Activity
+      Issuance of $1,500 million of Senior Secured Notes due 2033—On September 19, 2024, the Company
+entered into a purchase agreement in connection with a private offering of $1,500 million in aggregate principal
+amount of 6.00% senior secured notes due 2033 (the “2033 Secured Notes”) at an issue price of 100% of the
+principal amount. The 2033 Secured Notes were issued pursuant to an indenture, dated as of September 19, 2024,
+amongst TransDigm Inc., as issuer, TransDigm Group and the other subsidiaries of TransDigm Inc. named therein,
+as guarantors. The 2033 Secured Notes are guaranteed, on a senior secured basis, by TransDigm Group and each of
+TransDigm Inc.’s direct and indirect restricted subsidiaries that is a borrower or guarantor under TransDigm’s
+senior secured credit facilities or that issues or guarantees any capital markets indebtedness of TransDigm or any of
+the guarantors in an aggregate principal amount of at least $200 million. The 2033 Secured Notes and guarantees
+rank equally in right of payment with all of TransDigm’s and the guarantors’ existing and future senior
+indebtedness, senior in right of payment to any of TransDigm’s and the guarantors’ existing and future indebtedness
+that is, by its terms, expressly subordinated in right of payment to the 2033 Secured Notes and related guarantees,
+and structurally subordinated to all of the liabilities of TransDigm’s non-guarantor subsidiaries.
+
+      The Company capitalized approximately $14 million in debt issuance costs associated with the 2033
+Secured Notes during the fiscal year ended September 30, 2024.
+
+      Amendment No. 17 and Incremental Term Loan Assumption Agreement—On September 19, 2024, the the
+Company entered into Amendment No. 17 and Incremental Term Loan Assumption Agreement (herein,
+“Amendment No. 17”) to the Credit Agreement. Under the terms of Amendment No. 17, the Company, among
+other things, issued $1,500 million in Tranche L term loans maturing January 19, 2032. The Tranche L term
+loans bore interest at a rate of Term SOFR plus 2.50%. The Tranche L term loans were issued at a discount of
+0.25%, or approximately $4 million. The Tranche L term loans were fully drawn on September 19, 2024 and the
+other terms and conditions that apply to the Tranche L term loans are substantially the same as the terms and
+conditions that apply to the term loans immediately prior to Amendment No. 17.
+
+      The Company capitalized approximately $12 million in debt issuance costs associated with Amendment
+No. 17 during the fiscal year ended September 30, 2024.
+
+      The proceeds from both fourth quarter of fiscal 2024 issuances were used, along with existing cash on hand,
+to fund a $75.00 special dividend declaration on each outstanding share of common stock and cash dividend
+equivalent payments on eligible vested options outstanding under its stock option plans.
+
+      Subsequent Event—Trade Receivable Securitization Facility—The Company drew the remaining
+$162.5 million available under the Securitization Facility in October 2024.
+
+   Government Refundable Advances
+      Government refundable advances consist of payments received from the Canadian government to assist in
+research and development related to commercial aviation. The requirement to repay this advance is based on
+year-over-year commercial aviation revenue growth for certain product lines at CMC Electronics, which is a
+wholly-owned subsidiary of TransDigm. As of September 30, 2024 and 2023, the outstanding balance of these
+advances were $17 million and $21 million, respectively.
+
+   Obligations under Finance Leases
+      The Company leases certain buildings and equipment under finance leases. The present value of the
+minimum finance lease payments, net of the current portion, represents a balance of $262 million and
+$193 million at September 30, 2024 and 2023, respectively. The increase in fiscal 2024 is primarily attributable
+to the leases assumed from the acquisition of CPI’s Electron Device Business in the third quarter of fiscal 2024
+and certain new leases of facilities and amendments to previous agreements qualifying as lease modifications
+
+                                                                  F-29
+
+=== ORIGINAL PDF PAGE 132 ===
+resulting in a change in classification from an operating lease to a finance lease. Refer to Note 17, “Leases,” for
+further disclosure of the Company’s lease obligations.
+
+   Senior Secured Term Loans Facility
+      As of September 30, 2024, TransDigm had $8,702 million in fully drawn term loans (the “Term Loans
+Facility”), $910 million in revolving commitments, of which $843 million was available to the Company, subject
+to an interest rate of 2.25% per annum. As of September 30, 2023, TransDigm had $6,249 million in fully drawn
+term loans, $810 million in revolving commitments, of which $755 million was available to the Company,
+subject to an interest rate of 2.50% per annum. The unused portion of the revolving commitments is subject to a
+fee of 0.5% per annum for both fiscal 2024 and 2023. The total fees incurred on the unused portion of the
+revolving commitments were not material in fiscal 2024 or fiscal 2023.
+
+                                                                                                  Aggregate Principal as of September 30,
+                                                                  Interest Rate under Term
+Term Loans Facility                        Maturity Date                Loans Facility                   2024                   2023
+Tranche H (1) .............   February 22, 2027    Term SOFR plus 3.25%           $   —                    $1,713
+Tranche I ...............    August 24, 2028     Term SOFR plus 2.75%           $1,871                  $4,536
+Tranche J ...............   February 28, 2031    Term SOFR plus 2.50%           $3,632                  $   —
+Tranche K ...............     March 22, 2030      Term SOFR plus 2.75%           $1,699                  $   —
+Tranche L ...............    January 19, 2032     Term SOFR plus 2.50%           $1,500                  $   —
+
+(1)     As previously disclosed within this note, during fiscal 2024, Tranche H was replaced by Tranche K.
+
+      The interest rates per annum applicable to the loans under the Term Loans Facility are, at TransDigm’s
+option, equal to either an alternate base rate or an adjusted Term SOFR for one, three or six-months thereafter (in
+each case, subject to the availability thereof), interest periods chosen by TransDigm, in each case, plus an
+applicable margin percentage. The adjusted Term SOFR related to the existing term loans are not subject to a
+floor. Refer to Note 19, “Derivatives and Hedging Activities,” for information about how our interest rate swaps,
+cap and collar agreements are used to hedge and offset, respectively, the variable interest rates on the Term
+Loans Facility.
+
+   Secured Notes
+      TransDigm Inc.’s 2028 Secured Notes are jointly and severally guaranteed, on a senior basis, by TD Group,
+TransDigm UK and all of TransDigm Inc.’s Domestic Restricted Subsidiaries, as defined in the applicable
+indentures. The 2029 Secured Notes, 2030 Secured Notes, 2031 Secured Notes, 2032 Secured Notes and 2033
+Secured Notes (collectively with the 2028 Secured Notes, the “Secured Notes”) are guaranteed on a senior
+secured basis by TD Group and each of TransDigm Inc.’s direct and indirect Restricted Subsidiaries (as defined
+in the applicable indenture) that is a borrower or guarantor under TransDigm’s senior secured credit facilities or
+that issues or guarantees any capital market indebtedness of TransDigm Inc. or any of the guarantors in an
+aggregate principal amount of at least $200 million. As of the date of this Form 10-K, the guarantors of the 2029
+Secured Notes, 2030 Secured Notes, 2031 Secured Notes, 2032 Secured Notes and 2033 Secured Notes are the
+same as the guarantors of the 2028 Secured Notes. The Secured Notes contain restrictive covenants that are
+substantially similar to many of the restrictive covenants included in the Credit Agreement. TransDigm is in
+compliance with all the covenants contained in the Secured Notes.
+
+   Subordinated Notes
+      TransDigm Inc.’s 5.50% 2027 Notes, 4.625% 2029 Notes, and 4.875% 2029 Notes (collectively, the
+“Subordinated Notes”) are jointly and severally guaranteed, on a senior subordinated basis, by TD Group,
+TransDigm UK and all of TransDigm Inc.’s Domestic Restricted Subsidiaries, as defined in the applicable
+indentures. The Subordinated Notes contain restrictive covenants that are substantially similar to many of the
+restrictive covenants included in the Credit Agreement. TransDigm is in compliance with all the covenants
+contained in the Subordinated Notes.
+
+                                                                   F-30
+
+=== ORIGINAL PDF PAGE 133 ===
+  Debt Repayment Schedule
+     At September 30, 2024, future maturities of long-term debt (excluding finance leases) are as follows
+(in millions), refer to Note 17, “Leases,” for future maturities of finance leases:
+
+     Fiscal Years Ended September 30,
+     2025 .....................................................................  $   93
+     2026 .....................................................................       92
+     2027 .....................................................................       92
+     2028 .....................................................................         6,637
+     2029 .....................................................................         4,768
+     Thereafter .................................................................       12,637
+     Total .....................................................................     $24,319
+
+
+11.   RETIREMENT PLANS
+     The Company maintains certain non-contributory defined benefit pension plans (collectively, referred to as
+the “pension plans”) covering eligible employees in the U.S. and in other certain countries such as Canada,
+France, Germany and the United Kingdom. These pension plans generally provide benefits to employees based
+on formulas recognizing length of service and earnings. The Company’s funding policy is to contribute actuarial-
+determined amounts allowable under tax and statutory regulations for the qualified plans. The Company uses a
+September 30th measurement date for its defined benefit pension plans. The Company also sponsors other post-
+retirement pension plans for its employees in the U.S. and in Canada (collectively, referred to as the “post-
+retirement pension plans”). Other post-retirement pension plans are non-contributory health care and life
+insurance plans.
+
+     The components of net periodic pension benefit cost (income) for the pension plans at the end of each fiscal
+year consisted of the following (in millions):
+
+                                                                                    Defined Benefit Pension Plans
+                                                                          2024                   2023                  2022
+                                                                     U.S.    Non-U.S.      U.S.     Non-U.S.      U.S.    Non-U.S.
+                                                                   Pension    Pension    Pension    Pension     Pension    Pension
+                                                                    Plans      Plans      Plans       Plans      Plans      Plans
+Service cost ..................................  $—    $ 2   $—    $ 2   $—    $ 3
+Interest cost ..................................      1      8       1      7       4      4
+Expected return on plan assets ....................     (1)    (7)    —      (7)     (6)    (7)
+Amortization of net loss .........................    —     —      —       1     —       1
+Settlement (gain) loss  (1) .........................    —     —       (9)   —       22    —
+     Net periodic pension benefit cost (income) ....  $—    $ 3   $  (8)  $ 3   $ 20   $ 1
+
+
+(1)     Effective June 30, 2021, the Company terminated the Esterline Retirement Plan (the “ERP”) in accordance
+     with regulatory requirements. Pension obligations were distributed through a combination of lump sum
+     payments (using existing plan assets) to eligible plan participants and the purchase of a group annuity
+     contract in fiscal 2022. During the third quarter of fiscal 2022, the Company transferred the remaining
+     benefit obligations to an insurance company to purchase a group annuity contract. In connection with the
+     transfer, a settlement loss of approximately $22 million was recorded as a component of other (income)
+     expense in the consolidated statements of income in fiscal 2022. Upon the finalization of the group annuity
+     purchase funding during fiscal 2023, a settlement (gain) of approximately $(9) million was recorded as a
+     component of other (income) expense in the consolidated statements of income in fiscal 2023. No settlement
+     (gain) or loss was recorded in fiscal 2024.
+
+
+                                                               F-31
+
+=== ORIGINAL PDF PAGE 139 ===
+      Environmental Liabilities—Our operations and facilities are subject to a number of federal, state, local and
+foreign environmental laws and regulations that govern, among other things, discharges of pollutants into the air
+and water, the generation, handling, storage and disposal of hazardous materials and wastes, the remediation of
+contamination and the health and safety of our employees. Environmental laws and regulations may require that
+the Company investigate and remediate the effects of the release or disposal of materials at sites associated with
+past and present operations. Certain facilities and third-party sites utilized by the Company have been identified
+as potentially responsible parties under the federal superfund laws and comparable state laws. The Company is
+currently involved in the investigation and remediation of a number of sites under applicable laws.
+
+      Estimates of the Company’s environmental liabilities are based on current facts, laws, regulations and
+technology. These estimates take into consideration the Company’s prior experience and professional judgment
+of the Company’s environmental advisors. Estimates of the Company’s environmental liabilities are further
+subject to uncertainties regarding the nature and extent of site contamination, the range of remediation
+alternatives available, evolving remediation standards, imprecise engineering evaluations and cost estimates, the
+extent of corrective actions that may be required and the number and financial condition of other potentially
+responsible parties, as well as the extent of their responsibility for the remediation.
+
+      Accordingly, as investigation and remediation proceed, it is likely that adjustments in the Company’s
+accruals will be necessary to reflect new information. The amounts of any such adjustments could have a
+material adverse effect on the Company’s results of operations or cash flows in a given period. Based on
+currently available information, however, the Company does not believe that future environmental costs in
+excess of those accrued with respect to sites for which the Company has been identified as a potentially
+responsible party are likely to have a material adverse effect on the Company’s financial condition or results of
+operations.
+
+      Environmental liabilities are recorded when the liability is probable and the costs are reasonably estimable,
+which generally is not later than at completion of a feasibility study or when the Company has recommended a
+remedy or has committed to an appropriate plan of action. The Company also takes into consideration the
+estimated period of time in which payments will be required. The liabilities are reviewed periodically and, as
+investigation and remediation proceed, adjustments are made as necessary. Liabilities for losses from
+environmental remediation obligations do not consider the effects of inflation and anticipated expenditures are
+not discounted to their present value. The liabilities are not offset by possible recoveries from insurance carriers
+or other third parties, but do reflect anticipated allocations among potentially responsible parties at federal
+superfund sites or similar state-managed sites, third party indemnity obligations, and an assessment of the
+likelihood that such parties will fulfill their obligations at such sites.
+
+      The Company’s consolidated balance sheets includes current environmental remediation obligations at
+September 30, 2024 and 2023 of $5 million and $3 million classified as a component of accrued and other
+current liabilities, respectively, and non-current environmental remediation obligations at September 30, 2024
+and 2023 of $36 million and $41 million classified as a component of other non-current liabilities, respectively.
+
+
+14.   STOCK REPURCHASE PROGRAM
+      TD Group consists of 224,400,000 shares of $.01 par value common stock and 149,600,000 shares of $.01
+par value preferred stock. The total number of shares of common stock issued at September 30, 2024 and 2023
+was 61,904,833 and 60,995,513, respectively. The total number of shares held in treasury was 5,688,639 at
+September 30, 2024 and 2023, respectively. There were no shares of preferred stock outstanding at
+September 30, 2024 and 2023. The terms of the preferred stock have not been established.
+
+      On January 27, 2022, the Board of Directors of the Company (the “Board”) authorized a new stock
+repurchase program to permit repurchases of its outstanding common stock not to exceed $2,200 million in the
+aggregate (the “$2,200 million stock repurchase program”), replacing the $650 million stock repurchase program
+
+                                                                   F-37
+
+=== ORIGINAL PDF PAGE 150 ===
+      The Company’s derivatives consist of interest rate swap, cap and collar agreements and foreign currency
+exchange contracts. The fair values of the interest rate swap, cap and collar agreements were derived by taking
+the net present value of the expected cash flows using observable market inputs (Level 2) such as SOFR rate
+curves, futures, volatilities and basis spreads (when applicable). The fair values of the foreign currency exchange
+contracts were derived by using Level 2 inputs based on observable spot and forward exchange rates in active
+markets. There has not been any impact to the fair value of derivative liabilities due to the Company’s own credit
+risk. Similarly, there has not been any material impact to the fair value of derivative assets based on the
+Company’s evaluation of counterparties’ credit risks.
+
+      The estimated fair value of the Company’s term loans was based on information provided by the agent
+under the Company’s Credit Agreement. The estimated fair values of the Company’s notes were based upon
+quoted market prices.
+
+      The fair value of cash and cash equivalents, trade accounts receivable-net and accounts payable
+approximated carrying value due to the short-term nature of these instruments at September 30, 2024 and 2023.
+
+
+19.   DERIVATIVES AND HEDGING ACTIVITIES
+      The Company is exposed to, among other things, the impact of changes in foreign currency exchange rates
+and interest rates in the normal course of business. The Company’s risk management program is designed to
+manage the exposure and volatility arising from these risks, and utilizes derivative financial instruments to offset
+a portion of these risks. The Company uses derivative financial instruments only to the extent necessary to hedge
+identified business risks and does not enter into such transactions for trading purposes. The Company generally
+does not require collateral or other security with counterparties to these financial instruments and is therefore
+subject to credit risk in the event of nonperformance; however, the Company monitors credit risk and currently
+does not anticipate nonperformance by other parties. These derivative financial instruments do not subject the
+Company to undue risk, as gains and losses on these instruments generally offset gains and losses on the
+underlying assets, liabilities, or anticipated transactions that are being hedged. The Company has agreements
+with each of its swap, cap and collar counterparties that contain a provision whereby if the Company defaults on
+the Credit Agreement, the Company could also be declared in default on its swaps, cap and collars resulting in an
+acceleration of settlement under the swaps, cap and collars.
+
+      All derivative financial instruments are recorded at fair value in the consolidated balance sheets. For a
+derivative that has not been designated as an accounting hedge, the change in the fair value is recognized
+immediately through earnings. For a derivative that has been designated as an accounting hedge of an existing
+asset or liability (a fair value hedge), the change in the fair value of both the derivative and underlying asset or
+liability is recognized immediately through earnings. For a derivative designated as an accounting hedge of an
+anticipated transaction (a cash flow hedge), the change in the fair value is recorded on the consolidated balance
+sheets in accumulated other comprehensive loss to the extent the derivative is effective in mitigating the exposure
+related to the anticipated transaction. The change in the fair value related to the ineffective portion of the hedge,
+if any, is immediately recognized in earnings. The amount recorded within accumulated other comprehensive
+loss is reclassified into earnings in the same period during which the underlying hedged transaction affects
+earnings.
+
+      Interest Rate Swap, Cap and Collar Agreements—Interest rate swap, cap and collar agreements are used to
+manage interest rate risk associated with floating rate borrowings under our Credit Agreement. These agreements
+involve the receipt of floating rate amounts in exchange for fixed rate interest payments over the term of the
+agreements without an exchange of the underlying principal amount. The agreements utilized by the Company
+effectively modify the Company’s exposure to interest rate risk by converting a portion of the Company’s
+floating rate debt to a fixed rate basis from the effective date through the maturity date of the respective interest
+rate swap, cap and collar agreements, thereby reducing the impact of interest rate movements on future interest
+expense.
+
+                                                                   F-48
+
+=== ORIGINAL PDF PAGE 151 ===
+      During the second quarter of fiscal 2023, we entered into LIBOR to Term SOFR basis interest rate swap and
+cap transactions to effectively convert our existing swaps and cap from LIBOR-based to Term SOFR-based. The
+basis swaps and cap offset the LIBOR exposure of the existing swaps and cap and effectively fix the Term SOFR
+rate for the notional amount. We also entered into forward starting interest rate collar agreements during the
+second quarter of fiscal 2023. The interest rate collar agreements establish a range where we will pay the
+counterparties if the three-month Term SOFR rate falls below the established floor rate of 2.00%, and the
+counterparties will pay us if the three-month Term SOFR rate exceeds the ceiling rate of 3.50%. The collar will
+settle quarterly from the effective date through the maturity date. No payments or receipts will be exchanged on
+the interest rate collar contracts unless interest rates rise above or fall below the contracted ceiling or floor rates.
+
+      During the third quarter of fiscal 2024, we entered into forward starting interest rate collar agreements. The
+interest rate collar agreements establish a range where we will pay the counterparties if the three-month Term
+SOFR rate falls below the established floor rate of 2.50%, and the counterparties will pay us if the three-month
+Term SOFR rate exceeds the ceiling rate of 4.50%. The collar will settle quarterly from the effective date through
+the maturity date. No payments or receipts will be exchanged on the interest rate collar contracts unless interest
+rates rise above or fall below the contracted ceiling or floor rates.
+
+      The tables below summarize the key terms of the swaps, cap and collars as of September 30, 2024
+(aggregated by effective date).
+
+      Interest rate swap agreements:
+
+   Aggregate
+Notional Amount                                                  Conversion of Related Variable Rate Debt subject to Term SOFR to
+  (in millions)       Effective Date    Maturity Date                                         Fixed Rate of:
+      $500             3/31/2023       3/31/2025                   6.25% (3.00% plus the 3.25% margin percentage)
+     $1,500            3/31/2023       3/31/2025                   6.35% (3.10% plus the 3.25% margin percentage)
+      $700             3/31/2023       9/30/2025                   4.55% (1.30% plus the 3.25% margin percentage)
+
+      Interest rate cap agreement:
+
+    Aggregate
+Notional Amount                                                                Offsets Variable Rate Debt Attributable to
+   (in millions)      Effective Date     Maturity Date                                     Fluctuations Above:
+      $700             3/31/2023       9/30/2025                          Three-month Term SOFR rate of 1.25%
+
+      Interest rate collar agreements:
+
+    Aggregate
+Notional Amount                                                                Offsets Variable Rate Debt Attributable to
+   (in millions)      Effective Date     Maturity Date                               Fluctuations Below and Above:
+     $1,100            3/31/2025       9/30/2026       Three-month Term SOFR rate of 2.00% (floor) and 3.50% (cap)
+      $500             9/30/2025       9/30/2026       Three-month Term SOFR rate of 2.00% (floor) and 3.50% (cap)
+     $1,338            9/30/2025       9/30/2027       Three-month Term SOFR rate of 2.50% (floor) and 4.50% (cap)
+     $1,550            9/30/2026       9/30/2027       Three-month Term SOFR rate of 2.50% (floor) and 4.50% (cap)
+
+      These derivative instruments qualify as effective cash flow hedges under U.S. GAAP. For the LIBOR to
+Term SOFR basis interest rate swap and cap agreements referenced above, we applied the practical expedients
+permissible under ASC 848 to continue hedge accounting for our existing swaps and cap as effective cash flow
+hedges. For our cash flow hedges, the effective portion of the gain or loss from the financial instruments is
+initially reported as a component of accumulated other comprehensive loss in stockholders’ deficit and
+subsequently reclassified into earnings in the same line as the hedged item in the same period or periods during
+which the hedged item affects earnings. As the interest rate swap, cap and collar agreements are used to manage
+interest rate risk, any gains or losses from the derivative instruments that are reclassified into earnings are
+recognized in interest expense-net in the consolidated statements of income. Cash flows related to the derivative
+contracts are included in cash flows from operating activities on the consolidated statements of cash flows.
+
+                                                                     F-49
+
+=== ORIGINAL PDF PAGE 152 ===
+      Certain derivative asset and liability balances are offset where master netting agreements provide for the
+legal right of setoff. For classification purposes, we record the net fair value of each type of derivative position
+that is expected to settle in less than one year with each counterparty as a net current asset or liability and each
+type of long-term position as a net non-current asset or liability. The amounts shown in the table below represent
+the gross amounts of recognized assets and liabilities, the amounts offset in the consolidated balance sheets and
+the net amounts of assets and liabilities presented therein (in millions):
+
+                                                                                                September 30, 2024     September 30, 2023
+                                                                                                 Asset     Liability    Asset     Liability
+Interest rate cap agreement .......................................  $20    $1    $53   $ 1
+Interest rate collar agreements ....................................    3      8      17    —
+Interest rate swap agreements .....................................   34      1     144      3
+      Net derivatives as classified in the consolidated balance sheets  (1) ....  $57    $10       $214       $    4
+
+
+(1)     Refer to Note 18, “Fair Value Measurements,” for the consolidated balance sheets classification of the
+      Company’s interest rate swap, cap and collar agreements. The decrease in the interest rate cap, collar and
+      swap assets is primarily attributable to a downward trend in Term SOFR during fiscal 2024.
+
+      Based on the fair value amounts determined as of September 30, 2024, the estimated net amount of existing
+(gains) losses and caplet amortization expected to be reclassified into interest expense-net within the next twelve
+months is approximately $(25) million.
+
+      Foreign Currency Forward Exchange Contracts—The Company transacts business in various foreign
+currencies, which subjects the Company’s cash flows and earnings to exposure related to changes in foreign
+currency exchange rates. These exposures arise primarily from purchases or sales of products and services from
+third parties. Foreign currency forward exchange contracts provide for the purchase or sale of foreign currencies
+at specified future dates at specified exchange rates, and are used to offset changes in the fair value of certain
+assets or liabilities or forecasted cash flows resulting from transactions denominated in foreign currencies. At
+September 30, 2024, the Company has outstanding foreign currency forward exchange contracts to sell U.S.
+dollars with notional amounts of $120 million. The maximum duration of the Company’s foreign currency cash
+flow hedge contracts at September 30, 2024 is twelve months. These notional values consist of contracts for the
+Canadian dollar and the euro and are stated in U.S. dollar equivalents at spot exchange rates at the respective
+trade dates. Amounts related to foreign currency forward exchange contracts included in accumulated other
+comprehensive loss in stockholders’ deficit are reclassified into net sales when the hedged transaction settles.
+
+      During the fiscal year ended September 30, 2024, the losses reclassified on settlements of foreign currency
+forward exchange contracts designated as cash flow hedges into net sales was approximately $4 million. The
+losses were previously recorded as a component of accumulated other comprehensive loss in stockholders’
+deficit. As of September 30, 2024, the Company expects to record a net gain of approximately $3 million on
+foreign currency forward exchange contracts designated as cash flow hedges to net sales over the next twelve
+months.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                   F-50

@@ -1,0 +1,940 @@
+{
+  "execution": "New offline execution of unchanged pure forecast/break kernels; independent Fraction verification. Not a live model tool call or native fiscal wrapper acceptance.",
+  "cases": {
+    "REFERENCE": {
+      "years": [
+        {
+          "revenue": {
+            "amount": "8849.924",
+            "reason": null
+          },
+          "ebitda": {
+            "amount": "4685.1497656",
+            "reason": null
+          },
+          "interest": {
+            "amount": "1492.8",
+            "reason": null
+          },
+          "tax_wc": {
+            "amount": "884.9924",
+            "reason": null
+          },
+          "capex": {
+            "amount": "176.99848",
+            "reason": null
+          },
+          "cfo": {
+            "amount": "2307.3573656",
+            "reason": null
+          },
+          "fcf": {
+            "amount": "2130.3588856",
+            "reason": null
+          },
+          "opening_debt": {
+            "amount": "24880",
+            "reason": null
+          },
+          "repayment": {
+            "amount": "1000",
+            "reason": null
+          },
+          "closing_debt": {
+            "amount": "23880",
+            "reason": null
+          },
+          "opening_cash": {
+            "amount": "6261",
+            "reason": null
+          },
+          "dividends": {
+            "amount": "4348",
+            "reason": null
+          },
+          "closing_cash": {
+            "amount": "3043.3588856",
+            "reason": null
+          },
+          "undrawn": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "liquidity": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "total_leverage": {
+            "amount": "5.096955528579954942561377658428635825",
+            "reason": null
+          },
+          "net_debt": {
+            "amount": "20836.6411144",
+            "reason": null
+          },
+          "net_leverage": {
+            "amount": "4.447379946611284480899241715373522317",
+            "reason": null
+          },
+          "coverage": {
+            "amount": "3.1384979673097534833869239013933547696",
+            "reason": null
+          },
+          "fcf_to_debt": {
+            "amount": "0.08921100860971524288107202680067001675",
+            "reason": null
+          }
+        },
+        {
+          "revenue": {
+            "amount": "9292.4202",
+            "reason": null
+          },
+          "ebitda": {
+            "amount": "4919.40725388",
+            "reason": null
+          },
+          "interest": {
+            "amount": "1432.8",
+            "reason": null
+          },
+          "tax_wc": {
+            "amount": "929.24202",
+            "reason": null
+          },
+          "capex": {
+            "amount": "185.848404",
+            "reason": null
+          },
+          "cfo": {
+            "amount": "2557.36523388",
+            "reason": null
+          },
+          "fcf": {
+            "amount": "2371.51682988",
+            "reason": null
+          },
+          "opening_debt": {
+            "amount": "23880",
+            "reason": null
+          },
+          "repayment": {
+            "amount": "1000",
+            "reason": null
+          },
+          "closing_debt": {
+            "amount": "22880",
+            "reason": null
+          },
+          "opening_cash": {
+            "amount": "3043.3588856",
+            "reason": null
+          },
+          "dividends": {
+            "amount": "0",
+            "reason": null
+          },
+          "closing_cash": {
+            "amount": "4414.87571548",
+            "reason": null
+          },
+          "undrawn": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "liquidity": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "total_leverage": {
+            "amount": "4.6509668379161429802107490159068033691",
+            "reason": null
+          },
+          "net_debt": {
+            "amount": "18465.12428452",
+            "reason": null
+          },
+          "net_leverage": {
+            "amount": "3.7535262546023848975184452552954286128",
+            "reason": null
+          },
+          "coverage": {
+            "amount": "3.4334221481574539363484087102177554439",
+            "reason": null
+          },
+          "fcf_to_debt": {
+            "amount": "0.10365021109615384615384615384615384615",
+            "reason": null
+          }
+        },
+        {
+          "revenue": {
+            "amount": "9757.04121",
+            "reason": null
+          },
+          "ebitda": {
+            "amount": "5165.377616574",
+            "reason": null
+          },
+          "interest": {
+            "amount": "1372.8",
+            "reason": null
+          },
+          "tax_wc": {
+            "amount": "975.704121",
+            "reason": null
+          },
+          "capex": {
+            "amount": "195.1408242",
+            "reason": null
+          },
+          "cfo": {
+            "amount": "2816.873495574",
+            "reason": null
+          },
+          "fcf": {
+            "amount": "2621.732671374",
+            "reason": null
+          },
+          "opening_debt": {
+            "amount": "22880",
+            "reason": null
+          },
+          "repayment": {
+            "amount": "1000",
+            "reason": null
+          },
+          "closing_debt": {
+            "amount": "21880",
+            "reason": null
+          },
+          "opening_cash": {
+            "amount": "4414.87571548",
+            "reason": null
+          },
+          "dividends": {
+            "amount": "0",
+            "reason": null
+          },
+          "closing_cash": {
+            "amount": "6036.608386854",
+            "reason": null
+          },
+          "undrawn": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "liquidity": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "total_leverage": {
+            "amount": "4.2358955383618551617970025169847176871",
+            "reason": null
+          },
+          "net_debt": {
+            "amount": "15843.391613146",
+            "reason": null
+          },
+          "net_leverage": {
+            "amount": "3.0672281465559769916881269899340918017",
+            "reason": null
+          },
+          "coverage": {
+            "amount": "3.7626585202316433566433566433566433566",
+            "reason": null
+          },
+          "fcf_to_debt": {
+            "amount": "0.11982324823464351005484460694698354662",
+            "reason": null
+          }
+        }
+      ],
+      "breaks": [
+        {
+          "row": "proxy_zero",
+          "hits": [
+            false,
+            false,
+            false
+          ],
+          "first": "Not reached by FY2027",
+          "reason": null
+        },
+        {
+          "row": "one_coverage",
+          "hits": [
+            false,
+            false,
+            false
+          ],
+          "first": "Not reached by FY2027",
+          "reason": null
+        },
+        {
+          "row": "seven_leverage",
+          "hits": [
+            false,
+            false,
+            false
+          ],
+          "first": "Not reached by FY2027",
+          "reason": null
+        },
+        {
+          "row": "three_coverage",
+          "hits": [
+            false,
+            false,
+            false
+          ],
+          "first": "Not reached by FY2027",
+          "reason": null
+        },
+        {
+          "row": "minimum_liquidity",
+          "hits": [
+            null,
+            null,
+            null
+          ],
+          "first": "Not calculable",
+          "reason": "No evidenced minimum liquidity or unconditional access"
+        }
+      ]
+    },
+    "DOWNSIDE": {
+      "years": [
+        {
+          "revenue": {
+            "amount": "8849.924",
+            "reason": null
+          },
+          "ebitda": {
+            "amount": "3748.11981248",
+            "reason": null
+          },
+          "interest": {
+            "amount": "1642.08",
+            "reason": null
+          },
+          "tax_wc": {
+            "amount": "884.9924",
+            "reason": null
+          },
+          "capex": {
+            "amount": "176.99848",
+            "reason": null
+          },
+          "cfo": {
+            "amount": "1221.04741248",
+            "reason": null
+          },
+          "fcf": {
+            "amount": "1044.04893248",
+            "reason": null
+          },
+          "opening_debt": {
+            "amount": "24880",
+            "reason": null
+          },
+          "repayment": {
+            "amount": "1000",
+            "reason": null
+          },
+          "closing_debt": {
+            "amount": "23880",
+            "reason": null
+          },
+          "opening_cash": {
+            "amount": "6261",
+            "reason": null
+          },
+          "dividends": {
+            "amount": "4348",
+            "reason": null
+          },
+          "closing_cash": {
+            "amount": "1957.04893248",
+            "reason": null
+          },
+          "undrawn": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "liquidity": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "total_leverage": {
+            "amount": "6.3711944107249436782017220730357947813",
+            "reason": null
+          },
+          "net_debt": {
+            "amount": "21922.95106752",
+            "reason": null
+          },
+          "net_leverage": {
+            "amount": "5.8490529023442152992933131605930663571",
+            "reason": null
+          },
+          "coverage": {
+            "amount": "2.2825439762252752606450355646497125597",
+            "reason": null
+          },
+          "fcf_to_debt": {
+            "amount": "0.043720642063651591289782244556113902848",
+            "reason": null
+          }
+        },
+        {
+          "revenue": {
+            "amount": "9292.4202",
+            "reason": null
+          },
+          "ebitda": {
+            "amount": "3935.525803104",
+            "reason": null
+          },
+          "interest": {
+            "amount": "1576.08",
+            "reason": null
+          },
+          "tax_wc": {
+            "amount": "929.24202",
+            "reason": null
+          },
+          "capex": {
+            "amount": "185.848404",
+            "reason": null
+          },
+          "cfo": {
+            "amount": "1430.203783104",
+            "reason": null
+          },
+          "fcf": {
+            "amount": "1244.355379104",
+            "reason": null
+          },
+          "opening_debt": {
+            "amount": "23880",
+            "reason": null
+          },
+          "repayment": {
+            "amount": "1000",
+            "reason": null
+          },
+          "closing_debt": {
+            "amount": "22880",
+            "reason": null
+          },
+          "opening_cash": {
+            "amount": "1957.04893248",
+            "reason": null
+          },
+          "dividends": {
+            "amount": "0",
+            "reason": null
+          },
+          "closing_cash": {
+            "amount": "2201.404311584",
+            "reason": null
+          },
+          "undrawn": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "liquidity": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "total_leverage": {
+            "amount": "5.8137085473951787252634362698835042114",
+            "reason": null
+          },
+          "net_debt": {
+            "amount": "20678.595688416",
+            "reason": null
+          },
+          "net_leverage": {
+            "amount": "5.2543412806762757506966007108472650322",
+            "reason": null
+          },
+          "coverage": {
+            "amount": "2.4970342895690574082533881528856403228",
+            "reason": null
+          },
+          "fcf_to_debt": {
+            "amount": "0.054386161674125874125874125874125874126",
+            "reason": null
+          }
+        },
+        {
+          "revenue": {
+            "amount": "9757.04121",
+            "reason": null
+          },
+          "ebitda": {
+            "amount": "4132.3020932592",
+            "reason": null
+          },
+          "interest": {
+            "amount": "1510.08",
+            "reason": null
+          },
+          "tax_wc": {
+            "amount": "975.704121",
+            "reason": null
+          },
+          "capex": {
+            "amount": "195.1408242",
+            "reason": null
+          },
+          "cfo": {
+            "amount": "1646.5179722592",
+            "reason": null
+          },
+          "fcf": {
+            "amount": "1451.3771480592",
+            "reason": null
+          },
+          "opening_debt": {
+            "amount": "22880",
+            "reason": null
+          },
+          "repayment": {
+            "amount": "1000",
+            "reason": null
+          },
+          "closing_debt": {
+            "amount": "21880",
+            "reason": null
+          },
+          "opening_cash": {
+            "amount": "2201.404311584",
+            "reason": null
+          },
+          "dividends": {
+            "amount": "0",
+            "reason": null
+          },
+          "closing_cash": {
+            "amount": "2652.7814596432",
+            "reason": null
+          },
+          "undrawn": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "liquidity": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "total_leverage": {
+            "amount": "5.2948694229523189522462531462308971089",
+            "reason": null
+          },
+          "net_debt": {
+            "amount": "19227.2185403568",
+            "reason": null
+          },
+          "net_leverage": {
+            "amount": "4.6529072914879861930864680320340721726",
+            "reason": null
+          },
+          "coverage": {
+            "amount": "2.7364789238048315321042593769866497139",
+            "reason": null
+          },
+          "fcf_to_debt": {
+            "amount": "0.066333507680950639853747714808043875686",
+            "reason": null
+          }
+        }
+      ],
+      "breaks": [
+        {
+          "row": "proxy_zero",
+          "hits": [
+            false,
+            false,
+            false
+          ],
+          "first": "Not reached by FY2027",
+          "reason": null
+        },
+        {
+          "row": "one_coverage",
+          "hits": [
+            false,
+            false,
+            false
+          ],
+          "first": "Not reached by FY2027",
+          "reason": null
+        },
+        {
+          "row": "seven_leverage",
+          "hits": [
+            false,
+            false,
+            false
+          ],
+          "first": "Not reached by FY2027",
+          "reason": null
+        },
+        {
+          "row": "three_coverage",
+          "hits": [
+            true,
+            true,
+            true
+          ],
+          "first": "FY2025",
+          "reason": null
+        },
+        {
+          "row": "minimum_liquidity",
+          "hits": [
+            null,
+            null,
+            null
+          ],
+          "first": "Not calculable",
+          "reason": "No evidenced minimum liquidity or unconditional access"
+        }
+      ]
+    },
+    "UPSIDE": {
+      "years": [
+        {
+          "revenue": {
+            "amount": "8849.924",
+            "reason": null
+          },
+          "ebitda": {
+            "amount": "4862.1482456",
+            "reason": null
+          },
+          "interest": {
+            "amount": "1492.8",
+            "reason": null
+          },
+          "tax_wc": {
+            "amount": "884.9924",
+            "reason": null
+          },
+          "capex": {
+            "amount": "176.99848",
+            "reason": null
+          },
+          "cfo": {
+            "amount": "2484.3558456",
+            "reason": null
+          },
+          "fcf": {
+            "amount": "2307.3573656",
+            "reason": null
+          },
+          "opening_debt": {
+            "amount": "24880",
+            "reason": null
+          },
+          "repayment": {
+            "amount": "1000",
+            "reason": null
+          },
+          "closing_debt": {
+            "amount": "23880",
+            "reason": null
+          },
+          "opening_cash": {
+            "amount": "6261",
+            "reason": null
+          },
+          "dividends": {
+            "amount": "4348",
+            "reason": null
+          },
+          "closing_cash": {
+            "amount": "3220.3573656",
+            "reason": null
+          },
+          "undrawn": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "liquidity": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "total_leverage": {
+            "amount": "4.9114092770845070014415604884821984088",
+            "reason": null
+          },
+          "net_debt": {
+            "amount": "20659.6426344",
+            "reason": null
+          },
+          "net_leverage": {
+            "amount": "4.2490770726902329890572598546027351923",
+            "reason": null
+          },
+          "coverage": {
+            "amount": "3.2570660809217577706323687031082529475",
+            "reason": null
+          },
+          "fcf_to_debt": {
+            "amount": "0.096623005259631490787269681742043551089",
+            "reason": null
+          }
+        },
+        {
+          "revenue": {
+            "amount": "9292.4202",
+            "reason": null
+          },
+          "ebitda": {
+            "amount": "5105.25565788",
+            "reason": null
+          },
+          "interest": {
+            "amount": "1432.8",
+            "reason": null
+          },
+          "tax_wc": {
+            "amount": "929.24202",
+            "reason": null
+          },
+          "capex": {
+            "amount": "185.848404",
+            "reason": null
+          },
+          "cfo": {
+            "amount": "2743.21363788",
+            "reason": null
+          },
+          "fcf": {
+            "amount": "2557.36523388",
+            "reason": null
+          },
+          "opening_debt": {
+            "amount": "23880",
+            "reason": null
+          },
+          "repayment": {
+            "amount": "1000",
+            "reason": null
+          },
+          "closing_debt": {
+            "amount": "22880",
+            "reason": null
+          },
+          "opening_cash": {
+            "amount": "3220.3573656",
+            "reason": null
+          },
+          "dividends": {
+            "amount": "0",
+            "reason": null
+          },
+          "closing_cash": {
+            "amount": "4777.72259948",
+            "reason": null
+          },
+          "undrawn": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "liquidity": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "total_leverage": {
+            "amount": "4.4816560684252022091801429359684413972",
+            "reason": null
+          },
+          "net_debt": {
+            "amount": "18102.27740052",
+            "reason": null
+          },
+          "net_leverage": {
+            "amount": "3.5458121225680442612435698928026590098",
+            "reason": null
+          },
+          "coverage": {
+            "amount": "3.5631320895309882747068676716917922948",
+            "reason": null
+          },
+          "fcf_to_debt": {
+            "amount": "0.11177295602622377622377622377622377622",
+            "reason": null
+          }
+        },
+        {
+          "revenue": {
+            "amount": "9757.04121",
+            "reason": null
+          },
+          "ebitda": {
+            "amount": "5360.518440774",
+            "reason": null
+          },
+          "interest": {
+            "amount": "1372.8",
+            "reason": null
+          },
+          "tax_wc": {
+            "amount": "975.704121",
+            "reason": null
+          },
+          "capex": {
+            "amount": "195.1408242",
+            "reason": null
+          },
+          "cfo": {
+            "amount": "3012.014319774",
+            "reason": null
+          },
+          "fcf": {
+            "amount": "2816.873495574",
+            "reason": null
+          },
+          "opening_debt": {
+            "amount": "22880",
+            "reason": null
+          },
+          "repayment": {
+            "amount": "1000",
+            "reason": null
+          },
+          "closing_debt": {
+            "amount": "21880",
+            "reason": null
+          },
+          "opening_cash": {
+            "amount": "4777.72259948",
+            "reason": null
+          },
+          "dividends": {
+            "amount": "0",
+            "reason": null
+          },
+          "closing_cash": {
+            "amount": "6594.596095054",
+            "reason": null
+          },
+          "undrawn": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "liquidity": {
+            "amount": null,
+            "reason": "Borrowing availability does not establish forecast unconditional access"
+          },
+          "total_leverage": {
+            "amount": "4.0816947542933493313711924508403886851",
+            "reason": null
+          },
+          "net_debt": {
+            "amount": "15285.403904946",
+            "reason": null
+          },
+          "net_leverage": {
+            "amount": "2.8514786533854280561489270214208479591",
+            "reason": null
+          },
+          "coverage": {
+            "amount": "3.9048065565078671328671328671328671329",
+            "reason": null
+          },
+          "fcf_to_debt": {
+            "amount": "0.12874193307010968921389396709323583181",
+            "reason": null
+          }
+        }
+      ],
+      "breaks": [
+        {
+          "row": "proxy_zero",
+          "hits": [
+            false,
+            false,
+            false
+          ],
+          "first": "Not reached by FY2027",
+          "reason": null
+        },
+        {
+          "row": "one_coverage",
+          "hits": [
+            false,
+            false,
+            false
+          ],
+          "first": "Not reached by FY2027",
+          "reason": null
+        },
+        {
+          "row": "seven_leverage",
+          "hits": [
+            false,
+            false,
+            false
+          ],
+          "first": "Not reached by FY2027",
+          "reason": null
+        },
+        {
+          "row": "three_coverage",
+          "hits": [
+            false,
+            false,
+            false
+          ],
+          "first": "Not reached by FY2027",
+          "reason": null
+        },
+        {
+          "row": "minimum_liquidity",
+          "hits": [
+            null,
+            null,
+            null
+          ],
+          "first": "Not calculable",
+          "reason": "No evidenced minimum liquidity or unconditional access"
+        }
+      ]
+    }
+  },
+  "calendar_refusal": "forecast years need a calendar fiscal year (1 January to 31 December), but CP-1 T4.14 dates the base year 2023-10-01 to 2024-09-30",
+  "wrapper_labels": [
+    "FY2025: 2025-01-01 to 2025-12-31",
+    "FY2026: 2026-01-01 to 2026-12-31",
+    "FY2027: 2027-01-01 to 2027-12-31"
+  ],
+  "planning_windows": [
+    [
+      "2024-10-01",
+      "2025-09-30"
+    ],
+    [
+      "2025-10-01",
+      "2026-09-30"
+    ],
+    [
+      "2026-10-01",
+      "2027-09-30"
+    ]
+  ],
+  "source_midpoints": [
+    "8850",
+    "4685"
+  ],
+  "finite_driver_residuals": [
+    "-0.076",
+    "0.1497656"
+  ],
+  "checks": "180 amounts including18missing,15first-break rows/45hits,three missing-cash controls; all passed"
+}

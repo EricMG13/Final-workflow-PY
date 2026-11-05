@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Freshsol-medium positivehistoricalEnelsustainability-linked pricingincrement. TargetnoteXS2066706818, asof2021-08-03, originalEUR1000m; full-yearconditionalcouponsnotactualpayments/currentoutcomes orcompleteissuerunderwriting. SeparateCPOSdelivery, noExcel.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-2E.md": "332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af",
+    "view.json": "d927c60cd969362c550d422fa0d3ed19802b3a03637e7162d0146af3160c0bcd",
+    "report-view.json": "d5bf0c6118b77e1e57c7bb49ff8b2ea10382039ff98b6c5d338cc6f28157a9cb",
+    "report.html": "aa504d35f9e5e8a71a59bf78bf91b129736817a80280b25558a02ab1d8f0fc32"
+  }
+}

@@ -1,0 +1,87 @@
+## Request
+
+View: CP-3C admits CP-2E’s reviewed sustainability pricing as a conditional funding-bridge sensitivity for Enel Finance International N.V. (EFI) note XS2066706818, guaranteed by Enel S.p.A., not as an observed payment. The supported change is a one-time 25bp increase from 0% to 0.25%, equivalent to EUR2.5m annually on original EUR1,000m principal; actual outstanding principal and affected periods remain unestablished.
+
+This fresh sol-medium CP-3C consumer, run `sol-remaining-enel-funding-consumer-20261105`, method `deploy-v-r14`, executes on 2026-11-05 retrospectively as of 2021-08-03. It is solely a targeted funding-cost increment, not full CP-3C underwriting or a complete issuer pathway. December 2021 performance was prospective at the cutoff; no subsequently observed outcome is imported.
+
+## Sources
+
+Read the supplied current CP-2E and original CP-0 handoffs. Their exact SHA-256 anchors are:
+
+| Handoff | SHA-256 |
+|---|---|
+| Current CP-2E | `332ccff8848097492cf647205ef63df4d731a1e1e03ec82aa6ceb5f545bfb2af` |
+| Original CP-0 | `7929cf9ddeacee3c543464465fbe3cb6f15af33611eb8c099301eae505dee1be` |
+
+Read all pinned S1/S2 selections directly, rather than relying solely on the handoff. Citations below identify original PDF pages; selections occupy two and three tool pages respectively. This was extracted-text review, not visual inspection.
+
+| Selection | Exact SHA-256 | Coverage |
+|---|---|---|
+| S1-efi-2019 | `a244ed68193015b36373883c968f04a802208e5db1b7955dffaf4c8787caef0b` | 2019 annual report, original pp.1,4–5,50–52 |
+| S2-supplement-2019 | `0bd60e93dbbbb6245fdb3b0616a14fd0513a8ac1aaddc209c7b24bb76b354a75` | October 8, 2019 supplement, original pp.1,12,70–73,90–91 |
+
+S3 interim KPI and S4 target information are inherited evidence from CP-2E, not newly read primary sources here. Historical host/provider limitations describe prior work, not restrictions on this authorized fresh consumption.
+
+## Findings
+
+### Funding bridge
+
+| Item | Admitted amount or condition | Treatment | Source |
+|---|---|---|---|
+| Principal/maturity | Original EUR1,000m; June 17, 2024; current outstanding: Not supplied | Original-principal sensitivity only; do not assume current redemption requirement | S1 p.51; CP-2E identity |
+| Initial coupon | Known 0%; EUR0m annual equivalent | Baseline cash interest, not missing data | S1 p.51 |
+| Conditional coupon | One-time +25bp gives 0.25%; EUR2.5m annual equivalent | Contingent gross cash interest; incremental and total stepped coupon coincide, not additive entries | S1 p.51; S2 p.70 |
+| Issue cash | Price 99.123%; EUR991.23m gross proceeds; EUR8.77m par discount | Historical issue-date cash, before fees; neither current liquidity nor annual coupon | S1 p.51; CP-2E calculations |
+| Reported effective yield | 0.189% | Distinct from cash coupon; do not add discount again to annual coupons | S1 p.51 |
+| Application | Full renewable-capacity condition fails and contractual timing applies | No actual payment schedule admitted | S2 pp.70–73 |
+
+The primary selections support CP-2E’s economics. EFI is the financing company, whereas the contractual KPI concerns the guarantor/group perimeter. The USD1,500m transaction and other EUR tranches in S1 are excluded; their coupons, swaps and maturities cannot populate this note’s bridge.
+
+### Conditions and wording
+
+The numerical limb is at least 55% at December 31, 2021, as carried by CP-2E; S2 leaves threshold/reference date to applicable Final Terms. Equality passes that limb only. CP-2E’s June 30 observation of 54.5% is interim, not December failure. Preserve the defined capacity perimeter: specified post-issue acquisitions are excluded unless primarily constructed/developed/installed by the group; nuclear is excluded from the renewable numerator (S2 pp.72–73).
+
+Separate gates remain: good-faith calculation, External Verifier confirmation under customary procedures, website publication by the notification date, and written guarantor notification to the Principal Paying Agent and noteholders under Condition 14. The notification date is a business day no later than 45 days before the Step Up Date. Condition 14A requires semiannual/annual statements and assurance concurrently with auditor reports, allowing reasonable delay capped at 30 days (S2 pp.72–73,90–91).
+
+S2 names EY or an appointed qualified replacement; CP-2E describes KPMG’s June limited assurance. Appointment evidence is Not supplied, not proof of invalid verification. That interim assurance is not target-date confirmation.
+
+S1 p.51 describes the first interest period subsequent to assurance publication. S2 p.73 defines Step Up Date by required publication; p.70 applies the increased rate to periods commencing on/after the payment date immediately following a Step Up Event. Preserve these wording differences pending completed terms; no exact step date is inferred.
+
+### Monitoring
+
+| Evidence | Decision enabled | Current limit |
+|---|---|---|
+| December-reference KPI on contractual perimeter | Test numerical limb against 55% | Not supplied; June observation is insufficient |
+| Target-date assurance and verifier appointment | Establish confirmation and qualified verifier | Not supplied; June limited assurance does not substitute |
+| Publication timestamps and auditor-report dates | Test publication deadline and permitted delay | Not supplied |
+| Written notice and Condition 14 delivery evidence | Test timely notification to agent/holders | Not supplied |
+| Completed Final Terms, incorporated contract, payment/accrual/day-count terms | Reconcile wording and identify affected periods | Not supplied |
+| Outstanding-principal history and payment records | Size dated cash flows and establish payments | Not supplied |
+
+### Funding conclusion
+
+The actual analytical change is a separately identifiable contingent cash-interest line in the funding bridge, rather than treating the zero-coupon note as having no funding cost or treating sustainability performance as a refinancing event. Relative to timely satisfaction, an applicable step increases cash outflow in affected periods; EUR2.5m is the full-year equivalent on original principal, not an amount already paid or a multi-year aggregate.
+
+The strongest countercase is timely satisfaction of every numerical, verification, publication and notification limb: the coupon stays zero and the increment is zero. Missing future evidence at the historical cutoff is not an observed breach. S2 p.12 expressly excludes automatic default or required repurchase/redemption from failure to increase renewable capacity. Accordingly, this channel supports neither acceleration nor demonstrated refinancing impairment. Issue discount establishes nonzero issue economics despite zero cash coupon; it does not establish market access, a security-specific greenium, or issuer-wide materiality.
+
+## Calculations
+
+No new calculation performed. Reuse CP-2E’s reviewed results, checked against S1’s operands. Coupon figures below are annual equivalents on original principal; proceeds and discount are issue-date EURm, not observed current flows. Fees and net hedged cost are Not supplied.
+
+### Consumption controls
+
+| Metric | Value |
+|---|---|
+| initial_coupon_eur_m | 0 |
+| conditional_coupon_eur_m | 2.5 |
+| increment_eur_m | 2.5 |
+| gross_issue_proceeds_eur_m | 991.23 |
+| par_discount_eur_m | 8.77 |
+
+## Gaps
+
+Actual outcome, notice, publication, verifier appointment, current balance and exact schedule remain Not supplied. Aggregate incremental payments are Not calculable because applicable periods and principal are missing. No accepted financial foundation, liquidity bridge, maturity ladder or market/refinancing evidence supports capacity, coverage or materiality conclusions. The 2019 report is not a current issuer/parent credit base.
+
+## Next module
+
+Pass this bounded increment and countercase to the existing funding consumer/renderer. Obtain the contractual and monitoring evidence before scheduling payments; obtain validated issuer/parent financial and market inputs before broader CP-3C underwriting. No workbook, parallel execution or new analysis engine was used.

@@ -1,0 +1,78 @@
+{
+  "required_terms": [
+    "T2G.1 \u2014 source reliability",
+    "T2G.2 \u2014 KPI and transition exposure",
+    "T2G.3 \u2014 social and operating exposure",
+    "T2G.4 \u2014 credit materiality",
+    "T2G.5 \u2014 instrument mechanics",
+    "T2G.6 \u2014 conditional funding cost",
+    "T2G.7 \u2014 credit implication",
+    "T2G.8 \u2014 gaps",
+    "Sustainability calculation controls",
+    "2026-11-05",
+    "2021-08-03",
+    "2021-06-30",
+    "2021-12-31",
+    "2024-06-17",
+    "XS2066706818",
+    "54,5%",
+    "46.580",
+    "85.535",
+    "limited assurance"
+  ],
+  "numeric_tables": [
+    {
+      "heading": "Sustainability calculation controls",
+      "columns": [
+        "Metric",
+        "Value (6dp)"
+      ],
+      "rows": [
+        [
+          "step_decimal",
+          "0.002500"
+        ],
+        [
+          "initial_coupon_decimal",
+          "0.000000"
+        ],
+        [
+          "stepped_coupon_decimal",
+          "0.002500"
+        ],
+        [
+          "initial_annual_coupon_eur_m",
+          "0.000000"
+        ],
+        [
+          "stepped_annual_coupon_eur_m",
+          "2.500000"
+        ],
+        [
+          "increment_eur_m",
+          "2.500000"
+        ],
+        [
+          "gross_issue_proceeds_eur_m",
+          "991.230000"
+        ],
+        [
+          "par_less_gross_proceeds_eur_m",
+          "8.770000"
+        ],
+        [
+          "recomputed_kpi_pct",
+          "54.457240"
+        ],
+        [
+          "recomputed_gap_pp",
+          "0.542760"
+        ],
+        [
+          "displayed_kpi_gap_pp",
+          "0.500000"
+        ]
+      ]
+    }
+  ]
+}

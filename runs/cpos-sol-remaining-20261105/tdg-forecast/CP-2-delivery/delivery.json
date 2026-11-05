@@ -1,0 +1,13 @@
+{
+  "kind": "literal_handoff_delivery",
+  "scope": "Fresh live CP-2 incremental adoption of current CP-2G, historical FY2024 baseline; conditional paths, not complete forecast/current underwriting or full pathway.",
+  "analytical_runtime_executed": false,
+  "cp_model_published": false,
+  "excel_output": false,
+  "files": {
+    "CP-2.md": "72aa29ef367234b6d265154e36413f4e1da70ca0798e6b2cb1a369c3bb3a24ab",
+    "view.json": "2ee52f559b2816e446eb3088f0475dbb9b9784ca306f9c81198bc56e43508fa9",
+    "report-view.json": "574018ee8872d595d4fe5d8c083550533730bbd03c4f2677607904f2db1f59d1",
+    "report.html": "71074d355779d093ad8eaa795d745e20233658b271d395e0a6a5fee73c047cd6"
+  }
+}

@@ -1,0 +1,366 @@
+Selectedunmodifiedprimarytextpages. OriginalPDFsha256 c708892b50f0ec8d43e245e127489ecc9a096b31055f02c298f25955f0bb8886; textaidsha256 731f40ab8d10163c7cede3fcafda8da130f02dbff0f62be32aa9bf2866ba2a6d; notclaimednewvisualinspectionbymodel.
+
+=== S1-efi-2019 ORIGINAL PDF PAGE 1 ===
+Annual Report
+of Enel Finance International N.V.
+at December 31, 2019
+
+
+
+
+
+
+
+
+
+
+
+
+=== S1-efi-2019 ORIGINAL PDF PAGE 4 ===
+General information
+
+
+The Management of the Company hereby presents its financial statements for the financial year ended on
+31 December 2019.
+
+Enel Finance International N.V. (“the Company”) is a public company with limited liability, where 74.99%
+of the shares are held by Enel Holding Finance S.r.l and 25.01% of the shares are held by Enel S.p.A.,
+parents companies, having their seats in Rome, Italy.
+
+Enel S.p.A. is the ultimate controlling shareholder of the Company.
+
+The  Company  is  registered  with the  trade  register of  the          Dutch  chamber of  commerce under  number
+34313428. The Company operates as a financing company                     y for the Enel Group, raising funds through
+bond  issuances,  loans  and  other  facilities  and  on  turn  lending  the  funds  so  raised  to  the  companies
+belonging to the Enel Group.
+
+Significant events in 2019
+
+
+Issue of new green bond in Europe for Euro 1,000 million
+
+
+On January 14, 2019 the Company successfully placed its second green bond on the European market. It
+is reserved for institutional investors and is backed by a          guarantee issued by Enel.
+
+
+The issue amounts to a total of         Euro 1,000 million and provides for repayment in a single instalment at
+maturity on July 21, 2025 and the payment of a fixed              -rate coupon equal to 1.500%, payable annually in
+arrears in the month of July as from 2019. The issue price has been set at 98.565% and the effective yield
+at maturity is equal to 1.736%. The settlement da            te for the issue is January 21, 2019.
+
+
+The net proceeds of the issue         – carried out under Euro Medium-Term Notes Program                   – will be used to
+finance and/or to be identified in accordance with the         “Green Bond Principles” published by the International
+Capital Market Association (ICMA).
+
+
+The world's first "general purpose SDG linked bond"                    on the US and international markets
+
+
+On September 5, 2019 the Company launched a single-tranche “sustainable” bond for institutional investors
+on the US and international markets         totaling USD 1,500 million, equivalent to about Euro 1,359 million and
+linked to SDG 7 “Affordable and clean energy”.
+
+
+The   operation   has   been   structured   as   a   single   tranche   paying   a   rate            of   2.650%   maturing
+September 10, 2024. The issue price has been set at 99.879% and the effective yield at maturity is equal
+to 2.676%. The settlement date for the issue is September 10, 2019. The issue is guaranteed by Enel.
+
+
+To hedge forex exchange risk on new bond issue the Company entered into currency interest rate swaps.
+
+
+The world's first "general purpose SDG linked bond" on the European market
+
+
+On  October  10,  2019 launched  a  multi-tranche  “sustainable”  bond  for  institutional  investors  on  the
+European market totaling 2.5 billion euros. The bond is linked to the achievement of the United Nations
+Sustainable Development Goals (SDGs) and is the Group’s first “General Purpose SDG Linked Bond” issued
+on the European market.
+
+
+                                                                                                                               4
+
+
+=== S1-efi-2019 ORIGINAL PDF PAGE 5 ===
+The issue is structured in the following tranches:
+
+
+     -    Euro 1,000 million at a fixed rate of 0.00%, maturing June 17, 2024 and linked to SDG 7 “Affordable
+          and clean energy”:
+
+
+               o    the issue price was set at 99.123% and the effective yield at maturity is equal to 0.189%;
+
+
+               o    the  interest  rate  will  remain  unchanged  to  maturity  subject  to  achievement  of  the
+                    sustainability target indicated under point i. above as of December 31, 2021;
+
+
+               o    if that target is not achieved, a step-up mechanism will be applied, increasing the rate by
+                    25 bps as of the first interest period subsequent to the publication of the auditor’s assurance
+                    report.
+
+
+     -    Euro   1,000  million  at  a  fixed  rate  of  0.375%,  maturing  June  17,  2027  and                linked  to  SDG  7
+          “Affordable and clean energy”:
+
+
+               o    the issue price was set at 99.257% and the effective yield at maturity is equal to 0.474%;
+
+
+               o    the  interest  rate  will  remain  unchanged  to  maturity  subject  to  achievement  of  the
+                    sustainability target indicated above as of December 31, 2021;
+
+
+               o    if that target is not achieved, a step-up mechanism will be applied, increasing the rate by
+                    25  bps  as  of  the  first  interest  period  subsequent  to  the  publication  of  the  auditor’s
+                    assurance report.
+
+
+     -    Euro   500 million at a fixed rate        of 1.125%, maturing October 17, 2034 and linked to SDG 13
+          “Climate action”:
+
+
+               o    the issue price was set at 98.922% and the effective yield at maturity is equal to 1.204%;
+
+
+               o    the  interest  rate  will  remain  unchanged  to  maturity  subject  to  achievement  of  the
+                    sustainability target as of December 31, 2030;
+
+
+               o    if that target is not achieved, a step-up mechanism will be applied, increasing the rate by
+                    25 bps as of the first interest period subsequent to the publication of the report issued by
+                    a third-party expert charged with validating the methodology for measuring CO2 emissions
+                    applied by the Group
+
+
+Lending Operations
+
+
+During the reporting year the Company has resolved to enter as lender into several new intercompany
+financial agreements to support mainly the growth of the investments in the renewable energy sector.
+
+Please see a disclosure of long-term and short-term financial instruments granted to Enel Group Companies
+in the notes 6 and 9 of the financial statements.
+
+
+
+
+
+
+
+                                                                                                                                    5
+
+
+=== S1-efi-2019 ORIGINAL PDF PAGE 50 ===
+                                                              Portion                                                 Portion
+                                                           falling due                                            falling due
+                                                           after more                                             after more
+                                                Nominal       than 12       Current                    Nominal       than 12       Current
+                                  Balance         value       months        portion      Balance          value      months         portion
+
+
+                             at Dec. 31,  at Dec. 31,  at Dec. 31,  at Dec. 31,  at Dec. 31,  at Dec. 31,  at Dec. 31,  at Dec. 31,
+                                    2019          2019          2019          2019          2018          2018         2018          2018
+
+Bond
+Listed Bond (Fixed rate)           15,934        16,483       15,260            674       12,387        12,963        12,262           125
+
+Listed Bond (Floating                 447           450           447              -          446           450          446               -
+rate)
+
+Unlisted Bond (Fixed rate)         14,359        14,458       14,359               -      12,758        12,860        12,758               -
+
+Total Bond                        30,740        31,391        30,066           674       25,591        26,273        25,466            125
+
+The table below reports long-term financial debt by currency and interest rate.
+
+Millions of Euro
+
+                                              at Dec. 31,         at Dec. 31,         at Dec. 31,                at Dec. 31,
+                                                     2019                2019                2018                   2019
+
+
+                                                   Balance      Nominal value              Balance   Current  average    Effective interest
+                                                                                                          interest rate                rate
+
+
+Total Euro                                         13,547              14,082               10,135              2.54%               3.27%
+
+US dollar                                          14,155              14,247               12,563              4.13%               4.30%
+
+British pound                                        2,619               2,643               2,490              5.70%               5.82%
+
+Swiss Franc                                            419                 419                 403              2.07%               2.10%
+
+Total non-Euro currencies                          17,193              17,309               15,456
+
+Total                                              30,740              31,391              25,591
+
+The table below reports changes in the nominal value of long-term debt during the year.
+
+Millions of Euro
+                                                                                                New                 Exchange       Nominal
+                                                                         Nominal value     financing Repayments           rate        value
+                                                                                                                   differences
+                                                                           at Dec. 31,                                             at Dec.
+                                                                                  2018                                                  31,
+                                                                                                                                     2019
+Bonds in non-Euro currencies and                                                 26,273       4,868         (125)          375      31,391
+Euro currency
+
+Total long-term financial debt                                                  26,273        4,868        (125)          375      31,391
+
+
+
+Global Medium Term Programme
+
+
+Issue of new green bond in Europe for Euro 1,000 million
+
+
+On January 14, 2019 the Company successfully placed its second green bond on the European market.
+It is reserved for institutional investors and is backed by a guarantee issued by Enel.
+
+
+The issue amounts to a total of Euro 1,000 million and provides for repayment in a single instalment
+at maturity on July 21, 2025 and the payment of a fixed-rate coupon equal to 1.500%, payable
+annually in arrears in the month of July as from 2019. The issue price has been set at 98.565% and
+the effective yield at maturity is equal to 1.736%. The settlement date for the issue is January 21,
+2019.
+                                                                                                                                        22
+
+
+=== S1-efi-2019 ORIGINAL PDF PAGE 51 ===
+The net proceeds of the issue – carried out under Euro Medium-Term Notes Program – will be used to
+finance  and/or  to  be  identified  in  accordance  with  the  “Green  Bond  Principles”  published  by  the
+International Capital Market Association (ICMA).
+
+
+"General purpose SDG linked bond" on the US and international markets
+
+
+On September 5, 2019 the Company launched a                  single-tranche “sustainable” bond for institutional
+investors on the US and international markets totaling USD 1,500 million, equivalent to about Euro
+1,359 million and linked to SDG 7 “Affordable and clean energy”.
+
+
+The  operation  has  been  structured  as  a  single  tranche  paying  a  rate                 of  2.650%  maturing
+September 10, 2024. The issue price has been set at 99.879% and the effective yield at maturity is
+equal to 2.676%. The settlement date for the issue is September 10, 2019. The issue is guaranteed
+by Enel.
+
+
+To hedge forex exchange risk on new bond issue the Company entered into currency interest rate
+swaps.
+
+
+"General purpose SDG linked bond" on the European market
+
+
+On October 10, 2019 launched a multi-tranche “sustainable” bond for institutional investors on the
+European market totaling 2.5 billion euros. The bond is linked to the achievement of the United Nations
+Sustainable Development Goals (SDGs) and is the Group’s first “General Purpose SDG Linked Bond”
+issued on the European market.
+
+
+The issue is structured in the following tranches:
+
+
+    -    Euro 1,000 million at a fixed rate of 0.00%, maturing June 17, 2024 and linked to SDG 7
+         “Affordable and clean energy”:
+
+
+              o    the issue price was set at 99.123% and the effective yield at maturity is equal to
+                   0.189%;
+
+
+              o    the interest rate will remain unchanged to maturity subject to achievement of the
+                   sustainability target indicated under point i. above as of December 31, 2021;
+
+
+              o    if that target is not achieved, a step-up mechanism will be applied, increasing the rate
+                   by 25 bps as of the first interest period subsequent to the publication of the auditor’s
+                   assurance report.
+
+
+    -    Euro 1,000 million at a fixed rate of 0.375%, maturing June 17, 2027 and linked to SDG 7
+         “Affordable and clean energy”:
+
+
+              o    the issue price was set at 99.257% and the effective yield at maturity is equal to
+                   0.474%;
+
+
+              o    the interest rate will remain unchanged to maturity subject to achievement of the
+                   sustainability target indicated under point i. above as of December 31, 2021;
+
+
+
+                                                                                                                       23
+
+
+=== S1-efi-2019 ORIGINAL PDF PAGE 52 ===
+              o    if that target is not achieved, a step-up mechanism will be applied, increasing the rate
+                   by 25 bps as of the first interest period subsequent to the publication of the auditor’s
+                   assurance report.
+
+
+    -    Euro 500 million at a fixed rate of 1.125%, maturing October 17, 2034 and linked to SDG 13
+         “Climate action”:
+
+
+              o    the issue price was set at 98.922%            and the effective yield at maturity is equal to
+                   1.204%;
+
+
+              o    the interest rate will remain unchanged to maturity subject to achievement of the
+                   sustainability target indicated under point ii. above as of December 31, 2030;
+
+
+              o    if that target is not achieved, a step-up mechanism will be applied, increasing the rate
+                   by 25 bps as of the first interest period subsequent to the publication of the report
+                   issued by a third-party expert charged with validating the methodology for measuring
+                   CO2 emissions applied by the Group.
+
+
+Bond repayment
+
+
+On 19 November 2019 the Company repaid the Euro 125 million bond at maturity.
+
+
+
+Debt covenants
+
+The  main  long-term  financial  debts  of  the  Company  are  governed  by  covenants  containing
+undertakings by the borrowers (Enel S.p.A. and the Company) and by Enel S.p.A. as guarantor that
+are commonly adopted in international business practice. The main covenants for the Company are
+related to the bond issues carried out within the Euro / Global Medium-Term Notes Programme and
+the Revolving Facility Agreement executed on December 18, 2017 by Enel S.p.A. and the Company
+with a pool of banks of up to Euro 10 billion. To date none of the covenants have been triggered.
+
+The main covenants in respect of the bond issues under the Global/Euro Medium-Term Notes program
+(including the Green Bonds of the Company guaranteed by Enel S.p.A., which are used to finance the
+Group’s eligible green projects) and those related to the bonds issued by the Company on the US
+market guaranteed by Enel SpA can be summarized as follows:
+
+           •       negative pledge clauses under which the issuer may not establish or maintain (except
+         under statutory requirement) mortgages, liens or other encumbrances on all or part of its
+         assets or revenues to secure any listed bond or bond for which listing is planned unless the
+         same guarantee is extended equally or pro rata to the bonds in question;
+
+           •       pari passu clauses, under which the securities constitute a direct, unconditional and
+         unsecured obligation of the issuer and are issued without preferential rights among them and
+         have at least the same seniority as other unsubordinated and unsecured obligations, present
+         and future, of the issuer;
+
+           •       under cross-default clauses, the occurrence of a default event (above a threshold
+         level) in respect of certain indebtedness of the issuer constitutes a default in respect of the
+         bonds in question, which may become immediately repayable;
+
+
+                                                                                                                       24
+

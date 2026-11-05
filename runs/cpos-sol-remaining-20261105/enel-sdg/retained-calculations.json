@@ -1,0 +1,42 @@
+{
+  "scope": "Reused historical deterministic arithmetic. Independently source-literal Fraction checked2026-11-05 beforelivecall, not model-produced multiplication. No new pricingengine.",
+  "inputs": {
+    "principal_eur_m": "1000",
+    "initial_coupon_pct": "0",
+    "step_bp": "25",
+    "issue_price_pct": "99.123",
+    "reported_yield_pct": "0.189",
+    "raw_mw": [
+      "46.580",
+      "85.535"
+    ],
+    "reported_kpi": "54,5%",
+    "comparison_threshold_pct": "55"
+  },
+  "formulae": {
+    "step_decimal": "bp / 10000",
+    "annual_coupon_equivalent": "full original principal EURm * annual coupon decimal",
+    "gross_proceeds": "original principal EURm * issue price percent / 100",
+    "discount": "par minus gross proceeds",
+    "kpi_pct": "reported renewable / total capacity * 100",
+    "gap_pp": "55 minus KPI percentage"
+  },
+  "outputs": {
+    "step_decimal": "0.0025",
+    "initial_coupon_decimal": "0",
+    "stepped_coupon_decimal": "0.0025",
+    "initial_annual_coupon_eur_m": "0",
+    "stepped_annual_coupon_eur_m": "2.5000",
+    "increment_eur_m": "2.5000",
+    "gross_issue_proceeds_eur_m": "991.23000",
+    "par_less_gross_proceeds_eur_m": "8.77000",
+    "recomputed_kpi_pct": "54.457239726427778102531127608581282516",
+    "recomputed_gap_pp": "0.542760273572221897468872391418717484",
+    "displayed_kpi_gap_pp": "0.5"
+  },
+  "limits": [
+    "Conditional full-year equivalents, not observed payments/current outstanding principal or net hedged cost.",
+    "Ratios reconstructed from rounded source MW do not increase measurement precision.",
+    "June observation is not December target outcome; final terms/verification/notice/timing remain separately gated."
+  ]
+}

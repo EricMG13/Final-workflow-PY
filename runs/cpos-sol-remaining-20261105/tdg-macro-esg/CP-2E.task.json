@@ -1,0 +1,81 @@
+{
+  "run": {
+    "run_id": "sol-remaining-tdg-macro-esg-20261105",
+    "issuer_id": "TDG",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-2F"
+    ]
+  },
+  "module_id": "CP-2E",
+  "instructions": {
+    "path": "CP-2E.instructions.md",
+    "sha256": "1037c709c503f1bfe849f45c60a7256e8e82593ed8fedba2e6f281cb53640bbb"
+  },
+  "sources": {
+    "annual-primary": {
+      "path": "annual-selected-pages.txt",
+      "sha256": "cf972beb403e11a2c688906669ac4c85fd34f72fb4467faa01d08c6c62cb1de4"
+    },
+    "single-facility-diagnostic": {
+      "path": "legacy-diagnostic.json",
+      "sha256": "37ba41a1ce7fb9a33d1abb469a349ed8b6fa88a4bf2eca127c8744393eda302c"
+    },
+    "selected-method": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-2e-macro-fx-hedging-sensitivity/SKILL.md",
+      "sha256": "b931f41bb1ac7630c110f2a8b5d5bd4b5cf07d47232c333ef0a56d26923dfa95"
+    },
+    "macro-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-2e-macro-fx-hedging-sensitivity/references/REF_CP-2E_STEPS.md",
+      "sha256": "23ddaf2269f8361e01a301e407b89dbb1ae16a05b8ce7430c9e20a8f83ab15b8"
+    },
+    "esg-steps": {
+      "path": "../../../docs/reuse/selected-methods/skills/cp-2e-macro-fx-hedging-sensitivity/references/REF_CP-2F_STEPS.md",
+      "sha256": "312301c620990d3810d19125cde30224f9696860c3ef5f04b3f9473652555e08"
+    }
+  },
+  "handoffs": {
+    "CP-0": {
+      "path": "../../cpos-sol-medium-20261105/CP-0.md",
+      "sha256": "ece2808828294951bfbed08636a37d75319e7ac4d6ccc28e865c547e2b90942b"
+    },
+    "CP-1-annual": {
+      "path": "../../cpos-sol-medium-20261105/CP-1.md",
+      "sha256": "bd6face3d8f0dda4826c348bf61197b17936206ad47089b58c39c509620debf6"
+    },
+    "CP-1-quarter": {
+      "path": "../../tdg-003/CP-1-attempt-2.md",
+      "sha256": "8be815a5103120678d923721a7c52ab3ebaad28985a98df1f673be092d227582"
+    },
+    "CP-1A": {
+      "path": "../../cpos-sol-medium-20261105/CP-1A-v3.md",
+      "sha256": "f0f243a6de893a8f322563946ee739d47b672f530daee552548433412e8e4af2"
+    },
+    "CP-1B": {
+      "path": "../tdg-earnings/CP-1B.md",
+      "sha256": "42ee44c8350150abd3875adc4ee30ba2cdc4658d0db3ed905251f4825be6e377"
+    },
+    "CP-1D": {
+      "path": "../tdg-earnings/CP-1D.md",
+      "sha256": "116a8b0b8644e902abfff86d35a667da86d4582375f8d80be8e429769afbb807"
+    },
+    "CP-2": {
+      "path": "../../cpos-sol-medium-20261105/CP-2-v2.md",
+      "sha256": "1b166dc041cfef3d6c6ffa70db134c321792b37f5164e3877168340b027405be"
+    },
+    "CP-2A": {
+      "path": "../tdg-stress/CP-2A.md",
+      "sha256": "b72630d602a4f5533de7b632b278c658d57a3dbc7c8960e0a74235333677fcb3"
+    },
+    "CP-2D": {
+      "path": "../tdg-earnings/CP-2D.md",
+      "sha256": "8b7a5a83e3bce8cd84ed0c180397d4d5900cff3425265bdadf2858296b44a565"
+    }
+  },
+  "checks": "CP-2E.checks.json",
+  "layout": "CP-2E.layout.json",
+  "output": "CP-2E.md"
+}
