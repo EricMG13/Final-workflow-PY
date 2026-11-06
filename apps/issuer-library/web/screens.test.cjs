@@ -1,0 +1,322 @@
+/* Frame states, search scope, tab vocabulary and report rows. Synthetic fixture only; no network or provider. */
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const {JSDOM,VirtualConsole}=require(process.env.ISSUER_LIBRARY_JSDOM||'jsdom');
+const root=path.resolve(__dirname,'../../../artifacts/issuer-library/design-fixture');
+const html=fs.readFileSync(path.join(__dirname,'index.html'),'utf8');
+const settle=(ms=10)=>new Promise(resolve=>setTimeout(resolve,ms));
+function fixture(hash,timeout){
+  const dom=new JSDOM(html,{url:`file://${__dirname}/index.html#${hash}`,runScripts:'outside-only'});
+  const w=dom.window;w.scrollTo=()=>{};w.fetch=()=>new Promise(()=>{});
+  w.HTMLElement.prototype.scrollIntoView=function(){};
+  if(timeout!==undefined)w.DESIGN_FRAME_TIMEOUT_MS=timeout;
+  for(const name of ['data.js','workspace-data.js'])vm.runInContext(fs.readFileSync(path.join(root,name),'utf8'),dom.getInternalVMContext());
+  for(const name of ['views.js','actions.js','screen.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,name),'utf8'),dom.getInternalVMContext());
+  return dom;
+}
+const go=async(w,hash)=>{w.location.hash=hash;w.dispatchEvent(new w.Event('hashchange'));await settle();};
+const text=el=>el.textContent.replace(/\s+/g,' ').trim();
+
+test('tab and rail vocabulary follows the approved destinations',t=>{
+  const w=fixture('W-Overview/overview?c=tdg-002').window,d=w.document;t.after(()=>w.close());
+  assert.deepEqual([...d.querySelectorAll('.workspace-tabs a')].map(a=>a.textContent),['Overview','Modules','Calendar','Reports','Evidence']);
+  assert.ok(d.querySelector('.rail a[aria-label="Reports"]'));
+  assert.equal(d.querySelector('.rail a[aria-label="Deliverables"]'),null);
+  assert.ok(d.querySelector('.rail a[aria-label="Run activity"] img').getAttribute('src').endsWith('icons/activity.svg'));
+  w.location.hash='W-Reports/list?c=tdg-002';w.dispatchEvent(new w.Event('hashchange'));
+  assert.equal(d.title,'Reports · Issuer Library');
+  assert.equal(d.getElementById('section-title').textContent,'Reports');
+  assert.equal(d.querySelector('h1').textContent,w.eval('contexts["tdg-002"].title'));
+});
+
+test('search is cleared when leaving the analytical modules and can be cleared in place',async t=>{
+  const w=fixture('CP-1/performance?c=tdg-002').window,d=w.document;t.after(()=>w.close());
+  const search=d.getElementById('module-search'),clear=()=>d.getElementById('module-search-clear');
+  search.value='liquidity';search.dispatchEvent(new w.Event('input',{bubbles:true}));
+  assert.ok(d.getElementById('search-results').children.length>0);
+  assert.equal(clear().hidden,false);
+  await go(w,'W-Calendar/events?c=tdg-002');
+  assert.equal(search.value,'');assert.equal(d.getElementById('search-results').children.length,0);
+  assert.ok(d.getElementById('workbench').classList.contains('tools-workspace'));
+  await go(w,'CP-2/assessment?c=tdg-002');
+  assert.ok(!d.getElementById('workbench').classList.contains('tools-workspace'));
+  search.value='liquidity';search.dispatchEvent(new w.Event('input',{bubbles:true}));
+  clear().click();
+  assert.equal(search.value,'');assert.equal(d.getElementById('search-results').children.length,0);
+  assert.equal(d.activeElement,search);assert.equal(clear().hidden,true);
+});
+
+test('the navigator is resident on Overview and Modules only',async t=>{
+  const w=fixture('W-Overview/overview?c=tdg-002').window,d=w.document;t.after(()=>w.close());
+  const tools=()=>d.getElementById('workbench').classList.contains('tools-workspace');
+  assert.equal(tools(),false);
+  await go(w,'CP-1/performance?c=tdg-002');assert.equal(tools(),false);
+  for(const hash of ['W-Reports/list','W-Evidence/sources','CP-OS/activity']){await go(w,`${hash}?c=tdg-002`);assert.equal(tools(),true,hash);}
+});
+
+test('the report frame shows loading, failure with retry, and loaded',async t=>{
+  const dom=fixture('W-Calendar/events?c=tdg-002',20),w=dom.window,d=w.document;t.after(()=>w.close());
+  const report=w.eval('window.DESIGN_WORKSPACE.reports[0]');
+  await go(w,`W-Reports/${report.id}`);
+  const status=()=>d.querySelector('.frame-status');
+  assert.match(text(status()),/^Loading report/);
+  await settle(60);
+  assert.match(text(status()),/did not load/);
+  assert.equal(status().querySelector('a').getAttribute('href'),report.download);
+  const frame=d.getElementById('report-preview'),src=frame.getAttribute('src');
+  status().querySelector('.frame-retry').click();
+  assert.equal(text(status()),'Loading report…');assert.equal(frame.getAttribute('src'),src);
+  frame.dispatchEvent(new w.Event('load'));
+  assert.equal(status().hidden,true);
+  await settle(60);assert.equal(status().hidden,true);
+});
+
+test('the run context frame shows loading, failure with retry, and ready',async t=>{
+  const errors=[],virtualConsole=new VirtualConsole();virtualConsole.on('jsdomError',e=>errors.push(e));
+  const dom=new JSDOM(html,{url:'http://127.0.0.1:54321/#W-NewRun/run',runScripts:'outside-only',virtualConsole}),w=dom.window,d=w.document;
+  w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.setInterval=()=>1;w.clearInterval=()=>{};
+  w.fetch=async()=>({ok:true,json:async()=>[]});
+  w.eval('window.DESIGN_FRAME_TIMEOUT_MS=20;window.DESIGN_DATA={runs:{},outputs:{},inputs:{},pins:{}};window.DESIGN_WORKSPACE={reports:[],visuals:[]};window.DESIGN_APP={workspace:"/research",policy_locked:false,issues:[],problem:""};');
+  for(const name of ['views.js','actions.js','screen.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,name),'utf8'),dom.getInternalVMContext());
+  t.after(()=>{w.close();assert.deepEqual(errors.map(e=>e.message),[]);});
+  const status=()=>d.querySelector('#context-step .frame-status');
+  assert.match(text(status()),/^Loading run context form/);
+  await settle(60);
+  assert.match(text(status()),/did not load/);
+  status().querySelector('.frame-retry').click();
+  assert.match(text(status()),/^Loading run context form/);
+  const editor=d.getElementById('context-editor');
+  w.dispatchEvent(new w.MessageEvent('message',{source:editor.contentWindow,data:{type:'cpos:height',height:500}}));
+  assert.equal(status().hidden,true);
+});
+
+test('report rows carry the id, sort by build and prefix other issuers',async t=>{
+  const w=fixture('W-Reports/list?c=tdg-002').window,d=w.document;t.after(()=>w.close());
+  const reports=w.eval('window.DESIGN_WORKSPACE.reports'),ids=new Set(reports.map(r=>r.id));
+  const rows=[...d.querySelectorAll('.report-built .report-list li')];
+  assert.ok(rows.length>0);
+  const builds=rows.map(li=>Number(/Build (\d+)/.exec(li.textContent)?.[1]??0));
+  builds.forEach((b,i)=>{if(i)assert.ok(b<=builds[i-1],`build order ${builds}`);});
+  for(const li of d.querySelectorAll('.report-list li')){
+    assert.ok(ids.has(li.querySelector('.code')?.textContent),li.textContent);
+    assert.ok(!/  /.test(li.textContent),JSON.stringify(li.textContent));
+  }
+  assertRestRows(w,d,'tdg-002',false);
+  // The engine's default label for an uncurated report already starts with its issuer; the fixture's curated labels do not.
+  w.eval('window.DESIGN_WORKSPACE.reports[0].label=window.DESIGN_WORKSPACE.reports[0].issuer+" · as of 2025-05-31"');
+  await go(w,'W-Reports/list?c=ford-otosan-2024');
+  assert.ok(d.querySelector('.report-rest .report-list li .code')&&[...d.querySelectorAll('.report-rest .report-list li a')].some(a=>text(a).includes('TransDigm Group · as of 2025-05-31')),'issuer-led label case missing');
+  assertRestRows(w,d,'ford-otosan-2024',true);
+});
+
+function assertRestRows(w,d,context,required){
+  const reports=w.eval('window.DESIGN_WORKSPACE.reports'),run=w.eval(`contexts["${context}"].issuer`);
+  const rest=[...d.querySelectorAll('.report-rest .report-list li')];
+  if(required)assert.ok(rest.length>0,`no rows under .report-rest for ${context}`);
+  for(const li of rest){
+    const report=reports.find(r=>r.id===li.querySelector('.code').textContent),label=text(li.querySelector('a')),shown=text(li).replace(text(li.querySelector('.code')),'');
+    const led=report.label.trim().startsWith(report.issuer);
+    if(report.issuer!==run&&!led)assert.ok(text(li).startsWith(report.issuer),li.textContent);
+    if(led)assert.ok(text(li).includes(report.label.trim()),li.textContent);
+    assert.equal(shown.split(report.issuer).length-1,1,`issuer repeated: ${text(li)}`);
+    if(led)assert.ok(!li.querySelector('.report-issuer'),`prefix added to a label that has the issuer: ${text(li)}`);
+    else assert.ok(li.querySelector('.report-issuer'),`label without issuer left unprefixed: ${label}`);
+  }
+}
+
+test('the report selector lists builds in the list-page order',async t=>{
+  const w=fixture('W-Reports/list?c=tdg-002').window,d=w.document;t.after(()=>w.close());
+  const report=w.eval('window.DESIGN_WORKSPACE.reports.filter(r=>r.issuer===contexts["tdg-002"].issuer)[0]');
+  await go(w,`W-Reports/${report.id}?c=tdg-002`);
+  const options=[...d.querySelectorAll('#report-select option')].map(o=>o.textContent);
+  assert.ok(options.length>1);
+  const builds=options.map(o=>Number(/^Build (\d+)/.exec(o)?.[1]??0));
+  builds.forEach((b,i)=>{if(i)assert.ok(b<=builds[i-1],`select order ${builds}`);});
+});
+
+test('Help names Reports, not Deliverables',async t=>{
+  const w=fixture('W-Help/help?c=tdg-002').window,d=w.document;t.after(()=>w.close());
+  const help=text(d.getElementById('content'));
+  assert.match(help,/Reports lists/);assert.doesNotMatch(help,/Deliverables lists/);
+});
+test('Settings lists workspace issues as path and message and quits as a tertiary action',async t=>{
+  const dom=new JSDOM(html,{url:'http://127.0.0.1:54321/#W-Settings/workspace',runScripts:'outside-only'});
+  const w=dom.window;t.after(()=>w.close());w.scrollTo=()=>{};w.fetch=()=>new Promise(()=>{});w.HTMLElement.prototype.scrollIntoView=function(){};
+  w.eval("window.DESIGN_DATA={runs:{},outputs:{},inputs:{},pins:{}};window.DESIGN_WORKSPACE={reports:[],visuals:[]};window.DESIGN_APP={workspace:'/research',policy_locked:false,issues:['deliverables/x: Delivery manifest requires report.html: and view.json','plain note'],problem:''};");
+  for(const name of ['views.js','actions.js','screen.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,name),'utf8'),dom.getInternalVMContext());
+  await settle();
+  const d=w.document,quit=d.getElementById('quit-library');
+  assert.ok(quit.classList.contains('tertiary-action'));
+  assert.equal(quit.parentElement.lastElementChild,quit);assert.ok(quit.parentElement.classList.contains('step-actions'));
+  const items=[...d.querySelectorAll('.issue-list li')];
+  assert.equal(items.length,2);
+  assert.equal(items[0].querySelector('.code').textContent,'deliverables/x');
+  assert.equal(items[0].children[1].textContent,'Delivery manifest requires report.html: and view.json');
+  assert.equal(items[1].querySelector('.code'),null);
+});
+
+function emptyPage(hash,t){
+  const errors=[],virtualConsole=new VirtualConsole();virtualConsole.on('jsdomError',e=>errors.push(e));
+  const dom=new JSDOM(html,{url:`http://127.0.0.1:54321/#${hash}`,runScripts:'outside-only',virtualConsole}),w=dom.window;
+  t.after(()=>w.close());w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};
+  w.eval("window.DESIGN_DATA={runs:{},outputs:{},inputs:{},pins:{}};window.DESIGN_WORKSPACE={reports:[],visuals:[]};window.DESIGN_APP={workspace:'/research',policy_locked:false,issues:[],problem:''};");
+  return {dom,w,errors,load:()=>{for(const name of ['views.js','actions.js','screen.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,name),'utf8'),dom.getInternalVMContext());}};
+}
+async function settingsPage(t,fail){
+  const p=emptyPage('W-Settings/workspace',t),calls=[];
+  p.w.fetch=url=>{calls.push(url);return new Promise((resolve,reject)=>setTimeout(()=>fail?reject(new Error('down')):resolve({ok:true,json:async()=>({})}),30));};
+  p.load();await settle();return {...p,calls,d:p.w.document};
+}
+const SETTINGS_BUTTONS=['save-workspace','refresh-library','quit-library'];
+test('H1 Settings sends one request at a time and shows what is happening',async t=>{
+  const p=await settingsPage(t,false);
+  p.d.getElementById('refresh-library').click();await settle(2);p.d.getElementById('refresh-library').click();
+  assert.deepEqual(SETTINGS_BUTTONS.map(id=>p.d.getElementById(id).disabled),[true,true,true]);
+  for(const id of SETTINGS_BUTTONS)assert.equal(p.d.getElementById(id).disabled,true,id);
+  assert.match(p.d.getElementById('settings-status').textContent,/^Refreshing/);
+  await settle(60);
+  assert.equal(p.calls.filter(u=>u==='/api/refresh').length,1);
+});
+test('H1 a failed Settings request re-enables the buttons and says why',async t=>{
+  const p=await settingsPage(t,true);
+  p.d.getElementById('save-workspace').click();await settle(60);
+  assert.deepEqual(SETTINGS_BUTTONS.map(id=>p.d.getElementById(id).disabled),[false,false,false]);
+  assert.match(p.d.getElementById('settings-status').textContent,/^Could not update the library/);
+});
+test('H1 Quit locks the buttons while stopping and is ignored during another request',async t=>{
+  const p=await settingsPage(t,false);
+  p.d.getElementById('quit-library').click();await settle(2);
+  for(const id of SETTINGS_BUTTONS)assert.equal(p.d.getElementById(id).disabled,true,id);
+  await settle(60);
+  const q=await settingsPage(t,false);
+  q.d.getElementById('refresh-library').click();await settle(2);
+  q.d.getElementById('quit-library').disabled=false;q.d.getElementById('quit-library').click();await settle(2);
+  assert.equal(q.calls.includes('/api/quit'),false);await settle(60);
+});
+test('H2 Quit marks the library stopped',async t=>{
+  const p=await settingsPage(t,false);
+  p.d.getElementById('quit-library').click();await settle(60);
+  assert.equal(p.d.body.dataset.quit,'1');
+});
+// Runs boot.js itself: fetch is stubbed, its discovery interval is captured, and each script load fires onload.
+async function bootPage(t,hash,reply){
+  const errors=[],virtualConsole=new VirtualConsole();virtualConsole.on('jsdomError',e=>errors.push(e.message));
+  const dom=new JSDOM(html,{url:`http://127.0.0.1:54321/#${hash}`,runScripts:'outside-only',virtualConsole}),w=dom.window;t.after(()=>w.close());
+  let tick=null;w.setInterval=fn=>{tick=fn;return 1;};w.console.warn=()=>{};
+  w.fetch=async()=>reply();
+  const real=w.document.createElement.bind(w.document);
+  w.document.createElement=name=>{const el=real(name);if(name==='script')setTimeout(()=>el.onload&&el.onload(),0);return el;};
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'boot.js'),'utf8'),dom.getInternalVMContext());await settle(30);
+  return {w,d:w.document,errors,tick:async()=>{await tick();}};
+}
+const GOOD={real:[],runs:{},outputs:{},inputs:{},pins:{},reports:[],visuals:[],issues:[],workspace:'/r'};
+test('H2 the service banner appears after two failed checks and clears on success',async t=>{
+  let mode='ok';
+  const reply=()=>{if(mode==='down')throw new Error('down');return{ok:true,json:async()=>GOOD};};
+  const p=await bootPage(t,'W-Library/cases',reply),banner=()=>p.d.getElementById('service-down').hidden;
+  mode='down';
+  await p.tick();assert.equal(banner(),true);
+  await p.tick();assert.equal(banner(),false);
+  mode='ok';await p.tick();assert.equal(banner(),true);
+  mode='down';p.d.body.dataset.quit='1';
+  await p.tick();await p.tick();await p.tick();assert.equal(banner(),true);
+});
+test('H2 a success between failures resets the count',async t=>{
+  let mode='down';
+  const reply=()=>{if(mode==='down')throw new Error('down');return{ok:true,json:async()=>GOOD};};
+  const p=await bootPage(t,'W-Library/cases',reply),banner=()=>p.d.getElementById('service-down').hidden;
+  await p.tick();mode='ok';await p.tick();mode='down';await p.tick();
+  assert.equal(banner(),true);
+});
+test('H3 Reload service honours the unsaved-run confirm',async t=>{
+  const b=await bootPage(t,'W-NewRun/run',()=>({ok:true,json:async()=>GOOD}));
+  b.d.body.dataset.draft='1';b.d.getElementById('new-run').hidden=false;
+  b.w.confirm=()=>false;b.d.getElementById('reload-service').click();await settle();
+  assert.deepEqual(b.errors.filter(m=>/navigation/i.test(m)),[]);
+});
+test('H3 Start clears the unsaved-run flag',async t=>{
+  const p=emptyPage('W-NewRun/run',t),w=p.w,ID='run-1';
+  w.setInterval=()=>1;w.clearInterval=()=>{};
+  const review={ok:true,id:ID,review_id:'b'.repeat(64),issuer:'N',pathway:'covenant_refinancing',as_of:'2025-03-31',modules:[],module_details:[],config:'c',provider:'p',model:'m',effort:'e',cap_usd:'1',hold_usd:'1',max_turns:1,prices_as_of:'x',provider_ready:true,provider_key:'K',sources:[],ignored:[],report_sections:[],omitted:[],scope:'s'};
+  w.fetch=async url=>({ok:true,json:async()=>url==='/api/runs/review'?review:url==='/api/runs/start'?{state:'running',id:ID}:url.startsWith('/api/runs/status')?{state:'running',message:'w',run_available:true}:[]});
+  p.load();await settle();
+  const d=w.document,ctx=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../../cases/context/research-minimal.json'),'utf8'));
+  w.dispatchEvent(new w.MessageEvent('message',{source:d.getElementById('context-editor').contentWindow,data:{type:'cpos:context',context:ctx,problems:[]}}));
+  const input=d.getElementById('run-sources'),file=new w.File(['x'],'a.txt');
+  Object.defineProperty(input,'files',{configurable:true,value:[file]});
+  d.getElementById('review-run').click();await settle();
+  assert.equal(d.body.dataset.draft,'1');
+  const box=d.getElementById('run-confirm');box.checked=true;box.dispatchEvent(new w.Event('change'));
+  d.getElementById('start-run').click();await settle();
+  assert.equal(d.body.dataset.draft,undefined);
+});
+test('H3 reloading with an unsaved New run asks first',async t=>{
+  const p=emptyPage('W-NewRun/run',t),w=p.w;
+  w.fetch=async()=>({ok:true,json:async()=>[]});w.setInterval=()=>1;w.clearInterval=()=>{};
+  p.load();await settle();
+  const d=w.document,editor=d.getElementById('context-editor');
+  const ctx=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../../cases/context/research-minimal.json'),'utf8'));
+  w.dispatchEvent(new w.MessageEvent('message',{source:editor.contentWindow,data:{type:'cpos:context',context:ctx,problems:[]}}));
+  assert.equal(d.body.dataset.draft,'1');
+  d.getElementById('another-run').hidden=false;d.getElementById('another-run').click();
+  assert.equal(d.body.dataset.draft,undefined);
+  const b=await bootPage(t,'W-NewRun/run',()=>({ok:true,json:async()=>GOOD}));
+  b.d.body.dataset.draft='1';b.d.getElementById('new-run').hidden=false;
+  b.w.confirm=()=>false;b.d.getElementById('reload-workspace').click();await settle();
+  assert.deepEqual(b.errors.filter(m=>/navigation/i.test(m)),[]);
+  b.w.confirm=()=>true;b.d.getElementById('reload-workspace').click();await settle();
+  assert.equal(b.errors.filter(m=>/navigation/i.test(m)).length,1);
+});
+test('H4 a report whose file has gone says so at once, with Reload',async t=>{
+  const dom=fixture('W-Calendar/events?c=tdg-002',500),w=dom.window,d=w.document;t.after(()=>w.close());
+  const heads=[];w.fetch=async(url,o)=>{heads.push(o.method);return{ok:false,status:404};};
+  const report=w.eval('window.DESIGN_WORKSPACE.reports[0]');
+  await go(w,`W-Reports/${report.id}`);
+  const s=d.querySelector('.frame-status');
+  assert.match(text(s),/could not be found/);assert.ok(s.querySelector('button'));assert.equal(s.querySelector('.frame-retry'),null);
+  assert.equal(heads[0],'HEAD');
+});
+test('H4 a 404 page loading after the missing answer does not hide it',async t=>{
+  const dom=fixture('W-Calendar/events?c=tdg-002',500),w=dom.window,d=w.document;t.after(()=>w.close());
+  w.fetch=async()=>({ok:false,status:404});
+  await go(w,`W-Reports/${w.eval('window.DESIGN_WORKSPACE.reports[0].id')}`);
+  d.getElementById('report-preview').dispatchEvent(new w.Event('load'));
+  const s=d.querySelector('.frame-status');
+  assert.equal(s.hidden,false);assert.match(text(s),/could not be found/);
+});
+test('H4 a failed request for the file also says it could not be found',async t=>{
+  const dom=fixture('W-Calendar/events?c=tdg-002',500),w=dom.window,d=w.document;t.after(()=>w.close());
+  w.fetch=async()=>{throw new Error('down');};
+  await go(w,`W-Reports/${w.eval('window.DESIGN_WORKSPACE.reports[0].id')}`);
+  assert.match(text(d.querySelector('.frame-status')),/could not be found/);
+});
+test('H4 a present file keeps the loading state until the frame loads',async t=>{
+  const dom=fixture('W-Calendar/events?c=tdg-002',500),w=dom.window,d=w.document;t.after(()=>w.close());
+  w.fetch=async()=>({ok:true,status:200});
+  const report=w.eval('window.DESIGN_WORKSPACE.reports[0]');
+  await go(w,`W-Reports/${report.id}`);
+  assert.equal(text(d.querySelector('.frame-status')),'Loading report…');
+});
+test('H5 an Evidence tab with no retained files says so',async t=>{
+  const w=fixture('W-Overview/overview?c=tdg-002').window,d=w.document;t.after(()=>w.close());
+  w.eval('contexts["tdg-002"].modules={}');
+  await go(w,'W-Evidence/sources?c=tdg-002');
+  assert.match(text(d.getElementById('content')),/No retained files for this run/);
+  assert.ok(d.querySelector('#content a[href="#W-Library/cases"]'));
+});
+
+test('layout: toggle label, issuer title, library band offset and row labels', async t=>{
+  const w=fixture('W-Reports/list?c=tdg-002').window,d=w.document;t.after(()=>w.close());
+  assert.equal(text(d.getElementById('module-toggle')),'Browse modules');
+  await go(w,'W-Overview/overview?c=tdg-002');
+  const h1=d.querySelector('.issuer h1');
+  assert.ok(h1.getAttribute('title'));assert.equal(h1.getAttribute('title'),h1.textContent);
+  await go(w,'W-Library/cases');
+  assert.equal(d.querySelector('.library-workspace').style.getPropertyValue('--band-h'),'-8px');
+  await go(w,'W-Overview/overview?c=tdg-002');
+  assert.ok(!d.getElementById('workbench').style.cssText.includes('--band-h'));
+  await go(w,'W-Library/cases');
+  const cells=[...d.querySelectorAll('.run-row td:not(:first-child):not(.row-open), .issuer-row td:not(.row-open)')];
+  assert.ok(cells.length>0);
+  for(const c of cells)assert.ok(c.dataset.label,c.outerHTML);
+  assert.deepEqual([...new Set(cells.map(c=>c.dataset.label))].sort(),['Period','Reports','Run','Workflow']);
+});

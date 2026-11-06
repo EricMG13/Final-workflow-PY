@@ -110,7 +110,7 @@ def real_workspace(browser, name, port, full):
     used = page.locator("#module-head a", has_text="Used in")
     note(used.count() == 1, f"{name}: module output names the deliverables that used it")
     chart_style(page, name, port)
-    page.click(".workspace-tabs a:has-text('Deliverables')")
+    page.click(".workspace-tabs a:has-text('Reports')")
     page.wait_for_selector(".report-row a")
     page.click(".report-built .report-row a >> nth=0")
     page.wait_for_selector("#report-preview")
@@ -129,8 +129,8 @@ def real_workspace(browser, name, port, full):
         f"{name}: navigation shows names, not module codes",
     )
     note(
-        page.locator(".rail a[aria-label='Deliverables'][aria-current]").count() == 1,
-        f"{name}: rail stays beside the report and marks Deliverables",
+        page.locator(".rail a[aria-label='Reports'][aria-current]").count() == 1,
+        f"{name}: rail stays beside the report and marks Reports",
     )
     page.screenshot(path=str(S / f"{name}-report.png"))
     href = page.locator(".report-tools a[download]").get_attribute("href")
