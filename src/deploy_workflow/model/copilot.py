@@ -13,6 +13,7 @@ from decimal import Decimal
 from typing import Any
 
 from deploy_workflow.model.providers import (
+    REPLY_CUT,
     ErrorKind,
     ProviderError,
     _BadReply,
@@ -20,6 +21,7 @@ from deploy_workflow.model.providers import (
     _id,
     _snippet,
     _str_or_none,
+    _usage_error,
 )
 from deploy_workflow.model.redact import Redactor
 from deploy_workflow.model.turn import (
@@ -37,17 +39,21 @@ MESSAGE = "assistant.message"
 TOOL_START = "tool.execution_start"
 SESSION_ERROR = "session.error"
 
+# Both vocabularies: OpenAI's words and Anthropic's, whichever the runtime passes through.
 _FINISH: Mapping[str, StopReason] = {
     "stop": "end",
+    "end_turn": "end",
     "tool_calls": "tool_use",
+    "tool_use": "tool_use",
     "length": "max_tokens",
+    "max_tokens": "max_tokens",
 }
 
 # 1 AI unit = 1 AI credit = $0.01; the wire counts nano-AIU: usd = nano * 1E-9 * 0.01.
 _USD_EXPONENT = -11
-# A count above this many digits is not a plausible charge; it is left unpriced (None) rather than
-# expanded into an enormous integer.
-_MAX_NANO_DIGITS = 38
+# An integer-valued count of more than this many digits is not a plausible charge; it is left
+# unpriced (None), whether written as a JSON integer or as a decimal, rather than expanded.
+_MAX_NANO_DIGITS = 39
 
 
 def event_record(event: Any) -> dict[str, Any]:
@@ -63,17 +69,17 @@ def _billed_usd(data: Mapping[str, Any]) -> Decimal | None:
     if isinstance(raw, bool) or not isinstance(raw, int | Decimal):
         return None
     if isinstance(raw, Decimal) and (
-        not raw.is_finite() or raw != raw.to_integral_value() or raw.adjusted() > _MAX_NANO_DIGITS
+        not raw.is_finite() or raw != raw.to_integral_value() or raw.adjusted() >= _MAX_NANO_DIGITS
     ):
         return None
     nano = int(raw)
-    if nano < 0:
+    if nano < 0 or len(str(nano)) > _MAX_NANO_DIGITS:
         return None
     # built from its digits: no context rounding, no float
     return Decimal((0, tuple(int(d) for d in str(nano)), _USD_EXPONENT))
 
 
-def _events(text: str) -> list[tuple[str, dict[str, Any]]]:
+def _events(text: str) -> tuple[list[Any], list[tuple[str, dict[str, Any]]]]:
     try:
         body = load_json(text)
     except TurnError:
@@ -87,13 +93,17 @@ def _events(text: str) -> list[tuple[str, dict[str, Any]]]:
         if not isinstance(kind, str) or not isinstance(data, dict):
             raise _BadReply("an event is not an object with a type and data")
         events.append((kind, data))
-    return events
+    return body, events
 
 
 def _tool_call(data: Mapping[str, Any], seen: list[Any]) -> ToolCall:
     call_id, name = _id(data, "toolCallId"), _id(data, "toolName")
+    if data.get("parentToolCallId") is not None:
+        raise _BadReply("sub-agent tool call")
     seen.append(name)
     arguments = data.get("arguments")
+    if arguments is None:
+        return ToolCall(call_id, name, {})
     if isinstance(arguments, dict):
         seen.append(arguments)
         return ToolCall(call_id, name, arguments)
@@ -131,14 +141,15 @@ def _session_error(
     code = data.get("statusCode")
     status = code if isinstance(code, int) and not isinstance(code, bool) else None
     snippet = _snippet(redactor, detail)
-    if usage_data is None:
+    counts = _usage(usage_data) if usage_data is not None else None
+    if usage_data is None or counts is None or counts == Usage():
         return ProviderError(ErrorKind.SENT_CHARGE_UNKNOWN, "SessionError", snippet, status)
     return ProviderError(
         ErrorKind.SENT_CHARGE_USAGE,
         "SessionError",
         snippet,
         status,
-        _usage(usage_data),
+        counts,
         _billed_usd(usage_data),
         _str_or_none(usage_data.get("model")),
         _request_id(usage_data),
@@ -148,9 +159,10 @@ def _session_error(
 def parse_events(
     text: str, redactor: Redactor, seen: list[Any], cut_as_turn: bool = False
 ) -> Turn | ProviderError:
-    """The turn one call's session events make. ``cut_as_turn`` exists for old recordings of
-    other providers and is ignored here. Raises ``_BadReply`` on a body of the wrong shape."""
-    events = _events(text)
+    """The turn one call's session events make. A length-cut reply with no tool call is
+    ``ReplyCut`` (CP1H-R16) unless ``cut_as_turn``, which keeps it a max_tokens turn. Raises ``_BadReply`` on a body of the wrong shape."""
+    body, events = _events(text)
+    seen.append(body)
     usages = [d for k, d in events if k == USAGE]
     errors = [d for k, d in events if k == SESSION_ERROR]
     if len(usages) > 1:
@@ -158,8 +170,11 @@ def parse_events(
     usage_data = usages[0] if usages else None
     contents: list[str] = []
     for kind, data in events:
-        if kind == MESSAGE and isinstance(data.get("content"), str):
-            contents.append(data["content"])
+        if kind == MESSAGE:
+            content = data.get("content")
+            if not isinstance(content, str):
+                raise _BadReply("an assistant.message content is not a string")
+            contents.append(content)
     seen.extend(contents)
     seen.append("".join(contents))
     if errors:
@@ -167,6 +182,8 @@ def parse_events(
     if usage_data is None:
         raise _BadReply("no assistant.usage event")
     calls = tuple(_tool_call(d, seen) for k, d in events if k == TOOL_START)
+    if len({c.call_id for c in calls}) != len(calls):
+        raise _BadReply("duplicate toolCallId")
     finish = usage_data.get("finishReason")
     stop: StopReason = _FINISH.get(finish, "other") if isinstance(finish, str) else "other"
     expected = _count(usage_data, "numToolCalls")
@@ -176,13 +193,11 @@ def parse_events(
         raise _BadReply("tool count unknown")
     if stop == "tool_use" and not calls:
         raise _BadReply("stop reason tool_use with no tool call")
-    return Turn(
-        "".join(contents),
-        calls,
-        _usage(usage_data),
-        stop,
-        _str_or_none(usage_data.get("model")),
-        _request_id(usage_data),
-        200,
-        _billed_usd(usage_data),
-    )
+    if calls and stop not in ("tool_use", "max_tokens"):
+        raise _BadReply("tool calls without finishReason tool_calls")
+    usage = _usage(usage_data)
+    model, rid = _str_or_none(usage_data.get("model")), _request_id(usage_data)
+    billed = _billed_usd(usage_data)
+    if stop == "max_tokens" and not calls and not cut_as_turn:
+        return _usage_error(REPLY_CUT, "finishReason length", 200, usage, model, rid, billed)
+    return Turn("".join(contents), calls, usage, stop, model, rid, 200, billed)
