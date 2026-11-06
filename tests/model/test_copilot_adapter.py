@@ -8,6 +8,7 @@ started handler to return before the script goes on.
 """
 
 import asyncio
+import json
 import time
 import uuid
 from collections.abc import Callable
@@ -25,6 +26,7 @@ from deploy_workflow.model.adapter import (
     _REFLECTED_RAW,
     AdapterReply,
     LivePauseInForce,
+    recorded_adapter,
 )
 from deploy_workflow.model.copilot import event_record
 from deploy_workflow.model.copilot_adapter import ClientOptions, CopilotAdapter, _Call
@@ -874,3 +876,47 @@ def test_sdk_exception_is_an_adapter_error_that_exports(rig: Rig, tmp_path: Path
     assert rec["error_class"] == "AdapterError"
     assert str(rec["error"]).startswith("AdapterError: RuntimeError")
     assert export_recording(run, tmp_path / "out.jsonl", Redactor()) == 1
+
+
+class OpenFails(FakeClient):
+    def __init__(self, error: BaseException) -> None:
+        super().__init__([])
+        self.error = error
+
+    async def create_session(self, **options: Any) -> FakeSession:
+        raise self.error
+
+
+@pytest.mark.parametrize(
+    "error, message",
+    [
+        (RuntimeError("session refused"), "RuntimeError"),
+        (TimeoutError(), "OverallTimeout"),
+    ],
+)
+def test_pre_send_failure_is_not_sent_that_exports_and_replays(
+    rig: Rig, tmp_path: Path, error: BaseException, message: str
+) -> None:
+    rig.client = OpenFails(error)
+    adapter = rig.make([])
+    run = tmp_path / "run"
+    run.mkdir()
+    executor = HandoffExecutor(run, adapter=adapter, cap_usd=Decimal(10), check=check)
+    with pytest.raises(RuntimeError):
+        executor(task())
+    (rec,) = CallLog(run, Redactor()).records()
+    assert rec["error_class"] == copilot_adapter.PRE_SEND_FAILURE
+    assert message in str(rec["error"])
+    assert export_recording(run, tmp_path / "out.jsonl", Redactor()) == 1
+    exported = json.loads((tmp_path / "out.jsonl").read_text(encoding="utf-8").splitlines()[0])
+    assert exported["response"]["kind"] == "not_sent"
+    assert exported["response"]["error_class"] == copilot_adapter.PRE_SEND_FAILURE
+    (out := tmp_path / "rec").mkdir()
+    (out / "r.jsonl").write_bytes((tmp_path / "out.jsonl").read_bytes())
+    replayed = recorded_adapter(SPEC, out).complete(
+        request(),
+        invocation_digest=exported["invocation_digest"],
+        call_index=exported["call_index"],
+        reservation_id="r",
+    )
+    assert replayed.kind == "not_sent" and replayed.error_class == copilot_adapter.PRE_SEND_FAILURE

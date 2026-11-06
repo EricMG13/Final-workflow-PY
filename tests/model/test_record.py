@@ -716,7 +716,15 @@ def test_null_status_kind_must_agree_with_cost_status(
         exported(
             tmp_path,
             record(
-                http_status=None, error_class=error_class, cost_status=cost, settled_usd=settled
+                http_status=None,
+                error_class=error_class,
+                cost_status=cost,
+                settled_usd=settled,
+                input_tokens=None,
+                cached_read_tokens=None,
+                cache_write_tokens=None,
+                output_tokens=None,
+                reasoning_tokens=None,
             ),
         )
 
@@ -1436,3 +1444,37 @@ def test_timeout_without_counts_stays_sent_unknown(tmp_path: Path, error_class: 
         ),
     )
     assert resp["kind"] == "sent_unknown" and "usage" not in resp
+
+
+@pytest.mark.parametrize(
+    "cost, settled", [("billed", Decimal("0.000000001")), ("computed", Decimal(0))]
+)
+def test_adapter_reads_null_status_timeout_with_counts(
+    tmp_path: Path, cost: str, settled: Decimal
+) -> None:
+    run, out = tmp_path / "run", tmp_path / "rec"
+    run.mkdir()
+    out.mkdir()
+    CallLog(run, Redactor()).append(
+        record(
+            http_status=None,
+            cost_status=cost,
+            settled_usd=settled,
+            error_class="IdleTimeout",
+            input_tokens=10,
+            output_tokens=5,
+        )
+    )
+    assert export_recording(run, out / "r.jsonl", Redactor()) == 1
+    model = ModelSpec("sol-medium", "openai", "gpt-6.1-sol", "medium")
+    reply = recorded_adapter(model, out).complete(
+        TurnRequest((), (), 10, "medium"),
+        invocation_digest=DIGEST,
+        call_index=0,
+        reservation_id="r",
+    )
+    assert reply.kind == "sent_usage" and reply.http_status is None
+    assert reply.error_class == "IdleTimeout"
+    assert reply.usage is not None
+    assert (reply.usage.input_tokens, reply.usage.output_tokens) == (10, 5)
+    assert reply.billed_usd == settled and isinstance(reply.billed_usd, Decimal)

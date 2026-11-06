@@ -224,6 +224,11 @@ def real_client(options: ClientOptions) -> ClientLike:
     return _SdkClient(client, Tool, ToolResult, PermissionDecisionReject)
 
 
+# The class of an exchange that failed before anything was sent: the record is not_sent, and the
+# exception type stays in the message (the class vocabulary is closed).
+PRE_SEND_FAILURE = "PreSendFailure"
+
+
 class _Refuse(Exception):
     """A refusal before anything was sent: becomes a ``not_sent`` reply."""
 
@@ -703,10 +708,17 @@ class CopilotAdapter:
         except _ToolCallLost:
             return self._failed(call, "ToolCallLost", "a pending tool handler was cancelled")
         except TimeoutError:
-            return self._failed(call, "OverallTimeout", "the exchange timed out", sent=sent)
+            return self._failed(
+                call,
+                "OverallTimeout" if sent else PRE_SEND_FAILURE,
+                "the exchange timed out" if sent else "OverallTimeout: the exchange timed out",
+                sent=sent,
+            )
         except Exception as error:  # noqa: BLE001 - released, and reported as a reply
             text = f"AdapterError: {type(error).__name__}: {self._scrub(str(error), options)}"
-            return self._failed(call, "AdapterError", redactor.text(text), sent=sent)
+            return self._failed(
+                call, "AdapterError" if sent else PRE_SEND_FAILURE, redactor.text(text), sent=sent
+            )
 
     def _scrub(self, text: str, options: ClientOptions) -> str:
         """``text`` without the runtime path, the exchange's home or the working directory."""

@@ -51,7 +51,7 @@ from deploy_workflow.platform_io import flags, regular_open
 
 ReplyKind = Literal["ok", "not_sent", "sent_known", "sent_usage", "sent_unknown"]
 _ERROR_KINDS: tuple[str, ...] = ("not_sent", "sent_known", "sent_usage", "sent_unknown")
-_STATUS_OPTIONAL = ("not_sent", "sent_unknown")  # no reply status may exist for these
+_STATUS_OPTIONAL = ("not_sent", "sent_unknown", "sent_usage")  # no reply status may exist for these
 _KIND_OF: Mapping[ErrorKind, ReplyKind] = {
     ErrorKind.NOT_SENT: "not_sent",
     ErrorKind.SENT_CHARGE_KNOWN: "sent_known",

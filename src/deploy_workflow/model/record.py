@@ -610,7 +610,12 @@ def _error_response(
     unknown = rec.cost_status == "unknown"
     if rec.http_status is None:
         carries_counts = any(v is not None for v in _usage_of(rec).values())
-        if error_class in _TIMEOUT_CLASSES and carries_counts and rec.cost_status != "computed":
+        zero_computed = rec.cost_status == "computed" and rec.settled_usd == 0
+        if (
+            error_class in _TIMEOUT_CLASSES
+            and carries_counts
+            and (rec.cost_status != "computed" or zero_computed)
+        ):
             # A Copilot timeout after a usage event: sent, with the counts it reported.
             out_t: dict[str, Any] = {
                 "kind": "sent_usage",
@@ -618,7 +623,7 @@ def _error_response(
                 "http_status": None,
                 "usage": _usage_object(rec),
             }
-            if rec.cost_status == "billed" and rec.settled_usd is not None:
+            if (rec.cost_status == "billed" or zero_computed) and rec.settled_usd is not None:
                 out_t["billed_usd"] = _money_field(rec.settled_usd)
             return out_t
         if rec.cost_status == "billed":
