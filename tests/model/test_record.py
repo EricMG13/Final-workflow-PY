@@ -719,6 +719,29 @@ def test_null_status_kind_must_agree_with_cost_status(
         )
 
 
+@pytest.mark.parametrize(
+    "error_class",
+    ["IdleTimeout", "OverallTimeout", "ToolCallLost", "AdapterClosed", "AdapterError"],
+)
+def test_copilot_sent_unknown_classes_export_without_a_status(
+    tmp_path: Path, error_class: str
+) -> None:
+    rec = CallRecord.build(
+        Redactor(),
+        **fields(
+            config_id="copilot-sol-medium",
+            provider="copilot",
+            http_status=None,
+            cost_status="unknown",
+            settled_usd=None,
+            error_class=error_class,
+            error="x",
+        ),
+    )
+    (response,) = exported(tmp_path, rec)
+    assert response == {"kind": "sent_unknown", "error_class": error_class, "http_status": None}
+
+
 def test_null_status_billed_is_refused(tmp_path: Path) -> None:
     with pytest.raises(ExportMismatch):
         exported(

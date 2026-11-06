@@ -1074,9 +1074,56 @@ def test_live_evidence_check_can_pass_and_refuses_each_kind_of_fake(tmp_path, pr
         )
 
 
-def test_copilot_config_is_refused_before_anything_is_written(tmp_path):
-    argv = launch(tmp_path)
-    argv[argv.index("--config") + 1] = "copilot-sol-medium"
-    with pytest.raises(SystemExit, match="Copilot adapter"):
-        main(argv)
-    assert not (tmp_path / "out").exists()
+COPILOT_RULING = (
+    "lifts: live-provider-pause\nby: user\ndate: 2026-11-01\n"
+    "configs: copilot-sol-medium copilot-opus-medium\n"
+)
+
+
+@pytest.fixture
+def copilot_ruling(tmp_path, monkeypatch):
+    root = tmp_path / "rulings"
+    root.mkdir()
+    ruling = root / "copilot.md"
+    ruling.write_text(COPILOT_RULING, encoding="utf-8")
+    monkeypatch.setattr("deploy_workflow.model.adapter.LIVE_RULINGS_ROOT", root)
+    return ruling
+
+
+def copilot_argv(tmp_path, config, *extra):
+    argv = launch(tmp_path, *extra)
+    argv[argv.index("--config") + 1] = config
+    return argv
+
+
+def test_launcher_reports_copilot_key_variable(tmp_path, monkeypatch, capsys, copilot_ruling):
+    monkeypatch.delenv("COPILOT_GITHUB_TOKEN", raising=False)
+    argv = copilot_argv(tmp_path, "copilot-sol-medium", "--live", "--ruling", str(copilot_ruling))
+    assert main(argv) == 2
+    assert "COPILOT_GITHUB_TOKEN" in capsys.readouterr().err
+
+
+def test_copilot_config_without_live_sends_nothing_and_shows_the_plan(
+    tmp_path, capsys, monkeypatch
+):
+    started = []
+    monkeypatch.setattr(cpos_launch, "run_live_handoffs", lambda *a, **k: started.append(1))
+    assert main(copilot_argv(tmp_path, "copilot-opus-medium")) == 0
+    printed = capsys.readouterr().out
+    assert "copilot-opus-medium" in printed and "claude-opus-5.5" in printed and started == []
+
+
+def test_copilot_config_reaches_the_live_run_with_its_config(
+    tmp_path, monkeypatch, capsys, copilot_ruling
+):
+    monkeypatch.setenv("COPILOT_GITHUB_TOKEN", "ghp_" + "Z" * 36)
+    seen = {}
+
+    def fake_run(manifest, directory, **kwargs):
+        seen.update(kwargs)
+        return directory / "report.html"
+
+    monkeypatch.setattr(cpos_launch, "run_live_handoffs", fake_run)
+    argv = copilot_argv(tmp_path, "copilot-sol-medium", "--live", "--ruling", str(copilot_ruling))
+    assert main(argv) == 0
+    assert seen["config"] == "copilot-sol-medium" and seen["ruling"] == copilot_ruling

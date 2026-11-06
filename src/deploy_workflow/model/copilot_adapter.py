@@ -84,6 +84,9 @@ _ENV_ALLOWED = frozenset(
         "TEMP",
         "TMP",
         "SYSTEMROOT",
+        "WINDIR",
+        "PATHEXT",
+        "USERNAME",
         "SYSTEMDRIVE",
         "COMSPEC",
         "APPDATA",
@@ -252,9 +255,9 @@ class _ToolCallLost(Exception):
 @dataclass(frozen=True)
 class _Creds:
     redactor: Redactor
-    token: str | None
+    token: str | None = field(repr=False)
     runtime: str | None
-    env: Mapping[str, str]
+    env: Mapping[str, str] = field(repr=False)
 
 
 @dataclass(frozen=True)
@@ -265,6 +268,7 @@ class _Call:
     effort: str
     started: float
     deadline: float
+    reservation: str
 
 
 def _same(a: Message, b: Message) -> bool:
@@ -471,8 +475,10 @@ class CopilotAdapter:
             return self._not_sent(
                 "RuntimeMissing", f"{_RUNTIME_VARIABLE} is not set to an existing file", started
             )
-        if not _DIGEST.fullmatch(invocation_digest):
-            return self._not_sent("InvalidDigest", "the invocation digest is not a name", started)
+        if not _DIGEST.fullmatch(invocation_digest) or not _DIGEST.fullmatch(reservation_id):
+            return self._not_sent(
+                "InvalidDigest", "the invocation digest or reservation id is not a name", started
+            )
         if not 1 <= request.max_output_tokens <= MAX_OUTPUT_TOKENS:
             return self._not_sent(
                 "MaxOutputTooLarge",
@@ -485,7 +491,13 @@ class CopilotAdapter:
             return self._not_sent(type(error).__name__, redactor.text(str(error)), started)
         loop = self._loop_running()
         call = _Call(
-            request, invocation_digest, call_index, effort, started, loop.time() + self._overall_s
+            request,
+            invocation_digest,
+            call_index,
+            effort,
+            started,
+            loop.time() + self._overall_s,
+            reservation_id,
         )
         options = ClientOptions(runtime, token, "", creds.env)
         future = asyncio.run_coroutine_threadsafe(self._exchange(call, options, redactor), loop)
@@ -628,7 +640,7 @@ class CopilotAdapter:
     async def _open(
         self, call: _Call, options: ClientOptions, system: str, deadline: float
     ) -> _State:
-        home = Path.cwd() / ".copilot-home" / call.digest
+        home = Path.cwd() / ".copilot-home" / call.digest / call.reservation
         try:
             home.mkdir(parents=True, exist_ok=False)
         except FileExistsError:

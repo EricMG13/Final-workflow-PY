@@ -8,6 +8,23 @@ contains the settled CP-6 timeout cost, the corrected TDG annual publication, th
 live CP-8 comparison and checks of the five broader report bundles. The older
 entries below retain their historical case scope.
 
+## 2026-11-06 — GitHub Copilot SDK adapter
+
+Dependency decision: the standard library cannot speak the runtime's JSON-RPC in a few lines and
+no already-pinned dependency does; `github-copilot-sdk==1.0.28` (MIT, runtime 1.0.105) is locked.
+Scope: `copilot-sol-medium` and `copilot-opus-medium`; `live_adapter_for` in `owners/cpos.py`
+builds `CopilotAdapter` for them (else `LiveAdapter`) at all three sites, and closes it after the
+executor finishes. Setup and the seat check are in `docs/COPILOT.md`. Follow-ons: `export_recording`
+infers `sent_unknown` for the adapter's classes; `_Creds` hides the token and environment in its
+repr; the call home is `.copilot-home/<digest>/<reservation>`; the Windows allowlist gains
+`PATHEXT`, `WINDIR`, `USERNAME`.
+Checks: see `.superpowers/sdd/2026-11-06-copilot-sdk-adapter/task-5-report.md` for the counts of
+the whole-suite run and the gates (all with fake clients: no runtime or provider was started).
+Not verified: pinned model ids; `numToolCalls` and event order on a real seat; `cost`
+(`totalNanoAiu`) presence and the 1 AI unit = $0.01 conversion; `max_output_tokens` not
+enforceable; Windows runtime path handling; `stop()`/`force_stop()` timing. The seat check
+(`tests/model/test_copilot_live.py`) has not been run.
+
 ## 2026-11-05 — The M365 custom instruction applies to every module
 
 Owner ruling: the ported Copilot custom instruction is a global persona. `cpos_launch` now

@@ -350,7 +350,7 @@ def test_first_call_creates_an_empty_mode_session_with_the_tools(rig: Rig) -> No
     (options,) = rig.options
     assert options.token == TOKEN and options.runtime == str(rig.runtime)
     home = Path(options.home)
-    assert home == rig.home_root / ".copilot-home" / DIGEST and home.is_dir()
+    assert home == rig.home_root / ".copilot-home" / DIGEST / "r" and home.is_dir()
     assert rig.client.started == 1
     given = rig.session.options
     assert given["model"] == "gpt-6.1-sol" and given["reasoning_effort"] == "medium"
@@ -636,7 +636,7 @@ def test_two_usage_events_in_a_timeout_body_are_sent_unknown(rig: Rig) -> None:
         for n in (1000, 2000)
     ]
     body = dump_json(records).encode()
-    call_ = _Call(request(), DIGEST, 0, "medium", 0.0, 0.0)
+    call_ = _Call(request(), DIGEST, 0, "medium", 0.0, 0.0, "r")
     reply = adapter._timeout_reply(call_, body, body, "IdleTimeout")
     assert reply.kind == "sent_unknown" and reply.usage is None and reply.billed_usd is None
 
@@ -793,10 +793,20 @@ def test_runtime_environment_is_allowlisted(rig: Rig) -> None:
         "ANTHROPIC_API_KEY": "plainvalue-anthropic",
         "GH_TOKEN": secret,
         "GITHUB_TOKEN": secret,
+        "PATHEXT": ".EXE",
+        "WINDIR": "C:/W",
+        "USERNAME": "u",
     }
     call(rig.make(text_script(), environ=env), request())
     (options,) = rig.options
-    assert dict(options.env) == {"PATH": "/usr/bin", "LC_ALL": "C", "https_proxy": "http://proxy"}
+    assert dict(options.env) == {
+        "PATH": "/usr/bin",
+        "LC_ALL": "C",
+        "https_proxy": "http://proxy",
+        "PATHEXT": ".EXE",
+        "WINDIR": "C:/W",
+        "USERNAME": "u",
+    }
     assert TOKEN not in repr(dict(options.env)) and options.token == TOKEN
 
 
@@ -820,7 +830,7 @@ def test_windows_paths_are_scrubbed(rig: Rig) -> None:
 
 
 def test_existing_home_is_refused(rig: Rig) -> None:
-    (rig.home_root / ".copilot-home" / DIGEST).mkdir(parents=True)
+    (rig.home_root / ".copilot-home" / DIGEST / "r").mkdir(parents=True)
     reply = call(rig.make(text_script()), request())
     assert reply.kind == "not_sent" and reply.error_class == "HomeExists"
     assert reply.message == "HomeExists" and rig.options == []

@@ -698,3 +698,116 @@ def test_observer_stops_after_durable_handoff_and_resumes_without_duplicate_disp
     report = run_handoffs(manifest, state, execute=execute, check=checked)
     assert sent == ORDER
     assert verify_delivery(next(state.glob("delivery-*.json")), report.parent) == report
+
+
+COPILOT_RULING = (
+    "lifts: live-provider-pause\nby: user\ndate: 2026-11-01\nconfigs: copilot-opus-medium\n"
+)
+
+
+def live_job(tmp_path: Path) -> Path:
+    path = job(tmp_path)
+    data = json.loads(path.read_bytes())
+    data.update(execution="live-provider", provider_cap_usd="10", max_attempts=1)
+    path.write_text(json.dumps(data))
+    return path
+
+
+def copilot_rig(tmp_path: Path) -> tuple[Path, Path]:
+    root = tmp_path / "rulings"
+    root.mkdir()
+    ruling = root / "copilot.md"
+    ruling.write_text(COPILOT_RULING, encoding="utf-8")
+    return root, ruling
+
+
+def test_copilot_config_selects_the_copilot_adapter(tmp_path, monkeypatch):
+    from deploy_workflow.model.copilot_adapter import CopilotAdapter
+    from deploy_workflow.model.handoff import HandoffExecutor
+    from deploy_workflow.owners import cpos
+
+    root, ruling = copilot_rig(tmp_path)
+    built, closed = [], []
+    real_close = CopilotAdapter.close
+
+    def close(self):
+        closed.append(self)
+        real_close(self)
+
+    def fake_run(manifest, directory, *, execute, check, on_handoff):
+        assert isinstance(execute, HandoffExecutor) and not closed
+        built.append(execute.adapter)
+        return directory / "report.html"
+
+    monkeypatch.setattr(CopilotAdapter, "close", close)
+    monkeypatch.setattr(cpos, "run_handoffs", fake_run)
+    cpos.run_live_handoffs(
+        live_job(tmp_path),
+        tmp_path / "state",
+        ruling=ruling,
+        check=checked,
+        environ={},
+        config="copilot-opus-medium",
+        rulings_root=root,
+    )
+    (adapter,) = built
+    assert isinstance(adapter, CopilotAdapter) and adapter.config_id == "copilot-opus-medium"
+    assert closed == [adapter]  # released after the executor finished
+    assert adapter._loop is None  # no runtime was started: no complete ran
+
+
+def test_copilot_adapter_is_closed_when_the_run_fails(tmp_path, monkeypatch):
+    from deploy_workflow.model.copilot_adapter import CopilotAdapter
+    from deploy_workflow.owners import cpos
+
+    root, ruling = copilot_rig(tmp_path)
+    closed = []
+    real_close = CopilotAdapter.close
+
+    def close(self):
+        closed.append(self)
+        real_close(self)
+
+    def failing(*args, **kwargs):
+        raise RuntimeError("executor failed")
+
+    monkeypatch.setattr(CopilotAdapter, "close", close)
+    monkeypatch.setattr(cpos, "run_handoffs", failing)
+    with pytest.raises(RuntimeError, match="executor failed"):
+        cpos.run_live_handoffs(
+            live_job(tmp_path),
+            tmp_path / "state",
+            ruling=ruling,
+            check=checked,
+            environ={},
+            config="copilot-opus-medium",
+            rulings_root=root,
+        )
+    assert len(closed) == 1
+
+
+def test_live_mode_check_accepts_copilot_adapter(tmp_path):
+    from decimal import Decimal
+
+    from deploy_workflow.model.copilot_adapter import CopilotAdapter
+    from deploy_workflow.model.handoff import HandoffExecutor
+    from deploy_workflow.model.turn import ModelSpec
+
+    root, ruling = copilot_rig(tmp_path)
+    spec = ModelSpec("copilot-opus-medium", "copilot", "claude-opus-5.5", "medium")
+    adapter = CopilotAdapter(spec, ruling, environ={}, rulings_root=root)
+    try:
+        # A cap that differs from the manifest's passes the adapter-type guard and stops at the
+        # next one: the executor must share this run's cap.
+        executor = HandoffExecutor(
+            tmp_path / "state" / "live", adapter=adapter, cap_usd=Decimal(5), check=checked
+        )
+        with pytest.raises(ValueError, match="cpos_live_binding"):
+            run_handoffs(live_job(tmp_path), tmp_path / "state", execute=executor, check=checked)
+        # The same executor is still refused for a manifest that is not live.
+        other = tmp_path / "other"
+        other.mkdir()
+        with pytest.raises(ValueError, match="cpos_execution_mode"):
+            run_handoffs(job(other), tmp_path / "state", execute=executor, check=checked)
+    finally:
+        adapter.close()

@@ -530,8 +530,18 @@ LOOP_STOPS: frozenset[str] = frozenset(
 # The class of a record whose ``complete`` raised: the call may have been sent, the charge is unknown.
 ADAPTER_ERROR = "AdapterError"
 
+# Error classes of a record with no HTTP status whose call may have been sent: the transport
+# adapters' classes and the Copilot adapter's ``sent_unknown`` classes (adapter-reported).
 _TRANSPORT_CLASSES = frozenset(
-    {"ConnectTimeout", "IdleTimeout", "OverallTimeout", "TransportError", ADAPTER_ERROR}
+    {
+        "ConnectTimeout",
+        "IdleTimeout",
+        "OverallTimeout",
+        "TransportError",
+        "ToolCallLost",
+        "AdapterClosed",
+        ADAPTER_ERROR,
+    }
 )
 
 
