@@ -54,6 +54,7 @@ from deploy_workflow.model.reply_classes import (
     MODEL_MISMATCH,
     OVERALL_TIMEOUT,
     PRE_SEND_FAILURE,
+    TOOL_CALL_LOST,
     TOOL_CALL_MISMATCH,
 )
 from deploy_workflow.model.transport import IDLE_S, OVERALL_S
@@ -81,7 +82,11 @@ _PROFILE_VARIABLES = (
 )  # fmt: skip
 # Windows drive paths whose folders may hold spaces ("C:\\Users\\Jane Doe\\...\\x.js"): the file
 # name ends at a space, a folder name does not.
-_WINDOWS_PATH = re.compile(r"[A-Za-z]:[\\/](?:[^\\/:*?\"<>|\r\n()]+[\\/])+[^\s\\/:*?\"<>|()']*")
+_ROOT = r"(?:[A-Za-z]:|<path>)"
+_WINDOWS_PATH = re.compile(
+    rf"{_ROOT}\\(?:[^\\/:*?\"<>|\r\n()]+\\)*[^\s\\/:*?\"<>|()']*"  # backslashes: folders may hold spaces
+    rf"|{_ROOT}/(?:[^\s\\/:*?\"<>|()']+/)*[^\s\\/:*?\"<>|()']*"
+)
 _TOKEN_VARIABLE = KEY_VARIABLES["copilot"]
 _DIGEST = re.compile(r"[A-Za-z0-9_-]{1,128}")
 _TOOL_FINISH = ("tool_calls", "tool_use")
@@ -143,6 +148,7 @@ class ClientOptions:
     token: str = field(repr=False)
     home: str
     env: Mapping[str, str] = field(default_factory=dict, repr=False)
+    private_paths: tuple[str, ...] = field(default=(), repr=False)  # also scrubbed from errors
 
 
 @dataclass(frozen=True)
@@ -379,6 +385,14 @@ def _calls_match(turn: Turn, calls: Mapping[str, tuple[str, Any]]) -> bool:
     return True
 
 
+def _is_scrubbable(value: str) -> bool:
+    """An absolute path of more than three characters; anything shorter or relative would erase
+    ordinary text ("." or "/")."""
+    return len(value) > 3 and (
+        value.startswith(("/", "\\")) or value[1:3] == ":\\" or value[1:3] == ":/"
+    )
+
+
 def _paths_in(text: str, paths: list[str]) -> str:
     """``text`` without any of ``paths``, raw, repr-escaped, slash-flipped, in any case."""
     forms: set[str] = set()
@@ -520,7 +534,9 @@ class CopilotAdapter:
             loop.time() + self._overall_s,
             reservation_id,
         )
-        options = ClientOptions(runtime, token, "", creds.env)
+        environ = os.environ if self._environ is None else self._environ
+        private = (str(Path(runtime).parent), *(environ.get(n, "") for n in _PROFILE_VARIABLES))
+        options = ClientOptions(runtime, token, "", creds.env, private)
         future = asyncio.run_coroutine_threadsafe(self._exchange(call, options, redactor), loop)
         # the only teardown step on the reply's path is abort() after a timeout
         try:
@@ -722,7 +738,7 @@ class CopilotAdapter:
         except _Refuse as refusal:  # nothing was sent; a live exchange is left as it is
             return self._not_sent(refusal.error_class, refusal.message, call.started)
         except _ToolCallLost:
-            return self._failed(call, "ToolCallLost", "a pending tool handler was cancelled")
+            return self._failed(call, TOOL_CALL_LOST, "a pending tool handler was cancelled")
         except TimeoutError:
             return self._failed(
                 call,
@@ -738,11 +754,9 @@ class CopilotAdapter:
 
     def _scrub(self, text: str, options: ClientOptions) -> str:
         """``text`` without the runtime path, the exchange's home or the working directory."""
-        environ = os.environ if self._environ is None else self._environ
-        known = [environ.get(name, "") for name in _PROFILE_VARIABLES]
-        parent = str(Path(options.runtime).parent)
-        text = _WINDOWS_PATH.sub("<path>", text)  # whole paths first: no folder half is left
-        return _paths_in(text, [options.runtime, parent, options.home, str(Path.cwd()), *known])
+        values = [options.runtime, options.home, str(Path.cwd()), *options.private_paths]
+        text = _paths_in(text, [v for v in values if _is_scrubbable(v)])
+        return _WINDOWS_PATH.sub("<path>", text)
 
     def _failed(
         self, call: _Call, error_class: str, text: str, *, sent: bool = True

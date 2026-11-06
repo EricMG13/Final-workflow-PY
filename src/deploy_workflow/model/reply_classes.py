@@ -11,6 +11,7 @@ MODEL_MISMATCH = "ModelMismatch"
 BYOK_ROUTED = "ByokRouted"
 AUTO_ROUTED = "AutoRouted"
 TOOL_CALL_MISMATCH = "ToolCallMismatch"
+TOOL_CALL_LOST = "ToolCallLost"
 
 IDLE_TIMEOUT = "IdleTimeout"
 OVERALL_TIMEOUT = "OverallTimeout"
@@ -22,7 +23,7 @@ USAGE_TIMEOUTS: frozenset[str] = frozenset({IDLE_TIMEOUT, OVERALL_TIMEOUT})
 SENT_UNKNOWN: frozenset[str] = USAGE_TIMEOUTS | {
     "ConnectTimeout",
     "TransportError",
-    "ToolCallLost",
+    TOOL_CALL_LOST,
     ADAPTER_CLOSED,
     ADAPTER_ERROR,
 }

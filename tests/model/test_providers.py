@@ -1461,10 +1461,17 @@ def test_every_sent_unknown_class_the_writers_produce_is_in_the_shared_vocabular
 
     transport = {c.__name__ for c in (ConnectTimeout, IdleTimeout, OverallTimeout, TransportError)}
     copilot = {
-        reply_classes.ADAPTER_ERROR,
-        reply_classes.ADAPTER_CLOSED,
-        reply_classes.IDLE_TIMEOUT,
-        reply_classes.OVERALL_TIMEOUT,
-        "ToolCallLost",
+        value
+        for name, value in vars(reply_classes).items()
+        if name.isupper()
+        and isinstance(value, str)
+        and name
+        not in {
+            "PRE_SEND_FAILURE",
+            "MODEL_MISMATCH",
+            "BYOK_ROUTED",
+            "AUTO_ROUTED",
+            "TOOL_CALL_MISMATCH",
+        }
     }
     assert (transport | copilot) <= reply_classes.SENT_UNKNOWN

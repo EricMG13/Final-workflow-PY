@@ -1012,3 +1012,22 @@ def test_pre_send_failure_is_not_sent_that_exports_and_replays(
         reservation_id="r",
     )
     assert replayed.kind == "not_sent" and replayed.error_class == copilot_adapter.PRE_SEND_FAILURE
+
+
+def test_profile_path_ending_at_a_space_leaves_no_surname(rig: Rig, tmp_path: Path) -> None:
+    environ = {**rig.environ, "USERPROFILE": r"C:\Users\Jane Doe"}
+    rig.client = OpenFails(RuntimeError(r"mkdir 'C:\Users\Jane Doe' failed"))
+    adapter = rig.make([], environ=environ)
+    run, _ = _run_and_export(rig, tmp_path, adapter)
+    (rec,) = CallLog(run, Redactor()).records()
+    assert "Doe" not in str(rec["error"]) and "Jane" not in str(rec["error"])
+
+
+def test_relative_or_root_values_do_not_erase_ordinary_text(rig: Rig, tmp_path: Path) -> None:
+    environ = {**rig.environ, "COPILOT_CLI_PATH": "copilot-runtime", "HOME": "/"}
+    rig.client = OpenFails(RuntimeError("failed after 3/4 retries at step 1.2"))
+    (tmp_path / "copilot-runtime").write_text("#!/bin/sh\n")
+    adapter = rig.make([], environ=environ)
+    run, _ = _run_and_export(rig, tmp_path, adapter)
+    (rec,) = CallLog(run, Redactor()).records()
+    assert "after 3/4 retries at step 1.2" in str(rec["error"])

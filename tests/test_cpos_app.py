@@ -408,3 +408,38 @@ def test_windows_crlf_start_authorisation_is_valid(tmp_path):
         b"lifts: live-provider-pause\r\nby: user\r\ndate: 2026-11-04\r\nconfigs: sol-medium\r\n"
     )
     assert check_ruling("sol-medium", path, rulings_root=tmp_path).path == path.resolve()
+
+
+def test_a_release_failure_after_a_finished_run_is_shown_in_the_complete_message(
+    tmp_path, provider, monkeypatch
+):
+    import warnings
+
+    folder, _ = started(tmp_path, provider)
+
+    def finishes(*args, **kwargs):
+        warnings.warn("adapter release failed: stop failed: OSError", RuntimeWarning)
+
+    monkeypatch.setattr(bridge, "run_live_handoffs", finishes)
+    bridge.start(folder)
+    status = status_of(folder)
+    assert status["state"] == "complete"
+    assert "adapter release failed: stop failed: OSError" in status["message"]
+
+
+def test_a_release_note_on_a_multi_argument_stop_reaches_the_failed_status(
+    tmp_path, provider, monkeypatch, capsys
+):
+    folder, _ = started(tmp_path, provider)
+
+    def stops(*args, **kwargs):
+        error = PermissionError(13, "Permission denied")
+        error.add_note("adapter release also failed: stop failed: OSError")
+        raise error
+
+    monkeypatch.setattr(bridge, "run_live_handoffs", stops)
+    monkeypatch.setattr(bridge.sys, "argv", ["bridge.py", "start", str(folder)])
+    with pytest.raises(SystemExit):
+        bridge.main()
+    assert "adapter release also failed: stop failed: OSError" in status_of(folder)["message"]
+    assert "adapter release also failed" in capsys.readouterr().out
