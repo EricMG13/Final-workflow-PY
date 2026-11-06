@@ -13,6 +13,7 @@ from typing import Any
 
 import pytest
 from issuer_library_browser import (
+    CAPTURED_TIMERS,
     EMPTY_STORE,
     EMPTY_WORKSPACE,
     ORIGIN,
@@ -27,6 +28,38 @@ from issuer_library_browser import (
 pytestmark = pytest.mark.browser
 
 ID = "web-" + "a" * 32
+ROW_RUNNING: dict[str, Any] = {
+    "id": ID,
+    "state": "running",
+    "message": "Working",
+    "run_available": True,
+    "issuer": "Northbridge Group",
+    "pathway": "covenant_refinancing",
+    "as_of": "2025-03-31",
+    "modules": ["CP-0", "CP-1"],
+    "module_details": [
+        {"id": "CP-0", "title": "Source readiness"},
+        {"id": "CP-1", "title": "Financial analysis"},
+    ],
+    "progress": {"module": "CP-1", "step": "started", "spent_usd": "0.10"},
+}
+ROW_DONE = {
+    "id": "web-" + "b" * 32,
+    "state": "complete",
+    "message": "Done",
+    "run_available": True,
+    "issuer": "Southport Holdings",
+    "pathway": "credit_snapshot",
+    "as_of": "2025-06-30",
+    "spent_usd": "3.10",
+}
+IDENTITY = f"Northbridge Group · Covenant Refinancing · as of 2025-03-31 · {ID}"
+STARTED = {
+    "state": "running",
+    "message": "Working",
+    "progress": {"module": "CP-1", "step": "started", "spent_usd": "0.10"},
+    "run_available": True,
+}
 CONTEXT = json.loads((ROOT / "cases/context/research-minimal.json").read_text(encoding="utf-8"))
 RUNNING = {
     "state": "running",
@@ -215,9 +248,19 @@ class NewRun:
         ready: bool = True,
         start_fails: bool = False,
         status: dict[str, Any] | None = None,
+        rows: list[dict[str, Any]] | None = None,
     ) -> None:
         self.starts = 0
         self.status = status or RUNNING
+        self.rows = rows if rows is not None else []
+        self.fail_list = False
+
+        def listed(route: Any) -> None:
+            if self.fail_list:
+                self.fail_list = False
+                route.abort()
+            else:
+                json_reply(self.rows)(route)
 
         def start(route: Any) -> None:
             self.starts += 1
@@ -233,9 +276,12 @@ class NewRun:
                 "/api/runs/review": json_reply(review_reply(ready)),
                 "/api/runs/start": start,
                 "/api/runs/status": lambda route: json_reply(self.status)(route),
+                "/api/runs/list": listed,
             },
+            timers=CAPTURED_TIMERS,
         )
         self.page = self.screen.page
+        self.settle()
 
     def settle(self) -> None:
         self.page.wait_for_timeout(50)
@@ -243,6 +289,42 @@ class NewRun:
     def click(self, element_id: str) -> None:
         self.page.evaluate("i=>document.getElementById(i).click()", element_id)
         self.settle()
+
+    def tick(self) -> None:
+        """Fire every live interval once, as the page's own polling would."""
+        self.page.evaluate("window.__tick()")
+        self.settle()
+
+    def revisit(self) -> None:
+        self.page.evaluate("window.dispatchEvent(new Event('hashchange'))")
+        self.settle()
+
+    def launch(self) -> None:
+        self.context()
+        self.folder("N/annual.txt")
+        self.click("review-run")
+        self.confirm()
+        self.click("start-run")
+
+    def stages(self) -> list[dict[str, Any]]:
+        value: list[dict[str, Any]] = self.page.evaluate(
+            "[...document.querySelectorAll('#module-stages li')].map(li=>({"
+            "name:li.querySelector('strong')?.textContent,status:li.dataset.status,"
+            "current:li.getAttribute('aria-current'),stopped:li.hasAttribute('data-stopped'),"
+            "note:li.querySelector('span:not(.step-marker)')?.textContent??null,title:li.title,"
+            "marker:li.querySelector('.step-marker')?.textContent,"
+            "tick:Boolean(li.querySelector('.step-marker img'))}))"
+        )
+        return value
+
+    def recent(self) -> list[dict[str, Any]]:
+        value: list[dict[str, Any]] = self.page.evaluate(
+            "[...document.querySelectorAll('#recent-jobs tbody tr')].map(tr=>({"
+            "head:tr.querySelector('th').textContent,"
+            "cells:[...tr.querySelectorAll('td')].map(td=>td.textContent),"
+            "badges:[...tr.querySelectorAll('td')].map(td=>td.querySelector('.badge')?.className??null)}))"
+        )
+        return value
 
     def context(self, source_is_editor: bool = True) -> None:
         self.page.evaluate(
@@ -397,7 +479,16 @@ def test_only_an_explicitly_confirmed_start_launches_once(new_run: Any) -> None:
         "JSON.parse(window.__calls.find(c=>c.url==='/api/runs/start').options.body)"
     )
     assert body == {"id": ID, "review_id": "b" * 64, "confirm": True}
-    assert re.search(r"running: Working · last accepted Source readiness", run.text("run-progress"))
+    assert run.text("run-identity") == IDENTITY
+    assert re.search(
+        r"running: Working · Source readiness accepted \(1 of 2\)", run.text("run-progress")
+    )
+    assert run.hidden("module-stages") is False
+    stages = run.stages()
+    assert [stage["name"] for stage in stages] == ["Source readiness", "Financial analysis"]
+    assert stages[0]["current"] == "step" and stages[1]["current"] is None
+    assert stages[0]["status"] == "complete" and stages[0]["note"] == "Accepted"
+    assert stages[1]["status"] == "incomplete" and stages[1]["note"] is None
     reviewed = run.page.evaluate(
         "(()=>{const li=document.querySelector('#run-review ol li');"
         "return [li.textContent,li.title];})()"
@@ -459,6 +550,16 @@ def test_a_finished_run_offers_its_deliverables_a_stopped_one_offers_the_run(
     assert run.hidden("open-run") is False and run.text("open-run") == label
     assert run.screen.attr("#open-run", "data-route") == route
     assert "USD 3.10" in run.text("run-spend") and run.hidden("another-run") is False
+    assert run.text("run-progress").strip() == f"{state}: Done"
+    stages = run.stages()
+    if state == "complete":
+        assert stages[-1]["current"] is not None
+    else:
+        assert all(stage["current"] is None for stage in stages)
+    for stage in stages:
+        assert stage["status"] == ("complete" if state == "complete" else "incomplete"), state
+        if state == "stopped":
+            assert stage["note"] is None
 
 
 def test_a_failed_run_offers_nothing_to_open(new_run: Any) -> None:
@@ -500,6 +601,178 @@ def test_an_issuer_folder_is_required_before_review(new_run: Any) -> None:
 
 
 # ---- One app: navigation across destinations and deliverables, over any workspace. ----
+
+
+def test_a_module_that_has_started_is_shown_as_running(new_run: Any) -> None:
+    run = new_run(status={**STARTED, "progress": {**STARTED["progress"], "spent_usd": "0.42"}})
+    run.launch()
+    assert re.search(
+        r"running: Working · running Financial analysis \(2 of 2\)", run.text("run-progress")
+    )
+    first, second = run.stages()
+    assert second["current"] is not None and first["current"] is None
+    assert first["status"] == "complete" and first["note"] == "Accepted"
+    assert first["tick"], "a tick, not a number"
+    assert second["status"] == "current" and second["note"] == "Running" and not second["stopped"]
+    assert first["title"] == "CP-0" and second["marker"] == "2"
+
+
+def test_a_stopped_run_does_not_claim_its_rejected_module_is_still_running(new_run: Any) -> None:
+    run = new_run(status={**STARTED, "state": "stopped", "message": "CP-1 rejected.", "id": ID})
+    run.launch()
+    assert (
+        run.text("run-progress").strip()
+        == "stopped: CP-1 rejected. · stopped during Financial analysis (2 of 2)"
+    )
+    second = run.stages()[1]
+    assert second["current"] == "step" and second["status"] == "current"
+    assert second["stopped"] and second["note"] == "Stopped here"
+    assert run.hidden("open-run") is False and run.text("open-run") == "Open run"
+
+
+def test_recent_runs_are_a_table_active_first_and_a_row_reopens_its_run(new_run: Any) -> None:
+    run = new_run(rows=[ROW_DONE, ROW_RUNNING], status=STARTED)
+    run.revisit()
+    assert run.screen.texts("#recent-jobs .table-scroll table thead th") == [
+        "Issuer",
+        "Workflow",
+        "Module",
+        "State",
+        "Spend (USD)",
+    ]
+    rows = run.recent()
+    assert len(rows) == 2
+    button = run.page.evaluate(
+        "(()=>{const b=document.querySelector('#recent-jobs tbody tr th[scope=\"row\"] button.text-button');"
+        "return b&&[b.textContent,b.title];})()"
+    )
+    assert button == ["Northbridge Group", ID]
+    assert rows[0]["cells"] == [
+        "Covenant Refinancing",
+        "running Financial analysis (2 of 2)",
+        "running",
+        "0.10",
+    ]
+    assert "badge-blue" in rows[0]["badges"][0] and "badge-blue" in rows[0]["badges"][2]
+    assert rows[1]["head"] == "Southport Holdings"
+    assert rows[1]["cells"][1:] == ["—", "complete", "3.10"]
+    assert "badge-navy" in rows[1]["badges"][2]
+    assert run.page.evaluate("document.querySelector('.recent-runs').open") is True
+    run.page.evaluate("document.querySelector('#recent-jobs tbody th button').click()")
+    run.settle()
+    assert run.hidden("progress-step") is False and run.text("run-identity") == IDENTITY
+    assert run.hidden("module-stages") is False
+    stages = run.stages()
+    assert len(stages) == 2 and stages[1]["current"] == "step"
+    assert run.text("run-progress") == "running: Working · running Financial analysis (2 of 2)"
+
+
+def test_a_list_refresh_keeps_the_focused_row(new_run: Any) -> None:
+    rows = [dict(ROW_RUNNING)]
+    run = new_run(rows=rows)
+    run.revisit()
+    focused = run.page.evaluate(
+        "(()=>{window.__table=document.querySelector('#recent-jobs table');"
+        "document.querySelector('#recent-jobs tbody th button').focus();"
+        "return document.activeElement.title;})()"
+    )
+    assert focused == ID
+    run.tick()
+    assert run.page.evaluate("document.querySelector('#recent-jobs table')===window.__table"), (
+        "an identical list keeps the same table node"
+    )
+    assert run.page.evaluate("document.activeElement.title") == ID
+    rows[0] = {**ROW_RUNNING, "state": "complete"}
+    run.tick()
+    after = run.page.evaluate(
+        "(()=>{const t=document.querySelector('#recent-jobs table');"
+        "return {rebuilt:t!==window.__table,"
+        "focus:document.activeElement===t.querySelector('tbody th button'),"
+        "title:document.activeElement.title};})()"
+    )
+    assert after == {"rebuilt": True, "focus": True, "title": ID}
+
+
+def test_a_run_without_a_saved_review_still_lists_and_opens_by_id(new_run: Any) -> None:
+    row = {"id": ID, "state": "stopped", "message": "Halted", "run_available": True}
+    run = new_run(rows=[{**row, "progress": STARTED["progress"]}])
+    run.revisit()
+    (listed,) = run.recent()
+    assert listed["head"] == ID
+    assert listed["cells"][:2] == ["—", "stopped during CP-1"]
+    assert run.page.evaluate("document.querySelector('.recent-runs').open") is False
+    run.page.evaluate("document.querySelector('#recent-jobs tbody tr button').click()")
+    run.settle()
+    assert run.text("run-identity") == ID and run.hidden("module-stages") is True
+    assert run.text("run-progress") == "stopped: Halted · stopped during CP-1"
+
+
+def test_a_malformed_row_degrades_to_a_dash_and_does_not_hide_the_others(new_run: Any) -> None:
+    bad = {**ROW_RUNNING, "module_details": "bad", "modules": "CP-0 CP-1"}
+    run = new_run(rows=[bad, ROW_DONE])
+    run.revisit()
+    rows = run.recent()
+    assert len(rows) == 2
+    assert rows[0]["cells"][1] == "running CP-1", "raw id, no ordinal, from the malformed row"
+    assert rows[1]["cells"][3] == "3.10"
+    assert "Could not load" not in run.text("recent-jobs")
+    run.status = dict(ROW_RUNNING)
+    run.page.evaluate("document.querySelector('#recent-jobs tbody tr button').click()")
+    run.settle()
+    assert run.hidden("module-stages") is True
+    assert run.text("run-progress") == "running: Working · running CP-1"
+
+
+def test_a_failed_render_is_retried_on_the_next_refresh(new_run: Any) -> None:
+    rows = [ROW_RUNNING]
+    run = new_run(rows=rows)
+    rows[0] = {**ROW_RUNNING, "message": "Still working"}
+    run.page.evaluate(
+        "()=>{const real=document.createElement.bind(document);window.__thrown=false;"
+        "document.createElement=(tag,...rest)=>{if(tag==='table'&&!window.__thrown){"
+        "window.__thrown=true;throw new Error('render fault');}return real(tag,...rest);};}"
+    )
+    run.tick()
+    assert run.page.evaluate("window.__thrown") is True
+    assert run.text("recent-jobs").startswith("Could not load")
+    run.tick()
+    assert run.screen.exists("#recent-jobs table")
+
+
+def test_polling_stops_while_new_run_is_hidden_and_resumes_on_return(new_run: Any) -> None:
+    # boot.js also keeps a workspace check; only New run's own poll is followed here.
+    polls = "[...window.__timers.entries()].filter(([,f])=>f.name==='poll').map(([id])=>id)"
+    run = new_run(rows=[ROW_RUNNING])
+    run.revisit()
+    (poll,) = run.page.evaluate(polls)
+    started = len(run.page.evaluate("window.__started"))
+    run.page.evaluate("document.getElementById('new-run').hidden=true")
+    run.tick()
+    assert run.page.evaluate("window.__cleared") == [poll]
+    assert run.page.evaluate(polls) == []
+    assert len(run.page.evaluate("window.__started")) == started
+    run.page.evaluate("location.hash='#W-Reports/list'")
+    run.settle()
+    run.page.evaluate("location.hash='#W-NewRun/run'")
+    run.settle()
+    assert run.hidden("new-run") is False
+    assert len(run.page.evaluate("window.__started")) == started + 1
+    assert len(run.page.evaluate(polls)) == 1
+
+
+def test_a_failed_list_fetch_is_retried_and_its_error_does_not_stick(new_run: Any) -> None:
+    run = new_run(rows=[ROW_RUNNING])
+    run.fail_list = True
+    run.tick()
+    assert run.text("recent-jobs").startswith("Could not load")
+    run.tick()
+    assert run.screen.exists("#recent-jobs table")
+
+
+def test_a_null_module_detail_does_not_break_the_row(new_run: Any) -> None:
+    details = [None, {"id": "CP-1", "title": "Financial analysis"}]
+    run = new_run(rows=[{**ROW_RUNNING, "module_details": details}])
+    assert run.recent()[0]["cells"][1] == "running Financial analysis (2 of 2)"
 
 
 def test_new_run_lives_inside_the_app_and_keeps_what_you_entered(browser: Any) -> None:

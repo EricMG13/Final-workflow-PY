@@ -38,6 +38,14 @@ const __realFetch=window.fetch;
 window.fetch=async(url,options)=>{window.__calls.push({url:String(url),options});return __realFetch(url,options);};
 """
 NO_TIMERS = "window.setInterval=()=>1;window.clearInterval=()=>{};"
+# Intervals are kept, not run: a test fires them with __tick and reads what was started or cleared.
+CAPTURED_TIMERS = (
+    "window.__timers=new Map();window.__started=[];window.__cleared=[];window.__next=1;"
+    "window.setInterval=fn=>{const id=window.__next++;window.__timers.set(id,fn);"
+    "window.__started.push(id);return id;};"
+    "window.clearInterval=id=>{window.__cleared.push(id);window.__timers.delete(id);};"
+    "window.__tick=()=>{for(const fn of [...window.__timers.values()])fn();};"
+)
 Reply = Callable[[Any], Any]
 
 
@@ -210,12 +218,13 @@ def open_app(
     app: dict[str, Any] = DEFAULT_APP,
     api: dict[str, Reply] | None = None,
     viewport: tuple[int, int] = (1280, 720),
+    timers: str = NO_TIMERS,
 ) -> Screen:
     """The app at a route: boot reads the catalogue and store the way the server would send them."""
     context = browser.new_context(viewport={"width": viewport[0], "height": viewport[1]})
     page = context.new_page()
     screen = Screen(page)
-    page.add_init_script(HELPERS + NO_TIMERS)
+    page.add_init_script(HELPERS + timers)
     catalogue = {
         "workspace": app["workspace"],
         "policy_locked": app["policy_locked"],

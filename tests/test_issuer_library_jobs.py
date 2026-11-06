@@ -255,6 +255,49 @@ def test_status_only_offers_an_existing_run(tmp_path: Path) -> None:
     assert client.get(f"/api/runs/status?id={job_id}").status_code == 500
 
 
+def test_run_list_and_status_carry_review_and_progress(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    client = client_of(app)
+    a, b = "web-" + "a" * 32, "web-" + "b" * 32
+    files = {
+        f"intake/{a}/status.json": '{"state":"running","message":"Working"}',
+        f"intake/{a}/review.json": (
+            '{"review_id":"x","issuer":"Northbridge Group","pathway":"covenant_refinancing",'
+            '"as_of":"2025-03-31","modules":["CP-0","CP-1"],"module_details":[{"id":"CP-0",'
+            '"title":"Source readiness","purpose":"p"}],"cap_usd":"10.00"}'
+        ),
+        f"runs/{a}/progress.json": '{"module":"CP-1","step":"started","spent_usd":"0.10"}',
+        f"intake/{b}/status.json": '{"state":"stopped","message":"Halted"}',
+    }
+    for name, text in files.items():
+        (root / name).parent.mkdir(parents=True, exist_ok=True)
+        (root / name).write_text(text)
+
+    def check_a(row: dict[str, Any]) -> None:
+        assert row["issuer"] == "Northbridge Group" and row["pathway"] == "covenant_refinancing"
+        assert row["as_of"] == "2025-03-31"
+        assert row["modules"] == ["CP-0", "CP-1"] and len(row["module_details"]) == 1
+        assert row["progress"]["module"] == "CP-1" and row["run_available"] is True
+        assert "cap_usd" not in row and "review_id" not in row, "review fields leaked"
+
+    rows = client.get("/api/runs/list").json()
+    assert sorted(row["id"] for row in rows) == [a, b]
+    for row in rows:
+        if row["id"] == a:
+            check_a(row)
+        else:
+            assert "issuer" not in row and row["run_available"] is False, row
+    status = client.get(f"/api/runs/status?id={a}")
+    assert status.status_code == 200, status.text
+    check_a(status.json())
+    # A review or progress file that is not a JSON object is left out, not an error.
+    (root / f"intake/{b}/review.json").write_text('["Northbridge Group"]')
+    (root / f"runs/{b}").mkdir(parents=True)
+    (root / f"runs/{b}/progress.json").write_text("{")
+    row = client.get(f"/api/runs/status?id={b}").json()
+    assert "issuer" not in row and "progress" not in row and row["run_available"] is True
+
+
 def test_review_prepares_an_empty_workspace_without_executing(tmp_path: Path) -> None:
     root = tmp_path / "empty"
     root.mkdir()

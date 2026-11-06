@@ -140,16 +140,37 @@ def valid_source_path(name: str) -> bool:
     return True
 
 
-def read_status(folder: Path) -> dict[str, Any] | None:
+def run_available(workspace: str, job_id: str) -> bool:
+    return (Path(workspace) / "runs" / job_id).is_dir()
+
+
+def read_object(path: Path) -> dict[str, Any] | None:
     try:
-        value = json.loads((folder / "status.json").read_bytes())
+        value = json.loads(path.read_bytes())
     except (OSError, ValueError):
         return None
     return value if isinstance(value, dict) else None
 
 
-def run_available(workspace: str, job_id: str) -> bool:
-    return (Path(workspace) / "runs" / job_id).is_dir()
+def job_view(workspace: str, job_id: str) -> dict[str, Any] | None:
+    """A job's own files: status, the app-written review and the module/step progress.
+
+    None of them holds provider text. The review gives only what names the run and its modules.
+    """
+    status = read_object(Path(workspace) / "intake" / job_id / "status.json")
+    if status is None:
+        return None
+    review = read_object(Path(workspace) / "intake" / job_id / "review.json")
+    if review is not None:
+        for key in ("issuer", "pathway", "as_of", "modules", "module_details"):
+            if key in review:
+                status[key] = review[key]
+    progress = read_object(Path(workspace) / "runs" / job_id / "progress.json")
+    if progress is not None:
+        status["progress"] = progress
+    status["id"] = job_id
+    status["run_available"] = run_available(workspace, job_id)
+    return status
 
 
 def recent_jobs(workspace: str) -> list[dict[str, Any]]:
@@ -164,11 +185,9 @@ def recent_jobs(workspace: str) -> list[dict[str, Any]]:
             break
         if not JOB_ID.fullmatch(job_id):
             continue
-        status = read_status(Path(workspace) / "intake" / job_id)
+        status = job_view(workspace, job_id)
         if status is None or status.get("state") == "reviewed":
             continue
-        status["id"] = job_id
-        status["run_available"] = run_available(workspace, job_id)
         recent.append(status)
     return recent
 
@@ -176,21 +195,11 @@ def recent_jobs(workspace: str) -> list[dict[str, Any]]:
 def job_status(workspace: str, job_id: str) -> Response:
     if not JOB_ID.fullmatch(job_id):
         raise HTTPException(404, "Not Found")
-    folder = Path(workspace) / "intake" / job_id
-    if not (folder / "status.json").is_file():
-        raise HTTPException(404, "Not Found")
-    status = read_status(folder)
+    status = job_view(workspace, job_id)
     if status is None:
+        if not (Path(workspace) / "intake" / job_id / "status.json").exists():
+            raise HTTPException(404, "Not Found")
         raise HTTPException(500, "Run status is unreadable")
-    # This file contains only module/step names, not provider messages.
-    try:
-        progress = json.loads((Path(workspace) / "runs" / job_id / "progress.json").read_bytes())
-    except (OSError, ValueError):
-        progress = None
-    if isinstance(progress, dict):
-        status["progress"] = progress
-    status["id"] = job_id
-    status["run_available"] = run_available(workspace, job_id)
     return json_response(status)
 
 
@@ -382,7 +391,7 @@ def start_run(lib: Application, raw: bytes) -> Response:
 def watch(lib: Application, job_id: str, folder: Path, process: subprocess.Popen[bytes]) -> None:
     """When the worker exits without a final status, say so; never retry a paid run."""
     process.wait()
-    status = read_status(folder)
+    status = read_object(folder / "status.json")
     if status is not None and status.get("state") == "running":
         interrupted = {
             "state": "interrupted",
