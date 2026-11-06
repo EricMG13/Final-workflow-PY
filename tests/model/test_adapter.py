@@ -491,6 +491,11 @@ def _error(**over: object) -> dict[str, object]:
             **_error(kind="sent_usage", http_status=None),
             "usage": {f: None for f in Usage.__dataclass_fields__},
         },
+        {
+            **_error(kind="sent_usage", error_class="ModelMismatch", http_status=None),
+            "usage": {f: 5 for f in Usage.__dataclass_fields__ if f != "cache_write_5m_tokens"}
+            | {"cache_write_5m_tokens": None, "cache_write_1h_tokens": None},
+        },
     ],
 )
 def test_recorded_error_status_rules(tmp_path: Path, response: object) -> None:

@@ -38,6 +38,12 @@ from deploy_vii.contracts import Contract, Hash
 from deploy_workflow.model.pricing import CostStatus, money_text, refusal_values
 from deploy_workflow.model.providers import ProviderError, parse, redact_reply
 from deploy_workflow.model.redact import KEY_PATTERN, REPLACEMENT, Redactor
+from deploy_workflow.model.reply_classes import (
+    ADAPTER_ERROR,
+    ADAPTER_REFUSALS,
+    SENT_UNKNOWN,
+    USAGE_TIMEOUTS,
+)
 from deploy_workflow.model.turn import (
     Provider,
     Turn,
@@ -527,29 +533,6 @@ LOOP_STOPS: frozenset[str] = frozenset(
     {"NoSubmit", "CallLimit", "InputsTooLarge", "WorkflowError", "BadTurn", "TurnLimit"}
 )
 
-# The class of a record whose ``complete`` raised: the call may have been sent, the charge is unknown.
-ADAPTER_ERROR = "AdapterError"
-
-# Error classes of a record with no HTTP status whose call may have been sent: the transport
-# adapters' classes and the Copilot adapter's ``sent_unknown`` classes (adapter-reported).
-_TRANSPORT_CLASSES = frozenset(
-    {
-        "ConnectTimeout",
-        "IdleTimeout",
-        "OverallTimeout",
-        "TransportError",
-        "ToolCallLost",
-        "AdapterClosed",
-        ADAPTER_ERROR,
-    }
-)
-
-# Timeouts that may carry the counts of a usage event received before the cut (Copilot).
-_TIMEOUT_CLASSES = frozenset({"IdleTimeout", "OverallTimeout"})
-
-# Refusals the Copilot adapter reports itself: the 200 body parses as an ok turn by design.
-_ADAPTER_REFUSALS = frozenset({"ModelMismatch", "ByokRouted", "AutoRouted", "ToolCallMismatch"})
-
 _RECORDED_TOKENS = (
     "input_tokens",
     "cached_read_tokens",
@@ -609,29 +592,30 @@ def _error_response(
     key = (rec.invocation_digest, rec.call_index)
     unknown = rec.cost_status == "unknown"
     if rec.http_status is None:
-        carries_counts = any(v is not None for v in _usage_of(rec).values())
-        zero_computed = rec.cost_status == "computed" and rec.settled_usd == 0
-        if (
-            error_class in _TIMEOUT_CLASSES
-            and carries_counts
-            and (rec.cost_status != "computed" or zero_computed)
-        ):
-            # A Copilot timeout after a usage event: sent, with the counts it reported.
+        if any(v is not None for v in _usage_of(rec).values()):
+            # Counts with no status: only a Copilot timeout after a usage event writes this.
+            if error_class not in USAGE_TIMEOUTS or rec.cost_status == "computed":
+                raise ExportMismatch(*key, "usage")
             out_t: dict[str, Any] = {
                 "kind": "sent_usage",
                 "error_class": error_class,
                 "http_status": None,
                 "usage": _usage_object(rec),
             }
-            if (rec.cost_status == "billed" or zero_computed) and rec.settled_usd is not None:
+            if rec.cost_status == "billed" and rec.settled_usd is not None:  # validated non-None
                 out_t["billed_usd"] = _money_field(rec.settled_usd)
             return out_t
-        if rec.cost_status == "billed":
+        if unknown:
+            if error_class not in SENT_UNKNOWN:
+                raise ExportMismatch(*key, "cost_status")
+            return {"kind": "sent_unknown", "error_class": error_class, "http_status": None}
+        if not (
+            rec.cost_status == "computed"
+            and rec.settled_usd == 0
+            and error_class not in SENT_UNKNOWN
+        ):
             raise ExportMismatch(*key, "cost_status")
-        kind = "sent_unknown" if error_class in _TRANSPORT_CLASSES else "not_sent"
-        if (kind == "sent_unknown") != unknown:
-            raise ExportMismatch(*key, "cost_status")
-        return {"kind": kind, "error_class": error_class, "http_status": None}
+        return {"kind": "not_sent", "error_class": error_class, "http_status": None}
     has_tokens = any(v is not None for v in _usage_of(rec).values())
     out: dict[str, Any] = {"error_class": error_class, "http_status": rec.http_status}
     # Usage first: a ProviderError carries usage only for SentChargeUsage, and a usage-bearing
@@ -659,11 +643,11 @@ def _refuse_forged_error(run: Path, rec: CallRecord, redactor: Redactor) -> None
     ``KeyReflected`` record is exempt: its body, once redacted, can legitimately parse as a turn.
     So is a ``MalformedToolArguments`` record whose body parses as a turn holding a call flagged
     ``bad_arguments``: that class predates CP1H-R6, and its body is such a turn now. The Copilot
-    adapter's own refusals (``_ADAPTER_REFUSALS``) are exempt: their 200 body is an ok turn."""
+    adapter's own refusals (``ADAPTER_REFUSALS``, copilot only) are exempt: their 200 body is an ok turn."""
     path = run / "raw" / f"{rec.invocation_digest}-{rec.call_index}.json"
     if (
         rec.error_class == "KeyReflected"
-        or rec.error_class in _ADAPTER_REFUSALS
+        or (rec.error_class in ADAPTER_REFUSALS and rec.provider == "copilot")
         or rec.http_status is None
     ):
         return

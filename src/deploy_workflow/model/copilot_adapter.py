@@ -20,6 +20,7 @@ from typing import Any, Protocol, cast
 from deploy_workflow.model.adapter import (
     _REFLECTED_RAW,
     _UNPARSABLE_RAW,
+    COPILOT_RUNTIME_VARIABLE,
     KEY_VARIABLES,
     AdapterReply,
     GateResult,
@@ -39,10 +40,19 @@ from deploy_workflow.model.providers import (
     ProviderConfigError,
     ProviderError,
     _BadReply,
+    _snippet,
     effort_for,
     parse,
 )
 from deploy_workflow.model.redact import Redactor
+from deploy_workflow.model.reply_classes import (
+    ADAPTER_ERROR,
+    AUTO_ROUTED,
+    BYOK_ROUTED,
+    MODEL_MISMATCH,
+    PRE_SEND_FAILURE,
+    TOOL_CALL_MISMATCH,
+)
 from deploy_workflow.model.transport import IDLE_S, OVERALL_S
 from deploy_workflow.model.turn import (
     Message,
@@ -62,7 +72,7 @@ from deploy_workflow.model.turn import (
 # imported only by ``real_client``; everything above it talks to ``ClientLike``/``SessionLike``.
 
 REJECT = "reject"  # the one permission verdict: ``real_client`` maps it to the SDK's reject result
-_RUNTIME_VARIABLE = "COPILOT_CLI_PATH"
+_ABSOLUTE_PATH = re.compile(r"(?:[A-Za-z]:)?[\\/](?:[^\s\\/:()'\"<>]+[\\/])+[^\s\\/:()'\"<>]*")
 _TOKEN_VARIABLE = KEY_VARIABLES["copilot"]
 _DIGEST = re.compile(r"[A-Za-z0-9_-]{1,128}")
 _TOOL_FINISH = ("tool_calls", "tool_use")
@@ -224,11 +234,6 @@ def real_client(options: ClientOptions) -> ClientLike:
     return _SdkClient(client, Tool, ToolResult, PermissionDecisionReject)
 
 
-# The class of an exchange that failed before anything was sent: the record is not_sent, and the
-# exception type stays in the message (the class vocabulary is closed).
-PRE_SEND_FAILURE = "PreSendFailure"
-
-
 class _Refuse(Exception):
     """A refusal before anything was sent: becomes a ``not_sent`` reply."""
 
@@ -335,11 +340,11 @@ def _usage_data(records: list[dict[str, Any]]) -> dict[str, Any] | None:
 
 def _routing_error(turn: Turn, records: list[dict[str, Any]], model: str) -> str | None:
     if turn.reported_model != model:
-        return "ModelMismatch"
+        return MODEL_MISMATCH
     data = _usage_data(records) or {}
     if data.get("isByok") is True:
-        return "ByokRouted"
-    return "AutoRouted" if data.get("isAuto") is True else None
+        return BYOK_ROUTED
+    return AUTO_ROUTED if data.get("isAuto") is True else None
 
 
 def _normal(arguments: Any) -> Any:
@@ -427,7 +432,7 @@ class CopilotAdapter:
         token, or for a runtime variable that is unset or not an existing regular file."""
         if self._cached is None:
             environ = os.environ if self._environ is None else self._environ
-            runtime = environ.get(_RUNTIME_VARIABLE) or None
+            runtime = environ.get(COPILOT_RUNTIME_VARIABLE) or None
             if runtime is not None and not Path(runtime).is_file():
                 runtime = None
             self._cached = _Creds(
@@ -473,12 +478,14 @@ class CopilotAdapter:
         creds = self._credentials()
         redactor, token, runtime = creds.redactor, creds.token, creds.runtime
         if self._closed:
-            return self._not_sent("AdapterClosed", "the adapter is closed", started)
+            return self._not_sent(PRE_SEND_FAILURE, "AdapterClosed: the adapter is closed", started)
         if token is None:
             return self._not_sent("KeyMissing", f"{_TOKEN_VARIABLE} is not set or empty", started)
         if runtime is None:
             return self._not_sent(
-                "RuntimeMissing", f"{_RUNTIME_VARIABLE} is not set to an existing file", started
+                "RuntimeMissing",
+                f"{COPILOT_RUNTIME_VARIABLE} is not set to an existing file",
+                started,
             )
         if not _DIGEST.fullmatch(invocation_digest) or not _DIGEST.fullmatch(reservation_id):
             return self._not_sent(
@@ -715,10 +722,10 @@ class CopilotAdapter:
                 sent=sent,
             )
         except Exception as error:  # noqa: BLE001 - released, and reported as a reply
-            text = f"AdapterError: {type(error).__name__}: {self._scrub(str(error), options)}"
-            return self._failed(
-                call, "AdapterError" if sent else PRE_SEND_FAILURE, redactor.text(text), sent=sent
-            )
+            cls = ADAPTER_ERROR if sent else PRE_SEND_FAILURE
+            scrubbed = _ABSOLUTE_PATH.sub("<path>", self._scrub(str(error), options))
+            text = f"{cls}: {type(error).__name__}: {scrubbed}"
+            return self._failed(call, cls, _snippet(redactor, text), sent=sent)
 
     def _scrub(self, text: str, options: ClientOptions) -> str:
         """``text`` without the runtime path, the exchange's home or the working directory."""
@@ -792,7 +799,7 @@ class CopilotAdapter:
             return _reply_from_error(outcome, raw, 200, {}, call.started, finished)
         wrong = _routing_error(outcome, records, self._model.model)
         if wrong is None and not _calls_match(outcome, state.calls):
-            wrong = "ToolCallMismatch"
+            wrong = TOOL_CALL_MISMATCH
         if wrong is None and state.pending.keys() == {c.call_id for c in outcome.tool_calls}:
             # the exchange goes on: the loop may answer the calls or nudge with a user message
             state.history = (

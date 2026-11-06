@@ -811,3 +811,75 @@ def test_live_mode_check_accepts_copilot_adapter(tmp_path):
             run_handoffs(job(other), tmp_path / "state", execute=executor, check=checked)
     finally:
         adapter.close()
+
+
+def test_release_failure_does_not_mask_the_runs_own_stop(tmp_path, monkeypatch):
+    from deploy_workflow.model.copilot_adapter import CopilotAdapter
+    from deploy_workflow.model.turn import ModelSpec
+    from deploy_workflow.owners import cpos
+    from tests.model.test_copilot_adapter import FakeClient, FakeSession
+
+    class SendFails(FakeSession):
+        async def send(self, text, /):
+            raise RuntimeError("runtime went away")
+
+    class Client(FakeClient):
+        async def create_session(self, **options):
+            session = SendFails(self.script, options)
+            self.sessions.append(session)
+            return session
+
+        async def stop(self):
+            raise RuntimeError("pipe closed")
+
+    root, ruling = copilot_rig(tmp_path)
+    ruling.write_text(COPILOT_RULING.replace("opus", "sol"), encoding="utf-8")
+    runtime = tmp_path / "copilot-runtime"
+    runtime.write_text("#!/bin/sh\n")
+    environ = {"COPILOT_GITHUB_TOKEN": "ghp_" + "A" * 36, "COPILOT_CLI_PATH": str(runtime)}
+    monkeypatch.chdir(tmp_path)  # the adapter's per-call home is created under the cwd
+
+    def adapter_for(selected, ruling_, environment, rulings_root):
+        spec = ModelSpec(selected.config_id, selected.provider, selected.model, selected.effort)
+        return CopilotAdapter(
+            spec,
+            ruling_,
+            environ=environment,
+            rulings_root=rulings_root,
+            client_factory=lambda options: Client([]),
+        )
+
+    monkeypatch.setattr(cpos, "live_adapter_for", adapter_for)
+    with pytest.raises(RuntimeError, match="cpos_live_stopped: sent_unknown") as stopped:
+        cpos.run_live_handoffs(
+            live_job(tmp_path),
+            tmp_path / "state",
+            ruling=ruling,
+            check=checked,
+            environ=environ,
+            config="copilot-sol-medium",
+            rulings_root=root,
+        )
+    assert any("RuntimeError" in note for note in stopped.value.__notes__)
+
+
+def test_release_failure_after_a_successful_run_still_raises(tmp_path, monkeypatch):
+    from deploy_workflow.owners import cpos
+
+    root, ruling = copilot_rig(tmp_path)
+
+    def release(adapter):
+        raise OSError("release failed")
+
+    monkeypatch.setattr(cpos, "run_handoffs", lambda *a, **k: tmp_path / "report.html")
+    monkeypatch.setattr(cpos, "_release", release)
+    with pytest.raises(OSError, match="release failed"):
+        cpos.run_live_handoffs(
+            live_job(tmp_path),
+            tmp_path / "state",
+            ruling=ruling,
+            check=checked,
+            environ={},
+            config="copilot-opus-medium",
+            rulings_root=root,
+        )

@@ -592,7 +592,69 @@ def test_complete_after_close_is_not_sent(rig: Rig) -> None:
     adapter = rig.make(text_script())
     adapter.close()
     reply = call(adapter, request())
-    assert reply.kind == "not_sent" and reply.error_class == "AdapterClosed"
+    assert reply.kind == "not_sent" and reply.error_class == copilot_adapter.PRE_SEND_FAILURE
+    assert reply.message is not None and reply.message.startswith("AdapterClosed")
+
+
+def _run_and_export(
+    rig: Rig, tmp_path: Path, adapter: CopilotAdapter
+) -> tuple[Path, dict[str, Any]]:
+    run = tmp_path / "run"
+    run.mkdir()
+    executor = HandoffExecutor(run, adapter=adapter, cap_usd=Decimal(10), check=check)
+    try:
+        executor(task())
+    except RuntimeError:
+        pass  # the loop stops on the failed call; the record is what is checked
+    out = tmp_path / "out.jsonl"
+    assert export_recording(run, out, Redactor()) == 1
+    return run, json.loads(out.read_text(encoding="utf-8").splitlines()[0])
+
+
+def test_closed_adapter_through_the_executor_exports_not_sent(rig: Rig, tmp_path: Path) -> None:
+    adapter = rig.make(text_script())
+    adapter.close()
+    run, exported = _run_and_export(rig, tmp_path, adapter)
+    (rec,) = CallLog(run, Redactor()).records()
+    assert rec["error_class"] == copilot_adapter.PRE_SEND_FAILURE
+    assert exported["response"]["kind"] == "not_sent"
+
+
+def test_zero_cost_usage_timeout_keeps_a_billed_zero(rig: Rig, tmp_path: Path) -> None:
+    adapter = rig.make(
+        [said("part"), usage(copilotUsage={"totalNanoAiu": 0})], idle_s=0.2, overall_s=30.0
+    )
+    run, exported = _run_and_export(rig, tmp_path, adapter)
+    (rec,) = CallLog(run, Redactor()).records()
+    assert rec["http_status"] is None and rec["error_class"] == "IdleTimeout"
+    assert rec["cost_status"] == "billed" and rec["settled_usd"] == "0"
+    assert exported["response"]["kind"] == "sent_usage"
+    assert exported["response"]["billed_usd"] == "0"
+    (out := tmp_path / "rec").mkdir()
+    (out / "r.jsonl").write_bytes((tmp_path / "out.jsonl").read_bytes())
+    replayed = recorded_adapter(SPEC, out).complete(
+        request(),
+        invocation_digest=exported["invocation_digest"],
+        call_index=exported["call_index"],
+        reservation_id="r",
+    )
+    assert replayed.kind == "sent_usage" and replayed.billed_usd == Decimal(0)
+
+
+def test_pre_send_failure_text_is_bounded_and_holds_no_absolute_path(
+    rig: Rig, tmp_path: Path
+) -> None:
+    install = tmp_path / "install"
+    frame = f"    at start ({install}/lib/index.js:10:5)\n    at main (/Users/x/AppData/Local/n.js:1:1)\n"
+    rig.client = OpenFails(RuntimeError("boom\n" + frame * 2000))
+    adapter = rig.make([])
+    run, _ = _run_and_export(rig, tmp_path, adapter)
+    (rec,) = CallLog(run, Redactor()).records()
+    text = str(rec["error"])
+    assert text.startswith("PreSendFailure: RuntimeError")
+    assert len(text) <= 500
+    assert str(install) not in text and "/Users/x/AppData" not in text
+    assert "<path>" in text
 
 
 # ---------------------------------------------------------------- fix round 1
@@ -907,6 +969,8 @@ def test_pre_send_failure_is_not_sent_that_exports_and_replays(
     (rec,) = CallLog(run, Redactor()).records()
     assert rec["error_class"] == copilot_adapter.PRE_SEND_FAILURE
     assert message in str(rec["error"])
+    if message == "RuntimeError":
+        assert str(rec["error"]).startswith("PreSendFailure: RuntimeError")
     assert export_recording(run, tmp_path / "out.jsonl", Redactor()) == 1
     exported = json.loads((tmp_path / "out.jsonl").read_text(encoding="utf-8").splitlines()[0])
     assert exported["response"]["kind"] == "not_sent"

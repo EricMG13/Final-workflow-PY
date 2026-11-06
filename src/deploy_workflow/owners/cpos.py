@@ -501,7 +501,7 @@ def run_live_handoffs(
             max_turns=max_turns,
             max_output_tokens=max_output_tokens,
         )
-        return run_handoffs(
+        result = run_handoffs(
             manifest,
             directory,
             execute=executor,
@@ -509,8 +509,16 @@ def run_live_handoffs(
             on_handoff=on_handoff,
             on_start=on_start,
         )
-    finally:
-        _release(adapter)
+    except BaseException as stop:
+        # Documented fail-open: a release failure must not mask the stop it follows; it is
+        # recorded as a note on the propagating exception.
+        try:
+            _release(adapter)
+        except Exception as failure:  # noqa: BLE001 -- noted on the propagating stop
+            stop.add_note(f"adapter release also failed: {type(failure).__name__}")
+        raise
+    _release(adapter)
+    return result
 
 
 def replay_handoffs(

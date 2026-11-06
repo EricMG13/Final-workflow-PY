@@ -39,6 +39,7 @@ from deploy_workflow.model.loop import redacted_request, redacted_turn
 from deploy_workflow.model.pricing import price_of, price_usage, request_reservation_usd
 from deploy_workflow.model.record import CallLog, CallRecord, arguments_sha256
 from deploy_workflow.model.redact import Redactor
+from deploy_workflow.model.reply_classes import ADAPTER_ERROR
 from deploy_workflow.model.turn import (
     Message,
     ToolSpec,
@@ -501,7 +502,7 @@ class HandoffExecutor:
                 None,
                 None,
                 None,
-                "AdapterError",
+                ADAPTER_ERROR,
                 None,
                 started,
                 time.time(),
@@ -562,7 +563,9 @@ class HandoffExecutor:
                 settled_usd=actual,
                 cost_status="unknown"
                 if actual is None
-                else ("computed" if actual == 0 else priced.cost_status),
+                else (
+                    "computed" if reply.kind in {"not_sent", "sent_known"} else priced.cost_status
+                ),
                 tool_calls=[]
                 if turn is None
                 else [
