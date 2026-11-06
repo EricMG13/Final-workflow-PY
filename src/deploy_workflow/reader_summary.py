@@ -92,25 +92,8 @@ def _unmatched_numbers(section: str, rest: str) -> tuple[str, ...]:
     return tuple(issues)
 
 
-def _placed(prefix: str, after: str | None) -> str | None:
-    """The reader summary opens `## Findings`, or follows the module's own opening section."""
-    if FIRST_UNDER_FINDINGS.search(prefix):
-        return None
-    if after and re.search(
-        rf"^## Findings[ \t]*\n\s*### {re.escape(after)}[ \t]*\n(?:(?!#{{2,3}} ).*\n?)*\Z",
-        prefix,
-        re.MULTILINE,
-    ):
-        return None
-    where = f"directly after ### {after}" if after else "first under ## Findings"
-    return f"Reader summary must come {where}"
-
-
-def reader_issues(text: str, after: str | None = None) -> tuple[str, ...]:
-    """Every problem with the handoff's reader section; empty when it is valid.
-
-    `after` names the module's own opening `###` section, which may precede the summary.
-    """
+def reader_issues(text: str) -> tuple[str, ...]:
+    """Every problem with the handoff's reader section; empty when it is valid."""
     text = text.replace("\r\n", "\n")
     headings = list(HEADING.finditer(text))
     if not headings:
@@ -121,8 +104,8 @@ def reader_issues(text: str, after: str | None = None) -> tuple[str, ...]:
     following = NEXT_HEADING.search(text, start)
     end = following.start() if following else len(text)
     section, rest = text[start:end], text[: headings[0].start()] + text[end:]
-    if misplaced := _placed(text[: headings[0].start()], after):
-        return (misplaced,)
+    if not FIRST_UNDER_FINDINGS.search(text, 0, headings[0].start()):
+        return ("Reader summary must come first under ## Findings",)
     codes = tuple(
         f"Reader summary must not name internal reference {code}"
         for code in dict.fromkeys(CODE.findall(section))

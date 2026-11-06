@@ -409,15 +409,6 @@ READER_SECTION_RULES = (
 )
 
 
-def reader_section_rules(after: str | None) -> str:
-    """The reader rules, placed after the module's opening section where it has one."""
-    if not after:
-        return READER_SECTION_RULES
-    return READER_SECTION_RULES.replace(
-        "first under `## Findings`", f"directly after `### {after}`"
-    )
-
-
 def _selector(route: MarkdownRoute) -> str:
     if route.kind == "chart":
         return (
@@ -460,12 +451,12 @@ def _instructions(run: Run, module: str, routes: Sequence[MarkdownRoute]) -> byt
         "- list each issuer source it relied on in `## Sources`, with its exact name and sha256;\n"
         "- list each supplied handoff in `## Sources`, with its module and exact sha256"
         + (
-            f";\n- open `## Findings` with `### {opening}`, once: prose that states the view, "
-            "before any table.\n\n" + READER_STANDARD
+            f";\n- place `### {opening}` directly after `### Reader summary`, once: prose that "
+            "states the view, before any table.\n\n" + READER_STANDARD
             if opening
             else ".\n\n"
         )
-        + reader_section_rules(opening)
+        + READER_SECTION_RULES
         + (
             "Report selectors, each exactly once inside `## Findings`, using these exact "
             f"headings. They place content in the report and are not analytical completion:\n"
@@ -565,12 +556,12 @@ def checker(layout: MarkdownLayout) -> Check:
         evidence = {_sha(v) for k, v in task.sources.items() if k != CONTEXT_SOURCE_ID}
         if not any(digest in text for digest in evidence):
             issues.append("List each issuer source relied on with its exact name and sha256.")
-        issues += reader_issues(text, after=OPENING.get(task.module_id))
+        issues += reader_issues(text)
         opening = OPENING.get(task.module_id)
         if opening and not _opens_with(text.splitlines(), opening):
             issues.append(
-                f"Open ## Findings with ### {opening}, once: prose that states the view, "
-                "before any table."
+                f"Place ### {opening} directly after ### Reader summary, once: prose that "
+                "states the view, before any table."
             )
         routes = tuple(r for r in layout.routes if r.module_id == task.module_id)
         try:
@@ -602,8 +593,9 @@ def checker(layout: MarkdownLayout) -> Check:
 
 
 def _opens_with(lines: list[str], heading: str) -> bool:
-    """`## Findings` starts with the one `### heading`, whose first content is a paragraph: a
-    line opening with a letter, a quote mark or bold, not a table, list, fence, comment or heading.
+    """`## Findings` starts with `### Reader summary`, then the one `### heading`, whose first
+    content is a paragraph: a line opening with a letter, a quote mark or bold, not a table, list,
+    fence, comment or heading.
     """
     try:
         findings = [line for _, line in section(lines, "Findings") if line.strip()]
@@ -611,8 +603,11 @@ def _opens_with(lines: list[str], heading: str) -> bool:
     except ValueError:  # Missing or repeated.
         return False
     first = body[0] if body else ""
-    return findings[:1] == [f"### {heading}"] and (
-        first[:1].isalpha() or first.startswith(("**", '"', "“"))
+    headings = [line for line in findings if line.startswith("### ")]
+    return (
+        findings[:1] == ["### Reader summary"]
+        and headings[1:2] == [f"### {heading}"]
+        and (first[:1].isalpha() or first.startswith(("**", '"', "“")))
     )
 
 

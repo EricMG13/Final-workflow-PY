@@ -128,20 +128,3 @@ def test_a_number_only_inside_a_hash_or_reference_does_not_match() -> None:
 
 def test_windows_line_endings_do_not_hide_the_section() -> None:
     assert reader_issues(VALID.replace("\n", "\r\n")) == ()
-
-
-VIEW_FIRST = VALID.replace(
-    "## Findings\n\n", "## Findings\n\n### Credit view\n\nThe credit holds.\n\n"
-)
-
-
-def test_the_reader_summary_may_follow_the_module_opening_view() -> None:
-    assert reader_issues(VIEW_FIRST, after="Credit view") == ()
-    assert reader_issues(VIEW_FIRST) == ("Reader summary must come first under ## Findings",)
-    assert reader_issues(VALID, after="Credit view") == ()  # First is still allowed.
-    late = VIEW_FIRST.replace("### Detail", "### Reader summary", 1).replace(
-        "### Reader summary\n\n| Bottom", "### Detail\n\n| Bottom", 1
-    )
-    assert reader_issues(late, after="Credit view") == (
-        "Reader summary must come directly after ### Credit view",
-    )

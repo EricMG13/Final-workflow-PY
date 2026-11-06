@@ -118,17 +118,16 @@ def answer(context: dict, plan_routes: list) -> str:
     lines += ["## Sources", ""]
     lines += [f"- {n} {h}" for n, h in context["sources"].items()]
     lines += [f"- {n} {h['sha256']}" for n, h in context["handoffs"].items()]
-    lines += ["", "## Findings", ""]
-    own = [r for r in plan_routes if r.module_id == context["module_id"]]
-    opening = OPENING.get(context["module_id"])
-    if opening:  # The opening view comes first, whether or not a report section selects it.
-        lines += [f"### {opening}", "", "The issuer's credit view, stated first.", ""]
-        own = [r for r in own if r.heading != opening]
-    lines += ["### Reader summary", ""]
+    lines += ["", "## Findings", "", "### Reader summary", ""]
     lines += ["| Bottom line | Confidence | Main limitation |"]
     lines += ["| --- | --- | --- |", f"| {READER_BOTTOM_LINE} | Low | Synthetic data only. |", ""]
     lines += ["| Finding | Creditor impact | Confidence |", "| --- | --- | --- |"]
     lines += ["| One item was observed. | None for this synthetic case. | Low |", ""]
+    own = [r for r in plan_routes if r.module_id == context["module_id"]]
+    opening = OPENING.get(context["module_id"])
+    if opening:  # The view follows the reader summary, whether or not a report section selects it.
+        lines += [f"### {opening}", "", "The issuer's credit view, stated first.", ""]
+        own = [r for r in own if r.heading != opening]
     for route in own:
         lines += [f"### {route.heading}", ""]
         if route.kind == "chart":
@@ -688,7 +687,7 @@ def test_cp2_instructions_carry_the_reader_standard_and_its_opening(tmp_path):
         return (tmp_path / "out" / prepared.plan.instructions[module].path).read_text()
 
     cp2 = read("CP-2")
-    assert "open `## Findings` with `### Credit view`" in cp2
+    assert "place `### Credit view` directly after `### Reader summary`" in cp2
     assert "CANON_SHARED.md" in cp2
     assert "State each limitation once" in cp2 and "currency and unit" in cp2
     # The user's Microsoft 365 Copilot custom instruction, which Deploy V's M365 runs carried.
@@ -697,7 +696,7 @@ def test_cp2_instructions_carry_the_reader_standard_and_its_opening(tmp_path):
     assert "CANON_SHARED.md" not in read("CP-1A")  # One analytical module at a time.
 
 
-def test_cp2_instructions_place_the_reader_summary_after_the_credit_view(tmp_path):
+def test_cp2_instructions_place_the_credit_view_after_the_reader_summary(tmp_path):
     prepared = prepare(
         context_file(tmp_path),
         issuer_folder(tmp_path),
@@ -706,9 +705,10 @@ def test_cp2_instructions_place_the_reader_summary_after_the_credit_view(tmp_pat
         cap="50",
     )
     read = lambda m: (tmp_path / "out" / prepared.plan.instructions[m].path).read_text()  # noqa: E731
-    assert "directly after `### Credit view`" in read("CP-2")
-    assert "first under `## Findings`" not in read("CP-2")
-    assert "first under `## Findings`" in read("CP-4")
+    assert "place `### Credit view` directly after `### Reader summary`" in read("CP-2")
+    assert "first under `## Findings`" in read("CP-2") and "first under `## Findings`" in read(
+        "CP-4"
+    )
 
 
 @pytest.mark.parametrize("pathway", ["credit_snapshot", "relative_value"])
@@ -727,7 +727,7 @@ VIEW = "### Credit view\n\nThe issuer's credit view, stated first.\n\n"
     ("old", "new"),
     [
         (VIEW, ""),
-        ("## Findings\n\n", "## Findings\n\nPreamble before the view.\n\n"),
+        ("### Reader summary\n\n", "Preamble before the summary.\n\n### Reader summary\n\n"),
         (VIEW, "### Overview\n\nText.\n\n" + VIEW),
         ("The issuer's credit view, stated first.", "| A | B |\n| --- | --- |\n| x | y |"),
         ("The issuer's credit view, stated first.", "- a bullet, not a paragraph"),
@@ -749,7 +749,9 @@ def test_checker_rejects_cp2_that_does_not_open_with_its_view(tmp_path, pathway,
     raw = answer(context, list(prepared.plan.layout.routes))
     assert old in raw
     issues = _checked_handoff(task, raw.replace(old, new).encode(), checker(prepared.layout))
-    assert any("Open ## Findings with ### Credit view" in issue for issue in issues), issues
+    assert any(
+        "Place ### Credit view directly after ### Reader summary" in issue for issue in issues
+    ), issues
 
 
 def test_every_selected_method_file_exists():
