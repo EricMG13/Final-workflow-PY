@@ -31,8 +31,8 @@ typography:
     fontWeight: 500
 rounded:
   surface: 12px
-  control: 6px
-  status: 4px
+  control: 8px
+  status: 999px
 spacing:
   small: 8px
   medium: 16px
@@ -42,8 +42,8 @@ components:
     backgroundColor: "{colors.action}"
     textColor: "{colors.panel}"
     rounded: "{rounded.control}"
-    padding: 8px 12px
-    height: 36px
+    padding: 0 14px
+    height: 40px
 ---
 
 ## Overview
@@ -88,10 +88,36 @@ rules. Do not add nested shadow cards or decorative glow.
 
 ## Shapes
 
-12px working-surface corners; 6px controls; 4px status labels. Lucide line icons
+12px working-surface corners; 8px controls; pill-shaped status labels. Lucide line icons
 are bundled locally with their ISC/MIT license notices. Icons accompany labels.
 
 ## Components
+
+Controls follow Untitled UI React (MIT): 40px buttons, inputs and selects with
+8px corners and an xs shadow; a 4px blue focus ring; pill badges; removable
+chips; tables with a grey header row. Colours, fonts and the rail stay the
+company's, and the greys lean toward its navy. Every screen uses
+them except the embedded context form. The run header is one line:
+issuer name, the run as a grey mono badge, Change case, and the period with a
+calendar icon on the right. Underline tabs follow: grey text, the current tab
+blue with a 2px underline; on phones they scroll sideways without icons.
+Content tables sit in a bordered 12px card with a grey header row, row rules
+and no stripes; values stay in Red Hat Mono with tabular figures, and a wide
+table scrolls inside its own card. Labels in content (classification, input,
+output scope, report status, summary kind) use the same grey badge as the
+Library; on the navy summary band it is a white outline.
+Charts keep the company series colours (blue, navy, blue-grey; amber for
+conditional downside) and drop grey bar tracks. Bars end in a 4px rounded
+data-end, the grid and axes are pale greys, scenario points carry a white
+ring, and summary charts sit in the same 12px card. Grades are pills: a grey
+pill for neutral, a dashed outline for Not Assessable, red tint only where
+the handoff declares Weak. Navy and blue-grey fail a generic palette's
+lightness and chroma checks, so every series stays labelled in text.
+New run and Settings use the same 40px fields (16px text, a chevron on
+selects, a styled file button) and the secondary button for every action
+but the primary one. Run stages are a progress bar: blue up to the current
+stage, grey after it. The context form keeps its own contents inside a
+framed 12px card.
 
 - Run changes preserve the active module; unavailable output remains explicit.
 - The module opens selected analytical sections, not the entire Markdown handoff.
@@ -102,8 +128,8 @@ are bundled locally with their ISC/MIT license notices. Icons accompany labels.
   accessible. Source-readiness and evidence-trace modules retain substantive
   lineage work as analysis. Files and history are secondary; inputs never acquire
   output status.
-- Charts attach to their own source tables. Exact values, row qualifications,
-  declared provenance and locators remain visible. Chart order is chronological;
+- Charts attach to their own source tables. Exact values, row qualifications
+  and declared provenance remain visible; a row's line locator shows in the inspector it opens. Chart order is chronological;
   the table twin keeps source order. Source opens the exact row fields in a side inspector in the same module.
 - Event registers support calendar and source order. Fiscal/range/combined dates
   stay separate. Markers are neutral; date precision and source classifications
@@ -117,7 +143,8 @@ are bundled locally with their ISC/MIT license notices. Icons accompany labels.
 ## Do's and Don'ts
 
 Do use source identity, period, unit and limitations as part of the view. Do keep
-unknown provenance labelled “Not classified”. Do use subdued depth and clear
+unknown provenance labelled “Not classified” in the evidence inspector; lists and
+source footers show a class only when the handoff declares one. Do use subdued depth and clear
 reading hierarchy. Do keep all assets offline. Do not mix fiscal periods, invent
 missing figures, treat workflow progress as credit quality, or promote an attempt
 because its filename sorts first.
@@ -131,7 +158,7 @@ because its filename sorts first.
 - **View source** opens the exact module row; **Open source file** opens the
   original file. **Back to analysis** restores the chart, fact or event that opened it.
 - **Evidence & audit** holds production records and technical detail.
-  **Not classified** retains the user's chosen unknown-provenance label.
+  **Not classified** retains the user's chosen unknown-provenance label there.
 
 ## The one app
 
@@ -152,10 +179,18 @@ absorbed CP aliases are searchable. Unique section labels, disclosure state,
 reading position and keyboard focus persist while navigating.
 
 The library provides one restrained discovery strip: issuer/run text,
-sector, available content and contained module. All criteria combine. Counts
-distinguish issuers, retained runs and reports. Filters
-remain when returning from a run within the same page session; Clear filters
-resets every criterion and focuses search. Empty results explain recovery.
+sector, workflow, as-of year, available content and contained module. Workflow
+and as-of year come only from what a run's own manifest recorded; a run without
+them is listed under Not recorded, never given an inferred date or workflow.
+Modules in the contained-module list sit under the credit question each one
+answers. All criteria combine. Controls carry no visible label; each active
+filter shows as a chip that names it and removes it, and Clear all appears only
+while something is filtered. Counts distinguish issuers, retained runs and
+reports. Results are one table row per issuer: an issuer with one run links
+straight to it; an issuer with several runs opens a drop-down of its runs, each
+with its workflow, period and reports, and stays open on return. Filters remain
+when returning from a run within the same page session; Clear all resets every
+criterion and focuses search. Empty results explain recovery.
 Comparable credit metrics and completeness scores are not offered, so the library
 has no metric filters. Only deliberate
 disclosure actions persist; workspace-driven catalogue expansion cannot override
@@ -176,15 +211,15 @@ agency comparisons, provision and claim-lineage matrices, recovery comparisons,
 funding-case differences, and bull/bear/resolution views. Complete exact data and
 qualifications remain adjacent or in named sections. Qualitative presentations
 that already contain every table field do not repeat the same table underneath.
-The existing 91-view specification is available under Help / Visualisation
-coverage and module audit; this is a plan, not a claim that every figure is populated.
+The 91-view specification stays in docs/visualisations for builders; the app does
+not show it, and it is a plan, not a claim that every figure is populated.
 
 Blue identifies data and action; navy and muted blue-grey distinguish ordinary
 comparison series. Amber identifies labelled conditional downside or attention.
 Conditional paths also use distinct dash patterns; signed outflows use direction
 and exact values instead of receiving an inferred adverse grade. Grey
 marks absent/unassessed evidence. Analytical outcomes do not become provenance
-labels. Unknown provenance displays Not classified beside source links. No
+labels. Unknown provenance displays Not classified in the evidence inspector. No
 probability, numerical credit grade or new analytical result is introduced.
 
 Issuer/run context is encoded in workspace links and deep links. Missing destinations retain

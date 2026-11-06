@@ -59,3 +59,23 @@
   new MutationObserver(title).observe(document.getElementById('view-root'),{childList:true,subtree:true});
   title();
 })();
+/* Reader text shows module names. The inspector keeps exact codes and the original download is untouched. */
+(() => {
+  const MODULE_NAMES={"CP-0":"Source readiness","CP-1A":"Business & governance","CP-DR":"Research questions","CP-1":"Financial foundation","CP-1B":"Earnings changes","CP-L10":"Financial change screen","CP-1D":"Earnings quality","CP-1C":"Peer benchmark","CP-2D":"Liquidity","CP-3C":"Refinancing & LME","CP-2":"Fundamental credit","CP-2A":"Downside","CP-2G":"Forward credit model","CP-2E":"Rates, FX & hedging","CP-2H":"Ratings & triggers","CP-4":"Legal & covenants","CP-4A":"Covenant capacity","CP-4B":"Structural priority","CP-4D":"Intercreditor control","CP-4C":"Recovery & fulcrum","CP-3":"Security selection","CP-3D":"Market-implied risk","CP-6":"Committee decision","CP-5":"Evidence validation","CP-8":"Deliverable comparison","CP-MODEL":"Published model","CP-OS":"Run activity","CP-MEMO":"Credit memo","CP-PARSE":"Source readiness","CP-2C":"Business & governance","CP-1E":"Earnings quality","CP-2B":"Downside","CP-2F":"Rates, FX & hedging","CP-3A":"Security selection","CP-3B":"Security selection","CP-5A":"Evidence validation","CP-6A":"Committee decision","CP-L20":"Financial change screen","CP-L23":"Financial change screen","CP-L30":"Financial change screen","CP-L40":"Financial change screen"};
+  const CODE=/\bCP-[A-Z0-9]+\b(?![-.][A-Za-z0-9])/g;
+  function nameCodes(root) {
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),nodes=[];
+    while(walker.nextNode())nodes.push(walker.currentNode);
+    for(const node of nodes) {
+      const codes=node.data.match(CODE);
+      if(!codes)continue;
+      node.data=node.data.replace(CODE,code=>MODULE_NAMES[code]||code);
+      node.parentElement.title=[...new Set([node.parentElement.title,...codes].filter(Boolean))].join(', ');
+    }
+  }
+  // Only child changes are observed, so rewriting text here cannot trigger another pass.
+  for(const root of document.querySelectorAll('.navigator,#view-root,#call-root')) {
+    new MutationObserver(()=>nameCodes(root)).observe(root,{childList:true,subtree:true});
+    nameCodes(root);
+  }
+})();

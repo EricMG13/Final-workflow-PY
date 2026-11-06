@@ -5147,3 +5147,12 @@ passed. Exact prior earnings, quality/debt and assurance publications also verif
 unchanged. The actual changed definitions are limited to dependencies/plan,
 run_handoffs, MarkdownLayout and markdown_files. Older run/source directories and
 predecessors were not edited. Overall modules/aliases/pathways goal remains active.
+
+## Issuer Library reader layer, 2026-11-05 (macOS only)
+
+Plan: `docs/superpowers/plans/2026-11-05-issuer-library-reader-update.md`, Checkpoint A.
+Reader pages now show module names and open each run on a Summary. No method, prompt,
+retained run or deliverable changed; no provider was called. `validate.py full` and
+`validate.py browser` passed on Chromium and Firefox with synthetic and retained data.
+Windows behaviour and the owner's screen acceptance are not yet checked: the rebuilt
+zips reused the pinned engines and have not been run on Windows.

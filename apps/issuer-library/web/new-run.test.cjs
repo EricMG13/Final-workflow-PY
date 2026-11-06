@@ -60,7 +60,10 @@ test('only an explicitly confirmed Start launches, once',async t=>{
   p.confirm();await p.click('start-run');await p.click('start-run');
   assert.equal(p.starts(),1);assert.equal(p.doc.getElementById('progress-step').hidden,false);
   assert.deepEqual(JSON.parse(p.calls.find(call=>call.url==='/api/runs/start').options.body),{id:ID,review_id:'b'.repeat(64),confirm:true});
-  assert.match(p.doc.getElementById('run-progress').textContent,/running: Working · last accepted CP-0/);
+  assert.match(p.doc.getElementById('run-progress').textContent,/running: Working · last accepted Source readiness/);
+  const reviewed=p.doc.querySelector('#run-review ol li');
+  assert.equal(reviewed.textContent,'Source readiness','the review names modules without codes');
+  assert.equal(reviewed.title,'CP-0: Check issuer files');
   assert.match(p.doc.getElementById('run-spend').textContent,/USD 0.42/);
   assert.equal(p.doc.getElementById('open-run').hidden,true);
 });
