@@ -1,0 +1,21 @@
+{
+  "kind": "cpos-markdown-delivery/1",
+  "execution": "live-provider",
+  "scope": "User-launched Credit Snapshot run for TransDigm Group Incorporated as of 2024-09-30, using sol-medium on the selected issuer folder. Automated checks cover handoff structure, issuer and date anchors, source and upstream references and report selectors; analytical accuracy has not been independently reviewed. The HTML Model, charts and calculation JSON are not published by this launcher. Sections not produced: model-chart-strip, capital-structure, relative-value, portfolio-fit, committee-challenge, what-changed.",
+  "provider_cap_usd": "8",
+  "modules": {
+    "CP-0": "requests/CP-0/343f26a81b4400265ba743652e12193170ef065f92cc847a114120e37aea8a23/1.response.md",
+    "CP-1": "requests/CP-1/9b60fa710799d30e2266e1745917cd2e55acb8f99862d1bf12311aaed729b846/1.response.md",
+    "CP-1A": "requests/CP-1A/b3b7b0270311d049b6e6d0de0db3bc0cef321db3dbe7f066689571ada0da1040/1.response.md",
+    "CP-2": "requests/CP-2/757f4c709a527eec5c50f1e04ed2e6c7b7e3ced2b01c299ca39c2933b1538d69/1.response.md"
+  },
+  "module_execution": {
+    "CP-0": "retained-response-replay",
+    "CP-1": "retained-response-replay",
+    "CP-1A": "retained-response-replay",
+    "CP-2": "live-provider"
+  },
+  "cp_model_published": false,
+  "delivery_manifest_sha256": "593bc6819bec6be2624a19fef19f4702fe424c88c2a5fb916b0ac8375f461fca",
+  "report_sha256": "bc31e4e464767a024df309ebd880b981c11e2fac9d4fc67666cf5e2a5927a2a7"
+}

@@ -33,6 +33,7 @@ from deploy_workflow.handoff_delivery import (
     HandoffInput,
     MarkdownLayout,
     MarkdownRoute,
+    section,
 )
 from deploy_workflow.html_text import convert_html
 from deploy_workflow.markdown_delivery import literal_module, markdown_files, require_issuer
@@ -149,6 +150,67 @@ BLOCK_OWNERS: dict[str, tuple[str, ...]] = {
 }
 # CP-8 owns this section and compares two completed deliveries; a single run has nothing to compare.
 SECOND_RUN_ONLY = "what-changed"
+# The H3 that opens every module's `## Findings`: prose stating the module's view in plain English
+# before any table (owner ruling, 2026-11-05; Deploy V's M365 runs for VMO2 and Wood Mackenzie open
+# each module's analysis that way). "Credit view" (CP-1C, CP-2) and "Downside view" (CP-2A) are the
+# M365 headings. A module added to METHODS needs an entry here; a test fails otherwise.
+# This launcher route only: the owner route (`deploy_vii.cp2_synthesis`, Python-composed
+# Markdown) is unchanged.
+OPENING: dict[str, str] = {
+    "CP-0": "Readiness view",
+    "CP-1": "Financial base view",
+    "CP-1A": "Business and transaction view",
+    "CP-1B": "Earnings delta view",
+    "CP-1C": "Credit view",
+    "CP-1D": "Earnings quality view",
+    "CP-2": "Credit view",
+    "CP-2A": "Downside view",
+    "CP-2D": "Liquidity view",
+    "CP-2E": "Macro and FX view",
+    "CP-2G": "Forward model view",
+    "CP-2H": "Ratings view",
+    "CP-3": "Relative value view",
+    "CP-3C": "Funding gap view",
+    "CP-3D": "Market-implied view",
+    "CP-4": "Covenant view",
+    "CP-4C": "Restructuring view",
+    "CP-5": "Evidence trace view",
+    "CP-6": "Challenge view",
+    "CP-DR": "Research view",
+}
+# Only CP-2 gets READER_STANDARD (owner ruling, 2026-11-05): M365 output did not follow the
+# CANON_SHARED rules, so they stay scoped to the one module that had them.
+READER_STANDARD_MODULES = frozenset({"CP-2"})
+# The user's Microsoft 365 Copilot custom instruction (supplied 2026-11-05, every clause kept):
+# a persona that applies to every module (owner ruling, 2026-11-05). ponytail: instructions only.
+READER_PERSONA = (
+    "You are a senior credit research analyst at a leading credit fund, specialising in high "
+    "yield credit and leveraged loans. Your research is used throughout the firm for key "
+    "investment decisions; it is presented to senior credit committees and affects portfolio "
+    "management. Your findings are institutional-grade, deeply analytical and data-dense, fully "
+    "reasoned with explicit links from data to risk to credit implication. Say nothing generic "
+    "unless it is tied to issuer-specific mechanics. Write in a detailed, structured style "
+    "grounded in the provided data, and say when information is insufficient. State explicitly "
+    "when information comes from external sources.\n\n"
+)
+# For READER_STANDARD_MODULES only: CANON_SHARED.md's reader-facing layer, and two habits of Deploy
+# V's M365 handoffs (VMO2 2026-09-20, Wood Mackenzie 2026-08-27): units on amounts, the issuer as
+# subject. The checker enforces the opening, not the prose.
+READER_STANDARD = (
+    "Presentation rules, from the reader-facing standard of Deploy V's CANON_SHARED.md. They "
+    "never remove a method duty, category tag, limitation or gap:\n"
+    "- In the opening section, state the credit view in plain English in the first sentence. In "
+    "90–150 words, give the strongest support, the weakest point and what decides the outcome.\n"
+    "- Keep `## Request` to the issuer, as-of date, pathway and scope, in at most three "
+    "sentences. Readiness status, revision history and scope disclaimers belong in `## Gaps`.\n"
+    "- State each limitation once, where it changes a conclusion, and say what it changes. Do not "
+    "repeat a caveat in sentence after sentence.\n"
+    "- In prose, give every amount its currency and unit, for example USD 1,250 million, 3.1x "
+    "or 61 bp.\n"
+    "- Make the issuer, its debt or its creditors the subject of a sentence, not a module. Cite "
+    "modules and locators in brackets or tables.\n"
+    "- Use plain-English labels. Hashes and raw locators belong in `## Sources` and tables.\n\n"
+)
 
 
 class LaunchRefused(ValueError):
@@ -289,6 +351,7 @@ def _instructions(run: Run, module: str, routes: Sequence[MarkdownRoute]) -> byt
     method = "\n\n".join(
         f"=== {name} sha256 {_sha(text.encode())} ===\n{text}" for name, text in sections
     )
+    opening = OPENING.get(module)
     return (
         f"# {module} for {run.issuer_name} ({run.issuer_id}), as of {run.as_of}\n\n"
         f"Pathway: {run.pathway}. Run the complete selected method below on this issuer's supplied "
@@ -304,7 +367,15 @@ def _instructions(run: Run, module: str, routes: Sequence[MarkdownRoute]) -> byt
         "A handoff is rejected unless it does all of this:\n"
         f"- name {run.issuer_name} in `## Request`, and state the as-of date {run.as_of} there;\n"
         "- list each issuer source it relied on in `## Sources`, with its exact name and sha256;\n"
-        "- list each supplied handoff in `## Sources`, with its module and exact sha256.\n\n"
+        "- list each supplied handoff in `## Sources`, with its module and exact sha256"
+        + (
+            f";\n- open `## Findings` with `### {opening}`, once: prose that states the view, "
+            "before any table.\n\n"
+            if opening
+            else ".\n\n"
+        )
+        + READER_PERSONA
+        + (READER_STANDARD if module in READER_STANDARD_MODULES else "")
         + (
             "Report selectors, each exactly once inside `## Findings`, using these exact "
             f"headings. They place content in the report and are not analytical completion:\n"
@@ -404,6 +475,12 @@ def checker(layout: MarkdownLayout) -> Check:
         evidence = {_sha(v) for k, v in task.sources.items() if k != CONTEXT_SOURCE_ID}
         if not any(digest in text for digest in evidence):
             issues.append("List each issuer source relied on with its exact name and sha256.")
+        opening = OPENING.get(task.module_id)
+        if opening and not _opens_with(text.splitlines(), opening):
+            issues.append(
+                f"Open ## Findings with ### {opening}, once: prose that states the view, "
+                "before any table."
+            )
         routes = tuple(r for r in layout.routes if r.module_id == task.module_id)
         try:
             if routes:
@@ -425,6 +502,21 @@ def checker(layout: MarkdownLayout) -> Check:
         return tuple(issues)
 
     return check
+
+
+def _opens_with(lines: list[str], heading: str) -> bool:
+    """`## Findings` starts with the one `### heading`, whose first content is a paragraph: a
+    line opening with a letter, a quote mark or bold, not a table, list, fence, comment or heading.
+    """
+    try:
+        findings = [line for _, line in section(lines, "Findings") if line.strip()]
+        body = [line.strip() for _, line in section(lines, heading) if line.strip()]
+    except ValueError:  # Missing or repeated.
+        return False
+    first = body[0] if body else ""
+    return findings[:1] == [f"### {heading}"] and (
+        first[:1].isalpha() or first.startswith(("**", '"', "“"))
+    )
 
 
 def _cap(text: str) -> Decimal:
