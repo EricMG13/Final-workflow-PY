@@ -128,16 +128,17 @@ def normalize_facilities(book: FinancialBook) -> tuple[FacilityNormalization, ..
     periods = {p.period_id: p for p in book.periods}
     conversions = {(c.facility_id, c.period_id): c for c in book.facility_fx_conversions}
     rate_groups: dict[tuple[str, date | None], list[Observation]] = {}
-    conflicts: dict[tuple[str, date | None, str], list[Observation]] = {}
+    # An undated period keys its own conflicts by its id: no other undated period shares a date.
+    conflicts: dict[tuple[str, date | str, str], list[Observation]] = {}
     for quote in book.facility_fx_conversions:
         key = quote.facility_id, quote.rate_date
         rate_groups.setdefault(key, []).append(quote.rate)
     for row in book.facilities:
-        end = periods[row.period_id].end_date
+        day = periods[row.period_id].end_date or row.period_id
         for field in MONETARY_FIELDS:
             value = getattr(row, field)
             if value.status == "conflicting":
-                conflicts.setdefault((row.facility_id, end, field), []).append(value)
+                conflicts.setdefault((row.facility_id, day, field), []).append(value)
     # Contracts are immutable; object identity avoids conflating distinct evidence
     # records that happen to share an observation identifier.
     hashes: dict[int, str] = {}
@@ -171,7 +172,7 @@ def normalize_facilities(book: FinancialBook) -> tuple[FacilityNormalization, ..
             rate_conflict = any(r.status == "conflicting" for r in related_rates)
             for field in MONETARY_FIELDS:
                 source: Observation = getattr(row, field)
-                source_conflicts = conflicts.get((row.facility_id, end, field), [])
+                source_conflicts = conflicts.get((row.facility_id, end or row.period_id, field), [])
                 inputs = (source, *source_conflicts, *related_rates)
                 reason = (
                     "Same-date source amount is conflicting"

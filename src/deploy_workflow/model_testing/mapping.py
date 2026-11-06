@@ -16,6 +16,7 @@ from pydantic import Field, ValidationError, model_validator
 
 from deploy_vii.contracts import Contract
 from deploy_workflow.model_testing.cases import GoldenCase
+from deploy_workflow.model_testing.records import validation_summary
 
 _COMMIT = re.compile(r"[0-9a-f]{40}")
 
@@ -209,11 +210,7 @@ def load_mapping(path: Path, case: GoldenCase) -> Mapping:
         json.loads(raw, object_pairs_hook=_no_dups)
         mapping = Mapping.model_validate_json(raw)
     except ValidationError as exc:
-        shown = "; ".join(
-            f"{'.'.join(str(p) for p in err['loc']) or '<root>'}: {err['msg']}"
-            for err in exc.errors(include_input=False, include_url=False)[:5]
-        )
-        raise MappingError(f"{name}: invalid mapping: {shown}") from exc
+        raise MappingError(f"{name}: invalid mapping: {validation_summary(exc)}") from exc
     except ValueError as exc:  # JSONDecodeError, UnicodeDecodeError, duplicate keys
         raise MappingError(f"{name}: not valid JSON (duplicate or malformed key)") from exc
     _check_against_case(mapping, case, name)

@@ -23,6 +23,14 @@ from deploy_vii.financial_contracts import (
 )
 from deploy_vii.financial_periods import _id
 from deploy_vii.financial_reconciliation import (
+    BASIS_DIFFERENCE,
+    CASH_SCOPE_DIFFERS,
+    DIFFERENCE_UNRESOLVED,
+    MISSING_INPUT,
+    MISSING_PERIOD_COMPONENT,
+    PERIOD_MISSING_INPUT,
+    SEGMENTS_INCOMPLETE,
+    SEGMENTS_PARTIAL,
     Reconciliation,
     ReconciliationReport,
     ReconciliationTerm,
@@ -450,15 +458,22 @@ def conflicting_observation_ids(book: FinancialBook) -> frozenset[str]:
     )
 
 
-# Child-difference blocker texts. A parent check that quotes a child's computed difference in its
-# explanation is not an absent input. Each phrase is the exact text its site builds.
-# financial_reconciliation.py:172 and period_reconciliation.py:138 (child BLOCK with a difference).
-CHILD_DIFFERENCE_BLOCKER = "Difference exceeds reporting-precision tolerance; unresolved"
-# financial_reconciliation.py:704 and period_reconciliation.py:476 (child WARN with a difference).
-CHILD_BASIS_DIFFERENCE_BLOCKER = "Audited FY / unaudited quarter basis difference: "
-# period_reconciliation.py:310 on claude/s8-vii (arrives with the s8-vii merge): a cash-scope
-# mismatch across source periods is a scope defect, not an absent input.
-CASH_SCOPE_BLOCKER = "Cash scope differs across source periods: "
+# Blocker texts that are not an absent input, as the reconciliations build them (the constants
+# are theirs): a quoted child difference (BLOCK), a quoted audited-FY basis difference (WARN) and
+# a cash-scope mismatch across source periods (a scope defect).
+CHILD_DIFFERENCE_BLOCKER = DIFFERENCE_UNRESOLVED
+CHILD_BASIS_DIFFERENCE_BLOCKER = BASIS_DIFFERENCE
+CASH_SCOPE_BLOCKER = CASH_SCOPE_DIFFERS
+_NOT_ABSENT = (CHILD_DIFFERENCE_BLOCKER, CHILD_BASIS_DIFFERENCE_BLOCKER, CASH_SCOPE_BLOCKER)
+# The texts a check (or a child it quotes) builds when an input is absent; a partial segment
+# schedule leaves its undisclosed segments absent.
+_ABSENT = (
+    MISSING_INPUT,
+    PERIOD_MISSING_INPUT,
+    MISSING_PERIOD_COMPONENT,
+    SEGMENTS_INCOMPLETE,
+    SEGMENTS_PARTIAL,
+)
 
 
 def shadowed_account_ids(book: FinancialBook) -> frozenset[str]:
@@ -499,17 +514,16 @@ def absent_input_limitation(
     """The limitation text for a BLOCK check that only lacks an input, else None (stays BLOCK).
 
     Rulings item 82: on a public filed pack a check that cannot be computed because an input is
-    absent is a stated limitation. A check that computed a difference, a term that is a
-    conflicting observation, an FX-normalised term, a term that cites a shadowing explicit
-    account, a quoted child difference, a cash-scope mismatch, a non-public case and a WARN check all stay as they are.
+    absent is a stated limitation. The input is absent when a term has no amount or the
+    explanation quotes an absent-input text (`_ABSENT`, the check's own or a child's). A check
+    that computed a difference, a structural blocker with every term present (quarters that do
+    not span the FY, an unknown expense presentation), a term that is a conflicting observation,
+    an FX-normalised term, a term that cites a shadowing explicit account, a quoted child
+    difference, a cash-scope mismatch, a non-public case and a WARN check all stay as they are.
     """
     if not public or check.status != "BLOCK" or check.difference is not None:
         return None
-    if (
-        CHILD_DIFFERENCE_BLOCKER in check.explanation
-        or CHILD_BASIS_DIFFERENCE_BLOCKER in check.explanation
-        or CASH_SCOPE_BLOCKER in check.explanation
-    ):
+    if any(text in check.explanation for text in _NOT_ABSENT):
         return None
     terms: tuple[ReconciliationTerm | PeriodTerm, ...] = (check.reported, *check.components)
     for term in terms:
@@ -524,6 +538,8 @@ def absent_input_limitation(
     absent = "; ".join(
         f"{t.label} ({t.reason})" if t.reason else t.label for t in terms if t.amount is None
     )
+    if not absent and not any(text in check.explanation for text in _ABSENT):
+        return None
     return ABSENT_INPUT_PREFIX + check.explanation + (f"; absent: {absent}" if absent else "")
 
 

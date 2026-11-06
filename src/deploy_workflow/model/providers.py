@@ -13,7 +13,7 @@ from __future__ import annotations
 import json
 import re
 from collections.abc import Callable, Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from decimal import Decimal
 from enum import Enum
 from types import MappingProxyType
@@ -24,9 +24,9 @@ from deploy_workflow.model.transport import (
     CONNECT_S,
     IDLE_S,
     OVERALL_S,
-    ConnectTimeout,
     IdleTimeout,
     InsecureUrl,
+    NotConnected,
     OverallTimeout,
     Request,
     TransportError,
@@ -52,7 +52,9 @@ from deploy_workflow.model.turn import (
 OPENAI_URL = "https://api.openai.com/v1/responses"
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
-ANTHROPIC_VERSION = "2026-10-21"  # confirm before the first live call
+# The claude-api reference (2026-11-06) sends API keys as ``x-api-key`` (``Authorization: Bearer``
+# is the OAuth-token path) and names ``anthropic-version: 2026-10-21`` as the current version.
+ANTHROPIC_VERSION = "2026-10-21"
 OPENAI_STRICT_TOOLS = False  # not specified by the brief; schemas are not constrained to strict
 MAX_OUTPUT_TOKENS = 131072  # spec §8 "up to 128k"; global cap (per-model limits not supplied)
 OPENROUTER_IGNORE_FOR_DEEPSEEK = ["open-inference"]  # spec §8
@@ -95,6 +97,9 @@ class KeyMissing(ProviderConfigError):
 
 
 REPLY_CUT = "ReplyCut"  # CP1H-R16: a reply cut off before any tool call is a provider stop
+# A connect that failed before any request byte was written: NotSent, so the hold is released.
+# ``ConnectTimeout`` stays in ``reply_classes.SENT_UNKNOWN`` only for records written before it.
+NOT_CONNECTED = "NotConnected"
 
 
 class ErrorKind(Enum):
@@ -172,6 +177,8 @@ def build(spec: ModelSpec, request: TurnRequest, key: str) -> Request:
         url, body = OPENAI_URL, _openai_body(spec, request, effort)
     elif spec.provider == "anthropic":
         url, body = ANTHROPIC_URL, _anthropic_body(spec, request, effort)
+        del headers["Authorization"]  # an API key goes in x-api-key, never as a Bearer token
+        headers["x-api-key"] = key
         headers["anthropic-version"] = ANTHROPIC_VERSION
         headers["Accept"] = "text/event-stream"
         stream = True
@@ -205,30 +212,65 @@ def _take_before(held: list[Any], key: dict[str, Any]) -> list[dict[str, Any]]:
     return taken
 
 
+def _function_call_item(call: ToolCall) -> dict[str, Any]:
+    return {
+        "type": "function_call",
+        "call_id": call.call_id,
+        "name": call.name,
+        "arguments": _args_json(call),
+    }
+
+
+def _ordered_blocks(held: list[Any]) -> bool:
+    """The blocks record the reply's whole output order (``_ordered_output``), not anchors."""
+    return any(isinstance(d, dict) and ("message_text" in d or "function_call" in d) for d in held)
+
+
+def _openai_assistant(m: Message) -> list[dict[str, Any]]:
+    """The input items that resend an assistant turn. store=false: each reasoning item goes back
+    unchanged, just before the item that followed it in the output (CP1H-R8b); one with nothing
+    after it goes last. A reply whose order the anchors cannot express keeps its whole order."""
+    held = [b.data for b in m.provider_blocks if b.provider == "openai"]
+    if _ordered_blocks(held):
+        return _ordered_output(held, m.tool_calls)
+    items = _take_before(held, {"type": "message"})
+    if m.text:
+        items.append({"role": "assistant", "content": m.text})
+    for c in m.tool_calls:
+        items.extend(_take_before(held, {"type": "function_call", "call_id": c.call_id}))
+        items.append(_function_call_item(c))
+    items.extend(dict(d["item"]) for d in held)  # nothing followed them
+    return items
+
+
+def _ordered_output(held: list[Any], tool_calls: tuple[ToolCall, ...]) -> list[dict[str, Any]]:
+    """The output items in the reply's order: reasoning verbatim, each message's own text, each
+    function call where it stood; a call the blocks do not place goes last."""
+    calls = {c.call_id: c for c in tool_calls}
+    items: list[dict[str, Any]] = []
+    for d in held:
+        if "function_call" in d:
+            call = (
+                calls.pop(d["function_call"], None) if isinstance(d["function_call"], str) else None
+            )
+            if call is not None:
+                items.append(_function_call_item(call))
+        elif "message_text" in d:
+            if d["message_text"]:
+                items.append({"role": "assistant", "content": d["message_text"]})
+        else:
+            items.append(dict(d["item"]))
+    items.extend(_function_call_item(c) for c in calls.values())
+    return items
+
+
 def _openai_body(spec: ModelSpec, request: TurnRequest, effort: str) -> dict[str, Any]:
     items: list[dict[str, Any]] = []
     for m in request.messages:
         if m.role == "user":
             items.append({"role": "user", "content": m.text})
         elif m.role == "assistant":
-            # store=false: each reasoning item goes back unchanged, just before the item that
-            # followed it in the output (CP1H-R8b); one with nothing after it goes last.
-            held = [b.data for b in m.provider_blocks if b.provider == "openai"]
-
-            items.extend(_take_before(held, {"type": "message"}))
-            if m.text:
-                items.append({"role": "assistant", "content": m.text})
-            for c in m.tool_calls:
-                items.extend(_take_before(held, {"type": "function_call", "call_id": c.call_id}))
-                items.append(
-                    {
-                        "type": "function_call",
-                        "call_id": c.call_id,
-                        "name": c.name,
-                        "arguments": _args_json(c),
-                    }
-                )
-            items.extend(dict(d["item"]) for d in held)  # nothing followed them
+            items.extend(_openai_assistant(m))
         elif m.role == "tool":
             items.append(
                 {"type": "function_call_output", "call_id": m.tool_call_id, "output": m.text}
@@ -255,22 +297,41 @@ def _openai_body(spec: ModelSpec, request: TurnRequest, effort: str) -> dict[str
     }
 
 
+def _tool_use(call: ToolCall) -> dict[str, Any]:
+    return {"type": "tool_use", "id": call.call_id, "name": call.name, "input": call.arguments}
+
+
+def _anthropic_assistant(m: Message) -> list[dict[str, Any]]:
+    """An assistant turn's content: thinking blocks unchanged and in order, then the text, then
+    the tool calls; or, when the reply interleaved them (``_anthropic_content``), every block at
+    its own place, text and tool-use markers included. A call the blocks do not place goes last."""
+    stored = [dict(b.data) for b in m.provider_blocks if b.provider == "anthropic"]
+    if not any(d.get("type") in ("text", "tool_use") for d in stored):
+        blocks = stored
+        if m.text:
+            blocks.append({"type": "text", "text": m.text})
+        return blocks + [_tool_use(c) for c in m.tool_calls]
+    calls = {c.call_id: c for c in m.tool_calls}
+    blocks = []
+    for d in stored:
+        if d.get("type") == "tool_use":
+            call = calls.pop(d["id"], None) if isinstance(d.get("id"), str) else None
+            if call is not None:
+                blocks.append(_tool_use(call))
+        elif d.get("type") != "text":
+            blocks.append(d)
+        elif d.get("text"):
+            blocks.append({"type": "text", "text": d["text"]})
+    return blocks + [_tool_use(c) for c in calls.values()]
+
+
 def _anthropic_body(spec: ModelSpec, request: TurnRequest, effort: str) -> dict[str, Any]:
     out: list[dict[str, Any]] = []
     for m in request.messages:
         if m.role == "user":
             out.append({"role": "user", "content": m.text})
         elif m.role == "assistant":
-            blocks: list[dict[str, Any]] = [
-                dict(b.data) for b in m.provider_blocks if b.provider == "anthropic"
-            ]  # thinking blocks first, unchanged and in order
-            if m.text:
-                blocks.append({"type": "text", "text": m.text})
-            blocks.extend(
-                {"type": "tool_use", "id": c.call_id, "name": c.name, "input": c.arguments}
-                for c in m.tool_calls
-            )
-            out.append({"role": "assistant", "content": blocks})
+            out.append({"role": "assistant", "content": _anthropic_assistant(m)})
         elif m.role == "tool":
             result = {
                 "type": "tool_result",
@@ -425,16 +486,18 @@ def error_from_transport(
 ) -> Turn | ProviderError:
     """A transport failure as a classified error.
 
-    Only a refusal before any connection is NotSent; every other failure (a watchdog or
-    deadline OverallTimeout included) may have reached the provider and is SentChargeUnknown.
+    A refusal before any connection (``InsecureUrl``) and a failed connect (``NotConnected``,
+    ``ConnectTimeout`` included: no request byte was written) are NotSent, class
+    ``NotConnected`` for the latter; every failure after the connection (a watchdog or deadline
+    OverallTimeout included) may have reached the provider and is SentChargeUnknown.
     An Anthropic stream cut by a timeout whose last usage event arrived is settled from it
     (a Turn or a SentChargeUsage error), not unknown."""
     if isinstance(exc, InsecureUrl):
         return ProviderError(ErrorKind.NOT_SENT, "InsecureUrl", _snippet(redactor, str(exc)))
+    if isinstance(exc, NotConnected):
+        return ProviderError(ErrorKind.NOT_SENT, NOT_CONNECTED, _snippet(redactor, str(exc)))
     error_class = (
-        type(exc).__name__
-        if isinstance(exc, ConnectTimeout | IdleTimeout | OverallTimeout)
-        else "TransportError"
+        type(exc).__name__ if isinstance(exc, IdleTimeout | OverallTimeout) else "TransportError"
     )
     if provider == "anthropic" and exc.partial:
         cut = parse(provider, 200, exc.partial, {}, redactor)
@@ -449,9 +512,11 @@ def error_from_transport(
 
 # ---------------------------------------------------------------- parse
 
-# CP1H-R14: the key scans skip exactly two provider-encrypted values and nothing else. Ciphertext
-# cannot carry our key in readable form, but base64url can hold "_sk-" and 20 more characters by
-# chance, which would stop a run as KeyReflected. Every other byte of a reply is still scanned.
+# CP1H-R14: the key-shape scan skips exactly two provider-encrypted values and nothing else.
+# Ciphertext cannot carry our key in readable form, but base64url can hold "_sk-" and 20 more
+# characters by chance, which would stop a run as KeyReflected. The exact-value scan still covers
+# those values (a whole key never occurs in ciphertext by chance), and every other byte of a reply
+# gets both scans.
 
 
 def _openai_cipher(item: object) -> bool:
@@ -584,8 +649,9 @@ def redact_block(redactor: Redactor, block: ProviderBlock) -> ProviderBlock:
     return ProviderBlock(redactor.text(block.provider), _unseal(redactor.json_value(sealed)))
 
 
-def _without_ciphertext(provider: Provider, text: str) -> str:
-    """The raw reply with each encrypted value emptied, for the key scan. A value that cannot be
+def _without_ciphertext(provider: Provider, text: str, redactor: Redactor) -> str | None:
+    """The raw reply with each encrypted value emptied, for the key scan; None when a decoded
+    encrypted value holds an exact key value (the reply is KeyReflected). A value that cannot be
     found in the text as written (other JSON escapes) stays in and is scanned: that fails closed."""
     if provider == "anthropic":
         return text
@@ -596,14 +662,21 @@ def _without_ciphertext(provider: Provider, text: str) -> str:
     if not isinstance(data, dict):
         return text
     for key, value in _ciphertexts(provider, data):
+        if redactor.holds_exact(value):
+            return None
         pattern = re.compile(r'("' + key + r'"\s*:\s*)' + re.escape(json.dumps(value)))
         text = pattern.sub(lambda m: m.group(1) + '""', text, count=1)
     return text
 
 
-def _scan_block(block: ProviderBlock) -> dict[str, Any]:
-    """A provider block as the scan sees it: its encrypted value emptied."""
-    return {"provider": block.provider, "data": _swap_block(block, _empty)}
+def _scan_block(block: ProviderBlock, redactor: Redactor) -> dict[str, Any]:
+    """A provider block as the scan sees it: its encrypted value emptied, unless it holds an exact
+    key value (then it stays, and the scan refuses the turn)."""
+
+    def scanned(value: str) -> str:
+        return value if redactor.holds_exact(value) else ""
+
+    return {"provider": block.provider, "data": _swap_block(block, scanned)}
 
 
 def parse(
@@ -624,9 +697,9 @@ def parse(
     after decoding (JSON escapes, SSE deltas joined), comes back as ``KeyReflected`` with the
     redacted text, never as a turn."""
     text = body.decode("utf-8", errors="replace")
-    scanned = _without_ciphertext(provider, text) if 200 <= status < 300 else text
-    clean = redactor.text(scanned)
-    if clean != scanned or any(redactor.text(v) != v for v in headers.values()):
+    scanned = _without_ciphertext(provider, text, redactor) if 200 <= status < 300 else text
+    clean = redactor.text(text if scanned is None else scanned)
+    if scanned is None or clean != scanned or any(redactor.text(v) != v for v in headers.values()):
         kind = classify(status, body) if not 200 <= status < 300 else ErrorKind.SENT_CHARGE_UNKNOWN
         return ProviderError(
             kind, "KeyReflected", _snippet(redactor, _provider_message(clean)), status
@@ -679,7 +752,7 @@ def _guard_decoded(
                 result.billed_usd,
             )
         return result
-    blocks = [_scan_block(b) for b in result.provider_blocks]
+    blocks = [_scan_block(b, redactor) for b in result.provider_blocks]
     calls = [{"id": c.call_id, "name": c.name, "args": c.arguments} for c in result.tool_calls]
     payload = [result.text, result.reported_model, result.request_id, blocks, calls]
     if reflected or redactor.json_value(payload) != payload:
@@ -754,8 +827,10 @@ def _usage_error(
     rid: str | None,
     billed: Decimal | None = None,
 ) -> ProviderError:
-    """Tokens were generated: SentChargeUsage when usage was reported, else unknown."""
-    reported = any(getattr(usage, f) is not None for f in usage.__dataclass_fields__)
+    """Tokens were generated: SentChargeUsage when usage or an exact billed charge was reported,
+    else unknown. A billed charge with no token counts still settles from that charge."""
+    counted = any(getattr(usage, f) is not None for f in usage.__dataclass_fields__)
+    reported = counted or billed is not None
     return ProviderError(
         ErrorKind.SENT_CHARGE_USAGE if reported else ErrorKind.SENT_CHARGE_UNKNOWN,
         error_class,
@@ -804,34 +879,65 @@ def _anchor_reasoning(
     waiting.clear()
 
 
-def _openai_outcome(
-    status: int, data: dict[str, Any], texts: list[str], seen: list[Any], cut_as_turn: bool = False
-) -> Turn | ProviderError:
-    raw_usage = _sub(data, "usage")
+def _openai_usage(raw_usage: Mapping[str, Any] | None) -> Usage:
     in_details = _sub(raw_usage, "input_tokens_details")
-    out_details = _sub(raw_usage, "output_tokens_details")
-    usage = Usage(
+    return Usage(
         input_tokens=_count(raw_usage, "input_tokens"),
         cached_read_tokens=_count(in_details, "cached_tokens"),
         cache_write_tokens=_count(in_details, "cache_write_tokens"),
         output_tokens=_count(raw_usage, "output_tokens"),
-        reasoning_tokens=_count(out_details, "reasoning_tokens"),
+        reasoning_tokens=_count(_sub(raw_usage, "output_tokens_details"), "reasoning_tokens"),
     )
-    model, rid = _str_or_none(data.get("model")), _str_or_none(data.get("id"))
-    if data.get("error"):
-        return ProviderError(
-            ErrorKind.SENT_CHARGE_UNKNOWN,
-            "ResponseError",
-            "the response carries an error object",
-            status,
-            reported_model=model,
-            request_id=rid,
-        )
-    output = data.get("output")
-    if not isinstance(output, list):
-        raise _BadReply("output is not a list")
-    calls: list[ToolCall] = []
-    reasoning: list[ProviderBlock] = []
+
+
+def _response_error(status: int, model: str | None, rid: str | None) -> ProviderError:
+    return ProviderError(
+        ErrorKind.SENT_CHARGE_UNKNOWN,
+        "ResponseError",
+        "the response carries an error object",
+        status,
+        reported_model=model,
+        request_id=rid,
+    )
+
+
+@dataclass
+class _OpenAIOutput:
+    """The output items read in order: the tool calls, the reasoning anchored to the item after
+    it (CP1H-R8b), and every kept item in order for a reply the anchors cannot express."""
+
+    calls: list[ToolCall] = field(default_factory=list)
+    anchored: list[ProviderBlock] = field(default_factory=list)
+    ordered: list[ProviderBlock] = field(default_factory=list)
+    reordered: bool = False  # a message after a call, or reasoning before a later message
+    refused: bool = False
+    messages: int = 0
+
+    def blocks(self) -> tuple[ProviderBlock, ...]:
+        return tuple(self.ordered if self.reordered else self.anchored)
+
+
+def _openai_message(item: Mapping[str, Any], texts: list[str], out: _OpenAIOutput) -> str:
+    """One message item's text (each output_text part also goes to ``texts``); a refusal part
+    sets ``out.refused`` and ends the item there."""
+    content = item.get("content")
+    if content is None:
+        content = []
+    if not isinstance(content, list):
+        raise _BadReply("message content is not a list")
+    parts: list[str] = []
+    for part in content:
+        if isinstance(part, dict) and part.get("type") == "refusal":
+            out.refused = True
+            break
+        if isinstance(part, dict) and part.get("type") == "output_text":
+            parts.append(str(part.get("text", "")))
+            texts.append(parts[-1])
+    return "".join(parts)
+
+
+def _openai_output(output: list[Any], texts: list[str], seen: list[Any]) -> _OpenAIOutput:
+    out = _OpenAIOutput()
     waiting: list[dict[str, Any]] = []  # reasoning items not yet tied to the item after them
     for item in output:
         kind = item.get("type") if isinstance(item, dict) else None
@@ -841,40 +947,58 @@ def _openai_outcome(
             encrypted = item.get("encrypted_content")
             if isinstance(encrypted, str) and encrypted:
                 waiting.append(dict(item))
+                out.ordered.append(ProviderBlock("openai", {"item": dict(item), "before": None}))
         elif kind == "function_call":
             call_id, name = _id(item, "call_id"), _id(item, "name")
-            _anchor_reasoning(waiting, reasoning, {"type": "function_call", "call_id": call_id})
-            calls.append(_call(call_id, name, item.get("arguments"), seen))
+            _anchor_reasoning(waiting, out.anchored, {"type": "function_call", "call_id": call_id})
+            out.calls.append(_call(call_id, name, item.get("arguments"), seen))
+            out.ordered.append(ProviderBlock("openai", {"function_call": call_id}))
         elif kind == "message":
-            _anchor_reasoning(waiting, reasoning, {"type": "message"})
-            content = item.get("content")
-            if content is None:
-                content = []
-            if not isinstance(content, list):
-                raise _BadReply("message content is not a list")
-            for part in content:
-                if isinstance(part, dict) and part.get("type") == "refusal":
-                    return _usage_error("Refusal", "the model refused", status, usage, model, rid)
-                if isinstance(part, dict) and part.get("type") == "output_text":
-                    texts.append(str(part.get("text", "")))
+            out.reordered = out.reordered or bool(out.calls) or bool(waiting and out.messages)
+            _anchor_reasoning(waiting, out.anchored, {"type": "message"})
+            text = _openai_message(item, texts, out)
+            if out.refused:
+                return out
+            out.ordered.append(ProviderBlock("openai", {"message_text": text}))
+            out.messages += 1
+    _anchor_reasoning(waiting, out.anchored, None)  # nothing followed them: they go last
+    return out
+
+
+def _openai_stop(
+    state: object, incomplete: Mapping[str, Any] | None, calls: list[ToolCall]
+) -> StopReason:
+    if calls:
+        return "tool_use"
+    if state == "completed":
+        return "end"
+    if state == "incomplete" and incomplete and incomplete.get("reason") == "max_output_tokens":
+        return "max_tokens"
+    return "other"
+
+
+def _openai_outcome(
+    status: int, data: dict[str, Any], texts: list[str], seen: list[Any], cut_as_turn: bool = False
+) -> Turn | ProviderError:
+    usage = _openai_usage(_sub(data, "usage"))
+    model, rid = _str_or_none(data.get("model")), _str_or_none(data.get("id"))
+    if data.get("error"):
+        return _response_error(status, model, rid)
+    output = data.get("output")
+    if not isinstance(output, list):
+        raise _BadReply("output is not a list")
+    out = _openai_output(output, texts, seen)
+    if out.refused:
+        return _usage_error("Refusal", "the model refused", status, usage, model, rid)
     incomplete = _sub(data, "incomplete_details")
     state = data.get("status")
-    if state == "incomplete" and not calls and not cut_as_turn:
+    if state == "incomplete" and not out.calls and not cut_as_turn:
         reason = incomplete.get("reason") if incomplete else None
         token = reason if isinstance(reason, str) and _ERROR_TYPE.fullmatch(reason) else "unknown"
         return _usage_error(REPLY_CUT, f"incomplete: {token}", status, usage, model, rid)
-    stop: StopReason
-    if calls:
-        stop = "tool_use"
-    elif state == "completed":
-        stop = "end"
-    elif state == "incomplete" and incomplete and incomplete.get("reason") == "max_output_tokens":
-        stop = "max_tokens"
-    else:
-        stop = "other"
-    _anchor_reasoning(waiting, reasoning, None)  # nothing followed them: they go last
+    stop = _openai_stop(state, incomplete, out.calls)
     return Turn(
-        "".join(texts), tuple(calls), usage, stop, model, rid, status, None, tuple(reasoning)
+        "".join(texts), tuple(out.calls), usage, stop, model, rid, status, None, out.blocks()
     )
 
 
@@ -1047,84 +1171,118 @@ def _anthropic_text(blocks: Mapping[int, Mapping[str, Any]]) -> str:
     )
 
 
+@dataclass
+class _SseState:
+    """One Anthropic stream as decoded so far. ``_parse_anthropic`` holds it, so its ``finally``
+    still hands every string decoded or joined to the key scan, whatever way the mapper exits."""
+
+    events: list[dict[str, Any]] = field(default_factory=list)
+    after: list[Any] = field(default_factory=list)  # decoded past the terminal event
+    blocks: dict[int, dict[str, Any]] = field(default_factory=dict)
+    partial: dict[int, str] = field(default_factory=dict)  # open tool_use input JSON
+    cut: str | None = None
+    message: dict[str, Any] = field(default_factory=dict)
+    usage_raw: dict[str, Any] = field(default_factory=dict)
+    stop_reason: str | None = None
+    saw_delta: bool = False
+
+    def strings(self) -> list[Any]:
+        """What the key scan must see: the events, the joined deltas, the blocks, and, for a cut
+        stream, the open string of the cut event continuing every string so far."""
+        found: list[Any] = [
+            self.events,
+            self.after,
+            _joined_deltas([*self.events, *self.after]),
+            self.blocks,
+            self.partial,
+            self.cut,
+            _anthropic_text(self.blocks),
+        ]
+        if self.cut is not None:
+            strings = [v for b in self.blocks.values() for v in b.values() if isinstance(v, str)]
+            found.extend(s + self.cut for s in [*strings, *self.partial.values()])
+        return found
+
+
+_DELTA_FIELD: Mapping[str, str] = {
+    "text_delta": "text",
+    "thinking_delta": "thinking",
+    "signature_delta": "signature",
+}
+
+
 def _parse_anthropic(
     status: int, text: str, redactor: Redactor, seen: list[Any], cut_as_turn: bool = False
 ) -> Turn | ProviderError:
-    events: list[dict[str, Any]] = []
-    after: list[Any] = []
-    blocks: dict[int, dict[str, Any]] = {}
-    partial: dict[int, str] = {}
-    cut: str | None = None
+    state = _SseState()
     try:
-        cut = _sse_events(text, events, after)
-        return _anthropic_outcome(status, events, cut, blocks, partial, redactor, seen, cut_as_turn)
+        state.cut = _sse_events(text, state.events, state.after)
+        if not state.events and state.cut is None:
+            raise _BadReply("no events in the stream")
+        for event in state.events:
+            if event.get("type") == "error":
+                return _in_stream_error(event, status, state.message, redactor)
+            _apply_event(state, event)
+        return _anthropic_result(state, status, seen, cut_as_turn)
     finally:
-        seen.extend([events, after, _joined_deltas([*events, *after]), blocks, partial, cut])
-        seen.append(_anthropic_text(blocks))
-        if cut is not None:  # the open string of the cut event continues every string so far
-            strings = [v for b in blocks.values() for v in b.values() if isinstance(v, str)]
-            seen.extend(s + cut for s in [*strings, *partial.values()])
+        seen.extend(state.strings())
 
 
-def _anthropic_outcome(
-    status: int,
-    events: list[dict[str, Any]],
-    cut: str | None,
-    blocks: dict[int, dict[str, Any]],
-    partial: dict[int, str],
-    redactor: Redactor,
-    seen: list[Any],
-    cut_as_turn: bool = False,
+def _apply_event(state: _SseState, event: Mapping[str, Any]) -> None:
+    kind, index = event.get("type"), event.get("index")
+    if kind == "message_start" and isinstance(event.get("message"), dict):
+        state.message = dict(event["message"])
+        state.usage_raw.update(_sub(state.message, "usage") or {})
+    elif kind == "message_delta":
+        delta = event.get("delta")
+        if isinstance(delta, dict):
+            state.stop_reason = _str_or_none(delta.get("stop_reason")) or state.stop_reason
+        state.usage_raw.update(_sub(event, "usage") or {})  # cumulative
+        state.saw_delta = True
+    elif isinstance(index, int):
+        _apply_block_event(state, kind, index, event)
+
+
+def _apply_block_event(
+    state: _SseState, kind: object, index: int, event: Mapping[str, Any]
+) -> None:
+    blocks, partial = state.blocks, state.partial
+    if kind == "content_block_start":
+        block = event.get("content_block")
+        if not isinstance(block, dict) or index in blocks:
+            raise _BadReply(f"content block {index} starts twice or without a block")
+        blocks[index] = dict(block)
+        if block.get("type") == "tool_use":
+            partial[index] = ""
+    elif kind == "content_block_delta":
+        _apply_delta(state, index, event.get("delta"))
+    elif kind == "content_block_stop":
+        if index not in blocks:
+            raise _BadReply(f"stop for content block {index}, which has not started")
+        if index in partial:
+            blocks[index]["input_json"] = partial.pop(index) or "{}"
+
+
+def _apply_delta(state: _SseState, index: int, delta: object) -> None:
+    if index not in state.blocks or not isinstance(delta, dict):
+        raise _BadReply(f"delta for content block {index}, which has not started")
+    dtype = delta.get("type")
+    name = _DELTA_FIELD.get(dtype) if isinstance(dtype, str) else None
+    if dtype == "input_json_delta" and index in state.partial:
+        state.partial[index] += str(delta.get("partial_json", ""))
+    elif name is not None:
+        block = state.blocks[index]
+        block[name] = str(block.get(name) or "") + str(delta.get(name, ""))
+
+
+def _anthropic_result(
+    state: _SseState, status: int, seen: list[Any], cut_as_turn: bool
 ) -> Turn | ProviderError:
-    if not events and cut is None:
-        raise _BadReply("no events in the stream")
-    message: dict[str, Any] = {}
-    usage_raw: dict[str, Any] = {}
-    stop_reason: str | None = None
-    saw_delta = False
-    for event in events:
-        kind, index = event.get("type"), event.get("index")
-        if kind == "error":
-            return _in_stream_error(event, status, message, redactor)
-        if kind == "message_start" and isinstance(event.get("message"), dict):
-            message = dict(event["message"])
-            usage_raw.update(_sub(message, "usage") or {})
-        elif kind == "content_block_start" and isinstance(index, int):
-            block = event.get("content_block")
-            if not isinstance(block, dict) or index in blocks:
-                raise _BadReply(f"content block {index} starts twice or without a block")
-            blocks[index] = dict(block)
-            if block.get("type") == "tool_use":
-                partial[index] = ""
-        elif kind == "content_block_delta" and isinstance(index, int):
-            delta = event.get("delta")
-            if index not in blocks or not isinstance(delta, dict):
-                raise _BadReply(f"delta for content block {index}, which has not started")
-            dtype = delta.get("type")
-            if dtype == "input_json_delta" and index in partial:
-                partial[index] += str(delta.get("partial_json", ""))
-            elif dtype in ("text_delta", "thinking_delta", "signature_delta"):
-                field = {"text_delta": "text", "thinking_delta": "thinking"}.get(
-                    str(dtype), "signature"
-                )
-                blocks[index][field] = str(blocks[index].get(field) or "") + str(
-                    delta.get(field, "")
-                )
-        elif kind == "content_block_stop" and isinstance(index, int):
-            if index not in blocks:
-                raise _BadReply(f"stop for content block {index}, which has not started")
-            if index in partial:
-                blocks[index]["input_json"] = partial.pop(index) or "{}"
-        elif kind == "message_delta":
-            delta = event.get("delta")
-            if isinstance(delta, dict):
-                stop_reason = _str_or_none(delta.get("stop_reason")) or stop_reason
-            usage_raw.update(_sub(event, "usage") or {})  # cumulative
-            saw_delta = True
-    if cut is not None:
+    """The outcome once every event before any error was applied."""
+    if state.cut is not None:
         raise _BadReply("an event's data is not JSON")
-    model, rid = _str_or_none(message.get("model")), _str_or_none(message.get("id"))
-    if not saw_delta:
+    model, rid = _str_or_none(state.message.get("model")), _str_or_none(state.message.get("id"))
+    if not state.saw_delta:
         return ProviderError(
             ErrorKind.SENT_CHARGE_UNKNOWN,
             "StreamCut",
@@ -1133,42 +1291,49 @@ def _anthropic_outcome(
             reported_model=model,
             request_id=rid,
         )
-    usage = _anthropic_usage(usage_raw)
-    if partial:
-        return _usage_error(
-            "StreamCut", "the stream ended inside a tool call", status, usage, model, rid
-        )
-    if stop_reason in _ANTHROPIC_NAMED_ERRORS:
-        return _usage_error(
-            _ANTHROPIC_NAMED_ERRORS[cast(str, stop_reason)],
-            f"stop_reason {stop_reason}",
-            status,
-            usage,
-            model,
-            rid,
-        )
+    usage = _anthropic_usage(state.usage_raw)
+    stop_reason = state.stop_reason
+    if state.partial:
+        error_class, detail = "StreamCut", "the stream ended inside a tool call"
+    elif (named := _ANTHROPIC_NAMED_ERRORS.get(stop_reason or "")) is not None:
+        error_class, detail = named, f"stop_reason {stop_reason}"
+    else:
+        calls, provider_blocks = _anthropic_content(state.blocks, seen)
+        if stop_reason != "max_tokens" or calls or cut_as_turn:
+            stop: StopReason = _ANTHROPIC_STOP.get(stop_reason or "", "other")
+            text = _anthropic_text(state.blocks)
+            return Turn(text, calls, usage, stop, model, rid, status, None, provider_blocks)
+        error_class, detail = REPLY_CUT, "stop_reason max_tokens"
+    return _usage_error(error_class, detail, status, usage, model, rid)
+
+
+_RANK = {"thinking": 0, "redacted_thinking": 0, "text": 1, "tool_use": 2}
+
+
+def _anthropic_content(
+    blocks: Mapping[int, Mapping[str, Any]], seen: list[Any]
+) -> tuple[tuple[ToolCall, ...], tuple[ProviderBlock, ...]]:
+    """The tool calls and the blocks to resend. Thinking blocks are kept unchanged and in order.
+    When the reply's content is not thinking, then text, then tool use (the order the next
+    request rebuilds by default), the text blocks and tool-use markers are kept too, each at its
+    place, so the resent turn is the reply as produced."""
     calls: list[ToolCall] = []
-    provider_blocks: list[ProviderBlock] = []
+    kept: list[tuple[int, dict[str, Any]]] = []
     for index in sorted(blocks):
         block = blocks[index]
-        if block.get("type") in _THINKING_TYPES:
-            provider_blocks.append(ProviderBlock("anthropic", dict(block)))
-        elif block.get("type") == "tool_use":
+        kind = block.get("type")
+        if kind in _THINKING_TYPES:
+            kept.append((0, dict(block)))
+        elif kind == "tool_use":
             call_id, name = _id(block, "id"), _id(block, "name")
             calls.append(_call(call_id, name, block.get("input_json", "{}"), seen))
-    if stop_reason == "max_tokens" and not calls and not cut_as_turn:
-        return _usage_error(REPLY_CUT, "stop_reason max_tokens", status, usage, model, rid)
-    stop: StopReason = _ANTHROPIC_STOP.get(stop_reason or "", "other")
-    return Turn(
-        _anthropic_text(blocks),
-        tuple(calls),
-        usage,
-        stop,
-        model,
-        rid,
-        status,
-        None,
-        tuple(provider_blocks),
+            kept.append((2, {"type": "tool_use", "id": call_id}))
+        elif kind == "text":
+            kept.append((1, {"type": "text", "text": str(block.get("text", ""))}))
+    ranks = [rank for rank, _ in kept]
+    in_order = ranks == sorted(ranks)
+    return tuple(calls), tuple(
+        ProviderBlock("anthropic", data) for rank, data in kept if rank == 0 or not in_order
     )
 
 
@@ -1189,23 +1354,9 @@ def _parse_openrouter(
     seen.append(_blank_ciphertext("openrouter", data))
     model, rid = _str_or_none(data.get("model")), _str_or_none(data.get("id"))
     if data.get("error"):
-        return ProviderError(
-            ErrorKind.SENT_CHARGE_UNKNOWN,
-            "ResponseError",
-            "the response carries an error object",
-            status,
-            reported_model=model,
-            request_id=rid,
-        )
+        return _response_error(status, model, rid)
     raw_usage = _sub(data, "usage")
-    cost_raw = None if raw_usage is None else raw_usage.get("cost")
-    billed: Decimal | None = None
-    if cost_raw is not None:
-        if isinstance(cost_raw, bool) or not isinstance(cost_raw, int | Decimal):
-            raise _BadReply("usage.cost is not a number")
-        billed = Decimal(cost_raw)
-        if not billed.is_finite() or billed < 0:
-            raise _BadReply("usage.cost is not a non-negative number")
+    billed = _openrouter_billed(raw_usage)
     usage = Usage(
         input_tokens=_count(raw_usage, "prompt_tokens"),
         cached_read_tokens=_count(_sub(raw_usage, "prompt_tokens_details"), "cached_tokens"),
@@ -1213,6 +1364,58 @@ def _parse_openrouter(
         output_tokens=_count(raw_usage, "completion_tokens"),
         reasoning_tokens=_count(_sub(raw_usage, "completion_tokens_details"), "reasoning_tokens"),
     )
+    reply = _Reported(status, usage, model, rid, billed)
+    try:
+        return _openrouter_turn(data, reply, seen, cut_as_turn)
+    except _BadReply as error:
+        if billed is None:
+            raise
+        # the charge is reported exactly: the reply is refused but settles from usage.cost
+        return _usage_error("UnparsableReply", str(error), status, usage, model, rid, billed)
+
+
+def _openrouter_billed(raw_usage: Mapping[str, Any] | None) -> Decimal | None:
+    cost_raw = None if raw_usage is None else raw_usage.get("cost")
+    if cost_raw is None:
+        return None
+    if isinstance(cost_raw, bool) or not isinstance(cost_raw, int | Decimal):
+        raise _BadReply("usage.cost is not a number")
+    billed = Decimal(cost_raw)
+    if not billed.is_finite() or billed < 0:
+        raise _BadReply("usage.cost is not a non-negative number")
+    return billed
+
+
+@dataclass(frozen=True)
+class _Reported:
+    """What a reply reported before its content was read."""
+
+    status: int
+    usage: Usage
+    model: str | None
+    rid: str | None
+    billed: Decimal | None
+
+
+def _openrouter_calls(message: Mapping[str, Any], seen: list[Any]) -> tuple[ToolCall, ...]:
+    tool_calls = message.get("tool_calls")
+    if tool_calls is None:
+        return ()
+    if not isinstance(tool_calls, list):
+        raise _BadReply("message.tool_calls is not a list")
+    calls: list[ToolCall] = []
+    for item in tool_calls:
+        fn = item.get("function") if isinstance(item, dict) else None
+        if not isinstance(fn, dict):
+            raise _BadReply("a tool call has no function")
+        call_id, name = _id(item, "id"), _id(fn, "name")
+        calls.append(_call(call_id, name, fn.get("arguments"), seen))
+    return tuple(calls)
+
+
+def _openrouter_turn(
+    data: Mapping[str, Any], reply: _Reported, seen: list[Any], cut_as_turn: bool
+) -> Turn | ProviderError:
     choices = data.get("choices")
     if not isinstance(choices, list) or not choices or not isinstance(choices[0], dict):
         raise _BadReply("choices is empty")
@@ -1220,13 +1423,7 @@ def _parse_openrouter(
     message = choice.get("message")
     if not isinstance(message, dict):
         raise _BadReply("choice has no message")
-    calls: list[ToolCall] = []
-    for item in message.get("tool_calls") or []:
-        fn = item.get("function") if isinstance(item, dict) else None
-        if not isinstance(fn, dict):
-            raise _BadReply("a tool call has no function")
-        call_id, name = _id(item, "id"), _id(fn, "name")
-        calls.append(_call(call_id, name, fn.get("arguments"), seen))
+    calls = _openrouter_calls(message, seen)
     details = message.get("reasoning_details")
     if details is None:
         details = []
@@ -1235,17 +1432,20 @@ def _parse_openrouter(
     content = message.get("content")
     stop = _OPENROUTER_STOP.get(str(choice.get("finish_reason")), "other")
     if stop == "max_tokens" and not calls and not cut_as_turn:
-        return _usage_error(REPLY_CUT, "finish_reason length", status, usage, model, rid, billed)
+        return _usage_error(
+            REPLY_CUT, "finish_reason length", reply.status, reply.usage, reply.model, reply.rid,
+            reply.billed,
+        )  # fmt: skip
     if calls and stop == "end":
         stop = "tool_use"
     return Turn(
         content if isinstance(content, str) else "",
-        tuple(calls),
-        usage,
+        calls,
+        reply.usage,
         stop,
-        model,
-        rid,
-        status,
-        billed,
+        reply.model,
+        reply.rid,
+        reply.status,
+        reply.billed,
         tuple(ProviderBlock("openrouter", dict(d)) for d in details),
     )

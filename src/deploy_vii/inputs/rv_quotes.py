@@ -14,7 +14,6 @@ never floats.
 """
 
 import re
-import zlib
 from collections.abc import Mapping, Sequence
 from datetime import date
 from decimal import Decimal
@@ -24,14 +23,20 @@ from urllib.parse import quote, unquote
 
 from pydantic import model_validator
 
-from deploy_vii.contracts import Contract, Span
-from deploy_vii.preparation import MAX_BYTES, SourceRequest, prepare_source
+from deploy_vii.contracts import Contract, Source, Span
+from deploy_vii.preparation import (
+    MAX_BYTES,
+    DamagedMember,
+    SourceRequest,
+    column_letters,
+    column_number,
+    prepare_source,
+)
 
 SHEET = "rv_quotes"
 MEDIA_TYPE: Final[Literal["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]] = (
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
-TEMPLATE = "docs/templates/rv-quotes.template.xlsx"
 COLUMNS = (
     "provider",
     "as_of",
@@ -67,6 +72,10 @@ FIX: Mapping[str, str] = {
         "enter a plain number: digits, an optional sign and one decimal point "
         "(no %, units, spaces or thousands separators)"
     ),
+    "long": "enter the number with at most 40 characters (Excel keeps 15 significant digits)",
+    "percent": "format the cell as General and enter the level as shown, e.g. 7.25 for 7.25 %",
+    "error_cell": "enter the real value in place of the error, or leave an optional cell empty",
+    "boolean_cell": "enter text or a plain number, not TRUE or FALSE",
     "levels": "enter at least one of price, yield_pct, spread_bps, bid or ask",
     "bid_ask": "check the quote: bid must not exceed ask",
     "issuer_provider": (
@@ -83,8 +92,8 @@ FIX: Mapping[str, str] = {
         f"{LETTERS[-1]}1)"
     ),
     "rows": "add one row per quote, starting in row 2",
-    "empty": f"copy the header row from {TEMPLATE} and add one row per quote",
-    "sheet": f"name the quote sheet {SHEET}, as in {TEMPLATE}",
+    "empty": f"enter the header row ({', '.join(COLUMNS)}) in row 1 and add one row per quote",
+    "sheet": f"name the quote sheet {SHEET}",
     "workbook": "save the file as an Excel Workbook (.xlsx) and validate again",
     "damaged": (
         "save the file again as an Excel Workbook (.xlsx) and validate again; prepare would "
@@ -93,11 +102,14 @@ FIX: Mapping[str, str] = {
     "read": "check the path and that the file is readable",
 }
 ECHO = 80  # characters of a cell value a message quotes
-# What `zipfile` raises for damaged members beyond `prepare_source`'s own refusals.
-DAMAGED = (zlib.error, EOFError, RuntimeError)
 # Native XLSX coordinates: bound the lexeme before integer/column arithmetic.
 ADDRESS = re.compile(r"([A-Z]{1,3})([1-9][0-9]{0,6})")
-NUMBER = re.compile(r"^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?$")
+MAX_NUMBER = 40  # characters of a number lexeme
+# A plain decimal with at most a two-digit exponent: with `MAX_NUMBER` characters every value
+# lies within 1e-140..1e140, so exact Decimal arithmetic and comparison never overflow.
+NUMBER = re.compile(r"^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]{1,2})?$")
+PERCENT_FORMATS = frozenset({"builtin:9", "builtin:10"})  # 0% and 0.00%
+LITERAL = re.compile(r'"[^"]*"|\\.')  # quoted text or an escaped character in a format code
 ISO_DATE = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$")
 SERIAL = re.compile(r"^[0-9]+(?:\.[0-9]+)?$")
 IDENTIFIER = re.compile(r"^[A-Za-z0-9_-]+$")
@@ -140,18 +152,69 @@ def report(rows: int, issues: Sequence[Issue]) -> ValidationReport:
     return ValidationReport(ok=not issues, rows=rows, issues=tuple(issues))
 
 
-def validate_rv_quotes(path: Path) -> ValidationReport:
-    """Validate one user-supplied quote workbook; every finding is an `Issue` with a fix."""
+def read_file(path: Path) -> bytes | str:
+    """The file's bytes (at most `MAX_BYTES` + 1, so an oversized file is still refused as
+    such), or the problem when it cannot be read."""
     try:
         with path.open("rb") as stream:
-            raw = stream.read(MAX_BYTES + 1)
+            return stream.read(MAX_BYTES + 1)
     except OSError as error:
-        reason = error.strerror or type(error).__name__
-        problem = f"cannot read the file: {reason}"
+        return f"cannot read the file: {error.strerror or type(error).__name__}"
+
+
+FAILED_PREFIX = "Preparation failed ("
+DAMAGED_PREFIX = f"{FAILED_PREFIX}{DamagedMember.__name__}): "
+
+
+def read_refusal(source: Source) -> tuple[str, str] | None:
+    """For a source a validator cannot use, the (problem, `FIX` key) of the refusal `prepare`
+    would freeze; None for a workbook `prepare_source` read that has no sheet at all, which the
+    sheet checks report by name."""
+    limitation = source.limitation or ""
+    failed = limitation.startswith(FAILED_PREFIX)
+    if not source.coverage and source.sha256 is not None and not failed:
+        return None
+    problem = "prepare cannot read this file as an OOXML workbook: "
+    if limitation.startswith(DAMAGED_PREFIX):
+        return problem + limitation.removeprefix(DAMAGED_PREFIX), "damaged"
+    return problem + limitation, "workbook"
+
+
+def validate_rv_quotes(path: Path) -> ValidationReport:
+    """Validate one user-supplied quote workbook; every finding is an `Issue` with a fix."""
+    raw = read_file(path)
+    if isinstance(raw, str):
         return report(
-            0, (Issue(file=path.name, sheet=SHEET, cell="A1", problem=problem, fix=FIX["read"]),)
+            0, (Issue(file=path.name, sheet=SHEET, cell="A1", problem=raw, fix=FIX["read"]),)
         )
     return validate_rv_bytes(path.name, raw)
+
+
+def _quote_grid(file: str, raw: bytes) -> dict[tuple[int, int], Span] | ValidationReport:
+    """The `rv_quotes` sheet's cells, or the one refusal that stops validation first: the file
+    cannot be read, has no such sheet, has a non-canonical locator or an empty sheet."""
+
+    def refused(*found: Issue) -> ValidationReport:
+        return report(0, found)
+
+    request = SourceRequest(source_id="rv-quotes", path=file, media_type=MEDIA_TYPE)
+    source = prepare_source(request, raw)
+    refusal = None if source.coverage else read_refusal(source)
+    if refusal is not None:
+        problem, fix = refusal
+        return refused(Issue(file=file, sheet=SHEET, cell="A1", problem=problem, fix=FIX[fix]))
+    sheets = [unquote(item.locator.removeprefix("sheet:")) for item in source.coverage]
+    if SHEET not in sheets:
+        problem = f"no sheet named {SHEET} (found: {', '.join(sheets) or 'none'})"
+        return refused(Issue(file=file, sheet=SHEET, cell="A1", problem=problem, fix=FIX["sheet"]))
+    grids, locator_issues = sheet_cells(source.spans, file)
+    if locator_issues:
+        return refused(*locator_issues)
+    grid = grids.get(SHEET, {})
+    if not any(span.text.strip() for span in grid.values()):
+        problem = f"sheet {SHEET} is empty"
+        return refused(Issue(file=file, sheet=SHEET, cell="A1", problem=problem, fix=FIX["empty"]))
+    return grid
 
 
 def validate_rv_bytes(file: str, raw: bytes) -> ValidationReport:
@@ -160,34 +223,9 @@ def validate_rv_bytes(file: str, raw: bytes) -> ValidationReport:
     def issue(cell: str, problem: str, fix: str) -> Issue:
         return Issue(file=file, sheet=SHEET, cell=cell, problem=problem, fix=fix)
 
-    request = SourceRequest(source_id="rv-quotes", path=file, media_type=MEDIA_TYPE)
-    try:
-        source = prepare_source(request, raw)
-    except DAMAGED as error:
-        # CPython's zipfile raises these for a corrupt deflate stream, a truncated member and a
-        # ZipCrypto-encrypted member; `prepare_source` does not catch them (follow-up), so
-        # `prepare` would stop on the same file. Reported, never swallowed.
-        kind = type(error).__name__
-        kind = kind if type(error).__module__ == "builtins" else f"{type(error).__module__}.{kind}"
-        problem = (
-            "prepare cannot read this file as an OOXML workbook: damaged ZIP member "
-            f"({kind}: {error})"
-        )
-        return report(0, (issue("A1", problem, FIX["damaged"]),))
-    if not source.coverage:
-        # `prepare_source` failed to extract: the same refusal `prepare` would freeze.
-        problem = f"prepare cannot read this file as an OOXML workbook: {source.limitation}"
-        return report(0, (issue("A1", problem, FIX["workbook"]),))
-    sheets = [unquote(item.locator.removeprefix("sheet:")) for item in source.coverage]
-    if SHEET not in sheets:
-        found = ", ".join(sheets) or "none"
-        return report(0, (issue("A1", f"no sheet named {SHEET} (found: {found})", FIX["sheet"]),))
-    grids, locator_issues = sheet_cells(source.spans, file)
-    if locator_issues:
-        return report(0, locator_issues)
-    grid = grids.get(SHEET, {})
-    if not any(span.text.strip() for span in grid.values()):
-        return report(0, (issue("A1", f"sheet {SHEET} is empty", FIX["empty"]),))
+    grid = _quote_grid(file, raw)
+    if isinstance(grid, ValidationReport):
+        return grid
     data = sorted({row for _, row in grid if row > 1 and nonblank(grid, row)})
     header = header_issue(grid)
     if header is not None:
@@ -225,10 +263,7 @@ def sheet_cells(
             continue
         else:
             match = ADDRESS.fullmatch(address)
-            column = 0
-            if match is not None:
-                for char in match.group(1):
-                    column = column * 26 + ord(char) - ord("A") + 1
+            column = 0 if match is None else column_number(match.group(1))
             if match is None or column > 16384 or int(match.group(2)) > 1048576:
                 problem = f"cell address '{echo(address)}' is not canonical A1 within A1:XFD1048576"
             else:
@@ -260,31 +295,55 @@ def nonblank(grid: Mapping[tuple[int, int], Span], row: int) -> bool:
     return any(text(grid, column, row) for column in range(1, len(COLUMNS) + 1))
 
 
-def header_issue(grid: Mapping[tuple[int, int], Span]) -> tuple[str, str] | None:
-    """The first header cell that is not the template's, as (cell, problem)."""
-    for column, expected in enumerate(COLUMNS, 1):
+def header_issue(
+    grid: Mapping[tuple[int, int], Span], names: Sequence[str] = COLUMNS
+) -> tuple[str, str] | None:
+    """The first header cell that is not the template's `names`, as (cell, problem)."""
+    for column, expected in enumerate(names, 1):
         found = text(grid, column, 1)
         if found != expected:
             shown = f"'{echo(found)}'" if found else "empty"
-            return f"{LETTERS[column - 1]}1", f"header is {shown}, expected '{expected}'"
-    extra = sorted(column for column, row in grid if row == 1 and column > len(COLUMNS))
-    for column in extra:
+            return f"{cell_letters(column)}1", f"header is {shown}, expected '{expected}'"
+    last = cell_letters(len(names))
+    for column in sorted(column for column, row in grid if row == 1 and column > len(names)):
         found = text(grid, column, 1)
         if found:
-            letters = cell_letters(column)
             return (
-                f"{letters}1",
-                f"header is '{echo(found)}', expected nothing after {LETTERS[-1]}1",
+                f"{cell_letters(column)}1",
+                f"header is '{echo(found)}', expected nothing after {last}1",
             )
     return None
 
 
-def cell_letters(column: int) -> str:
-    letters = ""
-    while column:
-        column, remainder = divmod(column - 1, 26)
-        letters = chr(ord("A") + remainder) + letters
-    return letters
+cell_letters = column_letters
+
+
+def percent_formatted(span: Span) -> bool:
+    """A numeric cell whose number format scales it by 100 for display: builtin 9 or 10, or a
+    custom code with a `%` outside quoted text and escapes (`0.00"%"` only shows a sign)."""
+    code = span.number_format
+    if span.data_type != "n" or code is None:
+        return False
+    if code.startswith("builtin:"):
+        return code in PERCENT_FORMATS
+    return "%" in LITERAL.sub("", code)
+
+
+def span_problem(name: str, span: Span | None) -> tuple[str, str] | None:
+    """What the frozen cell itself refuses, as (problem, fix): a formula, an Excel error, a
+    TRUE/FALSE cell, or a level formatted as a percentage (Excel stores 7.25 % as 0.0725)."""
+    if span is None:
+        return None
+    if span.formula is not None:
+        problem = f"{name} holds a formula; prepare freezes stored values and never recalculates"
+        return problem, FIX["formula"]
+    if span.data_type == "e":
+        return f"{name} holds the Excel error '{echo(span.text.strip())}'", FIX["error_cell"]
+    if span.data_type == "b":
+        return f"{name} holds a TRUE/FALSE cell", FIX["boolean_cell"]
+    if name in LEVELS and percent_formatted(span):
+        return f"{name} '{echo(span.text.strip())}' is formatted as a percentage", FIX["percent"]
+    return None
 
 
 def row_findings(
@@ -298,11 +357,9 @@ def row_findings(
     for column, name in enumerate(COLUMNS, 1):
         span = grid.get((column, row))
         values[name] = "" if span is None else span.text.strip()
-        if span is not None and span.formula is not None:
-            problem = (
-                f"{name} holds a formula; prepare freezes stored values and never recalculates"
-            )
-            findings.append((f"{LETTERS[column - 1]}{row}", problem, FIX["formula"]))
+        found = span_problem(name, span)
+        if found is not None:
+            findings.append((f"{LETTERS[column - 1]}{row}", *found))
             flagged.add(name)
     for name in COLUMNS:
         if name in flagged:
@@ -340,6 +397,8 @@ def column_problem(name: str, values: Mapping[str, str]) -> tuple[str, str] | No
         problem = f"currency '{echo(value)}' is not a three-letter ISO 4217 code"
     elif name in LEVELS and value and not NUMBER.match(value):
         problem = f"{name} '{echo(value)}' is not a number"
+    elif name in LEVELS and len(value) > MAX_NUMBER:
+        return f"{name} '{echo(value)}' is longer than {MAX_NUMBER} characters", FIX["long"]
     if problem is None:
         return None
     return problem, FIX["number"] if name in LEVELS else FIX[name]

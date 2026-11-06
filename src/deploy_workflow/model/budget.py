@@ -33,13 +33,14 @@ import json
 import os
 import re
 import threading
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from decimal import Context, Decimal, DecimalException, Inexact, InvalidOperation
 from pathlib import Path
 from typing import Literal
 
 from deploy_workflow.model.pricing import money_text, price_of, refusal_values
+from deploy_workflow.platform_io import flags, fsync_directory, write_all
 
 __all__ = [
     "Budget",
@@ -153,65 +154,8 @@ class ReservationSnapshot:
 
 def read_reservation_snapshot(run_dir: Path) -> tuple[ReservationSnapshot, ...]:
     """Read and validate an existing execution directory's reservation journal read-only."""
-    execution = Path(run_dir)
-    directory = execution / AUDIT / RESERVATIONS
-    for path, label in (
-        (execution, "execution"),
-        (execution / AUDIT, "audit"),
-        (directory, "reservation directory"),
-    ):
-        if path.is_symlink():
-            raise BudgetError(f"{label} is a symbolic link")
-    if not directory.exists():
-        return ()
-    if not directory.is_dir():
-        raise BudgetError("reservation directory is not a directory")
-    names = sorted(path.name for path in directory.iterdir())
-    holds: dict[str, _Hold] = {}
-    settled: dict[str, _Settlement] = {}
-    for name in names:
-        path = directory / name
-        if path.is_symlink():
-            raise BudgetError(f"marker {name} is a symbolic link")
-        if not path.is_file():
-            raise BudgetError(f"marker {name} is not a regular file")
-        if name.endswith(_SETTLED):
-            continue
-        call_id = _call_id(name)
-        raw = _read_marker(path)
-        retry_of, config_id = raw.get("retry_of"), raw.get("config_id")
-        if (
-            not isinstance(config_id, str)
-            or not config_id
-            or not (retry_of is None or isinstance(retry_of, str))
-        ):
-            raise BudgetError(f"marker {name} has the wrong field types")
-        holds[call_id] = _Hold(_decimal_text("usd", raw.get("usd")), config_id, retry_of)
-    for name in names:
-        if not name.endswith(_SETTLED):
-            continue
-        call_id = name[: -len(_SETTLED)]
-        _call_id(call_id)
-        if call_id not in holds:
-            raise BudgetError(f"settled marker {name} has no reservation")
-        raw = _read_marker(directory / name)
-        status, retryable = raw.get("status"), raw.get("retryable")
-        if status not in ("settled", "unknown", "overrun", "released") or not isinstance(
-            retryable, bool
-        ):
-            raise BudgetError(f"marker {name} has the wrong field types")
-        usd = _decimal_text("usd", raw.get("usd"))
-        hold = holds[call_id]
-        if (
-            (status == "released" and usd != 0)
-            or (status == "unknown" and usd != hold.usd)
-            or (status == "settled" and usd > hold.usd)
-            or (status == "overrun" and usd <= hold.usd)
-            or (status in ("settled", "released", "overrun") and retryable)
-        ):
-            raise BudgetError(f"marker {name} has incoherent settlement money or status")
-        settled[call_id] = _Settlement(status, usd, retryable)
-    snapshots = tuple(
+    holds, settled = _journal(Path(run_dir))
+    return tuple(
         ReservationSnapshot(
             call_id,
             hold.usd,
@@ -223,28 +167,122 @@ def read_reservation_snapshot(run_dir: Path) -> tuple[ReservationSnapshot, ...]:
         )
         for call_id, hold in sorted(holds.items())
     )
-    reserved = exact_sum(m.usd for m in snapshots if m.status is None)
-    spent = exact_sum(m.settled_usd for m in snapshots if m.settled_usd is not None)
-    exact_sum((reserved, spent))
 
-    by_id = {marker.call_id: marker for marker in snapshots}
-    retries = [marker for marker in snapshots if marker.retry_of is not None]
+
+def _journal(execution: Path) -> tuple[dict[str, _Hold], dict[str, _Settlement]]:
+    """The validated holds and settlements under ``execution``; empty when none exist yet."""
+    directory = _check_layout(execution)
+    if directory is None:
+        return {}, {}
+    names = _marker_names(directory)
+    holds = _read_holds(directory, names)
+    settled = _read_settlements(directory, names, holds)
+    reserved = exact_sum(h.usd for c, h in holds.items() if c not in settled)
+    exact_sum((reserved, exact_sum(s.usd for s in settled.values())))
+    _check_retries(holds, settled)
+    return holds, settled
+
+
+def _check_layout(execution: Path) -> Path | None:
+    """The reservation directory under ``execution``, or None when it does not exist yet."""
+    directory = execution / AUDIT / RESERVATIONS
+    for path, label in (
+        (execution, "execution"),
+        (execution / AUDIT, "audit"),
+        (directory, "reservation directory"),
+    ):
+        if path.is_symlink():
+            raise BudgetError(f"{label} is a symbolic link")
+    if not directory.exists():
+        return None
+    if not directory.is_dir():
+        raise BudgetError("reservation directory is not a directory")
+    return directory
+
+
+def _marker_names(directory: Path) -> list[str]:
+    """The sorted marker names; every entry must be a regular file, never a symbolic link."""
+    names = sorted(path.name for path in directory.iterdir())
+    for name in names:
+        path = directory / name
+        if path.is_symlink():
+            raise BudgetError(f"marker {name} is a symbolic link")
+        if not path.is_file():
+            raise BudgetError(f"marker {name} is not a regular file")
+    return names
+
+
+def _read_holds(directory: Path, names: list[str]) -> dict[str, _Hold]:
+    holds: dict[str, _Hold] = {}
+    for name in names:
+        if name.endswith(_SETTLED):
+            continue
+        call_id = _call_id(name)
+        raw = _read_marker(directory / name)
+        retry_of, config_id = raw.get("retry_of"), raw.get("config_id")
+        if (
+            not isinstance(config_id, str)
+            or not config_id
+            or not (retry_of is None or isinstance(retry_of, str))
+        ):
+            raise BudgetError(f"marker {name} has the wrong field types")
+        holds[call_id] = _Hold(_decimal_text("usd", raw.get("usd")), config_id, retry_of)
+    return holds
+
+
+def _read_settlements(
+    directory: Path, names: list[str], holds: Mapping[str, _Hold]
+) -> dict[str, _Settlement]:
+    settled: dict[str, _Settlement] = {}
+    for name in names:
+        if not name.endswith(_SETTLED):
+            continue
+        call_id = _call_id(name[: -len(_SETTLED)])
+        if call_id not in holds:
+            raise BudgetError(f"settled marker {name} has no reservation")
+        raw = _read_marker(directory / name)
+        status, retryable = raw.get("status"), raw.get("retryable")
+        if status not in _STATUSES or not isinstance(retryable, bool):
+            raise BudgetError(f"marker {name} has the wrong field types")
+        settlement = _Settlement(str(status), _decimal_text("usd", raw.get("usd")), retryable)
+        if _incoherent(settlement, holds[call_id]):
+            raise BudgetError(f"marker {name} has incoherent settlement money or status")
+        settled[call_id] = settlement
+    return settled
+
+
+_STATUSES = ("settled", "unknown", "overrun", "released")
+
+
+def _incoherent(settlement: _Settlement, hold: _Hold) -> bool:
+    """A settlement whose money or retry flag cannot follow from its hold."""
+    status, usd = settlement.status, settlement.usd
+    return (
+        (status == "released" and usd != 0)
+        or (status == "unknown" and usd != hold.usd)
+        or (status == "settled" and usd > hold.usd)
+        or (status == "overrun" and usd <= hold.usd)
+        or (status in ("settled", "released", "overrun") and settlement.retryable)
+    )
+
+
+def _check_retries(holds: Mapping[str, _Hold], settled: Mapping[str, _Settlement]) -> None:
+    """At most one retry, naming a retryable unknown hold of the same configuration."""
+    retries = [(c, hold) for c, hold in sorted(holds.items()) if hold.retry_of is not None]
     if len(retries) > 1:
         raise BudgetError("reservation journal uses more than one retry")
-    for retry in retries:
+    for call_id, retry in retries:
         parent_id = _call_id(retry.retry_of)
-        if parent_id == retry.call_id:
-            raise BudgetError(f"retry marker {retry.call_id} points to itself")
-        parent = by_id.get(parent_id)
+        if parent_id == call_id:
+            raise BudgetError(f"retry marker {call_id} points to itself")
+        parent = holds.get(parent_id)
         if parent is None:
-            raise BudgetError(f"retry marker {retry.call_id} has no parent reservation {parent_id}")
+            raise BudgetError(f"retry marker {call_id} has no parent reservation {parent_id}")
         if parent.config_id != retry.config_id:
-            raise BudgetError(
-                f"retry marker {retry.call_id} has a different config from its parent"
-            )
-        if parent.status != "unknown" or not parent.retryable:
-            raise BudgetError(f"retry marker {retry.call_id} parent is not retryable unknown")
-    return snapshots
+            raise BudgetError(f"retry marker {call_id} has a different config from its parent")
+        outcome = settled.get(parent_id)
+        if outcome is None or outcome.status != "unknown" or not outcome.retryable:
+            raise BudgetError(f"retry marker {call_id} parent is not retryable unknown")
 
 
 def _decimal(name: str, value: object) -> Decimal:
@@ -266,25 +304,15 @@ def _write_once(path: Path, payload: dict[str, object]) -> None:
     """Create ``path`` exclusively, write, fsync the file and its directory."""
     data = json.dumps(payload, sort_keys=True).encode()
     try:
-        fd = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+        fd = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY | flags("O_BINARY"), 0o600)
     except FileExistsError:
         raise DuplicateCall(f"{path.name} already exists") from None
     try:
-        view = memoryview(data)
-        while view:
-            view = view[os.write(fd, view) :]
+        write_all(fd, data)
         os.fsync(fd)
     finally:
         os.close(fd)
-    _fsync_dir(path.parent)
-
-
-def _fsync_dir(path: Path) -> None:
-    fd = os.open(path, os.O_RDONLY)
-    try:
-        os.fsync(fd)
-    finally:
-        os.close(fd)
+    fsync_directory(path.parent)
 
 
 def _make_dirs(target: Path) -> None:
@@ -296,7 +324,7 @@ def _make_dirs(target: Path) -> None:
         probe = probe.parent
     for directory in reversed(missing):
         directory.mkdir()
-        _fsync_dir(directory.parent)
+        fsync_directory(directory.parent)
 
 
 def _decimal_text(name: str, value: object) -> Decimal:
@@ -335,13 +363,7 @@ class Budget:
         self._load()
 
     def _load(self) -> None:
-        for marker in read_reservation_snapshot(self._dir.parents[1]):
-            self._holds[marker.call_id] = _Hold(marker.usd, marker.config_id, marker.retry_of)
-            if marker.status is not None:
-                assert marker.settled_usd is not None
-                self._settled[marker.call_id] = _Settlement(
-                    marker.status, marker.settled_usd, marker.retryable
-                )
+        self._holds, self._settled = _journal(self._dir.parents[1])
         self._crash_left = {call_id for call_id in self._holds if call_id not in self._settled}
 
     # -- state ------------------------------------------------------------------------
@@ -387,14 +409,10 @@ class Budget:
             return tuple(sorted(c for c in self._holds if c not in self._settled))
 
     def _reserved(self) -> Decimal:
-        return self._sum(h.usd for c, h in self._holds.items() if c not in self._settled)
+        return exact_sum(h.usd for c, h in self._holds.items() if c not in self._settled)
 
     def _spent(self) -> Decimal:
-        return self._sum(s.usd for s in self._settled.values())
-
-    @staticmethod
-    def _sum(values: Iterable[Decimal]) -> Decimal:
-        return exact_sum(values)
+        return exact_sum(s.usd for s in self._settled.values())
 
     def _retried(self) -> set[str]:
         return {h.retry_of for h in self._holds.values() if h.retry_of is not None}

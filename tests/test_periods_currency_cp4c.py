@@ -648,7 +648,7 @@ def test_the_upstream_carries_the_bound_cp1_register(monkeypatch: pytest.MonkeyP
 
     stubs: dict[str, Any] = {
         "_required_module": required_module,
-        "cp1_of": lambda mod, status: eur.cp1,
+        "cp1_of": lambda mod, status, facility_id: eur.cp1,
         "cp2a_reader": lambda store, head: eur.cp2a,
         "cp4_reader": lambda store, head: eur.cp4,
         "cp2g_of": lambda read: eur.cp2g,

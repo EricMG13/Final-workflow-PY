@@ -3,7 +3,10 @@
 Decision 0006 DC-5: CP-MODEL publishes the promoted CP-1 financial model as the Model
 destination (an HTML page) and its calculation JSON. `publish_cp_model` builds the CP-MODEL
 `Module` in Python, writes the files into a new directory and settles the head only once
-every file is written; a failed write interrupts the attempt and leaves no head.
+every file is written; a failed write or finish interrupts the attempt and leaves no head, and
+removes the receipt, so no directory names a head the journal did not settle (the files
+written before the failure stay for the caller to hash and quarantine). Each file is written
+as the exact UTF-8 bytes the receipt hashes: no newline translation on any platform.
 """
 
 import json
@@ -204,10 +207,27 @@ def _verifier(store: Execution, ticket_id: str) -> Validator:
 
 
 def _write(output: Path, files: dict[str, str]) -> None:
-    """Create `output` (new) and write every file; the receipt is last."""
+    """Create `output` (new) and write every file as its UTF-8 bytes, the bytes `text_sha256`
+    hashes; the receipt is last."""
     output.mkdir(parents=True, exist_ok=False)
     for name, raw in files.items():
-        (output / name).write_text(raw, encoding="utf-8")
+        (output / name).write_bytes(raw.encode("utf-8"))
+
+
+def _withdraw_receipt(output: Path) -> str | None:
+    """Remove the receipt of a publication the journal did not settle as named; the reason it
+    could not be removed, or None."""
+    try:
+        (output / RECEIPT).unlink(missing_ok=True)
+    except OSError as error:
+        return f"the receipt could not be removed: {error}"
+    return None
+
+
+def _failed(output: Path, reason: str) -> str:
+    """`reason` with the receipt withdrawn, or with why it could not be."""
+    failure = _withdraw_receipt(output)
+    return reason if failure is None else f"{reason}; {failure}"
 
 
 def _page(store: Execution, settled: Module) -> str:
@@ -283,8 +303,9 @@ def publish_cp_model(store: Execution, *, output: Path) -> Attempt:
     it in memory (`settle`, the journal's own rule) to learn the head it will become, render the
     page for that head, write `model.html`, `calculation.json` and `receipt.json` (last), and
     only then finish the attempt. Any failure before or at the finish interrupts the attempt
-    (no head from this attempt); a second consecutive failure leaves a `blocked` head, which is
-    the journal's repair rule (decision 0007), not an addition here.
+    (no head from this attempt) and removes the receipt it wrote; a second consecutive failure
+    leaves a `blocked` head, which is the journal's repair rule (decision 0007), not an
+    addition here.
     """
     basis = _basis(store)
     if output.exists():
@@ -302,18 +323,26 @@ def publish_cp_model(store: Execution, *, output: Path) -> Attempt:
         reason = _interrupt(store, ticket, f"CP-MODEL publication failed: {error}")
         if isinstance(error, CpModelRefused):
             raise
+        if not isinstance(error, FileExistsError):  # a refused mkdir: the directory is not ours
+            reason = _failed(output, reason)
         raise CpModelRefused(reason) from error
     try:
         finished = store.finish(ticket, payload, _verifier(store, ticket), qualification=PUBLISHED)
     except ValueError as error:  # e.g. the inputs changed after the files were written
-        raise CpModelRefused(
-            _interrupt(store, ticket, f"CP-MODEL publication failed: {error}")
-        ) from error
+        reason = _interrupt(store, ticket, f"CP-MODEL publication failed: {error}")
+        raise CpModelRefused(_failed(output, reason)) from error
+    except OSError as error:  # a journal write error: the caller interrupts and quarantines
+        if (failure := _withdraw_receipt(output)) is not None:
+            error.add_note(failure)
+        raise
     head = next((h for h in store.read().heads if h.module_id == MODULE_ID), None)
     if finished.issues or head is None or head.result_sha256 != settled.content_hash():
         raise CpModelRefused(
-            "Journal settled a different CP-MODEL than the published files name: "
-            + "; ".join(finished.issues)
+            _failed(
+                output,
+                "Journal settled a different CP-MODEL than the published files name: "
+                + "; ".join(finished.issues),
+            )
         )
     return finished
 
@@ -325,8 +354,9 @@ def verify_cp_model_publication(store: Execution, output: Path) -> tuple[str, ..
     """Issues found checking `output` against the journal; empty means it verifies.
 
     Re-derives from the journal alone: the CP-MODEL head must equal the candidate rebuilt from
-    the promoted CP-1, and `model.html`, `calculation.json` and `receipt.json` must equal the
-    bytes re-derived for that head. Nothing is trusted from the directory.
+    the promoted CP-1 (its own limitations, and so its restriction, included), and
+    `model.html`, `calculation.json` and `receipt.json` must equal the bytes re-derived for
+    that head. Nothing is trusted from the directory.
     """
     snapshot = store.read()
     head = next((h for h in snapshot.heads if h.module_id == MODULE_ID), None)
@@ -350,6 +380,12 @@ def verify_cp_model_publication(store: Execution, output: Path) -> tuple[str, ..
         expected.claims,
     ):
         issues.append("CP-MODEL head differs from its re-derivation from the journal")
+    # Settling may add inherited limitations, never drop the candidate's own (a restricted CP-1
+    # basis restricts the Model).
+    if not set(expected.limitations) <= set(settled.limitations) or (
+        expected.limitations and settled.status != "restricted"
+    ):
+        issues.append("CP-MODEL head drops a limitation or the restriction of its re-derivation")
     derived = {
         PAGE: page,
         CALCULATION: basis.calculation,
@@ -357,10 +393,10 @@ def verify_cp_model_publication(store: Execution, output: Path) -> tuple[str, ..
     }
     for name, text in derived.items():
         try:
-            found = (output / name).read_text(encoding="utf-8")
-        except (OSError, ValueError) as error:
+            found = (output / name).read_bytes()
+        except OSError as error:
             issues.append(f"{name} cannot be read: {error}")
             continue
-        if found != text:
+        if found != text.encode("utf-8"):  # the exact bytes: a translated newline differs
             issues.append(f"{name} differs from its re-derivation from the journal")
     return tuple(issues)

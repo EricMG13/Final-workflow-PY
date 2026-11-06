@@ -339,12 +339,25 @@ ANCHOR = (
     "there is no submission, and the remedy is a rerun"
 )
 CLAIM_TEXT = "builds Python's claim text"
+HEAD_UNWORDED = (
+    "a bound CP-4 head this version does not word fails closed; the remedy is upstream or a later "
+    "version, not a rewrite"
+)
+# Entry validators whose one issue site refuses an unreadable (missing or tampered) bound upstream
+# head before any content check: the remedy is a rerun. They take the attempt, so a test pins that
+# one site instead of the no-submission test; a second site in them is a content check and fails it.
+UPSTREAM_ENTRY_SITE = "Unreadable upstream heads: "
+UPSTREAM_ENTRIES = (
+    "fn:deploy_vii.cp4_legal:_validate_step",
+    "fn:deploy_vii.cp6_committee:_validate_step",
+)
 NON_CONTENT: Mapping[str, str] = {
     "fn:deploy_vii.cp2_synthesis:_provenance_issues": UPSTREAM,
     "fn:deploy_vii.cp2_synthesis:_stale_issues": UPSTREAM,
     "fn:deploy_vii.cp3_relative_value:_provenance_issues": UPSTREAM,
     "fn:deploy_vii.cp3_relative_value:_stale_issues": UPSTREAM,
     "fn:deploy_vii.cp4_legal:stale_issues": UPSTREAM,
+    **dict.fromkeys(UPSTREAM_ENTRIES, UPSTREAM),
     "fn:deploy_vii.cp6_committee:_provenance_issues": UPSTREAM,
     "fn:deploy_vii.cp6_committee:_stale_issues": UPSTREAM,
     "fn:deploy_workflow.owners.cp1c:_provenance_issues": UPSTREAM,
@@ -353,11 +366,11 @@ NON_CONTENT: Mapping[str, str] = {
     "fn:deploy_workflow.owners.cp1d:_stale_issues": UPSTREAM,
     "fn:deploy_workflow.owners.cp2a:_stale_issues": UPSTREAM,
     "fn:deploy_workflow.owners.cp2d:_provenance_issues": UPSTREAM,
-    "fn:deploy_workflow.owners.cp2d:_stale_issues": UPSTREAM,
-    "fn:deploy_workflow.owners.cp2g:stale_issues": UPSTREAM,
-    "fn:deploy_workflow.owners.cp2h:stale_issues": UPSTREAM,
     "fn:deploy_workflow.owners.cp3c:_provenance_issues": UPSTREAM,
     "fn:deploy_workflow.owners.cp4c:stale_issues": UPSTREAM,
+    "fn:deploy_workflow.owners.cp4c:cp4_head_issues": HEAD_UNWORDED,
+    # the shared staleness check CP-2D, CP-2G and CP-2H call (it replaced their own)
+    "fn:deploy_workflow.owners.exact:stale_issues": UPSTREAM,
     # oracle ids (O6-P18a): a stale input, and a source the validator cannot read
     **{f"oracle:cp2a:{i}": UPSTREAM for i in ("v17",)},
     **{f"oracle:cp2g:{i}": UPSTREAM for i in ("v18", "v19", "v20")},

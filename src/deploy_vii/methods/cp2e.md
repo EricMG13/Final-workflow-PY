@@ -66,6 +66,13 @@ A sentence operand (facility balance, spread, floor) is at most 999.9999, so a b
 or more cannot be quoted by this step; that is stated, not a source limit.
 
 ## Other notes
+- Review 2026-11-06: a `Cash interest paid` value printed in accounting parentheses is an
+  outflow magnitude, stored positive as a `normalized` fact whose basis records the sign
+  reversal; a negative `total_debt` is refused; a rate shock is never added to a negative
+  base. A FIXED `reference_rate` is checked against its quote like a FLOATING one. A
+  financial page stating a year end other than December 31 is refused (calendar years only).
+  `shock_rationale` and absence reasons are checked for prohibited conclusions; quoted values
+  are shown at their quoted precision (at most six decimals).
 - A blank quote (`prose.is_blank`: whitespace, control (`Cc`) and format (`Cf`) characters, the default-ignorable code points that `str.strip()` keeps (U+034F, U+115F, U+1160, U+17B4, U+17B5, U+180B-U+180F, U+3164, U+FE00-U+FE0F, U+FFA0, U+E0100-U+E01EF) and U+2800, or the empty string) is refused
   with `<path>.quote: empty text` before the page check; the re-export inherits it.
 - `reference_rate` is compared normalised with the normalised quote, so a U+2212 name occurs

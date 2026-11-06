@@ -18,6 +18,7 @@ import re
 import sys
 import tempfile
 import textwrap
+import types
 from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import date
@@ -30,10 +31,13 @@ from deploy_vii.registry import plan
 from deploy_vii.report_view import _spec_of, pathways
 from deploy_workflow.context import CONTEXT_SOURCE_ID, load_context
 from deploy_workflow.handoff_delivery import (
+    ChartUnit,
     DeliveryRequest,
+    FigureId,
     HandoffInput,
     MarkdownLayout,
     MarkdownRoute,
+    heading_text,
     section,
 )
 from deploy_workflow.html_text import convert_html
@@ -273,6 +277,19 @@ def _html_page_rows(name: str, raw: bytes) -> bytes:
     return "\n".join(rows).encode() + b"\n"
 
 
+def pinned_path(
+    path: str | os.PathLike[str],
+    directory: str | os.PathLike[str],
+    pathmod: types.ModuleType = os.path,
+) -> str:
+    """How the manifest names ``path``: relative to the run folder on the same drive, else
+    absolute (Windows cannot relate paths on two drives; ``base / absolute`` is absolute)."""
+    target, start = str(path), str(directory)
+    if pathmod.splitdrive(target)[0].casefold() != pathmod.splitdrive(start)[0].casefold():
+        return str(pathmod.abspath(target))
+    return str(pathmod.relpath(target, start))
+
+
 def _issuer_files(
     folder: Path, context: Path, directory: Path
 ) -> tuple[dict[str, HandoffInput], dict[str, bytes], tuple[str, ...]]:
@@ -309,14 +326,14 @@ def _issuer_files(
             converted[f"source-text/{key}"] = readable
             pinned[key] = HandoffInput(path=f"source-text/{key}", sha256=_sha(readable))
         else:
-            pinned[key] = HandoffInput(path=os.path.relpath(path, directory), sha256=_sha(raw))
+            pinned[key] = HandoffInput(path=pinned_path(path, directory), sha256=_sha(raw))
     if not pinned:
         raise LaunchRefused(f"--sources {folder}: no readable issuer file")
     return pinned, converted, tuple(ignored)
 
 
 # Fixed so any run's charts can be read without issuer-specific row selectors.
-CHART_TABLES: dict[str, tuple[str, tuple[str, ...], str]] = {
+CHART_TABLES: dict[FigureId, tuple[str, tuple[str, ...], ChartUnit]] = {
     "S.1": ("Chart data: leverage", ("Total debt / EBITDA", "Net debt / EBITDA"), "x"),
     "S.2": ("Chart data: interest cover", ("EBITDA / cash interest",), "x"),
     "S.3": ("Chart data: liquidity", ("Cash", "Undrawn committed facilities"), "US$m"),
@@ -327,7 +344,7 @@ NOT_SUPPLIED = "Not supplied:"
 PLAIN_NUMBER = re.compile(r"-?\d[\d,]*(?:\.\d+)?")
 
 
-def _chart_route(block_id: str, figure: str) -> MarkdownRoute:
+def _chart_route(block_id: str, figure: FigureId) -> MarkdownRoute:
     heading, columns, unit = CHART_TABLES[figure]
     return MarkdownRoute(
         module_id="CP-1",
@@ -353,7 +370,7 @@ def chart_issues(text: str, route: MarkdownRoute) -> tuple[str, ...]:
         return (f"Add `{heading}` inside ## Findings, with its table.",)
     rows = []
     for line in lines[lines.index(heading) + 1 :]:
-        if line.startswith("#"):
+        if heading_text(line) is not None:
             break
         if line.startswith("|"):
             rows.append([cell.strip() for cell in line.strip().strip("|").split("|")])
@@ -546,7 +563,7 @@ def prepare(
         sources={
             **pinned,
             CONTEXT_SOURCE_ID: HandoffInput(
-                path=os.path.relpath(context_path, directory), sha256=_sha(raw_context)
+                path=pinned_path(context_path, directory), sha256=_sha(raw_context)
             ),
         },
         instructions={

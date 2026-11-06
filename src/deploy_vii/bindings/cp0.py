@@ -1,31 +1,22 @@
 """CP-0 source readiness -> header, Evidence and Limitations blocks."""
 
-from deploy_vii.bindings import Binding, BindingMap
-from deploy_vii.display import UnitClass
-from deploy_vii.report_view import FactCoord
+from deploy_vii.bindings import Binder, BindingMap
 
-
-def _bind(table: str, block: str, slot: str, unit: UnitClass = "text") -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id="CP-0", table_id=table),
-        block_id=block,
-        cell_slot=slot,
-        unit_class=unit,
-    )
+_bind = Binder("CP-0").bind
 
 
 CP0 = BindingMap(
     module_id="CP-0",
     entries=(
-        _bind("T1", "header", "run-identity"),
-        _bind("T2", "evidence", "source-inventory"),
-        _bind("P3", "evidence", "source-classification"),
-        _bind("P5", "evidence", "preparation"),
-        _bind("T3", "evidence", "authority"),
-        _bind("T6", "evidence", "quotations"),
-        _bind("T4", "evidence", "consumer-readiness"),
-        _bind("T8", "evidence", "commands"),
-        _bind("T5", "limitations", "gaps"),
-        _bind("T7", "limitations", "assertion-scope"),
+        _bind("T1", "header", slot="run-identity"),
+        _bind("T2", "evidence", slot="source-inventory"),
+        _bind("P3", "evidence", slot="source-classification"),
+        _bind("P5", "evidence", slot="preparation"),
+        _bind("T3", "evidence", slot="authority"),
+        _bind("T6", "evidence", slot="quotations"),
+        _bind("T4", "evidence", slot="consumer-readiness"),
+        _bind("T8", "evidence", slot="commands"),
+        _bind("T5", "limitations", slot="gaps"),
+        _bind("T7", "limitations", slot="assertion-scope"),
     ),
 )

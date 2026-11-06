@@ -15,8 +15,6 @@ turns the settled CP-1 head into ``Cp2dInputs`` (`_inputs`), the composition of 
 into a ``Module`` (`liquidity_bridge`, `cp2d_module`) and the consumer reader `cp2d_reader`.
 """
 
-import hashlib
-import json
 from calendar import monthrange
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, replace
@@ -66,6 +64,7 @@ from deploy_vii.report_view import figure_unit
 from deploy_workflow.context import ContextRefused, context_facts
 from deploy_workflow.owners.blank import is_blank, one_per_page
 from deploy_workflow.owners.cp1a import probe_one_step
+from deploy_workflow.owners.exact import compact_view, exact_text, stale_issues
 from deploy_workflow.owners.period_basis import (
     DEFAULT_BASIS,
     PeriodBasis,
@@ -147,6 +146,14 @@ class Facility:
     annual_amortisation: Decimal | None
     # Round 13 (R1 M1): the row's own CP-1 ``period`` string (one per row: the alias agrees).
     period: str
+    # Review S13: (field, CP-1 status, CP-1 limitation) of each term CP-1 reports conflicting or
+    # not applicable, so its gap keeps CP-1's status and limitation. A missing term keeps the
+    # "is not stated" frame (its value is None and it is not listed here).
+    unsettled: tuple[tuple[str, OperandStatus, str], ...] = ()
+
+    def held(self, field: str) -> tuple[OperandStatus, str] | None:
+        """CP-1's (status, limitation) of a conflicting or not applicable term, else None."""
+        return next(((st, why) for name, st, why in self.unsettled if name == field), None)
 
 
 @dataclass(frozen=True)
@@ -314,9 +321,8 @@ DRAWINGS_UNDRAWN = "Undrawn revolver not calculable: drawings undisclosed"
 DRAWINGS_AVAILABLE = "Available liquidity not calculable: revolver drawings undisclosed"
 RUNWAY_NO_DRAWINGS = "Not calculable: revolver drawings undisclosed"
 FX_REASON = "Not calculable: facility {fid} is in {ccy}, not {base}; no FX conversion is applied"
-CURRENCY_UNSTATED = (
-    "Not calculable: facility {fid} currency is not stated; no FX conversion is applied"
-)
+CURRENCY_STATE = "Not calculable: facility {fid} currency is {state}; no FX conversion is applied"
+CURRENCY_UNSTATED = CURRENCY_STATE.replace("{state}", "not stated")
 DATE_UNSTATED = "Not calculable: facility {fid} maturity date is not stated"
 PRINCIPAL_UNSTATED = "Not calculable: facility {fid} principal is not stated"
 # Round 11 (LEAD rulings, "CP-2D, a maturity before D0"): the CP-3C B1 rule. The date stays known;
@@ -431,16 +437,42 @@ def _ordered(facilities: tuple[Facility, ...]) -> tuple[Facility, ...]:
     )
 
 
+TERM_WORDS = {
+    "principal": "principal",
+    "maturity_date": "maturity date",
+    "currency": "currency",
+    "commitment": "commitment",
+    "drawn_amount": "drawn amount",
+    "annual_amortisation": "annual amortisation",
+}
+
+
+def _term_gap(f: Facility, field: str, stated: str) -> Gap:
+    """Why a T4.18 term is not a value: CP-1's own status and limitation when CP-1 reports it
+    conflicting or not applicable (cp2d.md: a single copy keeps CP-1's status and limitation),
+    else ``stated``, the "is not stated" reason of a missing term."""
+    held = f.held(field)
+    if held is None:
+        return Gap(stated)
+    status, limitation = held
+    reason = f"Not calculable: facility {f.facility_id} {TERM_WORDS[field]} is {STATE_WORD[status]}"
+    return OperandGap(reason, status=status, limitation=limitation)
+
+
 def _currency_gap(f: Facility, base: str = DEFAULT_BASIS.currency) -> Gap | None:
     if f.currency is None:
-        return Gap(CURRENCY_UNSTATED.format(fid=f.facility_id))
+        held = f.held("currency")
+        state = "not stated" if held is None else STATE_WORD[held[0]]
+        return Gap(CURRENCY_STATE.format(fid=f.facility_id, state=state))
     if f.currency != base:
         return Gap(FX_REASON.format(fid=f.facility_id, ccy=f.currency, base=base))
     return None
 
 
 def _date_gap(f: Facility) -> Gap | None:
-    return Gap(DATE_UNSTATED.format(fid=f.facility_id)) if f.maturity_date is None else None
+    if f.maturity_date is not None:
+        return None
+    return _term_gap(f, "maturity_date", DATE_UNSTATED.format(fid=f.facility_id))
 
 
 def _position_gap(f: Facility, balance_date: date) -> Gap | None:
@@ -451,16 +483,17 @@ def _position_gap(f: Facility, balance_date: date) -> Gap | None:
     return _date_gap(f)
 
 
-def _term(f: Facility, value: Decimal | None, term: str) -> Num:
+def _term(f: Facility, value: Decimal | None, field: str) -> Num:
     """Ruling D-3: the 2D-c frame for commitment, drawn amount and annual amortisation."""
     if value is None:
-        return Gap(f"Not calculable: facility {f.facility_id} {term} is not stated")
+        stated = f"Not calculable: facility {f.facility_id} {TERM_WORDS[field]} is not stated"
+        return _term_gap(f, field, stated)
     return value
 
 
 def _principal(f: Facility) -> Num:
     if f.principal is None:
-        return Gap(PRINCIPAL_UNSTATED.format(fid=f.facility_id))
+        return _term_gap(f, "principal", PRINCIPAL_UNSTATED.format(fid=f.facility_id))
     return f.principal
 
 
@@ -474,7 +507,7 @@ def _usd_principal(f: Facility, base: str = DEFAULT_BASIS.currency) -> Num:
 
 def _amortisation(f: Facility, horizon_months: int) -> Num:
     """min(annual amortisation x H / 12, principal) for a facility maturing after the horizon."""
-    annual = _term(f, f.annual_amortisation, "annual amortisation")
+    annual = _term(f, f.annual_amortisation, "annual_amortisation")
     principal = _principal(f)
     if isinstance(annual, Gap):
         return annual
@@ -529,7 +562,7 @@ def _undrawn_term(
     total: Num = _ZERO
     for f in ordered:
         undrawn = _diff(
-            _term(f, f.commitment, "commitment"), _term(f, f.drawn_amount, "drawn amount")
+            _term(f, f.commitment, "commitment"), _term(f, f.drawn_amount, "drawn_amount")
         )
         total = _total(total, _currency_gap(f, base) or undrawn)
     return total
@@ -855,11 +888,8 @@ def amount_text(value: Decimal, unit: str = DEFAULT_BASIS.money_unit) -> str:
 
 def exact_amount_text(value: Decimal, unit: str = DEFAULT_BASIS.money_unit) -> str:
     """Ruling L3: a difference spelled exactly (normalised, negatives in brackets, no
-    rounding), in the run's unit. Trailing zeros are stripped from the text: ``Decimal.normalize`` would
-    round to the context precision."""
-    body = format(value.copy_abs(), "f")
-    if "." in body:
-        body = body.rstrip("0").rstrip(".")
+    rounding), in the run's unit (``exact.exact_text``: ``Decimal.normalize`` would round)."""
+    body = exact_text(value.copy_abs())
     return (f"({body})" if value < 0 else body) + f" {unit}"
 
 
@@ -897,24 +927,28 @@ FX_LIMITATION = (
 TERM_LIMITATION = (
     "Facility {fid} {term} is not stated; maturity-wall figures that need it are not calculated."
 )
+TERM_STATE_LIMITATION = (
+    "Facility {fid} {term} is {state} in CP-1 ({limitation}); maturity-wall figures that need it "
+    "are not calculated."
+)
 PRE_D0_LIMITATION = (
     "Facility {fid} maturity date is before the balance date; maturity-wall figures that need it "
     "are not calculated."
 )
-FUNDING_GAP_ON_CASH_ALONE = (
-    "The funding gap is not calculated because the revolver is undisclosed; the cash-only "
-    "headroom over minimum cash is shown as a lower bound."
-)
-FUNDING_GAP_ON_CASH_ALONE_DRAWINGS = (
-    "The funding gap is not calculated because the revolver drawings are undisclosed; the "
-    "cash-only headroom over minimum cash is shown as a lower bound."
+# The cause, then what the cash-only headroom shows: a lower bound when T2E.5 calculates it, or
+# (review S13) that it is not calculated either, when it is itself a gap.
+HEADROOM_LOWER_BOUND = "the cash-only headroom over minimum cash is shown as a lower bound."
+HEADROOM_NOT_CALCULATED = "the cash-only headroom over minimum cash is not calculated either."
+REVOLVER_UNDISCLOSED_CAUSE = "The funding gap is not calculated because the revolver is undisclosed"
+REVOLVER_DRAWINGS_CAUSE = (
+    "The funding gap is not calculated because the revolver drawings are undisclosed"
 )
 # Round 13 (LEAD addendum 4): a conflicting or not applicable revolver operand is named with its
 # state, in GAP_OPERAND's shape, never called undisclosed.
-FUNDING_GAP_ON_CASH_ALONE_STATE = (
-    "The funding gap is not calculated because {label} {be} {state}; the cash-only headroom over "
-    "minimum cash is shown as a lower bound."
-)
+REVOLVER_STATE_CAUSE = "The funding gap is not calculated because {label} {be} {state}"
+FUNDING_GAP_ON_CASH_ALONE = f"{REVOLVER_UNDISCLOSED_CAUSE}; {HEADROOM_LOWER_BOUND}"
+FUNDING_GAP_ON_CASH_ALONE_DRAWINGS = f"{REVOLVER_DRAWINGS_CAUSE}; {HEADROOM_LOWER_BOUND}"
+FUNDING_GAP_ON_CASH_ALONE_STATE = f"{REVOLVER_STATE_CAUSE}; {HEADROOM_LOWER_BOUND}"
 SCHEDULE_EMPTY_LIMITATION = (
     "The T4.18 facility schedule lists no facility; maturity-wall figures are not calculated."
 )
@@ -938,23 +972,26 @@ def _facility_limitations(
             )
         )
     terms: tuple[tuple[str, object], ...] = (
-        ("maturity date", f.maturity_date),
+        ("maturity_date", f.maturity_date),
         ("principal", f.principal),
         ("currency", f.currency),
         ("commitment", f.commitment),
-        ("drawn amount", f.drawn_amount),
-        ("annual amortisation", f.annual_amortisation),
+        ("drawn_amount", f.drawn_amount),
+        ("annual_amortisation", f.annual_amortisation),
     )
-    for term, value in terms:
+    for field, value in terms:
+        term = TERM_WORDS[field]
         if value is None:
-            out.append(
-                (
-                    f"Facility {term} ({fid})",
-                    "Gap",
-                    TERM_LIMITATION.format(fid=fid, term=term),
+            held = f.held(field)
+            text = (
+                TERM_LIMITATION.format(fid=fid, term=term)
+                if held is None
+                else TERM_STATE_LIMITATION.format(
+                    fid=fid, term=term, state=STATE_WORD[held[0]], limitation=held[1]
                 )
             )
-        elif term == "maturity date" and _position_gap(f, balance_date) is not None:
+            out.append((f"Facility {term} ({fid})", "Gap", text))
+        elif field == "maturity_date" and _position_gap(f, balance_date) is not None:
             # Round 11: a stated date the Method cannot place is a Limitation, in this slot.
             text = PRE_D0_LIMITATION.format(fid=fid)
             out.append((f"Facility maturity date ({fid})", "Limitation", text))
@@ -1009,20 +1046,30 @@ def _limitations(
         out += _facility_limitations(f, bridge.balance_date, bridge.basis.currency)
     for label, text in check_cp1_totals(operands=operands, bridge=bridge):
         out.append((f"CP-1 {label} cross-check", "Limitation", text))
-    if isinstance(bridge.undrawn_revolver, Gap):
-        named = revolver_state(bridge.undrawn_revolver)
-        if named is not None:
-            text = FUNDING_GAP_ON_CASH_ALONE_STATE.format(
-                label=named[0], be=verb(named[0]), state=named[1]
-            )
-        elif bridge.undrawn_revolver.reason == DRAWINGS_UNDRAWN:
-            text = FUNDING_GAP_ON_CASH_ALONE_DRAWINGS
-        else:
-            text = FUNDING_GAP_ON_CASH_ALONE
-        out.append(("Funding gap on cash alone", "Limitation", text))
+    revolver = _revolver_limitation(bridge)
+    if revolver is not None:
+        out.append(("Funding gap on cash alone", "Limitation", revolver))
     if pinned:
         out.append(("Pinned assumptions", "Limitation", pinned_line(MODULE_ID)))
     return tuple(out)
+
+
+def _revolver_limitation(bridge: Bridge) -> str | None:
+    """The "Funding gap on cash alone" text when the revolver is a gap: its cause, then the
+    cash-only headroom as a lower bound, or not calculated either when it is a gap too."""
+    undrawn = bridge.undrawn_revolver
+    if not isinstance(undrawn, Gap):
+        return None
+    named = revolver_state(undrawn)
+    if named is not None:
+        cause = REVOLVER_STATE_CAUSE.format(label=named[0], be=verb(named[0]), state=named[1])
+    elif undrawn.reason == DRAWINGS_UNDRAWN:
+        cause = REVOLVER_DRAWINGS_CAUSE
+    else:
+        cause = REVOLVER_UNDISCLOSED_CAUSE
+    if isinstance(bridge.cash_only_headroom, Gap):
+        return f"{cause}; {HEADROOM_NOT_CALCULATED}"
+    return f"{cause}; {HEADROOM_LOWER_BOUND}"
 
 
 def revolver_state(undrawn: Num) -> tuple[str, str] | None:
@@ -1231,9 +1278,11 @@ def _copy(o: Operands, value: Num, value_class: str, operand: str, balance: str)
     )
 
 
-def _text(shown: str | Gap, value_class: str, cp1_operand: str | None = None) -> Cell:
+def _text(
+    shown: str | Gap, value_class: str, cp1_operand: str | None = None, *, copied: bool = False
+) -> Cell:
     if isinstance(shown, Gap):
-        return _gap_cell(shown, None, value_class, cp1_operand)
+        return _gap_cell(shown, None, value_class, cp1_operand, copied=copied)
     return Cell("", "known", shown, value_class=value_class, cp1_operand=cp1_operand)
 
 
@@ -1426,6 +1475,8 @@ def _wall_table(b: Bridge) -> Table:
             (
                 f"{f.name} ({f.facility_id})",
                 [
+                    # A copy of a term CP-1 reports conflicting or not applicable keeps CP-1's
+                    # status and limitation; any other gap takes the dependants' reason.
                     _num(
                         w.principal,
                         "MILLIONS",
@@ -1433,11 +1484,13 @@ def _wall_table(b: Bridge) -> Table:
                         d0,
                         "T4.18 principal",
                         periods=(f.period,),
+                        copied=f.held("principal") is not None,
                     ),
                     _text(
                         dated if isinstance(dated, Gap) else dated.isoformat(),
                         "source",
                         "T4.18 maturity_date",
+                        copied=f.held("maturity_date") is not None,
                     ),
                     _months_cell(w.months_to_maturity, "calculated", d0),
                     _text(
@@ -1714,7 +1767,7 @@ def _judgments(b: Bridge, submission: LiquidityBridgeSubmission) -> Ledger:
     minimum = (
         "not assessed"
         if b.minimum_cash is None
-        else amount_text(b.minimum_cash, b.basis.money_unit) + " (analyst assumption)"
+        else exact_amount_text(b.minimum_cash, b.basis.money_unit) + " (analyst assumption)"
     )
     rows = (
         ("Horizon", _months_text(b.horizon_months)),
@@ -2135,6 +2188,17 @@ def _facility_rows(
     return chosen, tuple(facilities)
 
 
+def _unsettled_terms(row: Mapping[str, Fact]) -> tuple[tuple[str, OperandStatus, str], ...]:
+    """(field, status, limitation) of each T4.18 term CP-1 reports conflicting or not applicable
+    (the Fact contract gives every unsettled fact its limitation)."""
+    out: list[tuple[str, OperandStatus, str]] = []
+    for field in ("currency", *FACILITY_FIELDS):
+        term = row.get(field)
+        if term is not None and term.status in ("conflicting", "not_applicable"):
+            out.append((field, term.status, term.limitation or STATE_WORD[term.status]))
+    return tuple(out)
+
+
 def _facility_of(
     facility_id: str, row: Mapping[str, Fact], schedule: str = SCHEDULE_PERIOD
 ) -> Facility:
@@ -2166,6 +2230,7 @@ def _facility_of(
         drawn_amount=row["drawn_amount"].amount,
         annual_amortisation=row["annual_amortisation"].amount,
         period=schedule,
+        unsettled=_unsettled_terms(row),
     )
 
 
@@ -2275,22 +2340,6 @@ def _inputs(
 # --- validation of a submission against the bound upstream ------------------------------------
 
 
-def _stale_issues(upstream: Upstream) -> list[str]:
-    if isinstance(upstream.current, str):
-        return [f"Stale inputs: {upstream.current}"]
-    bound = {item.input_id: item for item in upstream.bound}
-    current = {item.input_id: item for item in upstream.current}
-
-    def state(item: Input | None) -> str:
-        return "absent" if item is None else f"{item.status} {item.sha256[:12]}"
-
-    return [
-        f"Stale input {key}: bound {state(bound.get(key))}, current {state(current.get(key))}"
-        for key in dict.fromkeys((*bound, *current))
-        if bound.get(key) != current.get(key)
-    ]
-
-
 def _provenance_issues(upstream: Upstream) -> list[str]:
     """The supplied CP-1 module is the bound head: same module, same canonical hash."""
     item = next((i for i in upstream.bound if i.input_id == CP1), None)
@@ -2349,7 +2398,10 @@ def validate_liquidity_bridge(
     """Staleness, provenance, the calculation-level issues of `submission_issues` over the
     facts the bound CP-1 head offers, then the pin lines. Empty when the submission can be
     composed. The one issue set of the step validator and the composer gate."""
-    issues = [*_stale_issues(upstream), *_provenance_issues(upstream)]
+    issues = [
+        *stale_issues(bound=upstream.bound, current=upstream.current),
+        *_provenance_issues(upstream),
+    ]
     try:
         basis = run_basis(pack, upstream.cp1)
     except ContextRefused as error:
@@ -2770,9 +2822,9 @@ def context_block(*, pack: PreparedPack, upstream: Upstream) -> dict[str, object
 def view(store: Execution, attempt: Attempt) -> tuple[str, str]:
     """(sha256, body) of the step's one read: `context_block` over the bound heads as compact
     JSON (registered in G1's `_VIEWS["liquidity_bridge"]`; an exact view, counted as tool use)."""
-    block = context_block(pack=store.pack(), upstream=cp2d_upstream(store=store, attempt=attempt))
-    body = json.dumps(block, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
-    return hashlib.sha256(body.encode()).hexdigest(), body
+    return compact_view(
+        context_block(pack=store.pack(), upstream=cp2d_upstream(store=store, attempt=attempt))
+    )
 
 
 # --- the journal: validator, probe and submit -------------------------------------------------

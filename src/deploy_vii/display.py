@@ -52,6 +52,26 @@ def _number(amount: Decimal, unit_class: str, decimals: int | None = None) -> st
     return shown + suffix
 
 
+def class_places(unit_class: str) -> int:
+    """The decimal places a numeric unit class displays when a value declares none."""
+    if unit_class not in _NUMERIC:
+        raise ValueError(f"Unit class {unit_class!r} has no numeric precision")
+    return _NUMERIC[unit_class][0]
+
+
+def exact_places(amount: Decimal, unit_class: str) -> int:
+    """The fewest decimal places that display ``amount`` in ``unit_class`` without rounding.
+
+    E.g. 2.5 as an amount needs 1, 0.025 as a percent (2.5%) needs 1; a whole number needs 0.
+    """
+    if unit_class not in _NUMERIC:
+        raise ValueError(f"Unit class {unit_class!r} has no numeric precision")
+    if not amount.is_finite():
+        raise ValueError("Cannot display a non-finite number")
+    exponent = _EXACT.multiply(amount, Decimal(_NUMERIC[unit_class][1])).normalize().as_tuple()
+    return max(0, -int(exponent.exponent))
+
+
 def _known(
     amount: Decimal | None,
     unit_class: str,

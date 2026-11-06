@@ -22,8 +22,6 @@ then `_adapted`) for submit, probe and view, the step validator, `RULES`, the ex
 `read_inputs` view and the probe. CP-2H declares no reader of its own (lease Public API).
 """
 
-import hashlib
-import json
 import re
 import unicodedata
 from collections.abc import Callable, Iterable, Mapping, Sequence
@@ -32,7 +30,7 @@ from datetime import date
 from decimal import Decimal
 from typing import Literal
 
-from pydantic import Field, TypeAdapter, ValidationError
+from pydantic import Field, ValidationError
 
 from deploy_vii import prose
 from deploy_vii.business_context import (
@@ -53,7 +51,6 @@ from deploy_vii.contracts import (
     Module,
     ReportTable,
     Run,
-    RunText,
     Source,
     TableColumn,
     TableRow,
@@ -73,7 +70,7 @@ from deploy_vii.execution import (
     inherited_limitations,
 )
 from deploy_vii.live.schema import exact_json, json_object, normalise
-from deploy_vii.live.submission import Submitted
+from deploy_vii.live.submission import Submitted, _with_rules
 from deploy_vii.live.tools import Seen, unread_citation_issues
 from deploy_vii.model._cells import CONTEXT
 from deploy_vii.preparation import PreparedPack
@@ -90,12 +87,19 @@ from deploy_workflow.context_cites import ContextTextError, cite_all, context_te
 from deploy_workflow.owners.blank import is_blank, one_per_page
 from deploy_workflow.owners.cp1a import probe_one_step
 from deploy_workflow.owners.cp2g import cp2g_reader, fy_periods, fy_span_period, require_calendar
+from deploy_workflow.owners.exact import compact_view, exact_decimal, run_text_issues, select_t410
+from deploy_workflow.owners.exact import exact_text as _exact_text
+from deploy_workflow.owners.exact import stale_issues as _stale_issues
 from deploy_workflow.owners.period_basis import (
     DEFAULT_BASIS,
     PeriodBasis,
     PeriodRefused,
     run_basis,
 )
+
+# Defined once in `owners.exact`; kept under these names for their callers (tests).
+exact_text = _exact_text
+stale_issues = _stale_issues
 
 MODULE_ID = "CP-2H"
 STEP_ID = "rating_triggers"
@@ -323,18 +327,6 @@ def _published(text: str) -> str:
         return PUBLICATION_UNCLEAR
 
 
-def exact_text(value: Decimal) -> str:
-    """Canonical exact decimal: plain notation, no trailing zeros, unsigned zero."""
-    text = format(value, "f")
-    if "." in text:
-        text = text.rstrip("0").rstrip(".")
-    return "0" if text in ("", "-0") else text
-
-
-def _canonical(value: Decimal) -> Decimal:
-    return Decimal(exact_text(value))
-
-
 def _calendar_date(text: str) -> bool:
     if not _ISO_DATE.fullmatch(text):
         return False
@@ -493,7 +485,7 @@ def _threshold(text: str, metric: Metric) -> Decimal | None:
     if metric.unit_class == "percent":  # an exact exponent shift, no context rounds (Q2)
         sign, digits, exponent = value.as_tuple()
         value = Decimal((sign, digits, int(exponent) - 2))
-    return _canonical(value)
+    return exact_decimal(value)
 
 
 def _terms(rows: list[tuple[str, list[str]]]) -> tuple[TriggerTerm, ...]:
@@ -603,15 +595,11 @@ def first_year(*, hits: Sequence[bool | None], basis: PeriodBasis = DEFAULT_BASI
 def select_cp1(facts: Iterable[Fact], basis: PeriodBasis = DEFAULT_BASIS) -> dict[str, Fact]:
     """The four CP-1 reported ratios (manifest `cp1_fact_selection_rule`): the unique T4.10 fact
     labelled `<LTM column> · <metric>`; zero or several fail."""
-    facts = tuple(facts)
-    out: dict[str, Fact] = {}
-    for metric in CP1_METRICS:
-        label = f"{basis.ltm_column} · {metric}"
-        found = [f for f in facts if f.table_id == "T4.10" and f.label == label]
-        if len(found) != 1:
-            raise ValueError(f"CP-1 T4.10 needs exactly one fact labelled {label}")
-        out[metric] = found[0]
-    return out
+    return select_t410(facts, CP1_METRICS, basis, _t410_refusal)
+
+
+def _t410_refusal(label: str, _count: int) -> str:
+    return f"CP-1 T4.10 needs exactly one fact labelled {label}"
 
 
 @dataclass(frozen=True)
@@ -927,7 +915,7 @@ class _Book:
             table_id=table,
             row_id=row,
             field=field,
-            amount=_canonical(value),
+            amount=exact_decimal(value),
             unit=_UNITS.get(unit, unit),
             period=period,
             citations=self.lineage(derives, citations),
@@ -1730,21 +1718,6 @@ def phrase_issues(path: str, text: str) -> tuple[str, ...]:
     return (*prohibited_issues(path, text), *core)
 
 
-_RUN_TEXT: TypeAdapter[str] = TypeAdapter(RunText)
-
-
-def _run_text_issues(path: str, text: str) -> list[str]:
-    """Stage 2 round 3 item 2: text built as `Claim.text` is checked with that very type
-    (`RunText`, one `TypeAdapter` built once), so a malformed reference is a journaled issue and
-    composition never raises after the binding write. The message never echoes the input."""
-    try:
-        _RUN_TEXT.validate_python(text)
-    except ValidationError as error:
-        found = error.errors(include_input=False, include_url=False, include_context=False)
-        return [clipped((path, ": ", item["msg"])) for item in found]
-    return []
-
-
 def _prose(
     path: str,
     text: str,
@@ -1762,7 +1735,7 @@ def _prose(
     found = prose.issues(text, bound, names=names)
     issues = [clipped((path, ": ", issue)) for issue in found]
     if claim and not found:
-        issues += _run_text_issues(path, text)
+        issues += run_text_issues(path, text)
     return [*issues, *phrase_issues(path, text)]
 
 
@@ -1850,23 +1823,6 @@ def _gap_issues(
                 if run.kind != "text" and run.text in bound and run.text in gaps
             )
     return issues
-
-
-def stale_issues(*, bound: Sequence[Input], current: Sequence[Input] | str) -> tuple[str, ...]:
-    """Every bound upstream that changed, in the `cp2_synthesis._stale_issues` form."""
-    if isinstance(current, str):
-        return (clipped(("Stale inputs: ", current)),)
-    was = {item.input_id: item for item in bound}
-    now = {item.input_id: item for item in current}
-
-    def state(item: Input | None) -> str:
-        return "absent" if item is None else f"{item.status} {item.sha256[:12]}"
-
-    return tuple(
-        f"Stale input {key}: bound {state(was.get(key))}, current {state(now.get(key))}"
-        for key in dict.fromkeys((*was, *now))
-        if was.get(key) != now.get(key)
-    )
 
 
 def ratings_source(pack: PackScope) -> Source:
@@ -2705,9 +2661,7 @@ def context_block(*, pack: PreparedPack, upstream: Upstream) -> dict[str, object
 def view(historical: Execution, attempt: Attempt) -> tuple[str, str]:
     """(sha256, body) of the one `read_inputs` record, as compact JSON (S1a lease rev 2, M4)."""
     upstream = cp2h_upstream(store=historical, attempt=attempt)
-    block = context_block(pack=historical.pack(), upstream=upstream)
-    body = json.dumps(block, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
-    return hashlib.sha256(body.encode()).hexdigest(), body
+    return compact_view(context_block(pack=historical.pack(), upstream=upstream))
 
 
 # --- the tool-use rule, the validator, submit and the verifier probe ---------------------------
@@ -2746,26 +2700,6 @@ def _candidate(output: str, attempt: Attempt) -> Module:
     )
 
 
-def _with_rules(
-    validate: Callable[[PreparedPack, Attempt], StepValidation],
-    rules: Callable[[str], tuple[str, ...]],
-    payload: str,
-) -> Callable[[PreparedPack, Attempt], StepValidation]:
-    """`validate`, then the tool-use rule issues of the retained payload appended (as
-    `live.submission._with_rules` composes them, which the verifier replays)."""
-
-    def run(pack: PreparedPack, attempt: Attempt) -> StepValidation:
-        outcome = validate(pack, attempt)
-        found = rules(payload)
-        if not found:
-            return outcome
-        return StepValidation(
-            output=outcome.output, issues=tuple(dict.fromkeys((*outcome.issues, *found)))
-        )
-
-    return run
-
-
 def submit(
     store: Execution,
     ticket_id: str,
@@ -2784,7 +2718,7 @@ def submit(
         return _validate_step(store, pack, current)
 
     checked: Callable[[PreparedPack, Attempt], StepValidation] = validate
-    if rules is not None and rules(normal):
+    if rules is not None:  # `_with_rules` keeps the plain outcome when no rule fails
         checked = _with_rules(validate, rules, normal)
     attempt = store.submit_step(ticket_id, MODULE_ID, STEP_IDS, step_id, normal, checked)
     if (

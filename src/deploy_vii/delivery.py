@@ -58,15 +58,28 @@ def cp0_view(pack: PreparedPack, module: Module, *, accepted: bool) -> View:
     )
 
 
-def _publish(destination: Path, payloads: dict[str, str], receipt: Mapping[str, object]) -> None:
-    files = {name: hashlib.sha256(value.encode()).hexdigest() for name, value in payloads.items()}
+def publish_bundle(
+    destination: Path, payloads: Mapping[str, str], receipt: Mapping[str, object]
+) -> dict[str, object]:
+    """Write each payload into the new ``destination``, then ``complete.json``; return it.
+
+    Each text is encoded to UTF-8 once, and those bytes are both written and hashed, so the
+    receipt's ``files`` hashes are the files on disk on every platform (text mode would turn
+    ``\n`` into ``\r\n`` on Windows after the hash was taken).
+    """
+    if "complete.json" in payloads:
+        raise ValueError("complete.json is the receipt, not a payload")
+    encoded = {name: text.encode("utf-8") for name, text in payloads.items()}
+    complete = {
+        **receipt,
+        "files": {name: hashlib.sha256(raw).hexdigest() for name, raw in encoded.items()},
+    }
     destination.mkdir(parents=True, exist_ok=False)
-    for name, payload in payloads.items():
-        (destination / name).write_text(payload, encoding="utf-8")
+    for name, raw in encoded.items():
+        (destination / name).write_bytes(raw)
     # Readers require this final receipt; interrupted directories are incomplete.
-    (destination / "complete.json").write_text(
-        json.dumps({**receipt, "files": files}, indent=2), encoding="utf-8"
-    )
+    (destination / "complete.json").write_bytes(json.dumps(complete, indent=2).encode("utf-8"))
+    return complete
 
 
 def _deliver_rejected(
@@ -87,7 +100,7 @@ def _deliver_rejected(
         "candidate-view.json": view.model_dump_json(indent=2),
         "candidate.html": render(view),
     }
-    _publish(
+    publish_bundle(
         destination,
         payloads,
         {
@@ -122,7 +135,7 @@ def _deliver_selected(
         "candidate.html": render(candidate_view),
         "accepted.html": render(accepted_view),
     }
-    _publish(
+    publish_bundle(
         destination,
         payloads,
         {

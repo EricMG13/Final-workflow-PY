@@ -47,6 +47,7 @@ PENDING: dict[str, dict[str, str]] = {
                 "_identity_problems",
                 "_date_problems",
                 "_figure_problems",
+                "_order_problems",  # split from _row_problems (bid above ask, low above high)
             )
         },
     },
@@ -501,11 +502,17 @@ def test_non_content_checks_are_subtracted_and_never_in_a_list() -> None:
 
 
 def test_a_non_content_function_takes_no_submission() -> None:
-    allowed = {"upstream", "pack", "inputs", "bound", "current"}
+    allowed = {"upstream", "pack", "inputs", "bound", "current", "ctx"}
     for check in rules.NON_CONTENT:
         if not check.startswith("fn:"):
             continue
         module, _, qualname = check.removeprefix("fn:").rpartition(":")
+        if check in rules.UPSTREAM_ENTRIES:  # it takes the attempt: its one site is pinned
+            node = rules.function_node(module, qualname)
+            assert rules.issue_functions(module, qualname).get(qualname) == 1, check
+            texts = {n.value for n in ast.walk(node) if isinstance(n, ast.Constant)}
+            assert rules.UPSTREAM_ENTRY_SITE in texts, check
+            continue
         function = rules.function_node(module, qualname)
         for arg in function.args.args + function.args.kwonlyargs:
             if arg.arg in ("self", "cls"):
@@ -702,13 +709,15 @@ def test_a_returned_issue_without_prose_in_an_issue_named_function_is_a_site() -
 
 
 def test_the_run_text_issue_functions_are_covered() -> None:
-    for step_id, module in (
-        ("forward_credit_model", "cp2g"),
-        ("rating_triggers", "cp2h"),
-    ):
-        check = f"fn:deploy_workflow.owners.{module}:_run_text_issues"
-        assert check in rules.needed_checks(step_id)
-        assert check in covered_by(step_id)
+    """CP-2G and CP-2H call the shared ``owners.exact.run_text_issues`` (another module, which
+    the site scan does not enter, so each list names it); CP-4C keeps its own."""
+    shared = "fn:deploy_workflow.owners.exact:run_text_issues"
+    for step_id in ("forward_credit_model", "rating_triggers"):
+        assert rules.check_exists(shared)
+        assert shared in covered_by(step_id)
+    own = "fn:deploy_workflow.owners.cp4c:_run_text_issues"
+    assert own in rules.needed_checks("restructuring_fulcrum")
+    assert own in covered_by("restructuring_fulcrum")
 
 
 def _git(root: Path, *args: str) -> None:

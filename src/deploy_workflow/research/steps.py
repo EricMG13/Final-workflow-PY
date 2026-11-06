@@ -24,18 +24,14 @@ from deploy_workflow.research.contracts import (
     EvidenceItem,
     QuestionKind,
     ResearchBrief,
+    id_room,
 )
-from deploy_workflow.research.review import IDENTIFIER_MAX, Answer, _language_issues
-from deploy_workflow.research.tables import TDR1_COLUMNS, TDR3_COLUMNS
+from deploy_workflow.research.review import text_issues
+from deploy_workflow.research.tables import TDR1_COLUMNS, TDR3_COLUMNS, TOTAL_ROW
 
 # A question id sits in the fact ids `TDR.1.<id>.<field>` and `TDR.3.<id>.<field>` (tables.py): the
 # longest field decides, and one id past this makes `Fact` raise after the binding write.
-QUESTION_ID_MAX: Final = IDENTIFIER_MAX - max(
-    *(len("TDR.1.") + len(f".{field}") for field in TDR1_COLUMNS),
-    *(len("TDR.3.") + len(f".{field}") for field in TDR3_COLUMNS),
-)
-# `TDR.3` reserves this row id for its sum row (tables.py `TOTAL_ROW`).
-RESERVED_ROW_ID: Final = "total"
+QUESTION_ID_MAX: Final = min(id_room("TDR.1.", TDR1_COLUMNS), id_room("TDR.3.", TDR3_COLUMNS))
 RESEARCH_BRIEF_INPUT: Final = "research-brief"
 RESEARCH_SUBMISSION_INPUT: Final = "research-submission"
 RESEARCH_EVIDENCE_INPUT: Final = "research-evidence"  # sha256 of the staged evidence.json bytes
@@ -110,8 +106,8 @@ def _id_issues(question: BriefQuestion, seen: set[str]) -> list[str]:
     issues = []
     if qid.startswith(CONTEXT_PREFIX):
         issues.append(f"{qid}: a tailored question id cannot start with {CONTEXT_PREFIX}")
-    if qid == RESERVED_ROW_ID:
-        issues.append(f"{qid}: a tailored question id cannot be {RESERVED_ROW_ID}")
+    if qid == TOTAL_ROW:  # TDR.3 reserves this row id for its sum row
+        issues.append(f"{qid}: a tailored question id cannot be {TOTAL_ROW}")
     if qid in seen:
         issues.append(f"{qid}: question_id appears twice")
     if len(qid) > QUESTION_ID_MAX:
@@ -121,16 +117,8 @@ def _id_issues(question: BriefQuestion, seen: set[str]) -> list[str]:
 
 def _language(question: BriefQuestion) -> list[str]:
     """O7-R18: the review's banned-word and digit checks, run by the review's own function over
-    the question text (carried as the uncertainty of a throwaway answer)."""
-    probe = Answer(
-        question_id=question.question_id,
-        answer_state="answered",
-        claims=(),
-        contrary=(),
-        uncertainty=question.text,
-        limitation=None,
-    )
-    return [str(issue) for issue in _language_issues(probe)]
+    the question text."""
+    return [str(issue) for issue in text_issues(question.question_id, [question.text])]
 
 
 def brief_issues(submission: BriefSubmission) -> tuple[str, ...]:

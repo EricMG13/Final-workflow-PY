@@ -18,7 +18,8 @@
     "fn:deploy_vii.cp6_committee:_recommendation_issues",
     "oracle:cp3-cp6:cp6-gap-bias-despite-no-evidence",
     "oracle:cp3-cp6:cp6-recovery-without-cp4",
-    "oracle:cp3-cp6:cp6-bias-confidence-mismatch"
+    "oracle:cp3-cp6:cp6-bias-confidence-mismatch",
+    "fn:deploy_vii.cp6_committee:_recovery_issues"
    ]
   },
   {
@@ -26,7 +27,9 @@
    "statement": "c. While `confidence_caps` lists any cap, every confidence is below High, the recommendation's and each recovery view's. A recommendation that is not Insufficient Information cites in `cp2_refs` or `cp3_refs` at least one row whose `claim` is true and that `cp5_flagged_claims` does not list, or names a CP-1 figure in its rationale or conditions (its limitation does not count). Gap and limitation rows support nothing.",
    "checks": [
     "fn:deploy_vii.cp6_committee:_recommendation_issues",
-    "oracle:cp3-cp6:cp6-confidence-high"
+    "oracle:cp3-cp6:cp6-confidence-high",
+    "fn:deploy_vii.cp6_committee:_recovery_issues",
+    "fn:deploy_vii.cp6_committee:_support_issues"
    ]
   },
   {

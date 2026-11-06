@@ -29,8 +29,9 @@ _SETTLED = frozenset({"accepted", "restricted"})
 _Refs = Mapping[tuple[str, str], tuple[str, ...]]
 
 # DR.6 frame copy (cases/charts/dr6-expected.json render.frame_texts). The approved page's "no
-# agency report in the Source Pack" (G31) is not true here: CP-2H reads one synthetic agency
-# source, so the frame says a chart waits for a real report.
+# agency report in the Source Pack" (G31) is not true here. When CP-2H reads its one synthetic
+# agency source (its own limitations say so), the frame says a chart waits for a real report;
+# when it reads an attached agency source, the frame says only what is true of that run.
 DR6_TITLE = "Rating trigger headroom"
 DR6_CHIP = "Not computable"  # the design's block-head chip for the n/a frame (OI-13)
 DR6_SYNTHETIC = "agency source is synthetic; a headroom chart waits for a real agency report"
@@ -38,6 +39,12 @@ DR6_UNSTATED = (
     "a trigger threshold is not stated in the synthetic agency source; "
     "a headroom chart waits for a real agency report"
 )
+DR6_AGENCY = "headroom is stated in the rating trigger tables; no headroom chart is drawn"
+DR6_AGENCY_UNSTATED = (
+    "a trigger threshold is not stated in the agency source; no headroom chart is drawn"
+)
+# The words CP-2H's own limitation uses for its synthetic agency source.
+_SYNTHETIC_SOURCE = "synthetic source"
 _HEADROOM_TABLES = frozenset({"T2R.4", "T2R.5"})
 
 
@@ -151,15 +158,15 @@ def value_allocation_figures(block_id: str, view: View, refs: _Refs) -> tuple[Fi
 def rating_trigger_figures(block_id: str, view: View, refs: _Refs) -> tuple[Figure, ...]:
     """DR.6, the n/a frame of a settled CP-2H (``rating-triggers``): no T2R.4 or T2R.5 mark.
 
-    The reason is true for the run: the agency source is synthetic. Where settled T2R.4 or
-    T2R.5 facts are missing it says a threshold is not stated and cites their ``∅ G<n>``, bound
-    from the report index; nothing is drawn for those facts and no gap becomes 0.
+    The reason is true for the run: it says the agency source is synthetic only when CP-2H's own
+    limitations state a synthetic source. Where settled T2R.4 or T2R.5 facts are missing it says
+    a threshold is not stated and cites their ``∅ G<n>``, bound from the report index; nothing
+    is drawn for those facts and no gap becomes 0.
     """
     module = _module(view, "CP-2H")
     if module is None:
         return ()
-    if "synthetic source" not in " ".join(module.limitations):
-        raise ValueError("CP-2H no longer states a synthetic agency source; DR.6 text is stale")
+    synthetic = _SYNTHETIC_SOURCE in " ".join(module.limitations)
     cited: list[str] = []
     for fact in module.facts:
         if fact.table_id in _HEADROOM_TABLES and fact.status == "missing":
@@ -172,9 +179,9 @@ def rating_trigger_figures(block_id: str, view: View, refs: _Refs) -> tuple[Figu
             cited.append(gap)
     if cited:
         gaps = ", ".join(format_value(None, "text", "gap", gap_id=g) for g in dict.fromkeys(cited))
-        reason = f"{DR6_UNSTATED} ({gaps})"
+        reason = f"{DR6_UNSTATED if synthetic else DR6_AGENCY_UNSTATED} ({gaps})"
     else:
-        reason = DR6_SYNTHETIC
+        reason = DR6_SYNTHETIC if synthetic else DR6_AGENCY
     twin = Block(
         block_id=f"{block_id}-dr6-twin",
         title=f"{DR6_TITLE} table",

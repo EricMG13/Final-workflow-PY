@@ -14,7 +14,7 @@ Debate's). The call band reads the settled final-bias cells (``cp6_committee.set
 In ``SHIPPED_MAPS`` since task 8.7; ids remapped to r14's in task CP6-R.
 """
 
-from deploy_vii.bindings import Binding, BindingMap
+from deploy_vii.bindings import Binder, BindingMap
 from deploy_vii.business_context import CP1_REFERENCES
 from deploy_vii.cp6_committee import (
     COMMITTEE_CHALLENGE,
@@ -26,27 +26,21 @@ from deploy_vii.cp6_committee import (
     THESIS_CHALLENGE,
     WEAKNESS_CHALLENGES,
 )
-from deploy_vii.report_view import FactCoord, Section
 
-
-def _bind(table: str, block: str, label: str, section: Section | None = None) -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id=MODULE_ID, table_id=table),
-        block_id=block,
-        cell_slot="cp6-" + table.lower().replace(".", "-").replace("_", "-"),
-        unit_class="text",
-        label=label,
-        section=section,
-    )
+_bind = Binder(MODULE_ID, "cp6-", hyphenate=True).bind
 
 
 CP6 = BindingMap(
     module_id=MODULE_ID,
     entries=(
         _bind(COMMITTEE_CHALLENGE, "committee-challenge", "Committee challenge"),
-        _bind(THESIS_CHALLENGE, "strengths-weaknesses", "Thesis challenge", "thesis"),
-        _bind(STRENGTH_CHALLENGES, "strengths-weaknesses", "Strength challenges", "strengths"),
-        _bind(WEAKNESS_CHALLENGES, "strengths-weaknesses", "Weakness challenges", "weaknesses"),
+        _bind(THESIS_CHALLENGE, "strengths-weaknesses", "Thesis challenge", section="thesis"),
+        _bind(
+            STRENGTH_CHALLENGES, "strengths-weaknesses", "Strength challenges", section="strengths"
+        ),
+        _bind(
+            WEAKNESS_CHALLENGES, "strengths-weaknesses", "Weakness challenges", section="weaknesses"
+        ),
         # Evidence.
         _bind(FINAL_BIAS.table_id, "evidence", FINAL_BIAS.title),
         *(

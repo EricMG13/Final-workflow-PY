@@ -310,41 +310,23 @@ def statement_issues(book: FinancialBook) -> tuple[str, ...]:
     if len(metadata) * len(periods) > 20000:
         issues.append("Expanded statement register exceeds 20000 rows")
     disclosures: set[tuple[str, str]] = set()
+    populated = {(r.period_id, r.statement) for r in book.statement_lines}  # built once
     for disclosure_row in book.statement_disclosures:
         key = disclosure_row.period_id, disclosure_row.statement
         if key in disclosures or disclosure_row.period_id not in periods:
             issues.append(f"Duplicate statement disclosure or unknown period: {key}")
         disclosures.add(key)
-        populated = any(
-            r.period_id == disclosure_row.period_id and r.statement == disclosure_row.statement
-            for r in book.statement_lines
-        )
-        if populated and disclosure_row.disclosure.status in {"not_disclosed", "not_applicable"}:
+        contradicts = disclosure_row.disclosure.status in {"not_disclosed", "not_applicable"}
+        if key in populated and contradicts:
             issues.append(f"Statement disclosure contradicts populated statement: {key}")
-    linked: dict[tuple[str, str], set[object]] = {}
-    for account in book.accounts:
-        amount = account.value.amount
-        if amount is not None:
-            normalized = (
-                amount.copy_abs().copy_negate()
-                if account_outflow(book, account.period_id, account.metric_id)
-                else amount
-            )
-            linked.setdefault((account.period_id, account.metric_id), set()).add(normalized)
     for line in book.statement_lines:
         metric = ACCOUNT_LINKS.get((line.statement, line.item_id))
-        amount = line.value.amount
         if metric is not None and line.quantity is not None and line.quantity.kind != "monetary":
             issues.append(
-                f"Canonical account link requires monetary quantity: {line.item_id} {line.period_id}"
+                "Canonical account link requires monetary quantity: "
+                f"{line.item_id} {line.period_id}"
             )
-        if metric is not None and amount is not None:
-            normalized = (
-                amount.copy_abs().copy_negate()
-                if account_outflow(book, line.period_id, metric)
-                else amount
-            )
-            linked.setdefault((line.period_id, metric), set()).add(normalized)
+    linked = _linked_amounts(book)
     for (period_id, metric), linked_values in linked.items():
         if len(linked_values) > 1:
             issues.append(
@@ -365,7 +347,7 @@ def statement_issues(book: FinancialBook) -> tuple[str, ...]:
     # The source bridge is a calculation, never a renamed SG&A observation.
     from deploy_vii.expense_composition import opex_composition
 
-    for period_id in periods:
+    for period_id in dict.fromkeys(p.period_id for p in book.periods):  # book order, not hash
         composition = opex_composition(book, period_id)
         if composition is not None and any(
             amount != composition.value
@@ -398,11 +380,37 @@ def statement_accounts(book: FinancialBook) -> tuple[AccountObservation, ...]:
     )
 
 
+def _linked_amounts(book: FinancialBook) -> dict[tuple[str, str], set[object]]:
+    """Each (period, account)'s sign-normalized amounts: the accounts', then the linked
+    statement lines', in that order (the order the disagreement issues follow)."""
+    explicit = _explicit_outflows(book)
+    pairs = [
+        *(((a.period_id, a.metric_id), a.value.amount) for a in book.accounts),
+        *(
+            ((line.period_id, metric), line.value.amount)
+            for line in book.statement_lines
+            if (metric := ACCOUNT_LINKS.get((line.statement, line.item_id))) is not None
+        ),
+    ]
+    linked: dict[tuple[str, str], set[object]] = {}
+    for key, amount in pairs:
+        if amount is not None:
+            outflow = key[1] in OUTFLOW_METRICS or key in explicit
+            linked.setdefault(key, set()).add(
+                amount.copy_abs().copy_negate() if outflow else amount
+            )
+    return linked
+
+
+def _explicit_outflows(book: FinancialBook) -> set[tuple[str, str | None]]:
+    """The (period, account) pairs a statement line presents as an outflow magnitude."""
+    return {
+        (row.period_id, ACCOUNT_LINKS.get((row.statement, row.item_id)))
+        for row in book.statement_lines
+        if row.sign_convention == "outflow_magnitude"
+    }
+
+
 def account_outflow(book: FinancialBook, period_id: str, metric: str) -> bool:
     """Canonical outflow semantics or an explicitly cited source presentation."""
-    return metric in OUTFLOW_METRICS or any(
-        row.period_id == period_id
-        and ACCOUNT_LINKS.get((row.statement, row.item_id)) == metric
-        and row.sign_convention == "outflow_magnitude"
-        for row in book.statement_lines
-    )
+    return metric in OUTFLOW_METRICS or (period_id, metric) in _explicit_outflows(book)

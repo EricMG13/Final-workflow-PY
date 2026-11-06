@@ -93,6 +93,11 @@ class Redactor:
             spans += [m.span(1) for m in self._exact.finditer(value)]
         return spans
 
+    def holds_exact(self, value: str) -> bool:
+        """Whether ``value`` contains one of the exact key values (the key-shape pattern is not
+        consulted: ciphertext may match it by chance, but never holds a whole key by chance)."""
+        return self._exact is not None and self._exact.search(value) is not None
+
     def text(self, value: str) -> str:
         return _replace_spans(value, self._spans(value), REPLACEMENT)
 

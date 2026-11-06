@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import TYPE_CHECKING
@@ -14,6 +13,7 @@ from deploy_vii.contracts import View
 from deploy_vii.cp1_render import envelope_view
 from deploy_vii.cp1_workflow import read_cp1_envelope, write_cp1_envelope
 from deploy_vii.execution import Execution
+from deploy_workflow.rendering import publish_directory
 
 if TYPE_CHECKING:
     from deploy_workflow.financial_workflow import FinancialSliceReceipt
@@ -208,7 +208,7 @@ def render_financial_slice(
                 or any((stage / name).read_bytes() != body for name, body in files.items())
             ):
                 raise ValueError("stale_financial_slice")
-            os.rename(stage, destination)
+            publish_directory(stage, destination)
         return destination / "report.html"
     except (ValueError, OSError):
         raise ValueError("financial_slice_render_refused") from None

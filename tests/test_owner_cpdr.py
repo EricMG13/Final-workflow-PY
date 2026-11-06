@@ -528,15 +528,18 @@ def test_lock_exists_before_research_begins(tmp_path: Path) -> None:
     assert path.exists()
 
 
-def test_deleted_brief_is_the_named_refusal(tmp_path: Path) -> None:
-    """Research after the lock file is gone is `BriefInvalid(NOT_LOCKED)`; no research step is
-    journaled."""
+def test_deleted_brief_is_locked_again_from_the_valid_brief_step(tmp_path: Path) -> None:
+    """Research after the lock file is gone (as after a crash between journaling the brief step
+    and writing the lock) writes the lock again from the valid brief step, the same bytes, and
+    journals the research step (S15 review: before, the attempt could never go forward)."""
     store, ticket = runs.locked("positive", tmp_path)
-    (cpdr.research_dir(store) / cpdr.BRIEF_FILE).unlink()
-    with pytest.raises(BriefInvalid, match=cpdr.NOT_LOCKED):
-        cpdr.submit(store, ticket, cpdr.RESEARCH_STEP, runs.research_payload("positive"), None)
+    path = cpdr.research_dir(store) / cpdr.BRIEF_FILE
+    locked = path.read_bytes()
+    path.unlink()
+    cpdr.submit(store, ticket, cpdr.RESEARCH_STEP, runs.research_payload("positive"), None)
+    assert path.read_bytes() == locked
     attempt = next(a for a in store.read().attempts if a.ticket_id == ticket)
-    assert [s.step_id for s in attempt.steps] == [cpdr.BRIEF_STEP]
+    assert [s.step_id for s in attempt.steps] == [cpdr.BRIEF_STEP, cpdr.RESEARCH_STEP]
 
 
 def test_edit_after_lock_is_hash_mismatch(tmp_path: Path, key: dict[str, Any]) -> None:

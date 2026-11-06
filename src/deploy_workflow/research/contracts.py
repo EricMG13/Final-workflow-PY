@@ -5,7 +5,7 @@ import json
 import re
 from collections.abc import Sequence
 from datetime import date
-from typing import Any, Final, Literal, Self
+from typing import Any, Final, Literal, Self, get_args
 
 from pydantic import field_validator, model_validator
 
@@ -38,6 +38,18 @@ RESERVED_IDS = frozenset({"cp-dr-dossier", "peers"})
 RESERVED_PREFIX = "ev-"
 _ITEM_ID = re.compile(r"^ev-[1-9][0-9]*$")
 _ALL_RECEIVERS: tuple[Receiver, ...] = ("CP-1C", "CP-2")
+# `Identifier`'s max_length, read from its own field metadata so the bound has one definition.
+IDENTIFIER_MAX: Final[int] = next(
+    m.max_length for m in get_args(Identifier)[1].metadata if hasattr(m, "max_length")
+)
+
+
+def id_room(prefix: str, columns: Sequence[str], middles: Sequence[str] = ()) -> int:
+    """The longest id that fits in every fact id ``<prefix><id>[.<middle>].<column>`` within
+    ``IDENTIFIER_MAX``: the longest middle and the longest column decide. One id past it makes
+    ``Fact`` raise after the binding write, so the review refuses it first."""
+    middle = max((len(m) + 1 for m in middles), default=0)
+    return IDENTIFIER_MAX - len(prefix) - middle - 1 - max(map(len, columns))
 
 
 class ResearchError(Exception):

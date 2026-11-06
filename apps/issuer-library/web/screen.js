@@ -185,7 +185,7 @@ function trendChart(module, metric) {
   const {table,row,key}=findRow(module,'T4.10',metric),unit=data[module].basis.unit;
   const points=[3,2,1].map(i=>({label:table.headers[i],exact:row.cells[i],n:Number(row.cells[i].replace(/,/g,''))}));
   const max=Math.max(...points.map(p=>p.n));
-  return `<div class="chart-head"><h3>${esc(metric)}</h3><span>${esc(unit)} · ${esc(row.cells[4])}</span></div><div class="bars" role="group" aria-label="${esc(metric)} by financial year">${points.map(p=>`<button class="bar-column" data-evidence="${key}" aria-label="${esc(p.label)} ${esc(metric)} ${esc(p.exact)} ${esc(unit)}. View source"><span class="bar-value">${p.exact}</span><span class="bar" style="height:${Math.max(2,p.n/max*142)}px"></span><span class="bar-period">${p.label}</span></button>`).join('')}</div>${sourceFooter(key)}`;
+  return `<div class="chart-head"><h3>${esc(metric)}</h3><span>${esc(unit)} · ${esc(row.cells[4])}</span></div><div class="bars" role="group" aria-label="${esc(metric)} by financial year">${points.map(p=>`<button class="bar-column" data-evidence="${esc(key)}" aria-label="${esc(p.label)} ${esc(metric)} ${esc(p.exact)} ${esc(unit)}. View source"><span class="bar-value">${esc(p.exact)}</span><span class="bar" style="height:${Math.max(2,p.n/max*142)}px"></span><span class="bar-period">${esc(p.label)}</span></button>`).join('')}</div>${sourceFooter(key)}`;
 }
 function performanceView() {
   const id=pins['CP-1'],{table}=findRow(id,'T4.10','Net sales');
@@ -206,7 +206,7 @@ function businessVisual() {
   // Read the mix from the retained cell; a change in the handoff surfaces as a failed view.
   const [,mix,reading]=plain(row.row.cells[1]).match(/(FY2024 sales were[^.]+\.) (.+)$/);
   const parts=[...mix.matchAll(/(\d+)% ([^,.]+?)(?=,|\.)/g)].map(m=>[m[2].replace(/^and /,''),Number(m[1])]),max=Math.max(...parts.map(p=>p[1]));
-  return `<div class="section-heading"><h2>Revenue exposure</h2><span>FY2024 · approximate</span></div><div class="mix-bars">${parts.map(([label,n])=>`<div><span>${esc(label)}</span><button data-evidence="${row.key}" aria-label="${esc(label)} approximately ${n} percent, view source"><i style="width:${n/max*100}%"></i></button><strong>≈${n}%</strong></div>`).join('')}</div><p class="chart-reading">${esc(reading)}</p>${sourceFooter(row.key)}`;
+  return `<div class="section-heading"><h2>Revenue exposure</h2><span>FY2024 · approximate</span></div><div class="mix-bars">${parts.map(([label,n])=>`<div><span>${esc(label)}</span><button data-evidence="${esc(row.key)}" aria-label="${esc(label)} approximately ${n} percent, view source"><i style="width:${n/max*100}%"></i></button><strong>≈${n}%</strong></div>`).join('')}</div><p class="chart-reading">${esc(reading)}</p>${sourceFooter(row.key)}`;
 }
 function factorMatrix() {
   const id=pins['CP-2'],table=sectionData(id,'factors')[0].blocks.find(b=>b.type==='table');

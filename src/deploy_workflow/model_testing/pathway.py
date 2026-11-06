@@ -15,7 +15,12 @@ from deploy_vii.execution import Execution
 from deploy_workflow.model_testing.cases import CaseError, GoldenCase
 from deploy_workflow.model_testing.mapping import Mapping
 from deploy_workflow.model_testing.records import JournalError, RunMeta, read_run
-from deploy_workflow.model_testing.scoring import HeadStatus, ModuleScore, score_module
+from deploy_workflow.model_testing.scoring import (
+    HeadStatus,
+    ModuleScore,
+    score_module,
+    upstream_ids,
+)
 from deploy_workflow.owner_rendering import verify_owner_rendered_slice
 from deploy_workflow.owner_workflow import OwnerRunReceipt, verify_owner_run_receipt
 from deploy_workflow.workflow import WorkflowError
@@ -140,7 +145,7 @@ def _score_modules(
             frozenset(upstream),
             refusals.get(module_id, ()),
         )
-        upstream.update(f.fact_id for f in score.facts if f.outcome == "mismatch")
+        upstream |= upstream_ids(score)
         scores.append(score)
     return tuple(scores)
 

@@ -7,12 +7,16 @@ final C1 -> C2 receipt. Paths are supplied by trusted setup, never by a message.
 
 import argparse
 import hashlib
+import io
 import json
+import logging
+import math
 import re
 import sys
 import tempfile
+import unicodedata
 from collections import Counter
-from collections.abc import Collection, Iterable, Iterator, Sequence
+from collections.abc import Collection, Iterable, Iterator, Mapping, Sequence
 from contextlib import contextmanager
 from datetime import date
 from pathlib import Path
@@ -20,7 +24,7 @@ from threading import Lock
 from typing import Any, Literal, TextIO, cast
 from uuid import uuid4
 
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel, Field, ValidationError
 
 from deploy_vii.canonical_tables import CanonicalTables
 from deploy_vii.contracts import Contract, Hash, Identifier, Input, Run, Span
@@ -50,6 +54,7 @@ from deploy_vii.execution import (
     Execution,
     ExecutionSnapshot,
     NotAuthorized,
+    StepSubmission,
     clipped,
     current_inputs,
 )
@@ -74,7 +79,8 @@ from deploy_vii.source_context import SourceContextReview
 from deploy_vii.statement_extract import FOOTNOTE_MARKER, extract_statement_lines
 from deploy_workflow import pdf_headers
 from deploy_workflow import statement_compose as sc
-from deploy_workflow.host import SourceSession
+from deploy_workflow.host import MAX_ARGUMENT_DEPTH, SourceSession
+from deploy_workflow.model.redact import Redactor
 from deploy_workflow.statement_lines import LineTools, respace, seen_tables
 from deploy_workflow.tools.source import SourceError
 from deploy_workflow.unit_maps import Expansion, UnitInputs, expand
@@ -92,6 +98,23 @@ MAX_INVOKES = 64  # pack-tool calls per step (a safety net behind MAX_TURNS); so
 MAX_TURNS = 30  # model requests per (module, step, attempt); hybrid's measured bound
 MAX_MESSAGES = 128
 MAX_LINE = 4 * 1024 * 1024
+# G7: the deepest JSON a JSON-lines request may nest (the request object is depth 1); past it the
+# text is not a request: `bad_arguments`, never a `RecursionError`. It lies above H05's deepest
+# frame (`arguments` 210 levels deep, request depth 212), which must reach the host so that the
+# host refuses it with a retained receipt, and well below the json parser's recursion limit. The
+# argument bound is the host's (`MAX_ARGUMENT_DEPTH`); at a step with no source session the
+# transport applies it (`_checked`).
+MAX_JSON_DEPTH: int = 256
+# The host's argument bound in request depth: `arguments` is one level below the request object.
+_HOST_BOUND_REQUEST_DEPTH: int = MAX_ARGUMENT_DEPTH + 1
+# G7: the characters of an error's text an `InternalError` fault keeps.
+MAX_FAULT_DETAIL: int = 500
+# Unicode categories escaped in an `InternalError` detail: control, line and paragraph separator,
+# format (bidi marks), surrogate.
+_ESCAPED_CATEGORIES = frozenset({"Cc", "Zl", "Zp", "Cf", "Cs"})
+_LOG = logging.getLogger(__name__)
+# The characters a `surrogateescape` decoder makes of bytes that are not UTF-8.
+_UNDECODED_BYTE = re.compile("[\udc80-\udcff]")
 # A located statement page holds a whole line that is a statement heading: the synthetic
 # "[CONSOLIDATED] INCOME STATEMENT | CASH FLOW STATEMENT | BALANCE SHEET" and the filed SEC
 # "CONSOLIDATED [CONDENSED] BALANCE SHEETS | STATEMENTS OF OPERATIONS | STATEMENTS OF CASH FLOWS".
@@ -199,6 +222,19 @@ class PublicationCall(Contract):
     files: dict[str, Hash]
 
 
+class FinancialFault(Contract):
+    """A `faults/` record (G7, as `owner_workflow.OwnerFault`): an exception other than a
+    `WorkflowError` or `SourceError` that escaped a workflow method, retained before it propagates.
+    It holds the operation, the exception's class and a bounded, escaped `detail`; never a payload.
+    It is outside the receipt's compared collections."""
+
+    schema_version: Literal["financial-fault/1"] = "financial-fault/1"
+    code: Literal["InternalError"] = "InternalError"
+    operation: str = Field(max_length=64)
+    error_type: str = Field(max_length=160)
+    detail: str = Field(max_length=MAX_FAULT_DETAIL)
+
+
 class FinancialSliceReceipt(Contract):
     schema_version: Literal["cp1-model-slice-receipt/1"] = "cp1-model-slice-receipt/1"
     run: Run
@@ -257,6 +293,96 @@ def _snapshot(store: Execution, digest: str) -> ExecutionSnapshot:
         raise WorkflowError("identity_mismatch")
     store.pack(snapshot)
     return snapshot
+
+
+def _escaped(char: str) -> str:
+    """`char` as itself, or as `\\xNN`, `\\uNNNN` or `\\UNNNNNNNN` when it is a control, a line
+    or paragraph separator, a format character (bidi marks), a lone surrogate or a backslash, so
+    that the text is one printable line and the escaping is injective."""
+    code = ord(char)
+    if char != "\\" and unicodedata.category(char) not in _ESCAPED_CATEGORIES:
+        return char
+    return (
+        f"\\x{code:02x}"
+        if code < 0x100
+        else f"\\u{code:04x}"
+        if code < 0x10000
+        else f"\\U{code:08x}"
+    )
+
+
+def _bounded_detail(error: BaseException, log: logging.Logger = _LOG) -> str:
+    """The error's text, redacted as the loop redacts a failure (`Redactor`), escaped, and cut to
+    `MAX_FAULT_DETAIL` characters, in that order. An error whose text cannot be made is
+    `<unprintable ClassName>`, so its record is still written (the failure is logged on `log`,
+    the calling workflow's logger)."""
+    try:
+        text = Redactor().text(str(error))
+    except Exception:  # logged; the record keeps the class name instead
+        log.exception("error text of %s unavailable", type(error).__name__)
+        return f"<unprintable {type(error).__name__}>"[:MAX_FAULT_DETAIL]
+    return "".join(_escaped(c) for c in text[:MAX_FAULT_DETAIL])[:MAX_FAULT_DETAIL]
+
+
+@contextmanager
+def _faulted(store: Execution, operation: str) -> Iterator[None]:
+    """G7, retain and re-raise (as `owner_workflow._journaled_errors`): an exception that is not
+    an expected refusal (`WorkflowError`, `SourceError`) is retained as an `InternalError` fault,
+    then raised again unchanged. If the fault cannot be written the original still propagates,
+    with the write error chained as its `__context__` and logged."""
+    try:
+        yield
+    except (WorkflowError, SourceError):
+        raise
+    except Exception as error:
+        fault = FinancialFault(
+            operation=operation,
+            error_type=type(error).__name__[:160],
+            detail=_bounded_detail(error),
+        )
+        try:
+            _retain(store, "faults", fault)
+        except Exception as write_error:  # noqa: BLE001 - logged and chained; the original is raised
+            _LOG.error(
+                "InternalError fault for %s not written (%s)",
+                operation,
+                type(write_error).__name__,
+                exc_info=write_error,
+            )
+            write_error.__context__ = error.__context__
+            error.__context__ = write_error
+        raise
+
+
+def _overlapping(output: Path, directory: Path) -> bool:
+    """`output` is the store `directory`, lies inside it or is one of its ancestors: creating the
+    store would then create or fill the output, or publishing would write into the store."""
+    out, store = output.resolve(), directory.resolve()
+    return out == store or store in out.parents or out in store.parents
+
+
+def _submitted_step(
+    attempt: Attempt, step_id: str, stored_hash: str
+) -> tuple[StepSubmission, Literal["valid", "invalid"], tuple[str, ...]]:
+    """The journal entry a submission of `step_id` just made (the newest step, or the newest
+    repair when no step was appended), its disposition and its issues; `identity_mismatch` when
+    that entry is not this step or does not hold the stored payload."""
+    candidates = (
+        attempt.steps
+        if attempt.steps and attempt.steps[-1].step_id == step_id
+        else attempt.step_repairs
+    )
+    if (
+        not candidates
+        or candidates[-1].payload_sha256 != stored_hash
+        or candidates[-1].step_id != step_id
+    ):
+        raise WorkflowError("identity_mismatch")
+    step = candidates[-1]
+    disposition: Literal["valid", "invalid"] = (
+        "valid" if step.status == "valid" and not attempt.issues else "invalid"
+    )
+    return step, disposition, step.issues or attempt.issues
 
 
 class _FrozenExecution(Execution):
@@ -471,8 +597,8 @@ def _title_kinds(
     "(See" (a "See Notes to ..." footer), near a parent-company, registrant or consolidating
     marker, or when more than `_TITLE_TAIL` follows it on the line (a contents entry with a page
     number, "Balance Sheet Data:"). A notes title may be followed by the notes' first words but not
-    by a page or page range ("Notes to ... Statements 70", "F-8 to F-45"), a closing bracket, or "are"/"is" ("The Notes
-    to ... are an integral part")."""
+    by a page or page range ("Notes to ... Statements 70", "F-8 to F-45"), a closing bracket, or
+    "are"/"is" ("The Notes to ... are an integral part")."""
     kinds: set[str] = set()
     for match in pattern.finditer(text):
         kind = match.lastgroup or ""
@@ -741,7 +867,6 @@ def _column_failure(
     statement: str | None,
     column: tuple[Any, Any],
     source_sha256: str | None = None,
-    context_tables: Sequence[Any] | None = None,
 ) -> tuple[int, str] | None:
     """The first failing check of one mapped column (its acceptable period ids, its extracted
     value), as an index in `_COVERAGE_CHECKS` and its reason text; None when a line of the book
@@ -770,7 +895,10 @@ def _column_failure(
     typed = [line for line in pool if line.quantity is not None or line.label_parts is not None]
     typed_unit = any(
         (line.quantity is not None or line.label_parts is not None)
-        and any(c.source_id == table.source_id and c.locator == extracted.locator for c in line.value.citations)
+        and any(
+            c.source_id == table.source_id and c.locator == extracted.locator
+            for c in line.value.citations
+        )
         for line in book.statement_lines
     )
     family = sc.source_quantity_family(table, extracted)
@@ -779,9 +907,7 @@ def _column_failure(
     if typed and (
         source_sha256 is None
         or any(
-            not sc.validate_typed_statement_line(
-                table, extracted, line, book, source_sha256, context_tables
-            )
+            not sc.validate_typed_statement_line(table, extracted, line, book, source_sha256)
             for line in typed
         )
     ):
@@ -795,14 +921,6 @@ def _column_failure(
     if not typed and not any(_cites_row(line, table, extracted, quoting=True) for line in pool):
         return 4, f"quote: {where} has no citation of {extracted.locator} quoting the label"
     return None
-
-
-def _first_failure(
-    book: Any, table: Any, extracted: Any, statement: str | None, column: tuple[Any, Any]
-) -> int | None:
-    """The index in `_COVERAGE_CHECKS` of `_column_failure`, or None."""
-    failure = _column_failure(book, table, extracted, statement, column)
-    return None if failure is None else failure[0]
 
 
 _Rows = frozenset[tuple[str, str]]
@@ -864,7 +982,6 @@ def _uncovered_reason(
     unit: _Unit = _NO_UNIT,
     page_text: str | None = None,
     source_sha256: str | None = None,
-    context_tables: Sequence[Any] | None = None,
 ) -> str | None:
     """None when some book covers the row: at least one header column maps to its periods and every
     mapped column has a line with the row's statement, period, label, amount and a citation of the
@@ -887,9 +1004,7 @@ def _uncovered_reason(
             if ids and not _null_column(book, statement, unit, mapped, index)
         ]
         failures = [
-            _column_failure(
-                book, table, extracted, statement, column, source_sha256, context_tables
-            )
+            _column_failure(book, table, extracted, statement, column, source_sha256)
             for column in columns
         ]
         failed = [failure for failure in failures if failure is not None]
@@ -963,7 +1078,10 @@ def expand_unit_maps(
             return Expansion(
                 payload,
                 (
-                    "unit_maps: submitted financial scope conflicts with authenticated source scope; nothing composed",
+                    (
+                        "unit_maps: submitted financial scope conflicts with authenticated source "
+                        "scope; nothing composed"
+                    ),
                 ),
             )
         financial = filled_document.get("financial")
@@ -1172,7 +1290,6 @@ def _evidence_issues(
                 unit,
                 page_text,
                 source_hashes.get(table.source_id),
-                tuple(candidate for candidate in tables if candidate.source_id == table.source_id),
             )
             if reason is not None:
                 head = "Uncovered extracted statement line: "
@@ -1640,7 +1757,8 @@ def _drop_label(cells: list[str], keep: Any) -> list[str]:
 
 
 def _spec_row(headers: tuple[str, ...], index: int) -> list[tuple[str, ...]] | None:
-    """The column specs of header `index`: a single row of columns, or a span row over a year row."""
+    """The column specs of header `index`: a single row of columns, or a span row over a year
+    row."""
     cells = _header_cells(headers[index])
     spans = [_span(cell) for cell in _drop_label(cells, lambda c: _span(c) is not None)]
     if spans and all(spans):
@@ -1695,11 +1813,12 @@ def _column_periods(headers: tuple[str, ...], periods: Any) -> tuple[frozenset[s
 
 
 def _mapped_columns(headers: tuple[str, ...], periods: Any) -> tuple[frozenset[str], ...] | None:
-    """`_column_periods` for coverage (CP1H-R20): per header column, the period ids it maps to, or an
-    empty set where it maps to none. None where no column maps, or where two columns that map share
-    a period, or on a flow-span row that fails to map: the fail-closed cases of `_column_periods`.
-    One column may map to several periods (a balance date); a line in any of them covers it. A
-    column that several declared periods match, and that is not a balance, is ambiguous: None."""
+    """`_column_periods` for coverage (CP1H-R20): per header column, the period ids it maps to, or
+    an empty set where it maps to none. None where no column maps, or where two columns that map
+    share a period, or on a flow-span row that fails to map: the fail-closed cases of
+    `_column_periods`. One column may map to several periods (a balance date); a line in any of
+    them covers it. A column that several declared periods match, and that is not a balance, is
+    ambiguous: None."""
     for index in range(len(headers)):
         specs = _spec_row(headers, index)
         if specs is None:
@@ -1739,6 +1858,56 @@ def _files(directory: Path) -> dict[str, str]:
     return {name: _hash((directory / name).read_bytes()) for name in FILES}
 
 
+def _canonical_review(step_id: str, stored: str) -> str | None:
+    """The content hash of the stored payload parsed as its step's review, or None when it does
+    not parse (an invalid submission)."""
+    try:
+        return SCHEMAS[step_id].model_validate_json(stored).content_hash()
+    except ValueError:
+        return None
+
+
+def _retryable_refusal(reason: str) -> bool:
+    """The one refusal before begin that may precede a publication: the output directory existed
+    (`publish_cp_model`'s own text). Any other is the run's last publication attempt."""
+    return reason.startswith("Output ") and (
+        "already exists; publish into a new directory" in reason
+    )
+
+
+def _finalize_failed_publication(
+    store: Execution, attempt: Attempt, output: Path, reason: str
+) -> tuple[dict[str, str], str, bool]:
+    """Finalize a publication that began `attempt` and then failed (fail-closed): interrupt the
+    attempt while it is pending, hash the partial `FILES` and quarantine `output` beside itself.
+    Returns the partial hashes, the reason with each cleanup failure appended, and whether the
+    run cannot continue (a cleanup failed or a head of the publisher remains)."""
+    files: dict[str, str] = {}
+    failed = False
+    if attempt.status == "pending":
+        try:
+            store.interrupt(attempt.ticket_id, "Publication did not complete: " + reason)
+        except Exception as cleanup_error:  # noqa: BLE001 - quarantine remains independent
+            reason += "; interruption failed: " + type(cleanup_error).__name__
+            failed = True
+    if output.exists():
+        for name in FILES:
+            try:
+                path = output / name
+                if path.is_file():
+                    files[name] = _hash(path.read_bytes())
+            except OSError as hash_error:
+                reason += "; partial hash failed: " + type(hash_error).__name__
+        try:
+            output.rename(output.with_name(output.name + ".failed-" + str(uuid4())))
+        except OSError as quarantine_error:
+            reason += "; quarantine failed: " + type(quarantine_error).__name__
+            failed = True
+    if any(h.module_id == attempt.module_id for h in store.read().heads):
+        failed = True
+    return files, reason, failed
+
+
 class FinancialWorkflow:
     def __init__(self, store: Execution, attempt: Attempt, model_directory: Path) -> None:
         self._store, self._model_directory = store, model_directory
@@ -1763,11 +1932,7 @@ class FinancialWorkflow:
     ) -> "FinancialWorkflow":
         if pack.run.requested_modules != ("CP-1", "CP-MODEL"):
             raise WorkflowError("not_permitted")
-        if (
-            model_directory.exists()
-            or model_directory.resolve() == directory.resolve()
-            or directory.resolve() in model_directory.resolve().parents
-        ):
+        if model_directory.exists() or _overlapping(model_directory, directory):
             raise WorkflowError("not_permitted")
         store = Execution.create(directory, pack)
         return cls(store, store.begin("CP-0"), model_directory)
@@ -1803,7 +1968,7 @@ class FinancialWorkflow:
         _historical(self._store, self._binding)
 
     def invoke(self, tool_name: str, arguments: dict[str, Any]) -> dict[str, Any]:
-        with self._locked():
+        with self._locked(), _faulted(self._store, "invoke"):
             self._current()
             key = (self._binding.ticket_id, self._binding.step_id, "invoke")
             if self._phase != "analytical" or self._limits[key] >= MAX_INVOKES:
@@ -1833,7 +1998,7 @@ class FinancialWorkflow:
             return call.model_dump(mode="json")
 
     def read_inputs(self) -> dict[str, Any]:
-        with self._locked():
+        with self._locked(), _faulted(self._store, "read_inputs"):
             self._current()
             key = (self._binding.ticket_id, self._binding.step_id, "read_inputs")
             if self._phase != "analytical" or self._limits[key] >= MAX_CALLS:
@@ -1849,7 +2014,7 @@ class FinancialWorkflow:
             return record.model_dump(mode="json")
 
     def submit_review(self, payload: str) -> dict[str, Any]:
-        with self._locked():
+        with self._locked(), _faulted(self._store, "submit_review"):
             self._current()
             if (
                 self._phase != "analytical"
@@ -1883,7 +2048,6 @@ class FinancialWorkflow:
             ):
                 raise WorkflowError("identity_mismatch")
             _put(_audit(self._store, "payloads", binding.payload_sha256), payload_bytes)
-            _retain(self._store, "bindings", binding)
             stored, resolved, paths, kinds = _filled(self._store, self._binding, payload)
             stored_bytes = stored.encode()
             stored_hash = _hash(stored_bytes)
@@ -1908,31 +2072,11 @@ class FinancialWorkflow:
                     ) != (stored, resolved, paths, kinds):
                         raise WorkflowError("identity_mismatch")
                     attempt = submitted.journal
-                candidates = (
-                    attempt.steps
-                    if attempt.steps and attempt.steps[-1].step_id == self._binding.step_id
-                    else attempt.step_repairs
+                submitted_step, disposition, issues = _submitted_step(
+                    attempt, self._binding.step_id, stored_hash
                 )
-                if (
-                    not candidates
-                    or candidates[-1].payload_sha256 != stored_hash
-                    or candidates[-1].step_id != self._binding.step_id
-                ):
-                    raise WorkflowError("identity_mismatch")
-                submitted_step = candidates[-1]
-                disposition = (
-                    "valid"
-                    if submitted_step.status == "valid" and not attempt.issues
-                    else "invalid"
-                )
-                issues = submitted_step.issues or attempt.issues
             after = self._store.read()
-            try:
-                canonical = (
-                    SCHEMAS[self._binding.step_id].model_validate_json(stored).content_hash()
-                )
-            except ValueError:
-                canonical = None
+            canonical = _canonical_review(self._binding.step_id, stored)
             after_hash = after.content_hash()
             record = StageSubmission(
                 sequence=len(self._submissions) + 1,
@@ -1948,34 +2092,15 @@ class FinancialWorkflow:
                 step_sha256=None if submitted_step is None else submitted_step.content_hash(),
                 step_output_sha256=None if submitted_step is None else submitted_step.output_sha256,
             )
+            # The binding is retained with its submission, after the last identity check: a
+            # submit that raises before here leaves no binding for `_verify` to find unmatched.
+            _retain(self._store, "bindings", binding)
             _retain(self._store, "submissions", record)
             self._submissions.append(record)
             step_id = self._binding.step_id
             self._current_sha256 = after_hash
             if attempt is not None:
-                if disposition == "valid" and step_id == "source_readiness":
-                    try:
-                        self._activate(self._store.begin("CP-1"), "source_context")
-                    except NotAuthorized as error:
-                        self._refusal = "cp1_not_authorized"
-                        self._refused_begin = RefusedBegin(
-                            snapshot_sha256=after_hash, reason=str(error)
-                        )
-                        _retain(self._store, "refused-begin", self._refused_begin)
-                        self._phase = "not_authorized"
-                elif disposition == "valid" and step_id == "quality":
-                    self._phase = "promoted"
-                elif disposition == "valid":
-                    self._activate(attempt, CP1_PROMOTION[len(attempt.steps)])
-                elif attempt.status == "pending":
-                    self._activate(attempt, step_id)
-                elif attempt.number == 0:
-                    self._activate(
-                        self._store.begin(attempt.module_id),
-                        "source_readiness" if attempt.module_id == "CP-0" else "source_context",
-                    )
-                else:
-                    self._phase = "failed"
+                self._after_step(attempt, step_id, valid=disposition == "valid")
             return {
                 "schema_version": "financial-review-outcome/1",
                 "status": disposition,
@@ -1989,8 +2114,36 @@ class FinancialWorkflow:
                 **({"notes": list(expansion.notes)} if expansion.notes else {}),
             }
 
+    def _after_step(self, attempt: Attempt, step_id: str, *, valid: bool) -> None:
+        """Where the walk goes after a journaled step: CP-1 begins after CP-0 (or the run is
+        `not_authorized`), a valid quality step promotes, a valid step activates the next one, an
+        invalid step is repaired in its attempt or a new one, and a second failure ends the run."""
+        if valid and step_id == "source_readiness":
+            try:
+                self._activate(self._store.begin("CP-1"), "source_context")
+            except NotAuthorized as error:
+                self._refusal = "cp1_not_authorized"
+                self._refused_begin = RefusedBegin(
+                    snapshot_sha256=self._current_sha256, reason=str(error)
+                )
+                _retain(self._store, "refused-begin", self._refused_begin)
+                self._phase = "not_authorized"
+        elif valid and step_id == "quality":
+            self._phase = "promoted"
+        elif valid:
+            self._activate(attempt, CP1_PROMOTION[len(attempt.steps)])
+        elif attempt.status == "pending":
+            self._activate(attempt, step_id)
+        elif attempt.number == 0:
+            self._activate(
+                self._store.begin(attempt.module_id),
+                "source_readiness" if attempt.module_id == "CP-0" else "source_context",
+            )
+        else:
+            self._phase = "failed"
+
     def publish_model(self) -> dict[str, Any]:
-        with self._locked():
+        with self._locked(), _faulted(self._store, "publish_model"):
             before = self._current()
             if self._phase not in ("promoted", "not_authorized") or len(self._publications) >= 2:
                 raise WorkflowError("not_permitted")
@@ -2016,47 +2169,28 @@ class FinancialWorkflow:
                 self._phase = "complete"
             except Exception as error:  # fail-open by design: finalize owned partial publications
                 reason = str(error)
-                after = self._store.read()
-                new = [
-                    a
-                    for a in after.attempts
-                    if a.ticket_id not in {a.ticket_id for a in before.attempts}
-                ]
+                known = {a.ticket_id for a in before.attempts}
+                new = [a for a in self._store.read().attempts if a.ticket_id not in known]
                 if new:
                     status = "failed"
-                    ticket = new[0].ticket_id if len(new) == 1 else None
                     if len(new) != 1 or new[0].module_id != "CP-MODEL":
                         self._phase = "failed"
                         raise WorkflowError("identity_mismatch") from error
-                    if new[0].status == "pending":
-                        try:
-                            self._store.interrupt(
-                                new[0].ticket_id, "Publication did not complete: " + reason
-                            )
-                        except Exception as cleanup_error:  # noqa: BLE001 - quarantine remains independent
-                            reason += "; interruption failed: " + type(cleanup_error).__name__
-                            self._phase = "failed"
-                    if self._model_directory.exists():
-                        for name in FILES:
-                            try:
-                                path = self._model_directory / name
-                                if path.is_file():
-                                    files[name] = _hash(path.read_bytes())
-                            except OSError as hash_error:
-                                reason += "; partial hash failed: " + type(hash_error).__name__
-                        try:
-                            self._model_directory.rename(
-                                self._model_directory.with_name(
-                                    self._model_directory.name + ".failed-" + str(uuid4())
-                                )
-                            )
-                        except OSError as quarantine_error:
-                            reason += "; quarantine failed: " + type(quarantine_error).__name__
-                            self._phase = "failed"
-                    if any(h.module_id == "CP-MODEL" for h in self._store.read().heads):
-                        self._phase = "failed"
+                    ticket = new[0].ticket_id
+                    phase, self._phase = self._phase, "failed"  # fail closed while finalizing
+                    files, reason, failed = _finalize_failed_publication(
+                        self._store, new[0], self._model_directory, reason
+                    )
+                    if not failed:
+                        self._phase = phase
                 elif self._phase == "not_authorized" and isinstance(error, CpModelRefused):
                     self._phase = "complete"
+                elif self._phase == "not_authorized" or not (
+                    isinstance(error, CpModelRefused) and _retryable_refusal(reason)
+                ):
+                    # `_verify` accepts no other refusal before a publication, nor two at a
+                    # refused CP-1: a retry could only publish a Model no receipt can bind.
+                    self._phase = "failed"
             after = self._store.read()
             record = PublicationCall(
                 snapshot_before_sha256=before.content_hash(),
@@ -2078,7 +2212,7 @@ class FinancialWorkflow:
             }
 
     def write_receipt(self, destination: Path) -> FinancialSliceReceipt:
-        with self._locked():
+        with self._locked(), _faulted(self._store, "write_receipt"):
             snapshot = self._current()
             if self._phase != "complete":
                 raise WorkflowError("not_permitted")
@@ -2105,11 +2239,13 @@ class FinancialWorkflow:
                 sealed=False,
             )
             self._current()
+            # The receipt file first, the seal last (as `OwnerWorkflow.write_receipt`): a failure
+            # between them leaves an unsealed store a later call can still seal.
+            _put(destination, receipt.model_dump_json().encode())
             _put(
                 self._store.directory / "financial-slice-audit" / "receipt.sha256",
                 receipt.content_hash().encode(),
             )
-            _put(destination, receipt.model_dump_json().encode())
             self._current()
             self._sealed = True
             return receipt
@@ -2118,6 +2254,36 @@ class FinancialWorkflow:
 def _verify(
     store: Execution, receipt: FinancialSliceReceipt, *, model_directory: Path | None, sealed: bool
 ) -> None:
+    """Every check in a fixed order, so the first one that fails names the refusal: heads and
+    journal steps, ancestry, the audit collections, publication history, calls, reads,
+    submissions, CP-0, then the refused or the published outcome."""
+    snapshot = _verify_heads(store, receipt)
+    _verify_ancestry(store, snapshot, receipt)
+    _verify_audit_collections(store, receipt, sealed=sealed)
+    _publication_history(store, receipt)
+    _verify_calls(store, receipt)
+    _verify_reads(store, receipt)
+    valid = _verify_submissions(store, receipt)
+    if _record(store, "CP-0") != receipt.cp0:
+        raise WorkflowError("identity_mismatch")
+    cp0_attempt = next(a for a in snapshot.attempts if a.ticket_id == receipt.cp0.ticket_id)
+    _verify_cp0(store, snapshot, cp0_attempt)
+    expected_steps = [
+        (cp0_attempt.ticket_id, s.step_id, s.content_hash()) for s in cp0_attempt.steps
+    ]
+    if receipt.refusal:
+        _verify_refused_run(store, snapshot, receipt, model_directory)
+    else:
+        expected_steps += _verify_published_run(store, snapshot, receipt, model_directory)
+    if not all(item in valid for item in expected_steps):
+        raise WorkflowError("identity_mismatch")
+    if store.read().content_hash() != receipt.snapshot_sha256:
+        raise WorkflowError("stale_binding")
+
+
+def _verify_heads(store: Execution, receipt: FinancialSliceReceipt) -> ExecutionSnapshot:
+    """The current snapshot is the receipt's; its heads are exactly the expected modules, each
+    rebuilt from its own module; and its CP-0/CP-1 journal steps are the recorded ones."""
     from deploy_vii.execution import head_of
 
     snapshot = store.read()
@@ -2156,6 +2322,14 @@ def _verify(
     )
     if retained_steps != recorded_steps:
         raise WorkflowError("identity_mismatch")
+    return snapshot
+
+
+def _verify_ancestry(
+    store: Execution, snapshot: ExecutionSnapshot, receipt: FinancialSliceReceipt
+) -> None:
+    """The snapshot's parent chain is acyclic and of this run and pack, and every coordinate the
+    receipt records lies on it."""
     ancestors = set()
     cursor = snapshot
     while True:
@@ -2183,13 +2357,20 @@ def _verify(
     ]
     if any(digest not in ancestors for digest in coordinates):
         raise WorkflowError("identity_mismatch")
+
+
+def _verify_audit_collections(
+    store: Execution, receipt: FinancialSliceReceipt, *, sealed: bool
+) -> None:
+    """The seal (when sealed), each retained audit collection exactly the receipt's records, and
+    the call identity and per-step caps."""
     if (
         sealed
         and (store.directory / "financial-slice-audit" / "receipt.sha256").read_text()
         != receipt.content_hash()
     ):
         raise WorkflowError("identity_mismatch")
-    collections = {
+    collections: dict[str, Sequence[Contract]] = {
         "calls": receipt.calls,
         "input-reads": receipt.input_reads,
         "submissions": receipt.submissions,
@@ -2207,6 +2388,7 @@ def _verify(
             raise WorkflowError("identity_mismatch")
     if len({c.call_id for c in receipt.calls}) != len(receipt.calls):
         raise WorkflowError("identity_mismatch")
+    records: Sequence[FinancialCall | InputRead]
     for records, cap in ((receipt.calls, MAX_INVOKES), (receipt.input_reads, MAX_CALLS)):
         counts = Counter((record.binding.ticket_id, record.binding.step_id) for record in records)
         if any(count > cap for count in counts.values()):
@@ -2216,7 +2398,11 @@ def _verify(
     )
     if any(count > MAX_CALLS for count in submission_counts.values()):
         raise WorkflowError("identity_mismatch")
-    _publication_history(store, receipt)
+
+
+def _verify_calls(store: Execution, receipt: FinancialSliceReceipt) -> None:
+    """Each call is in sequence within its binding; a source-step call replays to itself at its
+    historical snapshot, and any other is the source-free `not_permitted` refusal."""
     replayed: dict[str, SourceSession] = {}
     for call in receipt.calls:
         historical = _historical(store, call.binding)
@@ -2241,6 +2427,10 @@ def _verify(
             or call.source_evidence != SourceEvidence()
         ):
             raise WorkflowError("identity_mismatch")
+
+
+def _verify_reads(store: Execution, receipt: FinancialSliceReceipt) -> None:
+    """Each input read is the projection of its binding, in sequence within its step."""
     for read in receipt.input_reads:
         digest, body = _projection(store, read.binding)
         prior_reads = [
@@ -2256,168 +2446,216 @@ def _verify(
             or read.sequence > MAX_CALLS
         ):
             raise WorkflowError("identity_mismatch")
+
+
+def _verify_submissions(
+    store: Execution, receipt: FinancialSliceReceipt
+) -> list[tuple[str, str, str]]:
+    """Each submission, in sequence, replays to its record; returns the (ticket, step, step hash)
+    of every valid one."""
     valid = []
     for sequence, submission in enumerate(receipt.submissions, 1):
         if submission.sequence != sequence:
             raise WorkflowError("identity_mismatch")
-        binding = submission.binding
-        historical = _historical(store, binding.binding)
-        raw = _raw(store, binding.payload_sha256)
-        filled, resolved, paths, kinds = _filled(historical, binding.binding, raw)
-        if (filled, resolved, paths, kinds) != (
-            _raw(store, submission.stored_payload_sha256),
-            submission.nulls_resolved,
-            submission.prefilled,
-            submission.prefilled_kinds,
-        ):
-            raise WorkflowError("identity_mismatch")
-        scoped = [c for c in receipt.calls if c.binding == binding.binding]
-        prefix = scoped[: len(binding.call_ids)]
-        evidence = prefix[-1].source_evidence if prefix else SourceEvidence()
-        if (
-            binding.call_ids != tuple(c.call_id for c in prefix)
-            or binding.successful_call_ids != tuple(c.call_id for c in prefix if c.status == "ok")
-            or binding.source_evidence != evidence
-        ):
-            raise WorkflowError("identity_mismatch")
-        issues = _evidence_issues(historical, binding.binding, filled, evidence)
-        after = _snapshot(store, submission.snapshot_after_sha256)
-        if after.run != receipt.run or after.pack_sha256 != receipt.pack_sha256:
-            raise WorkflowError("identity_mismatch")
-        if submission.disposition == "refused":
-            if (
-                not issues
-                or submission.issues != issues
-                or after.content_hash() != binding.binding.snapshot_sha256
-                or submission.step_sha256 is not None
-            ):
-                raise WorkflowError("identity_mismatch")
-            continue
-        if issues:
-            raise WorkflowError("identity_mismatch")
-        canonical = None
-        try:
-            canonical = SCHEMAS[binding.binding.step_id].model_validate_json(filled).content_hash()
-        except ValueError:
-            pass
-        if canonical != submission.canonical_review_sha256:
-            raise WorkflowError("identity_mismatch")
-        attempt = next(a for a in after.attempts if a.ticket_id == binding.binding.ticket_id)
-        before_attempt = next(
-            a for a in historical.read().attempts if a.ticket_id == binding.binding.ticket_id
-        )
-        candidates = (
-            attempt.steps
-            if len(attempt.steps) > len(before_attempt.steps)
-            else attempt.step_repairs[len(before_attempt.step_repairs) :]
-        )
-        matches = [s for s in candidates[-1:] if s.content_hash() == submission.step_sha256]
-        if (
-            len(matches) != 1
-            or matches[0].payload_sha256 != submission.stored_payload_sha256
-            or matches[0].output_sha256 != submission.step_output_sha256
-        ):
-            raise WorkflowError("identity_mismatch")
-        step = matches[0]
-        if submission.disposition == "valid":
-            if step.status != "valid" or submission.issues:
-                raise WorkflowError("identity_mismatch")
-            valid.append((attempt.ticket_id, step.step_id, step.content_hash()))
-            if binding.binding.step_id not in SOURCE_STEPS and not any(
-                r.binding == binding.binding for r in receipt.input_reads
-            ):
-                raise WorkflowError("identity_mismatch")
-        elif step.status != "invalid" or step.issues != submission.issues:
-            raise WorkflowError("identity_mismatch")
-    if _record(store, "CP-0") != receipt.cp0:
+        step = _verify_submission(store, receipt, submission)
+        if step is not None:
+            valid.append(step)
+    return valid
+
+
+def _verify_submission(
+    store: Execution, receipt: FinancialSliceReceipt, submission: StageSubmission
+) -> tuple[str, str, str] | None:
+    """One submission: its fill replays, its call prefix and evidence are the retained calls, and
+    its disposition is the evidence gate's refusal or the journal's step. Returns the valid step's
+    (ticket, step, step hash), or None."""
+    binding = submission.binding
+    historical = _historical(store, binding.binding)
+    filled = _verify_fill(store, historical, submission)
+    evidence = _verify_call_prefix(receipt, binding)
+    issues = _evidence_issues(historical, binding.binding, filled, evidence)
+    after = _snapshot(store, submission.snapshot_after_sha256)
+    if after.run != receipt.run or after.pack_sha256 != receipt.pack_sha256:
         raise WorkflowError("identity_mismatch")
-    cp0_attempt = next(a for a in snapshot.attempts if a.ticket_id == receipt.cp0.ticket_id)
-    _verify_cp0(store, snapshot, cp0_attempt)
-    expected_steps = [
-        (cp0_attempt.ticket_id, s.step_id, s.content_hash()) for s in cp0_attempt.steps
-    ]
-    if receipt.refusal:
+    if submission.disposition == "refused":
         if (
-            receipt.refusal != "cp1_not_authorized"
-            or receipt.cp1 is not None
-            or receipt.model is not None
-            or model_directory is not None
-            or receipt.refused_begin is None
+            not issues
+            or submission.issues != issues
+            or after.content_hash() != binding.binding.snapshot_sha256
+            or submission.step_sha256 is not None
         ):
             raise WorkflowError("identity_mismatch")
-        if any(a.module_id != "CP-0" for a in snapshot.attempts) or any(
-            h.module_id != "CP-0" for h in snapshot.heads
+        return None
+    if issues:
+        raise WorkflowError("identity_mismatch")
+    if _canonical_review(binding.binding.step_id, filled) != submission.canonical_review_sha256:
+        raise WorkflowError("identity_mismatch")
+    attempt, step = _journaled_step(historical, after, submission)
+    if submission.disposition == "valid":
+        if step.status != "valid" or submission.issues:
+            raise WorkflowError("identity_mismatch")
+        if binding.binding.step_id not in SOURCE_STEPS and not any(
+            r.binding == binding.binding for r in receipt.input_reads
         ):
             raise WorkflowError("identity_mismatch")
+        return (attempt.ticket_id, step.step_id, step.content_hash())
+    if step.status != "invalid" or step.issues != submission.issues:
+        raise WorkflowError("identity_mismatch")
+    return None
+
+
+def _verify_fill(store: Execution, historical: Execution, submission: StageSubmission) -> str:
+    """The retained raw payload fills, at its historical snapshot, to the stored payload and the
+    recorded prefill; returns the filled payload."""
+    binding = submission.binding
+    raw = _raw(store, binding.payload_sha256)
+    filled, resolved, paths, kinds = _filled(historical, binding.binding, raw)
+    if (filled, resolved, paths, kinds) != (
+        _raw(store, submission.stored_payload_sha256),
+        submission.nulls_resolved,
+        submission.prefilled,
+        submission.prefilled_kinds,
+    ):
+        raise WorkflowError("identity_mismatch")
+    return filled
+
+
+def _verify_call_prefix(
+    receipt: FinancialSliceReceipt, binding: FinancialSubmissionBinding
+) -> SourceEvidence:
+    """The submission's call ids are the prefix of its binding's retained calls, with the last
+    call's evidence; returns that evidence."""
+    scoped = [c for c in receipt.calls if c.binding == binding.binding]
+    prefix = scoped[: len(binding.call_ids)]
+    evidence = prefix[-1].source_evidence if prefix else SourceEvidence()
+    if (
+        binding.call_ids != tuple(c.call_id for c in prefix)
+        or binding.successful_call_ids != tuple(c.call_id for c in prefix if c.status == "ok")
+        or binding.source_evidence != evidence
+    ):
+        raise WorkflowError("identity_mismatch")
+    return evidence
+
+
+def _journaled_step(
+    historical: Execution, after: ExecutionSnapshot, submission: StageSubmission
+) -> tuple[Attempt, StepSubmission]:
+    """The attempt after the submission and the one journal entry it added, which must be the
+    recorded step with the stored payload and output."""
+    ticket_id = submission.binding.binding.ticket_id
+    attempt = next(a for a in after.attempts if a.ticket_id == ticket_id)
+    before_attempt = next(a for a in historical.read().attempts if a.ticket_id == ticket_id)
+    candidates = (
+        attempt.steps
+        if len(attempt.steps) > len(before_attempt.steps)
+        else attempt.step_repairs[len(before_attempt.step_repairs) :]
+    )
+    matches = [s for s in candidates[-1:] if s.content_hash() == submission.step_sha256]
+    if (
+        len(matches) != 1
+        or matches[0].payload_sha256 != submission.stored_payload_sha256
+        or matches[0].output_sha256 != submission.step_output_sha256
+    ):
+        raise WorkflowError("identity_mismatch")
+    return attempt, matches[0]
+
+
+def _verify_refused_run(
+    store: Execution,
+    snapshot: ExecutionSnapshot,
+    receipt: FinancialSliceReceipt,
+    model_directory: Path | None,
+) -> None:
+    """A `cp1_not_authorized` run: only CP-0 ran, the begin refusal is the journal's own, and its
+    one publication is the publisher's refusal at the final snapshot."""
+    if (
+        receipt.refusal != "cp1_not_authorized"
+        or receipt.cp1 is not None
+        or receipt.model is not None
+        or model_directory is not None
+        or receipt.refused_begin is None
+    ):
+        raise WorkflowError("identity_mismatch")
+    if any(a.module_id != "CP-0" for a in snapshot.attempts) or any(
+        h.module_id != "CP-0" for h in snapshot.heads
+    ):
+        raise WorkflowError("identity_mismatch")
+    try:
+        current_inputs(snapshot, "CP-1")
+    except NotAuthorized as error:
+        if (
+            str(error) != receipt.refused_begin.reason
+            or receipt.refused_begin.snapshot_sha256 != snapshot.content_hash()
+        ):
+            raise WorkflowError("identity_mismatch") from None
+    else:
+        raise WorkflowError("identity_mismatch")
+    if len(receipt.publications) != 1:
+        raise WorkflowError("identity_mismatch")
+    publication = receipt.publications[0]
+    with tempfile.TemporaryDirectory() as refused_directory:
         try:
-            current_inputs(snapshot, "CP-1")
-        except NotAuthorized as error:
-            if (
-                str(error) != receipt.refused_begin.reason
-                or receipt.refused_begin.snapshot_sha256 != snapshot.content_hash()
+            publish_cp_model(
+                _FrozenExecution(store, snapshot), output=Path(refused_directory) / "absent"
+            )
+        except CpModelRefused as error:
+            if publication != PublicationCall(
+                snapshot_before_sha256=snapshot.content_hash(),
+                snapshot_after_sha256=snapshot.content_hash(),
+                status="refused",
+                reason=str(error),
+                ticket_id=None,
+                files={},
             ):
                 raise WorkflowError("identity_mismatch") from None
         else:
             raise WorkflowError("identity_mismatch")
-        if len(receipt.publications) != 1:
-            raise WorkflowError("identity_mismatch")
-        publication = receipt.publications[0]
-        with tempfile.TemporaryDirectory() as refused_directory:
-            try:
-                publish_cp_model(
-                    _FrozenExecution(store, snapshot), output=Path(refused_directory) / "absent"
-                )
-            except CpModelRefused as error:
-                if publication != PublicationCall(
-                    snapshot_before_sha256=snapshot.content_hash(),
-                    snapshot_after_sha256=snapshot.content_hash(),
-                    status="refused",
-                    reason=str(error),
-                    ticket_id=None,
-                    files={},
-                ):
-                    raise WorkflowError("identity_mismatch") from None
-            else:
-                raise WorkflowError("identity_mismatch")
-    else:
-        if (
-            receipt.cp1 is None
-            or receipt.model is None
-            or receipt.refused_begin is not None
-            or model_directory is None
-        ):
-            raise WorkflowError("identity_mismatch")
-        if (
-            _record(store, "CP-1") != receipt.cp1
-            or set(receipt.model.files) != set(FILES)
-            or _files(model_directory) != receipt.model.files
-        ):
-            raise WorkflowError("identity_mismatch")
-        attempt = next(a for a in snapshot.attempts if a.ticket_id == receipt.cp1.ticket_id)
-        _verify_promotion(store, snapshot, attempt)
-        expected_steps += [(attempt.ticket_id, s.step_id, s.content_hash()) for s in attempt.steps]
-        model = _record(store, "CP-MODEL")
-        if (model.ticket_id, model.result_sha256, receipt.cp1.result_sha256) != (
-            receipt.model.ticket_id,
-            receipt.model.result_sha256,
-            receipt.model.cp1_result_sha256,
-        ):
-            raise WorkflowError("identity_mismatch")
-        if verify_cp_model_publication(store, model_directory):
-            raise WorkflowError("identity_mismatch")
-        _verify_model_settlement(store, snapshot, model_directory)
-        if (
-            not receipt.publications
-            or receipt.publications[-1].status != "published"
-            or receipt.publications[-1].ticket_id != model.ticket_id
-            or receipt.publications[-1].files != receipt.model.files
-            or receipt.publications[-1].snapshot_after_sha256 != snapshot.content_hash()
-        ):
-            raise WorkflowError("identity_mismatch")
-    if not all(item in valid for item in expected_steps):
+
+
+def _verify_published_run(
+    store: Execution,
+    snapshot: ExecutionSnapshot,
+    receipt: FinancialSliceReceipt,
+    model_directory: Path | None,
+) -> list[tuple[str, str, str]]:
+    """A promoted run: CP-1's promotion and the published Model rebuild from the journal, the
+    directory holds exactly its files, and the last publication names them. Returns CP-1's steps
+    as (ticket, step, step hash)."""
+    if (
+        receipt.cp1 is None
+        or receipt.model is None
+        or receipt.refused_begin is not None
+        or model_directory is None
+    ):
         raise WorkflowError("identity_mismatch")
-    if store.read().content_hash() != receipt.snapshot_sha256:
-        raise WorkflowError("stale_binding")
+    if (
+        _record(store, "CP-1") != receipt.cp1
+        or set(receipt.model.files) != set(FILES)
+        or _files(model_directory) != receipt.model.files
+    ):
+        raise WorkflowError("identity_mismatch")
+    attempt = next(a for a in snapshot.attempts if a.ticket_id == receipt.cp1.ticket_id)
+    _verify_promotion(store, snapshot, attempt)
+    steps = [(attempt.ticket_id, s.step_id, s.content_hash()) for s in attempt.steps]
+    model = _record(store, "CP-MODEL")
+    if (model.ticket_id, model.result_sha256, receipt.cp1.result_sha256) != (
+        receipt.model.ticket_id,
+        receipt.model.result_sha256,
+        receipt.model.cp1_result_sha256,
+    ):
+        raise WorkflowError("identity_mismatch")
+    if verify_cp_model_publication(store, model_directory):
+        raise WorkflowError("identity_mismatch")
+    _verify_model_settlement(store, snapshot, model_directory)
+    if (
+        not receipt.publications
+        or receipt.publications[-1].status != "published"
+        or receipt.publications[-1].ticket_id != model.ticket_id
+        or receipt.publications[-1].files != receipt.model.files
+        or receipt.publications[-1].snapshot_after_sha256 != snapshot.content_hash()
+    ):
+        raise WorkflowError("identity_mismatch")
+    return steps
 
 
 def _verify_cp0(store: Execution, snapshot: ExecutionSnapshot, attempt: Attempt) -> None:
@@ -2472,10 +2710,7 @@ def _publication_history(store: Execution, receipt: FinancialSliceReceipt) -> No
                 or not publication.reason
             ):
                 raise WorkflowError("identity_mismatch")
-            if not receipt.refusal and not (
-                publication.reason.startswith("Output ")
-                and "already exists; publish into a new directory" in publication.reason
-            ):
+            if not receipt.refusal and not _retryable_refusal(publication.reason):
                 raise WorkflowError("identity_mismatch")
             continue
         before_tickets = {a.ticket_id for a in before.attempts}
@@ -2631,6 +2866,144 @@ def verify_financial_slice_receipt(
         raise WorkflowError("identity_mismatch") from None
 
 
+def _depth_of(value: Any) -> int:
+    """The nesting depth of parsed JSON (a scalar is 0, the request object 1), iteratively, so
+    that no input can make the measure itself recurse."""
+    deepest = 0
+    pending: list[tuple[Any, int]] = [(value, 0)]
+    while pending:
+        item, depth = pending.pop()
+        if type(item) is dict:
+            children: Sequence[Any] = list(item.values())
+        elif type(item) is list:
+            children = item
+        else:
+            continue
+        deepest = max(deepest, depth + 1)
+        pending.extend((child, depth + 1) for child in children)
+    return deepest
+
+
+def _finite_float(text: str) -> float:
+    value = float(text)
+    if not math.isfinite(value):
+        raise ValueError("Non-finite JSON number")
+    return value
+
+
+def _nonfinite_json(value: str) -> None:
+    raise ValueError("Non-finite JSON number")
+
+
+def _request_of(line: str) -> dict[str, Any]:
+    """The request a JSON-lines message carries, or `bad_arguments`: not valid JSON, a non-finite
+    number, an over-limit integer, nesting past `MAX_JSON_DEPTH` and a non-object are the
+    participant's malformed text, decided before dispatch (G7). Nothing else is caught."""
+    try:
+        request = json.loads(line, parse_constant=_nonfinite_json, parse_float=_finite_float)
+    except (ValueError, RecursionError):  # JSONDecodeError, non-finite, int digit limit
+        raise WorkflowError("bad_arguments") from None
+    if type(request) is not dict or _depth_of(request) > MAX_JSON_DEPTH:
+        raise WorkflowError("bad_arguments")
+    return request
+
+
+def _checked(
+    request: dict[str, Any], keys: Mapping[str, tuple[str, ...]], *, sessionless: bool
+) -> dict[str, Any]:
+    """The key set of a known operation (`keys`: operation -> argument names), and a
+    `submit_review` payload that can be written as UTF-8, or `bad_arguments`. At a step with a
+    source session the shapes of an invoke frame (`tool`, `arguments`), a lone surrogate inside it
+    and its depth are the host's to refuse, with a retained receipt (H05, item 88). At a step with
+    none there is no host, so `sessionless` makes the transport refuse what the host would
+    (`_host_would_refuse`). An unknown operation is left to the dispatch (`not_permitted`)."""
+    operation = request.get("operation")
+    shape = keys.get(operation) if isinstance(operation, str) else None
+    if shape is None:
+        return request
+    if set(request) != {"operation", *shape}:
+        raise WorkflowError("bad_arguments")
+    if operation == "submit_review" and not _utf8_text(request["payload"]):
+        raise WorkflowError("bad_arguments")
+    if operation == "invoke" and sessionless and _host_would_refuse(request):
+        raise WorkflowError("bad_arguments")
+    return request
+
+
+def _host_would_refuse(request: dict[str, Any]) -> bool:
+    """An invoke frame that `host._json_arguments` or its tool-name rule would refuse: `tool` not
+    a `str`, `arguments` not an object, a lone surrogate in `tool` or anywhere in `arguments`, or
+    `arguments` nested past `MAX_ARGUMENT_DEPTH`."""
+    tool, arguments = request["tool"], request["arguments"]
+    if type(tool) is not str or type(arguments) is not dict:
+        return True
+    if _depth_of(request) > _HOST_BOUND_REQUEST_DEPTH:
+        return True
+    return not _utf8_text(tool) or not _utf8_text(json.dumps(arguments, ensure_ascii=False))
+
+
+def _utf8_text(value: object) -> bool:
+    """`value` is a `str` that can be written as UTF-8 (no lone surrogate)."""
+    if type(value) is not str:
+        return False
+    try:
+        value.encode()
+    except UnicodeEncodeError:
+        return False
+    return True
+
+
+def _drain(reader: TextIO, line: str) -> None:
+    """Read on to the end of an over-length line. If the rest of it is not UTF-8 the participant's
+    bytes end the drain there: the caller answers `bad_arguments` for the line, as before G7."""
+    try:
+        while line and not line.endswith("\n"):
+            line = reader.readline(MAX_LINE + 1)
+    except UnicodeDecodeError:
+        return
+
+
+def _request_line(reader: TextIO) -> str | None:
+    """The next request line, or None at the end of the stream. Bytes that are not UTF-8, a line
+    over `MAX_LINE` (drained first) and an unterminated last line are the participant's malformed
+    text: `bad_arguments` (G7). A `surrogateescape` reader (`_utf8_stdio`) marks undecodable bytes
+    as U+DC80..U+DCFF, which no UTF-8 text decodes to, and loses nothing; a strict reader raises,
+    and the decoder's buffered chunk is lost with the error."""
+    try:
+        line = reader.readline(MAX_LINE + 1)
+    except UnicodeDecodeError:
+        raise WorkflowError("bad_arguments") from None
+    if not line:
+        return None
+    if len(line) > MAX_LINE or not line.endswith("\n"):
+        _drain(reader, line)
+        raise WorkflowError("bad_arguments")
+    if _UNDECODED_BYTE.search(line):
+        raise WorkflowError("bad_arguments")
+    return line
+
+
+def _utf8_stdio() -> tuple[TextIO, TextIO]:
+    """`sys.stdin` and `sys.stdout` as UTF-8 whatever the locale (a Windows pipe otherwise uses
+    the ANSI code page): the JSON-lines bytes are UTF-8 on every platform. Undecodable input bytes
+    are kept as escapes, so a request holding them answers `bad_arguments` without losing the
+    requests after it (`_request_line`); a reply is encoded strictly."""
+    if isinstance(sys.stdin, io.TextIOWrapper):
+        sys.stdin.reconfigure(encoding="utf-8", errors="surrogateescape")
+    if isinstance(sys.stdout, io.TextIOWrapper):
+        sys.stdout.reconfigure(encoding="utf-8", errors="strict")
+    return sys.stdin, sys.stdout
+
+
+_FINANCIAL_KEYS: dict[str, tuple[str, ...]] = {
+    "invoke": ("tool", "arguments"),
+    "submit_review": ("payload",),
+    "read_inputs": (),
+    "publish_model": (),
+    "write_receipt": (),
+}
+
+
 def serve_json_lines(
     workflow: FinancialWorkflow,
     reader: TextIO,
@@ -2639,51 +3012,49 @@ def serve_json_lines(
     destination: Path,
     participant: str,
 ) -> None:
+    """Serve one participant over bounded JSON lines, as `owner_workflow.serve_json_lines` does
+    (G7): a malformed request (`_request_line`, `_request_of`, `_checked`) answers
+    `bad_arguments` and a `WorkflowError` or `SourceError` its own code. Any other exception from
+    a workflow method is retained by that method as an `InternalError` fault (`_faulted`) and
+    propagates, ending the stream: it is not the participant's error."""
     if workflow._calls or workflow._submissions or workflow._reads:
         raise WorkflowError("not_permitted")
     workflow._participant, workflow._transport = participant, "bounded-json-lines/1"
     for _ in range(MAX_MESSAGES):
-        line = reader.readline(MAX_LINE + 1)
-        if not line:
-            return
         try:
-            if len(line) > MAX_LINE or not line.endswith("\n"):
-                while line and not line.endswith("\n"):
-                    line = reader.readline(MAX_LINE + 1)
-                raise WorkflowError("bad_arguments")
-            request = json.loads(line, parse_constant=_nonfinite_json)
-            if type(request) is not dict:
-                raise WorkflowError("bad_arguments")
-            operation = request.get("operation")
-            if operation == "invoke" and set(request) == {"operation", "tool", "arguments"}:
-                result = workflow.invoke(request["tool"], request["arguments"])
-            elif operation == "submit_review" and set(request) == {"operation", "payload"}:
-                result = workflow.submit_review(request["payload"])
-            elif operation == "read_inputs" and set(request) == {"operation"}:
-                result = workflow.read_inputs()
-            elif operation == "publish_model" and set(request) == {"operation"}:
-                result = workflow.publish_model()
-            elif operation == "write_receipt" and set(request) == {"operation"}:
-                receipt = workflow.write_receipt(destination)
-                result = {
-                    "status": "ok",
-                    "receipt_sha256": receipt.content_hash(),
-                    "snapshot_sha256": receipt.snapshot_sha256,
-                }
-            else:
-                raise WorkflowError("not_permitted")
+            line = _request_line(reader)
+            if line is None:
+                return
+            request = _checked(
+                _request_of(line), _FINANCIAL_KEYS, sessionless=workflow._session is None
+            )
+            result = _dispatch(workflow, request, destination)
         except (WorkflowError, SourceError) as error:
             result = {"status": "refused", "error_code": error.code}
-        except (ValueError, TypeError, KeyError, UnicodeError):
-            result = {"status": "refused", "error_code": "bad_arguments"}
-        except Exception:  # noqa: BLE001 - sanitized bounded analytical transport
-            result = {"status": "error", "error_code": "internal_error"}
         writer.write(json.dumps(result, ensure_ascii=False, allow_nan=False) + "\n")
         writer.flush()
 
 
-def _nonfinite_json(value: str) -> None:
-    raise ValueError("Non-finite JSON number")
+def _dispatch(
+    workflow: FinancialWorkflow, request: dict[str, Any], destination: Path
+) -> dict[str, Any]:
+    operation = request.get("operation")
+    if operation == "invoke":
+        return workflow.invoke(request["tool"], request["arguments"])
+    if operation == "submit_review":
+        return workflow.submit_review(request["payload"])
+    if operation == "read_inputs":
+        return workflow.read_inputs()
+    if operation == "publish_model":
+        return workflow.publish_model()
+    if operation == "write_receipt":
+        receipt = workflow.write_receipt(destination)
+        return {
+            "status": "ok",
+            "receipt_sha256": receipt.content_hash(),
+            "snapshot_sha256": receipt.snapshot_sha256,
+        }
+    raise WorkflowError("not_permitted")
 
 
 def main() -> None:
@@ -2694,10 +3065,11 @@ def main() -> None:
     parser.add_argument("--receipt", type=Path, required=True)
     parser.add_argument("--participant", required=True)
     args = parser.parse_args()
+    reader, writer = _utf8_stdio()
     pack = PreparedPack.model_validate_json(args.pack.read_bytes())
     workflow = FinancialWorkflow.create(args.directory, pack, model_directory=args.model_directory)
     serve_json_lines(
-        workflow, sys.stdin, sys.stdout, destination=args.receipt, participant=args.participant
+        workflow, reader, writer, destination=args.receipt, participant=args.participant
     )
 
 

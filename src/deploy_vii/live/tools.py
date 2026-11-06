@@ -27,8 +27,10 @@ added to the journal's own issues for the submit (`live.submission.submit_model_
   or `not_disclosed` disclosure needs only some `search_pack` in the step, over any source: the
   payload does not name the source the absent value belongs to. A CP-1A or CP-4 row carrying an
   `ABSENCE_MARKERS` value needs the same (task 8.9 fix round 1).
-- `unread_citation_issues`: every `page:N` the payload cites was returned by `read_pages`
-  earlier in the step. Other locators are not pages and are not checked by this rule.
+- `unread_citation_issues`: every `page:N` the payload cites was returned by `read_pages` (or
+  `extract_statements`) earlier in the step, and so was every `line:K` it cites of a line source
+  the `Seen` names (B22, `Seen.lines`, which `PackTools.seen` fills), or an extracted `line:N-M`
+  range holds it. Other locators are not checked by this rule.
 
 Each of these two rules gives at most 20 lines of at most 600 characters (0d-c): past 20 matches,
 the first 19 and a count of the rest. Its issues are built only for the lines shown, so a
@@ -63,8 +65,11 @@ block per `line:N`; `extract_statements` takes ranges `line:N-M` (at most `MAX_P
 ranges and `MAX_LINES_PER_EXTRACT` lines per call), extracts each range as one text and rebases each
 row's `line_no` and locator to its own `line:K`. A range counts as extracted, with each of its data
 rows' `line:K`. Arguments of the wrong kind, a range with a missing line or a line holding a newline
-are a refused call that records nothing. The cited-page rule (`unread_citation_issues`) is still
-`page:N` only (controller ruling R1, to be re-cut with the frozen scripts).
+are a refused call that records nothing. The cited-page rule (`unread_citation_issues`) judges a
+cited `line:K` of a line source the `Seen` names as it judges a `page:N` (review S07). A `Seen`
+built without `lines` (the owner path's `SourceEvidence.seen`) judges `page:N` only, as before:
+judging its `line:K` there re-cuts the frozen o2 scripts and retained replays (controller ruling
+R1), a decision outside this module.
 
 Task 8.11 (user decision "B"): a step in the registry's `part_submit_steps()` (`financials`
 only) sends its JSON object in parts. In place of the one-shot `submit_<step>` it is offered
@@ -76,10 +81,11 @@ submit. The loop (`live.loop`) runs them.
 import json
 import re
 from collections import Counter
-from collections.abc import Iterator, Mapping, Sequence
+from collections.abc import Callable, Iterator, Mapping, Sequence
 from dataclasses import dataclass, replace
 from datetime import date
 from decimal import ROUND_FLOOR, Decimal
+from functools import cache
 from typing import Any
 
 from pydantic import ValidationError
@@ -88,8 +94,8 @@ from deploy_vii.contracts import Span
 from deploy_vii.cp1_workflow import FinancialSubmission
 from deploy_vii.execution import listed_issues
 from deploy_vii.financial_contracts import FinancialBook, StatementLine
-from deploy_vii.live.prompts import block, span_line
-from deploy_vii.live.schema import payload_document, strict_schema
+from deploy_vii.live.prompts import block, span_attributes, span_line
+from deploy_vii.live.schema import exact_model, json_object, payload_document, strict_schema
 from deploy_vii.live.settings import COVERAGE_FLOOR_PLACES, LiveSettings, valid_coverage_floor
 from deploy_vii.live.submission import PART_CALL, PART_KINDS, STEPS
 from deploy_vii.preparation import PreparedPack
@@ -102,7 +108,12 @@ from deploy_vii.registry import (
     tool_set,
 )
 from deploy_vii.source_context import ReportingScope, SourceContextReview, scope_matches_period
-from deploy_vii.statement_extract import ExtractedLine, ExtractedTable, extract_statement_lines
+from deploy_vii.statement_extract import (
+    ExtractedLabelPart,
+    ExtractedLine,
+    ExtractedTable,
+    extract_statement_lines,
+)
 
 MAX_PAGES_PER_READ = 5
 # PF-R7 (B31a): on a line source a `read_pages` call may also span more than MAX_PAGES_PER_READ
@@ -129,6 +140,8 @@ EXTRACT_COLUMNS = "line_no | label | caption | raw_values | flags | label_candid
 _PAGE = re.compile(r"page:([0-9]+)")
 _LINE = re.compile(r"line:([0-9]+)")
 _LINE_RANGE = re.compile(r"line:([1-9][0-9]{0,8})-([1-9][0-9]{0,8})")
+# A cited `line:K` an extracted range can hold: K written as a line source's own locators are.
+_RANGED_LINE = re.compile(r"line:([1-9][0-9]*)")
 # A fiscal year in days, inclusive of both ends: 52 weeks (364) to 53 weeks (371).
 FISCAL_YEAR_DAYS = range(364, 372)
 EVIDENCE = ("citations", "limitations", "claims", "objects")
@@ -332,10 +345,11 @@ def _integer(raw: Mapping[str, Any], name: str) -> int:
 class PackTools:
     """`search_pack` and `read_pages` over the prepared pack; records what the model was shown.
 
-    `read`: the (source, `page:N`) spans `read_pages` returned. `extracted` (task 8.10b): those
-    `extract_statements` returned, kept apart for telemetry; `seen` counts both as read.
+    `read`: the (source, locator) spans `read_pages` returned (`page:N`, or a line source's
+    `line:K`). `extracted` (task 8.10b): those `extract_statements` returned (pages, or line
+    ranges with their data rows' `line:K`), kept apart for telemetry; `seen` counts both as read.
     `surfaced`: the spans a search showed a snippet of. `searched`: the scope of each search
-    that returned a result (None: every source the step reads).
+    that was not refused, zero hits included (None: every source the step reads).
 
     `sources` (task 8.9): the step's declared sources, the only ones the tools read or search
     (CP-4's legal and CP-3's market sources, `live.context.readable_sources`); None is every
@@ -353,15 +367,14 @@ class PackTools:
             for s in pack.sources
             if s.source_id in allowed and s.status == "ready" and s.sha256
         }
+        # Each page number's `page:N` spans in source order: `page:1` and `page:01` are distinct
+        # locators (as `extract_statements` keys them) of one number, and `read_pages` returns both.
         self.pages = {
-            source_id: {
-                int(m.group(1)): span
-                for span in source.spans
-                if (m := _PAGE.fullmatch(span.locator))
-            }
-            for source_id, source in self.ready.items()
+            source_id: _numbered_pages(source.spans) for source_id, source in self.ready.items()
         }
-        self.located_pages = sum(len(pages) for pages in self.pages.values())
+        self.located_pages = sum(
+            len(spans) for pages in self.pages.values() for spans in pages.values()
+        )
         # B22: the `line:N` spans of a line source (no `page:N` span, every span `line:N`).
         self.lines = {
             source_id: {
@@ -393,7 +406,8 @@ class PackTools:
     def search_pack(self, raw: Mapping[str, Any]) -> str:
         _arguments(raw, ("query",), ("source_id", "max_hits"))
         query = raw["query"]
-        terms = list(dict.fromkeys(query.split())) if isinstance(query, str) else []
+        written = query.split() if isinstance(query, str) else []
+        terms = list(dict.fromkeys(written))  # each word counted once; the phrase as written
         if not terms:
             raise ToolError("bad arguments: query must be non-empty text")
         scope = raw.get("source_id")
@@ -401,7 +415,7 @@ class PackTools:
         limit = _integer(raw, "max_hits") if "max_hits" in raw else DEFAULT_HITS
         if not 1 <= limit <= MAX_HITS:
             raise ToolError(f"bad arguments: max_hits must be 1 to {MAX_HITS}")
-        phrase = re.compile(r"\s+".join(map(re.escape, terms)), re.IGNORECASE)
+        phrase = re.compile(r"\s+".join(map(re.escape, written)), re.IGNORECASE)
         words = [re.compile(re.escape(term), re.IGNORECASE) for term in terms]
         found: list[tuple[int, int, int, int, str, Span, re.Match[str]]] = []
         for order, source_id in enumerate(sources):
@@ -426,7 +440,7 @@ class PackTools:
                     "SOURCE",
                     source_id,
                     str(self.ready[source_id].sha256),
-                    f"locator={span.locator} | {span.text[start:end]}",
+                    f"locator={span.locator}{span_attributes(span)} | {span.text[start:end]}",
                 )
             )
         result = "\n".join(lines)
@@ -440,34 +454,29 @@ class PackTools:
         first, last = _integer(raw, "first_page"), _integer(raw, "last_page")
         if first < 1 or last < first:
             raise ToolError("bad arguments: need 1 <= first_page <= last_page")
-        pages = self.pages[source_id]
-        unit, located = "page", pages
-        if not pages and source_id in self.lines:
-            unit, located = "line", self.lines[source_id]
+        pages, lines = self.pages[source_id], self.lines.get(source_id, {})
+        unit = "page" if pages or not lines else "line"
         if last - first + 1 > MAX_PAGES_PER_READ:
             if unit == "page":
                 raise ToolError(f"bad arguments: at most {MAX_PAGES_PER_READ} pages per call")
-            if last - first + 1 > MAX_LINES_PER_READ:
-                raise ToolError(_LINE_READ_REFUSAL)  # before any iteration over the range
-            measured = sum(
-                len(span.text.encode("utf-8"))
-                for number in range(first, last + 1)
-                if (span := located.get(number)) is not None
-            )
-            if measured > MAX_LINE_READ_BYTES:
-                raise ToolError(_LINE_READ_REFUSAL)
-        if not located:
+            _check_line_read(lines, first, last)
+        if not (pages or lines):
             raise ToolError(f"source {source_id} has no page:N locators")
+        located: Mapping[int, Sequence[Span]] = pages
+        if unit == "line":  # the range is bounded by now
+            located = {
+                n: (span,) for n in range(first, last + 1) if (span := lines.get(n)) is not None
+            }
         digest = str(self.ready[source_id].sha256)
         parts = []
         read: set[tuple[str, str]] = set()
         for number in range(first, last + 1):
-            span = located.get(number)
-            if span is None:
+            spans = located.get(number, ())
+            if not spans:
                 parts.append(f"{unit}:{number} is not a located span of {source_id}.")
-                continue
-            parts.append(block("SOURCE", source_id, digest, span_line(span)))
-            read.add((source_id, span.locator))
+            for span in spans:
+                parts.append(block("SOURCE", source_id, digest, span_line(span)))
+                read.add((source_id, span.locator))
         result = "\n".join(parts)
         self.read.update(read)
         return result
@@ -551,7 +560,33 @@ class PackTools:
     def seen(self) -> "Seen":
         """What the model has been shown so far, frozen (a submit is judged on this): a page
         read or extracted counts as read."""
-        return Seen(frozenset(self.read | self.extracted), tuple(self.searched))
+        return Seen(
+            frozenset(self.read | self.extracted), tuple(self.searched), frozenset(self.lines)
+        )
+
+
+def _check_line_read(lines: Mapping[int, Span], first: int, last: int) -> None:
+    """A line-source read of more than `MAX_PAGES_PER_READ` lines: at most `MAX_LINES_PER_READ`
+    lines, checked before any iteration over the range (PF-R9), whose text totals at most
+    `MAX_LINE_READ_BYTES` UTF-8 bytes (PF-R7, B31a); else a refused call."""
+    if last - first + 1 > MAX_LINES_PER_READ:
+        raise ToolError(_LINE_READ_REFUSAL)
+    measured = sum(
+        len(span.text.encode("utf-8"))
+        for number in range(first, last + 1)
+        if (span := lines.get(number)) is not None
+    )
+    if measured > MAX_LINE_READ_BYTES:
+        raise ToolError(_LINE_READ_REFUSAL)
+
+
+def _numbered_pages(spans: Sequence[Span]) -> dict[int, tuple[Span, ...]]:
+    """Each `page:N` number's spans, in source order."""
+    pages: dict[int, list[Span]] = {}
+    for span in spans:
+        if match := _PAGE.fullmatch(span.locator):
+            pages.setdefault(int(match.group(1)), []).append(span)
+    return {number: tuple(found) for number, found in pages.items()}
 
 
 def _range_of(item: str) -> tuple[int, int]:
@@ -564,7 +599,8 @@ def _range_of(item: str) -> tuple[int, int]:
 def _line_table(spans: Mapping[int, Span], item: str, source_id: str) -> ExtractedTable:
     """The table of the range `item` (`line:N-M`) of a line source (B22): spans N..M joined by
     newlines and extracted as one text, each row then rebased to its own line (`line_no` N + rel
-    - 1, locator `line:K`). A missing line or a span holding a newline is a refused call."""
+    - 1, locator `line:K`, and each label candidate's `line_no` the same way). A missing line or a
+    span holding a newline is a refused call."""
     first, last = _range_of(item)
     texts = []
     for number in range(first, last + 1):
@@ -576,7 +612,15 @@ def _line_table(spans: Mapping[int, Span], item: str, source_id: str) -> Extract
         texts.append(span.text)
     table = extract_statement_lines("\n".join(texts), item, source_id=source_id)
     rows = tuple(
-        replace(line, line_no=first + line.line_no - 1, locator=f"line:{first + line.line_no - 1}")
+        replace(
+            line,
+            line_no=first + line.line_no - 1,
+            locator=f"line:{first + line.line_no - 1}",
+            label_candidates=tuple(
+                ExtractedLabelPart(first + part.line_no - 1, part.text)
+                for part in line.label_candidates
+            ),
+        )
         for line in table.lines
     )
     source_lines = tuple(
@@ -611,10 +655,12 @@ def extracted_body(table: ExtractedTable) -> str:
 class Seen:
     """The pages `read_pages` or `extract_statements` returned (task 8.10b: the model saw an
     extracted page's printed lines) and the scope of each search (None: every source), as of
-    one submit."""
+    one submit. `lines` (review S07): the step's line sources (B22), whose cited `line:K` the
+    cited-page rule judges; empty, it judges `page:N` only, as before."""
 
     read: frozenset[tuple[str, str]] = frozenset()
     searched: tuple[str | None, ...] = ()
+    lines: frozenset[str] = frozenset()
 
     def searched_source(self, source_id: str) -> bool:
         """Whether a recorded search covered `source_id` (scoped to it, or to every source)."""
@@ -845,32 +891,46 @@ def _covers(cell: Cell, period_type: str, start: date | None, end: date | None) 
     return scope_matches_period(cell.scope, period_type, start, end)
 
 
+def _financial_submission(payload: str) -> FinancialSubmission | None:
+    """`payload` as the stored contract parses it, every amount with its sent digits
+    (`exact_model`); None when it does not parse (the stage validator rejects it)."""
+    document = json_object(payload)
+    if document is None:
+        return None
+    try:
+        return exact_model(FinancialSubmission, document)
+    except ValidationError:
+        return None
+
+
+def _cell_lines(cell: Cell, book: FinancialBook) -> list[StatementLine]:
+    """The book's lines of the cell's statement in the periods the cell's scope matches."""
+    periods = {
+        p.period_id for p in book.periods if _covers(cell, p.period_type, p.start_date, p.end_date)
+    }
+    return [
+        line
+        for line in book.statement_lines
+        if line.statement == cell.statement and line.period_id in periods
+    ]
+
+
 def completeness_issues(
     payload: str, context: SourceContextReview, min_lines: int
 ) -> tuple[str, ...]:
     """The floor's issues for a financials payload; none for a payload that does not parse
     (the stage validator rejects it with its own issues)."""
-    try:
-        submission = FinancialSubmission.model_validate_json(payload)
-    except ValidationError:
+    submission = _financial_submission(payload)
+    if submission is None:
         return ()
     entities = {item.book_id: item.entity_id for item in submission.binding.books}
     issues: list[str] = []
     for cell in expected_cells(context):
-        count = 0
-        for book in submission.financial.books:
-            if entities.get(book.book_id) != cell.scope.entity_id:
-                continue
-            periods = {
-                p.period_id
-                for p in book.periods
-                if _covers(cell, p.period_type, p.start_date, p.end_date)
-            }
-            count += sum(
-                1
-                for line in book.statement_lines
-                if line.statement == cell.statement and line.period_id in periods
-            )
+        count = sum(
+            len(_cell_lines(cell, book))
+            for book in submission.financial.books
+            if entities.get(book.book_id) == cell.scope.entity_id
+        )
         if count < min_lines:
             issues.append(
                 f"{INCOMPLETE}: {count} {cell.statement} lines for {cell.label()}; the floor is "
@@ -947,6 +1007,26 @@ def _covered(line: ExtractedLine, cited: Sequence[StatementLine], source_id: str
     )
 
 
+def _cited_tables(
+    cited: set[str], source_id: str, tables: Mapping[tuple[str, str], ExtractedTable]
+) -> list[str]:
+    """The locators of the extracted tables of `source_id` the cited locators fall in: each cited
+    `page:N`'s own table in page order, then (a line source, B22) each extracted `line:N-M`
+    range holding a cited `line:K`, in line order."""
+    numbers = {int(found.group(1)) for loc in cited if (found := _RANGED_LINE.fullmatch(loc))}
+
+    def holds(locator: str) -> bool:
+        first, last = _range_of(locator)
+        return any(first <= number <= last for number in numbers)
+
+    ranges = sorted(
+        (loc for ident, loc in tables if ident == source_id and _LINE_RANGE.fullmatch(loc)),
+        key=_range_of,
+    )
+    pages = sorted((loc for loc in cited if (source_id, loc) in tables), key=_page_order)
+    return [*pages, *(loc for loc in ranges if holds(loc))]
+
+
 def _cell_coverage(
     cell: Cell, books: Sequence[FinancialBook], pages: Mapping[tuple[str, str], ExtractedTable]
 ) -> dict[str, Any]:
@@ -956,23 +1036,16 @@ def _cell_coverage(
         citation.locator
         for line in lines
         for citation in line.value.citations
-        if citation.source_id == source_id and _PAGE.fullmatch(citation.locator)
+        if citation.source_id == source_id
+        and (_PAGE.fullmatch(citation.locator) or _LINE.fullmatch(citation.locator))
     }
-    shown = sorted((loc for loc in cited if (source_id, loc) in pages), key=_page_order)
-    extracted = [item for loc in shown for item in pages[(source_id, loc)].lines]
-    in_scope = [
-        line
-        for book in books
-        for periods in [
-            {
-                p.period_id
-                for p in book.periods
-                if _covers(cell, p.period_type, p.start_date, p.end_date)
-            }
-        ]
-        for line in book.statement_lines
-        if line.statement == statement and line.period_id in periods
-    ]
+    shown = _cited_tables(cited, source_id, pages)
+    rows: dict[tuple[str, int], ExtractedLine] = {}  # a line two cited ranges hold counts once
+    for loc in shown:
+        for item in pages[(source_id, loc)].lines:
+            rows.setdefault((item.locator, item.line_no), item)
+    extracted = list(rows.values())
+    in_scope = [line for book in books for line in _cell_lines(cell, book)]
     covered = sum(1 for item in extracted if _covered(item, in_scope, source_id))
     reason = None
     if not cited:
@@ -1068,15 +1141,16 @@ def extracted_coverage(
 
     Per cell (`cell_key`): the cell's extracted lines are every line of the tables of the
     `page:N` pages of the cell's source that the payload's lines of the cell's statement cite
-    (in books bound to the scope's entity, any period). An extracted line is covered when a
-    payload line of that statement, in a period the scope matches (`completeness_issues`'
-    rule), cites its page with a quote holding one of its printed non-nil values as a whole
-    number, or with its label equal after whitespace normalisation. Flagged lines count.
+    (in books bound to the scope's entity, any period); on a line source (B22), of each extracted
+    `line:N-M` range holding a cited `line:K`, a row two such ranges hold counted once. An
+    extracted line is covered when a payload line of that statement, in a period the scope
+    matches (`completeness_issues`' rule), cites its locator with a quote holding one of its
+    printed non-nil values as a whole number, or with its label equal after whitespace
+    normalisation. Flagged lines count.
     `coverage` is covered / extracted (`_ratio`; None with the reason when nothing is
     extracted). `overall` sums every cell's counts (a line counts once per cell)."""
-    try:
-        submission = FinancialSubmission.model_validate_json(payload)
-    except ValidationError:
+    submission = _financial_submission(payload)
+    if submission is None:
         return None
     pages = _tables_by_page(tables)
     entities = {item.book_id: item.entity_id for item in submission.binding.books}
@@ -1207,6 +1281,7 @@ def _enum_values(spec: object) -> Iterator[str]:
             yield from _enum_values(option)
 
 
+@cache
 def absence_markers(step_id: str) -> tuple[tuple[str, str], ...]:
     """The `ABSENCE_MARKERS` a pack-tool step outside CP-1 can submit: those its sent schema's
     enums carry. None for CP-1's stages (8.0d's own fields) or a submit-only step."""
@@ -1293,21 +1368,48 @@ def absence_issues(step_id: str, payload: str, seen: Seen) -> tuple[str, ...]:
     return ()
 
 
+def _unread(seen: Seen) -> Callable[[str, str], bool]:
+    """Whether a cited (source, locator) is a `page:N`, or a `line:K` of one of `seen.lines`,
+    the step was never shown: not returned by `read_pages` or `extract_statements`, and for a
+    `line:K` not inside a `line:N-M` range `extract_statements` returned (an extracted range
+    counts as read, as an extracted page does)."""
+    ranges: dict[str, list[tuple[int, int]]] = {}
+    for source_id, locator in seen.read:
+        if _LINE_RANGE.fullmatch(locator):
+            ranges.setdefault(source_id, []).append(_range_of(locator))
+
+    def unread(source_id: str, locator: str) -> bool:
+        judged = _PAGE.fullmatch(locator) or (
+            source_id in seen.lines and _LINE.fullmatch(locator)
+        )
+        if not judged or (source_id, locator) in seen.read:
+            return False
+        line = _RANGED_LINE.fullmatch(locator)
+        return line is None or not any(
+            first <= int(line.group(1)) <= last for first, last in ranges.get(source_id, ())
+        )
+
+    return unread
+
+
 def unread_citation_issues(payload: str, seen: Seen) -> tuple[str, ...]:
-    """Every cited `page:N` locator that `read_pages` never returned in this step, in sorted
-    order: at most 20 lines (`listed_issues`), the first 19 and a count of the rest past 20."""
-    unread = sorted(
+    """Every cited `page:N` locator, and every cited `line:K` of a line source `seen` names
+    (`Seen.lines`, B22), that the step was never shown (`_unread`), in sorted order: at most 20
+    lines (`listed_issues`), the first 19 and a count of the rest past 20."""
+    unread = _unread(seen)
+    unread_cited = sorted(
         (source_id, locator)
         for source_id, locator in cited_locators(payload)
-        if _PAGE.fullmatch(locator) and (source_id, locator) not in seen.read
+        if unread(source_id, locator)
     )
     return listed_issues(
-        unread,
+        unread_cited,
         lambda page: (UNREAD_PAGE, ": ", page[0], " ", page[1]),
         lambda count: f"{UNREAD_PAGE}: {count} further cited pages not listed",
     )
 
 
+@cache
 def _cites_locators(step_id: str) -> bool:
     """Whether the step's sent schema has a `locator` field (a citation can name a page)."""
 

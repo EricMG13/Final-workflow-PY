@@ -225,7 +225,9 @@ def test_operand_unit_and_scale_must_match_the_topic() -> None:
     rescaled = [
         f.model_copy(update={"scale": Decimal(1000)}) if f.label == close else f for f in facts
     ]
-    with pytest.raises(ValueError, match="cash differ in scale"):
+    # S15 review: a known money operand is at the million scale the derived cells are written at
+    # (was: "cash differ in scale", the same input refused one rule later)
+    with pytest.raises(ValueError, match="operand scale 1000 is not 1000000"):
         _upstream(rescaled)
 
 
@@ -265,14 +267,18 @@ def test_unsettled_copied_cell_takes_the_topics_unit() -> None:
         ), fact_id
     # a MILLIONS topic: its own USD and 1,000,000 even when the twin is known in another currency
     cash = {"status": "missing", "amount": None, "limitation": "close gap", **odd}
-    cells = _limited_with(
-        {f"{q3} · cash_closing": cash, f"{q2} · cash_closing": {"currency": "EUR"}},
-        drop_cash=True,
-    )
+    # S15 review: a known twin in another currency is now refused by the USD Upstream (was:
+    # copied verbatim in EUR beside a USD change cell)
+    with pytest.raises(ValueError, match="operand currency EUR is not USD"):
+        _limited_with(
+            {f"{q3} · cash_closing": cash, f"{q2} · cash_closing": {"currency": "EUR"}},
+            drop_cash=True,
+        )
+    cells = _limited_with({f"{q3} · cash_closing": cash}, drop_cash=True)
     fact = cells["TL10.2.cash.to_value"]
     assert (fact.unit, fact.currency, fact.scale) == ("MILLIONS", "USD", Decimal(1000000))
     known = cells["TL10.2.cash.from_value"]  # a known copied cell stays verbatim
-    assert (known.unit, known.currency, known.scale) == ("MILLIONS", "EUR", Decimal(1000000))
+    assert (known.unit, known.currency, known.scale) == ("MILLIONS", "USD", Decimal(1000000))
 
 
 def test_unsettled_operand_without_unit_is_accepted() -> None:

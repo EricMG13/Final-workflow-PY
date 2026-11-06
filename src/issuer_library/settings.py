@@ -1,4 +1,4 @@
-"""Per-user settings, the managed policy file and atomic JSON files."""
+"""Per-user settings, the managed policy file and atomic file writes."""
 
 from __future__ import annotations
 
@@ -46,11 +46,15 @@ def load_config(loc: Locations) -> tuple[Config, bool]:
     return Config(workspace=str(loc.documents / "FinalWorkflow")), False
 
 
-def save_json(name: Path, value: Any) -> None:
-    """Write indented JSON through a temporary file beside the target, then replace it."""
+def save_json(name: Path, value: Any, *, allow_nan: bool = True) -> None:
+    """Write indented ASCII JSON atomically; allow_nan=False refuses NaN and infinities."""
     if isinstance(value, BaseModel):
         value = value.model_dump(mode="json")
-    raw = json.dumps(value, indent=2).encode()
+    write_atomic(name, json.dumps(value, indent=2, allow_nan=allow_nan).encode())
+
+
+def write_atomic(name: Path, raw: bytes) -> None:
+    """Write through a temporary file beside the target, flushed to disk, then replace it."""
     os.makedirs(name.parent, mode=0o700, exist_ok=True)
     handle, temporary = tempfile.mkstemp(dir=name.parent, prefix=".library-", suffix=".tmp")
     try:

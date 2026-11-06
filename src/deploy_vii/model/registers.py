@@ -61,7 +61,9 @@ PF_CLASSIFICATIONS = frozenset(
 )
 RATE_TYPES = frozenset({"FIXED", "FLOATING", "NOT_STATED"})
 REFERENCE_RATES = frozenset({"SOFR", "TERM_SOFR", "EURIBOR", "SONIA", "NONE", "NOT_STATED"})
-FACILITY_TYPES = frozenset({"DEBT ADJUSTMENT"})  # open: other text reads in upper case
+# The facility type of a row CP-1 writes to adjust total debt (it may carry a negative value).
+DEBT_ADJUSTMENT = "DEBT ADJUSTMENT"
+FACILITY_TYPES = frozenset({DEBT_ADJUSTMENT})  # open: other text reads in upper case
 
 
 @dataclass(frozen=True, slots=True)

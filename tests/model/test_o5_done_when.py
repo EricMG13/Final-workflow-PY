@@ -325,7 +325,11 @@ def _body(*calls: tuple[str, dict[str, Any]]) -> bytes:
             "model": "gpt-6.1-sol",
             "status": "completed",
             "output": output,
-            "usage": {"input_tokens": 900, "output_tokens": 20},
+            "usage": {
+                "input_tokens": 900,
+                "input_tokens_details": {"cache_write_tokens": 0},
+                "output_tokens": 20,
+            },
         }
     ).encode()
 

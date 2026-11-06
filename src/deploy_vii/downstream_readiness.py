@@ -1,11 +1,15 @@
 """CP-1 consumer sufficiency decisions; analytical judgments remain unqualified."""
 
 import json
+from collections.abc import Callable, Collection, Mapping
+from dataclasses import dataclass
+from functools import cache
 from typing import Annotated, Literal
 
 from pydantic import Field
 
 from deploy_vii.canonical_audit import DefinitionReview
+from deploy_vii.canonical_gaps import LedgerGap
 from deploy_vii.context_binding import FinancialContextBinding
 from deploy_vii.contracts import PREFILLED_MARKER, Contract, Hash, Identifier, Text
 from deploy_vii.financial_contracts import FinancialBook, FinancialReview
@@ -200,6 +204,117 @@ def _evidence_tags(record: EvidenceRecord) -> set[str]:
     return tags
 
 
+def _ids_ok(ids: tuple[str, ...], known: Collection[str]) -> bool:
+    """Each id once, and every one known."""
+    return len(ids) == len(set(ids)) and all(i in known for i in ids)
+
+
+def _requirement_issues(
+    entry: str,
+    requirement: RequirementAssessment,
+    evidence: Mapping[str, EvidenceRecord],
+    tags_of: Callable[[str], frozenset[str]],
+    dashboard_complete: bool,
+) -> list[str]:
+    """One assessed requirement's evidence, sufficiency and action issues, in order."""
+    issues = []
+    key, ids = requirement.requirement, requirement.evidence_ids
+    if not _ids_ok(ids, evidence):
+        issues.append(f"Invalid requirement evidence: {entry} {key}")
+    if requirement.status != "missing" and not ids:
+        issues.append(f"Sufficiency requires prior evidence: {entry} {key}")
+    if requirement.status != "missing":
+        tags = set().union(*(tags_of(i) for i in ids if i in evidence))
+        groups = _EVIDENCE_GROUPS.get(key)
+        if groups and any(tags.isdisjoint(group) for group in groups):
+            issues.append(f"Incompatible or unavailable dependency evidence: {entry} {key}")
+        if not groups and not (tags - {"gap"}):
+            issues.append(f"Sufficiency requires register evidence: {entry} {key}")
+    if key == "kpi_dashboard" and requirement.status == "sufficient" and not dashboard_complete:
+        issues.append(f"Complete KPI dashboard has unavailable values: {entry}")
+    if requirement.status != "sufficient" and not requirement.actions:
+        issues.append(f"Incomplete requirement needs action: {entry} {key}")
+    return issues
+
+
+def _gap_scope_issues(
+    entry: str,
+    scope: GapAssessment,
+    gaps: Mapping[str, LedgerGap],
+    evidence: Collection[str],
+    scoped: set[str],
+) -> list[str]:
+    """One gap scope's issues, in order; `scoped` holds the gap ids earlier scopes named."""
+    issues = []
+    gap_ids = set(scope.gap_ids)
+    if not _ids_ok(scope.gap_ids, gaps) or gap_ids & scoped:
+        issues.append(f"Duplicate or unknown gap scope: {entry}")
+    refs = scope.evidence_ids
+    if not _ids_ok(refs, evidence):
+        issues.append(f"Invalid gap-scope evidence: {entry}")
+    if scope.relevance == "not_relevant":
+        if not refs:
+            issues.append(f"Excluding gaps requires prior evidence: {entry}")
+        if any(
+            gaps[i].severity == "BLOCK" and gaps[i].origin in {"context_binding", "context"}
+            for i in gap_ids
+            if i in gaps
+        ):
+            issues.append(f"A source-integrity block cannot be excluded: {entry}")
+    return issues
+
+
+@dataclass(frozen=True)
+class _Known:
+    """What a review's references resolve against: the prior evidence, its tags, the inherited
+    gaps and whether the KPI dashboard is complete."""
+
+    evidence: Mapping[str, EvidenceRecord]
+    tags_of: Callable[[str], frozenset[str]]
+    gaps: Mapping[str, LedgerGap]
+    dashboard_complete: bool
+
+
+def _known(inputs: DownstreamInputs) -> _Known:
+    evidence = {r.evidence_id: r for r in inputs.narrative.inputs.catalogue}
+
+    @cache
+    def tags_of(evidence_id: str) -> frozenset[str]:
+        return frozenset(_evidence_tags(evidence[evidence_id]))
+
+    dashboard = inputs.narrative.inputs.ledger.kpis
+    return _Known(
+        evidence=evidence,
+        tags_of=tags_of,
+        gaps={g.gap_id: g for g in inputs.narrative.gaps},
+        dashboard_complete=dashboard is not None
+        and bool(dashboard.kpis)
+        and all(kpi.value.amount is not None for kpi in dashboard.kpis),
+    )
+
+
+def _consumer_issues(
+    consumer: ConsumerAssessment, request: ConsumerRequest, known: _Known
+) -> list[str]:
+    """One requested consumer's requirement and gap-scope issues, in order."""
+    issues: list[str] = []
+    expected = set(request.requirements)
+    assessed = set()
+    for requirement in consumer.requirements:
+        key = requirement.requirement
+        if key in assessed or key not in expected:
+            issues.append(f"Duplicate or unknown requirement: {consumer.entry} {key}")
+        assessed.add(key)
+        issues += _requirement_issues(
+            consumer.entry, requirement, known.evidence, known.tags_of, known.dashboard_complete
+        )
+    scoped: set[str] = set()
+    for scope in consumer.gaps:
+        issues += _gap_scope_issues(consumer.entry, scope, known.gaps, known.evidence, scoped)
+        scoped.update(scope.gap_ids)
+    return issues
+
+
 def validate_downstream_review(
     inputs: DownstreamInputs, review: DownstreamReview
 ) -> tuple[str, ...]:
@@ -218,9 +333,7 @@ def validate_downstream_review(
     if review.inputs_sha256 != inputs.content_hash():
         issues.append("Downstream review does not bind current inputs")
     requests = {r.entry: r for r in inputs.consumers}
-    evidence = {r.evidence_id: r for r in inputs.narrative.inputs.catalogue}
-    gaps = {g.gap_id: g for g in inputs.narrative.gaps}
-    evidence_tags: dict[str, set[str]] = {}
+    known = _known(inputs)
     if len(review.consumers) != len({c.entry for c in review.consumers}):
         issues.append("Duplicate consumer assessment")
     for consumer in review.consumers:
@@ -228,64 +341,7 @@ def validate_downstream_review(
         if request is None:
             issues.append(f"Unrequested consumer assessment: {consumer.entry}")
             continue
-        expected = set(request.requirements)
-        assessed = set()
-        for requirement in consumer.requirements:
-            key = requirement.requirement
-            if key in assessed or key not in expected:
-                issues.append(f"Duplicate or unknown requirement: {consumer.entry} {key}")
-            assessed.add(key)
-            ids = requirement.evidence_ids
-            unique_ids = set(ids)
-            if len(ids) != len(unique_ids) or not unique_ids <= evidence.keys():
-                issues.append(f"Invalid requirement evidence: {consumer.entry} {key}")
-            if requirement.status != "missing" and not ids:
-                issues.append(f"Sufficiency requires prior evidence: {consumer.entry} {key}")
-            if requirement.status != "missing":
-                tags: set[str] = set()
-                for evidence_id in ids:
-                    if evidence_id in evidence:
-                        if evidence_id not in evidence_tags:
-                            evidence_tags[evidence_id] = _evidence_tags(evidence[evidence_id])
-                        tags.update(evidence_tags[evidence_id])
-                groups = _EVIDENCE_GROUPS.get(key)
-                if groups and any(tags.isdisjoint(group) for group in groups):
-                    issues.append(
-                        f"Incompatible or unavailable dependency evidence: {consumer.entry} {key}"
-                    )
-                if not groups and not (tags - {"gap"}):
-                    issues.append(f"Sufficiency requires register evidence: {consumer.entry} {key}")
-            if key == "kpi_dashboard" and requirement.status == "sufficient":
-                dashboard = inputs.narrative.inputs.ledger.kpis
-                if (
-                    dashboard is None
-                    or not dashboard.kpis
-                    or any(kpi.value.amount is None for kpi in dashboard.kpis)
-                ):
-                    issues.append(
-                        f"Complete KPI dashboard has unavailable values: {consumer.entry}"
-                    )
-            if requirement.status != "sufficient" and not requirement.actions:
-                issues.append(f"Incomplete requirement needs action: {consumer.entry} {key}")
-        scoped: set[str] = set()
-        for scope in consumer.gaps:
-            gap_ids = set(scope.gap_ids)
-            if len(gap_ids) != len(scope.gap_ids) or not gap_ids <= gaps.keys() or gap_ids & scoped:
-                issues.append(f"Duplicate or unknown gap scope: {consumer.entry}")
-            scoped.update(gap_ids)
-            refs = scope.evidence_ids
-            unique_refs = set(refs)
-            if len(refs) != len(unique_refs) or not unique_refs <= evidence.keys():
-                issues.append(f"Invalid gap-scope evidence: {consumer.entry}")
-            if scope.relevance == "not_relevant":
-                if not refs:
-                    issues.append(f"Excluding gaps requires prior evidence: {consumer.entry}")
-                if any(
-                    gaps[i].severity == "BLOCK" and gaps[i].origin in {"context_binding", "context"}
-                    for i in gap_ids
-                    if i in gaps
-                ):
-                    issues.append(f"A source-integrity block cannot be excluded: {consumer.entry}")
+        issues += _consumer_issues(consumer, request, known)
     return tuple(issues)
 
 

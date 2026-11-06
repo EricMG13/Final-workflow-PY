@@ -708,9 +708,12 @@ def test_t418_terms_that_cannot_be_read_fail_closed(
         _upstream(store, attempt)
 
 
-def test_without_an_alias_row_the_quarter_row_is_read(tmp_path: Path) -> None:
+def test_without_an_alias_row_the_read_fails_closed(tmp_path: Path) -> None:
+    """S14 review (cr cp4c.py:2757): as CP-3C `_facility_rows`, an FY alias that ends the same
+    day must carry the facility's T4.18 row; a missing alias row is refused, not skipped."""
     store, _, attempt = seed(tmp_path, cp1=cp1_facts(alias=None))
-    assert _upstream(store, attempt).cp1.secured_status.text == "SECURED"
+    with pytest.raises(ValueError, match="states no term-loan secured_status for fy-2025, the alias of q4-2025"):
+        _upstream(store, attempt)
 
 
 def test_upstream_binds_the_attempt_and_reports_the_inputs_now(tmp_path: Path) -> None:

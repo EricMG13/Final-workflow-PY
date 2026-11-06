@@ -746,7 +746,8 @@ def _l10_upstream(currency: str = "EUR") -> cpl10.Upstream:
                 }
             )
         )
-    base = cpl10.Upstream(
+    # built directly: a plain Upstream refuses non-USD money operands (S15 review)
+    return cpl10.RunUpstream(
         issuer_name=method.UPSTREAM.issuer_name,
         as_of=method.UPSTREAM.as_of,
         cp0_status_word=method.UPSTREAM.cp0_status_word,
@@ -755,9 +756,6 @@ def _l10_upstream(currency: str = "EUR") -> cpl10.Upstream:
         cp1_result_sha256=method.UPSTREAM.cp1_result_sha256,
         cp1_facts=cpl10.bind_operands(facts, quarters),
         quarters=quarters,
-    )
-    return cpl10.RunUpstream(
-        **{f: getattr(base, f) for f in base.__dataclass_fields__},
         run_currency=period_basis.currency_of(currency),
     )
 

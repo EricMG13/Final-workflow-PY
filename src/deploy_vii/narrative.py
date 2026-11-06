@@ -219,6 +219,13 @@ def _catalogue(ledger: CanonicalGapReport) -> tuple[EvidenceRecord, ...]:
     return tuple(result)
 
 
+def _scope(ledger: CanonicalGapReport) -> Literal["financial_synthesis", "data_quality_only"]:
+    """Financial synthesis when a KPI has an amount; data quality only otherwise."""
+    if ledger.kpis and any(k.value.amount is not None for k in ledger.kpis.kpis):
+        return "financial_synthesis"
+    return "data_quality_only"
+
+
 def narrative_inputs(
     pack: PreparedPack,
     context: SourceContextReview,
@@ -227,93 +234,127 @@ def narrative_inputs(
     binding: FinancialContextBinding,
 ) -> NarrativeInputs:
     ledger = canonical_gaps(pack, context, financial, definition, binding)
-    return NarrativeInputs(
-        ledger=ledger,
-        catalogue=_catalogue(ledger),
-        scope="financial_synthesis"
-        if ledger.kpis and any(k.value.amount is not None for k in ledger.kpis.kpis)
-        else "data_quality_only",
+    return NarrativeInputs(ledger=ledger, catalogue=_catalogue(ledger), scope=_scope(ledger))
+
+
+def _balance_sheet(catalogue: tuple[EvidenceRecord, ...]) -> dict[str, StatementCell]:
+    """The catalogue's balance-sheet statement cells by evidence id."""
+    return {
+        r.evidence_id: StatementCell.model_validate_json(r.record_json)
+        for r in catalogue
+        if r.kind == "statement_BS"
+    }
+
+
+def _required_story_ids(
+    catalogue: tuple[EvidenceRecord, ...], material: tuple[str, ...]
+) -> tuple[str, ...]:
+    """The records that need a story: each event record, then each material funding row."""
+    events = (
+        r.evidence_id for r in catalogue if r.kind in {"subsequent_event", "multi_figure_event"}
     )
+    return tuple(dict.fromkeys((*events, *material)))
 
 
-def validate_narrative_review(inputs: NarrativeInputs, review: NarrativeReview) -> tuple[str, ...]:
-    """Validate against supplied inputs; canonical_narrative recomputes those inputs."""
-    try:
-        inputs = NarrativeInputs.model_validate_json(inputs.model_dump_json())
-        review = NarrativeReview.model_validate_json(review.model_dump_json())
-        if inputs.catalogue != _catalogue(inputs.ledger):
-            return ("Narrative catalogue differs from its prior registers",)
-        scope = (
-            "financial_synthesis"
-            if inputs.ledger.kpis
-            and any(k.value.amount is not None for k in inputs.ledger.kpis.kpis)
-            else "data_quality_only"
-        )
-        if inputs.scope != scope:
-            return ("Narrative scope differs from available KPI evidence",)
-    except ValueError as error:
-        return (f"Invalid narrative contract: {error}",)
+def _contract_issue(inputs: NarrativeInputs) -> str | None:
+    """Whether the inputs are the ones their own registers recompute (may raise ValueError)."""
+    if inputs.catalogue != _catalogue(inputs.ledger):
+        return "Narrative catalogue differs from its prior registers"
+    if inputs.scope != _scope(inputs.ledger):
+        return "Narrative scope differs from available KPI evidence"
+    return None
+
+
+def _identity_issues(inputs: NarrativeInputs, review: NarrativeReview) -> list[str]:
+    """The input binding, duplicate identities and unknown evidence ids."""
     issues: list[str] = []
     if review.inputs_sha256 != inputs.content_hash():
         issues.append("Narrative review does not bind current input registers")
-    evidence = {r.evidence_id for r in inputs.catalogue}
-    findings = {f.finding_id: f for f in review.findings}
-    if len(findings) != len(review.findings):
+    if len(review.findings) != len({f.finding_id for f in review.findings}):
         issues.append("Duplicate narrative finding identity")
     if len(review.coverage) != len({c.dimension for c in review.coverage}):
         issues.append("Duplicate narrative dimension coverage")
     if len(review.stories) != len({s.evidence_id for s in review.stories}):
         issues.append("Duplicate required-story coverage")
-    for part in records(review, EvidencePart):
-        if part.evidence_id not in evidence:
-            issues.append(f"Unknown narrative evidence: {part.evidence_id}")
-    dimension_findings: dict[Dimension, set[str]] = {d: set() for d in _DIMENSIONS}
+    evidence = {r.evidence_id for r in inputs.catalogue}
+    issues.extend(
+        f"Unknown narrative evidence: {part.evidence_id}"
+        for part in records(review, EvidencePart)
+        if part.evidence_id not in evidence
+    )
+    return issues
+
+
+def _finding_issues(finding: Finding, scope: str) -> list[str]:
+    """One finding's evidence, issuer binding, reasoning and scope."""
+    issues: list[str] = []
+    if not any(isinstance(p, EvidencePart) for p in finding.evidence):
+        issues.append(f"Finding lacks prior-register evidence: {finding.finding_id}")
+    if not any(
+        isinstance(p, IssuerPart)
+        for p in (*finding.evidence, *finding.risk_mechanic, *finding.credit_implication)
+    ):
+        issues.append(f"Finding lacks explicit issuer binding: {finding.finding_id}")
+    for name, passage in (("risk", finding.risk_mechanic), ("credit", finding.credit_implication)):
+        if not any(isinstance(p, ProsePart) for p in passage):
+            issues.append(f"Finding lacks {name} reasoning: {finding.finding_id}")
+    if scope == "data_quality_only" and finding.dimension in _FINANCIAL:
+        issues.append(f"Financial narrative requires an available KPI: {finding.finding_id}")
+    return issues
+
+
+def _dimension_issues(
+    coverage: DimensionCoverage, findings: dict[str, Finding], supplied: set[str]
+) -> list[str]:
+    """One coverage entry against the findings; ``supplied`` holds its dimension's findings."""
+    issues: list[str] = []
+    dimension, ids = coverage.dimension, coverage.finding_ids
+    if not any(isinstance(p, ProsePart) for p in coverage.rationale):
+        issues.append(f"Dimension lacks rationale: {dimension}")
+    if len(ids) != len(set(ids)) or any(
+        i not in findings or findings[i].dimension != dimension for i in ids
+    ):
+        issues.append(f"Invalid dimension findings: {dimension}")
+    if (coverage.status == "addressed") != bool(ids):
+        issues.append(f"Dimension status contradicts findings: {dimension}")
+    if set(ids) != supplied:
+        issues.append(f"Dimension omits or contradicts supplied findings: {dimension}")
+    if coverage.status == "not_applicable" and not any(
+        isinstance(p, EvidencePart) for p in coverage.rationale
+    ):
+        issues.append(f"Inapplicable dimension lacks evidence: {dimension}")
+    return issues
+
+
+def _coverage_issues(review: NarrativeReview, findings: dict[str, Finding]) -> list[str]:
+    """Each coverage entry, then each dimension whose findings have no coverage entry (review
+    S04: its findings would show beside an "unassessed" coverage row)."""
+    by_dimension: dict[Dimension, set[str]] = {d: set() for d in _DIMENSIONS}
     for finding in review.findings:
-        dimension_findings[finding.dimension].add(finding.finding_id)
-        if not any(isinstance(p, EvidencePart) for p in finding.evidence):
-            issues.append(f"Finding lacks prior-register evidence: {finding.finding_id}")
-        if not any(
-            isinstance(p, IssuerPart)
-            for p in (*finding.evidence, *finding.risk_mechanic, *finding.credit_implication)
-        ):
-            issues.append(f"Finding lacks explicit issuer binding: {finding.finding_id}")
-        for name, passage in (
-            ("risk", finding.risk_mechanic),
-            ("credit", finding.credit_implication),
-        ):
-            if not any(isinstance(p, ProsePart) for p in passage):
-                issues.append(f"Finding lacks {name} reasoning: {finding.finding_id}")
-        if inputs.scope == "data_quality_only" and finding.dimension in _FINANCIAL:
-            issues.append(f"Financial narrative requires an available KPI: {finding.finding_id}")
-    for coverage in review.coverage:
-        if not any(isinstance(p, ProsePart) for p in coverage.rationale):
-            issues.append(f"Dimension lacks rationale: {coverage.dimension}")
-        ids = coverage.finding_ids
-        supplied = set(ids)
-        if len(ids) != len(supplied) or any(
-            i not in findings or findings[i].dimension != coverage.dimension for i in ids
-        ):
-            issues.append(f"Invalid dimension findings: {coverage.dimension}")
-        if (coverage.status == "addressed") != bool(ids):
-            issues.append(f"Dimension status contradicts findings: {coverage.dimension}")
-        if supplied != dimension_findings[coverage.dimension]:
-            issues.append(f"Dimension omits or contradicts supplied findings: {coverage.dimension}")
-        if coverage.status == "not_applicable" and not any(
-            isinstance(p, EvidencePart) for p in coverage.rationale
-        ):
-            issues.append(f"Inapplicable dimension lacks evidence: {coverage.dimension}")
-    funding = review.funding
+        by_dimension[finding.dimension].add(finding.finding_id)
+    issues = [
+        issue
+        for coverage in review.coverage
+        for issue in _dimension_issues(coverage, findings, by_dimension[coverage.dimension])
+    ]
+    covered = {c.dimension for c in review.coverage}
+    issues.extend(
+        f"Dimension findings lack coverage: {dimension}"
+        for dimension in _DIMENSIONS
+        if by_dimension[dimension] and dimension not in covered
+    )
+    return issues
+
+
+def _funding_issues(inputs: NarrativeInputs, funding: FundingAssessment) -> list[str]:
+    """The funding conclusion against the located prior balance-sheet rows."""
     reviewed, material = funding.reviewed_statement_ids, funding.material_statement_ids
+    issues: list[str] = []
     if not any(isinstance(p, ProsePart) for p in funding.rationale):
         issues.append("Funding assessment lacks rationale")
-    balance_sheet = {
-        r.evidence_id: StatementCell.model_validate_json(r.record_json)
-        for r in inputs.catalogue
-        if r.kind == "statement_BS"
-    }
-    reviewed_ids, material_ids = set(reviewed), set(material)
-    for ids, distinct in ((reviewed, reviewed_ids), (material, material_ids)):
-        if len(ids) != len(distinct) or any(
+    balance_sheet = _balance_sheet(inputs.catalogue)
+    for ids in (reviewed, material):
+        if len(ids) != len(set(ids)) or any(
             i not in balance_sheet or balance_sheet[i].line_id is None for i in ids
         ):
             issues.append("Funding assessment requires distinct located prior balance-sheet rows")
@@ -322,36 +363,88 @@ def validate_narrative_review(inputs: NarrativeInputs, review: NarrativeReview) 
         cell = balance_sheet.get(evidence_id)
         if cell and (cell.line_kind != "detail" or cell.item_id in standard_items):
             issues.append(f"Funding story requires named non-debt liability detail: {evidence_id}")
-    if not material_ids <= reviewed_ids:
+    if not set(material) <= set(reviewed):
         issues.append("Material funding rows must be part of the reviewed scope")
     if (funding.status == "material_items") != bool(material):
         issues.append("Funding conclusion contradicts material rows")
     if funding.status != "unassessed" and not reviewed:
         issues.append("Assessed funding conclusion requires reviewed balance-sheet scope")
-    required = {
-        r.evidence_id
-        for r in inputs.catalogue
-        if r.kind in {"subsequent_event", "multi_figure_event"}
-    } | material_ids
-    finding_evidence: dict[str, set[str]] = {}
+    return issues
+
+
+def _story_issues(
+    inputs: NarrativeInputs, review: NarrativeReview, findings: dict[str, Finding]
+) -> list[str]:
+    """Each story names a required record and findings that cite it."""
+    required = set(_required_story_ids(inputs.catalogue, review.funding.material_statement_ids))
+    cited = {
+        finding_id: {p.evidence_id for p in finding.evidence if isinstance(p, EvidencePart)}
+        for finding_id, finding in findings.items()
+    }
+    issues: list[str] = []
     for story in review.stories:
         if story.evidence_id not in required:
             issues.append(f"Unknown required story: {story.evidence_id}")
         if len(story.finding_ids) != len(set(story.finding_ids)):
             issues.append(f"Duplicate story finding: {story.evidence_id}")
-        for finding_id in story.finding_ids:
-            story_finding = findings.get(finding_id)
-            evidence_ids = finding_evidence.get(finding_id)
-            if evidence_ids is None and story_finding is not None:
-                evidence_ids = {
-                    p.evidence_id for p in story_finding.evidence if isinstance(p, EvidencePart)
-                }
-                finding_evidence[finding_id] = evidence_ids
-            if evidence_ids is None or story.evidence_id not in evidence_ids:
-                issues.append(
-                    f"Story finding lacks its required evidence: {story.evidence_id} {finding_id}"
-                )
-    return tuple(issues)
+        issues.extend(
+            f"Story finding lacks its required evidence: {story.evidence_id} {finding_id}"
+            for finding_id in story.finding_ids
+            if story.evidence_id not in cited.get(finding_id, set())
+        )
+    return issues
+
+
+def validate_narrative_review(inputs: NarrativeInputs, review: NarrativeReview) -> tuple[str, ...]:
+    """Validate against supplied inputs; canonical_narrative recomputes those inputs."""
+    try:
+        inputs = NarrativeInputs.model_validate_json(inputs.model_dump_json())
+        review = NarrativeReview.model_validate_json(review.model_dump_json())
+        refused = _contract_issue(inputs)
+    except ValueError as error:
+        return (f"Invalid narrative contract: {error}",)
+    if refused is not None:
+        return (refused,)
+    findings = {f.finding_id: f for f in review.findings}
+    return (
+        *_identity_issues(inputs, review),
+        *(issue for f in review.findings for issue in _finding_issues(f, inputs.scope)),
+        *_coverage_issues(review, findings),
+        *_funding_issues(inputs, review.funding),
+        *_story_issues(inputs, review, findings),
+    )
+
+
+def _narrative_gaps(inputs: NarrativeInputs, review: NarrativeReview) -> list[tuple[str, str]]:
+    """The WARN gaps of an accepted review, as (reference, description): unassessed
+    dimensions, the data-quality-only scope and the funding review's scope."""
+    found: list[tuple[str, str]] = []
+    coverage = {c.dimension: c for c in review.coverage}
+    for dimension in _DIMENSIONS:
+        if inputs.scope == "data_quality_only" and dimension in _FINANCIAL:
+            continue
+        if dimension not in coverage or coverage[dimension].status == "unassessed":
+            found.append((dimension, f"Narrative dimension is unassessed: {dimension}"))
+    if inputs.scope == "data_quality_only":
+        found.append(
+            ("financial-synthesis", "No available KPI: narrative is limited to data quality")
+        )
+    funding = review.funding
+    if funding.status == "unassessed":
+        found.append(
+            ("funding-liabilities", "Material non-debt funding liabilities have not been assessed")
+        )
+    located_bs = {
+        i for i, cell in _balance_sheet(inputs.catalogue).items() if cell.line_id is not None
+    }
+    if funding.status != "unassessed" and not located_bs <= set(funding.reviewed_statement_ids):
+        found.append(
+            (
+                "funding-review-coverage",
+                "Funding review does not cover every located balance-sheet row",
+            )
+        )
+    return found
 
 
 def canonical_narrative(
@@ -390,41 +483,9 @@ def canonical_narrative(
             LedgerGap(gap_id=_id("cp1-gap", book_id, detail.content_hash()), **dict(detail))
         )
 
-    coverage = {c.dimension: c for c in review.coverage}
-    for dimension in _DIMENSIONS:
-        if inputs.scope == "data_quality_only" and dimension in _FINANCIAL:
-            continue
-        if dimension not in coverage or coverage[dimension].status == "unassessed":
-            gap(dimension, f"Narrative dimension is unassessed: {dimension}")
-    if inputs.scope == "data_quality_only":
-        gap("financial-synthesis", "No available KPI: narrative is limited to data quality")
-    if review.funding.status == "unassessed":
-        gap("funding-liabilities", "Material non-debt funding liabilities have not been assessed")
-    located_bs = {
-        r.evidence_id
-        for r in inputs.catalogue
-        if r.kind == "statement_BS"
-        and StatementCell.model_validate_json(r.record_json).line_id is not None
-    }
-    if review.funding.status != "unassessed" and not located_bs <= set(
-        review.funding.reviewed_statement_ids
-    ):
-        gap(
-            "funding-review-coverage",
-            "Funding review does not cover every located balance-sheet row",
-        )
-    required = tuple(
-        dict.fromkeys(
-            (
-                *(
-                    r.evidence_id
-                    for r in inputs.catalogue
-                    if r.kind in {"subsequent_event", "multi_figure_event"}
-                ),
-                *review.funding.material_statement_ids,
-            )
-        )
-    )
+    for reference, description in _narrative_gaps(inputs, review):
+        gap(reference, description)
+    required = _required_story_ids(inputs.catalogue, review.funding.material_statement_ids)
     supplied = {s.evidence_id for s in review.stories}
     for story_id in required:
         if story_id not in supplied:
@@ -442,14 +503,22 @@ def canonical_narrative(
         if gaps
         else "candidate",
         limitations=(
-            "Structural evidence binding cannot prove issuer-specific meaning, "
-            "materiality or reasoning quality",
-            "All numeric evidence is supplied by prior registers; "
-            "prose still requires semantic review",
-            "Funding classification is an analyst synthesis over prior balance-sheet rows, "
-            "not new extraction",
-            "No consumer readiness, analytical qualification "
-            "or completed Module acceptance is inferred",
+            (
+                "Structural evidence binding cannot prove issuer-specific meaning, "
+                "materiality or reasoning quality"
+            ),
+            (
+                "All numeric evidence is supplied by prior registers; "
+                "prose still requires semantic review"
+            ),
+            (
+                "Funding classification is an analyst synthesis over prior balance-sheet rows, "
+                "not new extraction"
+            ),
+            (
+                "No consumer readiness, analytical qualification "
+                "or completed Module acceptance is inferred"
+            ),
         ),
     )
 

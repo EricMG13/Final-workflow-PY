@@ -28,17 +28,20 @@
     "oracle:cp4c:v02",
     "oracle:cp4c:v06",
     "fn:deploy_workflow.owners.cp4c:_claim_issues",
-    "fn:deploy_workflow.owners.cp4c:_secured_issues"
+    "fn:deploy_workflow.owners.cp4c:_secured_issues",
+    "fn:deploy_workflow.owners.cp4c:_structural_issues"
    ]
   },
   {
    "id": "restructuring_fulcrum.3",
-   "statement": "A `source_row` claim cites in `amount_quote` the row it reads, quoted verbatim from the `financial` source under its locator, and gives in `period_column` the `statement_rows` column dated at the end of the `cp1_facts` `period`; the row must have a number under it, and the claim is above zero. A class with another `amount_source` has a null `amount_quote` and `period_column`.",
+   "statement": "A `source_row` claim cites in `amount_quote` the row it reads, quoted verbatim from the `financial` source under its locator, and gives in `period_column` the `statement_rows` column dated at the end of the `cp1_facts` `period`; the quoted statement must state its amounts in millions of the run's currency, naming its ISO code, the row must have a number under it, and the claim is above zero. A class with another `amount_source` has a null `amount_quote` and `period_column`.",
    "checks": [
     "oracle:cp4c:v03",
     "oracle:cp4c:v04",
     "oracle:cp4c:v05",
-    "fn:deploy_workflow.owners.cp4c:_source_row_issues"
+    "fn:deploy_workflow.owners.cp4c:_source_row_issues",
+    "fn:deploy_workflow.owners.cp4c:_amount_issues",
+    "fn:deploy_workflow.owners.cp4c:_quoted_row_issues"
    ]
   },
   {
@@ -46,14 +49,16 @@
    "statement": "Every `support` quote cites only the `financial` or `legal-covenants` source, verbatim under its locator.",
    "checks": [
     "oracle:cp4c:v07",
-    "oracle:cp4c:v08"
+    "oracle:cp4c:v08",
+    "fn:deploy_workflow.owners.cp4c:_support_issues"
    ]
   },
   {
    "id": "restructuring_fulcrum.5",
    "statement": "`valuation`, `fulcrum` and `plan` each hold the cases in order, the first with `case_id` v01, the second v02, and so on.",
    "checks": [
-    "fn:deploy_workflow.owners.cp4c:content_issues"
+    "fn:deploy_workflow.owners.cp4c:content_issues",
+    "fn:deploy_workflow.owners.cp4c:_structural_issues"
    ]
   },
   {
@@ -97,7 +102,9 @@
     "oracle:cp4c:v23",
     "fn:deploy_workflow.owners.cp4c:_text_fields",
     "fn:deploy_workflow.owners.cp4c:_run_text_issues",
-    "fn:deploy_workflow.owners.cp4c:guard_issues"
+    "fn:deploy_workflow.owners.cp4c:guard_issues",
+    "fn:deploy_workflow.owners.cp4c:_text_issues",
+    "fn:deploy_workflow.owners.cp4c:_name_issues"
    ]
   },
   {

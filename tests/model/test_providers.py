@@ -105,7 +105,7 @@ def test_anthropic_build() -> None:
     req = build(OPUS, _request(), KEY)
     body = _body(req)
     assert req.url == "https://api.anthropic.com/v1/messages"
-    assert req.headers["Authorization"] == f"Bearer {KEY}"
+    assert req.headers["x-api-key"] == KEY and "Authorization" not in req.headers
     assert req.headers["anthropic-version"] == "2026-10-21"
     assert body["tool_choice"] == {"type": "auto"}
     assert body["max_tokens"] == 128000
@@ -411,6 +411,11 @@ def test_anthropic_parse_stream_tool_call() -> None:
         request_id="msg_1",
         http_status=200,
         billed_usd=None,
+        # the tool_use block (index 0) precedes the text (index 1): both keep their place
+        provider_blocks=(
+            ProviderBlock("anthropic", {"type": "tool_use", "id": "c1"}),
+            ProviderBlock("anthropic", {"type": "text", "text": "ok"}),
+        ),
     )
 
 

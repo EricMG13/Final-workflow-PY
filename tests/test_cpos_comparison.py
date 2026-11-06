@@ -316,7 +316,7 @@ def test_live_comparison_repairs_dimensions_inside_loop_and_resumes(tmp_path, mo
         answer = Turn(
             "",
             (ToolCall(str(len(seen)), "write_handoff", {"markdown": response.decode()}),),
-            Usage(input_tokens=100, output_tokens=50),
+            Usage(input_tokens=100, cache_write_tokens=0, output_tokens=50),
             "tool_use",
             "gpt-6.1-sol",
             "fake",

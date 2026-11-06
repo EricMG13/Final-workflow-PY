@@ -68,7 +68,7 @@
     "oracle:cp2g:v16",
     "oracle:cp2g:v17",
     "fn:deploy_workflow.owners.cp2g:_text_issues",
-    "fn:deploy_workflow.owners.cp2g:_run_text_issues",
+    "fn:deploy_workflow.owners.exact:run_text_issues",
     "fn:deploy_workflow.owners.cp2g:_limitation_issues",
     "fn:deploy_workflow.owners.cp2g:content_issues"
    ]

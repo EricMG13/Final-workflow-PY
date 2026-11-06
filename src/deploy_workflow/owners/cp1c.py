@@ -100,6 +100,13 @@ THIN_UNIVERSE = 5
 THIN_LINE = "Medians over fewer than five peers move with a single peer."
 
 PEERS_SOURCE_ID = "peers"
+# The High-confidence refusal by peer sheet: the peers source (a data desk's summary), or the
+# CP-DR peer pack (figures read from supplied evidence items).
+HIGH_REFUSED: Mapping[bool, str] = {
+    False: "Confidence cannot be High: the peer figures are desk-supplied and unaudited",
+    True: "Confidence cannot be High: the peer figures are read from supplied evidence and "
+    "unaudited",
+}
 P1_HEADER = "Peer  Period end  Revenue  Adjusted EBITDA  Total debt  Interest expense  FFO"
 P2_HEADER = "Peer  Reporting basis  Operating segments  Fiscal year end"
 NOT_STATED = "Not stated"
@@ -1380,7 +1387,7 @@ def _limitations(
         if p.assessment.comparability == "Partly comparable"
     ]
     if present and sum(1 for p in peers if p.included) < THIN_UNIVERSE:
-        out.append("Medians over fewer than five peers move with a single peer.")
+        out.append(THIN_LINE)
     out += [
         _missing_amount_line(p.data, key, label)
         for p in peers
@@ -1552,6 +1559,7 @@ SELECTED_FORMULAS: Mapping[str, str] = {
     "issuer_trading": "issuer enterprise value / CP-1 LTM adjusted EBITDA, rounded half-even to 2 dp",
     "user_multiple": "user-supplied multiple",
 }
+ROUNDED = ", rounded half-even to 2 dp"
 
 
 def _vbasis() -> ModuleType:
@@ -1575,13 +1583,26 @@ def shows_valuation(valuation: Valuation) -> bool:
 # --- citing the context file by line ---
 
 
+@dataclass(frozen=True)
+class _Value:
+    """Where one value of the context text sits: its 1-based line, the offsets of its member
+    name (the value's own start for a list element), of the value and after it, and of the
+    `{` or `[` of the object or list that holds it."""
+
+    line: int
+    key_start: int
+    start: int
+    end: int
+    holder: int
+
+
 class _LineWalk:
-    """The 1-based line of every value of a JSON text, by path (member names and list indexes)."""
+    """Every value of a JSON text, by path (member names and list indexes)."""
 
     def __init__(self, text: str) -> None:
         self.text = text
         self.at = 0
-        self.lines: dict[JsonPath, int] = {}
+        self.values: dict[JsonPath, _Value] = {}
         self.breaks = [i for i, char in enumerate(text) if char == "\n"]
 
     def peek(self) -> str:
@@ -1595,9 +1616,9 @@ class _LineWalk:
         value, self.at = json.JSONDecoder().raw_decode(self.text, self.at)
         return value
 
-    def node(self, path: JsonPath) -> None:
+    def node(self, path: JsonPath, key_start: int | None = None, holder: int = 0) -> None:
         self.skip()
-        self.lines[path] = bisect_left(self.breaks, self.at) + 1
+        start = self.at
         opener = self.peek()
         if opener == "{":
             self.members(path)
@@ -1605,24 +1626,30 @@ class _LineWalk:
             self.elements(path)
         else:
             self.scalar()
+        line = bisect_left(self.breaks, start) + 1
+        key = start if key_start is None else key_start
+        self.values[path] = _Value(line, key, start, self.at, holder)
 
     def members(self, path: JsonPath) -> None:
+        holder = self.at
         self.at += 1
         self.skip()
         while self.peek() != "}":
+            key_start = self.at
             name = str(self.scalar())
             self.skip()
             self.at += 1  # the colon
-            self.node((*path, name))
+            self.node((*path, name), key_start, holder)
             self.next_item()
         self.at += 1
 
     def elements(self, path: JsonPath) -> None:
+        holder = self.at
         self.at += 1
         self.skip()
         index = 0
         while self.peek() != "]":
-            self.node((*path, index))
+            self.node((*path, index), None, holder)
             self.next_item()
             index += 1
         self.at += 1
@@ -1636,39 +1663,54 @@ class _LineWalk:
 
 @dataclass(frozen=True)
 class _ContextCites:
-    """A citation of one value of the context file: its `line:<n>` span, the line as written."""
+    """A citation of one value of the context file: its `line:<n>` span, quoting the line as
+    written when the value stands alone on it (as `"key": "value"`, with the line's comma);
+    otherwise, as the shared rule (`deploy_workflow.context_cites`, rulings B20/B20a), the text
+    from its object's `{` through the value when that is one line and occurs once in the span;
+    otherwise it is not cited (ValueError), never a guessed span or a whole crowded line."""
 
     source: Source
-    lines: Mapping[JsonPath, int]
+    text: str
+    values: Mapping[JsonPath, _Value]
 
     def __call__(self, *paths: JsonPath) -> tuple[Citation, ...]:
         return tuple(self.one(path) for path in paths)
 
     def one(self, path: JsonPath) -> Citation:
-        if path not in self.lines or self.source.sha256 is None:
+        value = self.values.get(path)
+        if value is None or self.source.sha256 is None:
             raise ValueError(f"The context file has no citable value at {path}")
-        number = self.lines[path]
-        span = self.source.spans[number - 1]
-        if span.locator != f"line:{number}":
+        span = self.source.spans[value.line - 1]
+        if span.locator != f"line:{value.line}":
             raise ValueError(
-                f"The context source span {number} is {span.locator}, not line:{number}"
+                f"The context source span {value.line} is {span.locator}, not line:{value.line}"
             )
+        own = self.text[value.key_start : value.end]
+        quote = span.text.strip()
+        if quote not in (own, own + ","):
+            quote = self.text[value.holder : value.end]
+            if "\n" in quote or span.text.count(quote) != 1:
+                raise ValueError(
+                    f"The context file has no citable value at {path}: it does not stand alone "
+                    f"on line {value.line}, nor does its object up to it occur once there"
+                )
         return Citation(
             source_id=self.source.source_id,
             source_sha256=self.source.sha256,
             locator=span.locator,
-            quote=span.text.strip(),
+            quote=quote,
         )
 
 
-def context_cites(source: Source) -> _ContextCites:
+def _line_citer(source: Source) -> _ContextCites:
     """The citer of `source`; ValueError when the source cannot be read by line."""
     try:
-        walk = _LineWalk(context_text(source))
+        text = context_text(source)
+        walk = _LineWalk(text)
         walk.node(())
     except ValueError as error:  # context_text, the JSON decoder
         raise ValueError(f"the context source cannot be cited by line: {error}") from error
-    return _ContextCites(source, walk.lines)
+    return _ContextCites(source, text, walk.values)
 
 
 # --- admission, statistics and selection over the context (the arithmetic is valuation_basis) ---
@@ -2116,16 +2158,22 @@ def _emit_set(e: _EvEmitter, ev_set: _EvSet, as_of: date) -> None:
 
 
 def _issuer_multiple(plan: _EvPlan) -> Decimal | None:
-    """The issuer's own EV / CP-1 EBITDA, exact, when the selection computed it."""
+    """The issuer's own EV / CP-1 EBITDA, exact, whenever the selection's issuer rule can form it
+    (`valuation_basis._issuer`: an LTM basis, a known positive EBITDA and an EV above zero, by
+    its `_issuer_ev` rule), also when the selection then refuses it for the CP-4C limit."""
     market, amount = plan.valuation.issuer_market, plan.ebitda_amount
-    if plan.selection.multiple is None or amount is None:
+    if market.ebitda_basis == "NTM" or amount is None:
         return None
-    ev = (
-        Decimal(market.ev_m)
-        if market.ev_m
-        else CTX.add(Decimal(market.market_cap_m), Decimal(market.net_debt_m))
-    )
-    return CTX.divide(ev, amount)
+    ev: Decimal = _vbasis()._issuer_ev(market)[0]
+    return CTX.divide(ev, amount) if ev > 0 else None
+
+
+def _user_multiple(plan: _EvPlan) -> Decimal | None:
+    """The user's multiple exactly as the context states it, when it is above zero (as
+    `valuation_basis._user` reads it), also when the selection refuses it for the CP-4C limit."""
+    text = plan.valuation.user_multiple.value
+    value = Decimal(text) if text else None
+    return value if value is not None and value > 0 else None
 
 
 def _basis_paths(valuation: Valuation) -> tuple[JsonPath, ...]:
@@ -2217,7 +2265,7 @@ def _emit_stats(e: _EvEmitter, plan: _EvPlan) -> None:
             e.cite(*paths) if multiple is not None else (),
         )
     if valuation.basis == "user_multiple":
-        value = plan.selection.multiple
+        value = _user_multiple(plan)
         _emit_single(
             e,
             "user_multiple",
@@ -2255,14 +2303,17 @@ def _selected_multiple(e: _EvEmitter, plan: _EvPlan) -> str:
         for s in ("public_comps", "precedents")
         if basis == s or basis == "blend"
     )
+    # The user's own figure is the source only when the 2 dp rounding leaves it unchanged.
+    user = basis == "user_multiple"
+    rounded = user and sel.multiple != _user_multiple(plan)
     return e.put(
         ref,
         amount=sel.multiple,
         unit=MULTIPLE,
         period=period,
         decimals=2,
-        value_class="source" if basis == "user_multiple" else "calculated",
-        formula=SELECTED_FORMULAS[basis],
+        value_class="source" if user and not rounded else "calculated",
+        formula=SELECTED_FORMULAS[basis] + (ROUNDED if rounded else ""),
         derives=medians,
         citations=_selected_cites(e, plan),
     )
@@ -2395,7 +2446,7 @@ def _ev_compose(inputs: PeerBenchmarkInputs) -> _EvComposed | None:
     if inputs.context_source is None:
         raise ValueError("The EV/EBITDA tables cite the context source, which is not supplied")
     plan = _ev_plan(inputs)
-    e = _EvEmitter(context_cites(inputs.context_source))
+    e = _EvEmitter(_line_citer(inputs.context_source))
     _emit_records(e, plan)
     _emit_stats(e, plan)
     _emit_selection(e, plan)
@@ -2531,7 +2582,7 @@ def _assessment_set_issues(
 def _content_issues(submission: PeerBenchmarkSubmission, sheet: PeerSheet | None) -> list[str]:
     issues: list[str] = []
     if sheet is not None and submission.overall.confidence == "High":
-        issues.append("Confidence cannot be High: the peer figures are desk-supplied and unaudited")
+        issues.append(HIGH_REFUSED[sheet.issuer is None])
     for a in submission.assessments:
         if not a.evidence:
             issues.append(clipped(("Evidence required for a comparability assessment: ", a.peer)))
@@ -2751,12 +2802,13 @@ def _pack_sheet(
     upstream: Upstream, held: Source | None, basis: PeriodBasis, issuer: str
 ) -> PeerSheet | None:
     """The sheet of the bound CP-DR head's TDR.6 facts, None when the head carries none. A held
-    `peers` source beside them is `PEER_CONFLICT`; facts the sheet cannot read are refused with the
-    reason (`research.peers.peer_sheet`), never dropped for the user path."""
+    `peers` source beside them is `PEER_CONFLICT`; a `peers` source that is not ready (missing or
+    unreadable) is no source, as `parse_peer_source` reads it. Facts the sheet cannot read are
+    refused with the reason (`research.peers.peer_sheet`), never dropped for the user path."""
     head = upstream.cpdr
     if head is None or not carries_tdr6(head):
         return None
-    if held is not None:
+    if held is not None and held.status == "ready":
         raise PeerPackRefused(PEER_CONFLICT)
     sheet = peer_sheet(head, basis, issuer_name=issuer)
     if isinstance(sheet, PackUnusable):
@@ -2788,7 +2840,7 @@ def _citable_context_source(pack: PreparedPack) -> Source:
     """The pack's context source; ContextRefused when it cannot be cited by line."""
     source = next(s for s in pack.sources if s.source_id == "context")
     try:
-        context_cites(source)
+        _line_citer(source)
     except ValueError as error:
         raise ContextRefused([f"sources.context: {error}"]) from error
     return source

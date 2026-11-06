@@ -40,7 +40,7 @@ from deploy_workflow.model.adapter import (
     check_ruling,
 )
 from deploy_workflow.model.turn import ModelSpec
-from deploy_workflow.platform_io import flags, regular_open
+from deploy_workflow.platform_io import create_once, flags, regular_open
 from deploy_workflow.research import evidence, webfetch
 from deploy_workflow.research.contracts import ReservedSourceId, refuse_reserved
 from deploy_workflow.research.intake import (
@@ -269,6 +269,22 @@ def _require_ready(request: SourceRequest, data: bytes) -> None:
         raise SourceUnreadable(f"source {request.source_id!r}: {prepared.limitation}")
 
 
+def _html_text(item: CaseSource, raw: bytes) -> bytes:
+    """The visible text of an HTML source; an inline-XBRL document's non-dimensional context
+    periods follow it, one citable line each. `convert_html` raises `UndecodableHtml`; a
+    malformed inline-XBRL structure is `SourceUnreadable`."""
+    data = convert_html(raw).text.encode("utf-8")
+    if b"ix:header" not in raw.lower():
+        return data
+    from deploy_workflow.inline_xbrl import parse, period_lines
+
+    try:
+        dates = period_lines(parse(raw, facts=False))
+    except ValueError as error:
+        raise SourceUnreadable(f"{item.path}: inline XBRL contexts unreadable: {error}") from None
+    return data + "".join(f"{line}\n" for line in dates).encode("utf-8")
+
+
 def _case_files(
     sources: Sequence[CaseSource], source_raw: Sequence[bytes]
 ) -> tuple[list[StagedFile], list[SourceRequest]]:
@@ -288,12 +304,7 @@ def _case_files(
             raise DuplicateSource(f"source_id {source_id!r} repeats (compared case-folded)")
         seen.add(source_id.casefold())
         if item.media_type == HTML_MEDIA:
-            data = convert_html(raw).text.encode("utf-8")
-            if b"ix:header" in raw.lower():
-                from deploy_workflow.inline_xbrl import parse, period_lines
-
-                dates = period_lines(parse(raw))
-                data = data.rstrip() + b"\n\n" + "\n".join(dates).encode("utf-8") + b"\n"
+            data = _html_text(item, raw)
             if len(data) > MAX_BYTES:
                 raise SourceTooLarge(f"{item.path}: converted text larger than {MAX_BYTES} bytes")
             media = "text/plain"
@@ -536,9 +547,7 @@ def _write_new(directory: Path, filename: str, data: bytes) -> None:
     target = (directory / filename).resolve()
     if target.parent != directory.resolve():
         raise RunInputError(f"staging path {filename!r} leaves the sources directory")
-    fd = os.open(target, os.O_WRONLY | os.O_CREAT | os.O_EXCL | flags("O_CLOEXEC", "O_NOFOLLOW", "O_BINARY"), 0o600)
-    with os.fdopen(fd, "wb") as handle:
-        handle.write(data)
+    create_once(target, data)
 
 
 def stage_sources(checked: CheckedRun, run_dir: Path) -> None:

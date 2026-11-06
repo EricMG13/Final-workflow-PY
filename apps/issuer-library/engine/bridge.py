@@ -8,6 +8,7 @@ import os
 import sys
 import tempfile
 import warnings
+from collections.abc import Iterable
 from datetime import date
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
@@ -28,30 +29,53 @@ from deploy_workflow.model.redact import Redactor
 from deploy_workflow.model_testing.configs import CONFIGS
 from deploy_workflow.owners.cpos import run_live_handoffs, with_notes
 from deploy_workflow.owners.cpos_launch import MAX_OUTPUT_TOKENS, Prepared, checker, prepare
-from deploy_workflow.platform_io import replace
+from issuer_library.settings import save_json, write_atomic
 
 # Room a run needs beyond this job's folder: requests/<module>/<hash>/<n>.request.json under runs/.
 RUN_PATH_ROOM = 100
 
 
-def write_file(path: Path, raw: bytes) -> None:
-    handle, name = tempfile.mkstemp(dir=path.parent, suffix=".tmp")
-    try:
-        with os.fdopen(handle, "wb") as stream:
-            stream.write(raw)
-            stream.flush()
-            os.fsync(stream.fileno())
-        replace(name, path)
-    finally:
-        Path(name).unlink(missing_ok=True)
+class Recorded(Exception):
+    """A failed start whose status, with its spend, is already written; main only reports it."""
+
+    def __init__(self, problems: list[str]) -> None:
+        super().__init__("; ".join(problems))
+        self.problems = problems
+
+
+# The library's one atomic writer; a handoff or status file is replaced whole, never torn.
+write_file = write_atomic
 
 
 def write_json(path: Path, value: object) -> None:
-    write_file(path, json.dumps(value, ensure_ascii=True, allow_nan=False, indent=2).encode())
+    save_json(path, value, allow_nan=False)
+
+
+def clean(text: str) -> str:
+    """Text the browser may show: redacted, and no provider key value from the environment."""
+    cleaned: str = Redactor.from_environ(os.environ).text(text)
+    for key in KEY_VARIABLES.values():
+        secret = os.environ.get(key)
+        if secret:
+            cleaned = cleaned.replace(secret, "[redacted]")
+    return cleaned
+
+
+def release_notes(caught: Iterable[warnings.WarningMessage]) -> list[str]:
+    """The adapter's release failures among the warnings a run raised, once each, cleaned."""
+    notes: list[str] = []
+    for item in caught:
+        text = str(item.message)
+        if not issubclass(item.category, RuntimeWarning):
+            continue
+        note = clean(text)
+        if text.startswith("adapter release failed") and note not in notes:
+            notes.append(note)
+    return notes
 
 
 def read_job(directory: Path) -> tuple[dict, Path]:
-    job = json.loads((directory / "job.json").read_text())
+    job = json.loads((directory / "job.json").read_text(encoding="utf-8"))
     workspace = Path(job["workspace"]).resolve(strict=True)
     if directory.resolve().parent != workspace / "intake" or directory.name != job["id"]:
         raise ValueError("job is not in its approved workspace intake folder")
@@ -169,7 +193,7 @@ def review(directory: Path) -> dict:
 
 
 def start(directory: Path) -> None:
-    approved = json.loads((directory / "review.json").read_text())
+    approved = json.loads((directory / "review.json").read_text(encoding="utf-8"))
     current = review(directory)
     if approved["review_id"] != current["review_id"]:
         raise ValueError("review is stale; review the inputs again before starting")
@@ -220,27 +244,29 @@ def start(directory: Path) -> None:
                 on_start=started,
                 config=job["config"],
             )
-    except (ValueError, RuntimeError) as error:
-        message = f"{with_notes(error)} Retained work is in the run folder; no automatic paid retry was made."
+    except Exception as error:  # Any failure after a paid call records its spend.
+        # A refusal (ValueError, RuntimeError) stops the run; anything else is a failure.
+        stopped = isinstance(error, (ValueError, RuntimeError))
+        message = (
+            f"{with_notes(error)} Retained work is in the run folder; "
+            "no automatic paid retry was made."
+        )
         write_json(
             directory / "status.json",
             {
-                "state": "stopped",
-                "message": Redactor.from_environ(os.environ).text(message),
+                "state": "stopped" if stopped else "failed",
+                "message": clean(message),
                 "spent_usd": spent(),
             },
         )
-        return
+        if stopped:
+            return
+        raise Recorded([clean(with_notes(error))]) from error
     write_json(
         directory / "status.json",
         {
             "state": "complete",
-            "message": "; ".join(
-                [
-                    COMPLETE_MESSAGE,
-                    *(str(w.message) for w in caught if issubclass(w.category, RuntimeWarning)),
-                ]
-            ),
+            "message": "; ".join([COMPLETE_MESSAGE, *release_notes(caught)]),
             "spent_usd": spent(),
             "run_id": job["id"],
         },
@@ -249,7 +275,6 @@ def start(directory: Path) -> None:
 
 def main() -> None:
     directory = Path(sys.argv[2]).resolve()
-    redactor = Redactor.from_environ(os.environ)
     try:
         if sys.argv[1] == "review":
             print(json.dumps(review(directory)))
@@ -260,12 +285,8 @@ def main() -> None:
     except Exception as error:  # noqa: BLE001 -- isolate/redact the worker process boundary
         problems = list(getattr(error, "problems", (with_notes(error),)))
         # Never return arbitrary provider response bodies or environment values.
-        cleaned = [redactor.text(str(problem)) for problem in problems]
-        for key in KEY_VARIABLES.values():
-            secret = os.environ.get(key)
-            if secret:
-                cleaned = [text.replace(secret, "[redacted]") for text in cleaned]
-        if sys.argv[1] == "start":
+        cleaned = [clean(str(problem)) for problem in problems]
+        if sys.argv[1] == "start" and not isinstance(error, Recorded):
             write_json(
                 directory / "status.json", {"state": "failed", "message": "; ".join(cleaned)}
             )

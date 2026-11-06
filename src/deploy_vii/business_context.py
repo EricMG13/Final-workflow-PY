@@ -457,16 +457,17 @@ INSTRUMENT_NOUN = (
 # Task 8.3 (CP-3, ruling 3): explicit action phrases, the narrowed instrument recommendation a
 # relative-value ordering may not state (buy, sell, overweight, underweight, recommend, switch
 # into or out of). Not a CP-1A kind: `prohibited_issues` checks it only when a caller selects it.
+# Review S04: the past tenses `bought` and `sold` narrate issuer history ("the sponsor sold its
+# European unit"), never a CP-3 call, so they are not listed; a hyphenated compound
+# (`buy-and-build`, `sell-down`) is not the verb either (`_action`).
 ACTIONS: Mapping[str, tuple[str, ...]] = {
     "instrument action": (
         "buy",
         "buys",
         "buying",
-        "bought",
         "sell",
         "sells",
         "selling",
-        "sold",
         "overweight",
         "underweight",
         "recommend",
@@ -497,6 +498,11 @@ def _word(phrase: str) -> str:
     return rf"(?<![A-Za-z]){re.escape(phrase)}(?![A-Za-z])"
 
 
+def _action(phrase: str) -> str:
+    """An action phrase as a word, never one part of a hyphenated compound."""
+    return rf"(?<![A-Za-z])(?<![A-Za-z]-){re.escape(phrase)}(?![A-Za-z]|-[A-Za-z])"
+
+
 def _near(phrase: str) -> str:
     bounded = rf"(?<![A-Za-z])(?:{phrase})(?![A-Za-z])"
     gap = r"(?:\W+\w+){0,4}?\W+"
@@ -505,7 +511,7 @@ def _near(phrase: str) -> str:
 
 _PROHIBITED = tuple(
     (kind, phrase, re.compile(pattern(phrase), re.IGNORECASE))
-    for table, pattern in ((PROHIBITED, _word), (NEAR_INSTRUMENT, _near), (ACTIONS, _word))
+    for table, pattern in ((PROHIBITED, _word), (NEAR_INSTRUMENT, _near), (ACTIONS, _action))
     for kind, phrases in table.items()
     for phrase in phrases
 )
@@ -1712,7 +1718,8 @@ def business_context(
             text=f"{row.evidence} Risk mechanic: {row.risk_mechanic} "
             f"Credit implication: {row.credit_implication}",
             citations=out.binding.of(row),
-            limitation=row.limitation,
+            # Plain text: a `{ref|unit}` is spelled as the table's Limitation cell spells it.
+            limitation=out.text(row.limitation) if row.limitation else None,
         )
         for index, row in enumerate(submission.credit_translations, 1)
     )

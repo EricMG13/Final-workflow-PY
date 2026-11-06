@@ -371,7 +371,8 @@ def load_context(raw: bytes) -> RunContext:
 
 @dataclasses.dataclass(frozen=True)
 class Limit:
-    """One pinned assumption's value limits: the single copy the reader uses and the form test reads."""
+    """One pinned assumption's value limits: the single copy the reader uses and the form test
+    reads."""
 
     req: bool = False
     whole: bool = False
@@ -381,6 +382,8 @@ class Limit:
     high: str | None = None
     high_excl: str | None = None
 
+
+_NO_LIMIT = Limit()
 
 # Keyed "<module>.<field>"; a shock list's limit is the limit of each of its items.
 ASSUMPTION_LIMITS: dict[str, Limit] = {
@@ -429,29 +432,17 @@ class _Rules:
             self.bad(path, "contains <<<, which a dossier block cannot show.")
 
     def number(
-        self,
-        path: str,
-        value: str,
-        *,
-        req: bool = False,
-        signed: bool = False,
-        whole: bool = False,
-        places: int | None = None,
-        low: str | None = None,
-        low_excl: str | None = None,
-        high: str | None = None,
-        high_excl: str | None = None,
+        self, path: str, value: str, limit: Limit = _NO_LIMIT, *, signed: bool = False
     ) -> None:
         if value == "":
-            if req:
+            if limit.req:
                 self.bad(path, "required.")
             return
-        message = _num_message(value, signed, whole, places, low, low_excl, high, high_excl)
-        if message:
+        if message := _num_message(value, limit, signed=signed):
             self.bad(path, message)
 
     def limited(self, path: str, value: str, key: str) -> None:
-        self.number(path, value, **dataclasses.asdict(ASSUMPTION_LIMITS[key]))
+        self.number(path, value, ASSUMPTION_LIMITS[key])
 
     def date(self, path: str, value: str, req: bool = False, after: bool = False) -> None:
         if value == "":
@@ -479,19 +470,7 @@ class _Rules:
             self.bad(path, "required.")
         if len(items) > 3:
             self.bad(path, "give at most 3 values.")
-        messages = [
-            _num_message(
-                item,
-                False,
-                limit.whole,
-                limit.places,
-                limit.low,
-                limit.low_excl,
-                limit.high,
-                limit.high_excl,
-            )
-            for item in items
-        ]
+        messages = [_num_message(item, limit) for item in items]
         for item, message in zip(items, messages, strict=True):
             if message:
                 self.bad(path, f'"{item}": {message}')
@@ -583,7 +562,7 @@ class _Rules:
                 "talk_oid_high",
                 "floor_pct",
             ):
-                self.number(f"{p}.{name}", getattr(d, name), low="0")
+                self.number(f"{p}.{name}", getattr(d, name), Limit(low="0"))
             self.date(f"{p}.as_of", d.as_of, after=True)
             self.not_above(
                 f"{p}.talk_spread_bps_low",
@@ -604,7 +583,7 @@ class _Rules:
         for i, q in enumerate(self.ctx.quotes):
             p = f"quotes[{i}]"
             for name in ("bid", "ask", "price", "yield_pct", "spread_bps"):
-                self.number(f"{p}.{name}", getattr(q, name), low="0")
+                self.number(f"{p}.{name}", getattr(q, name), Limit(low="0"))
             self.date(f"{p}.as_of", q.as_of, req=True, after=True)
             self.text(f"{p}.provider", q.provider, req=True)
             self.not_above(f"{p}.bid", q.bid, q.ask, "bid must not exceed ask.")
@@ -624,8 +603,8 @@ class _Rules:
                 p = f"valuation.precedents[{i}]"
                 self.text(f"{p}.target", pr.target, req=True)
                 self.date(f"{p}.date", pr.date, after=True)
-                self.number(f"{p}.ev_m", pr.ev_m, req=True, low="0")
-                self.number(f"{p}.ebitda_m", pr.ebitda_m, req=True, low_excl="0")
+                self.number(f"{p}.ev_m", pr.ev_m, Limit(req=True, low="0"))
+                self.number(f"{p}.ebitda_m", pr.ebitda_m, Limit(req=True, low_excl="0"))
                 self.text(f"{p}.source", pr.source, req=True)
         if val.basis not in ("precedents", "blend") and val.precedents:
             self.bad("valuation.precedents", f"must be empty when basis is {val.basis}.")
@@ -639,7 +618,9 @@ class _Rules:
         else:
             um = val.user_multiple
             self.number(
-                "valuation.user_multiple.value", um.value, req=True, low_excl="0", high="99.99"
+                "valuation.user_multiple.value",
+                um.value,
+                Limit(req=True, low_excl="0", high="99.99"),
             )
             self.text("valuation.user_multiple.rationale", um.rationale, req=True)
 
@@ -657,8 +638,8 @@ class _Rules:
                     if getattr(peer, name) != "":
                         self.bad(f"{p}.{name}", "must be blank when peer_source is user_list.")
             if val.peer_source == "user_comps":
-                self.number(f"{p}.ev_m", peer.ev_m, req=True, low="0")
-                self.number(f"{p}.ebitda_m", peer.ebitda_m, req=True, low_excl="0")
+                self.number(f"{p}.ev_m", peer.ev_m, Limit(req=True, low="0"))
+                self.number(f"{p}.ebitda_m", peer.ebitda_m, Limit(req=True, low_excl="0"))
                 self.date(f"{p}.as_of", peer.as_of, req=True, after=True)
                 self.text(f"{p}.source", peer.source, req=True)
 
@@ -666,9 +647,9 @@ class _Rules:
         p = "valuation.issuer_market"
         if not self.ctx.identity.listed_equity:
             self.bad("valuation.basis", "issuer_trading needs a listed issuer.")
-        self.number(f"{p}.market_cap_m", im.market_cap_m, low="0")
+        self.number(f"{p}.market_cap_m", im.market_cap_m, Limit(low="0"))
         self.number(f"{p}.net_debt_m", im.net_debt_m, signed=True)
-        self.number(f"{p}.ev_m", im.ev_m, low_excl="0")
+        self.number(f"{p}.ev_m", im.ev_m, Limit(low_excl="0"))
         self.date(f"{p}.as_of", im.as_of, req=True, after=True)
         self.text(f"{p}.source", im.source, req=True)
         if not im.ev_m and not (im.market_cap_m and im.net_debt_m):
@@ -739,31 +720,22 @@ def _period_key(value: str) -> tuple[str, int, int] | None:
     return m[1][0], 0 if m[1] == "fy" else int(m[1][1]), int(m[2])
 
 
-def _num_message(
-    value: str,
-    signed: bool,
-    whole: bool,
-    places: int | None,
-    low: str | None,
-    low_excl: str | None,
-    high: str | None,
-    high_excl: str | None,
-) -> str:
-    """The form's ``numMsg``, comparing as ``Decimal``."""
+def _num_message(value: str, limit: Limit, *, signed: bool = False) -> str:
+    """The form's ``numMsg``, comparing as ``Decimal`` (``limit.req`` is the caller's)."""
     if "," in value:
         return "no thousands separators; write 1250, not 1,250."
     if not _match(SNUM if signed else NUM, value):
         return "enter a plain number such as 1250 or 99.5."
-    if whole and not _match(_INT, value):
+    if limit.whole and not _match(_INT, value):
         return "enter a whole number."
-    if places is not None and len(value.partition(".")[2]) > places:
-        return f"use at most {places} decimal places."
+    if limit.places is not None and len(value.partition(".")[2]) > limit.places:
+        return f"use at most {limit.places} decimal places."
     x = Decimal(value)
     checks: tuple[tuple[str | None, Callable[[Decimal, Decimal], bool], str], ...] = (
-        (low, lambda a, b: a < b, "must be {} or more."),
-        (low_excl, lambda a, b: a <= b, "must be above {}."),
-        (high, lambda a, b: a > b, "must be {} or less."),
-        (high_excl, lambda a, b: a >= b, "must be below {}."),
+        (limit.low, lambda a, b: a < b, "must be {} or more."),
+        (limit.low_excl, lambda a, b: a <= b, "must be above {}."),
+        (limit.high, lambda a, b: a > b, "must be {} or less."),
+        (limit.high_excl, lambda a, b: a >= b, "must be below {}."),
     )
     for bound, failed, template in checks:
         if bound is not None and failed(x, Decimal(bound)):

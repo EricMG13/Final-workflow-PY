@@ -141,16 +141,19 @@ def _session_error(
     code = data.get("statusCode")
     status = code if isinstance(code, int) and not isinstance(code, bool) else None
     snippet = _snippet(redactor, detail)
-    counts = _usage(usage_data) if usage_data is not None else Usage()
-    if usage_data is None or counts == Usage():
+    if usage_data is None:
         return ProviderError(ErrorKind.SENT_CHARGE_UNKNOWN, "SessionError", snippet, status)
+    counts, billed = _usage(usage_data), _billed_usd(usage_data)
+    if counts == Usage() and billed is None:
+        return ProviderError(ErrorKind.SENT_CHARGE_UNKNOWN, "SessionError", snippet, status)
+    # counts or an exact copilotUsage charge: the call settles from what was reported
     return ProviderError(
         ErrorKind.SENT_CHARGE_USAGE,
         "SessionError",
         snippet,
         status,
         counts,
-        _billed_usd(usage_data),
+        billed,
         _str_or_none(usage_data.get("model")),
         _request_id(usage_data),
     )
@@ -160,7 +163,11 @@ def parse_events(
     text: str, redactor: Redactor, seen: list[Any], cut_as_turn: bool = False
 ) -> Turn | ProviderError:
     """The turn one call's session events make. A length-cut reply with no tool call is
-    ``ReplyCut`` (CP1H-R16) unless ``cut_as_turn``, which keeps it a max_tokens turn. Raises ``_BadReply`` on a body of the wrong shape."""
+    ``ReplyCut`` (CP1H-R16) unless ``cut_as_turn``, which keeps it a max_tokens turn.
+
+    Raises ``_BadReply`` on a body of the wrong shape, except once the call's usage event
+    reported an exact ``copilotUsage.totalNanoAiu`` charge: a later shape failure is then an
+    ``UnparsableReply`` that is still refused but settles from that charge."""
     body, events = _events(text)
     seen.append(body)
     usages = [d for k, d in events if k == USAGE]
@@ -181,12 +188,31 @@ def parse_events(
         return _session_error(errors[0], usage_data, redactor, seen)
     if usage_data is None:
         raise _BadReply("no assistant.usage event")
-    calls = tuple(_tool_call(d, seen) for k, d in events if k == TOOL_START)
-    if len({c.call_id for c in calls}) != len(calls):
-        raise _BadReply("duplicate toolCallId")
-    finish = usage_data.get("finishReason")
-    stop: StopReason = _FINISH.get(finish, "other") if isinstance(finish, str) else "other"
-    expected = _count(usage_data, "numToolCalls")
+    try:
+        return _turn(events, usage_data, "".join(contents), seen, cut_as_turn)
+    except _BadReply as error:
+        return _billed_unparsable(usage_data, error, redactor)
+
+
+def _billed_unparsable(
+    usage_data: Mapping[str, Any], error: _BadReply, redactor: Redactor
+) -> ProviderError:
+    """A reply refused for its shape after its usage event: with an exact charge it settles
+    from that charge (counts kept when they are well formed); without one it stays unknown."""
+    billed = _billed_usd(usage_data)
+    if billed is None:
+        raise error
+    try:
+        usage = _usage(usage_data)
+    except _BadReply:
+        usage = Usage()
+    model, rid = _str_or_none(usage_data.get("model")), _request_id(usage_data)
+    detail = _snippet(redactor, str(error))
+    return _usage_error("UnparsableReply", detail, 200, usage, model, rid, billed)
+
+
+def _check_tool_count(stop: StopReason, expected: int | None, calls: tuple[ToolCall, ...]) -> None:
+    """The announced count, the stop reason and the tool calls must agree."""
     if expected is not None and expected != len(calls):
         raise _BadReply(f"tool count {len(calls)} differs from numToolCalls {expected}")
     if stop == "tool_use" and expected is None:
@@ -195,10 +221,25 @@ def parse_events(
         raise _BadReply("stop reason tool_use with no tool call")
     if calls and stop not in ("tool_use", "max_tokens"):
         raise _BadReply("tool calls without finishReason tool_calls")
+
+
+def _turn(
+    events: list[tuple[str, dict[str, Any]]],
+    usage_data: Mapping[str, Any],
+    text: str,
+    seen: list[Any],
+    cut_as_turn: bool,
+) -> Turn | ProviderError:
+    calls = tuple(_tool_call(d, seen) for k, d in events if k == TOOL_START)
+    if len({c.call_id for c in calls}) != len(calls):
+        raise _BadReply("duplicate toolCallId")
+    finish = usage_data.get("finishReason")
+    stop: StopReason = _FINISH.get(finish, "other") if isinstance(finish, str) else "other"
+    _check_tool_count(stop, _count(usage_data, "numToolCalls"), calls)
     usage = _usage(usage_data)
     model, rid = _str_or_none(usage_data.get("model")), _request_id(usage_data)
     billed = _billed_usd(usage_data)
     if stop == "max_tokens" and not calls and not cut_as_turn:
         detail = "finishReason length or max_tokens"
         return _usage_error(REPLY_CUT, detail, 200, usage, model, rid, billed)
-    return Turn("".join(contents), calls, usage, stop, model, rid, 200, billed)
+    return Turn(text, calls, usage, stop, model, rid, 200, billed)

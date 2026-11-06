@@ -60,6 +60,31 @@ Without `--live` nothing is sent. The launcher reports `COPILOT_GITHUB_TOKEN` as
 Each exchange creates one working directory, `.copilot-home/<invocation>/<reservation>` (git-ignored),
 at its first call, named after that call's reservation; later calls of the exchange reuse it.
 
+## Session settings and exchange lifetime
+
+- Each session is created with `large_output={"enabled": False}` and
+  `infinite_sessions={"enabled": False}` (SDK 1.0.28 `create_session` options). The SDK defaults
+  would replace a tool result over 50 KB with a temp-file reference the model cannot open (the
+  session offers only `custom:*` tools), and compact the context in the background with model
+  calls whose charge is outside `assistant.usage`, so neither reserved nor settled.
+- An exchange (one module, or one tool-loop step) holds one runtime process. It is released
+  when the module or step ends (`CopilotAdapter.end_exchange`, called by the handoff executor
+  and the tool loop), when a call fails or is refused, and at the latest by `close()`.
+- A release detaches the session and stops the runtime first, and only then cancels the tool
+  handlers still waiting, so no cancelled handler can turn into a tool failure the runtime
+  answers with a further, unrecorded model call. (With SDK 1.0.28 a cancelled handler raises
+  `CancelledError`, which the SDK's `except Exception` does not turn into an error result
+  either.) `close()` force-stops every runtime whose release has not finished concurrently.
+- A failed call is not retried: it ends its exchange (the turn is aborted), and the session
+  cannot take the same request again. `CopilotAdapter.resends` is False, so the tool loop stops
+  on the call's own class (IdleTimeout, a 5xx `session.error`) with the hold counted as unknown,
+  instead of spending the run's one retry on a call that could only be refused.
+- A later call of an exchange that asks for another reasoning effort than the session was
+  created with is refused before anything is sent (`EffortMismatch`).
+- A reply whose usage event carries `copilotUsage.totalNanoAiu` settles from that charge even
+  when the reply is refused for its shape (`UnparsableReply`), a `session.error` or a timeout
+  reports no token counts.
+
 ## Not verified
 
 - The pinned model ids `gpt-6.1-sol` and `claude-opus-5.5` on a real seat.
@@ -69,3 +94,5 @@ at its first call, named after that call's reservation; later calls of the excha
 - The Windows runtime path and whether the allowlisted environment is enough there.
 - `stop()` and `force_stop()` timing on a real runtime.
 - The runtime dispatches a turn's custom tool calls concurrently (the seat check now exercises two calls in one turn).
+- That `large_output` and `infinite_sessions` set to disabled are honoured by runtime 1.0.105
+  (the options are sent; their runtime effect is from the SDK docstrings, not observed).

@@ -241,6 +241,12 @@ def test_the_unsafe_row_of_each_probe_is_left_to_the_model_with_no_line(
 ) -> None:
     table = extract_statement_lines(text, "page:1")
     row = _the_row(table, label)
+    if "label_ends_numeric" in row.flags:
+        # The extractor already reads the row under its own table's Note header (a later
+        # period row starts a new header block) and flags it; no line is written either way.
+        assert row.label not in _written(_compose(table))
+        assert row.label not in _written(_compose(table, note_page=True))
+        return
     plain = _compose(table)
     assert row.label in _written(plain), "the probe row must be composable without the guard"
     guarded = _compose(table, note_page=True)

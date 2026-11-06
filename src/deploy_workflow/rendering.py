@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import contextlib
+import errno
 import hashlib
 import json
 import os
+import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import TYPE_CHECKING
@@ -25,6 +28,27 @@ _BANNER = (
     '<section id="delivery-scope-banner" class="banner" role="note" '
     'data-delivery-scope="source-readiness">' + SCOPE + "</section>"
 )
+
+
+def publish_directory(stage: Path, destination: Path) -> None:
+    """Move the complete `stage` directory to the new `destination`, or raise FileExistsError
+    when anything is there or appears there meanwhile. A bare rename is not exclusive on POSIX,
+    where rename(2) replaces an empty directory, so `destination` is first created exclusively and
+    the stage renamed over that empty reservation (a writer that filled it fails the rename, and
+    only an empty reservation is removed). A Windows rename never replaces a directory."""
+    if sys.platform == "win32":
+        os.rename(stage, destination)
+        return
+    os.mkdir(destination)
+    try:
+        os.rename(stage, destination)
+    except OSError as error:
+        with contextlib.suppress(OSError):
+            os.rmdir(destination)  # this call's own reservation, only while it is empty
+        if error.errno in (errno.EEXIST, errno.ENOTEMPTY):
+            code = error.errno
+            raise FileExistsError(code, os.strerror(code), str(destination)) from error
+        raise
 
 
 def _verified_view(store: Execution, receipt_path: Path) -> tuple[SourceSliceReceipt, bytes, View]:
@@ -168,7 +192,7 @@ def render_source_slice(execution_directory: Path, receipt_path: Path, destinati
             final, final_raw, _ = _verified_view(store, receipt_path)
             if final != receipt or final_raw != raw or destination.exists():
                 raise ValueError("stale_source_slice")
-            os.rename(stage, destination)
+            publish_directory(stage, destination)
         return destination / "report.html"
     except (ValueError, OSError):
         raise ValueError("source_slice_render_refused") from None

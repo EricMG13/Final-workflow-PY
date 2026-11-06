@@ -26,19 +26,27 @@ from urllib.parse import quote, unquote
 from deploy_vii.contracts import Contract, Source, Span
 from deploy_vii.inputs.rv_quotes import (
     CURRENCY,
-    DAMAGED,
     FIX,
     IDENTIFIER,
+    MAX_NUMBER,
     MEDIA_TYPE,
+    NUMBER,
     SERIAL,
     Issue,
     ValidationReport,
     cell_letters,
     echo,
+    header_issue,
     iso_date,
+    percent_formatted,
+    read_file,
+    read_refusal,
     sheet_cells,
 )
-from deploy_vii.preparation import MAX_BYTES, SourceRequest, prepare_source
+from deploy_vii.inputs.rv_quotes import (
+    text as stored,
+)
+from deploy_vii.preparation import SourceRequest, prepare_source
 
 __all__ = ["MEDIA_TYPE", "Issue"]
 
@@ -76,19 +84,18 @@ SCOPES = (
 TOLERANCE = Decimal("0.01")  # stated headroom against limit minus current value
 WATCH_SHARE = Decimal("0.1")  # Watch is allowed while headroom is under 10 % of the limit
 RATING_SUM = (Decimal("99.0"), Decimal("101.0"))
-MAX_NUMBER = 40  # characters of a number lexeme
-# A plain decimal with at most a two-digit exponent: with `MAX_NUMBER` characters every value
-# lies within 1e-140..1e140, so `EXACT` adds, subtracts and takes a tenth without rounding.
-NUMBER = re.compile(r"^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]{1,2})?$")
+# `NUMBER` (shared with rv_quotes) bounds the exponent to two digits: with `MAX_NUMBER`
+# characters every value lies within 1e-140..1e140, so `EXACT` adds, subtracts and takes a
+# tenth without rounding.
 EXACT = Context(prec=2000, Emax=9999, Emin=-9999)
 CONTROL_ID = re.compile(r"^[A-Z]+-[0-9]{2}$")
 TOTAL = re.compile(r"\b(?:sub)?total\b")
-# Columns whose numbers are percent of NAV, always or on a `% NAV` Compliance_Monitor row. A
-# numeric cell Excel shows as a percentage stores the fraction (2.5 % is stored 0.025).
+# Columns whose numbers are percent, always (of NAV), on a `% NAV` Compliance_Monitor row, or
+# on an Exposure_Summary row whose unit is a percentage (`% NAV`, `%`). A numeric cell Excel
+# shows as a percentage stores the fraction (2.5 % is stored 0.025).
 PCT_COLUMNS = frozenset({"pct_nav", "limit_pct_nav", "headroom_pct_nav"})
 PCT_NAV_ROW_COLUMNS = frozenset({"limit", "current_value", "headroom"})
-PERCENT_FORMATS = frozenset({"builtin:9", "builtin:10"})  # 0% and 0.00%
-LITERAL = re.compile(r'"[^"]*"|\\.')  # quoted text or an escaped character in a format code
+PCT_UNIT_ROW_COLUMNS = frozenset({"value"})
 
 DATE_FIX = "enter the date as text YYYY-MM-DD (format the column as Text so Excel keeps it)"
 PCT_FIX = "enter the share of NAV in percent as a plain number (2.5 means 2.5 % NAV)"
@@ -583,41 +590,20 @@ def report(
 
 def validate_portfolio(path: Path) -> PortfolioReport:
     """Validate one user-supplied portfolio workbook; every finding is an `Issue` with a fix."""
-    try:
-        with path.open("rb") as stream:
-            raw = stream.read(MAX_BYTES + 1)
-    except OSError as error:
-        reason = error.strerror or type(error).__name__
+    raw = read_file(path)
+    if isinstance(raw, str):
         issue = Issue(
-            file=path.name,
-            sheet=WORKBOOK_SHEET,
-            cell="A1",
-            problem=f"cannot read the file: {reason}",
-            fix=RULE_FIX["read"],
+            file=path.name, sheet=WORKBOOK_SHEET, cell="A1", problem=raw, fix=RULE_FIX["read"]
         )
         return report(0, (issue,))
     return validate_portfolio_bytes(path.name, raw)
 
 
 def validate_portfolio_bytes(file: str, raw: bytes) -> PortfolioReport:
-    """`validate_portfolio` on bytes already read; `file` names the workbook in each issue."""
+    """`validate_portfolio` on bytes already read; `file` names the workbook in each issue. A
+    damaged ZIP member is `prepare_source`'s unreadable source, refused as `prepare` would."""
     request = SourceRequest(source_id="portfolio", path=file, media_type=MEDIA_TYPE)
-    try:
-        source = prepare_source(request, raw)
-    except DAMAGED as error:
-        # As in `rv_quotes`: CPython's zipfile raises these for a corrupt deflate stream, a
-        # truncated member and a ZipCrypto-encrypted member, and `prepare_source` does not
-        # catch them, so `prepare` would stop on the same file. Reported, never swallowed.
-        kind = type(error).__name__
-        kind = kind if type(error).__module__ == "builtins" else f"{type(error).__module__}.{kind}"
-        problem = (
-            "prepare cannot read this file as an OOXML workbook: damaged ZIP member "
-            f"({kind}: {error})"
-        )
-        findings = Findings(file)
-        findings.add(WORKBOOK_SHEET, "A1", problem, RULE_FIX["damaged"])
-        return report(0, findings.issues)
-    return read(file, source)[0]
+    return read(file, prepare_source(request, raw))[0]
 
 
 def portfolio_facts(source: Source) -> PortfolioFacts:
@@ -636,10 +622,12 @@ def portfolio_facts(source: Source) -> PortfolioFacts:
 
 def read(file: str, source: Source) -> tuple[PortfolioReport, PortfolioFacts | None]:
     findings = Findings(file)
-    if source.status != "ready" or source.extraction_status == "blocked" or not source.coverage:
+    unusable = source.status != "ready" or source.extraction_status == "blocked"
+    refusal = read_refusal(source) if unusable or not source.coverage else None
+    if refusal is not None:
         # `prepare_source` failed to extract: the same refusal `prepare` would freeze.
-        problem = f"prepare cannot read this file as an OOXML workbook: {source.limitation}"
-        findings.add(WORKBOOK_SHEET, "A1", problem, RULE_FIX["workbook"])
+        problem, fix = refusal
+        findings.add(WORKBOOK_SHEET, "A1", problem, RULE_FIX[fix])
         return report(0, findings.issues), None
     names = []
     for item in source.coverage:
@@ -699,11 +687,6 @@ def sheet_list_findings(names: Sequence[str], findings: Findings) -> None:
             break
 
 
-def stored(grid: Mapping[tuple[int, int], Span], column: int, row: int) -> str:
-    span = grid.get((column, row))
-    return "" if span is None else span.text.strip()
-
-
 def load_table(
     sheet: Sheet, grid: Mapping[tuple[int, int], Span], findings: Findings
 ) -> Table | None:
@@ -713,7 +696,7 @@ def load_table(
     if not any(span.text.strip() for span in grid.values()):
         findings.add(sheet.name, "A1", f"sheet {sheet.name} is empty", sheet.fixes()[1])
         return None
-    header = header_problem(sheet, grid)
+    header = header_issue(grid, sheet.names)
     if header is not None:
         findings.add(sheet.name, *header, sheet.header_fix())
         return None
@@ -730,24 +713,6 @@ def load_table(
     rows = [parse_row(sheet, grid, number, findings) for number in numbers]
     key_findings(sheet, rows, findings)
     return Table(sheet, rows)
-
-
-def header_problem(sheet: Sheet, grid: Mapping[tuple[int, int], Span]) -> tuple[str, str] | None:
-    """The first header cell that is not the template's, as (cell, problem)."""
-    for column, expected in enumerate(sheet.names, 1):
-        found = stored(grid, column, 1)
-        if found != expected:
-            shown = f"'{echo(found)}'" if found else "empty"
-            return f"{cell_letters(column)}1", f"header is {shown}, expected '{expected}'"
-    last = cell_letters(len(sheet.columns))
-    for column in sorted(column for column, row in grid if row == 1 and column > len(sheet.names)):
-        found = stored(grid, column, 1)
-        if found:
-            return (
-                f"{cell_letters(column)}1",
-                f"header is '{echo(found)}', expected nothing after {last}1",
-            )
-    return None
 
 
 def parse_row(
@@ -802,27 +767,20 @@ def parse_row(
     return row
 
 
-def percent_formatted(span: Span) -> bool:
-    """A numeric cell whose number format scales it by 100 for display: builtin 9 or 10, or a
-    custom code with a `%` outside quoted text and escapes (`0.00"%"` only shows a sign)."""
-    code = span.number_format
-    if span.data_type != "n" or code is None:
-        return False
-    if code.startswith("builtin:"):
-        return code in PERCENT_FORMATS
-    return "%" in LITERAL.sub("", code)
-
-
 def percent_findings(
     sheet: Sheet, grid: Mapping[tuple[int, int], Span], row: Row, findings: Findings
 ) -> None:
     """Refuse percent-formatted numbers in percent columns: one issue per cell, and the value
     is dropped so no rule computes with a fraction."""
-    pct_nav_row = row.raw.get("limit_unit") == PCT_NAV
+    percent = set(PCT_COLUMNS)
+    if row.raw.get("limit_unit") == PCT_NAV:
+        percent |= PCT_NAV_ROW_COLUMNS
+    if sheet.name == EXPOSURE.name and row.raw.get("unit", "").startswith("%"):
+        percent |= PCT_UNIT_ROW_COLUMNS
     for index, column in enumerate(sheet.columns, 1):
         name = column.name
         span = grid.get((index, row.number))
-        scaled = name in PCT_COLUMNS or (pct_nav_row and name in PCT_NAV_ROW_COLUMNS)
+        scaled = name in percent
         if span is not None and scaled and name in row.values and percent_formatted(span):
             message = f"{name} '{echo(row.raw[name])}' is formatted as a percentage"
             findings.add(

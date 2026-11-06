@@ -1,13 +1,19 @@
 """A shared weekly exposure bound over the existing durable account ledger."""
 
+from collections.abc import Sequence
 from datetime import UTC, datetime, timedelta
 from decimal import Decimal
-from collections.abc import Sequence
 
 from deploy_workflow.model.budget import exact_subtract, exact_sum
 from deploy_workflow.model_testing.budget import (
-    AccountExhausted, BudgetError, Runs, Settlement, require_budget, settled_amounts,
+    AccountExhausted,
+    BudgetError,
+    Runs,
+    Settlement,
+    require_budget,
+    settled_amounts,
 )
+from deploy_workflow.model_testing.records import call_key
 
 
 def positive_money(value: Decimal, name: str) -> Decimal:
@@ -38,10 +44,9 @@ def weekly_spend(runs: Runs, settlements: Sequence[Settlement], now: datetime) -
                 raise BudgetError("a recorded call has no timezone")
             if not start <= record.started_at.astimezone(UTC).date() < end:
                 continue
-            key = (record.run_id, record.module_id, record.step_id, record.attempt, record.call_index)
             amount = record.settled_usd
             if record.cost_status == "unknown":
-                amount = settled.get(key, record.reserved_usd)
+                amount = settled.get(call_key(record), record.reserved_usd)
             amounts.append(record.reserved_usd if amount is None else amount)
     return exact_sum(amounts)
 

@@ -9,30 +9,20 @@ the gaps ledger to Limitations, as ``bindings/cp1a.py`` does. Slots carry a ``cp
 slot is unique across all shipped maps. Now in ``SHIPPED_MAPS`` since task 8.6.
 """
 
-from deploy_vii.bindings import Binding, BindingMap
+from deploy_vii.bindings import Binder, BindingMap
 from deploy_vii.business_context import CP1_REFERENCES
 from deploy_vii.cp2_synthesis import KEY_FINDINGS, MODULE_ID, STRENGTHS, THESIS, WEAKNESSES
-from deploy_vii.report_view import FactCoord, Section
 
-
-def _bind(table: str, block: str, label: str, section: Section | None = None) -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id=MODULE_ID, table_id=table),
-        block_id=block,
-        cell_slot="cp2-" + table.lower().replace(".", "-").replace("_", "-"),
-        unit_class="text",
-        label=label,
-        section=section,
-    )
+_bind = Binder(MODULE_ID, "cp2-", hyphenate=True).bind
 
 
 CP2 = BindingMap(
     module_id=MODULE_ID,
     entries=(
         _bind(KEY_FINDINGS, "key-findings", "Key findings"),
-        _bind(THESIS, "strengths-weaknesses", "Thesis", "thesis"),
-        _bind(STRENGTHS, "strengths-weaknesses", "Strengths", "strengths"),
-        _bind(WEAKNESSES, "strengths-weaknesses", "Weaknesses", "weaknesses"),
+        _bind(THESIS, "strengths-weaknesses", "Thesis", section="thesis"),
+        _bind(STRENGTHS, "strengths-weaknesses", "Strengths", section="strengths"),
+        _bind(WEAKNESSES, "strengths-weaknesses", "Weaknesses", section="weaknesses"),
         # Evidence.
         _bind("T2.1", "evidence", "Credit assessment"),
         _bind("T2.7", "evidence", "Thesis, strengths and weaknesses"),

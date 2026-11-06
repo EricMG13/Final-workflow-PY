@@ -2,6 +2,7 @@
 
 import re
 from collections.abc import Iterable
+from itertools import pairwise
 from typing import Literal, Self
 
 from pydantic import ValidationError, model_validator
@@ -188,14 +189,11 @@ def page_numbers(source: Source) -> tuple[int, ...]:
     return tuple(int(m.group(1)) for span in source.spans if (m := _PAGE.fullmatch(span.locator)))
 
 
-def _runs(numbers: list[int]) -> list[tuple[int, int]]:
-    runs: list[tuple[int, int]] = []
-    for number in numbers:
-        if runs and number == runs[-1][1] + 1:
-            runs[-1] = (runs[-1][0], number)
-        else:
-            runs.append((number, number))
-    return runs
+def _gaps(numbers: Iterable[int]) -> list[tuple[int, int]]:
+    """The runs of numbers missing between the least and greatest of `numbers`, in order. Work
+    is bounded by how many numbers there are, never by how far apart they lie (as `_retains`)."""
+    ordered = sorted(set(numbers))
+    return [(low + 1, high - 1) for low, high in pairwise(ordered) if high - low > 1]
 
 
 def extraction_coverage(source: Source) -> dict[str, object]:
@@ -216,19 +214,15 @@ def extraction_coverage(source: Source) -> dict[str, object]:
     }
     pages = page_numbers(source)
     if pages and len(pages) == len(locators):
-        present = set(pages)
-        missing = [n for n in range(min(pages), max(pages) + 1) if n not in present]
         record["pages_missing_between_first_and_last"] = [
-            f"page:{a}" if a == b else f"page:{a} to page:{b}" for a, b in _runs(missing)
+            f"page:{a}" if a == b else f"page:{a} to page:{b}" for a, b in _gaps(pages)
         ]
     return record
 
 
 # A claim that pages are absent: a page range and an absence word in the same clause.
-_PAGE_RANGE = re.compile(
-    r"\bpages?\s*:?\s*([0-9]+)\s*(?:-|\u2013|\u2014|to|through)\s*(?:\[?pages?\s*:?\s*)?([0-9]+)",
-    re.IGNORECASE,
-)
+_RANGE = r"pages?\s*:?\s*([0-9]+)\s*(?:-|\u2013|\u2014|to|through)\s*(?:\[?pages?\s*:?\s*)?([0-9]+)"
+_PAGE_RANGE = re.compile(rf"\b{_RANGE}", re.IGNORECASE)
 _ABSENT = re.compile(
     r"\b(?:absent|missing|omitted|omits|omitting|unextracted|not (?:present|included|supplied|"
     r"delivered|extracted|contained))\b",
@@ -237,9 +231,13 @@ _ABSENT = re.compile(
 _CLAUSE = re.compile(r";|(?<=\.)\s+(?=[A-Z])")
 # Statements that pages are NOT absent (probe-3: "no pages missing between the first and last
 # locator", rule f followed): a negator, at most four words from a closed list, then the absence
-# word; or the CONTEXT coverage field restated as empty. The closed list keeps a positive claim
-# positive: "not complete with missing pages 53-96" and "pages 33-52 not present and also
-# missing" still claim absence; so does "none of pages 53-96 are missing" (a range in between).
+# word; "no" directly before a page range, then such words and the absence word ("No pages 53-96
+# are missing"); an absence word stated as empty ("missing pages: none", "Missing: none for
+# pages 3-9": "none" then the clause's end, a bracket or a preposition, so "missing: none of
+# them" and "absent: none were extracted" still claim absence); or the CONTEXT coverage field
+# restated as empty. The closed list keeps a positive claim positive: "not complete with missing
+# pages 53-96" and "pages 33-52 not present and also missing" still claim absence; so does "none
+# of pages 53-96 are missing" (a range in between, after a negator other than "no").
 _FILLER = (
     r"(?:pages?|locators?|spans?|located|content|text|material|other|further|additional|more|"
     r"of|the|these|those|them|any|are|is|were|was|be|been|being|appear|appears|actually)"
@@ -247,6 +245,9 @@ _FILLER = (
 _NEGATED = re.compile(
     rf"\b(?:no|none|not|nothing|without|zero)\s+(?:{_FILLER}\s+){{0,4}}"
     r"(?:missing|absent|omitted|unextracted)\b"
+    rf"|\bno\s+{_RANGE}\s+(?:{_FILLER}\s+){{0,4}}(?:missing|absent|omitted|unextracted)\b"
+    r"|\b(?:missing|absent|omitted|unextracted)(?:\s+(?:pages?|locators?|spans?))?"
+    r"\s*[:=]\s*(?:none|nil|\[\s*\])(?=\s*(?:$|[).,:(\[]|(?:for|in|on|between|across)\b))"
     r"|\bpages?\s+missing\s+between\s+(?:the\s+)?first\s+and\s+last(?:\s+(?:locators?|pages?))?"
     r"\s*[:=]\s*(?:none\b|nil\b|\[\s*\]|0\b)",
     re.IGNORECASE,

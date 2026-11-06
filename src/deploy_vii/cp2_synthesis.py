@@ -865,7 +865,9 @@ def credit_synthesis(
             claim_id="T2.1.assessment",
             text=submission.assessment.rationale,
             citations=(),
-            limitation=submission.assessment.limitation,
+            # `Claim.limitation` is plain text: a `{ref|unit}` in it is spelled as the table's
+            # Limitation cell spells it (review S04), never carried raw.
+            limitation=out.text(limit) if (limit := submission.assessment.limitation) else None,
         ),
         *(
             Claim(claim_id=f"T2.10.kf{index:02d}", text=finding.text, citations=())

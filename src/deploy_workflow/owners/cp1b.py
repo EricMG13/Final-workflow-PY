@@ -120,13 +120,19 @@ def expected_comparison(report: EarningsDeltaReport) -> str:
     raise ValueError(UNSUPPORTED)
 
 
+def _fiscal_year(row: Mapping[str, Fact]) -> int | None:
+    """A T4.14 row's fiscal year as the composer reads it: ASCII digits only, else `None`."""
+    text = row["fiscal_year"].text
+    return int(text) if text and text.isascii() and text.isdigit() else None
+
+
 def _prior_year(rows: Mapping[str, Mapping[str, Fact]], current: str) -> int | None:
     """The fiscal year before the current period's, read from its T4.14 row as the composer reads
     it (`earnings_workflow._require_register_claims`); `None` when the row or the year is not
     readable, which fails closed."""
     row = rows.get(current)
-    text = row["fiscal_year"].text if row is not None else None
-    return int(text) - 1 if text and text.isascii() and text.isdigit() else None
+    year = None if row is None else _fiscal_year(row)
+    return None if year is None else year - 1
 
 
 def _earlier_series(rows: Mapping[str, Mapping[str, Fact]], year: int) -> bool:
@@ -136,8 +142,8 @@ def _earlier_series(rows: Mapping[str, Mapping[str, Fact]], year: int) -> bool:
     for row in rows.values():
         if row["period_type"].text == "PERIOD_END":
             continue
-        text = row["fiscal_year"].text
-        if not (text and text.isascii() and text.isdigit()) or int(text) <= year:
+        stated = _fiscal_year(row)
+        if stated is None or stated <= year:
             return True
     return False
 
@@ -199,7 +205,10 @@ def _pair(view: ModuleView, prior: str, current: str, currency: str) -> Computat
 
 
 def compute(
-    view: ModuleView, submission: EarningsDeltaOwnerReview, *, currency: str = "USD"
+    view: ModuleView,
+    submission: EarningsDeltaOwnerReview,
+    *,
+    currency: str = DEFAULT_CURRENCY.currency,
 ) -> Computation:
     """Pure: the report for the submitted pair, or the validator issues. A pair
     `build_earnings_delta` refuses is named by its `ValueError` code; an assessment other than
@@ -246,6 +255,16 @@ class ContextPair:
 
     pair: tuple[str, str] | None
     issues: tuple[str, ...]
+
+    def refusal(self, submitted: tuple[str, str]) -> tuple[str, ...]:
+        """The issues that refuse the submitted pair before compute: the context's own, else the
+        `context_period_mismatch` of a pair the context does not allow."""
+        if self.issues:
+            return self.issues
+        said = f"context_period_mismatch: submitted {submitted[0]} -> {submitted[1]}, "
+        if self.pair is not None and self.pair != submitted:
+            return (f"{said}context {self.pair[0]} -> {self.pair[1]}",)
+        return ()
 
 
 def context_pair(module: ModuleView, pack: PreparedPack) -> ContextPair:
@@ -330,13 +349,7 @@ def _context_state(module: ModuleView, pack: PreparedPack) -> tuple[ContextPair,
 def _default_pairs(rows: Mapping[str, Mapping[str, Fact]]) -> tuple[tuple[str, str], ...]:
     """Without a context, the flat q3 -> q4 pair and the missing-prior fy pair of each fiscal year
     the register states; `supported` keeps the ones the validator accepts (ruling B19, Phase 8)."""
-    years = sorted(
-        {
-            int(r["fiscal_year"].text or "")
-            for r in rows.values()
-            if (r["fiscal_year"].text or "").isdigit()
-        }
-    )
+    years = sorted({y for r in rows.values() if (y := _fiscal_year(r)) is not None})
     return tuple(
         pair for y in years for pair in ((f"q3-{y}", f"q4-{y}"), (f"fy-{y - 1}", f"fy-{y}"))
     )
@@ -413,23 +426,12 @@ def _validate_step(store: Execution, pack: PreparedPack, attempt: Attempt) -> St
     if submission is None:
         return StepValidation(issues=shape)
     producer = _cp1(store, attempt)
-    try:
-        fixed = context_pair(cp1_view(producer), pack)
-        currency = run_currency(cp1_view(producer), pack)
-    except ContextRefused as error:
-        return StepValidation(issues=(clipped(("Context refused: ", str(error))),))
-    except CurrencyRefused as error:
-        return StepValidation(issues=(clipped((str(error),)),))
-    submitted = (submission.prior_period_id, submission.current_period_id)
-    if fixed.issues:
-        return StepValidation(issues=fixed.issues)
-    if fixed.pair is not None and fixed.pair != submitted:
-        mismatch = (
-            f"context_period_mismatch: submitted {submitted[0]} -> {submitted[1]}, "
-            f"context {fixed.pair[0]} -> {fixed.pair[1]}"
-        )
-        return StepValidation(issues=(mismatch,))
-    found = compute(cp1_view(producer), submission, currency=currency)
+    module = cp1_view(producer)
+    fixed, currency = _context_state(module, pack)
+    refused = fixed.refusal((submission.prior_period_id, submission.current_period_id))
+    if refused:
+        return StepValidation(issues=refused)
+    found = compute(module, submission, currency=currency)
     if found.report is None:
         return StepValidation(issues=found.issues)
     try:

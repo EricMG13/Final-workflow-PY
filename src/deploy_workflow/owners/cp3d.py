@@ -437,6 +437,10 @@ def _parenthesised(before: str, after: str) -> bool:
     return before.endswith(("(", "( ")) and after.startswith((")", " )"))
 
 
+# A numeric token ends where no digit, `.` or `,` and a digit, or `, ` and a digit follows.
+_TOKEN_END = r"(?![0-9]|[.,][0-9]|, [0-9])"
+
+
 def _tokens(value_text: str, text: str) -> list[re.Match[str]]:
     """Where `value_text` is a whole unsigned numeric token of the normalised `text`.
 
@@ -450,7 +454,7 @@ def _tokens(value_text: str, text: str) -> list[re.Match[str]]:
     pattern = (
         rf"(?<![0-9.])(?<![0-9],)(?<![0-9], )(?<!{_MINUS})(?<!{_MINUS} )"
         + re.escape(value_text)
-        + r"(?![0-9]|[.,][0-9]|, [0-9])"
+        + _TOKEN_END
     )
     accounting = re.match(r"[0-9]", value_text) is not None
     return [
@@ -794,10 +798,12 @@ class _Issues:
 
 
 def _labelled(kind: str, level_text: str, quote: str) -> bool:
+    """Whether `kind` labels `level_text` in the quote: the label is directly followed by the very
+    whole token `_tokens` reads (its span), so `offer 99` is not read inside `offer 99.25`."""
     words = normalise(quote)  # the text `quoted` matched
-    return (
-        re.search(rf"\b{kind}\s+{re.escape(level_text)}(?![0-9])", words, re.IGNORECASE) is not None
-    )
+    tokens = {m.span() for m in _tokens(level_text, words)}
+    pattern = rf"\b{kind}\s+({re.escape(level_text)}){_TOKEN_END}"
+    return any(m.span(1) in tokens for m in re.finditer(pattern, words, re.IGNORECASE))
 
 
 def _label_ok(o: Observation, path: str, out: _Issues) -> bool:
@@ -1076,7 +1082,7 @@ def _check_technicals(sub: MarketImpliedSubmission, out: _Issues) -> None:
 PIN_LABEL_FORGED = "the user-supplied pin line is Python's; do not write it"
 
 
-def _normalised(text: str) -> str:
+def normalised_for_pin(text: str) -> str:
     """NFKC, no format characters (category Cf), whitespace runs as one space, case folded, the
     ends trimmed and one trailing full stop dropped: what a reader would take for the same text."""
     kept = "".join(
@@ -1088,10 +1094,12 @@ def _normalised(text: str) -> str:
 
 def pin_label_forged(module_id: str, text: str | None) -> bool:
     """True when `text` holds `module_id`'s pinned-recovery sentence, or a near copy that differs
-    only as `_normalised` folds (case, spacing, format characters, compatibility forms, the full
+    only as `normalised_for_pin` folds (case, spacing, format characters, compatibility forms, the
+    full
     stop; a homoglyph from another script is not folded). Shared by the modules whose own
     limitations carry model prose beside Python's pinned line (P6-P13)."""
-    return bool(text) and _normalised(pinned_line(module_id)) in _normalised(text or "")
+    pinned = normalised_for_pin(pinned_line(module_id))
+    return bool(text) and pinned in normalised_for_pin(text or "")
 
 
 def _check_pin_label(sub: MarketImpliedSubmission, out: _Issues) -> None:
@@ -1262,6 +1270,13 @@ class _Num:
     calculation_id: str | None = None
     formula: str | None = None
     period: str | None = None
+
+
+def _typed_places(numeral: str, least: int) -> int:
+    """The decimal places a quoted or typed percent figure is shown at: at least `least` (the
+    table's pinned spelling) and never fewer than the numeral as typed, so the spelling of a
+    source or analyst figure (`98.375`, `72.5`) is never rounded."""
+    return max(least, len(numeral.partition(".")[2]))
 
 
 @dataclass(frozen=True)
@@ -1511,7 +1526,7 @@ class _Composer:
         level = _Num(
             value,
             "decimal_fraction",
-            2,
+            _typed_places(o.level_text, 2),
             cites,
             value_class="source",
             period=self.talk_period() if talk else None,
@@ -1718,7 +1733,7 @@ class _Composer:
             level = _Num(
                 Decimal(rr.level.percent_text) / PAR,
                 "decimal_fraction",
-                2,
+                _typed_places(rr.level.percent_text, 2),
                 _trace(level_refs),
                 value_class="source",
                 period=self.terms_period(rr.level.quote),
@@ -1781,7 +1796,7 @@ class _Composer:
             recovery = _Num(
                 Decimal(rec.percent_text) / PAR,
                 "decimal_fraction",
-                0,
+                _typed_places(rec.percent_text, 0),
                 value_class="analyst_judgment",
                 period=self.run_period,
             )

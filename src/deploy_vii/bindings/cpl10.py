@@ -6,21 +6,12 @@ TL10.4 upgrade triggers goes to Limitations. Slots carry a ``cpl10-`` prefix: a 
 across all shipped maps. Data only: no arithmetic, no ``deploy_workflow`` import.
 """
 
-from deploy_vii.bindings import Binding, BindingMap
-from deploy_vii.display import UnitClass
-from deploy_vii.report_view import FactCoord
+from deploy_vii.bindings import Binder, BindingMap
 
 MODULE_ID = "CP-L10"
 
 
-def _bind(table: str, block: str, label: str, unit: UnitClass = "text") -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id=MODULE_ID, table_id=table),
-        block_id=block,
-        cell_slot="cpl10-" + table.lower().replace(".", "-"),
-        unit_class=unit,
-        label=label,
-    )
+_bind = Binder(MODULE_ID, "cpl10-").bind
 
 
 CPL10 = BindingMap(

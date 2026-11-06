@@ -153,6 +153,8 @@ def test_cp1b_assessment_must_be_the_one_python_derives() -> None:
         ("q4-2025", "q3-2025", "incompatible_periods"),
         ("q4-2025", "q4-2025", "incompatible_periods"),
         ("fy-2025", "q4-2025", "incompatible_periods"),
+        # An absent FY prior against a quarter is not a comparative gap (S09): the core refuses.
+        ("fy-2024", "q4-2025", "incompatible_periods"),
         ("q3-2025", "no-such-period", "incomplete_register"),
     ],
 )
@@ -243,7 +245,6 @@ def _basis_of(pid: str, kind: str) -> str:
         ("q3-2025x", "q4-2025"),  # a misspelt prior
         ("q1-2026", "q4-2025"),  # a prior after the current period, not in the register
         ("q4-2024", "q4-2025"),  # a prior year, not in the register
-        ("fy-2024", "q4-2025"),
     ],
 )
 def test_cp1b_other_pairs_are_unsupported(prior: str, current: str) -> None:

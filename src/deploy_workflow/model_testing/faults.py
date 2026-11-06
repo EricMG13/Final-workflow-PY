@@ -15,6 +15,7 @@ from typing import Annotated, Literal, Self
 from pydantic import Field, ValidationError, model_validator
 
 from deploy_vii.contracts import Contract, Identifier
+from deploy_workflow.model_testing.records import validation_summary
 
 FaultClass = Literal["product", "prompt", "harness", "model"]
 
@@ -63,10 +64,7 @@ def _parse(text: str, name: str) -> tuple[FaultRecord, ...]:
         try:
             out.append(FaultRecord.model_validate_json(line))
         except ValidationError as exc:
-            where = "; ".join(
-                f"{'.'.join(str(p) for p in e['loc']) or 'record'}: {e['msg']}"
-                for e in exc.errors(include_input=False)
-            )
+            where = validation_summary(exc, None)
             raise ValueError(f"{name} line {number}: unparsable fault record ({where})") from None
     return tuple(out)
 

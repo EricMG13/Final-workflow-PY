@@ -186,8 +186,12 @@ def test_report_range_requests(tmp_path: Path) -> None:
     assert response.headers["content-range"] == f"bytes 0-14/{len(REPORT)}"
     assert client.get(name, headers={"Range": "bytes=-3"}).content == REPORT[-3:]
     assert client.get(name, headers={"Range": "bytes=5-"}).content == REPORT[5:]
-    for bad in ["bytes=999-", "bytes=5-2", "bytes=", "chunks=0-1"]:
+    for bad in ["bytes=999-", "bytes=5-2"]:
         assert client.get(name, headers={"Range": bad}).status_code == 416, bad
+    # RFC 9110 section 14.2: a Range the server does not understand is ignored, not refused.
+    for ignored in ["bytes=", "chunks=0-1", "bytes=0-1,4-5"]:
+        response = client.get(name, headers={"Range": ignored})
+        assert (response.status_code, response.content) == (200, REPORT), ignored
     assert client.get(name).headers["accept-ranges"] == "bytes"
 
 

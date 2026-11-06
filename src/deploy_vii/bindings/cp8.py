@@ -8,21 +8,13 @@ ledger to Limitations. Data only: no arithmetic, and the module never imports ``
 Slots carry a ``cp8-`` prefix: a slot is unique across all shipped maps.
 """
 
-from deploy_vii.bindings import Binding, BindingMap
-from deploy_vii.report_view import FactCoord
+from deploy_vii.bindings import Binder, BindingMap
 
 MODULE_ID = "CP-8"
 WHAT_CHANGED = "cp8.what_changed"
 
 
-def _bind(table: str, block: str, label: str) -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id=MODULE_ID, table_id=table),
-        block_id=block,
-        cell_slot="cp8-" + table.lower().replace(".", "-").replace("_", "-"),
-        unit_class="text",
-        label=label,
-    )
+_bind = Binder(MODULE_ID, "cp8-", hyphenate=True).bind
 
 
 CP8 = BindingMap(

@@ -21,8 +21,10 @@ def prepare_reports(sources):
     """Keep original bytes, trace each handoff to its run file by hash, and add the app's presentation."""
     reports = []
     web = HERE.parent / "web"
-    adapter = (web / "report-adapter.js").read_text()
-    adapter_css = (web / "report-adapter.css").read_text() + (web / "brand.css").read_text()
+    adapter = (web / "report-adapter.js").read_text(encoding="utf-8")
+    adapter_css = (web / "report-adapter.css").read_text(encoding="utf-8") + (
+        web / "brand.css"
+    ).read_text(encoding="utf-8")
     for number, folder in enumerate(
         sorted((ROOT / "deliverables").glob("tdg-fy2024-snapshot*")), 1
     ):
@@ -37,7 +39,7 @@ def prepare_reports(sources):
             "</body>", f"<style>{adapter_css}</style><script>{adapter}</script></body>", 1
         )
         (destination / "preview.html").write_text(html, encoding="utf-8")
-        delivery = json.loads((folder / "delivery.json").read_text())
+        delivery = json.loads((folder / "delivery.json").read_text(encoding="utf-8"))
         rows = built_from(folder, sources)
         for row in rows:
             if row["run"] is None:
@@ -68,7 +70,7 @@ def prepare_reports(sources):
 def build():
     shutil.rmtree(OUT, ignore_errors=True)
     (OUT / "sources").mkdir(parents=True)
-    catalog = json.loads((HERE.parent / "engine/catalog.json").read_text())
+    catalog = json.loads((HERE.parent / "engine/catalog.json").read_text(encoding="utf-8"))
     runs, outputs, inputs, sources, pins, _ = collect_runs(
         ROOT,
         CURATED_RUNS,
@@ -98,10 +100,9 @@ def build():
                 compare["repaired"]: compare["recheck"],
             }
             for report, handoff in cited.items():
-                if (
-                    next(r["sha256"] for r in reports if r["id"] == report)
-                    not in (ROOT / "runs" / handoff).read_text()
-                ):
+                if next(r["sha256"] for r in reports if r["id"] == report) not in (
+                    ROOT / "runs" / handoff
+                ).read_text(encoding="utf-8"):
                     raise ValueError(
                         f"{module}: {handoff} does not cite the report hash of {report}"
                     )

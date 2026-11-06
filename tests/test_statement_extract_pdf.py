@@ -323,7 +323,7 @@ def _note_ref_cases() -> list[Any]:
         pytest.param(
             "\n".join(vmo2 + second),
             "Other financial assets",
-            (("12", "45", "67"), flag),
+            (("12", "45", "67"), ()),  # its own 2025-2024-2023 header block: 3 years, 3 values
             id="second table below a Note statement",
         ),
         pytest.param(

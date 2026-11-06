@@ -8,9 +8,7 @@ source inventory and module limitations keep their existing rendering behavior.
 
 from dataclasses import dataclass, replace
 
-from deploy_vii.bindings import Binding, BindingMap
-from deploy_vii.display import UnitClass
-from deploy_vii.report_view import FactCoord
+from deploy_vii.bindings import Binder, BindingMap
 
 
 @dataclass(frozen=True)
@@ -78,58 +76,53 @@ def cp1b_layouts(unit: str = "US$ m") -> tuple[_Layout, ...]:
 _CP1B_LAYOUTS = cp1b_layouts()
 
 
-def _bind(
-    table: str, block: str, slot: str, label: str, unit: UnitClass = "text", row: str | None = None
-) -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id="CP-1B", table_id=table, row_id=row),
-        block_id=block,
-        cell_slot=slot,
-        label=label,
-        unit_class=unit,
-    )
+_bind = Binder("CP-1B").bind
 
 
 CP1B = BindingMap(
     module_id="CP-1B",
     entries=(
-        _bind("T1B.1", "headline-results", "cp1b-paired-earnings", "Paired earnings results"),
-        _bind("T1B.2", "kpi-changes", "cp1b-balance-changes", "Balance changes", "amount"),
+        _bind("T1B.1", "headline-results", "Paired earnings results", slot="cp1b-paired-earnings"),
+        _bind(
+            "T1B.2", "kpi-changes", "Balance changes", unit="amount", slot="cp1b-balance-changes"
+        ),
         _bind(
             "T1B.3",
             "variance-drivers",
-            "cp1b-variance-summary",
             "Numerical comparison",
+            slot="cp1b-variance-summary",
             row="variance.summary",
         ),
-        _bind("T1B.3", "variance-drivers", "cp1b-drivers", "Driver evidence", row="drivers"),
-        _bind("T1B.3", "guidance-signals", "cp1b-guidance", "Guidance evidence", row="guidance"),
+        _bind("T1B.3", "variance-drivers", "Driver evidence", slot="cp1b-drivers", row="drivers"),
+        _bind(
+            "T1B.3", "guidance-signals", "Guidance evidence", slot="cp1b-guidance", row="guidance"
+        ),
         _bind(
             "T1B.3",
             "limitations",
-            "cp1b-prior-year-gap",
             "Prior-year comparison",
+            slot="cp1b-prior-year-gap",
             row="comparative.prior-year",
         ),
         _bind(
             "T1B.3",
             "limitations",
-            "cp1b-trailing-leverage-gap",
             "Leverage comparison",
+            slot="cp1b-trailing-leverage-gap",
             row="comparative.trailing-leverage",
         ),
         _bind(
             "T1B.3",
             "evidence",
-            "cp1b-input-evidence",
             "Selected input evidence",
+            slot="cp1b-input-evidence",
             row="evidence.inputs",
         ),
         _bind(
             "T1B.3",
             "limitations",
-            "cp1b-scope-limitations",
             "Scope limitations",
+            slot="cp1b-scope-limitations",
             row="scope.limitations",
         ),
     ),

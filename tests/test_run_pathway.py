@@ -576,9 +576,10 @@ def test_finish_run_writes_the_receipt_the_delivery_and_run_json_last(
     assert (run_dir / "delivery" / "report.html").is_file()
     assert len(replaced) == 1  # run.json is the only file moved into place by this module
     before = replaced[0]
-    assert {"owner-run.json", "delivery/report.html", "run.json.tmp"} <= before
+    assert {"owner-run.json", "delivery/report.html"} <= before
+    assert any(name.startswith(".run.json.") and name.endswith(".tmp") for name in before)
     assert "run.json" not in before  # nothing but the temp file existed when run.json landed
-    assert not (run_dir / "run.json.tmp").exists()
+    assert not list(run_dir.glob(".run.json.*.tmp"))
     stamps = {p: p.stat().st_mtime_ns for p in run_dir.rglob("*") if p.is_file()}
     assert stamps[run_dir / "run.json"] == max(stamps.values())
     body = run_json(run_dir)
@@ -896,14 +897,17 @@ def test_a_key_shaped_source_path_is_redacted_in_run_json(args: dict[str, Any]) 
 def test_a_double_fault_does_not_chain_the_raw_fault_into_the_escaping_error(
     args: dict[str, Any], monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    """The mapped fault carries a key; writing ``run.json`` then fails (a leftover temp file).
-    The error that escapes must not hold the raw fault as its context."""
+    """The mapped fault carries a key; writing ``run.json`` then fails. The error that escapes
+    must not hold the raw fault as its context."""
 
     def prepare(request: object, sources: object, out: object) -> NoReturn:
-        (args["run_dir"] / "run.json.tmp").write_bytes(b"")
         raise ValueError(f"cannot prepare with {SECRET}")
 
+    def unwritable(path: Path, data: bytes) -> NoReturn:
+        raise FileExistsError(f"{path} cannot be written")
+
     monkeypatch.setattr(run_inputs_module, "prepare", prepare)
+    monkeypatch.setattr(rp, "atomic_write", unwritable)
     with pytest.raises(FileExistsError) as escaped:
         run_pathway(**args)
     text = "".join(traceback.format_exception(escaped.value))

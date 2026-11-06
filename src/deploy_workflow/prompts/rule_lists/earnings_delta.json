@@ -19,7 +19,8 @@
     "code:cp1b:period:invalid_fact",
     "code:cp1b:period:invalid_source_view",
     "code:cp1b:unsupported_pair",
-    "fn:deploy_workflow.owners.cp1b:_validate_step"
+    "fn:deploy_workflow.owners.cp1b:_validate_step",
+    "fn:deploy_workflow.owners.cp1b:ContextPair.refusal"
    ]
   },
   {

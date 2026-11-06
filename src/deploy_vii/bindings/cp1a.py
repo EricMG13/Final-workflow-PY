@@ -9,25 +9,16 @@ transactions and events, one line per cell. Every other register goes to Evidenc
 Limitations. Slots carry a ``cp1a-`` prefix: a slot is unique across all shipped maps.
 """
 
-from deploy_vii.bindings import Binding, BindingMap
+from deploy_vii.bindings import Binder, BindingMap
 from deploy_vii.business_context import COMPANY_ROW, CP1_REFERENCES, MODULE_ID
-from deploy_vii.report_view import FactCoord
 
-
-def _bind(table: str, block: str, label: str, row: str | None = None) -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id=MODULE_ID, table_id=table, row_id=row),
-        block_id=block,
-        cell_slot="cp1a-" + table.lower().replace(".", "-").replace("_", "-"),
-        unit_class="text",
-        label=label,
-    )
+_bind = Binder(MODULE_ID, "cp1a-", hyphenate=True).bind
 
 
 CP1A = BindingMap(
     module_id=MODULE_ID,
     entries=(
-        _bind("company_description", "company-operating-model", "Company", COMPANY_ROW),
+        _bind("company_description", "company-operating-model", "Company", row=COMPANY_ROW),
         _bind("operating_model", "company-operating-model", "Operating model"),
         _bind("ownership_register", "company-profile", "Ownership"),
         _bind("revenue_business_mix", "company-profile", "Revenue and business mix"),

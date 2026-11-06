@@ -25,7 +25,8 @@ from decimal import Context, Decimal, Inexact, InvalidOperation, Overflow, local
 from fractions import Fraction
 from typing import Literal, get_args
 
-from pydantic import Field, ValidationError
+from pydantic import Field, ValidationError, field_validator
+from pydantic_core import PydanticCustomError
 
 from deploy_vii import prose
 from deploy_vii.business_context import (
@@ -83,7 +84,7 @@ MODULE_ID = "CP-2A"
 STEP_ID = "downside_pathway"
 SCHEMA_VERSION = "downside-pathway/1"
 
-DECLINE_PATTERN = r"^(0|1|0\.\d{1,4}|1\.0{1,4})$"
+DECLINE_PATTERN = r"^(0|1|0\.\d{1,4}|1\.0{1,4})$"  # both shocks; the text the oracle pins
 LEVEL_PATTERN = r"^[0-9]{1,6}(\.[0-9]{1,4})?$"
 Metric = Literal["total_leverage", "net_leverage", "interest_coverage"]
 
@@ -102,6 +103,20 @@ class Scenario(Contract):
     category: Category
     rationale: str
     limitation: str | None
+
+    @field_validator("ebitda_decline", "interest_increase")
+    @classmethod
+    def _ascii_shock(cls, value: str) -> str:
+        """The pattern's `\\d` is any Unicode decimal digit in pydantic's regex; a shock, like a
+        threshold level (LEVEL_PATTERN), admits ASCII 0-9 only, refused with the pattern's own
+        message so the issue text is the same as for any other non-matching shock."""
+        if not value.isascii():
+            raise PydanticCustomError(
+                "string_pattern_mismatch",
+                "String should match pattern '{pattern}'",
+                {"pattern": DECLINE_PATTERN},
+            )
+        return value
 
 
 class Threshold(Contract):
@@ -653,9 +668,9 @@ def _scenario_issues(inputs: Inputs, bound: Mapping[str, Fact]) -> list[str]:
         issues += _name_issues(f"{path}.name", sc.name)
         if sc.name.strip() == BASE_ROW:
             issues.append(f"{path}.name: {RESERVED_BASE}")
-        if not is_blank(sc.name) and sc.name in seen:
+        if not is_blank(sc.name) and sc.name.strip() in seen:
             issues.append(clipped((path, ".name: duplicate scenario name: ", sc.name)))
-        seen.add(sc.name)
+        seen.add(sc.name.strip())
         issues += _prose_issues(f"{path}.rationale", sc.rationale, bound, inputs.names)
         if sc.limitation is not None:
             issues += _prose_issues(f"{path}.limitation", sc.limitation, bound, inputs.names)
@@ -674,7 +689,7 @@ def _threshold_issues(inputs: Inputs, bound: Mapping[str, Fact]) -> list[str]:
             issues.append(f"{path}.level: must be greater than zero")
         issues += _name_issues(f"{path}.label", t.label)
         issues += _prose_issues(f"{path}.rationale", t.rationale, bound, inputs.names)
-    labels = [t.label for t in inputs.submission.thresholds]
+    labels = [t.label.strip() for t in inputs.submission.thresholds]
     issues += [
         f"thresholds: {clipped((label,), 300)} appears more than once"
         for label in dict.fromkeys(labels)

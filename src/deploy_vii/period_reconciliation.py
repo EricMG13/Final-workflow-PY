@@ -4,7 +4,6 @@ Model residuals never enter these comparisons. Shared source observations are
 identified explicitly so a construction cannot certify itself as independent.
 """
 
-from datetime import timedelta
 from decimal import Decimal, localcontext
 from itertools import pairwise
 from typing import Literal
@@ -22,10 +21,19 @@ from deploy_vii.financial_periods import (
     HistoricalValue,
     PeriodConstruction,
     _id,
+    contiguous,
+    half_last_decimal,
     historical_report,
+    opening_date,
 )
 from deploy_vii.financial_reconciliation import (
+    BASIS_DIFFERENCE,
     CASH_SCOPE,
+    CASH_SCOPE_DIFFERS,
+    DIFFERENCE_UNRESOLVED,
+    MISSING_PERIOD_COMPONENT,
+    PERIOD_MISSING_INPUT,
+    SEGMENTS_PARTIAL,
     CheckType,
     Reconciliation,
     ReconciliationTerm,
@@ -36,6 +44,7 @@ from deploy_vii.financial_reconciliation import (
     _statement_balance,
     _statement_check,
     cash_scope,
+    target_sign_terms,
 )
 from deploy_vii.model._cells import CONTEXT
 from deploy_vii.model.dates import fiscal_year_number
@@ -124,21 +133,17 @@ def _compare(
             if parts and all(p.amount is not None for p in parts) and not blocker
             else None
         )
-        tolerance = (
-            Decimal("0.5").scaleb(int(reported.amount.as_tuple().exponent))
-            if reported.amount is not None
-            else None
-        )
+        tolerance = None if reported.amount is None else half_last_decimal(reported.amount)
         difference = (
             calculated - reported.amount
             if calculated is not None and reported.amount is not None
             else None
         )
         status: Literal["PASS", "WARN", "BLOCK"] = "BLOCK"
-        explanation = blocker or "Reported value or independent components are unavailable"
+        explanation = blocker or PERIOD_MISSING_INPUT
         if difference is not None and tolerance is not None:
             if abs(difference) > tolerance:
-                explanation = "Difference exceeds reporting-precision tolerance; unresolved"
+                explanation = DIFFERENCE_UNRESOLVED
             elif shared:
                 status, explanation = (
                     "WARN",
@@ -208,11 +213,13 @@ def _cfo(
     blockers: list[str] = []
     for pid, sign in _source_periods(report, node):
         if pid is None:
-            terms.append(_cell(None, "Missing period component", 1 if sign == 1 else -1))
-            blockers.append("Missing period component")
+            terms.append(_cell(None, MISSING_PERIOD_COMPONENT, 1 if sign == 1 else -1))
+            blockers.append(MISSING_PERIOD_COMPONENT)
             continue
         source = _statement_check(book, periods[pid], "CFS", "cfo_ncfo", "CFO_IDENTITY")
-        terms.extend(_source(term, sign) for term in source.components)
+        # The reported term is the kernel's sign-normalized CFO, as `_ncf` converts NCF.
+        leaves = target_sign_terms(book, pid, "cfo_ncfo", source)
+        terms.extend(_source(term, sign) for term in leaves)
         contexts.extend(source.context_citations)
         if source.calculated_value is None or (
             source.difference is not None and source.status == "BLOCK"
@@ -240,8 +247,8 @@ def _period_ncf(
     sources: dict[str, Reconciliation] = {}
     for pid, sign in _source_periods(report, node):
         if pid is None:
-            terms.append(_cell(None, "Missing period component", 1 if sign == 1 else -1))
-            blockers.append("Missing period component")
+            terms.append(_cell(None, MISSING_PERIOD_COMPONENT, 1 if sign == 1 else -1))
+            blockers.append(MISSING_PERIOD_COMPONENT)
             continue
         source = sources.get(pid)
         if source is None:
@@ -276,11 +283,7 @@ def _period_cash(
     any contributing source uses a bridge, every contribution must be assessed
     and its cash check must pass before the constructed check can agree.
     """
-    opening = (
-        node.start_date - timedelta(days=1)
-        if node.start_date and node.start_date.toordinal() > 1
-        else None
-    )
+    opening = opening_date(node.start_date)
     sources = _source_periods(report, node)
     assessments = {b.period_id: b for b in book.cash_movement_bridges}
     adjusted = any(pid in assessments for pid, _ in sources)
@@ -307,7 +310,7 @@ def _period_cash(
             source = _cash_movement(book, periods[pid])
             own = cash_scope(assessments[pid])
             if own != scope:
-                blockers.append(f"Cash scope differs across source periods: {pid}")
+                blockers.append(f"{CASH_SCOPE_DIFFERS}{pid}")
             parts.extend(_source(term, sign) for term in source.components[2 * len(own) :])
             bridges.extend(source.cash_movement_bridges)
             contexts.extend(source.context_citations)
@@ -382,11 +385,7 @@ def _bridges(
             series("bu:", segments),
             "sum(segment revenue including corporate/eliminations)",
             blocker=node.limitation
-            or (
-                "Disclosed segment schedule is partial"
-                if book.segment_disclosure.status == "partial"
-                else None
-            ),
+            or (SEGMENTS_PARTIAL if book.segment_disclosure.status == "partial" else None),
             warning="Segment schedule is not disclosed; total stays unknown"
             if undisclosed
             else None,
@@ -460,10 +459,7 @@ def _years(
             and quarters[-1].end_date == node.end_date
         )
         complete = complete and all(
-            a.end_date is not None
-            and b.start_date is not None
-            and a.end_date.toordinal() + 1 == b.start_date.toordinal()
-            for a, b in pairwise(quarters)
+            contiguous(a.end_date, b.start_date) for a, b in pairwise(quarters)
         )
         for metric in sorted(FLOW_METRICS):
             check = _compare(
@@ -490,8 +486,7 @@ def _years(
                 check = check.model_copy(
                     update={
                         "status": "WARN",
-                        "explanation": "Audited FY / unaudited quarter basis difference: "
-                        + explanation.explanation,
+                        "explanation": BASIS_DIFFERENCE + explanation.explanation,
                         "audit_basis_explanation": explanation,
                         "context_citations": tuple(
                             dict.fromkeys((*check.context_citations, *explanation.citations))

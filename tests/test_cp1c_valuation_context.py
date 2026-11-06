@@ -539,7 +539,7 @@ def test_the_context_is_cited_by_line_in_any_layout() -> None:
     """The citation is the line the value sits on, whatever the file's indentation."""
     raw = json.dumps(json.loads(context_bytes("auto-public")), indent=4).encode() + b"\n"
     source = context_source("auto-public", raw)
-    cite = cp1c.context_cites(source)
+    cite = cp1c._line_citer(source)
     path = ("valuation", "peers", 0, "ev_m")
     (got,) = cite(path)
     lines = raw.decode("utf-8").splitlines()

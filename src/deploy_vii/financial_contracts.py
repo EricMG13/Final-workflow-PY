@@ -29,6 +29,7 @@ from deploy_vii.contracts import (
 )
 from deploy_vii.model.dates import fiscal_year_number
 from deploy_vii.model.history import BALANCE_METRICS, FLOW_METRICS
+from deploy_vii.model.registers import DEBT_ADJUSTMENT
 
 # Task 7.0d: marks a `Number` node in the JSON schema. The sent copy keeps only its number branch
 # (`live.schema`, "decimal-number-only"); the stored contract and its parse are unchanged, so a
@@ -146,6 +147,18 @@ class FinancialPeriod(Contract):
         year = fiscal_year_number(self.fiscal_year)
         if year is None or not 1900 <= year <= 2200:
             raise ValueError("fiscal year must identify a year in 1900-2200")
+        self._check_dates(year)
+        if self.period_type == "QUARTER" and self.fiscal_quarter is None:
+            raise ValueError("quarter requires fiscal quarter")
+        if not self.citations and not self.component_period_ids:
+            raise ValueError("period requires located evidence or component periods")
+        if self.expense_presentation != "unknown" and not self.presentation_citations:
+            raise ValueError("expense presentation requires evidence")
+        return self
+
+    def _check_dates(self, year: int) -> None:
+        """The dates against the fiscal year, each other and the day count; a missing date needs
+        a limitation, except the start of a balance-sheet instant."""
         for day in (self.start_date, self.end_date):
             if day is not None and not 1900 <= day.year <= 2200:
                 raise ValueError("period date outside 1900-2200")
@@ -155,15 +168,10 @@ class FinancialPeriod(Contract):
             days = (self.end_date - self.start_date).days + 1
             if days <= 0 or (self.day_count is not None and self.day_count != days):
                 raise ValueError("period dates and day count disagree")
-        elif not self.limitation:
+        # A balance-sheet instant (PERIOD_END) has no start date to miss: its source scope may
+        # not carry one, so only its end date needs a limitation when absent.
+        elif not self.limitation and (self.end_date is None or self.period_type != "PERIOD_END"):
             raise ValueError("missing period dates require a limitation")
-        if self.period_type == "QUARTER" and self.fiscal_quarter is None:
-            raise ValueError("quarter requires fiscal quarter")
-        if not self.citations and not self.component_period_ids:
-            raise ValueError("period requires located evidence or component periods")
-        if self.expense_presentation != "unknown" and not self.presentation_citations:
-            raise ValueError("expense presentation requires evidence")
-        return self
 
 
 class AccountObservation(Contract):
@@ -267,9 +275,9 @@ class FacilityObservation(Contract):
         for field in ("principal", "drawn_amount", "commitment", "annual_amortisation"):
             if (value := getattr(self, field).amount) is not None and value < 0:
                 raise ValueError(f"{field} cannot be negative")
-        if (value := self.carrying_value.amount) is not None and value < 0:
-            if self.facility_type != "DEBT ADJUSTMENT":
-                raise ValueError("only DEBT ADJUSTMENT may have negative carrying value")
+        value = self.carrying_value.amount
+        if value is not None and value < 0 and self.facility_type != DEBT_ADJUSTMENT:
+            raise ValueError("only DEBT ADJUSTMENT may have negative carrying value")
         for value in (self.spread_bps.amount, self.floor_bps.amount):
             if value is not None and value != value.to_integral_value():
                 raise ValueError("spread/floor must use whole basis points")

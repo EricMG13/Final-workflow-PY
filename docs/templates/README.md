@@ -86,7 +86,7 @@ These five rows are required (section and field exact text); other rows are free
 | Column | Header | Rule |
 | --- | --- | --- |
 | A | `metric` | The metric's name. A row `nav` is required. Do not supply `one_pct_nav`: Python computes 1 % of NAV from `nav`. |
-| B | `value` | A plain number. The `nav` row's value must be the same number as the Mandate `nav` (`630928502` and `630928502.00` are the same number). |
+| B | `value` | A plain number. The `nav` row's value must be the same number as the Mandate `nav` (`630928502` and `630928502.00` are the same number). On a `% NAV` or `%` row the cell is a plain number in percent and a percentage-formatted cell is refused, as for the Percent of NAV cells above. |
 | C | `unit` | The unit, such as `USD`, `% NAV`, `years` or `count`. The `nav` row's unit must be the Mandate `nav_currency`. |
 | D | `as_of` | The metric's date, `YYYY-MM-DD`. |
 

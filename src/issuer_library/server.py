@@ -26,6 +26,8 @@ from .jobs import (
     UPLOAD_LIMIT,
     UPLOAD_MESSAGE,
     Engine,
+    StoreTimeout,
+    adopt_running_jobs,
     engine_root,
     job_status,
     json_response,
@@ -59,6 +61,17 @@ ASSET_FOLDERS = ("fonts", "brand", "icons")
 ASSET_TYPES = (".html", ".css", ".js")
 TEXT_TYPES = ("text/", "application/json", "application/javascript", "image/svg+xml")
 RANGE = re.compile(r"bytes=([0-9]*)-([0-9]*)")
+# What a download name may hold inside a quoted filename; anything else uses filename*.
+TOKEN_FILENAME = re.compile(r"[A-Za-z0-9 ._()+,=@-]+")
+# Every response carries these, including an unhandled error's 500.
+BOUNDARY_HEADERS = {
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer",
+    "Cross-Origin-Resource-Policy": "same-origin",
+}
+# Injected into an embedded report; read once when the application starts.
+PRESENTATION_ASSETS = ("report-adapter.css", "brand.css", "report-adapter.js")
 XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 # The front end beside the engine: apps/issuer-library/web in the repository, web/ in a package.
 WEB = engine_root().parent / "web"
@@ -84,10 +97,25 @@ def bounded_receive(receive: Receive, limit: int) -> Receive:
     return inner
 
 
+async def bounded_body(request: Request, refusal: str) -> bytes:
+    """A small JSON request's body; one over REQUEST_LIMIT is refused before it is buffered."""
+    try:
+        declared = int(request.headers.get("content-length") or 0)
+    except ValueError:
+        declared = REQUEST_LIMIT + 1
+    if declared > REQUEST_LIMIT:
+        raise HTTPException(400, refusal)
+    try:
+        return await Request(request.scope, bounded_receive(request.receive, REQUEST_LIMIT)).body()
+    except UploadTooLarge as error:
+        raise HTTPException(400, refusal) from error
+
+
 def attachment(filename: str) -> str:
-    if filename.isascii():
-        return 'attachment; filename="' + filename.replace('"', '\\"') + '"'
-    return f"attachment; filename*=UTF-8''{quote(filename)}"
+    """A download name: quoted when it is plain text, else RFC 8187 percent-encoded UTF-8."""
+    if TOKEN_FILENAME.fullmatch(filename):
+        return f'attachment; filename="{filename}"'
+    return f"attachment; filename*=UTF-8''{quote(filename, safe='')}"
 
 
 def content_type(name: str) -> str:
@@ -98,16 +126,18 @@ def content_type(name: str) -> str:
 
 
 def serve_bytes(request: Request, raw: bytes, headers: dict[str, str]) -> Response:
-    """The verified bytes, with one byte range when the browser asks for one."""
+    """The verified bytes, with one byte range when the browser asks for one.
+
+    As RFC 9110 section 14.2 allows, a Range this server does not parse as one bytes range (another
+    unit, several ranges, no positions) is ignored and the whole file is sent.
+    """
     headers = {**headers, "Accept-Ranges": "bytes"}
     wanted = request.headers.get("range")
-    if wanted is None:
+    match = RANGE.fullmatch(wanted.strip()) if wanted is not None else None
+    if match is None or not (match[1] or match[2]):
         return Response(raw, headers=headers)
     size = len(raw)
-    match = RANGE.fullmatch(wanted.strip())
-    if match is None or not (match[1] or match[2]):
-        start, end = size, size
-    elif match[1]:
+    if match[1]:
         start = int(match[1])
         end = min(int(match[2]), size - 1) if match[2] else size - 1
     else:
@@ -134,11 +164,7 @@ class Boundary:
 
         async def send_marked(message: Message) -> None:
             if message["type"] == "http.response.start":
-                headers = MutableHeaders(scope=message)
-                headers["Cache-Control"] = "no-store"
-                headers["X-Content-Type-Options"] = "nosniff"
-                headers["Referrer-Policy"] = "no-referrer"
-                headers["Cross-Origin-Resource-Policy"] = "same-origin"
+                MutableHeaders(scope=message).update(BOUNDARY_HEADERS)
             await send(message)
 
         headers = Headers(scope=scope)
@@ -181,12 +207,14 @@ class Application:
         self.engine = engine or local_engine()
         self.web = WEB
         self.seed = Catalogue.model_validate_json((self.web / "legacy-catalog.json").read_bytes())
+        self.presentation = presentation_assets(self.web)
         self.instance = digest(str(loc.state).encode())
         self.lock = threading.Lock()
         self.active_jobs: set[str] = set()
         self.stop: Callable[[], None] = lambda: None
         self.catalogue = Catalogue()
         self.refresh_locked()
+        adopt_running_jobs(self)
         self.asgi = build(self)
 
     def refresh_locked(self) -> None:
@@ -231,6 +259,7 @@ class Application:
                 raise HTTPException(500, "Could not save settings") from error
             self.config = config
             self.refresh_locked()
+            adopt_running_jobs(self)
             return self.catalogue_locked()
 
     def quit(self) -> Response:
@@ -248,6 +277,9 @@ class Application:
             workspace = self.config.workspace
         try:
             store = self.engine.library(workspace, catalogue)
+        except StoreTimeout as error:
+            log.warning("Workspace store: %s", error)
+            raise HTTPException(503, str(error)) from error
         except Exception as error:  # Producer-written files; the app still opens.
             log.warning("Workspace store: %r", error)
             raise HTTPException(
@@ -258,9 +290,7 @@ class Application:
         return Response(json.dumps(store, ensure_ascii=False), media_type="application/json")
 
     def report_presentation(self, original: bytes) -> bytes:
-        style = (self.web / "report-adapter.css").read_bytes()
-        brand = (self.web / "brand.css").read_bytes()
-        script = (self.web / "report-adapter.js").read_bytes()
+        style, brand, script = self.presentation
         position = original.lower().rfind(b"</body>")
         if position < 0:
             position = len(original)
@@ -344,14 +374,37 @@ class Application:
         return serve_bytes(request, raw, headers)
 
 
+def presentation_assets(web: Path) -> tuple[bytes, bytes, bytes]:
+    """The report adapter's style, brand and script, as UTF-8; a missing one stops the start."""
+    found: list[bytes] = []
+    for name in PRESENTATION_ASSETS:
+        try:
+            found.append((web / name).read_text(encoding="utf-8").encode("utf-8"))
+        except (OSError, UnicodeDecodeError) as error:
+            raise ValueError(
+                f"report presentation asset {web / name} is missing or not UTF-8 ({error}); "
+                "reinstall the application or run packaging/sync_assets.py"
+            ) from error
+    return found[0], found[1], found[2]
+
+
+async def plain_refusal(request: Request, error: HTTPException) -> Response:
+    return PlainTextResponse(f"{error.detail}\n", error.status_code, headers=error.headers)
+
+
+async def internal_error(request: Request, error: Exception) -> Response:
+    log.error("Unhandled %s %s: %r", request.method, request.url.path, error)
+    return PlainTextResponse("Internal error\n", 500, headers=BOUNDARY_HEADERS)
+
+
 def build(lib: Application) -> FastAPI:
-    """Routes over the application; every handler keeps the Go server's status codes and texts."""
+    """Routes over the application: plain-text refusals with the status codes the screens read."""
     app = FastAPI(openapi_url=None, docs_url=None, redoc_url=None)
     app.add_middleware(Boundary, lib=lib)
-
-    @app.exception_handler(HTTPException)
-    async def plain(request: Request, error: HTTPException) -> Response:
-        return PlainTextResponse(f"{error.detail}\n", error.status_code, headers=error.headers)
+    app.exception_handler(HTTPException)(plain_refusal)
+    # Starlette answers an unhandled error outside every middleware, so Boundary's headers are
+    # set by this handler as well.
+    app.add_exception_handler(Exception, internal_error)
 
     @app.get("/health")
     def health() -> Response:
@@ -374,7 +427,8 @@ def build(lib: Application) -> FastAPI:
 
     @app.post("/api/settings")
     async def settings(request: Request) -> Response:
-        return await run_in_threadpool(lib.apply_settings, await request.body())
+        raw = await bounded_body(request, "Invalid settings")
+        return await run_in_threadpool(lib.apply_settings, raw)
 
     @app.post("/api/quit")
     def quit_library() -> Response:
@@ -406,7 +460,8 @@ def build(lib: Application) -> FastAPI:
 
     @app.post("/api/runs/start")
     async def runs_start(request: Request) -> Response:
-        return await run_in_threadpool(start_run, lib, await request.body())
+        raw = await bounded_body(request, "Explicit confirmation of a reviewed run is required")
+        return await run_in_threadpool(start_run, lib, raw)
 
     @app.api_route("/files/{name:path}", methods=["GET", "HEAD"])
     def files(request: Request, name: str) -> Response:

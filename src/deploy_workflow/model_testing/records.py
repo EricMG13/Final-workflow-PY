@@ -27,6 +27,15 @@ class JournalError(ValueError):
     """A run directory or call journal cannot be read as written by the orchestrator."""
 
 
+CallKey = tuple[str, str, str, int, int]
+
+
+def call_key(record: CallRecord) -> CallKey:
+    """The name of one call: O5 restarts ``call_index`` for every (module, step, attempt), so
+    a call is named by run, module, step, attempt and index together."""
+    return (record.run_id, record.module_id, record.step_id, record.attempt, record.call_index)
+
+
 class RunSource(Contract):
     model_config = ConfigDict(hide_input_in_errors=True)
 
@@ -67,6 +76,8 @@ class RunMeta(Contract):
     def _checked(self) -> RunMeta:
         if not (self.cap_usd.is_finite() and self.cap_usd > 0):
             raise ValueError("cap_usd must be a finite amount above zero")
+        if self.config_id not in CONFIGS:
+            raise ValueError("config_id is not a model-testing configuration")  # never the value
         for text in strings(self.model_dump(mode="json")):
             if KEY_PATTERN.search(text):
                 raise ValueError("a run.json field holds key material")  # never the value
@@ -95,15 +106,19 @@ class DurableDebit:
     unresolved: bool
 
 
-def _messages(error: ValidationError) -> str:
-    """Locations and messages only; an input-supplied key name never appears."""
+def validation_summary(
+    error: ValidationError, limit: int | None = 5, *, hide_keys: bool = False
+) -> str:
+    """The locations and messages of a pydantic error (the first ``limit``; ``None`` for all).
+    Never an input value; key material is redacted, and with ``hide_keys`` an input-supplied
+    key name (an unexpected field) never appears either."""
     found = error.errors(include_input=False, include_url=False, include_context=False)
     parts = []
-    for e in found:
+    for e in found[:limit]:
         loc = [str(x) for x in e["loc"]]
-        if e["type"] == "extra_forbidden" and loc:
+        if hide_keys and e["type"] == "extra_forbidden" and loc:
             loc[-1] = "unexpected field"
-        parts.append(f"{'.'.join(loc)}: {e['msg']}")
+        parts.append(f"{'.'.join(loc) or '<root>'}: {e['msg']}")
     return KEY_PATTERN.sub("[redacted]", "; ".join(parts))
 
 
@@ -119,12 +134,12 @@ def _check(where: str, line: bytes) -> tuple[CallRecord | None, str]:
     try:
         return CallRecord.model_validate_json(text), ""
     except ValidationError as error:
-        return None, f"{where}: {_messages(error)}"
+        return None, f"{where}: {validation_summary(error, None, hide_keys=True)}"
 
 
 def read_journal(path: Path) -> tuple[CallRecord, ...]:
     records: list[CallRecord] = []
-    seen: set[tuple[str, str, str, int, int]] = set()
+    seen: set[CallKey] = set()
     for number, line in enumerate(path.read_bytes().splitlines(), start=1):
         where = f"{path.name} line {number}"
         record, refusal = _check(where, line)
@@ -135,7 +150,7 @@ def read_journal(path: Path) -> tuple[CallRecord, ...]:
             raise JournalError(f"{where}: unknown config_id {record.config_id}")
         if record.provider != config.provider:
             raise JournalError(f"{where}: provider does not match config {record.config_id}")
-        key = (record.run_id, record.module_id, record.step_id, record.attempt, record.call_index)
+        key = call_key(record)
         if key in seen:
             raise JournalError(f"{where}: duplicate call {key}")
         seen.add(key)
@@ -151,7 +166,7 @@ def _read_meta(run_json: Path) -> tuple[RunMeta | None, str]:
     try:
         return RunMeta.model_validate_json(text), ""
     except ValidationError as error:
-        return None, f"run.json: {_messages(error)}"
+        return None, f"run.json: {validation_summary(error, None, hide_keys=True)}"
 
 
 def read_run(run_dir: Path) -> tuple[RunMeta, tuple[CallRecord, ...]]:

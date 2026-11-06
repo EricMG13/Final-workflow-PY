@@ -38,14 +38,20 @@ def _normalise(text: str) -> str:
     return _WHITESPACE.sub(" ", text).casefold()
 
 
-def _scope(pack: PreparedPack, covenant: cp4_legal.Covenant) -> tuple[str, ...]:
-    """The row's cited quote texts, then the full text of each pack page it cites, each
-    (source_id, locator) once. A cited page absent from the pack contributes only its quote."""
-    pages = {
+def _ready_pages(pack: PreparedPack) -> dict[tuple[str, str], str]:
+    """(source_id, locator) -> page text over the pack's ready sources (as `cp4c._pages`): a
+    source that is missing or unreadable is no evidence, so its text cannot refuse a row."""
+    return {
         (source.source_id, span.locator): span.text
         for source in pack.sources
+        if source.status == "ready"
         for span in source.spans
     }
+
+
+def _scope(pages: dict[tuple[str, str], str], covenant: cp4_legal.Covenant) -> tuple[str, ...]:
+    """The row's cited quote texts, then the full text of each ready page it cites, each
+    (source_id, locator) once. A cited page absent from the pack contributes only its quote."""
     cited = dict.fromkeys((quote.source_id, quote.locator) for quote in covenant.citations)
     return (
         *(quote.quote for quote in covenant.citations),
@@ -53,21 +59,27 @@ def _scope(pack: PreparedPack, covenant: cp4_legal.Covenant) -> tuple[str, ...]:
     )
 
 
+def _markers(pages: dict[tuple[str, str], str], covenant: cp4_legal.Covenant) -> tuple[str, ...]:
+    scope = tuple(_normalise(text) for text in _scope(pages, covenant))
+    return tuple(marker for marker in MARKERS if any(marker in text for text in scope))
+
+
 def markers_in_scope(pack: PreparedPack, covenant: cp4_legal.Covenant) -> tuple[str, ...]:
     """The markers matching anywhere in the covenant's scope, in list order."""
-    scope = tuple(_normalise(text) for text in _scope(pack, covenant))
-    return tuple(marker for marker in MARKERS if any(marker in text for text in scope))
+    return _markers(_ready_pages(pack), covenant)
 
 
 def semantic_issues(
     *, pack: PreparedPack, submission: cp4_legal.CovenantInterpretationSubmission
 ) -> tuple[str, ...]:
-    """One issue per covenant claiming `Same definition` whose scope matches a marker."""
+    """One issue per covenant claiming `Same definition` whose scope matches a marker. The page
+    index is built once for every covenant."""
+    pages = _ready_pages(pack)
     issues: list[str] = []
     for index, covenant in enumerate(submission.covenants):
         if covenant.metric_basis != SAME_DEFINITION:
             continue
-        hits = markers_in_scope(pack, covenant)
+        hits = _markers(pages, covenant)
         if hits:
             markers = "; ".join(f"'{marker}'" for marker in hits)
             issues.append(_ISSUE.format(index=index, markers=markers))

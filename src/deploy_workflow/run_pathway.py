@@ -54,7 +54,7 @@ from deploy_workflow.owner_workflow import (
     verify_owner_run_receipt,
 )
 from deploy_workflow.owners import cpdr
-from deploy_workflow.platform_io import flags, fsync_directory
+from deploy_workflow.platform_io import atomic_write, create_once
 from deploy_workflow.platform_io import locks as fcntl
 from deploy_workflow.prompts.compose import NoPrompt
 from deploy_workflow.prompts.factory import UntrustedFor, prompt_factory
@@ -160,12 +160,14 @@ _EXACT_ADD = Context(prec=120, traps=[Inexact, InvalidOperation]).add
 @contextlib.contextmanager
 def _single_writer(run_dir: Path) -> Iterator[None]:
     """Hold an exclusive, non-blocking ``flock`` on ``run_dir`` itself for the whole run, fresh or
-    resumed (R9a): no lock file is written, and the kernel drops the lock if the process dies.
+    resumed (R9a), and the kernel drops the lock if the process dies. On Unix no lock file is
+    written; on Windows the lock is taken on ``run_dir/.run.lock``, which is created and then
+    stays in the run directory (and in any listing or hash manifest of it).
     A second ``run_pathway`` on the directory is refused (``RunDirBusy``) before it writes."""
     # ponytail: ``flock`` is advisory; a network filesystem, or a process that never calls
     # ``run_pathway``, is not excluded (the ceiling of ``CallLog``'s lock too). Upgrade path:
     # ``OwnerWorkflow`` holds the lock for its own store, so every writer is excluded.
-    if os.name == "nt":
+    if sys.platform == "win32":
         fd = os.open(run_dir / ".run.lock", os.O_RDWR | os.O_CREAT, 0o600)
     else:
         fd = os.open(run_dir, os.O_RDONLY | os.O_DIRECTORY | os.O_CLOEXEC)
@@ -190,18 +192,9 @@ def _create_cap(
         record["replayed_from_run"] = replayed_from_run
     data = (json.dumps(record) + "\n").encode()
     try:
-        fd = os.open(
-            run_dir / CAP_FILE,
-            os.O_WRONLY | os.O_CREAT | os.O_EXCL | flags("O_CLOEXEC", "O_NOFOLLOW", "O_BINARY"),
-            0o600,
-        )
+        create_once(run_dir / CAP_FILE, data, durable=True)
     except FileExistsError:
         raise CapExists(f"{run_dir / CAP_FILE} already exists") from None
-    with os.fdopen(fd, "wb") as handle:
-        handle.write(data)
-        handle.flush()
-        os.fsync(handle.fileno())
-    _fsync_directory(run_dir)
 
 
 def _retained_identity(run_dir: Path) -> tuple[Decimal, str]:
@@ -576,10 +569,6 @@ def _staged_entries(checked: CheckedRun, run_dir: Path) -> tuple[dict[str, Any],
     )
 
 
-def _fsync_directory(directory: Path) -> None:
-    fsync_directory(directory)
-
-
 def _write_run_json(
     run_dir: Path,
     meta: _Meta,
@@ -588,7 +577,9 @@ def _write_run_json(
     record: CpDrRecord | None = None,
     head_state: str | None = None,
 ) -> None:
-    """Write ``run.json`` last: a temp file in ``run_dir``, fsync, ``os.replace``."""
+    """Write ``run.json`` last, atomically (``atomic_write``: a uniquely named temp file, fsync,
+    replace). A ``run.json.tmp`` left by a run killed under the earlier fixed-name scheme is
+    removed (the caller holds the single-writer lock), so a resume can still close the run."""
     checked = meta.checked
     body: dict[str, Any] = {
         "case_id": checked.case_id,
@@ -612,14 +603,8 @@ def _write_run_json(
         body["ruling_sha256"] = checked.gate.sha256
         body["ruling_date"] = checked.gate.date.isoformat()
     data = (json.dumps(meta.redactor.json_value(body), indent=2) + "\n").encode()
-    temp = run_dir / "run.json.tmp"
-    fd = os.open(temp, os.O_WRONLY | os.O_CREAT | os.O_EXCL | flags("O_CLOEXEC", "O_NOFOLLOW", "O_BINARY"), 0o600)
-    with os.fdopen(fd, "wb") as handle:
-        handle.write(data)
-        handle.flush()
-        os.fsync(handle.fileno())
-    os.replace(temp, run_dir / "run.json")
-    _fsync_directory(run_dir)
+    (run_dir / "run.json.tmp").unlink(missing_ok=True)
+    atomic_write(run_dir / "run.json", data)
 
 
 def _head_state(run_dir: Path) -> str | None:
@@ -829,7 +814,7 @@ def _drive_resumed(workflow: OwnerWorkflow, loop: _Walk) -> str | None:
     if workflow.phase == "analytical":
         loop.run()
     if workflow.phase == "walked":
-        if workflow._publications:  # a fresh run stopped on a refused publication: not again
+        if workflow.publications:  # a fresh run stopped on a refused publication: not again
             return "publish: refused by an earlier call; not published again"
         return _publish_and_go_on(workflow, loop)
     if workflow.phase == "failed":

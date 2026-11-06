@@ -8,21 +8,12 @@ Evidence, T2F.7 and T2F.9 to Limitations. Slots carry a ``cp2e-`` prefix: a slot
 across all shipped maps. Data only: no arithmetic, and no import of ``deploy_workflow``.
 """
 
-from deploy_vii.bindings import Binding, BindingMap
-from deploy_vii.display import UnitClass
-from deploy_vii.report_view import FactCoord
+from deploy_vii.bindings import Binder, BindingMap
 
 MODULE_ID = "CP-2E"
 
 
-def _bind(table: str, block: str, label: str, unit: UnitClass = "text") -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id=MODULE_ID, table_id=table),
-        block_id=block,
-        cell_slot="cp2e-" + table.lower().replace(".", "-"),
-        unit_class=unit,
-        label=label,
-    )
+_bind = Binder(MODULE_ID, "cp2e-").bind
 
 
 CP2E = BindingMap(

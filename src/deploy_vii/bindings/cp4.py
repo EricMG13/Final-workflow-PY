@@ -10,10 +10,8 @@ Evidence or Limitations. Slots carry a ``cp4-`` prefix: a slot is unique across 
 its unbound-owner path; this map is the data M10 composes from.
 """
 
-from deploy_vii.bindings import Binding, BindingMap
+from deploy_vii.bindings import Binder, BindingMap
 from deploy_vii.cp4_legal import MODULE_ID
-from deploy_vii.display import UnitClass
-from deploy_vii.report_view import FactCoord
 
 BLOCKS = (
     "covenant-tests-headroom",
@@ -25,14 +23,7 @@ BLOCKS = (
 )
 
 
-def _bind(table: str, block: str, label: str, unit: UnitClass = "text") -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id=MODULE_ID, table_id=table),
-        block_id=block,
-        cell_slot="cp4-" + table.lower().replace(".", "-"),
-        unit_class=unit,
-        label=label,
-    )
+_bind = Binder(MODULE_ID, "cp4-").bind
 
 
 CP4 = BindingMap(

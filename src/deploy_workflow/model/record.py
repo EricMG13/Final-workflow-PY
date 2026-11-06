@@ -53,7 +53,7 @@ from deploy_workflow.model.turn import (
     load_json,
     turn_to_json,
 )
-from deploy_workflow.platform_io import flags, fsync_directory, read_at, replace
+from deploy_workflow.platform_io import flags, fsync_directory, read_at, replace, write_all
 from deploy_workflow.platform_io import locks as fcntl
 
 AUDIT = "owner-run-audit"  # owner_workflow.AUDIT
@@ -287,16 +287,6 @@ class CallRecord(Contract):
         return cls.build(redactor, **base)
 
 
-def _fsync_dir(path: Path) -> None:
-    fsync_directory(path)
-
-
-def _write_all(fd: int, data: bytes) -> None:
-    view = memoryview(data)
-    while view:
-        view = view[os.write(fd, view) :]
-
-
 class CallLog:
     def __init__(self, run_dir: Path, redactor: Redactor) -> None:
         self._dir = Path(run_dir)
@@ -316,10 +306,10 @@ class CallLog:
             size = os.fstat(fd).st_size
             if size and read_at(fd, 1, size - 1) != b"\n":
                 raise TornLog(f"{self._calls.name} ends mid-line; repair it before appending")
-            _write_all(fd, data)
+            write_all(fd, data)
             os.fsync(fd)
             if size == 0:
-                _fsync_dir(self._dir)  # the file is new: make its directory entry durable
+                fsync_directory(self._dir)  # the file is new: make its directory entry durable
         finally:
             os.close(fd)  # closing releases the lock
 
@@ -406,7 +396,7 @@ class CallLog:
                 stored = json.dumps(self._redactor.text(text))
         if not self._raw.exists():
             self._raw.mkdir(parents=True, exist_ok=True)
-            _fsync_dir(self._dir)
+            fsync_directory(self._dir)
         path = self._raw / f"{digest}-{call_index}.json"
         descriptor, temporary = tempfile.mkstemp(prefix=".tmp-", dir=self._raw)
         try:
@@ -420,7 +410,7 @@ class CallLog:
                 raise RawExists(path.name) from None
         finally:
             Path(temporary).unlink(missing_ok=True)
-        _fsync_dir(self._raw)
+        fsync_directory(self._raw)
         return path
 
 
@@ -513,7 +503,7 @@ def _put_once(folder: Path, name: str, raw: bytes, what: str) -> None:
         replace(temporary, path)
     finally:
         Path(temporary).unlink(missing_ok=True)
-    _fsync_dir(folder)
+    fsync_directory(folder)
 
 
 def retain_preimage(store: _Store, preimage: Mapping[str, Any]) -> str:
@@ -592,8 +582,10 @@ def _error_response(
     key = (rec.invocation_digest, rec.call_index)
     unknown = rec.cost_status == "unknown"
     if rec.http_status is None:
-        if any(v is not None for v in _usage_of(rec).values()):
-            # Counts with no status: only a Copilot timeout after a usage event writes this.
+        billed_timeout = rec.cost_status == "billed" and error_class in USAGE_TIMEOUTS
+        if any(v is not None for v in _usage_of(rec).values()) or billed_timeout:
+            # Counts or a billed charge with no status: only a Copilot timeout after a usage
+            # event writes this.
             if error_class not in USAGE_TIMEOUTS or rec.cost_status == "computed":
                 raise ExportMismatch(*key, "usage")
             out_t: dict[str, Any] = {
@@ -619,8 +611,10 @@ def _error_response(
     has_tokens = any(v is not None for v in _usage_of(rec).values())
     out: dict[str, Any] = {"error_class": error_class, "http_status": rec.http_status}
     # Usage first: a ProviderError carries usage only for SentChargeUsage, and a usage-bearing
-    # reply whose charge prices as unknown is still a sent_usage reply.
-    if has_tokens or rec.cost_status == "billed":
+    # reply whose charge prices as unknown is still a sent_usage reply. So is a Copilot adapter
+    # refusal (its 200 body is a turn, the reply was sent_usage), even with no counts.
+    adapter_refusal = error_class in ADAPTER_REFUSALS and rec.provider == "copilot"
+    if has_tokens or rec.cost_status == "billed" or adapter_refusal:
         out["kind"] = "sent_usage"
         out["usage"] = _usage_object(rec)
         out["usage"]["cache_write_5m_tokens"], out["usage"]["cache_write_1h_tokens"] = (

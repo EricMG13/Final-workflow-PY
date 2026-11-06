@@ -12,6 +12,7 @@ value (rulings item 6.4): the classes by (rank, id), the equity residual, then t
 
 from __future__ import annotations
 
+from collections import Counter
 from dataclasses import dataclass
 from typing import Literal
 
@@ -24,6 +25,8 @@ from deploy_vii.display import format_value
 _SOURCED = frozenset({"source"})
 _ALLOCATION_SERIES = "Value allocation"
 _WATERFALL_IDS = ("DR.3", "DR.4", "DR.5")
+# DR.2 of a register whose T4E.2 lists no creditor class: a structural absence, not a source gap.
+_NO_CREDITOR = "The CP-4C claims register (T4E.2) lists no creditor class; no recovery is charted."
 
 
 @dataclass(frozen=True, slots=True)
@@ -72,7 +75,8 @@ def _scenarios(facts: dict[str, Fact], module: ModuleView) -> tuple[_Scenario, .
         multiple = _need(facts, f"T4E.3.{row}.multiple")
         label = name
         if multiple.status == "known" and multiple.amount is not None:
-            label = f"{name} {format_value(multiple.amount, 'multiple', 'known', decimals=multiple.decimals)}"
+            shown = format_value(multiple.amount, "multiple", "known", decimals=multiple.decimals)
+            label = f"{name} {shown}"
         hatched = multiple.status != "known" or multiple.value_class not in _SOURCED
         scenarios.append(_Scenario(row, label, hatched))
     if len({s.label for s in scenarios}) != len(scenarios):
@@ -103,6 +107,14 @@ def _classes(facts: dict[str, Fact], module: ModuleView) -> tuple[tuple[str, ...
     return tuple(class_id for _, class_id in sorted(creditors)), equity
 
 
+def _class_labels(facts: dict[str, Fact], class_ids: tuple[str, ...]) -> dict[str, str]:
+    """Each class's chart category: its T4E.2 name, or `<name> (<class id>)` for a name that two
+    classes share, so that two classes never merge into one category."""
+    names = {c: _known_text(_need(facts, f"T4E.2.{c}.name")) for c in class_ids}
+    counts = Counter(names.values())
+    return {c: name if counts[name] == 1 else f"{name} ({c})" for c, name in names.items()}
+
+
 def _reason(facts: dict[str, Fact], ids: list[str]) -> str:
     """The module's own limitation for a chart with no plottable point (never invented)."""
     texts = [facts[i].limitation for i in ids if facts[i].limitation]
@@ -113,7 +125,7 @@ def _reason(facts: dict[str, Fact], ids: list[str]) -> str:
 
 
 def _currency(module: ModuleView) -> str | None:
-    """The one currency of the known USD-scaled amounts of the CP-4C register, if any."""
+    """The one currency of the known millions-scaled amounts of the CP-4C register, if any."""
     found = {
         f.currency
         for f in module.facts
@@ -126,12 +138,15 @@ def _currency(module: ModuleView) -> str | None:
 
 
 def _recovery(
-    facts: dict[str, Fact], module: ModuleView, scenarios: tuple[_Scenario, ...]
+    facts: dict[str, Fact],
+    scenarios: tuple[_Scenario, ...],
+    creditors: tuple[str, ...],
+    equity: tuple[str, ...],
 ) -> RestructuringFigureSeries:
-    creditors, equity = _classes(facts, module)
+    labels = _class_labels(facts, creditors)
     points = []
     for class_id in creditors:
-        category = _known_text(_need(facts, f"T4E.2.{class_id}.name"))
+        category = labels[class_id]
         for s in scenarios:
             fact_id = f"T4E.5.{s.row}{class_id}.recovery"
             _need(facts, fact_id)
@@ -155,6 +170,9 @@ def _recovery(
             raise ValueError(f"CP-4C equity recovery is not n.m.: {fact_id}")
     ids = [p.fact_id for p in points]
     plottable = any(facts[i].status == "known" for i in ids)
+    reason = None
+    if not plottable:
+        reason = _reason(facts, ids) if ids else _NO_CREDITOR
     return RestructuringFigureSeries(
         fig_id="DR.2",
         title="Recovery by class",
@@ -164,7 +182,7 @@ def _recovery(
         currency=None,
         series=tuple(s.label for s in scenarios),
         points=tuple(points),
-        reason=None if plottable else _reason(facts, ids),
+        reason=reason,
         dropped_fact_ids=dropped,
     )
 
@@ -178,12 +196,13 @@ def _waterfall(
 ) -> RestructuringFigureSeries:
     head = (f"T4E.3.{s.row}.scenario", f"T4E.3.{s.row}.multiple")
     steps: list[tuple[str, str, tuple[str, ...], Literal["value", "residual", "total"]]] = []
+    labels = _class_labels(facts, creditors)
     for class_id in creditors:
         fact_id = f"T4E.4.{s.row}{class_id}.distribution"
         steps.append(
             (
                 fact_id,
-                _known_text(_need(facts, f"T4E.2.{class_id}.name")),
+                labels[class_id],
                 (*head, f"T4E.4.{s.row}{class_id}.claim", f"T4E.2.{class_id}.name"),
                 "value",
             )
@@ -238,9 +257,9 @@ def cp4c_chart_series(module: ModuleView) -> tuple[RestructuringFigureSeries, ..
         return ()
     if len(scenarios) > len(_WATERFALL_IDS):
         raise ValueError("CP-4C has more valuation scenarios than allocation figures")
-    creditors, _ = _classes(facts, module)
+    creditors, equity = _classes(facts, module)
     return (
-        _recovery(facts, module, scenarios),
+        _recovery(facts, scenarios, creditors, equity),
         *(
             _waterfall(facts, module, fig_id, s, creditors)
             for fig_id, s in zip(_WATERFALL_IDS, scenarios, strict=False)

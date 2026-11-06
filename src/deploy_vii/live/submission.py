@@ -109,6 +109,7 @@ from deploy_vii.financial_contracts import FacilityObservation, FinancialBook, F
 from deploy_vii.live.schema import (
     Marked,
     exact_json,
+    exact_model,
     json_object,
     marked_fields,
     normalise,
@@ -280,7 +281,7 @@ MODULE_STEP_ENTRIES: Mapping[str, Callable[[Execution, str, str, str], Attempt]]
 # Task 8.9: the one-step modules a pack-tool loop runs and the validator their own entry hands
 # `store.submit_step` (each module's `_validate_step`, the function its `MODULE_STEP_ENTRIES`
 # entry calls). A submit a tool-loop rule fails is retained through that validator with the
-# rule issues appended (`_with_rules`), as the entry would retain it had the validator found
+# rule issues appended (`_with_issues`), as the entry would retain it had the validator found
 # them: the step is invalid and the attempt finishes rejected. Every other submit goes to the
 # entry unchanged.
 RULED_ENTRIES: Mapping[str, Callable[[Execution, PreparedPack, Attempt], StepValidation]] = {
@@ -533,12 +534,12 @@ def known_bindings(store: Execution, ticket_id: str, step_id: str) -> Known:
 
 
 def _parsed_hash(model: type[Contract], value: object) -> str | None:
-    """The content hash of `value` parsed as `model`; None when it does not parse (the existing
-    shape rejection then stands)."""
+    """The content hash of `value` parsed as `model`, its numbers with their sent digits
+    (`exact_model`); None when it does not parse (the existing shape rejection then stands)."""
     if not isinstance(value, dict):
         return None
     try:
-        return model.model_validate_json(exact_json(value)).content_hash()
+        return exact_model(model, value).content_hash()
     except ValidationError:
         return None
 
@@ -895,9 +896,7 @@ class _Resolver:
         statement lines); None when it does not parse."""
         if id(book) not in self.books:
             try:
-                parsed = FinancialBook.model_validate_json(
-                    exact_json({**book, "audit_basis_explanations": []})
-                )
+                parsed = exact_model(FinancialBook, {**book, "audit_basis_explanations": []})
             except ValidationError:
                 self.books[id(book)] = None
             else:
@@ -1006,24 +1005,119 @@ class Submitted:
     composition: Composition | None  # source_readiness only
 
 
-def _with_rules(
-    validate: Callable[[PreparedPack, Attempt], StepValidation],
-    rules: Callable[[str], tuple[str, ...]],
-    payload: str,
+# A tool-loop step's evidence rules over a payload (`live.tools.ToolRules`, task 8.0d).
+type Rules = Callable[[str], tuple[str, ...]]
+
+
+def _appended(outcome: StepValidation, found: tuple[str, ...]) -> StepValidation:
+    """`outcome` with the tool-loop rule issues `found` appended (task 8.0d). They only add
+    issues: a payload the stage rejects stays rejected, one it accepts is rejected when a rule
+    fails, and the stage's output is kept as `_validate_prefilled` keeps it."""
+    if not found:
+        return outcome
+    issues = tuple(dict.fromkeys((*outcome.issues, *found)))
+    return StepValidation(output=outcome.output, issues=issues)
+
+
+def _with_issues(
+    validate: Callable[[PreparedPack, Attempt], StepValidation], found: tuple[str, ...]
 ) -> Callable[[PreparedPack, Attempt], StepValidation]:
-    """`validate`, then the tool-loop rule issues of the retained payload appended (task 8.0d).
-    They only add issues: a payload the stage rejects stays rejected, one it accepts is rejected
-    when a rule fails, and the stage's output is kept as `_validate_prefilled` keeps it."""
+    """`validate`, then the rule issues already found for the payload appended (`_appended`)."""
 
     def run(pack: PreparedPack, attempt: Attempt) -> StepValidation:
-        outcome = validate(pack, attempt)
-        found = rules(payload)
-        if not found:
-            return outcome
-        issues = tuple(dict.fromkeys((*outcome.issues, *found)))
-        return StepValidation(output=outcome.output, issues=issues)
+        return _appended(validate(pack, attempt), found)
 
     return run
+
+
+def _with_rules(
+    validate: Callable[[PreparedPack, Attempt], StepValidation],
+    rules: Rules,
+    payload: str,
+) -> Callable[[PreparedPack, Attempt], StepValidation]:
+    """`validate`, then the rule issues of the retained payload, judged inside the validator
+    (after the journal retains the payload, as CP-1's stages always judged them)."""
+
+    def run(pack: PreparedPack, attempt: Attempt) -> StepValidation:
+        return _appended(validate(pack, attempt), rules(payload))
+
+    return run
+
+
+def _submit_module(
+    store: Execution, ticket_id: str, step_id: str, normalised: str, rules: Rules | None
+) -> Attempt:
+    """A module step with its own entry (`MODULE_STEP_ENTRIES`): the entry, unless a rule finds
+    an issue in the payload; then `store.submit_step` with the module's validator and the issues
+    appended. The rules are judged once."""
+    step = STEPS[step_id]
+    found = () if rules is None else rules(normalised)
+    if not found:
+        return MODULE_STEP_ENTRIES[step.module_id](store, ticket_id, step_id, normalised)
+    return store.submit_step(
+        ticket_id,
+        step.module_id,
+        step_chain(step.module_id).steps,
+        step_id,
+        normalised,
+        _with_issues(partial(RULED_ENTRIES[step.module_id], store), found),
+    )
+
+
+def _submit_cp1(
+    store: Execution, ticket_id: str, step_id: str, normalised: str, rules: Rules | None
+) -> tuple[Attempt, Prefill]:
+    """A CP-1 step after its pre-fill: `quality` through the promotion (task 7.4: an accepted
+    review is the promotion, a rejected one finishes the attempt; its one binding always
+    resolves, `quality_inputs` raising before any write when it cannot), a stage that binds
+    cleanly with no rules through `submit_cp1_step`, any other through `store.submit_step` with
+    `_validate_prefilled` or the stage validator, then the rules judged on the pre-filled
+    payload inside it (`_with_rules`)."""
+    step = STEPS[step_id]
+    known = known_bindings(store, ticket_id, step_id)
+    filled = prefill(step.schema, normalised, known, PREFILLED[step_id])
+    if step_id == "quality":
+        return promote_cp1(store, ticket_id, filled.payload), filled
+    if not (filled.unbound or filled.unset or rules):
+        return submit_cp1_step(store, ticket_id, step_id, filled.payload), filled
+    validate: Callable[[PreparedPack, Attempt], StepValidation] = (
+        partial(_validate_prefilled, store, known, step_id)
+        if filled.unbound or filled.unset
+        else partial(validate_cp1_stage, store)
+    )
+    if rules is not None:
+        validate = _with_rules(validate, rules, filled.payload)
+    journal = store.submit_step(ticket_id, "CP-1", CP1_STEPS, step_id, filled.payload, validate)
+    return journal, filled
+
+
+def _submit_readiness(
+    store: Execution, ticket_id: str, normalised: str, rules: Rules | None
+) -> tuple[Attempt, str, Composition]:
+    """CP-0's `source_readiness`: the composed review through `submit_cp0_review`, or with the
+    issues the rules find in the model's payload appended to that validator (task 8.9: the
+    composed review is what the journal retains); an uncomposable payload retained as received
+    and rejected (`_validate_uncomposable`, rule issues appended). The rules are judged once."""
+    composition = compose_payload(store.pack(), normalised)
+    found = () if rules is None else rules(normalised)
+    if composition.review is not None and not composition.issues:
+        retained = composition.review.model_dump_json()
+        if not found:
+            return submit_cp0_review(store, ticket_id, retained), retained, composition
+        validate: Callable[[PreparedPack, Attempt], StepValidation] = partial(
+            _validate_review, store
+        )
+    else:
+        retained, validate = normalised, partial(_validate_uncomposable, store)
+    journal = store.submit_step(
+        ticket_id,
+        "CP-0",
+        ("source_readiness",),
+        "source_readiness",
+        retained,
+        _with_issues(validate, found),
+    )
+    return journal, retained, composition
 
 
 def submit_model_payload(
@@ -1033,7 +1127,7 @@ def submit_model_payload(
     payload: str,
     *,
     on_normalised: Callable[[tuple[str, ...]], None] | None = None,
-    rules: Callable[[str], tuple[str, ...]] | None = None,
+    rules: Rules | None = None,
 ) -> Submitted:
     """Enter one model payload (pool or proxy cohort) into the journal for `step_id`.
 
@@ -1046,81 +1140,26 @@ def submit_model_payload(
     unless, with no unbound reference, those lines are the stage's only issues).
 
     `rules` (task 8.0d, a tool-loop step's evidence rules, `live.tools.ToolRules`) receives the
-    retained payload and returns issues the journal adds to the step's own (`_with_rules`).
-    Task 8.9: it applies to the pack-tool steps (`registry.pack_tool_steps`: CP-1's four
-    stages, CP-0, CP-1A, CP-3 and CP-4); for a submit-only step it is refused. On CP-0, CP-1A,
-    CP-3 and CP-4 the rules read the payload the model sent (after null resolution); a payload
-    they find nothing in takes the path it takes without rules, byte for byte."""
+    retained payload and returns issues the journal adds to the step's own (`_appended`), judged
+    once per submit. Task 8.9: it applies to the pack-tool steps (`registry.pack_tool_steps`:
+    CP-1's four stages, CP-0, CP-1A, CP-3 and CP-4); for a submit-only step it is refused. On
+    CP-0, CP-1A, CP-3 and CP-4 the rules read the payload the model sent (after null
+    resolution); a payload they find nothing in takes the path it takes without rules, byte for
+    byte (`_submit_module`, `_submit_cp1`, `_submit_readiness`)."""
     step = STEPS[step_id]
     if rules is not None and step_id not in RULED_STEPS:
         raise ValueError(f"tool-loop rules apply to the pack-tool steps, not to {step_id}")
     normalised, resolved = normalise(step.schema, payload)
     if on_normalised is not None:
         on_normalised(resolved)
-    entry = MODULE_STEP_ENTRIES.get(step.module_id)
-    if entry is not None:
-        if rules is not None and rules(normalised):
-            validator = partial(RULED_ENTRIES[step.module_id], store)
-            journal = store.submit_step(
-                ticket_id,
-                step.module_id,
-                step_chain(step.module_id).steps,
-                step_id,
-                normalised,
-                _with_rules(validator, rules, normalised),
-            )
-        else:
-            journal = entry(store, ticket_id, step_id, normalised)
+    if step.module_id in MODULE_STEP_ENTRIES:
+        journal = _submit_module(store, ticket_id, step_id, normalised, rules)
         return Submitted(journal, normalised, resolved, (), (), None)
-    if step_id == "quality":
-        # Task 7.4: the review enters the journal only through the promotion, so an accepted
-        # step is the promotion and a rejected one finishes the attempt (`promote_cp1`). Its one
-        # binding always resolves (`quality_inputs` raises before any write when it cannot).
-        known = known_bindings(store, ticket_id, step_id)
-        filled = prefill(step.schema, normalised, known, PREFILLED[step_id])
-        journal = promote_cp1(store, ticket_id, filled.payload)
-        return Submitted(journal, filled.payload, resolved, filled.paths, filled.kinds, None)
     if step_id != "source_readiness":
-        known = known_bindings(store, ticket_id, step_id)
-        filled = prefill(step.schema, normalised, known, PREFILLED[step_id])
-        if not (filled.unbound or filled.unset or rules):
-            journal = submit_cp1_step(store, ticket_id, step_id, filled.payload)
-            return Submitted(journal, filled.payload, resolved, filled.paths, filled.kinds, None)
-        validate: Callable[[PreparedPack, Attempt], StepValidation] = (
-            partial(_validate_prefilled, store, known, step_id)
-            if filled.unbound or filled.unset
-            else partial(validate_cp1_stage, store)
-        )
-        if rules is not None:
-            validate = _with_rules(validate, rules, filled.payload)
-        journal = store.submit_step(ticket_id, "CP-1", CP1_STEPS, step_id, filled.payload, validate)
+        journal, filled = _submit_cp1(store, ticket_id, step_id, normalised, rules)
         return Submitted(journal, filled.payload, resolved, filled.paths, filled.kinds, None)
-    composition = compose_payload(store.pack(), normalised)
-    if composition.review is not None and not composition.issues:
-        retained = composition.review.model_dump_json()
-        if rules is None or not rules(normalised):
-            journal = submit_cp0_review(store, ticket_id, retained)
-            return Submitted(journal, retained, resolved, (), (), composition)
-        # Task 8.9: `submit_cp0_review`'s own validator, with the rule issues the model's
-        # payload fails appended (the composed review is what the journal retains).
-        journal = store.submit_step(
-            ticket_id,
-            "CP-0",
-            ("source_readiness",),
-            "source_readiness",
-            retained,
-            _with_rules(partial(_validate_review, store), rules, normalised),
-        )
-        return Submitted(journal, retained, resolved, (), (), composition)
-    uncomposable: Callable[[PreparedPack, Attempt], StepValidation] = partial(
-        _validate_uncomposable, store
-    )
-    if rules is not None:
-        uncomposable = _with_rules(uncomposable, rules, normalised)
-    journal = store.submit_step(
-        ticket_id, "CP-0", ("source_readiness",), "source_readiness", normalised, uncomposable
-    )
-    return Submitted(journal, normalised, resolved, (), (), composition)
+    journal, retained, composition = _submit_readiness(store, ticket_id, normalised, rules)
+    return Submitted(journal, retained, resolved, (), (), composition)
 
 
 # --- task 8.11 (user decision "B", 24 Oct 2026): the financials submit in parts ---------------
@@ -1292,7 +1331,11 @@ def _split_issues(kind: str, document: Mapping[str, Any]) -> list[str]:
                     f"({line.get('line_id')} {line.get('period_id')}) in the {kind} part; send it "
                     f"in the {statement} part"
                 )
-        keys = {(line.get("line_id"), line.get("period_id")) for _, line in lines}
+        keys = {
+            (line["line_id"], line["period_id"])
+            for _, line in lines
+            if isinstance(line.get("line_id"), str) and isinstance(line.get("period_id"), str)
+        }  # an id of another type is the shape check's issue, and may not be hashable
         for number, identity in _rows(book, "statement_identities"):
             target = identity.get("target_line_id"), identity.get("period_id")
             if all(isinstance(item, str) for item in target) and target not in keys:

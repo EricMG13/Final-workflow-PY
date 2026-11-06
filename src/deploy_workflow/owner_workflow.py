@@ -28,10 +28,7 @@ record and no `run.json`.
 import argparse
 import json
 import logging
-import math
-import sys
 import tempfile
-import unicodedata
 from collections import Counter
 from collections.abc import Callable, Iterator, Mapping, Sequence
 from contextlib import contextmanager
@@ -92,32 +89,39 @@ from deploy_workflow import host
 from deploy_workflow.financial_workflow import (
     FILES,
     MAX_CALLS,
+    MAX_FAULT_DETAIL,
     MAX_INVOKES,
+    MAX_JSON_DEPTH,  # noqa: F401 - re-exported: the transport's parser guard
     MAX_LINE,
     MAX_MESSAGES,
     FinancialBinding,
     ModelPublication,
     PublicationCall,
+    _bounded_detail,
+    _checked,
+    _depth_of,  # noqa: F401 - re-exported: the transport's depth measure
     _evidence_issues,
     _files,
     _filled,
     _FrozenExecution,
     _hash,
     _historical,
-    _nonfinite_json,
+    _overlapping,
     _parse,
     _projection,
     _put,
     _record,
+    _request_line,
+    _request_of,
     _snapshot,
+    _submitted_step,
+    _utf8_stdio,
     _verify_cp0,
     _verify_model_settlement,
     _verify_promotion,
     expand_unit_maps,
 )
-from deploy_workflow.unit_maps import Expansion
-from deploy_workflow.host import MAX_ARGUMENT_DEPTH, SourceSession
-from deploy_workflow.model.redact import Redactor
+from deploy_workflow.host import SourceSession
 from deploy_workflow.owners import (
     cp0_attachments,
     cp1a,
@@ -142,6 +146,7 @@ from deploy_workflow.owners import (
     cpl10,
 )
 from deploy_workflow.tools.source import SourceError
+from deploy_workflow.unit_maps import Expansion
 from deploy_workflow.workflow import SourceEvidence, WorkflowError
 
 AUDIT = "owner-run-audit"
@@ -173,8 +178,9 @@ SUPPORTED_ANALYTICAL = frozenset(
 )
 BLOCKED_EDGE = "Required upstream is unrun, stale or blocked"
 # G1-X §2: the fixed owner-core registry, one row per owner-only module (`_owner_only`: no
-# registered `registry.step_chain`, or one whose `shared_live` is false). Never caller-supplied; module tasks add their rows. A core
-# supplies `STEP_IDS`, `SCHEMAS`, `submit` and, for steps with pack sources, `RULES`.
+# registered `registry.step_chain`, or one whose `shared_live` is false). Never caller-supplied;
+# module tasks add their rows. A core supplies `STEP_IDS`, `SCHEMAS`, `submit` and, for steps
+# with pack sources, `RULES`.
 _CORES: dict[str, ModuleType] = {
     "CP-DR": cpdr,
     "CP-3D": cp3d,
@@ -296,17 +302,6 @@ _PRE_BEGIN: dict[str, Callable[[Execution, ExecutionSnapshot], object]] = {
 _FINANCIAL_MODULES = frozenset({"CP-0", "CP-1"})
 # G6: the bytes a `read_inputs` body may take: the bound a submitted payload already obeys.
 MAX_INPUT_BYTES: int = MAX_LINE
-# G7: a parser guard, not an argument bound. `serve_json_lines` reads no JSON nested deeper than
-# this (the request object is depth 1); past it the text is not a request: `bad_arguments`, never
-# a `RecursionError`. It lies above H05's deepest frame (`arguments` 210 levels deep, request
-# depth 212), which must reach the host so that the host refuses it with a retained receipt, and
-# well below the json parser's recursion limit. The argument bound is the host's
-# (`MAX_ARGUMENT_DEPTH`); at a step with no source session the transport applies it (`_checked`).
-MAX_JSON_DEPTH: int = 256
-# The host's argument bound in request depth: `arguments` is one level below the request object.
-_HOST_BOUND_REQUEST_DEPTH: int = MAX_ARGUMENT_DEPTH + 1
-# G7: the characters of an error's text an `InternalError` fault keeps.
-MAX_FAULT_DETAIL: int = 500
 _OPTIONAL_FAULT_FIELDS = (
     "binding",
     "size",
@@ -317,9 +312,9 @@ _OPTIONAL_FAULT_FIELDS = (
     "detail",
 )
 _LOG = logging.getLogger(__name__)
-# Unicode categories escaped in an `InternalError` detail: control, line and paragraph separator,
-# format (bidi marks), surrogate.
-_ESCAPED_CATEGORIES = frozenset({"Cc", "Zl", "Zp", "Cf", "Cs"})
+# G7: `MAX_JSON_DEPTH` (the transport's parser guard) and `MAX_FAULT_DETAIL` (the characters of
+# an error's text an `InternalError` fault keeps) are `financial_workflow`'s, shared with its
+# transport.
 
 
 @dataclass(frozen=True)
@@ -788,10 +783,11 @@ class OwnerFault(Contract):
     """A `faults/` record: a failure the run cannot continue from, written before the error is
     raised. `kind` names the audit kind (or `journal`) and `digest` the record it concerns.
     `InputsTooLarge` (a `read_inputs` body over `MAX_INPUT_BYTES`) and `CallLimit` (a call refused
-    at `MAX_CALLS`, or `MAX_INVOKES` for an invoke) name the step's `binding`, and the former its `size` and `cap`; neither holds
-    the body. `InternalError` (G7) is an exception that escaped a workflow method, or an
-    `internal_error` receipt of a source session: the `operation`, the exception's class and a
-    bounded, escaped `detail`; never a payload. A faults record is outside the receipt's compared set and replay's call bodies."""
+    at `MAX_CALLS`, or `MAX_INVOKES` for an invoke) name the step's `binding`, and the former its
+    `size` and `cap`; neither holds the body. `InternalError` (G7) is an exception that escaped a
+    workflow method, or an `internal_error` receipt of a source session: the `operation`, the
+    exception's class and a bounded, escaped `detail`; never a payload. A faults record is outside
+    the receipt's compared set and replay's call bodies."""
 
     schema_version: Literal["owner-fault/1"] = "owner-fault/1"
     code: str
@@ -1065,34 +1061,6 @@ def _retain(store: Execution, kind: str, value: Contract) -> None:
     _put(_audit(store, kind, value.content_hash()), value.model_dump_json().encode())
 
 
-def _escaped(char: str) -> str:
-    """`char` as itself, or as `\\xNN`, `\\uNNNN` or `\\UNNNNNNNN` when it is a control, a line
-    or paragraph separator, a format character (bidi marks), a lone surrogate or a backslash, so
-    that the text is one printable line and the escaping is injective."""
-    code = ord(char)
-    if char != "\\" and unicodedata.category(char) not in _ESCAPED_CATEGORIES:
-        return char
-    return (
-        f"\\x{code:02x}"
-        if code < 0x100
-        else f"\\u{code:04x}"
-        if code < 0x10000
-        else f"\\U{code:08x}"
-    )
-
-
-def _bounded_detail(error: BaseException) -> str:
-    """The error's text, redacted as the loop redacts a failure (`Redactor`), escaped, and cut to
-    `MAX_FAULT_DETAIL` characters, in that order. An error whose text cannot be made is
-    `<unprintable ClassName>`, so its record is still written (the failure is logged)."""
-    try:
-        text = Redactor().text(str(error))
-    except Exception:  # noqa: BLE001 - logged; the record keeps the class name instead
-        _LOG.exception("error text of %s unavailable", type(error).__name__)
-        return f"<unprintable {type(error).__name__}>"[:MAX_FAULT_DETAIL]
-    return "".join(_escaped(c) for c in text[:MAX_FAULT_DETAIL])[:MAX_FAULT_DETAIL]
-
-
 def _retain_internal_error(
     store: Execution, operation: str, error_type: str | None, detail: str | None
 ) -> None:
@@ -1115,7 +1083,7 @@ def _journaled_errors(workflow: "OwnerWorkflow", operation: str) -> Iterator[Non
     except (WorkflowError, SourceError):
         raise
     except Exception as error:
-        detail = _bounded_detail(error)
+        detail = _bounded_detail(error, _LOG)
         try:
             _retain_internal_error(workflow._store, operation, type(error).__name__, detail)
         except Exception as write_error:  # noqa: BLE001 - logged and chained; the original is raised
@@ -1175,9 +1143,9 @@ def _check_steps(module_id: str, spec: OwnerSpec) -> None:
 
     The entry is the one `submit_review` and `_entry_outcome` dispatch for the module:
     `cp0_review` for CP-0, `model_payload` for any other live-contract module, `owner_core` for
-    an owner-only one (`_owner_only`: no step chain, or one that is not `shared_live`). Every module but CP-0
-    and CP-1 has an `_ENTRY_VALIDATORS` row (§2). A live-contract module keeps its registry
-    chain and the chain's pack and extraction tools. An owner-only module has a registered,
+    an owner-only one (`_owner_only`: no step chain, or one that is not `shared_live`). Every
+    module but CP-0 and CP-1 has an `_ENTRY_VALIDATORS` row (§2). A live-contract module keeps its
+    registry chain and the chain's pack and extraction tools. An owner-only module has a registered,
     complete core: `STEP_IDS` (nonempty and distinct, as `Execution.submit_step` requires) are
     its steps (a tuple of str), `SCHEMAS[step]` is each step's schema, `submit` is callable and
     so is `RULES` when a step is journaled. Its step ids stay outside `live.submission.STEPS`
@@ -1288,19 +1256,15 @@ def _check_specs(
         _check_steps(module_id, spec)
     if any(OWNER_SPECS[m].kind == "deterministic" for m in planned):
         out = publication_directory
-        if (
-            out is None
-            or (out.exists() and not published)
-            or out.resolve() == directory.resolve()
-            or directory.resolve() in out.resolve().parents
-        ):
+        if out is None or (out.exists() and not published) or _overlapping(out, directory):
             raise WorkflowError("not_permitted")
     return planned
 
 
 @dataclass(frozen=True)
 class _Retained:
-    """Every record of the audit kinds a resume reads, each parsed and checked against its digest."""
+    """Every record of the audit kinds a resume reads, each parsed and checked against its
+    digest."""
 
     begins: list[BeginRecord]
     refusals: list[RefusedBegin]
@@ -1315,7 +1279,8 @@ class _Retained:
 @dataclass(frozen=True)
 class _Resubmit:
     """A step the journal holds pending (its payload written, its validation not finished) and the
-    snapshot and attempt it was written from: the step is rebound there and its payload resubmitted."""
+    snapshot and attempt it was written from: the step is rebound there and its payload
+    resubmitted."""
 
     before: ExecutionSnapshot
     attempt: Attempt
@@ -2001,6 +1966,11 @@ class OwnerWorkflow:
         """The walk's phase (analytical, walked, complete or failed); read-only (O5 Q6)."""
         return self._phase
 
+    @property
+    def publications(self) -> tuple[PublicationCall, ...]:
+        """The `publish` records so far, in call order, as an immutable copy; read-only."""
+        return tuple(self._publications)
+
     def state(self) -> OwnerState:
         """The walk's position as a fresh immutable value (G5a). It takes `_operation` without
         blocking, like the other methods, but not `_locked()`: a sealed run is inspectable, and a
@@ -2308,7 +2278,6 @@ class OwnerWorkflow:
             ):
                 raise WorkflowError("identity_mismatch")
             _put(_audit(self._store, "payloads", binding.payload_sha256), payload_bytes)
-            _retain(self._store, "bindings", binding)
             stored, resolved, paths, kinds = _fill(self._store, self._binding, payload)
             stored_hash = _hash(stored.encode())
             _put(_audit(self._store, "payloads", stored_hash), stored.encode())
@@ -2321,52 +2290,18 @@ class OwnerWorkflow:
                 else None
             )
             self._current()
+            # The binding is retained after the last check that writes nothing and before the
+            # journal: a fill or gate that raises leaves no stray binding, and a step the journal
+            # holds pending has its binding for `open()` to resubmit (window (a), `_tail`).
+            _retain(self._store, "bindings", binding)
             attempt = None
             disposition: Literal["valid", "invalid", "refused"] = "refused"
             submitted_step = None
             if not issues:
-                entry = self._specs[module_id].entry
-                ticket_id = self._binding.ticket_id
-                if entry == "cp0_review":
-                    attempt = submit_cp0_review(self._store, ticket_id, stored)
-                else:
-                    # G1-X §2: an owner core journals its step and returns the same `Submitted`
-                    # as `submit_model_payload`, so the identity check below holds for both.
-                    submitted: Submitted = (
-                        _CORES[module_id].submit(
-                            self._store, ticket_id, spec.step_id, payload, rules
-                        )
-                        if entry == "owner_core"
-                        else submit_model_payload(
-                            self._store, ticket_id, spec.step_id, payload, rules=rules
-                        )
-                    )
-                    if (
-                        submitted.payload,
-                        submitted.nulls_resolved,
-                        submitted.prefilled,
-                        submitted.prefilled_kinds,
-                    ) != (stored, resolved, paths, kinds):
-                        raise WorkflowError("identity_mismatch")
-                    attempt = submitted.journal
-                candidates = (
-                    attempt.steps
-                    if attempt.steps and attempt.steps[-1].step_id == spec.step_id
-                    else attempt.step_repairs
+                attempt = self._journal(payload, rules, (stored, resolved, paths, kinds))
+                submitted_step, disposition, issues = _submitted_step(
+                    attempt, spec.step_id, stored_hash
                 )
-                if (
-                    not candidates
-                    or candidates[-1].payload_sha256 != stored_hash
-                    or candidates[-1].step_id != spec.step_id
-                ):
-                    raise WorkflowError("identity_mismatch")
-                submitted_step = candidates[-1]
-                disposition = (
-                    "valid"
-                    if submitted_step.status == "valid" and not attempt.issues
-                    else "invalid"
-                )
-                issues = submitted_step.issues or attempt.issues
             after = self._store.read()
             try:
                 canonical = spec.schema.model_validate_json(stored).content_hash()
@@ -2391,19 +2326,7 @@ class OwnerWorkflow:
             self._submissions.append(record)
             self._current_sha256 = after_hash
             if attempt is not None:
-                chain = _sequence(module_id)
-                if disposition == "valid" and attempt.status == "finished":
-                    if len(attempt.steps) != len(chain):
-                        raise WorkflowError("identity_mismatch")
-                    self._advance(module_id)
-                elif disposition == "valid":
-                    self._activate(attempt, chain[len(attempt.steps)])
-                elif attempt.status == "pending":
-                    self._activate(attempt, spec.step_id)
-                elif attempt.number == 0:
-                    self._begin(module_id)
-                else:
-                    self._advance(module_id)  # attempt 1 settled blocked
+                self._after_step(attempt, spec.step_id, valid=disposition == "valid")
             return {
                 "schema_version": "financial-review-outcome/1",
                 "status": disposition,
@@ -2416,6 +2339,57 @@ class OwnerWorkflow:
                 "prefilled": list(paths),
                 **({"notes": list(expansion.notes)} if expansion.notes else {}),
             }
+
+    def _journal(
+        self,
+        payload: str,
+        rules: Callable[[str], tuple[str, ...]] | None,
+        filled: tuple[str, tuple[str, ...], tuple[str, ...], tuple[str, ...]],
+    ) -> Attempt:
+        """Journal the active step through its module's entry and return the attempt. `filled` is
+        the stored payload and prefill this call computed; the entry must have stored the same."""
+        module_id, ticket_id, step_id = (
+            self._binding.module_id,
+            self._binding.ticket_id,
+            self._binding.step_id,
+        )
+        entry = self._specs[module_id].entry
+        if entry == "cp0_review":
+            return submit_cp0_review(self._store, ticket_id, filled[0])
+        # G1-X §2: an owner core journals its step and returns the same `Submitted` as
+        # `submit_model_payload`, so the identity check below holds for both.
+        submitted: Submitted = (
+            _CORES[module_id].submit(self._store, ticket_id, step_id, payload, rules)
+            if entry == "owner_core"
+            else submit_model_payload(self._store, ticket_id, step_id, payload, rules=rules)
+        )
+        if (
+            submitted.payload,
+            submitted.nulls_resolved,
+            submitted.prefilled,
+            submitted.prefilled_kinds,
+        ) != filled:
+            raise WorkflowError("identity_mismatch")
+        return submitted.journal
+
+    def _after_step(self, attempt: Attempt, step_id: str, *, valid: bool) -> None:
+        """Where the walk goes after a journaled step: a finished attempt advances, a valid step
+        activates the next one, an invalid one is repaired in its attempt or a new one, and a
+        settled blocked attempt 1 advances."""
+        module_id = attempt.module_id
+        chain = _sequence(module_id)
+        if valid and attempt.status == "finished":
+            if len(attempt.steps) != len(chain):
+                raise WorkflowError("identity_mismatch")
+            self._advance(module_id)
+        elif valid:
+            self._activate(attempt, chain[len(attempt.steps)])
+        elif attempt.status == "pending":
+            self._activate(attempt, step_id)
+        elif attempt.number == 0:
+            self._begin(module_id)
+        else:
+            self._advance(module_id)  # attempt 1 settled blocked
 
     def _unaliased(self, bound: OwnerSubmissionBinding) -> OwnerSubmissionBinding:
         """The session's binding with the call ids of a replayed epoch renamed to the retained
@@ -2690,9 +2664,7 @@ def _expected_begin(before: ExecutionSnapshot, module_id: str, ticket_id: str) -
         raise WorkflowError("identity_mismatch")
     try:
         inputs = current_inputs(before, module_id)
-    except NotAuthorized:
-        raise WorkflowError("identity_mismatch") from None
-    except ValueError:
+    except ValueError:  # NotAuthorized included
         raise WorkflowError("identity_mismatch") from None
     previous = [a for a in before.attempts if a.module_id == module_id and a.inputs == inputs]
     if previous and (len(previous) >= 2 or not previous[-1].issues):
@@ -2782,9 +2754,9 @@ def _verify_chain(
     and the last at the final snapshot (a refusal sits at the last `after` of the modules
     planned before the publisher or at the final snapshot, by `_verify_walk`). The transitions
     keep the walk's order: modules planned before the publisher, its publications, then modules
-    planned after it. Each transition passes `_verify_transition`. Within a ticket, the first submission is bound to its begin's
-    `after` and each later one to the previous submission's `after`; every call and read is
-    bound to one of those binding snapshots."""
+    planned after it. Each transition passes `_verify_transition`. Within a ticket, the first
+    submission is bound to its begin's `after` and each later one to the previous submission's
+    `after`; every call and read is bound to one of those binding snapshots."""
     position = {snapshot.content_hash(): index for index, snapshot in enumerate(chain)}
     transitions: list[tuple[int, int, str, str | None]] = [
         (
@@ -3383,9 +3355,7 @@ def _verify_settlements(
         # pass: both map to identity_mismatch explicitly.
         try:
             bound = current_inputs(snapshot, head.module_id)
-        except NotAuthorized:
-            raise WorkflowError("identity_mismatch") from None
-        except ValueError:
+        except ValueError:  # NotAuthorized included
             raise WorkflowError("identity_mismatch") from None
         if bound != attempt.inputs:
             raise WorkflowError("identity_mismatch")
@@ -3451,9 +3421,7 @@ def _verify(
             continue
         try:
             bound = current_inputs(snapshot, head.module_id)
-        except NotAuthorized:
-            raise WorkflowError("identity_mismatch") from None
-        except ValueError:
+        except ValueError:  # NotAuthorized included
             raise WorkflowError("identity_mismatch") from None
         if bound != _result_attempt(snapshot, head).inputs:
             raise WorkflowError("identity_mismatch")
@@ -3642,102 +3610,14 @@ def verify_owner_run_receipt(
         raise WorkflowError("identity_mismatch") from None
 
 
-def _depth_of(value: Any) -> int:
-    """The nesting depth of parsed JSON (a scalar is 0, the request object 1), iteratively, so
-    that no input can make the measure itself recurse."""
-    deepest = 0
-    pending: list[tuple[Any, int]] = [(value, 0)]
-    while pending:
-        item, depth = pending.pop()
-        if type(item) is dict:
-            children: Sequence[Any] = list(item.values())
-        elif type(item) is list:
-            children = item
-        else:
-            continue
-        deepest = max(deepest, depth + 1)
-        pending.extend((child, depth + 1) for child in children)
-    return deepest
-
-
-def _finite_float(text: str) -> float:
-    value = float(text)
-    if not math.isfinite(value):
-        raise ValueError("Non-finite JSON number")
-    return value
-
-
-def _request_of(line: str) -> dict[str, Any]:
-    """The request a JSON-lines message carries, or `bad_arguments`: not valid JSON, a non-finite
-    number, an over-limit integer, nesting past `MAX_JSON_DEPTH` and a non-object are the
-    participant's malformed text, decided before dispatch (G7). Nothing else is caught."""
-    try:
-        request = json.loads(line, parse_constant=_nonfinite_json, parse_float=_finite_float)
-    except (ValueError, RecursionError):  # JSONDecodeError, non-finite, int digit limit
-        raise WorkflowError("bad_arguments") from None
-    if type(request) is not dict or _depth_of(request) > MAX_JSON_DEPTH:
-        raise WorkflowError("bad_arguments")
-    return request
-
-
-def _checked(request: dict[str, Any], *, sessionless: bool) -> dict[str, Any]:
-    """The key set of a known operation, and a `submit_review` payload that can be written as
-    UTF-8, or `bad_arguments`. At a step with a source session the shapes of an invoke frame
-    (`tool`, `arguments`), a lone surrogate inside it and its depth are the host's to refuse, with
-    a retained receipt (H05, item 88). At a step with none there is no host, so `sessionless`
-    makes the transport refuse what the host would (`_host_would_refuse`). An unknown operation
-    is left to the dispatch (`not_permitted`)."""
-    keys: dict[str, tuple[str, ...]] = {
-        "invoke": ("tool", "arguments"),
-        "submit_review": ("payload",),
-        "read_inputs": (),
-        "publish": (),
-        "write_receipt": (),
-    }
-    operation = request.get("operation")
-    shape = keys.get(operation) if isinstance(operation, str) else None
-    if shape is None:
-        return request
-    if set(request) != {"operation", *shape}:
-        raise WorkflowError("bad_arguments")
-    if operation == "submit_review" and not _utf8_text(request["payload"]):
-        raise WorkflowError("bad_arguments")
-    if operation == "invoke" and sessionless and _host_would_refuse(request):
-        raise WorkflowError("bad_arguments")
-    return request
-
-
-def _host_would_refuse(request: dict[str, Any]) -> bool:
-    """An invoke frame that `host._json_arguments` or its tool-name rule would refuse: `tool` not
-    a `str`, `arguments` not an object, a lone surrogate in `tool` or anywhere in `arguments`, or
-    `arguments` nested past `MAX_ARGUMENT_DEPTH`."""
-    tool, arguments = request["tool"], request["arguments"]
-    if type(tool) is not str or type(arguments) is not dict:
-        return True
-    if _depth_of(request) > _HOST_BOUND_REQUEST_DEPTH:
-        return True
-    return not _utf8_text(tool) or not _utf8_text(json.dumps(arguments, ensure_ascii=False))
-
-
-def _utf8_text(value: object) -> bool:
-    """`value` is a `str` that can be written as UTF-8 (no lone surrogate)."""
-    if type(value) is not str:
-        return False
-    try:
-        value.encode()
-    except UnicodeEncodeError:
-        return False
-    return True
-
-
-def _drain(reader: TextIO, line: str) -> None:
-    """Read on to the end of an over-length line. If the rest of it is not UTF-8 the participant's
-    bytes end the drain there: the caller answers `bad_arguments` for the line, as before G7."""
-    try:
-        while line and not line.endswith("\n"):
-            line = reader.readline(MAX_LINE + 1)
-    except UnicodeDecodeError:
-        return
+# The argument names of each known operation (`financial_workflow._checked`).
+_OWNER_KEYS: dict[str, tuple[str, ...]] = {
+    "invoke": ("tool", "arguments"),
+    "submit_review": ("payload",),
+    "read_inputs": (),
+    "publish": (),
+    "write_receipt": (),
+}
 
 
 def serve_json_lines(
@@ -3760,14 +3640,13 @@ def serve_json_lines(
     workflow._participant, workflow._transport = participant, "bounded-json-lines/1"
     _retain(workflow._store, "transport", TransportMarker(participant=participant))
     for _ in range(MAX_MESSAGES):
-        line = reader.readline(MAX_LINE + 1)
-        if not line:
-            return
         try:
-            if len(line) > MAX_LINE or not line.endswith("\n"):
-                _drain(reader, line)
-                raise WorkflowError("bad_arguments")
-            request = _checked(_request_of(line), sessionless=workflow._session is None)
+            line = _request_line(reader)
+            if line is None:
+                return
+            request = _checked(
+                _request_of(line), _OWNER_KEYS, sessionless=workflow._session is None
+            )
             operation = request.get("operation")
             if operation == "invoke":
                 result = workflow.invoke(request["tool"], request["arguments"])
@@ -3800,12 +3679,13 @@ def main() -> None:
     parser.add_argument("--receipt", type=Path, required=True)
     parser.add_argument("--participant", required=True)
     args = parser.parse_args()
+    reader, writer = _utf8_stdio()
     pack = PreparedPack.model_validate_json(args.pack.read_bytes())
     workflow = OwnerWorkflow.create(
         args.directory, pack, publication_directory=args.publication_directory
     )
     serve_json_lines(
-        workflow, sys.stdin, sys.stdout, destination=args.receipt, participant=args.participant
+        workflow, reader, writer, destination=args.receipt, participant=args.participant
     )
 
 

@@ -4,14 +4,23 @@ Source readability is not analytical authority. This layer has no financial
 arithmetic and does not apply subsequent events to historical observations.
 """
 
+import re
 from collections.abc import Iterator
 from datetime import date
 from typing import Annotated, Literal
-import re
 
 from pydantic import BaseModel, Field, ValidationError
 
-from deploy_vii.contracts import PREFILLED_MARKER, Citation, Contract, Hash, Identifier, Run, Text
+from deploy_vii.contracts import (
+    PREFILLED_MARKER,
+    Citation,
+    Contract,
+    Hash,
+    Identifier,
+    Run,
+    Source,
+    Text,
+)
 from deploy_vii.financial_contracts import Currency, Located, Unit
 from deploy_vii.financial_periods import _id
 from deploy_vii.financial_validation import records
@@ -189,9 +198,9 @@ def exact_period_issues(pack: PreparedPack, review: SourceContextReview) -> tupl
         if source is None:
             continue
         dates = {
-            ("historical_duration", m[2], m[3]) if m[1]
-            else ("period_end", None, m[5])
-            for span in source.spans for line in span.text.splitlines()
+            ("historical_duration", m[2], m[3]) if m[1] else ("period_end", None, m[5])
+            for span in source.spans
+            for line in span.text.splitlines()
             if (m := pattern.fullmatch(line)) is not None
         }
         if not dates:
@@ -199,11 +208,15 @@ def exact_period_issues(pack: PreparedPack, review: SourceContextReview) -> tupl
         for scope in assessment.scopes:
             if scope.period_kind not in STATED_KINDS:
                 continue
-            value = (scope.period_kind,
-                     scope.start_date.isoformat() if scope.start_date else None,
-                     scope.end_date.isoformat() if scope.end_date else None)
+            value = (
+                scope.period_kind,
+                scope.start_date.isoformat() if scope.start_date else None,
+                scope.end_date.isoformat() if scope.end_date else None,
+            )
             if value not in dates:
-                issues.append(f"Use exact source XBRL dates: {assessment.source_id} {scope.scope_id}")
+                issues.append(
+                    f"Use exact source XBRL dates: {assessment.source_id} {scope.scope_id}"
+                )
     return tuple(issues)
 
 
@@ -453,6 +466,125 @@ def _prose_scopes(review: SourceContextReview) -> Iterator[tuple[str, tuple[str,
     yield from ((text, ()) for text in review.limitations)
 
 
+GapCategory = Literal[
+    "source", "classification", "scope", "entity", "event_scan", "event", "limitation"
+]
+
+
+def _gap(
+    category: GapCategory,
+    reference: str,
+    description: str,
+    citations: tuple[Citation, ...] = (),
+    scope_ids: tuple[str, ...] = (),
+) -> ContextGap:
+    return ContextGap(
+        gap_id=_id("context-gap", category, reference, description),
+        category=category,
+        reference=reference,
+        description=description,
+        citations=citations,
+        scope_ids=scope_ids,
+    )
+
+
+def _scope_gaps(scope: ReportingScope) -> Iterator[ContextGap]:
+    """An unresolved field (absent, or blank text: `prose.is_blank`) and each limitation."""
+    missing = [
+        name
+        for name in ("end_date", *DIMENSIONS)
+        if (value := getattr(scope, name)) is None or (isinstance(value, str) and is_blank(value))
+    ]
+    if scope.period_kind in {"historical_duration", "forecast"} and scope.start_date is None:
+        missing.append("start_date")
+    if scope.period_kind == "unspecified":
+        missing.append("period_kind")
+    located = scope.citations, (scope.scope_id,)
+    if missing:
+        yield _gap("scope", scope.scope_id, "Unresolved scope: " + ", ".join(missing), *located)
+    for limitation in scope.limitations:
+        yield _gap("scope", scope.scope_id, limitation, *located)
+
+
+def _source_gaps(
+    source: Source, assessment: SourceContext, extraction_limits: tuple[str, ...]
+) -> Iterator[ContextGap]:
+    """One prepared source's availability, classification, scope, event-scan and limitation
+    gaps, in that order."""
+    source_id, cited = source.source_id, assessment.citations
+    if source.status != "ready" or source.extraction_status != "complete":
+        yield _gap(
+            "source", source_id, f"Source {source.status}; extraction {source.extraction_status}"
+        )
+    for limitation in extraction_limits:
+        yield _gap("source", source_id, limitation)
+    if assessment.classification == "unassessed":
+        yield _gap("classification", source_id, "Financial relevance has not been assessed")
+    if assessment.evidence_class is None:
+        yield _gap(
+            "classification", source_id, "Evidence quality tier has not been assessed", cited
+        )
+    if assessment.published_on is None:
+        yield _gap("classification", source_id, "Publication date is unavailable", cited)
+    if not assessment.scopes:
+        yield _gap("scope", source_id, "Source has no located entity/period scope", cited)
+    for scope in assessment.scopes:
+        yield from _scope_gaps(scope)
+    if assessment.event_scan == "unassessed":
+        yield _gap(
+            "event_scan",
+            source_id,
+            assessment.event_scan_explanation,
+            assessment.event_scan_citations,
+        )
+    for limitation in assessment.limitations:
+        yield _gap("limitation", source_id, limitation, cited)
+
+
+def _entity_gaps(
+    entity: EntityContext, mapped: list[tuple[str, ReportingScope]]
+) -> Iterator[ContextGap]:
+    """An entity's differing scope strings (an absent or blank one is its scope's gap alone),
+    a missing scope and its limitations."""
+    for field in DIMENSIONS:
+        values = {getattr(scope, field) for _, scope in mapped} - {None}
+        values = {value for value in values if not is_blank(value)}
+        if len(values) > 1:
+            yield _gap(
+                "scope",
+                entity.entity_id,
+                f"Different source {field} values require normalization review",
+                tuple(dict.fromkeys(c for _, scope in mapped for c in scope.citations)),
+                tuple(scope.scope_id for _, scope in mapped),
+            )
+    if not mapped:
+        yield _gap(
+            "entity",
+            entity.entity_id,
+            "Entity is not mapped to a reporting scope",
+            entity.citations,
+        )
+    for limitation in entity.limitations:
+        yield _gap("entity", entity.entity_id, limitation, entity.citations)
+
+
+def _register_row(
+    source: Source, assessment: SourceContext, extraction_limits: tuple[str, ...]
+) -> SourceRegisterRow:
+    return SourceRegisterRow(
+        source_id=source.source_id,
+        filename=source.name,
+        source_sha256=source.sha256,
+        availability=source.status,
+        extraction_status=source.extraction_status,
+        evidence_tier=None
+        if assessment.evidence_class is None
+        else _TIERS[assessment.evidence_class],
+        assessment=assessment,
+        extraction_limitations=extraction_limits,
+    )
+
+
 def source_context(pack: PreparedPack, review: SourceContextReview) -> SourceContextReport:
     issues = validate_source_context(pack, review)
     if issues:
@@ -460,27 +592,6 @@ def source_context(pack: PreparedPack, review: SourceContextReview) -> SourceCon
     pack = PreparedPack.model_validate_json(pack.model_dump_json())
     review = SourceContextReview.model_validate_json(review.model_dump_json())
     gaps: list[ContextGap] = []
-
-    def gap(
-        category: Literal[
-            "source", "classification", "scope", "entity", "event_scan", "event", "limitation"
-        ],
-        reference: str,
-        description: str,
-        citations: tuple[Citation, ...] = (),
-        scope_ids: tuple[str, ...] = (),
-    ) -> None:
-        gaps.append(
-            ContextGap(
-                gap_id=_id("context-gap", category, reference, description),
-                category=category,
-                reference=reference,
-                description=description,
-                citations=citations,
-                scope_ids=scope_ids,
-            )
-        )
-
     assessments = {s.source_id: s for s in review.sources}
     rows: list[SourceRegisterRow] = []
     financial_sources = 0
@@ -496,83 +607,8 @@ def source_context(pack: PreparedPack, review: SourceContextReview) -> SourceCon
         )
         if source.status == "ready" and assessment.classification == "financial":
             financial_sources += 1
-        if source.status != "ready" or source.extraction_status != "complete":
-            gap(
-                "source",
-                source.source_id,
-                f"Source {source.status}; extraction {source.extraction_status}",
-            )
-        for limitation in extraction_limits:
-            gap("source", source.source_id, limitation)
-        if assessment.classification == "unassessed":
-            gap("classification", source.source_id, "Financial relevance has not been assessed")
-        if assessment.evidence_class is None:
-            gap(
-                "classification",
-                source.source_id,
-                "Evidence quality tier has not been assessed",
-                assessment.citations,
-            )
-        if assessment.published_on is None:
-            gap(
-                "classification",
-                source.source_id,
-                "Publication date is unavailable",
-                assessment.citations,
-            )
-        if not assessment.scopes:
-            gap(
-                "scope",
-                source.source_id,
-                "Source has no located entity/period scope",
-                assessment.citations,
-            )
-        for scope in assessment.scopes:
-            missing = [
-                name
-                for name in ("end_date", "currency", "unit", "entity_perimeter", "accounting_basis")
-                if getattr(scope, name) is None
-            ]
-            if (
-                scope.period_kind in {"historical_duration", "forecast"}
-                and scope.start_date is None
-            ):
-                missing.append("start_date")
-            if scope.period_kind == "unspecified":
-                missing.append("period_kind")
-            if missing:
-                gap(
-                    "scope",
-                    scope.scope_id,
-                    "Unresolved scope: " + ", ".join(missing),
-                    scope.citations,
-                    (scope.scope_id,),
-                )
-            for limitation in scope.limitations:
-                gap("scope", scope.scope_id, limitation, scope.citations, (scope.scope_id,))
-        if assessment.event_scan == "unassessed":
-            gap(
-                "event_scan",
-                source.source_id,
-                assessment.event_scan_explanation,
-                assessment.event_scan_citations,
-            )
-        for limitation in assessment.limitations:
-            gap("limitation", source.source_id, limitation, assessment.citations)
-        rows.append(
-            SourceRegisterRow(
-                source_id=source.source_id,
-                filename=source.name,
-                source_sha256=source.sha256,
-                availability=source.status,
-                extraction_status=source.extraction_status,
-                evidence_tier=_TIERS.get(assessment.evidence_class)
-                if assessment.evidence_class
-                else None,
-                assessment=assessment,
-                extraction_limitations=extraction_limits,
-            )
-        )
+        gaps.extend(_source_gaps(source, assessment, extraction_limits))
+        rows.append(_register_row(source, assessment, extraction_limits))
     entity_rows: list[EntityRegisterRow] = []
     for entity in review.entities:
         mapped = [
@@ -581,25 +617,7 @@ def source_context(pack: PreparedPack, review: SourceContextReview) -> SourceCon
             for scope in s.scopes
             if scope.entity_id == entity.entity_id
         ]
-        for field in ("currency", "unit", "entity_perimeter", "accounting_basis"):
-            values = {getattr(scope, field) for _, scope in mapped} - {None}
-            if len(values) > 1:
-                gap(
-                    "scope",
-                    entity.entity_id,
-                    f"Different source {field} values require normalization review",
-                    tuple(dict.fromkeys(c for _, scope in mapped for c in scope.citations)),
-                    tuple(scope.scope_id for _, scope in mapped),
-                )
-        if not mapped:
-            gap(
-                "entity",
-                entity.entity_id,
-                "Entity is not mapped to a reporting scope",
-                entity.citations,
-            )
-        for limitation in entity.limitations:
-            gap("entity", entity.entity_id, limitation, entity.citations)
+        gaps.extend(_entity_gaps(entity, mapped))
         entity_rows.append(
             EntityRegisterRow(
                 entity=entity,
@@ -609,20 +627,23 @@ def source_context(pack: PreparedPack, review: SourceContextReview) -> SourceCon
         )
     for role in ("issuer", "borrower", "guarantor_group", "restricted_group"):
         if not any(role in e.roles for e in review.entities):
-            gap("entity", role, f"No located {role} scope supplied")
+            gaps.append(_gap("entity", role, f"No located {role} scope supplied"))
     for event in review.events:
-        gap(
-            "event",
-            event.event_id,
-            f"Subsequent event ({event.status}) excluded from historical figures: "
-            f"{event.description}; {event.effect}",
-            event.citations,
-            (event.reporting_scope_id,),
+        gaps.append(
+            _gap(
+                "event",
+                event.event_id,
+                f"Subsequent event ({event.status}) excluded from historical figures: "
+                f"{event.description}; {event.effect}",
+                event.citations,
+                (event.reporting_scope_id,),
+            )
         )
-    for limitation in review.limitations:
-        gap("limitation", "review", limitation)
+    gaps.extend(_gap("limitation", "review", limitation) for limitation in review.limitations)
     if not financial_sources:
-        gap("source", "file-gate", "No readable source assessed as containing financial data")
+        gaps.append(
+            _gap("source", "file-gate", "No readable source assessed as containing financial data")
+        )
     return SourceContextReport(
         run=pack.run,
         pack_sha256=pack.content_hash(),
@@ -633,10 +654,14 @@ def source_context(pack: PreparedPack, review: SourceContextReview) -> SourceCon
         events=review.events,
         gaps=tuple(dict.fromkeys(gaps)),
         limitations=(
-            "Source context is a located analyst assessment, "
-            "not financial or analytical acceptance",
-            "Evidence tiers describe source authority; they do not certify every figure "
-            "or resolve conflicting values",
+            (
+                "Source context is a located analyst assessment, "
+                "not financial or analytical acceptance"
+            ),
+            (
+                "Evidence tiers describe source authority; they do not certify every figure "
+                "or resolve conflicting values"
+            ),
             *review.limitations,
         ),
     )

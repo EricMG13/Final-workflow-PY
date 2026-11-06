@@ -66,7 +66,6 @@ from deploy_vii.execution import (
     NotAuthorized,
     StepSubmission,
     StepValidation,
-    clipped,
     current_inputs,
 )
 from deploy_vii.live.context import narrative_evidence, readiness_inputs
@@ -92,13 +91,12 @@ from deploy_workflow.financial_workflow import (
     FinancialBinding,
     FinancialCall,
     InputRead,
-    _missing_units,
+    _evidence_issues,
     _quality_read,
-    _statement_units,
+    _source_context,
 )
 from deploy_workflow.host import SourceSession
 from deploy_workflow.owners.period_basis import PeriodRefused, currency_basis
-from deploy_workflow.statement_lines import LineTools, seen_tables
 from deploy_workflow.tools.upstream import UpstreamTools
 from deploy_workflow.workflow import SourceEvidence
 
@@ -1013,52 +1011,35 @@ def _filled(
     return filled.payload, resolved, filled.paths, filled.kinds
 
 
-def _column_periods(headers: tuple[str, ...], periods: Any) -> tuple[str, ...] | None:
-    """Only explicit source headings select reported columns; never infer aliases."""
-    for header in headers:
-        cells = re.split(r"\s{2,}", header.strip())[1:]
-        if not cells:
-            continue
-        found = []
-        for cell in cells:
-            quarter = re.fullmatch(r"Q([1-4]) (\d{4})", cell)
-            annual = re.fullmatch(r"FY (\d{4})", cell)
-            dated = re.fullmatch(r"(Opening|Q[1-4]|FY) (\d{4}-\d{2}-\d{2})", cell)
-            matches = []
-            for period in periods:
-                if (
-                    (
-                        quarter
-                        and period.period_type == "QUARTER"
-                        and period.fiscal_quarter == int(quarter[1])
-                        and re.findall(r"\d{4}", period.fiscal_year) == [quarter[2]]
-                    )
-                    or (
-                        annual
-                        and period.period_type == "FY"
-                        and re.findall(r"\d{4}", period.fiscal_year) == [annual[1]]
-                    )
-                    or (
-                        dated
-                        and str(period.end_date) == dated[2]
-                        and (
-                            dated[1] == "Opening"
-                            and period.period_type == "PERIOD_END"
-                            or dated[1] == "FY"
-                            and period.period_type == "FY"
-                            or dated[1].startswith("Q")
-                            and period.period_type == "QUARTER"
-                            and period.fiscal_quarter == int(dated[1][1])
-                        )
-                    )
-                ):
-                    matches.append(period.period_id)
-            if len(matches) != 1:
-                break
-            found.append(matches[0])
-        if len(found) == len(cells) and len(set(found)) == len(found):
-            return tuple(found)
-    return None
+def _readiness_issues(
+    store: Execution,
+    binding: FinancialBinding,
+    payload: str,
+    evidence: SourceEvidence,
+    calls: tuple[FinancialCall, ...],
+) -> tuple[str, ...]:
+    """The source_readiness/source_context gate: the tool rules, and the identity and financial
+    first pages read in this epoch (or the financial source's actual unavailable-read refusal)."""
+    issues = list(ToolRules().issues(binding.step_id, payload, seen=evidence.seen(), context=None))
+    required_reads = {("identity", "page:1")}
+    financial = next(s for s in store.pack().sources if s.source_id == "financial")
+    if financial.status == "ready":
+        required_reads.add(("financial", "page:1"))
+    elif not any(
+        call.tool == "read_pages"
+        and call.status == "refused"
+        and call.error_code == "unavailable"
+        and call.body is None
+        and call.arguments.get("source_id") == "financial"
+        and type(call.arguments.get("first_page")) is int
+        and type(call.arguments.get("last_page")) is int
+        and call.arguments["first_page"] <= 1 <= call.arguments["last_page"]
+        for call in calls
+    ):
+        issues.append("Missing financial source requires its actual unavailable-read refusal")
+    if not required_reads <= set(evidence.read):
+        issues.append("Current source epoch must read the required identity and financial pages")
+    return tuple(issues)
 
 
 def _source_issues(
@@ -1068,113 +1049,28 @@ def _source_issues(
     evidence: SourceEvidence,
     calls: tuple[FinancialCall, ...],
 ) -> tuple[str, ...]:
+    """The source-step gate of the receipt path. The financials step is the financial workflow's
+    own current gate (`_evidence_issues`: statement kinds by heading and caption, mapped header
+    columns, OCR pages, coverage), so the two cannot drift; this path adds only that every
+    supplied financial page was read in this epoch."""
     if binding.step_id not in _SOURCE_PHASES:
         return ()
-    context = None
-    if binding.step_id == "financials":
-        attempt = next(a for a in store.read().attempts if a.ticket_id == binding.ticket_id)
-        context = SourceContextReview.model_validate_json(
-            store.payload(attempt.steps[0].payload_sha256)
-        )
-    issues = list(
-        ToolRules().issues(binding.step_id, payload, seen=evidence.seen(), context=context)
-    )
-    pack = store.pack()
-    if context is None:
-        required_reads = {("identity", "page:1")}
-        financial = next(s for s in pack.sources if s.source_id == "financial")
-        if financial.status == "ready":
-            required_reads.add(("financial", "page:1"))
-        elif not any(
-            call.tool == "read_pages"
-            and call.status == "refused"
-            and call.error_code == "unavailable"
-            and call.body is None
-            and call.arguments.get("source_id") == "financial"
-            and type(call.arguments.get("first_page")) is int
-            and type(call.arguments.get("last_page")) is int
-            and call.arguments["first_page"] <= 1 <= call.arguments["last_page"]
-            for call in calls
-        ):
-            issues.append("Missing financial source requires its actual unavailable-read refusal")
-        if not required_reads <= set(evidence.read):
-            issues.append(
-                "Current source epoch must read the required identity and financial pages"
-            )
-        return tuple(issues)
-    financial_ids = tuple(s.source_id for s in context.sources if s.classification == "financial")
+    if binding.step_id != "financials":
+        return _readiness_issues(store, binding, payload, evidence, calls)
+    issues = list(_evidence_issues(store, binding, payload, evidence))
+    financial_ids = {
+        s.source_id
+        for s in _source_context(store, binding).sources
+        if s.classification == "financial"
+    }
     required_reads = {
         (s.source_id, span.locator)
-        for s in pack.sources
+        for s in store.pack().sources
         if s.source_id in financial_ids and s.status == "ready"
         for span in s.spans
     }
     if not required_reads <= set(evidence.read):
         issues.append("Financials must read every supplied financial page in this epoch")
-    units = [
-        (s.source_id, locator)
-        for s in pack.sources
-        if s.source_id in financial_ids and s.status == "ready"
-        for locator in _statement_units(s.spans)
-    ]
-    required = set(units)
-    if not required:
-        issues.append("No statement unit is located in the financial sources")
-    elif not required <= set(evidence.extracted):
-        missing = _missing_units(units, evidence.extracted)
-        issues.append(clipped(("Financials must extract every located statement unit: ", *missing)))
-    tables = seen_tables(LineTools(pack, sources=financial_ids), evidence.seen(), context)
-    try:
-        submission = FinancialSubmission.model_validate_json(payload)
-    except ValidationError:
-        return tuple(issues)
-    measured = set()
-    for table in tables:
-        key = (table.source_id, table.locator)
-        if key not in required:
-            continue
-        if table.lines:
-            measured.add(key)
-        for extracted in table.lines:
-            caption = (extracted.caption or "").upper()
-            statement = (
-                "IS"
-                if "INCOME" in caption or "OPERATIONS" in caption
-                else "CFS"
-                if "CASH FLOW" in caption
-                else "BS"
-                if "BALANCE SHEET" in caption
-                else None
-            )
-            covered = False
-            for book in submission.financial.books:
-                columns = _column_periods(table.headers, book.periods)
-                if columns is None or len(columns) != len(extracted.values):
-                    continue
-                if all(
-                    any(
-                        line.period_id == pid
-                        and line.statement == statement
-                        and " ".join(line.label.split()) == " ".join(extracted.label.split())
-                        and line.value.amount == value
-                        and any(
-                            c.source_id == table.source_id
-                            and c.locator == table.locator
-                            and extracted.label in c.quote
-                            for c in line.value.citations
-                        )
-                        for line in book.statement_lines
-                    )
-                    for pid, value in zip(columns, extracted.values, strict=True)
-                ):
-                    covered = True
-                    break
-            if not covered:
-                issues.append(
-                    f"Uncovered extracted statement line: {table.source_id} {table.locator} line {extracted.line_no}"
-                )
-    if measured != required:
-        issues.append("Statement extraction is unmeasured; empty tables do not establish coverage")
     return tuple(issues)
 
 
@@ -1690,10 +1586,22 @@ def _common_limits(currency: str) -> tuple[str, str, str]:
     )
 
 
-_COMMON_LIMITS = _common_limits("USD")
 _QUARTER_ID = re.compile(r"q([1-4])-([0-9]{4})")
 _FY_ID = re.compile(r"fy-([0-9]{4})")
 _UNSUPPORTED = "unsupported_pair"
+# The delta core's refusal codes, and the composer's `unsupported_pair`: a submission is charged
+# with these (`_stage_validation`); any other ValueError is this module's own defect.
+_CORE_REFUSALS = frozenset(
+    {
+        "incompatible_periods",
+        "incomplete_register",
+        "invalid_source_view",
+        "incompatible_dimensions",
+        "ambiguous_coordinate",
+        "invalid_fact",
+        _UNSUPPORTED,
+    }
+)
 _FOUR_QUARTERS_REQUIRED = re.compile(r"Four complete contiguous quarters\b[^;]*\brequired\b")
 _FOUR_QUARTERS = "Four complete contiguous quarters"
 _LEVERAGE_MEASURES = ("total_leverage_reported", "net_leverage_reported")
@@ -1991,8 +1899,14 @@ def _require_register_claims(producer: Module, report: EarningsDeltaReport) -> N
     if not _no_earlier_series(rows, year):
         raise ValueError(_UNSUPPORTED)
     if report.prior_basis_id is None:
+        # "Requested FY{y} comparison basis is absent" is true only of an FY current period.
         gap = _FY_ID.fullmatch(report.prior_period_id)
-        if gap is None or int(gap[1]) != year or not _opening_matches(rows, year):
+        if (
+            gap is None
+            or _FY_ID.fullmatch(report.current_period_id) is None
+            or int(gap[1]) != year
+            or not _opening_matches(rows, year)
+        ):
             raise ValueError(_UNSUPPORTED)
         return
     prior = _row_of(rows, report.prior_period_id)
@@ -2311,7 +2225,7 @@ def _owner_stage(store: Execution, envelope: OwnerSubmissionEnvelope) -> Earning
     ):
         raise OwnerError("identity_mismatch")
     reads_by_hash = {r.content_hash(): r for r in _records(store, "owner-reads", OwnerAccessRead)}
-    captured_reads = tuple(reads_by_hash[digest] for digest in bound.input_read_hashes)
+    captured_reads = tuple(_known(reads_by_hash, digest) for digest in bound.input_read_hashes)
     ticket_calls = tuple(
         c for c in all_calls if c.receipt.binding.ticket_id == envelope.binding.ticket_id
     )
@@ -2361,14 +2275,7 @@ def _stage_validation(store: Execution, envelope: OwnerSubmissionEnvelope) -> St
     except ValueError as error:
         # A pydantic ValidationError is a ValueError outside this set, so B1's own
         # composition defects propagate; only the actor review parse is charged.
-        if str(error) not in {
-            "incompatible_periods",
-            "incomplete_register",
-            "invalid_source_view",
-            "incompatible_dimensions",
-            "ambiguous_coordinate",
-            "invalid_fact",
-        }:
+        if str(error) not in _CORE_REFUSALS:
             raise
         return StepValidation(issues=(str(error),))
     return StepValidation(output=stage.model_dump_json())

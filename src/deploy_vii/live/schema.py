@@ -862,6 +862,16 @@ def exact_json(value: object) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
+def exact_model[M: BaseModel](model: type[M], document: dict[str, Any]) -> M:
+    """`document` (parsed with floats as Decimal: `json_object`) as `model`, with every number's
+    sent digits. Pydantic's JSON parser reads a number as a binary float, so `1200.0` would come
+    back as `Decimal('1200')` and a long mantissa rounded; the contract's own strict JSON parse of
+    the exact text decides acceptance (ValidationError), then the values are read from the
+    Decimal document (lax only in taking Python objects for their JSON forms)."""
+    model.model_validate_json(exact_json(document))
+    return model.model_validate(document, strict=False)
+
+
 def normalise(model: type[BaseModel], payload: str) -> tuple[str, tuple[str, ...]]:
     """Resolve nulls that stand for omitted defaulted fields; return the payload and the paths.
 
@@ -872,8 +882,9 @@ def normalise(model: type[BaseModel], payload: str) -> tuple[str, tuple[str, ...
     document = json_object(payload)
     if document is None:
         return payload, ()
-    walker = _Walker(model.model_json_schema())
-    walker.fill(model.model_json_schema(), document, "")
+    schema = model.model_json_schema()
+    walker = _Walker(schema)
+    walker.fill(schema, document, "")
     if not walker.paths:
         return payload, ()
     return exact_json(document), tuple(walker.paths)

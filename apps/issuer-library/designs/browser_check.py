@@ -22,6 +22,9 @@ MODULE_CODE = re.compile(r"\bCP-[A-Z0-9]+\b(?![-.][A-Za-z0-9])")
 
 HERE = Path(__file__).resolve().parent
 R = HERE.parents[2]
+sys.path.insert(0, str(R / "src"))
+from deploy_workflow.model.adapter import KEY_VARIABLES
+
 S = Path(os.environ.get("FW_BROWSER_OUT") or tempfile.mkdtemp(prefix="issuer-library-browser-"))
 S.mkdir(parents=True, exist_ok=True)
 PY = os.environ["FW_PYTHON"]
@@ -34,12 +37,15 @@ def note(ok, what):
     print(("PASS " if ok else "FAIL ") + what, flush=True)
 
 
-def serve(workspace, port, engine, key=None, extra=None):
-    env = {
-        k: v
-        for k, v in os.environ.items()
-        if k not in ("OPENAI_API_KEY", "ANTHROPIC_API_KEY", "OPENROUTER_API_KEY")
-    }
+def serve(
+    workspace: Path,
+    port: int,
+    engine: Path,
+    key: str | None = None,
+    extra: dict[str, str] | None = None,
+) -> subprocess.Popen[bytes]:
+    # Every provider key the adapters read is removed; the fake run gets only its own key.
+    env = {k: v for k, v in os.environ.items() if k not in KEY_VARIABLES.values()}
     env |= {
         "PYTHONPATH": str(R / "src"),
         "ISSUER_LIBRARY_ENGINE_ROOT": str(engine),

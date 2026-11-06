@@ -151,7 +151,6 @@ def resolve_typed_row(
     quantity: StatementQuantity,
     book_currency: str,
     book_unit: str,
-    context_tables: Sequence[ExtractedTable] | None = None,
 ) -> ResolvedTypedRow | None:
     """Resolve exact parts and the row's one source-supported quantity family, or refuse it."""
     resolved = resolve_label_parts(table, row, part_line_numbers)
@@ -166,7 +165,8 @@ def resolve_typed_row(
     data_rows = {item.line_no for item in table.lines}
     evidence_lines = tuple(
         item for item in table.source_lines
-        if item.line_no <= row.line_no and (item.line_no not in data_rows or item.line_no == row.line_no)
+        if item.line_no <= row.line_no
+        and (item.line_no not in data_rows or item.line_no == row.line_no)
     )
     contexts: list[str] = []
     for citation in quantity.citations:
@@ -202,7 +202,7 @@ def resolve_typed_row(
         supported = (
             quantity.scale == "UNITS"
             and bool(book_currency)
-            and re.search(r"\bper\s+(?:(?:common|ordinary)\s+)?share\b", context) is not None
+            and _PER_SHARE.search(context) is not None
         )
     elif selected_family == "shares":
         supported = not any(row.currency_values) and quantity.scale == _header_scale(context, True)
@@ -211,17 +211,33 @@ def resolve_typed_row(
     return ResolvedTypedRow(resolved, quantity, selected_family) if supported else None
 
 
-def _header_scale(context: str, shares: bool) -> str | None:
-    """Resolve an explicit header's family-specific scale, refusing conflicting cues."""
-    share_clause = re.search(
-        r"\bshares?\s+(not\s+)?in\s+(thousands?|millions?|units?)\b", context
-    )
+# "per share", "per diluted share", "per-share", "per ADS", "per limited partner unit".
+_PER_SHARE = re.compile(
+    r"\bper[\s-]+(?:[a-z]+\s+){0,3}?(?:shares?|ads|adss|adrs?|units?)\b", re.IGNORECASE
+)
+_SHARE_CLAUSE = re.compile(r"\bshares?\s+(not\s+)?in\s+(thousands?|millions?|units?)\b")
+# The text an "except" clause covers: up to the closing parenthesis or semicolon.
+_EXCEPT_CLAUSE = re.compile(r"\bexcept\b([^();]*)")
+_SHARE_NOUN = re.compile(r"\bshares?\b(?!\s+prices?\b)")
+
+
+def header_scale(context: str, shares: bool) -> str | None:
+    """Resolve an explicit header's family-specific scale, refusing conflicting cues.
+
+    `context` is casefolded. "shares in thousands" (or "not in") sets the share-count scale; an
+    "except" clause naming shares ("except share and per share data", "except per share and
+    share amounts", "except number of shares") leaves share counts unscaled. A per-share or
+    per-unit exception alone excepts neither share counts nor money from the header's scale."""
+    share_clause = _SHARE_CLAUSE.search(context)
     if shares and share_clause:
         return "UNITS" if share_clause[1] else share_clause[2].upper().rstrip("S") + "S"
-    if shares and re.search(r"\bexcept\s+(?:for\s+)?shares?\b", context):
+    if shares and any(
+        _SHARE_NOUN.search(_PER_SHARE.sub(" ", clause))
+        for clause in _EXCEPT_CLAUSE.findall(context)
+    ):
         return "UNITS"
-    # A per-share exception alone does not except share counts from the monetary scale.
-    text = context if share_clause is None else context[:share_clause.start()] + context[share_clause.end():]
+    text = context if share_clause is None else _SHARE_CLAUSE.sub(" ", context, count=1)
+    text = _PER_SHARE.sub(" ", text)
     scales = {
         name for name, pattern in (
             ("UNITS", r"\bunits?\b"),
@@ -232,16 +248,60 @@ def _header_scale(context: str, shares: bool) -> str | None:
     return next(iter(scales)) if len(scales) == 1 else None
 
 
-def _currency_matches(book_currency: str, text: str) -> bool:
-    declared = {
-        code for code, pattern in (
-            ("EUR", r"€|\beuros?\b|\bEUR\b"),
-            ("GBP", r"£|\bpounds?\b|\bGBP\b"),
-            ("USD", r"\bUSD\b|\bU\.?S\.?\s+dollars?\b"),
-            ("CAD", r"\bCAD\b|\bCanadian\s+dollars?\b"),
-        ) if re.search(pattern, text, re.IGNORECASE)
-    }
-    return not declared or declared == {book_currency}
+# A currency named in a header or on the row's own line, by ISO code, name or symbol. A
+# qualified dollar ("Canadian dollars", "A$") is matched before a bare one; a bare "dollars"
+# declares USD. A bare "$" is ambiguous across dollar currencies and is not a declaration.
+_CURRENCY_NAMES = tuple(
+    (code, re.compile(pattern, re.IGNORECASE))
+    for code, pattern in (
+        ("USD", r"\bU\.?\s?S\.?\s*dollars?\b|\bUS\$|\bUSD\b"),
+        ("CAD", r"\bCanadian\s+dollars?\b|\bC\$|\bCAD\b"),
+        ("AUD", r"\bAustralian\s+dollars?\b|\bA\$|\bAUD\b"),
+        ("NZD", r"\bNew\s+Zealand\s+dollars?\b|\bNZ\$|\bNZD\b"),
+        ("HKD", r"\bHong\s+Kong\s+dollars?\b|\bHK\$|\bHKD\b"),
+        ("SGD", r"\bSingapore\s+dollars?\b|\bS\$|\bSGD\b"),
+        ("USD", r"\bdollars?\b"),
+        ("EUR", r"€|\beuros?\b|\bEUR\b"),
+        ("GBP", r"£|\bpounds?(?:\s+sterling)?\b|\bGBP\b"),
+        ("CHF", r"\bSwiss\s+francs?\b|\bCHF\b"),
+        ("JPY", r"\byen\b|\bJPY\b"),
+        ("CNY", r"\brenminbi\b|\byuan\b|\bRMB\b|\bCNY\b"),
+        ("SEK", r"\bSwedish\s+kron(?:a|or)\b|\bSEK\b"),
+        ("NOK", r"\bNorwegian\s+kron(?:e|er)\b|\bNOK\b"),
+        ("DKK", r"\bDanish\s+kron(?:e|er)\b|\bDKK\b"),
+        ("INR", r"\brupees?\b|\bINR\b"),
+        ("BRL", r"\bBrazilian\s+rea(?:l|is)\b|\breais\b|\bBRL\b"),
+        ("MXN", r"\bMexican\s+pesos?\b|\bMXN\b"),
+        ("ZAR", r"\bSouth\s+African\s+rand\b|\bZAR\b"),
+        ("KRW", r"\bKorean\s+won\b|\bKRW\b"),
+    )
+)
+# "in millions of <noun>": the noun names the amounts' currency (or shares/units, not money).
+_AMOUNTS_OF = re.compile(r"\bin\s+(?:thousands|millions|billions)\s+of\s+", re.IGNORECASE)
+_NOT_MONEY = re.compile(r"(?:shares?|units?)\b", re.IGNORECASE)
+
+
+def _declared_currencies(text: str) -> tuple[set[str], bool]:
+    """The currencies `text` names, and whether an "in millions of X" names one the composer
+    does not recognise. A qualified dollar is consumed before a bare "dollars" is looked for."""
+    unknown = any(
+        _NOT_MONEY.match(text, found.end()) is None
+        and not any(pattern.match(text, found.end()) for _, pattern in _CURRENCY_NAMES)
+        for found in _AMOUNTS_OF.finditer(text)
+    )
+    declared: set[str] = set()
+    for code, pattern in _CURRENCY_NAMES:
+        text, count = pattern.subn(" ", text)
+        if count:
+            declared.add(code)
+    return declared, unknown
+
+
+def currency_matches(book_currency: str, text: str) -> bool:
+    """Whether the currency the text declares, if any, is the book's. A currency other than the
+    book's, more than one, or a currency the composer does not recognise refuses the row."""
+    declared, unknown = _declared_currencies(text)
+    return not unknown and (not declared or declared == {book_currency})
 
 
 _SHARE_COUNT_HEAD = re.compile(
@@ -270,7 +330,7 @@ def _local_quantity_family(
     label: str | ResolvedLabel,
 ) -> Literal["monetary", "currency_per_share", "shares"] | None:
     text = label.label if isinstance(label, ResolvedLabel) else label
-    per_share = re.search(r"\bper\s+(?:(?:common|ordinary)\s+)?share\b", text, re.IGNORECASE) is not None
+    per_share = _PER_SHARE.search(text) is not None
     shares = _share_count_label(text)
     unresolved_count = _unresolved_leading_count_intent(text)
     if unresolved_count or (per_share and shares):
@@ -308,7 +368,6 @@ def _typed_row_resolution(
     row_dimensions: Mapping[int, StatementQuantity],
     book_currency: str,
     book_unit: str,
-    context_tables: Sequence[ExtractedTable] | None,
 ) -> ResolvedTypedRow | None:
     quantity = row_dimensions.get(row.line_no)
     if quantity is None:
@@ -322,7 +381,6 @@ def _typed_row_resolution(
         quantity=quantity,
         book_currency=book_currency,
         book_unit=book_unit,
-        context_tables=context_tables,
     )
 
 
@@ -334,7 +392,11 @@ def validate_typed_statement_line(
     source_sha256: str,
     context_tables: Sequence[ExtractedTable] | None = None,
 ) -> bool:
-    """Re-resolve typed labels and dimensions against the current extraction for the gate."""
+    """Re-resolve typed labels and dimensions against the current extraction for the gate.
+
+    `context_tables` is not read: a unit's dimensional evidence belongs to that unit. It is
+    accepted only until financial_workflow stops passing it."""
+    del context_tables
     if line.quantity is None or line.label_parts is None:
         return False
     numbers = tuple(part.line_no for part in line.label_parts)
@@ -347,7 +409,6 @@ def validate_typed_statement_line(
         quantity=line.quantity,
         book_currency=book.currency,
         book_unit=book.unit,
-        context_tables=context_tables,
     )
     if (
         resolution is None
@@ -588,21 +649,29 @@ def _row_lines(
         return f"{'.'.join(str(part) for part in first['loc'])}: {first['msg']}"
 
 
-def _identified(
-    rows: Sequence[tuple[RowJudgment, ExtractedLine]], items: Collection[str]
-) -> dict[str, list[ExtractedLine]]:
-    found: dict[str, list[ExtractedLine]] = {item: [] for item in items}
+_Judged = tuple[RowJudgment, ExtractedLine]
+
+
+def _identified(rows: Sequence[_Judged], items: Collection[str]) -> dict[str, list[_Judged]]:
+    found: dict[str, list[_Judged]] = {item: [] for item in items}
     for judgment, row in rows:
         if judgment.item_id in found:
-            found[judgment.item_id].append(row)
+            found[judgment.item_id].append((judgment, row))
     return found
 
 
-def _only(found: dict[str, list[ExtractedLine]], item: str) -> ExtractedLine | None:
+def _only(found: dict[str, list[_Judged]], item: str) -> _Judged | None:
     return found[item][0] if len(found[item]) == 1 else None
 
 
-def _why_missing(found: dict[str, list[ExtractedLine]], items: Sequence[str]) -> str:
+def _signed_cell(judged: _Judged, column: int) -> Decimal:
+    """The cell as the line will be read: an `outflow_magnitude` amount is -abs(amount)."""
+    judgment, row = judged
+    amount = _cell(row, column)
+    return -abs(amount) if judgment.sign_convention == "outflow_magnitude" else amount
+
+
+def _why_missing(found: dict[str, list[_Judged]], items: Sequence[str]) -> str:
     absent = [item for item in items if not found[item]]
     repeated = [item for item in items if len(found[item]) > 1]
     parts = []
@@ -615,8 +684,8 @@ def _why_missing(found: dict[str, list[ExtractedLine]], items: Sequence[str]) ->
 
 def _sums(
     columns: Sequence[str | None],
-    left: Sequence[ExtractedLine],
-    right: Sequence[ExtractedLine],
+    left: Sequence[_Judged],
+    right: Sequence[_Judged],
     check: str,
     text: str,
 ) -> list[CheckIssue]:
@@ -624,8 +693,8 @@ def _sums(
     for column, period_id in enumerate(columns):
         if period_id is None:
             continue
-        lhs = sum((_cell(row, column) for row in left), Decimal(0))
-        rhs = sum((_cell(row, column) for row in right), Decimal(0))
+        lhs = sum((_signed_cell(judged, column) for judged in left), Decimal(0))
+        rhs = sum((_signed_cell(judged, column) for judged in right), Decimal(0))
         if lhs != rhs:
             issues.append(
                 CheckIssue(
@@ -693,7 +762,7 @@ def _checks(
         if len(found[FX_EFFECT]) > 1:
             skipped.append((CFS_NET_CHANGE, _why_missing(found, (FX_EFFECT,))))
         elif all(parts):
-            sections = [row for row in parts[:3] if row]
+            sections = [judged for judged in parts[:3] if judged]
             sections += found[FX_EFFECT]
             net = parts[3]
             applied.append(CFS_NET_CHANGE)
@@ -725,7 +794,7 @@ def _vacuous(
     nothing). An OCR unit does not count such a check as applied (R23.23, T22 fix 1)."""
     for check in applied:
         found = _identified(rows, _COMPARED[check])
-        compared = [row for item in _COMPARED[check] for row in found[item]]
+        compared = [row for item in _COMPARED[check] for _, row in found[item]]
         for column, period_id in enumerate(columns):
             if period_id is not None and all(row.values[column] is None for row in compared):
                 return True
@@ -753,7 +822,6 @@ def compose_unit(
     typed_profile: bool = False,
     book_currency: str = "",
     book_unit: str = "",
-    context_tables: Sequence[ExtractedTable] | None = None,
 ) -> Composition:
     """Compose the statement lines of one extracted unit.
 
@@ -836,7 +904,8 @@ def compose_unit(
                     _left(
                         row,
                         SOURCE_LABEL_REFUSED,
-                        "the typed-source profile requires a source-bounded contiguous label selection",
+                        "the typed-source profile requires a source-bounded contiguous label "
+                        "selection",
                     )
                 )
                 continue
@@ -849,14 +918,14 @@ def compose_unit(
                 row_dimensions=row_dimensions,
                 book_currency=book_currency,
                 book_unit=book_unit,
-                context_tables=context_tables,
             )
             if resolution is None:
                 left.append(
                     _left(
                         row,
                         SOURCE_QUANTITY_REFUSED,
-                        "the typed-source profile requires current source unit evidence that agrees with the row label and book",
+                        "the typed-source profile requires current source unit evidence that "
+                        "agrees with the row label and book",
                     )
                 )
                 continue
@@ -907,3 +976,7 @@ def compose_unit(
 
 def _all_left(table: ExtractedTable, reason: str, detail: str) -> tuple[LeftToModel, ...]:
     return tuple(_left(row, reason, detail) for row in table.lines)
+
+
+_header_scale = header_scale
+_currency_matches = currency_matches

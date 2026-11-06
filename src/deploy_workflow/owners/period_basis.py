@@ -180,7 +180,10 @@ def _row_basis(wanted: str, year: str, period_id: str, row: Mapping[str, Fact]) 
     if fact.text != wanted:
         raise PeriodRefused(f"run.reporting_currency {wanted}, but CP-1 reports {fact.text}")
     _check_unit(period_id, row)
-    spelled = row["fiscal_year"].text or ""
+    year_fact = row.get("fiscal_year")
+    if year_fact is None:
+        raise PeriodRefused(f"CP-1 T4.14 period {period_id} has no fiscal_year")
+    spelled = year_fact.text or ""
     if fiscal_year_number(spelled) != int(year):
         raise PeriodRefused(
             f"CP-1 T4.14 period {period_id} fiscal_year {spelled} reads as "
@@ -205,7 +208,8 @@ def _check_window(start: date, end: date, q4_start: date) -> None:
 
 
 def currency_basis(context: RunContext | None, cp1_facts: Iterable[Fact]) -> CurrencyBasis:
-    """The run's currency, checked against CP-1's T4.14 `currency`; any base kind, blank included."""
+    """The run's currency, checked against CP-1's T4.14 `currency`; any base kind, blank
+    included."""
     if context is None:
         return DEFAULT_CURRENCY
     register = period_register(cp1_facts)

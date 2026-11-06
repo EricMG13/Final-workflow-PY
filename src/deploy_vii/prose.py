@@ -23,6 +23,8 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import TYPE_CHECKING, Literal
 
+from deploy_vii.statement_extract import _SIGNS
+
 if TYPE_CHECKING:
     from deploy_vii.contracts import Fact, Module
 
@@ -65,16 +67,32 @@ _YEAR = r"(?:19|20)[0-9]{2}"
 # A bare year is a detached token: a percent sign after it makes a figure (1900%), as a unit
 # letter already did (1900x, 1900bn) (task 7.10 item 15).
 _YEAR_E = r"(?![0-9A-Za-z%])"
+# A year-shaped number that is an amount (review S04): one after a currency sign (the signs
+# `statement_extract` already refuses as a year, `$2050`, `$ 2050`) or a currency code
+# (`USD 2045`), or one before a magnitude or unit word (`2050 million`, `1950 bps`).
+_CURRENCY_CODES = ("USD", "EUR", "GBP", "CHF", "JPY", "CAD", "AUD")
+_NOT_AFTER_CURRENCY = "".join(
+    (
+        *(rf"(?<!{re.escape(sign)})(?<!{re.escape(sign)} )" for sign in sorted(_SIGNS)),
+        *(rf"(?<!{code} )" for code in _CURRENCY_CODES),
+    )
+)
+_NOT_BEFORE_MAGNITUDE = (
+    r"(?! ?(?i:million|billion|thousand|trillion|mn|mm|bn|bps|bp|basis points?|percent|"
+    r"per cent|times|turns)(?![0-9A-Za-z]))"
+)
 _MONTH = (
     r"(?:January|February|March|April|May|June|July|August|September|October|November|"
     r"December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\.?"
 )
-_DAY = r"(?:[1-9]|[12][0-9]|3[01])"
+_DAY = r"(?:0?[1-9]|[12][0-9]|3[01])"
 _INSTRUMENT_WORD = (
     r"(?i:senior|junior|secured|unsecured|subordinated|first-lien|second-lien|first|second|"
     r"lien|priority|guaranteed|convertible|exchangeable|fixed-rate|floating-rate|PIK|toggle)"
 )
 _INSTRUMENT_NOUN = rf"(?:(?i:notes?|bonds?|debentures?)|{_YEAR}s)"
+_PACK_ADJECTIVE = r"(?:(?:located|extracted|cited|answered|retained|pack|source) )"
+_PACK_NOUN = r"(?:pages?|sources?|spans?|lines?|documents?|files?|filings?|sections?|questions?)"
 _ITEM = r"[0-9]{1,2}[A-Z]?"
 _ITEM_JOIN = r"(?:-|\u2013|/|, and |, | and )"
 
@@ -91,23 +109,25 @@ LABELS: Mapping[str, re.Pattern[str]] = MappingProxyType(
                     rf"{_B}{_DAY} {_MONTH} {_YEAR}{_E}",
                     rf"{_B}{_MONTH} {_DAY}, {_YEAR}{_E}",
                     rf"{_B}{_YEAR}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01]){_E}",
-                    rf"{_B}{_YEAR}{_YEAR_E}",
+                    rf"{_B}{_NOT_AFTER_CURRENCY}{_YEAR}{_YEAR_E}{_NOT_BEFORE_MAGNITUDE}",
                 )
             )
         ),
         # Filing labels: 10-K, 10-Q, 8-K, 20-F (and 6-K, 40-F, S-1, F-1), with an /A amendment
-        # or plural; an SEC file number (001-36629); a regulation (Regulation 14A).
+        # or plural; an SEC file number with an SEC prefix (001-36629, 333-12345, 814-00663; any
+        # other `NNN-NNNNN` is a figure); a regulation (Regulation 14A).
         "filing": re.compile(
             "|".join(
                 (
                     rf"{_B}(?:10-K|10-Q|8-K|20-F|6-K|40-F|S-[1348]|F-[1-4])(?:/A|s)?{_E}",
-                    rf"{_B}[0-9]{{3}}-[0-9]{{5}}{_E}",
+                    rf"{_B}(?:0[0-9]{{2}}|333|811|814)-[0-9]{{5}}{_E}",
                     rf"{_B}Regulation [0-9]{{1,3}}[A-Z]?{_E}",
                 )
             )
         ),
         # A coupon with an instrument noun (6.50% notes due 2032, 7.125% senior secured 2032s),
-        # a maturity shorthand (2032s) and a tranche (Term Loan B-2, Tranche B-1).
+        # a maturity shorthand (2032s), a tranche (Term Loan B-2, Tranche B-1) and a currency
+        # tranche (EUR 2027 notes).
         "instrument": re.compile(
             "|".join(
                 (
@@ -115,6 +135,8 @@ LABELS: Mapping[str, re.Pattern[str]] = MappingProxyType(
                     rf"{_INSTRUMENT_NOUN}{_E}(?: due {_YEAR}{_E})?",
                     rf"{_B}{_YEAR}s{_E}",
                     rf"{_B}(?:Term Loan|Tranche) [A-Z]-?[0-9]{{1,2}}{_E}",
+                    # A currency tranche by maturity (EUR 2027 notes): the year is no amount.
+                    rf"{_B}(?:{'|'.join(_CURRENCY_CODES)}) {_YEAR} (?i:notes|bonds|debentures){_E}",
                 )
             )
         ),
@@ -133,13 +155,14 @@ LABELS: Mapping[str, re.Pattern[str]] = MappingProxyType(
                 )
             )
         ),
-        # Pack-coverage counts: how much of the Source Pack was read (195 of 195, 195 pages,
-        # 195 located spans). They describe pack structure, not the issuer, so they are labels.
-        # A duration (120 days) or any other bare count stays a figure.
+        # Pack-coverage counts: how much of the Source Pack was read (195 of 195 pages, 195
+        # pages, 195 located spans). They describe pack structure, not the issuer, so they are
+        # labels; `N of M` needs a pack-structure noun (review S04: `3 of 4 quarters`, `400 of
+        # 500 million` are figures). A duration (120 days) or any other bare count stays a figure.
         "coverage": re.compile(
             "|".join(
                 (
-                    rf"{_B}[0-9]{{1,5}} of [0-9]{{1,5}}{_E}",
+                    rf"{_B}[0-9]{{1,5}} of [0-9]{{1,5}} {_PACK_ADJECTIVE}?{_PACK_NOUN}{_E}",
                     rf"{_B}[0-9]{{1,5}} pages?{_E}",
                     rf"{_B}[0-9]{{1,6}} located spans?{_E}",
                 )
@@ -218,7 +241,8 @@ def bare_figures(text: str, *, names: Collection[str] = ()) -> tuple[str, ...]:
     spans = [m.span() for pattern in LABELS.values() for m in pattern.finditer(text)]
     for name in names:
         if name:
-            spans += [m.span() for m in re.finditer(re.escape(name), text)]
+            # Label boundaries: a name never covers part of a longer token (`3M` in `3Mn`).
+            spans += [m.span() for m in re.finditer(_B + re.escape(name) + _E, text)]
     for start, end in spans:
         covered[start:end] = [True] * (end - start)
     found: list[str] = []

@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Literal
 
@@ -13,6 +14,9 @@ from deploy_vii.render import render
 from deploy_vii.statement_history import StatementHistoryReport, statement_history
 from deploy_vii.statement_view import statement_view
 from deploy_vii.table_markdown import markdown_cell, table_markdown, validate_table_markdown
+
+# `complete.json` before its `files`: hashes and run-time bindings (None where unbound).
+Receipt = Mapping[str, str | Mapping[str, str] | None]
 
 
 class InterfacePreview(Contract):
@@ -104,10 +108,18 @@ def write_interface_preview(
         "module_acceptance": "unrun",
         "analytical_qualification": "unrun",
         "browser_acceptance": "unrun",
-        "files": {name: hashlib.sha256(raw.encode()).hexdigest() for name, raw in payloads.items()},
     }
-    destination.mkdir(parents=True, exist_ok=False)
-    for name, raw in payloads.items():
-        (destination / name).write_text(raw, encoding="utf-8")
-    (destination / "complete.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
+    _write_preview(destination, payloads, receipt)
     return destination / "candidate.html"
+
+
+def _write_preview(destination: Path, payloads: Mapping[str, str], receipt: Receipt) -> None:
+    """Create `destination` (new), write each payload as its UTF-8 bytes, then `complete.json`:
+    `receipt` with `files`, the SHA-256 of exactly the bytes written (no newline translation
+    on any platform)."""
+    encoded = {name: raw.encode("utf-8") for name, raw in payloads.items()}
+    complete = {**receipt, "files": {n: hashlib.sha256(b).hexdigest() for n, b in encoded.items()}}
+    destination.mkdir(parents=True, exist_ok=False)
+    for name, data in encoded.items():
+        (destination / name).write_bytes(data)
+    (destination / "complete.json").write_bytes(json.dumps(complete, indent=2).encode("utf-8"))

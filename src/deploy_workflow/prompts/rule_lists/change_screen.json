@@ -38,21 +38,23 @@
     "oracle:cpl10:r09",
     "oracle:cpl10:r10",
     "oracle:cpl10:r11",
-    "fn:deploy_workflow.owners.cpl10:_text_issues"
+    "fn:deploy_workflow.owners.cpl10:_text_issues",
+    "fn:deploy_workflow.owners.cpl10:_prohibited"
    ]
   },
   {
    "id": "change_screen.5",
-   "statement": "An overall whose category is Insufficient Information states its `limitation`; an overall of any other category has a null `limitation`, and a stated limitation is not blank.",
+   "statement": "An overall whose category is Insufficient Information states its `limitation`; an overall of any other category has a null `limitation`, and a stated limitation is not blank, contains no digit and none of the words recommend, recovery or covenant anywhere in the text, whatever the case.",
    "checks": [
     "oracle:cpl10:r14",
     "oracle:cpl10:r15",
-    "fn:deploy_workflow.owners.cpl10:_overall_issues"
+    "fn:deploy_workflow.owners.cpl10:_overall_issues",
+    "fn:deploy_workflow.owners.cpl10:_plain_text_issues"
    ]
   },
   {
    "id": "change_screen.6",
-   "statement": "Each gap's `affected_analysis` is a topic id of the view or `overall`; its `gap`, `why_it_matters` and `action` are not blank; no gap field contains a digit; and no two gaps share the same `affected_analysis` and `gap`.",
+   "statement": "Each gap's `affected_analysis` is a topic id of the view or `overall`; its `gap`, `why_it_matters` and `action` are not blank; no gap field contains a digit; `gap`, `why_it_matters` and `action` contain none of the words recommend, recovery or covenant anywhere in the text, whatever the case; and no two gaps share the same `affected_analysis` and `gap`.",
    "checks": [
     "oracle:cpl10:r16",
     "oracle:cpl10:r17",

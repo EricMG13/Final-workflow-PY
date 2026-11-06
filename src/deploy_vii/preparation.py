@@ -9,7 +9,10 @@ import re
 import shutil
 import subprocess
 import tempfile
-from contextlib import closing
+import zlib
+from collections.abc import Callable, Iterator
+from contextlib import closing, contextmanager
+from dataclasses import dataclass
 from importlib.metadata import version
 from pathlib import Path
 from typing import Literal, Self
@@ -19,7 +22,7 @@ from zipfile import BadZipFile, ZipFile
 
 from pydantic import model_validator
 from pypdf import PageObject, PdfReader
-from pypdf.errors import PdfReadError
+from pypdf.errors import DependencyError, PyPdfError
 
 from deploy_vii.contracts import Contract, Coverage, Identifier, Run, Source, Span, Text
 
@@ -204,31 +207,71 @@ def pdf_content(raw: bytes) -> Extraction:
         return _pdf_pages(reader, ocr)
 
 
+# What reading one page can raise: pypdf's own errors (a bad filter, a stream it cannot decode, a
+# filter whose binary is absent), an unsupported filter, malformed objects and deep nesting.
+_PAGE_ERRORS = (
+    PyPdfError,
+    DependencyError,
+    NotImplementedError,
+    ValueError,
+    KeyError,
+    TypeError,
+    RecursionError,
+)
+
+
+class _Warnings(logging.Handler):
+    def __init__(self) -> None:
+        super().__init__(logging.WARNING)
+        self.messages: list[str] = []
+
+    def emit(self, record: logging.LogRecord) -> None:
+        self.messages.append(record.getMessage())
+
+
+@contextmanager
+def _filter_warnings() -> Iterator[list[str]]:
+    """The warnings pypdf's stream filters log meanwhile: it decodes a corrupt stream it cannot
+    repair to nothing and only logs why."""
+    logger = logging.getLogger("pypdf.filters")
+    handler, level = _Warnings(), logger.level
+    if not logger.isEnabledFor(logging.WARNING):
+        logger.setLevel(logging.WARNING)
+    logger.addHandler(handler)
+    try:
+        yield handler.messages
+    finally:
+        logger.removeHandler(handler)
+        logger.setLevel(level)
+
+
+def _page_text(locator: str, page: PageObject) -> str | Coverage:
+    """The page's layout text, or its unreadable coverage: a failure is this page's alone."""
+    with _filter_warnings() as warnings:
+        try:
+            content = page.get_contents()
+            data = b"" if content is None else content.get_data()
+            if len(data) > MAX_BYTES:
+                limitation = "Content stream exceeds extraction limit"
+                return Coverage(locator=locator, status="unreadable", limitation=limitation)
+            text = page.extract_text(extraction_mode="layout", layout_mode_strip_rotated=False)
+        except _PAGE_ERRORS as error:
+            limitation = f"Extraction failed: {type(error).__name__}"
+            return Coverage(locator=locator, status="unreadable", limitation=limitation)
+    if not text.strip() and not data and warnings:
+        limitation = f"Content stream could not be decoded: {warnings[0]}"
+        return Coverage(locator=locator, status="unreadable", limitation=limitation)
+    return text
+
+
 def _pdf_pages(reader: PdfReader, ocr: _Ocr) -> Extraction:
     spans: list[Span] = []
     coverage: list[Coverage] = []
     for index, page in enumerate(reader.pages, 1):
         locator = f"page:{index}"
-        content = page.get_contents()
-        if content is not None and len(content.get_data()) > MAX_BYTES:
-            coverage.append(
-                Coverage(
-                    locator=locator,
-                    status="unreadable",
-                    limitation="Content stream exceeds extraction limit",
-                )
-            )
-            continue
-        try:
-            text = page.extract_text(extraction_mode="layout", layout_mode_strip_rotated=False)
-        except (PdfReadError, ValueError, KeyError, TypeError) as error:
-            coverage.append(
-                Coverage(
-                    locator=locator,
-                    status="unreadable",
-                    limitation=f"Extraction failed: {type(error).__name__}",
-                )
-            )
+        text = _page_text(locator, page)
+        if isinstance(text, Coverage):
+            coverage.append(text)
             continue
         if text.strip():
             spans.append(Span(locator=locator, text=text))
@@ -258,13 +301,231 @@ def _pdf_pages(reader: PdfReader, ocr: _Ocr) -> Extraction:
     )
 
 
+class DamagedMember(ValueError):
+    """A ZIP member that `zipfile` cannot decompress: corrupt compressed data, a truncated member
+    or an encrypted one. The message names what failed (`damaged ZIP member (zlib.error: ...)`)."""
+
+
 def xml_part(archive: ZipFile, path: str) -> ET.Element:
+    try:
+        data = archive.read(path)
+    except NotImplementedError:
+        raise  # an unsupported compression method: refused as it is
+    except (zlib.error, EOFError, RuntimeError) as error:
+        # CPython's zipfile raises these for a corrupt deflate stream, a truncated member and a
+        # ZipCrypto-encrypted member (RuntimeError: password required).
+        kind = type(error).__name__
+        kind = kind if type(error).__module__ == "builtins" else f"{type(error).__module__}.{kind}"
+        raise DamagedMember(f"damaged ZIP member ({kind}: {error})") from error
     # Reject alternate encodings before the declaration check: UTF-16 NUL bytes
     # must not hide an entity declaration from this boundary.
-    raw = archive.read(path).decode("utf-8-sig", errors="strict")
+    raw = data.decode("utf-8-sig", errors="strict")
     if "\x00" in raw or "<!DOCTYPE" in raw.upper() or "<!ENTITY" in raw.upper():
         raise ValueError("DTD/entity declarations are not supported")
     return ET.fromstring(raw)
+
+
+def column_number(address: str) -> int:
+    """The 1-based column an A1 address's letters name (`A1` 1, `AB12` 28)."""
+    number = 0
+    for char in address:
+        if char.isalpha():
+            number = number * 26 + ord(char.upper()) - 64
+    return number
+
+
+def column_letters(number: int) -> str:
+    """The A1 letters of a 1-based column (28 `AB`)."""
+    letters = ""
+    while number:
+        number, remainder = divmod(number - 1, 26)
+        letters = chr(ord("A") + remainder) + letters
+    return letters
+
+
+def _shared_strings(archive: ZipFile) -> list[str]:
+    if "xl/sharedStrings.xml" not in archive.namelist():
+        return []
+    return [
+        "".join(
+            node.text or "" for node in (*item.findall("s:t", NS), *item.findall("s:r/s:t", NS))
+        )
+        for item in xml_part(archive, "xl/sharedStrings.xml")
+    ]
+
+
+def _cell_formats(archive: ZipFile) -> list[str]:
+    """The number format of each cell style (`cellXfs`), custom codes or `builtin:<id>`."""
+    if "xl/styles.xml" not in archive.namelist():
+        return []
+    style = xml_part(archive, "xl/styles.xml")
+    formats = {
+        item.attrib["numFmtId"]: item.attrib["formatCode"]
+        for item in style.findall("s:numFmts/s:numFmt", NS)
+    }
+    return [
+        formats.get(item.get("numFmtId", "0"), "builtin:" + item.get("numFmtId", "0"))
+        for item in style.findall("s:cellXfs/s:xf", NS)
+    ]
+
+
+def _worksheet_path(relationship: ET.Element) -> str:
+    if relationship.get("TargetMode") == "External":
+        raise ValueError("External worksheet relationship is unsupported")
+    target = relationship.attrib["Target"]
+    path = posixpath.normpath(target.lstrip("/") if target.startswith("/") else "xl/" + target)
+    if not path.startswith("xl/"):
+        raise ValueError("Worksheet relationship escapes workbook")
+    return path
+
+
+@dataclass(frozen=True)
+class _Book:
+    """What every cell of a workbook is read against."""
+
+    strings: list[str]
+    styles: list[str]
+
+
+@dataclass(frozen=True)
+class _Place:
+    """Where a cell sits: its locator, and whether its sheet, row or column is hidden."""
+
+    locator: str
+    hidden: bool
+
+
+def _cell_text(cell: ET.Element, stored: str | None, book: _Book) -> str:
+    kind = cell.get("t", "n")
+    if kind == "s":
+        string_index = int(stored or "-1")
+        if not 0 <= string_index < len(book.strings):
+            raise ValueError("Invalid shared-string index")
+        return book.strings[string_index]
+    if kind == "inlineStr":
+        return "".join(
+            node.text or ""
+            for node in (*cell.findall("s:is/s:t", NS), *cell.findall("s:is/s:r/s:t", NS))
+        )
+    return stored or ""
+
+
+def _cell_span(cell: ET.Element, place: _Place, book: _Book) -> Span:
+    value = cell.find("s:v", NS)
+    stored = value.text if value is not None else None
+    formula_node = cell.find("s:f", NS)
+    text = _cell_text(cell, stored, book)
+    if formula_node is not None:
+        formula_label = formula_node.text or "[shared/array formula; see formula metadata]"
+        cache_label = stored if stored is not None else "[absent]"
+        text = f"Formula: {formula_label}\nStored cache: {cache_label}"
+    style_index = int(cell.get("s", "0"))
+    if style_index < 0 or (book.styles and style_index >= len(book.styles)):
+        raise ValueError("Invalid cell style index")
+    return Span(
+        locator=place.locator,
+        text=text,
+        formula=None if formula_node is None else ET.tostring(formula_node, encoding="unicode"),
+        cached_value=stored if formula_node is not None else None,
+        data_type=cell.get("t", "n"),
+        number_format=book.styles[style_index] if book.styles else None,
+        hidden=place.hidden,
+    )
+
+
+def _hidden_columns(tree: ET.Element) -> list[tuple[int, int]]:
+    return [
+        (int(item.attrib["min"]), int(item.attrib["max"]))
+        for item in tree.findall("s:cols/s:col", NS)
+        if item.get("hidden") in {"1", "true"}
+    ]
+
+
+@dataclass(frozen=True)
+class _Sheet:
+    """One worksheet's locator prefix and hidden state, with the workbook it belongs to."""
+
+    prefix: str
+    hidden: bool
+    hidden_columns: list[tuple[int, int]]
+    book: _Book
+
+
+def _row_spans(row: ET.Element, number: int | None, sheet: _Sheet) -> list[Span]:
+    """The row's cells. A cell without its optional `r` reference takes the column after the
+    previous cell, as OOXML defines; `number` is the row's (None: its own `r` is malformed)."""
+    spans: list[Span] = []
+    hidden_row = sheet.hidden or row.get("hidden") in {"1", "true"}
+    column = 0
+    for cell in row.findall("s:c", NS):
+        address = cell.get("r")
+        if address is None:
+            if number is None:
+                raise ValueError("A cell without a reference is in a row with a malformed one")
+            column += 1
+            address = f"{column_letters(column)}{number}"
+        else:
+            column = column_number(address)
+        hidden = hidden_row or any(low <= column <= high for low, high in sheet.hidden_columns)
+        spans.append(_cell_span(cell, _Place(f"{sheet.prefix}!{address}", hidden), sheet.book))
+    return spans
+
+
+def _sheet_spans(tree: ET.Element, prefix: str, hidden: bool, book: _Book) -> list[Span]:
+    """One span per stored cell, then one per merged range. A row without its optional `r`
+    reference is the one after the previous row."""
+    has_cells = tree.find("s:sheetData/s:row/s:c", NS) is not None
+    sheet = _Sheet(prefix, hidden, _hidden_columns(tree) if has_cells else [], book)
+    spans: list[Span] = []
+    number: int | None = 0
+    for row in tree.findall("s:sheetData/s:row", NS):
+        reference = row.get("r")
+        if reference is None:
+            number = None if number is None else number + 1
+        else:
+            number = int(reference) if reference.isdecimal() else None
+        spans += _row_spans(row, number, sheet)
+    for merged in tree.findall("s:mergeCells/s:mergeCell", NS):
+        spans.append(
+            Span(
+                locator=prefix + "!merged:" + merged.attrib["ref"],
+                text="",
+                note="Merged range; only anchor cell carries the stored value",
+                data_type="metadata",
+                hidden=hidden,
+            )
+        )
+    return spans
+
+
+def _comment_spans(archive: ZipFile) -> list[Span]:
+    """Cell comments with their native XML identity; no linked source is fetched."""
+    spans: list[Span] = []
+    for name in sorted(archive.namelist()):
+        if ("/comments/" in name and name.endswith(".xml")) or (
+            name.startswith("xl/comments") and name.endswith(".xml")
+        ):
+            comments = xml_part(archive, name)
+            authors = [item.text or "" for item in comments.findall("s:authors/s:author", NS)]
+            for item in comments.findall("s:commentList/s:comment", NS):
+                text = "".join(node.text or "" for node in item.findall("s:text//s:t", NS))
+                spans.append(
+                    Span(
+                        locator="part:" + quote(name, safe="") + "!" + item.attrib["ref"],
+                        text=text,
+                        note=authors[int(item.get("authorId", "0"))] if authors else None,
+                    )
+                )
+    return spans
+
+
+def _epoch(workbook: ET.Element) -> str:
+    date_system = workbook.find("s:workbookPr", NS)
+    return (
+        "1904"
+        if date_system is not None and date_system.get("date1904") in {"1", "true"}
+        else "1900"
+    )
 
 
 def xlsx_content(raw: bytes) -> Extraction:
@@ -278,151 +539,55 @@ def xlsx_content(raw: bytes) -> Extraction:
         workbook = xml_part(archive, "xl/workbook.xml")
         rels = xml_part(archive, "xl/_rels/workbook.xml.rels")
         relationships = {item.attrib["Id"]: item for item in rels}
-        strings: list[str] = []
-        if "xl/sharedStrings.xml" in archive.namelist():
-            strings = [
-                "".join(
-                    node.text or ""
-                    for node in (*item.findall("s:t", NS), *item.findall("s:r/s:t", NS))
-                )
-                for item in xml_part(archive, "xl/sharedStrings.xml")
-            ]
-        formats: dict[str, str] = {}
-        styles: list[str] = []
-        if "xl/styles.xml" in archive.namelist():
-            style = xml_part(archive, "xl/styles.xml")
-            formats = {
-                item.attrib["numFmtId"]: item.attrib["formatCode"]
-                for item in style.findall("s:numFmts/s:numFmt", NS)
-            }
-            styles = [
-                formats.get(item.get("numFmtId", "0"), "builtin:" + item.get("numFmtId", "0"))
-                for item in style.findall("s:cellXfs/s:xf", NS)
-            ]
-        spans: list[Span] = []
-        coverage: list[Coverage] = []
-        limitations = [
+        book = _Book(strings=_shared_strings(archive), styles=_cell_formats(archive))
+        limitations = (
             (
                 "Workbook values are raw stored lexemes, not Excel display values. Formula caches "
                 "may be absent or stale; no recalculation. Charts, drawings and embedded objects "
                 "require separate visual review."
-            )
-        ]
-        date_system = workbook.find("s:workbookPr", NS)
-        epoch = (
-            "1904"
-            if date_system is not None and date_system.get("date1904") in {"1", "true"}
-            else "1900"
+            ),
+            (
+                f"Workbook date system: {_epoch(workbook)}; date serials are retained without "
+                "conversion."
+            ),
         )
-        limitations.append(
-            f"Workbook date system: {epoch}; date serials are retained without conversion."
-        )
+        spans: list[Span] = []
+        coverage: list[Coverage] = []
         for sheet in workbook.findall("s:sheets/s:sheet", NS):
-            name = sheet.attrib["name"]
-            prefix = "sheet:" + quote(name, safe="")
-            relationship = relationships[sheet.attrib[REL]]
-            if relationship.get("TargetMode") == "External":
-                raise ValueError("External worksheet relationship is unsupported")
-            target = relationship.attrib["Target"]
-            path = posixpath.normpath(
-                target.lstrip("/") if target.startswith("/") else "xl/" + target
-            )
-            if not path.startswith("xl/"):
-                raise ValueError("Worksheet relationship escapes workbook")
-            tree = xml_part(archive, path)
+            prefix = "sheet:" + quote(sheet.attrib["name"], safe="")
+            tree = xml_part(archive, _worksheet_path(relationships[sheet.attrib[REL]]))
             hidden_sheet = sheet.get("state", "visible") != "visible"
-            columns = tree.findall("s:cols/s:col", NS)
-            before = len(spans)
-            for row in tree.findall("s:sheetData/s:row", NS):
-                for cell in row.findall("s:c", NS):
-                    address = cell.attrib["r"]
-                    kind = cell.get("t", "n")
-                    value = cell.find("s:v", NS)
-                    stored = value.text if value is not None else None
-                    formula_node = cell.find("s:f", NS)
-                    formula = (
-                        None
-                        if formula_node is None
-                        else ET.tostring(formula_node, encoding="unicode")
-                    )
-                    if kind == "s":
-                        string_index = int(stored or "-1")
-                        if not 0 <= string_index < len(strings):
-                            raise ValueError("Invalid shared-string index")
-                        text = strings[string_index]
-                    elif kind == "inlineStr":
-                        text = "".join(
-                            node.text or ""
-                            for node in (
-                                *cell.findall("s:is/s:t", NS),
-                                *cell.findall("s:is/s:r/s:t", NS),
-                            )
-                        )
-                    else:
-                        text = stored or ""
-                    if formula_node is not None:
-                        formula_label = (
-                            formula_node.text or "[shared/array formula; see formula metadata]"
-                        )
-                        cache_label = stored if stored is not None else "[absent]"
-                        text = f"Formula: {formula_label}\nStored cache: {cache_label}"
-                    column_index = 0
-                    for char in address:
-                        if char.isalpha():
-                            column_index = column_index * 26 + ord(char.upper()) - 64
-                    hidden_column = any(
-                        item.get("hidden") in {"1", "true"}
-                        and int(item.attrib["min"]) <= column_index <= int(item.attrib["max"])
-                        for item in columns
-                    )
-                    style_index = int(cell.get("s", "0"))
-                    if style_index < 0 or (styles and style_index >= len(styles)):
-                        raise ValueError("Invalid cell style index")
-                    spans.append(
-                        Span(
-                            locator=prefix + "!" + address,
-                            text=text,
-                            formula=formula,
-                            cached_value=stored if formula_node is not None else None,
-                            data_type=kind,
-                            number_format=styles[style_index] if styles else None,
-                            hidden=hidden_sheet
-                            or row.get("hidden") in {"1", "true"}
-                            or hidden_column,
-                        )
-                    )
-            for merged in tree.findall("s:mergeCells/s:mergeCell", NS):
-                spans.append(
-                    Span(
-                        locator=prefix + "!merged:" + merged.attrib["ref"],
-                        text="",
-                        note="Merged range; only anchor cell carries the stored value",
-                        data_type="metadata",
-                        hidden=hidden_sheet,
-                    )
-                )
-            coverage.append(
-                Coverage(locator=prefix, status="retained" if len(spans) > before else "empty")
-            )
-        # Keep cell comments with their native XML identity; no linked source is fetched.
-        for name in sorted(archive.namelist()):
-            if ("/comments/" in name and name.endswith(".xml")) or (
-                name.startswith("xl/comments") and name.endswith(".xml")
-            ):
-                comments = xml_part(archive, name)
-                authors = [item.text or "" for item in comments.findall("s:authors/s:author", NS)]
-                for item in comments.findall("s:commentList/s:comment", NS):
-                    text = "".join(node.text or "" for node in item.findall("s:text//s:t", NS))
-                    spans.append(
-                        Span(
-                            locator="part:" + quote(name, safe="") + "!" + item.attrib["ref"],
-                            text=text,
-                            note=authors[int(item.get("authorId", "0"))] if authors else None,
-                        )
-                    )
-        return Extraction(
-            spans=tuple(spans), coverage=tuple(coverage), limitations=tuple(limitations)
-        )
+            found = _sheet_spans(tree, prefix, hidden_sheet, book)
+            spans += found
+            coverage.append(Coverage(locator=prefix, status="retained" if found else "empty"))
+        spans += _comment_spans(archive)
+        return Extraction(spans=tuple(spans), coverage=tuple(coverage), limitations=limitations)
+
+
+# Each media type's extractor name (read when used: the pypdf version) and function.
+_EXTRACTORS: dict[str, tuple[Callable[[], str], Callable[[bytes], Extraction]]] = {
+    "text/plain": (lambda: "utf8-lines/1", text_content),
+    "application/pdf": (lambda: "pypdf/" + version("pypdf"), pdf_content),
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": (
+        lambda: "ooxml-lexemes/1",
+        xlsx_content,
+    ),
+}
+# What an extractor raises for a source it cannot read; each becomes an unreadable source, so
+# one file never stops `prepare` (RecursionError: a deeply nested formula or PDF object).
+_SOURCE_ERRORS = (
+    ValueError,
+    UnicodeError,
+    PyPdfError,
+    DependencyError,
+    BadZipFile,
+    ET.ParseError,
+    KeyError,
+    IndexError,
+    TypeError,
+    NotImplementedError,
+    RecursionError,
+)
 
 
 def prepare_source(request: SourceRequest, raw: bytes | None) -> Source:
@@ -436,30 +601,13 @@ def prepare_source(request: SourceRequest, raw: bytes | None) -> Source:
             limitation="Requested file is absent",
         )
     digest = hashlib.sha256(raw).hexdigest()
-    extractor = {
-        "text/plain": "utf8-lines/1",
-        "application/pdf": "pypdf/" + version("pypdf"),
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "ooxml-lexemes/1",
-    }[request.media_type]
+    name, extract = _EXTRACTORS[request.media_type]
+    extractor = name()
     try:
         if len(raw) > MAX_BYTES:
             raise ValueError("Source exceeds extraction byte limit")
-        extraction = {
-            "text/plain": text_content,
-            "application/pdf": pdf_content,
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": xlsx_content,
-        }[request.media_type](raw)
-    except (
-        ValueError,
-        UnicodeError,
-        PdfReadError,
-        BadZipFile,
-        ET.ParseError,
-        KeyError,
-        IndexError,
-        TypeError,
-        NotImplementedError,
-    ) as error:
+        extraction = extract(raw)
+    except _SOURCE_ERRORS as error:
         return Source(
             source_id=request.source_id,
             name=request.path,

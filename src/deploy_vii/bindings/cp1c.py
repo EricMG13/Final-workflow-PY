@@ -13,22 +13,13 @@ arithmetic, and no import of ``deploy_workflow``. Slots carry a ``cp1c-`` prefix
 across all shipped maps.
 """
 
-from deploy_vii.bindings import Binding, BindingMap
-from deploy_vii.display import UnitClass
-from deploy_vii.report_view import FactCoord
+from deploy_vii.bindings import Binder, BindingMap
 
 MODULE_ID = "CP-1C"
 BLOCKS = ("peer-positioning",)
 
 
-def _bind(table: str, block: str, label: str, unit: UnitClass = "text") -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id=MODULE_ID, table_id=table),
-        block_id=block,
-        cell_slot="cp1c-" + table.lower().replace(".", "-"),
-        unit_class=unit,
-        label=label,
-    )
+_bind = Binder(MODULE_ID, "cp1c-").bind
 
 
 CP1C = BindingMap(

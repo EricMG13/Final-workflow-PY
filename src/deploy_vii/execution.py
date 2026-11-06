@@ -51,7 +51,7 @@ from deploy_vii.registry import (
     plan,
     within_attempt_repair,
 )
-from deploy_workflow.platform_io import locks as fcntl
+from deploy_workflow import platform_io
 
 Validator = Callable[[Module], tuple[str, ...]]
 SCHEMA = "execution/5"
@@ -417,12 +417,29 @@ def listed_issues[T](
     return tuple(clipped(render(item)) for item in shown)
 
 
+_REST_LINE = re.compile(r"[1-9][0-9]* further issues not listed")
+
+
+def _is_bounded(issues: Sequence[str]) -> bool:
+    """Whether `issues` is already `bounded_issues` output with its count line (21 lines)."""
+    return (
+        len(issues) == MAX_ISSUES + 1
+        and _REST_LINE.fullmatch(issues[-1]) is not None
+        and all(len(line) <= MAX_ISSUE_CHARS for line in issues[:-1])
+    )
+
+
 def bounded_issues(issues: Sequence[str]) -> tuple[str, ...]:
     """At most 20 lines of at most 600 characters, then a count of the lines left out.
 
     Issue text can quote caller content (a citation locator, a field name), so no issue
-    list reaches a snapshot unbounded.
+    list reaches a snapshot unbounded. A list this function already bounded is returned as
+    it is: re-bounding a validator's bounded list (CP-DR steps, `settle`) must not replace
+    its count with "1 further issues not listed" and drop the twentieth issue. Every other
+    input keeps the bytes earlier versions wrote, so retained steps still verify (host.py).
     """
+    if _is_bounded(issues):
+        return tuple(issues)
     shown = tuple(shortened(line) for line in issues[:MAX_ISSUES])
     rest = len(issues) - MAX_ISSUES
     return (*shown, f"{rest} further issues not listed") if rest > 0 else shown
@@ -524,7 +541,7 @@ def _atomic_write(path: Path, raw: bytes) -> None:
             stream.write(raw)
             stream.flush()
             os.fsync(stream.fileno())
-        os.replace(temporary, path)
+        platform_io.replace(temporary, path)  # waits out a Windows reader holding `path`
     finally:
         Path(temporary).unlink(missing_ok=True)
 
@@ -576,11 +593,11 @@ class Execution:
     @contextmanager
     def _locked(self) -> Iterator[None]:
         with (self.directory / ".lock").open("a") as lock:
-            fcntl.flock(lock, fcntl.LOCK_EX)
+            platform_io.locks.flock(lock, platform_io.locks.LOCK_EX)
             try:
                 yield
             finally:
-                fcntl.flock(lock, fcntl.LOCK_UN)
+                platform_io.locks.flock(lock, platform_io.locks.LOCK_UN)
 
     def read(self) -> ExecutionSnapshot:
         """Return the current snapshot after checking its hash; blobs are checked on access."""
@@ -758,13 +775,21 @@ class Execution:
         result: Module,
         qualification: Qualification | None = None,
     ) -> None:
-        """Caller holds the execution lock; preserve the existing invalidation policy."""
+        """Caller holds the execution lock. A new head stales its consumers; a rejection keeps
+        every head as it was."""
         if self._store(result.model_dump_json()) != finished.result_sha256:
             raise ValueError("Settled result is not the attempt's result")
-        heads = invalidate(snapshot.heads, finished.module_id)
+        heads = snapshot.heads
+        # A rejected result leaves the module's head as it was, so its consumers' bound inputs
+        # are still current: staling them would leave them stale with an input set `begin`
+        # refuses as settled. Only a new head invalidates its consumers.
         if result.status != "rejected":
             heads = (
-                *tuple(h for h in heads if h.module_id != finished.module_id),
+                *tuple(
+                    h
+                    for h in invalidate(heads, finished.module_id)
+                    if h.module_id != finished.module_id
+                ),
                 head_of(result, qualification),
             )
         self._write(

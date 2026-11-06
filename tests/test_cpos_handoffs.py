@@ -108,7 +108,7 @@ def test_explicit_live_loop_drives_existing_planner_delivery_and_resume(tmp_path
         answer = Turn(
             "",
             (ToolCall(str(len(seen)), "write_handoff", {"markdown": RESPONSES[module].decode()}),),
-            Usage(input_tokens=100, output_tokens=50),
+            Usage(input_tokens=100, cache_write_tokens=0, output_tokens=50),
             "tool_use",
             "gpt-6.1-sol",
             "fake",

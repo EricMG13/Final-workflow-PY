@@ -79,8 +79,9 @@ def test_real_pages_have_a_located_heading_per_statement() -> None:
 def test_earnings_workflow_uses_the_same_rule() -> None:
     from deploy_workflow import earnings_workflow as ew
 
-    # CP1H-R18: the shared locating rule is `_statement_units`, not the heading regex.
-    assert ew._statement_units is fw._statement_units
+    # CP1H-R18: the shared locating rule is `_statement_units`, not the heading regex; the
+    # receipt path's financials gate is the financial workflow's own `_evidence_issues` (S09).
+    assert ew._evidence_issues is fw._evidence_issues
 
 
 # --- Gap 2 -------------------------------------------------------------------------------------

@@ -20,7 +20,7 @@ from collections.abc import Mapping as MappingABC
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-from decimal import ROUND_HALF_UP, ROUND_UP, Context, Decimal, localcontext
+from decimal import ROUND_UP, Decimal, InvalidOperation, localcontext
 from pathlib import Path
 from types import MappingProxyType
 from typing import Literal
@@ -60,9 +60,21 @@ from deploy_workflow.model_testing.configs import (
 from deploy_workflow.model_testing.faults import read_faults
 from deploy_workflow.model_testing.mapping import Mapping, MappingError, load_mapping
 from deploy_workflow.model_testing.pathway import PathwayScore, receipt_refusals, score_run
-from deploy_workflow.model_testing.records import JournalError, RunMeta, read_run
+from deploy_workflow.model_testing.records import (
+    JournalError,
+    RunMeta,
+    read_run,
+    validation_summary,
+)
+from deploy_workflow.model_testing.report import (
+    _WIDE,
+    Ledger,
+    ReportInputError,
+    _cell_text,
+    _money,
+    render_report,
+)
 from deploy_workflow.model_testing.slice_budget import positive_money, slice_cap
-from deploy_workflow.model_testing.report import render_report
 from deploy_workflow.run_inputs import (
     HTML_MEDIA,
     CaseSource,
@@ -71,7 +83,7 @@ from deploy_workflow.run_inputs import (
     check_arguments,
 )
 from deploy_workflow.run_pathway import check_rerun_plan, run_pathway
-from deploy_workflow.run_scopes import DeliveryScopeId, PUBLIC_S1A_SCOPE
+from deploy_workflow.run_scopes import PUBLIC_S1A_SCOPE, DeliveryScopeId
 
 Stage = Literal["pilot", "repair", "comparison", "slice"]
 PlannedRun = tuple[str, PathwayId, str]
@@ -109,9 +121,6 @@ DISTRESSED_OPUS_ESTIMATE_USD = Decimal("28.93")
 DISTRESSED_PATHWAY: PathwayId = "distressed_restructuring"
 OPUS_CONFIG = "opus-medium"
 
-_WIDE = Context(prec=120, rounding=ROUND_HALF_UP)
-
-
 class DriverError(ValueError):
     """A refused argument or input of the driver; the message names it."""
 
@@ -122,7 +131,13 @@ def plan_runs(
     """The (case_id, pathway, config_id) runs of a stage, one configuration at a time so a
     configuration that runs out of credit loses only its own tail."""
     if stage == "slice":
-        if pathway not in CASES or config not in CONFIGS or not CONFIGS[config].roles:
+        if (
+            pathway is None
+            or config is None
+            or pathway not in CASES
+            or config not in CONFIGS
+            or not CONFIGS[config].roles
+        ):
             raise DriverError("slice requires a supported --pathway and --config")
         return ((CASES[pathway], pathway, config),)
     if stage == "pilot":
@@ -394,11 +409,7 @@ class _Exhausted(Contract):
 
 
 def _invalid(name: str, error: ValidationError) -> DriverError:
-    shown = "; ".join(
-        f"{'.'.join(str(p) for p in e['loc']) or '<root>'}: {e['msg']}"
-        for e in error.errors(include_input=False, include_url=False, include_context=False)[:5]
-    )
-    return DriverError(f"{name}: invalid: {shown}")
+    return DriverError(f"{name}: invalid: {validation_summary(error)}")
 
 
 def _read_exhausted(out: Path) -> dict[str, str]:
@@ -462,6 +473,7 @@ class _Driver:
     adapters: dict[str, ModelAdapter]
     settlements: tuple[Settlement, ...]
     runs: list[tuple[RunMeta, tuple[CallRecord, ...]]]
+    recorded: tuple[str, Decimal] | None = None  # an exact replay's run_id and cap
     stopped: dict[str, str] = field(default_factory=dict)
     outcomes: list[RunOutcome] = field(default_factory=list)
 
@@ -498,13 +510,8 @@ class _Driver:
         prefix = f"{self.stage}-{config_id}-{pathway}"
         run_id = f"{prefix}-{_next_number(root, prefix)}"
         found = self.inputs[case_id]
-        if self.settings.recorded_run is not None:
-            meta, _ = read_run(self.settings.recorded_run)
-            if (meta.case_id, meta.pathway, meta.config_id, meta.delivery_scope) != (
-                case_id, pathway, config_id, self.settings.delivery_scope
-            ):
-                raise DriverError("recorded run case/config/pathway/scope differs from this request")
-            run_id, cap = meta.run_id, meta.cap_usd
+        if self.recorded is not None:
+            run_id, cap = self.recorded
         self.settings.out.mkdir(parents=True, exist_ok=True)
         self.outcomes.append(
             run_pathway(
@@ -623,6 +630,28 @@ def check_reruns(
             )
 
 
+def _recorded_identity(
+    stage: Stage, settings: Settings, planned: Sequence[PlannedRun]
+) -> tuple[str, Decimal] | None:
+    """An exact replay's run_id and cap, checked before any run: ``--recorded-run`` replays one
+    retained run, so only the one-run slice stage takes it, and the retained run must be the
+    planned run (case, pathway, configuration and delivery scope)."""
+    if settings.recorded_run is None:
+        return None
+    if stage != "slice" or len(planned) != 1:
+        raise DriverError("--recorded-run replays one retained run: only the slice stage takes it")
+    meta, _ = read_run(settings.recorded_run)
+    case_id, pathway, config_id = planned[0]
+    if (meta.case_id, meta.pathway, meta.config_id, meta.delivery_scope) != (
+        case_id,
+        pathway,
+        config_id,
+        settings.delivery_scope,
+    ):
+        raise DriverError("recorded run case/config/pathway/scope differs from this request")
+    return meta.run_id, meta.cap_usd
+
+
 def run_stage(stage: Stage, settings: Settings) -> StageResult:
     """Run every planned run of a stage. Everything that can be refused is refused before the
     first run: the arguments, a crashed run folder, the settlements, the cases and their sources,
@@ -630,6 +659,7 @@ def run_stage(stage: Stage, settings: Settings) -> StageResult:
     rerun plan."""
     check_settings(settings)
     planned = plan_runs(stage, pathway=settings.pathway, config=settings.config)
+    recorded = _recorded_identity(stage, settings, planned)
     case_ids = {case for case, _, _ in planned}
     if stage == "comparison":
         case_ids.add(CASES[DISTRESSED_PATHWAY])
@@ -642,7 +672,7 @@ def run_stage(stage: Stage, settings: Settings) -> StageResult:
     with _root_lock(settings.runs_root):
         runs = load_runs(settings.runs_root)
         settlements = load_all_settlements(settings.runs_root, settings.out)
-        driver = _Driver(stage, settings, inputs, adapters, settlements, runs)
+        driver = _Driver(stage, settings, inputs, adapters, settlements, runs, recorded)
         for case_id, pathway, config_id in planned:
             driver.run(case_id, pathway, config_id)
         if stage == "comparison":
@@ -694,14 +724,6 @@ def score_out(settings: Settings) -> Path:
     return path
 
 
-def _money(value: Decimal) -> str:
-    return f"${value.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP, context=_WIDE)}"
-
-
-def _cell(text: str) -> str:
-    return " ".join(text.split()).replace("|", "\\|")
-
-
 def _notes(
     stopped: MappingABC[str, str],
     settlements: Sequence[Settlement],
@@ -710,7 +732,7 @@ def _notes(
     lines: list[str] = []
     if stopped:
         lines += ["## Stopped configurations", ""]
-        lines += [f"- {key}: {_cell(why)}" for key, why in sorted(stopped.items())]
+        lines += [f"- {key}: {_cell_text(why)}" for key, why in sorted(stopped.items())]
         lines.append("")
     if settlements:
         lines += [
@@ -724,9 +746,9 @@ def _notes(
         )
         for s in ordered:
             lines.append(
-                f"| {_cell(s.run_id)} | {_cell(s.module_id)} | {_cell(s.step_id)} | {s.attempt} | "
-                f"{s.call_index} | {_money(s.settled_usd)} | {_cell(s.by)} | {s.date} | "
-                f"{_cell(s.source)} |"
+                f"| {_cell_text(s.run_id)} | {_cell_text(s.module_id)} | {_cell_text(s.step_id)} | "
+                f"{s.attempt} | {s.call_index} | {_money(s.settled_usd)} | {_cell_text(s.by)} | "
+                f"{s.date} | {_cell_text(s.source)} |"
             )
         lines += ["", "| Account | Spend after settlements |", "| --- | --- |"]
         lines += [
@@ -737,7 +759,7 @@ def _notes(
     return lines
 
 
-_STAGE_RANK = {"pilot": 0, "repair": 1, "comparison": 2}
+_STAGE_RANK = {"pilot": 0, "repair": 1, "comparison": 2, "slice": 3}
 
 
 def _recency(run_id: str) -> tuple[int, int, str]:
@@ -750,32 +772,55 @@ def _recency(run_id: str) -> tuple[int, int, str]:
     )
 
 
+def _rank(score: PathwayScore) -> tuple[bool, tuple[int, int, str]]:
+    """A live run before any offline one (an offline replay never stands in for paid model
+    output), then the most recent."""
+    return score.mode == "live", _recency(score.run_id)
+
+
 def _latest(scores: Sequence[PathwayScore]) -> tuple[PathwayScore, ...]:
-    """One score per (pathway, configuration): the most recent run, a rerun superseding."""
+    """One score per (pathway, configuration): the most recent live run, a rerun superseding;
+    the most recent offline run only where there is no live one (its cells say OFFLINE)."""
     best: dict[tuple[str, str], PathwayScore] = {}
     for score in scores:
         key = (score.pathway, score.config_id)
-        if key not in best or _recency(score.run_id) > _recency(best[key].run_id):
+        if key not in best or _rank(score) > _rank(best[key]):
             best[key] = score
     return tuple(sorted(best.values(), key=lambda x: x.run_id))
+
+
+_SCORED_FIELDS = (
+    "case_id",
+    "pathway",
+    "config_id",
+    "mode",
+    "outcome",
+    "stopped_reason",
+    "delivery_scope",
+)
 
 
 def _check_scores_match(
     scores: Sequence[PathwayScore], runs: Sequence[tuple[RunMeta, tuple[CallRecord, ...]]]
 ) -> None:
-    """Scores written before a run folder changed or went away are stale: name the run."""
+    """Scores written before a run folder appeared, changed or went away are stale: name the
+    run. Every run folder needs one score that agrees with its run.json."""
     by_run = {meta.run_id: meta for meta, _ in runs}
+    scored = {score.run_id for score in scores}
+    stale = [s.run_id for s in scores if s.run_id not in by_run]
+    stale += sorted(run_id for run_id in by_run if run_id not in scored)
+    stale += [
+        s.run_id
+        for s in scores
+        if s.run_id in by_run
+        and any(getattr(s, f) != getattr(by_run[s.run_id], f) for f in _SCORED_FIELDS)
+    ]
+    if stale:
+        raise DriverError(
+            f"{SCORES_FILE} does not match the run folders (run {stale[0]}); "
+            "run the score command again"
+        )
     for score in scores:
-        meta = by_run.get(score.run_id)
-        if meta is None or (meta.config_id, meta.pathway, meta.case_id) != (
-            score.config_id,
-            score.pathway,
-            score.case_id,
-        ):
-            raise DriverError(
-                f"{SCORES_FILE} does not match the run folders (run {score.run_id}); "
-                "run the score command again"
-            )
         if score.pathway not in CASES:
             raise DriverError(f"run {score.run_id}: pathway {score.pathway} is not a golden")
 
@@ -796,8 +841,8 @@ def report_out(settings: Settings) -> Path:
     runs = load_runs(settings.out)
     everywhere = load_runs(settings.runs_root)
     settlements = load_all_settlements(settings.runs_root, settings.out)
+    _check_scores_match(scores, runs)
     latest = _latest(scores)
-    _check_scores_match(latest, runs)
     try:
         faults = read_faults(settings.out / FAULTS_FILE)
     except ValueError as error:  # the fault journal's one refusal: an unparsable record
@@ -806,7 +851,12 @@ def report_out(settings: Settings) -> Path:
     # sibling folder is matched there, and an orphan is still refused through current_stops/_notes
     own_runs = {meta.run_id for meta, _ in runs}
     own_settlements = tuple(s for s in settlements if s.run_id in own_runs)
-    text = render_report(latest, runs, faults, own_settlements)
+    try:
+        text = render_report(
+            latest, runs, faults, own_settlements, Ledger(everywhere, settlements)
+        )
+    except ReportInputError as error:  # a refused input, named; anything else is a defect
+        raise DriverError(f"report: {error}") from None
     skipped = {k: v for k, v in _read_exhausted(settings.out).items() if k not in CONFIGS}
     stopped = {**skipped, **current_stops(everywhere, settlements)}
     notes = _notes(stopped, settlements, everywhere)
@@ -828,12 +878,23 @@ def _modules(text: str) -> frozenset[str]:
     return names
 
 
+def _money_arg(text: str) -> Decimal:
+    """A ``--cap``/``--week-cap`` amount; ``check_settings`` refuses one that is not positive."""
+    try:
+        return Decimal(text)
+    except InvalidOperation:
+        raise argparse.ArgumentTypeError(f"{text!r} is not a decimal amount") from None
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="python -m deploy_workflow.model_testing",
         description="Plan, run, score and report model-testing runs (offline unless --live).",
     )
-    parser.add_argument("command", choices=("pilot", "repair", "comparison", "slice", "recordings", "score", "report"))
+    parser.add_argument(
+        "command",
+        choices=("pilot", "repair", "comparison", "slice", "recordings", "score", "report"),
+    )
     parser.add_argument("--out", type=Path, required=True, help="artifacts/model-testing/<run_id>/")
     parser.add_argument(
         "--runs-root",
@@ -845,10 +906,14 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--corpus", type=Path, default=Path("data/public-corpus/v1"))
     parser.add_argument("--pathway", choices=tuple(CASES))
     parser.add_argument("--config", choices=tuple(CONFIGS))
-    parser.add_argument("--cap", type=Decimal)
-    parser.add_argument("--week-cap", type=Decimal)
+    parser.add_argument("--cap", type=_money_arg)
+    parser.add_argument("--week-cap", type=_money_arg)
     parser.add_argument("--delivery-scope", choices=(PUBLIC_S1A_SCOPE,))
-    parser.add_argument("--recorded-run", type=Path, help="replay with the retained run's identity and cap")
+    parser.add_argument(
+        "--recorded-run",
+        type=Path,
+        help="slice only: replay with the retained run's identity and cap",
+    )
     parser.add_argument("--to", type=Path, help="recordings: destination DIR/<config>/<run>.jsonl")
     parser.add_argument("--recordings", type=Path, help="offline: DIR/<config_id>/ per config")
     parser.add_argument("--live", action="store_true", help="paid provider calls; needs --ruling")
@@ -879,24 +944,30 @@ _STAGES: MappingABC[str, Stage] = MappingProxyType(
 )
 
 
-def _dispatch(args: argparse.Namespace) -> int:
-    if args.command == "recordings":
-        if args.to is None or args.live or args.ruling is not None:
-            raise DriverError("recordings requires --to and takes no live/provider options")
-        folders = [args.out] if (args.out / "run.json").is_file() else _run_dirs(args.out)
-        if not folders:
-            raise DriverError("no retained runs to export")
-        count = 0
-        for folder in folders:
-            meta, _ = read_run(folder)
-            target = args.to / meta.config_id / f"{meta.run_id}.jsonl"
-            target.parent.mkdir(parents=True, exist_ok=True)
-            if target.exists():
-                raise DriverError(f"recording already exists: {target}")
-            count += export_recording(folder, target, Redactor.from_environ(os.environ))
-        print(f"recordings: {count}")
-        return 0
-    settings = Settings(
+def _export_recordings(args: argparse.Namespace) -> int:
+    if args.to is None or args.live or args.ruling is not None:
+        raise DriverError("recordings requires --to and takes no live/provider options")
+    folders = [args.out] if (args.out / "run.json").is_file() else _run_dirs(args.out)
+    if not folders:
+        raise DriverError("no retained runs to export")
+    count = 0
+    for folder in folders:
+        meta, _ = read_run(folder)
+        target = args.to / meta.config_id / f"{meta.run_id}.jsonl"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if target.exists():
+            raise DriverError(f"recording already exists: {target}")
+        count += export_recording(folder, target, Redactor.from_environ(os.environ))
+    print(f"recordings: {count}")
+    return 0
+
+
+def _settings(args: argparse.Namespace) -> Settings:
+    """The command line as ``Settings``; the slice stage defaults its run cap, week cap and
+    delivery scope."""
+    is_slice = args.command == "slice"
+    week_cap = args.week_cap if args.week_cap is not None else (Decimal(60) if is_slice else None)
+    return Settings(
         out=args.out,
         cases=args.cases,
         corpus=args.corpus,
@@ -909,11 +980,17 @@ def _dispatch(args: argparse.Namespace) -> int:
         repaired=args.repaired,
         pathway=args.pathway,
         config=args.config,
-        cap=args.cap if args.cap is not None else (Decimal(10) if args.command == "slice" else None),
-        week_cap=args.week_cap if args.week_cap is not None else (Decimal(60) if args.command == "slice" else None),
-        delivery_scope=args.delivery_scope or (PUBLIC_S1A_SCOPE if args.command == "slice" else None),
+        cap=args.cap if args.cap is not None else (Decimal(10) if is_slice else None),
+        week_cap=week_cap,
+        delivery_scope=args.delivery_scope or (PUBLIC_S1A_SCOPE if is_slice else None),
         recorded_run=args.recorded_run,
     )
+
+
+def _dispatch(args: argparse.Namespace) -> int:
+    if args.command == "recordings":
+        return _export_recordings(args)
+    settings = _settings(args)
     command: str = args.command
     if command in ("score", "report"):
         if settings.live or settings.ruling is not None or settings.recordings is not None:

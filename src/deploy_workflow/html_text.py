@@ -140,6 +140,12 @@ class _Lines(html.parser.HTMLParser):
             self.parts.append(re.sub(r"\s+", " ", data))
 
 
+def decode_html(raw: bytes) -> tuple[str, str]:
+    """Strictly decode HTML bytes as `convert_html` does: the text and the encoding name.
+    Raises `UndecodableHtml`."""
+    return _decode(raw)
+
+
 def _decode(raw: bytes) -> tuple[str, str]:
     if raw.startswith(codecs.BOM_UTF8):
         try:

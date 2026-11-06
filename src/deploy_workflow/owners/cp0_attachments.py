@@ -60,7 +60,8 @@ def _legal_issue(
         return ()
     wanted = ("executed", "filed") if declared == "executed" else ("draft",)
     held = any(s.source_id in ready and s.authority in wanted for s in review.sources)
-    if held or any(LEGAL_GAP_WORD in text for text in gaps):
+    named = re.compile(GAP_MATCH.format(id=re.escape(LEGAL_GAP_WORD)))
+    if held or any(named.search(text) for text in gaps):
         return ()
     return (LEGAL_EXECUTED_MISSING if declared == "executed" else LEGAL_DRAFT_MISSING,)
 

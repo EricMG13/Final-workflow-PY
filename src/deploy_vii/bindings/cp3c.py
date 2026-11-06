@@ -12,21 +12,13 @@ Data only: no arithmetic, and nothing from ``deploy_workflow`` is imported. Slot
 ``cp3c-`` prefix: a slot is unique across all shipped maps.
 """
 
-from deploy_vii.bindings import Binding, BindingMap
-from deploy_vii.report_view import FactCoord
+from deploy_vii.bindings import Binder, BindingMap
 
 MODULE_ID = "CP-3C"
 BLOCKS = ("refinancing-paths", "lme-creditor-exposure", "funding-gap")
 
 
-def _bind(table: str, block: str, label: str) -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id=MODULE_ID, table_id=table),
-        block_id=block,
-        cell_slot="cp3c-" + table.lower().replace(".", "-"),
-        unit_class="text",
-        label=label,
-    )
+_bind = Binder(MODULE_ID, "cp3c-").bind
 
 
 CP3C = BindingMap(

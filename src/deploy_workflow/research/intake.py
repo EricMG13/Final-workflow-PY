@@ -9,7 +9,6 @@ import hashlib
 import json
 import os
 import re
-import stat
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass, replace
 from datetime import date
@@ -201,21 +200,14 @@ class _ItemRefused(Exception):
 
 def _read_capped(source: Path, cap: int) -> bytes:
     """Mirror of ``run_inputs.read_capped`` with the caller's cap: one descriptor, opened without
-    blocking, ``fstat`` for a regular file (FIFO, directory, device refused), at most cap + 1 bytes."""
+    blocking; ``regular_open`` refuses a FIFO, directory or device (``cannot be opened (not a
+    regular file)``). At most cap + 1 bytes are read."""
     try:
         fd = regular_open(source, os.O_RDONLY | flags("O_NONBLOCK", "O_CLOEXEC", "O_NOFOLLOW"))
     except (OSError, ValueError) as error:
         raise _ItemRefused(
             f"cannot be opened ({getattr(error, 'strerror', None) or error})"
         ) from None
-    try:
-        regular = stat.S_ISREG(os.fstat(fd).st_mode)
-    except OSError as error:
-        os.close(fd)
-        raise _ItemRefused(f"cannot be examined ({error.strerror})") from None
-    if not regular:
-        os.close(fd)
-        raise _ItemRefused("is not a regular file")
     try:
         with os.fdopen(fd, "rb") as handle:
             return handle.read(cap + 1)
@@ -236,13 +228,6 @@ def _decode(raw: bytes, html: bool) -> str:
     return text
 
 
-def _text(source: Path, max_bytes: int) -> str:
-    raw = _read_capped(source, max_bytes)
-    if len(raw) > max_bytes:
-        raise _ItemRefused(f"exceeds the byte cap of {max_bytes} bytes")
-    return _decode(raw, source.suffix.lower() in _HTML_SUFFIXES)
-
-
 def _fence_refusal(
     row: ManifestRow, provisional_id: str, digest: str, text: str, retrieved: str
 ) -> RefusedItem | None:
@@ -257,25 +242,53 @@ def _fence_refusal(
     return None
 
 
-def _assess(
-    row: ManifestRow,
-    path: str,
-    source: Path,
-    item_id: str,
-    dates: tuple[date, date, date],
-    max_bytes: int,
+@dataclass(frozen=True)
+class _Settings:
+    """What every row of one intake is assessed against (``intake``'s arguments)."""
+
+    as_of: date
+    cutoff: date
+    today: date
+    max_bytes: int
+    retrieved: str  # the fence's retrieval time for the check
+    base_dir: Path
+    fetch: Fetcher | None
+    hosts: frozenset[str]  # the hosts the manifest names (redirects stay among them)
+
+    def date_refusal(self, row: ManifestRow) -> RefusedItem | None:
+        return _date_refusal(row, self.as_of, self.cutoff, self.today)
+
+
+def _admit(
+    row: ManifestRow, item_id: str, raw: bytes, html: bool, settings: _Settings
 ) -> AcceptedItem | RefusedItem:
-    as_of, cutoff, today = dates
-    if refusal := _date_refusal(row, as_of, cutoff, today):
-        return refusal
+    """The checks a supplied file and a fetched body share: the byte cap, the decode, the sha256
+    of the text and the fence; the accepted item is ``web`` for a url row."""
     try:
-        text = _text(source, max_bytes)
+        if len(raw) > settings.max_bytes:
+            raise _ItemRefused(f"exceeds the byte cap of {settings.max_bytes} bytes")
+        text = _decode(raw, html)
     except (_ItemRefused, UnicodeDecodeError, UndecodableHtml) as error:
         return _refusal(row, f"evidence item {row.locator} {_why(error)}")
     digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
-    if refusal := _fence_refusal(row, item_id, digest, text, as_of.isoformat()):
+    if refusal := _fence_refusal(row, item_id, digest, text, settings.retrieved):
         return refusal
-    return AcceptedItem(item_id, path, row.family, row.published, row.locator, digest, text)
+    fields = (row.family, row.published, row.locator, digest, text)
+    if row.url is None:
+        return AcceptedItem(item_id, row.path, *fields)
+    return AcceptedItem(item_id, None, *fields, "web", row.url)
+
+
+def _assess(
+    row: ManifestRow, source: Path, item_id: str, settings: _Settings
+) -> AcceptedItem | RefusedItem:
+    if refusal := settings.date_refusal(row):
+        return refusal
+    try:
+        raw = _read_capped(source, settings.max_bytes)
+    except _ItemRefused as error:
+        return _refusal(row, f"evidence item {row.locator} {error}")
+    return _admit(row, item_id, raw, source.suffix.lower() in _HTML_SUFFIXES, settings)
 
 
 def _why(error: Exception) -> str:
@@ -322,27 +335,19 @@ def _refused_after_fetch(
 
 
 def _assess_web(
-    row: ManifestRow,
-    url: str,
-    item_id: str,
-    dates: tuple[date, date, date],
-    limits: tuple[int, str],
-    fetch: Fetcher,
-    hosts: frozenset[str],
+    row: ManifestRow, url: str, fetch: Fetcher, item_id: str, settings: _Settings
 ) -> tuple[AcceptedItem | RefusedItem, FetchRecord | None]:
     """A url row: its own manifest-date refusals first, with no fetch and no record (O7-R48 L3);
     then the locator against the fence header rule (same, no fetch); then the fetch, the media
     type, a located date that can only refuse (D6), and the same text checks as a supplied item.
     The result and the record of the attempt (``item_id`` or ``reason`` set on it)."""
-    as_of, cutoff, today = dates
-    max_bytes, retrieved = limits
-    if refusal := _date_refusal(row, as_of, cutoff, today):
-        return refusal, None
     # The header fields (the locator among them) need only the row: a locator the fence refuses
     # can never admit the item, so no request is made for it and no record is written.
-    if refusal := _fence_refusal(row, item_id, "0" * 64, "x", retrieved):
+    if refusal := settings.date_refusal(row) or _fence_refusal(
+        row, item_id, "0" * 64, "x", settings.retrieved
+    ):
         return refusal, None
-    record, body, media = fetch(url, hosts)
+    record, body, media = fetch(url, settings.hosts)
     if record.reason is not None:
         return _refusal(row, record.reason), record
     if body is None:
@@ -354,46 +359,30 @@ def _assess_web(
     located = (
         None if record.published_located is None else date.fromisoformat(record.published_located)
     )
-    if located is not None and located > cutoff:
+    if located is not None and located > settings.cutoff:
         return _refused_after_fetch(
             row,
             record,
             f"evidence item {row.locator} has a located publication date {located} "
-            f"after the cutoff {cutoff}",
+            f"after the cutoff {settings.cutoff}",
         )
-    try:
-        if len(body) > max_bytes:
-            raise _ItemRefused(f"exceeds the byte cap of {max_bytes} bytes")
-        text = _decode(body, html)
-    except (_ItemRefused, UnicodeDecodeError, UndecodableHtml) as error:
-        return _refused_after_fetch(row, record, f"evidence item {row.locator} {_why(error)}")
-    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
-    if refusal := _fence_refusal(row, item_id, digest, text, retrieved):
-        return _refused_after_fetch(row, record, refusal.reason)
-    item = AcceptedItem(
-        item_id, None, row.family, row.published, row.locator, digest, text, "web", url
-    )
-    return item, replace(record, item_id=item_id)
+    result = _admit(row, item_id, body, html, settings)
+    if isinstance(result, RefusedItem):
+        return result, replace(record, reason=result.reason)
+    return result, replace(record, item_id=item_id)
 
 
 def _assess_row(
-    row: ManifestRow,
-    item_id: str,
-    dates: tuple[date, date, date],
-    limits: tuple[int, str],
-    base_dir: Path,
-    web: tuple[Fetcher | None, frozenset[str]],
+    row: ManifestRow, item_id: str, settings: _Settings
 ) -> tuple[AcceptedItem | RefusedItem, FetchRecord | None]:
     """One row's result and, for a url row that was fetched, the record of the attempt."""
     if row.url is not None:
-        fetch, hosts = web
-        if fetch is None:
+        if settings.fetch is None:
             raise EvidenceFetchRefused(_NO_RULING)
-        return _assess_web(row, row.url, item_id, dates, limits, fetch, hosts)
+        return _assess_web(row, row.url, settings.fetch, item_id, settings)
     if row.path is None:
         raise IntakeError("manifest row names exactly one of path or url")
-    source = _resolve(base_dir, row.path)
-    return _assess(row, row.path, source, item_id, dates, limits[0]), None
+    return _assess(row, _resolve(settings.base_dir, row.path), item_id, settings), None
 
 
 def intake(
@@ -420,8 +409,16 @@ def intake(
     """
     if cutoff > as_of:
         raise IntakeError(f"cutoff {cutoff} is after as_of {as_of}")
-    hosts = frozenset(check_url(row.url).host for row in rows if row.url is not None)
-    limits = (max_bytes, as_of.isoformat() if retrieved is None else retrieved)
+    settings = _Settings(
+        as_of,
+        cutoff,
+        today,
+        max_bytes,
+        as_of.isoformat() if retrieved is None else retrieved,
+        base_dir,
+        fetch,
+        frozenset(check_url(row.url).host for row in rows if row.url is not None),
+    )
     accepted: list[AcceptedItem] = []
     refused: list[RefusedItem] = []
     fetches: list[FetchRecord] = []
@@ -429,18 +426,16 @@ def intake(
         if row.source_id is not None:
             refuse_reserved(row.source_id)
             raise IntakeError("manifest rows take no source_id: ids are assigned as ev-<n>")
-        result, record = _assess_row(
-            row, f"ev-{len(accepted) + 1}", (as_of, cutoff, today), limits, base_dir, (fetch, hosts)
-        )
+        result, record = _assess_row(row, f"ev-{len(accepted) + 1}", settings)
         if record is not None:
             fetches.append(record)
         if isinstance(result, RefusedItem):
             refused.append(result)
         else:
             accepted.append(result)
-    if dest_dir is not None:
+    if dest_dir is not None and accepted:
+        dest_dir.mkdir(parents=True, exist_ok=True)
         for item in accepted:
-            dest_dir.mkdir(parents=True, exist_ok=True)
             (dest_dir / f"{item.item_id}.txt").write_bytes(item.text.encode("utf-8"))
     return IntakeResult(tuple(accepted), tuple(refused), tuple(fetches))
 

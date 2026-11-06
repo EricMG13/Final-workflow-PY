@@ -14,7 +14,7 @@ A ``ValueError`` starting "invariant:" marks a state no validated submission rea
 """
 
 import re
-from collections.abc import Callable, Iterable, Mapping, Sequence
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from dataclasses import dataclass
 from datetime import date
 from decimal import (
@@ -26,7 +26,7 @@ from decimal import (
     InvalidOperation,
     localcontext,
 )
-from typing import Literal
+from typing import Literal, NamedTuple
 
 from pydantic import ValidationError
 
@@ -55,6 +55,7 @@ from deploy_vii.execution import (
     Head,
     Qualification,
     StepValidation,
+    text_sha256,
 )
 from deploy_vii.live import schema as live_schema
 from deploy_vii.live.submission import Submitted, _with_rules
@@ -150,6 +151,13 @@ _NUMERAL_RUN = re.compile(r"\.?[0-9](?:[0-9]|[.,][0-9])*")
 _PLAIN_NUMBER = re.compile(r"[0-9]+(?:\.[0-9]+)?")
 _REFERENCE = re.compile(r"[{}\[\]]")
 _SUBJECT = re.compile(r"default|restructuring")
+_SENTENCE_END = re.compile(r"[.!?](?= |$)")
+# A sentence that states a decision field is not recorded (8-6): its value is a recorded absence.
+_NOT_RECORDED = re.compile(
+    r"(?<![A-Za-z])(?:(?:not|never)(?: been)? (?:recorded|stated|disclosed|documented|specified)"
+    r"|unrecorded|unstated|undisclosed)(?![A-Za-z])",
+    re.IGNORECASE,
+)
 _PROHIBITED = re.compile(  # r14 prohibited conclusions (lease, analyst text)
     r"(?<![A-Za-z])(?:blame|fault|should have|in hindsight|with hindsight|recommend|overweight"
     r"|underweight|buy|sell|adjust the prior)|calibrat",
@@ -337,6 +345,20 @@ class ExtraGap(Contract):
     follow_up: str
 
 
+GAP_FIELDS = ("gap", "missing_item", "why_it_matters", "impact_on_output", "follow_up")  # T7.8
+
+
+class GapRow(NamedTuple):
+    """One T7.8 row: its id, then its texts in ``GAP_FIELDS`` order (the gap is the row label)."""
+
+    row_id: str
+    gap: str
+    missing_item: str
+    why_it_matters: str
+    impact_on_output: str
+    follow_up: str
+
+
 class Synthesis(Contract):
     text: str
 
@@ -355,6 +377,7 @@ class DecisionLedgerSubmission(Contract):
 
 
 DECISION_OPTIONAL = ("posture", "size")
+_FREE_TEXT = ("instrument", "decision_maker_role", "posture", "size")  # no vocabulary, no date
 THESIS_REQUIRED = ("thesis", "greatest_uncertainty", "downside_paths")
 
 
@@ -384,7 +407,7 @@ def source_authority(facts: Iterable[Fact]) -> dict[str, str]:
     return out
 
 
-# --- parsing helpers -------------------------------------------------------------------------------
+# --- parsing helpers ------------------------------------------------------------------------------
 
 
 def parse_date(text: str) -> date | None:
@@ -443,7 +466,14 @@ def _on_page(value: str, quote: str, page: str) -> bool:
     Only a figure at an edge of the quote can fail here (nothing or only a sign before it, nothing
     or only ``.`` after it): elsewhere every character the test reads lies inside the quote, which
     the quote reader has already judged. False when the quote is not on the page."""
-    whole = _whole(value)
+    return _held(_whole(value), quote, page)
+
+
+def _held(whole: re.Pattern[str], quote: str, page: str) -> bool:
+    """``_on_page`` for any pattern: every match of ``whole`` in the quote (normalised, and with
+    its own wraps joined) also matches at the same place of every occurrence of the quote in every
+    reading of the page. False when the pattern never matches the quote or the quote is not on
+    the page."""
     needles = [normalise(quote)]
     if hyphen_wrapped(quote):
         needles.append(reading(quote, join_wraps=True).text)
@@ -461,6 +491,32 @@ def _on_page(value: str, quote: str, page: str) -> bool:
                         return False
                     at = text.find(needle, at + 1)
     return seen
+
+
+def _words(text: str) -> re.Pattern[str]:
+    """``text`` as whole words: a letter or digit at either edge of it has none beside it."""
+    left = r"(?<!\w)" if text[:1].isalnum() else ""
+    right = r"(?!\w)" if text[-1:].isalnum() else ""
+    return re.compile(left + re.escape(text) + right)
+
+
+def _sentences(quote: str, page: str) -> list[str]:
+    """Each sentence of the page (normalised, and with its wraps joined) that holds the quote,
+    from the sentence end before the quote to the first one at or after its last character; the
+    normalised quote itself when it is found in no reading (``quote`` and ``page`` are raw)."""
+    needle = normalise(quote)
+    readings = [normalise(page)]
+    if hyphen_wrapped(page):
+        readings.append(reading(page, join_wraps=True).text)
+    found = []
+    for text in readings:
+        at = text.find(needle)
+        while at >= 0:
+            start = max((m.end() for m in _SENTENCE_END.finditer(text, 0, at)), default=0)
+            end = _SENTENCE_END.search(text, max(at, at + len(needle) - 1))
+            found.append(text[start : len(text) if end is None else end.end()])
+            at = text.find(needle, at + 1)
+    return found or [needle]
 
 
 def _wrap_split(value: str, quote: str) -> bool:
@@ -538,7 +594,7 @@ def breached(size: RecordedSize | None, value: Decimal | None) -> bool | None:
     return value > size.level if size.comparator == "above" else value < size.level
 
 
-# --- validation ------------------------------------------------------------------------------------
+# --- validation -----------------------------------------------------------------------------------
 
 
 class _Checker:
@@ -572,14 +628,8 @@ class _Checker:
         self._attributions(compared)
         self._lessons(compared)
         for i, gap in enumerate(self.sub.extra_gaps):
-            for field, text in (
-                ("gap", gap.gap),
-                ("missing_item", gap.missing_item),
-                ("why_it_matters", gap.why_it_matters),
-                ("impact_on_output", gap.impact_on_output),
-                ("follow_up", gap.follow_up),
-            ):
-                self._text(f"extra_gaps[{i}].{field}", text)
+            for field in GAP_FIELDS:
+                self._text(f"extra_gaps[{i}].{field}", getattr(gap, field))
         self._text("synthesis.text", self.sub.synthesis.text)
         return tuple(self.found)
 
@@ -652,7 +702,7 @@ class _Checker:
                     self._absence(path, item.absence)
             elif item.text is not None and item.absence is None:
                 if item.quote is None:  # 8-10, the r32 frame
-                    self.found.append(f"{path}: text and quote are given together")
+                    self.found.append(f"{path}: text needs its quote")
                 else:
                     self._decision_text(name, path, item.text, item.quote)
             else:
@@ -667,12 +717,34 @@ class _Checker:
             self.found.append(f"{path}: text is empty")
         elif vocabulary is not None and text not in vocabulary:
             self.found.append(f"{path}: {text} is not one of {', '.join(vocabulary)}")
-        elif text not in _norm(quote.quote) or _wrap_split(text, quote.quote):
+        elif (
+            text not in _norm(quote.quote)
+            or _wrap_split(text, quote.quote)
+            or not _held(_words(text), quote.quote, self._page(quote))
+        ):  # whole words of the quote and the page: a cut word is not the quoted value
             self.found.append(f"{path}: text {text} does not occur in the quote")
+        elif name in DECISION_OPTIONAL and any(
+            _NOT_RECORDED.search(s) for s in _sentences(quote.quote, self._page(quote))
+        ):  # the record states this field is not recorded: it stays a recorded absence
+            self.found.append(f"{path}: the quote states the {name} is not recorded")
+        elif (other := self._repeated(name, text)) is not None:
+            self.found.append(f"{path}: text {text} is the decision.{other} text")
         elif name == "decision_date":
             self.decision_date = parse_date(text)
             if self.decision_date is None:
                 self.found.append(f"{path}: text {text} is not a date (Month D, YYYY)")
+
+    def _repeated(self, name: str, text: str) -> str | None:
+        """The earlier decision field whose text a free-text field repeats (an instrument that
+        is the action bias's word is not the instrument the record names)."""
+        if name not in _FREE_TEXT:
+            return None
+        for other, item in self.sub.decision.fields():
+            if other == name:
+                break
+            if item.text is not None and _norm(item.text).casefold() == _norm(text).casefold():
+                return other
+        return None
 
     def _thesis(self) -> None:
         for name, item in self.sub.thesis.fields():
@@ -1163,7 +1235,7 @@ def current_decision(
     return "known", f"{said_bias}; {said_confidence}."
 
 
-# --- composed result --------------------------------------------------------------------------------
+# --- composed result ------------------------------------------------------------------------------
 
 _COLUMNS: Mapping[str, tuple[tuple[str, str], ...]] = {
     "T7.1": (
@@ -1242,6 +1314,16 @@ _TITLES: Mapping[str, tuple[str, str]] = {  # table id -> (title, row header)
     "T7.8": ("Gaps ledger", "Gap"),
     WHAT_CHANGED: ("What changed since the last Report", "Change"),
 }
+_PORTFOLIO_IMPACT = "Portfolio-level attribution is limited"
+_EXIT_IMPACT = "Exit discipline cannot be measured"
+_CALIBRATION_GAP = GapRow(
+    "calibration_gate",
+    "Calibration gate not met",
+    "Comparable decisions",
+    "A single decision cannot show a pattern",
+    "No calibration recommendation is produced",
+    "Supply further comparable Prior Case records",
+)
 _VAR_CLAIMS = (
     ("CP-8-VAR-01", "total_leverage", "Total leverage was recorded at"),
     ("CP-8-VAR-02", "interest_cover", "Interest cover was recorded at"),
@@ -1944,19 +2026,10 @@ class _Composer:
 
     # T7.8
 
-    def _gap_row(
-        self, row_id: str, label: str, item: str, why: str, impact: str, follow_up: str
-    ) -> None:
-        cells = self.cells
-        cells.row("T7.8", row_id, label)
-        for field, text in (
-            ("gap", label),
-            ("missing_item", item),
-            ("why_it_matters", why),
-            ("impact_on_output", impact),
-            ("follow_up", follow_up),
-        ):
-            cells.text(field, text)
+    def _gap_row(self, row: GapRow, value_class: str | None = None) -> None:
+        self.cells.row("T7.8", row.row_id, row.gap)
+        for field in GAP_FIELDS:
+            self.cells.text(field, getattr(row, field), value_class=value_class)
 
     def _not_compared(self, metric: str) -> None:
         """8-1, 8-24 and round 6c (b): one row per uncompared measure. Under outcome_absence
@@ -1978,115 +2051,115 @@ class _Composer:
         if split and lacking:  # round 6h: one side split, the other side has no quotation
             (cut,), (absent,) = split, lacking
             self._gap_row(
-                row_id,
-                gap,
-                f"Same-day {cut} bid and offer, and a {absent} quotation",
-                f"The {cut} bid and offer are quoted on different dates and no {absent} quotation "
-                "is recorded, so no mid level is calculated and its variance cannot be measured",
-                COMPARED_ONLY,
-                "Cite a bid and an offer quoted on the same day; " + _SAME_DAY_THEN[absent],
+                GapRow(
+                    row_id,
+                    gap,
+                    f"Same-day {cut} bid and offer, and a {absent} quotation",
+                    f"The {cut} bid and offer are quoted on different dates and no {absent} "
+                    "quotation is recorded, so no mid level is calculated and its variance cannot "
+                    "be measured",
+                    COMPARED_ONLY,
+                    "Cite a bid and an offer quoted on the same day; " + _SAME_DAY_THEN[absent],
+                )
             )
         elif split:
             sides = _listed(split)
             self._gap_row(
-                row_id,
-                gap,
-                f"Same-day {sides} bid and offer",
-                f"The {sides} bid and offer are quoted on different dates, so no mid level is "
-                "calculated and its variance cannot be measured",
-                COMPARED_ONLY,
-                "Cite a bid and an offer quoted on the same day",
+                GapRow(
+                    row_id,
+                    gap,
+                    f"Same-day {sides} bid and offer",
+                    f"The {sides} bid and offer are quoted on different dates, so no mid level is "
+                    "calculated and its variance cannot be measured",
+                    COMPARED_ONLY,
+                    "Cite a bid and an offer quoted on the same day",
+                )
             )
         elif lacking:
             item, said, follow_up = _NOT_COMPARED[lacking]
             self._gap_row(
-                row_id,
-                gap,
-                item.format(name),
-                f"No {said} value is recorded for {name}, so its variance cannot be measured",
-                COMPARED_ONLY,
-                follow_up.format(name),
+                GapRow(
+                    row_id,
+                    gap,
+                    item.format(name),
+                    f"No {said} value is recorded for {name}, so its variance cannot be measured",
+                    COMPARED_ONLY,
+                    follow_up.format(name),
+                )
             )
 
-    def _gaps(self) -> None:
+    def _absence_rows(self) -> Iterator[GapRow]:
+        """The T7.8 rows of the recorded absences, in T7.1 then T7.2 order (round 9 item 5: the
+        exit trigger after the expectations)."""
         dec, th = self.sub.decision, self.sub.thesis
-        for field, decision_item in (("posture", dec.posture), ("size", dec.size)):
-            a = decision_item.absence
-            if a is not None:
-                self._gap_row(
-                    field,
-                    f"Decision {field} not recorded",
-                    f"Decision {field}",
-                    a.reason,
-                    "Portfolio-level attribution is limited",
-                    a.follow_up,
+        rows: list[tuple[str, str, Absence | None, str]] = [  # (row id, item, absence, impact)
+            ("posture", "Decision posture", dec.posture.absence, _PORTFOLIO_IMPACT),
+            ("size", "Decision size", dec.size.absence, _PORTFOLIO_IMPACT),
+            *(
+                (field, item, getattr(th, field).absence, impact)
+                for field, item, impact in _EXPECTATIONS
+            ),
+            ("exit_trigger", "Exit trigger", th.exit_trigger.absence, _EXIT_IMPACT),
+        ]
+        for row_id, item, absence, impact in rows:
+            if absence is not None:
+                yield GapRow(
+                    row_id,
+                    f"{item} not recorded",
+                    item,
+                    absence.reason,
+                    impact,
+                    absence.follow_up,
                 )
-        unrecorded = {
-            "expected_spread_return": th.expected_spread_return,
-            "expected_rating_path": th.expected_rating_path,
-            "expected_hold": th.expected_hold,
-        }
-        for field, item, impact in _EXPECTATIONS:
-            a = unrecorded[field].absence
-            if a is not None:
-                self._gap_row(field, f"{item} not recorded", item, a.reason, impact, a.follow_up)
-        exit_absence = th.exit_trigger.absence
-        if exit_absence is not None:  # round 9 item 5: after the expectations, as in T7.2
-            self._gap_row(
-                "exit_trigger",
-                "Exit trigger not recorded",
-                "Exit trigger",
-                exit_absence.reason,
-                "Exit discipline cannot be measured",
-                exit_absence.follow_up,
-            )
+
+    def _current_decision_row(self) -> GapRow | None:
+        """8-20: no current decision when CP-6 is not in the run or states Insufficient."""
+        if self.up.cp6 is not None and INSUFFICIENT not in self.up.cp6:
+            return None
+        why, follow_up = (
+            ("CP-6 is not in this run", "Select CP-6 in the run")
+            if self.up.cp6 is None
+            else ("CP-6 states Insufficient Information", "Complete the CP-6 committee decision")
+        )
+        return GapRow(
+            "current_decision",
+            "No current decision to compare",
+            "Current committee decision",
+            why,
+            "The decision line of the what-changed block is missing",
+            follow_up,
+        )
+
+    def _gaps(self) -> None:
+        for row in self._absence_rows():
+            self._gap_row(row)
         for metric in METRICS:
             if metric not in self.d.compared:
                 self._not_compared(metric)
         if self.absent is not None:
             self._gap_row(
-                "outcome",
-                "No realized outcome",
-                "Realized outcomes",
-                self.absent.reason,
-                "Outcome log, variances and attribution are absent",
-                self.absent.follow_up,
-            )
-        if self.up.cp6 is None or INSUFFICIENT in self.up.cp6:  # 8-20: CP-6 Insufficient
-            why, follow_up = (
-                ("CP-6 is not in this run", "Select CP-6 in the run")
-                if self.up.cp6 is None
-                else (
-                    "CP-6 states Insufficient Information",
-                    "Complete the CP-6 committee decision",
+                GapRow(
+                    "outcome",
+                    "No realized outcome",
+                    "Realized outcomes",
+                    self.absent.reason,
+                    "Outcome log, variances and attribution are absent",
+                    self.absent.follow_up,
                 )
             )
-            self._gap_row(
-                "current_decision",
-                "No current decision to compare",
-                "Current committee decision",
-                why,
-                "The decision line of the what-changed block is missing",
-                follow_up,
-            )
-        self._gap_row(
-            "calibration_gate",
-            "Calibration gate not met",
-            "Comparable decisions",
-            "A single decision cannot show a pattern",
-            "No calibration recommendation is produced",
-            "Supply further comparable Prior Case records",
-        )
+        if (current := self._current_decision_row()) is not None:
+            self._gap_row(current)
+        self._gap_row(_CALIBRATION_GAP)
         for i, gap in enumerate(self.sub.extra_gaps, 1):
-            self.cells.row("T7.8", f"extra_{i:02d}", gap.gap)
-            for field, text in (
-                ("gap", gap.gap),
-                ("missing_item", gap.missing_item),
-                ("why_it_matters", gap.why_it_matters),
-                ("impact_on_output", gap.impact_on_output),
-                ("follow_up", gap.follow_up),
-            ):
-                self.cells.text(field, text, value_class="analyst_judgment")
+            row = GapRow(
+                f"extra_{i:02d}",
+                gap.gap,
+                gap.missing_item,
+                gap.why_it_matters,
+                gap.impact_on_output,
+                gap.follow_up,
+            )
+            self._gap_row(row, value_class="analyst_judgment")
 
     # claims and the what-changed rails table
 
@@ -2237,7 +2310,7 @@ def decision_ledger(
     return _Composer(submission, inputs, derive(inputs=inputs), pack, upstream).compose()
 
 
-# --- the G1-X seams (protocol section 2) ---------------------------------------------------------------
+# --- the G1-X seams (protocol section 2) ----------------------------------------------------------
 
 QUALIFICATION = Qualification(implementation="implemented")
 STEP_IDS = (STEP_ID,)
@@ -2377,6 +2450,20 @@ def probe(store: Execution, snapshot: ExecutionSnapshot, attempt: Attempt) -> No
     probe_one_step(store, snapshot, attempt, validate=_validate_step, build=_candidate)
 
 
+def _retained(store: Execution, ticket_id: str, normal: str) -> Attempt | None:
+    """The pending attempt whose one step is already valid (a crash between the journaled step
+    and ``finish``), so ``submit`` settles it instead of journaling the step again (as CP-L10);
+    ``None`` when the step is still to be journaled. A different response is refused."""
+    attempt = next((a for a in store.read().attempts if a.ticket_id == ticket_id), None)
+    if attempt is None or attempt.status != "pending" or not attempt.steps:
+        return None
+    if attempt.steps[0].status != "valid":
+        return None
+    if attempt.steps[0].payload_sha256 != text_sha256(normal):
+        raise ValueError("Ticket already retains a different response; resume or interrupt")
+    return attempt
+
+
 def submit(
     store: Execution,
     ticket_id: str,
@@ -2396,7 +2483,9 @@ def submit(
     checked: Callable[[PreparedPack, Attempt], StepValidation] = validate
     if rules is not None and rules(normal):
         checked = _with_rules(validate, rules, normal)
-    attempt = store.submit_step(ticket_id, MODULE_ID, STEP_IDS, step_id, normal, checked)
+    attempt = _retained(store, ticket_id, normal)
+    if attempt is None:
+        attempt = store.submit_step(ticket_id, MODULE_ID, STEP_IDS, step_id, normal, checked)
     if attempt.status == "pending":
         outcome = _validate_step(store, store.pack(), attempt)
         if outcome.issues or outcome.output is None or not outcome.retained_as(attempt.steps[0]):

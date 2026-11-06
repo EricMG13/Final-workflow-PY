@@ -5,22 +5,17 @@ faults. Nothing here calls a model; every figure is derived from the records han
 from __future__ import annotations
 
 from collections.abc import Sequence
+from dataclasses import dataclass
 from datetime import timedelta
 from decimal import ROUND_HALF_UP, Context, Decimal, localcontext
 
 from deploy_vii.contracts import PATHWAY_MODULES, PathwayId
 from deploy_workflow.model.record import CallRecord
-from deploy_workflow.model_testing.budget import (
-    Runs,
-    Settlement,
-    _key,
-    account_spend,
-    settled_amounts,
-)
+from deploy_workflow.model_testing.budget import Runs, Settlement, account_spend, settled_amounts
 from deploy_workflow.model_testing.configs import ACCOUNTS, CASES, CONFIGS
 from deploy_workflow.model_testing.faults import FaultRecord
 from deploy_workflow.model_testing.pathway import PathwayScore
-from deploy_workflow.model_testing.records import RunMeta
+from deploy_workflow.model_testing.records import RunMeta, call_key
 from deploy_workflow.model_testing.scoring import ModuleScore
 
 _WIDE = Context(prec=120, rounding=ROUND_HALF_UP)
@@ -28,6 +23,20 @@ _MATCHED = frozenset({"match", "conflict_ok", "gap_ok"})
 _UNSCORED = frozenset({"unmapped", "inherited"})
 _FAULT_CLASSES = ("product", "prompt", "harness", "model")
 _OFFLINE_BANNER = "Offline runs are included: their costs are computed from recordings, not money."
+
+
+class ReportInputError(ValueError):
+    """The scores, runs or records handed in cannot be reported (the message names them);
+    any other exception out of ``render_report`` is a defect."""
+
+
+@dataclass(frozen=True)
+class Ledger:
+    """What the Accounts section counts: every run under the runs root and every settlement,
+    the same ledger the account caps use, not only the runs this report scores."""
+
+    runs: Runs
+    settlements: Sequence[Settlement] = ()
 
 
 def _quantise(value: Decimal, exp: str) -> Decimal:
@@ -93,7 +102,7 @@ def _wall(records: Sequence[CallRecord]) -> Decimal | None:
             continue
         delta = r.finished_at - r.started_at
         if delta.days < 0:
-            raise ValueError(
+            raise ReportInputError(
                 f"run {r.run_id} module {r.module_id} call {r.call_index}: finished before started"
             )
         step = delta // timedelta(microseconds=1)
@@ -138,7 +147,10 @@ def _cell(score: PathwayScore, module: ModuleScore, records: Sequence[CallRecord
     if score.outcome == "stopped":
         return _cell_text(f"STOPPED ({score.stopped_reason})")
     matched, scored, inherited, refused = _counts(module)
+    offline = score.mode == "offline"  # computed from recordings: no model was paid or asked
     head = f"{'PASS' if module.passed else 'FAIL'} {matched}/{scored}"
+    if offline:
+        head = "OFFLINE " + head
     if refused:
         head += f" ({refused} refused)"
     if inherited:
@@ -148,7 +160,7 @@ def _cell(score: PathwayScore, module: ModuleScore, records: Sequence[CallRecord
     wall = _wall(records)
     parts = [
         head,
-        _cost_text(records),
+        _cost_text(records) + (" computed" if offline else ""),
         _tokens_text(_tokens(records)),
         "n/r" if wall is None else _seconds(wall),
     ]
@@ -164,7 +176,7 @@ def _table(header: Sequence[str], rows: Sequence[Sequence[str]]) -> list[str]:
 def _config_order(config_ids: set[str]) -> list[str]:
     unknown = sorted(c for c in config_ids if c not in CONFIGS)
     if unknown:
-        raise ValueError(f"unknown config_id {unknown[0]}")
+        raise ReportInputError(f"unknown config_id {unknown[0]}")
     return [c for c in CONFIGS if c in config_ids]
 
 
@@ -316,7 +328,43 @@ def _accounts_section(runs: Runs, settlements: Sequence[Settlement]) -> list[str
 def _agree(score: PathwayScore, meta: RunMeta) -> None:
     for field in ("config_id", "pathway", "case_id"):
         if getattr(score, field) != getattr(meta, field):
-            raise ValueError(f"score for run {score.run_id}: {field} differs from its run")
+            raise ReportInputError(f"score for run {score.run_id}: {field} differs from its run")
+
+
+def _check_scores(scores: Sequence[PathwayScore], by_meta: dict[str, RunMeta]) -> None:
+    """One score per (pathway, configuration), each of a golden pathway and of a run handed
+    in that it agrees with, and one case per pathway."""
+    seen: set[tuple[str, str]] = set()
+    case_of: dict[str, str] = {}
+    for s in scores:
+        if (s.pathway, s.config_id) in seen:
+            raise ReportInputError(f"duplicate score for {s.pathway} on {s.config_id}")
+        seen.add((s.pathway, s.config_id))
+        if s.pathway not in CASES:
+            raise ReportInputError(f"score for unknown pathway {s.pathway}")
+        if s.run_id not in by_meta:
+            raise ReportInputError(f"no run records for scored run {s.run_id}")
+        _agree(s, by_meta[s.run_id])
+        if case_of.setdefault(s.pathway, s.case_id) != s.case_id:
+            raise ReportInputError(f"scores for {s.pathway} name different case_id values")
+
+
+def _costed(runs: Runs, settlements: Sequence[Settlement]) -> Runs:
+    """The runs with each user-settled unknown charge at its settled amount, which every cost
+    figure counts."""
+    amounts = settled_amounts(runs, settlements)
+    return [
+        (
+            meta,
+            [
+                r.model_copy(update={"settled_usd": amounts[call_key(r)]})
+                if call_key(r) in amounts
+                else r
+                for r in records
+            ],
+        )
+        for meta, records in runs
+    ]
 
 
 def render_report(
@@ -324,40 +372,19 @@ def render_report(
     runs: Runs,
     faults: Sequence[FaultRecord],
     settlements: Sequence[Settlement] = (),
+    ledger: Ledger | None = None,
 ) -> str:
-    amounts = settled_amounts(runs, settlements)
-    # A user-settled unknown charge counts at its settled amount in every cost figure.
-    costed: Runs = [
-        (
-            meta,
-            [
-                r.model_copy(update={"settled_usd": amounts[_key(r)]}) if _key(r) in amounts else r
-                for r in records
-            ],
-        )
-        for meta, records in runs
-    ]
+    """The report over ``scores`` and their ``runs``. The Accounts section counts ``ledger``
+    (every run and settlement the caps count); without one, ``runs`` and ``settlements``."""
+    costed = _costed(runs, settlements)
     by_meta: dict[str, RunMeta] = {}
     by_run: dict[str, Sequence[CallRecord]] = {}
     for meta, records in costed:
         if meta.run_id in by_run:
-            raise ValueError(f"duplicate run_id {meta.run_id}")
+            raise ReportInputError(f"duplicate run_id {meta.run_id}")
         by_meta[meta.run_id] = meta
         by_run[meta.run_id] = records
-    seen: set[tuple[str, str]] = set()
-    case_of: dict[str, str] = {}
-    for s in scores:
-        if (s.pathway, s.config_id) in seen:
-            raise ValueError(f"duplicate score for {s.pathway} on {s.config_id}")
-        seen.add((s.pathway, s.config_id))
-        if s.pathway not in CASES:
-            raise ValueError(f"score for unknown pathway {s.pathway}")
-        if s.run_id not in by_run:
-            raise ValueError(f"no run records for scored run {s.run_id}")
-        _agree(s, by_meta[s.run_id])
-        if case_of.setdefault(s.pathway, s.case_id) != s.case_id:
-            raise ValueError(f"scores for {s.pathway} name different case_id values")
-
+    _check_scores(scores, by_meta)
     lines: list[str] = []
     if any(meta.mode == "offline" for meta, _ in runs):
         lines += [_OFFLINE_BANNER, ""]
@@ -369,5 +396,6 @@ def render_report(
                 lines += _pathway_section(pathway, mine, by_run)
         lines += _totals_section(scores, costed)
         lines += _faults_section(faults)
-        lines += _accounts_section(runs, settlements)
+        accounts = Ledger(runs, settlements) if ledger is None else ledger
+        lines += _accounts_section(accounts.runs, accounts.settlements)
     return "\n".join(lines) + "\n"

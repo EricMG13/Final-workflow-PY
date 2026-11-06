@@ -17,7 +17,11 @@ from pathlib import Path
 
 APP = Path(__file__).resolve().parent
 ROOT = APP.parents[1]
-KEYS = ("ANTHROPIC_API_KEY", "OPENAI_API_KEY", "OPENROUTER_API_KEY")
+sys.path.insert(0, str(ROOT / "src"))
+# Every provider key the adapters read, so no gate's subprocess can pay.
+from deploy_workflow.model.adapter import KEY_VARIABLES
+
+KEYS = tuple(KEY_VARIABLES.values())
 BROWSER_TESTS = (
     "tests/test_issuer_library_app.py",
     "tests/test_issuer_library_design.py",
@@ -43,7 +47,7 @@ PYTEST = ("-m", "pytest", "-q", "-p", "no:cacheprovider", "-m", "not live and no
 BROWSER_PYTEST = ("-m", "pytest", "-q", "-p", "no:cacheprovider", "-m", "browser")
 
 
-def clean_env(**extra):
+def clean_env(**extra: str) -> dict[str, str]:
     env = {name: value for name, value in os.environ.items() if name not in KEYS}
     return env | {"PYTHONDONTWRITEBYTECODE": "1"} | extra
 

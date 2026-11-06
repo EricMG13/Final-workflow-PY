@@ -46,10 +46,11 @@ def test_threshold_switches_whole_request_and_is_strict() -> None:
 
     assert price_usage("sol-medium", usage(std)).usd == D("0.54400000")
     assert price_usage("sol-medium", usage(long)).usd == D("1.08800400")
-    assert price_usage("sol-medium", Usage(input_tokens=272_000, output_tokens=1)).usd == D(
+    no_write = {"cache_write_tokens": 0, "output_tokens": 1}
+    assert price_usage("sol-medium", Usage(input_tokens=272_000, **no_write)).usd == D(
         "0.54401000"
     )
-    assert price_usage("sol-medium", Usage(input_tokens=272_001, output_tokens=1)).usd == D(
+    assert price_usage("sol-medium", Usage(input_tokens=272_001, **no_write)).usd == D(
         "1.08801900"
     )
 
@@ -78,7 +79,9 @@ def test_missing_tier_or_usage_fields_fail_closed() -> None:
         long_input=D(4),
     )
     assert (
-        price_usage("sol-medium", Usage(input_tokens=272_001, output_tokens=1)).cost_status
+        price_usage(
+            "sol-medium", Usage(input_tokens=272_001, cache_write_tokens=0, output_tokens=1)
+        ).cost_status
         == "computed"
     )
     assert computed_usd("openai", incomplete, Usage(input_tokens=272_001, output_tokens=1)) is None

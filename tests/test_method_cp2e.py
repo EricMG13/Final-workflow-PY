@@ -1117,11 +1117,12 @@ def _hedge_stated(raw: dict[str, Any]) -> None:
     raw["hedge_ratio"] = {"percent_text": "40", "rationale": "The policy hedges part of the debt"}
 
 
-_FIXED_PAGE = "The loan carries a fixed rate."
+_FIXED_PAGE = "The loan carries a fixed rate set over the SOFR swap rate."
 
 
 def _fixed_rate(raw: dict[str, Any]) -> None:
-    """A fixed-rate basis: its reference rate is not read from the quote, but it is still text."""
+    """A fixed-rate basis: its reference rate occurs in the quote (review S13: T2F.1 cites the
+    quote for it, as for a floating rate), and it is still text."""
     raw["rate_exposure"]["rate_basis"] = {
         **_cited(_FIXED_PAGE),
         "rate_type": "FIXED",

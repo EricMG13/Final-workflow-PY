@@ -9,7 +9,10 @@ import hashlib
 import json
 import re
 import sys
+from collections.abc import Callable
+from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Any
 from urllib.parse import quote
 
 HERE = Path(__file__).resolve().parent
@@ -18,7 +21,8 @@ OUTPUT_SKIP = re.compile(r"instructions|prompt|calculations|verification")
 INPUT_NAME = re.compile(r"selected-input|peer-inputs|delivery")
 HANDOFF_NAME = re.compile(r"CP-[A-Z0-9]+")
 AEROSPACE = "Aerospace & defense"
-# Reading labels written by hand. Route key: (folder under runs/, issuer, title, run label, sector, period).
+# Reading labels written by hand.
+# Route key: (folder under runs/, issuer, title, run label, sector, period).
 CURATED_RUNS = {
     "tdg-002": (
         "tdg-002",
@@ -95,8 +99,15 @@ CURATED_REPORTS = {
     "tdg-fy2024-snapshot-6": ("Peer comparison · exact fiscal dates added", None),
     "tdg-fy2024-snapshot-7": ("CP-8 repairs applied", "Latest"),
 }
+# The curated labels apply to a folder only while its own identity file names the same issuer.
+CURATED_ISSUER_IDS = {"TransDigm Group": "TDG", "Ford Otosan": "FROTO"}
+CURATED_REPORT_ISSUER = "TransDigm Group"
 SAFE_FOLDER = re.compile(r"[\w. -]+")
 WEB_RUN = re.compile(r"web-[a-f0-9]{32}")
+# What issuer_library.model keeps unescaped in one path segment of a /files link.
+SEGMENT_SAFE = "$&+:=@"
+# A chart value the app draws as a bar (screen views.js chartNumber), after commas are removed.
+CHART_NUMBER = re.compile(r"(?:[-+]?\d+(?:\.\d+)?|\(\d+(?:\.\d+)?\))(?:%|x)?")
 
 
 READER_TABLES = [
@@ -205,11 +216,34 @@ def parse_source(text):
     return sections
 
 
-def sha256(path):
+def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def locate_quote(sections, locator, owner):
+def pinned_url(name: str, digest: str) -> str:
+    """A pinned /files link, as issuer_library.model.pinned_url builds it."""
+    segments = "/".join(quote(part, safe=SEGMENT_SAFE) for part in name.split("/"))
+    return f"/files/{segments}?sha256={digest}"
+
+
+def names_other_issuer(issuer: str, issuer_id: str, issuer_name: str) -> bool:
+    """Whether an identity file names an issuer other than the curated label's.
+
+    The curated issuer id decides when both are known; otherwise the recorded name must be the
+    curated name or begin with it ("TransDigm Group Incorporated"). A file naming none agrees.
+    """
+    known = CURATED_ISSUER_IDS.get(issuer)
+    if issuer_id and known:
+        return issuer_id.casefold() != known.casefold()
+    if not issuer_name:
+        return False
+    name, curated = issuer_name.casefold(), issuer.casefold()
+    return name != curated and not name.startswith(curated + " ")
+
+
+def locate_quote(
+    sections: list[dict[str, Any]], locator: dict[str, Any], owner: str
+) -> dict[str, Any]:
     """Return a block's opening sentences verbatim, or fail the build."""
     for section in sections:
         if not section["heading"].startswith(locator["heading"]):
@@ -227,9 +261,10 @@ def locate_quote(sections, locator, owner):
     raise ValueError(f"{owner}: quote locator no longer matches {locator}")
 
 
-def output_label(module, path, siblings):
+def output_label(module: str, path: Path, siblings: list[Path]) -> tuple[str, int | None]:
     """Name a saved output from its file; a label never ranks it as accepted or primary."""
-    stem = module if path.name == f"{module}.md" else path.name[len(module) + 1 : -3]
+    # CP-8b.md has no separator after its code; its stem is still "b", never empty.
+    stem = path.stem.removeprefix(module).lstrip("-_. ") or path.stem
     attempt = re.fullmatch(r"(?:(.+)-)?attempt-(\d+)", stem)
     if not attempt:
         repeated = sum(s.name == path.name for s in siblings) > 1
@@ -245,17 +280,21 @@ def output_label(module, path, siblings):
     )
 
 
-def default_output(folder, sources, pinned, attempts):
+def default_output(
+    folder: str, sources: list[str], pinned: str | None, attempts: dict[str, int | None]
+) -> str | None:
     """Pinned file, else the only file, else the highest attempt; unnumbered variants pick none."""
     if pinned:
         return pinned
     if len(sources) == 1:
         return f"{folder}/{sources[0]}"
-    numbered = [(attempts[s], s) for s in sources if attempts[s] is not None]
+    numbered = [(number, s) for s in sources if (number := attempts[s]) is not None]
     return f"{folder}/{max(numbered)[1]}" if numbered else None
 
 
-def locate_row(sections, locator, owner):
+def locate_row(
+    sections: list[dict[str, Any]], locator: dict[str, Any], owner: str
+) -> dict[str, Any]:
     """Return the retained table cell that states the output's unit, or fail the build."""
     for row in (row for s in sections for b in s["blocks"] for row in b.get("rows", [])):
         if row["cells"][0] == locator["row"]:
@@ -267,9 +306,11 @@ def locate_row(sections, locator, owner):
     raise ValueError(f"{owner}: basis locator no longer matches {locator}")
 
 
-def pinned_fields(sections, config, module):
+def pinned_fields(
+    sections: list[dict[str, Any]], config: dict[str, Any], module: str
+) -> dict[str, Any]:
     """Curated fields of a pinned output; a locator that no longer matches fails the build."""
-    fields = {
+    fields: dict[str, Any] = {
         "period": config["period"],
         "scope": config["scope"],
         "compare": config.get("compare"),
@@ -293,7 +334,7 @@ def pinned_fields(sections, config, module):
     return fields
 
 
-def _reader_summary(section):
+def _reader_summary(section: dict[str, Any]) -> dict[str, Any] | None:
     """The section's values, or None when it does not hold its two tables."""
     tables = [b for b in section["blocks"] if b["type"] == "table"]
     if [t["headers"] for t in tables] != READER_TABLES:
@@ -319,7 +360,22 @@ def _reader_summary(section):
     }
 
 
-def _chart_table(section):
+def chart_number(cell: str) -> bool:
+    return bool(CHART_NUMBER.fullmatch(re.sub(r"\*\*|`", "", cell).strip().replace(",", "")))
+
+
+def _chart_unit(rows: list[dict[str, Any]], columns: list[int]) -> str | None:
+    """The one Reporting unit of the rows holding a drawn number; None when they differ or none do.
+
+    A 'Not supplied' row names the unit of a value that is absent, not of the bars drawn.
+    """
+    units = {
+        row["cells"][-2] for row in rows if any(chart_number(row["cells"][c]) for c in columns)
+    }
+    return units.pop() if len(units) == 1 else None
+
+
+def _chart_table(section: dict[str, Any]) -> dict[str, Any] | None:
     """What the app needs to draw the section's table, or None when it is not the fixed shape."""
     tables = [b for b in section["blocks"] if b["type"] == "table"]
     if len(tables) != 1 or not tables[0]["rows"]:
@@ -328,17 +384,20 @@ def _chart_table(section):
     headers = table["headers"]
     if len(headers) < 4 or headers[0] != "Period" or headers[-2:] != CHART_LAST_COLUMNS:
         return None
+    columns = list(range(1, len(headers) - 2))
     return {
         "title": section["heading"].removeprefix(CHART_PREFIX).capitalize(),
-        "unit": table["rows"][0]["cells"][-2],
+        "unit": _chart_unit(table["rows"], columns),
         "table": table["line"],
-        "columns": list(range(1, len(headers) - 2)),
+        "columns": columns,
     }
 
 
-def reader_fields(sections):
-    """A handoff's reader section and chart tables. A malformed one is named; the handoff still reads."""
-    summary, charts, problems = None, [], []
+def reader_fields(sections: list[dict[str, Any]]) -> dict[str, Any]:
+    """A handoff's reader section and chart tables; a malformed one is named, the handoff reads."""
+    summary: dict[str, Any] | None = None
+    charts: list[dict[str, Any]] = []
+    problems: list[str] = []
     for section in sections:
         heading = section["heading"]
         if heading == "Reader summary":
@@ -347,17 +406,20 @@ def reader_fields(sections):
                 problems.append("Reader summary is not in its two tables")
         elif heading.startswith(CHART_PREFIX):
             chart = _chart_table(section)
-            if chart:
-                charts.append(chart)
-            else:
+            if chart is None:
                 problems.append(f"{heading} is not in its fixed table")
+            elif chart["unit"] is None:
+                problems.append(f"{heading} has a mixed or missing reporting unit for its numbers")
+            else:
+                charts.append(chart)
     return {"summary": summary, "charts": charts, "issue": "; ".join(problems) or None}
 
 
-def structured(raw, strict):
+def structured(raw: bytes, strict: bool) -> tuple[list[dict[str, Any]], str | None]:
     """Typed blocks. In the app a handoff the parser refuses stays readable as one flagged block."""
     try:
-        return parse_source(raw.decode("utf-8")), None
+        sections: list[dict[str, Any]] = parse_source(raw.decode("utf-8"))  # type: ignore[no-untyped-call]
+        return sections, None
     except ValueError as error:
         if strict:
             raise
@@ -368,111 +430,207 @@ def structured(raw, strict):
         )
 
 
-def handoff_files(run_dir):
-    """Handoffs at the run root, then those the launcher delivered; a repeated delivery is one file."""
-    paths, seen = [], set()
+def is_handoff(path: Path) -> bool:
+    # Windows matches the glob patterns regardless of case; the names here do not.
+    # The server serves regular files only, so a link out of the run is not a handoff either.
+    return bool(
+        HANDOFF_NAME.match(path.name)
+        and path.name.endswith(".md")
+        and not OUTPUT_SKIP.search(path.name)
+        and path.is_file()
+        and not path.is_symlink()
+    )
+
+
+def module_of(path: Path) -> str:
+    match = HANDOFF_NAME.match(path.name)
+    if match is None:
+        raise ValueError(f"not a handoff name: {path.name}")
+    return match[0]
+
+
+def handoff_files(run_dir: Path) -> list[tuple[Path, str]]:
+    """Handoffs at the run root, then those the launcher delivered, each with its SHA-256.
+
+    Every root handoff is its own output, whatever its bytes. A delivered copy is dropped when the
+    same module's bytes are already listed: a repeated delivery is one file.
+    """
+    found: list[tuple[Path, str]] = []
+    seen: set[tuple[str, str]] = set()
     for path in [*sorted(run_dir.glob("CP-*.md")), *sorted(run_dir.glob("deliveries/*/CP-*.md"))]:
-        # The server serves regular files only, so a link out of the run is not a handoff either.
-        if (
-            # Windows matches these patterns regardless of case; the names here do not.
-            HANDOFF_NAME.match(path.name)
-            and path.name.endswith(".md")
-            and not OUTPUT_SKIP.search(path.name)
-            and path.is_file()
-            and not path.is_symlink()
-            and sha256(path) not in seen
-        ):
-            seen.add(sha256(path))
-            paths.append(path)
-    return paths
+        if not is_handoff(path):
+            continue
+        digest = sha256(path)
+        key = (module_of(path), digest)
+        if path.parent != run_dir and key in seen:
+            continue
+        seen.add(key)
+        found.append((path, digest))
+    return found
 
 
-def collect_runs(root, shown, catalog, link, strict=True):
+Handoffs = dict[str, dict[str, list[tuple[Path, str]]]]
+
+
+def group_handoffs(files: list[tuple[Path, str]]) -> Handoffs:
+    grouped: Handoffs = {}
+    for path, digest in files:
+        kind = "inputs" if INPUT_NAME.search(path.name) else "outputs"
+        grouped.setdefault(module_of(path), {"outputs": [], "inputs": []})[kind].append(
+            (path, digest)
+        )
+    return grouped
+
+
+Link = Callable[[str, str, str], str]
+
+
+@dataclass(frozen=True)
+class RunScope:
+    """One shown run while its files are collected."""
+
+    key: str
+    folder: str
+    run_dir: Path
+    case: str
+    period: str
+    link: Link
+    strict: bool
+
+    def relative(self, path: Path) -> str:
+        return path.relative_to(self.run_dir).as_posix()
+
+    def file_name(self, name: str) -> str:
+        return f"{self.folder}--{name.replace('/', '--')}"
+
+
+@dataclass
+class Collected:
+    runs: dict[str, Any] = field(default_factory=dict)
+    outputs: dict[str, Any] = field(default_factory=dict)
+    inputs: dict[str, Any] = field(default_factory=dict)
+    sources: dict[str, list[dict[str, Any]]] = field(default_factory=dict)
+    pins: dict[str, str] = field(default_factory=dict)
+    issues: list[str] = field(default_factory=list)
+
+
+def output_record(
+    scope: RunScope, module: str, path: Path, digest: str, label: str
+) -> dict[str, Any]:
+    name = scope.relative(path)
+    sections, problem = structured(path.read_bytes(), scope.strict)
+    record: dict[str, Any] = {
+        "id": f"{scope.folder}/{name}",
+        "run": scope.key,
+        "module": module,
+        "source": name,
+        "file": scope.file_name(name),
+        "href": scope.link(scope.folder, name, digest),
+        "label": label,
+        "sha256": digest,
+        "case": scope.case,
+        "period": scope.period,
+        "scope": "Retained module output",
+        "firstHeading": None,
+        "sections": sections,
+    }
+    record.update(reader_fields(sections))
+    if problem:
+        record["parseError"] = problem
+    return record
+
+
+def pin_output(record: dict[str, Any], config: dict[str, Any], strict: bool) -> str | None:
+    """Apply a curated pin's fields. A locator that stopped matching fails a strict build;
+    in the app it drops the pin, and the returned issue says why."""
+    module = record["module"]
+    try:
+        record.update(pinned_fields(record["sections"], config, module))
+    except (ValueError, KeyError, IndexError) as error:
+        if strict:
+            raise
+        return f"{module}: curated pin dropped: {error}"
+    return None
+
+
+def collect_module(
+    scope: RunScope,
+    module: str,
+    files: dict[str, list[tuple[Path, str]]],
+    found: Collected,
+    config: dict[str, Any],
+) -> tuple[dict[str, Any], str | None]:
+    """The module's outputs and inputs recorded in found; its entry, and its pinned output."""
+    paths = [path for path, _ in files["outputs"]]
+    labels = {scope.relative(path): output_label(module, path, paths) for path in paths}
+    pinned = None
+    for path, digest in files["outputs"]:
+        record = output_record(scope, module, path, digest, labels[scope.relative(path)][0])
+        record["firstHeading"] = config.get("firstHeading")
+        output_id = record["id"]
+        if record["issue"]:
+            found.issues.append(f"{output_id}: {record['issue']}")
+        if "parseError" in record:
+            found.issues.append(f"{output_id}: shown unstructured ({record['parseError']})")
+        if config.get("path") == output_id:
+            if dropped := pin_output(record, config, scope.strict):
+                found.issues.append(dropped)
+            else:
+                found.pins[module] = pinned = output_id
+        found.outputs[output_id] = record
+    for path, digest in files["inputs"]:
+        name = scope.relative(path)
+        found.inputs[f"{scope.folder}/{name}"] = {
+            "module": module,
+            "run": scope.key,
+            "source": name,
+            "file": scope.file_name(name),
+            "href": scope.link(scope.folder, name, digest),
+            "sha256": digest,
+        }
+    names = [scope.relative(path) for path in paths]
+    entry = {
+        "outputs": [f"{scope.folder}/{name}" for name in names],
+        "inputs": [f"{scope.folder}/{scope.relative(path)}" for path, _ in files["inputs"]],
+        "default": default_output(
+            scope.folder, names, pinned, {name: labels[name][1] for name in names}
+        )
+        if names
+        else None,
+    }
+    return entry, pinned
+
+
+def collect_runs(
+    root: Path,
+    shown: dict[str, tuple[str, str, str, str, str, str]],
+    catalog: dict[str, Any],
+    link: Link,
+    strict: bool = True,
+) -> tuple[Any, ...]:
     """Parse every saved output of every shown run; each file keeps its own identity."""
-    runs, outputs, inputs, sources, pins, issues = {}, {}, {}, {}, {}, []
+    found = Collected()
     for key, (folder, issuer, title, label, sector, period) in shown.items():
         run_dir = root / "runs" / folder
-
-        def relative(path, base=run_dir):  # The default binds this run's folder.
-            return path.relative_to(base).as_posix()
-
-        grouped = {}
-        for path in handoff_files(run_dir):
-            kind = "inputs" if INPUT_NAME.search(path.name) else "outputs"
-            grouped.setdefault(HANDOFF_NAME.match(path.name)[0], {"outputs": [], "inputs": []})[
-                kind
-            ].append(path)
-            sources.setdefault(sha256(path), []).append(
-                {"run": key, "source": f"{folder}/{relative(path)}", "output": kind == "outputs"}
+        scope = RunScope(key, folder, run_dir, f"{title} · {label}", period, link, strict)
+        files = handoff_files(run_dir)
+        for path, digest in files:
+            found.sources.setdefault(digest, []).append(
+                {
+                    "run": key,
+                    "source": f"{folder}/{scope.relative(path)}",
+                    "output": not INPUT_NAME.search(path.name),
+                }
             )
-        modules = {}
-        first = None
-        for module, files in grouped.items():
-            config = catalog.get(module, {})
-            pinned = None
-            labels = {
-                relative(f): output_label(module, f, files["outputs"]) for f in files["outputs"]
-            }
-            for path in files["outputs"]:
-                name = relative(path)
-                output_id = f"{folder}/{name}"
-                digest = sha256(path)
-                sections, problem = structured(path.read_bytes(), strict)
-                record = {
-                    "id": output_id,
-                    "run": key,
-                    "module": module,
-                    "source": name,
-                    "file": f"{folder}--{name.replace('/', '--')}",
-                    "href": link(folder, name, digest),
-                    "label": labels[name][0],
-                    "sha256": digest,
-                    "case": f"{title} · {label}",
-                    "period": period,
-                    "scope": "Retained module output",
-                    "firstHeading": config.get("firstHeading"),
-                    "sections": sections,
-                }
-                record.update(reader_fields(sections))
-                if record["issue"]:
-                    issues.append(f"{output_id}: {record['issue']}")
-                if problem:
-                    record["parseError"] = problem
-                    issues.append(f"{output_id}: shown unstructured ({problem})")
-                if config.get("path") == output_id:
-                    try:
-                        record.update(pinned_fields(sections, config, module))
-                        pins[module] = pinned = output_id
-                        first = first or module
-                    except (ValueError, KeyError, IndexError) as error:
-                        if strict:
-                            raise
-                        issues.append(f"{module}: curated pin dropped: {error}")
-                outputs[output_id] = record
-            for path in files["inputs"]:
-                name = relative(path)
-                digest = sha256(path)
-                inputs[f"{folder}/{name}"] = {
-                    "module": module,
-                    "run": key,
-                    "source": name,
-                    "file": f"{folder}--{name.replace('/', '--')}",
-                    "href": link(folder, name, digest),
-                    "sha256": digest,
-                }
-            sources_here = [relative(f) for f in files["outputs"]]
-            modules[module] = {
-                "outputs": [f"{folder}/{s}" for s in sources_here],
-                "inputs": [f"{folder}/{relative(f)}" for f in files["inputs"]],
-                "default": default_output(
-                    folder, sources_here, pinned, {s: labels[s][1] for s in sources_here}
-                )
-                if sources_here
-                else None,
-            }
+        modules, first = {}, None
+        for module, grouped in group_handoffs(files).items():
+            modules[module], pinned = collect_module(
+                scope, module, grouped, found, catalog.get(module, {})
+            )
+            first = first or (module if pinned else None)
         with_outputs = [module for module in modules if modules[module]["outputs"]]
         recorded = recorded_run(run_dir)
-        runs[key] = {
+        found.runs[key] = {
             "folder": folder,
             "issuer": issuer,
             "title": title,
@@ -484,12 +642,12 @@ def collect_runs(root, shown, catalog, link, strict=True):
             "first": first or (with_outputs[0] if with_outputs else "W-Overview"),
             "modules": modules,
         }
-    return runs, outputs, inputs, sources, pins, issues
+    return (found.runs, found.outputs, found.inputs, found.sources, found.pins, found.issues)
 
 
-def built_from(folder, sources):
-    """Each handoff beside a report, traced to the run files holding the same bytes, or named as unmatched."""
-    rows = []
+def built_from(folder: Path, sources: dict[str, Any]) -> list[dict[str, Any]]:
+    """Each handoff beside a report, traced to the run files holding the same bytes, or unmatched."""
+    rows: list[dict[str, Any]] = []
     for path in sorted(folder.glob("CP-*.md")):
         digest = sha256(path)
         match = HANDOFF_NAME.match(path.name)
@@ -501,65 +659,93 @@ def built_from(folder, sources):
     return rows
 
 
-def catalogue_reports(root, catalogue, sources):
-    """Deliverables the server verified, each once, with what it was built from."""
-    reports, seen, issues = [], set(), []
+def curated_report(folder: str, identity: dict[str, Any]) -> tuple[bool, str]:
+    """Whether a delivery takes its curated build label, and the issue when its view.json
+    names another issuer. Only the curated deliverables/ folder of that name qualifies."""
+    name = Path(folder).name
+    if name not in CURATED_REPORTS or folder != f"deliverables/{name}":
+        return False, ""
+    issuer_id, issuer_name = identity.get("issuer_id") or "", identity.get("issuer_name") or ""
+    if names_other_issuer(CURATED_REPORT_ISSUER, issuer_id, issuer_name):
+        named = issuer_name or issuer_id
+        return False, f"{folder}: curated label not applied; its view.json names {named}"
+    return True, ""
+
+
+def report_record(
+    root: Path, artifact: dict[str, Any], report_id: str, sources: dict[str, Any]
+) -> tuple[dict[str, Any], str]:
+    """One verified delivery as the app lists it, and an issue to report; raises when unreadable."""
+    folder = artifact["folder"]
+    delivery = json.loads((root / folder / "delivery.json").read_text(encoding="utf-8"))
+    identity = json.loads((root / folder / "view.json").read_text(encoding="utf-8"))["run"]
+    issuer_name, as_of = identity["issuer_name"], identity["as_of"]
+    files: dict[str, str] = delivery["files"]
+    name = Path(folder).name
+    curated, issue = curated_report(folder, identity)
+    issuer = CURATED_REPORT_ISSUER if curated else issuer_name
+    default = artifact["label"] if artifact["label"] != name else f"{issuer} · as of {as_of}"
+    label, status = (
+        CURATED_REPORTS[name]
+        if curated
+        else (default, "Superseded" if artifact.get("state") == "superseded" else None)
+    )
+    return {
+        "id": report_id,
+        "build": list(CURATED_REPORTS).index(name) + 1 if curated else None,
+        "label": label,
+        "status": status,
+        "issuer": issuer,
+        "sha256": files["report.html"],
+        "scope": delivery.get("scope"),
+        "modelPublished": delivery.get("cp_model_published", False),
+        "href": artifact["href"] + "&embedded=1",
+        "download": artifact["href"] + "&download=1",
+        "files": [
+            {"name": n, "href": pinned_url(f"{folder}/{n}", h) + "&download=1"}
+            for n, h in sorted(files.items())
+        ],
+        "builtFrom": built_from(root / folder, sources),
+    }, issue
+
+
+def catalogue_reports(
+    root: Path, catalogue: dict[str, Any], sources: dict[str, Any]
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """Deliverables the server verified, each folder once, with what it was built from.
+
+    A report's id is its folder's name; a second folder of the same name is told apart by its path.
+    """
+    reports: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    issues: list[str] = []
     for run in catalogue["real"]:
         for artifact in run.get("artifacts") or []:
             folder = artifact["folder"]
-            name = Path(folder).name
-            if not artifact.get("available") or name in seen:
+            if not artifact.get("available") or folder in seen:
                 continue
-            seen.add(name)
+            seen.add(folder)
+            taken = {report["id"] for report in reports}
+            name = Path(folder).name
+            report_id = name if name not in taken else folder.replace("/", "--")
             # Documented fail-open: reported in Settings; the other deliverables stay readable.
             try:
-                delivery = json.loads((root / folder / "delivery.json").read_text(encoding="utf-8"))
-                identity = json.loads((root / folder / "view.json").read_text(encoding="utf-8"))[
-                    "run"
-                ]
-                issuer_name, as_of = identity["issuer_name"], identity["as_of"]
-            except (OSError, ValueError, KeyError) as error:
+                report, issue = report_record(root, artifact, report_id, sources)
+            except (OSError, ValueError, KeyError, TypeError, AttributeError) as error:
                 issues.append(f"{folder}: could not be read ({error!r})")
                 continue
-            curated = name in CURATED_REPORTS
-            issuer = "TransDigm Group" if curated else issuer_name
-            default = (
-                artifact["label"] if artifact["label"] != name else f"{issuer} · as of {as_of}"
-            )
-            label, status = CURATED_REPORTS.get(
-                name, (default, "Superseded" if artifact.get("state") == "superseded" else None)
-            )
-            reports.append(
-                {
-                    "id": name,
-                    "build": list(CURATED_REPORTS).index(name) + 1 if curated else None,
-                    "label": label,
-                    "status": status,
-                    "issuer": issuer,
-                    "sha256": delivery["files"]["report.html"],
-                    "scope": delivery.get("scope"),
-                    "modelPublished": delivery.get("cp_model_published", False),
-                    "href": artifact["href"] + "&embedded=1",
-                    "download": artifact["href"] + "&download=1",
-                    "files": [
-                        {
-                            "name": n,
-                            "href": f"/files/{quote(f'{folder}/{n}')}?sha256={h}&download=1",
-                        }
-                        for n, h in sorted(delivery["files"].items())
-                    ],
-                    "builtFrom": built_from(root / folder, sources),
-                }
-            )
+            reports.append(report)
+            if issue:
+                issues.append(issue)
     return reports, issues
 
 
-def visual_catalogue():
+def visual_catalogue() -> list[dict[str, str]]:
     with (REPO / "docs/visualisations/catalogue.csv").open(encoding="utf-8-sig") as source:
         return list(csv.DictReader(source))
 
 
-def recorded_run(run_dir):
+def recorded_run(run_dir: Path) -> dict[str, str]:
     """The text fields of the launcher's own manifest; a run without a readable one records none."""
     try:
         manifest = json.loads((run_dir / "workflow.json").read_text(encoding="utf-8"))
@@ -568,7 +754,7 @@ def recorded_run(run_dir):
         return {}
 
 
-def run_row(root, run):
+def run_row(root: Path, run: dict[str, Any]) -> tuple[str, str, str, str, str, str]:
     """Labels for a run with no curated ones: the launcher's own manifest, else the catalogue."""
     folder = run["id"]
     identity = recorded_run(root / "runs" / folder)
@@ -583,12 +769,32 @@ def run_row(root, run):
     return (folder, issuer, issuer, label, run.get("sector") or "Unclassified", period)
 
 
-def workspace_store(root, catalogue):
-    """Everything the app reads. A curated pin that stopped matching is dropped and reported, not fatal."""
-    root = Path(root)
-    catalog = json.loads((HERE / "catalog.json").read_text(encoding="utf-8"))
+def curated_conflict(root: Path, run: dict[str, Any], issuer: str) -> str:
+    """What names another issuer for a run folder that has a curated label, or blank."""
+    recorded = recorded_run(root / "runs" / run["id"])
+    named = recorded.get("issuer_name", "")
+    if names_other_issuer(issuer, recorded.get("issuer_id", ""), named):
+        return f"its workflow.json names {named or recorded.get('issuer_id')}"
+    admitted, name = run.get("issuer") or "", run.get("name") or ""
+    if admitted and admitted != "Unclassified" and names_other_issuer(issuer, admitted, name):
+        return f"the library admitted it as {name or admitted}"
+    return ""
+
+
+Row = tuple[str, str, str, str, str, str]
+
+
+def route_taken(hidden: str, curated: str) -> str:
+    return (
+        f"{hidden}: not shown; its folder name is the route of the curated run {curated}; "
+        "rename the folder to show this run"
+    )
+
+
+def shown_runs(root: Path, catalogue: dict[str, Any], issues: list[str]) -> dict[str, Row]:
+    """Each run's route key and labels: curated ones while the folder agrees, else its own."""
     curated = {row[0]: (key, row) for key, row in CURATED_RUNS.items()}
-    shown, issues = {}, list(catalogue.get("issues") or [])
+    shown: dict[str, Row] = {}
     for run in catalogue["real"]:
         folder = run["id"]
         if folder.startswith("delivery:"):
@@ -597,12 +803,35 @@ def workspace_store(root, catalogue):
             issues.append(f"{folder}: folder name cannot be linked; rename it to show this run")
             continue
         key, row = curated.get(folder) or (folder, run_row(root, run))
+        if folder in curated and (conflict := curated_conflict(root, run, row[1])):
+            issues.append(f"{folder}: curated {row[1]} labels not applied; {conflict}")
+            key, row = folder, run_row(root, run)
+        if key in shown:
+            # Only a curated route can equal another folder's name; the curated run keeps it.
+            if key == folder:
+                issues.append(route_taken(folder, shown[key][0]))
+                continue
+            issues.append(route_taken(shown[key][0], folder))
         shown[key] = row
+    return shown
 
-    def link(folder, relative, digest):
-        return f"/files/{quote(f'runs/{folder}/{relative}')}?sha256={digest}"
 
-    runs, outputs, inputs, sources, pins, found = {}, {}, {}, {}, {}, []
+def workspace_store(root: Path | str, catalogue: dict[str, Any]) -> dict[str, Any]:
+    """Everything the app reads; a curated pin that stopped matching is dropped and reported."""
+    root = Path(root)
+    catalog = json.loads((HERE / "catalog.json").read_text(encoding="utf-8"))
+    issues = list(catalogue.get("issues") or [])
+    shown = shown_runs(root, catalogue, issues)
+
+    def link(folder: str, relative: str, digest: str) -> str:
+        return pinned_url(f"runs/{folder}/{relative}", digest)
+
+    runs: dict[str, Any] = {}
+    outputs: dict[str, Any] = {}
+    inputs: dict[str, Any] = {}
+    sources: dict[str, list[dict[str, Any]]] = {}
+    pins: dict[str, str] = {}
+    found: list[str] = []
     for key, row in shown.items():
         # Documented fail-open: one run that cannot be read is hidden and reported in Settings.
         try:

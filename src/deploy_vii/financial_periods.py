@@ -126,10 +126,35 @@ class HistoricalReport(Contract):
     limitations: tuple[Text, ...]
 
 
-def _id(kind: str, *parts: str) -> str:
-    # Length-prefix fields so delimiters in valid source IDs cannot collide.
+def stable_id(kind: str, *parts: str) -> str:
+    """The project's identity scheme: `kind:` and the SHA-256 of the length-prefixed parts.
+
+    Length prefixes keep delimiters inside valid source IDs from colliding. Two older sites hash
+    a JSON tuple instead (`financial_reconciliation._check`, `facility_fx.normalize_facilities`);
+    moving them here would change persisted check and normalization IDs, so they stay."""
     payload = "".join(f"{len(part)}:{part}" for part in parts)
     return kind + ":" + hashlib.sha256(payload.encode()).hexdigest()
+
+
+_id = stable_id  # the former private name; 15 modules still import it
+
+
+def opening_date(start: date | None) -> date | None:
+    """The day before `start`: the opening balance date of a period, None when undated."""
+    if start is None or start.toordinal() <= 1:
+        return None
+    return date.fromordinal(start.toordinal() - 1)
+
+
+def contiguous(end: date | None, start: date | None) -> bool:
+    """Whether a period starting `start` begins the day after one ending `end` (both dated)."""
+    return end is not None and start is not None and end.toordinal() + 1 == start.toordinal()
+
+
+def half_last_decimal(stated: Decimal) -> Decimal:
+    """Reporting-precision tolerance: half a unit of the last printed decimal place, and never
+    wider than half a unit (an E-notation amount such as 1.2E+3 does not print hundreds)."""
+    return Decimal("0.5").scaleb(min(int(stated.as_tuple().exponent), 0))
 
 
 def _reference(ref: str | _Spec | None, coefficient: int) -> PeriodReference:

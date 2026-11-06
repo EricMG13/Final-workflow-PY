@@ -7,10 +7,12 @@ handoff, task 6.4) settles CP-1.
 
 import json
 import re
+from dataclasses import dataclass
+from decimal import Decimal
 from pathlib import Path
 from typing import Literal, get_args
 
-from pydantic import Field, ValidationError
+from pydantic import BaseModel, Field, ValidationError
 
 from deploy_vii.canonical_audit import DefinitionReview, validate_definition_review
 from deploy_vii.canonical_tables import REGISTER_NOTE, CanonicalTables, canonical_tables
@@ -36,6 +38,7 @@ from deploy_vii.execution import (
     Execution,
     ExecutionSnapshot,
     Qualification,
+    StepSubmission,
     StepValidation,
     current_inputs,
     text_sha256,
@@ -43,6 +46,7 @@ from deploy_vii.execution import (
 from deploy_vii.financial_contracts import FinancialReview
 from deploy_vii.financial_model import ModelReport, model_report
 from deploy_vii.interface_view import write_interface_preview
+from deploy_vii.live.schema import json_object
 from deploy_vii.narrative import (
     NarrativeInputs,
     NarrativeReview,
@@ -98,94 +102,158 @@ def consumer_entries(pack: PreparedPack) -> tuple[str, ...]:
     )
 
 
+def exact_review[M: BaseModel](model: type[M], text: str) -> M:
+    """`text`, a retained model response, validated as `model` with every JSON number exact.
+
+    `model_validate_json` reads a non-integer JSON number as a binary float before it becomes a
+    Decimal: 1200.0 arrives as 1200, which widens the reporting-precision tolerance tenfold, and
+    digits past about 17 round. The strict JSON validation still decides the shape and its
+    issues; the same document parsed with Decimal floats (`live.schema.json_object`) then
+    supplies the values. A strictly valid document is exactly JSON-typed, so validating it in
+    Python (lax) mode changes nothing but those numbers. An E-notation integer (1e2) is written
+    out (100), as the float parse gave it, so no amount prints as 1E+2.
+    """
+    model.model_validate_json(text)
+    document = json_object(text)
+    if document is None:  # unreachable for a valid contract: bounded depth, storable strings
+        raise ValueError(f"Retained {model.__name__} is valid JSON but not an exact document")
+    return model.model_validate(_written_out(document), strict=False)
+
+
+def _written_out(value: object) -> object:
+    """`value` with each Decimal of positive exponent (1E+2) as its integer digits (100)."""
+    if isinstance(value, dict):
+        return {key: _written_out(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_written_out(item) for item in value]
+    if isinstance(value, Decimal) and int(value.as_tuple().exponent) > 0:
+        return value.quantize(Decimal(1))
+    return value
+
+
+def _payload[M: BaseModel](store: Execution, model: type[M], step: StepSubmission) -> M:
+    return exact_review(model, store.payload(step.payload_sha256))
+
+
+def _output(store: Execution, step: StepSubmission) -> str:
+    if step.output_sha256 is None:
+        raise ValueError(f"Step {step.step_id} retains no output")
+    return store.step_output(step.output_sha256)
+
+
 def _validate_stage(store: Execution, pack: PreparedPack, attempt: Attempt) -> StepValidation:
+    """Dispatch the attempt's last CP-1 step to its validation; an unknown step raises."""
     step = attempt.steps[-1]
-
-    def text(index: int, *, output: bool = False) -> str:
-        retained = attempt.steps[index]
-        if output:
-            if retained.output_sha256 is None:
-                raise ValueError(f"Step {retained.step_id} retains no output")
-            return store.step_output(retained.output_sha256)
-        return store.payload(retained.payload_sha256)
-
+    if step.step_id not in CP1_STEPS:
+        raise ValueError(f"CP-1 has no stage {step.step_id!r}")
     try:
-        if step.step_id == "source_context":
-            context = SourceContextReview.model_validate_json(text(-1))
-            issues = validate_source_context(pack, context)
-            if issues:
-                return StepValidation(issues=issues)
-            report = source_context(pack, context)
-            return StepValidation(
-                output=report.model_dump_json(),
-                issues=("CP-1 source gate blocked: no usable assessed financial source",)
-                if report.status == "blocked"
-                else (),
-            )
-        context = SourceContextReview.model_validate_json(text(0))
-        financial = FinancialSubmission.model_validate_json(text(1))
+        context = _payload(store, SourceContextReview, attempt.steps[0])
+        financial = (
+            None
+            if step.step_id == "source_context"
+            else _payload(store, FinancialSubmission, attempt.steps[1])
+        )
     except ValidationError as error:
         return StepValidation(issues=shape_issues(error))
+    if financial is None:
+        issues = validate_source_context(pack, context)
+        if issues:
+            return StepValidation(issues=issues)
+        report = source_context(pack, context)
+        return StepValidation(
+            output=report.model_dump_json(),
+            issues=("CP-1 source gate blocked: no usable assessed financial source",)
+            if report.status == "blocked"
+            else (),
+        )
     if step.step_id == "financials":
         if financial.context_step_sha256 != attempt.steps[0].content_hash():
             return StepValidation(
                 issues=("Financial extraction does not bind the retained source step",)
             )
-        issues = (
-            *validate_financial_context(pack, context, financial.financial, financial.binding),
-            *validate_definition_review(pack, financial.financial, financial.definition),
-        )
-        if issues:
-            return StepValidation(issues=tuple(dict.fromkeys(issues)))
-        inputs = narrative_inputs(
-            pack, context, financial.financial, financial.definition, financial.binding
-        )
-        output = FinancialStage(
-            narrative_inputs=inputs,
-            model=model_report(pack, financial.financial, financial.definition.book_id)
-            if inputs.ledger.kpis is not None
-            else None,
-            model_issues=inputs.ledger.calculation_issues,
-        )
-        return StepValidation(output=output.model_dump_json())
-    # These outputs came from trusted Python validation of the already retained
-    # responses. Recompute the final artifacts from original contracts below.
-    stage_inputs = FinancialStage.model_validate_json(text(1, output=True)).narrative_inputs
+        return _financial_stage(pack, context, financial)
+    prior = _Prior(store, pack, attempt, context, financial)
+    return _narrative_stage(prior) if step.step_id == "narrative" else _readiness_stage(prior)
+
+
+def _financial_stage(
+    pack: PreparedPack, context: SourceContextReview, financial: FinancialSubmission
+) -> StepValidation:
+    issues = (
+        *validate_financial_context(pack, context, financial.financial, financial.binding),
+        *validate_definition_review(pack, financial.financial, financial.definition),
+    )
+    if issues:
+        return StepValidation(issues=tuple(dict.fromkeys(issues)))
+    inputs = narrative_inputs(
+        pack, context, financial.financial, financial.definition, financial.binding
+    )
+    output = FinancialStage(
+        narrative_inputs=inputs,
+        model=model_report(pack, financial.financial, financial.definition.book_id)
+        if inputs.ledger.kpis is not None
+        else None,
+        model_issues=inputs.ledger.calculation_issues,
+    )
+    return StepValidation(output=output.model_dump_json())
+
+
+@dataclass(frozen=True)
+class _Prior:
+    """What a narrative or readiness step validates against: the retained source and financial
+    steps (their outputs came from trusted Python validation of the retained responses)."""
+
+    store: Execution
+    pack: PreparedPack
+    attempt: Attempt
+    context: SourceContextReview
+    financial: FinancialSubmission
+
+
+def _narrative_stage(prior: _Prior) -> StepValidation:
+    stage_inputs = FinancialStage.model_validate_json(
+        _output(prior.store, prior.attempt.steps[1])
+    ).narrative_inputs
     try:
-        narrative = NarrativeReview.model_validate_json(text(2))
-        readiness = (
-            DownstreamReview.model_validate_json(text(-1)) if step.step_id == "readiness" else None
-        )
+        narrative = _payload(prior.store, NarrativeReview, prior.attempt.steps[2])
     except ValidationError as error:
         return StepValidation(issues=shape_issues(error))
-    if step.step_id == "narrative":
-        issues = validate_narrative_review(stage_inputs, narrative)
-        if issues:
-            return StepValidation(issues=issues)
-        downstream = downstream_inputs(
-            pack,
-            context,
-            financial.financial,
-            financial.definition,
-            financial.binding,
-            narrative,
-            consumer_entries(pack),
-            quarter_ids=financial.quarter_ids,
-        )
-        return StepValidation(output=downstream.model_dump_json())
-    assert step.step_id == "readiness" and readiness is not None
-    prior = DownstreamInputs.model_validate_json(text(2, output=True))
-    issues = validate_downstream_review(prior, readiness)
+    issues = validate_narrative_review(stage_inputs, narrative)
     if issues:
         return StepValidation(issues=issues)
-    result = canonical_downstream_readiness(
-        pack,
-        context,
+    financial = prior.financial
+    downstream = downstream_inputs(
+        prior.pack,
+        prior.context,
         financial.financial,
         financial.definition,
         financial.binding,
         narrative,
-        consumer_entries(pack),
+        consumer_entries(prior.pack),
+        quarter_ids=financial.quarter_ids,
+    )
+    return StepValidation(output=downstream.model_dump_json())
+
+
+def _readiness_stage(prior: _Prior) -> StepValidation:
+    try:
+        narrative = _payload(prior.store, NarrativeReview, prior.attempt.steps[2])
+        readiness = _payload(prior.store, DownstreamReview, prior.attempt.steps[-1])
+    except ValidationError as error:
+        return StepValidation(issues=shape_issues(error))
+    inputs = DownstreamInputs.model_validate_json(_output(prior.store, prior.attempt.steps[2]))
+    issues = validate_downstream_review(inputs, readiness)
+    if issues:
+        return StepValidation(issues=issues)
+    financial = prior.financial
+    result = canonical_downstream_readiness(
+        prior.pack,
+        prior.context,
+        financial.financial,
+        financial.definition,
+        financial.binding,
+        narrative,
+        consumer_entries(prior.pack),
         readiness,
         quarter_ids=financial.quarter_ids,
     )
@@ -229,7 +297,7 @@ def cp1_statement_preview(
     verified = _validate_stage(store, pack, attempt.model_copy(update={"steps": prefix}))
     if verified.issues or not verified.retained_as(prefix[-1]):
         raise ValueError("Financial stage differs from trusted recomputation")
-    submission = FinancialSubmission.model_validate_json(store.payload(prefix[-1].payload_sha256))
+    submission = _payload(store, FinancialSubmission, prefix[-1])
     binding = {
         "snapshot_sha256": snapshot.content_hash(),
         "ticket_id": ticket_id,
@@ -268,17 +336,16 @@ def _stage_registers(store: Execution, pack: PreparedPack, attempt: Attempt) -> 
         if verified.issues or not verified.retained_as(step):
             raise ValueError(f"{step.step_id} stage differs from trusted recomputation")
         del verified
-    payloads = [store.payload(step.payload_sha256) for step in stages]
-    financial = FinancialSubmission.model_validate_json(payloads[1])
+    financial = _payload(store, FinancialSubmission, stages[1])
     return canonical_tables(
         pack,
-        SourceContextReview.model_validate_json(payloads[0]),
+        _payload(store, SourceContextReview, stages[0]),
         financial.financial,
         financial.definition,
         financial.binding,
-        NarrativeReview.model_validate_json(payloads[2]),
+        _payload(store, NarrativeReview, stages[2]),
         consumer_entries(pack),
-        DownstreamReview.model_validate_json(payloads[3]),
+        _payload(store, DownstreamReview, stages[3]),
         quarter_ids=financial.quarter_ids,
     )
 
@@ -578,9 +645,11 @@ def write_cp1_envelope(store: Execution, destination: Path) -> Path:
         "files": {name: text_sha256(raw) for name, raw in payloads.items()},
     }
     destination.mkdir(parents=True, exist_ok=False)
+    # Bytes, not text mode: the receipt hashes these exact bytes on every platform (text mode
+    # would write CRLF on Windows).
     for name, raw in payloads.items():
-        (destination / name).write_text(raw, encoding="utf-8")
-    (destination / "complete.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
+        (destination / name).write_bytes(raw.encode("utf-8"))
+    (destination / "complete.json").write_bytes(json.dumps(receipt, indent=2).encode("utf-8"))
     return destination / "envelope.md"
 
 
@@ -651,8 +720,9 @@ def read_cp1_envelope(store: Execution, directory: Path) -> Envelope:
     Markdown is verified against it, not decoded.
     """
     try:
-        receipt = json.loads((directory / "complete.json").read_text(encoding="utf-8"))
-        raw = {name: (directory / name).read_text(encoding="utf-8") for name in _EXPORTED_FILES}
+        receipt = json.loads((directory / "complete.json").read_bytes().decode("utf-8"))
+        # Exact bytes: universal-newline text mode would hide a CRLF rewrite from the hashes.
+        raw = {name: (directory / name).read_bytes().decode("utf-8") for name in _EXPORTED_FILES}
     except (OSError, ValueError) as error:  # missing, unreadable or not JSON: nothing to verify
         raise EnvelopeRefused((f"Envelope export cannot be read: {error}",)) from error
     if not isinstance(receipt, dict) or not isinstance(receipt.get("files"), dict):

@@ -86,9 +86,6 @@ class FetchRecord:
     reason: str | None
 
 
-FetchOutcome = FetchRecord
-
-
 class ResponseLike(Protocol):
     status: int
 
@@ -109,7 +106,7 @@ Resolver = Callable[[str], Sequence[str]]
 Connector = Callable[[ConnectionTarget], ConnectionLike]
 
 
-def _problem(parts: SplitResult, host: str | None) -> str | None:
+def _problem(parts: SplitResult, host: str | None, port: int | None) -> str | None:
     """Why a split URL is not an acceptable https target, or None."""
     if parts.scheme.lower() != "https":
         return "the scheme must be https"
@@ -117,6 +114,8 @@ def _problem(parts: SplitResult, host: str | None) -> str | None:
         return "a user name or password is not allowed"
     if not host:
         return "the host is missing"
+    if port == 0:
+        return "the port is not valid"
     return None
 
 
@@ -129,12 +128,15 @@ def _shape(url: str) -> SplitUrl | str:
         host, port = parts.hostname, parts.port
     except ValueError:
         return _NOT_VALID
-    problem = _problem(parts, host)
+    problem = _problem(parts, host, port)
     if problem is not None:
         return problem
     path = parts.path or "/"
     return SplitUrl(
-        "https", host or "", port or 443, f"{path}?{parts.query}" if parts.query else path
+        "https",
+        host or "",
+        443 if port is None else port,
+        f"{path}?{parts.query}" if parts.query else path,
     )
 
 
@@ -161,10 +163,12 @@ def is_public(addr: str) -> bool:
 
 
 def resolve_public(host: str, resolver: Resolver) -> str:
-    """Resolve once; every address must be public. Returns the first address."""
+    """Resolve once; every address must be public. Returns the first address. A host the idna
+    codec cannot encode (an empty label, one over 63 characters) is a refusal like a failed
+    lookup: the codec raises ``UnicodeError`` before any lookup is made."""
     try:
         addresses = list(resolver(host))
-    except OSError as error:
+    except (OSError, UnicodeError) as error:
         raise FetchRefusal(f"host {host} did not resolve: {type(error).__name__}") from error
     if not addresses:
         raise FetchRefusal(f"host {host} did not resolve")
@@ -325,7 +329,7 @@ def locate_published(headers: Mapping[str, str], body: bytes) -> tuple[date | No
             try:
                 return parsedate_to_datetime(value).date(), SOURCE_HEADER
             except (TypeError, ValueError, IndexError, OverflowError):
-                break
+                return None, None  # the header is there but unparsable: not located
     match = _PUBLISHED_LINE.search(body.decode("utf-8", errors="replace"))
     if match:
         try:

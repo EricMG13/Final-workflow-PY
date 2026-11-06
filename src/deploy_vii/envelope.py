@@ -581,6 +581,41 @@ def _footer_issues(
     ]
 
 
+def _section_issues(names: list[str], wanted: list[str]) -> list[str]:
+    """Missing, unexpected and repeated H2 sections; out of order when the sections are exactly
+    the wanted ones, whatever else is wrong with the envelope."""
+    issues = [f"Missing section: {name}" for name in wanted if name not in names]
+    issues.extend(f"Unexpected section: {name}" for name in names if name not in wanted)
+    if len(names) != len(set(names)):
+        issues.append("A section is repeated")
+    elif not issues and names != wanted:
+        issues.append("Sections are not in the r14 order")
+    return issues
+
+
+def _layout_issues(
+    expected: tuple[_Section, ...],
+    found: dict[str, list[tuple[str | None, str]]],
+    tables: dict[str, MarkdownTable],
+) -> list[str]:
+    """Each present section's blocks against the sidecar layout; the tables read go to
+    ``tables``."""
+    issues: list[str] = []
+    for section in expected:
+        blocks = found.get(section.name)
+        if blocks is None:
+            continue
+        headings = [heading for heading, _ in blocks]
+        want = [block.heading for block in section.blocks]
+        if headings != want:
+            issues.append(f"Section {section.name}: blocks differ from the sidecar layout")
+            continue
+        for (heading, body), block in zip(blocks, section.blocks, strict=True):
+            where = f"{section.name} / {heading}" if heading else section.name
+            issues.extend(_block_issues(where, body, block, tables))
+    return issues
+
+
 def envelope_issues(markdown: str, sidecar: str) -> tuple[str, ...]:
     """Verify Markdown against its sidecar; empty when the envelope round-trips cleanly."""
     try:
@@ -595,28 +630,9 @@ def envelope_issues(markdown: str, sidecar: str) -> tuple[str, ...]:
     issues: list[str] = []
     if [line for line in preamble if line] != [TITLE, LEAD]:
         issues.append("Envelope title or lead differs from the canonical envelope")
-    names = [name for name, _ in parsed]
-    wanted = [section.name for section in expected]
-    issues.extend(f"Missing section: {name}" for name in wanted if name not in names)
-    issues.extend(f"Unexpected section: {name}" for name in names if name not in wanted)
-    if len(names) != len(set(names)):
-        issues.append("A section is repeated")
-    elif not issues and names != wanted:
-        issues.append("Sections are not in the r14 order")
-    found = dict(parsed)
+    issues.extend(_section_issues([name for name, _ in parsed], [s.name for s in expected]))
     tables: dict[str, MarkdownTable] = {}
-    for section in expected:
-        blocks = found.get(section.name)
-        if blocks is None:
-            continue
-        headings = [heading for heading, _ in blocks]
-        want = [block.heading for block in section.blocks]
-        if headings != want:
-            issues.append(f"Section {section.name}: blocks differ from the sidecar layout")
-            continue
-        for (heading, body), block in zip(blocks, section.blocks, strict=True):
-            where = f"{section.name} / {heading}" if heading else section.name
-            issues.extend(_block_issues(where, body, block, tables))
+    issues.extend(_layout_issues(expected, dict(parsed), tables))
     issues.extend(_marker_issues(parsed, tables))
     issues.extend(_footer_issues(parsed, envelope))
     bound = prose.bind(envelope.module.facts)

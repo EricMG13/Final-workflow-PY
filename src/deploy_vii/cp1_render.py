@@ -6,12 +6,11 @@ block at all: CP-1 is shown blocked, with every verification issue as its limita
 page can never mix refused data into a Front Page.
 """
 
-import hashlib
-import json
 from pathlib import Path
 
 from deploy_vii.contracts import Module, ModuleView, View
 from deploy_vii.cp1_workflow import EnvelopeRefused, read_cp1_envelope
+from deploy_vii.delivery import publish_bundle
 from deploy_vii.envelope import Envelope
 from deploy_vii.execution import Execution
 from deploy_vii.render import empty_view, render
@@ -145,9 +144,5 @@ def render_cp1_envelope(
             else head.qualification.rendering_acceptance
         ),
         "browser_acceptance": "unrun",
-        "files": {page: hashlib.sha256(html.encode()).hexdigest()},
     }
-    destination.mkdir(parents=True, exist_ok=False)
-    (destination / page).write_text(html, encoding="utf-8")
-    (destination / "complete.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
-    return receipt
+    return publish_bundle(destination, {page: html}, receipt)

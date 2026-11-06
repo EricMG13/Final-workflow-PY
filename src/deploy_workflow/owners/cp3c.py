@@ -16,6 +16,7 @@ and CP-2D heads (CP-2D read through `cp2d_reader`), validation, the composed mod
 `read_inputs` view, the journal seams and the consumer reader the lease pins.
 """
 
+import calendar
 import hashlib
 import json
 import re
@@ -610,12 +611,12 @@ class Refinancing:
 
 
 def _add_months(start: date, months: int) -> date:
+    """`start` plus whole months, the day clamped to the month's last day (31 Jan + 1 is 28 or
+    29 Feb)."""
     year, index = divmod(start.month - 1 + months, 12)
     year += start.year
     month = index + 1
-    leap = year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
-    last = (31, 29 if leap else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)[month - 1]
-    return date(year, month, min(start.day, last))
+    return date(year, month, min(start.day, calendar.monthrange(year, month)[1]))
 
 
 def months_from(balance_date: date, maturity: date) -> int:
@@ -964,9 +965,15 @@ def check_currency(
             )
     else:
         reporting_currency(cp1=cp1, cp2d=cp2d, unit=unit)
+    # CP-1 writes a facility's money terms in the facility's own T4.18 currency (cp2d
+    # `_facility_of`), so its amortisation may be in that one; `_facility` turns a facility in
+    # another currency into the FX gap (ruling C-6), so the amount is never summed.
+    own = {f"{t.facility_id}.annual_amortisation": t.currency for t in cp1.facilities}
     for name, fact in _millions_read(cp1, cp2d):
-        if fact.status == "known" and fact.unit == _MILLIONS and fact.currency != currency:
-            raise ValueError(f"CP-3C {name}: currency {fact.currency!r} is not {currency!r}")
+        allowed = {currency, own.get(name) or currency}
+        if fact.status == "known" and fact.unit == _MILLIONS and fact.currency not in allowed:
+            want = " or ".join(repr(c) for c in sorted(allowed))
+            raise ValueError(f"CP-3C {name}: currency {fact.currency!r} is not {want}")
 
 
 def _facility(
@@ -1000,10 +1007,12 @@ def _facility(
         months = inside = Gap(PRE_D0.format(fid=fid), cause=_PRE_D0_CAUSE)
     else:
         # Ruling C-6 and round 8 B6: CP-3C uses its recomputed position; the copies show CP-2D's.
-        months = months_from(balance_date, maturity)
-        inside = (
-            horizon if isinstance(horizon, Gap) else maturity <= _add_months(balance_date, horizon)
-        )
+        if isinstance(horizon, Gap):
+            months, inside = months_from(balance_date, maturity), horizon
+        else:
+            months, inside = wall_position(
+                balance_date=balance_date, maturity=maturity, horizon_months=horizon
+            )
     return FacilityOperand(
         facility_id=fid,
         principal=principal,
@@ -1749,6 +1758,19 @@ def _facility_lines(c: _Context) -> list[tuple[str, str, str]]:
     return lines
 
 
+def _minimum_cash_line(status: Status) -> tuple[str, str, str]:
+    """The minimum-cash limitation: the oracle's two lines for a known and a missing minimum
+    cash; a conflicting or not applicable one names its status, as the cells' reason does
+    (`Not calculable: minimum cash is conflicting`), not that it was not assessed."""
+    if status in ("known", "missing"):
+        return _MINIMUM_CASH[status == "known"]
+    text = (
+        f"Minimum cash is {_STATE_WORD[status]} in CP-2D, so resources at maturity and the "
+        "refinancing need are not calculated."
+    )
+    return ("Minimum cash", "Gap", text)
+
+
 def _limitations(c: _Context) -> tuple[tuple[str, str, str], ...]:
     """(T3D.8 label, kind, text) per own limitation, in the oracle's order."""
     s = c.inputs.submission
@@ -1764,7 +1786,7 @@ def _limitations(c: _Context) -> tuple[tuple[str, str, str], ...]:
         _RUN_RATE,
         _RESOURCES,
         _REVOLVER,
-        _MINIMUM_CASH[c.inputs.cp2d.minimum_cash.status == "known"],
+        _minimum_cash_line(c.inputs.cp2d.minimum_cash.status),
         _STEP_UP[s.repricing is not None],
         *_FIXED_TAIL,
         *_facility_lines(c),

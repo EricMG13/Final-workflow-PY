@@ -11,10 +11,11 @@ spec's ``table_twin`` block, which the shell shows beside the chart.
 import math
 import re
 import xml.etree.ElementTree as ET
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
+from dataclasses import dataclass
 from decimal import Decimal
 
-from deploy_vii.display import format_value
+from deploy_vii.display import class_places, exact_places, format_value
 from deploy_vii.report_view import ChartMark, ChartSpec
 
 _NS = "http://www.w3.org/2000/svg"
@@ -41,6 +42,8 @@ def _series_class(spec: ChartSpec, series: str) -> int:
 
 
 def _nice(maximum: float) -> float:
+    """The 1-2-2.5-5-10 step at or above ``maximum``; 1.0 for a non-positive maximum (an
+    all-zero axis), so a caller whose values are all negative chooses its own top of 0."""
     if maximum <= 0:
         return 1.0
     power = 10.0 ** math.floor(math.log10(maximum))
@@ -52,8 +55,10 @@ def _nice(maximum: float) -> float:
 
 
 def _bounds(values: list[float], headroom: float = 1.12) -> tuple[float, float]:
-    high = _nice(max([*values, 0.0]) * headroom)
-    low = -_nice(abs(min([*values, 0.0])) * headroom) if min(values) < 0 else 0.0
+    """Axis ends that always hold 0: an all-negative axis tops out at 0, an all-zero one at 1."""
+    top, floor = max([*values, 0.0]), min([*values, 0.0])
+    low = -_nice(-floor * headroom) if floor < 0 else 0.0
+    high = _nice(top * headroom) if top > 0 or low == 0 else 0.0
     return low, high
 
 
@@ -85,8 +90,24 @@ def _is_synthetic(mark: ChartMark) -> bool:
     return mark.hatched or (mark.ref_id is not None and mark.ref_id.startswith("S"))
 
 
-def _tick_text(spec: ChartSpec, value: float) -> str:
-    return format_value(Decimal(repr(value)), spec.unit_class, "known")
+def _places(unit_class: str, marks: Iterable[ChartMark]) -> int:
+    """The widest precision the known marks declare; a mark that declares none uses its class's."""
+    default = class_places(unit_class)
+    return max(
+        (default if m.decimals is None else m.decimals for m in marks if m.value is not None),
+        default=default,
+    )
+
+
+def _tick_places(spec: ChartSpec, ticks: Iterable[float]) -> int:
+    """The marks' declared precision, widened until every tick is spelled exactly (a 2.5 step
+    on a whole-number axis reads 2.5, not 3); at most the 6 places a fact may declare."""
+    needed = max((exact_places(Decimal(repr(t)), spec.unit_class) for t in ticks), default=0)
+    return min(6, max(_places(spec.unit_class, spec.marks), needed))
+
+
+def _tick_text(spec: ChartSpec, value: float, places: int) -> str:
+    return format_value(Decimal(repr(value)), spec.unit_class, "known", decimals=places)
 
 
 _EDGE = 14.0
@@ -197,6 +218,20 @@ def _lookup(spec: ChartSpec) -> dict[tuple[str, str], ChartMark]:
     return {(mark.series, mark.label): mark for mark in spec.marks}
 
 
+def _hatch_pattern(defs: ET.Element, pattern_id: str, fill_class: str) -> None:
+    pattern = _el(
+        defs,
+        "pattern",
+        id=pattern_id,
+        width="6",
+        height="6",
+        patternUnits="userSpaceOnUse",
+        patternTransform="rotate(45)",
+    )
+    _el(pattern, "rect", width="6", height="6", class_="paper")
+    _el(pattern, "rect", width="2", height="6", class_=fill_class)
+
+
 def _hatches(root: ET.Element, spec: ChartSpec, chart_id: str) -> None:
     if spec.kind == "waterfall":  # its stripes follow the step role, see _waterfall
         return
@@ -205,17 +240,7 @@ def _hatches(root: ET.Element, spec: ChartSpec, chart_id: str) -> None:
         return
     defs = _el(root, "defs")
     for cls in classes:
-        pattern = _el(
-            defs,
-            "pattern",
-            id=f"hatch-{chart_id}-s{cls}",
-            width="6",
-            height="6",
-            patternUnits="userSpaceOnUse",
-            patternTransform="rotate(45)",
-        )
-        _el(pattern, "rect", width="6", height="6", class_="paper")
-        _el(pattern, "rect", width="2", height="6", class_=f"f{cls}")
+        _hatch_pattern(defs, f"hatch-{chart_id}-s{cls}", f"f{cls}")
 
 
 def _fill(mark: ChartMark, cls: int, chart_id: str) -> dict[str, str]:
@@ -232,6 +257,7 @@ def _axis_y(
     left: float,
     right: float,
 ) -> None:
+    places = _tick_places(spec, ticks)
     for tick in ticks:
         _el(
             root,
@@ -245,7 +271,7 @@ def _axis_y(
         _el(
             root,
             "text",
-            _tick_text(spec, tick),
+            _tick_text(spec, tick, places),
             x=_n(left - 6),
             y=_n(y_of(tick) + 4),
             text_anchor="end",
@@ -255,6 +281,13 @@ def _axis_y(
 
 def _na_slot(root: ET.Element, x: float, y: float) -> None:
     _el(root, "text", "n/a", x=_n(x), y=_n(y), text_anchor="middle", class_="ax na")
+
+
+def _unplaced(root: ET.Element, mark: ChartMark, extra: str, x: float, y: float) -> None:
+    """A known value whose level is unknown because a gap precedes it: its own text and a
+    focusable mark, never a bar drawn from a level that treats the gap as zero."""
+    _el(root, "text", mark.text, x=_n(x), y=_n(y), text_anchor="middle", class_="ax")
+    _mark_group(root, mark, _label(mark, extra), x, y, None)
 
 
 def _line(spec: ChartSpec, root: ET.Element) -> None:
@@ -327,7 +360,7 @@ def _line(spec: ChartSpec, root: ET.Element) -> None:
 
 
 def _columns(spec: ChartSpec, root: ET.Element, chart_id: str, *, stacked: bool) -> None:
-    width, height = 320, 160
+    width, height = _size(spec)
     left, right, top, bottom = 40.0, 8.0, 18.0, 26.0
     categories = _categories(spec)
     points = _lookup(spec)
@@ -335,13 +368,15 @@ def _columns(spec: ChartSpec, root: ET.Element, chart_id: str, *, stacked: bool)
     def at(series: str, category: str) -> ChartMark | None:
         return points.get((series, category))
 
-    def positive_total(category: str) -> float:
-        found = (at(s, category) for s in spec.series)
-        return sum(max(0.0, float(m.value)) for m in found if m is not None and m.value is not None)
+    def stack_ends(category: str) -> list[float]:
+        """The top of the stack's positive part and the bottom of its negative part."""
+        found = [at(s, category) for s in spec.series]
+        amounts = [float(m.value) for m in found if m is not None and m.value is not None]
+        return [sum(max(0.0, a) for a in amounts), sum(min(0.0, a) for a in amounts)]
 
     values = [float(m.value) for m in spec.marks if m.value is not None]
     if stacked:
-        values = values + [positive_total(c) for c in categories]
+        values = values + [end for c in categories for end in stack_ends(c)]
     low, high = _bounds(values)
     ticks = _ticks(low, high, 3)
     group_width = (width - left - right) / len(categories)
@@ -415,17 +450,17 @@ def _columns(spec: ChartSpec, root: ET.Element, chart_id: str, *, stacked: bool)
                     text_anchor="middle",
                     class_="lb small",
                 )
-        if stacked and down == 0 and up > 0:
-            # Exact total of the stack, spelled by the display formatter like every other figure.
-            found = (at(series, category) for series in spec.series)
-            exact = sum(
-                (m.value for m in found if m is not None and m.value is not None), Decimal(0)
-            )
-            total = format_value(exact, spec.unit_class, "known")
+        found = [m for m in (at(series, category) for series in spec.series) if m is not None]
+        if stacked and down == 0 and up > 0 and all(m.value is not None for m in found):
+            # Exact total of a stack with no gap, spelled by the display formatter like every
+            # other figure at the widest precision its components declare. A component that is a
+            # gap leaves the total unknown, so none is written.
+            exact = sum((m.value for m in found if m.value is not None), Decimal(0))
+            places = _places(spec.unit_class, found)
             _el(
                 root,
                 "text",
-                total,
+                format_value(exact, spec.unit_class, "known", decimals=places),
                 x=_n(centre),
                 y=_n(y_of(up) - 4),
                 text_anchor="middle",
@@ -449,25 +484,51 @@ def _step_kind(step: ChartMark) -> str:
     return "down" if step.value is not None and step.value < 0 else "up"
 
 
+_Span = tuple[Decimal, Decimal] | None
+
+
+def _waterfall_spans(steps: list[ChartMark]) -> list[_Span]:
+    """Each step's (start, end) level, or None where that level is unknown.
+
+    A step without a value is unknown, and so is every level after it until a known total
+    re-anchors the bridge: a missing step is never read as zero in a running total.
+    """
+    running: Decimal | None = Decimal(0)
+    spans: list[_Span] = []
+    for step in steps:
+        if step.value is None:
+            spans.append(None)
+            running = None
+        elif step.role == "total":
+            spans.append((Decimal(0), step.value))
+            running = step.value
+        elif running is None:
+            spans.append(None)
+        else:
+            spans.append((running, running + step.value))
+            running += step.value
+    return spans
+
+
+def _waterfall_stripes(root: ET.Element, steps: list[ChartMark], chart_id: str) -> None:
+    stripe_kinds = sorted(
+        {_step_kind(step) for step in steps if _is_synthetic(step) and step.value is not None}
+    )
+    if stripe_kinds:
+        defs = _el(root, "defs")
+        for stripe in stripe_kinds:
+            _hatch_pattern(defs, f"hatch-{chart_id}-wf-{stripe}", f"wf-{stripe}")
+
+
 def _waterfall(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
     width, height = 640, 200
     left, right, top = 44.0, 8.0, 18.0
     steps = list(spec.marks)
     bottom = 58.0 if (width - 52) / len(steps) < 56 else 40.0
-    running = Decimal(0)
-    spans: list[tuple[Decimal, Decimal]] = []
-    for step in steps:
-        if step.value is None:
-            spans.append((running, running))
-        elif step.role == "total":
-            spans.append((Decimal(0), step.value))
-            running = step.value
-        else:
-            spans.append((running, running + step.value))
-            running += step.value
-    flat = [float(v) for pair in spans for v in pair]
+    spans = _waterfall_spans(steps)
+    flat = [float(v) for span in spans if span is not None for v in span] or [0.0]
     low = min(0.0, *flat)
-    high = _nice(max(flat) * 1.1)
+    high = _nice(max(flat) * 1.1) if max(flat) > 0 or low == 0 else 0.0
     ticks = _ticks(low, high, 4)
     group_width = (width - left - right) / len(steps)
     bar_width = min(group_width * 0.64, 48.0)
@@ -475,32 +536,11 @@ def _waterfall(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
     def y_of(v: float) -> float:
         return top + (height - top - bottom) * (1 - (v - low) / (high - low))
 
-    _axis_y(root, spec, ticks, y_of, left, width - right)
-    stripe_kinds = sorted(
-        {_step_kind(step) for step in steps if _is_synthetic(step) and step.value is not None}
-    )
-    if stripe_kinds:
-        defs = _el(root, "defs")
-        for stripe in stripe_kinds:
-            pattern = _el(
-                defs,
-                "pattern",
-                id=f"hatch-{chart_id}-wf-{stripe}",
-                width="6",
-                height="6",
-                patternUnits="userSpaceOnUse",
-                patternTransform="rotate(45)",
-            )
-            _el(pattern, "rect", width="6", height="6", class_="paper")
-            _el(pattern, "rect", width="2", height="6", class_=f"wf-{stripe}")
-    for i, (step, (start, end)) in enumerate(zip(steps, spans, strict=True)):
+    if any(span is not None for span in spans):  # no level is known: an axis would mean nothing
+        _axis_y(root, spec, ticks, y_of, left, width - right)
+    _waterfall_stripes(root, steps, chart_id)
+    for i, (step, span) in enumerate(zip(steps, spans, strict=True)):
         x = left + group_width * (i + 0.5) - bar_width / 2
-        label = _label(
-            step,
-            "running total " + format_value(end, spec.unit_class, "known", decimals=step.decimals)
-            if step.value is not None and step.role != "total"
-            else "",
-        )
         lines = _wrap(step.label)
         for k, part in enumerate(lines[:2]):
             _el(
@@ -516,6 +556,16 @@ def _waterfall(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
             _na_slot(root, x + bar_width / 2, y_of(0) - 6)
             _mark_group(root, step, _label(step), x + bar_width / 2, y_of(0) - 6, None)
             continue
+        if span is None:  # a known step after a gap: its level is unknown
+            _unplaced(root, step, "running total unknown", x + bar_width / 2, y_of(0) - 6)
+            continue
+        start, end = span
+        label = _label(
+            step,
+            "running total " + format_value(end, spec.unit_class, "known", decimals=step.decimals)
+            if step.role != "total"
+            else "",
+        )
         top_y, bottom_y = y_of(float(max(start, end))), y_of(float(min(start, end)))
         kind = _step_kind(step)
 
@@ -563,6 +613,22 @@ def _waterfall(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
             )
 
 
+def _debt_spans(rows: list[ChartMark], denominator: Decimal) -> list[_Span]:
+    """Each tranche's (start, end) multiple of the denominator, or None from the first gap on:
+    a tranche after an unknown one has an unknown cumulative multiple."""
+    cumulative: Decimal | None = Decimal(0)
+    spans: list[_Span] = []
+    for row in rows:
+        if row.value is None or cumulative is None:
+            cumulative = None
+            spans.append(None)
+            continue
+        start = cumulative / denominator
+        cumulative += row.value
+        spans.append((start, cumulative / denominator))
+    return spans
+
+
 def _debt_stack(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
     if spec.denominator is None:  # ChartSpec guarantees it; refuse rather than assume
         raise ValueError("A debt stack needs a denominator")
@@ -570,8 +636,9 @@ def _debt_stack(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
     row_height, pad_top = _DEBT_ROW, float(_DEBT_TOP)
     pad_left, pad_right = 140.0, 10.0
     rows = list(spec.marks)
-    total = sum((m.value for m in rows if m.value is not None), Decimal(0))
-    axis_max = max(1, math.ceil(total / spec.denominator))
+    spans = _debt_spans(rows, spec.denominator)
+    ends = [span[1] for span in spans if span is not None]
+    axis_max = max(1, math.ceil(ends[-1])) if ends else 1
 
     def x_of(multiple: Decimal) -> float:
         return pad_left + (width - pad_left - pad_right) * float(multiple) / axis_max
@@ -595,8 +662,7 @@ def _debt_stack(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
             text_anchor="middle",
             class_="ax",
         )
-    cumulative = Decimal(0)
-    for i, row in enumerate(rows):
+    for i, (row, span) in enumerate(zip(rows, spans, strict=True)):
         y = pad_top + i * row_height
         name = row.label if len(row.label) <= 24 else row.label[:23] + "…"
         _el(
@@ -612,9 +678,10 @@ def _debt_stack(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
             _na_slot(root, pad_left + 20, y + 12)
             _mark_group(root, row, _label(row), pad_left + 20, y + row_height / 2, None)
             continue
-        start = cumulative / spec.denominator
-        cumulative += row.value
-        end = cumulative / spec.denominator
+        if span is None:  # a tranche after a gap: its cumulative multiple is unknown
+            _unplaced(root, row, "cumulative unknown", pad_left + 20, y + 12)
+            continue
+        start, end = span
         cls = _series_class(spec, row.series)
         label = _label(row, "cumulative " + format_value(end, "multiple", "known"))
 
@@ -711,12 +778,109 @@ def _range(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
                 last_label_x = x
 
 
+@dataclass(frozen=True)
+class _Bullet:
+    """What a bullet row draws on: the SVG root, the spec and the horizontal value axis, which
+    runs from ``low`` at x ``left`` to ``high`` at x ``edge`` (the chart is ``width`` wide)."""
+
+    root: ET.Element
+    spec: ChartSpec
+    chart_id: str
+    left: float
+    edge: float
+    width: float
+    low: float
+    high: float
+
+    def x(self, value: float) -> float:
+        return self.left + (self.edge - self.left) * (value - self.low) / (self.high - self.low)
+
+
+def _bullet_current(plot: _Bullet, current: ChartMark, y: float) -> None:
+    """The current value as a bar from 0 (leftwards when negative), its text right of both."""
+    if current.value is None:
+        _na_slot(plot.root, plot.left + 14, y + 4)
+        _mark_group(plot.root, current, _label(current), plot.left + 14, y, None)
+        return
+    zero, end = plot.x(0.0), plot.x(float(current.value))
+    cls = _series_class(plot.spec, current.series)
+
+    def draw_bar(group: ET.Element) -> None:
+        _el(
+            group,
+            "rect",
+            x=_n(min(zero, end)),
+            y=_n(y - 6),
+            width=_n(max(1.0, abs(end - zero))),
+            height="12",
+            **_fill(current, cls, plot.chart_id),
+        )
+
+    _mark_group(plot.root, current, _label(current), (zero + end) / 2, y, draw_bar)
+    _el(plot.root, "text", current.text, x=_n(max(zero, end) + 6), y=_n(y + 4), class_="lb small")
+
+
+def _bullet_threshold(plot: _Bullet, threshold: ChartMark, y: float) -> None:
+    if threshold.value is None:
+        _na_slot(plot.root, plot.left + 14, y - 10)
+        _mark_group(plot.root, threshold, _label(threshold), plot.left + 14, y - 10, None)
+        return
+    tx = plot.x(float(threshold.value))
+    cls = _series_class(plot.spec, threshold.series)
+
+    def draw_tick(group: ET.Element) -> None:
+        _el(
+            group,
+            "rect",
+            x=_n(tx - 1.5),
+            y=_n(y - 12),
+            width="3",
+            height="24",
+            class_=f"bar s{cls}",
+        )
+
+    _mark_group(plot.root, threshold, _label(threshold), tx, y, draw_tick)
+    _el(plot.root, "text", threshold.text, x=_n(tx + 6), y=_n(y - 13), class_="lb small")
+
+
+def _bullet_headroom(
+    plot: _Bullet, headroom: ChartMark, between: tuple[float, float] | None, y: float
+) -> None:
+    """The headroom's settled text at the right edge, and a dashed span over ``between``
+    (current and threshold values) when both are known."""
+    slot = (plot.edge + plot.width) / 2
+    if headroom.value is None:
+        _na_slot(plot.root, slot, y + 4)
+        _mark_group(plot.root, headroom, _label(headroom), slot, y + 4, None)
+        return
+    if between is not None:
+        x1, x2 = plot.x(between[0]), plot.x(between[1])
+        _el(plot.root, "line", x1=_n(x1), x2=_n(x2), y1=_n(y), y2=_n(y), class_="connector")
+    _mark_group(plot.root, headroom, _label(headroom), slot, y + 4, None)
+    _el(
+        plot.root,
+        "text",
+        headroom.text,
+        x=_n(plot.width - 2),
+        y=_n(y + 4),
+        text_anchor="end",
+        class_="lb small",
+    )
+
+
+def _known_pair(first: ChartMark | None, second: ChartMark | None) -> tuple[float, float] | None:
+    if first is None or second is None or first.value is None or second.value is None:
+        return None
+    return float(first.value), float(second.value)
+
+
 def _bullet(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
     """Threshold tick, current bar and headroom per category; series order is the contract.
 
     The first series is the threshold, the second the current value, the third (if any) the
     headroom. Direction (ceiling or floor) is not on a mark, so headroom is its settled text
-    and a dashed span between current and threshold, never a verdict.
+    and a dashed span between current and threshold, never a verdict. The axis holds 0 and
+    every known threshold and current value, negative ones included.
     """
     if len(spec.series) < 2:
         raise ValueError("A bullet chart needs a threshold series and a current series")
@@ -725,37 +889,28 @@ def _bullet(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
     threshold_series, current_series = spec.series[0], spec.series[1]
     headroom_series = spec.series[2] if len(spec.series) > 2 else None
     points = _lookup(spec)
-    categories = _categories(spec)
     anchors = [
         float(m.value)
         for m in spec.marks
         if m.value is not None and m.series in {threshold_series, current_series}
     ]
-    high = _nice(max(anchors) * 1.1) if anchors else 1.0
-
-    def x_of(value: float) -> float:
-        return left + (width - left - right) * value / high
-
-    for tick in _ticks(0.0, high, 4):
-        _el(
-            root,
-            "line",
-            x1=_n(x_of(tick)),
-            x2=_n(x_of(tick)),
-            y1=_n(top),
-            y2=_n(height - bottom),
-            class_="grid",
-        )
+    low, high = _bounds(anchors, 1.1) if anchors else (0.0, 1.0)
+    plot = _Bullet(root, spec, chart_id, left, width - right, width, low, high)
+    ticks = _ticks(low, high, 4)
+    places = _tick_places(spec, ticks)
+    for tick in ticks:
+        tx = _n(plot.x(tick))
+        _el(root, "line", x1=tx, x2=tx, y1=_n(top), y2=_n(height - bottom), class_="grid")
         _el(
             root,
             "text",
-            _tick_text(spec, tick),
-            x=_n(x_of(tick)),
+            _tick_text(spec, tick, places),
+            x=tx,
             y=str(height - 6),
             text_anchor="middle",
             class_="ax",
         )
-    for row, category in enumerate(categories):
+    for row, category in enumerate(_categories(spec)):
         y = top + row * row_height + row_height / 2
         _el(
             root,
@@ -770,85 +925,11 @@ def _bullet(spec: ChartSpec, root: ET.Element, chart_id: str) -> None:
         current = points.get((current_series, category))
         headroom = points.get((headroom_series, category)) if headroom_series else None
         if current is not None:
-            if current.value is None:
-                _na_slot(root, left + 14, y + 4)
-                _mark_group(root, current, _label(current), left + 14, y, None)
-            else:
-                end = x_of(float(current.value))
-                cls = _series_class(spec, current_series)
-
-                def draw_bar(
-                    group: ET.Element,
-                    m: ChartMark = current,
-                    c: int = cls,
-                    e: float = end,
-                    yy: float = y,
-                ) -> None:
-                    _el(
-                        group,
-                        "rect",
-                        x=_n(left),
-                        y=_n(yy - 6),
-                        width=_n(max(1.0, e - left)),
-                        height="12",
-                        **_fill(m, c, chart_id),
-                    )
-
-                _mark_group(root, current, _label(current), (left + end) / 2, y, draw_bar)
-                _el(root, "text", current.text, x=_n(end + 6), y=_n(y + 4), class_="lb small")
+            _bullet_current(plot, current, y)
         if threshold is not None:
-            if threshold.value is None:
-                _na_slot(root, left + 14, y - 10)
-                _mark_group(root, threshold, _label(threshold), left + 14, y - 10, None)
-            else:
-                tx = x_of(float(threshold.value))
-                cls = _series_class(spec, threshold_series)
-
-                def draw_tick(
-                    group: ET.Element, c: int = cls, t: float = tx, yy: float = y
-                ) -> None:
-                    _el(
-                        group,
-                        "rect",
-                        x=_n(t - 1.5),
-                        y=_n(yy - 12),
-                        width="3",
-                        height="24",
-                        class_=f"bar s{c}",
-                    )
-
-                _mark_group(root, threshold, _label(threshold), tx, y, draw_tick)
-                _el(root, "text", threshold.text, x=_n(tx + 6), y=_n(y - 13), class_="lb small")
+            _bullet_threshold(plot, threshold, y)
         if headroom is not None:
-            if headroom.value is None:
-                _na_slot(root, width - right / 2, y + 4)
-                _mark_group(root, headroom, _label(headroom), width - right / 2, y + 4, None)
-            else:
-                if (
-                    threshold is not None
-                    and current is not None
-                    and threshold.value is not None
-                    and current.value is not None
-                ):
-                    _el(
-                        root,
-                        "line",
-                        x1=_n(x_of(float(current.value))),
-                        x2=_n(x_of(float(threshold.value))),
-                        y1=_n(y),
-                        y2=_n(y),
-                        class_="connector",
-                    )
-                _mark_group(root, headroom, _label(headroom), width - right / 2, y + 4, None)
-                _el(
-                    root,
-                    "text",
-                    headroom.text,
-                    x=_n(width - 2),
-                    y=_n(y + 4),
-                    text_anchor="end",
-                    class_="lb small",
-                )
+            _bullet_headroom(plot, headroom, _known_pair(current, threshold), y)
 
 
 def _na(spec: ChartSpec, title: str) -> ET.Element:

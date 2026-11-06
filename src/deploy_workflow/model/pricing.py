@@ -73,7 +73,8 @@ def _count(name: str, value: object) -> int:
 
 @dataclass(frozen=True)
 class ModelPrice:
-    """USD per million tokens. ``cache_write`` is the rate reservations use for input."""
+    """USD per million tokens. ``reservation_usd`` holds every input token at the dearer of
+    ``input`` and ``cache_write``; ``request_reservation_usd`` at the dearest listed input rate."""
 
     input: Decimal
     output: Decimal
@@ -169,6 +170,7 @@ PRICES: Mapping[str, ModelPrice] = MappingProxyType(
             cached_read=Decimal("0.009"),
             cache_write=Decimal("0.45"),  # none listed: reserved at input
             output=Decimal("1.80"),
+            cache_write_listed=False,  # a charge with written tokens is unknown
         ),
         # GitHub "Models and pricing", fetched 2026-11-06 (COPILOT_PRICES_AS_OF); USD per 1M tokens
         "copilot-sol-medium": ModelPrice(
@@ -272,12 +274,14 @@ def request_reservation_usd(price: ModelPrice, input_bound: int, max_output: int
 
 def _openai_like(price: ModelPrice, usage: Usage) -> Decimal | None:
     """Input includes cached reads and cache writes (counted once); output includes reasoning.
-    Only input and output are required: a partial usage is unknown, never a partial charge."""
+    Input, output and the price's cached-read rate are required; an absent cached-read count
+    prices those tokens at the input rate (never an undercharge), an absent write count prices
+    none (live, ``price_usage`` makes that charge unknown first: ``_write_count_missing``)."""
     n_in, n_out = usage.input_tokens, usage.output_tokens
     if n_in is None or n_out is None or price.cached_read is None:
         return None
-    cached = usage.cached_read_tokens or 0  # absent: all at the input rate, never an undercharge
-    written = usage.cache_write_tokens or 0  # input_tokens_details.cache_write_tokens; absent: none
+    cached = usage.cached_read_tokens or 0
+    written = usage.cache_write_tokens or 0
     fresh = n_in - cached - written
     if fresh < 0 or (written and not price.cache_write_listed):
         return None
@@ -338,8 +342,21 @@ def price_usage(
         return Priced(_money("billed_usd", billed_usd), "billed")
     if provider in ("openrouter", "copilot") and not offline:
         return _UNKNOWN  # the charge is usage.cost only
+    if not offline and _write_count_missing(provider, price, usage):
+        return _UNKNOWN
     usd = computed_usd(provider, price, usage)
     return _UNKNOWN if usd is None else Priced(usd, "computed")
+
+
+def _write_count_missing(provider: str | None, price: ModelPrice, usage: Usage) -> bool:
+    """A live OpenAI usage without ``input_tokens_details.cache_write_tokens``, where writes cost
+    more than input: pricing the written tokens at input would undercharge, so the charge is
+    unknown. Offline, a recording made before the count was read still prices (no money moves)."""
+    return (
+        provider == "openai"
+        and usage.cache_write_tokens is None
+        and (price.cache_write > price.input)
+    )
 
 
 def computed_usd(provider: str | None, price: ModelPrice, usage: Usage) -> Decimal | None:
@@ -354,9 +371,8 @@ def computed_usd(provider: str | None, price: ModelPrice, usage: Usage) -> Decim
         return None  # the charge is the runtime's reported cost (billed_usd) only
     if provider == "anthropic":
         return _anthropic(price, usage)
-    if provider == "openrouter" and usage.cache_write_tokens:
-        return None  # offline only: no cache-write rate is listed
-    # openai; openrouter offline (prompt tokens include cached reads)
+    # openai; openrouter offline (prompt tokens include cached reads; deepseek-max lists no write
+    # rate, so written tokens make its charge unknown through ``cache_write_listed``)
     return _openai_like(price, usage)
 
 

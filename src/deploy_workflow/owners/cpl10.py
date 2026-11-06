@@ -81,7 +81,8 @@ STEP_IDS = (STEP_ID,)
 Materiality = Literal["Material", "Watch", "Stable", "Not assessed"]
 PctStatus = Literal["known", "not_applicable", "missing"]
 
-# Screening-policy literals (D11): stated in the CP-L10 method with an own limitation, never sourced.
+# Screening-policy literals (D11): stated in the CP-L10 method with an own limitation, never
+# sourced.
 MATERIAL_AT = Fraction(1, 10)
 WATCH_AT = Fraction(1, 20)
 _CTX = Context(prec=38, rounding=ROUND_HALF_EVEN)
@@ -162,7 +163,8 @@ TOPICS = (
 
 
 def topics_in(currency: CurrencyBasis) -> tuple[Topic, ...]:
-    """The topics with the money unit token of `currency` (`US$ m`, `EUR m`); the multiples keep `x`."""
+    """The topics with the money unit token of `currency` (`US$ m`, `EUR m`); the multiples keep
+    `x`."""
     return tuple(
         replace(t, token=currency.money_unit) if t.unit == "MILLIONS" else t for t in TOPICS
     )
@@ -416,15 +418,28 @@ class Upstream:
                     raise UpstreamError(f"unbound CP-1 operand: {label}")
                 if fact.status != "known":
                     continue  # ruling (f): units and scales are checked on known operands only
-                if fact.amount is None:
-                    raise UpstreamError(f"CP-1 operand without an amount: {label}")
-                if fact.unit != topic.unit:
-                    raise UpstreamError(
-                        f"CP-1 operand unit {fact.unit} is not {topic.unit}: {label}"
-                    )
+                self._check_known(topic, fact)
                 scales.add(fact.scale)
             if len(scales) > 1:
                 raise UpstreamError(f"CP-1 operands of {topic.topic_id} differ in scale")
+
+    def _check_known(self, topic: Topic, fact: Fact) -> None:
+        """A known operand has an amount and the topic's unit; a money operand is in the run's
+        currency (USD for the plain `Upstream`) at the million scale every derived money cell of
+        the row is written at, so the copied and the derived cells state one money basis."""
+        if fact.amount is None:
+            raise UpstreamError(f"CP-1 operand without an amount: {fact.label}")
+        if fact.unit != topic.unit:
+            raise UpstreamError(f"CP-1 operand unit {fact.unit} is not {topic.unit}: {fact.label}")
+        if fact.unit != "MILLIONS":
+            return
+        if fact.currency != self.currency.currency:
+            raise UpstreamError(
+                f"CP-1 operand currency {fact.currency} is not {self.currency.currency}: "
+                f"{fact.label}"
+            )
+        if fact.scale != _MILLION:
+            raise UpstreamError(f"CP-1 operand scale {fact.scale} is not {_MILLION}: {fact.label}")
 
     def operand(self, topic: Topic, period: str) -> Fact:
         column = self.quarters[self.periods.index(period)].column
@@ -437,16 +452,6 @@ class RunUpstream(Upstream):
     money tokens and cells state it. A USD run (or none) keeps the plain `Upstream`."""
 
     run_currency: CurrencyBasis = DEFAULT_CURRENCY
-
-    def __post_init__(self) -> None:
-        super().__post_init__()
-        for fact in self.cp1_facts.values():
-            known_money = fact.status == "known" and fact.unit == "MILLIONS"
-            if known_money and fact.currency != self.run_currency.currency:
-                raise UpstreamError(
-                    f"CP-1 operand currency {fact.currency} is not "
-                    f"{self.run_currency.currency}: {fact.label}"
-                )
 
     @property
     def currency(self) -> CurrencyBasis:
@@ -875,7 +880,9 @@ def _scope_rows(
     upstream: Upstream, rows: tuple[TopicResult, ...], pair_period: str
 ) -> list[tuple[str, _Cells]]:
     """TL10.1: one row per upstream head; source_ref and scope_status are run-bound (F3)."""
-    supported = ", ".join(r.topic.label for r in rows if r.screen.evidence == "Complete")
+    supported = ", ".join(r.topic.label for r in rows if r.screen.evidence == "Complete") or (
+        "None: no topic has a CP-1 known value at both quarters compared"
+    )
     out = []
     for rid, module, sha, word, period, topics in (
         (
@@ -1013,7 +1020,8 @@ def _claim(
     limitation: str | None,
     facts: Mapping[str, Fact],
 ) -> ClaimRecord:
-    """F5, round 3: the referenced facts' citations in first-reference order, one per (source, page)."""
+    """F5, round 3: the referenced facts' citations in first-reference order, one per (source,
+    page)."""
     cites = _unique(c for ref in refs for c in facts[ref.split("|")[0]].citations)
     return ClaimRecord(claim_id, text, refs, limitation, cites)
 
@@ -1165,7 +1173,8 @@ def _confidence_issues(path: str, confidence: str, category: str) -> list[str]:
 
 
 def _assessment_issues(sub: ChangeScreenSubmission, rated: Mapping[str, Materiality]) -> list[str]:
-    """Step (3): per assessment unknown topic, not assessable, repeated, confidence; then missing."""
+    """Step (3): per assessment unknown topic, not assessable, repeated, confidence; then
+    missing."""
     issues: list[str] = []
     seen: set[str] = set()
     for i, a in enumerate(sub.assessments):
@@ -1200,7 +1209,7 @@ def _text_issues(sub: ChangeScreenSubmission, bound: Mapping[str, Fact], issuer:
     issues: list[str] = []
     for path, text in texts:
         issues += [f"{path}: {i}" for i in prose_issues(text, bound, names=(issuer,))]
-        issues += [f"{path}: prohibited conclusion: {w}" for w in PROHIBITED if w in text.lower()]
+        issues += _prohibited(path, text)
         if is_blank(text):
             issues.append(f"{path}: empty")
     return issues
@@ -1219,14 +1228,29 @@ def _overall_issues(overall: Overall) -> list[str]:
         issues.append(
             "overall.limitation: only an Insufficient Information overall carries a limitation"
         )
-    if overall.limitation is not None and is_blank(overall.limitation):
-        issues.append("overall.limitation: empty")
+    if overall.limitation is not None:  # plain text on the claim: no figure, no conclusion
+        issues += _plain_text_issues("overall.limitation", overall.limitation)
     return issues
+
+
+def _prohibited(path: str, text: str) -> list[str]:
+    """Prohibited conclusions (substring match, the v1 limit of L10-b)."""
+    return [f"{path}: prohibited conclusion: {w}" for w in PROHIBITED if w in text.lower()]
+
+
+def _plain_text_issues(path: str, text: str) -> list[str]:
+    """Analyst text shown as written, never resolved (the overall limitation): empty, then a
+    digit (no figure and no reference), then prohibited conclusions."""
+    if is_blank(text):
+        return [f"{path}: empty"]
+    digit = [f"{path}: must not contain a digit"] if _DIGIT.search(text) else []
+    return [*digit, *_prohibited(path, text)]
 
 
 def _gap_issues(gaps: tuple[Gap, ...]) -> list[str]:
     """Step (6), per gap in order: topic, missing item, empty why and action (round 11 blank
-    text, the module's frame `<path>: empty`), digits (field order), repeat."""
+    text, the module's frame `<path>: empty`), digits (field order), prohibited conclusions in
+    the texts the limitations show, repeat."""
     issues: list[str] = []
     seen: set[tuple[str, str]] = set()
     for i, g in enumerate(gaps):
@@ -1241,6 +1265,8 @@ def _gap_issues(gaps: tuple[Gap, ...]) -> list[str]:
         for field in ("gap", "why_it_matters", "affected_analysis", "action"):
             if _DIGIT.search(getattr(g, field)):
                 issues.append(f"{path}.{field}: must not contain a digit")
+        for field in ("gap", "why_it_matters", "action"):  # shown in the limitations as written
+            issues += _prohibited(f"{path}.{field}", getattr(g, field))
         key = (g.affected_analysis, g.gap)
         if key in seen:
             issues.append(f"{path}: repeated gap")

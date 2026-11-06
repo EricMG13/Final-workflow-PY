@@ -248,11 +248,14 @@ def cp4_upstream(pack: PreparedPack, cp0: Module, cp1: Module) -> Upstream:
                 names.setdefault(text, by_row.get((row_id, "facility_name")))
     facts = () if blocked else referencable(f for f in cp1.facts if f.table_id in FIGURE_TABLES)
     labels = {(t.table_id, r.row_id): r.label for t in cp1.tables for r in t.rows}
-    gaps = (
+    # A blocked CP-1's own limitations carry the kernel's "Upstream CP-1 blocked: " wording
+    # (`execution.inherited_limitations`); the gaps CP-1 itself inherited are kept either way.
+    own = (
         tuple(f"Upstream {CP1} blocked: {text}" for text in cp1.limitations)
         if blocked
-        else (*cp1.limitations, *cp1.inherited_limitations)
+        else cp1.limitations
     )
+    gaps = (*own, *cp1.inherited_limitations)
     return Upstream(
         cp0_sha256=cp0.content_hash(),
         cp1_sha256=cp1.content_hash(),
@@ -284,12 +287,14 @@ _NUMBER = r"([0-9]{1,3}(?:,[0-9]{3})+(?:\.[0-9]+)?|[0-9]+(?:\.[0-9]+)?)"
 _BEFORE = r"(?<![0-9A-Za-z])(?<![0-9][.,])"
 _AFTER = r"(?![0-9A-Za-z])"
 _END = r"(?![0-9]|[.,][0-9])"
+# A threshold keeps a minus sign written against its number ("-2.5%"; `normalise` maps U+2212
+# and the dashes to "-"). A dash after a digit or letter ("3.0-4.0x", "EBITDA-2x") or before a
+# space ("2.5 - 3.0x") is a separator, not a sign. Group 1 is the sign, group 2 the number.
+_SIGNED = rf"((?<![0-9A-Za-z.,])[-\u2212](?=[0-9]))?{_BEFORE}{_NUMBER}"
 # "N to D" with any denominator; "N:1" only to one (confidence review: "12:00" is a clock time).
-_RATIO = re.compile(
-    rf"{_BEFORE}{_NUMBER}\s*(?:to\s*{_NUMBER}|:\s*(1(?:\.0+)?)){_END}", re.IGNORECASE
-)
-_TIMES = re.compile(rf"{_BEFORE}{_NUMBER}\s*(?:x|\u00d7|times){_AFTER}", re.IGNORECASE)
-_PERCENT = re.compile(rf"{_BEFORE}{_NUMBER}\s*(?:%|percent|per cent){_AFTER}", re.IGNORECASE)
+_RATIO = re.compile(rf"{_SIGNED}\s*(?:to\s*{_NUMBER}|:\s*(1(?:\.0+)?)){_END}", re.IGNORECASE)
+_TIMES = re.compile(rf"{_SIGNED}\s*(?:x|\u00d7|times){_AFTER}", re.IGNORECASE)
+_PERCENT = re.compile(rf"{_SIGNED}\s*(?:%|percent|per cent){_AFTER}", re.IGNORECASE)
 _FRACTION_PERCENT = re.compile(
     rf"[0-9]\s*[/⁄]\s*[+−-]?\s*{_NUMBER}\s*(?:%|percent|per cent){_AFTER}", re.IGNORECASE
 )
@@ -299,9 +304,16 @@ def _decimal(text: str) -> Decimal:
     return Decimal(text.replace(",", ""))
 
 
+def _signed(match: re.Match[str]) -> Decimal:
+    """The number of a `_SIGNED` match (groups 1 and 2), negative where a sign is written."""
+    value = _decimal(match[2])
+    return -value if match[1] else value
+
+
 def parse_threshold(text: str, unit: str) -> tuple[Decimal | None, str | None]:
     """The one threshold a quoted text states, as written (a ratio N to one is N, a multiple
-    N x is N, a percentage is its number: 12.5 for 12.5%), or None with the reason it cannot be
+    N x is N, a percentage is its number: 12.5 for 12.5%, -2.5 for -2.5%; a minus sign written
+    against the number is kept), or None with the reason it cannot be
     read. A ratio to anything but one is not read: Python would have to divide a number the
     model never wrote. Only the multiple and percent forms are read."""
     plain = normalise(text)
@@ -309,7 +321,7 @@ def parse_threshold(text: str, unit: str) -> tuple[Decimal | None, str | None]:
     issue: str | None = None
     if unit == "multiple":
         for match in _RATIO.finditer(plain):
-            numerator, denominator = _decimal(match[1]), _decimal(match[2] or match[3])
+            numerator, denominator = _signed(match), _decimal(match[3] or match[4])
             if denominator == 0:
                 issue = "the ratio has a zero denominator"
             elif denominator != 1:
@@ -317,11 +329,11 @@ def parse_threshold(text: str, unit: str) -> tuple[Decimal | None, str | None]:
             else:  # "5.00 to 1.00" keeps its written 5.00
                 values.append(numerator)
         # A ratio's own numbers are read once: the "N times" form is searched outside them.
-        values += [_decimal(m[1]) for m in _TIMES.finditer(_RATIO.sub(" ", plain))]
+        values += [_signed(m) for m in _TIMES.finditer(_RATIO.sub(" ", plain))]
     elif unit == "percent":
         if _FRACTION_PERCENT.search(plain):
             return None, "a fractional percentage is not parsed; set threshold_unit to other"
-        values = [_decimal(m[1]) for m in _PERCENT.finditer(plain)]
+        values = [_signed(m) for m in _PERCENT.finditer(plain)]
     else:
         return None, f"a {unit} threshold is not parsed"
     if issue is not None:
@@ -673,6 +685,9 @@ def validate_covenant_interpretation(
 
 # --- the tables (minimal, from the rows; ids from r14, placement Deploy VII's) ----------------
 
+# CP-4's table of verbatim copies of the CP-1 figures it references (`_referenced_table`): the
+# table id retained runs carry. CP-5 exempts it from placement comparison (`REFERENCE_TABLES`).
+CP1_COPIES = "T4F.2"
 REGISTERS: Mapping[str, Register] = {
     item.table_id: item
     for item in (
@@ -743,7 +758,7 @@ REGISTERS: Mapping[str, Register] = {
         _register("T4D.7", "Red flag implications", "Flag|Implication|Severity"),
         _register("T4D.8", "Covenants by governing document", "Source ID|Covenants"),
         _register("T4F.1", "CP-4 input status", "Input|Status|SHA-256|Note"),
-        _register("T4F.2", "CP-1 figures referenced", "Value"),
+        _register(CP1_COPIES, "CP-1 figures referenced", "Value"),
         _register(
             "T4F.3",
             "Headroom calculation trace",
@@ -759,7 +774,7 @@ REQUIRED_TABLES = tuple(REGISTERS)
 NONEMPTY = frozenset({"T4.2", "T4.3"})
 # The first column is the row header except here: the single rating row shows its rating as a
 # cell, and the referenced figures are labelled by their CP-1 row.
-UNKEYED = frozenset({"T4.13", "T4F.2"})
+UNKEYED = frozenset({"T4.13", CP1_COPIES})
 _COMPARISON_TEXT: Mapping[str, str] = {
     "<=": "Not more than",
     "<": "Less than",
@@ -1520,7 +1535,10 @@ def _validate_step(store: Execution, pack: PreparedPack, attempt: Attempt) -> St
         )
     except ValidationError as error:
         return StepValidation(issues=shape_issues(error))
-    upstream = upstream_of(store, attempt)
+    try:
+        upstream = upstream_of(store, attempt)
+    except ValueError as error:  # a missing or tampered bound head rejects the attempt (CP-5)
+        return StepValidation(issues=(f"Unreadable upstream heads: {error}",))
     issues = validate_covenant_interpretation(pack, submission, upstream, attempt.inputs)
     if issues:
         return StepValidation(issues=issues)

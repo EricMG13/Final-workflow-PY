@@ -21,7 +21,8 @@ PRECEDENT_MONTHS = 36
 # CP-4C's multiple field allows two digits and two decimals (`cp4c.py` MULTIPLE_PATTERN).
 MAX_MULTIPLE = Decimal("99.99")
 MIN_MULTIPLE = Decimal("0.01")
-# Above this a value cannot be rounded to 2 dp inside the 38-digit context; it is over the limit anyway.
+# Above this a value cannot be rounded to 2 dp inside the 38-digit context; it is over the limit
+# anyway.
 UNROUNDABLE = Decimal(10) ** 30
 CENTS = Decimal("0.01")
 TENTHS = Decimal("0.1")
@@ -168,7 +169,8 @@ def _one_dp(value: Decimal) -> str:
 
 
 def _shown_two_dp(value: Decimal) -> str:
-    """Display rule (half-up, 2 dp) as T1C.10 shows a multiple; the selection itself is half-even."""
+    """Display rule (half-up, 2 dp) as T1C.10 shows a multiple; the selection itself is
+    half-even."""
     if value.copy_abs() >= UNROUNDABLE:
         return format(value, "f")
     with localcontext(CTX):
@@ -176,7 +178,10 @@ def _shown_two_dp(value: Decimal) -> str:
 
 
 def _limit_reason(shown: str, edge: str, limit: Decimal) -> str:
-    return f"the selected multiple {shown} is {edge} the {limit} limit of the CP-4C field; no multiple is selected"
+    return (
+        f"the selected multiple {shown} is {edge} the {limit} limit of the CP-4C field; "
+        "no multiple is selected"
+    )
 
 
 def _gap(
@@ -236,10 +241,16 @@ def _median_selection(
 
 def _auto(pub: SetStats, prec: SetStats, ebitda: Decimal | None) -> Selection:
     if pub.median is not None:
-        reason = f"auto: public comps, {pub.n_admitted} admitted of {MIN_ADMITTED} required ({PEER_MONTHS}-month window)"
+        reason = (
+            f"auto: public comps, {pub.n_admitted} admitted of {MIN_ADMITTED} required "
+            f"({PEER_MONTHS}-month window)"
+        )
         return _chosen(AUTO, PUBLIC, pub.median, reason, ebitda)
     if prec.median is not None:
-        reason = f"auto: precedents, {prec.n_admitted} admitted of {MIN_ADMITTED} required ({PRECEDENT_MONTHS}-month window)"
+        reason = (
+            f"auto: precedents, {prec.n_admitted} admitted of {MIN_ADMITTED} required "
+            f"({PRECEDENT_MONTHS}-month window)"
+        )
         return _chosen(AUTO, PRECEDENTS, prec.median, reason, ebitda)
     reason = (
         f"auto: {_thin('public comps', pub)} ({PEER_MONTHS}-month window); "
@@ -271,7 +282,10 @@ def _issuer_ev(market: IssuerMarket) -> tuple[Decimal, str]:
     ev = CTX.add(Decimal(market.market_cap_m), Decimal(market.net_debt_m))
     return (
         ev,
-        f"enterprise value {_one_dp(ev)} (market cap {market.market_cap_m} plus net debt {market.net_debt_m}",
+        (
+            f"enterprise value {_one_dp(ev)} (market cap {market.market_cap_m} plus net debt "
+            f"{market.net_debt_m}"
+        ),
     )
 
 

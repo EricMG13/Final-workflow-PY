@@ -16,7 +16,7 @@ from deploy_workflow.model.budget import exact_multiply, exact_subtract, exact_s
 from deploy_workflow.model.record import CallRecord
 from deploy_workflow.model.redact import KEY_PATTERN
 from deploy_workflow.model_testing.configs import ACCOUNTS, CONFIGS, Provider
-from deploy_workflow.model_testing.records import RunMeta
+from deploy_workflow.model_testing.records import CallKey, RunMeta, call_key, validation_summary
 
 Runs = Sequence[tuple[RunMeta, Sequence[CallRecord]]]
 
@@ -50,6 +50,11 @@ class Settlement(Contract):
     by: str = Field(min_length=1)
     date: str
     source: str = Field(min_length=1)
+
+    @property
+    def key(self) -> CallKey:
+        """The call this settles, named as ``call_key`` names a record."""
+        return (self.run_id, self.module_id, self.step_id, self.attempt, self.call_index)
 
     @field_validator("settled_usd", mode="before")
     @classmethod
@@ -93,11 +98,7 @@ def load_settlements(path: Path) -> tuple[Settlement, ...]:
     try:
         return _SettlementFile.model_validate_json(path.read_bytes()).entries
     except ValidationError as error:
-        shown = "; ".join(
-            f"{'.'.join(str(p) for p in e['loc']) or '<root>'}: {e['msg']}"
-            for e in error.errors(include_input=False, include_url=False, include_context=False)[:5]
-        )
-        raise BudgetError(f"{path.name}: invalid: {shown}") from None
+        raise BudgetError(f"{path.name}: invalid: {validation_summary(error)}") from None
 
 
 def _provider(config_id: str) -> Provider:
@@ -128,13 +129,6 @@ def _checked(runs: Runs) -> Iterator[tuple[RunMeta, CallRecord]]:
             yield meta, record
 
 
-Key = tuple[str, str, str, int, int]
-
-
-def _key(record: CallRecord) -> Key:
-    return (record.run_id, record.module_id, record.step_id, record.attempt, record.call_index)
-
-
 def _exact(amount: Decimal) -> bool:
     """Whether a settlement-file amount fits its existing 60-place and 1e30 limits."""
     exponent = amount.as_tuple().exponent
@@ -143,16 +137,16 @@ def _exact(amount: Decimal) -> bool:
 
 def _settled_amounts(
     rows: Sequence[tuple[RunMeta, CallRecord]], settlements: Sequence[Settlement]
-) -> dict[Key, Decimal]:
+) -> dict[CallKey, Decimal]:
     """The settled amount per call, after refusing a settlement that is a duplicate, matches no
     record or more than one, targets a record whose charge is known, or carries a negative,
     non-finite or inexactly held amount."""
-    records: dict[Key, list[CallRecord]] = {}
+    records: dict[CallKey, list[CallRecord]] = {}
     for _, record in rows:
-        records.setdefault(_key(record), []).append(record)
-    found: dict[Key, Decimal] = {}
+        records.setdefault(call_key(record), []).append(record)
+    found: dict[CallKey, Decimal] = {}
     for item in settlements:
-        key = (item.run_id, item.module_id, item.step_id, item.attempt, item.call_index)
+        key = item.key
         where = (
             f"settlement for run {item.run_id} module {item.module_id} step {item.step_id} "
             f"attempt {item.attempt} call {item.call_index}"
@@ -176,8 +170,8 @@ def _settled_amounts(
     return found
 
 
-def settled_amounts(runs: Runs, settlements: Sequence[Settlement]) -> dict[Key, Decimal]:
-    """The user-settled amount per call (keyed as ``_key``), with every refusal of
+def settled_amounts(runs: Runs, settlements: Sequence[Settlement]) -> dict[CallKey, Decimal]:
+    """The user-settled amount per call (keyed as ``call_key``), with every refusal of
     ``_settled_amounts``; the report reuses this matching rather than writing its own."""
     return _settled_amounts(list(_checked(runs)), settlements)
 
@@ -193,7 +187,7 @@ def account_spend(
     for meta, record in rows:
         if meta.mode != "live" or _provider(record.config_id) != account_id:
             continue
-        key = _key(record)
+        key = call_key(record)
         if record.cost_status == "unknown" and key in settled:
             amounts.append(settled[key])
         elif record.cost_status == "unknown" or record.settled_usd is None:
@@ -238,7 +232,7 @@ def require_budget(
             if meta.mode == "live"
             and record.config_id == config_id
             and record.cost_status == "unknown"
-            and _key(record) not in settled
+            and call_key(record) not in settled
         }
     )
     durable_holders = sorted(

@@ -1,11 +1,10 @@
 """Offline canonical-register candidate; final analytical handoff remains separate."""
 
-import hashlib
-import json
 from pathlib import Path
 
 from deploy_vii.canonical_tables import CanonicalTables
 from deploy_vii.contracts import View
+from deploy_vii.delivery import publish_bundle
 from deploy_vii.envelope import resolved_claims
 from deploy_vii.preparation import PreparedPack
 from deploy_vii.render import empty_view, render
@@ -53,9 +52,11 @@ def write_register_preview(
     )
     sections = [
         "# CP-1 canonical register preview",
-        "Candidate only. This is not the final downstream Markdown handoff: the promoted "
-        "canonical envelope is produced separately (`envelope --module CP-1`) once QA "
-        "and promotion settle CP-1.",
+        (
+            "Candidate only. This is not the final downstream Markdown handoff: the promoted "
+            "canonical envelope is produced separately (`envelope --module CP-1`) once QA "
+            "and promotion settle CP-1."
+        ),
     ]
     sections.append("## Analysis")
     # Resolved run text (decision 0005 MC-2), as in the canonical envelope: never raw tokens.
@@ -93,10 +94,6 @@ def write_register_preview(
         "module_acceptance": "unrun",
         "analytical_qualification": "unrun",
         "browser_acceptance": "unrun",
-        "files": {name: hashlib.sha256(raw.encode()).hexdigest() for name, raw in payloads.items()},
     }
-    destination.mkdir(parents=True, exist_ok=False)
-    for name, raw in payloads.items():
-        (destination / name).write_text(raw, encoding="utf-8")
-    (destination / "complete.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
+    publish_bundle(destination, payloads, receipt)
     return destination / "candidate.html"

@@ -23,6 +23,7 @@ from deploy_workflow.research.contracts import (
     ResearchQuestion,
     receivers_for_focus,
 )
+from deploy_workflow.research.dossier import brief_json
 
 CONTEXT_PREFIX = "ctx-"
 _ALL_RECEIVERS = receivers_for_focus("")
@@ -77,15 +78,15 @@ def merge_questions(
 
 
 def write_locked_brief(path: Path, brief: ResearchBrief) -> None:
-    """Write ``brief.json`` once; a lock is never overwritten."""
-    if path.exists():
-        raise BriefInvalid(f"brief already locked at {path}")
+    """Write ``brief.json`` once, as the bytes of ``dossier.brief_json`` (LF line ends on every
+    platform, so ``run_pathway`` can compare the file with the rendered brief byte for byte). The
+    file is created exclusively: a lock is never overwritten."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(brief.model_dump(mode="json"), sort_keys=True, indent=1, ensure_ascii=False)
-        + "\n",
-        encoding="utf-8",
-    )
+    try:
+        with path.open("xb") as handle:
+            handle.write(brief_json(brief).encode("utf-8"))
+    except FileExistsError:
+        raise BriefInvalid(f"brief already locked at {path}") from None
 
 
 def lock_brief(

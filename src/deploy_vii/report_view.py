@@ -2201,14 +2201,17 @@ def _block(
         words_state = "absent"
         note = f"Absent: {' · '.join(spec.producers)} supplied no rows for this block."
     kind = spec.kind if spec.kind != "chart" else "dense"
+    # The honest state keeps the block's scope tag and pin; an empty block links nowhere.
     return Block(
         block_id=block_id,
         title=spec.title,
         owner=spec.owner,
+        tags=synthetic,
         state=words_state,
         kind=kind,
         note=note,
         width=spec.width,
+        pinned=spec.pinned,
     )
 
 
@@ -2948,9 +2951,10 @@ def _liquidity_figure(
 ) -> Figure:
     """Render one ``LiquidityFigureSeries`` against its settled module and the report index.
 
-    Each mark is its fact's own cell (``_chart_fact_cell``): the record's value and spelling are
-    only checked against it. A gap point takes the ``G#`` the report index allocated for its
-    fact. One table row per category, one cell per series, so the twin reads category-major.
+    Each mark is its fact's own cell (``_chart_fact_cell``): the record's value and, for a known
+    value, its spelling are only checked against it. A gap point takes the ``G#`` the report
+    index allocated for its fact. One table row per category, one cell per series, so the twin
+    reads category-major.
     """
     facts = {fact.fact_id: fact for fact in module.facts}
 
@@ -2969,6 +2973,11 @@ def _liquidity_figure(
         mark = _chart_mark(fact, cell, series=point.series, label=point.category, role=point.role)
         if mark.value != point.value:
             raise ValueError(f"{module.module_id} chart value of {point.fact_id} is not the fact's")
+        if mark.value is not None and mark.text != point.shown:
+            raise ValueError(
+                f"{module.module_id} chart spells {point.fact_id} {point.shown!r}, "
+                f"its fact {mark.text!r}"
+            )
         marks.append(mark)
         by_category.setdefault(point.category, []).append(cell)
     rows = tuple(

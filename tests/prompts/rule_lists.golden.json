@@ -264,21 +264,23 @@
      "oracle:cpl10:r09",
      "oracle:cpl10:r10",
      "oracle:cpl10:r11",
-     "fn:deploy_workflow.owners.cpl10:_text_issues"
+     "fn:deploy_workflow.owners.cpl10:_text_issues",
+     "fn:deploy_workflow.owners.cpl10:_prohibited"
     ]
    },
    {
     "id": "change_screen.5",
-    "statement": "An overall whose category is Insufficient Information states its `limitation`; an overall of any other category has a null `limitation`, and a stated limitation is not blank.",
+    "statement": "An overall whose category is Insufficient Information states its `limitation`; an overall of any other category has a null `limitation`, and a stated limitation is not blank, contains no digit and none of the words recommend, recovery or covenant anywhere in the text, whatever the case.",
     "checks": [
      "oracle:cpl10:r14",
      "oracle:cpl10:r15",
-     "fn:deploy_workflow.owners.cpl10:_overall_issues"
+     "fn:deploy_workflow.owners.cpl10:_overall_issues",
+     "fn:deploy_workflow.owners.cpl10:_plain_text_issues"
     ]
    },
    {
     "id": "change_screen.6",
-    "statement": "Each gap's `affected_analysis` is a topic id of the view or `overall`; its `gap`, `why_it_matters` and `action` are not blank; no gap field contains a digit; and no two gaps share the same `affected_analysis` and `gap`.",
+    "statement": "Each gap's `affected_analysis` is a topic id of the view or `overall`; its `gap`, `why_it_matters` and `action` are not blank; no gap field contains a digit; `gap`, `why_it_matters` and `action` contain none of the words recommend, recovery or covenant anywhere in the text, whatever the case; and no two gaps share the same `affected_analysis` and `gap`.",
     "checks": [
      "oracle:cpl10:r16",
      "oracle:cpl10:r17",
@@ -315,7 +317,8 @@
      "fn:deploy_vii.cp6_committee:_recommendation_issues",
      "oracle:cp3-cp6:cp6-gap-bias-despite-no-evidence",
      "oracle:cp3-cp6:cp6-recovery-without-cp4",
-     "oracle:cp3-cp6:cp6-bias-confidence-mismatch"
+     "oracle:cp3-cp6:cp6-bias-confidence-mismatch",
+     "fn:deploy_vii.cp6_committee:_recovery_issues"
     ]
    },
    {
@@ -323,7 +326,9 @@
     "statement": "c. While `confidence_caps` lists any cap, every confidence is below High, the recommendation's and each recovery view's. A recommendation that is not Insufficient Information cites in `cp2_refs` or `cp3_refs` at least one row whose `claim` is true and that `cp5_flagged_claims` does not list, or names a CP-1 figure in its rationale or conditions (its limitation does not count). Gap and limitation rows support nothing.",
     "checks": [
      "fn:deploy_vii.cp6_committee:_recommendation_issues",
-     "oracle:cp3-cp6:cp6-confidence-high"
+     "oracle:cp3-cp6:cp6-confidence-high",
+     "fn:deploy_vii.cp6_committee:_recovery_issues",
+     "fn:deploy_vii.cp6_committee:_support_issues"
     ]
    },
    {
@@ -657,7 +662,8 @@
      "code:cp1b:period:invalid_fact",
      "code:cp1b:period:invalid_source_view",
      "code:cp1b:unsupported_pair",
-     "fn:deploy_workflow.owners.cp1b:_validate_step"
+     "fn:deploy_workflow.owners.cp1b:_validate_step",
+     "fn:deploy_workflow.owners.cp1b:ContextPair.refusal"
     ]
    },
    {
@@ -819,14 +825,14 @@
    },
    {
     "id": "financials.k",
-    "statement": "k. Statement lines come from `extract_statements`: keep its labels verbatim and take each amount from the line's raw_values, written as rule a says, never retyped from memory or prose. You map `item_id`/`period_id`, choose `line_kind` and `sign_convention`, and cite the page. A value no extracted line holds keeps its rule f `item_id`, is read with `read_pages` and cited there, and carries a limitation saying it was not extracted. Verify a line the tool flags with `read_pages` before using it.",
+    "statement": "k. Statement lines come from `extract_statements`: take each amount from the line's raw_values, written as rule a says, never retyped from memory or prose. For the qualified path select exact `label_candidates` parts in `row_label_selections`; Python joins the selected printed fragments and cites each fragment. Choose each row's `quantity` kind and scale from its printed unit context, not its metric name. You map `item_id`/`period_id`, choose `line_kind` and `sign_convention`, and cite the page. A value no extracted line holds keeps its rule f `item_id`, is read with `read_pages` and cited there, and carries a limitation saying it was not extracted. Verify a line the tool flags with `read_pages` before using it.",
     "checks": [
      "fn:deploy_workflow.financial_workflow:_evidence_issues"
     ]
    },
    {
     "id": "financials.coverage",
-    "statement": "Map every statement unit `extract_statements` returns in `unit_maps`; Python then writes its statement lines from the extracted text. For each unit give its `source_id` and `locator`, the `book_id`, the `statement` (BS, IS or CFS; comprehensive income is IS), `columns` with one period_id from that book per printed column, or null when the book declares no period for it or another unit already gives that period, and `rows` with each extracted row's number and its `line_id` (used once in its book), `item_id`, `line_kind` and `sign_convention` (total liabilities and equity is `other:total_liabilities_and_equity`). Do not write lines for the rows you map. Write a `statement_lines` entry only for a row Python leaves to you (the submit result's notes name each one): the row's statement, its label verbatim, each mapped column's amount (a printed dash is 0), citing the row's own locator (on a line source, `line:N` with N the row's number in the extract) with a quote that holds the row label. A row left uncovered is refused as an `Uncovered extracted statement line` with its reason.",
+    "statement": "Map every statement unit `extract_statements` returns in `unit_maps`; Python then writes its statement lines from the extracted text. For each unit give its `source_id` and `locator`, the `book_id`, the `statement` (BS, IS or CFS; comprehensive income is IS), `columns` with one period_id from that book per printed column, or null when the book declares no period for it or another unit already gives that period, and `rows` with each extracted row's number and its `line_id` (used once in its book), `item_id`, `line_kind` and `sign_convention` (total liabilities and equity is `other:total_liabilities_and_equity`). For the qualified path set `profile` to `typed-source/1`. Then supply exactly one `row_label_selections` entry for every mapped row: `row` is the extracted row's physical `line_no`, and `part_line_numbers` selects the ordered contiguous exact fragments shown in that row's `label_candidates`, including its amount-bearing line. Python joins only those printed fragments with single spaces; do not supply reconstructed label text or select a section caption as a row prefix. Supply exactly one `row_dimensions` entry per mapped row, with a `quantity` kind (`monetary`, `currency_per_share`, or `shares`), source-supported scale and citations to the statement's printed unit context. A per-share label must use `currency_per_share`; a weighted-average share count must use `shares`; ordinary statement amounts use `monetary`. Balance-sheet columns bind only to `PERIOD_END` periods with no start date. Flow columns must match the printed duration and exact end date; cite source fiscal policy for annual period starts. Comprehensive income uses the transport statement `IS` only with distinct `other:ci_*` line and item IDs and its own page/unit. Do not write lines for the rows you map. Write a `statement_lines` entry only for a row Python leaves to you (the submit result's notes name each one): the row's statement, its label verbatim, each mapped column's amount (a printed dash is 0), citing the row's own locator (on a line source, `line:N` with N the row's number in the extract), citing each selected fragment and the amount-bearing line. A row left uncovered is refused as an `Uncovered extracted statement line` with its reason.",
     "checks": [
      "fn:deploy_workflow.financial_workflow:_evidence_issues"
     ]
@@ -901,7 +907,7 @@
      "oracle:cp2g:v16",
      "oracle:cp2g:v17",
      "fn:deploy_workflow.owners.cp2g:_text_issues",
-     "fn:deploy_workflow.owners.cp2g:_run_text_issues",
+     "fn:deploy_workflow.owners.exact:run_text_issues",
      "fn:deploy_workflow.owners.cp2g:_limitation_issues",
      "fn:deploy_workflow.owners.cp2g:content_issues"
     ]
@@ -1099,7 +1105,7 @@
    },
    {
     "id": "macro_fx.3",
-    "statement": "Give exactly one of `rate_exposure` and `rate_absence`. In `rate_exposure`, `facility_balance.value_text`, `spread.bps_text` and `floor.bps_text` each occur once in their quote right after the words `balance of`, `spread` and `floor` (a numeral of at most three integer digits and four decimals, not a prefix of a longer number); the balance does not exceed the `earnings.total_debt` value. `rate_basis.rate_type` is FLOATING or FIXED as the quote states it (exactly one of a floating rate or a fixed rate), and a FLOATING `reference_rate` occurs in the quote.",
+    "statement": "Give exactly one of `rate_exposure` and `rate_absence`. In `rate_exposure`, `facility_balance.value_text`, `spread.bps_text` and `floor.bps_text` each occur once in their quote right after the words `balance of`, `spread` and `floor` (a numeral of at most three integer digits and four decimals, not a prefix of a longer number); the balance does not exceed the `earnings.total_debt` value. `rate_basis.rate_type` is FLOATING or FIXED as the quote states it (exactly one of a floating rate or a fixed rate), and its `reference_rate`, FLOATING or FIXED, occurs in the quote.",
     "checks": [
      "oracle:cp2e:rate_exposure_and_absence",
      "oracle:cp2e:balance_not_in_quote",
@@ -1116,12 +1122,14 @@
    },
    {
     "id": "macro_fx.4",
-    "statement": "Each of `earnings.ebitda`, `earnings.interest`, `earnings.fcf`, `earnings.total_debt` and `fx.fx_cash_effect` quotes one whole page line that begins with its row label (Reported EBITDA, Cash interest paid, Levered free cash flow, Total debt, FX effect on cash) followed by two spaces, on a page whose header ends in the FY column; its `value_text` is the last value of that line exactly as printed.",
+    "statement": "Each of `earnings.ebitda`, `earnings.interest`, `earnings.fcf`, `earnings.total_debt` and `fx.fx_cash_effect` quotes one whole page line that begins with its row label (Reported EBITDA, Cash interest paid, Levered free cash flow, Total debt, FX effect on cash) followed by two spaces, on a page whose header ends in the FY column; its `value_text` is the last value of that line exactly as printed, with at most six decimals. A value in accounting parentheses is negative: `earnings.total_debt` is never negative, and a `Cash interest paid` value in parentheses is an outflow, read as its positive amount. The statements are dated as calendar years: a financial page that states a year end other than December 31 is refused.",
     "checks": [
      "oracle:cp2e:row_not_whole_line",
      "oracle:cp2e:row_wrong_label",
      "oracle:cp2e:row_value_not_last",
-     "fn:deploy_workflow.owners.cp2e:_Check.row"
+     "fn:deploy_workflow.owners.cp2e:_Check.row",
+     "fn:deploy_workflow.owners.cp2e:_Check.row_value",
+     "fn:deploy_workflow.owners.cp2e:fiscal_year_issues"
     ]
    },
    {
@@ -1155,7 +1163,7 @@
    },
    {
     "id": "macro_fx.8",
-    "statement": "Give one assessment for each `section` (interest_rate, fx, hedging), none twice; `category` is Documentary Fact, Analyst Interpretation or Insufficient Information, `limitation` is given for Insufficient Information and only for it, and a Documentary Fact has at least one `basis` quote. Every analyst text (assessment `text`, `shock_rationale`, `summary.text`, the hedge `rationale`, and every absence `reason` and `follow_up`) is nonblank with no digit; an assessment `limitation` and `rate_basis.reference_rate` are nonblank; `summary.text` has no reference; and an assessment `text` or `summary.text` uses none of the words recommend, buy, sell, overweight, underweight, downgrade, upgrade or covenant breach.",
+    "statement": "Give one assessment for each `section` (interest_rate, fx, hedging), none twice; `category` is Documentary Fact, Analyst Interpretation or Insufficient Information, `limitation` is given for Insufficient Information and only for it, and a Documentary Fact has at least one `basis` quote. Every analyst text (assessment `text`, `shock_rationale`, `summary.text`, the hedge `rationale`, and every absence `reason` and `follow_up`) is nonblank with no digit; an assessment `limitation` and `rate_basis.reference_rate` are nonblank; `summary.text` has no reference; and an assessment `text`, `shock_rationale`, `summary.text` or an absence `reason` uses none of the words recommend, buy, sell, overweight, underweight, downgrade, upgrade or covenant breach.",
     "checks": [
      "oracle:cp2e:digit_in_text",
      "oracle:cp2e:prohibited_conclusion",
@@ -1164,6 +1172,8 @@
      "oracle:cp2e:section_missing",
      "oracle:cp2e:section_repeated",
      "fn:deploy_workflow.owners.cp2e:_check_text",
+     "fn:deploy_workflow.owners.cp2e:_check_assessment",
+     "fn:deploy_workflow.owners.cp2e:_Check.published",
      "fn:deploy_workflow.owners.cp2e:_Check.digit_free",
      "fn:deploy_workflow.owners.cp2e:_Check.empty",
      "fn:deploy_workflow.owners.cp2e:_Check.run_text"
@@ -1309,28 +1319,37 @@
     "id": "narrative.b",
     "statement": "b. A passage (`evidence`, `risk_mechanic`, `credit_implication`, a `rationale`) is an array of 1 to 100 parts: {\"kind\":\"prose\",\"text\":…}, {\"kind\":\"evidence\",\"evidence_id\":…} naming one evidence_id from the evidence table, or {\"kind\":\"issuer\"} (the issuer, bound explicitly). A part holding only punctuation or whitespace is a separator and is forbidden (the validator rejects whitespace but admits a lone `.`, so this is the contract's rule, not the validator's). Put the spaces and sentence punctuation around an evidence part in the neighbouring prose part: the parts are joined with nothing added between them. An issuer part is replaced in place by the issuer's name, with no possessive or plural (`For <issuer>, …`). Each finding's `finding_id` is unique; its `evidence` passage holds at least one evidence part, its `risk_mechanic` and its `credit_implication` each at least one prose part, and at least one issuer part appears among its three passages. Every evidence_id you name, anywhere, is in the evidence table.",
     "checks": [
-     "fn:deploy_vii.narrative:validate_narrative_review"
+     "fn:deploy_vii.narrative:validate_narrative_review",
+     "fn:deploy_vii.narrative:_identity_issues",
+     "fn:deploy_vii.narrative:_finding_issues"
     ]
    },
    {
     "id": "narrative.c",
     "statement": "c. `coverage`: one entry for each of the dimensions (`leverage`, `coverage`, `cash_flow_quality`, `liquidity`, `data_quality`, `definition_risks`, `key_gaps`), never two for one dimension (a dimension left out, or `unassessed`, is recorded as a gap); its `finding_ids` are exactly the `findings` whose `dimension` is that dimension, each once and none from another. `status` is `addressed` exactly when that list is non-empty; `not_applicable` also needs an evidence part in its `rationale`; every `rationale` holds a prose part. When the scope line reads `data_quality_only`, no finding takes a financial dimension (`leverage`, `coverage`, `cash_flow_quality`, `liquidity`).",
     "checks": [
-     "fn:deploy_vii.narrative:validate_narrative_review"
+     "fn:deploy_vii.narrative:validate_narrative_review",
+     "fn:deploy_vii.narrative:_identity_issues",
+     "fn:deploy_vii.narrative:_finding_issues",
+     "fn:deploy_vii.narrative:_coverage_issues",
+     "fn:deploy_vii.narrative:_dimension_issues"
     ]
    },
    {
     "id": "narrative.d",
     "statement": "d. `funding`: `reviewed_statement_ids` and `material_statement_ids` name only evidence ids of `kind=statement_BS` whose `line_id` column is not null (a definition, KPI or any other kind is not admitted), each id once, and every material id is also reviewed; review every such row, or the narrative records a coverage gap. A material row is a non-debt liability detail line: its `line_kind` is `detail` and its `item_id` is outside the standard balance-sheet items (`cash_and_equivalents`, `restricted_cash`, `short_term_investments`, `trade_receivables`, `inventory`, `other_current_assets`, `total_current_assets`, `ppe_net`, `goodwill`, `other_intangibles`, `other_noncurrent_assets`, `total_assets`, `short_term_debt`, `current_portion_long_term_debt`, `trade_payables`, `other_current_liabilities`, `total_current_liabilities`, `senior_secured_debt`, `senior_unsecured_debt`, `subordinated_debt`, `total_debt`, `pension_obligations`, `lease_obligations`, `other_noncurrent_liabilities`, `total_liabilities`, `shareholders_equity`, `minority_interests`, `total_equity`, `rcf_drawn`, `rcf_commitment`, `net_accounts_receivable`, `accounts_payable`, `restricted_cash_noncurrent`), so it carries an `other:` id. An equity row, an asset row or `other:long_term_debt` is not a material funding item: the validator admits such a row, the review must not name it. Each period's row is its own evidence id, so list the periods you will tell: a story is required for every id in `material_statement_ids` and for no unlisted id. `status` is `material_items` exactly when `material_statement_ids` is non-empty; any status but `unassessed` needs a non-empty `reviewed_statement_ids`; its `rationale` holds a prose part.",
     "checks": [
-     "fn:deploy_vii.narrative:validate_narrative_review"
+     "fn:deploy_vii.narrative:validate_narrative_review",
+     "fn:deploy_vii.narrative:_funding_issues"
     ]
    },
    {
     "id": "narrative.e",
     "statement": "e. `stories`: a story is admitted only for an evidence id of `kind=subsequent_event` or `kind=multi_figure_event` (find those headers in the evidence table; with none, there is no event story) or for an id in `material_statement_ids`; a story for any other id (a definition, a statement cell or a KPI, say) is an unknown story. At most one story per such id, whose `finding_ids` are distinct findings whose `evidence` passage cites that same evidence id. A required id without a story blocks the narrative, so write one for each; with none required, `stories` is an empty array.",
     "checks": [
-     "fn:deploy_vii.narrative:validate_narrative_review"
+     "fn:deploy_vii.narrative:validate_narrative_review",
+     "fn:deploy_vii.narrative:_identity_issues",
+     "fn:deploy_vii.narrative:_story_issues"
     ]
    },
    {
@@ -1361,7 +1380,7 @@
    },
    {
     "id": "peer_benchmark.3",
-    "statement": "Every assessment lists `evidence`, and a Partly comparable assessment states its `limitation`. `overall.confidence` is never High, because the peer figures are desk-supplied and unaudited.",
+    "statement": "Every assessment lists `evidence`, and a Partly comparable assessment states its `limitation`. `overall.confidence` is never High, because the peer figures are unaudited: desk-supplied, or read from the supplied evidence on the CP-DR peer-pack path.",
     "checks": [
      "oracle:cp1c:r04",
      "oracle:cp1c:r05",
@@ -1479,7 +1498,7 @@
      "oracle:cp2h:v14",
      "oracle:cp2h:v15",
      "fn:deploy_workflow.owners.cp2h:_prose",
-     "fn:deploy_workflow.owners.cp2h:_run_text_issues",
+     "fn:deploy_workflow.owners.exact:run_text_issues",
      "fn:deploy_workflow.owners.cp2h:_gap_issues",
      "fn:deploy_workflow.owners.cp2h:_overall_issues",
      "fn:deploy_workflow.owners.cp2h:_limitation",
@@ -1513,28 +1532,32 @@
     "id": "readiness.b",
     "statement": "b. `consumers`: one assessment for each `entry` on the `consumers` lines (the requested consumers), no other entry and none twice. Its `requirements` use only the requirement keys on that consumer's line (the last column), each at most once; a key left out is recorded as an unassessed dependency, so assess every key.",
     "checks": [
-     "fn:deploy_vii.downstream_readiness:validate_downstream_review"
+     "fn:deploy_vii.downstream_readiness:validate_downstream_review",
+     "fn:deploy_vii.downstream_readiness:_consumer_issues"
     ]
    },
    {
     "id": "readiness.c",
     "statement": "c. For every status, a requirement's `evidence_ids` are distinct and from the evidence table. A requirement whose status is `sufficient` or `limited` names at least one (`missing` may name none). Evidence is judged by tags: a line's tags are its `kind`, plus `kpi:<key>` for a `kind=kpi` line (its `key` column) and `observation:<register_id>` for a `kind=observation` line (its `register_id` column); a `kind=kpi`, `kind=statement_*` or `kind=observation` line whose `amount` is null has no tag at all. For the keys below, the cited lines together must carry at least one tag from every group (groups are separated by `;`, the alternatives within a group by `|`):\n- normalized_financials: statement_IS; statement_CFS; statement_BS\n- entity_scope: entity\n- period_coverage: construction | source_period\n- kpi_dashboard: kpi\n- calculation_register: computation\n- fcf_build: kpi:fcf; computation\n- cash_flow_metrics: kpi:cfo_adjusted | kpi:fcf | kpi:ffo\n- liquidity_data: kpi:cash_closing | kpi:liquidity | kpi:undrawn_rcf\n- earnings_quality_metrics: kpi:adjusted_ebitda | kpi:ebitda\n- debt_classification: observation:facilities\n- capital_structure: observation:facilities | statement_BS\n- debt_schedule: observation:facilities\n- maturity_profile: observation:facilities\n- covenant_metrics: kpi\n- ebitda_definitions: definition\n- covenant_compliance: kpi; definition\nFor any other key, at least one cited line must carry a tag and not be a `kind=gap` line. A consumer whose `policy` is `consumer_specific_review` (for example CP-1A or CP-6) has the one requirement `consumer_specific_cp1_sufficiency`: judge whether the cited CP-1 evidence suffices for that consumer's own use; it has no group, so one cited line that carries a tag and is not a `kind=gap` line is enough for `limited` or `sufficient`. A `kind=computation` line shows `operation`, `amount` and `status` but no label: recognise one by its `operation` and by an `amount` equal to a dashboard KPI's.",
     "checks": [
-     "fn:deploy_vii.downstream_readiness:validate_downstream_review"
+     "fn:deploy_vii.downstream_readiness:validate_downstream_review",
+     "fn:deploy_vii.downstream_readiness:_requirement_issues"
     ]
    },
    {
     "id": "readiness.d",
     "statement": "d. A requirement whose status is not `sufficient` needs at least one `actions` entry. `kpi_dashboard` is `sufficient` only when at least one `kind=kpi` line exists and every one has a non-null `amount`.",
     "checks": [
-     "fn:deploy_vii.downstream_readiness:validate_downstream_review"
+     "fn:deploy_vii.downstream_readiness:validate_downstream_review",
+     "fn:deploy_vii.downstream_readiness:_requirement_issues"
     ]
    },
    {
     "id": "readiness.e",
     "statement": "e. `gaps`: each scope's `gap_ids` are distinct and taken from the `gap_id` column of the `kind=gap` lines or of the `narrative_gaps` lines (the `evidence_id` of a gap line is not its `gap_id`), and no gap_id is in two scopes of one consumer; a gap left out stays unassessed. Its `evidence_ids` are distinct evidence_ids from the evidence table. `not_relevant` needs at least one evidence id and is never given to a gap whose `severity` is `BLOCK` and whose `origin` is `context_binding` or `context`. A gap left out of every scope keeps that consumer `not_ready` (its action reads \"Assess all retained gaps for this consumer\"). The completion budget may not cover every gap of every consumer, so scope those that matter to each consumer by class: the `BLOCK` gaps first, then the gaps matched to that consumer's metrics. One scope may list many gap_ids.",
     "checks": [
-     "fn:deploy_vii.downstream_readiness:validate_downstream_review"
+     "fn:deploy_vii.downstream_readiness:validate_downstream_review",
+     "fn:deploy_vii.downstream_readiness:_gap_scope_issues"
     ]
    }
   ],
@@ -1605,7 +1628,7 @@
    },
    {
     "id": "relative_value.b",
-    "statement": "b. Quotes appear only in `market_evidence`: each observed or indicative_talk row quotes one span of a source listed under `market_evidence_sources` in the CONTEXT block, its `quote.source_id` equal to its `source_id`, one row per quoted span. A `none` row quotes nothing (a null `quote`) and states its `limitation`. A `basis` refers to Python's context rows by id (`basis.context_rows`) and never copies their figures; a `basis.quotes` entry still repeats a `market_evidence` row's quote exactly, for the rows of a `third_party` source only.",
+    "statement": "b. Quotes appear only in `market_evidence`: each observed or indicative_talk row quotes one span of a source listed under `market_evidence_sources` in the CONTEXT block, its `quote.source_id` equal to its `source_id`, one row per quoted span. A `none` row quotes nothing (a null `quote`) and states its `limitation`. Its `source_id` is `none` or a pack source. A quoted row's `as_of` is a date, ISO or prose (2026-01-09, 9 January 2026 or January 9, 2026), not after the run as-of. A `basis` refers to Python's context rows by id (`basis.context_rows`) and never copies their figures; a `basis.quotes` entry still repeats a `market_evidence` row's quote exactly, for the rows of a `third_party` source only.",
     "checks": [
      "fn:deploy_vii.cp3_relative_value:_market_row",
      "fn:deploy_vii.cp3_relative_value:_bind_evidence",
@@ -1614,7 +1637,9 @@
      "oracle:cp3-cp6:cp3-gap-fabricated-market",
      "oracle:cp3-context:context-row-submitted",
      "oracle:cp3-context:context-quote-cited",
-     "oracle:cp3-context:unknown-context-row"
+     "oracle:cp3-context:unknown-context-row",
+     "fn:deploy_vii.cp3_relative_value:_as_of_problems",
+     "fn:deploy_vii.cp3_relative_value:_none_row_issues"
     ]
    },
    {
@@ -1631,18 +1656,19 @@
    },
    {
     "id": "relative_value.d",
-    "statement": "d. Name instruments only by a `facility_id` listed under `cp1_facilities`, each once. Every instrument and risk has a basis: its `cp2_refs` (only refs listed under `cp2_rows`), a `{ref|unit}` CP-1 figure or, for an instrument, a `basis.quotes` market quote or a context row named in `basis.context_rows`; a `market_observation` other than none cites a market quote or a context row named in `basis.context_rows`.",
+    "statement": "d. Name instruments only by a `facility_id` listed under `cp1_facilities`, each once, and give one instruments row for each facility listed there (CP-1's T4.18); an instrument's `basis.context_rows` name only its own facility's context rows. Every instrument and risk has a basis: its `cp2_refs` (only refs listed under `cp2_rows`), a `{ref|unit}` CP-1 figure or, for an instrument, a `basis.quotes` market quote or a context row named in `basis.context_rows`; a `market_observation` other than none cites a market quote or a context row named in `basis.context_rows`.",
     "checks": [
      "fn:deploy_vii.cp3_relative_value:_instrument_issues",
      "fn:deploy_vii.cp3_relative_value:_risk_issues",
      "fn:deploy_vii.cp3_relative_value:_basis_issues",
      "oracle:cp3-cp6:cp3-unknown-facility",
-     "oracle:cp3-cp6:cp3-unknown-cp2-row"
+     "oracle:cp3-cp6:cp3-unknown-cp2-row",
+     "fn:deploy_vii.cp3_relative_value:_context_facility_issues"
     ]
    },
    {
     "id": "relative_value.e",
-    "statement": "e. `preference.ordering` lists every instrument's `facility_id` exactly once and nothing else: you may order the issuer's own instruments, most preferred first. Unless its `confidence` is Insufficient Information it cites a market quote or a context row named in `basis.context_rows`; with no observed or indicative evidence it is Insufficient Information and states its `limitation`. Its `confidence` is below High while `confidence_caps` lists any cap.",
+    "statement": "e. When a ranking is supported, `preference.ordering` lists every instrument's `facility_id` exactly once and nothing else, most preferred first. If evidence does not support a ranking, return an empty ordering with Insufficient Information confidence and an explicit limitation. Unless its `confidence` is Insufficient Information it cites a market quote or a context row named in `basis.context_rows`; with no observed or indicative evidence it is Insufficient Information and states its `limitation`. An Insufficient Information preference never orders more than one facility. Its `confidence` is below High while `confidence_caps` lists any cap.",
     "checks": [
      "fn:deploy_vii.cp3_relative_value:_preference_issues",
      "oracle:cp3-cp6:cp3-confidence-high",
@@ -1651,7 +1677,8 @@
      "oracle:cp3-context:ctx-observed-and-talk-high",
      "oracle:cp3-context:ctx-talk-only-high",
      "oracle:cp3-context:ctx-deal-talk-high",
-     "oracle:cp3-context:ctx-stale-high"
+     "oracle:cp3-context:ctx-stale-high",
+     "fn:deploy_vii.cp3_relative_value:_ordering_issues"
     ]
    },
    {
@@ -1799,17 +1826,20 @@
      "oracle:cp4c:v02",
      "oracle:cp4c:v06",
      "fn:deploy_workflow.owners.cp4c:_claim_issues",
-     "fn:deploy_workflow.owners.cp4c:_secured_issues"
+     "fn:deploy_workflow.owners.cp4c:_secured_issues",
+     "fn:deploy_workflow.owners.cp4c:_structural_issues"
     ]
    },
    {
     "id": "restructuring_fulcrum.3",
-    "statement": "A `source_row` claim cites in `amount_quote` the row it reads, quoted verbatim from the `financial` source under its locator, and gives in `period_column` the `statement_rows` column dated at the end of the `cp1_facts` `period`; the row must have a number under it, and the claim is above zero. A class with another `amount_source` has a null `amount_quote` and `period_column`.",
+    "statement": "A `source_row` claim cites in `amount_quote` the row it reads, quoted verbatim from the `financial` source under its locator, and gives in `period_column` the `statement_rows` column dated at the end of the `cp1_facts` `period`; the quoted statement must state its amounts in millions of the run's currency, naming its ISO code, the row must have a number under it, and the claim is above zero. A class with another `amount_source` has a null `amount_quote` and `period_column`.",
     "checks": [
      "oracle:cp4c:v03",
      "oracle:cp4c:v04",
      "oracle:cp4c:v05",
-     "fn:deploy_workflow.owners.cp4c:_source_row_issues"
+     "fn:deploy_workflow.owners.cp4c:_source_row_issues",
+     "fn:deploy_workflow.owners.cp4c:_amount_issues",
+     "fn:deploy_workflow.owners.cp4c:_quoted_row_issues"
     ]
    },
    {
@@ -1817,14 +1847,16 @@
     "statement": "Every `support` quote cites only the `financial` or `legal-covenants` source, verbatim under its locator.",
     "checks": [
      "oracle:cp4c:v07",
-     "oracle:cp4c:v08"
+     "oracle:cp4c:v08",
+     "fn:deploy_workflow.owners.cp4c:_support_issues"
     ]
    },
    {
     "id": "restructuring_fulcrum.5",
     "statement": "`valuation`, `fulcrum` and `plan` each hold the cases in order, the first with `case_id` v01, the second v02, and so on.",
     "checks": [
-     "fn:deploy_workflow.owners.cp4c:content_issues"
+     "fn:deploy_workflow.owners.cp4c:content_issues",
+     "fn:deploy_workflow.owners.cp4c:_structural_issues"
     ]
    },
    {
@@ -1868,7 +1900,9 @@
      "oracle:cp4c:v23",
      "fn:deploy_workflow.owners.cp4c:_text_fields",
      "fn:deploy_workflow.owners.cp4c:_run_text_issues",
-     "fn:deploy_workflow.owners.cp4c:guard_issues"
+     "fn:deploy_workflow.owners.cp4c:guard_issues",
+     "fn:deploy_workflow.owners.cp4c:_text_issues",
+     "fn:deploy_workflow.owners.cp4c:_name_issues"
     ]
    },
    {

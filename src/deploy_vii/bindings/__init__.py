@@ -8,7 +8,8 @@ from a table the map does not name is reported, never silently placed.
 
 from collections import Counter
 from collections.abc import Iterable
-from typing import Self
+from dataclasses import dataclass
+from typing import Self, TypedDict, Unpack
 
 from pydantic import model_validator
 
@@ -61,6 +62,50 @@ class Binding(Contract):
         )
 
 
+class Placement(TypedDict, total=False):
+    """A binding's optional coordinates: the row it narrows to, the prose column of a
+    strengths-and-weaknesses block, and an explicit cell slot (else the binder derives one)."""
+
+    row: str | None
+    section: Section | None
+    slot: str | None
+
+
+@dataclass(frozen=True)
+class Binder:
+    """How one module's map makes its bindings: the module id and how a table id becomes a cell
+    slot (``prefix``, then the id lower-cased with "." as "-" and, where ``hyphenate``, "_" as
+    "-" too). The per-module rules differ and are kept, so every shipped slot keeps its name."""
+
+    module_id: str
+    prefix: str = ""
+    hyphenate: bool = False
+
+    def slot(self, table: str) -> str:
+        slug = table.lower().replace(".", "-")
+        return self.prefix + (slug.replace("_", "-") if self.hyphenate else slug)
+
+    def bind(
+        self,
+        table: str,
+        block: str,
+        label: str | None = None,
+        unit: UnitClass = "text",
+        **placement: Unpack[Placement],
+    ) -> Binding:
+        """One binding of ``table`` (narrowed to ``row`` when given) to ``block``."""
+        return Binding(
+            fact_coord=FactCoord(
+                module_id=self.module_id, table_id=table, row_id=placement.get("row")
+            ),
+            block_id=block,
+            cell_slot=placement.get("slot") or self.slot(table),
+            unit_class=unit,
+            label=label,
+            section=placement.get("section"),
+        )
+
+
 class BindingMap(Contract):
     module_id: Identifier
     entries: tuple[Binding, ...]
@@ -76,27 +121,39 @@ def _name(module_id: str, fact: Fact) -> str:
     return f"{module_id}/{fact.table_id}/{fact.row_id}/{fact.fact_id!r}"
 
 
+def _map_issues(maps: tuple[BindingMap, ...], entries: list[Binding]) -> list[str]:
+    """A module with more than one map, and a slot bound more than once."""
+    issues = [
+        f"{module_id} has more than one binding map"
+        for module_id, count in Counter(m.module_id for m in maps).items()
+        if count > 1
+    ]
+    issues.extend(
+        f"slot {block_id}/{cell_slot} is bound {count} times"
+        for (block_id, cell_slot), count in Counter(e.slot for e in entries).items()
+        if count > 1
+    )
+    return issues
+
+
 def validate_bindings(view: View, maps: Iterable[BindingMap]) -> tuple[str, ...]:
     """One message per unbound or doubly bound fact, per shared slot and per repeated map.
 
-    A fact in an accepted, restricted or candidate module must match exactly one binding in the
-    run's Pathway. A register may be placed in several blocks when no Pathway composes more than
-    one of them (T4.17 feeds FP 01's capital structure and FP 02's EBITDA adjustments), so a
-    fact is doubly bound when two of its bindings name one block, or name two blocks the run's
-    Pathway composes (a rail destination is composed everywhere). Empty when valid.
+    A fact in an accepted, restricted or candidate module must match at least one binding; one
+    that matches none is unbound. A register may be placed in several blocks when no Pathway
+    composes more than one of them (T4.17 feeds FP 01's capital structure and FP 02's EBITDA
+    adjustments), so a fact is doubly bound when two of its bindings name one block, or name two
+    blocks the run's Pathway composes (a rail destination is composed everywhere). A fact whose
+    every binding names a block the run's Pathway does not compose is bound, not placed: the
+    report lists that block as unplaced (``report_view._unplaced``) instead of failing the run.
+    Empty when valid.
     """
     maps = tuple(maps)
     composed = RAIL_DESTINATIONS | set(
         next(item for item in pathways() if item.id == view.run.pathway).blocks
     )
-    issues: list[str] = []
-    for module_id, count in Counter(m.module_id for m in maps).items():
-        if count > 1:
-            issues.append(f"{module_id} has more than one binding map")
     entries = [entry for m in maps for entry in m.entries]
-    for (block_id, cell_slot), count in Counter(e.slot for e in entries).items():
-        if count > 1:
-            issues.append(f"slot {block_id}/{cell_slot} is bound {count} times")
+    issues = _map_issues(maps, entries)
     by_module: dict[str, list[Binding]] = {}
     for entry in entries:
         by_module.setdefault(entry.fact_coord.module_id, []).append(entry)

@@ -1,4 +1,6 @@
-"""CP-1A owner extras: the verifier probe, and the one-step probe CP-2 shares."""
+"""CP-1A owner extras: the verifier probe, and `probe_one_step`, the one-step verifier probe
+every one-step owner core imports from here (CP-1B, CP-1C, CP-1D, CP-2, CP-2A and the later
+owners). It replays the step on `financial_workflow._FrozenExecution`, a private frozen view."""
 
 from collections.abc import Callable
 

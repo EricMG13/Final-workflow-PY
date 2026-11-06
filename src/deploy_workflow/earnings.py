@@ -86,9 +86,16 @@ _MEASURES = (
     "net_leverage_reported",
 )
 _GROWTH = frozenset(_MEASURES[:3])
+# A zero base keeps its pinned ZERO_DENOMINATOR code (cases/earnings oracles, report_view).
+_NEGATIVE_BASE = "ZERO_OR_NEGATIVE_DENOMINATOR"
+# The kind a period id names by its shape (`q3-2025`, `fy-2024`); other shapes name none.
+_ID_KINDS = ((re.compile(r"q[1-4]-[0-9]{4}"), "QUARTER"), (re.compile(r"fy-[0-9]{4}"), "FY"))
 _SCOPE = "IFRS · consolidated group"
 _LIMITATIONS = (
-    "Core-only paired-period component; no actual owner, permission, journal, CP5 or render acceptance.",
+    (
+        "Core-only paired-period component; no actual owner, permission, journal, CP5 or "
+        "render acceptance."
+    ),
     "No causal-driver or guidance inference is supported by these deltas.",
     "Comparative income is not supplied for absent prior periods; no source period is fabricated.",
     "No broader nonzero earnings, provider or production qualification is established.",
@@ -158,7 +165,7 @@ def _duration_period(row: dict[str, Fact]) -> _Period:
     return _Period(_text(row["period_id"]), kind, start, end, row)
 
 
-def _check_period(period: _Period, currency: str = "USD") -> None:
+def _check_period(period: _Period, currency: str) -> None:
     row = period.row
     if any(f.period != period.identity or f.basis != _SCOPE for f in row.values()):
         raise ValueError("incompatible_dimensions")
@@ -197,7 +204,7 @@ def _metrics(module: ModuleView) -> dict[str, dict[str, Fact]]:
     return metrics
 
 
-def _dimensions(measure: str, currency: str = "USD") -> tuple[str, str | None, Decimal]:
+def _dimensions(measure: str, currency: str) -> tuple[str, str | None, Decimal]:
     if measure == "ebitda_margin":
         return "PERCENT", None, Decimal(1)
     if measure in {"total_leverage_reported", "net_leverage_reported"}:
@@ -258,9 +265,11 @@ def _point(
         if unit == "PERCENT":
             delta = Decimal(100) * delta
         if measure in _GROWTH:
-            if prior_amount == 0:
+            # Growth over a zero or negative base is not meaningful (CP-2D/CP-3C's
+            # ZERO_OR_NEGATIVE_DENOMINATOR): over a negative base its sign would invert.
+            if prior_amount <= 0:
                 growth_status = "missing"
-                reasons.append("ZERO_DENOMINATOR")
+                reasons.append("ZERO_DENOMINATOR" if prior_amount == 0 else _NEGATIVE_BASE)
             else:
                 growth = delta / prior_amount
                 growth_status = "known"
@@ -293,6 +302,11 @@ def _point(
         currency=currency,
         scale=scale,
     )
+
+
+def _id_kind(period_id: str) -> str | None:
+    """The period kind an id's shape names, or None for a shape that names no kind."""
+    return next((kind for shape, kind in _ID_KINDS if shape.fullmatch(period_id)), None)
 
 
 def _check_currency_code(currency: str) -> None:
@@ -351,6 +365,14 @@ def build_earnings_delta_in(
                     or current.start <= prior.end
                 ):
                     raise ValueError("incompatible_periods")
+            elif _id_kind(prior_period_id) not in (
+                None,
+                _id_kind(current_period_id) or current.kind,
+            ):
+                # An absent prior is a comparative gap only when its id names the kind the
+                # current id does (or, for an id of no known shape, the current row's type); a
+                # row whose type contradicts its own id is the composer's register refusal.
+                raise ValueError("incompatible_periods")
 
             metrics = _metrics(module)
             points = tuple(

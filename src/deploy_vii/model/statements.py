@@ -1,6 +1,6 @@
 """The statements over the historical columns: the income statement to
 adjusted EBITDAR, the cash flow waterfall, the net cash flow, liquidity, the
-debt totals, working capital, and the pro forma LTM.
+debt totals and working capital.
 
 Outflows are negative in the frame. Each expense or outflow account in
 `OUTFLOW_METRICS` is read as minus its absolute value (`account_frame` does
@@ -28,17 +28,9 @@ every column (spec M7), but only its positive amounts: a negative amount is a
 deduction (a net gain, say) and stays, so exclusion never raises adjusted
 EBITDA (owner decision F11, 2026-10-15). CP-1's figure is kept as `stated` and
 compared only on a column where nothing was left out (an excluded add-back of
-zero, none or a negative amount leaves nothing out).
-
-The PF-LTM shows no KPI, working-capital balance or days ratio
-(`NOT_APPLICABLE`), as the worked example does; a PF `ebitda` adjustment
-adds to both EBITDA and adjusted EBITDA. A PF adjustment is a change, not a
-balance, so it keeps CP-1's sign (a refinancing that cuts interest is a
-positive adjustment to cash interest); a negative zero reads as zero. A PF
-facility adjustment for
-a facility the LTM has no balance for adds to zero. The PF-LTM's debt
-roll-forward opens at the LTM's opening, keeps the LTM's debt raised and
-non-cash movements, and closes at the pro forma total debt, so it foots.
+zero, none or a negative amount leaves nothing out). A line built from others
+keeps their notes (why a part is missing, `sign normalised`); an excluded
+add-back keeps its own and is noted `excluded`.
 
 A debt balance that leaves something out (a facility in another currency,
 `debt.py`) passes its note to the balances read from it: net debt and the
@@ -50,8 +42,7 @@ the 38-significant-digit, half-even context defined in `_cells`.
 
 from __future__ import annotations
 
-import re
-from collections.abc import Callable, Iterable
+from collections.abc import Callable
 from dataclasses import replace
 from decimal import Decimal, localcontext
 
@@ -59,9 +50,7 @@ from deploy_vii.model._cells import (
     ABSENT,
     CONTEXT,
     DIFFERS,
-    FOREIGN,
     RESIDUAL,
-    SIGN_NORMALISED,
     beyond_rounding,
     calc,
     join_notes,
@@ -73,11 +62,9 @@ from deploy_vii.model._cells import (
 from deploy_vii.model.debt import (
     carried,
     debt_frame,
-    facility_keys,
-    notes_of,
 )
 from deploy_vii.model.frame import Arithmetic, Cell, Column, Frame
-from deploy_vii.model.registers import Cp1Registers, PfAdjustmentRow
+from deploy_vii.model.registers import Cp1Registers
 
 _EXCLUDED = "excluded"
 _UNSTATED = "not stated, treated as zero"
@@ -107,45 +94,6 @@ _LINES = {
     "inventory": "inventory",
     "accounts_payable": "accounts_payable",
 }
-# The PF-LTM: what each pro forma metric adds to, and the keys with no
-# pro forma meaning (the waterfall from FFO to the net cash flow, its
-# residual, and both roll-forwards).
-_PF_TARGETS = {
-    "revenue": ("revenue",),
-    "ebitda": ("ebitda", "adjusted_ebitda"),
-    "adjusted_ebitda": ("adjusted_ebitda",),
-    "cash_interest_paid": ("cash_interest",),
-    "cash_and_equivalents": ("cash_closing",),
-    "total_debt": ("total_debt", "debt_closing"),
-}
-_REVOLVER = re.compile(r"^(RCF|REVOLV)")
-_PF_BLANK = (
-    "net_income",
-    "other_operating",
-    "ffo",
-    "working_capital_change",
-    "cfo_adjusted",
-    "cfo_reported",
-    "capex",
-    "fcf",
-    "acquisitions_net",
-    "debt_raised_net",
-    "equity_raised_net",
-    "dividends",
-    "other_investing_financing",
-    "ncf",
-    "cash_opening",
-    "fx_and_other_cash",
-    "accounts_receivable",
-    "inventory",
-    "accounts_payable",
-    "days",
-    "dso",
-    "dio",
-    "dpo",
-    "ccc",
-)
-_FACILITY = "facility:"
 
 _Get = Callable[[str], Cell]
 
@@ -167,7 +115,7 @@ def _stated(host: Cell, account: Cell, compare: bool = True) -> Cell:
         and host.value is not None
         and beyond_rounding(figure, host.value)
     )
-    return replace(host, stated=figure, note=DIFFERS if differs else None)
+    return replace(host, stated=figure, note=join_notes(host.note, DIFFERS if differs else None))
 
 
 def excluded_addbacks(regs: Cp1Registers, exclude_unrealised: bool) -> frozenset[str]:
@@ -368,7 +316,7 @@ def _column(
     for addback in excluded:
         key = f"addback:{addback}"
         if key in cells and not is_deduction(cells[key]):
-            cells[key] = replace(cells[key], note=_EXCLUDED)
+            cells[key] = replace(cells[key], note=join_notes(cells[key].note, _EXCLUDED))
     cells.update(debt)
     cells.update({key: _line(accounts, metric) for key, metric in _LINES.items()})
 
@@ -408,101 +356,3 @@ def statement_frame(
             )
             for column in columns
         }
-
-
-def _pf_keys(adjustment: PfAdjustmentRow, regs: Cp1Registers) -> Iterable[str]:
-    """The frame keys a pro forma adjustment adds to: a facility's `fac:` key
-    and the totals its last register row enters (`total_debt` for a facility
-    the register has no row for), else its metric's line; none for a metric
-    outside CP-1's list."""
-    if not adjustment.metric_id.startswith(_FACILITY):
-        return _PF_TARGETS.get(adjustment.metric_id, ())
-    facility_id = adjustment.metric_id.removeprefix(_FACILITY)
-    row = next((f for f in reversed(regs.facilities) if f.facility_id == facility_id), None)
-    totals = {"total_debt"} if row is None else facility_keys(row, regs.currency)
-    if "total_debt" in totals:
-        totals = {*totals, "debt_closing"}
-    return (f"fac:{facility_id}", *sorted(totals))
-
-
-def _is_revolver(adjustment: PfAdjustmentRow, regs: Cp1Registers) -> bool:
-    """Whether the adjustment moves a revolving credit facility's drawings; the
-    type is open text, so `REVOLVING_CREDIT_FACILITY`, `Revolver` and `RCF` all
-    read as one."""
-    if not adjustment.metric_id.startswith(_FACILITY):
-        return False
-    facility_id = adjustment.metric_id.removeprefix(_FACILITY)
-    return any(
-        f.facility_id == facility_id and _REVOLVER.match(f.facility_type.strip().upper())
-        for f in regs.facilities
-    )
-
-
-def _pf_undrawn(base: Cell, adjustments: list[PfAdjustmentRow], regs: Cp1Registers) -> Cell:
-    """The undrawn revolver after the adjustments' movements on revolver
-    facilities: drawings repaid add to it, new drawings take from it."""
-    freed = [replace(a, value=-a.value) for a in adjustments if _is_revolver(a, regs)]
-    return _pf_add("undrawn_rcf", base, freed) if freed and base.value is not None else base
-
-
-def _pf_value(adjustment: PfAdjustmentRow) -> Decimal:
-    """The adjustment's figure in CP-1's own sign, a negative zero as zero."""
-    return no_negative_zero(adjustment.value)
-
-
-def _pf_cell(adjustment: PfAdjustmentRow) -> Cell:
-    sources = refs([adjustment.source])
-    return Cell(_pf_value(adjustment), basis="PRO_FORMA", sources=sources)
-
-
-def _pf_add(key: str, base: Cell | None, adjustments: list[PfAdjustmentRow]) -> Cell:
-    """`base` plus the adjustments; a key the LTM has not, or a facility it
-    has no balance for, is their sum. Kept from the notes: a facility in
-    another currency, the base's sign normalised and what a total leaves
-    out."""
-    unsourced = base is not None and base.reason == "NOT_SOURCED"
-    start = base
-    if start is None or (unsourced and key.startswith("fac:")):
-        start = Cell(Decimal(0))
-    if start.value is None:
-        return Cell(None, "COMPONENT_MISSING")
-    total = start.value + sum(_pf_value(a) for a in adjustments)
-    sources = refs([*start.sources, *(a.source for a in adjustments)])
-    kept = [n for n in notes_of(start.note) if n in {FOREIGN, SIGN_NORMALISED}]
-    note = join_notes(*kept, carried((start,)))
-    return Cell(total, basis="PRO_FORMA", sources=sources, note=note)
-
-
-def pro_forma_column(regs: Cp1Registers, ltm: Column, frame: Frame) -> tuple[Column, Frame] | None:
-    """The PF-LTM column and its frame (that column only): the LTM's cells,
-    a `pf:<adjustment_id>` cell for each of CP-1's adjustments to the LTM's
-    period, each added once to its line and the totals that line enters, and
-    the waterfall below the cash interest blank. None when the register has
-    no adjustment to the LTM's period."""
-    adjustments = [a for a in regs.pro_forma if a.period_id == ltm.period_id]
-    if not adjustments:
-        return None
-    column = replace(ltm, column_id=f"PF:{ltm.period_id}", kind="PF_LTM", label="PF-LTM")
-    with localcontext(CONTEXT):
-        cells = dict(frame[ltm.column_id])
-        added: dict[str, list[PfAdjustmentRow]] = {}
-        for adjustment in adjustments:
-            cells[f"pf:{adjustment.adjustment_id}"] = _pf_cell(adjustment)
-            for key in _pf_keys(adjustment, regs):
-                added.setdefault(key, []).append(adjustment)
-        for key, rows in added.items():
-            cells[key] = _pf_add(key, cells.get(key), rows)
-        cells["undrawn_rcf"] = _pf_undrawn(cells["undrawn_rcf"], adjustments, regs)
-        adjusted = cells["adjusted_ebitda"]
-        lease_cost = cells["operating_lease_cost"]
-        ebitdar = calc(((adjusted, 1), (lease_cost, -1)))
-        cells["adjusted_ebitdar"] = replace(ebitdar, basis="PRO_FORMA")
-        cells.update(
-            {
-                key: replace(cell, basis="PRO_FORMA") if cell.value is not None else cell
-                for key, cell in _balances(cells.__getitem__).items()
-            }
-        )
-        blank = (*_PF_BLANK, *(key for key in cells if key.startswith("kpi:")))
-        cells.update({key: Cell(None, "NOT_APPLICABLE") for key in blank})
-        return column, {column.column_id: cells}

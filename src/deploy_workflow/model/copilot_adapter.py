@@ -266,6 +266,7 @@ class _State:
     session: SessionLike | None = None
     unsubscribe: Callable[[], None] | None = None
     tool_names: frozenset[str] = frozenset()
+    effort: str = ""  # the reasoning effort the session was created with
     history: tuple[Message, ...] = ()
     pending: dict[str, asyncio.Future[str]] = field(default_factory=dict)
     # (tool_call_id -> (tool_name, arguments)) of the handler invocations of the current call
@@ -283,6 +284,7 @@ class _Creds:
     token: str | None = field(repr=False)
     runtime: str | None
     env: Mapping[str, str] = field(repr=False)
+    private_paths: tuple[str, ...] = field(default=(), repr=False)  # scrubbed from errors
 
 
 @dataclass(frozen=True)
@@ -375,7 +377,8 @@ def _calls_match(turn: Turn, calls: Mapping[str, tuple[str, Any]]) -> bool:
         for call in turn.tool_calls:
             name, arguments = calls[call.call_id]
             if call.bad_arguments is not None:
-                same = dump_json(arguments) == call.bad_arguments
+                # numerically, as the parser read them: 1e-07 and 1E-7 are the same argument
+                same = _normal(arguments) == load_json(call.bad_arguments)
             else:
                 same = _normal(arguments) == call.arguments
             if name != call.name or not same:
@@ -408,7 +411,13 @@ def _paths_in(text: str, paths: list[str]) -> str:
 
 
 class CopilotAdapter:
-    """Every construction runs the R2 gate; the environment is read at the first ``complete``."""
+    """Every construction runs the R2 gate; the environment is read at the first ``complete``.
+
+    ``resends`` is False: a failed call ends its exchange (the turn is aborted and the session
+    released), and the session cannot take the same request again, so the tool loop gives such a
+    failure no retry and the stop names its own class (IdleTimeout, a 5xx session error)."""
+
+    resends = False
 
     def __init__(
         self,
@@ -458,11 +467,16 @@ class CopilotAdapter:
             runtime = environ.get(COPILOT_RUNTIME_VARIABLE) or None
             if runtime is not None and not Path(runtime).is_file():
                 runtime = None
+            private = (
+                *(() if runtime is None else (str(Path(runtime).parent),)),
+                *(environ.get(n, "") for n in _PROFILE_VARIABLES),
+            )
             self._cached = _Creds(
                 Redactor.from_environ(environ),
                 environ.get(_TOKEN_VARIABLE) or None,
                 runtime,
                 runtime_environment(environ),
+                private,
             )
         return self._cached
 
@@ -534,17 +548,18 @@ class CopilotAdapter:
             loop.time() + self._overall_s,
             reservation_id,
         )
-        environ = os.environ if self._environ is None else self._environ
-        private = (str(Path(runtime).parent), *(environ.get(n, "") for n in _PROFILE_VARIABLES))
-        options = ClientOptions(runtime, token, "", creds.env, private)
+        options = ClientOptions(runtime, token, "", creds.env, creds.private_paths)
         future = asyncio.run_coroutine_threadsafe(self._exchange(call, options, redactor), loop)
         # the only teardown step on the reply's path is abort() after a timeout
         try:
             return future.result(timeout=self._overall_s + _ABORT_S + _OUTER_SLACK_S)
         except concurrent.futures.TimeoutError:
             future.cancel()
-            loop.call_soon_threadsafe(self._release, invocation_digest)
             error_class, text = OVERALL_TIMEOUT, "the exchange outlasted its overall bound"
+            try:
+                loop.call_soon_threadsafe(self._release, invocation_digest)
+            except RuntimeError:  # close() stopped and closed the loop meanwhile
+                text += "; the adapter was closed meanwhile"
         except concurrent.futures.CancelledError:
             error_class, text = ADAPTER_CLOSED, "the adapter was closed during the call"
         return AdapterReply(
@@ -572,7 +587,7 @@ class CopilotAdapter:
         except concurrent.futures.TimeoutError:
             shutdown.cancel()
             notes.append("release exceeded its budget; clients force-stopped")
-            force = asyncio.run_coroutine_threadsafe(self._force_all(), loop)
+            force = asyncio.run_coroutine_threadsafe(self._force_rest(), loop)
             try:
                 notes += force.result(timeout=_FORCE_S + _CLOSE_SLACK_S)
             except concurrent.futures.TimeoutError:
@@ -589,50 +604,62 @@ class CopilotAdapter:
     # -------------------------------------------------------- the loop side
 
     async def _shutdown(self) -> list[str]:
-        for state in list(self._states.values()):
-            for future in state.pending.values():
-                future.cancel()
-        await asyncio.sleep(0)
         for digest in list(self._states):
             self._release(digest)
         if self._teardowns:
             await asyncio.wait(set(self._teardowns), timeout=_teardown_budget() + 1)
-        notes = await self._force_all()
+        notes = await self._force_rest()
         others = asyncio.all_tasks() - {asyncio.current_task()}
         for task in others:
             task.cancel()
         await asyncio.gather(*others, return_exceptions=True)
-        notes, self._notes = [*self._notes, *notes], []
         return notes
 
-    async def _force_all(self) -> list[str]:
-        """force_stop every client whose release has not finished."""
-        notes = []
-        for state in list(self._states.values()):
-            if (
-                note := await _attempt("force_stop", state.client.force_stop(), _FORCE_S)
-            ) is not None:
-                notes.append(note)
+    async def _force_rest(self) -> list[str]:
+        """The release notes so far, then force_stop every client whose release has not
+        finished, concurrently (each within ``_FORCE_S``), then its handlers cancelled."""
+        states = list(self._states.values())
+        forced = await asyncio.gather(
+            *(_attempt("force_stop", state.client.force_stop(), _FORCE_S) for state in states)
+        )
+        for state in states:
+            _cancel_handlers(state)
+        notes, self._notes = [*self._notes, *(n for n in forced if n is not None)], []
         return notes
+
+    def end_exchange(self, invocation_digest: str) -> None:
+        """The caller is done with this exchange (its module or step ended): release its session
+        and runtime now rather than at ``close()``. Safe from any thread; a no-op for an unknown
+        or already released exchange, or once the adapter is closed."""
+        with self._lock:
+            loop = None if self._closed else self._loop
+        if loop is None:
+            return
+        try:
+            loop.call_soon_threadsafe(self._release, invocation_digest)
+        except RuntimeError:  # the loop was closed meanwhile: close() released everything
+            return
 
     def _release(self, digest: str) -> None:
         """Start the release of an exchange in the background (loop thread only). The state
-        stays registered until its client is stopped."""
+        stays registered until its client is stopped. Pending handlers are not cancelled here:
+        that happens only once the session is detached or the runtime stopped (``_drop``), so a
+        cancelled handler can never become a tool failure the runtime answers with a further,
+        unrecorded model call."""
         state = self._states.get(digest)
         if state is None or state.releasing is not None:
             return
         if state.unsubscribe is not None:
             state.unsubscribe()
-        for future in state.pending.values():
-            future.cancel()
         task = asyncio.get_running_loop().create_task(self._drop(digest, state))
         state.releasing = task
         self._teardowns.add(task)
         task.add_done_callback(self._teardowns.discard)
 
     async def _drop(self, digest: str, state: _State) -> None:
-        """Disconnect, stop, and on a failed stop force_stop. Failures go to ``self._notes``,
-        which ``close()`` raises: the reply that ended the exchange has already been returned."""
+        """Disconnect, stop, and on a failed stop force_stop; then cancel the handlers still
+        pending. Failures go to ``self._notes``, which ``close()`` raises: the reply that ended
+        the exchange has already been returned."""
         try:
             notes = [
                 await _attempt(
@@ -646,6 +673,7 @@ class CopilotAdapter:
                 notes.append(await _attempt("force_stop", state.client.force_stop(), _FORCE_S))
             self._notes += [n for n in notes if n is not None]
         finally:
+            _cancel_handlers(state)
             if self._states.get(digest) is state:
                 del self._states[digest]
 
@@ -691,6 +719,7 @@ class CopilotAdapter:
                 _check_model(await client.list_models(), self._model.model, call.effort)
                 tools = [self._tool_def(spec, state) for spec in call.request.tools]
                 state.tool_names = frozenset(t.name for t in tools)
+                state.effort = call.effort
                 state.session = await client.create_session(
                     model=self._model.model,
                     reasoning_effort=call.effort,
@@ -700,6 +729,11 @@ class CopilotAdapter:
                     on_permission_request=reject_permission,
                     streaming=False,
                     session_id=call.digest,
+                    # SDK 1.0.28 defaults would replace a tool result over 50 KB with a temp-file
+                    # reference the model cannot open, and compact the context in the background
+                    # with model calls outside assistant.usage: both are turned off.
+                    large_output={"enabled": False},
+                    infinite_sessions={"enabled": False},
                 )
             state.unsubscribe = state.session.on(lambda event: self._on_event(state, event))
         except BaseException:
@@ -729,6 +763,11 @@ class CopilotAdapter:
                 if found is None or found.releasing is not None:
                     raise _Refuse("SessionMissing", "no session for this exchange; never resent")
                 state = found
+                if call.effort != state.effort:
+                    raise _Refuse(
+                        "EffortMismatch",
+                        f"the session runs effort {state.effort}, not {call.effort}",
+                    )
                 answers, nudge = _plan_next(call.request, state)
             sent = True
             state.calls.clear()
@@ -861,25 +900,35 @@ class CopilotAdapter:
         # read back as the parser reads a body: a charge written 100.0 is the integer 100
         records = cast(list[dict[str, Any]], load_json(body.decode("utf-8")))
         data = _usage_data(records)
-        counts: Usage | None = None
+        counts, billed = Usage(), None
         if data is not None:
+            billed = _billed_usd(data)
             try:
                 counts = _usage(data)
             except _BadReply:
-                counts = None
+                counts = Usage()
         finished = self._clock()
         text = f"no further event within the {timeout} bound"
         # more than one usage event is more than one model call: which one was paid is unknown
         two_calls = sum(1 for r in records if r["type"] == USAGE) > 1
-        if data is None or counts is None or counts == Usage() or two_calls:
+        if (counts == Usage() and billed is None) or two_calls:
             return AdapterReply(
                 "sent_unknown", None, raw, None, timeout, None, call.started, finished,
                 message=text,
             )  # fmt: skip
+        # counts, or an exact copilotUsage charge alone: the call settles from what was reported
         return AdapterReply(
             "sent_usage", None, raw, None, timeout, None, call.started, finished,
-            counts, _billed_usd(data), message=text,
+            counts, billed, message=text,
         )  # fmt: skip
+
+
+def _cancel_handlers(state: _State) -> None:
+    """Cancel the handler futures still pending. Called only after the session was detached or
+    its runtime stopped (or force-stopped): no tool result, nor the failure a cancelled handler
+    could become, can then reach a runtime that would answer it with another model call."""
+    for future in state.pending.values():
+        future.cancel()
 
 
 async def _attempt(name: str, step: Awaitable[None] | None, bound: float) -> str | None:

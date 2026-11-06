@@ -5,7 +5,8 @@ and its own after them, Python puts the run's context questions first, bounds th
 the tail, hashes it and locks it as ``research/brief.json`` (``research/brief.py``). The
 ``research`` step answers the locked brief from the held sources, ``ev-*`` items included; Python
 checks the answers (``research/review.py``, ``research/steps.py``), composes TDR.1-3
-(``research/tables.py``; TDR.4-6 too when the brief asks for the peer pack) and settles the head. Nothing here asks the model for a figure.
+(``research/tables.py``; TDR.4-6 too when the brief asks for the peer pack) and settles the head.
+Nothing here asks the model for a figure.
 
 Protocol (docs/G1X-OWNER-CORE-PROTOCOL.md section 2): ``STEP_IDS``, ``SCHEMAS``, ``QUALIFICATION``,
 ``RULES``, ``ENTRY_VALIDATOR``, ``brief_view``, ``research_view``, ``probe`` and ``submit``. The
@@ -44,7 +45,7 @@ from deploy_vii.live.schema import json_object, normalise
 from deploy_vii.live.submission import Submitted, _with_rules
 from deploy_vii.preparation import PreparedPack
 from deploy_vii.readiness import shape_issues
-from deploy_workflow.context import CONTEXT_SOURCE_ID, ContextRefused, context_facts
+from deploy_workflow.context import CONTEXT_SOURCE_ID, ContextRefused, RunContext, context_facts
 from deploy_workflow.financial_workflow import _FrozenExecution
 from deploy_workflow.prompts.fence import FenceError, UntrustedItem, data_block
 from deploy_workflow.research import evidence as record
@@ -120,7 +121,8 @@ ROOT_NOT_OBJECT = "(root): payload is not a JSON object the journal can store"
 
 
 def research_dir(store: Execution) -> Path:
-    """``<run>/research``: the execution directory is ``<run>/execution`` (or a test's ``store``)."""
+    """``<run>/research``: the execution directory is ``<run>/execution`` (or a test's
+    ``store``)."""
     return store.directory.parent / record.RESEARCH_DIR
 
 
@@ -147,11 +149,12 @@ def _brief_of(store: Execution, attempt: Attempt) -> ResearchBrief:
     return rebuild_brief(json.loads(store.step_output(step.output_sha256)))
 
 
-def _evidence_rows(store: Execution) -> tuple[Mapping[str, Any], ...]:
-    """The staged evidence record; a missing or damaged one is the named ``evidence_unrecorded``,
-    never an empty list (the ``ev-*`` calls and the views cannot be judged without it)."""
+def _evidence(store: Execution) -> tuple[EvidenceItem, ...]:
+    """The staged evidence record's items; a missing or damaged one (a row ``_items`` refuses
+    included) is the named ``evidence_unrecorded``, never an empty list (the ``ev-*`` calls and
+    the views cannot be judged without it)."""
     try:
-        return record.read_evidence(research_dir(store) / record.EVIDENCE_FILE)
+        return _items(record.read_evidence(research_dir(store) / record.EVIDENCE_FILE))
     except record.EvidenceRecordInvalid:
         raise WorkflowError("evidence_unrecorded") from None
 
@@ -166,8 +169,9 @@ def _record_sha256(store: Execution, name: str) -> str:
 
 
 def check_records(store: Execution, module: Module) -> None:
-    """O7 end batch 2 (L1, L2): the two staged records (``research_dir(store)``) must be the bytes the settled head bound
-    (its ``research-evidence`` and ``research-rejected`` inputs); ``identity_mismatch`` otherwise.
+    """O7 end batch 2 (L1, L2): the two staged records (``research_dir(store)``) must be the bytes
+    the settled head bound (its ``research-evidence`` and ``research-rejected`` inputs);
+    ``identity_mismatch`` otherwise.
     Every reader of the records calls this, so none renders an edit made after the head settled."""
     bound = {i.input_id: i.sha256 for i in module.inputs}
     for input_id, name in (
@@ -178,18 +182,33 @@ def check_records(store: Execution, module: Module) -> None:
             raise WorkflowError("identity_mismatch")
 
 
+def _iso_date(value: object, where: str) -> date | None:
+    """A record's ``published``: null, or an ISO date (``EvidenceRecordInvalid`` otherwise)."""
+    if value is None:
+        return None
+    try:
+        return date.fromisoformat(str(value))
+    except ValueError:
+        raise record.EvidenceRecordInvalid(f"{where}: published is not an ISO date") from None
+
+
 def _items(rows: Sequence[Mapping[str, Any]]) -> tuple[EvidenceItem, ...]:
-    return tuple(
-        EvidenceItem(
-            item_id=row["item_id"],
-            origin=row["origin"],
-            sha256=row["sha256"],
-            locator=row["locator"],
-            published=None if row["published"] is None else date.fromisoformat(row["published"]),
-            family=row["family"],
+    """The evidence rows as items; a row the item contract refuses (an ``item_id`` that is not
+    ``ev-<n>``, a published value that is not a date) is ``EvidenceRecordInvalid``."""
+    try:
+        return tuple(
+            EvidenceItem(
+                item_id=row["item_id"],
+                origin=row["origin"],
+                sha256=row["sha256"],
+                locator=row["locator"],
+                published=_iso_date(row["published"], record.EVIDENCE_FILE),
+                family=row["family"],
+            )
+            for row in rows
         )
-        for row in rows
-    )
+    except ValidationError as error:
+        raise record.EvidenceRecordInvalid(f"{record.EVIDENCE_FILE}: {error}") from None
 
 
 def _citeable(pack: PreparedPack) -> tuple[Source, ...]:
@@ -198,33 +217,30 @@ def _citeable(pack: PreparedPack) -> tuple[Source, ...]:
     return tuple(s for s in pack.sources if s.source_id != CONTEXT_SOURCE_ID)
 
 
-def _context_questions(pack: PreparedPack) -> tuple[tuple[str, str], ...]:
+def _context(pack: PreparedPack) -> RunContext | None:
+    """The run's context file as the pack holds it (``None``: the run has none); a context the
+    pack holds but cannot read is ``identity_mismatch``."""
     try:
-        context = context_facts(pack)
+        return context_facts(pack)
     except ContextRefused:
         raise WorkflowError("identity_mismatch") from None
+
+
+def _context_questions(context: RunContext | None) -> tuple[tuple[str, str], ...]:
     if context is None:
         return ()
     return tuple((q.text, q.focus_module) for q in context.research_questions)
 
 
-def _context_cutoff(pack: PreparedPack) -> date:
+def _context_cutoff(context: RunContext | None, as_of: date) -> date:
     """The research cutoff of the run: ``min(as_of, run.cutoff)`` of its context file (O7b-2 D9);
     the as-of date when the file is absent or sets no cutoff."""
-    try:
-        context = context_facts(pack)
-    except ContextRefused:
-        raise WorkflowError("identity_mismatch") from None
-    return effective_cutoff(pack.run.as_of, "" if context is None else context.run.cutoff)
+    return effective_cutoff(as_of, "" if context is None else context.run.cutoff)
 
 
-def _peer_pack(pack: PreparedPack, run: Run) -> bool:
-    """The peer-pack opt-in (O7-R47 Q4): the context asks for CP-DR public peers and the run asks for
-    CP-1C, the only reader of the pack. A run without a context file asks for nothing."""
-    try:
-        context = context_facts(pack)
-    except ContextRefused:
-        raise WorkflowError("identity_mismatch") from None
+def _peer_pack(context: RunContext | None, run: Run) -> bool:
+    """The peer-pack opt-in (O7-R47 Q4): the context asks for CP-DR public peers and the run asks
+    for CP-1C, the only reader of the pack. A run without a context file asks for nothing."""
     return (
         context is not None
         and context.valuation.peer_source == "cp_dr_public"
@@ -317,15 +333,16 @@ def _validate_brief(store: Execution, pack: PreparedPack, attempt: Attempt) -> S
     )
     if issues:
         return StepValidation(issues=bounded_issues(issues))
+    context = _context(pack)
     try:
         brief = ResearchBrief.build(
             issuer_id=run.issuer_id,
             run_id=run.run_id,
             as_of=run.as_of,
-            cutoff=_context_cutoff(pack),
-            questions=merge_questions(_context_questions(pack), tailored_of(parsed)),
+            cutoff=_context_cutoff(context, pack.run.as_of),
+            questions=merge_questions(_context_questions(context), tailored_of(parsed)),
             anchor=_anchor(snapshot),
-            peer_pack=_peer_pack(pack, run),
+            peer_pack=_peer_pack(context, run),
         )
     except BriefInvalid as error:  # a model-written question the lock refuses: the model repairs
         return StepValidation(issues=bounded_issues((str(error),)))
@@ -346,10 +363,15 @@ def _lock(store: Execution, attempt: Attempt) -> None:
 
 
 def _check_lock(store: Execution, attempt: Attempt) -> None:
-    """Before a research step is journaled: the lock file exists and is the recorded brief."""
+    """Before a research step is journaled: the lock file is the recorded brief. A valid brief
+    step whose file is missing (a crash between journaling the step and ``_lock``, or a deleted
+    file) is locked again from the step's retained output, the bytes ``_lock`` writes; without a
+    valid brief step a missing file is the named ``NOT_LOCKED``."""
     path = research_dir(store) / BRIEF_FILE
     if not path.exists():
-        raise BriefInvalid(NOT_LOCKED)
+        if _valid_step(attempt, BRIEF_STEP) is None:
+            raise BriefInvalid(NOT_LOCKED)
+        _lock(store, attempt)
     load_locked_brief(path, _brief_of(store, attempt).brief_sha256)
 
 
@@ -363,7 +385,7 @@ def _validate_research(store: Execution, pack: PreparedPack, attempt: Attempt) -
     found = research_issues(
         submission=parsed,
         brief=_brief_of(store, attempt),
-        evidence=_items(_evidence_rows(store)),
+        evidence=_evidence(store),
         sources=_citeable(pack),
     )
     issues = (
@@ -396,7 +418,7 @@ def _candidate(store: Execution, attempt: Attempt, output: str) -> Module:
     composed = compose(
         brief,
         submission,
-        _items(_evidence_rows(store)),
+        _evidence(store),
         answer_counts(submission),
         claim_states(submission, brief),
         brief.as_of.isoformat(),
@@ -434,12 +456,13 @@ def brief_view(store: Execution, attempt: Attempt) -> tuple[str, str]:
     context questions, the limits and the sources the step may read (no ``ev-*``)."""
     run = store.read().run
     pack = store.pack()
+    context = _context(pack)
     return _digest(
         brief_view_body(
-            context_questions=_context_questions(pack),
+            context_questions=_context_questions(context),
             as_of=run.as_of,
-            cutoff=_context_cutoff(pack),
-            peer_pack=_peer_pack(pack, run),
+            cutoff=_context_cutoff(context, pack.run.as_of),
+            peer_pack=_peer_pack(context, run),
             sources=[
                 s.source_id for s in pack.sources if not s.source_id.startswith(RESERVED_PREFIX)
             ],
@@ -453,7 +476,7 @@ def research_view(store: Execution, attempt: Attempt) -> tuple[str, str]:
     return _digest(
         research_view_body(
             brief=_brief_of(store, attempt),
-            evidence=_items(_evidence_rows(store)),
+            evidence=_evidence(store),
             source_ids=[s.source_id for s in _citeable(store.pack())],
         )
     )
@@ -475,6 +498,18 @@ def _settle(store: Execution, ticket_id: str, journal: Attempt) -> Attempt:
     )
 
 
+def _retained(attempt: Attempt, step_id: str, normalised: str) -> Attempt | None:
+    """The pending attempt when its latest step is this step, already valid (a crash between the
+    journaled step and the lock or ``finish``): ``submit`` then locks or settles it instead of
+    journaling the step again (as CP-L10). A different response for that step is refused."""
+    last = attempt.steps[-1] if attempt.steps else None
+    if last is None or last.step_id != step_id or last.status != "valid":
+        return None
+    if last.payload_sha256 != text_sha256(normalised):
+        raise ValueError("Ticket already retains a different response; resume or interrupt")
+    return attempt
+
+
 def submit(
     store: Execution,
     ticket_id: str,
@@ -488,6 +523,8 @@ def submit(
     named ``BriefInvalid``, an edited one the fault ``hash mismatch``)."""
     if step_id not in SCHEMAS:
         raise ValueError(f"CP-DR has the steps {', '.join(STEP_IDS)}")
+    if step_id == BRIEF_STEP and rules is not None:
+        raise ValueError("The CP-DR brief step has no tool-loop rules")
     attempt = next((a for a in store.read().attempts if a.ticket_id == ticket_id), None)
     if attempt is None or attempt.module_id != MODULE_ID or attempt.status != "pending":
         raise ValueError("Ticket is absent, finished or belongs to another module")
@@ -498,14 +535,16 @@ def submit(
     def validate(pack: PreparedPack, current: Attempt) -> StepValidation:
         return ENTRY_VALIDATOR(store, pack, current)
 
-    journal = store.submit_step(
-        ticket_id,
-        MODULE_ID,
-        STEP_IDS,
-        step_id,
-        normalised,
-        validate if rules is None else _with_rules(validate, rules, normalised),
-    )
+    journal = _retained(attempt, step_id, normalised)
+    if journal is None:
+        journal = store.submit_step(
+            ticket_id,
+            MODULE_ID,
+            STEP_IDS,
+            step_id,
+            normalised,
+            validate if rules is None else _with_rules(validate, rules, normalised),
+        )
     last = journal.steps[-1] if journal.steps else None
     if journal.status != "finished" and last is not None and last.status == "valid":
         if last.step_id == BRIEF_STEP:
@@ -588,7 +627,9 @@ def check_begin(store: Execution, snapshot: ExecutionSnapshot) -> Anchor:
 def _evidence_items(research: Path) -> tuple[UntrustedItem, ...]:
     """Every accepted item's full text, each checked against its recorded hash (O7-R14)."""
     items = []
-    for row in record.read_evidence(research / record.EVIDENCE_FILE):
+    rows = record.read_evidence(research / record.EVIDENCE_FILE)
+    _items(rows)  # every item_id is ev-<n> before a path is built from it
+    for row in rows:
         data = (research.parent / "sources" / f"{row['item_id']}.txt").read_bytes()
         if hashlib.sha256(data).hexdigest() != row["sha256"]:
             raise record.EvidenceRecordInvalid(f"the staged text of {row['item_id']} changed")
@@ -606,7 +647,8 @@ def dossier_item(store: Execution, attempt: Attempt, research: Path) -> tuple[Un
     ``dossier.md``); its hash is the dossier's own, the one ``run.json`` records. An attempt that
     binds no CP-DR input gets none. A ticket bound to a head that is no longer the head is refused:
     the block is never built from another head. The retrieval instant is the evidence record's
-    (one intake instant for every row)."""
+    latest: a rerun keeps an unchanged item's earlier instant and gives a new item the clock
+    (O7-R67), so the rows may hold several. A record with no row holds no instant and refuses."""
     bound = next((i for i in attempt.inputs if i.input_id == MODULE_ID), None)
     if bound is None:
         return ()
@@ -614,11 +656,13 @@ def dossier_item(store: Execution, attempt: Attempt, research: Path) -> tuple[Un
     if head is None or head.result_sha256 != bound.sha256:
         raise PromptError(f"the CP-DR head is not the one {attempt.module_id} was begun on")
     text = render_dossier(dossier_input(store, head, research)).markdown
-    moments = {str(r["retrieved"]) for r in record.read_evidence(research / record.EVIDENCE_FILE)}
-    if len(moments) != 1:
-        raise record.EvidenceRecordInvalid("the evidence record has no single retrieval instant")
+    rows = record.read_evidence(research / record.EVIDENCE_FILE)
+    if not rows:
+        raise record.EvidenceRecordInvalid("the evidence record holds no retrieval instant")
+    # read_evidence admits only the fixed YYYY-MM-DDTHH:MM:SSZ form: text order is time order
+    latest = max(str(row["retrieved"]) for row in rows)
     digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
-    return (UntrustedItem(DOSSIER_BLOCK_ID, digest, DOSSIER_LOCATOR, moments.pop(), text),)
+    return (UntrustedItem(DOSSIER_BLOCK_ID, digest, DOSSIER_LOCATOR, latest, text),)
 
 
 def untrusted_items(
@@ -651,9 +695,7 @@ def _rejected(path: Path) -> tuple[RefusedItem, ...]:
             RefusedItem(
                 locator=str(row["locator"]),
                 family=str(row["family"]),
-                published=None
-                if row["published"] is None
-                else date.fromisoformat(row["published"]),
+                published=_iso_date(row["published"], path.name),
                 reason=str(row["reason"]),
             )
             for row in rows

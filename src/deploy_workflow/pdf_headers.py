@@ -11,11 +11,14 @@ from datetime import date
 from itertools import pairwise
 from typing import Literal
 
-_MONTH = r"January|February|March|April|May|June|July|August|September|October|November|December"
-_DUR = re.compile(
-    r"(?i)(three|six|nine|twelve)\s+months?\s+ended|(?:fiscal\s+)?years?\s+ended|year\s+ended"
+MONTH_NAMES = (
+    *("January", "February", "March", "April", "May", "June", "July", "August"),
+    *("September", "October", "November", "December"),
 )
-_YEARS = re.compile(r"(?<!\d)(?:19|20)\d{2}(?!\d)")
+# A 19xx/20xx year standing alone (no adjacent digit); shared with statement_lines.
+YEAR = re.compile(r"(?<!\d)(?:19|20)\d{2}(?!\d)")
+_MONTH = "|".join(MONTH_NAMES)
+_YEARS = YEAR
 _DATE = re.compile(
     rf"(?i)({_MONTH})\s+(\d{{1,2}}),?\s+(\d{{4}})|(?<!\d)(\d{{1,2}})\s+({_MONTH})\s+(\d{{4}})"
 )
@@ -35,26 +38,9 @@ _TITLE_STEM = re.compile(r"(?i)^\s*(?:(?:condensed|consolidated)\s+)*statements?
 _TITLE_CONTINUATION = re.compile(
     r"(?i)^\s*of\s+(?:profit|financial\s+position|comprehensive\s+income|income|cash\s+flows?)\b"
 )
-_MONTHS = {
-    m.lower(): i
-    for i, m in enumerate(
-        [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-        ],
-        1,
-    )
-}
+_MONTHS = {name.lower(): number for number, name in enumerate(MONTH_NAMES, 1)}
+_NOT_A_YEAR_CELL = re.compile(rf"(?i)\b(?:notes?|references?|{_MONTH})\b")
+_Header = tuple[str, ...]
 
 
 def _cells(line: str) -> list[str]:
@@ -97,9 +83,23 @@ def _statement_title_start(lines: list[str]) -> int | None:
     return titles[-1] if titles else None
 
 
+def _mdy(found: tuple[str, ...]) -> tuple[str, str, str]:
+    """(month, day, year) of a `_DATE` match, printed month-first or day-first."""
+    return (found[0], found[1], found[2]) if found[0] else (found[4], found[3], found[5])
+
+
+def _md(found: tuple[str, ...]) -> tuple[str, str]:
+    """(month, day) of a `_MONTH_DAY` match, printed month-first or day-first."""
+    return (found[0], found[1]) if found[0] else (found[3], found[2])
+
+
+def _display(iso: str) -> str:
+    return date.fromisoformat(iso).strftime("%B %d, %Y")
+
+
 def mapping_headers(
     page_text: str, *, first_data_line: int, statement: Literal["BS", "IS", "CFS"]
-) -> tuple[str, ...] | None:
+) -> _Header | None:
     """Recover coherent column headers from this page before its first data row."""
     lines = page_text.splitlines()[: max(0, first_data_line - 1)]
     # The unit's recognized title is the metadata boundary. A continuation
@@ -108,15 +108,14 @@ def mapping_headers(
     title_start = _statement_title_start(lines)
     if title_start is not None:
         lines = lines[title_start:]
-    candidates = []
-    for line in lines:
-        if (
-            _DUR.search(line)
-            or _YEARS.search(line)
-            or _DATE.search(line)
-            or _MONTH_DAY.search(line)
-        ):
-            candidates.append(line)
+    candidates = [
+        line
+        for line in lines
+        if _DURATION.search(line)
+        or _YEARS.search(line)
+        or _DATE.search(line)
+        or _MONTH_DAY.search(line)
+    ]
     if not candidates:
         return None
     # Most recent typed header controls flow semantics; a date-only row cannot
@@ -126,180 +125,125 @@ def mapping_headers(
         return None
     years_line = next((line for line in reversed(candidates) if _YEARS.search(line)), None)
     if years_line is None:
-        # Complete dates already carry their years.
-        full = _DATE.findall(" ".join(candidates))
-        if len(full) < 1:
-            return None
-        dates = []
-        for match in full:
-            month, day, year = (
-                (match[0], match[1], match[2]) if match[0] else (match[4], match[3], match[5])
-            )
-            iso = _iso(month, day, year)
-            if iso is None:
-                return None
-            dates.append(date.fromisoformat(iso).strftime("%B %d, %Y"))
-        if statement == "BS":
-            return (" | ".join(dates),)
-        # Ensure each printed end date has a printed duration.
-        span = duration_lines[-1]
-        spans = _DUR.findall(span)
-        if not spans:
-            return None
-        return (" | ".join(_canonical_duration(span, d) for d in dates),)
+        # Complete balance-sheet dates already carry their years. A flow header must print a
+        # 19xx/20xx year row for its columns; without one it is not mapped.
+        return _full_date_header(candidates) if statement == "BS" else None
     years = _YEARS.findall(years_line)
-    if len(years) < 2:
-        return None
-    year_matches = list(_YEARS.finditer(years_line))
-    residue = years_line[year_matches[0].start() :]
-    for left, right in pairwise(year_matches):
-        residue = years_line[left.end() : right.start()]
-        residue = re.sub(rf"(?i)\b(?:notes?|references?|{_MONTH})\b", " ", residue)
-        if re.search(r"[A-Za-z]", residue):
-            return None
-    residue = years_line[year_matches[-1].end() :]
-    residue = re.sub(rf"(?i)\b(?:notes?|references?|{_MONTH})\b", " ", residue)
-    if re.search(r"[A-Za-z]", residue):
+    if len(years) < 2 or not _only_years(years_line):
         return None
     if statement == "BS":
-        # Bind column-specific dates in order; a single explicit AS OF date can
-        # cover bare year columns only when that is what the page prints.
-        dates = _DATE.findall(" ".join(candidates))
-        full_dates = []
-        for found in dates:
-            month, day, year = (
-                (found[0], found[1], found[2]) if found[0] else (found[4], found[3], found[5])
-            )
-            iso = _iso(month, day, year)
-            if iso is None:
-                return None
-            full_dates.append(date.fromisoformat(iso))
-        if len(full_dates) == 1 and str(full_dates[0].year) != years[0]:
-            return None
-        if len(full_dates) == len(years):
-            full = [d.isoformat() for d in full_dates]
-            return (" | ".join(d.strftime("%B %d, %Y") for d in full_dates),)
-        md = []
-        for candidate in candidates:
-            for found in _MONTH_DAY.findall(candidate):
-                md.append((found[0], found[1]) if found[0] else (found[3], found[2]))
+        return _balance_sheet_header(candidates, years)
+    return _flow_header(lines, duration_lines[-1], years_line, years)
+
+
+def _full_date_header(candidates: list[str]) -> _Header | None:
+    """A balance-sheet header with no 19xx/20xx year row: its complete printed dates."""
+    isos = [_iso(*_mdy(found)) for found in _DATE.findall(" ".join(candidates))]
+    ends = [iso for iso in isos if iso is not None]
+    return (" | ".join(_display(iso) for iso in ends),) if ends and len(ends) == len(isos) else None
+
+
+def _only_years(years_line: str) -> bool:
+    """Whether the year row prints nothing but years (and note, reference or month words)."""
+    year_matches = list(_YEARS.finditer(years_line))
+    gaps = [years_line[left.end() : right.start()] for left, right in pairwise(year_matches)]
+    gaps.append(years_line[year_matches[-1].end() :])
+    return not any(re.search(r"[A-Za-z]", _NOT_A_YEAR_CELL.sub(" ", gap)) for gap in gaps)
+
+
+def _balance_sheet_header(candidates: list[str], years: list[str]) -> _Header | None:
+    """Bind column-specific dates in order; a single explicit AS OF date can cover bare year
+    columns only when that is what the page prints."""
+    full_dates = [_iso(*_mdy(found)) for found in _DATE.findall(" ".join(candidates))]
+    if any(iso is None for iso in full_dates):
+        return None
+    if len(full_dates) == 1 and str(date.fromisoformat(str(full_dates[0])).year) != years[0]:
+        return None
+    if len(full_dates) != len(years):
+        md = [_md(found) for candidate in candidates for found in _MONTH_DAY.findall(candidate)]
         if len(md) == len(years):
-            full = [_iso(month, day, year) for (month, day), year in zip(md, years, strict=True)]
+            pairs = zip(md, years, strict=True)
+            full_dates = [_iso(month, day, year) for (month, day), year in pairs]
         elif len(md) == 1:
-            full = [_iso(md[0][0], md[0][1], year) for year in years]
+            full_dates = [_iso(*md[0], year) for year in years]
         else:
             return None
-        if any(v is None for v in full):
-            return None
-        return (" | ".join(date.fromisoformat(v).strftime("%B %d, %Y") for v in full if v),)
-    if not duration_lines:
-        return None
-    dline = duration_lines[-1]
-    # Normalize supported day-first and month-first span headings to the existing matcher syntax.
-    normalized = re.sub(rf"(?i)(\d{{1,2}})\s+({_MONTH})", r"\2 \1", dline)
-    durations = _duration_labels(dline)
-    if durations is None:
-        return None
+    ends = [iso for iso in full_dates if iso is not None]
+    return (" | ".join(_display(iso) for iso in ends),) if len(ends) == len(full_dates) else None
+
+
+def _span_month_days(
+    lines: list[str], dline: str, years_line: str
+) -> list[tuple[str, str]]:
+    """The month/day cells of the selected duration row and the rows below it, above the year
+    row; earlier report banners frequently repeat the document end date. Else the duration
+    row's own first month/day."""
     month_days = []
-    # Only month/day cells following the selected duration row belong to that
-    # header; earlier report banners frequently repeat the document end date.
-    selected = lines.index(dline)
-    for candidate in lines[selected:]:
+    for candidate in lines[lines.index(dline) :]:
         if candidate == years_line:
             break
-        for match in _MONTH_DAY.findall(candidate):
-            month_days.append((match[0], match[1]) if match[0] else (match[3], match[2]))
+        month_days += [_md(found) for found in _MONTH_DAY.findall(candidate)]
     if not month_days:
-        fallback = _MONTH_DAY.findall(normalized)
-        if fallback:
-            month_days = [
-                (fallback[0][0], fallback[0][1])
-                if fallback[0][0]
-                else (fallback[0][3], fallback[0][2])
-            ]
-    complete_dates = []
-    if years_line:
-        for found in _DATE.findall(years_line):
-            mo, day, yr = (
-                (found[0], found[1], found[2]) if found[0] else (found[4], found[3], found[5])
-            )
-            if _iso(mo, day, yr) is None:
-                return None
-            complete_dates.append((mo, day, yr))
-    explicit_span_date = _MONTH_DAY.findall(dline)
-    if explicit_span_date and complete_dates:
-        span_mds = [(x[0], x[1]) if x[0] else (x[3], x[2]) for x in explicit_span_date]
-        for index, (month, day, _) in enumerate(complete_dates):
-            if index < len(span_mds) and (month.lower(), str(int(day))) != (
-                span_mds[index][0].lower(),
-                str(int(span_mds[index][1])),
-            ):
-                return None
-    if not month_days and complete_dates:
-        month_days = [(m, d) for m, d, _ in complete_dates]
-    if not month_days:
+        # Normalize day-first span headings to month-first before matching.
+        normalized = re.sub(rf"(?i)(\d{{1,2}})\s+({_MONTH})", r"\2 \1", dline)
+        month_days = [_md(found) for found in _MONTH_DAY.findall(normalized)[:1]]
+    return month_days
+
+
+def _flow_header(
+    lines: list[str], dline: str, years_line: str, years: list[str]
+) -> _Header | None:
+    """An income or cash-flow header: each year column takes its own printed duration and end."""
+    durations = _duration_labels(dline) or []
+    month_days = _span_month_days(lines, dline, years_line)
+    complete_dates = [_mdy(found) for found in _DATE.findall(years_line)]
+    if any(_iso(*found) is None for found in complete_dates):
         return None
-    span_tokens = durations
-    is_year = "year" in dline.lower()
-    kinds = [
-        (x.title(), 12 if is_year else {"three": 3, "six": 6, "nine": 9, "twelve": 12}[x.lower()])
-        for x in span_tokens
-    ] or [("Year", 12)]
-    if (
-        complete_dates
-        and len(complete_dates) < len(years)
-        and len(month_days) + len(complete_dates) == len(years)
+    span_mds = [_md(found) for found in _MONTH_DAY.findall(dline)]
+    if complete_dates and any(
+        (month.lower(), str(int(day))) != (span_month.lower(), str(int(span_day)))
+        for (month, day, _), (span_month, span_day) in zip(complete_dates, span_mds, strict=False)
     ):
-        month_days = [(m, d) for m, d, _ in complete_dates] + month_days
-    elif len(complete_dates) == len(years):
-        month_days = [(m, d) for m, d, _ in complete_dates]
-    if len(month_days) not in (1, len(kinds), len(years)):
         return None
-    if len(kinds) > 1 and len(years) % len(kinds):
+    printed = [(month, day) for month, day, _ in complete_dates]
+    month_days = month_days or printed
+    if printed and len(printed) < len(years) and len(month_days) + len(printed) == len(years):
+        month_days = printed + month_days
+    elif len(printed) == len(years):
+        month_days = printed
+    if (
+        not month_days
+        or len(month_days) not in (1, len(durations), len(years))
+        or (len(durations) > 1 and len(years) % len(durations))
+    ):
         return None
-    if is_year:
-        ends = []
-        for i, year in enumerate(years):
-            month, day = (
-                month_days[i]
-                if len(month_days) == len(years)
-                else month_days[i // max(1, len(years) // len(month_days))]
-                if len(month_days) > 1
-                else month_days[0]
-            )
-            end = _iso(month, day, year)
-            if end is None:
-                return None
-            ends.append("FY " + end)
-        return (" | ".join(ends),)
+    if all(duration == "Year" for duration in durations):
+        return _fiscal_year_header(month_days, years)
     spanrow = []
     for i in range(len(years)):
-        kind, _ = kinds[min(len(kinds) - 1, i // max(1, len(years) // len(kinds)))]
-        md_index = (
-            i
-            if len(month_days) == len(years)
-            else (i // max(1, len(years) // len(month_days)) if len(month_days) > 1 else 0)
-        )
-        month, day = month_days[md_index]
+        kind = durations[min(len(durations) - 1, i // max(1, len(years) // len(durations)))]
+        month, day = month_days[_column_index(i, len(month_days), len(years))]
+        if _iso(month, day, years[i]) is None:
+            return None
         label = "Year Ended " if kind == "Year" else f"{kind} Months Ended "
         spanrow.append(label + month.title() + " " + day)
-    span_row_text = " | ".join(spanrow)
-    if is_year and complete_dates:
-        actual_dates = [(m, d, y) for m, d, y in complete_dates]
-        while len(actual_dates) < len(years):
-            i = len(actual_dates)
-            month, day = month_days[i]
-            actual_dates.append((month, day, years[i]))
-        dated = [_iso(month, day, year) for month, day, year in actual_dates]
-        if any(value is None for value in dated):
-            return None
-        return (" | ".join("FY " + value for value in dated if value),)
     # One span per column permits distinct ends under a mixed year/date header.
-    return (span_row_text, " | ".join(years))
+    return (" | ".join(spanrow), " | ".join(years))
 
 
-def _canonical_duration(text: str, iso: str) -> str:
-    month, day = date.fromisoformat(iso).strftime("%B"), date.fromisoformat(iso).day
-    m = re.search(r"(?i)(three|six|nine|twelve)\s+months?", text)
-    label = m.group(1).title() + " Months Ended " if m else "Year Ended "
-    return label + month + " " + str(day)
+def _column_index(column: int, cells: int, years: int) -> int:
+    """The header cell that covers a year column: its own, its group's, or the only one."""
+    if cells == years:
+        return column
+    return column // max(1, years // cells) if cells > 1 else 0
+
+
+def _fiscal_year_header(month_days: list[tuple[str, str]], years: list[str]) -> _Header | None:
+    ends = []
+    for i, year in enumerate(years):
+        month, day = month_days[_column_index(i, len(month_days), len(years))]
+        end = _iso(month, day, year)
+        if end is None:
+            return None
+        ends.append("FY " + end)
+    return (" | ".join(ends),)

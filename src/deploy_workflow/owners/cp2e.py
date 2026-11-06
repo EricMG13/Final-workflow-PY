@@ -17,7 +17,7 @@ from dataclasses import dataclass, replace
 from decimal import ROUND_HALF_EVEN, Decimal, localcontext
 from typing import Any, Literal, Self
 
-from pydantic import TypeAdapter, ValidationError
+from pydantic import ValidationError
 
 from deploy_vii.contracts import (
     Citation,
@@ -29,7 +29,6 @@ from deploy_vii.contracts import (
     Module,
     ReportTable,
     Run,
-    RunText,
     TableColumn,
     TableRow,
 )
@@ -54,6 +53,7 @@ from deploy_vii.report_view import fact_spelling, figure_unit
 from deploy_workflow.context import ContextRefused, context_facts
 from deploy_workflow.owners.blank import is_blank
 from deploy_workflow.owners.cp1a import probe_one_step
+from deploy_workflow.owners.exact import exact_decimal, run_text_issues
 from deploy_workflow.owners.period_basis import DEFAULT_CURRENCY
 from deploy_workflow.owners.pins import pin_issues, pinned_line, pins_of
 from deploy_workflow.workflow import WorkflowError
@@ -81,14 +81,22 @@ RateType = Literal["FLOATING", "FIXED"]
 
 # --- Decimal conventions (lease "Decimal composer") ------------------------------------------
 _PRECISION = 38  # 38 significant digits, ROUND_HALF_EVEN; stored exactly, trailing zeros dropped
+_MAX_PLACES = 6  # the Fact bound on displayed decimals; the validator holds quoted rows to it
 
 
-def _exact(x: Decimal) -> Decimal:
-    """The stored form of a Decimal: same value, trailing zeros dropped, no exponent."""
-    with localcontext() as ctx:
-        ctx.prec = 80  # normalize() rounds to the context: keep every digit the value has
-        text = format(x.normalize(), "f")
-    return Decimal(0) if text in ("-0", "") else Decimal(text)
+def _quoted_places(x: Decimal) -> int:
+    """The decimal places a quoted figure is written with (``5.00`` has two)."""
+    if not x.is_finite():
+        raise ValueError(f"CP-2E: {x} is not a finite quoted figure")
+    exponent = x.as_tuple().exponent
+    assert isinstance(exponent, int)  # a finite Decimal has an integer exponent
+    return max(0, -exponent)
+
+
+def _places(x: Decimal, least: int, shift: int = 0) -> int:
+    """Display places that show a quoted figure without rounding it away: at least ``least`` (the
+    table's convention), at most 6; ``shift`` is 2 for a fraction shown as a percent."""
+    return min(_MAX_PLACES, max(least, _quoted_places(x) - shift))
 
 
 @dataclass(frozen=True)
@@ -107,7 +115,7 @@ class Value:
 
 
 def _known(x: Decimal) -> Value:
-    return Value("known", amount=_exact(x))
+    return Value("known", amount=exact_decimal(x))
 
 
 def _missing(reason: str) -> Value:
@@ -337,10 +345,13 @@ def derive_sensitivity(
 # --- the typed input object --------------------------------------------------------------------
 @dataclass(frozen=True)
 class Sourced:
-    """A quoted numeric operand and the page it was quoted from."""
+    """A quoted numeric operand and the page it was quoted from. ``reversed_outflow``: the page
+    prints the cash interest paid as an outflow in accounting parentheses, and ``value`` is its
+    positive magnitude (the sign convention of CP-2A and CP-2G for cash interest)."""
 
     value: Decimal
     cite: Cite
+    reversed_outflow: bool = False
 
 
 @dataclass(frozen=True)
@@ -524,6 +535,12 @@ def inputs_from_submission(
     def row(ref: Mapping[str, Any]) -> Sourced:
         return Sourced(value=_row_decimal(ref["value_text"]), cite=_cite(ref))
 
+    def outflow(ref: Mapping[str, Any]) -> Sourced:
+        """Cash interest paid is an outflow: a figure in parentheses is read as its magnitude, so
+        a rate shock is never added to a negative base."""
+        value = _row_decimal(ref["value_text"])
+        return Sourced(value=abs(value), cite=_cite(ref), reversed_outflow=value < 0)
+
     def code(ref: Mapping[str, Any]) -> SourcedCode:
         return SourcedCode(code=ref["code_text"], cite=_cite(ref))
 
@@ -545,7 +562,7 @@ def inputs_from_submission(
         reporting_currency=code(sub["reporting_currency"]),
         total_debt=row(ex["total_debt"]),
         ebitda=row(ex["ebitda"]),
-        interest=row(ex["interest"]),
+        interest=outflow(ex["interest"]),
         fcf=row(ex["fcf"]),
         fx_cash_effect=row(fx["fx_cash_effect"]),
         facility=facility,
@@ -553,13 +570,15 @@ def inputs_from_submission(
         debt_currency=code(fx["debt_currency"]) if fx.get("debt_currency") else None,
         debt_currency_absence=_absence(fx.get("debt_currency_absence")),
         foreign_ebitda_share=(
-            Sourced(_exact(Decimal(share["percent_text"]) / 100), _cite(share)) if share else None
+            Sourced(exact_decimal(Decimal(share["percent_text"]) / 100), _cite(share))
+            if share
+            else None
         ),
         operating_fx_absence=_absence(fx.get("operating_fx_absence")),
-        hedge_ratio=_exact(Decimal(hedge["percent_text"]) / 100) if hedge else None,
+        hedge_ratio=exact_decimal(Decimal(hedge["percent_text"]) / 100) if hedge else None,
         hedge_absence=_absence(sub.get("hedge_absence")),
         rate_shocks_bp=tuple(Decimal(t) for t in sub["rate_shocks_bp"]),
-        fx_shocks=tuple(_exact(Decimal(t) / 100) for t in sub["fx_shocks_percent"]),
+        fx_shocks=tuple(exact_decimal(Decimal(t) / 100) for t in sub["fx_shocks_percent"]),
         shock_rationale=sub["shock_rationale"],
         assessments=tuple(
             Assessment(
@@ -682,9 +701,6 @@ def _once(token: str, quote: str, page: str) -> bool:
     return True
 
 
-_RUN_TEXT: TypeAdapter[str] = TypeAdapter(RunText)
-
-
 class _Check:
     """Accumulates the validator's issues in rule order over one pack's financial pages."""
 
@@ -711,19 +727,21 @@ class _Check:
         self.empty(path, text)
         self.digit_free(path, text)
 
+    def published(self, path: str, text: str) -> None:
+        """Analyst text the module publishes (T2F.6, T2F.7): prose, and no prohibited conclusion."""
+        self.prose(path, text)
+        if _PROHIBITED.search(text):
+            self.add(f"{path}: text carries a prohibited conclusion")
+
     def run_text(self, path: str, text: str) -> None:
         """Text that becomes ``Claim.text``: checked with the very type the report builder uses
         (``RunText``, one ``TypeAdapter`` built once), so a malformed reference is a journaled
         issue and the builder never raises after the binding write (protocol section 6). The
         message never echoes the input. A well-formed reference is refused too: the summary claim
         names no fact, so settle would reject the module after a valid step."""
-        try:
-            _RUN_TEXT.validate_python(text)
-        except ValidationError as error:
-            for item in error.errors(include_input=False, include_url=False, include_context=False):
-                self.add(clipped((path, ": ", item["msg"])))
-            return
-        if any(run.kind != "text" for run in tokenize(text)):
+        malformed = run_text_issues(path, text)
+        self.issues.extend(malformed)
+        if not malformed and any(run.kind != "text" for run in tokenize(text)):
             self.add(f"{path}: text carries a reference")
 
     def on_page(self, ref: Mapping[str, Any], path: str) -> bool:
@@ -782,7 +800,19 @@ class _Check:
         if not _ROW_NUM.fullmatch(v) or v != quote.split()[-1]:
             self.add(f"{path}: value_text {v} is not the last value of the row")
             return None
-        return _row_decimal(v)
+        return self.row_value(v, key, path)
+
+    def row_value(self, v: str, key: str, path: str) -> Decimal | None:
+        """The value of a located row: it must show as quoted (at most 6 places), and total debt
+        is never negative (cash interest in parentheses is an outflow, read as its magnitude)."""
+        value = _row_decimal(v)
+        if _quoted_places(value) > _MAX_PLACES:
+            self.add(f"{path}: value_text {v} has more than {_MAX_PLACES} decimal places")
+            return None
+        if key == "total_debt" and value < 0:
+            self.add(f"{path}: value_text {v} is negative; total debt is never below zero")
+            return None
+        return value
 
     def exactly_one(self, a: object, b: object, path: str, names: tuple[str, str]) -> bool:
         if bool(a) == bool(b):
@@ -832,7 +862,9 @@ def _check_rate_exposure(chk: _Check, r: Mapping[str, Any]) -> Decimal | None:
             chk.add(f"{path}: the quote states neither a floating nor a fixed rate")
         elif rb["rate_type"] != said:
             chk.add(f"{path}: rate_type {rb['rate_type']} contradicts the quote")
-        elif said == "FLOATING" and (normalise(rb["reference_rate"]) not in quote or _split(rb)):
+        elif normalise(rb["reference_rate"]) not in quote or _split(
+            rb
+        ):  # FIXED too: T2F.1 cites it
             chk.add(f"{path}: reference_rate does not occur in the quote")
     chk.empty(f"{path}.reference_rate", rb["reference_rate"])
     chk.labelled(r["spread"], "bps_text", "spread", "rate_exposure.spread")
@@ -867,29 +899,32 @@ def _check_hedge(chk: _Check, sub: Mapping[str, Any]) -> None:
             chk.add("hedge_ratio: percent must be at least 0 and at most 100")
 
 
+def _check_assessment(chk: _Check, p: str, a: Mapping[str, Any], sections: Sequence[str]) -> None:
+    """One assessment at path ``p``: section and category in their closed sets, published text,
+    the Insufficient Information limitation rule and the basis quotes."""
+    if a["section"] not in _SECTIONS:
+        chk.add(f"{p}: section {a['section']} is not one of {', '.join(_SECTIONS)}")
+    elif sections.count(a["section"]) > 1:
+        chk.add(f"{p}: section {a['section']} appears more than once")
+    if a["category"] not in _CATEGORIES:
+        chk.add(f"{p}: category {a['category']} is not allowed")
+    chk.published(f"{p}.text", a["text"])
+    limitation = a.get("limitation")
+    chk.empty(f"{p}.limitation", limitation)
+    stated = limitation is not None and not is_blank(limitation)  # blank states none
+    if (a["category"] == "Insufficient Information") != stated:
+        chk.add(f"{p}: limitation is required for Insufficient Information and only for it")
+    if a["category"] == "Documentary Fact" and not a["basis"]:
+        chk.add(f"{p}: a Documentary Fact needs at least one basis quote")
+    for j, b in enumerate(a["basis"]):
+        chk.on_page(b, f"{p}.basis[{j}]")
+
+
 def _check_text(chk: _Check, sub: Mapping[str, Any]) -> None:
-    chk.prose("shock_rationale", sub["shock_rationale"])
+    chk.published("shock_rationale", sub["shock_rationale"])  # T2F.6 publishes it
     sections = [a["section"] for a in sub["assessments"]]
     for i, a in enumerate(sub["assessments"]):
-        p = f"assessments[{i}]"
-        if a["section"] not in _SECTIONS:
-            chk.add(f"{p}: section {a['section']} is not one of {', '.join(_SECTIONS)}")
-        elif sections.count(a["section"]) > 1:
-            chk.add(f"{p}: section {a['section']} appears more than once")
-        if a["category"] not in _CATEGORIES:
-            chk.add(f"{p}: category {a['category']} is not allowed")
-        chk.prose(f"{p}.text", a["text"])
-        if _PROHIBITED.search(a["text"]):
-            chk.add(f"{p}.text: text carries a prohibited conclusion")
-        limitation = a.get("limitation")
-        chk.empty(f"{p}.limitation", limitation)
-        stated = limitation is not None and not is_blank(limitation)  # blank states none
-        if (a["category"] == "Insufficient Information") != stated:
-            chk.add(f"{p}: limitation is required for Insufficient Information and only for it")
-        if a["category"] == "Documentary Fact" and not a["basis"]:
-            chk.add(f"{p}: a Documentary Fact needs at least one basis quote")
-        for j, b in enumerate(a["basis"]):
-            chk.on_page(b, f"{p}.basis[{j}]")
+        _check_assessment(chk, f"assessments[{i}]", a, sections)
     for s in _SECTIONS:
         if s not in sections:
             chk.add(f"assessments: section {s} is missing")
@@ -900,12 +935,45 @@ def _check_text(chk: _Check, sub: Mapping[str, Any]) -> None:
         chk.add("summary.text: text carries a prohibited conclusion")
 
 
+_MONTH_NAMES = (
+    "january", "february", "march", "april", "may", "june",
+    "july", "august", "september", "october", "november", "december",
+)  # fmt: skip
+_MONTH = "|".join(_MONTH_NAMES)
+_YEAR_END = re.compile(
+    rf"\byear[\s-]+end(?:ed|ing|s)?\b[\s:,]*(?:on\s+)?"
+    rf"(?:(?P<month>{_MONTH})\s+(?P<day>[0-9]{{1,2}})"
+    rf"|(?P<day2>[0-9]{{1,2}})\s+(?P<month2>{_MONTH}))\b",
+    re.IGNORECASE,
+)
+
+
+def fiscal_year_issues(pages: Mapping[str, str]) -> list[str]:
+    """CP-2E dates every flow 1 January to 31 December and every balance at 31 December (as
+    CP-2G's ``require_calendar``), so a financial page that states a year ending on any other
+    day refuses the step instead of mislabelling its periods. The reader is a phrase guard
+    (``year ended|ending|end <Month> <day>`` or ``<day> <Month>``), not a date parser."""
+    issues = []
+    for locator, text in pages.items():
+        for m in _YEAR_END.finditer(normalise(text)):
+            month = (m["month"] or m["month2"]).lower()
+            day = int(m["day"] or m["day2"])
+            if (month, day) != ("december", 31):
+                issues.append(
+                    f"{SOURCE_ID} {locator}: the statements need a calendar fiscal year "
+                    f"(1 January to 31 December), but the page states a year end of "
+                    f"{month.capitalize()} {day}"
+                )
+    return list(dict.fromkeys(issues))
+
+
 def validate_macro_fx(
     *, submission: Mapping[str, Any], pages: Mapping[str, str], periods: Periods = DEFAULT_PERIODS
 ) -> tuple[str, ...]:
     """Issues of a macro_fx submission against the pack's financial pages (locator -> text); the
     statement rows must sit under the `periods` fiscal-year column."""
     sub, chk = submission, _Check(pages, periods.header)
+    chk.issues.extend(fiscal_year_issues(pages))
     chk.code(sub["reporting_currency"], "reporting_currency")
     r = sub.get("rate_exposure")
     chk.exactly_one(r, sub.get("rate_absence"), "rate_exposure", ("rate_exposure", "rate_absence"))
@@ -927,9 +995,8 @@ def validate_macro_fx(
         absence = sub.get(key) or fx.get(key)
         if absence:
             at = key if sub.get(key) else f"fx.{key}"  # the field's place in the submission
-            for part in ("reason", "follow_up"):
-                chk.empty(f"{at}.{part}", absence[part])
-                chk.digit_free(f"{at}.{part}", absence[part])
+            chk.published(f"{at}.reason", absence["reason"])  # T2F.7 publishes the reason
+            chk.prose(f"{at}.follow_up", absence["follow_up"])
     chk.shocks(
         sub["rate_shocks_bp"], "rate_shocks_bp", "a whole number of basis points", 4, _RATE_BP
     )
@@ -942,7 +1009,7 @@ def validate_macro_fx(
 MILLIONS_SCALE = Decimal(1000000)
 # An unsettled cell's G# is bound at render time (expected.json#cell_notation.gap).
 GAP_SHOWN = {"missing": "∅ G#", "not_applicable": "∅ G# n.m."}
-ValueClass = Literal["source", "calculated", "analyst_judgment"]
+ValueClass = Literal["source", "normalized", "calculated", "analyst_judgment"]
 
 
 @dataclass(frozen=True)
@@ -1055,7 +1122,7 @@ def _num(
 ) -> _Spec:
     return _Spec(
         "num",
-        amount=_exact(amount),
+        amount=exact_decimal(amount),
         unit=unit,
         decimals=decimals,
         period=period,
@@ -1176,8 +1243,18 @@ def _cites_of(i: MacroFxInputs) -> _Cites:
     )
 
 
+REVERSED_OUTFLOW = "printed as an outflow in accounting parentheses; sign reversed to its magnitude"
+
+
 def _src(i: Sourced, unit: str, decimals: int | None, period: str) -> _Spec:
-    return _num(i.value, unit, decimals, (i.cite,), "source", period)
+    """A quoted figure, shown at its quoted precision when that is finer than ``decimals``; the
+    cash interest an issuer prints in parentheses is a normalized fact that records the reversal."""
+    places = None if decimals is None else _places(i.value, decimals, 2 if unit == "PERCENT" else 0)
+    if i.reversed_outflow:
+        return _num(
+            i.value, unit, places, (i.cite,), "normalized", period, formula=REVERSED_OUTFLOW
+        )
+    return _num(i.value, unit, places, (i.cite,), "source", period)
 
 
 def _t2f1_facility(i: MacroFxInputs) -> list[tuple[str, str, Sequence[_Spec]]]:
@@ -1231,6 +1308,10 @@ def _t2f1(i: MacroFxInputs, c: _Cites) -> list[tuple[str, str, Sequence[_Spec]]]
     def flow(s: Sourced, basis: str) -> list[_Spec]:
         return [_src(s, "MILLIONS", 2, c.per.flow), _txt(basis, (s.cite,))]
 
+    interest_basis = "Cash flow statement, FY column" + (
+        ", outflow in parentheses read as a positive amount" if i.interest.reversed_outflow else ""
+    )
+
     debt_ccy = (
         [_txt(i.debt_currency.code, c.debt_ccy), _txt("Facility schedule header", c.debt_ccy)]
         if i.debt_currency
@@ -1260,7 +1341,7 @@ def _t2f1(i: MacroFxInputs, c: _Cites) -> list[tuple[str, str, Sequence[_Spec]]]
         ),
         *_t2f1_facility(i),
         ("r07", "Reported EBITDA", flow(i.ebitda, "Income statement, FY column")),
-        ("r08", "Cash interest paid", flow(i.interest, "Cash flow statement, FY column")),
+        ("r08", "Cash interest paid", flow(i.interest, interest_basis)),
         ("r09", "Levered free cash flow", flow(i.fcf, "Cash flow statement, FY column")),
         ("r10", "FX effect on cash", flow(i.fx_cash_effect, "Cash flow statement, FY column")),
         ("r11", "Currency of the debt", debt_ccy),
@@ -1322,8 +1403,9 @@ def _t2f2(s: Sensitivity, c: _Cites) -> list[tuple[str, str, Sequence[_Spec]]]:
             "r06",
             "Foreign-currency debt share of total debt",
             [
-                _derived(s.foreign_debt_share, "PERCENT", 1, c.debt_ccy + c.ccy + c.debt,
-                         "cp2e.foreign_debt_share", "foreign-currency debt / total debt", c.per.bal),
+                _derived(s.foreign_debt_share, "PERCENT", 1,
+                         c.balance + c.debt_ccy + c.ccy + c.debt, "cp2e.foreign_debt_share",
+                         "foreign-currency debt / total debt", c.per.bal),
                 _txt("Share of total debt"),
             ],
         ),
@@ -1401,7 +1483,14 @@ def _t2f4(s: Sensitivity, c: _Cites) -> list[tuple[str, str, Sequence[_Spec]]]:
 
 def _t2f5(i: MacroFxInputs, s: Sensitivity, c: _Cites) -> list[tuple[str, str, Sequence[_Spec]]]:
     hedge = (
-        _num(i.hedge_ratio, "PERCENT", 0, (), "analyst_judgment", c.per.run)
+        _num(
+            i.hedge_ratio,
+            "PERCENT",
+            _places(i.hedge_ratio, 0, 2),
+            (),
+            "analyst_judgment",
+            c.per.run,
+        )
         if i.hedge_ratio is not None
         else _gap("Not stated: no hedge ratio is assumed or sourced", "PERCENT")
     )
@@ -2136,12 +2225,15 @@ class ShockReading:
 
 @dataclass(frozen=True)
 class Cp2eHead:
+    """A settled (accepted or restricted) head's figures; any other head (blocked, rejected) is
+    its status and hash with no figures (``None`` and no shocks), as ``cp2d_reader`` reports it."""
+
     head_sha256: str
     status: str
-    floating_debt: Reading
+    floating_debt: Reading | None
     shocks: tuple[ShockReading, ...]
-    foreign_debt: Reading
-    hedge_ratio: Reading  # the ratio, or missing with the absence reason
+    foreign_debt: Reading | None
+    hedge_ratio: Reading | None  # the ratio, or missing with the absence reason
     limitations: tuple[str, ...]
 
 
@@ -2150,6 +2242,8 @@ def cp2e_reader(store: Execution, head: Head) -> Cp2eHead:
     module = store.head_module(head)
     if module.module_id != MODULE_ID:
         raise ValueError(f"{MODULE_ID} reader: head is {module.module_id}")
+    if head.status not in ("accepted", "restricted"):
+        return Cp2eHead(head.result_sha256, head.status, None, (), None, None, module.limitations)
     facts = {fact.fact_id: fact for fact in module.facts}
 
     def read(fact_id: str) -> Reading:

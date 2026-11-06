@@ -24,7 +24,12 @@ from deploy_vii.contracts import (
 from deploy_vii.financial_contracts import FinancialBook, FinancialReview, Observation
 from deploy_vii.financial_periods import _id
 from deploy_vii.financial_validation import validate_financial_review
-from deploy_vii.model_readiness import ModelReadinessReport, assess_model_readiness
+from deploy_vii.model._cells import no_negative_zero
+from deploy_vii.model_readiness import (
+    ModelReadinessReport,
+    ReadinessFinding,
+    assess_model_readiness,
+)
 from deploy_vii.preparation import PreparedPack
 from deploy_vii.statement_validation import account_outflow, effective_accounts
 
@@ -198,7 +203,12 @@ def _observed(
     outflow: bool = False,
 ) -> _Cell:
     amount = value.amount if value else None
-    normalized = amount.copy_abs().copy_negate() if outflow and amount is not None else amount
+    # An outflow reads negative; a zero outflow stays zero, never "-0" (`no_negative_zero`).
+    normalized = (
+        no_negative_zero(amount.copy_abs().copy_negate())
+        if outflow and amount is not None
+        else amount
+    )
     return _Cell(
         normalized,
         _citations(value) if value else (),
@@ -257,7 +267,7 @@ class _Tables:
             reason = cell.reason if absent else None
             if absent and name in references and status != "conflicting":
                 status, reason = "not_applicable", "No reference or applicable value"
-            elif absent:
+            elif absent and status != "not_applicable":  # a stated non-applicability is no gap
                 reason = reason or "Source does not supply this field"
                 self.gaps.append(
                     InterfaceGap(table_id=table, row_id=identity, field=name, reason=reason)
@@ -402,40 +412,39 @@ def _schedules(tables: _Tables) -> None:
                 templates.items(), key=lambda item: item[1].display_priority
             ):
                 row = by_period.get((key, p.period_id))
+                # The period's own row names, classes and units it; the last row only a
+                # period without one.
+                own = row or template
                 observation = getattr(row, field_name) if row else None
-                cell = _observed(observation, book, unit=template.unit if kind == "kpis" else None)
+                cell = _observed(observation, book, unit=own.unit if kind == "kpis" else None)
                 values: dict[str, Scalar | _Cell] = {
                     identity: key,
                     "period_id": p.period_id,
-                    "display_priority": template.display_priority,
+                    "display_priority": own.display_priority,
                     field_name: cell,
                     "status": cell.status,
                     **_sources(cell.citations),
                 }
                 if kind == "segments":
-                    values.update(
-                        segment_name=template.segment_name, segment_type=template.segment_type
-                    )
-                    citations = template.classification_citations
+                    values.update(segment_name=own.segment_name, segment_type=own.segment_type)
+                    citations = own.classification_citations
                 elif kind == "addbacks":
                     values.update(
-                        addback_label=template.addback_label,
-                        addback_classification=template.classification,
+                        addback_label=own.addback_label,
+                        addback_classification=own.classification,
                         realization_status=row.realization_status if row else "NOT_STATED",
                         source_definition=row.source_definition if row else None,
                     )
-                    citations = (
-                        row.classification_citations if row else template.classification_citations
-                    )
+                    citations = own.classification_citations
                 else:
                     values.update(
-                        kpi_label=template.kpi_label,
-                        business_unit=template.business_unit,
-                        kpi_category=template.kpi_category,
-                        unit=template.unit,
-                        value_type=template.value_type,
+                        kpi_label=own.kpi_label,
+                        business_unit=own.business_unit,
+                        kpi_category=own.kpi_category,
+                        unit=own.unit,
+                        value_type=own.value_type,
                     )
-                    citations = template.definition_citations
+                    citations = own.definition_citations
                 tables.row(table, (key, p.period_id), p.period_id, values, citations)
     for row in book.segment_allocation:
         tables.row(
@@ -495,8 +504,12 @@ def _facilities(tables: _Tables) -> None:
             values[name] = _observed(
                 getattr(row, name), book, unit=unit, currency=None if unit else row.currency
             )
+        # The limitation qualifies a stated date too (`note`), and explains an absent one.
         values["maturity_date"] = _Cell(
-            row.maturity_date, row.terms_citations, reason=row.maturity_limitation
+            row.maturity_date,
+            row.terms_citations,
+            reason=row.maturity_limitation,
+            note=row.maturity_limitation,
         )
         values.update(
             _sources(tuple(dict.fromkeys((*_citations(row.carrying_value), *row.terms_citations))))
@@ -514,6 +527,14 @@ def _facilities(tables: _Tables) -> None:
             row.terms_citations,
             frozenset(optional),
         )
+
+
+def _finding_text(finding: ReadinessFinding) -> str:
+    """A readiness finding as the readiness row states it: severity, code, quarter, references
+    and explanation (`WARN facility_terms [F1, P4]: ...`)."""
+    where = f" ({finding.construction_id})" if finding.construction_id else ""
+    refs = f" [{', '.join(finding.references)}]" if finding.references else ""
+    return f"{finding.severity} {finding.code}{where}{refs}: {finding.explanation}"
 
 
 def model_interface(
@@ -588,7 +609,7 @@ def model_interface(
             "status": ready.status,
             "missing_metric_ids": ";".join(ready.missing_metric_ids) or None,
             "conflict_refs": ";".join(ready.conflict_refs) or None,
-            "explanation": ready.explanation,
+            "explanation": "; ".join((ready.explanation, *map(_finding_text, ready.findings))),
         },
         references=frozenset({"missing_metric_ids", "conflict_refs"}),
     )

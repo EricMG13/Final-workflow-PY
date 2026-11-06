@@ -41,7 +41,9 @@ Guard limits (accepted costs, recorded with the Stage 2 connection):
 - A recomputed cell (undrawn revolver, available liquidity, liquidity to debt, commitment less
   drawn) takes the balance date as its period; a copied cell keeps CP-1's period verbatim.
 - A sum copy (equity issuance and repurchases) with an operand that is not known is a gap that
-  names that operand; a single copy keeps CP-1's status and limitation.
+  names that operand; a single copy keeps CP-1's status and limitation. A T4.18 term that CP-1
+  marks conflicting or not applicable is copied with that status and CP-1's reason; only a
+  term CP-1 does not hold is "not stated" (review 2026-11-06).
 - Derived-fact citations (rulings stage2 round 3 item 3, applied to this module at the Stage 2 close
   release, round 5 item 17): a sum copy (equity issuance and repurchases) has one `Citation` per
   (source, page), quoting the first of its operands' quotes on that page, in `derives_from` order

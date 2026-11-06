@@ -20,8 +20,10 @@ import uvicorn
 from .desktop import open_browser, platform_locations, show_error
 from .model import digest
 from .server import APPLICATION, Application
+from .settings import Locations, save_json
 
 log = logging.getLogger("issuer_library")
+PORT_RECORD = "port.json"
 
 
 def running_instance(address: str, instance: str) -> bool:
@@ -52,6 +54,61 @@ def rotate_log(path: Path) -> None:
         pass
 
 
+def stable_port(loc: Locations) -> int:
+    """The port recorded after an earlier fallback, else one derived from the state folder."""
+    try:
+        recorded = json.loads((loc.state / PORT_RECORD).read_bytes()).get("port")
+    except (OSError, ValueError, AttributeError):
+        recorded = None
+    if isinstance(recorded, int) and not isinstance(recorded, bool) and 1024 <= recorded <= 65535:
+        return recorded
+    return 49000 + zlib.crc32(str(loc.state).encode()) % 10000
+
+
+def listen(port: int) -> socket.socket:
+    listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    if os.name != "nt":
+        listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    try:
+        listener.bind(("127.0.0.1", port))
+    except OSError:
+        listener.close()
+        raise
+    return listener
+
+
+def bind_or_reuse(loc: Locations, arguments: argparse.Namespace) -> socket.socket | None:
+    """A bound loopback listener, or None when this user's library already answers (and opens).
+
+    Without --port, a port that cannot be bound (in use, or inside a range Windows reserves) is
+    replaced by one the system assigns, recorded so later launches find this library there.
+    """
+    port = arguments.port or stable_port(loc)
+    if not 1024 <= port <= 65535:
+        raise ValueError("port must be between 1024 and 65535")
+    address = f"http://127.0.0.1:{port}"
+    try:
+        return listen(port)
+    except OSError as error:
+        if running_instance(address, digest(str(loc.state).encode())):
+            if arguments.workspace:
+                raise ValueError(
+                    "library is already running; change its workspace in Settings or quit it first"
+                ) from error
+            if not arguments.no_browser:
+                open_browser(address)
+            return None
+        if arguments.port:
+            raise ValueError(f"local port is occupied by another application: {error}") from error
+        log.warning("Port %s unavailable (%s); using a system-assigned port", port, error)
+    listener = listen(0)
+    try:
+        save_json(loc.state / PORT_RECORD, {"port": listener.getsockname()[1]})
+    except OSError as error:
+        log.warning("Port record: %s", error)
+    return listener
+
+
 def run(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="issuer-library", description=__doc__)
     parser.add_argument("--workspace", default="", help="Workspace folder (disabled by IT policy)")
@@ -73,27 +130,12 @@ def run(argv: list[str] | None = None) -> int:
         level=logging.INFO,
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
-    port = arguments.port or 49000 + zlib.crc32(str(loc.state).encode()) % 10000
-    if not 1024 <= port <= 65535:
-        raise ValueError("port must be between 1024 and 65535")
+    listener = bind_or_reuse(loc, arguments)
+    if listener is None:
+        return 0
+    port = listener.getsockname()[1]
     host = f"127.0.0.1:{port}"
     address = f"http://{host}"
-    listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    if os.name != "nt":
-        listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    try:
-        listener.bind(("127.0.0.1", port))
-    except OSError as error:
-        listener.close()
-        if running_instance(address, digest(str(loc.state).encode())):
-            if arguments.workspace:
-                raise ValueError(
-                    "library is already running; change its workspace in Settings or quit it first"
-                ) from error
-            if not arguments.no_browser:
-                open_browser(address)
-            return 0
-        raise ValueError(f"local port is occupied by another application: {error}") from error
     listener.listen(128)
     app = Application(loc, arguments.workspace, host)
     server = uvicorn.Server(

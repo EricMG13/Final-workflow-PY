@@ -49,7 +49,7 @@ from deploy_vii.model._cells import (
     refs,
 )
 from deploy_vii.model.frame import Arithmetic, Cell, Column, Frame, SourceRef
-from deploy_vii.model.registers import Cp1Registers, FacilityRow, iso_date
+from deploy_vii.model.registers import DEBT_ADJUSTMENT, Cp1Registers, FacilityRow, iso_date
 
 PAYMENT_RANKS: tuple[str, ...] = (
     "Super senior",
@@ -63,7 +63,7 @@ PAYMENT_RANKS: tuple[str, ...] = (
     "Debt adjustments",
 )
 SECURED_RANKS = frozenset({"Super senior", "Senior secured"})
-_DEBT_ADJUSTMENT = "DEBT ADJUSTMENT"
+_DEBT_ADJUSTMENT = DEBT_ADJUSTMENT
 EXCLUDES_FOREIGN = "excludes facility in another currency"
 EXCLUDES_UNALLOCATED = "excludes unallocated CP-CF movements"
 OPENING_INCOMPLETE = "opening stack incomplete"
@@ -301,7 +301,10 @@ def _column_debt(regs: Cp1Registers, column: Column, accounts: dict[str, Cell]) 
         undrawn_rcf=calc(undrawn),
         debt_opening=opened,
         debt_closing=totals["total_debt"],
-        debt_non_cash=calc(((total, 1), (opened, -1), (raised, -1)), RESIDUAL),
+        debt_non_cash=calc(
+            ((total, 1), (opened, -1), (raised, -1)),
+            join_notes(RESIDUAL, carried((total, opened))),
+        ),
     )
     return cells
 

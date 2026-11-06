@@ -44,6 +44,7 @@ from deploy_workflow.model.pricing import (
     reservation_usd,
 )
 from deploy_workflow.model.providers import (
+    NOT_CONNECTED,
     RETRY_AFTER_DEFAULT_S,
     RETRY_AFTER_MAX_S,
     _openai_cipher,
@@ -74,6 +75,7 @@ from deploy_workflow.workflow import WorkflowError
 
 READ_INPUTS = "read_inputs"
 _RETRY_CLASSES = ("StreamCut", "IdleTimeout")
+RECONNECT_WAIT_S = 5  # before the one resend of a request whose connection failed (not sent)
 TOKEN_OVERHEAD = 64  # chat-template tokens beyond the request body (DEPLOY VII runner.py:74)
 # CP1H-R17: cases/pilot-fixes/limits.json encrypted_reasoning_byte_weight
 ENCRYPTED_REASONING_WEIGHT = Fraction(1, 2)
@@ -339,7 +341,7 @@ class _Attempt:
     validated: _Validated | None = None
     stop: tuple[str, str] | None = None
     cause: Exception | None = None
-    again: Literal["402", "retry"] | None = None
+    again: Literal["402", "retry", "reconnect"] | None = None
     held: str | None = None  # the call id kept held by an unknown charge
     index: int = 0  # the request's call index in (module, step, attempt): the turn counter
     wait: int = 0
@@ -495,6 +497,11 @@ class ToolLoop:
                 answers = _nudged(answers, left, submit_name(binding.step_id))
             history.extend(answers)
             if outcome is not None and outcome["status"] != "refused" and not reopened:
+                # the step's conversation is over: a session-holding adapter (Copilot) stops the
+                # exchange's runtime now rather than keeping one per step until the run ends
+                end_exchange = getattr(self._adapter, "end_exchange", None)
+                if end_exchange is not None:
+                    end_exchange(ctx.digest)
                 return outcome
 
     def _issues(
@@ -540,8 +547,14 @@ class ToolLoop:
         outgoing = redacted_request(self._redactor, request)
         resent_402 = self._wait_out_killed_402()
         retry_of: str | None = None
+        reconnected = False
         while True:
             done = self._attempt(ctx, outgoing, retry_of)
+            if done.again == "reconnect" and not reconnected and retry_of is None:
+                # nothing was sent and the hold is released: one fresh request, not the retry
+                reconnected = True
+                self._sleep(RECONNECT_WAIT_S)
+                continue
             if retry_of is not None and done.stop is None and done.turn is None:
                 done.stop = (done.error_class or "RetryFailed", "the retry failed")  # Q8
             if done.stop is None and done.again == "402":
@@ -695,9 +708,12 @@ class ToolLoop:
         if reply.kind == "not_sent":
             self._budget.release(call_id)  # nothing reached the provider: the hold is freed
             self._refuse_record(ctx, index, started, reply)
-            return _Attempt(
-                stop=(reply.error_class or "NotSent", self._redactor.text(reply.message or ""))
+            refused = (reply.error_class or "NotSent", self._redactor.text(reply.message or ""))
+            # a failed connect is resent once by ``_request``; a second one stops the run
+            again: Literal["reconnect"] | None = (
+                "reconnect" if reply.error_class == NOT_CONNECTED else None
             )
+            return _Attempt(stop=refused, again=again)
         error_class, message = reply.error_class, reply.message
         stop: tuple[str, str] | None = None
         cause: Exception | None = None
@@ -774,7 +790,10 @@ class ToolLoop:
         if reply.kind == "sent_known":
             settled, status = Decimal(0), "computed"
         elif reply.kind == "sent_unknown":
-            settled, status, retryable = None, "unknown", _retryable(reply)
+            # an adapter that cannot send a failed call again (``resends`` False, Copilot) keeps
+            # the hold unknown and not retryable: the stop names the real class
+            resends = getattr(self._adapter, "resends", True)
+            settled, status, retryable = None, "unknown", _retryable(reply) and resends
         else:
             assert usage is not None
             priced = price_usage(

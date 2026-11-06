@@ -6,7 +6,7 @@ Model's residual-defined CFO cannot prove its own source statement reconciles.
 
 import hashlib
 import json
-from datetime import date, timedelta
+from datetime import date
 from decimal import Decimal, localcontext
 from itertools import pairwise
 from typing import Literal, Self
@@ -26,6 +26,7 @@ from deploy_vii.financial_contracts import (
     Observation,
     StatementIdentity,
 )
+from deploy_vii.financial_periods import contiguous, half_last_decimal, opening_date
 from deploy_vii.financial_validation import validate_financial_review
 from deploy_vii.model._cells import CONTEXT
 from deploy_vii.model.dates import fiscal_year_number
@@ -46,6 +47,19 @@ CheckType = Literal[
     "BALANCE_MOVEMENT",
     "REPORTED_DERIVED_PERIOD",
 ]
+
+
+# The explanations a check builds, defined once: `period_reconciliation` builds the same texts and
+# `canonical_audit.absent_input_limitation` reads them, so a rewording cannot disconnect a reader.
+MISSING_INPUT = "Missing reported value or complete independent components"
+PERIOD_MISSING_INPUT = "Reported value or independent components are unavailable"
+MISSING_PERIOD_COMPONENT = "Missing period component"
+# A partial segment schedule: the undisclosed segments are absent inputs (rulings item 82).
+SEGMENTS_INCOMPLETE = "Disclosed segment schedule is incomplete"
+SEGMENTS_PARTIAL = "Disclosed segment schedule is partial"
+DIFFERENCE_UNRESOLVED = "Difference exceeds reporting-precision tolerance; unresolved"
+BASIS_DIFFERENCE = "Audited FY / unaudited quarter basis difference: "
+CASH_SCOPE_DIFFERS = "Cash scope differs across source periods: "
 
 
 class ReconciliationTerm(Contract):
@@ -159,17 +173,15 @@ def _check(
         if blocker:
             calculated = None
         stated = reported.amount
-        tolerance = (
-            None if stated is None else Decimal("0.5").scaleb(int(stated.as_tuple().exponent))
-        )
+        tolerance = None if stated is None else half_last_decimal(stated)
         difference = None if stated is None or calculated is None else calculated - stated
         status: Literal["PASS", "WARN", "BLOCK"] = "BLOCK"
-        explanation = blocker or "Missing reported value or complete independent components"
+        explanation = blocker or MISSING_INPUT
         if difference is not None and tolerance is not None:
             if abs(difference) <= tolerance:
                 status, explanation = "PASS", "Agrees within half the last reported decimal place"
             else:
-                explanation = "Difference exceeds reporting-precision tolerance; unresolved"
+                explanation = DIFFERENCE_UNRESOLVED
         if warning and not blocker:
             status, explanation = "WARN", warning
     identity = json.dumps((period.period_id, kind, metric), separators=(",", ":"))
@@ -230,9 +242,7 @@ def _segments(book: FinancialBook, period: FinancialPeriod) -> Reconciliation:
         _account(book, period.period_id, "revenue"),
         terms,
         "sum(operating segment revenue and separate corporate/elimination revenue)",
-        blocker="Disclosed segment schedule is incomplete"
-        if disclosure.status == "partial"
-        else None,
+        blocker=SEGMENTS_INCOMPLETE if disclosure.status == "partial" else None,
         warning="No segment schedule disclosed; calculated total is unknown, not zero"
         if undisclosed
         else None,
@@ -291,9 +301,14 @@ def _debt(
     period: FinancialPeriod,
     normalized: dict[tuple[str, str], FacilityNormalization],
 ) -> Reconciliation:
-    """Use same-date carrying values, excluding both lease classes; no FX inference."""
+    """Use same-date carrying values, excluding both lease classes; no FX inference.
+
+    A facility with no same-date row whose sourced issuance follows the period end is a cited
+    zero, as in the kernel adapter (`financial_adapter._facilities`); any other absent row blocks.
+    """
     ids = {p.period_id for p in book.periods if period.end_date and p.end_date == period.end_date}
     templates = {r.facility_id: r for r in book.facilities}
+    issuance = _issuance(book)
     values_by_id: dict[str, list[Observation]] = {}
     normalized_by_id: dict[str, list[FacilityNormalization]] = {}
     citations_by_id: dict[str, list[Citation]] = {}
@@ -315,6 +330,9 @@ def _debt(
         }:
             continue
         values = values_by_id.get(fid, [])
+        if not values and fid in issuance and _unissued(issuance[fid][0], period):
+            terms.append(_issuance_zero(fid, issuance[fid][1]))
+            continue
         value = next((v for v in values if v.status == "conflicting"), None)
         value = value or next((v for v in values if v.amount is not None), next(iter(values), None))
         if template.currency != book.currency:
@@ -345,6 +363,33 @@ def _debt(
         tuple(terms),
         "sum(non-lease carrying values, including separately sourced debt adjustments)",
         context=tuple(context),
+    )
+
+
+def _issuance(book: FinancialBook) -> dict[str, tuple[date, tuple[Citation, ...]]]:
+    """Each dated facility's validated issuance date (its last dated row, as the adapter's
+    template) and the issuance citations of all its dated rows."""
+    found: dict[str, tuple[date, tuple[Citation, ...]]] = {}
+    for row in book.facilities:
+        if row.issued_on is not None:
+            cited = found[row.facility_id][1] if row.facility_id in found else ()
+            found[row.facility_id] = row.issued_on, (*cited, *row.issuance_citations)
+    return {fid: (day, tuple(dict.fromkeys(cited))) for fid, (day, cited) in found.items()}
+
+
+def _unissued(issued_on: date, period: FinancialPeriod) -> bool:
+    return period.end_date is not None and issued_on > period.end_date
+
+
+def _issuance_zero(facility_id: str, citations: tuple[Citation, ...]) -> ReconciliationTerm:
+    """The sourced zero of a facility not yet issued at the period end."""
+    zero = Decimal(0)
+    return ReconciliationTerm(
+        label=facility_id,
+        observation_id=None,
+        original_amount=zero,
+        amount=zero,
+        citations=citations,
     )
 
 
@@ -436,6 +481,26 @@ def _statement_check(
     )
 
 
+def target_sign_terms(
+    book: FinancialBook, period_id: str, item: str, source: Reconciliation
+) -> tuple[ReconciliationTerm, ...]:
+    """A source equation's leaves converted to the account's canonical target sign.
+
+    Source identities operate on printed amounts. An outflow account (`account_outflow`) whose
+    printed target is a non-negative magnitude is negative in the kernel (`_account`), so its
+    leaves change sign; leaf amounts and their source signs stay visible."""
+    flip = (
+        account_outflow(book, period_id, item)
+        and source.reported_value is not None
+        and source.reported_value >= 0
+    )
+    if not flip:
+        return source.components
+    return tuple(
+        term.model_copy(update={"coefficient": -term.coefficient}) for term in source.components
+    )
+
+
 def _ncf(book: FinancialBook, period: FinancialPeriod) -> Reconciliation:
     """Prove reported NCF from the three source cash-flow categories.
 
@@ -485,24 +550,12 @@ def _ncf(book: FinancialBook, period: FinancialPeriod) -> Reconciliation:
         if child.status != "PASS":
             blockers.append(f"{line_id}: {child.explanation}")
         pending.extend(c.line_id for c in equation.components)
-    flip = (
-        account_outflow(book, period.period_id, "net_cash_change")
-        and source.reported_value is not None
-        and source.reported_value >= 0
-    )
-    terms = (
-        tuple(
-            term.model_copy(update={"coefficient": -term.coefficient}) for term in source.components
-        )
-        if flip
-        else source.components
-    )
     return _check(
         period,
         "NCF_IDENTITY",
         "net_cash_change",
         _account(book, period.period_id, "net_cash_change"),
-        terms,
+        target_sign_terms(book, period.period_id, "net_cash_change", source),
         "independent operating + investing + financing source equation leaves; "
         "FX only if explicitly in the equation; canonical target sign conversion",
         blocker="; ".join(blockers) or None,
@@ -520,11 +573,7 @@ def cash_scope(bridge: CashMovementBridge | None) -> tuple[str, ...]:
 
 
 def _cash_movement(book: FinancialBook, period: FinancialPeriod) -> Reconciliation:
-    opening = (
-        period.start_date - timedelta(days=1)
-        if period.start_date and period.start_date.toordinal() > 1
-        else None
-    )
+    opening = opening_date(period.start_date)
     bridge = next((b for b in book.cash_movement_bridges if b.period_id == period.period_id), None)
     lines = {r.line_id: r for r in book.statement_lines if r.period_id == period.period_id}
     adjustments = tuple(
@@ -615,16 +664,12 @@ def _balance_movements(book: FinancialBook, period: FinancialPeriod) -> tuple[Re
         for movement in book.balance_movements
         if movement.period_id == period.period_id
     }
-    opening_date = (
-        period.start_date - timedelta(days=1)
-        if period.start_date and period.start_date.toordinal() > 1
-        else None
-    )
+    opening = opening_date(period.start_date)
     items = tuple(dict.fromkeys(("total_equity", *bridges)))
     reconciliations = []
     for item in items:
         bridge = bridges.get(item)
-        components = [_statement_balance(book, opening_date, item)]
+        components = [_statement_balance(book, opening, item)]
         if item == "total_equity":
             income = next(
                 (
@@ -654,7 +699,7 @@ def _balance_movements(book: FinancialBook, period: FinancialPeriod) -> tuple[Re
         )
 
         blockers = []
-        if opening_date is None or period.end_date is None:
+        if opening is None or period.end_date is None:
             blockers.append("Exact opening and closing balance dates are unavailable")
         if bridge is None or bridge.disclosure.status != "complete":
             blockers.append(
@@ -698,10 +743,7 @@ def _year(book: FinancialBook, period: FinancialPeriod) -> tuple[Reconciliation,
         and quarters[0].start_date == period.start_date
         and quarters[-1].end_date == period.end_date
     )
-    complete = complete and all(
-        a.end_date and b.start_date and a.end_date + timedelta(days=1) == b.start_date
-        for a, b in pairwise(quarters)
-    )
+    complete = complete and all(contiguous(a.end_date, b.start_date) for a, b in pairwise(quarters))
     checks: list[Reconciliation] = []
     for metric in sorted(FLOW_METRICS):
         check = _check(
@@ -728,8 +770,7 @@ def _year(book: FinancialBook, period: FinancialPeriod) -> tuple[Reconciliation,
             check = check.model_copy(
                 update={
                     "status": "WARN",
-                    "explanation": "Audited FY / unaudited quarter basis difference: "
-                    + explanation.explanation,
+                    "explanation": BASIS_DIFFERENCE + explanation.explanation,
                     "audit_basis_explanation": explanation,
                     "context_citations": tuple(
                         dict.fromkeys((*check.context_citations, *explanation.citations))

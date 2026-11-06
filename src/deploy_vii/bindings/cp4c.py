@@ -8,23 +8,14 @@ Slots carry a ``cp4c-`` prefix: a slot is unique across all shipped maps. Data o
 arithmetic, and ``deploy_workflow`` is never imported.
 """
 
-from deploy_vii.bindings import Binding, BindingMap
+from deploy_vii.bindings import Binder, BindingMap
 from deploy_vii.business_context import CP1_REFERENCES
-from deploy_vii.display import UnitClass
-from deploy_vii.report_view import FactCoord
 
 MODULE_ID = "CP-4C"
 BLOCKS = ("recovery-by-class", "value-allocation-claims")
 
 
-def _bind(table: str, block: str, label: str, unit: UnitClass = "text") -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id=MODULE_ID, table_id=table),
-        block_id=block,
-        cell_slot="cp4c-" + table.lower().replace(".", "-").replace("_", "-"),
-        unit_class=unit,
-        label=label,
-    )
+_bind = Binder(MODULE_ID, "cp4c-", hyphenate=True).bind
 
 
 CP4C = BindingMap(

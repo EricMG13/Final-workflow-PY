@@ -980,6 +980,9 @@ def _owner_sequence(module_id: str) -> tuple[str, ...]:
     return owner_workflow._sequence(module_id)
 
 
+_OwnerScope = Callable[[PreparedPack], tuple[str, ...]]
+
+
 def _execution_state(
     store: Execution,
     ticket_id: str,
@@ -996,115 +999,12 @@ def _execution_state(
         if substituted:
             store = _ParsedExecution(store.directory)
         snapshot = store.read()
-        tickets = [a for a in snapshot.attempts if a.ticket_id == ticket_id]
-        if len(tickets) != 1:
-            raise SourceError("not_permitted")
-        attempt = tickets[0]
-        pending = (
-            attempt.status == "pending"
-            and attempt.payload_sha256 is None
-            and attempt.result_sha256 is None
-            and attempt.interruption is None
-            and not attempt.issues
-        )
-        if not pending:
-            raise SourceError("not_permitted")
-        if step_id not in _SOURCE_STEPS.get(attempt.module_id, ()):
-            raise SourceError("not_permitted")
-        owner_scope = _OWNER_SCOPES.get((attempt.module_id, step_id))
-        if owner_scope is None:
-            chain = step_chain(attempt.module_id)
-            if step_id not in chain.pack_sources:
-                raise SourceError("not_permitted")
-            sequence, repairable = chain.steps, chain.repairable
-        else:
-            # An owner-only step has no within-attempt repair (that is a live chain's).
-            sequence, repairable = _owner_sequence(attempt.module_id), frozenset()
-        prior_steps = attempt.steps
-        ordered_prefix = tuple(s.step_id for s in prior_steps) == sequence[: len(prior_steps)]
-        all_valid = all(s.status == "valid" for s in prior_steps)
-        if (
-            not all_valid
-            or not ordered_prefix
-            or len(prior_steps) >= len(sequence)
-            or sequence[len(prior_steps)] != step_id
-        ):
-            raise SourceError("not_permitted")
-        if sum(a.status == "pending" for a in snapshot.attempts) != 1:
-            raise SourceError("identity_mismatch")
-        if current_inputs(snapshot, attempt.module_id) != attempt.inputs:
-            raise SourceError("identity_mismatch")
-        if len({i.input_id for i in attempt.inputs}) != len(attempt.inputs):
-            raise SourceError("identity_mismatch")
-        pack = store.pack(snapshot)  # re-read, hash-checked and canonical for this snapshot
-        if not substituted and pack.content_hash() != snapshot.pack_sha256:
-            raise SourceError("identity_mismatch")
-        if pack.run != snapshot.run:
-            raise SourceError("identity_mismatch")
-        heads = {h.module_id: h for h in snapshot.heads}
-        if len(heads) != len(snapshot.heads):
-            raise SourceError("identity_mismatch")
-        run = snapshot.run
-        for bound in attempt.inputs:
-            if bound.input_id == "prepared-pack":
-                if bound.sha256 != snapshot.pack_sha256 or bound.status != "accepted":
-                    raise SourceError("identity_mismatch")
-                continue
-            head = heads[bound.input_id]
-            producer = store.head_module(head)
-            same_head = (head.result_sha256, head.status) == (bound.sha256, bound.status)
-            same_run = (
-                producer.run_id,
-                producer.issuer_id,
-                producer.as_of,
-                producer.method_version,
-            ) == (run.run_id, run.issuer_id, run.as_of, run.method_version)
-            if not same_head or not same_run or not _producer_inputs(store, snapshot, producer):
-                raise SourceError("identity_mismatch")
-        for index, step in enumerate(prior_steps):
-            if step.inputs != _step_inputs(attempt, prior_steps[:index]):
-                raise SourceError("identity_mismatch")
-            if step.output_sha256 is None:
-                raise SourceError("identity_mismatch")
-            store.payload(step.payload_sha256)
-            store.step_output(step.output_sha256)
-        for repair in attempt.step_repairs:
-            if repair.step_id not in repairable:
-                raise SourceError("not_permitted")
-            index = sequence.index(repair.step_id)
-            if index > len(prior_steps):
-                raise SourceError("not_permitted")
-            if repair.inputs != _step_inputs(attempt, prior_steps[:index]):
-                raise SourceError("identity_mismatch")
-            store.payload(repair.payload_sha256)
-            if repair.output_sha256 is not None:
-                store.step_output(repair.output_sha256)
-        if attempt.number == 0:
-            if attempt.repair_of is not None:
-                raise SourceError("identity_mismatch")
-        else:
-            previous = [a for a in snapshot.attempts if a.ticket_id == attempt.repair_of]
-            if (
-                len(previous) != 1
-                or previous[0].status != "finished"
-                or not previous[0].issues
-                or previous[0].module_id != attempt.module_id
-                or previous[0].number != 0
-                or previous[0].inputs != attempt.inputs
-                or (attempt.module_id == "CP-4" and attempt.repair_issues != previous[0].issues)
-            ):
-                raise SourceError("identity_mismatch")
-        if owner_scope is None:
-            ids = tuple(s.source_id for s in pack.sources)
-            declared = set(declared_sources(store, attempt, step_id, ids))
-            readable = set(readable_sources(store, attempt, step_id))
-            if not declared <= set(ids) or not readable <= set(ids):
-                raise SourceError("identity_mismatch")
-            sources = tuple(ident for ident in ids if ident in declared and ident in readable)
-        else:
-            sources = owner_scope(pack)
-        if attempt.module_id == "CP-4" and not sources:
-            raise SourceError("not_permitted")
+        attempt = _pending_attempt(snapshot, ticket_id)
+        sequence, repairable, owner_scope = _step_sequence(attempt, step_id)
+        pack = _check_bound_inputs(store, snapshot, attempt, substituted)
+        _check_prior_steps(store, attempt, sequence, repairable)
+        _check_repair_lineage(snapshot, attempt)
+        sources = _session_scope(store, attempt, step_id, pack, owner_scope)
         if store.read().content_hash() != snapshot.content_hash():
             raise SourceError("stale_binding")
         return snapshot, attempt, pack, sources
@@ -1112,6 +1012,166 @@ def _execution_state(
         raise
     except (ValueError, KeyError, OSError):
         raise SourceError("identity_mismatch") from None
+
+
+def _pending_attempt(snapshot: ExecutionSnapshot, ticket_id: str) -> Attempt:
+    """The ticket's one attempt, still pending with nothing submitted."""
+    tickets = [a for a in snapshot.attempts if a.ticket_id == ticket_id]
+    if len(tickets) != 1:
+        raise SourceError("not_permitted")
+    attempt = tickets[0]
+    pending = (
+        attempt.status == "pending"
+        and attempt.payload_sha256 is None
+        and attempt.result_sha256 is None
+        and attempt.interruption is None
+        and not attempt.issues
+    )
+    if not pending:
+        raise SourceError("not_permitted")
+    return attempt
+
+
+def _step_sequence(
+    attempt: Attempt, step_id: str
+) -> tuple[tuple[str, ...], frozenset[str], _OwnerScope | None]:
+    """The attempt's step sequence, its repairable steps and the owner scope (None for a live
+    chain's step); `step_id` must be a source step and the next step after valid prior steps."""
+    if step_id not in _SOURCE_STEPS.get(attempt.module_id, ()):
+        raise SourceError("not_permitted")
+    owner_scope = _OWNER_SCOPES.get((attempt.module_id, step_id))
+    if owner_scope is None:
+        chain = step_chain(attempt.module_id)
+        if step_id not in chain.pack_sources:
+            raise SourceError("not_permitted")
+        sequence, repairable = chain.steps, chain.repairable
+    else:
+        # An owner-only step has no within-attempt repair (that is a live chain's).
+        sequence, repairable = _owner_sequence(attempt.module_id), frozenset()
+    prior_steps = attempt.steps
+    ordered_prefix = tuple(s.step_id for s in prior_steps) == sequence[: len(prior_steps)]
+    all_valid = all(s.status == "valid" for s in prior_steps)
+    if (
+        not all_valid
+        or not ordered_prefix
+        or len(prior_steps) >= len(sequence)
+        or sequence[len(prior_steps)] != step_id
+    ):
+        raise SourceError("not_permitted")
+    return sequence, repairable, owner_scope
+
+
+def _check_bound_inputs(
+    store: Execution, snapshot: ExecutionSnapshot, attempt: Attempt, substituted: bool
+) -> PreparedPack:
+    """The snapshot's pack, after checking the attempt's bound inputs against the current heads,
+    the pack and the run."""
+    if sum(a.status == "pending" for a in snapshot.attempts) != 1:
+        raise SourceError("identity_mismatch")
+    if current_inputs(snapshot, attempt.module_id) != attempt.inputs:
+        raise SourceError("identity_mismatch")
+    if len({i.input_id for i in attempt.inputs}) != len(attempt.inputs):
+        raise SourceError("identity_mismatch")
+    pack = store.pack(snapshot)  # re-read, hash-checked and canonical for this snapshot
+    if not substituted and pack.content_hash() != snapshot.pack_sha256:
+        raise SourceError("identity_mismatch")
+    if pack.run != snapshot.run:
+        raise SourceError("identity_mismatch")
+    _check_producers(store, snapshot, attempt)
+    return pack
+
+
+def _check_producers(store: Execution, snapshot: ExecutionSnapshot, attempt: Attempt) -> None:
+    """Each bound input is the prepared pack or a current head of this run whose module was
+    itself produced from current inputs."""
+    heads = {h.module_id: h for h in snapshot.heads}
+    if len(heads) != len(snapshot.heads):
+        raise SourceError("identity_mismatch")
+    run = snapshot.run
+    for bound in attempt.inputs:
+        if bound.input_id == "prepared-pack":
+            if bound.sha256 != snapshot.pack_sha256 or bound.status != "accepted":
+                raise SourceError("identity_mismatch")
+            continue
+        head = heads[bound.input_id]
+        producer = store.head_module(head)
+        same_head = (head.result_sha256, head.status) == (bound.sha256, bound.status)
+        same_run = (
+            producer.run_id,
+            producer.issuer_id,
+            producer.as_of,
+            producer.method_version,
+        ) == (run.run_id, run.issuer_id, run.as_of, run.method_version)
+        if not same_head or not same_run or not _producer_inputs(store, snapshot, producer):
+            raise SourceError("identity_mismatch")
+
+
+def _check_prior_steps(
+    store: Execution, attempt: Attempt, sequence: tuple[str, ...], repairable: frozenset[str]
+) -> None:
+    """Each prior step and step repair is bound to its own inputs and its blobs are readable."""
+    prior_steps = attempt.steps
+    for index, step in enumerate(prior_steps):
+        if step.inputs != _step_inputs(attempt, prior_steps[:index]):
+            raise SourceError("identity_mismatch")
+        if step.output_sha256 is None:
+            raise SourceError("identity_mismatch")
+        store.payload(step.payload_sha256)
+        store.step_output(step.output_sha256)
+    for repair in attempt.step_repairs:
+        if repair.step_id not in repairable:
+            raise SourceError("not_permitted")
+        index = sequence.index(repair.step_id)
+        if index > len(prior_steps):
+            raise SourceError("not_permitted")
+        if repair.inputs != _step_inputs(attempt, prior_steps[:index]):
+            raise SourceError("identity_mismatch")
+        store.payload(repair.payload_sha256)
+        if repair.output_sha256 is not None:
+            store.step_output(repair.output_sha256)
+
+
+def _check_repair_lineage(snapshot: ExecutionSnapshot, attempt: Attempt) -> None:
+    """A first attempt repairs nothing; a repair attempt follows its one finished, issued
+    first attempt of the same module and inputs."""
+    if attempt.number == 0:
+        if attempt.repair_of is not None:
+            raise SourceError("identity_mismatch")
+        return
+    previous = [a for a in snapshot.attempts if a.ticket_id == attempt.repair_of]
+    if (
+        len(previous) != 1
+        or previous[0].status != "finished"
+        or not previous[0].issues
+        or previous[0].module_id != attempt.module_id
+        or previous[0].number != 0
+        or previous[0].inputs != attempt.inputs
+        or (attempt.module_id == "CP-4" and attempt.repair_issues != previous[0].issues)
+    ):
+        raise SourceError("identity_mismatch")
+
+
+def _session_scope(
+    store: Execution,
+    attempt: Attempt,
+    step_id: str,
+    pack: PreparedPack,
+    owner_scope: _OwnerScope | None,
+) -> tuple[str, ...]:
+    """The pack sources the session reads: the live chain's declared and readable sources, in
+    pack order, or the owner step's scope."""
+    if owner_scope is None:
+        ids = tuple(s.source_id for s in pack.sources)
+        declared = set(declared_sources(store, attempt, step_id, ids))
+        readable = set(readable_sources(store, attempt, step_id))
+        if not declared <= set(ids) or not readable <= set(ids):
+            raise SourceError("identity_mismatch")
+        sources = tuple(ident for ident in ids if ident in declared and ident in readable)
+    else:
+        sources = owner_scope(pack)
+    if attempt.module_id == "CP-4" and not sources:
+        raise SourceError("not_permitted")
+    return sources
 
 
 def session_sources(store: Execution, ticket_id: str, step_id: str) -> tuple[str, ...]:

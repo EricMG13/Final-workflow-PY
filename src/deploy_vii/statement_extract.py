@@ -12,15 +12,18 @@ model maps `period_id` and `item_id`). A line the rules cannot parse is never st
 data; a candidate such line (two or more tokens ending in a numeric cell) is recorded in
 `ExtractedTable.omitted` as printed, and prose yields an empty table.
 
-Rules (docs/development/live-runner.md, "Statement extraction"):
+Rules (this docstring is their only statement):
 
 - A line's cells are separated by two or more spaces, or by a ` | ` pipe (a table row printed
   as `Label | 1,759 | 1,668`: the line is read as if each pipe were two spaces; a row of only
   `-` runs and pipes gives no line, and a line holding a pipe is never a caption or a label
   continuation). A data line is a label (with a letter)
-  followed, to the end of the line, by two or more numeric cells: `10,441`, `2.42`, `(1,234)`
-  (negative) or a lone em dash, en dash or hyphen (nil: value `None`, raw token kept). A `$`,
-  `£` or `€` before a number, alone or attached, is folded into it and not kept in the raw value.
+  followed, to the end of the line, by two or more numeric cells: `10,441`, `2.42`, `(1,234)`,
+  `(1,234 )` or `($120)` (negative), `-45`, `−45` or `–45` (a minus before the number),
+  `1,234-` (a trailing minus) or a lone em dash, en dash or hyphen (nil: value `None`, raw token
+  kept). A `$`, `£` or `€` before a number, alone or attached (also inside its parentheses), is
+  folded into it and not kept in the raw value; a lone `€` printed one space or none after a
+  number, or any lone sign ending the line after one, is that number's suffix.
 - Leader dots (runs of two or more `.` or `…`, optionally space-separated; a `.` directly before
   a digit is a decimal point and ends a run) between a label and its values are read as two
   spaces, so the label does not hold them and they do not join cells. A currency sign printed
@@ -33,6 +36,9 @@ Rules (docs/development/live-runner.md, "Statement extraction"):
   lines that follow until the next caption.
 - `headers` are the raw lines nearest above the first data line holding two or more four-digit
   years or a month name, with the adjacent such lines above them (blank lines between allowed).
+  A later period row (a header line of only period, scale and entity words holding two or more
+  years) between two data lines starts a new table: the lines below it are flagged against its
+  own header block, while `headers` stays the first table's.
 - A line whose numeric cells are all bare four-digit years from 1900 to 2099 with no `$` is a
   header line, not data, only when its label is empty, wholly parenthesised (`(In millions)`),
   or made only of month names, period words (`Year ended December 31`, `Notes`) and unit or scale
@@ -42,23 +48,26 @@ Rules (docs/development/live-runner.md, "Statement extraction"):
   non-blank line of two or more whitespace-separated tokens (after the pipe rewrite) whose
   last token is a numeric cell and which holds a letter or digit (a row of only nil dashes and
   pipes is a separator), that is neither a returned data line, a returned header line
-  nor a header-shaped line ending in a bare four-digit year (a second table's period row). A
+  nor a header-shaped line ending in a bare four-digit year (a second table's period row); or
+  a labelled line that is not a header whose last cell holds a digit and no letter (`21.5%`). A
   lone token (a page number) is never a candidate.
 
 Flags (task 8.10b, review risks 1-2) inform the model and never drop a line:
 
-- `more_values_than_header_years`: the line has more numeric cells than the table's header
-  lines hold four-digit years (counted over all header lines; none counted when the headers
-  name no year). A footnote marker `(1)` two spaces before the values reads as a value of -1.
+- `more_values_than_header_years`: the line has more numeric cells than its table's year line
+  holds four-digit years. The year line is the header line nearest the data holding two or more
+  years, else the nearest holding one (a dated title such as `December 31, 2025 and 2024` above
+  the column row does not add its years); none counted when the headers name no year. A footnote
+  marker `(1)` two spaces before the values reads as a value of -1.
 - `label_ends_numeric`: the label's last token is a numeric cell (`1,234`, `$5`, `(12)`, a nil
   dash). Two numbers one space apart are one text cell, so the scan stops there and they stay
   in the label; a label ending in a year (`Balance, January 1, 2023`) is flagged too.
 - `footnote_marker`: the header lines hold N > 0 four-digit years and the line has N + 1 raw
   values whose first is `(n)`, or a bare `n` when a header line has a cell that is the word Note or
   Notes on its own, starting left of the leftmost year column (one or two digits, no `$`), and
-  ends left of the column where the leftmost four-digit year of the
-  header lines starts (both read after the pipe rewrite): that first cell is a footnote marker,
-  dropped from `raw_values` and `values` (the label is unchanged), and the line does not also get
+  ends left of the column where the year line's first four-digit year starts (both read after
+  the pipe rewrite): that first cell is a footnote marker, dropped from `raw_values` and
+  `values` (the label is unchanged), and the line does not also get
   `more_values_than_header_years`. A note reference of several numbers (`7 and 9`,
   `8, 9, 11 and 16`) is label text, two or more spaces after the label; under a Note or Notes
   header it counts as the extra cell: the line has N raw values and the reference ends left of
@@ -87,8 +96,11 @@ _NIL_TOKENS = ("\u2014", "\u2013", "-")  # em dash, en dash, hyphen
 _NILS = frozenset(_NIL_TOKENS)
 _NIL = "|".join(_NIL_TOKENS)
 _SIGNS = frozenset("$\u00a3\u20ac")  # `$`, `£`, `€`
+_EURO = "\u20ac"
+_MINUS = "-\u2212\u2013"  # hyphen-minus, minus sign, en dash: a minus printed before a number
 _NUMERIC_CELL = re.compile(
-    rf"(?P<dollar>[$\u00a3\u20ac] ?)?(?P<raw>\((?:{_NUMBER})\)|(?:{_NUMBER})|{_NIL})"
+    rf"(?P<dollar>[$\u00a3\u20ac] ?)?(?P<raw>\( ?(?P<inner>[$\u00a3\u20ac] ?)?(?:{_NUMBER}) ?\)"
+    rf"|[{_MINUS}](?:{_NUMBER})|(?:{_NUMBER})-?|{_NIL})"
 )
 _CELL = re.compile(r"\S+(?: \S+)*")
 _YEAR = re.compile(r"(?<!\d)(?:19|20)\d{2}(?!\d)")
@@ -193,10 +205,23 @@ class _Cells:
 def _value(raw: str) -> Decimal | None:
     if raw in _NILS:
         return None
-    if raw.startswith("("):
-        # Built from the string, never by negation: `-Decimal` would round to the context.
-        return Decimal("-" + raw[1:-1].replace(",", ""))
-    return Decimal(raw.replace(",", ""))
+    digits = raw.strip(f"() {_MINUS}").replace(",", "")
+    # Built from the string, never by negation: `-Decimal` would round to the context.
+    negative = raw[0] in f"({_MINUS}" or raw.endswith("-")
+    return Decimal(("-" if negative else "") + digits)
+
+
+def _raw(match: re.Match[str]) -> str:
+    """The printed numeric cell without its currency signs (`($120)` reads `(120)`)."""
+    if match["inner"] is None:
+        return match["raw"]
+    at = match.start("raw")
+    return match["raw"][: match.start("inner") - at] + match["raw"][match.end("inner") - at :]
+
+
+def _unpipe(line: str) -> str:
+    """`line` read as if each ` | ` pipe were two spaces."""
+    return _PIPE.sub("  ", line) if "|" in line else line
 
 
 _Edit = tuple[int, int, int]  # (start in the new text, new length, old length)
@@ -254,25 +279,45 @@ def _strip_leader(line: str) -> tuple[str, list[_Edit]]:
     return line, []
 
 
-def _cells(line: str) -> _Cells | None:
-    """The label and trailing numeric cells of a data line, or None for any other line."""
-    if "|" in line:
-        line = _PIPE.sub("  ", line)
-    line, leaders = _strip_leader(line)
-    read, splits = _rewrite(_STUCK_SIGN, "  ", line)
-    found: list[tuple[str, bool]] = []  # (raw, a sign is folded in), right to left
-    start = len(read)
-    first_end = start
+def _scan(read: str, suffix_at: Collection[int]) -> tuple[list[tuple[str, bool]], int, int]:
+    """The trailing numeric cells of `read` as (raw, a sign is folded in), right to left, with
+    the column where the first of them starts and where it ends. A lone sign attaches to the
+    number on its right, except a `€` split from the number on its left (`suffix_at` holds the
+    columns where such split signs start) or a lone sign ending the line: those are the left
+    number's suffix."""
+    found: list[tuple[str, bool]] = []
+    start = first_end = len(read)
+    suffix = False  # the cell to the left carries the sign just scanned
     for cell in reversed(list(_CELL.finditer(read))):
         text = cell.group()
-        if text in _SIGNS and found and not found[-1][1]:
+        match = _NUMERIC_CELL.fullmatch(text)
+        if (
+            text in _SIGNS
+            and not suffix
+            and cell.start() in suffix_at
+            and (text == _EURO or not found)
+        ):
+            suffix = True
+        elif text in _SIGNS and found and not found[-1][1] and not suffix:
             found[-1] = (found[-1][0], True)
-        elif match := _NUMERIC_CELL.fullmatch(text):
-            found.append((match["raw"], match["dollar"] is not None))
+        elif match is not None:
+            folded = match["dollar"] is not None or match["inner"] is not None
+            found.append((_raw(match), folded or suffix))
+            suffix = False
             first_end = cell.end()
         else:
             break
         start = cell.start()
+    if suffix and found:  # no number to the left after all: the sign prefixes its right cell
+        found[-1] = (found[-1][0], True)
+    return found, start, first_end
+
+
+def _cells(line: str) -> _Cells | None:
+    """The label and trailing numeric cells of a data line, or None for any other line."""
+    line, leaders = _strip_leader(_unpipe(line))
+    read, splits = _rewrite(_STUCK_SIGN, "  ", line)
+    found, start, first_end = _scan(read, {at + new for at, new, _ in splits})
     start = _before(splits, start)
     first_end = _before(splits, first_end)
     label = line[:start].strip()
@@ -377,28 +422,53 @@ def _is_period_header(line: str) -> bool:
     return bool(_is_header(line) and all(word.lower() in _PERIOD_HEADER_WORDS for word in words))
 
 
-def _header_indexes(lines: Sequence[str], first: int) -> tuple[int, ...]:
-    """The 0-based indexes of the header block nearest above the 0-based line `first` (the first
-    data line), in page order."""
+def _header_indexes(
+    lines: Sequence[str], first: int, data_at: Collection[int] = ()
+) -> tuple[int, ...]:
+    """The 0-based indexes of the header block nearest above the 0-based line `first` (a table's
+    first data line), in page order; a data line (`data_at`) is never in it and ends the search."""
     index = first - 1
-    while index >= 0 and not _is_header(lines[index]):
+    while index >= 0 and index not in data_at and not _is_header(lines[index]):
         index -= 1
     block: list[int] = []
-    while index >= 0 and (_is_header(lines[index]) or not lines[index].strip()):
+    while (
+        index >= 0
+        and index not in data_at
+        and (_is_header(lines[index]) or not lines[index].strip())
+    ):
         if lines[index].strip():
             block.append(index)
         index -= 1
     return tuple(reversed(block))
 
 
+def _is_period_row(line: str) -> bool:
+    """A later table's period row: a period header line holding two or more four-digit years."""
+    return len(_YEAR.findall(line)) >= 2 and _is_period_header(line)
+
+
 def _is_omitted_candidate(line: str) -> bool:
-    tokens = (_PIPE.sub("  ", line) if "|" in line else line).split()
+    read = _unpipe(line)
+    tokens = read.split()
     if not any(c.isalnum() for c in line):
         return False  # a separator row of nil dashes and pipes
-    if len(tokens) < 2 or not _NUMERIC_CELL.fullmatch(tokens[-1]):
+    if len(tokens) < 2:
         return False
     # A second table's period row (`June 30, 2026 | December 31, 2025`) is not a lost value.
-    return not (_is_header(line) and _BARE_YEAR.fullmatch(tokens[-1]))
+    if _is_header(line) and _BARE_YEAR.fullmatch(tokens[-1]):
+        return False
+    if _NUMERIC_CELL.fullmatch(tokens[-1]):
+        return True
+    # A row of figures the cell rules cannot read (`21.5%`): a labelled line, not a header,
+    # whose last cell holds a digit and no letter.
+    cells = [cell.group() for cell in _CELL.finditer(read)]
+    return (
+        len(cells) >= 2
+        and not _is_header(line)
+        and _WORD.search(cells[0]) is not None
+        and any(c.isdigit() for c in cells[-1])
+        and _WORD.search(cells[-1]) is None
+    )
 
 
 def _label_ends_numeric(label: str) -> bool:
@@ -417,28 +487,68 @@ def _flags(line: ExtractedLine, years: int, footnote: bool) -> tuple[LineFlag, .
     return tuple(flags)
 
 
-def _year_column(headers: Sequence[str]) -> int | None:
-    """The column where the leftmost four-digit year of the header lines starts."""
-    starts = [
-        match.start()
-        for header in headers
-        if (match := _YEAR.search(_PIPE.sub("  ", header) if "|" in header else header))
-    ]
-    return min(starts, default=None)
+@dataclass(frozen=True)
+class _Table:
+    """The header block over a run of data lines: its year count, the column where the year
+    line's first year starts, whether it names a Note column left of it, and the 0-based line
+    where that Note column ends."""
+
+    years: int = 0
+    year_column: int | None = None
+    note_header: bool = False
+    note_until: int = 0
 
 
-def _footnote_marker(
-    line: ExtractedLine, cells: _Cells, years: int, year_column: int | None, note_column: bool
-) -> bool:
+def _table(lines: Sequence[str], first: int, data_at: Collection[int]) -> _Table:
+    """The table whose first data line is the 0-based line `first` (module docstring)."""
+    headers = [_unpipe(lines[index]) for index in _header_indexes(lines, first, data_at)]
+    # The year line: the header line nearest the data holding two or more years, else one.
+    ranked = [(min(len(_YEAR.findall(header)), 2), at) for at, header in enumerate(headers)]
+    count, at = max(ranked, default=(0, 0))
+    year = _YEAR.search(headers[at]) if count else None
+    if year is None:
+        return _Table(note_until=len(lines))
+    note_until = next(
+        (i for i in range(first, len(lines)) if i not in data_at and _is_header(lines[i])),
+        len(lines),
+    )
+    return _Table(
+        years=len(_YEAR.findall(headers[at])),
+        year_column=year.start(),
+        note_header=any(
+            _NOTE_HEADER.fullmatch(cell.group()) and cell.start() < year.start()
+            for header in headers
+            for cell in _CELL.finditer(header)
+        ),
+        note_until=note_until,
+    )
+
+
+def _tables(lines: Sequence[str], rows: Sequence[int]) -> list[_Table]:
+    """The table of each data line (0-based `rows`, in page order): a period row between two
+    data lines starts a new table with its own header block."""
+    data_at = frozenset(rows)
+    tables: list[_Table] = []
+    previous = -1
+    for row in rows:
+        if not tables or any(_is_period_row(lines[i]) for i in range(previous + 1, row)):
+            tables.append(_table(lines, row, data_at))
+        else:
+            tables.append(tables[-1])
+        previous = row
+    return tables
+
+
+def _footnote_marker(line: ExtractedLine, cells: _Cells, table: _Table, note_column: bool) -> bool:
     """The first cell is a footnote marker `(n)` or, under a "Note" header, a bare note reference:
     left of the first year column, and the one value more than the years that makes it a
     reference."""
     first = line.raw_values[0]
     return (
-        years > 0
-        and year_column is not None
-        and cells.first_end < year_column
-        and len(line.raw_values) == years + 1
+        table.years > 0
+        and table.year_column is not None
+        and cells.first_end < table.year_column
+        and len(line.raw_values) == table.years + 1
         and not cells.first_dollar
         and (
             _FOOTNOTE.fullmatch(first) is not None
@@ -447,49 +557,81 @@ def _footnote_marker(
     )
 
 
-def _note_reference(cells: _Cells, years: int, year_column: int | None, note_column: bool) -> bool:
+def _note_reference(cells: _Cells, table: _Table, note_column: bool) -> bool:
     """The label ends in a several-number note reference (`7 and 9`) under a "Note" header that
     counts as the extra cell: left of the first year column, with exactly the years' values
     after it."""
     return (
         note_column
-        and years > 0
-        and year_column is not None
+        and table.years > 0
+        and table.year_column is not None
         and cells.note_head is not None
-        and cells.note_end < year_column
-        and len(cells.raw_values) == years
+        and cells.note_end < table.year_column
+        and len(cells.raw_values) == table.years
     )
 
 
-def extract_statement_lines(
-    text: str, locator: str, source_id: str | None = None
-) -> ExtractedTable:
-    """The printed data lines of one page's text (module docstring rules); prose yields none."""
-    lines = [line.removesuffix("\r") for line in text.split("\n")]
-    found: list[ExtractedLine] = []
-    read: list[_Cells] = []
-    first: int | None = None
+def _bare_note_number(line: ExtractedLine, cells: _Cells, table: _Table) -> bool:
+    """Under a Note column, an unsigned bare first number of one or two digits left of the
+    years, with a sign folded into a later cell, is label text."""
+    return (
+        cells.later_sign
+        and not cells.first_dollar
+        and table.year_column is not None
+        and cells.first_end < table.year_column
+        and len(line.raw_values) == table.years
+        and _BARE_REF.fullmatch(line.raw_values[0]) is not None
+    )
+
+
+def _drop_first(line: ExtractedLine) -> ExtractedLine:
+    return replace(
+        line,
+        raw_values=line.raw_values[1:],
+        values=line.values[1:],
+        currency_values=line.currency_values[1:],
+    )
+
+
+def _finish(line: ExtractedLine, cells: _Cells, table: _Table) -> tuple[ExtractedLine, str]:
+    """The data line with a footnote marker, note reference or bare note number resolved and
+    its flags set, and the part of its label printed on its own line."""
+    note_column = table.note_header and line.line_no - 1 < table.note_until
+    if _footnote_marker(line, cells, table, note_column):
+        data = _drop_first(line)
+        return replace(data, flags=_flags(data, table.years, True)), cells.label
+    if cells.note_head is not None and _note_reference(cells, table, note_column):
+        head = line.label.removesuffix(cells.label).rstrip()
+        data = replace(line, label=" ".join(filter(None, (head, cells.note_head))))
+        return replace(data, flags=_flags(data, table.years, True)), cells.note_head
+    if note_column and _bare_note_number(line, cells, table):
+        own = f"{cells.label} {line.raw_values[0]}"
+        data = replace(_drop_first(line), label=f"{line.label} {line.raw_values[0]}")
+        return replace(data, flags=_flags(data, table.years, False)), own
+    return replace(line, flags=_flags(line, table.years, False)), cells.label
+
+
+def _read_rows(lines: Sequence[str], locator: str) -> list[tuple[ExtractedLine, _Cells]]:
+    """Each printed data line, unflagged, with its parsed cells, in page order."""
+    found: list[tuple[ExtractedLine, _Cells]] = []
     caption: str | None = None
     pending: list[str] = []  # continuation lines directly above the current line
     for index, line in enumerate(lines):
         stripped = line.strip()
         cells = _cells(line)
         if cells is not None:
-            first = index if first is None else first
             head = pending[0] if pending else line
-            found.append(
-                ExtractedLine(
-                    locator=locator,
-                    line_no=index + 1,
-                    label=" ".join((*(part.strip() for part in pending), cells.label)),
-                    raw_values=cells.raw_values,
-                    values=cells.values,
-                    indent=len(head) - len(head.lstrip()),
-                    caption=caption,
-                    currency_values=cells.currency_values,
-                )
+            printed = ExtractedLine(
+                locator=locator,
+                line_no=index + 1,
+                label=" ".join((*(part.strip() for part in pending), cells.label)),
+                raw_values=cells.raw_values,
+                values=cells.values,
+                indent=len(head) - len(head.lstrip()),
+                caption=caption,
+                currency_values=cells.currency_values,
             )
-            read.append(cells)
+            found.append((printed, cells))
             pending = []
         elif _is_caption(stripped):
             caption = stripped
@@ -498,90 +640,35 @@ def extract_statement_lines(
             pending.append(line)
         else:
             pending = []
-    header_at = () if first is None else _header_indexes(lines, first)
-    headers = tuple(lines[index] for index in header_at)
-    header_boundaries = set(header_at)
-    header_boundaries.update(
-        index for index, raw_line in enumerate(lines) if _is_period_header(raw_line)
-    )
-    years = sum(len(_YEAR.findall(header)) for header in headers)
-    flagged: list[ExtractedLine] = []
-    year_column = _year_column(headers)
-    note_header = year_column is not None and any(
-        _NOTE_HEADER.fullmatch(cell.group()) and cell.start() < year_column
-        for header in headers
-        for cell in _CELL.finditer(_PIPE.sub("  ", header) if "|" in header else header)
-    )
-    data_at = {line.line_no - 1 for line in found}
-    note_until = next(
-        (
-            index
-            for index in range(first or 0, len(lines))
-            if index not in data_at and _is_header(lines[index])
-        ),
-        len(lines),
-    )
-    for printed, parsed in zip(found, read, strict=True):
-        note_column = note_header and printed.line_no - 1 < note_until
-        footnote = _footnote_marker(printed, parsed, years, year_column, note_column)
-        data = (
-            replace(
-                printed,
-                raw_values=printed.raw_values[1:],
-                values=printed.values[1:],
-                currency_values=printed.currency_values[1:],
-            )
-            if footnote
-            else printed
-        )
-        if not footnote and parsed.note_head is not None:
-            footnote = _note_reference(parsed, years, year_column, note_column)
-            if footnote:
-                head = printed.label.removesuffix(parsed.label).rstrip()
-                data = replace(data, label=" ".join(filter(None, (head, parsed.note_head))))
-        if (
-            not footnote
-            and note_column
-            and parsed.later_sign
-            and not parsed.first_dollar
-            and year_column is not None
-            and parsed.first_end < year_column
-            and len(printed.raw_values) == years
-            and _BARE_REF.fullmatch(printed.raw_values[0]) is not None
-        ):
-            data = replace(
-                printed,
-                label=f"{printed.label} {printed.raw_values[0]}",
-                raw_values=printed.raw_values[1:],
-                values=printed.values[1:],
-                currency_values=printed.currency_values[1:],
-            )
-        flagged.append(replace(data, flags=_flags(data, years, footnote)))
-    bounded: list[ExtractedLine] = []
-    for flagged_line in flagged:
-        row_cells = _cells(lines[flagged_line.line_no - 1])
-        assert row_cells is not None
-        bounded.append(
-            replace(
-                flagged_line,
-                label_candidates=_label_candidates(
-                    lines, flagged_line.line_no - 1, row_cells.label, header_boundaries
-                ),
-            )
-        )
-    flagged = bounded
-    kept = {line.line_no - 1 for line in found}.union(header_at)
-    omitted = tuple(
-        OmittedLine(line_no=index + 1, text=text)
-        for index, text in enumerate(lines)
-        if index not in kept and _is_omitted_candidate(text)
-    )
+    return found
+
+
+def extract_statement_lines(
+    text: str, locator: str, source_id: str | None = None
+) -> ExtractedTable:
+    """The printed data lines of one page's text (module docstring rules); prose yields none."""
+    lines = [line.removesuffix("\r") for line in text.split("\n")]
+    found = _read_rows(lines, locator)
+    rows = [printed.line_no - 1 for printed, _ in found]
+    header_at = _header_indexes(lines, rows[0]) if rows else ()
+    boundaries = set(header_at)
+    boundaries.update(index for index, line in enumerate(lines) if _is_period_header(line))
+    finished: list[ExtractedLine] = []
+    for (printed, cells), table in zip(found, _tables(lines, rows), strict=True):
+        data, own_label = _finish(printed, cells, table)
+        candidates = _label_candidates(lines, printed.line_no - 1, own_label, boundaries)
+        finished.append(replace(data, label_candidates=candidates))
+    kept = set(rows).union(header_at)
     return ExtractedTable(
         locator=locator,
-        headers=headers,
-        lines=tuple(flagged),
+        headers=tuple(lines[index] for index in header_at),
+        lines=tuple(finished),
         source_id=source_id,
-        omitted=omitted,
+        omitted=tuple(
+            OmittedLine(line_no=index + 1, text=text)
+            for index, text in enumerate(lines)
+            if index not in kept and _is_omitted_candidate(text)
+        ),
         source_lines=tuple(
             ExtractedLabelPart(line_no=index + 1, text=line.strip())
             for index, line in enumerate(lines)

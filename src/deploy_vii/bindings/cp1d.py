@@ -7,22 +7,13 @@ Evidence; the gaps ledger (T1D.7) to Limitations. Data only: identities and labe
 Slots carry a ``cp1d-`` prefix: a slot is unique across all shipped maps.
 """
 
-from deploy_vii.bindings import Binding, BindingMap
-from deploy_vii.display import UnitClass
-from deploy_vii.report_view import FactCoord
+from deploy_vii.bindings import Binder, BindingMap
 
 MODULE_ID = "CP-1D"
 BLOCKS = ("earnings-quality", "restated-leverage")
 
 
-def _bind(table: str, block: str, label: str, unit: UnitClass = "text") -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id=MODULE_ID, table_id=table),
-        block_id=block,
-        cell_slot="cp1d-" + table.lower().replace(".", "-"),
-        unit_class=unit,
-        label=label,
-    )
+_bind = Binder(MODULE_ID, "cp1d-").bind
 
 
 CP1D = BindingMap(

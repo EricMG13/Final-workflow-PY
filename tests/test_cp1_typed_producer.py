@@ -305,7 +305,6 @@ Revenue                      10          9
             "IS",
             (frozenset({"FY2025"}), Decimal(3)),
             source_sha256=SOURCE_HASH,
-            context_tables=(table,),
         )
         assert failure is not None and failure[0] == 2
 

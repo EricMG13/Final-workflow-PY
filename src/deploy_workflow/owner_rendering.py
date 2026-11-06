@@ -22,6 +22,7 @@ import os
 import re
 import shutil
 import stat
+import sys
 import tempfile
 import unicodedata
 from collections.abc import Mapping, Sequence
@@ -62,6 +63,8 @@ from deploy_workflow.owner_workflow import (
     OwnerRunReceipt,
     verify_owner_run_receipt,
 )
+from deploy_workflow.platform_io import regular_open
+from deploy_workflow.rendering import publish_directory
 from deploy_workflow.run_scopes import PUBLIC_S1A_MODULES, PUBLIC_S1A_SCOPE
 from deploy_workflow.workflow import WorkflowError
 
@@ -552,22 +555,11 @@ class _Capture:
 def _read_tree(directory: Path) -> dict[str, bytes]:
     """Every regular file below `directory` by relative path; a symlink, device or other
     non-regular entry refuses. Reads use O_NOFOLLOW relative to the open directory (D1 F5)."""
-    if os.name == "nt":
-        from deploy_workflow.platform_io import flags as portable_flags
-        from deploy_workflow.platform_io import regular_open
-        out = {}
-        for path in sorted(directory.rglob("*")):
-            info = path.lstat()
-            if info.st_file_attributes & stat.FILE_ATTRIBUTE_REPARSE_POINT:
-                raise _refusal("owner_render_delivery")
-            if path.is_dir():
-                continue
-            fd = regular_open(path, os.O_RDONLY | portable_flags("O_BINARY"))
-            with os.fdopen(fd, "rb") as stream:
-                out[path.relative_to(directory).as_posix()] = stream.read()
+    out: dict[str, bytes] = {}
+    if sys.platform == "win32":
+        _read_tree_windows(directory, out)
         return out
     flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
-    out: dict[str, bytes] = {}
 
     def walk(fd: int, prefix: str) -> None:
         for name in sorted(os.listdir(fd)):
@@ -680,6 +672,33 @@ def _bound(module_id: str, heads: Mapping[str, Head], fact: Fact) -> OwnerBoundF
         fact_id=fact.fact_id,
         fact_sha256=fact.content_hash(),
     )
+
+
+def _reparse_point(path: Path) -> bool:
+    """`path` itself (never its target) is a reparse point: a Windows symlink or junction; a
+    symlink elsewhere."""
+    if sys.platform == "win32":
+        return bool(path.lstat().st_file_attributes & stat.FILE_ATTRIBUTE_REPARSE_POINT)
+    return path.is_symlink()
+
+
+def _read_tree_windows(directory: Path, out: dict[str, bytes]) -> None:
+    """`_read_tree` where there is no O_NOFOLLOW or `dir_fd`: the root and every entry is
+    checked to be no reparse point before it is walked or read, the root must be a directory,
+    and each file is opened by `regular_open` (which refuses a reparse point or non-regular file
+    again at open). Any refusal or OSError is `owner_render_delivery`."""
+    try:
+        if _reparse_point(directory) or not directory.is_dir():
+            raise _refusal("owner_render_delivery")
+        for path in sorted(directory.rglob("*")):
+            if _reparse_point(path):
+                raise _refusal("owner_render_delivery")
+            if path.is_dir():
+                continue
+            with os.fdopen(regular_open(path, os.O_RDONLY), "rb") as stream:
+                out[path.relative_to(directory).as_posix()] = stream.read()
+    except OSError as error:
+        raise _refusal("owner_render_delivery") from error
 
 
 def _store_failure(error: Exception) -> ValueError:
@@ -851,7 +870,10 @@ def run_context_section(
         for name, rows in (("CP-0", cp0), ("CP-1", cp1), ("CP-1A", cp1a))
         if rows
     )
-    return f'<section id="run-context" class="banner" role="note"><h2>Run context</h2>{groups}</section>'
+    return (
+        '<section id="run-context" class="banner" role="note"><h2>Run context</h2>'
+        f"{groups}</section>"
+    )
 
 
 def _t42_entities(module: ModuleView | None) -> list[tuple[str, tuple[str, ...]]]:
@@ -871,7 +893,8 @@ def _t42_entities(module: ModuleView | None) -> list[tuple[str, tuple[str, ...]]
 
 
 def _frozen_context(pack: PreparedPack) -> RunContext | None:
-    """The context frozen in ``pack``; only a ``ContextRefused`` becomes ``owner_render_context``."""
+    """The context frozen in ``pack``; only a ``ContextRefused`` becomes
+    ``owner_render_context``."""
     try:
         return context_facts(pack)
     except ContextRefused as error:
@@ -1149,14 +1172,20 @@ def _verify_directory(
     publication_directory: Path | None,
 ) -> None:
     expected = _capture(execution_directory, receipt_path, publication_directory)
+    _check_delivery(delivery, expected)
+    if _capture(execution_directory, receipt_path, publication_directory) != expected:
+        raise _refusal("owner_render_stale")
+    if _read_tree(delivery) != expected.tree:
+        raise _refusal("owner_render_delivery")
+
+
+def _check_delivery(delivery: Path, expected: _Capture) -> None:
+    """The directory holds exactly the expected bytes, and its render receipt parses back to the
+    expected wire record."""
     tree = _read_tree(delivery)
     if tree != expected.tree:
         raise _refusal("owner_render_delivery")
     if OwnerRenderReceipt.from_wire(tree[RECEIPT_NAME]) != expected.wire:
-        raise _refusal("owner_render_delivery")
-    if _capture(execution_directory, receipt_path, publication_directory) != expected:
-        raise _refusal("owner_render_stale")
-    if _read_tree(delivery) != tree:
         raise _refusal("owner_render_delivery")
 
 
@@ -1183,7 +1212,11 @@ def render_owner_slice(
 ) -> Path:
     """Render a verified G1 owner run into a new `destination`; return `destination/report.html`
     in the caller's own spelling. Trusted setup owns every path. A failure before the rename
-    removes only this call's stage; a failure after it keeps the delivery as evidence."""
+    removes only this call's stage; a failure after it keeps the delivery as evidence.
+
+    The run is captured three times: before staging, after the stage is checked (before the
+    rename) and after the rename; each must equal the first, and the stage and the delivery must
+    hold exactly its bytes, the delivery twice (before and after the last capture)."""
     store, receipt = Path(execution_directory), Path(receipt_path)
     publication = None if publication_directory is None else Path(publication_directory)
     target = Path(destination)
@@ -1196,14 +1229,15 @@ def render_owner_slice(
             path = stage / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(body)
-        if _read_tree(stage) != first.tree:
-            raise _refusal("owner_render_delivery")
-        _verify_directory(stage, store, receipt, publication)
+        _check_delivery(stage, first)
         if _capture(store, receipt, publication) != first:
             raise _refusal("owner_render_stale")
         if os.path.lexists(target):
             raise _refusal("owner_render_destination_exists")
-        os.rename(stage, target)
+        try:
+            publish_directory(stage, target)
+        except FileExistsError as error:
+            raise _refusal("owner_render_destination_exists") from error
         renamed = True
     except BaseException:
         if not renamed:
@@ -1212,5 +1246,9 @@ def render_owner_slice(
             except OSError:
                 _LOG.warning("owner render: could not remove stage %s", stage, exc_info=True)
         raise
-    _verify_directory(target, store, receipt, publication)
-    return destination / "report.html"
+    _check_delivery(target, first)
+    if _capture(store, receipt, publication) != first:
+        raise _refusal("owner_render_stale")
+    if _read_tree(target) != first.tree:
+        raise _refusal("owner_render_delivery")
+    return target / "report.html"

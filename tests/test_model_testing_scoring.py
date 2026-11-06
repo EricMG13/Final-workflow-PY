@@ -488,7 +488,12 @@ def test_unit_scale_disagreement_is_mismatch() -> None:
     assert "MILLIONS" in (score.facts[0].observed or "")
     assert score.passed is False
     agree, _, _ = _one(
-        IHRT_BILLIONS, IHRT, amount=Decimal("5236.876"), unit="MILLIONS", scale=Decimal(1000000)
+        IHRT_BILLIONS,
+        IHRT,
+        amount=Decimal("5236.876"),
+        unit="MILLIONS",
+        scale=Decimal(1000000),
+        currency="USD",  # S17: a currency golden now also compares the fact's currency
     )
     assert agree.facts[0].outcome == "match"
 

@@ -361,7 +361,6 @@ def _compose(
     note_page: bool = False,
     note_rows: frozenset[int] = frozenset(),
     ocr_header: HeaderColumns = _no_header,
-    context_tables: Sequence[ExtractedTable] = (),
     book_dimensions: Mapping[str, tuple[str, str]] = MappingProxyType({}),
 ) -> tuple[list[dict[str, Any]], list[str]]:
     """The unit's composed lines (as payload JSON) and its notes. The caller has checked that the
@@ -412,7 +411,6 @@ def _compose(
         typed_profile=unit.profile == "typed-source/1",
         book_currency=(dimensions[0] if dimensions is not None else str(book.get("currency", ""))),
         book_unit=(dimensions[1] if dimensions is not None else str(book.get("unit", ""))),
-        context_tables=context_tables,
     )
     return [_dump(line) for line in result.lines], _unit_notes(where, result)
 
@@ -487,9 +485,6 @@ def expand(
             note_page=key in available.note_pages,
             note_rows=available.note_rows.get(key, frozenset()),
             ocr_header=available.ocr_header,
-            context_tables=tuple(
-                candidate for candidate in available.tables if candidate.source_id == unit.source_id
-            ),
             book_dimensions=available.book_dimensions,
         )
         notes += unit_notes

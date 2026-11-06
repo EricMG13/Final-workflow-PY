@@ -4,6 +4,7 @@ The FinancialReview remains the canonical, hash-bound source artifact. Kernel
 SourceRefs point to its observation IDs, never masquerade as original documents.
 """
 
+from datetime import date
 from decimal import Decimal
 
 from deploy_vii.contracts import Citation
@@ -13,6 +14,7 @@ from deploy_vii.financial_contracts import (
     ACCOUNT_IDS,
     FacilityObservation,
     FinancialBook,
+    FinancialPeriod,
     FinancialReview,
     Observation,
 )
@@ -41,12 +43,19 @@ def _ref(value: Observation | None) -> SourceRef | None:
     )
 
 
+def _same_date(period: FinancialPeriod) -> date | str:
+    """The key that propagates a same-date conflict: the period end, or for an undated period its
+    own id, so one undated period's conflict never nulls another (as `financial_validation`
+    skips undated periods in its same-date checks)."""
+    return period.period_id if period.end_date is None else period.end_date
+
+
 def _accounts(book: FinancialBook) -> tuple[AccountRow, ...]:
     accounts = effective_accounts(book)
     supplied = {(row.metric_id, row.period_id): row.value for row in accounts}
     periods = {period.period_id: period for period in book.periods}
     conflicted = {
-        (row.metric_id, periods[row.period_id].end_date)
+        (row.metric_id, _same_date(periods[row.period_id]))
         for row in accounts
         if row.metric_id in BALANCE_METRICS and row.value.status == "conflicting"
     }
@@ -72,7 +81,7 @@ def _accounts(book: FinancialBook) -> tuple[AccountRow, ...]:
                 # statement normalization register records this extra convention;
                 # standard outflows remain normalized by the existing kernel.
                 value = value.copy_abs().copy_negate()
-            if (metric, period.end_date) in conflicted:
+            if (metric, _same_date(period)) in conflicted:
                 value = None
             status = "VERIFIED" if value is not None else "PARTIAL"
             if metric == "cogs" and period.expense_presentation == "by_nature":
@@ -84,7 +93,9 @@ def _accounts(book: FinancialBook) -> tuple[AccountRow, ...]:
                     if value is not None and value.copy_abs().copy_negate() != calculation.value:
                         raise ValueError("OPEX disagrees with source expense composition")
                     value, status = calculation.value, "CALCULATED"
-            result.append(AccountRow(metric, period.period_id, value, status, _ref(observation), calculation))
+            result.append(
+                AccountRow(metric, period.period_id, value, status, _ref(observation), calculation)
+            )
     return tuple(result)
 
 
@@ -96,7 +107,7 @@ def _facilities(book: FinancialBook) -> tuple[FacilityRow, ...]:
     templates.update({row.facility_id: row for row in book.facilities if row.issued_on})
     periods = {period.period_id: period for period in book.periods}
     conflicted = {
-        (row.facility_id, periods[row.period_id].end_date)
+        (row.facility_id, _same_date(periods[row.period_id]))
         for row in book.facilities
         if row.carrying_value.status == "conflicting"
     }
@@ -111,7 +122,7 @@ def _facilities(book: FinancialBook) -> tuple[FacilityRow, ...]:
                 value = normalized[facility_id, period.period_id, "carrying_value"]
                 carrying = value.amount
                 source = SourceRef(value.normalization_id, "facility-normalization", str(carrying))
-            if (facility_id, period.end_date) in conflicted:
+            if (facility_id, _same_date(period)) in conflicted:
                 carrying = None
             elif (
                 supplied_row is None
@@ -173,7 +184,8 @@ def _facility(
         fixed_rate=row.fixed_rate.amount if supplied else None,
         annual_amortisation=money("annual_amortisation"),
         source=source,
-        terms_out_of_range=row.fixed_rate.amount is not None
+        terms_out_of_range=supplied
+        and row.fixed_rate.amount is not None
         and not Decimal("0.5") <= row.fixed_rate.amount <= Decimal(30),
     )
 

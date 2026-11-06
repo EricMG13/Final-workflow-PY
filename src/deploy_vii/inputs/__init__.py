@@ -1,6 +1,8 @@
-"""User-supplied input files and their self-checks (`deploy-vii validate-input <kind> <file>`).
+"""User-supplied input files and their self-checks.
 
-`KINDS` maps each input kind the CLI accepts to its validator; a new kind is one entry here.
+`KINDS` maps each input kind to its validator; a new kind is one entry here. The predecessor's
+`deploy-vii validate-input` CLI (`deploy_vii.__main__`) is not part of this import
+(docs/reuse/manifest.json, excluded_python_modules): call the validators directly.
 """
 
 from collections.abc import Callable, Mapping

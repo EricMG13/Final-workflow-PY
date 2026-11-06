@@ -1,10 +1,12 @@
 """Deterministic offline Direction C delivery; no model-generated HTML or arithmetic in JS."""
 
 import base64
+import functools
 import json
 import re
 from importlib.resources import files
 from pathlib import Path
+from typing import NamedTuple
 
 from deploy_vii import charts, prose
 from deploy_vii.bindings.shipped import SHIPPED_MAPS
@@ -125,6 +127,51 @@ def _report_payload(report: ReportView) -> dict[str, object]:
     return payload
 
 
+_FONTS = (
+    ("Red Hat Display", "RedHatDisplay-SemiBold.woff2", 600),
+    ("Red Hat Display", "RedHatDisplay-Bold.woff2", 700),
+    ("Red Hat Text", "RedHatText-Regular.woff2", 400),
+    ("Red Hat Text", "RedHatText-Medium.woff2", 500),
+    ("Red Hat Text", "RedHatText-SemiBold.woff2", 600),
+    ("Red Hat Mono", "RedHatMono-Medium.woff2", 500),
+    ("Red Hat Mono", "RedHatMono-SemiBold.woff2", 600),
+)
+
+
+class _Shell(NamedTuple):
+    styles: str  # tokens.css, the embedded @font-face rules, app.css
+    script: str
+    logo: str  # a data URI
+    license: str
+    template: str
+
+
+@functools.cache
+def _shell() -> _Shell:
+    """The packaged page assets, read once per process. Text assets are UTF-8 (app.js holds
+    the gap glyph and arrows), never the locale's code page."""
+    assets = files("deploy_vii").joinpath("assets")
+
+    def text(*parts: str) -> str:
+        return assets.joinpath(*parts).read_text(encoding="utf-8")
+
+    def base64_of(*parts: str) -> str:
+        return base64.b64encode(assets.joinpath(*parts).read_bytes()).decode("ascii")
+
+    font_css = "\n".join(
+        f'@font-face{{font-family:"{family}";font-weight:{weight};font-display:swap;'
+        f'src:url(data:font/woff2;base64,{base64_of("fonts", name)}) format("woff2")}}'
+        for family, name, weight in _FONTS
+    )
+    return _Shell(
+        styles=text("tokens.css") + font_css + text("app.css"),
+        script=text("app.js"),
+        logo=f"data:image/svg+xml;base64,{base64_of('brand', 'symbol.svg')}",
+        license=text("fonts", "OFL.txt").replace("--", "—"),
+        template=text("shell.html"),
+    )
+
+
 def render(view: View, report: ReportView | None = None) -> str:
     view = View.model_validate_json(view.model_dump_json())
     if report is None:
@@ -132,25 +179,6 @@ def render(view: View, report: ReportView | None = None) -> str:
         report = build(view, pathway, SHIPPED_MAPS)
     if report.pathway.id != view.run.pathway:
         raise ValueError("The report view's Pathway differs from the run's Pathway")
-    assets = files("deploy_vii").joinpath("assets")
-    font_specs = (
-        ("Red Hat Display", "RedHatDisplay-SemiBold.woff2", 600),
-        ("Red Hat Display", "RedHatDisplay-Bold.woff2", 700),
-        ("Red Hat Text", "RedHatText-Regular.woff2", 400),
-        ("Red Hat Text", "RedHatText-Medium.woff2", 500),
-        ("Red Hat Text", "RedHatText-SemiBold.woff2", 600),
-        ("Red Hat Mono", "RedHatMono-Medium.woff2", 500),
-        ("Red Hat Mono", "RedHatMono-SemiBold.woff2", 600),
-    )
-    font_rules: list[str] = []
-    for family, name, weight in font_specs:
-        encoded = base64.b64encode(assets.joinpath("fonts", name).read_bytes()).decode()
-        font_rules.append(
-            f'@font-face{{font-family:"{family}";font-weight:{weight};font-display:swap;'
-            f'src:url(data:font/woff2;base64,{encoded}) format("woff2")}}'
-        )
-    font_css = "\n".join(font_rules)
-
     payload = view.model_dump(mode="json")
     gap_ids = gap_refs(report.index)
     shown: list[dict[str, object]] = []
@@ -158,6 +186,7 @@ def render(view: View, report: ReportView | None = None) -> str:
     for module_payload, module in zip(payload["modules"], view.modules, strict=True):
         if module.status == "rejected":
             continue  # A rejected attempt is never displayed; it stays in evidence.
+        refs, bound = module_refs(report.index, module.module_id), prose.bind(module.facts)
         for fact_payload, fact in zip(module_payload["facts"], module.facts, strict=True):
             fact_payload["display"] = display(fact)
             fact_payload["table_display"] = table_display(
@@ -171,16 +200,10 @@ def render(view: View, report: ReportView | None = None) -> str:
                 # Item 45: a text fact holding [ref]/{ref|unit} is spelled as the block spells it.
                 spelled = "".join(
                     run.text
-                    for run in resolve(
-                        fact.text,
-                        prose.bind(module.facts),
-                        module_refs(report.index, module.module_id),
-                        names=(view.run.issuer_name,),
-                    )
+                    for run in resolve(fact.text, bound, refs, names=(view.run.issuer_name,))
                 )
                 fact_payload["display"] = fact_payload["table_display"] = spelled
         # Decision 0005 MC-2: the page draws claim runs, never the raw run text.
-        refs, bound = module_refs(report.index, module.module_id), prose.bind(module.facts)
         for claim_payload, claim in zip(module_payload["claims"], module.claims, strict=True):
             runs = resolve(claim.text, bound, refs, names=(view.run.issuer_name,))
             claim_payload["runs"] = [run.model_dump(mode="json") for run in runs]
@@ -207,25 +230,18 @@ def render(view: View, report: ReportView | None = None) -> str:
     data = json.dumps(payload, ensure_ascii=True, allow_nan=False, separators=(",", ":")).replace(
         "<", "\\u003c"
     )
-    logo = base64.b64encode(
-        assets.joinpath("brand", "symbol.svg").read_bytes()
-    ).decode()
-    css = (
-        assets.joinpath("tokens.css").read_text()
-        + font_css
-        + assets.joinpath("app.css").read_text()
-    )
+    shell = _shell()
     replacements = {
-        "STYLES": css,
+        "STYLES": shell.styles,
         "DATA": data,
-        "SCRIPT": assets.joinpath("app.js").read_text(),
-        "LOGO": f"data:image/svg+xml;base64,{logo}",
-        "LICENSE": assets.joinpath("fonts", "OFL.txt").read_text().replace("--", "—"),
+        "SCRIPT": shell.script,
+        "LOGO": shell.logo,
+        "LICENSE": shell.license,
     }
     return re.sub(
         r"/\*(STYLES|DATA|SCRIPT|LICENSE|LOGO)\*/",
         lambda match: replacements[match.group(1)],
-        assets.joinpath("shell.html").read_text(),
+        shell.template,
     )
 
 

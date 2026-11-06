@@ -15,6 +15,9 @@ PROGRAM_DATA = "{62AB5D82-FDC1-4DC3-A9DD-070D1D495D97}"
 DOCUMENTS = "{FDD39AD0-238F-46AF-ADB4-6C85480369C7}"
 # CREATE_NO_WINDOW: a worker never opens a console beside the browser.
 WORKER_FLAGS = 0x08000000 if os.name == "nt" else 0
+PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
+STILL_ACTIVE = 259
+ERROR_ACCESS_DENIED = 5
 
 
 def known_folder(identifier: str) -> Path:
@@ -48,6 +51,35 @@ def platform_locations() -> Locations:
     else:
         config = Path(os.environ.get("XDG_CONFIG_HOME") or home / ".config")
     return Locations(state=config / "FinalWorkflow" / "IssuerLibrary", documents=home / "Documents")
+
+
+def windows_process_alive(pid: int) -> bool:
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)  # type: ignore[attr-defined]
+    handle = kernel32.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, False, pid)
+    if not handle:
+        return bool(ctypes.get_last_error() == ERROR_ACCESS_DENIED)  # type: ignore[attr-defined]
+    try:
+        code = ctypes.c_ulong()
+        return not kernel32.GetExitCodeProcess(handle, ctypes.byref(code)) or (
+            code.value == STILL_ACTIVE
+        )
+    finally:
+        kernel32.CloseHandle(handle)
+
+
+def process_alive(pid: int) -> bool:
+    """Whether a process with this id exists; one this user may not inspect counts as alive."""
+    if pid <= 0:
+        return False
+    if os.name == "nt":
+        return windows_process_alive(pid)
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    return True
 
 
 def open_browser(url: str) -> None:

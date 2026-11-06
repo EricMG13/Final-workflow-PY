@@ -8,23 +8,14 @@ T2H.1-T2H.3 and the three reference tables go to Evidence, T2H.9 to Limitations.
 ``deploy_workflow`` is never imported.
 """
 
-from deploy_vii.bindings import Binding, BindingMap
+from deploy_vii.bindings import Binder, BindingMap
 from deploy_vii.business_context import CP1_REFERENCES
-from deploy_vii.display import UnitClass
-from deploy_vii.report_view import FactCoord
 
 MODULE_ID = "CP-2G"
 BLOCKS = ("forward-credit-path", "forward-breakpoints")
 
 
-def _bind(table: str, block: str, label: str, unit: UnitClass = "text") -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id=MODULE_ID, table_id=table),
-        block_id=block,
-        cell_slot="cp2g-" + table.lower().replace(".", "-").replace("_", "-"),
-        unit_class=unit,
-        label=label,
-    )
+_bind = Binder(MODULE_ID, "cp2g-", hyphenate=True).bind
 
 
 CP2G = BindingMap(

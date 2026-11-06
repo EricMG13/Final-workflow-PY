@@ -15,11 +15,13 @@ from pydantic import Field
 
 from deploy_vii.contracts import Citation, Contract, Identifier, Source, Text
 from deploy_vii.readiness import citation_issues
+from deploy_workflow.research import contracts
 from deploy_workflow.research.contracts import (
     RESERVED_PREFIX,
     ClaimState,
     EvidenceItem,
     ResearchBrief,
+    id_room,
 )
 from deploy_workflow.research.peers import PeerPack, peer_issues
 
@@ -27,11 +29,11 @@ AnswerState = Literal["answered", "partly", "not_found"]
 # OD11/L3: the owners/cpdr.py PROHIBITED list minus covenant, recovery and refinanc; nothing added.
 BANNED_WORDS: Final = ("recommend",)
 FIGURE_ISSUE: Final = "text must not contain a figure"
-IDENTIFIER_MAX: Final = 160  # `contracts.Identifier` max_length
+IDENTIFIER_MAX: Final = contracts.IDENTIFIER_MAX  # `Identifier` max_length (the tests read it here)
 # The TDR.2 columns (tables.py `TDR2_COLUMNS`, compared with it by a test; tables imports this
 # module). A claim id sits in the fact ids `TDR.2.<claim_id>.<field>`; the longest field decides.
 _TDR2_FIELDS: Final = ("question_id", "claim", "evidence_id", "locator", "published", "family")
-CLAIM_ID_MAX: Final = IDENTIFIER_MAX - max(len("TDR.2.") + len(f".{f}") for f in _TDR2_FIELDS)
+CLAIM_ID_MAX: Final = id_room("TDR.2.", _TDR2_FIELDS)
 
 
 class Claim(Contract):
@@ -139,17 +141,22 @@ def _texts(answer: Answer) -> list[str]:
     return [text for text in found if text]
 
 
-def _language_issues(answer: Answer) -> list[ReviewIssue]:
-    qid = answer.question_id
-    texts = _texts(answer)
+def text_issues(where: str, texts: Sequence[str]) -> list[ReviewIssue]:
+    """The research texts' rules over analyst-written ``texts``: one issue per banned word any of
+    them holds, then one figure issue if any holds a digit of any script. The research review,
+    the peer pack and the brief step all check their texts with this one function."""
     issues = [
-        ReviewIssue(qid, f"banned word: {word}")
+        ReviewIssue(where, f"banned word: {word}")
         for word in BANNED_WORDS
         if any(word in text.lower() for text in texts)
     ]
     if any(char.isdigit() for text in texts for char in text):
-        issues.append(ReviewIssue(qid, FIGURE_ISSUE))
+        issues.append(ReviewIssue(where, FIGURE_ISSUE))
     return issues
+
+
+def _language_issues(answer: Answer) -> list[ReviewIssue]:
+    return text_issues(answer.question_id, _texts(answer))
 
 
 def _claim_id_issues(qid: str, claim: Claim) -> list[ReviewIssue]:
@@ -219,6 +226,9 @@ def _not_found_issues(answer: Answer) -> list[ReviewIssue]:
         issues.append(ReviewIssue(qid, "a not_found question states its limitation"))
     if not answer.searched:
         issues.append(ReviewIssue(qid, "a not_found question names the items searched"))
+    if any(isinstance(entry, CitedContrary) for entry in answer.contrary):
+        # TDR.3 would count the item while the row's contrary cell is a gap.
+        issues.append(ReviewIssue(qid, "a not_found question cites no contrary item"))
     return issues
 
 

@@ -17,8 +17,6 @@ section at the end connects it (G1-X protocol section 2): one store adapter (`_i
 submit, probe and view, the step validator, the exact `read_inputs` view and the readers.
 """
 
-import hashlib
-import json
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from contextlib import contextmanager
 from dataclasses import dataclass, fields, replace
@@ -26,7 +24,7 @@ from decimal import Decimal, Inexact, localcontext
 from fractions import Fraction
 from typing import Annotated, Literal
 
-from pydantic import Field, TypeAdapter, ValidationError
+from pydantic import Field, ValidationError
 
 from deploy_vii import prose
 from deploy_vii.business_context import (
@@ -47,7 +45,6 @@ from deploy_vii.contracts import (
     Module,
     ReportTable,
     Run,
-    RunText,
     TableColumn,
     TableRow,
     Text,
@@ -64,6 +61,7 @@ from deploy_vii.execution import (
     clipped,
     current_inputs,
     inherited_limitations,
+    text_sha256,
 )
 from deploy_vii.live.schema import exact_json, json_object, normalise
 from deploy_vii.live.submission import Submitted
@@ -74,6 +72,13 @@ from deploy_vii.report_view import fact_spelling, figure_unit
 from deploy_workflow.context import ContextRefused, context_facts
 from deploy_workflow.owners.blank import is_blank, one_per_page
 from deploy_workflow.owners.cp1a import probe_one_step
+from deploy_workflow.owners.exact import (
+    compact_view,
+    exact_decimal,
+    run_text_issues,
+    select_t410,
+)
+from deploy_workflow.owners.exact import stale_issues as _stale_issues
 from deploy_workflow.owners.period_basis import (
     DEFAULT_BASIS,
     PeriodBasis,
@@ -270,16 +275,6 @@ NC_LIQUIDITY = "Not calculable: minimum liquidity was not assessed"
 NC_REVENUE = "Not calculable: revenue is zero or negative (ZERO_OR_NEGATIVE_DENOMINATOR)"  # G-4
 
 
-def _exact(x: Decimal) -> Decimal:
-    """The canonical stored form: the same value, trailing zeros dropped, no exponent and no
-    negative zero (so equal inputs always give byte-equal facts)."""
-    if x == 0:
-        return Decimal(0)
-    with localcontext() as ctx:
-        ctx.prec = 80  # normalize() rounds to the context: keep every digit the value has
-        return Decimal(format(x.normalize(), "f"))
-
-
 @dataclass(frozen=True)
 class Val:
     """A computed value: an exact amount, or None with the root reason it is missing."""
@@ -293,7 +288,7 @@ class Val:
 
 
 def _known(x: Decimal) -> Val:
-    return Val(_exact(x))
+    return Val(exact_decimal(x))
 
 
 def _apply(fn: Callable[..., Decimal], *args: Val) -> Val:
@@ -379,17 +374,11 @@ _OPERAND_WORDS = {
 
 def select_cp1(facts: Iterable[Fact], basis: PeriodBasis = DEFAULT_BASIS) -> dict[str, Fact]:
     """metric -> the unique T4.10 fact labelled `<LTM column> · <metric>`; zero or several fail."""
-    facts = tuple(facts)
-    out: dict[str, Fact] = {}
-    for metric in CP1_METRICS:
-        label = f"{basis.ltm_column} · {metric}"
-        found = [f for f in facts if f.table_id == "T4.10" and f.label == label]
-        if len(found) != 1:
-            raise ValueError(
-                f"CP-1 needs exactly one T4.10 fact labelled {label}, found {len(found)}"
-            )
-        out[metric] = found[0]
-    return out
+    return select_t410(facts, CP1_METRICS, basis, _t410_refusal)
+
+
+def _t410_refusal(label: str, count: int) -> str:
+    return f"CP-1 needs exactly one T4.10 fact labelled {label}, found {count}"
 
 
 def _book_millions(name: str, fact: Fact, basis: PeriodBasis) -> None:
@@ -670,7 +659,7 @@ def break_decline(*, kind: BreakKind, level: Decimal, operands: Operands) -> Fra
 
 def _round38(x: Fraction) -> Decimal:
     with localcontext(_RATIO):
-        return _exact(Decimal(x.numerator) / Decimal(x.denominator))
+        return exact_decimal(Decimal(x.numerator) / Decimal(x.denominator))
 
 
 # --- the inputs (Stage 2 binds them from the settled heads) ----------------------------------
@@ -786,21 +775,6 @@ _OPERAND_ORDER: Mapping[BreakKind, tuple[str, ...]] = {
 }
 
 
-_RUN_TEXT: TypeAdapter[str] = TypeAdapter(RunText)
-
-
-def _run_text_issues(path: str, text: str) -> list[str]:
-    """Stage 2 round 3 item 2: text built as `Claim.text` is checked with that very type
-    (`RunText`, one `TypeAdapter` built once), so a malformed reference is a journaled issue and
-    composition never raises after the binding write. The message never echoes the input."""
-    try:
-        _RUN_TEXT.validate_python(text)
-    except ValidationError as error:
-        found = error.errors(include_input=False, include_url=False, include_context=False)
-        return [clipped((path, ": ", item["msg"])) for item in found]
-    return []
-
-
 def _text_issues(
     path: str, text: str, bound: Mapping[str, Fact], names: Sequence[str], *, claim: bool = False
 ) -> list[str]:
@@ -812,7 +786,7 @@ def _text_issues(
     found = prose.issues(text, bound, names=names)
     issues = [clipped((path, ": ", issue)) for issue in found]
     if claim and not found:
-        issues += _run_text_issues(path, text)
+        issues += run_text_issues(path, text)
     issues.extend(prohibited_issues(path, text))
     low = text.lower()  # this core's phrase guard (ruling L11), not a semantic check
     issues.extend(
@@ -966,23 +940,9 @@ def payload_issues(payload: str, context: ForwardContext) -> tuple[str, ...]:
     return content_issues(ForwardInputs(context=context, submission=submission))
 
 
-def stale_issues(*, bound: Sequence[Input], current: Sequence[Input] | str) -> tuple[str, ...]:
-    """Every bound upstream that changed (ruling 10), in the `cp2_synthesis._stale_issues` form.
-    Returned alone, like shape issues (G-decisions): Stage 2 runs no content check on a stale
-    upstream."""
-    if isinstance(current, str):
-        return (clipped(("Stale inputs: ", current)),)
-    was = {item.input_id: item for item in bound}
-    now = {item.input_id: item for item in current}
-
-    def state(item: Input | None) -> str:
-        return "absent" if item is None else f"{item.status} {item.sha256[:12]}"
-
-    return tuple(
-        f"Stale input {key}: bound {state(was.get(key))}, current {state(now.get(key))}"
-        for key in dict.fromkeys((*was, *now))
-        if was.get(key) != now.get(key)
-    )
+# Ruling 10: stale issues are returned alone, like shape issues (G-decisions): Stage 2 runs no
+# content check on a stale upstream. Defined once in `owners.exact`; CP-3C imports it from here.
+stale_issues = _stale_issues
 
 
 # --- cells, tables, references, claims -------------------------------------------------------
@@ -1144,7 +1104,7 @@ class _Book:
             table_id=table,
             row_id=row,
             field=field,
-            amount=_exact(value),
+            amount=exact_decimal(value),
             unit=_UNIT[unit],
             currency=self.basis.currency if amount_unit else None,
             scale=_MILLIONS if amount_unit else Decimal(1),
@@ -3048,10 +3008,7 @@ def _submit_step(store: Execution, ticket_id: str, payload: str) -> Attempt:
     attempt = next((a for a in store.read().attempts if a.ticket_id == ticket_id), None)
     if attempt is None or attempt.module_id != MODULE_ID or attempt.status != "pending":
         raise ValueError("Ticket is absent, finished or belongs to another module")
-    if (
-        attempt.steps
-        and attempt.steps[0].payload_sha256 != hashlib.sha256(payload.encode()).hexdigest()
-    ):
+    if attempt.steps and attempt.steps[0].payload_sha256 != text_sha256(payload):
         raise ValueError("Ticket already retains a different response; resume or interrupt")
     if not attempt.steps or attempt.steps[0].status == "pending":
         attempt = store.submit_step(
@@ -3257,9 +3214,7 @@ def _offered_block(upstream: Upstream, basis: PeriodBasis) -> dict[str, object]:
 def view(historical: Execution, attempt: Attempt) -> tuple[str, str]:
     """(sha256, body) of the one `read_inputs` record, as compact JSON (S1a lease rev 2, M4)."""
     upstream = cp2g_upstream(store=historical, attempt=attempt)
-    context = context_block(pack=historical.pack(), upstream=upstream)
-    body = json.dumps(context, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
-    return hashlib.sha256(body.encode()).hexdigest(), body
+    return compact_view(context_block(pack=historical.pack(), upstream=upstream))
 
 
 # --- the consumer reader pinned for CP-2H and CP-4C (lease Consumption; round 13 item 2) ------

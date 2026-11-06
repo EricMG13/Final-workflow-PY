@@ -781,6 +781,53 @@ def _reference_issues(
     return issues
 
 
+def _support_issues(
+    row: Recommendation, upstream: Upstream, bound: Mapping[str, Fact]
+) -> list[str]:
+    """A call that is not Insufficient Information rests on a CP-2 or CP-3 claim row CP-5 leaves
+    unflagged, or on a CP-1 figure in its rationale or conditions (methods/cp6.md, the CP-5
+    rule: the CP-5 flag test applies to the claim rows, not to the CP-1 figures)."""
+    cited = [(CP2, r) for r in row.basis.cp2_refs] + [(CP3, r) for r in row.basis.cp3_refs]
+    support = [key for key in dict.fromkeys(cited) if key in upstream.claim_rows]
+    unflagged = [key for key in support if key not in upstream.review.flagged]
+    # A figure supports the call only where the call is argued: its limitation is not.
+    argued = row.model_copy(update={"limitation": None})
+    if unflagged or _figures(argued, bound):
+        return []
+    if support:
+        named = ", ".join(f"{m} {r}" for m, r in support)
+        return [f"recommendation.basis: rests only on CP-5-flagged claims ({named})"]
+    refusal = (
+        "recommendation.basis: cites no CP-2 or CP-3 claim row CP-5 leaves unflagged and no "
+        "CP-1 figure in its rationale or conditions"
+    )
+    return [refusal]
+
+
+def _recovery_issues(submission: CommitteeSubmission, upstream: Upstream) -> list[str]:
+    """A recovery view that is not Insufficient Information cites CP-4 evidence CP-5 carries
+    and keeps the confidence caps."""
+    issues: list[str] = []
+    for index, view in enumerate(submission.recovery_view):
+        path = f"recovery_view[{index}]"
+        if view.confidence == INSUFFICIENT:
+            if not view.limitation:
+                issues.append(
+                    f"{path}: an Insufficient Information recovery view states its limitation"
+                )
+            continue
+        if not any(upstream.cp5_ref(r) in upstream.cp4_evidence for r in view.basis.cp5_refs):
+            issues.append(
+                f"{path}: a recovery view that is not Insufficient Information cites a CP-5 "
+                "finding or limitation carrying CP-4 evidence"
+            )
+        if upstream.caps and view.confidence == "High":
+            issues.append(
+                f"{path}.confidence: capped below High because {'; '.join(upstream.caps)}"
+            )
+    return issues
+
+
 def _recommendation_issues(
     submission: CommitteeSubmission, upstream: Upstream, bound: Mapping[str, Fact]
 ) -> list[str]:
@@ -805,38 +852,8 @@ def _recommendation_issues(
             f"recommendation.confidence: capped below High because {'; '.join(upstream.caps)}"
         )
     if not insufficient:
-        cited = [(CP2, r) for r in row.basis.cp2_refs] + [(CP3, r) for r in row.basis.cp3_refs]
-        support = [key for key in dict.fromkeys(cited) if key in upstream.claim_rows]
-        unflagged = [key for key in support if key not in upstream.review.flagged]
-        # A figure supports the call only where the call is argued: its limitation is not.
-        argued = row.model_copy(update={"limitation": None})
-        if not unflagged and not _figures(argued, bound):
-            if support:
-                named = ", ".join(f"{m} {r}" for m, r in support)
-                issues.append(f"recommendation.basis: rests only on CP-5-flagged claims ({named})")
-            else:
-                issues.append(
-                    "recommendation.basis: cites no CP-2 or CP-3 claim row or CP-1 figure CP-5 "
-                    "leaves unflagged"
-                )
-    for index, view in enumerate(submission.recovery_view):
-        path = f"recovery_view[{index}]"
-        if view.confidence == INSUFFICIENT:
-            if not view.limitation:
-                issues.append(
-                    f"{path}: an Insufficient Information recovery view states its limitation"
-                )
-            continue
-        if not any(upstream.cp5_ref(r) in upstream.cp4_evidence for r in view.basis.cp5_refs):
-            issues.append(
-                f"{path}: a recovery view that is not Insufficient Information cites a CP-5 "
-                "finding or limitation carrying CP-4 evidence"
-            )
-        if upstream.caps and view.confidence == "High":
-            issues.append(
-                f"{path}.confidence: capped below High because {'; '.join(upstream.caps)}"
-            )
-    return issues
+        issues += _support_issues(row, upstream, bound)
+    return issues + _recovery_issues(submission, upstream)
 
 
 def _text_issues(
@@ -1360,7 +1377,10 @@ def _validate_step(store: Execution, pack: PreparedPack, attempt: Attempt) -> St
         )
     except ValidationError as error:
         return StepValidation(issues=shape_issues(error))
-    upstream = cp6_upstream(store, attempt)
+    try:
+        upstream = cp6_upstream(store, attempt)
+    except ValueError as error:  # a missing or tampered bound head rejects the attempt (CP-5)
+        return StepValidation(issues=(f"Unreadable upstream heads: {error}",))
     issues = validate_committee(pack, submission, upstream)
     if issues:
         return StepValidation(issues=issues)

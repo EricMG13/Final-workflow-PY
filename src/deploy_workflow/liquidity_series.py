@@ -8,6 +8,7 @@ figure is rendered). A fact the module does not carry fails closed. Nothing here
 
 from __future__ import annotations
 
+from collections import Counter
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from decimal import Decimal
@@ -181,7 +182,11 @@ def cp3c_chart_series(module: ModuleView) -> tuple[LiquidityFigureSeries, ...]:
     if table is None or not table.rows:
         raise ValueError("CP-3C chart needs the T3D.1 register, which the module does not carry")
     points = []
+    # A facility row's category is its label; a label two rows share takes the row's identity,
+    # so that two facilities never merge into one category.
+    counts = Counter(row.label for row in table.rows)
     for row in table.rows:
+        category = row.label if counts[row.label] == 1 else f"{row.label} ({row.row_id})"
         companions = tuple(f"T3D.1.{row.row_id}.{field}" for field in _CR3_COMPANIONS)
         date_fact = _fact(facts, companions[0], _CP3C)
         _fact(facts, companions[1], _CP3C)
@@ -193,7 +198,7 @@ def cp3c_chart_series(module: ModuleView) -> tuple[LiquidityFigureSeries, ...]:
             points.append(
                 LiquidityPoint(
                     series=series,
-                    category=row.label,
+                    category=category,
                     fact_id=fact_id,
                     companion_fact_ids=companions,
                     shown=_shown(fact, value),

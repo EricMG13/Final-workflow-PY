@@ -14,6 +14,7 @@ import html
 import json
 import re
 from datetime import date
+from decimal import Decimal
 from pathlib import Path
 from typing import Annotated, Literal
 
@@ -62,6 +63,24 @@ MODEL_SCOPE = (
     "Missing data and analytical limitations remain explicit. Complete current underwriting, "
     "committee action and broader pathways are outside this publication."
 )
+FigureId = Literal["S.1", "S.2", "S.3", "S.4", "RV.1"]
+ChartUnit = Literal["x", "US$m", "%"]
+# The renderer's one scope-banner location and its Model rail destination (deploy_vii.render).
+CALL_ROOT = '<div id="call-root"></div>'
+MODEL_NAV = '["model", "Model", "#CP-1"]'
+DELIVERABLES_NAV = (
+    '<nav aria-label="Published deliverables"><a href="model.html">HTML Model and charts</a>'
+    ' · <a href="calculation.json">Calculation JSON</a></nav>'
+)
+# An exact reported number: optional minus or accounting parentheses, optional thousands commas.
+EXACT_NUMBER = re.compile(
+    r"(?:-?(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.[0-9]+)?"
+    r"|\((?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.[0-9]+)?\))"
+)
+# Display scale of each numeric unit class as a power of ten (deploy_vii.display._NUMERIC).
+_DISPLAY_SHIFT = {"percent": 2}
+_ATX_HEADING = re.compile(r"#{1,6}(?:[ \t]|$)")
+_FENCE = re.compile(r" {0,3}(`{3,}|~{3,})")
 
 
 class HandoffInput(Contract):
@@ -98,11 +117,11 @@ class MarkdownRoute(Contract):
     table_header: str | None = None
     prefix: str | None = None
     label: str | None = None
-    figure_id: Literal["S.1", "S.2", "S.3", "S.4", "RV.1"] | None = None
+    figure_id: FigureId | None = None
     value_columns: tuple[str, ...] = ()
     row_labels: tuple[str, ...] = ()
     orientation: Literal["period-columns", "period-rows"] = "period-columns"
-    chart_unit: Literal["x", "US$m", "%"] | None = None
+    chart_unit: ChartUnit | None = None
 
     @model_validator(mode="after")
     def chart_selection(self) -> MarkdownRoute:
@@ -157,6 +176,95 @@ def plain(text: str) -> str:
     return re.sub(r"\*\*([^*]+)\*\*|`([^`]+)`", lambda m: m[1] or m[2], text).strip()
 
 
+def exact_number(token: str) -> Decimal:
+    """The exact Decimal an ``EXACT_NUMBER`` token spells: commas dropped, ``(x)`` is ``-x``."""
+    if EXACT_NUMBER.fullmatch(token) is None:
+        raise ValueError(f"Not an exact reported number: {token!r}")
+    return Decimal(token.replace(",", "").replace("(", "-").replace(")", ""))
+
+
+def token_decimals(token: str, unit_class: str) -> int:
+    """Displayed decimal places that show ``token`` as written (at most six, the Fact limit).
+
+    ``1,234.5`` as an amount shows one place; the fraction ``0.0625`` shown as a percent shows
+    two (6.25%). Nothing is rounded beyond what the source spelled.
+    """
+    places = len(token.rstrip(")").partition(".")[2])
+    return min(6, max(0, places - _DISPLAY_SHIFT.get(unit_class, 0)))
+
+
+def heading_text(line: str) -> str | None:
+    """The text of an ATX heading line (one to six ``#`` then a space or end), else None.
+
+    ``#1 risk`` is a paragraph, not a heading. The text is spelled as before: hashes removed
+    from the left, surrounding whitespace stripped.
+    """
+    return line.lstrip("#").strip() if _ATX_HEADING.match(line) else None
+
+
+def fence_blocks(lines: list[str]) -> list[int]:
+    """Per line, the 1-based number of the fenced code block it belongs to, or 0 outside one.
+
+    Fence marker lines belong to their block. An unclosed fence runs to the end of the text,
+    as in CommonMark; nothing inside a fence is a heading or a table row.
+    """
+    blocks: list[int] = []
+    opened: str | None = None
+    count = 0
+    for line in lines:
+        marker = _FENCE.match(line)
+        if opened is None and marker is not None:
+            opened, count = marker[1], count + 1
+            blocks.append(count)
+            continue
+        blocks.append(count if opened is not None else 0)
+        if (
+            opened is not None
+            and marker is not None
+            and marker[1][0] == opened[0]
+            and len(marker[1]) >= len(opened)
+            and not line[marker.end() :].strip()
+        ):
+            opened = None
+    return blocks
+
+
+def names_issuer(text: str, names: tuple[str, ...]) -> bool:
+    """Whether ``text`` names one of ``names`` as whole words (case and spacing ignored).
+
+    The short alias ``GE`` does not match inside ``large`` or ``engine``.
+    """
+    spaced = " ".join(text.casefold().split())
+    return any(
+        re.search(
+            r"(?<![a-z0-9])" + re.escape(" ".join(name.casefold().split())) + r"(?![a-z0-9])",
+            spaced,
+        )
+        for name in names
+        if name.strip()
+    )
+
+
+def with_scope_banner(
+    rendered: str, scope: str, *, model_nav: str | None = None, deliverables_nav: bool = False
+) -> str:
+    """Insert the delivery scope banner at the renderer's call root; optionally point the Model
+    rail entry at ``model_nav`` and list the published Model deliverables after the banner."""
+    if rendered.count(CALL_ROOT) != 1:
+        raise ValueError("Existing renderer scope-banner location changed")
+    if model_nav is not None:
+        if rendered.count(MODEL_NAV) != 1:
+            raise ValueError("model_shell: main report Model destination changed")
+        rendered = rendered.replace(MODEL_NAV, json.dumps(["model", "Model", model_nav]))
+    banner = (
+        '<section id="delivery-scope-banner" class="banner" role="note">'
+        + html.escape(scope)
+        + "</section>"
+        + (DELIVERABLES_NAV if deliverables_nav else "")
+    )
+    return rendered.replace(CALL_ROOT, banner + CALL_ROOT)
+
+
 def section(lines: list[str], title: str) -> list[tuple[int, str]]:
     headings = (f"## {title}", f"### {title}")
     matches = [i for i, line in enumerate(lines) if line in headings]
@@ -182,6 +290,7 @@ def table(rows: list[tuple[int, str]]) -> tuple[list[str], list[tuple[int, str, 
             break
 
     def cells(text: str) -> list[str]:
+        text = text.rstrip()  # Trailing spaces after the closing pipe are not a cell.
         if not text.endswith("|"):
             raise ValueError("Markdown table rows require both boundary pipes")
         return [c.strip().replace(r"\|", "|") for c in re.split(r"(?<!\\)\|", text[1:-1])]
@@ -263,7 +372,8 @@ def mapped_module(module_id: str, raw: bytes) -> tuple[ModuleView, Source]:
                         if cell_text
                         else "Original handoff cell is blank; not zero",
                         value_class="source",
-                        basis="Literal content of the model-authored handoff; no new analysis or arithmetic.",
+                        basis="Literal content of the model-authored handoff; no new analysis "
+                        "or arithmetic.",
                         citations=(
                             Citation(
                                 source_id=source_id,
@@ -391,12 +501,11 @@ def prepare(manifest: Path) -> tuple[View, ReportView, dict[str, bytes]]:
     module_views = []
     sources = []
     copies = {}
-    issuer_name = " ".join(request.run.issuer_name.casefold().split())
     for module_id, spec in request.handoffs.items():
         raw = (manifest.parent / spec.path).read_bytes()
         if hashlib.sha256(raw).hexdigest() != spec.sha256:
             raise ValueError(f"Changed handoff: {module_id}")
-        if not issuer_name or issuer_name not in " ".join(raw.decode().casefold().split()):
+        if not names_issuer(raw.decode(), (request.run.issuer_name,)):
             raise ValueError(f"Issuer name is not established in {module_id}")
         module, source = mapped_module(module_id, raw)
         module_views.append(module)
@@ -410,7 +519,10 @@ def prepare(manifest: Path) -> tuple[View, ReportView, dict[str, bytes]]:
                 aliases=(),
                 status="blocked",
                 limitations=(
-                    "CP-MODEL HTML/chart/calculation-JSON publication has not run. This narrative snapshot does not replace it.",
+                    (
+                        "CP-MODEL HTML/chart/calculation-JSON publication has not run. This "
+                        "narrative snapshot does not replace it."
+                    ),
                 ),
             )
         )
@@ -470,26 +582,17 @@ def delivery_files(manifest: Path) -> dict[str, bytes]:
         return markdown_files(request, manifest.parent)
     view, report, copies = prepare(manifest)
     has_model = "model.html" in copies
-    rendered = render(view, report)
-    anchor = '<div id="call-root"></div>'
-    if rendered.count(anchor) != 1:
-        raise ValueError("Existing renderer scope-banner location changed")
-    banner = (
-        '<section id="delivery-scope-banner" class="banner" role="note">'
-        + html.escape((MODEL_SCOPE if has_model else SCOPE).format(as_of=view.run.as_of))
-        + "</section>"
+    rendered = with_scope_banner(
+        render(view, report),
+        (MODEL_SCOPE if has_model else SCOPE).format(as_of=view.run.as_of),
+        model_nav="model.html" if has_model else None,
+        deliverables_nav=has_model,
     )
-    if has_model:
-        nav = '["model", "Model", "#CP-1"]'
-        if rendered.count(nav) != 1:
-            raise ValueError("model_shell: main report Model destination changed")
-        rendered = rendered.replace(nav, '["model", "Model", "model.html"]')
-        banner += '<nav aria-label="Published deliverables"><a href="model.html">HTML Model and charts</a> · <a href="calculation.json">Calculation JSON</a></nav>'
     files = {
         **copies,
         "view.json": view.model_dump_json(indent=2).encode(),
         "report-view.json": report.model_dump_json(indent=2).encode(),
-        "report.html": rendered.replace(anchor, banner + anchor).encode(),
+        "report.html": rendered.encode(),
     }
     record = {
         "kind": "manual_handoff_delivery",
@@ -562,7 +665,10 @@ def comparison_files(run: Run, response: bytes, inputs: dict[str, str]) -> dict[
         facts=tuple(facts),
         tables=tuple(tables),
         limitations=(
-            "Checked deliverable comparison, not investment-decision calibration or fresh issuer underwriting.",
+            (
+                "Checked deliverable comparison, not investment-decision calibration or fresh "
+                "issuer underwriting."
+            ),
         ),
     )
     view = View(
@@ -620,10 +726,6 @@ def comparison_files(run: Run, response: bytes, inputs: dict[str, str]) -> dict[
     )
     if any(b.state not in {"populated", "collapsed"} for b in report.blocks):
         raise ValueError("cp8_delivery: comparison must contain actual checked content")
-    rendered = render(view, report)
-    anchor = '<div id="call-root"></div>'
-    if rendered.count(anchor) != 1:
-        raise ValueError("Existing renderer scope-banner location changed")
     scope = (
         "Comparison of the explicitly selected prior and current delivery bundles. "
         "Latest local publication does not imply current issuer evidence. "
@@ -634,13 +736,7 @@ def comparison_files(run: Run, response: bytes, inputs: dict[str, str]) -> dict[
         "CP-8.md": response,
         "view.json": view.model_dump_json(indent=2).encode(),
         "report-view.json": report.model_dump_json(indent=2).encode(),
-        "report.html": rendered.replace(
-            anchor,
-            '<section id="delivery-scope-banner" class="banner" role="note">'
-            + html.escape(scope)
-            + "</section>"
-            + anchor,
-        ).encode(),
+        "report.html": with_scope_banner(render(view, report), scope).encode(),
         "comparison-inputs.json": (json.dumps(inputs, sort_keys=True, indent=2) + "\n").encode(),
     }
     receipt = {

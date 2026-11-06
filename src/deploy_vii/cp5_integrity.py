@@ -10,7 +10,8 @@ re-implemented here (plan M8, MC-6):
 - cross-module figure identity (new, ruling 5, fix round 1): facts sharing a `fact_id`, and
   figures sharing `(table_id, row_id, field, period)`, must agree in exact value (amount times
   scale), unit, currency and period, and under one fact id in table, row and field (any
-  module's `cp1_references` copies excepted, task 8.4b; they are never compared by coordinate);
+  module's `cp1_references` copies and CP-4's T4F.2 copies excepted, task 8.4b; they are never
+  compared by coordinate);
   a scale that disagrees with its unit is its own finding. A disagreement is a finding; CP-5
   writes no replacement value and repeats no amount;
 - stale inputs: `execution.current_inputs` and each bound hash against its current head;
@@ -60,6 +61,7 @@ from deploy_vii.contracts import (
     TableRow,
     Text,
 )
+from deploy_vii.cp4_legal import CP1_COPIES as CP4_CP1_COPIES
 from deploy_vii.execution import (
     Attempt,
     Execution,
@@ -98,13 +100,14 @@ UNIT_SCALE: Mapping[str, Decimal] = {
     **dict.fromkeys(("PERCENT", "MULTIPLE", "decimal_fraction"), Decimal(1)),
 }
 # Tables of verbatim copies of CP-1 facts at coordinates Python assigns by rule: every
-# module's `cp1_references` (CP-1A, CP-2, CP-3 and CP-6 compose one; the table id is the
-# composer's, never a model's). Task 8.4b, coordinator ruling 1 (superseding fix round 2's
-# CP-1A-only key): a copy's placement is not compared under its fact id; its exact value
-# (amount times scale), unit, currency and period are, with the source and every other copy.
+# module's `cp1_references` (CP-1A, CP-2, CP-3 and CP-6 compose one) and CP-4's T4F.2 (its
+# retained table id); the table id is the composer's, never a model's. Task 8.4b,
+# coordinator ruling 1 (superseding fix round 2's CP-1A-only key): a copy's placement is not
+# compared under its fact id; its exact value (amount times scale), unit, currency and period
+# are, with the source and every other copy.
 # Ruling 2: a copy is never pooled by coordinate, since each producer numbers its copies
 # from `ref01` (T5.6).
-REFERENCE_TABLES = frozenset({CP1_REFERENCES})
+REFERENCE_TABLES = frozenset({CP1_REFERENCES, CP4_CP1_COPIES})
 
 # --- the model-facing contract ---------------------------------------------------------------
 # Plain `str` fields, as in `BusinessContextSubmission`: the validator holds references and

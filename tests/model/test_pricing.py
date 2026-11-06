@@ -261,7 +261,9 @@ def test_partial_usage_is_unknown_not_partial() -> None:
 
 
 def test_error_reply_usage_is_charged_like_a_200() -> None:
-    got = price_usage("sol-medium", Usage(input_tokens=1000, output_tokens=90000))
+    got = price_usage(
+        "sol-medium", Usage(input_tokens=1000, cache_write_tokens=0, output_tokens=90000)
+    )
     assert got.cost_status == "computed"
     assert got.usd == (1000 * D(2) + 90000 * D(10)) / 10**6
 
@@ -280,9 +282,13 @@ def test_money_text_and_refusal_values() -> None:
 
 
 def test_sol_usage_over_272k_input_uses_the_documented_long_tier() -> None:
-    at_limit = Usage(input_tokens=272_000, cached_read_tokens=0, output_tokens=10)
+    at_limit = Usage(
+        input_tokens=272_000, cached_read_tokens=0, cache_write_tokens=0, output_tokens=10
+    )
     assert price_usage("sol-medium", at_limit).cost_status == "computed"
-    over = Usage(input_tokens=272_001, cached_read_tokens=0, output_tokens=10)
+    over = Usage(
+        input_tokens=272_001, cached_read_tokens=0, cache_write_tokens=0, output_tokens=10
+    )
     expected = D("1.08815400")
     assert price_usage("sol-high", over) == Priced(expected, "computed")
     assert price_usage("sol-high", over, offline=True) == Priced(expected, "computed")

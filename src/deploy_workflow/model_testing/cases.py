@@ -72,7 +72,7 @@ def _gold_id(fact: Mapping[str, Any]) -> str:
     return fid
 
 
-def _gold_evidence(fact: Mapping[str, Any], unit: str, scale: str) -> list[dict[str, Any]]:
+def _gold_evidence(fact: Mapping[str, Any], scale: str) -> list[dict[str, Any]]:
     """One evidence item per conflicting version that a source printed (its evidence names a
     source id and a quote), ``printed`` = its canonical value with the scale word, which is what
     the scorer's printed-value check reads. A derived version (empty evidence, such as H1 less
@@ -95,6 +95,27 @@ def _gold_evidence(fact: Mapping[str, Any], unit: str, scale: str) -> list[dict[
             }
         )
     return out
+
+
+def _check_gold_value(fin_id: str, status: Any, value: Any) -> None:
+    """The status/value rules ``check.py`` applies to module_golden.json facts: a known status
+    carries a finite decimal string (never a JSON number, which reaches Python as a float or a
+    bool, so its digits are not the file's), and any other status carries none."""
+    statuses = checker().STATUSES
+    if status not in statuses:
+        raise CaseError(f"financial_gold {fin_id}: status {status!r} is not one of {statuses}")
+    if status != "known":
+        if value is not None:
+            raise CaseError(f"financial_gold {fin_id}: a {status} fact needs a null value")
+        return
+    if not isinstance(value, str):
+        raise CaseError(f"financial_gold {fin_id}: a known value must be a decimal string")
+    try:
+        finite = Decimal(value).is_finite()
+    except InvalidOperation:
+        finite = False
+    if not finite:
+        raise CaseError(f"financial_gold {fin_id}: value {value!r} is not a finite number")
 
 
 def financial_gold_facts(
@@ -121,14 +142,8 @@ def financial_gold_facts(
         fid = f"CP-1.fin.{fin_id}"
         if fid in out:
             raise CaseError(f"financial_gold repeats fact id {fin_id}")
-        value = fact["value"]
-        if value is not None:
-            try:
-                Decimal(value)
-            except (InvalidOperation, TypeError) as exc:
-                raise CaseError(
-                    f"financial_gold {fin_id}: value {value!r} is not a number"
-                ) from exc
+        status, value = fact["status"], fact["value"]
+        _check_gold_value(fin_id, status, value)
         if fact["period_id"] not in ends:
             raise CaseError(
                 f"{name}: fact {fin_id} names period_id {fact['period_id']!r} not in 'periods'"
@@ -141,12 +156,12 @@ def financial_gold_facts(
             "subject": fact["metric"],
             "field": fact["metric"],
             "period_end": ends[fact["period_id"]],
-            "status": fact["status"],
+            "status": status,
             "value": value,
             "value_type": "decimal",
             "unit": unit,
             "scale": scale,
-            "evidence": _gold_evidence(fact, unit, scale),
+            "evidence": _gold_evidence(fact, scale),
             "derivation": None,
             "gap_reason": fact.get("gap_reason"),
         }

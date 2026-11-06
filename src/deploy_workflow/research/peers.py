@@ -11,6 +11,7 @@ Python reads the amount from the quote with CP-1C's table rule and writes the fa
 functions that need ``review``, ``tables`` or ``owners.cp1c`` import them when called.
 """
 
+import re
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from datetime import date
@@ -19,8 +20,14 @@ from functools import partial
 from typing import TYPE_CHECKING, Final, Literal, get_args
 
 from deploy_vii.contracts import Citation, Contract, Fact, Identifier, Module, Source, Text
+from deploy_vii.quotes import normalise
 from deploy_vii.readiness import citation_issues
-from deploy_workflow.research.contracts import RESERVED_PREFIX, EvidenceItem, ResearchBrief
+from deploy_workflow.research.contracts import (
+    RESERVED_PREFIX,
+    EvidenceItem,
+    ResearchBrief,
+    id_room,
+)
 
 if TYPE_CHECKING:
     from deploy_workflow.owners.cp1c import PeerRow, PeerSheet
@@ -56,20 +63,25 @@ NOT_AN_OPERAND: Final = "operand is not a CP-1C operand"
 NOT_A_CANDIDATE: Final = "peer_id is not a TDR.4 candidate"
 NOT_A_DATE: Final = "period_end is not a calendar date"
 NOT_EVIDENCE: Final = "citation is not an accepted ev-* item"
+NOT_WHOLE: Final = "quote is not a whole number in the cited span"
+# A quote is a whole number of its span when no digit, point, comma or hyphen touches it on either
+# side: a piece of `1,234.5`, of `200.0` or of the date `2025-12-31` is not a figure the span
+# states.
+_TOUCHING: Final = "0-9.,-"
+# A span states its currency and unit as `EUR millions` / `(USD millions)`; a unit word alone
+# states the unit. Where a span states neither, the submitted cells are taken as submitted.
+_STATED_UNIT: Final = re.compile(r"\b(million|thousand)s?\b", re.IGNORECASE)
+_STATED_CURRENCY: Final = re.compile(r"\b([A-Z]{3})\s+(?i:(?:million|thousand)s?)\b")
 # A peer id sits in every fact id of its rows: `TDR.4.<id>.<field>`, `TDR.5.<id>.<dimension>.<field>`
 # and `TDR.6.<id>.<operand>.<field>`. The longest tail decides (TDR.5 with `definition` and
 # `observation`); one id past this makes `Fact` raise after the binding write.
 LONGEST_OPERAND: Final = "interest"  # a test compares it with `cp1c.OPERANDS`
 
 
-def _longest_tail(prefix: str, middle: Sequence[str], columns: Sequence[str]) -> int:
-    return len(prefix) + max((len(m) + 1 for m in middle), default=0) + 1 + max(map(len, columns))
-
-
-PEER_ID_MAX: Final = 160 - max(
-    _longest_tail("TDR.4.", (), TDR4_COLUMNS),
-    _longest_tail("TDR.5.", get_args(Dimension), TDR5_COLUMNS),
-    _longest_tail("TDR.6.", (LONGEST_OPERAND,), TDR6_COLUMNS),
+PEER_ID_MAX: Final = min(
+    id_room("TDR.4.", TDR4_COLUMNS),
+    id_room("TDR.5.", TDR5_COLUMNS, get_args(Dimension)),
+    id_room("TDR.6.", TDR6_COLUMNS, (LONGEST_OPERAND,)),
 )
 
 
@@ -133,12 +145,16 @@ def _issue(where: str, text: str) -> "ReviewIssue":
 
 def _text_issues(where: str, text: str) -> list["ReviewIssue"]:
     """The research texts' figure and banned-word rules over one analyst-written cell."""
-    from deploy_workflow.research.review import BANNED_WORDS, FIGURE_ISSUE
+    from deploy_workflow.research.review import text_issues
 
-    found = [_issue(where, f"banned word: {w}") for w in BANNED_WORDS if w in text.lower()]
-    if any(char.isdigit() for char in text):
-        found.append(_issue(where, FIGURE_ISSUE))
-    return found
+    return text_issues(where, [text])
+
+
+def _shown_issues(where: str, field: str, text: str) -> list["ReviewIssue"]:
+    """A model-written cell CP-1C's peer sheet shows (a name, a currency) must pass the sheet's
+    own rule (``_unsafe``) here, where the model can still repair it."""
+    why = _unsafe(field, text)
+    return [] if why is None else [_issue(where, why)]
 
 
 def _citation_issues(
@@ -161,6 +177,7 @@ def _candidate_issues(
         seen.add(where)
         if "." in where or len(where) > PEER_ID_MAX:
             issues.append(_issue(where, f"peer_id has no dot and is at most {PEER_ID_MAX} long"))
+        issues += _shown_issues(where, "name", peer.name)
         issues += _text_issues(where, peer.basis_note)
         issues += _citation_issues(where, peer.citation, items, sources)
     return issues
@@ -184,6 +201,43 @@ def _observation_issues(
     return issues
 
 
+def _span_text(citation: Citation, sources: tuple[Source, ...]) -> str | None:
+    """The normalised text of the span the citation names, or None (``citation_issues`` then
+    reports the citation)."""
+    for source in sources:
+        if source.source_id == citation.source_id:
+            for span in source.spans:
+                if span.locator == citation.locator:
+                    return normalise(span.text)
+    return None
+
+
+def _token_in(token: str, text: str, touching: str = _TOUCHING) -> bool:
+    """``token`` occurs in ``text`` with no ``touching`` character directly before or after it."""
+    edge = f"[{touching}]"
+    return re.search(rf"(?<!{edge}){re.escape(token)}(?!{edge})", text) is not None
+
+
+def _stated_issues(where: str, fig: LocatedFigure, span: str) -> list["ReviewIssue"]:
+    """The cited span, not the submission, decides the figure (method cpdr.md, the peer pack):
+    the quote is a whole number of it, the period end is stated in it, and a currency or unit it
+    states is the submitted one. The issue never repeats the submitted text."""
+    issues = []
+    if not _token_in(normalise(fig.citation.quote), span):
+        issues.append(_issue(where, NOT_WHOLE))
+    if not _token_in(fig.period_end, span, "0-9"):
+        issues.append(_issue(where, f"period_end {fig.period_end} is not stated in the cited span"))
+    currencies = sorted(set(_STATED_CURRENCY.findall(span)))
+    if currencies and fig.currency not in currencies:
+        stated = ", ".join(currencies)
+        issues.append(_issue(where, f"currency is not the one the cited span states ({stated})"))
+    units = sorted({f"{word.lower()}s" for word in _STATED_UNIT.findall(span)})
+    if units and fig.unit not in units:
+        stated = ", ".join(units)
+        issues.append(_issue(where, f"unit is not the one the cited span states ({stated})"))
+    return issues
+
+
 def _figure_issues(
     pack: PeerPack, items: set[str], sources: tuple[Source, ...]
 ) -> list["ReviewIssue"]:
@@ -204,7 +258,12 @@ def _figure_issues(
         seen.add(where)
         if period_end_date(fig.period_end) is None:
             issues.append(_issue(where, NOT_A_DATE))
-        issues += _citation_issues(where, fig.citation, items, sources)
+        issues += _shown_issues(where, "currency", fig.currency)
+        cited = _citation_issues(where, fig.citation, items, sources)
+        issues += cited
+        span = _span_text(fig.citation, sources)
+        if not cited and span is not None and period_end_date(fig.period_end) is not None:
+            issues += _stated_issues(where, fig, span)
     return issues
 
 

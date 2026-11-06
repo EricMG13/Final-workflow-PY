@@ -48,7 +48,7 @@
     "oracle:cp2h:v14",
     "oracle:cp2h:v15",
     "fn:deploy_workflow.owners.cp2h:_prose",
-    "fn:deploy_workflow.owners.cp2h:_run_text_issues",
+    "fn:deploy_workflow.owners.exact:run_text_issues",
     "fn:deploy_workflow.owners.cp2h:_gap_issues",
     "fn:deploy_workflow.owners.cp2h:_overall_issues",
     "fn:deploy_workflow.owners.cp2h:_limitation",

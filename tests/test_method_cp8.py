@@ -708,15 +708,27 @@ Q_NOREC2 = (
 )
 def test_8_6_partly_unrecorded_fields(recorded: tuple[str, ...], line: str | None) -> None:
     lit = positive()
-    texts_of = {"posture": "Portfolio posture", "size": "position size"}
+    # a decision field states its text inside its quote (r02), on a line that records it: the
+    # Q_NOREC1 line states both fields are not recorded, so it cannot be their value (S15 review)
+    stated = {
+        "posture": ("Defensive", "Portfolio posture: Defensive."),
+        "size": (
+            "Core holding",
+            "Position size: Core holding.",
+        ),
+    }
+    packed = edited_pack(
+        "prior_case", Q_NOREC1, f"{Q_NOREC1}\n{stated['posture'][1]} {stated['size'][1]}"
+    )
     for field in recorded:
-        if field in texts_of:  # a decision field states its text inside its quote (r02)
-            quote = {"source_id": "prior_case", "locator": "page:1", "quote": Q_NOREC1}
-            lit["decision"][field] = {"text": texts_of[field], "quote": quote}
+        if field in stated:
+            text, said = stated[field]
+            quote = {"source_id": "prior_case", "locator": "page:1", "quote": said}
+            lit["decision"][field] = {"text": text, "quote": quote}
         else:
             quote = {"source_id": "prior_case", "locator": "page:2", "quote": Q_NOREC2}
             lit["thesis"][field] = {"quote": quote}
-    limits = settle(lit).limitations
+    limits = settle(lit, packed=packed).limitations
     assert POSITIVE_LIMITS[1] not in limits
     assert limits[1] == (POSITIVE_LIMITS[2] if line is None else line)
 
@@ -903,7 +915,7 @@ def validator_issues(lit: dict[str, Any], case: str = "positive") -> tuple[str, 
 def test_8_10_text_without_its_quote() -> None:
     lit = positive()
     lit["decision"]["instrument"] = {"text": "Northbridge Term Loan"}
-    assert validator_issues(lit) == ("decision.instrument: text and quote are given together",)
+    assert validator_issues(lit) == ("decision.instrument: text needs its quote",)
 
 
 def test_8_10_quote_beside_an_absence() -> None:

@@ -12,25 +12,9 @@ belongs on the module's Full analysis page. ``unit_class`` is the table's defaul
 cell-level class follows each fact's unit (``report_view.fact_spelling``).
 """
 
-from deploy_vii.bindings import Binding, BindingMap
-from deploy_vii.display import UnitClass
-from deploy_vii.report_view import FactCoord
+from deploy_vii.bindings import Binder, BindingMap
 
-
-def _bind(
-    table: str,
-    block: str,
-    unit: UnitClass = "text",
-    slot: str | None = None,
-    label: str | None = None,
-) -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id="CP-1", table_id=table),
-        block_id=block,
-        cell_slot=slot or table.lower().replace(".", "-"),
-        unit_class=unit,
-        label=label,
-    )
+_bind = Binder("CP-1").bind
 
 
 _FINANCIALS = "financials-credit-metrics"
@@ -39,45 +23,57 @@ CP1 = BindingMap(
     module_id="CP-1",
     entries=(
         # Financial statements, calculations and the model's schedules.
-        _bind("T4.4", _FINANCIALS, "amount", "income-statement"),
-        _bind("T4.5", _FINANCIALS, "amount", "cash-flow-statement"),
-        _bind("T4.6", _FINANCIALS, "amount", "balance-sheet"),
-        _bind("T4.8", _FINANCIALS, "amount", "constructed-periods"),
-        _bind("T4.9", _FINANCIALS, "amount", "calculations"),
-        _bind("T4.15", _FINANCIALS, "amount", "account-register"),
-        _bind("T4.16", _FINANCIALS, "amount", "segment-revenue"),
-        _bind("segment-allocation", _FINANCIALS, "amount"),
-        _bind("operating-kpis", _FINANCIALS, "amount"),
+        _bind("T4.4", _FINANCIALS, unit="amount", slot="income-statement"),
+        _bind("T4.5", _FINANCIALS, unit="amount", slot="cash-flow-statement"),
+        _bind("T4.6", _FINANCIALS, unit="amount", slot="balance-sheet"),
+        _bind("T4.8", _FINANCIALS, unit="amount", slot="constructed-periods"),
+        _bind("T4.9", _FINANCIALS, unit="amount", slot="calculations"),
+        _bind("T4.15", _FINANCIALS, unit="amount", slot="account-register"),
+        _bind("T4.16", _FINANCIALS, unit="amount", slot="segment-revenue"),
+        _bind("segment-allocation", _FINANCIALS, unit="amount"),
+        _bind("operating-kpis", _FINANCIALS, unit="amount"),
         # Model chart strip (FP 01 S.1 to S.4).
-        _bind("T4.10", "model-chart-strip", "text", "kpi-dashboard", "KPI dashboard"),
+        _bind("T4.10", "model-chart-strip", "KPI dashboard", slot="kpi-dashboard"),
         # Capital structure tabs, in tab order.
-        _bind("T4.18", "capital-structure", "amount", "debt-facilities", "Capital structure"),
         _bind(
-            "T4.17", "capital-structure", "amount", "adjusted-ebitda-bridge", "EBITDA adjustments"
+            "T4.18", "capital-structure", "Capital structure", unit="amount", slot="debt-facilities"
         ),
-        _bind("pro-forma", "capital-structure", "amount", None, "Transaction and new debt"),
+        _bind(
+            "T4.17",
+            "capital-structure",
+            "EBITDA adjustments",
+            unit="amount",
+            slot="adjusted-ebitda-bridge",
+        ),
+        _bind("pro-forma", "capital-structure", "Transaction and new debt", unit="amount"),
         # Maturity wall (FP 04 S.4): the facility register is the Model's primary tab; CP-2D's
         # T2E.4 follows as a further tab (a second placement of T4.18, never a second binding in
         # one block).
-        _bind("T4.18", "maturity-wall", "amount", "debt-facilities", "Capital structure"),
+        _bind("T4.18", "maturity-wall", "Capital structure", unit="amount", slot="debt-facilities"),
         # Earnings Update (FP 02): the same registers placed in that Pathway's own blocks.
-        _bind("T4.17", "ebitda-adjustments", "amount", "adjusted-ebitda-bridge", "House view"),
-        _bind("T4.10", "metric-strip", "text", "kpi-dashboard", "KPI dashboard"),
+        _bind(
+            "T4.17",
+            "ebitda-adjustments",
+            "House view",
+            unit="amount",
+            slot="adjusted-ebitda-bridge",
+        ),
+        _bind("T4.10", "metric-strip", "KPI dashboard", slot="kpi-dashboard"),
         # Evidence.
-        _bind("T4.1", "evidence", "text", "source-register"),
-        _bind("T4.2", "evidence", "text", "entity-periods"),
-        _bind("T4.3", "evidence", "text", "normalizations"),
-        _bind("T4.11", "evidence", "text", "definition-conflicts"),
-        _bind("T4.14", "evidence", "text", "period-register"),
-        _bind("T4.19", "evidence", "text", "model-reconciliation"),
-        _bind("evidence-trace", "evidence", "text"),
+        _bind("T4.1", "evidence", slot="source-register"),
+        _bind("T4.2", "evidence", slot="entity-periods"),
+        _bind("T4.3", "evidence", slot="normalizations"),
+        _bind("T4.11", "evidence", slot="definition-conflicts"),
+        _bind("T4.14", "evidence", slot="period-register"),
+        _bind("T4.19", "evidence", slot="model-reconciliation"),
+        _bind("evidence-trace", "evidence"),
         # Limitations.
-        _bind("T4.12", "limitations", "text", "gaps-and-warnings"),
-        _bind("T4.13", "limitations", "text", "downstream-readiness"),
-        _bind("model-readiness", "limitations", "text"),
-        _bind("analysis-coverage", "limitations", "text"),
-        _bind("funding-assessment", "limitations", "text"),
-        _bind("statement-coverage", "limitations", "text"),
-        _bind("required-stories", "limitations", "text"),
+        _bind("T4.12", "limitations", slot="gaps-and-warnings"),
+        _bind("T4.13", "limitations", slot="downstream-readiness"),
+        _bind("model-readiness", "limitations"),
+        _bind("analysis-coverage", "limitations"),
+        _bind("funding-assessment", "limitations"),
+        _bind("statement-coverage", "limitations"),
+        _bind("required-stories", "limitations"),
     ),
 )

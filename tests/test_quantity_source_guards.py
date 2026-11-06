@@ -37,7 +37,7 @@ def compose(table, row, kind, scale, cue=CUE, locator="page:7", others=None, sta
         row_dimensions={row.line_no: StatementQuantity(kind=kind, scale=scale, citations=(
             Citation(source_id=SOURCE, source_sha256=SHA, locator=locator, quote=cue),
         ))},
-        typed_profile=True, book_currency="USD", book_unit="MILLIONS", context_tables=others,
+        typed_profile=True, book_currency="USD", book_unit="MILLIONS",
     )
 
 
@@ -114,5 +114,5 @@ def test_hand_written_untyped_eps_does_not_bypass_gate():
         value=Observation(observation_id="dil.FY2024", status="known", amount=Decimal("2.40"),
                           citations=(citation,)))
     result = _column_failure(fixtures.book((line,)), table, row, "IS",
-                             (frozenset({"FY2024"}), Decimal("2.40")), SHA, (table,))
+                             (frozenset({"FY2024"}), Decimal("2.40")), SHA)
     assert result is not None and result[0] == 2

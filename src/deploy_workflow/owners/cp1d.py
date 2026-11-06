@@ -60,10 +60,10 @@ from deploy_vii.execution import (
     current_inputs,
     inherited_limitations,
     listed_issues,
-    settle,
 )
 from deploy_vii.financial_contracts import Number
 from deploy_vii.live.schema import exact_json, json_object
+from deploy_vii.live.schema import normalise as normalise_payload
 from deploy_vii.live.submission import Submitted
 from deploy_vii.live.tools import Seen, unread_citation_issues
 from deploy_vii.preparation import PreparedPack
@@ -781,16 +781,18 @@ def _outcome(item: BridgeItem, assessment: Assessment, sources: Sequence[Source]
     return _Outcome(item, assessment, "judgment", fraction, None, accepted)
 
 
-def _shape_issue(item: BridgeItem, assessment: Assessment, sources: Sequence[Source]) -> str | None:
-    """The first failing basis/fraction shape rule (`refusal_rules.basis_fraction_order`)."""
-    label = item.label
+def _not_partly_issue(assessment: Assessment, label: str) -> str | None:
+    """Rules 1-2: a basis or a fraction given without Partly supported."""
+    if assessment.accepted_basis is not None:
+        return _line("Accepted basis only applies to Partly supported: ", label)
+    if assessment.accepted_fraction is not None:
+        return _line("Accepted fraction only applies to Partly supported: ", label)
+    return None
+
+
+def _partly_choice_issue(assessment: Assessment, label: str) -> str | None:
+    """Rules 3-5 under Partly supported: both given, neither given, or a bad fraction."""
     basis, fraction = assessment.accepted_basis, assessment.accepted_fraction
-    if assessment.achievability != "Partly supported":
-        if basis is not None:
-            return _line("Accepted basis only applies to Partly supported: ", label)
-        if fraction is not None:
-            return _line("Accepted fraction only applies to Partly supported: ", label)
-        return None
     if basis is not None and fraction is not None:
         return _line("Give either an accepted basis or an accepted fraction, not both: ", label)
     if basis is None and fraction is None:
@@ -800,30 +802,52 @@ def _shape_issue(item: BridgeItem, assessment: Assessment, sources: Sequence[Sou
             "Accepted fraction must be a decimal above 0 and below 1 with at most two places: ",
             label,
         )
-    if basis is not None:
-        amounts = _basis_amounts(basis, sources)
-        if len(amounts) != 1 or not _one_whole_run(basis.quote):
-            return _line("Accepted basis quote must contain exactly one amount: ", label)
-        amount = Decimal(amounts[0])
-        if item.amount is None and _accepts(assessment):
-            return None  # ruling 1D7: the content rule `Cannot accept an unstated amount`
-        # Fix round 2 N1 / round 5b Y4: an amount outside the product bound never composes. At
-        # or above 1e18 against a stated proposed amount the bounds text is true; otherwise
-        # (precision, or no stated proposed amount) the exactness text is. Round 10: "above 0"
-        # applies on its own, so a signed amount at or below 0 gets the bounds text first, also
-        # on an unstated proposed amount (the Recurring path).
-        bounds = _line("Accepted basis must be above 0 and below the proposed amount: ", label)
-        if amount <= 0:
-            return bounds
-        if not _is_number(amount):
-            if item.amount is not None and amount >= _NUMBER_LIMIT:
-                return bounds
-            return _line(
-                "Accepted basis amount cannot be held exactly as a product amount: ", label
-            )
-        if item.amount is not None and not amount < item.amount:
-            return bounds
     return None
+
+
+def _basis_bound_issue(amount: Decimal, item: BridgeItem) -> str | None:
+    """The basis amount against the product bound and the proposed amount. Fix round 2 N1 /
+    round 5b Y4: an amount outside the product bound never composes. At or above 1e18 against a
+    stated proposed amount the bounds text is true; otherwise (precision, or no stated proposed
+    amount) the exactness text is. Round 10: "above 0" applies on its own, so a signed amount at
+    or below 0 gets the bounds text first, also on an unstated proposed amount (the Recurring
+    path)."""
+    bounds = _line("Accepted basis must be above 0 and below the proposed amount: ", item.label)
+    if amount <= 0:
+        return bounds
+    if not _is_number(amount):
+        if item.amount is not None and amount >= _NUMBER_LIMIT:
+            return bounds
+        return _line(
+            "Accepted basis amount cannot be held exactly as a product amount: ", item.label
+        )
+    if item.amount is not None and not amount < item.amount:
+        return bounds
+    return None
+
+
+def _basis_amount_issue(
+    item: BridgeItem, assessment: Assessment, sources: Sequence[Source]
+) -> str | None:
+    """Rules 6-7 for a cited basis: exactly one amount in its quote, then its bounds."""
+    basis = assessment.accepted_basis
+    if basis is None:
+        return None
+    amounts = _basis_amounts(basis, sources)
+    if len(amounts) != 1 or not _one_whole_run(basis.quote):
+        return _line("Accepted basis quote must contain exactly one amount: ", item.label)
+    if item.amount is None and _accepts(assessment):
+        return None  # ruling 1D7: the content rule `Cannot accept an unstated amount`
+    return _basis_bound_issue(Decimal(amounts[0]), item)
+
+
+def _shape_issue(item: BridgeItem, assessment: Assessment, sources: Sequence[Source]) -> str | None:
+    """The first failing basis/fraction shape rule (`refusal_rules.basis_fraction_order`)."""
+    if assessment.achievability != "Partly supported":
+        return _not_partly_issue(assessment, item.label)
+    return _partly_choice_issue(assessment, item.label) or _basis_amount_issue(
+        item, assessment, sources
+    )
 
 
 _FITS = {"Saving": ("Not applicable",), "Cost": ("Non-recurring", "Recurring", "Not assessable")}
@@ -2201,11 +2225,52 @@ def _model_text_issues(submission: EarningsQualitySubmission) -> list[str]:
     return found
 
 
-def _module_fact(cell: CellFact) -> Fact:
+def _module_fact(cell: CellFact, inherited: Sequence[Citation] = ()) -> Fact:
+    """The product fact of one cell: a sourced fact quotes its own field; a calculated fact is
+    cited per page over its own and its inputs' citations (`one_per_page`, methods/cp1d.md
+    "Citations on facts")."""
     fact = cell.to_fact()
     if cell.value_class != "calculated":
         return fact  # a sourced fact quotes its own field
-    return fact.model_copy(update={"citations": one_per_page(fact.citations)})
+    return fact.model_copy(update={"citations": one_per_page((*fact.citations, *inherited))})
+
+
+_CP1_REF = "cp1:"
+_EACH = ".<each>."
+_STATEMENT_ROW = "stmt"  # T1D.1's CP-1 statement row: recorded, not a proposed bridge amount
+
+
+def _module_facts(cells: Sequence[CellFact], cp1: Mapping[str, Fact]) -> tuple[Fact, ...]:
+    """The product facts of the composed cells, each calculated fact citing its inputs
+    transitively through `derives_from` (expected.json `lineage_rule`; as cp1c `_with_lineage`
+    and cp2a `lineage`): a `cp1:<figure>` input is the CP-1 fact itself and `T1D.x.<each>.f` is
+    the `f` cell of every bridge row of that table, in table order."""
+    by_id = {cell.fact_id: cell for cell in cells}
+    memo: dict[str, Fact] = {}
+
+    def inputs(ref: str) -> list[str]:
+        table, each, name = ref.partition(_EACH)
+        if not each:
+            return [ref]
+        return [
+            c.fact_id
+            for c in cells
+            if c.table_id == table and c.field == name and c.row_id != _STATEMENT_ROW
+        ]
+
+    def cites(ref: str) -> tuple[Citation, ...]:
+        if ref.startswith(_CP1_REF):
+            return cp1[ref.removeprefix(_CP1_REF)].citations
+        return fact(ref).citations
+
+    def fact(fact_id: str) -> Fact:
+        if fact_id not in memo:
+            cell = by_id[fact_id]
+            found = [c for ref in cell.derives_from for one in inputs(ref) for c in cites(one)]
+            memo[fact_id] = _module_fact(cell, found)
+        return memo[fact_id]
+
+    return tuple(fact(cell.fact_id) for cell in cells)
 
 
 def _checked(
@@ -2231,7 +2296,7 @@ def _checked(
         return _bounded(texts), None
     try:
         result = compute(inputs)
-        module_facts = tuple(_module_fact(f) for f in result.facts)
+        module_facts = _module_facts(result.facts, cp1_facts)
         prose = prose_issues(
             submission.overall.rationale, bind((*module_facts, *cp1_facts.values()))
         )
@@ -2403,17 +2468,25 @@ def _cp1_fact_rows(facts: Mapping[str, Fact]) -> list[dict[str, object]]:
     ]
 
 
-def _view_basis(pack: PreparedPack, upstream: Upstream) -> tuple[PeriodBasis | None, str | None]:
-    """The run's basis for the view, or the issue line `_checked` returns for the same refusal
-    (P8-R5: `read_inputs` never raises on a context, period or currency refusal, the CP-1 amount
-    currency included)."""
+def _view_basis(
+    pack: PreparedPack, upstream: Upstream
+) -> tuple[PeriodBasis | None, Mapping[str, Fact], str | None]:
+    """The run's basis and the seven CP-1 facts for the view, or the issue line `_checked`
+    returns for the same refusal (P8-R5: `read_inputs` never raises on a context, period or
+    currency refusal, the CP-1 amount currency included, nor on a CP-1 head without exactly one
+    fact per operand, which keeps the basis so the bridge rows still show)."""
     try:
         basis = run_basis(context_facts(pack), upstream.cp1.facts)
+    except (ContextRefused, PeriodRefused) as error:
+        return None, {}, _basis_issue(error)
+    try:
         facts = _cp1_facts(upstream.cp1, basis)
         _check_money_currency(((f.unit or "", f.currency) for f in facts.values()), basis)
-        return basis, None
-    except (ContextRefused, PeriodRefused) as error:
-        return None, _basis_issue(error)
+    except PeriodRefused as error:
+        return None, {}, _basis_issue(error)
+    except ValueError as error:  # the validator's `CP-1 operands unavailable` line
+        return basis, {}, _line("CP-1 operands unavailable: ", str(error))
+    return basis, facts, None
 
 
 def context_block(*, pack: PreparedPack, upstream: Upstream) -> dict[str, object]:
@@ -2423,13 +2496,12 @@ def context_block(*, pack: PreparedPack, upstream: Upstream) -> dict[str, object
     own limitations (`inherited_limitations(..., (), ...)`), so settlement's list can be shorter by
     any line that repeats one of CP-1D's own limitations. No quote or citation text is in it."""
     source = next((s for s in pack.sources if s.source_id == BRIDGE_SOURCE_ID), None)
-    basis, issue = _view_basis(pack, upstream)
+    basis, facts, issue = _view_basis(pack, upstream)
     bridge = (
         parse_bridge(_pages(source), basis.bridge_basis_line)
         if basis is not None and source is not None and source.status == "ready"
         else None
     )
-    facts = {} if basis is None else _cp1_facts(upstream.cp1, basis)
     rows = {f.row_id for f in upstream.cp1.facts if f.table_id == "T4.17"}
     block: dict[str, object] = {
         "upstream": [
@@ -2533,8 +2605,6 @@ def submit(
 ) -> Submitted:
     """Journal the one `earnings_quality` step (null resolution through `SCHEMAS`, the rule
     issues appended) and, when it is valid, settle CP-1D with the Python candidate."""
-    from deploy_vii.live.schema import normalise as normalise_payload
-
     if step_id != STEP_ID:
         raise ValueError(f"CP-1D has one step, {STEP_ID}")
     normal, resolved = normalise_payload(EarningsQualitySubmission, payload)
@@ -2568,6 +2638,3 @@ def probe(store: Execution, snapshot: ExecutionSnapshot, attempt: Attempt) -> No
     from deploy_workflow.owners.cp1a import probe_one_step
 
     probe_one_step(store, snapshot, attempt, validate=_validate_step, build=_candidate)
-
-
-_ = settle  # re-exported for tests that replay settlement

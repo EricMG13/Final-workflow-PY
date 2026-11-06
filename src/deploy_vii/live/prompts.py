@@ -583,7 +583,9 @@ CP3_EVIDENCE_RULE = (
     "Quotes appear only in `market_evidence`: each observed or indicative_talk row quotes one "
     "span of a source listed under `market_evidence_sources` in the CONTEXT block, its "
     "`quote.source_id` equal to its `source_id`, one row per quoted span. A `none` row quotes "
-    "nothing (a null `quote`) and states its `limitation`. A `basis` refers to Python's context "
+    "nothing (a null `quote`) and states its `limitation`. Its `source_id` is `none` or a pack "
+    "source. A quoted row's `as_of` is a date, ISO or prose (2026-01-09, 9 January 2026 or "
+    "January 9, 2026), not after the run as-of. A `basis` refers to Python's context "
     "rows by id (`basis.context_rows`) and never copies their figures; a `basis.quotes` entry "
     "still repeats a `market_evidence` row's quote exactly, for the rows of a `third_party` source "
     "only."
@@ -595,7 +597,9 @@ CP3_TALK_RULE = (
     "yields). With talk only, the preference's `confidence` is below High."
 )
 CP3_BASIS_RULE = (
-    "Name instruments only by a `facility_id` listed under `cp1_facilities`, each once. Every "
+    "Name instruments only by a `facility_id` listed under `cp1_facilities`, each once, and give "
+    "one instruments row for each facility listed there (CP-1's T4.18); an instrument's "
+    "`basis.context_rows` name only its own facility's context rows. Every "
     "instrument and risk has a basis: its `cp2_refs` (only refs listed under `cp2_rows`), a "
     "`{ref|unit}` CP-1 figure or, for an instrument, a `basis.quotes` market quote or a context "
     "row named in `basis.context_rows`; a `market_observation` other than none cites a market "
@@ -608,7 +612,8 @@ CP3_PREFERENCE_RULE = (
     "Unless its `confidence` "
     "is Insufficient Information it cites a market quote or a context row named in "
     "`basis.context_rows`; with no observed or indicative "
-    "evidence it is Insufficient Information and states its `limitation`. Its `confidence` is "
+    "evidence it is Insufficient Information and states its `limitation`. An Insufficient "
+    "Information preference never orders more than one facility. Its `confidence` is "
     "below High while `confidence_caps` lists any cap."
 )
 CP3_RUN_TEXT_RULE = (
@@ -952,9 +957,14 @@ class UpstreamInput:
 def block(
     kind: str, input_id: str, sha256: str, body: str, *, projection: str | None = None
 ) -> str:
-    for marker in DELIMITERS:
-        if marker in body:
-            raise PromptError(f"input {input_id} contains the reserved delimiter {marker}")
+    """One `<<<KIND id=... sha256=...>>>` data block. A body holding a delimiter, the untrusted
+    evidence opener, any `<<<END`, or any `<<<` in any case or lookalike form is refused (the
+    owner path's fence rule, `deploy_workflow.prompts.fence`; its `FenceError` is a
+    PromptError), never escaped."""
+    # Imported here: `prompts.fence` imports this module, and its package is a leaf.
+    from deploy_workflow.prompts.fence import _refuse_markers
+
+    _refuse_markers(f"input {input_id}", body)
     shown = f" projection={projection}" if projection is not None else ""
     return f"<<<{kind} id={input_id} sha256={sha256}{shown}>>>\n{body}\n<<<END>>>"
 
@@ -968,14 +978,22 @@ def _source_body(pack: PreparedPack, source_id: str) -> tuple[str, str]:
     return source.sha256, "\n".join(span_line(span) for span in source.spans)
 
 
-def span_line(span: Span) -> str:
-    """One span as a SOURCE block renders it: `locator=<locator>[ | extras] | <text>` (the
-    one-shot prompt and the tool loop's `read_pages`, task 8.0d)."""
+def span_attributes(span: Span) -> str:
+    """A span's cell attributes as its locator line shows them, `" | a; b"` (empty without any):
+    a workbook cell's formula, cached value, data type and number format (a `0.215` formatted
+    `0.0%` prints 21.5%, review S07) and whether it is hidden."""
     extras = [f"formula={span.formula}"] if span.formula else []
     extras += [f"cached_value={span.cached_value}"] if span.cached_value else []
+    extras += [f"data_type={span.data_type}"] if span.data_type else []
+    extras += [f"number_format={span.number_format}"] if span.number_format else []
     extras += ["hidden"] if span.hidden else []
-    attributes = f" | {'; '.join(extras)}" if extras else ""
-    return f"locator={span.locator}{attributes} | {span.text}"
+    return f" | {'; '.join(extras)}" if extras else ""
+
+
+def span_line(span: Span) -> str:
+    """One span as a SOURCE block renders it: `locator=<locator>[ | extras] | <text>` (the
+    one-shot prompt and the tool loop's `read_pages`, task 8.0d; `span_attributes`)."""
+    return f"locator={span.locator}{span_attributes(span)} | {span.text}"
 
 
 def _context_body(
@@ -1123,6 +1141,64 @@ def response_format(step_id: str, schema: type[BaseModel]) -> dict[str, Any]:
     }
 
 
+@dataclass(frozen=True)
+class LoopPrompt:
+    """The tool loop a prompt is built for (task 8.0d): its submit tool, the loop's own submit
+    limit, its tool set (task 8.9, `registry`) and, for a `pack` step whose tools read only its
+    declared sources, those sources (`readable`)."""
+
+    submit_tool: str
+    submits: int = TOOL_LOOP_SUBMITS
+    tool_set: ToolSet = PACK_TOOLS
+    readable: Sequence[str] | None = None
+
+
+def _rule5(
+    step_id: str, contract: str, declared_inputs: Sequence[str], loop: LoopPrompt | None
+) -> tuple[str, str]:
+    """Rule 5 and the contract it goes with: no tools for a one-shot prompt; for a loop,
+    `submit_only_rule`, the part step's `parts_tools_rule` with rule l added to its contract
+    (task 8.11), or `tools_rule`. A loop is sent no pack SOURCE block, a submit-only step reads no
+    source and a part step reads every pack source, each refused otherwise."""
+    if loop is None:
+        return NO_TOOLS_RULE, contract
+    if declared_inputs:
+        raise PromptError(f"a tool-loop step {step_id} is sent no pack SOURCE blocks")
+    if loop.tool_set == SUBMIT_ONLY:
+        if loop.readable is not None:
+            raise PromptError(f"a submit-only step {step_id} reads no source")
+        return submit_only_rule(loop.submit_tool, loop.submits), contract
+    if step_id in part_submit_steps():  # task 8.11: the loop's financials, sent in parts
+        if loop.readable is not None:
+            raise PromptError(f"a part step {step_id} reads every pack source")
+        return parts_tools_rule(loop.submit_tool, loop.submits), (
+            f"{contract}\nl. {FINANCIAL_PARTS_RULE}"
+        )
+    return tools_rule(loop.submit_tool, loop.submits, sources=loop.readable), contract
+
+
+def _check_declared(
+    step_id: str,
+    declared_inputs: Sequence[str],
+    scope: Mapping[str, Any] | None,
+    module_context: Mapping[str, object] | None,
+) -> None:
+    """MC-10: a scope block and a module context are sent exactly to the steps that declare
+    them, and pack sources only to a step whose validator checks spans (task 7.5, R6)."""
+    if step_id in SCOPE_BLOCKS and scope is None:
+        raise PromptError(f"step {step_id} needs its {SCOPE_BLOCKS[step_id][1]}")
+    if step_id not in SCOPE_BLOCKS and scope is not None:
+        raise PromptError(f"a scope block is not a declared input of step {step_id}")
+    if step_id in MODULE_CONTEXTS and module_context is None:
+        raise PromptError(f"step {step_id} needs its module context")
+    if step_id not in MODULE_CONTEXTS and module_context is not None:
+        raise PromptError(f"a module context is not a declared input of step {step_id}")
+    if declared_inputs and step_id not in PACK_SOURCE_STEPS:
+        raise PromptError(
+            f"step {step_id} checks no span against the pack; it declares no pack sources"
+        )
+
+
 def build(
     step_id: str,
     pack: PreparedPack,
@@ -1146,47 +1222,23 @@ def build(
     step of `live.context.MODULE_CONTEXTS` adds to the prepared-pack block, required there and
     refused elsewhere.
 
-    `submit_tool` (task 8.0d) builds a tool-loop prompt: rule 5 is `tools_rule(submit_tool,
-    submits)`, `submits` being the loop's own submit limit, and no pack SOURCE block is sent
-    (the model reads what it cites through the tools), so declared pack inputs are refused
-    there. Every other prompt is unchanged. Task 8.9: `tool_set` is the loop's (`registry`):
-    `submit-only` makes rule 5 `submit_only_rule`; a `pack` step whose tools read only its
-    declared sources passes them as `readable` (`tools_rule(sources=...)`). Task 8.11: the loop
-    prompt of a part step (`registry.part_submit_steps`: `financials`) has rule 5
-    `parts_tools_rule` and its contract adds rule l, `FINANCIAL_PARTS_RULE`; its one-shot
-    prompt is unchanged."""
+    `submit_tool` (task 8.0d) builds a tool-loop prompt (`LoopPrompt`): rule 5 is
+    `tools_rule(submit_tool, submits)`, `submits` being the loop's own submit limit, and no pack
+    SOURCE block is sent (the model reads what it cites through the tools), so declared pack
+    inputs are refused there. Every other prompt is unchanged. Task 8.9: `tool_set` is the
+    loop's (`registry`): `submit-only` makes rule 5 `submit_only_rule`; a `pack` step whose
+    tools read only its declared sources passes them as `readable` (`tools_rule(sources=...)`).
+    Task 8.11: the loop prompt of a part step (`registry.part_submit_steps`: `financials`) has
+    rule 5 `parts_tools_rule` and its contract adds rule l, `FINANCIAL_PARTS_RULE`; its
+    one-shot prompt is unchanged (`_rule5`)."""
     contract = STEP_CONTRACTS.get(step_id)
     if contract is None:
         raise PromptError(f"no contract is defined for step {step_id}")
-    if submit_tool is not None and declared_inputs:
-        raise PromptError(f"a tool-loop step {step_id} is sent no pack SOURCE blocks")
     if submit_tool is None and (tool_set != PACK_TOOLS or readable is not None):
         raise PromptError(f"a one-shot step {step_id} has no tool set")
-    if tool_set == SUBMIT_ONLY and readable is not None:
-        raise PromptError(f"a submit-only step {step_id} reads no source")
-    if submit_tool is None:
-        rule5 = NO_TOOLS_RULE
-    elif tool_set == SUBMIT_ONLY:
-        rule5 = submit_only_rule(submit_tool, submits)
-    elif step_id in part_submit_steps():  # task 8.11: the loop's financials, sent in parts
-        if readable is not None:
-            raise PromptError(f"a part step {step_id} reads every pack source")
-        rule5 = parts_tools_rule(submit_tool, submits)
-        contract = f"{contract}\nl. {FINANCIAL_PARTS_RULE}"
-    else:
-        rule5 = tools_rule(submit_tool, submits, sources=readable)
-    if step_id in SCOPE_BLOCKS and scope is None:
-        raise PromptError(f"step {step_id} needs its {SCOPE_BLOCKS[step_id][1]}")
-    if step_id not in SCOPE_BLOCKS and scope is not None:
-        raise PromptError(f"a scope block is not a declared input of step {step_id}")
-    if step_id in MODULE_CONTEXTS and module_context is None:
-        raise PromptError(f"step {step_id} needs its module context")
-    if step_id not in MODULE_CONTEXTS and module_context is not None:
-        raise PromptError(f"a module context is not a declared input of step {step_id}")
-    if declared_inputs and step_id not in PACK_SOURCE_STEPS:  # task 7.5, R6
-        raise PromptError(
-            f"step {step_id} checks no span against the pack; it declares no pack sources"
-        )
+    loop = None if submit_tool is None else LoopPrompt(submit_tool, submits, tool_set, readable)
+    rule5, contract = _rule5(step_id, contract, declared_inputs, loop)
+    _check_declared(step_id, declared_inputs, scope, module_context)
     system = "\n".join(
         (
             f"You are one step of a credit-research evidence workflow. Step: {step_id}.",

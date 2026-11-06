@@ -34,17 +34,15 @@ from deploy_vii.statement_extract import (
     ExtractedTable,
     extract_statement_lines,
 )
+from deploy_workflow.pdf_headers import MONTH_NAMES, YEAR
 
 _NUMBER = r"\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?"
 _NUMTOK = re.compile(rf"\$?(?:\((?:{_NUMBER})\)|(?:{_NUMBER})|—|–|-)")
-_YEAR = re.compile(r"(?:19|20)\d\d")
+# One 19xx/20xx year (fullmatch on a token, findall in a line) and one month list.
+_YEAR = _YEAR_IN_TEXT = YEAR
 _DAY = r"\d\d?"
 _WORD = re.compile(r"[A-Za-z]+")
-_YEAR_IN_TEXT = re.compile(r"(?<!\d)(?:19|20)\d{2}(?!\d)")
-_MONTH_NAMES = [
-    *("January", "February", "March", "April", "May", "June", "July", "August"),
-    *("September", "October", "November", "December"),
-]
+_MONTH_NAMES = MONTH_NAMES
 _MONTHS = frozenset((*_MONTH_NAMES, *(name.upper() for name in _MONTH_NAMES)))
 _HEADWORDS = frozenset(
     (

@@ -6,10 +6,10 @@ Offline runs are included: their costs are computed from recordings, not money.
 
 | Module | sol-medium | opus-medium |
 | --- | --- | --- |
-| CP-0 | PASS 1/1 · $0.40 · 1.7k tok · 10 s | FAIL 3/4 · $1.01 · ≥2.7k tok · 40 s |
-| CP-1 | PASS 4/4 (1 inherited) · $0.27 · ≥12.0k tok · 32 s | PASS 2/2 · $0.50 · ≥3.9k tok · 30 s |
+| CP-0 | PASS 1/1 · $0.40 · 1.7k tok · 10 s | OFFLINE FAIL 3/4 · $1.01 computed · ≥2.7k tok · 40 s |
+| CP-1 | PASS 4/4 (1 inherited) · $0.27 · ≥12.0k tok · 32 s | OFFLINE PASS 2/2 · $0.50 computed · ≥3.9k tok · 30 s |
 | CP-1B | FAIL 3/4 · $2.00 reserved · n/r tok · 3 s | — |
-| CP-5 | PASS 2/2 · $0.05 · 0.5k tok · 5 s | PASS 1/3 (2 refused) · $0.20 · ≥0.2k tok · 8 s |
+| CP-5 | PASS 2/2 · $0.05 · 0.5k tok · 5 s | OFFLINE PASS 1/3 (2 refused) · $0.20 computed · ≥0.2k tok · 8 s |
 
 ## Totals
 

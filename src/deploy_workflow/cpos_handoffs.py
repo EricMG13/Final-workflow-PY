@@ -8,9 +8,11 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections.abc import Iterator
 from contextlib import contextmanager
 from contextvars import ContextVar
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from deploy_vii.contracts import Module, ModuleView
 from deploy_vii.execution import Execution
@@ -19,12 +21,15 @@ from deploy_vii.registry import modules
 from deploy_vii.render import empty_view, markdown_display, render
 from deploy_workflow.model.turn import Message
 
+if TYPE_CHECKING:
+    from deploy_workflow.owner_workflow import OwnerBinding
+
 ACTIVE = ContextVar("cpos_markdown_transport", default=False)
 MARKER = "\n```cpos-module-json\n"
 
 
 @contextmanager
-def transport():
+def transport() -> Iterator[None]:
     token = ACTIVE.set(True)
     try:
         yield
@@ -52,10 +57,11 @@ def retain(store: Execution) -> dict[str, Path]:
             "## Findings",
         ]
         for claim in module.claims:
-            lines.append(claim.plain)
+            lines.append(f"- {claim.claim_id}: {claim.text}")
         for fact in module.facts:
             lines.append(
-                f"- {fact.fact_id}: {markdown_display(fact)}; period={fact.period}; unit={fact.unit}; currency={fact.currency}; basis={fact.basis}"
+                f"- {fact.fact_id}: {markdown_display(fact)}; period={fact.period}; "
+                f"unit={fact.unit}; currency={fact.currency}; basis={fact.basis}"
             )
         lines.extend(
             [
@@ -132,7 +138,7 @@ def library_metadata(store: Execution) -> None:
 
 
 def prompt_messages(
-    store: Execution, binding, messages: tuple[Message, ...]
+    store: Execution, binding: OwnerBinding, messages: tuple[Message, ...]
 ) -> tuple[Message, ...]:
     if not ACTIVE.get():
         return messages
@@ -144,7 +150,7 @@ def prompt_messages(
     bound = {item.sha256 for item in binding.inputs}
     selected = {head.module_id for head in store.read().heads if head.result_sha256 in bound}
     upstream = {
-        name: path.read_text()
+        name: path.read_text(encoding="utf-8")
         for name, path in files.items()
         if name != binding.module_id and name in selected
     }
@@ -159,19 +165,24 @@ def prompt_messages(
 
 
 def deliver(store: Execution, destination: Path) -> None:
+    """Write the delivery from the retained handoffs. A resumed delivery rewrites the same
+    files into the same folder; a publication file may not replace a delivered file."""
     files = retain(store)
     pack = load_pack(store.directory.parent / "pack")
     view = empty_view(pack.run)
     definitions = {item.module_id: item for item in modules()}
+    heads = {head.module_id: head for head in store.read().heads}
     by_id = {}
     for name, path in files.items():
-        raw = path.read_text()
-        payload = raw.rsplit(MARKER, 1)[1].removesuffix("\n```\n")
+        raw = path.read_text(encoding="utf-8")
+        payload = raw.rsplit(MARKER, 1)[-1].removesuffix("\n```\n")
         module = Module.model_validate_json(payload)
-        head = next(head for head in store.read().heads if head.module_id == name)
-        if module != store.head_module(head):
+        head = heads.get(name)
+        if head is None or module != store.head_module(head):
             raise ValueError("handoff is not the retained analytical module")
-        definition = definitions[name]
+        definition = definitions.get(name)
+        if definition is None:
+            raise ValueError(f"handoff {name} names no registered module")
         by_id[name] = ModuleView(
             module_id=name,
             title=definition.title,
@@ -190,19 +201,23 @@ def deliver(store: Execution, destination: Path) -> None:
             "analytical_qualification": "partial",
         }
     )
-    destination.mkdir()
-    (destination / "view.json").write_text(view.model_dump_json(), encoding="utf-8")
-    (destination / "report.html").write_text(render(view), encoding="utf-8")
-    for path in files.values():
-        (destination / path.name).write_bytes(path.read_bytes())
+    delivered = {
+        "view.json": view.model_dump_json().encode(),
+        "report.html": render(view).encode(),
+        **{path.name: path.read_bytes() for path in files.values()},
+    }
     publication = store.directory.parent / "publication"
     if publication.is_dir():
-        for path in publication.iterdir():
-            if path.is_file() and not path.is_symlink():
-                (destination / path.name).write_bytes(path.read_bytes())
-    manifest = {
-        path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in destination.iterdir()
-    }
+        for path in sorted(publication.iterdir()):
+            if not path.is_file() or path.is_symlink():
+                continue
+            if path.name in delivered or path.name == "delivery.json":
+                raise ValueError(f"publication file {path.name} would replace a delivered file")
+            delivered[path.name] = path.read_bytes()
+    destination.mkdir(exist_ok=True)
+    for name, data in delivered.items():
+        (destination / name).write_bytes(data)
+    manifest = {name: hashlib.sha256(data).hexdigest() for name, data in delivered.items()}
     (destination / "delivery.json").write_text(
         json.dumps({"kind": "cpos-markdown-delivery/1", "files": manifest}, indent=2),
         encoding="utf-8",

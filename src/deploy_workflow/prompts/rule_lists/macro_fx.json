@@ -20,7 +20,7 @@
   },
   {
    "id": "macro_fx.3",
-   "statement": "Give exactly one of `rate_exposure` and `rate_absence`. In `rate_exposure`, `facility_balance.value_text`, `spread.bps_text` and `floor.bps_text` each occur once in their quote right after the words `balance of`, `spread` and `floor` (a numeral of at most three integer digits and four decimals, not a prefix of a longer number); the balance does not exceed the `earnings.total_debt` value. `rate_basis.rate_type` is FLOATING or FIXED as the quote states it (exactly one of a floating rate or a fixed rate), and a FLOATING `reference_rate` occurs in the quote.",
+   "statement": "Give exactly one of `rate_exposure` and `rate_absence`. In `rate_exposure`, `facility_balance.value_text`, `spread.bps_text` and `floor.bps_text` each occur once in their quote right after the words `balance of`, `spread` and `floor` (a numeral of at most three integer digits and four decimals, not a prefix of a longer number); the balance does not exceed the `earnings.total_debt` value. `rate_basis.rate_type` is FLOATING or FIXED as the quote states it (exactly one of a floating rate or a fixed rate), and its `reference_rate`, FLOATING or FIXED, occurs in the quote.",
    "checks": [
     "oracle:cp2e:rate_exposure_and_absence",
     "oracle:cp2e:balance_not_in_quote",
@@ -37,12 +37,14 @@
   },
   {
    "id": "macro_fx.4",
-   "statement": "Each of `earnings.ebitda`, `earnings.interest`, `earnings.fcf`, `earnings.total_debt` and `fx.fx_cash_effect` quotes one whole page line that begins with its row label (Reported EBITDA, Cash interest paid, Levered free cash flow, Total debt, FX effect on cash) followed by two spaces, on a page whose header ends in the FY column; its `value_text` is the last value of that line exactly as printed.",
+   "statement": "Each of `earnings.ebitda`, `earnings.interest`, `earnings.fcf`, `earnings.total_debt` and `fx.fx_cash_effect` quotes one whole page line that begins with its row label (Reported EBITDA, Cash interest paid, Levered free cash flow, Total debt, FX effect on cash) followed by two spaces, on a page whose header ends in the FY column; its `value_text` is the last value of that line exactly as printed, with at most six decimals. A value in accounting parentheses is negative: `earnings.total_debt` is never negative, and a `Cash interest paid` value in parentheses is an outflow, read as its positive amount. The statements are dated as calendar years: a financial page that states a year end other than December 31 is refused.",
    "checks": [
     "oracle:cp2e:row_not_whole_line",
     "oracle:cp2e:row_wrong_label",
     "oracle:cp2e:row_value_not_last",
-    "fn:deploy_workflow.owners.cp2e:_Check.row"
+    "fn:deploy_workflow.owners.cp2e:_Check.row",
+    "fn:deploy_workflow.owners.cp2e:_Check.row_value",
+    "fn:deploy_workflow.owners.cp2e:fiscal_year_issues"
    ]
   },
   {
@@ -76,7 +78,7 @@
   },
   {
    "id": "macro_fx.8",
-   "statement": "Give one assessment for each `section` (interest_rate, fx, hedging), none twice; `category` is Documentary Fact, Analyst Interpretation or Insufficient Information, `limitation` is given for Insufficient Information and only for it, and a Documentary Fact has at least one `basis` quote. Every analyst text (assessment `text`, `shock_rationale`, `summary.text`, the hedge `rationale`, and every absence `reason` and `follow_up`) is nonblank with no digit; an assessment `limitation` and `rate_basis.reference_rate` are nonblank; `summary.text` has no reference; and an assessment `text` or `summary.text` uses none of the words recommend, buy, sell, overweight, underweight, downgrade, upgrade or covenant breach.",
+   "statement": "Give one assessment for each `section` (interest_rate, fx, hedging), none twice; `category` is Documentary Fact, Analyst Interpretation or Insufficient Information, `limitation` is given for Insufficient Information and only for it, and a Documentary Fact has at least one `basis` quote. Every analyst text (assessment `text`, `shock_rationale`, `summary.text`, the hedge `rationale`, and every absence `reason` and `follow_up`) is nonblank with no digit; an assessment `limitation` and `rate_basis.reference_rate` are nonblank; `summary.text` has no reference; and an assessment `text`, `shock_rationale`, `summary.text` or an absence `reason` uses none of the words recommend, buy, sell, overweight, underweight, downgrade, upgrade or covenant breach.",
    "checks": [
     "oracle:cp2e:digit_in_text",
     "oracle:cp2e:prohibited_conclusion",
@@ -85,6 +87,8 @@
     "oracle:cp2e:section_missing",
     "oracle:cp2e:section_repeated",
     "fn:deploy_workflow.owners.cp2e:_check_text",
+    "fn:deploy_workflow.owners.cp2e:_check_assessment",
+    "fn:deploy_workflow.owners.cp2e:_Check.published",
     "fn:deploy_workflow.owners.cp2e:_Check.digit_free",
     "fn:deploy_workflow.owners.cp2e:_Check.empty",
     "fn:deploy_workflow.owners.cp2e:_Check.run_text"

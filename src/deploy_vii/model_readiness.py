@@ -1,16 +1,28 @@
 """Scoped historical CP-MODEL readiness; calculation success alone is insufficient."""
 
-from datetime import date
+from collections import Counter
+from collections.abc import Mapping, Sequence
+from dataclasses import dataclass
+from datetime import date, timedelta
 from typing import Literal
 
+from pydantic import BaseModel
+
 from deploy_vii.contracts import Contract, Hash, Identifier, Text
-from deploy_vii.financial_contracts import FinancialBook, FinancialReview, Observation
+from deploy_vii.financial_contracts import (
+    FinancialBook,
+    FinancialPeriod,
+    FinancialReview,
+    Observation,
+)
+from deploy_vii.financial_periods import HistoricalReport, HistoricalValue, PeriodConstruction
 from deploy_vii.financial_reconciliation import ReconciliationReport, reconcile_financials
 from deploy_vii.financial_validation import records, validate_financial_review
 from deploy_vii.model.dates import fiscal_year_number
 from deploy_vii.model.history import BALANCE_METRICS
 from deploy_vii.model.periods import LTM_DAYS
 from deploy_vii.period_reconciliation import (
+    PeriodCheck,
     PeriodReconciliationReport,
     _source_periods,
     reconcile_periods,
@@ -92,148 +104,238 @@ class ModelReadinessReport(Contract):
     limitations: tuple[Text, ...]
 
 
-def _evaluate(
-    book: FinancialBook,
-    periods: PeriodReconciliationReport,
-    source: ReconciliationReport,
-    requested: tuple[str, ...] | None,
-) -> ModelReadinessRow:
-    historical = periods.historical
-    available = {n.construction_id: n for n in historical.constructions if n.kind == "QUARTER"}
+# --- the readiness findings (pure helpers of `_evaluate`) ------------------------------------
+# A series cell with no source row in the column (`model._cells.ABSENT`). For an add-back, a
+# sparse series CP-1 writes only for the periods it occurred in, that absence is nothing
+# (`model.history._sum`), not an unknown input; every other required input stays unknown.
+_NOT_SOURCED = "NOT_SOURCED"
+_SPARSE_SCHEDULE = "addback:"
+_YEAR_CHECKS = frozenset({"FY_QUARTERS", "REPORTED_DERIVED_PERIOD"})
+
+
+def _finding(
+    code: str,
+    text: str,
+    node: str | None = None,
+    refs: tuple[str, ...] = (),
+    *,
+    warning: bool = False,
+) -> ReadinessFinding:
+    return ReadinessFinding(
+        code=code,
+        severity="WARN" if warning else "BLOCK",
+        construction_id=node,
+        references=refs,
+        explanation=text,
+    )
+
+
+def _selection(
+    available: Mapping[str, PeriodConstruction], requested: tuple[str, ...] | None
+) -> tuple[list[PeriodConstruction], list[ReadinessFinding]]:
+    """The selected quarters in date order, and a finding naming each duplicate or unknown id."""
     selected = tuple(available) if requested is None else requested
-    findings: list[ReadinessFinding] = []
-    missing: set[str] = set()
-
-    def issue(
-        code: str,
-        text: str,
-        node: str | None = None,
-        refs: tuple[str, ...] = (),
-        *,
-        warning: bool = False,
-    ) -> None:
-        findings.append(
-            ReadinessFinding(
-                code=code,
-                severity="WARN" if warning else "BLOCK",
-                construction_id=node,
-                references=refs,
-                explanation=text,
-            )
-        )
-
-    if len(selected) != len(set(selected)) or any(key not in available for key in selected):
-        issue(
-            "quarter_selection", "Selection contains duplicate or unknown quarter construction IDs"
-        )
+    counts = Counter(selected)
+    wrong = tuple(dict.fromkeys(k for k in selected if counts[k] > 1 or k not in available))
+    findings = []
+    if wrong:
+        text = "Selection contains duplicate or unknown quarter construction IDs: "
+        findings.append(_finding("quarter_selection", text + ", ".join(wrong), refs=wrong))
     quarters = sorted(
         (available[key] for key in dict.fromkeys(selected) if key in available),
         key=lambda n: (n.end_date or date.min, n.construction_id),
     )
+    return quarters, findings
+
+
+def _slot(quarter: PeriodConstruction) -> int | None:
+    """The quarter's fiscal slot, 4 x year + quarter, or None when either is unknown."""
+    year = fiscal_year_number(quarter.fiscal_year)
+    if year is None or quarter.fiscal_quarter is None:
+        return None
+    return 4 * year + quarter.fiscal_quarter
+
+
+def _follows(previous: PeriodConstruction, quarter: PeriodConstruction) -> bool:
+    return (
+        previous.end_date is not None
+        and quarter.start_date is not None
+        and quarter.start_date - previous.end_date == timedelta(days=1)
+    )
+
+
+def _annual(first: PeriodConstruction, last: PeriodConstruction) -> bool:
+    start, end = first.start_date, last.end_date
+    return (
+        start is not None
+        and end is not None
+        and LTM_DAYS[0] <= (end - start).days + 1 <= LTM_DAYS[1]
+    )
+
+
+def _quarter_findings(quarters: Sequence[PeriodConstruction]) -> list[ReadinessFinding]:
+    """Count, span (with the construction's own limitation), continuity, fiscal sequence and
+    four-quarter span of the selection."""
+    findings = []
     if len(quarters) < 4:
-        issue("quarter_count", "At least four discrete complete quarters are required")
-    quarter_years: list[int | None] = []
+        text = "At least four discrete complete quarters are required"
+        findings.append(_finding("quarter_count", text))
+    slots = [_slot(quarter) for quarter in quarters]
     for index, quarter in enumerate(quarters):
-        previous_end = quarters[index - 1].end_date if index else None
-        if (
-            quarter.start_date is None
-            or quarter.end_date is None
-            or quarter.days is None
-            or quarter.limitation
-        ):
-            issue(
-                "quarter_span",
-                "Quarter span is unavailable or not comparable",
-                quarter.construction_id,
-            )
-        if index and (
-            previous_end is None
-            or quarter.start_date is None
-            or previous_end.toordinal() + 1 != quarter.start_date.toordinal()
-        ):
-            issue(
-                "quarter_continuity",
-                "Selected quarters must be contiguous and non-overlapping",
-                quarter.construction_id,
-            )
-        year = fiscal_year_number(quarter.fiscal_year)
-        previous = quarters[index - 1] if index else None
-        previous_year = quarter_years[index - 1] if index else None
-        quarter_years.append(year)
-        if (
-            year is None
-            or quarter.fiscal_quarter is None
-            or (
-                previous is not None
-                and (
-                    previous_year is None
-                    or previous.fiscal_quarter is None
-                    or 4 * year + quarter.fiscal_quarter
-                    != 4 * previous_year + previous.fiscal_quarter + 1
-                )
-            )
-        ):
-            issue(
-                "fiscal_sequence",
-                "Selected fiscal quarter slots are not consecutive",
-                quarter.construction_id,
-            )
-        if index >= 3:
-            start = quarters[index - 3].start_date
-            end = quarter.end_date
-            if (
-                start is None
-                or end is None
-                or not LTM_DAYS[0] <= (end - start).days + 1 <= LTM_DAYS[1]
-            ):
-                issue(
-                    "annual_span",
-                    "Each four-quarter window must span 364-371 days",
-                    quarter.construction_id,
-                )
+        cid = quarter.construction_id
+        if None in (quarter.start_date, quarter.end_date, quarter.days) or quarter.limitation:
+            text = "Quarter span is unavailable or not comparable"
+            limitation = f": {quarter.limitation}" if quarter.limitation else ""
+            findings.append(_finding("quarter_span", text + limitation, cid))
+        if index and not _follows(quarters[index - 1], quarter):
+            text = "Selected quarters must be contiguous and non-overlapping"
+            findings.append(_finding("quarter_continuity", text, cid))
+        slot, previous = slots[index], slots[index - 1] if index else None
+        if slot is None or (index and (previous is None or slot != previous + 1)):
+            text = "Selected fiscal quarter slots are not consecutive"
+            findings.append(_finding("fiscal_sequence", text, cid))
+        if index >= 3 and not _annual(quarters[index - 3], quarter):
+            text = "Each four-quarter window must span 364-371 days"
+            findings.append(_finding("annual_span", text, cid))
+    return findings
+
+
+@dataclass(frozen=True)
+class _Scope:
+    """What the selection reads of the book: each quarter's source periods (`leaves`, as the
+    kernel's flow plan follows them) and their ids (`used`); every book period that is used,
+    undated or overlaps the selected window (`periods`); and the window. `periods` and
+    `window` are None where the window is unknown, and then every record is in scope."""
+
+    leaves: Mapping[str, tuple[tuple[str | None, int], ...]]
+    used: frozenset[str]
+    known: frozenset[str]
+    periods: frozenset[str] | None
+    window: tuple[date, date] | None
+
+
+def _side(period: FinancialPeriod, window: tuple[date, date]) -> int:
+    """-1 for a period ending before the window, 1 for one starting after it, else 0 (it
+    overlaps the window, or it is undated)."""
+    first = period.start_date or period.end_date
+    last = period.end_date or period.start_date
+    if first is None or last is None:
+        return 0
+    return -1 if last < window[0] else 1 if first > window[1] else 0
+
+
+def _scope(
+    book: FinancialBook, historical: HistoricalReport, quarters: Sequence[PeriodConstruction]
+) -> _Scope:
+    leaves = {q.construction_id: _source_periods(historical, q) for q in quarters}
+    used = frozenset(pid for terms in leaves.values() for pid, _ in terms if pid is not None)
+    known = frozenset(p.period_id for p in book.periods)
+    start = quarters[0].start_date if quarters else None
+    end = quarters[-1].end_date if quarters else None
+    if start is None or end is None:
+        return _Scope(leaves, used, known, None, None)
+    inside = {p.period_id for p in book.periods if _side(p, (start, end)) == 0}
+    return _Scope(leaves, used, known, used | inside, (start, end))
+
+
+def _in_scope(period_ids: set[str], scope: _Scope, book: FinancialBook) -> bool:
+    """Whether rows in `period_ids` bear on the selection: no window is known, a row is in or
+    across the window (rows on both sides of it), or a row's period is undated or unknown."""
+    if scope.periods is None or scope.window is None or not period_ids:
+        return True
+    if period_ids & scope.periods or period_ids - scope.known:
+        return True
+    window = scope.window
+    sides = {_side(p, window) for p in book.periods if p.period_id in period_ids}
+    return {-1, 1} <= sides
+
+
+def _period_ids(record: BaseModel) -> set[str]:
+    """The period ids a book record names in its own fields (`period_id`, `annual_period_id`,
+    `quarter_period_ids`, ...)."""
+    found: set[str] = set()
+    for name in type(record).model_fields:
+        value = getattr(record, name)
+        if name.endswith("period_id") and isinstance(value, str):
+            found.add(value)
+        elif name.endswith("period_ids") and isinstance(value, tuple):
+            found.update(item for item in value if isinstance(item, str))
+    return found
+
+
+def _schedule(book: FinancialBook, scope: _Scope) -> tuple[tuple[str, ...], list[ReadinessFinding]]:
+    """The schedule input keys each selected quarter requires: every facility and segment with
+    a row in or across the selected window, and every add-back (absent, it is nothing). A
+    series outside the window is a WARN that names it."""
+    series: dict[str, set[str]] = {}
+    for prefix, rows in (
+        ("fac:", ((r.facility_id, r.period_id) for r in book.facilities)),
+        ("bu:", ((r.segment_id, r.period_id) for r in book.segments)),
+        (_SPARSE_SCHEDULE, ((r.addback_id, r.period_id) for r in book.addbacks)),
+    ):
+        for series_id, period_id in rows:
+            series.setdefault(prefix + series_id, set()).add(period_id)
+    required = tuple(
+        key
+        for key, ids in series.items()
+        if key.startswith(_SPARSE_SCHEDULE) or _in_scope(ids, scope, book)
+    )
+    findings = []
+    if not any(key.startswith("fac:") for key in required):
+        text = "A complete carrying-value facility schedule is required"
+        findings.append(_finding("facility_schedule", text))
+    if outside := tuple(key for key in series if key not in required):
+        text = "Schedule series with no row in or across the selected quarters are not required"
+        findings.append(_finding("schedule_scope", text, refs=outside, warning=True))
+    return required, findings
+
+
+def _input_finding(row: HistoricalValue | None, cid: str, key: str) -> ReadinessFinding | None:
+    """A required input that is unknown, or known without located evidence; an add-back with no
+    source row in the quarter is nothing."""
+    if row is None or row.value.amount is None:
+        nothing = (
+            row is not None
+            and key.startswith(_SPARSE_SCHEDULE)
+            and row.value.reason == _NOT_SOURCED
+        )
+        text = "Required historical input is unknown"
+        return None if nothing else _finding("missing_input", text, cid, (key,))
+    if not row.value.citations:
+        text = "Required historical input has no located evidence"
+        return _finding("source_locator", text, cid, (key,))
+    return None
+
+
+def _input_findings(
+    book: FinancialBook,
+    historical: HistoricalReport,
+    quarters: Sequence[PeriodConstruction],
+    scope: _Scope,
+) -> tuple[list[ReadinessFinding], set[str], dict[int | None, set[str]]]:
+    """Each selected quarter's required inputs: the findings, the missing metric ids and the
+    flow metrics required in each fiscal year."""
     rows = {(v.construction_id, v.series_key): v for v in historical.values}
     by_period = {p.period_id: p for p in book.periods}
-    used_periods: set[str] = set()
+    schedule, findings = _schedule(book, scope)
+    missing: set[str] = set()
     required_by_year: dict[int | None, set[str]] = {}
-    facilities = tuple(dict.fromkeys(r.facility_id for r in book.facilities))
-    segments = tuple(dict.fromkeys(r.segment_id for r in book.segments))
-    addbacks = tuple(dict.fromkeys(r.addback_id for r in book.addbacks))
-    if not facilities:
-        issue("facility_schedule", "A complete carrying-value facility schedule is required")
-    input_keys: dict[bool, tuple[str, ...]] = {}
-    schedule_keys = (
-        *("fac:" + fid for fid in facilities),
-        *("bu:" + sid for sid in segments),
-        *("addback:" + aid for aid in addbacks),
-    )
-    for quarter, year in zip(quarters, quarter_years, strict=True):
+    for quarter in quarters:
         cid = quarter.construction_id
-        leaves = _source_periods(historical, quarter)
-        used_periods.update(pid for pid, _ in leaves if pid is not None)
+        leaves = scope.leaves[cid]
         nature = bool(leaves) and all(
             pid is not None and by_period[pid].expense_presentation == "by_nature"
             for pid, _ in leaves
         )
         flow_metrics = REQUIRED_FLOWS - ({"cogs"} if nature else set())
+        year = fiscal_year_number(quarter.fiscal_year)
         required_by_year.setdefault(year, set()).update(flow_metrics)
-        if nature not in input_keys:
-            input_keys[nature] = (
-                *("acct:" + metric for metric in sorted(flow_metrics | BALANCE_METRICS)),
-                *schedule_keys,
-            )
-        keys = input_keys[nature]
-        for key in keys:
-            row = rows.get((cid, key))
-            if row is None or row.value.amount is None:
-                missing.add(key)
-                issue("missing_input", "Required historical input is unknown", cid, (key,))
-            elif not row.value.citations:
-                issue(
-                    "source_locator",
-                    "Required historical input has no located evidence",
-                    cid,
-                    (key,),
-                )
+        accounts = ("acct:" + metric for metric in sorted(flow_metrics | BALANCE_METRICS))
+        for key in (*accounts, *schedule):
+            found = _input_finding(rows.get((cid, key)), cid, key)
+            if found is not None:
+                missing.update(found.references if found.code == "missing_input" else ())
+                findings.append(found)
         tax = rows.get((cid, "acct:effective_tax_rate"))
         components = [
             rows.get((cid, "acct:" + key)) for key in ("pretax_income", "income_tax_expense")
@@ -242,100 +344,162 @@ def _evaluate(
             v is None or v.value.amount is None for v in components
         ):
             missing.add("effective_tax_rate_or_pretax_and_tax")
-            issue(
-                "tax_inputs",
-                "Tax rate requires a source rate or both pretax income and tax expense",
-                cid,
-            )
-    # Every selected quarter must carry all mandatory comparisons, including
-    # a WARN/null segment comparison for genuine non-disclosure.
-    mandatory = []
+            text = "Tax rate requires a source rate or both pretax income and tax expense"
+            findings.append(_finding("tax_inputs", text, cid))
+    return findings, missing, required_by_year
+
+
+def _year_check(
+    check: PeriodCheck,
+    nodes: Mapping[str, PeriodConstruction],
+    selected_years: set[int | None],
+    required_by_year: Mapping[int | None, set[str]],
+) -> bool:
+    """An FY or reported-derived comparison of a selected fiscal year that bears on it."""
+    if check.check_type not in _YEAR_CHECKS:
+        return False
+    year = fiscal_year_number(nodes[check.construction_id].fiscal_year)
+    if year not in selected_years:
+        return False
+    return check.reported.amount is not None or (
+        check.check_type == "FY_QUARTERS" and check.metric_id in required_by_year.get(year, set())
+    )
+
+
+def _check_findings(
+    periods: PeriodReconciliationReport,
+    quarters: Sequence[PeriodConstruction],
+    required_by_year: Mapping[int | None, set[str]],
+) -> tuple[list[ReadinessFinding], list[str]]:
+    """Every selected quarter carries all mandatory comparisons (a WARN/null segment comparison
+    for genuine non-disclosure included); each one not passing is a finding, and each absent
+    type is named."""
     selected_ids = {q.construction_id for q in quarters}
-    selected_years = set(quarter_years)
-    nodes = {n.construction_id: n for n in historical.constructions}
+    selected_years = {fiscal_year_number(q.fiscal_year) for q in quarters}
+    nodes = {n.construction_id: n for n in periods.historical.constructions}
+    findings: list[ReadinessFinding] = []
+    mandatory: list[str] = []
     check_kinds: dict[str, set[str]] = {}
     for check in periods.checks:
         check_kinds.setdefault(check.construction_id, set()).add(check.check_type)
         selected_check = (
             check.construction_id in selected_ids and check.check_type in _MANDATORY_CHECKS
         )
-        year_check = (
-            check.check_type in {"FY_QUARTERS", "REPORTED_DERIVED_PERIOD"}
-            and fiscal_year_number(nodes[check.construction_id].fiscal_year) in selected_years
-            and (
-                (
-                    check.check_type == "FY_QUARTERS"
-                    and check.metric_id
-                    in required_by_year.get(
-                        fiscal_year_number(nodes[check.construction_id].fiscal_year), set()
-                    )
-                )
-                or check.reported.amount is not None
-            )
-        )
-        if selected_check or year_check:
+        if selected_check or _year_check(check, nodes, selected_years, required_by_year):
             mandatory.append(check.check_id)
             if check.status != "PASS":
-                issue(
-                    "reconciliation",
-                    check.explanation,
-                    check.construction_id,
-                    (check.check_id,),
-                    warning=check.status == "WARN",
+                findings.append(
+                    _finding(
+                        "reconciliation",
+                        check.explanation,
+                        check.construction_id,
+                        (check.check_id,),
+                        warning=check.status == "WARN",
+                    )
                 )
     for quarter in quarters:
         cid = quarter.construction_id
-        kinds = check_kinds.get(cid, set())
-        if not _MANDATORY_CHECKS <= kinds:
-            issue("missing_checks", "Mandatory reconciliation types are absent", cid)
+        if absent := tuple(sorted(_MANDATORY_CHECKS - check_kinds.get(cid, set()))):
+            text = "Mandatory reconciliation types are absent: " + ", ".join(absent)
+            findings.append(_finding("missing_checks", text, cid, absent))
+    return findings, mandatory
+
+
+def _conflicts(book: FinancialBook, scope: _Scope) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    """The conflicting observation ids of the book records in scope, then of those outside it,
+    each in book order."""
+    inside: list[str] = []
+    outside: list[str] = []
+    for name in type(book).model_fields:
+        value = getattr(book, name)
+        for record in value if isinstance(value, tuple) else (value,):
+            if not isinstance(record, BaseModel):
+                continue
+            ids = [
+                o.observation_id for o in records(record, Observation) if o.status == "conflicting"
+            ]
+            (inside if _in_scope(_period_ids(record), scope, book) else outside).extend(ids)
+    return tuple(inside), tuple(outside)
+
+
+def _scope_findings(
+    book: FinancialBook, source: ReconciliationReport, scope: _Scope
+) -> tuple[list[ReadinessFinding], list[str], tuple[str, ...]]:
+    """Source checks of the used periods, the source conflicts in scope (a conflict outside it
+    is a WARN that names it) and the forecast terms of the used periods' facilities: the
+    findings, the mandatory source check ids and the blocking conflict ids."""
+    findings: list[ReadinessFinding] = []
+    mandatory: list[str] = []
     # A source error must not disappear through period subtraction. Derived FY
     # checks replace the direct-only quarterly comparison, which lacks computed Q4.
-    for source_check in source.checks:
+    for check in source.checks:
         if (
-            source_check.period_id in used_periods
-            and source_check.check_type != "FY_QUARTERS"
+            check.period_id in scope.used
+            and check.check_type != "FY_QUARTERS"
             and (
-                source_check.check_type in {"SOURCE_STATEMENT_IDENTITY", "BALANCE_MOVEMENT"}
-                or source_check.difference is not None
+                check.check_type in {"SOURCE_STATEMENT_IDENTITY", "BALANCE_MOVEMENT"}
+                or check.difference is not None
             )
         ):
-            mandatory.append(source_check.check_id)
-            if source_check.status != "PASS":
-                issue(
-                    "source_reconciliation",
-                    source_check.explanation,
-                    refs=(source_check.check_id,),
-                    warning=source_check.status == "WARN",
+            mandatory.append(check.check_id)
+            if check.status != "PASS":
+                findings.append(
+                    _finding(
+                        "source_reconciliation",
+                        check.explanation,
+                        refs=(check.check_id,),
+                        warning=check.status == "WARN",
+                    )
                 )
-    conflicts = tuple(
-        o.observation_id for o in records(book, Observation) if o.status == "conflicting"
-    )
+    conflicts, outside = _conflicts(book, scope)
     if conflicts:
-        issue(
-            "source_conflicts",
-            "Unresolved source conflicts require explicit resolution",
-            refs=conflicts,
-        )
+        text = "Unresolved source conflicts require explicit resolution"
+        findings.append(_finding("source_conflicts", text, refs=conflicts))
+    if outside:
+        text = "Unresolved source conflicts outside the selected quarters do not block them"
+        findings.append(_finding("source_conflicts_outside", text, refs=outside, warning=True))
     for facility in book.facilities:
-        if facility.period_id in used_periods and (
+        if facility.period_id in scope.used and (
             facility.rate_type == "NOT_STATED"
             or facility.annual_amortisation.amount is None
             or facility.maturity_date is None
         ):
-            issue(
-                "facility_terms",
-                "Historical carrying value does not establish forecast rate, "
-                "amortisation or maturity terms",
-                refs=(facility.facility_id, facility.period_id),
-                warning=True,
+            findings.append(
+                _finding(
+                    "facility_terms",
+                    "Historical carrying value does not establish forecast rate, "
+                    "amortisation or maturity terms",
+                    refs=(facility.facility_id, facility.period_id),
+                    warning=True,
+                )
             )
+    return findings, mandatory, conflicts
+
+
+def _evaluate(
+    book: FinancialBook,
+    periods: PeriodReconciliationReport,
+    source: ReconciliationReport,
+    requested: tuple[str, ...] | None,
+) -> ModelReadinessRow:
+    """The CP-MODEL row over the selected historical quarters: every finding is scoped to
+    them (their source periods, or book records in or across their window)."""
+    historical = periods.historical
+    available = {n.construction_id: n for n in historical.constructions if n.kind == "QUARTER"}
+    quarters, findings = _selection(available, requested)
+    findings += _quarter_findings(quarters)
+    scope = _scope(book, historical, quarters)
+    inputs, missing, required_by_year = _input_findings(book, historical, quarters, scope)
+    checks, mandatory = _check_findings(periods, quarters, required_by_year)
+    scoped, source_mandatory, conflicts = _scope_findings(book, source, scope)
+    findings += [*inputs, *checks, *scoped]
     ready = not any(f.severity == "BLOCK" for f in findings)
     return ModelReadinessRow(
         status="ready" if ready else "blocked",
         selected_quarters=tuple(q.construction_id for q in quarters),
         missing_metric_ids=tuple(sorted(missing)),
         conflict_refs=conflicts,
-        mandatory_check_ids=tuple(dict.fromkeys(mandatory)),
+        mandatory_check_ids=tuple(dict.fromkeys((*mandatory, *source_mandatory))),
         findings=tuple(findings),
         explanation="Selected historical quarters satisfy deterministic Model input requirements"
         if ready

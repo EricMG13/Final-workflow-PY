@@ -11,20 +11,11 @@ M10. Slots carry a ``cp3-`` prefix: a slot is unique across all shipped maps. No
 ``SHIPPED_MAPS`` since task 8.6.
 """
 
-from deploy_vii.bindings import Binding, BindingMap
+from deploy_vii.bindings import Binder, BindingMap
 from deploy_vii.business_context import CP1_REFERENCES
 from deploy_vii.cp3_relative_value import MODULE_ID, RELATIVE_VALUE
-from deploy_vii.report_view import FactCoord
 
-
-def _bind(table: str, block: str, label: str) -> Binding:
-    return Binding(
-        fact_coord=FactCoord(module_id=MODULE_ID, table_id=table),
-        block_id=block,
-        cell_slot="cp3-" + table.lower().replace(".", "-").replace("_", "-"),
-        unit_class="text",
-        label=label,
-    )
+_bind = Binder(MODULE_ID, "cp3-", hyphenate=True).bind
 
 
 CP3 = BindingMap(
