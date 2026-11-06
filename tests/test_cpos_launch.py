@@ -13,6 +13,7 @@ from deploy_workflow.model.adapter import AdapterReply, LiveAdapter
 from deploy_workflow.model.handoff import _pages
 from deploy_workflow.model.providers import build
 from deploy_workflow.model.turn import ToolCall, Turn, Usage
+from deploy_workflow.owners import cpos_launch
 from deploy_workflow.owners.cpos import HandoffTask, _checked_handoff
 from deploy_workflow.owners.cpos_launch import METHODS, checker, main, prepare
 
@@ -69,9 +70,30 @@ def issuer_folder(tmp_path: Path) -> Path:
     return folder
 
 
-# Deploy V CANON_SHARED.md "Credit-research reading order": the H3 a reader meets first. A copy,
+# The H3 a reader meets first in every module (owner ruling 2026-11-05; Deploy V M365 runs). A copy,
 # not an import: the answer key stays independent of cpos_launch.OPENING.
-OPENING = {"CP-2": "Credit view"}
+OPENING = {
+    "CP-0": "Readiness view",
+    "CP-1": "Financial base view",
+    "CP-1A": "Business and transaction view",
+    "CP-1B": "Earnings delta view",
+    "CP-1C": "Credit view",
+    "CP-1D": "Earnings quality view",
+    "CP-2": "Credit view",
+    "CP-2A": "Downside view",
+    "CP-2D": "Liquidity view",
+    "CP-2E": "Macro and FX view",
+    "CP-2G": "Forward model view",
+    "CP-2H": "Ratings view",
+    "CP-3": "Relative value view",
+    "CP-3C": "Funding gap view",
+    "CP-3D": "Market-implied view",
+    "CP-4": "Covenant view",
+    "CP-4C": "Restructuring view",
+    "CP-5": "Evidence trace view",
+    "CP-6": "Challenge view",
+    "CP-DR": "Research view",
+}
 
 
 def answer(context: dict, plan_routes: list) -> str:
@@ -627,7 +649,35 @@ def test_cp2_instructions_carry_the_reader_standard_and_its_opening(tmp_path):
     # The user's Microsoft 365 Copilot custom instruction, which Deploy V's M365 runs carried.
     assert "senior credit research analyst" in cp2 and "senior credit committees" in cp2
     assert "external sources" in cp2
-    assert "CANON_SHARED.md" not in read("CP-1A")  # One analytical module at a time.
+    # The custom instruction is global; the CANON_SHARED reader rules and opening are CP-2's.
+    for module in prepared.plan.instructions:
+        text = read(module)
+        for phrase in (
+            "senior credit research analyst",
+            "senior credit committees",
+            "external sources",
+        ):
+            assert phrase in text, (module, phrase)
+    cp1a = read("CP-1A")
+    for phrase in ("CANON_SHARED.md", "State each limitation once"):
+        assert phrase not in cp1a, phrase
+    assert "open `## Findings` with `### Credit view`" not in cp1a
+
+
+def test_every_module_has_an_opening_and_its_instructions_require_it(tmp_path):
+    assert set(OPENING) == set(METHODS) == set(cpos_launch.OPENING)
+    assert cpos_launch.OPENING == OPENING
+    prepared = prepare(
+        context_file(tmp_path, "credit_snapshot"),
+        issuer_folder(tmp_path),
+        tmp_path / "out",
+        config="sol-medium",
+        cap="50",
+    )
+    for module, ref in prepared.plan.instructions.items():
+        text = (tmp_path / "out" / ref.path).read_text()
+        assert f"open `## Findings` with `### {OPENING[module]}`" in text, module
+        assert ("State each limitation once" in text) == (module == "CP-2"), module
 
 
 @pytest.mark.parametrize("pathway", ["credit_snapshot", "relative_value"])
@@ -669,6 +719,19 @@ def test_checker_rejects_cp2_that_does_not_open_with_its_view(tmp_path, pathway,
     assert old in raw
     issues = _checked_handoff(task, raw.replace(old, new).encode(), checker(prepared.layout))
     assert any("Open ## Findings with ### Credit view" in issue for issue in issues), issues
+
+
+@pytest.mark.parametrize(
+    ("module", "pathway"), [("CP-1A", "credit_snapshot"), ("CP-0", "credit_snapshot")]
+)
+def test_checker_enforces_the_opening_on_every_module(tmp_path, module, pathway):
+    prepared, task, context = good_task(tmp_path, module, pathway)
+    raw = answer(context, list(prepared.plan.layout.routes))
+    view = f"### {OPENING[module]}\n\nThe issuer's credit view, stated first.\n\n"
+    assert view in raw
+    assert _checked_handoff(task, raw.encode(), checker(prepared.layout)) == ()
+    issues = _checked_handoff(task, raw.replace(view, "").encode(), checker(prepared.layout))
+    assert any(f"Open ## Findings with ### {OPENING[module]}" in i for i in issues), issues
 
 
 def test_every_selected_method_file_exists():

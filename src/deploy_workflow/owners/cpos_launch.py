@@ -150,17 +150,40 @@ BLOCK_OWNERS: dict[str, tuple[str, ...]] = {
 }
 # CP-8 owns this section and compares two completed deliveries; a single run has nothing to compare.
 SECOND_RUN_ONLY = "what-changed"
-# The H3 that opens a module's analysis, from Deploy V CANON_SHARED.md "Credit-research reading
-# order", so the reader meets the view before any table. One module at a time: add the next here.
+# The H3 that opens every module's `## Findings`: prose stating the module's view in plain English
+# before any table (owner ruling, 2026-11-05; Deploy V's M365 runs for VMO2 and Wood Mackenzie open
+# each module's analysis that way). "Credit view" (CP-1C, CP-2) and "Downside view" (CP-2A) are the
+# M365 headings. A module added to METHODS needs an entry here; a test fails otherwise.
 # This launcher route only: the owner route (`deploy_vii.cp2_synthesis`, Python-composed
 # Markdown) is unchanged.
-OPENING: dict[str, str] = {"CP-2": "Credit view"}
-# For each module in OPENING, what Deploy V's M365 runs had and the web app lacked: the user's
-# Microsoft 365 Copilot custom instruction (supplied 2026-11-05, every clause kept),
-# CANON_SHARED.md's reader-facing layer, and two habits of those runs' handoffs (VMO2 2026-09-20,
-# Wood Mackenzie 2026-08-27): units on amounts, the issuer as subject. ponytail: instructions
-# only; the checker enforces the opening, not the prose.
-READER_STANDARD = (
+OPENING: dict[str, str] = {
+    "CP-0": "Readiness view",
+    "CP-1": "Financial base view",
+    "CP-1A": "Business and transaction view",
+    "CP-1B": "Earnings delta view",
+    "CP-1C": "Credit view",
+    "CP-1D": "Earnings quality view",
+    "CP-2": "Credit view",
+    "CP-2A": "Downside view",
+    "CP-2D": "Liquidity view",
+    "CP-2E": "Macro and FX view",
+    "CP-2G": "Forward model view",
+    "CP-2H": "Ratings view",
+    "CP-3": "Relative value view",
+    "CP-3C": "Funding gap view",
+    "CP-3D": "Market-implied view",
+    "CP-4": "Covenant view",
+    "CP-4C": "Restructuring view",
+    "CP-5": "Evidence trace view",
+    "CP-6": "Challenge view",
+    "CP-DR": "Research view",
+}
+# Only CP-2 gets READER_STANDARD (owner ruling, 2026-11-05): M365 output did not follow the
+# CANON_SHARED rules, so they stay scoped to the one module that had them.
+READER_STANDARD_MODULES = frozenset({"CP-2"})
+# The user's Microsoft 365 Copilot custom instruction (supplied 2026-11-05, every clause kept):
+# a persona that applies to every module (owner ruling, 2026-11-05). ponytail: instructions only.
+READER_PERSONA = (
     "You are a senior credit research analyst at a leading credit fund, specialising in high "
     "yield credit and leveraged loans. Your research is used throughout the firm for key "
     "investment decisions; it is presented to senior credit committees and affects portfolio "
@@ -169,6 +192,11 @@ READER_STANDARD = (
     "unless it is tied to issuer-specific mechanics. Write in a detailed, structured style "
     "grounded in the provided data, and say when information is insufficient. State explicitly "
     "when information comes from external sources.\n\n"
+)
+# For READER_STANDARD_MODULES only: CANON_SHARED.md's reader-facing layer, and two habits of Deploy
+# V's M365 handoffs (VMO2 2026-09-20, Wood Mackenzie 2026-08-27): units on amounts, the issuer as
+# subject. The checker enforces the opening, not the prose.
+READER_STANDARD = (
     "Presentation rules, from the reader-facing standard of Deploy V's CANON_SHARED.md. They "
     "never remove a method duty, category tag, limitation or gap:\n"
     "- In the opening section, state the credit view in plain English in the first sentence. In "
@@ -342,10 +370,12 @@ def _instructions(run: Run, module: str, routes: Sequence[MarkdownRoute]) -> byt
         "- list each supplied handoff in `## Sources`, with its module and exact sha256"
         + (
             f";\n- open `## Findings` with `### {opening}`, once: prose that states the view, "
-            "before any table.\n\n" + READER_STANDARD
+            "before any table.\n\n"
             if opening
             else ".\n\n"
         )
+        + READER_PERSONA
+        + (READER_STANDARD if module in READER_STANDARD_MODULES else "")
         + (
             "Report selectors, each exactly once inside `## Findings`, using these exact "
             f"headings. They place content in the report and are not analytical completion:\n"
