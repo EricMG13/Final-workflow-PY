@@ -1,0 +1,37 @@
+{
+  "attempt": 1,
+  "feedback": [],
+  "handoffs": {},
+  "instructions": "# CP-8 \u2014 actual prior/current deliverable comparison\n\nCompare the two complete pinned TDG publication bundles supplied as prior/* and\ncurrent/*. The current user supersedes the imported decision post-mortem task:\ncompare deliverables, not a past investment decision, calibration or approval gate.\nBoth bundles rest on the same historical annual accounting base, TransDigm Group\nIncorporated as of 2024-09-30, FY2024 against FY2023; this is not a new reporting\nperiod or evidence of changed issuer conditions. Execution is November 6, 2026.\nPreserve financial dates, subsequent events, source limitations and each run's scope.\n\nPrior is a launcher-produced Credit Snapshot run (sol-medium, 2026-11-05) that\npublished CP-1 and CP-1A handoffs with a copied CP-0. Current is a later run of the\nsame launcher through the Issuer Library app (sol-medium, 2026-11-06) that published\nCP-0, CP-1 and CP-1A under revised module instructions. Neither bundle publishes an\nHTML Model, charts file or calculation JSON; determine the actual published scope\nfrom the receipts, view.json and report-view.json, not from assumptions.\n\nUse list_sources and actual read/search tools. Read both delivery receipts, both\nview.json and report-view.json files, and the original CP-0, CP-1 and CP-1A\nhandoffs on each side. Inspect the rendered report HTML sufficiently to check its\ndestinations and bindings; source HTML text is not a visual browser check. All\ncomplete files are supplied; tool pages are 12,000-character chunks, not physical\npages. Use precise file, chunk and field/heading locators. Retain exact prior and\ncurrent receipt hashes, run IDs and relevant handoff hashes. Do not claim complete\nexhaustive record comparison unless actually performed.\n\nBatch targeted reads in a single tool turn where possible. Use at most two batched\nevidence turns and then submit the complete comparison. The host already checked\nboth complete bundles and their HTML/view bindings; distinguish your own sampled\nreads from that host validation.\n\nUse six H2 headings: Request, Sources, Findings, Calculations, Gaps, Next module.\nUnder Findings provide exactly one table with headers:\nDimension | Prior deliverable | Current deliverable | Explanation\nand exactly these seven rows, once each: Values; Periods; Assumptions;\nConclusions; Sources; Limitations; Output scope. Each row must contain concrete\nlocated observations on both sides and explain whether a difference is a source\nchange, correction, analytical judgment, presentation/scope expansion, or\nunresolved. These are report selectors, not a substitute for substantive analysis.\n\nCompare important annual amounts and definitions (revenue, ordinary and As Defined\nEBITDA, cash, gross and net debt, leverage and coverage calculations, cash flow,\nmargins), missing versus zero, quantity/units, fiscal dates, assumptions,\nqualifications, conclusions, sources, unresolved contradictions and the actual\npublished outputs and sections. Where the same measure is stated on different\nbases or with different figures, trace each to its handoff row and source page and\nsay whether the difference is a basis choice, a correction, or unresolved. Do not\nsilently choose between conflicting values or regenerate analysis. Added or\nreordered sections, summaries, charts, display names and navigation are\npresentation or scope changes unless the underlying facts changed; say which.\nA handoff's provisional remarks must not override the completion/publication\nevidence supplied.\n\nRetain a concise changed/unchanged/unresolved register, source coverage and\nmaterial implications for readers. Distinguish historical function proof from\ncurrent underwriting, native analytical-contract acceptance and independent\nvisual assurance. No current recommendation, new forecast, imported missing\ninput approval gate, Excel requirement, CP-MEMO or second analytical execution.\nUse calculate only for genuinely needed new arithmetic, preserving operands and\ndefinitions; do not invent deltas for incomparable quantities. Call write_handoff\nand repair only justified issues via edit_handoff. Actual response is retained\nand the existing delivery process consumes it into a comparison report.\n",
+  "module_id": "CP-8",
+  "retained_response_sha256": null,
+  "run": {
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "issuer_id": "tdg",
+    "issuer_name": "TransDigm Group Incorporated",
+    "method_version": "deploy-v-r14",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-8"
+    ],
+    "run_id": "tdg-reader-cp8-comparison-20261106",
+    "schema_version": "run/2"
+  },
+  "sources": {
+    "current/CP-0.md": "4367ec1f426c3c318e6a1b01fb769e6f0458fb6817db5026a8b205f48060aab3",
+    "current/CP-1.md": "7f0578c02be6bce6849863c7105d17f6d09674ed595b86626286e57d61268e3a",
+    "current/CP-1A.md": "07ccccb4746145afa4449b1b450050463782c3069199127ef051670bfceea5b2",
+    "current/delivery.json": "4d7b57b64fa80d1949fcb6087511599e428a609e36d30795d99a4c36b780db8c",
+    "current/report-view.json": "1840764292409f49b00ae1858bf2971bf6c4541e76f730cf52c1e12154e63368",
+    "current/report.html": "7bf8a4821cec15071c9ecd72e2191bfdfca28b060d1747b1b4ac004d53bd3c54",
+    "current/view.json": "d734ada35c827a7191aec220fb8272c945903853031eb92197328e4324514f60",
+    "prior/CP-0.md": "1bd907de98c4ddf470c43d588cb1b6dba6a1f3f61c57024f3f7486852f0393c5",
+    "prior/CP-1.md": "89b8b460f4114ffc268a661d76e9c2fc9256e19dc970681b9c2b4da2363e9c3d",
+    "prior/CP-1A.md": "bc532f0ebb526608d9adad5b0c02dfcad68006015221085a4139260be2a96545",
+    "prior/delivery.json": "398084699b4951e5178d2e7aba474bb8e5ffd8c9f8cc0c4cfcf9964a3d7772cc",
+    "prior/report-view.json": "46386b89ca957e5ade9c1dd3de4002eb31359d568c083189c0d1365b9fdeb26a",
+    "prior/report.html": "083e0cd57236b9280d25c674650715007dcecdb1ff321b75297b4dc03aa0972e",
+    "prior/view.json": "a28ca20f494e4294d2d4577f870cefb665ece02b732d2a20a9e09451f31460f6"
+  }
+}
