@@ -8,6 +8,16 @@ contains the settled CP-6 timeout cost, the corrected TDG annual publication, th
 live CP-8 comparison and checks of the five broader report bundles. The older
 entries below retain their historical case scope.
 
+## 2026-11-06 — Python variant: open work for the next session
+
+Scope: a handoff note only. No code changed. The instructions for the next session are in the
+description of the pull request that carries this entry.
+
+- Done and pushed: the FastAPI server and Playwright checks replace Go and Node, and the original is
+  synced to `a313b50`.
+- Open: the slow test files that never finished, a daily sync with the original, and the items
+  listed in the pull request.
+
 ## 2026-11-06 — Python variant: sync with the Go original, `bf85f85` to `a313b50`
 
 Scope: PR #14 (Issuer Library critique, polish, harden and layout passes) and PR #15 (GitHub
