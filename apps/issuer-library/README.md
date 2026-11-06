@@ -15,8 +15,8 @@ delivery folders. Candidate output remains explicitly qualified.
    `deliverables/`, then choose **Save and reload**. The default is the Windows
    Documents known folder plus `FinalWorkflow`; existing folders are not moved.
 4. The rail reaches every part of the one app: Issuer library, Research workspace,
-   Deliverables, Run activity, New run, Search (`/`), Settings and Help. Choose a run
-   in the library to read its modules, calendar, deliverables and evidence. A report
+   Reports, Run activity, New run, Search (`/`), Settings and Help. Choose a run
+   in the library to read its overview, modules, calendar, reports and evidence. A report
    opens inside the app beside that navigation; its **Built from** list opens the
    module outputs it used, and a module output links to the deliverables that used it.
    Discovery runs every 30 seconds; when it finds a change the app offers **Reload**.

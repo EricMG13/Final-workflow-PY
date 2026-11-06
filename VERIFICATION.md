@@ -8,6 +8,36 @@ contains the settled CP-6 timeout cost, the corrected TDG annual publication, th
 live CP-8 comparison and checks of the five broader report bundles. The older
 entries below retain their historical case scope.
 
+## 2026-11-06 — Issuer Library: critique fix pass (P1 + four P2)
+
+Scope: `apps/issuer-library` web UI only, from the `/impeccable critique all screens` snapshot
+(`.impeccable/critique/2026-11-06T02-18-54Z__apps-issuer-library-web-index-html.md`, 29/40).
+Fixed: primary-action hover contrast (1.3:1 → 12.1:1, `:hover:not(:disabled)` keeps white text);
+type ramp as `--fs-label/compact/body/control` tokens with nothing under 11px and `--text-quaternary`
+raised to #5b6279 (6.06:1); report and run-context iframes get loading / did-not-load / Retry states
+(6s timeout, `window.DESIGN_FRAME_TIMEOUT_MS` is the one test seam); module search clears when leaving
+analytical modules, with a visible Clear button, and the catalogue collapses to the Modules toggle on
+Calendar, Reports, Evidence and Run activity (`tools-workspace`); tab/rail vocabulary follows the
+approved IA (Overview · Modules · Calendar · Reports · Evidence; rail "Reports"), Run activity uses a
+Lucide activity icon, report rows carry the id badge, sort by build and prefix the issuer only when the
+label lacks it. Detector findings 134 → 92 (low-contrast 4 → 0, off-ramp sizes 63 → 25, the rest heading
+sizes DESIGN.md does not name, 6 context-form padding findings out of scope). Not done: Summary length,
+Settings adjacency (P3), radius consolidation.
+Checks: `node --test` over the six `NODE_TESTS` (two new answer-key files `web/screen-css.test.cjs`,
+`web/screens.test.cjs`) 145 pass, exit 0; `go vet` and `go test ./...` exit 0; eight reviewer probes under
+the session scratchpad all exit 0; rendered checks in the in-app browser at 1440/1000/720 (hover colour,
+tab names, search clearing, navigator and inspector grid, selector order, frame loading state).
+Ledger: task-1 agent=mx-feature fix-rounds=1 gates-first-pass=y (round fixed report-adapter.css tokens
+undefined in the embedded report document); task-2 agent=mx-feature fix-rounds=1 gates-first-pass=y
+(round fixed tools-workspace + has-evidence grid, issuer prefix duplication, selector order); low batch
+agent=mx-feature fix-rounds=0 (validate.py NODE_TESTS and browser_check.py selectors, test anchoring,
+1000px toggle height; the watchFrame simplification was reverted because the branch probe reads the state
+it removes). Reviews: mx-precise per task and per Medium fix, mx-architect whole-branch (confidence review
+and rewrite tournament), all pass.
+Not verified: the Playwright browser gate (selectors renamed, not executed here); validate.py quick/full
+modes as a whole; the 6s iframe failure path and Retry in Windows Edge; Windows rendering of the activity
+icon and the tokenised ramp; nothing committed.
+
 ## 2026-11-05 — The M365 custom instruction applies to every module
 
 Owner ruling: the ported Copilot custom instruction is a global persona. `cpos_launch` now

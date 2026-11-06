@@ -81,8 +81,10 @@ function installNewRun(){
     }catch(error){$('run-progress').textContent='Could not refresh run status. The app will check again automatically. Details: '+error.message;}
     finally{polling=false;controls();}
   }
+  let contextLoaded=null;
   window.addEventListener('message',event=>{
     if(event.source!==$('context-editor').contentWindow)return;
+    if(['cpos:ready','cpos:height'].includes(event.data?.type)&&contextLoaded)contextLoaded();
     if(event.data?.type==='cpos:height'){
       const height=event.data.height;
       if(Number.isFinite(height)&&height>0&&height<=50000)$('context-editor').style.height=height+'px';
@@ -142,7 +144,10 @@ function installNewRun(){
   window.addEventListener('beforeunload',event=>{if(running){event.preventDefault();event.returnValue='';}});
   controls();
   return{show(){
-    if(!$('context-editor').hasAttribute('src'))$('context-editor').src='context-form.html';
+    if(!$('context-editor').hasAttribute('src')){
+      contextLoaded=watchFrame($('context-editor'),document.querySelector('#context-step .frame-status'),'Loading run context form…','The run context form did not load.');
+      $('context-editor').src='context-form.html';
+    }
     recent();
     document.querySelector('#new-run .run-step:not([hidden]) h2').focus({preventScroll:true});
   }};
