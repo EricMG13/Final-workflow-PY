@@ -1117,6 +1117,9 @@ def test_copilot_config_reaches_the_live_run_with_its_config(
     tmp_path, monkeypatch, capsys, copilot_ruling
 ):
     monkeypatch.setenv("COPILOT_GITHUB_TOKEN", "ghp_" + "Z" * 36)
+    runtime = tmp_path / "copilot-runtime"
+    runtime.write_text("#!/bin/sh\n")
+    monkeypatch.setenv("COPILOT_CLI_PATH", str(runtime))
     seen = {}
 
     def fake_run(manifest, directory, **kwargs):
@@ -1127,3 +1130,14 @@ def test_copilot_config_reaches_the_live_run_with_its_config(
     argv = copilot_argv(tmp_path, "copilot-sol-medium", "--live", "--ruling", str(copilot_ruling))
     assert main(argv) == 0
     assert seen["config"] == "copilot-sol-medium" and seen["ruling"] == copilot_ruling
+
+
+def test_live_copilot_without_a_runtime_path_is_refused_before_any_folder(
+    tmp_path, monkeypatch, capsys, copilot_ruling
+):
+    monkeypatch.setenv("COPILOT_GITHUB_TOKEN", "ghp_" + "Z" * 36)
+    monkeypatch.delenv("COPILOT_CLI_PATH", raising=False)
+    argv = copilot_argv(tmp_path, "copilot-sol-medium", "--live", "--ruling", str(copilot_ruling))
+    assert main(argv) == 2
+    assert "COPILOT_CLI_PATH" in capsys.readouterr().err
+    assert not Path(argv[argv.index("--out") + 1]).exists()

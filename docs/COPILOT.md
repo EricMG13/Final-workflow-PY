@@ -68,3 +68,4 @@ at its first call, named after that call's reservation; later calls of the excha
 - `max_output_tokens` is not enforceable on the runtime (holds cover it; the output is not capped).
 - The Windows runtime path and whether the allowlisted environment is enough there.
 - `stop()` and `force_stop()` timing on a real runtime.
+- The runtime dispatches a turn's custom tool calls concurrently (the seat check now exercises two calls in one turn).

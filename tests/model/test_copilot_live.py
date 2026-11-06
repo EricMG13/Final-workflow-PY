@@ -41,7 +41,11 @@ ECHO = ToolSpec(
     {"type": "object", "properties": {"text": {"type": "string"}}, "required": ["text"]},
 )
 SYSTEM = Message("system", "You are a test harness; follow the user's instruction exactly.")
-USER = Message("user", "Call the tool echo with text 'ok', then reply with the tool's result only.")
+USER = Message(
+    "user",
+    "In one turn, call the tool echo twice: once with text 'a' and once with text 'b'. "
+    "Then reply with both results.",
+)
 
 
 async def listed_models(runtime: str, token: str, home: Path) -> list[dict[str, Any]]:
@@ -79,13 +83,14 @@ def test_one_tool_exchange_on_the_seat(tmp_path: Path, monkeypatch: pytest.Monke
             first_request, invocation_digest=digest, call_index=0, reservation_id="r0"
         )
         assert first.kind == "ok" and first.turn is not None, (first.error_class, first.message)
-        assert first.turn.stop_reason == "tool_use" and len(first.turn.tool_calls) == 1
-        call = first.turn.tool_calls[0]
-        assert call.name == "echo"
+        assert first.turn.stop_reason == "tool_use"
+        assert len(first.turn.tool_calls) == 2, "the runtime must dispatch both calls in one turn"
+        calls = first.turn.tool_calls
+        assert all(c.name == "echo" for c in calls)
         history = (
             *first_request.messages,
-            Message("assistant", first.turn.text, (call,)),
-            Message("tool", "ok", tool_call_id=call.call_id),
+            Message("assistant", first.turn.text, calls),
+            *(Message("tool", f"result-{n}", tool_call_id=c.call_id) for n, c in zip("ab", calls)),
         )
         second = adapter.complete(
             TurnRequest(history, (ECHO,), 1000, "medium"),
@@ -94,7 +99,9 @@ def test_one_tool_exchange_on_the_seat(tmp_path: Path, monkeypatch: pytest.Monke
             reservation_id="r1",
         )
         assert second.kind == "ok" and second.turn is not None, (second.error_class, second.message)
-        assert second.turn.stop_reason == "end" and "ok" in second.turn.text
+        assert second.turn.stop_reason == "end" and all(
+            f"result-{n}" in second.turn.text for n in "ab"
+        )
         assert second.turn.reported_model == "gpt-6.1-sol"
         for name, reply in (("first", first), ("second", second)):
             words = re.findall(rb'"finishReason":\s*"([^"]*)"', reply.raw or b"")

@@ -544,6 +544,11 @@ _TRANSPORT_CLASSES = frozenset(
     }
 )
 
+# Timeouts that may carry the counts of a usage event received before the cut (Copilot).
+_TIMEOUT_CLASSES = frozenset({"IdleTimeout", "OverallTimeout"})
+
+# Refusals the Copilot adapter reports itself: the 200 body parses as an ok turn by design.
+_ADAPTER_REFUSALS = frozenset({"ModelMismatch", "ByokRouted", "AutoRouted", "ToolCallMismatch"})
 
 _RECORDED_TOKENS = (
     "input_tokens",
@@ -604,6 +609,18 @@ def _error_response(
     key = (rec.invocation_digest, rec.call_index)
     unknown = rec.cost_status == "unknown"
     if rec.http_status is None:
+        carries_counts = any(v is not None for v in _usage_of(rec).values())
+        if error_class in _TIMEOUT_CLASSES and carries_counts and rec.cost_status != "computed":
+            # A Copilot timeout after a usage event: sent, with the counts it reported.
+            out_t: dict[str, Any] = {
+                "kind": "sent_usage",
+                "error_class": error_class,
+                "http_status": None,
+                "usage": _usage_object(rec),
+            }
+            if rec.cost_status == "billed" and rec.settled_usd is not None:
+                out_t["billed_usd"] = _money_field(rec.settled_usd)
+            return out_t
         if rec.cost_status == "billed":
             raise ExportMismatch(*key, "cost_status")
         kind = "sent_unknown" if error_class in _TRANSPORT_CLASSES else "not_sent"
@@ -636,9 +653,14 @@ def _refuse_forged_error(run: Path, rec: CallRecord, redactor: Redactor) -> None
     swapped in for an error record is refused. The response still comes from the record. A
     ``KeyReflected`` record is exempt: its body, once redacted, can legitimately parse as a turn.
     So is a ``MalformedToolArguments`` record whose body parses as a turn holding a call flagged
-    ``bad_arguments``: that class predates CP1H-R6, and its body is such a turn now."""
+    ``bad_arguments``: that class predates CP1H-R6, and its body is such a turn now. The Copilot
+    adapter's own refusals (``_ADAPTER_REFUSALS``) are exempt: their 200 body is an ok turn."""
     path = run / "raw" / f"{rec.invocation_digest}-{rec.call_index}.json"
-    if rec.error_class == "KeyReflected" or rec.http_status is None:
+    if (
+        rec.error_class == "KeyReflected"
+        or rec.error_class in _ADAPTER_REFUSALS
+        or rec.http_status is None
+    ):
         return
     if not path.is_file() or path.stat().st_size == 0:
         return

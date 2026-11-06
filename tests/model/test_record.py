@@ -371,6 +371,7 @@ def test_export_null_status_records_use_the_ruled_format(
             cost_status=status,
             settled_usd=None if status == "unknown" else Decimal(0),
             error_class=error_class,
+            output_tokens=None if status == "unknown" else 0,
         )
     )
     out = tmp_path / "r.jsonl"
@@ -392,6 +393,7 @@ def test_adapter_reads_null_status_recording(tmp_path: Path) -> None:
             cost_status="unknown",
             settled_usd=None,
             error_class="IdleTimeout",
+            output_tokens=None,
         )
     )
     export_recording(run, out / "r.jsonl", Redactor())
@@ -736,6 +738,7 @@ def test_copilot_sent_unknown_classes_export_without_a_status(
             settled_usd=None,
             error_class=error_class,
             error="x",
+            output_tokens=None,
         ),
     )
     (response,) = exported(tmp_path, rec)
@@ -1371,3 +1374,65 @@ def test_new_reply_cut_record_exports_as_sent_usage(tmp_path: Path) -> None:
 def test_an_ok_record_over_a_cut_reply_body_is_refused(tmp_path: Path) -> None:
     with pytest.raises(ExportMismatch, match="outcome"):
         exported(tmp_path, OK_RECORD, bodies={0: json.dumps(CUT_BODY).encode()})
+
+
+@pytest.mark.parametrize(
+    "error_class", ["ModelMismatch", "ByokRouted", "AutoRouted", "ToolCallMismatch"]
+)
+def test_adapter_refusal_with_an_ok_parsing_body_exports_sent_usage(
+    tmp_path: Path, error_class: str
+) -> None:
+    (resp,) = exported(
+        tmp_path,
+        record(
+            cost_status="billed",
+            settled_usd=Decimal("0.000000001"),
+            error_class=error_class,
+            input_tokens=10,
+            output_tokens=5,
+        ),
+        bodies={0: json.dumps(OPENAI_BODY).encode()},
+    )
+    assert (resp["kind"], resp["error_class"], resp["http_status"]) == (
+        "sent_usage",
+        error_class,
+        200,
+    )
+    assert resp["usage"]["input_tokens"] == 10 and resp["billed_usd"] == "0.000000001"
+
+
+@pytest.mark.parametrize("error_class", ["IdleTimeout", "OverallTimeout"])
+def test_billed_timeout_with_counts_exports_sent_usage(tmp_path: Path, error_class: str) -> None:
+    (resp,) = exported(
+        tmp_path,
+        record(
+            http_status=None,
+            cost_status="billed",
+            settled_usd=Decimal("0.000000001"),
+            error_class=error_class,
+            input_tokens=10,
+            output_tokens=5,
+        ),
+    )
+    assert (resp["kind"], resp["error_class"], resp["http_status"]) == (
+        "sent_usage",
+        error_class,
+        None,
+    )
+    assert resp["usage"]["input_tokens"] == 10 and resp["usage"]["output_tokens"] == 5
+    assert resp["billed_usd"] == "0.000000001"
+
+
+@pytest.mark.parametrize("error_class", ["IdleTimeout", "OverallTimeout"])
+def test_timeout_without_counts_stays_sent_unknown(tmp_path: Path, error_class: str) -> None:
+    (resp,) = exported(
+        tmp_path,
+        record(
+            http_status=None,
+            cost_status="unknown",
+            settled_usd=None,
+            error_class=error_class,
+            output_tokens=None,
+        ),
+    )
+    assert resp["kind"] == "sent_unknown" and "usage" not in resp

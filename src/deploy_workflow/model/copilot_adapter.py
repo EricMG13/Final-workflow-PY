@@ -705,8 +705,8 @@ class CopilotAdapter:
         except TimeoutError:
             return self._failed(call, "OverallTimeout", "the exchange timed out", sent=sent)
         except Exception as error:  # noqa: BLE001 - released, and reported as a reply
-            text = f"{type(error).__name__}: {self._scrub(str(error), options)}"
-            return self._failed(call, type(error).__name__, redactor.text(text), sent=sent)
+            text = f"AdapterError: {type(error).__name__}: {self._scrub(str(error), options)}"
+            return self._failed(call, "AdapterError", redactor.text(text), sent=sent)
 
     def _scrub(self, text: str, options: ClientOptions) -> str:
         """``text`` without the runtime path, the exchange's home or the working directory."""

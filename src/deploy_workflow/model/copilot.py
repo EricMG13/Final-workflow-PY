@@ -141,8 +141,8 @@ def _session_error(
     code = data.get("statusCode")
     status = code if isinstance(code, int) and not isinstance(code, bool) else None
     snippet = _snippet(redactor, detail)
-    counts = _usage(usage_data) if usage_data is not None else None
-    if usage_data is None or counts is None or counts == Usage():
+    counts = _usage(usage_data) if usage_data is not None else Usage()
+    if usage_data is None or counts == Usage():
         return ProviderError(ErrorKind.SENT_CHARGE_UNKNOWN, "SessionError", snippet, status)
     return ProviderError(
         ErrorKind.SENT_CHARGE_USAGE,
@@ -199,5 +199,6 @@ def parse_events(
     model, rid = _str_or_none(usage_data.get("model")), _request_id(usage_data)
     billed = _billed_usd(usage_data)
     if stop == "max_tokens" and not calls and not cut_as_turn:
-        return _usage_error(REPLY_CUT, "finishReason length", 200, usage, model, rid, billed)
+        detail = "finishReason length or max_tokens"
+        return _usage_error(REPLY_CUT, detail, 200, usage, model, rid, billed)
     return Turn("".join(contents), calls, usage, stop, model, rid, 200, billed)

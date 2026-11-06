@@ -24,7 +24,8 @@ KEY_ENV_NAMES = (
     "GITHUB_TOKEN",
 )
 # A key may follow "_" or any other non-key character, or a %XX escape (URL-encoded text); only a
-# preceding letter or digit marks the "sk-" as the tail of a longer word such as "risk-".
+# preceding letter or digit marks the "sk-" (or a GitHub "ghp_"-style or "github_pat_" prefix) as
+# the tail of a longer word such as "risk-".
 KEY_PATTERN = re.compile(
     r"(?:(?<![A-Za-z0-9])|(?<=%[0-9A-Fa-f]{2}))(sk-(or|ant|proj)-[A-Za-z0-9_-]{6,}|sk-[A-Za-z0-9_-]{20,}"
     r"|gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{22,})"

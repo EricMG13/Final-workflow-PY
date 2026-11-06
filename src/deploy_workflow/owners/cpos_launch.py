@@ -699,6 +699,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         key = KEY_VARIABLES[CONFIGS[args.config].provider]
         if args.live and not os.environ.get(key):
             raise LaunchRefused(f"--live needs {key} in the launching environment")
+        copilot_live = args.live and CONFIGS[args.config].provider == "copilot"
+        if copilot_live and not Path(os.environ.get("COPILOT_CLI_PATH", "")).is_file():
+            raise LaunchRefused("--live needs COPILOT_CLI_PATH to name an existing file")
         prepared = prepare(
             args.context,
             args.sources,

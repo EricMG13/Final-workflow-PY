@@ -27,9 +27,14 @@ are in `tests/test_cpos_handoffs.py`): 8 failed before the change, 63 passed aft
 `test_cpos_launch.py`, `test_handoff_delivery.py`, `test_handoff_loop.py`): 937 passed, 4 failed,
 3 skipped (both live seat tests and the existing paid test); the 4 failures are
 `tests/model/test_gate.py` x2 and `tests/model/test_o5_done_when.py` x2 and also fail at base
-0a8fc50. The whole suite is run by the controller; its line is appended separately. `ruff check`
-and `ruff format --check` exit 0 on the changed files; mypy reports nothing new on them.
-Not verified: pinned model ids; `numToolCalls` and event order on a real seat; `cost`
+0a8fc50. The whole suite is run by the controller; its line is appended separately. Ruff
+baseline: `ruff check` exits 1 on `src/deploy_workflow/model_testing/run.py` (I001) and
+`ruff format --check` exits 1 on `src/deploy_workflow/model/adapter.py`,
+`src/deploy_workflow/model_testing/run.py`, `src/deploy_workflow/run_pathway.py`,
+`tests/model/test_pricing.py`, all pre-existing at 47ad6d6 in lines the branch did not touch;
+every other changed file exits 0. Mypy reports nothing new on them.
+Not verified: the runtime dispatches a turn's custom tool calls concurrently (the seat check now
+exercises two calls in one turn); pinned model ids; `numToolCalls` and event order on a real seat; `cost`
 (`totalNanoAiu`) presence and the 1 AI unit = $0.01 conversion; `max_output_tokens` not
 enforceable; Windows runtime path handling; `stop()`/`force_stop()` timing. The seat check
 (`tests/model/test_copilot_live.py`) has not been run.

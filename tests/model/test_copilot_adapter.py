@@ -28,6 +28,8 @@ from deploy_workflow.model.adapter import (
 )
 from deploy_workflow.model.copilot import event_record
 from deploy_workflow.model.copilot_adapter import ClientOptions, CopilotAdapter, _Call
+from deploy_workflow.model.handoff import HandoffExecutor
+from deploy_workflow.model.record import CallLog, export_recording
 from deploy_workflow.model.redact import Redactor
 from deploy_workflow.model.turn import (
     Message,
@@ -37,6 +39,7 @@ from deploy_workflow.model.turn import (
     TurnRequest,
     dump_json,
 )
+from tests.test_handoff_loop import check, task
 
 SPEC = ModelSpec("copilot-sol-medium", "copilot", "gpt-6.1-sol", "medium")
 DIGEST = "d" * 64
@@ -844,3 +847,30 @@ def test_existing_home_is_refused(rig: Rig) -> None:
     assert reply.message == "HomeExists" and rig.options == []
     ignore = Path(__file__).resolve().parents[2] / ".gitignore"
     assert ".copilot-home/" in ignore.read_text(encoding="utf-8").splitlines()
+
+
+class SendFails(FakeSession):
+    async def send(self, text: str, /) -> str:
+        await asyncio.sleep(0)
+        raise RuntimeError("runtime went away")
+
+
+class SendFailsClient(FakeClient):
+    async def create_session(self, **options: Any) -> FakeSession:
+        session = SendFails(self.script, options)
+        self.sessions.append(session)
+        return session
+
+
+def test_sdk_exception_is_an_adapter_error_that_exports(rig: Rig, tmp_path: Path) -> None:
+    rig.client = SendFailsClient([])
+    adapter = rig.make([])
+    run = tmp_path / "run"
+    run.mkdir()
+    executor = HandoffExecutor(run, adapter=adapter, cap_usd=Decimal(10), check=check)
+    with pytest.raises(RuntimeError, match="cpos_live_stopped: sent_unknown"):
+        executor(task())
+    (rec,) = CallLog(run, Redactor()).records()
+    assert rec["error_class"] == "AdapterError"
+    assert str(rec["error"]).startswith("AdapterError: RuntimeError")
+    assert export_recording(run, tmp_path / "out.jsonl", Redactor()) == 1
