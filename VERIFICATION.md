@@ -5156,3 +5156,40 @@ retained run or deliverable changed; no provider was called. `validate.py full` 
 `validate.py browser` passed on Chromium and Firefox with synthetic and retained data.
 Windows behaviour and the owner's screen acceptance are not yet checked: the rebuilt
 zips reused the pinned engines and have not been run on Windows.
+
+## Issuer Library reader layer, live check, 2026-11-06 (macOS only)
+
+Plan Task 10, Checkpoint C. Owner approved the paid run in chat (USD 12 cap). Run
+`runs/web-04cd5a5d02ea7d1dea714a8a6632cd21`: TransDigm Group Incorporated, as of
+2024-09-30, `credit_snapshot`, modules CP-0, CP-1, CP-1A, config `sol-medium`
+(openai gpt-6.1-sol, medium), context `runs/cpos-launch-live-002/context.json`,
+issuer folder `data/public-corpus/v1/TDG` (5 SEC filings). Driven through the app's
+New run with Playwright on the PR #8 build, started 00:16, complete 00:25.
+Spend USD 0.8792 (31 calls); 0 repair rounds in every module; USD 12 cap and USD 5.73
+hold per call shown on the review. Report written; Summary shows the Reader summary
+bottom line and four chart cards; every handoff opens `## Findings` with
+`### Reader summary` then the module's view, as ruled on 2026-11-06.
+
+Chart marks against `cases/reader/tdg-expected.json` (frozen before the call):
+- S.4 debt maturities: all six periods equal the key (93, 92, 92, 6,637, 4,768, 12,637).
+- S.3 liquidity: cash 6,261 / 3,472 and FY2024 undrawn 843 equal the key. FY2023
+  undrawn 755 where the key has a gap: the 10-K states it ("$810 million in revolving
+  commitments, of which $755 million was available", page 152). The key omitted a
+  stated value; the key file is left as frozen and this is recorded instead.
+- S.1 leverage and S.2 interest cover: on another stated basis, so compared with that
+  basis's own inputs, as the pass rule says. Chart: gross contractual debt incl.
+  securitization and finance leases (25,068 / 19,913) over reported EBITDA (3,813 /
+  3,148): 6.5744x, 6.3256x; net 4.9323x, 5.2227x; coverage 3.2927x, 2.7138x. Arithmetic
+  verified. The key's basis (carrying debt 24,880 / 19,750 over EBITDA As Defined
+  4,173 / 3,395) also appears in the handoff's calculation table: 6.0072x gross,
+  4.5068x net, 3.6036x / 2.9267x coverage; the key's 5.96x / 4.46x / 3.60x / 2.93x use
+  carrying debt, so they differ from the handoff's gross-debt rows by the stated
+  188 / 163 of issuance costs and discount. No value is wrong; the chart selector does
+  not name a debt or EBITDA basis, so the model chose one and stated it.
+- Reader summary numbers: accepted by the checker, which refuses a number absent
+  from the handoff.
+
+Decision table: spend below USD 1.86 and no module needed a repair; CP-8 comparison
+(Step 6) not yet run, so Checkpoint C is open on that step. This proves one dated TDG
+scope only. Not verified: Windows; the three scenario-path, hedge and revenue-mix
+chart kinds (no run holds them).

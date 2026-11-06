@@ -1,0 +1,374 @@
+## Request
+
+Build the financial data and KPI foundation for **TransDigm Group Incorporated**, as of **2024-09-30**, for the credit snapshot. The selected comparison is FY2024 versus FY2023, in USD. This is a consolidated historical financial foundation, not a borrower-only financial analysis, legal-capacity opinion, forecast, or investment recommendation.
+
+The information cutoff is Not supplied in context page:1. This handoff therefore uses the subsequently published annual filing retrospectively for fiscal-year-end facts; it does not claim that all information was publicly available on 2024-09-30. Subsequent cash movements remain separate from the year-end balance sheet.
+
+## Sources
+
+### Inventory, authority and extraction assessment
+
+Only supplied issuer information and the supplied current handoff were used. No external research was used. Exact source names and hashes below identify the supplied versions; they are not independently recomputed integrity certificates. In citations, **Annual** means the exact annual filing named below, and each page reference is a one-based source locator.
+
+| Exact source name | Exact sha256 | Assessment and use |
+| --- | --- | --- |
+| TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm.jsonl | d75c469fdb1966dd895c0f6faa6d5179b380d3ed95aa00aca99aa258059edab6 | Primary financial authority. Targeted reads support annual consolidated statements, management earnings bridges, segment information, debt, leases, customer advances and liquidity. Annual page:124: “prepared in conformity with U.S. GAAP and include the accounts of TD Group and subsidiaries.” Annual page:120 bears the audit signature dated “November 7, 2024.” |
+| TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm.jsonl | fcec3566cfda08c82a8aaed7289c6440cc05d12976f237cd72a32cf9fbfb2ed6 | Supplied interim source; not used as a financial operand. CP-0 located unaudited consolidated quarter and cumulative statements. No independent extraction here; annual comparison does not require an interim reconstruction. |
+| TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm.jsonl | ce1b0541d5e8222dc536d748942a3cb51236d7ff62d8613b002460bd8b41dcf2 | Supplied interim source; not used as a financial operand. CP-0 located unaudited consolidated quarter and cumulative statements. No independent extraction here; retained for any separately requested interim analysis. |
+| TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm.jsonl | ec98b47e6ebad9663286dc04b35dade04d11e7d12c3642ddaa6ef549a33d671f | Later-period source, not used in the as-of base. CP-0 identified its unaudited consolidated later-period results and comparative year-end balance sheet. Its later results do not supersede this annual base. |
+| TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf | dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af | Alternative annual rendition, not an additional independent financial observation. CP-0 located corresponding statements. No PDF operands or visual-verification claims are used here. |
+| context | ec0a711fe74781d81973060c2e34ae47b1129e9ff5aea9f5ef6218a082b4f984 | Dated settings only, page:1; not issuer evidence. Selects the annual comparison and USD; blank inputs remain missing. |
+
+### Supplied current handoff
+
+| Module | Exact sha256 | Use |
+| --- | --- | --- |
+| CP-0 | 4367ec1f426c3c318e6a1b01fb769e6f0458fb6817db5026a8b205f48060aab3 | Source routing, prior inventory assessments, timing and preparation qualifications. Its located facts are not substituted for direct annual financial extraction below. |
+
+### Common financial scope
+
+For every annual duration and balance-sheet instant below, the common scope strings are: **currency: USD; unit: millions; entity_perimeter: TransDigm Group Incorporated and subsidiaries, consolidated; accounting_basis: U.S. GAAP**. Non-GAAP measures are separately identified and reconciled to that accounting base. Shares and per-share figures retain their own quantities and units.
+
+Annual page:4 states: “References to ‘fiscal year’ mean the year ending or ended September 30” and “the period from October 1, 2023 to September 30, 2024.” FY2024 flows cover 2023-10-01 through 2024-09-30; FY2023 flows cover 2022-10-01 through 2023-09-30 under that fiscal convention. Balance-sheet observations are instants at 2024-09-30 and 2023-09-30, with no duration start. Annual page:121 labels “Fiscal Years Ended September 30,” and Annual page:120 labels “AS OF SEPTEMBER 30, 2024 AND 2023.” Prior-year figures are the comparative presentation in this annual filing; page:124 says prior-year reclassifications were not material.
+
+TD Group is the consolidated reporting parent. Annual page:124 states “TD Group has no significant assets or operations other than its 100% ownership of TransDigm Inc.” Annual page:146 identifies “TransDigm Inc., as issuer” for the notes described there. Consolidated cash and earnings are not automatically available at each debt obligor. Exact borrower/guarantor and restricted/unrestricted financial perimeters remain unverified.
+
+Extraction is from targeted read_pages text, not an available structured extract_statements connector. Consequently all statement rows below are manually mapped from their directly read source pages; no machine-extraction acceptance or visual inspection is claimed. Reads stopped after the selected annual financial context and relevant notes were obtained.
+
+## Findings
+
+### Reader summary
+
+| Bottom line | Confidence | Main limitation |
+| --- | --- | --- |
+| Cash generation improved, but higher gross leverage and distributions constrain creditor protection; year-end cash overstates the cushion remaining after the disclosed subsequent dividend payment. | Medium | Retrospective filing, unverified legal perimeter, and unvalidated management adjustments limit point-in-time, covenant and sustainable-earnings conclusions. |
+
+| Finding | Creditor impact | Confidence |
+| --- | --- | --- |
+| Gross debt / EBITDA rose to 6.5744x from 6.3256x; cash-netted leverage fell to 4.9323x from 5.2227x. | Apparent net deleveraging depends on retaining year-end cash. | High |
+| EBITDA / cash interest improved to 3.2927x from 2.7138x. | Interest-paying capacity improved, but coverage uses interest paid net of income rather than gross cash interest. | High |
+| Free cash flow was 1,880 US$m, but acquisition and dividend payments left a 2,505 US$m deficit before other financing and investing flows. | Internal cash generation did not fund the full capital-allocation program. | High |
+| The disclosed subsequent dividend payment reduces illustrative cash to 1,913 US$m, excluding all other subsequent movements. | Year-end liquidity should not be treated as durable debt-service reserves. | Medium |
+| The receivables facility matures in fiscal 2025, ahead of the major fiscal 2028 long-term debt wall. | Short-term asset-backed refinancing must be monitored separately from the long-term maturity chart. | High |
+
+### Financial base view
+
+The base is the reported consolidated annual comparison, with gross contractual debt including receivables securitization and finance leases, and the issuer's net-income-based EBITDA as the primary denominator. Cash generation improved, but gross leverage rose and distributions materially constrain the apparent year-end liquidity cushion. Management-adjusted earnings and subsequent dividend-adjusted liquidity are separate supplementary views, not replacements for the reported base.
+
+### Financials and credit metrics
+
+| Statement / measure | FY2024 or 2024-09-30 | FY2023 or 2023-09-30 | Unit, presentation, source and limitation |
+| --- | --- | --- | --- |
+| IS — NET SALES | 7,940 | 6,585 | US$m; reported, Annual page:121 |
+| COST OF SALES | 3,268 | 2,743 | US$m; source-printed expense magnitude, Annual page:121 |
+| GROSS PROFIT | 4,672 | 3,842 | US$m; reported, Annual page:121 |
+| SELLING AND ADMINISTRATIVE EXPENSES | 980 | 780 | US$m; source-printed expense magnitude, Annual page:121 |
+| AMORTIZATION OF INTANGIBLE ASSETS | 161 | 139 | US$m; source-printed expense magnitude, Annual page:121; not total D&A |
+| INCOME FROM OPERATIONS | 3,531 | 2,923 | US$m; reported, Annual page:121 |
+| INTEREST EXPENSE—NET | 1,286 | 1,164 | US$m; source-printed expense magnitude, Annual page:121; not gross interest |
+| REFINANCING COSTS | 58 | 56 | US$m; source-printed expense magnitude, Annual page:121 |
+| OTHER (INCOME) EXPENSE | (28) | (13) | US$m; printed negative expense, therefore income, Annual page:121 |
+| INCOME FROM CONTINUING OPERATIONS BEFORE INCOME TAXES | 2,215 | 1,716 | US$m; reported, Annual page:121 |
+| INCOME TAX PROVISION | 500 | 417 | US$m; source-printed expense magnitude, Annual page:121 |
+| INCOME FROM CONTINUING OPERATIONS / NET INCOME | 1,715 | 1,299 | US$m; both source rows have these values, Annual page:121 |
+| LESS: NET INCOME ATTRIBUTABLE TO NONCONTROLLING INTERESTS | (1) | (1) | US$m; printed deduction, Annual page:121 |
+| NET INCOME ATTRIBUTABLE TO TD GROUP | 1,714 | 1,298 | US$m; reported, Annual page:121 |
+| NET INCOME APPLICABLE TO TD GROUP COMMON STOCKHOLDERS | 1,481 | 1,260 | US$m; reported, Annual page:121; not the EBITDA starting point |
+| Earnings per share | 25.62 | 22.03 | USD per share; reported, Annual page:121 |
+| Weighted-average shares outstanding: Basic and diluted | 57.8 | 57.2 | Million shares, not money; Annual page:121 |
+| Cash dividends declared per common share | 110.00 | — | USD per share; source dash preserved, Annual page:121 |
+| BS — Cash and cash equivalents | 6,261 | 3,472 | US$m; reported instant, Annual page:120 |
+| Trade accounts receivable—Net | 1,381 | 1,230 | US$m; reported instant, Annual page:120 |
+| Inventories—Net | 1,876 | 1,616 | US$m; reported instant, Annual page:120 |
+| Prepaid expenses and other | 511 | 420 | US$m; reported instant, Annual page:120 |
+| Total current assets | 10,029 | 6,738 | US$m; reported instant, Annual page:120 |
+| PROPERTY, PLANT AND EQUIPMENT—NET | 1,488 | 1,255 | US$m; reported instant, Annual page:120 |
+| GOODWILL | 10,419 | 8,988 | US$m; reported instant, Annual page:120 |
+| OTHER INTANGIBLE ASSETS—NET | 3,446 | 2,747 | US$m; reported instant, Annual page:120 |
+| OTHER NON-CURRENT ASSETS | 204 | 242 | US$m; reported instant, Annual page:120 |
+| TOTAL ASSETS | 25,586 | 19,970 | US$m; reported instant, Annual page:120 |
+| Current portion of long-term debt | 98 | 71 | US$m; carrying value, Annual page:120 |
+| Short-term borrowings—trade receivable securitization facility | 486 | 349 | US$m; carrying value, Annual page:120 |
+| Accounts payable | 323 | 305 | US$m; reported instant, Annual page:120 |
+| Dividends payable | 4,216 | — | US$m; source dash preserved for prior year, Annual page:120 |
+| Accrued and other current liabilities | 1,216 | 854 | US$m; reported instant, Annual page:120 |
+| Total current liabilities | 6,339 | 1,579 | US$m; reported instant, Annual page:120 |
+| LONG-TERM DEBT | 24,296 | 19,330 | US$m; carrying value excluding current portion, Annual page:120 |
+| DEFERRED INCOME TAXES | 766 | 627 | US$m; reported instant, Annual page:120 |
+| OTHER NON-CURRENT LIABILITIES | 468 | 412 | US$m; reported instant, Annual page:120 |
+| Total liabilities | 31,869 | 21,948 | US$m; reported instant, Annual page:120 |
+| Common stock | 1 | 1 | US$m carrying value, not share count, Annual page:120 |
+| Additional paid-in capital | 2,819 | 2,440 | US$m; reported instant, Annual page:120 |
+| Accumulated deficit | (7,362) | (2,621) | US$m; signed, Annual page:120 |
+| Accumulated other comprehensive loss | (42) | (98) | US$m; signed, Annual page:120 |
+| Treasury stock, at cost | (1,706) | (1,706) | US$m; signed, Annual page:120 |
+| Total TD Group stockholders’ deficit | (6,290) | (1,984) | US$m; signed, Annual page:120 |
+| NONCONTROLLING INTERESTS | 7 | 6 | US$m; Annual page:120 |
+| Total stockholders’ deficit | (6,283) | (1,978) | US$m; signed, Annual page:120 |
+| CFS — Net cash provided by operating activities | 2,045 | 1,375 | US$m; reported flow, Annual page:123 |
+| Capital expenditures | (165) | (139) | US$m; signed outflow, Annual page:123; no maintenance/growth split |
+| Acquisition of businesses, net of cash acquired | (2,347) | (762) | US$m; signed outflow, Annual page:123 |
+| Other investing transactions | 71 | 1 | US$m; signed inflow, Annual page:123 |
+| Net cash used in investing activities | (2,441) | (900) | US$m; signed outflow, Annual page:123 |
+| Proceeds from exercise of stock options | 245 | 215 | US$m; Annual page:123 |
+| Dividends and dividend equivalent payments | (2,038) | (38) | US$m; signed outflow, Annual page:123; not dividends declared |
+| Proceeds from issuance of senior secured notes, net | 7,373 | 3,504 | US$m; Annual page:123 |
+| Repayments of senior secured notes | (4,400) | (1,122) | US$m; Annual page:123 |
+| Repayments of senior subordinated notes, net | (550) | (1,459) | US$m; Annual page:123 |
+| Proceeds from trade receivable securitization facility, net | 137 | — | US$m; source dash preserved, Annual page:123 |
+| Proceeds from term loans, net | 6,815 | 6,238 | US$m; Annual page:123 |
+| Repayment on term loans | (4,403) | (7,334) | US$m; Annual page:123 |
+| Financing costs and other, net | (8) | (20) | US$m; Annual page:123 |
+| Net cash provided by (used in) financing activities | 3,171 | (16) | US$m; Annual page:123 |
+| EFFECT OF EXCHANGE RATE CHANGES ON CASH AND CASH EQUIVALENTS | 14 | 12 | US$m; Annual page:123 |
+| NET INCREASE (DECREASE) IN CASH AND CASH EQUIVALENTS | 2,789 | 471 | US$m; Annual page:123 |
+| CASH AND CASH EQUIVALENTS, BEGINNING OF PERIOD | 3,472 | 3,001 | US$m; Annual page:123 |
+| CASH AND CASH EQUIVALENTS, END OF PERIOD | 6,261 | 3,472 | US$m; Annual page:123 |
+| Cash paid during the period for interest, net | 1,158 | 1,160 | US$m; positive payment magnitude, Annual page:123 |
+| Cash paid during the period for income taxes, net of refunds | 539 | 260 | US$m; positive payment magnitude, Annual page:123 |
+| EBITDA | 3,813 | 3,148 | US$m; issuer-reported non-GAAP, Annual page:71; reconciled below |
+| EBITDA As Defined | 4,173 | 3,395 | US$m; issuer-reported non-GAAP, Annual page:71; not independently normalized |
+| Gross contractual debt including securitization and finance leases | 25,068 | 19,913 | US$m; calculated from Annual pages 144–145, bridge below |
+| Aggregate debt carrying value including securitization | 24,880 | 19,750 | US$m; calculated, not a source-printed subtotal |
+| Net debt on gross contractual basis | 18,807 | 16,441 | US$m; calculated; all consolidated cash netted without legal-availability certification |
+| Free cash flow after capex | 1,880 | 1,236 | US$m; calculated CFO less total capex; levered, before acquisitions and distributions |
+| Gross debt / EBITDA As Defined | 6.0072 | 5.8654 | x; calculated supplementary adjusted basis |
+| Net debt / EBITDA As Defined | 4.5068 | 4.8427 | x; calculated supplementary adjusted basis |
+| EBITDA As Defined / cash interest, net | 3.6036 | 2.9267 | x; calculated supplementary adjusted basis |
+| FCF / issuer EBITDA | 0.4931 | 0.3926 | Fraction, not percent; calculated; interest and cash tax already included in CFO |
+
+Printed dashes above are source presentation, not missing user inputs and not operands silently filled with zero. On Annual page:123, common-stock repurchases and revolving-credit repayment are also printed as dashes in both selected years. They do not represent an omitted material cash outflow. All newly aggregated values are explicitly calculated below.
+
+### Chart data: leverage
+
+| Period | Total debt / EBITDA | Net debt / EBITDA | Reporting unit | Basis and limitation |
+| --- | --- | --- | --- | --- |
+| FY2024 / 2024-09-30 | 6.5744 | 4.9323 | x | Gross contractual debt including securitization and finance leases / issuer net-income-based EBITDA; consolidated cash fully netted; not covenant leverage. Annual pages 71, 120, 144–145. |
+| FY2023 / 2023-09-30 | 6.3256 | 5.2227 | x | Same definition and annual duration; no acquisition annualization or legal cash-availability adjustment. Annual pages 71, 120, 145. |
+
+### Chart data: interest cover
+
+| Period | EBITDA / cash interest | Reporting unit | Basis and limitation |
+| --- | --- | --- | --- |
+| FY2024 | 3.2927 | x | Issuer EBITDA / cash paid for interest, net; net of interest income, not gross cash interest or legal fixed-charge coverage. Annual pages 71, 123. |
+| FY2023 | 2.7138 | x | Same numerator and cash-paid denominator definitions. Annual pages 71, 123. |
+
+### Chart data: liquidity
+
+| Period | Cash | Undrawn committed facilities | Reporting unit | Basis and limitation |
+| --- | --- | --- | --- | --- |
+| 2024-09-30 | 6261 | 843 | US$m | Cash is consolidated reported cash; facilities cell is disclosed revolving availability only. Excludes 163 of conditional receivables capacity and excludes subsequent dividend payment. Annual pages 55, 120, 152. |
+| 2023-09-30 | 3472 | 755 | US$m | Same cash definition; facilities cell is revolving availability only, not nominal commitment or an unverified sum of all facilities. Annual pages 120, 152. |
+
+### Chart data: debt maturities
+
+| Period | Debt maturing | Reporting unit | Basis and limitation |
+| --- | --- | --- | --- |
+| FY2025 | 93 | US$m | Source long-term principal schedule only; excludes finance leases and separate short-term securitization. Annual page:153. |
+| FY2026 | 92 | US$m | Same source long-term principal schedule and exclusions. Annual page:153. |
+| FY2027 | 92 | US$m | Same source schedule; calendar November 2027 note maturity falls in FY2028, not FY2027. Annual pages 56, 145, 153. |
+| FY2028 | 6637 | US$m | Same source long-term principal schedule and exclusions. Annual page:153. |
+| FY2029 | 4768 | US$m | Same source long-term principal schedule and exclusions. Annual page:153. |
+| Thereafter | 12637 | US$m | Source aggregate, not an independently allocated annual series. Annual page:153. |
+
+### Earnings definitions and adjustment register
+
+Annual page:71 states “Neither EBITDA nor EBITDA As Defined is a measurement of financial performance under U.S. GAAP.” The primary EBITDA starts with consolidated net income, not parent-attributable net income, common-stockholder earnings or operating income. Because refinancing and other non-operating results remain in net income, adding total D&A to operating income is a different measure: calculated 3,843 US$m in FY2024 and 3,191 US$m in FY2023, not the issuer's 3,813 US$m and 3,148 US$m. Do not silently interchange these denominators.
+
+| Issuer bridge line | FY2024 US$m | FY2023 US$m | Classification and credit limitation |
+| --- | --- | --- | --- |
+| Net Income | 1,715 | 1,299 | Reported GAAP starting point, Annual page:71 |
+| Depreciation and amortization expense | 312 | 268 | Non-cash add-back, Annual page:71; matches depreciation plus amortization of intangibles and product certification in Annual page:122 |
+| Interest expense-net | 1,286 | 1,164 | Net expense add-back, not cash interest, Annual page:71 |
+| Income tax provision | 500 | 417 | Accrual provision, not cash tax paid, Annual page:71 |
+| EBITDA | 3,813 | 3,148 | Issuer subtotal, Annual page:71 |
+| Acquisition transaction and integration-related expenses | 70 | 18 | Includes integration, relocation, diligence and inventory step-up; mixed cash/non-cash and potentially recurrent with acquisitions. Annual page:71, footnote (1) |
+| Non-cash stock and deferred compensation expense | 217 | 157 | Issuer non-cash characterization; dilution/deferred-compensation economics remain relevant. Annual page:71, footnote (2) |
+| Refinancing costs | 58 | 56 | Debt issuance, extinguishment, refinancing and amendments; exclusions recur in both years. Annual page:71, footnote (3) |
+| Other, net | 15 | 16 | Mixed FX, payroll withholding, pension, deferred compensation and miscellaneous items; component amounts Not supplied. Annual page:71, footnote (4) |
+| EBITDA As Defined | 4,173 | 3,395 | Issuer-adjusted subtotal, not independently verified sustainable or covenant EBITDA. Annual page:71 |
+| Aggregate adjustments above EBITDA | 360 | 247 | Calculated sum of the four adjustment lines, not a newly reported subtotal |
+
+Annual page:70 explicitly cautions that EBITDA As Defined excludes cash integration costs and neither earnings measure captures interest, tax or asset-replacement cash requirements. Accordingly, adjusted leverage is supplementary. The evidence supports exact bridge arithmetic, not blanket acceptance of the add-backs as one-off or achievable savings. No independent normalized EBITDA, annualized acquired earnings or pro forma covenant EBITDA is asserted.
+
+### Segment and channel foundation
+
+All entries below are reported US$m for the same consolidated annual durations. Annual page:164 provides net sales to external customers and the segment-to-consolidated reconciliation; page:163 states segment performance uses EBITDA As Defined. No segment is excluded or counted twice, and corporate costs are deducted rather than treated as a separate earnings-producing segment.
+
+| Reported segment / channel or reconciliation line | FY2024 | FY2023 | Source |
+| --- | --- | --- | --- |
+| Power & Control — Commercial and non-aerospace OEM | 840 | 690 | Annual page:164 |
+| Power & Control — Commercial and non-aerospace aftermarket | 1,198 | 1,057 | Annual page:164 |
+| Power & Control — Defense | 1,903 | 1,569 | Annual page:164 |
+| Total Power & Control sales | 3,941 | 3,316 | Annual page:164 |
+| Airframe — Commercial and non-aerospace OEM | 1,280 | 989 | Annual page:164 |
+| Airframe — Commercial and non-aerospace aftermarket | 1,289 | 1,112 | Annual page:164 |
+| Airframe — Defense | 1,240 | 993 | Annual page:164 |
+| Total Airframe sales | 3,809 | 3,094 | Annual page:164 |
+| Total Non-aviation sales | 190 | 175 | Annual page:164 |
+| Net Sales | 7,940 | 6,585 | Annual page:164 |
+| Power & Control EBITDA As Defined | 2,236 | 1,866 | Annual page:164 |
+| Airframe EBITDA As Defined | 1,962 | 1,547 | Annual page:164 |
+| Non-aviation EBITDA As Defined | 81 | 71 | Annual page:164 |
+| Total segment EBITDA As Defined | 4,279 | 3,484 | Annual page:164 |
+| Less: Unallocated corporate EBITDA As Defined | 106 | 89 | Annual page:164; source-printed deduction magnitude |
+| Total Company EBITDA As Defined | 4,173 | 3,395 | Annual page:164 |
+
+### Debt, facility and lease register
+
+Gross and carrying amounts are distinct. Annual pages 144–145 print short-term securitization separately from the long-term debt subtotal. The primary gross-debt aggregate adds both and includes finance leases and government refundable advances; operating lease liabilities are excluded. That basis is consistent across the two years but need not match agency, covenant or market conventions.
+
+| Instrument / facility | 2024 gross US$m | 2023 gross US$m | Maturity / terms and limitation |
+| --- | --- | --- | --- |
+| Trade receivable securitization facility | 487 | 350 | Annual pages 144–145 gross table; July 11, 2025 maturity, Term SOFR + 1.45%, 650 capacity, Annual page:150. Receivables-dependent, secured by substantially all domestic trade receivables, pages 150–151. Rounding qualification below. |
+| Term loans | 8,702 | 6,249 | Annual page:145; active tranches detailed below |
+| 6.25% secured notes due 2026 | — | 4,400 | Annual page:145; source dash in current year |
+| 7.50% senior subordinated notes due 2027 | — | 550 | Annual page:145; source dash in current year |
+| 5.50% senior subordinated notes due 2027 | 2,650 | 2,650 | Annual page:145; falls in FY2028 according to source schedule and timing disclosure |
+| 6.75% secured notes due 2028 | 2,100 | 2,100 | Annual page:145 |
+| 4.625% senior subordinated notes due 2029 | 1,200 | 1,200 | Annual page:145 |
+| 6.375% secured notes due 2029 | 2,750 | — | Annual page:145 |
+| 4.875% senior subordinated notes due 2029 | 750 | 750 | Annual page:145 |
+| 6.875% secured notes due 2030 | 1,450 | 1,450 | Annual page:145 |
+| 7.125% secured notes due 2031 | 1,000 | — | Annual page:145 |
+| 6.625% secured notes due 2032 | 2,200 | — | Annual page:145 |
+| 6.00% secured notes due 2033 | 1,500 | — | Annual page:145 |
+| Government refundable advances | 17 | 21 | Annual pages 145, 152; repayment tied to commercial aviation revenue growth for certain CMC product lines |
+| Finance lease obligations | 262 | 193 | Annual pages 145, 172; current 6 / 5 and long-term 256 / 188, page:172 |
+| Long-term debt including current portion, gross | 24,581 | 19,563 | Source-printed subtotal, Annual page:145; excludes separately printed securitization |
+| Debt issuance costs on that subtotal | (136) | (106) | Annual page:145 |
+| Original issue discount / premium on that subtotal | (51) | (56) | Annual page:145 |
+| Long-term debt including current portion, net | 24,394 | 19,401 | Source-printed subtotal, Annual page:145 |
+| Revolving credit commitment / available | 910 / 843 | 810 / 755 | Reported, Annual page:152; availability is not equal to commitment and is not proof of unrestricted legal access |
+| Operating lease liabilities | 62 | 67 | Annual page:171; current 19 / 16, long-term 43 / 51. Excluded from primary debt definition |
+
+| Term-loan tranche | 2024 principal US$m | 2023 principal US$m | Stated maturity | Current margin / qualification |
+| --- | --- | --- | --- | --- |
+| H | — | 1,713 | February 22, 2027 | Replaced by K; source dash is not an active maturity, Annual pages 152–153 |
+| I | 1,871 | 4,536 | August 24, 2028 | Term SOFR + 2.75%, Annual page:152 |
+| J | 3,632 | — | February 28, 2031 | Term SOFR + 2.50%, Annual page:152; current balance includes refinancing/conversion described on page:150 |
+| K | 1,699 | — | March 22, 2030 | Term SOFR + 2.75%, Annual page:152 |
+| L | 1,500 | — | January 19, 2032 | Term SOFR + 2.50%, Annual page:152 |
+
+Annual page:153 says adjusted Term SOFR on the existing term loans is not subject to a floor. Annual page:55 reports approximately 77% of gross debt fixed rate after the issuer's hedging framework; this is an issuer statement, not a newly reconstructed hedge-adjusted exposure calculation. Operating leases remain operating expenses; finance leases are already in debt, and adding them again would double count. Annual page:171 reports finance-lease financing cash outflows of 6 US$m and 5 US$m; simple CFO-minus-capex FCF is before that separately classified principal payment.
+
+The receivables table reports 487 US$m gross drawn and 163 US$m availability in the rounded liquidity table. Annual page:62 instead reports 487.5 US$m drawn and 162.5 US$m available; page:150 reports 487 US$m drawn. These presentations are retained as a precision inconsistency rather than silently unified. Core debt calculations use the debt table's gross amount. Conditional capacity is not added to the chart's undrawn committed revolver measure.
+
+Annual page:153 gives 24,319 US$m of scheduled long-term principal excluding finance leases. This reconciles to the 24,581 US$m long-term gross subtotal less finance leases of 262 US$m. It excludes the short-term receivables facility. Thus the chart is not a complete all-funding maturity profile: the separately disclosed FY2025 receivables refinancing exposure is 487 US$m on the debt-table basis, making FY2025 long-term scheduled principal plus that exposure a calculated 580 US$m, before lease cash payments. Finance lease payment maturities on page:172 include interest and must not be added as principal: 20, 21, 22, 23, 23 and 432 US$m for FY2025, FY2026, FY2027, FY2028, FY2029 and thereafter respectively.
+
+### Financial interpretation and non-debt funding review
+
+**Leverage.** Gross contractual debt increased by a calculated 5,155 US$m, to 25,068 US$m, while aggregate carrying debt increased by 5,130 US$m, to 24,880 US$m. Gross leverage rose from 6.3256x to 6.5744x on the issuer EBITDA definition. Cash netting reverses the direction, producing 4.9323x versus 5.2227x. The creditor inference is not unqualified deleveraging: the cash-netted result depends on consolidated cash retention and accessibility, while debt principal has increased. Management-adjusted leverage is lower, but its 360 US$m of FY2024 additional exclusions are not validated recurring earnings.
+
+**Coverage and cash-flow quality.** EBITDA / cash interest, net improved to 3.2927x from 2.7138x as EBITDA rose while net cash interest payments were broadly unchanged. Net cash interest excludes the burden offset by interest income and is not interchangeable with either 1,286 US$m of net accrual interest expense or the 1,246 US$m interest adjustment in management's FY2024 CFO bridge. FCF after total capex improved to 1,880 US$m from 1,236 US$m, with FCF / issuer EBITDA of 0.4931 versus 0.3926. This is levered cash generation after cash interest and tax, not an unlevered cash proxy.
+
+The improvement is not wholly an earnings-only signal. Annual page:123 reports receivables cash uses of 84 versus 212 US$m and inventory cash uses of 104 versus 261 US$m. Annual pages 56–57 attribute the changes to sequential sales/collections timing and easing supply-chain constraints, respectively. These are issuer explanations, not independently tested working-capital forecasts. Annual page:123 also reports net cash tax of 539 versus 260 US$m. The distinction between timing relief, earnings growth and cash tax matters when extrapolating FCF.
+
+**Capital allocation and liquidity.** FY2024 FCF less acquisition cash spend and cash distributions is a calculated deficit of 2,505 US$m, versus a positive 436 US$m in FY2023. This bridge is before other investing transactions, option proceeds, financing flows and FX, not the reported change in cash. It explains why strong operating cash generation did not prevent debt-funded expansion and distributions. Annual page:151 expressly links the September notes and Tranche L proceeds, together with existing cash, to the special dividend declaration.
+
+Reported cash is 6,261 US$m and revolving availability is 843 US$m at year-end. Annual page:55 separately reports conditional securitization availability of 163 US$m and total cash liquidity of 7,267 US$m. Annual page:56 then discloses a **subsequent October 2024 payment of 4,348 US$m** in special dividends and equivalents and presents pro forma liquidity of 2,919 US$m. Subtracting that payment alone from reported year-end cash gives illustrative cash of 1,913 US$m; this is not actual October cash, because it excludes operating flows, the subsequent receivables draw and other cash movements. Annual page:152 separately discloses the October draw of the remaining 162.5 US$m. Neither event is backdated into the financial or liquidity charts.
+
+**Non-debt funding and cash claims.** All balance-sheet rows at Annual page:120 were reviewed for debt classification versus non-debt funding, together with the accrued-liability detail on page:144, customer contracts on page:142 and leases on pages 171–172. Dividends payable, deferred taxes and non-debt detail are not reclassified as financial debt merely to increase leverage, but they are not dismissed as irrelevant to liquidity.
+
+| Non-debt liability / funding item | 2024 / 2023 US$m | Issuer-specific mechanism and creditor consequence | Evidence / limitation |
+| --- | --- | --- | --- |
+| Dividends payable | 4,216 / source dash | A declared shareholder cash claim already exists at year-end. It materially qualifies cash netting and the headline liquidity cushion; it is not financial debt in the core ratio. | Annual page:120. Subsequent 4,348 payment includes equivalents and does not equal this balance alone; full payable-to-payment reconciliation Not supplied. |
+| Dividend equivalent payments, current | 180 / 19 | Additional distribution-related liability inside accrued liabilities; not to be added twice to that total. Together with dividends payable, it reinforces the need to separate cash availability from cash ownership. | Annual page:144; no complete settlement roll-forward established. |
+| Contract liabilities, current and non-current | 168 and 9 / 79 and 8 | Customer advances provide operating funding but require future performance. Annual page:142 attributes current growth to acquired businesses and advance receipts; do not treat all balance growth as organic cash generation. | Annual page:142; total liabilities 177 / 87, with approximately 58 of FY2024 revenue released from opening liabilities. |
+| Compensation and related benefits | 256 / 217 | Employee cash obligations compete with discretionary distributions; not financing capacity. | Annual page:144; maturity beyond current classification Not supplied. |
+| Interest accrual | 185 / 125 | Separates expense recognition from cash payment. It is already in accrued liabilities and must not be added again to principal. | Annual page:144. |
+| Income taxes payable, current / deferred income taxes | 108 / 138 and 766 / 627 | Cash tax timing and deferred tax accounting differ from financial debt. Cash-paid tax remains the cash-flow input; deferred tax is not assumed to be immediately payable. | Annual pages 120, 123, 144; detailed reversal schedule not assessed. |
+| Loss contract reserves | 50 / 42 | Acquired contractual performance losses can consume future resources even though reserve amortization affects reported cash conversion. | Annual pages 122–123, 144; remaining cash cost schedule Not supplied. |
+| Product warranties / environmental and litigation reserves | 36 / 28 and 27 / 16 | Potential product and legal cash claims constrain cash available to creditors; provision balances are not quantified stress losses. | Annual page:144; cash settlement profile Not supplied. |
+| Current operating leases / foreign currency forwards | 19 / 16 and 1 / 5 | Operating lease claims are excluded from core debt; derivative settlement exposures should not be mistaken for borrowings. | Annual pages 144, 171; operating lease total separately shown above. |
+| Other accrued current liabilities / other non-current liabilities | 186 / 169 and 468 / 412 | Residual liabilities are retained as unresolved cash-claim detail, not presumed zero, harmless, or debt. | Annual pages 120, 144; complete composition and timing remain a bounded gap. |
+
+**Covenant interpretation boundary.** Annual page:62 states “With the exception of the revolving credit facility, the Company has no maintenance covenants in its existing term loan and indenture agreements.” It describes a revolving-usage trigger above 40% of commitments, currently 364 US$m, and maximum net debt / trailing-four-quarter EBITDA As Defined of 7.50x, or 8.00x for the specified quarters after a material acquisition. The same page says the company was compliant as of year-end. These are reported terms and issuer compliance assertions, not independently tested legal conclusions. No headroom is calculated by subtracting this handoff's consolidated net leverage from those limits: cash eligibility, debt scope, pro forma adjustments and the operative covenant definition are unverified. Generic non-GAAP language on page:70 is not a substitute for the more specific filing summary or the executed agreement.
+
+### Readiness and quality judgment
+
+Directly read annual facts support the annual statement foundation, the displayed reported management bridge, the debt-table classification and the limited facility/maturity register. Calculation lineage supports the explicitly defined financial ratios and cash bridges. Interpretation of recurring earnings, available cash and creditor protection is analyst inference, with lower certainty where legal availability or future cash behavior matters.
+
+| Requested use / recipient | Readiness | Evidence and permitted use | Restriction and action |
+| --- | --- | --- | --- |
+| Credit-snapshot financial foundation / CP-OS | Sufficient for bounded historical comparison | Annual pages 120–124, 71, 144–145; reported statements and calculation register below | Preserve gross-versus-carrying debt, non-GAAP and net-interest definitions; no strict contemporaneous-availability claim. |
+| Business and historical transaction fact pack / CP-1A | Limited, usable without waiting | Annual pages 124, 151–152, 164 support consolidated perimeter, dividend financing context and segment/channel facts | Carry preliminary acquisition/version and obligor-perimeter limits from CP-0; a proposed transaction and its terms are Not supplied. Obtain transaction-specific materials if intended. |
+| Liquidity and maturity display / CP-OS | Limited | Annual pages 55–56, 150, 152–153, 171–172 support reported cash, revolver availability, separate short-term facility and lease disclosures | Do not label long-term schedule as all debt, or conditional securitization capacity as unconditional committed headroom. Carry subsequent-event adjustment separately. |
+| Legal covenant compliance or cash accessibility / any downstream use | Not sufficient for independent conclusion | Annual pages 62, 70, 146, 153 provide filing summaries only | Obtain operative agreements, compliance certificate and exact restricted/guarantor perimeter before calculating covenant headroom or legal capacity. |
+| Sustainable or acquisition-pro-forma earnings / any downstream use | Limited to reported historical earnings | Annual pages 71–72 and 164 provide bridge definitions, not standalone target annualization | Validate recurrence and cash nature of adjustments and obtain acquired-business earnings before constructing a normalized denominator. |
+
+No source-identity conflict was found within the read annual scope. This does not certify unread exhibits, full preparation acceptance or extraction fidelity. The specific receivables precision discrepancy is retained, and the October settlement/payable bridge remains open. These issues restrict affected quantities and consumers rather than invalidating unrelated directly reported annual facts. No automated QA score, independently audited non-GAAP figure or model-input acceptance is claimed.
+
+## Calculations
+
+### Conventions and calculation lineage
+
+All new arithmetic was performed with calculate using decimal-38 arithmetic. Monetary inputs and results below are USD millions, for **TransDigm Group Incorporated and subsidiaries, consolidated**. FY2024 means 2023-10-01 through 2024-09-30 and FY2023 means 2022-10-01 through 2023-09-30; debt and cash operands are the respective closing instants. Ratios are fractions or x as expressly labeled. Displayed ratios are rounded to four decimals; monetary amounts retain the source scale and precision. Every formula names its complete operands and relevant source pages. Expenses are negative in signed bridges even when the reported table preserves their positive printed magnitude.
+
+### Income-statement and earnings bridges — calculated, not reported subtotals
+
+| Calculation | FY2024 formula and result | FY2023 formula and result | Component source and conclusion |
+| --- | --- | --- | --- |
+| Expense block below gross profit | 980 + 161 = 1,141 | 780 + 139 = 919 | Annual page:121, selling/admin plus intangible amortization; excludes cost of sales and does not substitute total D&A |
+| Operating expense including cost of sales | 3,268 + 980 + 161 = 4,409 | 2,743 + 780 + 139 = 3,662 | Annual page:121; calculated aggregate, not a source-printed operating-expense subtotal |
+| Gross-profit-to-operating-income residual | 4,672 − 980 − 161 − 3,531 = 0 | 3,842 − 780 − 139 − 2,923 = 0 | Annual page:121; full intervening expense block reconciles |
+| Operating-income-to-pretax residual | 3,531 − 1,286 − 58 + 28 − 2,215 = 0 | 2,923 − 1,164 − 56 + 13 − 1,716 = 0 | Annual page:121; other income sign preserved |
+| Total D&A validation | 149 + 163 = 312 | 129 + 139 = 268 | Annual page:122 depreciation plus amortization of intangibles and product certification; agrees with Annual page:71 D&A |
+| Operating income plus D&A, alternative definition | 3,531 + 312 = 3,843 | 2,923 + 268 = 3,191 | Annual pages 121–122; not issuer EBITDA |
+| Issuer EBITDA validation | 1,715 + 312 + 1,286 + 500 = 3,813 | 1,299 + 268 + 1,164 + 417 = 3,148 | Annual page:71 complete net-income bridge |
+| Adjustments above issuer EBITDA | 70 + 217 + 58 + 15 = 360 | 18 + 157 + 56 + 16 = 247 | Annual page:71 complete adjustment components |
+| EBITDA As Defined validation | 3,813 + 70 + 217 + 58 + 15 = 4,173 | 3,148 + 18 + 157 + 56 + 16 = 3,395 | Annual page:71; arithmetic validation, not economic acceptance |
+| Segment-to-consolidated adjusted EBITDA | 2,236 + 1,962 + 81 − 106 = 4,173 | 1,866 + 1,547 + 71 − 89 = 3,395 | Annual page:164; all segments exactly once, corporate deduction exactly once |
+
+### Cash-flow bridges — calculated and reconciled
+
+| Calculation | FY2024 formula and result | FY2023 formula and result | Component source / limitation |
+| --- | --- | --- | --- |
+| Full reported CFO reconciliation | 1,715 + 149 + 163 + 40 + 21 − 35 + 58 − 11 + 217 + 10 + 20 − 84 − 104 − 62 − 60 − 11 + 60 − 41 = 2,045 | 1,299 + 129 + 139 + 41 + 2 − 34 + 56 + 157 + 3 + 14 − 9 + 9 − 212 − 261 + 168 − 44 + 12 − 45 − 49 = 1,375 | Annual pages 122–123; full nonzero adjustment and working-capital rows, identified below |
+| Management CFO-to-EBITDA bridge | 2,045 + 272 + 1,246 + 490 + 35 − 217 − 58 = 3,813 | 1,375 + 415 + 1,123 + 414 + 34 − 157 − 56 = 3,148 | Annual page:71; source-labeled asset/liability changes, interest excluding debt amortization, current tax, loss-contract amortization, non-cash compensation and refinancing; not a cash-interest formula |
+| Net cash change | 2,045 − 2,441 + 3,171 + 14 = 2,789 | 1,375 − 900 − 16 + 12 = 471 | Annual page:123: CFO, investing, financing and FX; agrees with printed net change |
+| FCF after total capex | 2,045 − 165 = 1,880 | 1,375 − 139 = 1,236 | Annual page:123; levered, before acquisitions and distributions; maintenance split Not supplied |
+| FCF after acquisitions and distributions | 1,880 − 2,347 − 2,038 = (2,505) | 1,236 − 762 − 38 = 436 | Annual page:123; not total net cash change |
+| FCF / issuer EBITDA | 1,880 / 3,813 = 0.4931 | 1,236 / 3,148 = 0.3926 | Calculated FCF above / Annual page:71 EBITDA; fraction |
+
+For the full CFO bridge, the source-printed adjustment labels, in order after Net income, are: “Depreciation”; “Amortization of intangible assets and product certification costs”; “Amortization of debt issuance costs, original issue discount and premium”; “Amortization of inventory step-up”; “Amortization of loss contract reserves”; “Refinancing costs”; “Gain on sale of businesses, net”; “Non-cash stock and deferred compensation expense”; “Deferred income taxes” on Annual page:122. Annual page:123 continues “Foreign currency exchange losses (gains)”; “(Gain) loss on settlement of the Esterline Retirement Plan (the ‘ERP’)”; “Cash refund (contribution) for the ERP settlement, net”; then changes in “Trade accounts receivable”, “Inventories”, “Income taxes (receivable) payable”, “Other assets”, “Accounts payable”, “Accrued interest”, and “Accrued and other liabilities”. Source dashes for FY2024 ERP rows and FY2023 business-sale gain are omitted from the arithmetic rather than treated as missing operands. Discontinued-operation income is also printed as a dash for both years on page:122. All actual nonzero rows are included; no unresolved CFO reconciliation difference remains.
+
+### Debt, ratios and liquidity bridges — calculated
+
+| Calculation | FY2024 / 2024-09-30 | FY2023 / 2023-09-30 | Component sources and limitation |
+| --- | --- | --- | --- |
+| Gross contractual debt | 24,581 + 487 = 25,068 | 19,563 + 350 = 19,913 | Annual pages 144–145, long-term subtotal including current and finance leases, plus separate gross securitization |
+| Aggregate debt carrying value | 24,394 + 486 = 24,880 | 19,401 + 349 = 19,750 | Annual pages 144–145; equivalent to balance-sheet debt components, not gross principal |
+| Gross debt change | 25,068 − 19,913 = 5,155 | Not applicable: comparison endpoint | Above calculated gross aggregates |
+| Carrying debt change | 24,880 − 19,750 = 5,130 | Not applicable: comparison endpoint | Above calculated carrying aggregates |
+| Net debt on gross basis | 25,068 − 6,261 = 18,807 | 19,913 − 3,472 = 16,441 | Annual page:120 cash; assumes all consolidated cash nettable, no legal cash-access certification |
+| Gross debt / issuer EBITDA | 25,068 / 3,813 = 6.5744x | 19,913 / 3,148 = 6.3256x | Debt above / Annual page:71, historical reported EBITDA |
+| Net debt / issuer EBITDA | 18,807 / 3,813 = 4.9323x | 16,441 / 3,148 = 5.2227x | Same definition, cash netted |
+| Gross debt / EBITDA As Defined | 25,068 / 4,173 = 6.0072x | 19,913 / 3,395 = 5.8654x | Management-adjusted denominator, Annual page:71 |
+| Net debt / EBITDA As Defined | 18,807 / 4,173 = 4.5068x | 16,441 / 3,395 = 4.8427x | Not covenant leverage |
+| EBITDA / cash interest, net | 3,813 / 1,158 = 3.2927x | 3,148 / 1,160 = 2.7138x | Annual pages 71, 123; actual cash-paid net interest, not accrual expense |
+| EBITDA As Defined / cash interest, net | 4,173 / 1,158 = 3.6036x | 3,395 / 1,160 = 2.9267x | Supplementary adjusted coverage |
+| Rounded disclosed incremental facility availability | 843 + 163 = 1,006 | Not calculable: prior-year securitization availability not selected as an operand | Annual page:55; conditional securitization is excluded from committed revolver chart |
+| Illustrative cash after disclosed subsequent dividend only | 6,261 − 4,348 = 1,913 | Not applicable: subsequent event relates to FY2024 | Annual pages 120, 56; not actual subsequent cash or a forecast |
+| Long-term maturity schedule sum | 93 + 92 + 92 + 6,637 + 4,768 + 12,637 = 24,319 | Not supplied: comparative schedule not extracted | Annual page:153; excludes finance leases and separate securitization |
+| FY2025 scheduled long-term principal plus securitization exposure | 93 + 487 = 580 | Not applicable: prospective FY2025 exposure | Annual pages 150, 153 and debt-table precision on pages 144–145; excludes lease interest/principal cash flows |
+
+## Gaps
+
+| Underlying issue | Affected values, periods and recipients | Consequence and actionable remediation |
+| --- | --- | --- |
+| Information-availability cutoff missing | FY2024 annual facts and October events; CP-OS and CP-1A. Context page:1; Annual page:120 audit signature dated November 7, 2024 | Retrospective year-end work is usable, but strict contemporaneous eligibility is not established. Confirm reporting-date versus known-information scope before delivery under a point-in-time mandate. |
+| Preparation and extraction certification absent | All manually read statement rows; CP-OS and CP-1A; inherited CP-0 qualification | No aggregate preparation receipt, structured extraction or visual check is available. Obtain the preparation/coverage receipt and resolve any relevant blocked or ambiguous source before claiming automated model-input acceptance. Unread content is not certified. |
+| Legal cash, obligor and covenant perimeter unresolved | All net-debt ratios, 843 revolver availability, covenant assertions and debt security classifications; Annual pages 62, 124, 146, 153 | Consolidated analysis does not prove instrument-level cash accessibility or capacity. Obtain executed agreements, amendments, guarantor schedules and compliance certificates. No independent legal headroom or borrower-only financial conclusion is ready. |
+| Non-GAAP sustainability and acquired-business annualization | EBITDA As Defined 4,173 / 3,395 and adjustments 360 / 247 US$m; CP-OS and any earnings-normalization use; Annual pages 71–72, 144 | Exact bridges are usable, but recurring cash costs and standalone acquired earnings remain unvalidated. Obtain component cash/non-cash detail, historical recurrence and target financials; retain preliminary acquisition accounting and no pro forma uplift in the meantime. |
+| Receivables-facility precision and contingent access | FY2024 487 versus 487.5 drawn, 163 versus 162.5 available; maturity and conditional liquidity uses; Annual pages 55, 62, 144, 150, 152 | Retain debt-table amounts for core ratios and the stated half-million precision alternative. Obtain a dated facility/agent balance and eligibility certificate before exact cash-runway or borrowing-base modeling. |
+| Distribution liability to cash-payment reconciliation | FY2024 dividends payable 4,216, current equivalents 180 and October payment 4,348 US$m; CP-OS and CP-1A; Annual pages 120, 144, 56 | The subsequent payment is not identical to one balance-sheet row. Obtain the settlement roll-forward before reconciling exact remaining liabilities or modeling actual post-payment cash. Do not backdate October payments or drawdowns. |
+| Residual liability timing and FCF decomposition | Other current detail 186 / 169, other non-current liabilities 468 / 412, loss contracts and contingent claims; Annual pages 120, 144; capex Annual page:123 | Simple FCF is ready, but maintenance-only FCF, forward cash claims and stressed liquidity are not. Obtain residual composition, settlement schedules and maintenance/growth capex split; do not presume missing timing is immaterial. |
+| Complete all-debt future principal schedule | FY2025 facility exposure and leases outside the long-term maturity chart; Annual pages 150, 153, 172 | Long-term chart is ready only with exclusions. Obtain finance-lease principal by year and confirm securitization extension/repayment terms before publishing an all-funding maturity or refinancing model. |
+| Optional interim sequence and proposed transaction | Selected annual comparison is supported; full standalone quarters and prospective sources-and-uses are not constructed. CP-1A inherits transaction gap from CP-0 | These do not block a bounded annual fact pack. If required, commission the specific interim reconstruction or obtain the user-designated proposed transaction and dated terms; no missing setting is treated as zero. |
+
+## Next module
+
+Pass this reported annual financial base, calculation bridges, adjustment register, segment/channel data and qualified debt/liquidity schedules to CP-OS and **CP-1A**. CP-1A can proceed with the historical business and transaction fact pack using these facts, without waiting for unrelated analytical modules. Carry the exact consolidated entity scope, source version, timing restriction and distinction between historical financing and any proposed deal.
+
+Before final delivery, confirm the information-cutoff convention and retain the separate October dividend/draw narrative alongside, not inside, the year-end charts. If the next consumer needs legal capacity, covenant headroom, normalized earnings or an all-funding cash-runway model, obtain the specific missing operands and documents first. This handoff is an intermediate financial foundation, not certification that those downstream conclusions are complete.
