@@ -1,4 +1,5 @@
 /* Deploy VII presentation in the library; retained/downloaded report bytes stay unchanged. */
+.library-report { --fs-label:11px; --fs-compact:12px; }
 .library-report .app-shell { grid-template-columns:var(--rb-rail) var(--rb-navigator) minmax(0,1fr); }
 .library-report .inspector { display:none; }
 .library-report.evidence-open .app-shell { grid-template-columns:var(--rb-rail) var(--rb-navigator) minmax(0,1fr) var(--rb-inspector); }
@@ -23,19 +24,19 @@
 .library-report .navigator,.library-report .navigator.open{display:flex;position:static;width:auto;max-width:none;transform:none;grid-column:1;grid-row:1;height:100dvh;box-shadow:none;padding:12px}
 .library-report .workbench{grid-column:2;grid-row:1;min-width:0}
 .library-report .rail-dests{display:flex;flex-direction:row;flex-wrap:wrap;align-items:stretch;gap:4px;padding-bottom:10px;border-bottom:1px solid var(--rb-rule)}
-.library-report .rail-dests .rail-btn{width:auto;height:auto;min-height:30px;padding:4px 7px;gap:5px;font-size:11px;color:var(--rb-ink);border:0;background:var(--rb-head)}
+.library-report .rail-dests .rail-btn{width:auto;height:auto;min-height:30px;padding:4px 7px;gap:5px;font-size:var(--fs-label);color:var(--rb-ink);border:0;background:var(--rb-head)}
 .library-report .rail-dests .rail-btn[aria-current=page]{background:var(--rb-select);color:var(--rb-blue)}
 .library-report .rail-dests .rail-btn:focus-visible{outline-color:var(--rb-blue)}
 .library-report #toggle-nav{display:none}
-.library-report .delivery-disclosure{margin:10px 18px;border-bottom:1px solid var(--rb-rule);padding-bottom:8px;font-size:11px;color:var(--rb-ink-2)}
+.library-report .delivery-disclosure{margin:10px 18px;border-bottom:1px solid var(--rb-rule);padding-bottom:8px;font-size:var(--fs-label);color:var(--rb-ink-2)}
 .library-report .delivery-disclosure>summary{cursor:pointer;min-height:26px;line-height:26px;font-weight:600}
-.library-report .delivery-disclosure .banner{padding:12px 0;border:0;background:none;font-size:12px;line-height:1.6}
+.library-report .delivery-disclosure .banner{padding:12px 0;border:0;background:none;font-size:var(--fs-compact);line-height:1.6}
 .library-report .delivery-disclosure .call-band{position:static;min-height:0;padding:10px 12px}
 .library-report .view-root{padding:10px 18px 24px}
 .library-report .page-head{margin-bottom:12px;padding-bottom:10px}
 .library-report .page-head h1{font-size:20px}
-.library-report .page-head p{font-size:11px}
-.library-report .candidate-label{padding:4px 7px;font-size:11px}
+.library-report .page-head p{font-size:var(--fs-label)}
+.library-report .candidate-label{padding:4px 7px;font-size:var(--fs-label)}
 .library-report.evidence-open .inspector{position:fixed;right:0;top:0;width:min(390px,100vw);height:100dvh;z-index:12;background:var(--rb-panel)}
 @media(max-width:720px){.library-report .app-shell,.library-report.evidence-open .app-shell{display:block}.library-report .navigator,.library-report .navigator.open{height:auto;max-height:220px;overflow:auto}.library-report .workbench{height:auto}.library-report .view-root{padding:12px}.library-report .delivery-disclosure{margin:8px 12px}}
 

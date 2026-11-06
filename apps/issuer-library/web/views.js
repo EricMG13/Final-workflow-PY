@@ -17,9 +17,9 @@ function installDestinations() {
   }
   const destinations={
     'W-Library':['Issuer library',[['cases','Issuer cases',[]]]],
-    'W-Overview':['Summary',[['overview','Summary',[]]]],
+    'W-Overview':['Overview',[['overview','Overview',[]]]],
     'W-Calendar':['Event calendar',[['unavailable','Calendar availability',[]]]],
-    'W-Reports':['Deliverables',[['list','Deliverables',[]]]],
+    'W-Reports':['Reports',[['list','Reports',[]]]],
     'W-Evidence':['Evidence library',[['sources','Retained outputs',[]]]],
     'CP-MODEL':['Published model',[['publication','Publication state',[]],['inputs','Model inputs',[]]]],
     'CP-OS':['Run activity',[['activity','Run record',[]],['delivery','Delivery scope',[]]]],
@@ -50,7 +50,36 @@ const issuerReports=context=>window.DESIGN_WORKSPACE.reports.filter(r=>!context|
 const reportsBuiltFrom=context=>window.DESIGN_WORKSPACE.reports.filter(r=>r.builtFrom.some(b=>b.run===context));
 const reportsUsing=output=>window.DESIGN_WORKSPACE.reports.filter(r=>r.builtFrom.some(b=>b.source===output));
 const tracedRun=report=>report.builtFrom.find(b=>b.run)?.run||null;
-const reportName=report=>report.build?`Build ${report.build} · ${report.label}`:report.label;
+const reportName=report=>report.build?`Build ${report.build} · ${report.label.trim()}`:report.label.trim();
+const byBuild=(a,b)=>(b.build||0)-(a.build||0)||a.label.trim().localeCompare(b.label.trim());
+// A frame has no error event for a page that never arrives, so a missing load within the timeout is the failure.
+const frameTimeout=()=>Number.isFinite(window.DESIGN_FRAME_TIMEOUT_MS)?window.DESIGN_FRAME_TIMEOUT_MS:6000;
+function watchFrame(frame,status,loadingText,failedText,link,missingText) {
+  let timer=null;
+  const loaded=()=>{clearTimeout(timer);status.hidden=true;};
+  const wait=()=>{clearTimeout(timer);status.hidden=false;status.textContent=loadingText;timer=setTimeout(fail,frameTimeout());};
+  function fail() {
+    const retry=document.createElement('button');
+    retry.type='button';retry.className='text-button frame-retry';retry.textContent='Retry';
+    retry.addEventListener('click',()=>{frame.setAttribute('src',frame.getAttribute('src'));wait();});
+    status.textContent=failedText+' ';
+    if(link)status.append(link(),' ');
+    status.append(retry);
+  }
+  // A frame fires load for a 404 page too, so a deliverable that has gone is found by asking for it first.
+  function missing() {
+    if(!frame.isConnected)return;
+    clearTimeout(timer);frame.removeEventListener('load',loaded);
+    const reload=document.createElement('button');
+    reload.type='button';reload.className='text-button';reload.textContent='Reload';
+    reload.addEventListener('click',()=>location.reload());
+    status.hidden=false;status.textContent=missingText+' ';status.append(reload);
+  }
+  frame.addEventListener('load',loaded);
+  wait();
+  if(missingText)fetch(frame.getAttribute('src'),{method:'HEAD',cache:'no-store'}).then(response=>{if(!response.ok)missing();},missing);
+  return loaded;
+}
 const isReportRoute=(module,section)=>module==='W-Reports'&&window.DESIGN_WORKSPACE.reports.some(r=>r.id===section);
 function firstSection(module,context) {
   const output=defaultOutput(module,context);
@@ -220,7 +249,7 @@ function calendarSections(context) {
 }
 function reportSections(context) {
   const reports=issuerReports(context);
-  return reports.length?[['list','Deliverables',[]],...reports.map(r=>[r.id,reportName(r),[]])]:[['none','Report availability',[]]];
+  return reports.length?[['list','Reports',[]],...reports.map(r=>[r.id,reportName(r),[]])]:[['none','Report availability',[]]];
 }
 function navigationSections(module,context,output=defaultOutput(module,context)) {
   if(module==='W-Calendar')return calendarSections(context);
@@ -239,6 +268,7 @@ function sourceInventory(context) {
     ...entry.outputs.map(id=>{const out=data[id];return `<section><div><h3>${module} · ${esc(moduleNames[module])}</h3><p>${esc(out.label)}</p>${out.scope==='Retained module output'?'':`<span class="badge badge-gray">${esc(out.scope)}</span>`}</div><div>${iconAction('Open output',`${module} ${moduleNames[module]}, ${out.label}`,routeHref(module,modules[id].first,null,context,out.source),'arrow-right')}${iconAction('Download original handoff',`${module} ${moduleNames[module]}, ${out.label}`,out.href,'download',true)}</div>${identity(out)}</section>`;}),
     ...entry.inputs.map(id=>{const f=store.inputs[id];return `<section><div><h3>${module} · ${esc(moduleNames[module])}</h3><p>${esc(f.source)}</p><span class="badge badge-gray">Input</span></div><div>${iconAction('Download original file',`${module} ${moduleNames[module]}, ${f.source}`,f.href,'download',true)}</div>${identity(f)}</section>`;})
   ]);
+  if(!rows.length)return `<div class="missing-state"><div class="empty-symbol">${icon('file-text')}</div><h2>No retained files for this run</h2><p>No module outputs or inputs were found in this run’s folder.</p></div><a class="text-action switch-case" href="#W-Library/cases">Choose another case</a>`;
   return `<div class="source-inventory">${rows.join('')}</div>`;
 }
 function libraryRecords() {
@@ -272,13 +302,13 @@ const shortPeriod=period=>period.split(' · ')[0];
 function libraryResults(records) {
   if(!Object.keys(contexts).length)return `<div class="library-empty"><h2>No runs in this workspace yet</h2><p>Start a new run, or choose another workspace folder in Settings.</p><a class="text-action" href="#W-Settings/workspace">Open Settings${icon('arrow-right')}</a></div>`;
   if(!records.length)return '<div class="library-empty"><h2>No matching issuers or runs</h2><p>Try a shorter search or remove a filter.</p></div>';
-  const runCells=r=>`<td><a class="run-link" href="${routeHref('W-Overview','overview',null,r.key)}">${esc(r.run)}</a></td><td>${workflowCell([r.workflow])}</td><td>${esc(shortPeriod(r.period))}</td><td>${reportCell([r])}</td><td class="row-open">${icon('arrow-right')}</td>`;
+  const runCells=r=>`<td data-label="Run"><a class="run-link" href="${routeHref('W-Overview','overview',null,r.key)}">${esc(r.run)}</a></td><td data-label="Workflow">${workflowCell([r.workflow])}</td><td data-label="Period">${esc(shortPeriod(r.period))}</td><td data-label="Reports">${reportCell([r])}</td><td class="row-open">${icon('arrow-right')}</td>`;
   let rowNumber=0;const rowId=()=>`run-row-${++rowNumber}`;
   const groups=[...new Set(records.map(r=>r.issuer))].map(issuer=>{
     const runs=records.filter(r=>r.issuer===issuer),name=`<th scope="rowgroup"><h2>${esc(issuer)}</h2>${badge('gray',runs[0].sector==='Unclassified'?'Sector not recorded':runs[0].sector)}</th>`;
     if(runs.length===1)return `<tbody class="run-list"><tr class="issuer-row">${name}${runCells(runs[0])}</tr></tbody>`;
     const open=expandedIssuers.has(issuer),periods=[...new Set(runs.map(r=>shortPeriod(r.period)))];
-    return `<tbody class="run-list"><tr class="issuer-row">${name}<td><button class="run-toggle" type="button" aria-expanded="${open}" aria-controls="${runs.map((_,i)=>`run-row-${rowNumber+i+1}`).join(' ')}">${plural(runs.length,'run')}${icon('chevron-down')}</button></td><td>${workflowCell(runs.map(r=>r.workflow))}</td><td>${periods.length===1?esc(periods[0]):'<span class="muted">Varies</span>'}</td><td>${reportCell(runs)}</td><td class="row-open"></td></tr>${runs.map(r=>`<tr class="run-row" id="${rowId()}" ${open?'':'hidden'}><td></td>${runCells(r)}</tr>`).join('')}</tbody>`;
+    return `<tbody class="run-list"><tr class="issuer-row">${name}<td data-label="Run"><button class="run-toggle" type="button" aria-expanded="${open}" aria-controls="${runs.map((_,i)=>`run-row-${rowNumber+i+1}`).join(' ')}">${plural(runs.length,'run')}${icon('chevron-down')}</button></td><td data-label="Workflow">${workflowCell(runs.map(r=>r.workflow))}</td><td data-label="Period">${periods.length===1?esc(periods[0]):'<span class="muted">Varies</span>'}</td><td data-label="Reports">${reportCell(runs)}</td><td class="row-open"></td></tr>${runs.map(r=>`<tr class="run-row" id="${rowId()}" ${open?'':'hidden'}><td></td>${runCells(r)}</tr>`).join('')}</tbody>`;
   });
   return `<table class="case-list"><thead><tr><th scope="col">Issuer</th><th scope="col">Run</th><th scope="col">Workflow</th><th scope="col">Period</th><th scope="col">Reports</th><th scope="col"><span class="sr-only">Open</span></th></tr></thead>${groups.join('')}</table>`;
 }
@@ -308,11 +338,11 @@ function reportList(context) {
   const ctx=contexts[context],all=window.DESIGN_WORKSPACE.reports,built=reportsBuiltFrom(context),others=ctx?issuerReports(context).filter(r=>!built.includes(r)):[];
   const rest=all.filter(r=>!built.includes(r)&&!others.includes(r));
   const none='No report was built from this run’s files';
-  const row=r=>`<li class="report-row"><a class="text-action" href="${routeHref('W-Reports',r.id,null,ctx&&r.issuer===ctx.issuer?context:tracedRun(r))}">${esc(reportName(r))}${icon('arrow-right')}</a>${r.status?`<span class="badge badge-gray">${esc(r.status)}</span>`:''}</li>`;
-  const list=(cls,title,reports)=>reports.length?`<section class="${cls}"><h2>${esc(title)}</h2><ol class="report-list">${[...reports].reverse().map(row).join('')}</ol></section>`:'';
+  const row=r=>`<li class="report-row">${ctx&&r.issuer!==ctx.issuer&&!r.label.trim().startsWith(r.issuer)?`<span class="report-issuer">${esc(r.issuer)} · </span>`:''}<a class="text-action" href="${routeHref('W-Reports',r.id,null,ctx&&r.issuer===ctx.issuer?context:tracedRun(r))}">${esc(reportName(r))}${icon('arrow-right')}</a><span class="code">${esc(r.id)}</span>${r.status?`<span class="badge badge-gray">${esc(r.status)}</span>`:''}</li>`;
+  const list=(cls,title,reports)=>reports.length?`<section class="${cls}"><h2>${esc(title)}</h2><ol class="report-list">${[...reports].sort(byBuild).map(row).join('')}</ol></section>`:'';
   if(!ctx)return `<p class="intro">${plural(all.length,'deliverable')} in this workspace.</p>${list('report-other','All deliverables',all)}${all.length?'':`<div class="missing-state"><h2>No deliverables yet</h2><p>A run writes its report here when it finishes.</p></div>`}`;
   const heading=!built.length&&!others.length?`<div class="missing-state"><div class="empty-symbol">${icon('file-text')}</div><h2>${none}</h2></div><a class="text-action" href="#W-Library/cases">Choose another case</a>`:`<p class="intro">${built.length?`${plural(built.length,'report')} built from ${esc(ctx.run)}’s files.`:`${none}.`}</p>`;
-  return `${heading}${list('report-built','Built from this run',built)}${list('report-other',`Other ${ctx.issuer} reports`,others)}${list('report-rest','Other issuers’ deliverables',rest)}`;
+  return `${heading}${list('report-built','Built from this run',built)}${list('report-other',`Other ${ctx.issuer} reports`,others)}${list('report-rest','Other issuers’ reports',rest)}`;
 }
 function reportView(report,context) {
   const ctx=contexts[context],rows=report.builtFrom.map(b=>{
@@ -322,13 +352,13 @@ function reportView(report,context) {
   }).join('');
   const handoffs=new Set(report.builtFrom.map(b=>b.module)).size,unmatched=new Set(report.builtFrom.filter(b=>!b.run).map(b=>b.module)).size;
   const files=report.files.length?`<details class="built-from"><summary>Files in this deliverable · ${report.files.length}</summary><ul>${report.files.map(f=>`<li><a href="${esc(f.href)}" download>${esc(f.name)}</a></li>`).join('')}</ul></details>`:'';
-  return `<div class="report-tools"><label for="report-select">Report</label><select id="report-select">${issuerReports(context).map(r=>`<option value="${esc(r.id)}" ${r.id===report.id?'selected':''}>${esc(reportName(r))}</option>`).join('')}</select><span>${esc([report.status,ctx?'':'No matching run'].filter(Boolean).join(' · '))}</span><a href="${esc(report.download)}" download>Download original HTML</a><a href="${routeHref('W-Reports','list')}">All deliverables</a><a href="#W-Library/cases">Return to library</a></div><details class="built-from"><summary>Built from ${handoffs} handoffs · ${unmatched?`${unmatched} with no matching run file`:'byte-identical by SHA-256'}</summary><div class="table-scroll"><table><thead><tr><th scope="col">Module</th><th scope="col">Run</th><th scope="col">File</th><th scope="col">SHA-256 prefix</th></tr></thead><tbody>${rows}</tbody></table></div></details>${files}<iframe id="report-preview" title="${esc(reportName(report))} · ${esc(report.issuer)} report" sandbox="allow-scripts allow-downloads" referrerpolicy="no-referrer" src="${esc(report.href)}"></iframe>`;
+  return `<div class="report-tools"><label for="report-select">Report</label><select id="report-select">${[...issuerReports(context)].sort(byBuild).map(r=>`<option value="${esc(r.id)}" ${r.id===report.id?'selected':''}>${esc(reportName(r))}</option>`).join('')}</select><span>${esc([report.status,ctx?'':'No matching run'].filter(Boolean).join(' · '))}</span><a href="${esc(report.download)}" download>Download original HTML</a><a href="${routeHref('W-Reports','list')}">All reports</a><a href="#W-Library/cases">Return to library</a></div><details class="built-from"><summary>Built from ${handoffs} handoffs · ${unmatched?`${unmatched} with no matching run file`:'byte-identical by SHA-256'}</summary><div class="table-scroll"><table><thead><tr><th scope="col">Module</th><th scope="col">Run</th><th scope="col">File</th><th scope="col">SHA-256 prefix</th></tr></thead><tbody>${rows}</tbody></table></div></details>${files}<div class="frame-host"><p class="frame-status" role="status">Loading report…</p><iframe id="report-preview" title="${esc(reportName(report))} · ${esc(report.issuer)} report" sandbox="allow-scripts allow-downloads" referrerpolicy="no-referrer" src="${esc(report.href)}"></iframe></div>`;
 }
 function settingsView() {
   const app=window.DESIGN_APP||{},issues=app.issues||[];
-  return `<div class="settings"><section><h2>Workspace folder</h2><label class="run-field">Folder holding runs and deliverables<input id="workspace-path" value="${esc(app.workspace)}" ${app.policy_locked?'disabled':''} autocomplete="off"></label><p class="hint">${app.policy_locked?'This location is managed by your IT configuration.':'Use a local folder for offline access. Network shares and cloud placeholders need a connection.'}</p><div class="step-actions"><button id="save-workspace" class="primary-action" type="button" ${app.policy_locked?'disabled':''}>Save and reload</button><button id="refresh-library" class="secondary-action" type="button">Refresh library</button><button id="quit-library" class="secondary-action" type="button">Quit library</button></div><p id="settings-status" role="status" aria-live="polite"></p></section><section><h2>Workspace issues · ${issues.length}</h2>${issues.length?`<ul>${issues.map(issue=>`<li>${esc(issue)}</li>`).join('')}</ul>`:'<p>None found.</p>'}</section></div>`;
+  return `<div class="settings"><section><h2>Workspace folder</h2><label class="run-field">Folder holding runs and deliverables<input id="workspace-path" value="${esc(app.workspace)}" ${app.policy_locked?'disabled':''} autocomplete="off"></label><p class="hint">${app.policy_locked?'This location is managed by your IT configuration.':'Use a local folder for offline access. Network shares and cloud placeholders need a connection.'}</p><div class="step-actions"><button id="save-workspace" class="primary-action" type="button" ${app.policy_locked?'disabled':''}>Save and reload</button><button id="refresh-library" class="secondary-action" type="button">Refresh library</button><button id="quit-library" class="tertiary-action" type="button">Quit library</button></div><p id="settings-status" role="status" aria-live="polite"></p></section><section><h2>Workspace issues · ${issues.length}</h2>${issues.length?`<ul class="issue-list">${issues.map(issue=>{const at=String(issue).indexOf(': ');return `<li>${at<0?`<span>${esc(issue)}</span>`:`<span class="code">${esc(String(issue).slice(0,at))}</span><span>${esc(String(issue).slice(at+2))}</span>`}</li>`;}).join('')}</ul>`:'<p>None found.</p>'}</section></div>`;
 }
-const HELP=`<div class="help-copy"><h2>Find and read a run</h2><p>Choose a run in the library. The Summary, Analysis, Calendar, Deliverables and Evidence tabs keep that run selected. Browse by credit question or press / to search a name, section or module code, including absorbed aliases.</p><p>Select a finding’s View source action or a chart mark to open the evidence inspector. Escape returns to your reading position and source trigger.</p><h2>Move between the app and deliverables</h2><p>Deliverables lists every report in the workspace. A report opens inside the app, with this navigation beside it; its Built from list opens the module outputs it used, and a module output names the deliverables that used it.</p><h2>Start a new run</h2><p>Choose New run. Enter the issuer, workflow and dates, or load a saved context file. Choose the issuer folder, model and maximum USD spend. Validating is offline: the review shows the modules in order, the files no module can read and the report sections this run will not produce. Only Start run can call a model, after you approve the review, and only when the provider key is set in the environment that launched the app. If a module is rejected the run stops, keeps its work and makes no automatic paid retry.</p><p>A finished report has automated checks only: review the handoffs against the sources before relying on it.</p><h2>Runs stay separate</h2><p>Each run lists its own saved outputs. A module without one says so and offers other runs of the same issuer; another issuer is reached through the library. Reports list the runs they were built from, traced by SHA-256. Evidence is dated research, not current underwriting. Missing observations are not zero.</p><h2>Colour has a job</h2><div class="signal-key"><span><i class="series-0"></i>Blue · data and action</span><span><i class="series-1"></i>Navy · comparison</span><span><i class="signal-conditional"></i>Amber · conditional / attention</span><span>Grey · absent / unassessed</span></div><p>Dashed paths are conditional scenarios. Outflows use direction and signed values, not an adverse credit grade.</p><h2>Work offline, close or reopen</h2><p>The application, fonts and scripts are bundled; workspace files must also be available locally. Reports are sandboxed with external network requests blocked. Closing a tab leaves the library running; Quit library in Settings stops it.</p></div>`;
+const HELP=`<div class="help-copy"><h2>Find and read a run</h2><p>Choose a run in the library. The Overview, Modules, Calendar, Reports and Evidence tabs keep that run selected. Browse by credit question or press / to search a name, section or module code, including absorbed aliases.</p><p>Select a finding’s View source action or a chart mark to open the evidence inspector. Escape returns to your reading position and source trigger.</p><h2>Move between the app and deliverables</h2><p>Reports lists every report in the workspace. A report opens inside the app, with this navigation beside it; its Built from list opens the module outputs it used, and a module output names the deliverables that used it.</p><h2>Start a new run</h2><p>Choose New run. Enter the issuer, workflow and dates, or load a saved context file. Choose the issuer folder, model and maximum USD spend. Validating is offline: the review shows the modules in order, the files no module can read and the report sections this run will not produce. Only Start run can call a model, after you approve the review, and only when the provider key is set in the environment that launched the app. If a module is rejected the run stops, keeps its work and makes no automatic paid retry.</p><p>A finished report has automated checks only: review the handoffs against the sources before relying on it.</p><h2>Runs stay separate</h2><p>Each run lists its own saved outputs. A module without one says so and offers other runs of the same issuer; another issuer is reached through the library. Reports list the runs they were built from, traced by SHA-256. Evidence is dated research, not current underwriting. Missing observations are not zero.</p><h2>Colour has a job</h2><div class="signal-key"><span><i class="series-0"></i>Blue · data and action</span><span><i class="series-1"></i>Navy · comparison</span><span><i class="signal-conditional"></i>Amber · conditional / attention</span><span>Grey · absent / unassessed</span></div><p>Dashed paths are conditional scenarios. Outflows use direction and signed values, not an adverse credit grade.</p><h2>Work offline, close or reopen</h2><p>The application, fonts and scripts are bundled; workspace files must also be available locally. Reports are sandboxed with external network requests blocked. Closing a tab leaves the library running; Quit library in Settings stops it.</p></div>`;
 // Modules most likely to state the run's overall credit view come first.
 const CALL_ORDER=['CP-6','CP-2','CP-3','CP-2D','CP-1','CP-0'];
 function firstFinding(id) {
@@ -400,30 +430,32 @@ function updateWorkspaceChrome(module) {
   const ctx=contexts[current.context],isHome=!ctx||appDestinations.has(module);
   const moduleId=ctx&&(lastSection.get(current.context+':module')||ctx.first),period=current.output?data[current.output].period:ctx?.period;
   const title=isHome?(module==='W-Library'?'Issuer library':moduleNames[module]):ctx.title;
-  document.querySelector('.issuer').innerHTML=`<div class="issuer-title"><h1>${esc(title)}</h1>${isHome?'':`<div class="issuer-meta"><span class="code">${esc(ctx.run)}</span><a href="#W-Library/cases">Change case</a></div>`}</div>${module==='W-Library'?`<div class="page-actions"><a class="secondary-action" href="#W-Reports/list">${icon('files')}All deliverables</a><a class="primary-action" id="library-new-run" href="#W-NewRun/run">${icon('plus')}New run</a></div>`:''}${isHome?'':`<div class="scope">${icon('calendar-days')}<strong>${esc(period)}</strong></div>`}`;
+  document.querySelector('.issuer').innerHTML=`<div class="issuer-title"><h1 title="${esc(title)}">${esc(title)}</h1>${isHome?'':`<div class="issuer-meta"><span class="code">${esc(ctx.run)}</span><a href="#W-Library/cases">Change case</a></div>`}</div>${module==='W-Library'?`<div class="page-actions"><a class="secondary-action" href="#W-Reports/list">${icon('files')}All reports</a><a class="primary-action" id="library-new-run" href="#W-NewRun/run">${icon('plus')}New run</a></div>`:''}${isHome?'':`<div class="scope">${icon('calendar-days')}<strong>${esc(period)}</strong></div>`}`;
   document.querySelector('.workspace-tabs').hidden=isHome;
-  if(!isHome)document.querySelector('.workspace-tabs').innerHTML=[['W-Overview','Summary','layout-grid'],[moduleId,'Analysis','layers'],['W-Calendar','Calendar','calendar-days'],['W-Reports','Deliverables','files'],['W-Evidence','Evidence','folder-open']].map(([id,label,img])=>{
+  if(!isHome)document.querySelector('.workspace-tabs').innerHTML=[['W-Overview','Overview','layout-grid'],[moduleId,'Modules','layers'],['W-Calendar','Calendar','calendar-days'],['W-Reports','Reports','files'],['W-Evidence','Evidence','folder-open']].map(([id,label,img])=>{
     const sections=navigationSections(id,current.context,resolveOutput(id,current.context,lastFile.get(`${current.context}:${id}`))),remembered=lastSection.get(current.context+':'+id),section=sections.some(s=>s[0]===remembered)?remembered:sections[0][0];
-    return `<a href="${routeHref(id,section)}" ${(label==='Analysis'?isAnalytical(module):id===module)?'aria-current="page"':''}>${icon(img)}${label}</a>`;
+    return `<a href="${routeHref(id,section)}" ${(label==='Modules'?isAnalytical(module):id===module)?'aria-current="page"':''}>${icon(img)}${label}</a>`;
   }).join('');
   const report=isReportRoute(module,current.section);
   $('workbench').classList.toggle('report-workspace',report);
   $('workbench').classList.toggle('library-workspace',isHome);
+  // The navigator is resident only where its modules are the subject; elsewhere it opens from the Modules button.
+  $('workbench').classList.toggle('tools-workspace',!isHome&&!report&&module!=='W-Overview'&&!isAnalytical(module));
   $('content').classList.toggle('report-content',report);
   // The rail shows where you are, and its run-level links keep the selected run.
   const rail=label=>document.querySelector(`.rail a[aria-label="${label}"]`);
-  const place={'W-Library':'Issuer library','W-NewRun':'New run','W-Settings':'Settings','W-Help':'Help','W-Reports':'Deliverables','CP-OS':'Run activity'}[module]||'Research workspace';
+  const place={'W-Library':'Issuer library','W-NewRun':'New run','W-Settings':'Settings','W-Help':'Help','W-Reports':'Reports','CP-OS':'Run activity'}[module]||'Research workspace';
   document.querySelectorAll('.rail a[title]').forEach(link=>{
     const here=link.getAttribute('aria-label')===place;
     link.classList.toggle('rail-active',here);
     if(here)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
   });
   rail('Research workspace').hidden=rail('Run activity').hidden=!Object.keys(contexts).length;
-  rail('Deliverables').hidden=!window.DESIGN_WORKSPACE.reports.length&&!Object.keys(contexts).length;
+  rail('Reports').hidden=!window.DESIGN_WORKSPACE.reports.length&&!Object.keys(contexts).length;
   if(ctx) {
     rail('Research workspace').href=routeHref('W-Overview','overview');
     rail('Run activity').href=routeHref('CP-OS','activity');
-    rail('Deliverables').href=routeHref('W-Reports','list');
+    rail('Reports').href=routeHref('W-Reports','list');
   }
   const app=window.DESIGN_APP||{};
   $('app-problem').hidden=!app.problem;

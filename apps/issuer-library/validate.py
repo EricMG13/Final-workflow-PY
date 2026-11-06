@@ -23,6 +23,8 @@ NODE_TESTS = (
     "web/new-run.test.cjs",
     "web/context-embed.test.cjs",
     "web/report-renderer.test.cjs",
+    "web/screens.test.cjs",
+    "web/screen-css.test.cjs",
 )
 PYTHON_TESTS = (
     "tests/test_issuer_library_store.py",

@@ -173,14 +173,14 @@ test('An analytical verdict is not promoted to a provenance classification',()=>
 });
 test('Workspace tabs preserve issuer/run; unavailable destinations never substitute another case',()=>{
   const dom=fixture('CP-2H'),w=dom.window,d=w.document;
-  for(const name of ['Calendar','Deliverables','Evidence','Summary','Analysis']) {
+  for(const name of ['Calendar','Reports','Evidence','Overview','Modules']) {
     const link=[...d.querySelectorAll('.workspace-tabs a')].find(a=>a.textContent===name);
     w.location.hash=link.getAttribute('href');w.eval('renderRoute()');
     assert.equal(d.querySelector('.issuer h1').textContent,'Ford Otosan',name);
     assert.equal(w.eval('current.context'),'ford-otosan-2024',name);
     assert.ok(!d.querySelector('#content iframe'),name);
     if(name==='Calendar')assert.ok(d.getElementById('content').textContent.includes('No dates are inferred from other cases.'));
-    if(name==='Deliverables')assert.ok(d.getElementById('content').textContent.includes('No report was built from this run’s files'));
+    if(name==='Reports')assert.ok(d.getElementById('content').textContent.includes('No report was built from this run’s files'));
   }
   w.location.hash='CP-1/performance?c=ford-otosan-2024';w.eval('renderRoute()');
   assert.ok(d.querySelector('.missing-state'));assert.equal(d.querySelectorAll('.bar-column').length,0);
@@ -346,7 +346,7 @@ test('Active Library filters show as removable chips, and Clear all appears only
 test('New run and Settings use the shared secondary button for their other actions',()=>{
   const dom=fixture('W-NewRun/run'),w=dom.window,d=w.document;
   const ids=['edit-context','revise-run','another-run'];
-  w.eval(`location.hash='W-Settings/workspace';renderRoute()`);ids.push('refresh-library','quit-library');
+  w.eval(`location.hash='W-Settings/workspace';renderRoute()`);ids.push('refresh-library');
   for(const id of ids){const b=d.getElementById(id);assert.ok(b.classList.contains('secondary-action'),id);assert.ok(!b.classList.contains('text-button'),id);}
   dom.window.close();
 });
@@ -426,7 +426,7 @@ test('The run header names the issuer, its run and period on one line, and the t
   assert.equal(header.querySelector('.issuer-meta .code').textContent,'TDG-002');
   assert.equal(header.querySelector('.issuer-meta a').getAttribute('href'),'#W-Library/cases');
   assert.ok(header.querySelector('.scope img[src$="calendar-days.svg"]'),'the period carries a calendar icon');
-  assert.deepEqual([...d.querySelectorAll('.workspace-tabs a[aria-current="page"]')].map(a=>a.textContent),['Summary']);
+  assert.deepEqual([...d.querySelectorAll('.workspace-tabs a[aria-current="page"]')].map(a=>a.textContent),['Overview']);
   dom.window.close();
 });
 test('The library says what it is once and puts New run beside its title',()=>{
@@ -434,7 +434,7 @@ test('The library says what it is once and puts New run beside its title',()=>{
   assert.equal(d.querySelector('.issuer-meta'),null,'the title stands alone');
   assert.equal(d.querySelector('#content .intro'),null,'no second introduction');
   assert.ok(d.getElementById('library-new-run').closest('.issuer'),'the primary action sits beside the title');
-  const deliverables=d.querySelector('.issuer .secondary-action');assert.equal(deliverables.getAttribute('href'),'#W-Reports/list');assert.equal(norm(deliverables.textContent),'All deliverables');
+  const deliverables=d.querySelector('.issuer .secondary-action');assert.equal(deliverables.getAttribute('href'),'#W-Reports/list');assert.equal(norm(deliverables.textContent),'All reports');
   assert.equal(d.querySelector('.library-result-meta'),null);
   assert.equal(d.getElementById('library-new-run').getAttribute('href'),'#W-NewRun/run');
   assert.ok(!/separate runs/.test(d.getElementById('library-results').textContent));
@@ -689,7 +689,7 @@ test('Navigation links keep module identity, each curated module opens on its fi
   contentOf(dom,'CP-OS?c=tdg-002');assert.deepEqual([...d.querySelectorAll('.section-item')].map(a=>a.getAttribute('href')),['#CP-OS/activity?c=tdg-002','#CP-OS/delivery?c=tdg-002']);
   const section=w.eval(`modules['tdg-003/CP-1-attempt-1.md'].sections.map(s=>s[0]).find(id=>!modules['tdg-003/CP-1-attempt-2.md'].sections.some(s=>s[0]===id))`);assert.ok(section);
   contentOf(dom,`CP-1/${section}?c=tdg-003&o=CP-1-attempt-1.md`);contentOf(dom,'W-Evidence/sources?c=tdg-003');
-  const href=[...d.querySelectorAll('.workspace-tabs a')].find(a=>a.textContent==='Analysis').getAttribute('href');
+  const href=[...d.querySelectorAll('.workspace-tabs a')].find(a=>a.textContent==='Modules').getAttribute('href');
   assert.ok(href.startsWith(`#CP-1/${section}?`),href);assert.ok(href.includes('o=CP-1-attempt-1.md'),href);
   dom.window.close();
 });
@@ -830,11 +830,11 @@ const goTo=(dom,hash)=>{dom.window.location.hash=hash;dom.window.eval('renderRou
 test('The rail reaches every destination, marks where you are and keeps the selected run',()=>{
   const dom=fixture('CP-2H?c=ford-otosan-2024'),d=dom.window.document;
   const rail=label=>d.querySelector(`.rail a[aria-label="${label}"]`);
-  for(const label of ['Issuer library','Research workspace','Deliverables','Run activity','New run','Settings','Help'])assert.ok(rail(label),label);
-  assert.equal(rail('Deliverables').getAttribute('href'),'#W-Reports/list?c=ford-otosan-2024');
+  for(const label of ['Issuer library','Research workspace','Reports','Run activity','New run','Settings','Help'])assert.ok(rail(label),label);
+  assert.equal(rail('Reports').getAttribute('href'),'#W-Reports/list?c=ford-otosan-2024');
   assert.equal(rail('Run activity').getAttribute('href'),'#CP-OS/activity?c=ford-otosan-2024');
   assert.equal(rail('Research workspace').getAttribute('aria-current'),'page');
-  for(const [route,label] of [['W-Library/cases','Issuer library'],['W-NewRun/run','New run'],['W-Settings/workspace','Settings'],['W-Help/help','Help'],['W-Reports/list','Deliverables'],['CP-OS/activity','Run activity']]){
+  for(const [route,label] of [['W-Library/cases','Issuer library'],['W-NewRun/run','New run'],['W-Settings/workspace','Settings'],['W-Help/help','Help'],['W-Reports/list','Reports'],['CP-OS/activity','Run activity']]){
     goTo(dom,route);
     assert.deepEqual([...d.querySelectorAll('.rail a[aria-current]')].map(a=>a.getAttribute('aria-label')),[label],route);
   }
@@ -942,7 +942,7 @@ test('An empty workspace opens on the library with only what can work',()=>{
   assert.equal(dom.window.eval('current.module'),'W-Library');
   assert.match(d.getElementById('content').textContent,/No runs in this workspace yet/);
   assert.equal(d.getElementById('library-new-run').getAttribute('href'),'#W-NewRun/run');
-  for(const label of ['Research workspace','Run activity','Deliverables'])assert.equal(d.querySelector(`.rail a[aria-label="${label}"]`).hidden,true,label);
+  for(const label of ['Research workspace','Run activity','Reports'])assert.equal(d.querySelector(`.rail a[aria-label="${label}"]`).hidden,true,label);
   for(const label of ['Issuer library','New run','Settings','Help'])assert.equal(d.querySelector(`.rail a[aria-label="${label}"]`).hidden,false,label);
   for(const route of ['W-Overview/overview','W-Calendar','W-Evidence/sources','CP-OS/activity','CP-1'])assert.equal(dom.window.eval(`location.hash='${route}';renderRoute();current.module`),'W-Library',route);
   assert.match(goTo(dom,'W-Reports/list').getElementById('content').textContent,/No deliverables yet/);
@@ -1024,7 +1024,7 @@ test('The route names codes on reader pages and leaves the audit and inspector e
 });
 test('The app is organised by credit question and its chrome shows names, not codes',()=>{
   const dom=fixture('CP-2G?c=tdg-003'),d=dom.window.document,w=dom.window;
-  assert.deepEqual([...d.querySelectorAll('.workspace-tabs a')].map(a=>a.textContent),['Summary','Analysis','Calendar','Deliverables','Evidence']);
+  assert.deepEqual([...d.querySelectorAll('.workspace-tabs a')].map(a=>a.textContent),['Overview','Modules','Calendar','Reports','Evidence']);
   const head=d.querySelector('.module-title h2');
   assert.equal(norm(head.textContent),'Forward credit model');assert.equal(head.title,'CP-2G');
   assert.doesNotMatch(d.title,/CP-/);

@@ -138,8 +138,10 @@ function installNewRun(){
     }catch(error){$('run-progress').textContent='Could not refresh run status. The app will check again automatically. Details: '+error.message;}
     finally{polling=false;controls();}
   }
+  let contextLoaded=null;
   window.addEventListener('message',event=>{
     if(event.source!==$('context-editor').contentWindow)return;
+    if(['cpos:ready','cpos:height'].includes(event.data?.type)&&contextLoaded)contextLoaded();
     if(event.data?.type==='cpos:height'){
       const height=event.data.height;
       if(Number.isFinite(height)&&height>0&&height<=50000)$('context-editor').style.height=height+'px';
@@ -148,7 +150,7 @@ function installNewRun(){
     if(event.data?.type==='cpos:ready'){$('context-readiness').textContent=event.data.ready?'Required fields complete. Continue when ready.':'Complete the required fields above to continue.';return;}
     if(event.data?.type!=='cpos:context'||running||busy||$('new-run').hidden)return;
     if(event.data.problems?.length){message('Complete the context form before continuing:\n'+event.data.problems.join('\n'));return;}
-    context=event.data.context;review=null;
+    context=event.data.context;review=null;document.body.dataset.draft='1';
     $('context-summary').textContent=`${context.identity.issuer_name} · ${workflowTitle(context.run.pathway)} · as of ${context.run.as_of}`;
     stage('source');controls();
   });
@@ -186,37 +188,50 @@ function installNewRun(){
     busy=true;controls();
     try{
       await appRequest('/api/runs/start',{id:review.id,review_id:review.review_id,confirm:true});
-      running=true;stage('progress');$('open-run').hidden=true;$('another-run').hidden=true;await poll();
+      running=true;delete document.body.dataset.draft;stage('progress');$('open-run').hidden=true;$('another-run').hidden=true;await poll();
     }catch(error){
       message(error.message);
       // A lost response must not prompt a second paid launch. Reconnect by id.
-      try{const status=await appRequest('/api/runs/status?id='+encodeURIComponent(review.id));if(status.state!=='reviewed'){running=true;stage('progress');await poll();}}catch{}
+      try{const status=await appRequest('/api/runs/status?id='+encodeURIComponent(review.id));if(status.state!=='reviewed'){running=true;delete document.body.dataset.draft;stage('progress');await poll();}}catch{}
     }finally{busy=false;controls();}
   });
-  $('another-run').addEventListener('click',()=>{if(running)return;review=null;context=null;$('run-sources').value='';$('upload-list').replaceChildren();$('run-confirm').checked=false;stage('context');controls();});
+  $('another-run').addEventListener('click',()=>{if(running)return;review=null;context=null;delete document.body.dataset.draft;$('run-sources').value='';$('upload-list').replaceChildren();$('run-confirm').checked=false;stage('context');controls();});
   // The store is read at load, so a finished run needs a reload to appear.
   $('open-run').addEventListener('click',()=>{location.hash=$('open-run').dataset.route;location.reload();});
   window.addEventListener('beforeunload',event=>{if(running){event.preventDefault();event.returnValue='';}});
   controls();
   return{show(){
-    if(!$('context-editor').hasAttribute('src'))$('context-editor').src='context-form.html';
+    if(!$('context-editor').hasAttribute('src')){
+      contextLoaded=watchFrame($('context-editor'),document.querySelector('#context-step .frame-status'),'Loading run context form…','The run context form did not load.');
+      $('context-editor').src='context-form.html';
+    }
     recent();
     document.querySelector('#new-run .run-step:not([hidden]) h2').focus({preventScroll:true});
   }};
 }
 
+let settingsBusy=false;
 function installSettings(){
   const status=value=>{$('settings-status').textContent=value;};
-  const changing=async(url,body)=>{
+  // One request at a time: the buttons stay disabled until it fails (success reloads the page).
+  const lock=(on,note)=>{
+    settingsBusy=on;
+    for(const id of ['save-workspace','refresh-library','quit-library'])if($(id))$(id).disabled=on||(id==='save-workspace'&&window.DESIGN_APP.policy_locked);
+    if(note)status(note);
+  };
+  const changing=async(url,body,note)=>{
+    if(settingsBusy)return;
+    lock(true,note);
     try{await appRequest(url,body);location.reload();}
-    catch(error){status('Could not update the library. Details: '+error.message);}
+    catch(error){lock(false);status('Could not update the library. Details: '+error.message);}
   };
   document.addEventListener('click',async event=>{
-    if(event.target.closest('#refresh-library'))await changing('/api/refresh',{});
-    if(event.target.closest('#save-workspace'))await changing('/api/settings',{workspace:$('workspace-path').value.trim()});
-    if(event.target.closest('#quit-library')){
-      try{await appRequest('/api/quit',{});status('Library stopped. You can close this tab; open the launcher to start it again.');}
-      catch(error){status(error.message);}
+    if(event.target.closest('#refresh-library'))await changing('/api/refresh',{},'Refreshing the library…');
+    if(event.target.closest('#save-workspace'))await changing('/api/settings',{workspace:$('workspace-path').value.trim()},'Saving the workspace…');
+    if(event.target.closest('#quit-library')&&!settingsBusy){
+      lock(true,'Stopping the library…');
+      try{await appRequest('/api/quit',{});document.body.dataset.quit='1';status('Library stopped. You can close this tab; open the launcher to start it again.');}
+      catch(error){lock(false);status(error.message);}
     }
   });
 }

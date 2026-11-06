@@ -289,6 +289,7 @@ function renderNavigator(module) {
   $('module-list').innerHTML=`<details class="module-catalogue" data-group="catalogue" ${query||!analytical||expandedGroups.get('catalogue')?'open':''}><summary>Browse analysis & tools</summary>${catalogue}</details>${analytical&&!query&&outline?`<div class="outline-heading">${esc(moduleNames[module])} · Section outline</div>${outlineMarkup(outline)}`:''}`;
   nameCodes($('module-list'));
   document.querySelector('.nav-filter').innerHTML=`${query?'Matches':'Analysis & tools'} <span>${count}</span>`;
+  $('module-search-clear').hidden=!$('module-search').value;
   renderSearch(query);
 }
 function parseRoute() {
@@ -334,6 +335,14 @@ function moduleBody({module,context,output}) {
     return `<div class="missing-state"><div class="empty-symbol">${icon('file-text')}</div><h2>Couldn’t present this output</h2><p>The screen could not render this view. The saved file is unchanged.</p>${output?`<a class="text-action" href="${esc(data[output].href)}" download>Download the original handoff</a>`:''}</div>`;
   }
 }
+let cancelReportFrame=null;
+// Column headers stick just under the sticky filter band, which sits 8px above the content's top edge.
+function sizeLibraryBand() {
+  const workspace=document.querySelector('.library-workspace'),band=document.querySelector('.library-discovery');
+  if(workspace&&band)workspace.style.setProperty('--band-h',`${band.offsetHeight-8}px`);
+  else document.getElementById('workbench')?.style.removeProperty('--band-h');
+}
+window.addEventListener('resize',sizeLibraryBand);
 function showNavigator(open) {
   $('navigator').classList.toggle('mobile-open',open);
   $('module-toggle').setAttribute('aria-expanded',String(open));
@@ -361,9 +370,17 @@ function renderRoute() {
     if(!showsCodes(next))nameCodes($('section-nav'));
     updateWorkspaceChrome(next.module);
     $('content').innerHTML=moduleBody(next);
+    sizeLibraryBand();
+    // watchFrame returns the callback that stops its timer; the previous report's timer must not fire against a detached element.
+    if(cancelReportFrame)cancelReportFrame();
+    cancelReportFrame=null;
+    const frame=$('report-preview');
+    if(frame)cancelReportFrame=watchFrame(frame,$('content').querySelector('.frame-status'),'Loading report…','The report did not load.',()=>{const link=document.createElement('a');link.setAttribute('href',window.DESIGN_WORKSPACE.reports.find(r=>r.id===next.section).download);link.download='';link.textContent='Download original HTML';return link;},'This report\'s file could not be found. Reload the library to refresh the list.');
     if(!showsCodes(next))nameCodes($('content'));
     $('content').scrollTop=readingPositions.get(`${next.context}:${next.output||next.module}:${next.section}`)||0;
     showNavigator(false);
+    // Search hits drive moves between analytical modules, so the query is kept there and dropped elsewhere.
+    if(previous&&previous.module!==next.module&&!isAnalytical(next.module))$('module-search').value='';
     renderNavigator(next.module);
     document.title=`${moduleNames[next.module]} · Issuer Library`;
     const creating=next.module==='W-NewRun';
@@ -433,6 +450,7 @@ document.addEventListener('click',event=>{
 document.addEventListener('input',event=>{if(event.target.id==='library-query')updateLibraryResults();});
 document.addEventListener('submit',event=>{if(event.target.id==='library-filters')event.preventDefault();});
 $('module-search').addEventListener('input',()=>renderNavigator(current.module));
+$('module-search-clear').addEventListener('click',()=>{$('module-search').value='';renderNavigator(current.module);$('module-search').focus();});
 $('module-toggle').addEventListener('click',()=>showNavigator(!$('navigator').classList.contains('mobile-open')));
 document.addEventListener('keydown',event=>{
   const target=event.target,unmodified=!event.metaKey&&!event.ctrlKey&&!event.altKey;
