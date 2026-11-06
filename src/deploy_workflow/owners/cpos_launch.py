@@ -689,6 +689,10 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+    if CONFIGS[args.config].provider == "copilot":
+        raise SystemExit(
+            "cpos_launch: copilot configurations need the Copilot adapter (not yet wired)"
+        )
     try:
         if args.live and args.ruling is None:
             raise LaunchRefused(

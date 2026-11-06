@@ -1072,3 +1072,11 @@ def test_live_evidence_check_can_pass_and_refuses_each_kind_of_fake(tmp_path, pr
         assert_live_evidence(
             launched("wrong", reported="gpt-6.1-sol", filed="| Observed | 1 |"), Decimal(12)
         )
+
+
+def test_copilot_config_is_refused_before_anything_is_written(tmp_path):
+    argv = launch(tmp_path)
+    argv[argv.index("--config") + 1] = "copilot-sol-medium"
+    with pytest.raises(SystemExit, match="Copilot adapter"):
+        main(argv)
+    assert not (tmp_path / "out").exists()

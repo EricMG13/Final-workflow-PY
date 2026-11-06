@@ -10,12 +10,15 @@ provider    reports                        cost_status
 openai      tokens only                    computed
 anthropic   tokens only                    computed
 openrouter  tokens and ``usage.cost``      billed
+copilot     tokens and the runtime's cost  billed
 =========== ============================== ==========
 
 Offline (a recorded call) is always priced from the recording's ``Usage`` with ``PRICES`` and is
 ``computed``; a ``billed_usd`` on a recorded turn is ignored there because no money moves.
 Live, a turn that carries ``billed_usd`` is ``billed``; otherwise it is ``computed``, and an
-OpenRouter call without ``usage.cost`` has an unknown charge.
+OpenRouter or Copilot call without a reported cost has an unknown charge. Offline replay of a
+Copilot recording is therefore always unknown, by design: its charge is the runtime's reported
+cost, and token rates would only size holds.
 
 Offline deepseek token pricing treats prompt tokens as including cached reads (OpenAI-style),
 because OpenRouter's usage schema is OpenAI-compatible; this is not verified against a live reply.
@@ -90,6 +93,9 @@ class ModelPrice:
     long_output: Decimal | None = None
     max_context_tokens: int | None = None
     reservation_context_tokens: int | None = None
+    # Holds price output at least this many tokens: a runtime that cannot enforce the request's
+    # max_output_tokens can charge up to the model maximum. None: the request cap binds.
+    reservation_output_tokens: int | None = None
 
     def __post_init__(self) -> None:
         for name in ("input", "output", "cache_write"):
@@ -104,7 +110,12 @@ class ModelPrice:
                 object.__setattr__(self, name, _money(name, value))
         if self.max_input_tokens is not None:
             _count("max_input_tokens", self.max_input_tokens)
-        for name in ("long_context_after", "max_context_tokens", "reservation_context_tokens"):
+        for name in (
+            "long_context_after",
+            "max_context_tokens",
+            "reservation_context_tokens",
+            "reservation_output_tokens",
+        ):
             value = getattr(self, name)
             if value is not None:
                 _count(name, value)
@@ -173,13 +184,18 @@ PRICES: Mapping[str, ModelPrice] = MappingProxyType(
             long_output=Decimal(15),
             max_context_tokens=1_050_000,
             reservation_context_tokens=1_050_000,
+            # the model maximum, cases/pilot-fixes/limits.json documented_max_output_tokens
+            reservation_output_tokens=128_000,
         ),
-        # same source; Copilot lists one write rate, no 5 m / 1 h split
+        # same source; Copilot lists one write rate (5), no 5 m / 1 h split; the hold uses
+        # Anthropic's 1 h rate (8) because the runtime's cache TTL is unverified
         "copilot-opus-medium": ModelPrice(
             input=Decimal(4),
             cached_read=Decimal("0.20"),
-            cache_write=Decimal(5),
+            cache_write=Decimal(8),
             output=Decimal(20),
+            # the model maximum, cases/pilot-fixes/limits.json documented_max_output_tokens
+            reservation_output_tokens=128_000,
         ),
     }
 )
@@ -201,7 +217,13 @@ def reservation_usd(price: ModelPrice, input_tokens: int, max_output: int) -> De
     if price.max_input_tokens is not None and n_in > price.max_input_tokens:
         raise ContextTooLong(f"{n_in} input tokens is over the {price.max_input_tokens} listed")
     top = max(price.input, price.cache_write)
-    return (n_in * top).scaleb(-6) + (n_out * price.output).scaleb(-6)
+    return (n_in * top).scaleb(-6) + (_held_output(price, n_out) * price.output).scaleb(-6)
+
+
+def _held_output(price: ModelPrice, max_output: int) -> int:
+    """Output tokens a hold prices: the request cap, or the model maximum where that is set."""
+    floor = price.reservation_output_tokens
+    return max_output if floor is None else max(max_output, floor)
 
 
 def request_reservation_usd(price: ModelPrice, input_bound: int, max_output: int) -> Decimal:
@@ -243,7 +265,9 @@ def request_reservation_usd(price: ModelPrice, input_bound: int, max_output: int
         price.output,
         price.long_output if price.long_output is not None else price.output,
     )
-    return (ceiling * top).scaleb(-6) + (_count("max_output", max_output) * output).scaleb(-6)
+    return (ceiling * top).scaleb(-6) + (
+        _held_output(price, _count("max_output", max_output)) * output
+    ).scaleb(-6)
 
 
 def _openai_like(price: ModelPrice, usage: Usage) -> Decimal | None:

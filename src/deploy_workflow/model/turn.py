@@ -16,7 +16,9 @@ Provider = Literal["openai", "anthropic", "openrouter", "copilot"]
 Role = Literal["system", "user", "assistant", "tool"]
 StopReason = Literal["end", "tool_use", "max_tokens", "other"]
 
-# The four spec §7.1 configurations. pricing.PRICES asserts its keys and providers against this.
+# The four spec §7.1 configurations, plus the two copilot configurations, which CP-OS selects
+# explicitly and which are priced only from the runtime's reported usage. pricing.PRICES asserts
+# its keys and providers against this.
 CONFIG_PROVIDERS: Mapping[str, str] = MappingProxyType(
     {
         "sol-medium": "openai",

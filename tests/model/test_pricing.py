@@ -28,6 +28,7 @@ from deploy_workflow.model.pricing import (
     price_of,
     price_usage,
     refusal_values,
+    request_reservation_usd,
     reservation_usd,
 )
 from deploy_workflow.model.providers import parse
@@ -129,10 +130,17 @@ def test_copilot_table_rates() -> None:
     assert (opus.input, opus.cached_read, opus.cache_write, opus.output) == (
         Decimal(4),
         Decimal("0.20"),
-        Decimal(5),
+        Decimal(8),
         Decimal(20),
     )
+    assert sol.reservation_output_tokens == opus.reservation_output_tokens == 128_000
     assert COPILOT_PRICES_AS_OF == date(2026, 11, 6)
+
+
+def test_copilot_hold_prices_output_at_the_model_maximum() -> None:
+    held = request_reservation_usd(price_of("copilot-opus-medium"), 1000, 32_000)
+    assert held == request_reservation_usd(price_of("copilot-opus-medium"), 1000, 128_000)
+    assert request_reservation_usd(price_of("opus-medium"), 1000, 32_000) < held
 
 
 def test_copilot_live_charge_is_billed_only() -> None:
