@@ -10,7 +10,7 @@ entries below retain their historical case scope.
 
 ## 2026-11-06 — Python variant: sync with the Go original, `40edb62` to `579b55b`
 
-Scope: the Issuer Library of this variant after merging `final-workflow` `main` (35 commits:
+Scope: the Issuer Library of this variant after merging `final-workflow` `main` (31 commits:
 the reader layer, the Library redesign, the validation command, one CP-8 live comparison). No
 Go server file changed upstream, so the server API is unchanged. No predecessor folder or
 retained run was edited; upstream's new run folders came in as they are.
