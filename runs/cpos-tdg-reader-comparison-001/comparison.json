@@ -1,0 +1,28 @@
+{
+  "run": {
+    "run_id": "tdg-reader-cp8-comparison-20261106",
+    "issuer_id": "tdg",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-8"
+    ]
+  },
+  "prior": {
+    "path": "../cpos-launch-live-002/deliveries/ce11d9e8935764e843a605d47cde34a903c34888c3364b29df87574c3a370954/delivery.json",
+    "sha256": "398084699b4951e5178d2e7aba474bb8e5ffd8c9f8cc0c4cfcf9964a3d7772cc"
+  },
+  "current": {
+    "path": "../web-04cd5a5d02ea7d1dea714a8a6632cd21/deliveries/278856a3253b29f86c89e87f27bcee1c4c629da6e781ea323419393088a6fadb/delivery.json",
+    "sha256": "4d7b57b64fa80d1949fcb6087511599e428a609e36d30795d99a4c36b780db8c"
+  },
+  "instructions": {
+    "path": "instructions.md",
+    "sha256": "8cc9930ede0aef33672ac01f036c062f818f137914f96da480590188ed5f79d1"
+  },
+  "execution": "live-provider",
+  "max_attempts": 1,
+  "provider_cap_usd": "12"
+}

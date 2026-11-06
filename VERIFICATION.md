@@ -5189,7 +5189,33 @@ Chart marks against `cases/reader/tdg-expected.json` (frozen before the call):
 - Reader summary numbers: accepted by the checker, which refuses a number absent
   from the handoff.
 
-Decision table: spend below USD 1.86 and no module needed a repair; CP-8 comparison
-(Step 6) not yet run, so Checkpoint C is open on that step. This proves one dated TDG
-scope only. Not verified: Windows; the three scenario-path, hedge and revenue-mix
-chart kinds (no run holds them).
+CP-8 comparison (Step 6), owner approved in chat ("Yes, run CP-8"), ruling
+`docs/rulings/2026-11-06-reader-cp8-comparison.md`. Run
+`runs/cpos-tdg-reader-comparison-001` through `cpos.run_live_comparison` (sol-medium,
+USD 12 cap, one outer attempt): prior = `runs/cpos-launch-live-002` delivery
+`ce11d9e8…` (launcher run of 2026-11-05, before the reader layer), current = the web run's
+delivery `278856a3…`. Both bundles passed the receipt, hash and HTML/view binding
+checks; the answer passed the seven-dimension check and both receipt-hash anchors with
+no repair (`1.review.json` issues: []). Spend USD 0.4073 (4 calls). Report
+`execution/deliveries/ae46523f…/report.html`, handoff sha256 `103ba95e…`.
+CP-8's answer: Values unchanged (revenue 7,940 / 6,585, EBITDA 3,813 / 3,148, As
+Defined 4,173 / 3,395, cash 6,261 / 3,472, gross debt 25,068 / 19,913, maturities
+24,319 all equal); ratio differences are basis choices and display precision, not
+corrections (current foregrounds ordinary EBITDA and cash interest; prior's F3 already
+showed 6.57x / 6.33x on that basis). Periods and the subsequent-event boundary
+unchanged. Assumptions: same debt/cash perimeter; liquidity chart uses revolver
+availability 843 / 755 only. Conclusions: core interpretation unchanged; current adds
+a qualitative governance "High" label and more caution (analytical judgment, not a new
+event). Sources: same five issuer files and hashes; only the context file changed.
+Limitations: the prior 30 / 16 cash-flow classification difference is not shown
+resolved by the current "no unresolved CFO reconciliation" wording (unresolved, carried
+to the owner). Output scope: presentation and scope expansion (CP-0 refreshed, Reader
+summaries, chart strip, title "Issuer report"); neither bundle publishes a Model,
+charts file or calculation JSON. CP-8 sampled the large view/report/HTML files; it
+read all six handoffs and both receipts in full.
+
+Decision table: spend USD 0.8792 + 0.4073 below USD 1.86, no repair round, and CP-8
+reports no lost value, so Checkpoint C closes. This proves one dated TDG scope only.
+Not verified: Windows; the three scenario-path, hedge and revenue-mix chart kinds (no
+run holds them); the 30 / 16 classification wording in the current CP-1 (an analytical
+point, not a reader-layer defect).
