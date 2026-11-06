@@ -8,6 +8,42 @@ contains the settled CP-6 timeout cost, the corrected TDG annual publication, th
 live CP-8 comparison and checks of the five broader report bundles. The older
 entries below retain their historical case scope.
 
+## 2026-11-06 — Issuer Library: layout pass
+
+Scope: `apps/issuer-library` web UI after the harden pass (`/impeccable layout`): structure, grouping and
+rhythm inside the incumbent look; copy unchanged except one control label.
+Assessment (isolated, headless Chrome at 1440/1000/720) and mechanical scan (layout scope: 6 findings, all
+the known `context-form.html` false positive) were synthesised into nine items.
+Changed: an opened navigator on Calendar, Reports, Evidence and Run activity takes a 220px column beside the
+content between 721 and 1050px instead of stacking full width (main 346px → 700px at 1000); the navigator
+disclosure on those pages is now "Browse modules", auto-width above 720 and full width with its rule at
+≤720 as on module pages; Library filter selects grow to fill a wrapped row; the Library column headers stick
+under the filter band (`--band-h` set from the band's measured height on render and resize, cleared off the
+Library route; band bottom equals header top at 1440 and 1000 after a 400px scroll); a long issuer name
+ellipsises on one line with a `title` above 720 and wraps below; the Library, Settings, Help and New run
+content inset matches the header (title and content both at x92 at 1440, x86 at 1000); Overview question
+groups auto-fit so a single card spans the row; section pager, section and report selects, saved-output
+select, catalogue summary and "Change case" have a 32px floor (section bar 41 → 43px, header +2px at 720
+only); Library rows at ≤720 carry Run / Workflow / Period / Reports labels.
+Out of scope, unchanged: the 42 distinct spacing values in the older rules (330 of 557 uses off a 4px scale;
+a separate sweep), the Reports list pager, the inspector panel.
+Checks: `node --test` over the six NODE_TESTS 177 pass, exit 0; `go vet` and `go test ./...` exit 0;
+assessor and reviewer probes (`layout-measure.cjs`, `layout-review-reverts.sh` 13 single-item reverts all
+caught, `layout-review-band.cjs`, `layout-review-inset.cjs`, `layout-review-grid.sh`) exit 0 under zsh;
+rendered checks in the in-app browser after rebuild at 1440, 1000 and 720 (navigator 220px beside 700px main,
+sticky headers at the band's bottom edge, aligned insets, full-width single cards, 32px Change case,
+labelled rows and a full-width toggle at 720, `--band-h` absent on Overview). Full detector: 67 → 67.
+One run of the six suites, taken while a review agent and a Go build ran alongside, reported one
+failure whose name was not captured; three clean reruns and four reruns under three busy CPU cores all
+passed (0 failures), so it is recorded here as an unreproduced timing flake, not a defect.
+Ledger: layout agent=mx-feature fix-rounds=1 gates-first-pass=y (round 1: anchor the L1 answer key, Medium;
+the 720 toggle width and a stale `--band-h`, Low/Info, rode with it; agent=mx-scaffold). Review: mx-precise,
+one Medium, two Low, one Info; scoped re-review of the Medium by mx-precise: pass, with one Low (no
+assertion for the evidence variant) closed by a one-line batch (agent=mx-scaffold, revert fails the test).
+Not verified: the Playwright browser gate; Windows rendering and DPI scaling; widths between 721 and 799px
+with real content; a 98-character issuer name in the live app; keyboard focus on the narrower toggle; nothing
+committed.
+
 ## 2026-11-06 — Issuer Library: harden pass
 
 Scope: `apps/issuer-library` web UI after the polish pass (`/impeccable harden`): error, edge and

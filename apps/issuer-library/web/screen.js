@@ -336,6 +336,13 @@ function moduleBody({module,context,output}) {
   }
 }
 let cancelReportFrame=null;
+// Column headers stick just under the sticky filter band, which sits 8px above the content's top edge.
+function sizeLibraryBand() {
+  const workspace=document.querySelector('.library-workspace'),band=document.querySelector('.library-discovery');
+  if(workspace&&band)workspace.style.setProperty('--band-h',`${band.offsetHeight-8}px`);
+  else document.getElementById('workbench')?.style.removeProperty('--band-h');
+}
+window.addEventListener('resize',sizeLibraryBand);
 function showNavigator(open) {
   $('navigator').classList.toggle('mobile-open',open);
   $('module-toggle').setAttribute('aria-expanded',String(open));
@@ -363,6 +370,7 @@ function renderRoute() {
     if(!showsCodes(next))nameCodes($('section-nav'));
     updateWorkspaceChrome(next.module);
     $('content').innerHTML=moduleBody(next);
+    sizeLibraryBand();
     // watchFrame returns the callback that stops its timer; the previous report's timer must not fire against a detached element.
     if(cancelReportFrame)cancelReportFrame();
     cancelReportFrame=null;

@@ -303,3 +303,20 @@ test('H5 an Evidence tab with no retained files says so',async t=>{
   assert.match(text(d.getElementById('content')),/No retained files for this run/);
   assert.ok(d.querySelector('#content a[href="#W-Library/cases"]'));
 });
+
+test('layout: toggle label, issuer title, library band offset and row labels', async t=>{
+  const w=fixture('W-Reports/list?c=tdg-002').window,d=w.document;t.after(()=>w.close());
+  assert.equal(text(d.getElementById('module-toggle')),'Browse modules');
+  await go(w,'W-Overview/overview?c=tdg-002');
+  const h1=d.querySelector('.issuer h1');
+  assert.ok(h1.getAttribute('title'));assert.equal(h1.getAttribute('title'),h1.textContent);
+  await go(w,'W-Library/cases');
+  assert.equal(d.querySelector('.library-workspace').style.getPropertyValue('--band-h'),'-8px');
+  await go(w,'W-Overview/overview?c=tdg-002');
+  assert.ok(!d.getElementById('workbench').style.cssText.includes('--band-h'));
+  await go(w,'W-Library/cases');
+  const cells=[...d.querySelectorAll('.run-row td:not(:first-child):not(.row-open), .issuer-row td:not(.row-open)')];
+  assert.ok(cells.length>0);
+  for(const c of cells)assert.ok(c.dataset.label,c.outerHTML);
+  assert.deepEqual([...new Set(cells.map(c=>c.dataset.label))].sort(),['Period','Reports','Run','Workflow']);
+});

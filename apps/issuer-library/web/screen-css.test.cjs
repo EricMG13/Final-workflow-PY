@@ -88,3 +88,35 @@ test('forced colours keep pills, buttons and the active rail item visible; the c
   assert.ok(block[1].includes('.rail a[aria-current]') && block[1].includes('.badge'));
   assert.ok(rule('.issuer-meta a').some((b) => b.includes('white-space:nowrap')));
 });
+
+// Layout pass answer keys.
+const mediaBlocks = (query) => [...screen.matchAll(/@media\(([^)]*)\)(?: and \(([^)]*)\))?\{/g)].filter((m) => query(m[1], m[2])).map((m) => {
+  let depth = 1, i = m.index + m[0].length;
+  const start = i;
+  while (depth && i < screen.length) { depth += screen[i] === '{' ? 1 : screen[i] === '}' ? -1 : 0; i += 1; }
+  return screen.slice(start, i - 1);
+});
+
+test('layout: an opened navigator keeps two columns at 1000px', () => {
+  const blocks = mediaBlocks((a, b) => a === 'min-width:721px' && b === 'max-width:1050px');
+  assert.ok(blocks.some((b) => /(^|[{};])\.workbench\.tools-workspace:has\(\.navigator\.mobile-open\)\{grid-template-columns:220px minmax\(0,1fr\)\}/.test(b)), 'no 220px two-column rule in 721-1050');
+  assert.ok(blocks.some((b) => /(^|[{};])\.workbench\.tools-workspace\.has-evidence:has\(\.navigator\.mobile-open\)\{grid-template-columns:220px minmax\(0,1fr\)\}/.test(b)), 'no 220px two-column evidence rule in 721-1050');
+});
+
+test('layout: the tools Browse modules toggle is auto-width', () => {
+  const found = rule('.tools-workspace .mobile-modules').join(';');
+  assert.ok(found.includes('width:auto') && !found.includes('width:100%'), found);
+});
+
+test('layout: filters flex, headers stick, long names truncate, groups fit', () => {
+  assert.ok(rule('.library-select').some((b) => b.includes('flex:1 1 140px')));
+  assert.ok(rule('.case-list thead th').some((b) => b.includes('position:sticky')));
+  assert.ok(rule('.issuer h1').some((b) => b.includes('text-overflow:ellipsis')));
+  assert.ok(rule('.question-map>section>div').some((b) => b.includes('auto-fit')));
+});
+
+test('layout: controls reach 32px', () => {
+  for (const s of ['.output-select select', '#report-select', '.module-catalogue>summary', '.issuer-meta a', '#section-nav select', '#section-nav button']) {
+    assert.ok(rule(s).some((b) => /(^|;)(min-)?height:32px/.test(b)), `${s} under 32px`);
+  }
+});
