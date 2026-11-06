@@ -28,6 +28,7 @@ from deploy_workflow.model.adapter import (
 )
 from deploy_workflow.model.copilot import (
     SESSION_ERROR,
+    TOOL_START,
     USAGE,
     _billed_usd,
     _usage,
@@ -47,6 +48,7 @@ from deploy_workflow.model.turn import (
     Message,
     ModelSpec,
     Turn,
+    TurnError,
     TurnRequest,
     Usage,
     dump_json,
@@ -64,16 +66,61 @@ _RUNTIME_VARIABLE = "COPILOT_CLI_PATH"
 _TOKEN_VARIABLE = KEY_VARIABLES["copilot"]
 _DIGEST = re.compile(r"[A-Za-z0-9_-]{1,128}")
 _TOOL_FINISH = ("tool_calls", "tool_use")
-_TEARDOWN_S = 5.0  # each disconnect/stop of a dropped session
+# Bounds of the release of one exchange. STOP_S covers the SDK's own stop: shutdown RPC 10 s,
+# graceful exit 10 s, terminate 5 s, kill 5 s (client.py, 1.0.28); force_stop follows a failure.
+_ABORT_S = 5.0  # on the reply's path (timeouts only)
+_DISCONNECT_S = 5.0
+_STOP_S = 30.0
+_FORCE_S = 5.0
+_JOIN_S = 5.0
 _OUTER_SLACK_S = 5.0  # the synchronous wait outlasts the coroutine's own overall bound
+_CLOSE_SLACK_S = 2.0
+_ENV_ALLOWED = frozenset(
+    {
+        "PATH",
+        "HOME",
+        "USERPROFILE",
+        "TMPDIR",
+        "TEMP",
+        "TMP",
+        "SYSTEMROOT",
+        "SYSTEMDRIVE",
+        "COMSPEC",
+        "APPDATA",
+        "LOCALAPPDATA",
+        "PROGRAMDATA",
+        "LANG",
+        "SSL_CERT_FILE",
+        "SSL_CERT_DIR",
+        "REQUESTS_CA_BUNDLE",
+        "NODE_EXTRA_CA_CERTS",
+        "HTTP_PROXY",
+        "HTTPS_PROXY",
+        "NO_PROXY",
+    }
+)
 _INVOKED = object()  # queue marker: a tool handler was called
+
+
+def _teardown_budget() -> float:
+    """One exchange's whole release: disconnect, stop, then force_stop."""
+    return _DISCONNECT_S + _STOP_S + _FORCE_S
+
+
+def runtime_environment(environ: Mapping[str, str]) -> dict[str, str]:
+    """The allowlisted part of ``environ`` the runtime process may see (never a provider key,
+    never GH_TOKEN/GITHUB_TOKEN: the token travels only through ``github_token``)."""
+    return {
+        k: v for k, v in environ.items() if k.upper() in _ENV_ALLOWED or k.upper().startswith("LC_")
+    }
 
 
 @dataclass(frozen=True)
 class ClientOptions:
     runtime: str
-    token: str
+    token: str = field(repr=False)
     home: str
+    env: Mapping[str, str] = field(default_factory=dict, repr=False)
 
 
 @dataclass(frozen=True)
@@ -99,6 +146,7 @@ class ClientLike(Protocol):
     async def list_models(self) -> list[dict[str, Any]]: ...
     async def create_session(self, **options: Any) -> SessionLike: ...
     async def stop(self) -> None: ...
+    async def force_stop(self) -> None: ...
 
 
 ClientFactory = Callable[[ClientOptions], ClientLike]
@@ -152,6 +200,9 @@ class _SdkClient:
     async def stop(self) -> None:
         await self._client.stop()
 
+    async def force_stop(self) -> None:
+        await self._client.force_stop()
+
 
 def real_client(options: ClientOptions) -> ClientLike:
     """The only place the SDK is imported."""
@@ -165,6 +216,7 @@ def real_client(options: ClientOptions) -> ClientLike:
         mode="empty",
         base_directory=options.home,
         log_level="none",
+        env=dict(options.env),
     )
     return _SdkClient(client, Tool, ToolResult, PermissionDecisionReject)
 
@@ -188,7 +240,21 @@ class _State:
     tool_names: frozenset[str] = frozenset()
     history: tuple[Message, ...] = ()
     pending: dict[str, asyncio.Future[str]] = field(default_factory=dict)
-    invoked: int = 0
+    # (tool_call_id -> (tool_name, arguments)) of the handler invocations of the current call
+    calls: dict[str, tuple[str, Any]] = field(default_factory=dict)
+    releasing: asyncio.Task[None] | None = None
+
+
+class _ToolCallLost(Exception):
+    """A pending handler was already finished (cancelled by the SDK): its result has no taker."""
+
+
+@dataclass(frozen=True)
+class _Creds:
+    redactor: Redactor
+    token: str | None
+    runtime: str | None
+    env: Mapping[str, str]
 
 
 @dataclass(frozen=True)
@@ -267,6 +333,43 @@ def _routing_error(turn: Turn, records: list[dict[str, Any]], model: str) -> str
     return "AutoRouted" if data.get("isAuto") is True else None
 
 
+def _normal(arguments: Any) -> Any:
+    """Arguments as the parser reads them (floats as Decimal, an absent value as {})."""
+    return load_json(dump_json({} if arguments is None else arguments))
+
+
+def _calls_match(turn: Turn, calls: Mapping[str, tuple[str, Any]]) -> bool:
+    """Every parsed tool call was invoked, with the same name and arguments, and nothing else."""
+    if calls.keys() != {c.call_id for c in turn.tool_calls}:
+        return False
+    try:
+        for call in turn.tool_calls:
+            name, arguments = calls[call.call_id]
+            if call.bad_arguments is not None:
+                same = dump_json(arguments) == call.bad_arguments
+            else:
+                same = _normal(arguments) == call.arguments
+            if name != call.name or not same:
+                return False
+    except TurnError:
+        return False
+    return True
+
+
+def _paths_in(text: str, paths: list[str]) -> str:
+    """``text`` without any of ``paths``, raw, repr-escaped, slash-flipped, in any case."""
+    forms: set[str] = set()
+    for path in paths:
+        if path:
+            escaped = repr(path)[1:-1]
+            forms |= {path, escaped, path.replace("\\", "/"), path.replace("/", "\\")}
+            forms |= {escaped.replace("\\", "/")}
+    if not forms:
+        return text
+    pattern = "|".join(re.escape(f) for f in sorted(forms, key=len, reverse=True))
+    return re.sub(pattern, "<path>", text, flags=re.IGNORECASE)
+
+
 class CopilotAdapter:
     """Every construction runs the R2 gate; the environment is read at the first ``complete``."""
 
@@ -290,12 +393,15 @@ class CopilotAdapter:
         self._clock = clock
         self._factory = client_factory
         self._idle_s, self._overall_s = idle_s, overall_s
-        self._cached: tuple[Redactor, str | None, str | None] | None = None
+        self._cached: _Creds | None = None
         self._states: dict[str, _State] = {}
+        self._teardowns: set[asyncio.Task[None]] = set()
+        self._notes: list[str] = []  # release failures; close() raises them
         self._lock = threading.Lock()
         self._loop: asyncio.AbstractEventLoop | None = None
         self._thread: threading.Thread | None = None
         self._closed = False
+        self._released = False
 
     @property
     def ruling(self) -> Path | None:
@@ -307,18 +413,19 @@ class CopilotAdapter:
 
     # -------------------------------------------------------- synchronous side
 
-    def _credentials(self) -> tuple[Redactor, str | None, str | None]:
-        """Redactor, token and runtime path, read once; None for a missing token, or for a
-        runtime variable that is unset or not an existing regular file."""
+    def _credentials(self) -> _Creds:
+        """Redactor, token, runtime path and runtime environment, read once; None for a missing
+        token, or for a runtime variable that is unset or not an existing regular file."""
         if self._cached is None:
             environ = os.environ if self._environ is None else self._environ
             runtime = environ.get(_RUNTIME_VARIABLE) or None
             if runtime is not None and not Path(runtime).is_file():
                 runtime = None
-            self._cached = (
+            self._cached = _Creds(
                 Redactor.from_environ(environ),
                 environ.get(_TOKEN_VARIABLE) or None,
                 runtime,
+                runtime_environment(environ),
             )
         return self._cached
 
@@ -354,7 +461,8 @@ class CopilotAdapter:
     ) -> AdapterReply:
         """One model call: send what the exchange needs and wait for the call's boundary."""
         started = self._clock()
-        redactor, token, runtime = self._credentials()
+        creds = self._credentials()
+        redactor, token, runtime = creds.redactor, creds.token, creds.runtime
         if self._closed:
             return self._not_sent("AdapterClosed", "the adapter is closed", started)
         if token is None:
@@ -379,13 +487,14 @@ class CopilotAdapter:
         call = _Call(
             request, invocation_digest, call_index, effort, started, loop.time() + self._overall_s
         )
-        future = asyncio.run_coroutine_threadsafe(
-            self._exchange(call, ClientOptions(runtime, token, ""), redactor), loop
-        )
+        options = ClientOptions(runtime, token, "", creds.env)
+        future = asyncio.run_coroutine_threadsafe(self._exchange(call, options, redactor), loop)
+        # the only teardown step on the reply's path is abort() after a timeout
         try:
-            return future.result(timeout=self._overall_s + _OUTER_SLACK_S)
+            return future.result(timeout=self._overall_s + _ABORT_S + _OUTER_SLACK_S)
         except concurrent.futures.TimeoutError:
             future.cancel()
+            loop.call_soon_threadsafe(self._release, invocation_digest)
             error_class, text = "OverallTimeout", "the exchange outlasted its overall bound"
         except concurrent.futures.CancelledError:
             error_class, text = "AdapterClosed", "the adapter was closed during the call"
@@ -395,59 +504,101 @@ class CopilotAdapter:
         )  # fmt: skip
 
     def close(self) -> None:
-        """Cancel blocked handlers, disconnect sessions, stop clients and the loop; idempotent.
-        A failed disconnect or stop is raised, after everything else was released."""
+        """Release every exchange (concurrently, within one exchange's teardown budget), force-stop
+        what is left, stop the loop and join its thread. Idempotent once released; a call after
+        a failed release retries it. Release failures are raised, after everything else was
+        released."""
         with self._lock:
-            if self._closed:
-                return
             self._closed = True
+            if self._released:
+                return
             loop, thread = self._loop, self._thread
-        if loop is None or thread is None:
-            return
-        notes = asyncio.run_coroutine_threadsafe(self._shutdown(), loop).result(
-            timeout=_TEARDOWN_S * 4
-        )
+            if loop is None or thread is None:
+                self._released = True
+                return
+        notes: list[str] = []
+        shutdown = asyncio.run_coroutine_threadsafe(self._shutdown(), loop)
+        try:
+            notes += shutdown.result(timeout=_teardown_budget() + _CLOSE_SLACK_S)
+        except concurrent.futures.TimeoutError:
+            shutdown.cancel()
+            notes.append("release exceeded its budget; clients force-stopped")
+            force = asyncio.run_coroutine_threadsafe(self._force_all(), loop)
+            try:
+                notes += force.result(timeout=_FORCE_S + _CLOSE_SLACK_S)
+            except concurrent.futures.TimeoutError:
+                notes.append("force_stop did not finish")
         loop.call_soon_threadsafe(loop.stop)
-        thread.join()
+        thread.join(timeout=_JOIN_S)
+        if thread.is_alive():
+            raise RuntimeError("; ".join([*notes, "the loop thread did not stop"]))
         loop.close()
+        self._released = True
         if notes:
             raise RuntimeError("; ".join(notes))
 
     # -------------------------------------------------------- the loop side
 
     async def _shutdown(self) -> list[str]:
-        notes: list[str] = []
         for state in list(self._states.values()):
             for future in state.pending.values():
                 future.cancel()
         await asyncio.sleep(0)
         for digest in list(self._states):
-            notes += await self._drop(digest)
+            self._release(digest)
+        if self._teardowns:
+            await asyncio.wait(set(self._teardowns), timeout=_teardown_budget() + 1)
+        notes = await self._force_all()
         others = asyncio.all_tasks() - {asyncio.current_task()}
         for task in others:
             task.cancel()
         await asyncio.gather(*others, return_exceptions=True)
+        notes, self._notes = [*self._notes, *notes], []
         return notes
 
-    async def _drop(self, digest: str) -> list[str]:
-        """Forget an exchange: cancel its handlers, disconnect, stop. Returns the failures of
-        the disconnect and stop (the reply is already decided; they ride on it as a note)."""
-        state = self._states.pop(digest, None)
-        if state is None:
-            return []
+    async def _force_all(self) -> list[str]:
+        """force_stop every client whose release has not finished."""
+        notes = []
+        for state in list(self._states.values()):
+            if (
+                note := await _attempt("force_stop", state.client.force_stop(), _FORCE_S)
+            ) is not None:
+                notes.append(note)
+        return notes
+
+    def _release(self, digest: str) -> None:
+        """Start the release of an exchange in the background (loop thread only). The state
+        stays registered until its client is stopped."""
+        state = self._states.get(digest)
+        if state is None or state.releasing is not None:
+            return
         if state.unsubscribe is not None:
             state.unsubscribe()
         for future in state.pending.values():
             future.cancel()
-        notes = [
-            note
-            for note in (
-                await _attempt("disconnect", state.session.disconnect() if state.session else None),
-                await _attempt("stop", state.client.stop()),
-            )
-            if note
-        ]
-        return notes
+        task = asyncio.get_running_loop().create_task(self._drop(digest, state))
+        state.releasing = task
+        self._teardowns.add(task)
+        task.add_done_callback(self._teardowns.discard)
+
+    async def _drop(self, digest: str, state: _State) -> None:
+        """Disconnect, stop, and on a failed stop force_stop. Failures go to ``self._notes``,
+        which ``close()`` raises: the reply that ended the exchange has already been returned."""
+        try:
+            notes = [
+                await _attempt(
+                    "disconnect",
+                    state.session.disconnect() if state.session else None,
+                    _DISCONNECT_S,
+                ),
+                await _attempt("stop", state.client.stop(), _STOP_S),
+            ]
+            if notes[1] is not None:
+                notes.append(await _attempt("force_stop", state.client.force_stop(), _FORCE_S))
+            self._notes += [n for n in notes if n is not None]
+        finally:
+            if self._states.get(digest) is state:
+                del self._states[digest]
 
     def _post(self, state: _State, item: Any) -> None:
         try:
@@ -462,11 +613,13 @@ class CopilotAdapter:
     def _tool_def(self, spec: Any, state: _State) -> ToolDef:
         async def handler(invocation: Any) -> str:
             call_id = str(invocation.tool_call_id)
+            if getattr(invocation, "agent_id", None):
+                raise ValueError("sub-agent tool calls are not served")
             if call_id in state.pending:
                 raise ValueError("a tool call id was issued twice")
             future: asyncio.Future[str] = asyncio.get_running_loop().create_future()
             state.pending[call_id] = future
-            state.invoked += 1
+            state.calls[call_id] = (str(invocation.tool_name), invocation.arguments)
             self._post(state, _INVOKED)
             return await future
 
@@ -476,26 +629,33 @@ class CopilotAdapter:
         self, call: _Call, options: ClientOptions, system: str, deadline: float
     ) -> _State:
         home = Path.cwd() / ".copilot-home" / call.digest
-        home.mkdir(parents=True, exist_ok=True)
+        try:
+            home.mkdir(parents=True, exist_ok=False)
+        except FileExistsError:
+            raise _Refuse("HomeExists", "HomeExists") from None
         client = self._factory(dataclasses.replace(options, home=str(home)))
         state = _State(client)
         self._states[call.digest] = state
-        async with asyncio.timeout_at(deadline):
-            await client.start()
-            _check_model(await client.list_models(), self._model.model, call.effort)
-            tools = [self._tool_def(spec, state) for spec in call.request.tools]
-            state.tool_names = frozenset(t.name for t in tools)
-            state.session = await client.create_session(
-                model=self._model.model,
-                reasoning_effort=call.effort,
-                system_message={"mode": "replace", "content": system},
-                tools=tools,
-                available_tools=["custom:*"],
-                on_permission_request=reject_permission,
-                streaming=False,
-                session_id=call.digest,
-            )
-        state.unsubscribe = state.session.on(lambda event: self._on_event(state, event))
+        try:
+            async with asyncio.timeout_at(deadline):
+                await client.start()
+                _check_model(await client.list_models(), self._model.model, call.effort)
+                tools = [self._tool_def(spec, state) for spec in call.request.tools]
+                state.tool_names = frozenset(t.name for t in tools)
+                state.session = await client.create_session(
+                    model=self._model.model,
+                    reasoning_effort=call.effort,
+                    system_message={"mode": "replace", "content": system},
+                    tools=tools,
+                    available_tools=["custom:*"],
+                    on_permission_request=reject_permission,
+                    streaming=False,
+                    session_id=call.digest,
+                )
+            state.unsubscribe = state.session.on(lambda event: self._on_event(state, event))
+        except BaseException:
+            self._release(call.digest)
+            raise
         return state
 
     def _on_event(self, state: _State, event: Any) -> None:
@@ -511,59 +671,53 @@ class CopilotAdapter:
             nudge: str | None
             if call.index == 0:
                 if call.digest in self._states:
-                    raise _Refuse("HistoryMismatch", "this exchange already has a session")
+                    raise _Refuse("ExchangeExists", "this exchange already has a session")
                 system, first_user = _plan_first(call.request)
                 state = await self._open(call, options, system, call.deadline)
-                sent, answers, nudge = True, {}, first_user
-                state.invoked = 0
+                answers, nudge = {}, first_user
             else:
                 found = self._states.get(call.digest)
-                if found is None:
+                if found is None or found.releasing is not None:
                     raise _Refuse("SessionMissing", "no session for this exchange; never resent")
                 state = found
                 answers, nudge = _plan_next(call.request, state)
-                sent, state.invoked = True, 0
+            sent = True
+            state.calls.clear()
             await self._deliver(state, answers, nudge, call.deadline)
             records, timeout = await self._collect(state, call.deadline)
             return await self._settle(call, state, records, timeout, redactor)
-        except _Refuse as refusal:
-            notes = await self._drop(call.digest) if call.index == 0 else []
-            return self._with_notes(
-                self._not_sent(refusal.error_class, refusal.message, call.started), notes
-            )
+        except _Refuse as refusal:  # nothing was sent; a live exchange is left as it is
+            return self._not_sent(refusal.error_class, refusal.message, call.started)
+        except _ToolCallLost:
+            return self._failed(call, "ToolCallLost", "a pending tool handler was cancelled")
         except TimeoutError:
-            return await self._failed(call, sent, "OverallTimeout", "the exchange timed out")
-        except Exception as error:  # noqa: BLE001 - dropped, and reported as a sent_unknown/not_sent reply
-            text = self._scrub(redactor.exception(error), options)
-            return await self._failed(call, sent, type(error).__name__, text)
+            return self._failed(call, "OverallTimeout", "the exchange timed out", sent=sent)
+        except Exception as error:  # noqa: BLE001 - released, and reported as a reply
+            text = f"{type(error).__name__}: {self._scrub(str(error), options)}"
+            return self._failed(call, type(error).__name__, redactor.text(text), sent=sent)
 
     def _scrub(self, text: str, options: ClientOptions) -> str:
-        return text.replace(options.runtime, "<runtime>").replace(str(Path.cwd()), "<cwd>")
+        """``text`` without the runtime path, the exchange's home or the working directory."""
+        return _paths_in(text, [options.runtime, options.home, str(Path.cwd())])
 
-    async def _failed(self, call: _Call, sent: bool, error_class: str, text: str) -> AdapterReply:
-        notes = await self._drop(call.digest)
+    def _failed(
+        self, call: _Call, error_class: str, text: str, *, sent: bool = True
+    ) -> AdapterReply:
+        self._release(call.digest)
         if not sent:
-            return self._with_notes(self._not_sent(error_class, text, call.started), notes)
-        reply = AdapterReply(
+            return self._not_sent(error_class, text, call.started)
+        return AdapterReply(
             "sent_unknown", None, None, None, error_class, None, call.started, self._clock(),
             message=text,
         )  # fmt: skip
-        return self._with_notes(reply, notes)
-
-    @staticmethod
-    def _with_notes(reply: AdapterReply, notes: list[str]) -> AdapterReply:
-        if not notes:
-            return reply
-        joined = "; ".join(([reply.message] if reply.message else []) + notes)
-        return dataclasses.replace(reply, message=joined)
 
     async def _deliver(
         self, state: _State, answers: dict[str, str], nudge: str | None, deadline: float
     ) -> None:
+        if any(future.done() for future in state.pending.values()):
+            raise _ToolCallLost  # the SDK finished a handler: its result would go nowhere
         for call_id, text in answers.items():
-            future = state.pending.pop(call_id)
-            if not future.done():
-                future.set_result(text)
+            state.pending.pop(call_id).set_result(text)
         if nudge is not None:
             assert state.session is not None
             async with asyncio.timeout_at(deadline):
@@ -575,7 +729,7 @@ class CopilotAdapter:
         """The call's event records up to its boundary, and the timeout class if it timed out."""
         loop = asyncio.get_running_loop()
         records: list[dict[str, Any]] = []
-        while not _boundary(records, state.invoked):
+        while not _boundary(records, state.calls):
             remaining = deadline - loop.time()
             if remaining <= 0:
                 return records, "OverallTimeout"
@@ -599,10 +753,10 @@ class CopilotAdapter:
         raw = redactor.bytes_(body)
         if timeout is not None:
             assert state.session is not None
-            failure = await _attempt("abort", state.session.abort())
-            notes = [failure] if failure else []
-            reply = self._timeout_reply(call, records, body, raw, timeout)
-            return self._with_notes(reply, notes + await self._drop(call.digest))
+            failure = await _attempt("abort", state.session.abort(), _ABORT_S)
+            reply = self._timeout_reply(call, body, raw, timeout)
+            self._release(call.digest)
+            return self._with_note(reply, failure)
         outcome = parse("copilot", 200, body, {}, redactor)
         finished = self._clock()
         if isinstance(outcome, ProviderError):
@@ -610,26 +764,32 @@ class CopilotAdapter:
                 raw = _REFLECTED_RAW
             elif outcome.error_class == "UnparsableReply":
                 raw = _UNPARSABLE_RAW
-            reply = _reply_from_error(outcome, raw, 200, {}, call.started, finished)
-            return self._with_notes(reply, await self._drop(call.digest))
+            self._release(call.digest)
+            return _reply_from_error(outcome, raw, 200, {}, call.started, finished)
         wrong = _routing_error(outcome, records, self._model.model)
-        if wrong is None and outcome.stop_reason == "tool_use":
-            if state.pending.keys() == {c.call_id for c in outcome.tool_calls}:
-                state.history = (
-                    *call.request.messages,
-                    Message("assistant", outcome.text, outcome.tool_calls),
-                )
-                return self._ok(call, outcome, raw, finished)
+        if wrong is None and not _calls_match(outcome, state.calls):
             wrong = "ToolCallMismatch"
-        notes = await self._drop(call.digest)
+        if wrong is None and state.pending.keys() == {c.call_id for c in outcome.tool_calls}:
+            # the exchange goes on: the loop may answer the calls or nudge with a user message
+            state.history = (
+                *call.request.messages,
+                Message("assistant", outcome.text, outcome.tool_calls),
+            )
+            return self._ok(call, outcome, raw, finished)
+        self._release(call.digest)
         if wrong is None:
-            return self._with_notes(self._ok(call, outcome, raw, finished), notes)
-        reply = AdapterReply(
+            return self._ok(call, outcome, raw, finished)
+        return AdapterReply(
             "sent_usage", None, raw, 200, wrong, None, call.started, finished,
             outcome.usage, outcome.billed_usd,
             message=f"the reply was refused: {wrong}",
         )  # fmt: skip
-        return self._with_notes(reply, notes)
+
+    @staticmethod
+    def _with_note(reply: AdapterReply, note: str | None) -> AdapterReply:
+        if note is None:
+            return reply
+        return dataclasses.replace(reply, message="; ".join(filter(None, [reply.message, note])))
 
     @staticmethod
     def _ok(call: _Call, turn: Turn, raw: bytes, finished: float) -> AdapterReply:
@@ -637,13 +797,12 @@ class CopilotAdapter:
             "ok", turn, raw, 200, None, None, call.started, finished, turn.usage, turn.billed_usd
         )  # fmt: skip
 
-    def _timeout_reply(
-        self, call: _Call, records: list[dict[str, Any]], body: bytes, raw: bytes, timeout: str
-    ) -> AdapterReply:
+    def _timeout_reply(self, call: _Call, body: bytes, raw: bytes, timeout: str) -> AdapterReply:
         if raw != body:  # a key is in the events so far: none of them is kept
             raw = _REFLECTED_RAW
         # read back as the parser reads a body: a charge written 100.0 is the integer 100
-        data = _usage_data(cast(list[dict[str, Any]], load_json(body.decode("utf-8"))))
+        records = cast(list[dict[str, Any]], load_json(body.decode("utf-8")))
+        data = _usage_data(records)
         counts: Usage | None = None
         if data is not None:
             try:
@@ -652,7 +811,9 @@ class CopilotAdapter:
                 counts = None
         finished = self._clock()
         text = f"no further event within the {timeout} bound"
-        if data is None or counts is None or counts == Usage():
+        # more than one usage event is more than one model call: which one was paid is unknown
+        two_calls = sum(1 for r in records if r["type"] == USAGE) > 1
+        if data is None or counts is None or counts == Usage() or two_calls:
             return AdapterReply(
                 "sent_unknown", None, raw, None, timeout, None, call.started, finished,
                 message=text,
@@ -663,32 +824,34 @@ class CopilotAdapter:
         )  # fmt: skip
 
 
-async def _attempt(name: str, step: Awaitable[None] | None) -> str | None:
-    """Run one release step (abort, disconnect, stop) within its bound. The reply is already
-    decided, so a failure is returned as a note that rides on the reply, never swallowed."""
+async def _attempt(name: str, step: Awaitable[None] | None, bound: float) -> str | None:
+    """Run one release step (abort, disconnect, stop, force_stop) within its bound.
+
+    Documented fail-open: teardown failures ride on reply.message into the call record when the
+    step is on the reply's path (abort); the background release keeps them in the adapter's
+    notes, which close() raises. The decided reply is never replaced by a release failure."""
     if step is None:
         return None
     try:
-        await asyncio.wait_for(step, _TEARDOWN_S)
-    except Exception as error:  # noqa: BLE001 - returned as the reply's note
+        await asyncio.wait_for(step, bound)
+    except Exception as error:  # noqa: BLE001 - returned as a note, see above
         return f"{name} failed: {type(error).__name__}"
     return None
 
 
-def _boundary(records: list[dict[str, Any]], invoked: int) -> bool:
-    """The call is complete: a session error; or usage and every announced handler invoked
-    (tool turn) or an idle event (any other turn); or idle with no usage (a malformed call
-    that ``parse`` will name)."""
-    kinds = {r["type"] for r in records}
-    if SESSION_ERROR in kinds:
+def _boundary(records: list[dict[str, Any]], calls: Mapping[str, tuple[str, Any]]) -> bool:
+    """The call is complete: a session error, a session.idle or a second usage event (whatever
+    was announced: a second model call is never part of this one); or usage and, for a tool
+    turn, every announced handler invoked and its tool.execution_start seen."""
+    kinds = [r["type"] for r in records]
+    if SESSION_ERROR in kinds or "session.idle" in kinds or kinds.count(USAGE) > 1:
         return True
     data = _usage_data(records)
     if data is None:
-        return "session.idle" in kinds
+        return False
     announced = data.get("numToolCalls")
-    tool_turn = data.get("finishReason") in _TOOL_FINISH
     if isinstance(announced, int) and not isinstance(announced, bool) and announced > 0:
-        return invoked >= announced
-    if tool_turn:  # tool turn that announces no count: parse names it, nothing else will come
-        return True
-    return "session.idle" in kinds
+        starts = {r["data"].get("toolCallId") for r in records if r["type"] == TOOL_START}
+        return len(calls) >= announced and starts >= calls.keys()
+    # a tool turn that announces no count: parse names it, nothing else will come
+    return data.get("finishReason") in _TOOL_FINISH

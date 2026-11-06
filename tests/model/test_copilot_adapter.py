@@ -13,20 +13,21 @@ import uuid
 from collections.abc import Callable
 from dataclasses import dataclass
 from decimal import Decimal
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from typing import Any
 
 import pytest
 from copilot.generated.session_events import SessionEvent
 from copilot.tools import ToolInvocation
 
+from deploy_workflow.model import copilot_adapter
 from deploy_workflow.model.adapter import (
     _REFLECTED_RAW,
     AdapterReply,
     LivePauseInForce,
 )
 from deploy_workflow.model.copilot import event_record
-from deploy_workflow.model.copilot_adapter import ClientOptions, CopilotAdapter
+from deploy_workflow.model.copilot_adapter import ClientOptions, CopilotAdapter, _Call
 from deploy_workflow.model.redact import Redactor
 from deploy_workflow.model.turn import (
     Message,
@@ -61,6 +62,7 @@ class Invoke:
     call_id: str
     name: str
     arguments: dict[str, Any]
+    handler_arguments: dict[str, Any] | None = None  # the handler is invoked with these instead
 
 
 @dataclass
@@ -109,6 +111,7 @@ class FakeSession:
         self.tasks: dict[str, asyncio.Task[Any]] = {}
         self.results: dict[str, Any] = {}
         self._played: asyncio.Task[None] | None = None
+        self.followups: list[list[Step]] = []  # scripts played by the later sends (nudges)
 
     def on(self, handler: Callable[[Any], None]) -> Callable[[], None]:
         self.handlers.append(handler)
@@ -116,7 +119,10 @@ class FakeSession:
 
     async def send(self, text: str, /) -> str:
         self.sent.append(text)
-        if self._played is None:  # later sends are nudges: recorded, nothing replayed
+        if self._played is None:
+            self._played = asyncio.ensure_future(self._play())
+        elif self.followups:  # a later send is a nudge: the next follow-up script answers it
+            self.script = self.followups.pop(0)
             self._played = asyncio.ensure_future(self._play())
         return "message-id"
 
@@ -134,7 +140,13 @@ class FakeSession:
     async def _call(self, step: Invoke) -> None:
         tool = next(t for t in self.options["tools"] if t.name == step.name)
         self.results[step.call_id] = await tool.handler(
-            ToolInvocation(tool_call_id=step.call_id, tool_name=step.name, arguments=step.arguments)
+            ToolInvocation(
+                tool_call_id=step.call_id,
+                tool_name=step.name,
+                arguments=step.arguments
+                if step.handler_arguments is None
+                else step.handler_arguments,
+            )
         )
 
     async def _play(self) -> None:
@@ -170,7 +182,9 @@ class FakeClient:
         )
         self.started = 0
         self.stopped = 0
+        self.force_stopped = 0
         self.sessions: list[FakeSession] = []
+        self.followups: list[list[Step]] = []
 
     async def start(self) -> None:
         self.started += 1
@@ -180,11 +194,15 @@ class FakeClient:
 
     async def create_session(self, **options: Any) -> FakeSession:
         session = FakeSession(self.script, options)
+        session.followups = self.followups
         self.sessions.append(session)
         return session
 
     async def stop(self) -> None:
         self.stopped += 1
+
+    async def force_stop(self) -> None:
+        self.force_stopped += 1
 
 
 class Rig:
@@ -219,11 +237,16 @@ class Rig:
             environ=kwargs.pop("environ", self.environ),
             clock=self.clock,
             rulings_root=self.root,
-            client_factory=self.factory,
+            client_factory=kwargs.pop("client_factory", self.factory),
             **kwargs,
         )
         self.adapters.append(adapter)
         return adapter
+
+    def released(self) -> None:
+        """Wait for the background release of every exchange (close() joins it)."""
+        for adapter in self.adapters:
+            adapter.close()
 
     @property
     def session(self) -> FakeSession:
@@ -242,8 +265,10 @@ def request(*messages: Message, tools: tuple[ToolSpec, ...] = (TOOL,)) -> TurnRe
     return TurnRequest(messages or (SYSTEM, USER), tools, 1000, "medium")
 
 
-def call(adapter: CopilotAdapter, req: TurnRequest, index: int = 0) -> AdapterReply:
-    return adapter.complete(req, invocation_digest=DIGEST, call_index=index, reservation_id="r")
+def call(
+    adapter: CopilotAdapter, req: TurnRequest, index: int = 0, digest: str = DIGEST
+) -> AdapterReply:
+    return adapter.complete(req, invocation_digest=digest, call_index=index, reservation_id="r")
 
 
 def tool_script(*, then: list[Step] | None = None) -> list[Step]:
@@ -354,6 +379,7 @@ def test_text_reply_is_ok(rig: Rig) -> None:
     records = [event_record(e) for e in events if e is not None]
     records.append({"type": "session.idle", "data": {}})
     assert reply.raw == Redactor.from_environ(rig.environ).bytes_(dump_json(records).encode())
+    rig.released()
     assert rig.session.disconnected == 1 and rig.client.stopped == 1
 
 
@@ -373,6 +399,7 @@ def test_tool_calls_block_until_the_next_complete(rig: Rig) -> None:
     assert second.kind == "ok" and second.turn is not None and second.turn.text == "ANSWER"
     assert rig.session.results == {"c1": "PAGE TEXT"}
     assert rig.session.sent == ["hello"]
+    rig.released()
     assert rig.session.disconnected == 1
 
 
@@ -450,6 +477,7 @@ def test_idle_timeout_after_usage_is_sent_usage(rig: Rig) -> None:
     assert reply.usage is not None and reply.usage.input_tokens == 10
     assert reply.billed_usd == Decimal("0.000000001")
     assert reply.raw is not None and b"part" in reply.raw
+    rig.released()
     assert rig.session.aborted == 1 and rig.session.disconnected == 1
 
 
@@ -458,6 +486,7 @@ def test_overall_timeout_before_usage_is_sent_unknown(rig: Rig) -> None:
     reply = call(rig.make([], idle_s=30.0, overall_s=0.3), request())
     assert reply.kind == "sent_unknown" and reply.error_class == "OverallTimeout"
     assert time.monotonic() - started < 10
+    rig.released()
     assert rig.session.aborted == 1 and rig.session.disconnected == 1
 
 
@@ -474,6 +503,7 @@ def test_session_error_is_reported(rig: Rig) -> None:
     reply = call(rig.make(script), request())
     assert reply.kind == "sent_unknown" and reply.error_class == "SessionError"
     assert reply.message is not None and "boom" in reply.message
+    rig.released()
     assert rig.session.disconnected == 1 and rig.client.stopped == 1
 
 
@@ -482,6 +512,7 @@ def test_model_mismatch_is_sent_usage(rig: Rig) -> None:
     reply = call(rig.make(script), request())
     assert reply.kind == "sent_usage" and reply.error_class == "ModelMismatch"
     assert reply.usage is not None and reply.raw is not None
+    rig.released()
     assert rig.session.disconnected == 1
 
 
@@ -505,6 +536,7 @@ def test_token_echoed_in_events_is_withheld(rig: Rig) -> None:
     assert reply.error_class == "KeyReflected"
     assert reply.raw == _REFLECTED_RAW
     assert TOKEN not in repr(reply)
+    rig.released()
     assert rig.session.disconnected == 1
 
 
@@ -526,11 +558,11 @@ def test_close_releases_blocked_handlers(rig: Rig) -> None:
     adapter = rig.make(tool_script())
     first = call(adapter, request())
     assert first.turn is not None and first.turn.stop_reason == "tool_use"
-    task = rig.session.tasks["c1"]
+    awaited = adapter._states[DIGEST].pending["c1"]  # the future the handler is blocked on
     started = time.monotonic()
     adapter.close()
     assert time.monotonic() - started < 2
-    assert task.cancelled()
+    assert awaited.cancelled()
     assert rig.session.disconnected == 1 and rig.client.stopped == 1
     adapter.close()  # idempotent
     assert rig.session.disconnected == 1 and rig.client.stopped == 1
@@ -548,3 +580,249 @@ def test_complete_after_close_is_not_sent(rig: Rig) -> None:
     adapter.close()
     reply = call(adapter, request())
     assert reply.kind == "not_sent" and reply.error_class == "AdapterClosed"
+
+
+# ---------------------------------------------------------------- fix round 1
+
+
+class HangingSession(FakeSession):
+    """A wedged runtime: abort is slow, disconnect never returns."""
+
+    async def abort(self) -> None:
+        self.aborted += 1
+        await asyncio.sleep(0.5)
+
+    async def disconnect(self) -> None:
+        self.disconnected += 1
+        await asyncio.Event().wait()
+
+
+class HangingClient(FakeClient):
+    async def create_session(self, **options: Any) -> FakeSession:
+        session = HangingSession(self.script, options)
+        self.sessions.append(session)
+        return session
+
+    async def stop(self) -> None:
+        self.stopped += 1
+        await asyncio.Event().wait()
+
+
+@pytest.fixture
+def small_bounds(monkeypatch: pytest.MonkeyPatch) -> None:
+    for name in ("_DISCONNECT_S", "_STOP_S", "_FORCE_S"):
+        monkeypatch.setattr(copilot_adapter, name, 0.3)
+
+
+def test_second_model_call_is_not_billed_as_the_first(rig: Rig) -> None:
+    script: list[Step] = [
+        said(""),
+        usage(finishReason="tool_calls", numToolCalls=1, copilotUsage={"totalNanoAiu": 1000}),
+        said("I could not find that tool."),  # the announced call never reaches a handler
+        usage(copilotUsage={"totalNanoAiu": 2000}),
+        Idle(),
+    ]
+    started = time.monotonic()
+    reply = call(rig.make(script, idle_s=5.0, overall_s=30.0), request())
+    assert time.monotonic() - started < 3  # the second usage ended the call, no idle wait
+    assert reply.kind == "sent_unknown" and reply.usage is None and reply.billed_usd is None
+    assert reply.raw is not None
+
+
+def test_two_usage_events_in_a_timeout_body_are_sent_unknown(rig: Rig) -> None:
+    adapter = rig.make(text_script())
+    records = [
+        event_record(SessionEvent.from_dict(usage(copilotUsage={"totalNanoAiu": n}).event))
+        for n in (1000, 2000)
+    ]
+    body = dump_json(records).encode()
+    call_ = _Call(request(), DIGEST, 0, "medium", 0.0, 0.0)
+    reply = adapter._timeout_reply(call_, body, body, "IdleTimeout")
+    assert reply.kind == "sent_unknown" and reply.usage is None and reply.billed_usd is None
+
+
+def test_slow_teardown_does_not_lose_the_reply(rig: Rig, monkeypatch: pytest.MonkeyPatch) -> None:
+    for name in ("_DISCONNECT_S", "_STOP_S"):
+        monkeypatch.setattr(copilot_adapter, name, 1.0)
+    rig.client = HangingClient([])
+    adapter = rig.make(text_script(), overall_s=1.0)
+    started = time.monotonic()
+    reply = call(adapter, request())
+    assert time.monotonic() - started < 0.8  # the 2 s release is not on the reply's path
+    assert reply.kind == "ok" and reply.billed_usd == Decimal("0.00000123456")
+    with pytest.raises(RuntimeError, match="stop failed"):
+        adapter.close()
+    assert rig.client.force_stopped == 1
+
+
+def test_outer_timeout_keeps_usage(rig: Rig, small_bounds: None) -> None:
+    rig.client = HangingClient([])
+    script: list[Step] = [said("part"), usage(copilotUsage={"totalNanoAiu": 5000})]
+    adapter = rig.make(script, idle_s=30.0, overall_s=0.3)
+    reply = call(adapter, request())
+    assert reply.kind == "sent_usage" and reply.usage is not None
+    assert reply.error_class == "OverallTimeout" and rig.session.aborted == 1
+    with pytest.raises(RuntimeError):
+        adapter.close()
+    assert rig.client.stopped == 1 and rig.client.force_stopped == 1
+
+
+def test_stop_has_the_sdk_shutdown_budget_and_a_failed_stop_is_forced(
+    rig: Rig, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    assert copilot_adapter._STOP_S >= 30  # shutdown RPC 10 + graceful 10 + terminate 5 + kill 5
+    monkeypatch.setattr(copilot_adapter, "_STOP_S", 0.3)
+    monkeypatch.setattr(copilot_adapter, "_DISCONNECT_S", 0.3)
+    rig.client = HangingClient([])
+    adapter = rig.make(text_script())
+    assert call(adapter, request()).kind == "ok"
+    with pytest.raises(RuntimeError, match="stop failed"):
+        adapter.close()
+    assert rig.client.force_stopped == 1
+
+
+def test_close_releases_many_kept_exchanges(rig: Rig, small_bounds: None) -> None:
+    clients: list[HangingClient] = []
+
+    def factory(options: ClientOptions) -> HangingClient:
+        clients.append(HangingClient(tool_script()))
+        return clients[-1]
+
+    adapter = rig.make(tool_script(), client_factory=factory)
+    for n in "123":
+        reply = call(adapter, request(), digest=n * 64)
+        assert reply.kind == "ok" and reply.turn is not None
+        assert reply.turn.stop_reason == "tool_use"
+    started = time.monotonic()
+    with pytest.raises(RuntimeError):
+        adapter.close()
+    assert time.monotonic() - started < 3  # one exchange's budget, not three
+    assert len(clients) == 3 and all(c.stopped + c.force_stopped >= 1 for c in clients)
+    assert adapter._thread is not None and not adapter._thread.is_alive()
+    adapter.close()  # released: a no-op
+
+
+def test_cancelled_handler_is_tool_call_lost(rig: Rig) -> None:
+    adapter = rig.make(tool_script())
+    assert call(adapter, request()).kind == "ok"
+    task = rig.session.tasks["c1"]
+
+    async def cancel() -> None:
+        task.cancel()
+        await asyncio.gather(task, return_exceptions=True)
+
+    assert adapter._loop is not None
+    asyncio.run_coroutine_threadsafe(cancel(), adapter._loop).result(5)
+    answer = Message("tool", "PAGE TEXT", tool_call_id="c1")
+    second = call(adapter, request(*tool_turn_history(), answer), 1)
+    assert second.kind == "sent_unknown" and second.error_class == "ToolCallLost"
+    assert "c1" not in rig.session.results
+
+
+def test_nudge_after_text_turn_uses_the_same_session(rig: Rig) -> None:
+    adapter = rig.make(text_script("FIRST"))
+    rig.client.followups = [text_script("SECOND")]
+    first = call(adapter, request())
+    assert first.turn is not None and first.turn.stop_reason == "end"
+    history = (SYSTEM, USER, Message("assistant", "FIRST"))
+    second = call(adapter, request(*history, Message("user", "NUDGE")), 1)
+    assert second.kind == "ok" and second.turn is not None and second.turn.text == "SECOND"
+    assert len(rig.client.sessions) == 1 and rig.session.sent == ["hello", "NUDGE"]
+    assert rig.session.disconnected == 0
+
+
+def test_refused_replay_keeps_the_live_exchange(rig: Rig) -> None:
+    adapter = rig.make(tool_script())
+    assert call(adapter, request()).kind == "ok"
+    replay = call(adapter, request(), 0)
+    assert replay.kind == "not_sent" and replay.error_class == "ExchangeExists"
+    assert DIGEST in adapter._states and rig.session.disconnected == 0
+    assert len(rig.client.sessions) == 1
+    answer = Message("tool", "PAGE TEXT", tool_call_id="c1")
+    assert call(adapter, request(*tool_turn_history(), answer), 1).kind == "ok"
+
+
+def test_max_tokens_turn_with_calls_keeps_its_handlers(rig: Rig) -> None:
+    script: list[Step] = [
+        said(""),
+        usage(finishReason="length", numToolCalls=1),
+        Invoke("c1", "read_pages", {"p": 1}),
+        Await(),
+        *text_script(),
+    ]
+    adapter = rig.make(script)
+    first = call(adapter, request())
+    assert first.turn is not None and first.turn.stop_reason == "max_tokens"
+    assert first.turn.tool_calls and not rig.session.tasks["c1"].done()
+    answer = Message("tool", "PAGE TEXT", tool_call_id="c1")
+    assert call(adapter, request(*tool_turn_history(), answer), 1).kind == "ok"
+    assert rig.session.results == {"c1": "PAGE TEXT"}
+
+
+def test_invocation_differing_from_start_event_is_mismatch(rig: Rig) -> None:
+    script: list[Step] = [
+        said(""),
+        usage(finishReason="tool_calls", numToolCalls=1, copilotUsage={"totalNanoAiu": 100}),
+        Invoke("c1", "read_pages", {"p": 1}, handler_arguments={"p": 2}),
+        Await(),
+    ]
+    reply = call(rig.make(script), request())
+    assert reply.kind == "sent_usage" and reply.error_class == "ToolCallMismatch"
+    assert reply.usage is not None and reply.billed_usd == Decimal("0.000000001")
+
+
+def test_tool_turn_waits_for_every_start_event(rig: Rig) -> None:
+    script: list[Step] = [
+        said(""),
+        usage(finishReason="tool_calls", numToolCalls=1),
+        Invoke("c1", "read_pages", {"p": 1}),
+        Await(),
+    ]
+    reply = call(rig.make(script), request())
+    assert reply.turn is not None and [c.call_id for c in reply.turn.tool_calls] == ["c1"]
+
+
+def test_runtime_environment_is_allowlisted(rig: Rig) -> None:
+    secret = "ghp_" + "G" * 36
+    env = {
+        **rig.environ,
+        "PATH": "/usr/bin",
+        "LC_ALL": "C",
+        "https_proxy": "http://proxy",
+        "OPENAI_API_KEY": "sk-secret-value",
+        "ANTHROPIC_API_KEY": "plainvalue-anthropic",
+        "GH_TOKEN": secret,
+        "GITHUB_TOKEN": secret,
+    }
+    call(rig.make(text_script(), environ=env), request())
+    (options,) = rig.options
+    assert dict(options.env) == {"PATH": "/usr/bin", "LC_ALL": "C", "https_proxy": "http://proxy"}
+    assert TOKEN not in repr(dict(options.env)) and options.token == TOKEN
+
+
+def test_options_repr_hides_the_token() -> None:
+    options = ClientOptions("/opt/copilot", TOKEN, "/tmp/home", {"PATH": "/bin"})
+    assert TOKEN not in repr(options) and TOKEN not in str(options)
+    assert "PATH" not in repr(options)
+
+
+def test_windows_paths_are_scrubbed(rig: Rig) -> None:
+    home = str(PureWindowsPath(r"C:\Users\eric\Documents\final-workflow") / ".copilot-home" / "d")
+    runtime = str(PureWindowsPath(r"C:\Users\eric\AppData\Local\copilot\copilot.exe"))
+    options = ClientOptions(runtime, "t", home)
+    adapter = rig.make(text_script())
+    for error in (
+        FileNotFoundError(3, "The system cannot find the path specified", home),
+        PermissionError(13, "Access is denied", runtime),
+    ):
+        for text in (str(error), repr(error), str(error).upper(), str(error).replace("\\", "/")):
+            assert "eric" not in adapter._scrub(text, options).lower(), text
+
+
+def test_existing_home_is_refused(rig: Rig) -> None:
+    (rig.home_root / ".copilot-home" / DIGEST).mkdir(parents=True)
+    reply = call(rig.make(text_script()), request())
+    assert reply.kind == "not_sent" and reply.error_class == "HomeExists"
+    assert reply.message == "HomeExists" and rig.options == []
+    ignore = Path(__file__).resolve().parents[2] / ".gitignore"
+    assert ".copilot-home/" in ignore.read_text(encoding="utf-8").splitlines()
