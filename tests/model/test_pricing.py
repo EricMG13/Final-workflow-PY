@@ -3,6 +3,7 @@
 import ast
 import inspect
 import json
+from datetime import date
 from decimal import Decimal
 from fractions import Fraction
 from pathlib import Path
@@ -15,6 +16,7 @@ from hypothesis import strategies as st
 from deploy_workflow.model import budget as budget_module
 from deploy_workflow.model import pricing as pricing_module
 from deploy_workflow.model.pricing import (
+    COPILOT_PRICES_AS_OF,
     PRICES,
     ContextTooLong,
     ModelPrice,
@@ -26,6 +28,7 @@ from deploy_workflow.model.pricing import (
     price_of,
     price_usage,
     refusal_values,
+    request_reservation_usd,
     reservation_usd,
 )
 from deploy_workflow.model.providers import parse
@@ -81,9 +84,18 @@ def test_reservation_equals_exact_fraction(i: int, w: int, o: int, n_in: int, n_
     assert Fraction(got) == expected
 
 
-def test_table_is_the_four_configs_dated() -> None:
+def test_table_is_the_six_configs_dated() -> None:
     assert set(PRICES) == set(CONFIG_PROVIDERS)
+    assert set(PRICES) == {
+        "sol-medium",
+        "sol-high",
+        "opus-medium",
+        "deepseek-max",
+        "copilot-sol-medium",
+        "copilot-opus-medium",
+    }
     assert pricing_module.PRICES_AS_OF.isoformat() == "2026-10-31"
+    assert pricing_module.COPILOT_PRICES_AS_OF.isoformat() == "2026-11-06"
     sol = PRICES["sol-medium"]
     key = _key()["sol"]
     rates = key["usd_per_million"]
@@ -100,6 +112,44 @@ def test_table_is_the_four_configs_dated() -> None:
     assert (opus.cache_write_5m, opus.cache_write_1h, opus.cache_write) == (D(5), D(8), D(8))
     ds = PRICES["deepseek-max"]
     assert (ds.input, ds.cached_read, ds.output) == (D("0.45"), D("0.009"), D("1.8"))
+
+
+def test_copilot_table_rates() -> None:
+    sol, opus = price_of("copilot-sol-medium"), price_of("copilot-opus-medium")
+    assert (sol.input, sol.cached_read, sol.cache_write, sol.output) == (
+        Decimal("2.00"),
+        Decimal("0.10"),
+        Decimal("2.50"),
+        Decimal("10.00"),
+    )
+    assert (sol.long_context_after, sol.long_input, sol.long_output) == (
+        272_000,
+        Decimal(4),
+        Decimal(15),
+    )
+    assert (opus.input, opus.cached_read, opus.cache_write, opus.output) == (
+        Decimal(4),
+        Decimal("0.20"),
+        Decimal(8),
+        Decimal(20),
+    )
+    assert sol.reservation_output_tokens == opus.reservation_output_tokens == 128_000
+    assert COPILOT_PRICES_AS_OF == date(2026, 11, 6)
+
+
+def test_copilot_hold_prices_output_at_the_model_maximum() -> None:
+    held = request_reservation_usd(price_of("copilot-opus-medium"), 1000, 32_000)
+    assert held == request_reservation_usd(price_of("copilot-opus-medium"), 1000, 128_000)
+    assert request_reservation_usd(price_of("opus-medium"), 1000, 32_000) < held
+
+
+def test_copilot_live_charge_is_billed_only() -> None:
+    usage = Usage(input_tokens=1000, cached_read_tokens=0, output_tokens=10)
+    assert price_usage("copilot-sol-medium", usage).cost_status == "unknown"
+    priced = price_usage("copilot-sol-medium", usage, Decimal("0.0021"))
+    assert (priced.usd, priced.cost_status) == (Decimal("0.0021"), "billed")
+    offline = price_usage("copilot-sol-medium", usage, Decimal("0.0021"), offline=True)
+    assert offline.cost_status == "unknown"
 
 
 def test_unlisted_config_has_no_price() -> None:

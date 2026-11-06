@@ -8,6 +8,51 @@ contains the settled CP-6 timeout cost, the corrected TDG annual publication, th
 live CP-8 comparison and checks of the five broader report bundles. The older
 entries below retain their historical case scope.
 
+## 2026-11-06 — Python variant: sync with the Go original, `bf85f85` to `a313b50`
+
+Scope: PR #14 (Issuer Library critique, polish, harden and layout passes) and PR #15 (GitHub
+Copilot SDK adapter). No Go file changed upstream, so the server API is unchanged. No retained run
+or predecessor folder was edited.
+
+- Taken as they are: the web files, `engine/bridge.py`, `browser_check.py`, the Copilot adapter and
+  its tests. `pyproject.toml` keeps this variant's server dependencies and adds
+  `github-copilot-sdk==1.0.28`. `uv.lock` was regenerated with uv 0.12.5. Every package the
+  original locks has the same version here.
+- Packaged runtime: neither variant bundles the Copilot SDK. The engine imports it only when a
+  Copilot configuration runs, so other configurations are unaffected. A Copilot run from a Windows
+  package is not available in either variant.
+- Ported Node suites: the design suite's renames (Reports, Overview, Modules; Quit left the
+  secondary buttons) in the Python design, app and reader checks. `web/screen-css.test.cjs` is now
+  `tests/test_issuer_library_css.py`: 13 checks of the stylesheet text, no browser.
+  `web/screens.test.cjs` is now `tests/test_issuer_library_screens.py`: 24 browser checks. Against
+  the old web files, 35 of these 37 fail.
+- Differences from Node in the screens checks:
+  - A frame that must not load has its request held open.
+  - The frame timeout is 1 s, not 20 ms, so the loading state can be read first.
+  - A successful Settings refresh reloads the real page, so the request log is read while the
+    request is pending.
+  - The library band offset is compared with the band's real height after a resize, because jsdom
+    always gave `-8px`.
+  - The two reload checks also confirm that the page really reloads when the reader agrees.
+- Harness repairs found while running these checks repeatedly:
+  - `open_app` no longer waits for the window load event, which waits for held frames too.
+  - Waits on retained report pages poll through `page.evaluate`, because `wait_for_function`
+    uses `eval` and the reports' content security policy refuses it. This intermittent fault was
+    already in the previous sync's preview check.
+  - A reply can now answer any path, not only `/api/`.
+
+Verification on this Linux host:
+
+- `validate.py quick`: retained PASS, fixture PASS, browser tests 179 passed. The Python gate gives
+  359 passed and 1 failed. The failure is the `chmod 0` test that fails as root, also on `main`.
+- The app and screens browser suites passed in 12 more repeated runs after the harness repairs.
+- `designs/browser_check.py chromium`, offline fake provider: 64 passed, 0 failed.
+- The 15 test files that PR #15 added or changed: 814 passed, none failed.
+- `ruff check`, `ruff format --check`: clean. `mypy src/issuer_library`: clean apart from the eight
+  existing `platform_io.py` errors.
+- The whole suite was not rerun. Not verified: Windows, the packaged runtime, Firefox, paid or
+  Copilot execution.
+
 ## 2026-11-06 — Python variant: sync with the Go original, `579b55b` to `bf85f85`
 
 Scope: New run progress and the run list (3 commits). Upstream changed the Go server
@@ -137,6 +182,184 @@ Verification on this Linux host (`uv sync --locked`, Python 3.13.18, uv 0.12.5):
   texts and the total-size cap). Both incumbents kept.
 - Not verified: Windows launch, known-folder lookup, message box, the packaged runtime, paid
   execution.
+
+## 2026-11-06 — GitHub Copilot SDK adapter
+
+Dependency decision: the standard library cannot speak the runtime's JSON-RPC in a few lines and
+no already-pinned dependency does; `github-copilot-sdk==1.0.28` (MIT, runtime 1.0.105) is locked.
+Scope: `copilot-sol-medium` and `copilot-opus-medium`; `live_adapter_for` in `owners/cpos.py`
+builds `CopilotAdapter` for them (else `LiveAdapter`) at its two construction sites, both in
+`owners/cpos.py` (the launcher reaches the first through `run_live_handoffs`), and closes it after
+the executor finishes. Setup and the seat check are in `docs/COPILOT.md`. Follow-ons: `export_recording`
+infers `sent_unknown` for the adapter's classes; `_Creds` hides the token and environment in its
+repr; the call home is `.copilot-home/<digest>/<reservation>`; the Windows allowlist gains
+`PATHEXT`, `WINDIR`, `USERNAME`.
+Checks (fake clients only: no runtime or provider was started). Selection `uv run pytest
+tests/test_cpos_handoffs.py tests/test_cpos_launch.py tests/model/test_record.py
+tests/model/test_copilot_adapter.py -q -k "copilot or sent_unknown"` (the adapter-selection tests
+are in `tests/test_cpos_handoffs.py`): 8 failed before the change, 63 passed after. Affected set
+(`tests/model`, `test_cpos_app.py`, `test_cpos_comparison.py`, `test_cpos_handoffs.py`,
+`test_cpos_launch.py`, `test_handoff_delivery.py`, `test_handoff_loop.py`): 937 passed, 4 failed,
+3 skipped (both live seat tests and the existing paid test); the 4 failures are
+`tests/model/test_gate.py` x2 and `tests/model/test_o5_done_when.py` x2 and also fail at base
+0a8fc50. Whole suite: see the "Whole suite" paragraph below. Ruff
+baseline: `ruff check` exits 1 on `src/deploy_workflow/model_testing/run.py` (I001) and
+`ruff format --check` exits 1 on `src/deploy_workflow/model/adapter.py`,
+`src/deploy_workflow/model_testing/run.py`, `src/deploy_workflow/run_pathway.py`,
+`tests/model/test_pricing.py`, all pre-existing at 47ad6d6 in lines the branch did not touch;
+every other changed file exits 0. Mypy reports nothing new on them.
+Not verified: the runtime dispatches a turn's custom tool calls concurrently (the seat check now
+exercises two calls in one turn); pinned model ids; `numToolCalls` and event order on a real seat; `cost`
+(`totalNanoAiu`) presence and the 1 AI unit = $0.01 conversion; `max_output_tokens` not
+enforceable; Windows runtime path handling; `stop()`/`force_stop()` timing. The seat check
+(`tests/model/test_copilot_live.py`) has not been run.
+Review rounds after the task reviews (all with fake clients; no runtime started). Whole-branch
+review (3 Medium) → 1701461 and 2956abf; adversarial review of those edits found that the
+replay reader then accepted null-status `sent_usage` lines the exporter never writes and that a
+re-export could turn a charged record into `not_sent` → root-cause round 0ecb229: one vocabulary
+of null-status reply classes (`model/reply_classes.py`) imported by the exporter, the reader and
+the adapter; the export/replay round trip holds for every writer shape (61 shapes probed); a
+billed zero stays `billed` in `handoff.py`; a release failure is noted on the propagating stop
+instead of masking it; the catch-all message is bounded and path-scrubbed. Owner-authorized
+batch a8c7d95 + 0050571: the release failure is shown by the launcher and the app bridge (also
+after a successful run, as a RuntimeWarning appended to the complete message), Windows paths
+with spaces are scrubbed (exact profile/runtime values first, then a drive-rooted pattern), the
+reader accepts only shapes the exporter writes, writers use the shared constants. Final scoped
+adversarial re-review: PASS. The ten committed `runs/**/live/calls.jsonl` re-export
+byte-identical before and after these rounds and replay. Checks at 0050571: `tests/model` 746
+passed + the 4 pre-existing failures; `test_cpos_app.py`, `test_cpos_handoffs.py`,
+`test_cpos_launch.py`, `test_handoff_loop.py` and the copilot/record/adapter files 568 passed,
+1 skipped (paid). Parked for the owner (Low/Info): the bridge's complete message is written to
+`status.json` without redaction (its text is exception type names only); `CopilotAdapter`
+holds one runtime process per exchange until `close()`; `tests/test_o2_done_when.py::
+test_a_line_citation_naming_the_range_key_is_not_coverage` and `tests/test_model_testing_run.py`
+(14) fail at origin/main as well; upstream `on_start` fires for resumed modules.
+Whole suite: a run at 0050571 (ignoring `tests/product`, `tests/prompts`, `tests/research`
+collection errors) stalled for over 30 minutes inside `tests/test_earnings_workflow.py`
+(untouched by this branch, last changed in the initial import); the run was restarted without
+that file and its result line is appended below when it completes.
+
+## 2026-11-06 — Issuer Library: layout pass
+
+Scope: `apps/issuer-library` web UI after the harden pass (`/impeccable layout`): structure, grouping and
+rhythm inside the incumbent look; copy unchanged except one control label.
+Assessment (isolated, headless Chrome at 1440/1000/720) and mechanical scan (layout scope: 6 findings, all
+the known `context-form.html` false positive) were synthesised into nine items.
+Changed: an opened navigator on Calendar, Reports, Evidence and Run activity takes a 220px column beside the
+content between 721 and 1050px instead of stacking full width (main 346px → 700px at 1000); the navigator
+disclosure on those pages is now "Browse modules", auto-width above 720 and full width with its rule at
+≤720 as on module pages; Library filter selects grow to fill a wrapped row; the Library column headers stick
+under the filter band (`--band-h` set from the band's measured height on render and resize, cleared off the
+Library route; band bottom equals header top at 1440 and 1000 after a 400px scroll); a long issuer name
+ellipsises on one line with a `title` above 720 and wraps below; the Library, Settings, Help and New run
+content inset matches the header (title and content both at x92 at 1440, x86 at 1000); Overview question
+groups auto-fit so a single card spans the row; section pager, section and report selects, saved-output
+select, catalogue summary and "Change case" have a 32px floor (section bar 41 → 43px, header +2px at 720
+only); Library rows at ≤720 carry Run / Workflow / Period / Reports labels.
+Out of scope, unchanged: the 42 distinct spacing values in the older rules (330 of 557 uses off a 4px scale;
+a separate sweep), the Reports list pager, the inspector panel.
+Checks: `node --test` over the six NODE_TESTS 177 pass, exit 0; `go vet` and `go test ./...` exit 0;
+assessor and reviewer probes (`layout-measure.cjs`, `layout-review-reverts.sh` 13 single-item reverts all
+caught, `layout-review-band.cjs`, `layout-review-inset.cjs`, `layout-review-grid.sh`) exit 0 under zsh;
+rendered checks in the in-app browser after rebuild at 1440, 1000 and 720 (navigator 220px beside 700px main,
+sticky headers at the band's bottom edge, aligned insets, full-width single cards, 32px Change case,
+labelled rows and a full-width toggle at 720, `--band-h` absent on Overview). Full detector: 67 → 67.
+One run of the six suites, taken while a review agent and a Go build ran alongside, reported one
+failure whose name was not captured; three clean reruns and four reruns under three busy CPU cores all
+passed (0 failures), so it is recorded here as an unreproduced timing flake, not a defect.
+Ledger: layout agent=mx-feature fix-rounds=1 gates-first-pass=y (round 1: anchor the L1 answer key, Medium;
+the 720 toggle width and a stale `--band-h`, Low/Info, rode with it; agent=mx-scaffold). Review: mx-precise,
+one Medium, two Low, one Info; scoped re-review of the Medium by mx-precise: pass, with one Low (no
+assertion for the evidence variant) closed by a one-line batch (agent=mx-scaffold, revert fails the test).
+Not verified: the Playwright browser gate; Windows rendering and DPI scaling; widths between 721 and 799px
+with real content; a 98-character issuer name in the live app; keyboard focus on the narrower toggle; nothing
+committed.
+
+## 2026-11-06 — Issuer Library: harden pass
+
+Scope: `apps/issuer-library` web UI after the polish pass (`/impeccable harden`): error, edge and
+concurrency states only; no new features, copy and look unchanged.
+Changed: Settings sends one request at a time (Save, Refresh and Quit disable while one is in flight,
+status reads "Refreshing the library…" / "Saving the workspace…" / "Stopping the library…", buttons
+re-enable on error); a service-down line (`#service-down`, `role="alert"`) appears after two consecutive
+failed discovery checks and hides after a successful one, suppressed after a deliberate Quit; both reload
+controls ask "Reload now? The run you are preparing will be cleared." while an accepted run context has
+not been started (`body[data-draft]`, cleared on Start, on Start another run and on the lost-response
+reconnect); a report frame asks for its file with a HEAD request first and shows "This report's file could
+not be found. Reload the library to refresh the list." with a Reload control on 404 or a rejected fetch,
+and keeps that state when the 404 page's own `load` fires afterwards; the Evidence tab shows "No retained
+files for this run" with a Choose another case link when a run has no module files; forced-colors mode
+keeps pill and button borders and outlines the active rail item and tab; "Change case" no longer wraps.
+Checked and left: long names, ids and labels wrap without overflow at 1100px; review/start/status/recent-run
+error paths already show text with recovery; i18n out of scope (English-only Windows tool, retained strings
+shown exactly).
+Checks: `node --test` over the six NODE_TESTS 172 pass, exit 0; `go vet` and `go test ./...` exit 0;
+reviewer probes (HEAD-before-load race, 23 mutants) exit 0, with two surviving mutants recorded as
+equivalent or outside the answer key (`cache:'no-store'`, the busy flag that disabled buttons already
+enforce in jsdom); rendered checks in the in-app browser at 1100px: double-click on Refresh library sent one
+request with all three buttons disabled and re-enabled after a failed response; the service-down line
+appeared after the server was stopped for two discovery ticks and cleared on restart; the race with a 404
+HEAD and a real frame load kept the missing-file state; the Evidence empty state and the nowrap rule.
+Ledger: harden agent=mx-feature fix-rounds=1 gates-first-pass=y (round 1: HEAD-before-load race, High;
+two Lows rode with it). Review: mx-precise, one High, three Low, two Info; scoped re-review of the High fix
+by mx-precise: pass (eight-order probe `harden-f1-orders.cjs` exit 0; the revert fails the race test).
+Not verified: the Playwright browser gate; Windows rendering and Edge's forced-colors mode; the banner after
+a real Quit on Windows; the native confirm dialog (stubbed in tests); a report file actually deleted on disk
+(the 404 was simulated at the HEAD call); nothing committed.
+
+## 2026-11-06 — Issuer Library: polish pass
+
+Scope: `apps/issuer-library` web UI after the critique fix pass and the main merge (`/impeccable polish`).
+Changed: the empty section bar under a single-section tab (Overview) no longer draws padding or a rule
+(`#section-nav:not(:has(:not(.sr-only)))`, the h3 stays focusable); Settings puts Quit library at the
+right as a tertiary action, lets the workspace path input use the full width, and lists workspace issues
+as a mono path plus message; the radius scale gains `inline: 4px` (`--radius-inline`) and every radius in
+screen.css is now one of 0, 1px (step connectors), 50% (step markers), 999px, inline, control or card
+(2/3/5px → inline; rail, icon and file buttons 6px → control; summary band, summary cards and the
+analysis call 6px → card; 10px → card); DESIGN.md's token pointer names screen.css instead of a file that
+does not exist. Detector: 92 → 67 findings; radius in screen.css 28 → 1 (the deliberate 1px connector).
+Out of scope, unchanged: heading sizes 15–23px (DESIGN.md names only the 25px title), the Deploy VII
+colour primitives not listed in the frontmatter, the context-form.html cramped-padding findings (its
+`.sec` rule has an 18px inset, so the detector's reading is a false positive), the Reports list pager.
+Checks: `node --test` over the six NODE_TESTS 157 pass, exit 0; `go vet` and `go test ./...` exit 0;
+reviewer probes (radius map, non-radius diff, six mutants, section-nav height, Settings layout) exit 0 under
+zsh; rendered checks in the in-app browser (section bar 0px, panels 12px, keys 4px, rail 8px, Settings
+layout and issue list indent 0px after rebuild).
+Ledger: polish agent=mx-feature fix-rounds=0 gates-first-pass=y; low batch agent=mx-scaffold
+fix-rounds=0 (issue-list selector specificity, test fixture pinning the first-separator split). Review:
+mx-precise, pass with one Low and one Info, both in the batch.
+Not verified: the Playwright browser gate; Windows rendering; browsers without `:has()` (the bar would
+simply keep its old padding there); nothing committed.
+
+## 2026-11-06 — Issuer Library: critique fix pass (P1 + four P2)
+
+Scope: `apps/issuer-library` web UI only, from the `/impeccable critique all screens` snapshot
+(`.impeccable/critique/2026-11-06T02-18-54Z__apps-issuer-library-web-index-html.md`, 29/40).
+Fixed: primary-action hover contrast (1.3:1 → 12.1:1, `:hover:not(:disabled)` keeps white text);
+type ramp as `--fs-label/compact/body/control` tokens with nothing under 11px and `--text-quaternary`
+raised to #5b6279 (6.06:1); report and run-context iframes get loading / did-not-load / Retry states
+(6s timeout, `window.DESIGN_FRAME_TIMEOUT_MS` is the one test seam); module search clears when leaving
+analytical modules, with a visible Clear button, and the catalogue collapses to the Modules toggle on
+Calendar, Reports, Evidence and Run activity (`tools-workspace`); tab/rail vocabulary follows the
+approved IA (Overview · Modules · Calendar · Reports · Evidence; rail "Reports"), Run activity uses a
+Lucide activity icon, report rows carry the id badge, sort by build and prefix the issuer only when the
+label lacks it. Detector findings 134 → 92 (low-contrast 4 → 0, off-ramp sizes 63 → 25, the rest heading
+sizes DESIGN.md does not name, 6 context-form padding findings out of scope). Not done: Summary length,
+Settings adjacency (P3), radius consolidation.
+Checks: `node --test` over the six `NODE_TESTS` (two new answer-key files `web/screen-css.test.cjs`,
+`web/screens.test.cjs`) 145 pass, exit 0; `go vet` and `go test ./...` exit 0; eight reviewer probes under
+the session scratchpad all exit 0; rendered checks in the in-app browser at 1440/1000/720 (hover colour,
+tab names, search clearing, navigator and inspector grid, selector order, frame loading state).
+Ledger: task-1 agent=mx-feature fix-rounds=1 gates-first-pass=y (round fixed report-adapter.css tokens
+undefined in the embedded report document); task-2 agent=mx-feature fix-rounds=1 gates-first-pass=y
+(round fixed tools-workspace + has-evidence grid, issuer prefix duplication, selector order); low batch
+agent=mx-feature fix-rounds=0 (validate.py NODE_TESTS and browser_check.py selectors, test anchoring,
+1000px toggle height; the watchFrame simplification was reverted because the branch probe reads the state
+it removes). Reviews: mx-precise per task and per Medium fix, mx-architect whole-branch (confidence review
+and rewrite tournament), all pass.
+Not verified: the Playwright browser gate (selectors renamed, not executed here); validate.py quick/full
+modes as a whole; the 6s iframe failure path and Retry in Windows Edge; Windows rendering of the activity
+icon and the tokenised ramp; nothing committed.
 
 ## 2026-11-05 — The M365 custom instruction applies to every module
 

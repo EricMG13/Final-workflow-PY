@@ -149,10 +149,10 @@ def test_the_app_is_organised_by_credit_question_and_its_chrome_shows_names_not_
 ) -> None:
     screen = fixture("CP-2G?c=tdg-003")
     assert screen.texts(".workspace-tabs a") == [
-        "Summary",
-        "Analysis",
+        "Overview",
+        "Modules",
         "Calendar",
-        "Deliverables",
+        "Reports",
         "Evidence",
     ]
     assert norm(screen.text(".module-title h2")) == "Forward credit model"

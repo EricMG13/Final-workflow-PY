@@ -26,12 +26,13 @@ import argparse
 import hashlib
 import json
 import re
+import warnings
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass, replace
 from decimal import Decimal
 from pathlib import Path
 from types import MappingProxyType
-from typing import Any, Literal
+from typing import TYPE_CHECKING, Any, Literal
 from uuid import uuid4
 
 from pydantic import Field, TypeAdapter, model_validator
@@ -62,6 +63,11 @@ from deploy_workflow.owner_workflow import (
 from deploy_workflow.run_pathway import _single_writer
 from deploy_workflow.run_scopes import PUBLIC_S1A_MODULES
 from deploy_workflow.workflow import _put
+
+if TYPE_CHECKING:
+    from deploy_workflow.model.adapter import LiveAdapter
+    from deploy_workflow.model.copilot_adapter import CopilotAdapter
+    from deploy_workflow.model_testing.configs import ModelConfig
 
 
 class RetainedHandoff(HandoffInput):
@@ -251,11 +257,14 @@ def run_handoffs(
     """
     request = HandoffPlan.model_validate_json(manifest.read_bytes())
     from deploy_workflow.model.adapter import LiveAdapter
+    from deploy_workflow.model.copilot_adapter import CopilotAdapter
     from deploy_workflow.model.handoff import HandoffExecutor
 
-    live = isinstance(execute, HandoffExecutor) and isinstance(execute.adapter, LiveAdapter)
+    live = isinstance(execute, HandoffExecutor) and isinstance(
+        execute.adapter, LiveAdapter | CopilotAdapter
+    )
     if (request.execution == "live-provider") != live:
-        raise ValueError("cpos_execution_mode: live mode requires the bounded LiveAdapter executor")
+        raise ValueError("cpos_execution_mode: live mode requires the bounded live executor")
     if (
         live
         and isinstance(execute, HandoffExecutor)
@@ -429,6 +438,37 @@ def run_handoffs(
         return report
 
 
+def live_adapter_for(
+    selected: "ModelConfig", ruling: Path, environ: Mapping[str, str], rulings_root: Path | None
+) -> "LiveAdapter | CopilotAdapter":
+    """The adapter for one model configuration: the Copilot SDK adapter for a copilot provider,
+    else the HTTP adapter. A ``CopilotAdapter`` holds a runtime process and kept sessions:
+    its builder must ``close()`` it after the executor finishes."""
+    from deploy_workflow.model.adapter import LiveAdapter
+    from deploy_workflow.model.copilot_adapter import CopilotAdapter
+    from deploy_workflow.model.turn import ModelSpec
+
+    spec = ModelSpec(selected.config_id, selected.provider, selected.model, selected.effort)
+    if selected.provider == "copilot":
+        return CopilotAdapter(spec, ruling, environ=environ, rulings_root=rulings_root)
+    return LiveAdapter(spec, ruling, environ=environ, rulings_root=rulings_root)
+
+
+def with_notes(error: BaseException) -> str:
+    """``str(error)`` followed by its notes (a release failure is recorded as one), joined by "; "."""
+    text = str(error)
+    notes = "; ".join(n for n in getattr(error, "__notes__", ()) if n not in text)
+    return f"{text}; {notes}" if notes else text
+
+
+def _release(adapter: "LiveAdapter | CopilotAdapter") -> None:
+    """Close the Copilot adapter (it holds a runtime process); HTTP adapters hold nothing."""
+    from deploy_workflow.model.copilot_adapter import CopilotAdapter
+
+    if isinstance(adapter, CopilotAdapter):
+        adapter.close()
+
+
 def run_live_handoffs(
     manifest: Path,
     directory: Path,
@@ -450,39 +490,53 @@ def run_live_handoffs(
     """
     import os
 
-    from deploy_workflow.model.adapter import LiveAdapter
     from deploy_workflow.model.handoff import HandoffExecutor
     from deploy_workflow.model.redact import Redactor
-    from deploy_workflow.model.turn import ModelSpec
     from deploy_workflow.model_testing.configs import CONFIGS
 
     request = HandoffPlan.model_validate_json(manifest.read_bytes())
     if request.execution != "live-provider":
         raise ValueError("cpos_live_mode: manifest must explicitly declare live-provider")
     environment = os.environ if environ is None else environ
-    selected = CONFIGS[config]
-    executor = HandoffExecutor(
-        directory / "live",
-        adapter=LiveAdapter(
-            ModelSpec(selected.config_id, selected.provider, selected.model, selected.effort),
-            ruling,
-            environ=environment,
-            rulings_root=rulings_root,
-        ),
-        cap_usd=request.provider_cap_usd,
-        check=check,
-        redactor=Redactor.from_environ(environment),
-        max_turns=max_turns,
-        max_output_tokens=max_output_tokens,
-    )
-    return run_handoffs(
-        manifest,
-        directory,
-        execute=executor,
-        check=check,
-        on_handoff=on_handoff,
-        on_start=on_start,
-    )
+    adapter = live_adapter_for(CONFIGS[config], ruling, environment, rulings_root)
+    try:
+        executor = HandoffExecutor(
+            directory / "live",
+            adapter=adapter,
+            cap_usd=request.provider_cap_usd,
+            check=check,
+            redactor=Redactor.from_environ(environment),
+            max_turns=max_turns,
+            max_output_tokens=max_output_tokens,
+        )
+        result = run_handoffs(
+            manifest,
+            directory,
+            execute=executor,
+            check=check,
+            on_handoff=on_handoff,
+            on_start=on_start,
+        )
+    except BaseException as stop:
+        # Documented fail-open: a release failure must not mask the stop it follows; it is
+        # recorded as a note on the propagating exception.
+        try:
+            _release(adapter)
+        except Exception as failure:  # noqa: BLE001 -- noted on the propagating stop
+            note = f"adapter release also failed: {failure}"
+            stop.add_note(note)
+            if (
+                isinstance(stop, Exception)
+                and len(stop.args) == 1
+                and isinstance(stop.args[0], str)
+            ):
+                stop.args = (f"{stop.args[0]}; {note}",)  # callers that print str(stop) show it
+        raise
+    try:
+        _release(adapter)
+    except Exception as failure:  # noqa: BLE001 -- the finished run's result outranks the release
+        warnings.warn(f"adapter release failed: {failure}", RuntimeWarning, stacklevel=2)
+    return result
 
 
 def replay_handoffs(
@@ -581,11 +635,14 @@ def run_comparison(
     """CP-OS: verify both deliveries, request/check CP-8, publish its actual handoff."""
     request = ComparisonPlan.model_validate_json(manifest.read_bytes())
     from deploy_workflow.model.adapter import LiveAdapter
+    from deploy_workflow.model.copilot_adapter import CopilotAdapter
     from deploy_workflow.model.handoff import HandoffExecutor
 
-    live = isinstance(execute, HandoffExecutor) and isinstance(execute.adapter, LiveAdapter)
+    live = isinstance(execute, HandoffExecutor) and isinstance(
+        execute.adapter, LiveAdapter | CopilotAdapter
+    )
     if (request.execution == "live-provider") != live:
-        raise ValueError("cpos_execution_mode: live mode requires the bounded LiveAdapter executor")
+        raise ValueError("cpos_execution_mode: live mode requires the bounded live executor")
     if (
         live
         and isinstance(execute, HandoffExecutor)
@@ -689,10 +746,9 @@ def run_live_comparison(
     """Explicit bounded CP-8 execution over the existing verified bundle exchange."""
     import os
 
-    from deploy_workflow.model.adapter import LiveAdapter
     from deploy_workflow.model.handoff import HandoffExecutor
     from deploy_workflow.model.redact import Redactor
-    from deploy_workflow.model.turn import ModelSpec
+    from deploy_workflow.model_testing.configs import CONFIGS
 
     request = ComparisonPlan.model_validate_json(manifest.read_bytes())
     if request.execution != "live-provider":
@@ -710,18 +766,20 @@ def run_live_comparison(
         return check(task, raw)
 
     environment = os.environ if environ is None else environ
-    executor = HandoffExecutor(
-        directory / "live",
-        adapter=LiveAdapter(
-            ModelSpec("sol-medium", "openai", "gpt-6.1-sol", "medium"), ruling, environ=environment
-        ),
-        cap_usd=request.provider_cap_usd,
-        check=checked_response,
-        redactor=Redactor.from_environ(environment),
-        max_turns=max_turns,
-        max_output_tokens=max_output_tokens,
-    )
-    return run_comparison(manifest, directory, execute=executor, check=checked_response)
+    adapter = live_adapter_for(CONFIGS["sol-medium"], ruling, environment, None)
+    try:
+        executor = HandoffExecutor(
+            directory / "live",
+            adapter=adapter,
+            cap_usd=request.provider_cap_usd,
+            check=checked_response,
+            redactor=Redactor.from_environ(environment),
+            max_turns=max_turns,
+            max_output_tokens=max_output_tokens,
+        )
+        return run_comparison(manifest, directory, execute=executor, check=checked_response)
+    finally:
+        _release(adapter)
 
 
 def main() -> None:

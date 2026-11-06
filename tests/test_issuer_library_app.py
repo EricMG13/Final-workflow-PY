@@ -23,6 +23,7 @@ from issuer_library_browser import (
     open_app,
     pageerrors,
     serve,
+    until,
 )
 
 pytestmark = pytest.mark.browser
@@ -950,7 +951,7 @@ def test_an_empty_workspace_opens_on_the_library_with_only_what_can_work(browser
     assert screen.eval("current.module") == "W-Library"
     assert re.search(r"No runs in this workspace yet", screen.content())
     assert screen.attr("#library-new-run", "href") == "#W-NewRun/run"
-    for label in ["Research workspace", "Run activity", "Deliverables"]:
+    for label in ["Research workspace", "Run activity", "Reports"]:
         assert screen.eval(f"document.querySelector('.rail a[aria-label=\"{label}\"]').hidden"), (
             label
         )
@@ -1209,13 +1210,13 @@ def test_embedded_presentation_opens_evidence_on_demand_and_restores_the_trigger
     assert page.evaluate("Boolean(document.querySelector('.fig.narrative'))")
     cite = "[...document.querySelectorAll('button')].find(b=>b.getAttribute('aria-label')==='Key findings: C65 (cited C65)')"
     page.evaluate(f"{cite}.click()")
-    page.wait_for_function(evidence_open)
+    until(page, evidence_open)
     assert page.evaluate("document.activeElement.id") == "inspector-content"
     page.evaluate("document.querySelector('.inspector-dismiss').click()")
     assert page.evaluate(evidence_open) is False
     assert page.evaluate(f"document.activeElement==={cite}")
     page.evaluate(f"{cite}.click()")
-    page.wait_for_function(evidence_open)
+    until(page, evidence_open)
     page.evaluate(
         "document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}))"
     )
@@ -1229,9 +1230,9 @@ def test_embedded_presentation_opens_evidence_on_demand_and_restores_the_trigger
         page.evaluate("document.getElementById('view-root').textContent"),
     )
     page.evaluate("document.querySelector('.fact-value').click()")
-    page.wait_for_function(evidence_open)
+    until(page, evidence_open)
     page.evaluate("document.querySelector('button[aria-label=\"Close inspector\"]').click()")
-    page.wait_for_function(f"!{evidence_open}")
+    until(page, f"!{evidence_open}")
     assert errors == []
     page.context.close()
 
@@ -1256,8 +1257,9 @@ def test_the_report_preview_shows_module_names_keeps_figures_and_leaves_the_insp
     open_destination(page, "model")
     assert not MODULE_CODE.search(page.evaluate(root)), "a later destination is named too"
     page.evaluate("document.querySelector('.fact-value').click()")
-    page.wait_for_function(
-        "/CP-1 \\/ evidence-trace/.test(document.getElementById('inspector-content').textContent)"
+    until(
+        page,
+        "/CP-1 \\/ evidence-trace/.test(document.getElementById('inspector-content').textContent)",
     )
     assert hashlib.sha256(original.read_bytes()).hexdigest() == before
     assert errors == []

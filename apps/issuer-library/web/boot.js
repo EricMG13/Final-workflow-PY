@@ -16,11 +16,21 @@
   // Discovery runs every 30 seconds. Offer the change rather than moving the screen under the reader.
   const shape=value=>JSON.stringify(value.real?.map(run=>[run.id,run.files?.length,run.artifacts?.filter(item=>item.available).map(item=>item.folder)]));
   const loaded=shape(catalogue);
-  document.getElementById('reload-workspace').addEventListener('click',()=>location.reload());
+  // A run being prepared is lost on reload, so the reader is asked first.
+  const reload=()=>{if(document.body.dataset.draft==='1'&&!document.getElementById('new-run').hidden&&!window.confirm('Reload now? The run you are preparing will be cleared.'))return;location.reload();};
+  document.getElementById('reload-workspace').addEventListener('click',reload);
+  document.getElementById('reload-service').addEventListener('click',reload);
+  let failures=0;
   setInterval(async()=>{
-    // A missed check changes nothing on screen; the next one tries again.
-    try{if(shape(await read('/api/catalogue'))!==loaded)document.getElementById('workspace-updated').hidden=false;}
-    catch(error){console.warn('Workspace check failed',error);}
+    // One missed check changes nothing on screen; two in a row say the service is not answering.
+    try{
+      const latest=shape(await read('/api/catalogue'));
+      failures=0;document.getElementById('service-down').hidden=true;
+      if(latest!==loaded)document.getElementById('workspace-updated').hidden=false;
+    }catch(error){
+      console.warn('Workspace check failed',error);
+      if(++failures>=2&&!document.body.dataset.quit)document.getElementById('service-down').hidden=false;
+    }
   },30000);
   for(const name of ['views.js','actions.js','screen.js'])await new Promise((resolve,reject)=>{
     const script=document.createElement('script');

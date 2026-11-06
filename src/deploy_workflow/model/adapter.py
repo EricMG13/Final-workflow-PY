@@ -34,6 +34,7 @@ from deploy_workflow.model.providers import (
     retry_after_seconds,
 )
 from deploy_workflow.model.redact import Redactor
+from deploy_workflow.model.reply_classes import SENT_UNKNOWN, USAGE_TIMEOUTS
 from deploy_workflow.model.transport import Request, Response, TransportError, https_transport
 from deploy_workflow.model.turn import (
     USAGE_KEYS,
@@ -51,7 +52,7 @@ from deploy_workflow.platform_io import flags, regular_open
 
 ReplyKind = Literal["ok", "not_sent", "sent_known", "sent_usage", "sent_unknown"]
 _ERROR_KINDS: tuple[str, ...] = ("not_sent", "sent_known", "sent_usage", "sent_unknown")
-_STATUS_OPTIONAL = ("not_sent", "sent_unknown")  # no reply status may exist for these
+_STATUS_OPTIONAL = ("not_sent", "sent_unknown", "sent_usage")  # no reply status may exist for these
 _KIND_OF: Mapping[ErrorKind, ReplyKind] = {
     ErrorKind.NOT_SENT: "not_sent",
     ErrorKind.SENT_CHARGE_KNOWN: "sent_known",
@@ -62,7 +63,9 @@ KEY_VARIABLES: Mapping[str, str] = {
     "openai": "OPENAI_API_KEY",
     "anthropic": "ANTHROPIC_API_KEY",
     "openrouter": "OPENROUTER_API_KEY",
+    "copilot": "COPILOT_GITHUB_TOKEN",
 }
+COPILOT_RUNTIME_VARIABLE = "COPILOT_CLI_PATH"
 LIVE_RULINGS_ROOT = Path(__file__).resolve().parents[3] / "docs" / "rulings"
 _REFLECTED_RAW = b'"[redacted]"'
 _UNPARSABLE_RAW = b'"[withheld: UnparsableReply]"'
@@ -216,8 +219,14 @@ def _reply_from_error_json(obj: object) -> AdapterReply:
     if not isinstance(error_class, str):
         raise TurnError("error_class must be a string")
     if status is None:
-        if kind not in _STATUS_OPTIONAL:
+        if kind not in _STATUS_OPTIONAL or (
+            kind == "sent_usage" and error_class not in USAGE_TIMEOUTS
+        ):
             raise TurnError(f"http_status is required for kind {kind!r}")
+        if kind != "sent_usage" and (kind == "sent_unknown") != (error_class in SENT_UNKNOWN):
+            raise TurnError(
+                f"error_class {error_class!r} does not fit kind {kind!r} without a status"
+            )
     elif isinstance(status, bool) or not isinstance(status, int):
         raise TurnError("http_status must be an integer")
     elif kind == "sent_known" and not 400 <= status <= 499:
@@ -352,9 +361,12 @@ class LiveAdapter:
         transport: Callable[[Request], Response] = https_transport,
         environ: Mapping[str, str] | None = None,
         clock: Callable[[], float] = time.time,
-        *, rulings_root: Path | None = None,
+        *,
+        rulings_root: Path | None = None,
     ) -> None:
-        self._gate = check_live_gate(model, ruling, rulings_root=rulings_root)  # first: before any environment access
+        self._gate = check_live_gate(
+            model, ruling, rulings_root=rulings_root
+        )  # first: before any environment access
         self.config_id = model.config_id
         self._ruling = Path(ruling)
         self._model = model
@@ -469,6 +481,7 @@ def live_adapter(
 
 
 __all__ = [
+    "COPILOT_RUNTIME_VARIABLE",
     "KEY_VARIABLES",
     "AdapterReply",
     "GateResult",

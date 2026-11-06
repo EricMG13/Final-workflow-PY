@@ -243,7 +243,14 @@ def test_the_loop_gets_the_providers_bytes_per_token_bound(
     monkeypatch.setattr(rp, "ToolLoop", Spy)
     recordings = Path(args["run_dir"]).parent / "recordings"
     run_pathway(**{**args, "model": spec, "adapter": recorded_adapter(spec, recordings)})
-    assert given == [Decimal(key[CONFIG_PROVIDERS[spec.config_id]])]
+    provider = CONFIG_PROVIDERS[spec.config_id]
+    # the key predates Copilot: its bound is the smaller of the openai and anthropic entries
+    expected = (
+        min(Decimal(key["openai"]), Decimal(key["anthropic"]))
+        if provider == "copilot"
+        else key[provider]
+    )
+    assert given == [Decimal(expected)]
 
 
 def _o2_run(

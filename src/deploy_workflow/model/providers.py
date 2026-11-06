@@ -74,6 +74,7 @@ INCLUSIVITY: Mapping[str, Inclusivity] = {
     "openai": Inclusivity(True, True, False),
     "anthropic": Inclusivity(False, True, False),  # input excludes cache read and creation
     "openrouter": Inclusivity(None, None, True),  # charge is usage.cost only
+    "copilot": Inclusivity(None, None, True),  # charge is the runtime's reported cost only
 }
 
 
@@ -163,6 +164,8 @@ def _system_text(messages: tuple[Message, ...]) -> str:
 def build(spec: ModelSpec, request: TurnRequest, key: str) -> Request:
     """The one provider request. ``key`` is used only for the header; nothing stores it."""
     effort = _check(spec, request, key)
+    if spec.provider == "copilot":
+        raise ProviderConfigError("copilot is not an https provider")
     headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json"}
     stream = False
     if spec.provider == "openai":
@@ -636,6 +639,10 @@ def parse(
             result = _parse_openai(status, text, seen, cut_as_turn)
         elif provider == "anthropic":
             result = _parse_anthropic(status, text, redactor, seen, cut_as_turn)
+        elif provider == "copilot":
+            from deploy_workflow.model.copilot import parse_events  # copilot imports this module
+
+            result = parse_events(text, redactor, seen, cut_as_turn)
         else:
             result = _parse_openrouter(status, text, seen, cut_as_turn)
     except (_BadReply, RecursionError) as error:

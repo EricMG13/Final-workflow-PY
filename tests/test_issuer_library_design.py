@@ -468,7 +468,7 @@ def test_workspace_tabs_preserve_issuer_and_run_and_never_substitute_another_cas
     fixture: Any,
 ) -> None:
     screen = fixture("CP-2H")
-    for name in ["Calendar", "Deliverables", "Evidence", "Summary", "Analysis"]:
+    for name in ["Calendar", "Reports", "Evidence", "Overview", "Modules"]:
         href = screen.eval(
             f"[...document.querySelectorAll('.workspace-tabs a')].find(a=>a.textContent==='{name}').getAttribute('href')"
         )
@@ -478,7 +478,7 @@ def test_workspace_tabs_preserve_issuer_and_run_and_never_substitute_another_cas
         assert not screen.exists("#content iframe"), name
         if name == "Calendar":
             assert "No dates are inferred from other cases." in screen.content()
-        if name == "Deliverables":
+        if name == "Reports":
             assert "No report was built from this run’s files" in screen.content()
     screen.go("CP-1/performance?c=ford-otosan-2024")
     assert screen.exists(".missing-state") and screen.count(".bar-column") == 0
@@ -1038,7 +1038,7 @@ def test_navigation_links_keep_module_identity_and_tabs_keep_the_selected_output
     screen.go(f"CP-1/{section}?c=tdg-003&o=CP-1-attempt-1.md")
     screen.go("W-Evidence/sources?c=tdg-003")
     modules_href = screen.eval(
-        "[...document.querySelectorAll('.workspace-tabs a')].find(a=>a.textContent==='Analysis').getAttribute('href')"
+        "[...document.querySelectorAll('.workspace-tabs a')].find(a=>a.textContent==='Modules').getAttribute('href')"
     )
     assert modules_href.startswith(f"#CP-1/{section}?") and "o=CP-1-attempt-1.md" in modules_href
 
@@ -1250,7 +1250,7 @@ def test_the_rail_reaches_every_destination_marks_where_you_are_and_keeps_the_ru
     for label in [
         "Issuer library",
         "Research workspace",
-        "Deliverables",
+        "Reports",
         "Run activity",
         "New run",
         "Settings",
@@ -1258,8 +1258,7 @@ def test_the_rail_reaches_every_destination_marks_where_you_are_and_keeps_the_ru
     ]:
         assert screen.exists(f'.rail a[aria-label="{label}"]'), label
     assert (
-        screen.attr('.rail a[aria-label="Deliverables"]', "href")
-        == "#W-Reports/list?c=ford-otosan-2024"
+        screen.attr('.rail a[aria-label="Reports"]', "href") == "#W-Reports/list?c=ford-otosan-2024"
     )
     assert (
         screen.attr('.rail a[aria-label="Run activity"]', "href")
@@ -1271,7 +1270,7 @@ def test_the_rail_reaches_every_destination_marks_where_you_are_and_keeps_the_ru
         ("W-NewRun/run", "New run"),
         ("W-Settings/workspace", "Settings"),
         ("W-Help/help", "Help"),
-        ("W-Reports/list", "Deliverables"),
+        ("W-Reports/list", "Reports"),
         ("CP-OS/activity", "Run activity"),
     ]:
         screen.go(route)
@@ -1511,7 +1510,7 @@ def test_new_run_and_settings_use_the_shared_secondary_button_for_their_other_ac
     screen = fixture("W-NewRun/run")
     ids = ["edit-context", "revise-run", "another-run"]
     screen.eval("()=>{location.hash='W-Settings/workspace';renderRoute();}")
-    ids += ["refresh-library", "quit-library"]
+    ids += ["refresh-library"]
     for element in ids:
         classes = screen.eval(f"[...document.getElementById('{element}').classList]")
         assert "secondary-action" in classes and "text-button" not in classes, element
@@ -1651,7 +1650,7 @@ def test_the_run_header_names_the_issuer_its_run_and_period_on_one_line_and_tabs
     assert screen.text(".issuer .issuer-meta .code") == "TDG-002"
     assert screen.attr(".issuer .issuer-meta a", "href") == "#W-Library/cases"
     assert screen.exists('.issuer .scope img[src$="calendar-days.svg"]'), "the period has an icon"
-    assert screen.texts('.workspace-tabs a[aria-current="page"]') == ["Summary"]
+    assert screen.texts('.workspace-tabs a[aria-current="page"]') == ["Overview"]
 
 
 def test_the_library_says_what_it_is_once_and_puts_new_run_beside_its_title(fixture: Any) -> None:
@@ -1660,7 +1659,7 @@ def test_the_library_says_what_it_is_once_and_puts_new_run_beside_its_title(fixt
     assert not screen.exists("#content .intro"), "no second introduction"
     assert screen.eval("Boolean(document.getElementById('library-new-run').closest('.issuer'))")
     assert screen.attr(".issuer .secondary-action", "href") == "#W-Reports/list"
-    assert norm(screen.text(".issuer .secondary-action")) == "All deliverables"
+    assert norm(screen.text(".issuer .secondary-action")) == "All reports"
     assert not screen.exists(".library-result-meta")
     assert screen.attr("#library-new-run", "href") == "#W-NewRun/run"
     assert "separate runs" not in screen.text("#library-results")

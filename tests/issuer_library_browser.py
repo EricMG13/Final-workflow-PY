@@ -12,6 +12,7 @@ import mimetypes
 import re
 import subprocess
 import sys
+import time
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any
@@ -71,16 +72,17 @@ def content_type(path: Path) -> str:
 
 
 def serve(page: Any, api: dict[str, Reply], roots: tuple[Path, ...] = (WEB, FIXTURE)) -> None:
-    """Answer /api/* from the replies and every other path from the first root holding it."""
+    """Answer a path from the replies first; any other /api/ path is 404 and every other path
+    comes from the first root holding it."""
 
     def handler(route: Any) -> None:
         path = urlsplit(route.request.url).path
-        if path.startswith("/api/"):
-            reply = api.get(path)
-            if reply is None:
-                route.fulfill(status=404, body="Not Found")
-                return
+        reply = api.get(path)
+        if reply is not None:
             reply(route)
+            return
+        if path.startswith("/api/"):
+            route.fulfill(status=404, body="Not Found")
             return
         if path.startswith("/files/"):
             candidates: tuple[Path, ...] = (ROOT / path.removeprefix("/files/"),)
@@ -93,6 +95,10 @@ def serve(page: Any, api: dict[str, Reply], roots: tuple[Path, ...] = (WEB, FIXT
         route.fulfill(status=404, body="Not Found")
 
     page.route("**/*", handler)
+
+
+def held(route: Any) -> None:
+    """Leave the request unanswered, as a frame or a server that never responds."""
 
 
 def json_reply(value: Any, status: int = 200) -> Reply:
@@ -219,12 +225,13 @@ def open_app(
     api: dict[str, Reply] | None = None,
     viewport: tuple[int, int] = (1280, 720),
     timers: str = NO_TIMERS,
+    init: str = "",
 ) -> Screen:
     """The app at a route: boot reads the catalogue and store the way the server would send them."""
     context = browser.new_context(viewport={"width": viewport[0], "height": viewport[1]})
     page = context.new_page()
     screen = Screen(page)
-    page.add_init_script(HELPERS + timers)
+    page.add_init_script(HELPERS + timers + init)
     catalogue = {
         "workspace": app["workspace"],
         "policy_locked": app["policy_locked"],
@@ -241,7 +248,8 @@ def open_app(
     }
     replies.update(api or {})
     serve(page, replies)
-    page.goto(f"{ORIGIN}/index.html#{hash_route}")
+    # Not the load event: it also waits for every frame, and a check may hold a frame open.
+    page.goto(f"{ORIGIN}/index.html#{hash_route}", wait_until="domcontentloaded")
     page.wait_for_function("typeof current!=='undefined'&&current!==null")
     return screen
 
@@ -280,3 +288,13 @@ def js(screen: Screen, body: str) -> Any:
         "()=>{const norm=s=>s.replace(/\\*\\*|`/g,'').replace(/\\s+/g,' ').trim();"
         "const d=document;" + body + "}"
     )
+
+
+def until(page: Any, expression: str, timeout: float = 5.0) -> None:
+    """Poll a condition from Python. wait_for_function builds its check with eval, which a
+    retained report's content security policy refuses."""
+    deadline = time.monotonic() + timeout
+    while not page.evaluate(expression):
+        if time.monotonic() > deadline:
+            raise AssertionError(f"timed out waiting for {expression}")
+        page.wait_for_timeout(20)

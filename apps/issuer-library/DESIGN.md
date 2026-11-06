@@ -30,6 +30,7 @@ typography:
     fontSize: 20px
     fontWeight: 500
 rounded:
+  inline: 4px
   surface: 12px
   control: 8px
   status: 999px
@@ -54,7 +55,7 @@ The user’s symbol is the only brand mark. This is an Operate / Read surface.
 
 ## Colors
 
-The Deploy VII primitives remain in web/shared-tokens.css. Navy provides structure;
+The Deploy VII primitives are the custom properties at the top of web/screen.css. Navy provides structure;
 blue means action, selection or the issuer data series. Module availability uses
 visible neutral words: saved outputs, inputs and checks only or no files found.
 Amber with an explicit label signals open questions or unavailable operations.
@@ -67,14 +68,16 @@ Grey means neutral, missing or unassessed. Every state includes text.
 Red Hat Display supplies issuer and task headings, Red Hat Text supplies reading
 and controls, and Red Hat Mono supplies measurements and identifiers. Main prose
 is 13–14px. Compact metadata is 11–12px, retaining the established data-workspace
-roles. Exact decimal strings remain visible independently of chart geometry.
+roles. The ramp is four roles (label 11px, compact 12px, body 13px, control 14px) as
+`--fs-label`, `--fs-compact`, `--fs-body`, `--fs-control`; no text renders below 11px.
+Exact decimal strings remain visible independently of chart geometry.
 
 ## Layout
 
 Desktop discovery uses a 56px symbol rail and 228px issuer navigation. Module
 reading collapses issuer navigation into Browse issuers and uses a 210px module
-navigator alongside the analysis. The run has four tabs: Overview, Modules,
-Reports and Sources & files. An observed toolbar height governs sticky navigation
+navigator alongside the analysis. The run has five tabs: Overview, Modules,
+Calendar, Reports and Evidence. An observed toolbar height governs sticky navigation
 and anchor offsets. The selected output and section controls stay visible while
 reading. At 700px, module navigation and content stack. Tables/charts may scroll
 inside their own labelled regions; the page must not overflow horizontally.
@@ -88,7 +91,7 @@ rules. Do not add nested shadow cards or decorative glow.
 
 ## Shapes
 
-12px working-surface corners; 8px controls; pill-shaped status labels. Lucide line icons
+12px working-surface corners; 8px controls; 4px for inline chips, codes and keys; pill-shaped status labels. Lucide line icons
 are bundled locally with their ISC/MIT license notices. Icons accompany labels.
 
 ## Components
@@ -166,7 +169,7 @@ This shell is the application: it replaced the earlier library and reader screen
 sections above this one are kept for their design rules, not their layout. It extends the
 approved Direction C/current-layout hybrid across all analytical modules and the workspace
 screens, and its source is `apps/issuer-library/web/`. The left rail reaches Issuer library,
-Research workspace, Deliverables, Run activity, New run, Search, Settings and Help, and marks
+Research workspace, Reports, Run activity, New run, Search, Settings and Help, and marks
 where you are; run-level links keep the selected run and are hidden in an empty workspace.
 
 The exact symbol, local Red Hat fonts and colour tokens are retained. A compact
