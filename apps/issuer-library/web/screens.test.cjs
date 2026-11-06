@@ -138,3 +138,18 @@ test('Help names Reports, not Deliverables',async t=>{
   const help=text(d.getElementById('content'));
   assert.match(help,/Reports lists/);assert.doesNotMatch(help,/Deliverables lists/);
 });
+test('Settings lists workspace issues as path and message and quits as a tertiary action',async t=>{
+  const dom=new JSDOM(html,{url:'http://127.0.0.1:54321/#W-Settings/workspace',runScripts:'outside-only'});
+  const w=dom.window;t.after(()=>w.close());w.scrollTo=()=>{};w.fetch=()=>new Promise(()=>{});w.HTMLElement.prototype.scrollIntoView=function(){};
+  w.eval("window.DESIGN_DATA={runs:{},outputs:{},inputs:{},pins:{}};window.DESIGN_WORKSPACE={reports:[],visuals:[]};window.DESIGN_APP={workspace:'/research',policy_locked:false,issues:['deliverables/x: Delivery manifest requires report.html: and view.json','plain note'],problem:''};");
+  for(const name of ['views.js','actions.js','screen.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,name),'utf8'),dom.getInternalVMContext());
+  await settle();
+  const d=w.document,quit=d.getElementById('quit-library');
+  assert.ok(quit.classList.contains('tertiary-action'));
+  assert.equal(quit.parentElement.lastElementChild,quit);assert.ok(quit.parentElement.classList.contains('step-actions'));
+  const items=[...d.querySelectorAll('.issue-list li')];
+  assert.equal(items.length,2);
+  assert.equal(items[0].querySelector('.code').textContent,'deliverables/x');
+  assert.equal(items[0].children[1].textContent,'Delivery manifest requires report.html: and view.json');
+  assert.equal(items[1].querySelector('.code'),null);
+});

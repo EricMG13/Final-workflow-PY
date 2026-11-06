@@ -30,6 +30,7 @@ typography:
     fontSize: 20px
     fontWeight: 500
 rounded:
+  inline: 4px
   surface: 12px
   control: 8px
   status: 999px
@@ -54,7 +55,7 @@ The user’s symbol is the only brand mark. This is an Operate / Read surface.
 
 ## Colors
 
-The Deploy VII primitives remain in web/shared-tokens.css. Navy provides structure;
+The Deploy VII primitives are the custom properties at the top of web/screen.css. Navy provides structure;
 blue means action, selection or the issuer data series. Module availability uses
 visible neutral words: saved outputs, inputs and checks only or no files found.
 Amber with an explicit label signals open questions or unavailable operations.
@@ -90,7 +91,7 @@ rules. Do not add nested shadow cards or decorative glow.
 
 ## Shapes
 
-12px working-surface corners; 8px controls; pill-shaped status labels. Lucide line icons
+12px working-surface corners; 8px controls; 4px for inline chips, codes and keys; pill-shaped status labels. Lucide line icons
 are bundled locally with their ISC/MIT license notices. Icons accompany labels.
 
 ## Components

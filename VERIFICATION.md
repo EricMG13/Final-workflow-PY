@@ -8,6 +8,30 @@ contains the settled CP-6 timeout cost, the corrected TDG annual publication, th
 live CP-8 comparison and checks of the five broader report bundles. The older
 entries below retain their historical case scope.
 
+## 2026-11-06 — Issuer Library: polish pass
+
+Scope: `apps/issuer-library` web UI after the critique fix pass and the main merge (`/impeccable polish`).
+Changed: the empty section bar under a single-section tab (Overview) no longer draws padding or a rule
+(`#section-nav:not(:has(:not(.sr-only)))`, the h3 stays focusable); Settings puts Quit library at the
+right as a tertiary action, lets the workspace path input use the full width, and lists workspace issues
+as a mono path plus message; the radius scale gains `inline: 4px` (`--radius-inline`) and every radius in
+screen.css is now one of 0, 1px (step connectors), 50% (step markers), 999px, inline, control or card
+(2/3/5px → inline; rail, icon and file buttons 6px → control; summary band, summary cards and the
+analysis call 6px → card; 10px → card); DESIGN.md's token pointer names screen.css instead of a file that
+does not exist. Detector: 92 → 67 findings; radius in screen.css 28 → 1 (the deliberate 1px connector).
+Out of scope, unchanged: heading sizes 15–23px (DESIGN.md names only the 25px title), the Deploy VII
+colour primitives not listed in the frontmatter, the context-form.html cramped-padding findings (its
+`.sec` rule has an 18px inset, so the detector's reading is a false positive), the Reports list pager.
+Checks: `node --test` over the six NODE_TESTS 157 pass, exit 0; `go vet` and `go test ./...` exit 0;
+reviewer probes (radius map, non-radius diff, six mutants, section-nav height, Settings layout) exit 0 under
+zsh; rendered checks in the in-app browser (section bar 0px, panels 12px, keys 4px, rail 8px, Settings
+layout and issue list indent 0px after rebuild).
+Ledger: polish agent=mx-feature fix-rounds=0 gates-first-pass=y; low batch agent=mx-scaffold
+fix-rounds=0 (issue-list selector specificity, test fixture pinning the first-separator split). Review:
+mx-precise, pass with one Low and one Info, both in the batch.
+Not verified: the Playwright browser gate; Windows rendering; browsers without `:has()` (the bar would
+simply keep its old padding there); nothing committed.
+
 ## 2026-11-06 — Issuer Library: critique fix pass (P1 + four P2)
 
 Scope: `apps/issuer-library` web UI only, from the `/impeccable critique all screens` snapshot

@@ -73,3 +73,11 @@ test('tools-workspace: the opened navigator takes a 238px column beside the cont
 test('tools-workspace: the Modules toggle spans every column', () => {
   assert.ok(rule('.tools-workspace .mobile-modules').some((b) => /grid-column:\s*1\/-1/.test(b)), 'toggle does not span');
 });
+
+test('border radii use only the DESIGN.md scale', () => {
+  const allowed = new Set(['0', '1px', '50%', '999px', 'var(--radius-inline)', 'var(--radius-control)', 'var(--radius-card)']);
+  const values = [...screen.matchAll(/border-radius:([^;}]*)/g)].flatMap((m) => m[1].trim().split(/\s+/));
+  const bad = [...new Set(values.filter((v) => !allowed.has(v)))];
+  assert.deepEqual(bad, []);
+  assert.match(screen, /:root\{[^}]*--radius-inline:4px/);
+});

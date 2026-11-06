@@ -346,7 +346,7 @@ test('Active Library filters show as removable chips, and Clear all appears only
 test('New run and Settings use the shared secondary button for their other actions',()=>{
   const dom=fixture('W-NewRun/run'),w=dom.window,d=w.document;
   const ids=['edit-context','revise-run','another-run'];
-  w.eval(`location.hash='W-Settings/workspace';renderRoute()`);ids.push('refresh-library','quit-library');
+  w.eval(`location.hash='W-Settings/workspace';renderRoute()`);ids.push('refresh-library');
   for(const id of ids){const b=d.getElementById(id);assert.ok(b.classList.contains('secondary-action'),id);assert.ok(!b.classList.contains('text-button'),id);}
   dom.window.close();
 });
