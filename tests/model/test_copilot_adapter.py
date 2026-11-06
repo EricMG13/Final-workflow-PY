@@ -25,7 +25,8 @@ from deploy_workflow.model.adapter import (
     AdapterReply,
     LivePauseInForce,
 )
-from deploy_workflow.model.copilot import ClientOptions, CopilotAdapter, event_record
+from deploy_workflow.model.copilot import event_record
+from deploy_workflow.model.copilot_adapter import ClientOptions, CopilotAdapter
 from deploy_workflow.model.redact import Redactor
 from deploy_workflow.model.turn import (
     Message,
