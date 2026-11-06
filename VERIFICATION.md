@@ -8,6 +8,28 @@ contains the settled CP-6 timeout cost, the corrected TDG annual publication, th
 live CP-8 comparison and checks of the five broader report bundles. The older
 entries below retain their historical case scope.
 
+## 2026-11-05 — The M365 custom instruction applies to every module
+
+Owner ruling: the ported Copilot custom instruction is a global persona. `cpos_launch` now
+emits it (`READER_PERSONA`) in every module's launcher instructions. The `CANON_SHARED.md`
+reader rules and the `### Credit view` opening stay CP-2 only, and CP-2's emitted text is
+byte-identical to before. Checks: `tests/test_cpos_launch.py` 79 passed, 1 skipped (paid);
+the updated test failed first (`('CP-0', 'senior credit research analyst')`). Ruff and format
+are clean; mypy reports nothing in `cpos_launch.py` (28 errors in other files). Not verified:
+no paid run, so the persona's effect on non-CP-2 modules' live output is unmeasured.
+
+Second ruling the same day: every module opens `## Findings` with its own `### … view`
+paragraph. Evidence: M365 screenshots for VMO2 (CP-0 to CP-2A) and Wood Mackenzie (CP-0 to
+CP-2A) open each analytical module with a plain-English view before any table; only CP-1C and
+CP-2 call it "Credit view", CP-2A "Downside view". About half the screenshots were read (CP-3
+onward unread). `OPENING` now maps all 20 `METHODS` modules (a test fails on a missing one) and
+the checker enforces each; `READER_STANDARD` stays CP-2 only (`READER_STANDARD_MODULES`). CP-2's
+instructions are byte-identical in all five pathways. CP-2's relative_value route `### Credit
+view` is also its opening heading, as before. Checks: `test_cpos_launch.py`, `test_cpos_app.py`,
+`test_cpos_handoffs.py` 137 passed, 1 skipped (paid); new tests failed first. Not verified: no
+model has produced the new openings; earlier runs' retained handoffs no longer match the new
+instructions, so a fresh run must regenerate them.
+
 ## 2026-11-05 — CP-2 writes for the credit reader
 
 Web-app CP-2 handoffs read as audit records next to Deploy V's Microsoft 365 handoffs. Compared:
