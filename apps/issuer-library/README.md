@@ -86,6 +86,10 @@ installation or launch-time downloads. `Smoke-test.ps1` checks packaged imports,
 Windows locking, the workspace read and offline context review; it never starts a model run. Run it
 on the target Windows host as part of acceptance. Native Windows execution and
 paid model success have not been demonstrated on this macOS build host.
+The package does not contain `github-copilot-sdk` or the Copilot CLI runtime it
+downloads, so the `copilot-*` configurations are not available from a package; a
+Copilot run from a package fails when the engine imports the SDK. Run those
+configurations from a repository checkout as `docs/COPILOT.md` describes.
 
 ## Standard locations and enterprise configuration
 
