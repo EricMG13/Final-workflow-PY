@@ -863,18 +863,18 @@ def test_release_failure_does_not_mask_the_runs_own_stop(tmp_path, monkeypatch):
     assert any("RuntimeError" in note for note in stopped.value.__notes__)
 
 
-def test_release_failure_after_a_successful_run_still_raises(tmp_path, monkeypatch):
+def test_release_failure_after_a_successful_run_keeps_the_result_and_warns(tmp_path, monkeypatch):
     from deploy_workflow.owners import cpos
 
     root, ruling = copilot_rig(tmp_path)
 
     def release(adapter):
-        raise OSError("release failed")
+        raise OSError("stop failed: OSError")
 
     monkeypatch.setattr(cpos, "run_handoffs", lambda *a, **k: tmp_path / "report.html")
     monkeypatch.setattr(cpos, "_release", release)
-    with pytest.raises(OSError, match="release failed"):
-        cpos.run_live_handoffs(
+    with pytest.warns(RuntimeWarning, match="adapter release failed: stop failed: OSError"):
+        report = cpos.run_live_handoffs(
             live_job(tmp_path),
             tmp_path / "state",
             ruling=ruling,
@@ -883,3 +883,4 @@ def test_release_failure_after_a_successful_run_still_raises(tmp_path, monkeypat
             config="copilot-opus-medium",
             rulings_root=root,
         )
+    assert report == tmp_path / "report.html"

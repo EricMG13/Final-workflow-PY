@@ -34,7 +34,7 @@ from deploy_workflow.model.providers import (
     retry_after_seconds,
 )
 from deploy_workflow.model.redact import Redactor
-from deploy_workflow.model.reply_classes import USAGE_TIMEOUTS
+from deploy_workflow.model.reply_classes import SENT_UNKNOWN, USAGE_TIMEOUTS
 from deploy_workflow.model.transport import Request, Response, TransportError, https_transport
 from deploy_workflow.model.turn import (
     USAGE_KEYS,
@@ -223,6 +223,10 @@ def _reply_from_error_json(obj: object) -> AdapterReply:
             kind == "sent_usage" and error_class not in USAGE_TIMEOUTS
         ):
             raise TurnError(f"http_status is required for kind {kind!r}")
+        if kind != "sent_usage" and (kind == "sent_unknown") != (error_class in SENT_UNKNOWN):
+            raise TurnError(
+                f"error_class {error_class!r} does not fit kind {kind!r} without a status"
+            )
     elif isinstance(status, bool) or not isinstance(status, int):
         raise TurnError("http_status must be an integer")
     elif kind == "sent_known" and not 400 <= status <= 499:

@@ -504,9 +504,32 @@ def test_recorded_error_status_rules(tmp_path: Path, response: object) -> None:
         recorded_adapter(SPEC, tmp_path)
 
 
+@pytest.mark.parametrize(
+    "kind, error_class, replays",
+    [
+        ("not_sent", "IdleTimeout", False),
+        ("sent_unknown", "KeyMissing", False),
+        ("not_sent", "KeyMissing", True),
+        ("sent_unknown", "IdleTimeout", True),
+    ],
+)
+def test_recorded_null_status_class_must_fit_the_kind(
+    tmp_path: Path, kind: str, error_class: str, replays: bool
+) -> None:
+    response = _error(kind=kind, error_class=error_class, http_status=None)
+    write(tmp_path / "rec.jsonl", line(DIGEST, 0, response))
+    if replays:
+        assert complete(recorded_adapter(SPEC, tmp_path)).kind == kind
+    else:
+        with pytest.raises(RecordingError, match="line 1"):
+            recorded_adapter(SPEC, tmp_path)
+
+
 @pytest.mark.parametrize("kind", ["not_sent", "sent_unknown"])
 def test_recorded_null_status_allowed_for_unsent_or_unknown(tmp_path: Path, kind: str) -> None:
-    write(tmp_path / "rec.jsonl", line(DIGEST, 0, _error(kind=kind, http_status=None)))
+    error_class = "TransportError" if kind == "sent_unknown" else "KeyMissing"
+    response = _error(kind=kind, error_class=error_class, http_status=None)
+    write(tmp_path / "rec.jsonl", line(DIGEST, 0, response))
     reply = complete(recorded_adapter(SPEC, tmp_path))
     assert reply.kind == kind and reply.http_status is None
 

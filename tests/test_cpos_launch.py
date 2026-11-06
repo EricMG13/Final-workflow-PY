@@ -1141,3 +1141,22 @@ def test_live_copilot_without_a_runtime_path_is_refused_before_any_folder(
     assert main(argv) == 2
     assert "COPILOT_CLI_PATH" in capsys.readouterr().err
     assert not Path(argv[argv.index("--out") + 1]).exists()
+
+
+def test_a_release_note_on_the_stop_is_shown_in_stderr(
+    tmp_path, monkeypatch, capsys, copilot_ruling
+):
+    monkeypatch.setenv("COPILOT_GITHUB_TOKEN", "ghp_" + "Z" * 36)
+    runtime = tmp_path / "copilot-runtime"
+    runtime.write_text("#!/bin/sh\n")
+    monkeypatch.setenv("COPILOT_CLI_PATH", str(runtime))
+
+    def stops(manifest, directory, **kwargs):
+        error = RuntimeError("cpos_live_stopped: sent_unknown")
+        error.add_note("adapter release also failed: stop failed: OSError")
+        raise error
+
+    monkeypatch.setattr(cpos_launch, "run_live_handoffs", stops)
+    argv = copilot_argv(tmp_path, "copilot-sol-medium", "--live", "--ruling", str(copilot_ruling))
+    assert main(argv) == 1
+    assert "adapter release also failed: stop failed: OSError" in capsys.readouterr().err

@@ -1453,3 +1453,18 @@ def test_a_cut_reply_parses_as_a_turn_only_when_asked_for_the_old_record() -> No
     )
     turn = parse("openai", 200, reply, {}, Redactor(), cut_as_turn=True)
     assert isinstance(turn, Turn) and turn.stop_reason == "other" and turn.tool_calls == ()
+
+
+def test_every_sent_unknown_class_the_writers_produce_is_in_the_shared_vocabulary() -> None:
+    from deploy_workflow.model import reply_classes
+    from deploy_workflow.model.transport import ConnectTimeout, OverallTimeout
+
+    transport = {c.__name__ for c in (ConnectTimeout, IdleTimeout, OverallTimeout, TransportError)}
+    copilot = {
+        reply_classes.ADAPTER_ERROR,
+        reply_classes.ADAPTER_CLOSED,
+        reply_classes.IDLE_TIMEOUT,
+        reply_classes.OVERALL_TIMEOUT,
+        "ToolCallLost",
+    }
+    assert (transport | copilot) <= reply_classes.SENT_UNKNOWN

@@ -46,10 +46,13 @@ from deploy_workflow.model.providers import (
 )
 from deploy_workflow.model.redact import Redactor
 from deploy_workflow.model.reply_classes import (
+    ADAPTER_CLOSED,
     ADAPTER_ERROR,
     AUTO_ROUTED,
     BYOK_ROUTED,
+    IDLE_TIMEOUT,
     MODEL_MISMATCH,
+    OVERALL_TIMEOUT,
     PRE_SEND_FAILURE,
     TOOL_CALL_MISMATCH,
 )
@@ -73,6 +76,12 @@ from deploy_workflow.model.turn import (
 
 REJECT = "reject"  # the one permission verdict: ``real_client`` maps it to the SDK's reject result
 _ABSOLUTE_PATH = re.compile(r"(?:[A-Za-z]:)?[\\/](?:[^\s\\/:()'\"<>]+[\\/])+[^\s\\/:()'\"<>]*")
+_PROFILE_VARIABLES = (
+    "USERPROFILE", "HOME", "APPDATA", "LOCALAPPDATA", "ProgramFiles", "ProgramFiles(x86)",
+)  # fmt: skip
+# Windows drive paths whose folders may hold spaces ("C:\\Users\\Jane Doe\\...\\x.js"): the file
+# name ends at a space, a folder name does not.
+_WINDOWS_PATH = re.compile(r"[A-Za-z]:[\\/](?:[^\\/:*?\"<>|\r\n()]+[\\/])+[^\s\\/:*?\"<>|()']*")
 _TOKEN_VARIABLE = KEY_VARIABLES["copilot"]
 _DIGEST = re.compile(r"[A-Za-z0-9_-]{1,128}")
 _TOOL_FINISH = ("tool_calls", "tool_use")
@@ -519,9 +528,9 @@ class CopilotAdapter:
         except concurrent.futures.TimeoutError:
             future.cancel()
             loop.call_soon_threadsafe(self._release, invocation_digest)
-            error_class, text = "OverallTimeout", "the exchange outlasted its overall bound"
+            error_class, text = OVERALL_TIMEOUT, "the exchange outlasted its overall bound"
         except concurrent.futures.CancelledError:
-            error_class, text = "AdapterClosed", "the adapter was closed during the call"
+            error_class, text = ADAPTER_CLOSED, "the adapter was closed during the call"
         return AdapterReply(
             "sent_unknown", None, None, None, error_class, None, started, self._clock(),
             message=text,
@@ -717,7 +726,7 @@ class CopilotAdapter:
         except TimeoutError:
             return self._failed(
                 call,
-                "OverallTimeout" if sent else PRE_SEND_FAILURE,
+                OVERALL_TIMEOUT if sent else PRE_SEND_FAILURE,
                 "the exchange timed out" if sent else "OverallTimeout: the exchange timed out",
                 sent=sent,
             )
@@ -729,7 +738,11 @@ class CopilotAdapter:
 
     def _scrub(self, text: str, options: ClientOptions) -> str:
         """``text`` without the runtime path, the exchange's home or the working directory."""
-        return _paths_in(text, [options.runtime, options.home, str(Path.cwd())])
+        environ = os.environ if self._environ is None else self._environ
+        known = [environ.get(name, "") for name in _PROFILE_VARIABLES]
+        parent = str(Path(options.runtime).parent)
+        text = _WINDOWS_PATH.sub("<path>", text)  # whole paths first: no folder half is left
+        return _paths_in(text, [options.runtime, parent, options.home, str(Path.cwd()), *known])
 
     def _failed(
         self, call: _Call, error_class: str, text: str, *, sent: bool = True
@@ -763,11 +776,11 @@ class CopilotAdapter:
         while not _boundary(records, state.calls):
             remaining = deadline - loop.time()
             if remaining <= 0:
-                return records, "OverallTimeout"
+                return records, OVERALL_TIMEOUT
             try:
                 item = await asyncio.wait_for(state.queue.get(), min(self._idle_s, remaining))
             except TimeoutError:
-                return records, "OverallTimeout" if remaining <= self._idle_s else "IdleTimeout"
+                return records, OVERALL_TIMEOUT if remaining <= self._idle_s else IDLE_TIMEOUT
             if item is not _INVOKED:
                 records.append(event_record(item))
         return records, None

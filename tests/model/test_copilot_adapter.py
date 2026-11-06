@@ -657,6 +657,34 @@ def test_pre_send_failure_text_is_bounded_and_holds_no_absolute_path(
     assert "<path>" in text
 
 
+def test_windows_paths_with_spaces_are_scrubbed_from_error_text(rig: Rig, tmp_path: Path) -> None:
+    install = tmp_path / "Copilot Install Dir"
+    install.mkdir()
+    runtime = install / "copilot-runtime"
+    runtime.write_text("#!/bin/sh\n")
+    profile, local = r"C:\Users\Jane Doe", r"C:\Users\Jane Doe\AppData\Local"
+    files = r"C:\Program Files"
+    environ = {
+        **rig.environ,
+        "COPILOT_CLI_PATH": str(runtime),
+        "USERPROFILE": profile,
+        "LOCALAPPDATA": local,
+        "ProgramFiles": files,
+    }
+    frames = (
+        f"at a ({local}\\x\\y.js:1:1)\nat b ({files}\\GitHub Copilot\\bin\\copilot.exe:2:2)\n"
+        f"at c ({install}/lib.js:3:3)\n"
+    )
+    rig.client = OpenFails(RuntimeError("boom\n" + frames * 50))
+    adapter = rig.make([], environ=environ)
+    run, _ = _run_and_export(rig, tmp_path, adapter)
+    (rec,) = CallLog(run, Redactor()).records()
+    text = str(rec["error"])
+    assert len(text) <= 500
+    for secret in ("Jane Doe", "Program Files", "GitHub Copilot", "Copilot Install Dir"):
+        assert secret not in text
+
+
 # ---------------------------------------------------------------- fix round 1
 
 

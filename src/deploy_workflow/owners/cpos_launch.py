@@ -53,7 +53,7 @@ from deploy_workflow.model.budget import Budget
 from deploy_workflow.model.handoff import Check, _pages
 from deploy_workflow.model.pricing import price_of, request_reservation_usd
 from deploy_workflow.model_testing.configs import CONFIGS
-from deploy_workflow.owners.cpos import HandoffPlan, HandoffTask, run_live_handoffs
+from deploy_workflow.owners.cpos import HandoffPlan, HandoffTask, run_live_handoffs, with_notes
 from deploy_workflow.reader_summary import (
     BOTTOM_LINE_WORDS,
     CONFIDENCE,
@@ -734,7 +734,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             config=args.config,
         )
     except (ValueError, RuntimeError) as error:
-        print(f"Stopped: {error}\nRetained work is in {prepared.directory}", file=sys.stderr)
+        print(
+            f"Stopped: {with_notes(error)}\nRetained work is in {prepared.directory}",
+            file=sys.stderr,
+        )
         return 1
     spent = Budget(prepared.plan.provider_cap_usd, prepared.directory / "live").spent
     print(f"Report:   {report}\nCharged:  USD {spent}")

@@ -21,7 +21,7 @@ from deploy_workflow.model.budget import Budget
 from deploy_workflow.model.pricing import PRICES_AS_OF
 from deploy_workflow.model.redact import Redactor
 from deploy_workflow.model_testing.configs import CONFIGS
-from deploy_workflow.owners.cpos import run_live_handoffs
+from deploy_workflow.owners.cpos import run_live_handoffs, with_notes
 from deploy_workflow.owners.cpos_launch import MAX_OUTPUT_TOKENS, Prepared, checker, prepare
 from deploy_workflow.platform_io import replace
 
@@ -212,7 +212,7 @@ def start(directory: Path) -> None:
             config=job["config"],
         )
     except (ValueError, RuntimeError) as error:
-        message = f"{error} Retained work is in the run folder; no automatic paid retry was made."
+        message = f"{with_notes(error)} Retained work is in the run folder; no automatic paid retry was made."
         write_json(
             directory / "status.json",
             {

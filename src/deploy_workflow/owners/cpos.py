@@ -26,6 +26,7 @@ import argparse
 import hashlib
 import json
 import re
+import warnings
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass, replace
 from decimal import Decimal
@@ -453,6 +454,13 @@ def live_adapter_for(
     return LiveAdapter(spec, ruling, environ=environ, rulings_root=rulings_root)
 
 
+def with_notes(error: BaseException) -> str:
+    """``str(error)`` followed by its notes (a release failure is recorded as one), joined by "; "."""
+    text = str(error)
+    notes = "; ".join(n for n in getattr(error, "__notes__", ()) if n not in text)
+    return f"{text}; {notes}" if notes else text
+
+
 def _release(adapter: "LiveAdapter | CopilotAdapter") -> None:
     """Close the Copilot adapter (it holds a runtime process); HTTP adapters hold nothing."""
     from deploy_workflow.model.copilot_adapter import CopilotAdapter
@@ -515,9 +523,19 @@ def run_live_handoffs(
         try:
             _release(adapter)
         except Exception as failure:  # noqa: BLE001 -- noted on the propagating stop
-            stop.add_note(f"adapter release also failed: {type(failure).__name__}")
+            note = f"adapter release also failed: {failure}"
+            stop.add_note(note)
+            if (
+                isinstance(stop, Exception)
+                and len(stop.args) == 1
+                and isinstance(stop.args[0], str)
+            ):
+                stop.args = (f"{stop.args[0]}; {note}",)  # callers that print str(stop) show it
         raise
-    _release(adapter)
+    try:
+        _release(adapter)
+    except Exception as failure:  # noqa: BLE001 -- the finished run's result outranks the release
+        warnings.warn(f"adapter release failed: {failure}", RuntimeWarning, stacklevel=2)
     return result
 
 

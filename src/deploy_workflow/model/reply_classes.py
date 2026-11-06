@@ -12,8 +12,11 @@ BYOK_ROUTED = "ByokRouted"
 AUTO_ROUTED = "AutoRouted"
 TOOL_CALL_MISMATCH = "ToolCallMismatch"
 
+IDLE_TIMEOUT = "IdleTimeout"
+OVERALL_TIMEOUT = "OverallTimeout"
+
 # Timeouts that may carry the counts of a usage event received before the cut (Copilot).
-USAGE_TIMEOUTS: frozenset[str] = frozenset({"IdleTimeout", "OverallTimeout"})
+USAGE_TIMEOUTS: frozenset[str] = frozenset({IDLE_TIMEOUT, OVERALL_TIMEOUT})
 
 # Classes of a null-status record whose call may have been sent: the charge is unknown or usage-only.
 SENT_UNKNOWN: frozenset[str] = USAGE_TIMEOUTS | {
