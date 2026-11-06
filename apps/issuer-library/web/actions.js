@@ -8,6 +8,7 @@ async function appRequest(url,body,multipart=false){
 }
 const WORKFLOW_ACTIVE=['running','starting'];
 const workflowTitle=value=>String(value).replace(/_/g,' ').replace(/\b[a-z]/g,letter=>letter.toUpperCase());
+const STATE_BADGE={running:'blue',starting:'blue',complete:'navy',stopped:'attention',failed:'attention',interrupted:'attention'};
 const textNode=(tag,value)=>{const node=document.createElement(tag);node.textContent=value;return node;};
 // The chosen folder's name is dropped: paths are relative to it, as the launcher's --sources are.
 const folderPath=file=>(file.webkitRelativePath||file.name).split('/').slice(file.webkitRelativePath?1:0).join('/');
@@ -15,7 +16,7 @@ const folderPath=file=>(file.webkitRelativePath||file.name).split('/').slice(fil
 const uploadable=files=>[...files].filter(file=>!folderPath(file).split('/').some(part=>part.startsWith('.')));
 
 function installNewRun(){
-  let context=null,review=null,busy=false,running=false,polling=false,listing=false,watch=null;
+  let context=null,review=null,busy=false,running=false,polling=false,listing=false,watch=null,activeListed=false,lastRows='';
   function message(value){$('new-run-message').textContent=value;}
   function stage(name){
     for(const id of ['context','source','review','progress'])$(id+'-step').hidden=id!==name;
@@ -27,27 +28,80 @@ function installNewRun(){
     $('start-run').disabled=busy||running||!review?.provider_ready||!$('run-confirm').checked;
     $('revise-run').disabled=busy||running;
     $('run-sources').disabled=busy||running;
-    if(running&&!watch)watch=setInterval(poll,2000);
-    if(!running&&watch){clearInterval(watch);watch=null;}
+    const wanted=(running||activeListed)&&!$('new-run').hidden;
+    if(wanted&&!watch)watch=setInterval(poll,2000);
+    if(!wanted&&watch){clearInterval(watch);watch=null;}
+  }
+  function titleOf(id){return (Array.isArray(review?.module_details)?review.module_details:[]).find(item=>item?.id===id)?.title||id;}
+  function describeModule(status,modules,nameOf){
+    const p=status.progress||{},moduleId=p.module;
+    if(!moduleId)return '';
+    const index=modules.indexOf(moduleId),where=index>=0?` (${index+1} of ${modules.length})`:'';
+    if(p.step==='started')return `${WORKFLOW_ACTIVE.includes(status.state)?'running':'stopped during'} ${nameOf(moduleId)}${where}`;
+    if(p.step==='accepted')return `${nameOf(moduleId)} accepted${where}`;
+    return '';
   }
   async function recent(){
     if(listing)return;listing=true;
     try{
       const jobs=await appRequest('/api/runs/list');
-      if(!jobs.length){$('recent-jobs').textContent='No recent runs to show.';return;}
-      $('recent-jobs').replaceChildren(...jobs.map(job=>{
-        const button=textNode('button',`${job.id} · ${job.state}`);
-        button.type='button';button.className='text-button';
-        button.addEventListener('click',()=>{review={id:job.id};running=WORKFLOW_ACTIVE.includes(job.state);stage('progress');showStatus(job);controls();if(running)poll();});
-        return button;
-      }));
-    }catch(error){$('recent-jobs').textContent='Could not load recent runs. Reopen New run to try again. Details: '+error.message;}
+      const key=JSON.stringify(jobs);if(key===lastRows){controls();return;}
+      if(!jobs.length){$('recent-jobs').textContent='No recent runs to show.';lastRows=key;activeListed=false;controls();return;}
+      const active=job=>WORKFLOW_ACTIVE.includes(job.state);
+      const ordered=[...jobs.filter(active),...jobs.filter(job=>!active(job))];
+      const table=document.createElement('table'),head=document.createElement('tr'),body=document.createElement('tbody');
+      head.append(...['Issuer','Workflow','Module','State','Spend (USD)'].map(label=>textNode('th',label)));
+      const thead=document.createElement('thead');thead.append(head);
+      for(const job of ordered){
+        const modules=Array.isArray(job.modules)?job.modules:[],details=Array.isArray(job.module_details)?job.module_details:[];
+        const row=document.createElement('tr'),owner=document.createElement('th'),button=textNode('button',job.issuer||job.id);
+        owner.scope='row';button.type='button';button.className='text-button';button.title=job.id;
+        button.addEventListener('click',()=>{review={...job,modules,module_details:details};running=active(job);stage('progress');showStatus(job);controls();if(running)poll();});
+        owner.append(button);
+        const workflow=textNode('td','');
+        if(job.pathway){const badge=textNode('span',workflowTitle(job.pathway));badge.className='badge badge-blue';badge.prepend(document.createElement('i'));workflow.append(badge);}else workflow.textContent='—';
+        const state=textNode('td',''),badge=textNode('span',job.state);badge.className=`badge badge-${STATE_BADGE[job.state]||'gray'}`;state.append(badge);
+        row.append(owner,workflow,textNode('td',describeModule(job,modules,id=>details.find(d=>d?.id===id)?.title||id)||'—'),state,textNode('td',String(job.spent_usd??job.progress?.spent_usd??'—')));
+        body.append(row);
+      }
+      table.append(thead,body);
+      const scroll=document.createElement('div');scroll.className='table-scroll';scroll.tabIndex=0;scroll.append(table);
+      const focused=document.activeElement?.closest?.('#recent-jobs')?document.activeElement.title:null,old=document.querySelector('#recent-jobs .table-scroll');
+      const left=old?old.scrollLeft:0,top=old?old.scrollTop:0;
+      $('recent-jobs').replaceChildren(scroll);
+      if(focused)[...document.querySelectorAll('#recent-jobs button')].find(button=>button.title===focused)?.focus();
+      scroll.scrollLeft=left;scroll.scrollTop=top;
+      const hadActive=activeListed;activeListed=jobs.some(active);
+      if(activeListed&&!hadActive)document.querySelector('.recent-runs').open=true;
+      lastRows=key;
+      controls();
+    }catch(error){lastRows='';$('recent-jobs').textContent='Could not load recent runs. Reopen New run to try again. Details: '+error.message;}
     finally{listing=false;}
   }
   function showStatus(status){
-    const moduleId=status.progress?.module,moduleTitle=review?.module_details?.find(item=>item.id===moduleId)?.title;
-    const accepted=moduleId?` · last accepted ${moduleTitle||moduleId}`:'';
-    $('run-progress').textContent=`${status.state}: ${status.message||''}${accepted}`;
+    const modules=Array.isArray(review?.modules)?review.modules:[];
+    const bar=$('module-stages');
+    bar.hidden=!modules.length;
+    if(modules.length){
+      const current=modules.indexOf(status.progress?.module),step=status.progress?.step,active=WORKFLOW_ACTIVE.includes(status.state),runComplete=status.state==='complete';
+      bar.replaceChildren(...modules.map((id,i)=>{
+        const isComplete=runComplete||i<current||(i===current&&step==='accepted'),isCurrent=i===current&&step==='started',isStopped=isCurrent&&!active&&status.state!=='complete';
+        const li=document.createElement('li');li.dataset.status=isComplete?'complete':isCurrent?'current':'incomplete';li.title=id;
+        if(isStopped)li.setAttribute('data-stopped','');
+        const marker=document.createElement('span');marker.className='step-marker';marker.setAttribute('aria-hidden','true');
+        if(isComplete){const tick=document.createElement('img');tick.src='icons/check.svg';tick.alt='';marker.append(tick);}else marker.textContent=String(i+1);
+        const text=document.createElement('div');text.append(textNode('strong',titleOf(id)));
+        const note=isComplete?'Accepted':isStopped?'Stopped here':isCurrent?'Running':'';
+        if(note)text.append(textNode('span',note));
+        li.append(marker,text);
+        return li;
+      }));
+      const mark=runComplete?bar.lastElementChild:bar.children[current];
+      if(mark)mark.setAttribute('aria-current','step');
+    }
+    const head=`${status.state}: ${status.message||''}`,desc=describeModule(status,modules,titleOf);
+    $('run-progress').textContent=desc?`${head} · ${desc}`:head;
+    $('run-identity').textContent=review?.issuer?`${review.issuer} · ${workflowTitle(review.pathway)} · as of ${review.as_of} · ${review.id}`:review?.id||'';
     const spent=status.spent_usd??status.progress?.spent_usd;
     $('run-spend').textContent=spent==null?'Spend appears after CP-OS records a completed model response.':`Recorded spend: USD ${spent}`;
     const finished=!WORKFLOW_ACTIVE.includes(status.state);
@@ -72,9 +126,12 @@ function installNewRun(){
       details('Scope and limitations',[textNode('p',result.scope),textNode('p',`The spend ceiling applies to this run folder. Each call holds up to the amount shown while in flight; this is not an estimate of total cost. Prices dated ${result.prices_as_of}.`)]));
   }
   async function poll(){
-    if(!review||!running||polling)return;
+    if(polling)return;
     polling=true;
     try{
+      if($('new-run').hidden){controls();return;}
+      await recent();
+      if(!review||!running)return;
       const status=await appRequest('/api/runs/status?id='+encodeURIComponent(review.id));
       showStatus(status);
       if(!WORKFLOW_ACTIVE.includes(status.state))running=false;

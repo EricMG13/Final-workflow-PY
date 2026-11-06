@@ -357,3 +357,63 @@ func TestReportPresentationKeepsFragmentsAndOriginalStorage(t *testing.T) {
 		}
 	}
 }
+
+func TestRunListAndStatusCarryReviewAndProgress(t *testing.T) {
+	app, root := testApp(t)
+	a, b := "web-"+strings.Repeat("a", 32), "web-"+strings.Repeat("b", 32)
+	files := map[string]string{
+		filepath.Join("intake", a, "status.json"): `{"state":"running","message":"Working"}`,
+		filepath.Join("intake", a, "review.json"): `{"review_id":"x","issuer":"Northbridge Group","pathway":"covenant_refinancing","as_of":"2025-03-31","modules":["CP-0","CP-1"],"module_details":[{"id":"CP-0","title":"Source readiness","purpose":"p"}],"cap_usd":"10.00"}`,
+		filepath.Join("runs", a, "progress.json"): `{"module":"CP-1","step":"started","spent_usd":"0.10"}`,
+		filepath.Join("intake", b, "status.json"): `{"state":"stopped","message":"Halted"}`,
+	}
+	for name, text := range files {
+		path := filepath.Join(root, name)
+		if err := os.MkdirAll(filepath.Dir(path), 0700); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(path, []byte(text), 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
+	checkA := func(row map[string]any) {
+		t.Helper()
+		if row["issuer"] != "Northbridge Group" || row["pathway"] != "covenant_refinancing" || row["as_of"] != "2025-03-31" {
+			t.Fatalf("review fields: %v", row)
+		}
+		if len(row["modules"].([]any)) != 2 || len(row["module_details"].([]any)) != 1 {
+			t.Fatalf("module fields: %v", row)
+		}
+		if row["progress"].(map[string]any)["module"] != "CP-1" || row["run_available"] != true {
+			t.Fatalf("progress or run: %v", row)
+		}
+		for _, key := range []string{"cap_usd", "review_id"} {
+			if _, present := row[key]; present {
+				t.Fatalf("%s leaked: %v", key, row)
+			}
+		}
+	}
+	list := call(app, "GET", "/api/runs/list", "")
+	var rows []map[string]any
+	if list.Code != 200 || json.Unmarshal(list.Body.Bytes(), &rows) != nil || len(rows) != 2 {
+		t.Fatalf("list: %d %s", list.Code, list.Body.String())
+	}
+	for _, row := range rows {
+		switch row["id"] {
+		case a:
+			checkA(row)
+		case b:
+			if _, present := row["issuer"]; present || row["run_available"] != false {
+				t.Fatalf("b row: %v", row)
+			}
+		default:
+			t.Fatalf("unexpected row: %v", row)
+		}
+	}
+	status := call(app, "GET", "/api/runs/status?id="+a, "")
+	var row map[string]any
+	if status.Code != 200 || json.Unmarshal(status.Body.Bytes(), &row) != nil {
+		t.Fatalf("status: %d %s", status.Code, status.Body.String())
+	}
+	checkA(row)
+}

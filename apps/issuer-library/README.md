@@ -50,8 +50,10 @@ command line, and stays inside the app: moving elsewhere and back keeps what you
 4. Approve it, then choose **Start run**. The application starts one CP-OS worker.
    Duplicate Start requests cannot create another execution. Changed files, context,
    instructions, workflow code or review invalidate the approval.
-5. Follow the last accepted module and recorded spend. Recent runs stay listed after
-   reopening the page. A rejected module stops the run: its work is kept and no automatic
+5. Follow the module in progress, the last accepted module and recorded spend. Recent runs stay listed after
+   reopening the page. The progress step is headed by the run's issuer, workflow, date and id. Recent runs
+   lists every run in the workspace with its workflow, module, state and spend; opening
+   a row shows its progress. A rejected module stops the run: its work is kept and no automatic
    paid retry is made. A finished run opens on its deliverables. Automated checks cover
    structure, anchors and report selectors only: review the handoffs against the sources
    before relying on a report. The launcher publishes the report; it does not publish an

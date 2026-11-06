@@ -118,7 +118,7 @@ lightness and chroma checks, so every series stays labelled in text.
 New run and Settings use the same 40px fields (16px text, a chevron on
 selects, a styled file button) and the secondary button for every action
 but the primary one. Run stages are a progress bar: blue up to the current
-stage, grey after it. The context form keeps its own contents inside a
+stage, grey after it. Run progress lists the modules as numbered steps (Untitled UI Progress, icons with text, number type): a green tick once accepted, a blue marker for the module in progress, amber where a run stopped, grey ahead, with a connector between steps. Recent runs use the content table, with workflow and state as labels. The context form keeps its own contents inside a
 framed 12px card.
 
 - Run changes preserve the active module; unavailable output remains explicit.

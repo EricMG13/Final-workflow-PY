@@ -5249,3 +5249,65 @@ reports no lost value, so Checkpoint C closes. This proves one dated TDG scope o
 Not verified: Windows; the three scenario-path, hedge and revenue-mix chart kinds (no
 run holds them); the 30 / 16 classification wording in the current CP-1 (an analytical
 point, not a reader-layer defect).
+
+## Issuer Library run progress shows the module in progress, 2026-11-06 (macOS only)
+
+CP-OS now fires an `on_start` observer before each module; the launcher bridge writes
+`progress.json` with `step: "started"` and the current spend, and keeps the accepted
+write. New run's Progress step reuses the stage bar for the module sequence (blue through
+the current or last accepted module, grey after) and reads `running X (n of N)`,
+`X accepted (n of N)` or, once the run is no longer active, `stopped during X`. A run
+reopened from Recent runs has no module list, so it shows the module id without the bar.
+No method, prompt, retained run or deliverable changed; no provider was called.
+Checks: `tests/test_cpos_app.py` 17 passed (the fake provider records a `started`
+entry before every module call, against a hand-written sequence); Ruff and format
+clean on the changed Python; `new-run.test.cjs` and `design.test.cjs` 111 passed;
+one mx-precise review found a Medium (a stopped run still said "running"), fixed with
+a failing test first and re-reviewed as pass. The in-app browser showed the bar, the
+`running` and `stopped during` wording and the spend against the offline fake engine.
+Not verified: a real provider run, an `accepted` transition on screen (the designs
+fake engine predates the opening-view check and CP-0 is rejected, so the bar could not
+advance; DOM tests cover that state), 720px layout, Windows packaging, repo-wide
+ruff/mypy, which already fail on the base.
+
+## Issuer Library run progress names the run and lists every run, 2026-11-06 (macOS only)
+
+The Progress step is headed by `issuer · workflow · as of date · run id`. "Recent runs
+& progress" is now the app's content table (issuer, workflow label, module phrase, state
+label, spend), active runs first, refreshed every 2 s while any run is active and opened
+once when one is; a row carries its review fields, so a reopened run shows its module bar.
+`/api/runs/list` and `/api/runs/status` share `jobView`, which adds only `issuer`,
+`pathway`, `as_of`, `modules`, `module_details` from the app-written `review.json` and
+the run's `progress.json`. No method, prompt, retained run or deliverable changed; no
+provider was called. Checks: `go test -race`, `go vet`, `gofmt -l` clean with a new
+handler test against hand-written JSON; `new-run.test.cjs` and `design.test.cjs` 113
+passed; `tests/test_cpos_app.py` 17 passed; Ruff clean on the changed Python. mx-precise
+review: pass, one Low (the 2 s rebuild dropped keyboard focus) fixed in the Low batch
+against the reviewer's probe, which now exits 0, with the rebuild skipped when the list
+is unchanged. The in-app browser showed the table with four seeded runs in mixed states,
+the identity line and the bar for a reopened run, at desktop and 700 px.
+Not verified: a real provider run; the 2 s timer outside jsdom; Windows file permissions
+for the status 404/500 split; Windows packaging; repo-wide ruff/mypy (fail on the base).
+
+Module steps, same day: the owner found the module bar indistinguishable from the stage bar
+above it, so the module sequence is now Untitled UI React's Progress (icons with text,
+number type, small, vertical): numbered markers with a connector, a white tick on green once
+accepted, blue for the module in progress, amber where a run stopped, grey ahead, each with
+a one-word note. `aria-current` placement is unchanged. mx-precise: pass, one Low (a complete
+run with a stale `started` step drew both tick and amber) fixed with the reviewer's 52-case
+status matrix probe now exiting 0; a two-column variant was dropped after the browser showed
+its connectors joining the wrong steps. Gates re-run clean (Go, 113 DOM tests, 17 Python).
+Not verified beyond the list above: the tick's contrast on Windows rendering.
+
+Adversarial review (owner-invoked, same day) found three warnings, all fixed test-first:
+a malformed `review.json` in one job no longer blanks the runs table (that row degrades to
+its raw ids) and a failed render is retried on the next refresh instead of sticking; the 2 s
+list poll stops while New run is hidden and restarts on return; shadowed `running`/`finished`
+names in `showStatus` were renamed. The scoped re-review found that a failed list *fetch*
+could still stick the same way; a second round resets the comparison key in the catch and
+tolerates null `module_details` entries, proven by the reviewer's probe. 118 DOM tests pass;
+the reviewer's interval, focus, step-matrix and re-review probes exit 0; Go and Python
+suites re-run clean. In the in-app browser: 0 list fetches during 7 s away from New run
+and ~2 s cadence after returning; a corrupted seeded row rendered as `stopped during CP-1`
+beside four intact rows. Not verified: the Python and Go suites were not re-run for this
+batch (only web files changed).

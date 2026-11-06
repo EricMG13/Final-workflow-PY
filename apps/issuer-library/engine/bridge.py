@@ -184,8 +184,14 @@ def start(directory: Path) -> None:
     def spent() -> str:
         return str(Budget(prepared.plan.provider_cap_usd, run_dir / "live").spent)
 
+    def started(task) -> None:
+        write_json(
+            run_dir / "progress.json",
+            {"module": task.module_id, "step": "started", "spent_usd": spent()},
+        )
+
     def progress(task, raw) -> None:
-        # CP-OS only reports accepted handoffs, so a stopped run still shows what it paid for.
+        # Accepted handoffs are retained here so a stopped run still shows what it paid for.
         write_file(run_dir / f"{task.module_id}.md", raw)
         write_json(
             run_dir / "progress.json",
@@ -202,6 +208,7 @@ def start(directory: Path) -> None:
             max_turns=job["max_turns"],
             max_output_tokens=MAX_OUTPUT_TOKENS,
             on_handoff=progress,
+            on_start=started,
             config=job["config"],
         )
     except (ValueError, RuntimeError) as error:

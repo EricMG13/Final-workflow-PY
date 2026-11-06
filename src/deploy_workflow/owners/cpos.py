@@ -231,6 +231,7 @@ def run_handoffs(
     execute: Callable[[HandoffTask], bytes],
     check: Callable[[HandoffTask, bytes], tuple[str, ...]],
     on_handoff: Callable[[HandoffTask, bytes], None] | None = None,
+    on_start: Callable[[HandoffTask], None] | None = None,
 ) -> Path:
     """CP-OS exchange: plan, retain, check, pass current handoffs, deliver.
 
@@ -244,6 +245,7 @@ def run_handoffs(
     source and upstream context still match; completion records each module's origin.
     An optional observer runs after each checked response is durable and before
     the next module. It may stop for evidence review; resume rechecks the bytes.
+    The start observer runs before each module is dispatched.
     Their declared consumed inputs bound reuse planning; a checked published case
     does not trigger a new analytical build merely to satisfy a native producer.
     """
@@ -342,6 +344,8 @@ def run_handoffs(
                 1,
                 (),
             )
+            if on_start is not None:
+                on_start(task)
             raw, path = _handoff(
                 task,
                 directory,
@@ -435,6 +439,7 @@ def run_live_handoffs(
     max_turns: int = 24,
     max_output_tokens: int = 16000,
     on_handoff: Callable[[HandoffTask, bytes], None] | None = None,
+    on_start: Callable[[HandoffTask], None] | None = None,
     config: str = "sol-medium",
     rulings_root: Path | None = None,
 ) -> Path:
@@ -470,7 +475,14 @@ def run_live_handoffs(
         max_turns=max_turns,
         max_output_tokens=max_output_tokens,
     )
-    return run_handoffs(manifest, directory, execute=executor, check=check, on_handoff=on_handoff)
+    return run_handoffs(
+        manifest,
+        directory,
+        execute=executor,
+        check=check,
+        on_handoff=on_handoff,
+        on_start=on_start,
+    )
 
 
 def replay_handoffs(
