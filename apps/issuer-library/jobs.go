@@ -106,6 +106,39 @@ type JobStatus struct {
 	ID      string `json:"id,omitempty"`
 }
 
+// jobView reads a job's own files: status, the app-written review and the
+// module/step progress. None of them holds provider text.
+func jobView(workspace, id string) (map[string]any, bool) {
+	raw, err := os.ReadFile(filepath.Join(workspace, "intake", id, "status.json"))
+	if err != nil {
+		return nil, false
+	}
+	var status map[string]any
+	if json.Unmarshal(raw, &status) != nil {
+		return nil, false
+	}
+	if raw, err := os.ReadFile(filepath.Join(workspace, "intake", id, "review.json")); err == nil {
+		var review map[string]any
+		if json.Unmarshal(raw, &review) == nil {
+			for _, key := range []string{"issuer", "pathway", "as_of", "modules", "module_details"} {
+				if value, present := review[key]; present {
+					status[key] = value
+				}
+			}
+		}
+	}
+	if raw, err := os.ReadFile(filepath.Join(workspace, "runs", id, "progress.json")); err == nil {
+		var value map[string]any
+		if json.Unmarshal(raw, &value) == nil {
+			status["progress"] = value
+		}
+	}
+	status["id"] = id
+	info, statErr := os.Stat(filepath.Join(workspace, "runs", id))
+	status["run_available"] = statErr == nil && info.IsDir()
+	return status, true
+}
+
 func (app *Application) serveRunAPI(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		app.mu.RLock()
@@ -119,17 +152,10 @@ func (app *Application) serveRunAPI(w http.ResponseWriter, r *http.Request) {
 				if !jobID.MatchString(id) {
 					continue
 				}
-				raw, err := os.ReadFile(filepath.Join(workspace, "intake", id, "status.json"))
-				if err != nil {
+				status, ok := jobView(workspace, id)
+				if !ok || status["state"] == "reviewed" {
 					continue
 				}
-				var status map[string]any
-				if json.Unmarshal(raw, &status) != nil || status["state"] == "reviewed" {
-					continue
-				}
-				status["id"] = id
-				info, statErr := os.Stat(filepath.Join(workspace, "runs", id))
-				status["run_available"] = statErr == nil && info.IsDir()
 				recent = append(recent, status)
 			}
 			jsonResponse(w, recent)
@@ -140,27 +166,15 @@ func (app *Application) serveRunAPI(w http.ResponseWriter, r *http.Request) {
 			http.NotFound(w, r)
 			return
 		}
-		folder := filepath.Join(workspace, "intake", id)
-		raw, err := os.ReadFile(filepath.Join(folder, "status.json"))
-		if err != nil {
-			http.NotFound(w, r)
-			return
-		}
-		var status map[string]any
-		if json.Unmarshal(raw, &status) != nil {
-			http.Error(w, "Run status is unreadable", 500)
-			return
-		}
-		// This file contains only module/step names, not provider messages.
-		if progress, err := os.ReadFile(filepath.Join(workspace, "runs", id, "progress.json")); err == nil {
-			var value map[string]any
-			if json.Unmarshal(progress, &value) == nil {
-				status["progress"] = value
+		status, ok := jobView(workspace, id)
+		if !ok {
+			if _, err := os.Stat(filepath.Join(workspace, "intake", id, "status.json")); err != nil {
+				http.NotFound(w, r)
+			} else {
+				http.Error(w, "Run status is unreadable", 500)
 			}
+			return
 		}
-		status["id"] = id
-		info, statErr := os.Stat(filepath.Join(workspace, "runs", id))
-		status["run_available"] = statErr == nil && info.IsDir()
 		jsonResponse(w, status)
 		return
 	}

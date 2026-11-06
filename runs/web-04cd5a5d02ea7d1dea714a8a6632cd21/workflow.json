@@ -1,0 +1,199 @@
+{
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "tdg-2024-09-30-credit_snapshot-sol-medium",
+    "issuer_id": "tdg",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-0",
+      "CP-1",
+      "CP-1A"
+    ]
+  },
+  "sources": {
+    "TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm.jsonl": {
+      "path": "source-text/TDG_2024-03-30_10-Q_0001260221-24-000046_tdg-20240330.htm.jsonl",
+      "sha256": "fcec3566cfda08c82a8aaed7289c6440cc05d12976f237cd72a32cf9fbfb2ed6"
+    },
+    "TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm.jsonl": {
+      "path": "source-text/TDG_2024-06-29_10-Q_0001260221-24-000069_tdg-20240629.htm.jsonl",
+      "sha256": "ce1b0541d5e8222dc536d748942a3cb51236d7ff62d8613b002460bd8b41dcf2"
+    },
+    "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm.jsonl": {
+      "path": "source-text/TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm.jsonl",
+      "sha256": "d75c469fdb1966dd895c0f6faa6d5179b380d3ed95aa00aca99aa258059edab6"
+    },
+    "TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm.jsonl": {
+      "path": "source-text/TDG_2024-12-28_10-Q_0001260221-25-000014_tdg-20241228.htm.jsonl",
+      "sha256": "ec98b47e6ebad9663286dc04b35dade04d11e7d12c3642ddaa6ef549a33d671f"
+    },
+    "TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf": {
+      "path": "../../intake/web-04cd5a5d02ea7d1dea714a8a6632cd21/sources/TDG_FY2024_annual-report_SEC-PDF_0001260221-25-000008_a841225transdigmgroupbookm.pdf",
+      "sha256": "dc6a8ea6249e4e919d190a4bbb459d9bf4eded005b7d5680ae911b32d44d44af"
+    },
+    "context": {
+      "path": "../../intake/web-04cd5a5d02ea7d1dea714a8a6632cd21/context.json",
+      "sha256": "ec0a711fe74781d81973060c2e34ae47b1129e9ff5aea9f5ef6218a082b4f984"
+    }
+  },
+  "instructions": {
+    "CP-0": {
+      "path": "instructions/CP-0.md",
+      "sha256": "c1c57a9b660d2e2b052c7120c3269ade3d8cf12fe9372b49945476d03a37b41e"
+    },
+    "CP-1": {
+      "path": "instructions/CP-1.md",
+      "sha256": "8233cead89f670f4da8495279526425b3d49699b129b5266e3d0364bb83c2146"
+    },
+    "CP-1A": {
+      "path": "instructions/CP-1A.md",
+      "sha256": "d8f5b0398ba41ef4bbd036699669c21a18e68123c1c76538540f78d11e56ccbc"
+    }
+  },
+  "retained_handoffs": {},
+  "model": null,
+  "layout": {
+    "blocks": [
+      "company-operating-model",
+      "model-chart-strip",
+      "financials-credit-metrics",
+      "company-profile",
+      "transaction-summary"
+    ],
+    "routes": [
+      {
+        "module_id": "CP-1A",
+        "heading": "Company and operating model",
+        "kind": "table",
+        "block_id": "company-operating-model",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-1",
+        "heading": "Chart data: leverage",
+        "kind": "chart",
+        "block_id": "model-chart-strip",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": "S.1",
+        "value_columns": [
+          "Total debt / EBITDA",
+          "Net debt / EBITDA"
+        ],
+        "row_labels": [],
+        "orientation": "period-rows",
+        "chart_unit": "x"
+      },
+      {
+        "module_id": "CP-1",
+        "heading": "Chart data: interest cover",
+        "kind": "chart",
+        "block_id": "model-chart-strip",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": "S.2",
+        "value_columns": [
+          "EBITDA / cash interest"
+        ],
+        "row_labels": [],
+        "orientation": "period-rows",
+        "chart_unit": "x"
+      },
+      {
+        "module_id": "CP-1",
+        "heading": "Chart data: liquidity",
+        "kind": "chart",
+        "block_id": "model-chart-strip",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": "S.3",
+        "value_columns": [
+          "Cash",
+          "Undrawn committed facilities"
+        ],
+        "row_labels": [],
+        "orientation": "period-rows",
+        "chart_unit": "US$m"
+      },
+      {
+        "module_id": "CP-1",
+        "heading": "Chart data: debt maturities",
+        "kind": "chart",
+        "block_id": "model-chart-strip",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": "S.4",
+        "value_columns": [
+          "Debt maturing"
+        ],
+        "row_labels": [],
+        "orientation": "period-rows",
+        "chart_unit": "US$m"
+      },
+      {
+        "module_id": "CP-1",
+        "heading": "Financials and credit metrics",
+        "kind": "table",
+        "block_id": "financials-credit-metrics",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-1A",
+        "heading": "Company profile",
+        "kind": "table",
+        "block_id": "company-profile",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      },
+      {
+        "module_id": "CP-1A",
+        "heading": "Transaction summary and new debt issues",
+        "kind": "prose",
+        "block_id": "transaction-summary",
+        "table_header": null,
+        "prefix": null,
+        "label": null,
+        "figure_id": null,
+        "value_columns": [],
+        "row_labels": [],
+        "orientation": "period-columns",
+        "chart_unit": null
+      }
+    ],
+    "scope": "User-launched Credit Snapshot run for TransDigm Group Incorporated as of 2024-09-30, using sol-medium on the selected issuer folder. Automated checks cover handoff structure, issuer and date anchors, source and upstream references and report selectors; analytical accuracy has not been independently reviewed. The HTML Model and calculation JSON are not published by this launcher. Sections not produced: key-findings, capital-structure, strengths-weaknesses, relative-value, portfolio-fit, committee-challenge, what-changed.",
+    "title": "TransDigm Group Incorporated — Credit Snapshot",
+    "question": null,
+    "issuer_aliases": []
+  },
+  "execution": "live-provider",
+  "max_attempts": 1,
+  "provider_cap_usd": "12"
+}

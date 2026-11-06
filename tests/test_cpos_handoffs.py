@@ -734,7 +734,7 @@ def test_copilot_config_selects_the_copilot_adapter(tmp_path, monkeypatch):
         closed.append(self)
         real_close(self)
 
-    def fake_run(manifest, directory, *, execute, check, on_handoff):
+    def fake_run(manifest, directory, *, execute, check, on_handoff, on_start=None):
         assert isinstance(execute, HandoffExecutor) and not closed
         built.append(execute.adapter)
         return directory / "report.html"

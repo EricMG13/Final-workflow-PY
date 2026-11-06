@@ -1,0 +1,1 @@
+{"execution": "live-provider", "max_attempts": 1, "provider_cap_usd": "12", "run": {"as_of": "2024-09-30", "case_kind": "public", "issuer_id": "tdg", "issuer_name": "TransDigm Group Incorporated", "method_version": "deploy-v-r14", "pathway": "credit_snapshot", "requested_modules": ["CP-8"], "run_id": "tdg-reader-cp8-comparison-20261106", "schema_version": "run/2"}}

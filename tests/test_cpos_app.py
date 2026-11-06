@@ -154,9 +154,19 @@ def test_start_runs_the_launcher_to_a_report_the_library_can_serve(tmp_path, pro
     folder, run_dir = started(tmp_path, provider)
     request = json.loads((folder / "job.json").read_text())
     routes = bridge.launch(request, folder, tmp_path / "preview").layout.routes
-    provider.answer = lambda context: answer(context, routes)
+    seen: list[dict[str, str]] = []
+
+    def recording(context):
+        seen.append(json.loads((run_dir / "progress.json").read_text()))
+        return answer(context, routes)
+
+    provider.answer = recording
     bridge.start(folder)
     assert tuple(call[0] for call in provider.calls) == COVENANT_MODULES
+    assert [{k: v for k, v in item.items() if k != "spent_usd"} for item in seen] == [
+        {"module": m, "step": "started"} for m in COVENANT_MODULES
+    ]
+    assert all(Decimal(item["spent_usd"]) >= 0 for item in seen)
     assert {call[1] for call in provider.calls} == {"sol-medium"}
     status = status_of(folder)
     assert status["state"] == "complete" and Decimal(status["spent_usd"]) > 0
@@ -165,7 +175,8 @@ def test_start_runs_the_launcher_to_a_report_the_library_can_serve(tmp_path, pro
     assert ISSUER in report.read_text(encoding="utf-8")
     manifest = json.loads((report.parent / "delivery.json").read_text())
     assert {"report.html", "view.json", "CP-0.md"} <= set(manifest["files"])
-    assert json.loads((run_dir / "progress.json").read_text())["module"] == COVENANT_MODULES[-1]
+    last = json.loads((run_dir / "progress.json").read_text())
+    assert last["module"] == COVENANT_MODULES[-1] and last["step"] == "accepted"
     authorisation = (folder / "start-authorization.md").read_text()
     assert "configs: sol-medium" in authorisation and "by: user" in authorisation
     assert (
