@@ -39,6 +39,13 @@ Verification on this Linux host:
 - `designs/browser_check.py chromium`, offline fake provider, all 44 retained run folders: 64 passed,
   0 failed. Firefox was not run. This is not layout or visual acceptance.
 - `ruff check` and `ruff format --check`: clean on the changed files.
+- Whole suite (not live), run in slices on this host, partly before the final merge: no failure
+  was found in any Issuer Library file. About 70 failures and errors in other files (gate rulings,
+  prompt golden digests, financial render and workflow, method pins, model testing run, CP-3, CP-OS,
+  owner guards) fail with the same ids on the original `main`. Nineteen very slow `test_owner_*`
+  files and `test_earnings_workflow.py` did not finish inside 25 minutes per file; nine of them
+  passed only a few tests before the cap, so they have no result. Sections of the suite after the
+  merge were not all rerun.
 - Not verified: Windows launch, the packaged runtime, paid execution, Firefox.
 
 ## 2026-11-05 — Issuer Library: Python/FastAPI server replaces Go; browser checks replace Node
