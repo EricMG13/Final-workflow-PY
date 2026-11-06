@@ -371,6 +371,7 @@ def test_export_null_status_records_use_the_ruled_format(
             cost_status=status,
             settled_usd=None if status == "unknown" else Decimal(0),
             error_class=error_class,
+            output_tokens=None,
         )
     )
     out = tmp_path / "r.jsonl"
@@ -392,6 +393,7 @@ def test_adapter_reads_null_status_recording(tmp_path: Path) -> None:
             cost_status="unknown",
             settled_usd=None,
             error_class="IdleTimeout",
+            output_tokens=None,
         )
     )
     export_recording(run, out / "r.jsonl", Redactor())
@@ -714,13 +716,45 @@ def test_null_status_kind_must_agree_with_cost_status(
         exported(
             tmp_path,
             record(
-                http_status=None, error_class=error_class, cost_status=cost, settled_usd=settled
+                http_status=None,
+                error_class=error_class,
+                cost_status=cost,
+                settled_usd=settled,
+                input_tokens=None,
+                cached_read_tokens=None,
+                cache_write_tokens=None,
+                output_tokens=None,
+                reasoning_tokens=None,
             ),
         )
 
 
+@pytest.mark.parametrize(
+    "error_class",
+    ["IdleTimeout", "OverallTimeout", "ToolCallLost", "AdapterClosed", "AdapterError"],
+)
+def test_copilot_sent_unknown_classes_export_without_a_status(
+    tmp_path: Path, error_class: str
+) -> None:
+    rec = CallRecord.build(
+        Redactor(),
+        **fields(
+            config_id="copilot-sol-medium",
+            provider="copilot",
+            http_status=None,
+            cost_status="unknown",
+            settled_usd=None,
+            error_class=error_class,
+            error="x",
+            output_tokens=None,
+        ),
+    )
+    (response,) = exported(tmp_path, rec)
+    assert response == {"kind": "sent_unknown", "error_class": error_class, "http_status": None}
+
+
 def test_null_status_billed_is_refused(tmp_path: Path) -> None:
-    with pytest.raises(ExportMismatch):
+    with pytest.raises(ExportMismatch, match="cost_status"):
         exported(
             tmp_path,
             record(
@@ -728,6 +762,7 @@ def test_null_status_billed_is_refused(tmp_path: Path) -> None:
                 error_class="KeyMissing",
                 cost_status="billed",
                 settled_usd=Decimal(1),
+                output_tokens=None,
             ),
         )
 
@@ -1348,3 +1383,204 @@ def test_new_reply_cut_record_exports_as_sent_usage(tmp_path: Path) -> None:
 def test_an_ok_record_over_a_cut_reply_body_is_refused(tmp_path: Path) -> None:
     with pytest.raises(ExportMismatch, match="outcome"):
         exported(tmp_path, OK_RECORD, bodies={0: json.dumps(CUT_BODY).encode()})
+
+
+@pytest.mark.parametrize(
+    "error_class", ["ModelMismatch", "ByokRouted", "AutoRouted", "ToolCallMismatch"]
+)
+def test_adapter_refusal_with_an_ok_parsing_body_exports_sent_usage(
+    tmp_path: Path, error_class: str
+) -> None:
+    (resp,) = exported(
+        tmp_path,
+        record(
+            config_id="copilot-sol-medium",
+            provider="copilot",
+            request_id=None,
+            cost_status="billed",
+            settled_usd=Decimal("0.000000001"),
+            error_class=error_class,
+            input_tokens=10,
+            output_tokens=5,
+        ),
+        bodies={0: json.dumps(COPILOT_EVENTS).encode()},
+    )
+    assert (resp["kind"], resp["error_class"], resp["http_status"]) == (
+        "sent_usage",
+        error_class,
+        200,
+    )
+    assert resp["usage"]["input_tokens"] == 10 and resp["billed_usd"] == "0.000000001"
+
+
+@pytest.mark.parametrize(
+    "error_class", ["ModelMismatch", "ByokRouted", "AutoRouted", "ToolCallMismatch"]
+)
+def test_adapter_refusal_class_on_another_provider_is_a_forged_error(
+    tmp_path: Path, error_class: str
+) -> None:
+    with pytest.raises(ExportMismatch, match="outcome"):
+        exported(
+            tmp_path,
+            record(
+                cost_status="billed",
+                settled_usd=Decimal("0.000000001"),
+                error_class=error_class,
+                input_tokens=10,
+                output_tokens=5,
+            ),
+            bodies={0: json.dumps(OPENAI_BODY).encode()},
+        )
+
+
+COPILOT_EVENTS = [
+    {"type": "assistant.message", "data": {"content": "hi"}},
+    {
+        "type": "assistant.usage",
+        "data": {
+            "model": "gpt-6.1-sol",
+            "inputTokens": 10,
+            "outputTokens": 5,
+            "finishReason": "stop",
+            "copilotUsage": {"totalNanoAiu": 123456},
+        },
+    },
+]
+
+
+def _null_status(tmp_path: Path, **over: Any) -> list[dict[str, Any]]:
+    return exported(tmp_path, record(http_status=None, **over))
+
+
+@pytest.mark.parametrize(
+    "over",
+    [
+        {
+            "error_class": "KeyMissing",
+            "cost_status": "computed",
+            "settled_usd": Decimal("0.7"),
+            "input_tokens": 10,
+            "output_tokens": 5,
+        },
+        {
+            "error_class": "ModelMismatch",
+            "cost_status": "billed",
+            "settled_usd": Decimal("0.7"),
+            "input_tokens": 10,
+            "output_tokens": 5,
+        },
+        {
+            "error_class": "IdleTimeout",
+            "cost_status": "computed",
+            "settled_usd": Decimal(0),
+            "input_tokens": 10,
+            "output_tokens": 5,
+        },
+        {
+            "error_class": "IdleTimeout",
+            "cost_status": "computed",
+            "settled_usd": Decimal("0.01"),
+            "input_tokens": 10,
+            "output_tokens": 5,
+        },
+    ],
+)
+def test_null_status_counts_are_never_downgraded(tmp_path: Path, over: dict[str, Any]) -> None:
+    with pytest.raises(ExportMismatch, match="usage"):
+        _null_status(tmp_path, **over)
+
+
+def test_null_status_presend_failure_with_a_charge_is_refused(tmp_path: Path) -> None:
+    with pytest.raises(ExportMismatch, match="cost_status"):
+        _null_status(
+            tmp_path,
+            error_class="PreSendFailure",
+            cost_status="computed",
+            settled_usd=Decimal("0.5"),
+            output_tokens=None,
+        )
+
+
+def test_null_status_unknown_timeout_with_counts_is_sent_usage_without_a_charge(
+    tmp_path: Path,
+) -> None:
+    (resp,) = _null_status(
+        tmp_path,
+        error_class="IdleTimeout",
+        cost_status="unknown",
+        settled_usd=None,
+        input_tokens=10,
+        output_tokens=5,
+    )
+    assert resp["kind"] == "sent_usage" and "billed_usd" not in resp
+
+
+@pytest.mark.parametrize("error_class", ["IdleTimeout", "OverallTimeout"])
+def test_billed_timeout_with_counts_exports_sent_usage(tmp_path: Path, error_class: str) -> None:
+    (resp,) = exported(
+        tmp_path,
+        record(
+            http_status=None,
+            cost_status="billed",
+            settled_usd=Decimal("0.000000001"),
+            error_class=error_class,
+            input_tokens=10,
+            output_tokens=5,
+        ),
+    )
+    assert (resp["kind"], resp["error_class"], resp["http_status"]) == (
+        "sent_usage",
+        error_class,
+        None,
+    )
+    assert resp["usage"]["input_tokens"] == 10 and resp["usage"]["output_tokens"] == 5
+    assert resp["billed_usd"] == "0.000000001"
+
+
+@pytest.mark.parametrize("error_class", ["IdleTimeout", "OverallTimeout"])
+def test_timeout_without_counts_stays_sent_unknown(tmp_path: Path, error_class: str) -> None:
+    (resp,) = exported(
+        tmp_path,
+        record(
+            http_status=None,
+            cost_status="unknown",
+            settled_usd=None,
+            error_class=error_class,
+            output_tokens=None,
+        ),
+    )
+    assert resp["kind"] == "sent_unknown" and "usage" not in resp
+
+
+@pytest.mark.parametrize(
+    "cost, settled", [("billed", Decimal("0.000000001")), ("billed", Decimal(0))]
+)
+def test_adapter_reads_null_status_timeout_with_counts(
+    tmp_path: Path, cost: str, settled: Decimal
+) -> None:
+    run, out = tmp_path / "run", tmp_path / "rec"
+    run.mkdir()
+    out.mkdir()
+    CallLog(run, Redactor()).append(
+        record(
+            http_status=None,
+            cost_status=cost,
+            settled_usd=settled,
+            error_class="IdleTimeout",
+            input_tokens=10,
+            output_tokens=5,
+        )
+    )
+    assert export_recording(run, out / "r.jsonl", Redactor()) == 1
+    model = ModelSpec("sol-medium", "openai", "gpt-6.1-sol", "medium")
+    reply = recorded_adapter(model, out).complete(
+        TurnRequest((), (), 10, "medium"),
+        invocation_digest=DIGEST,
+        call_index=0,
+        reservation_id="r",
+    )
+    assert reply.kind == "sent_usage" and reply.http_status is None
+    assert reply.error_class == "IdleTimeout"
+    assert reply.usage is not None
+    assert (reply.usage.input_tokens, reply.usage.output_tokens) == (10, 5)
+    assert reply.billed_usd == settled and isinstance(reply.billed_usd, Decimal)

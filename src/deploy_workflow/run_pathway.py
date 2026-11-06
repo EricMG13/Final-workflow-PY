@@ -109,7 +109,12 @@ MAX_OUTPUT_TOKENS = 98_304
 # value stays at 3.0). The others stay at 1, which is sound by definition (a token is at least a
 # byte) and over-reserves (pilot opus 2.394-2.545, pilot deepseek 3.329-3.572).
 BYTES_PER_TOKEN_LOWER_BOUND: Mapping[str, Decimal] = MappingProxyType(
-    {"openai": Decimal("3.0"), "anthropic": Decimal(1), "openrouter": Decimal(1)}
+    {
+        "openai": Decimal("3.0"),
+        "anthropic": Decimal(1),
+        "openrouter": Decimal(1),
+        "copilot": Decimal(1),
+    }
 )
 
 PromptFactory = Callable[[PreparedPack], PromptFor]

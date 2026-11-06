@@ -17,3 +17,4 @@ private/
 *.rtf
 *.pem
 *.key
+.copilot-home/

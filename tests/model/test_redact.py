@@ -321,3 +321,25 @@ def test_percent_encoded_key_survives_a_stream_split(prefix: str) -> None:
     stream.write(GLUED[10:] + "\n")
     stream.close()
     assert "QQQQQQ" not in out.getvalue()
+
+
+@pytest.mark.parametrize(
+    "token",
+    [
+        "ghp_" + "A" * 36,
+        "gho_" + "b1" * 18,
+        "github_pat_" + "x" * 22 + "_" + "y" * 40,
+    ],
+)
+def test_github_token_shapes_are_redacted(token: str) -> None:
+    assert Redactor().text(f"Authorization: Bearer {token}.") == "Authorization: Bearer [redacted]."
+
+
+def test_github_token_inside_a_word_is_not_a_token() -> None:
+    assert Redactor().text("xghp_" + "A" * 36) == "xghp_" + "A" * 36
+
+
+def test_copilot_variables_are_exact_values() -> None:
+    environ = {"COPILOT_GITHUB_TOKEN": "tok-one", "GH_TOKEN": "tok-two", "GITHUB_TOKEN": "tok-3"}
+    redactor = Redactor.from_environ(environ)
+    assert redactor.text("tok-one tok-two tok-3") == "[redacted] [redacted] [redacted]"

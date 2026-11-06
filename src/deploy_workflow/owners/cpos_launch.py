@@ -43,12 +43,17 @@ from deploy_workflow.markdown_delivery import (
     markdown_files,
     require_issuer,
 )
-from deploy_workflow.model.adapter import KEY_VARIABLES, LivePauseInForce, check_ruling
+from deploy_workflow.model.adapter import (
+    COPILOT_RUNTIME_VARIABLE,
+    KEY_VARIABLES,
+    LivePauseInForce,
+    check_ruling,
+)
 from deploy_workflow.model.budget import Budget
 from deploy_workflow.model.handoff import Check, _pages
 from deploy_workflow.model.pricing import price_of, request_reservation_usd
 from deploy_workflow.model_testing.configs import CONFIGS
-from deploy_workflow.owners.cpos import HandoffPlan, HandoffTask, run_live_handoffs
+from deploy_workflow.owners.cpos import HandoffPlan, HandoffTask, run_live_handoffs, with_notes
 from deploy_workflow.reader_summary import (
     BOTTOM_LINE_WORDS,
     CONFIDENCE,
@@ -699,6 +704,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         key = KEY_VARIABLES[CONFIGS[args.config].provider]
         if args.live and not os.environ.get(key):
             raise LaunchRefused(f"--live needs {key} in the launching environment")
+        copilot_live = args.live and CONFIGS[args.config].provider == "copilot"
+        if copilot_live and not Path(os.environ.get(COPILOT_RUNTIME_VARIABLE, "")).is_file():
+            raise LaunchRefused(f"--live needs {COPILOT_RUNTIME_VARIABLE} to name an existing file")
         prepared = prepare(
             args.context,
             args.sources,
@@ -726,7 +734,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             config=args.config,
         )
     except (ValueError, RuntimeError) as error:
-        print(f"Stopped: {error}\nRetained work is in {prepared.directory}", file=sys.stderr)
+        print(
+            f"Stopped: {with_notes(error)}\nRetained work is in {prepared.directory}",
+            file=sys.stderr,
+        )
         return 1
     spent = Budget(prepared.plan.provider_cap_usd, prepared.directory / "live").spent
     print(f"Report:   {report}\nCharged:  USD {spent}")

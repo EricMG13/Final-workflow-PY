@@ -42,7 +42,12 @@ def test_the_output_cap_is_within_every_documented_maximum_and_the_providers_cap
     assert run_pathway.MAX_OUTPUT_TOKENS <= providers.MAX_OUTPUT_TOKENS
 
 
-@pytest.mark.parametrize("config", sorted(CONFIG_PROVIDERS))
+# The key (cases/pilot-fixes/limits.json) predates the Copilot pair and is not edited; it names
+# the four direct-provider configurations, and the Copilot rows are asserted separately below.
+KEYED_CONFIGS = sorted(c for c, p in CONFIG_PROVIDERS.items() if p != "copilot")
+
+
+@pytest.mark.parametrize("config", KEYED_CONFIGS)
 def test_the_output_reservation_per_call_is_the_keys(config: str) -> None:
     expected = Decimal(_key()["reservation_output_usd_per_call"][config])
     got = reservation_usd(price_of(config), 0, run_pathway.MAX_OUTPUT_TOKENS)
@@ -51,7 +56,10 @@ def test_the_output_reservation_per_call_is_the_keys(config: str) -> None:
 
 def test_the_bytes_per_token_lower_bounds_are_the_keys() -> None:
     expected = {p: Decimal(v) for p, v in _key()["bytes_per_token_lower_bound"].items()}
-    assert dict(run_pathway.BYTES_PER_TOKEN_LOWER_BOUND) == expected
+    bounds = dict(run_pathway.BYTES_PER_TOKEN_LOWER_BOUND)
+    # Copilot reaches either vendor's model: the smaller of the openai and anthropic bounds
+    assert bounds.pop("copilot") == min(expected["openai"], expected["anthropic"])
+    assert bounds == expected
 
 
 def test_the_bounds_name_exactly_the_providers_of_the_configurations() -> None:
@@ -91,7 +99,10 @@ def test_the_overall_timeout_is_the_keys() -> None:
 def test_only_the_configs_the_key_names_set_a_context_limit() -> None:
     """Guards the key's context claim: ContextTooLong can fire only where a price sets one."""
     limited = {c for c, price in PRICES.items() if price.max_input_tokens is not None}
-    assert limited == set(_key()["context_too_long_configs"])
+    # copilot-sol-medium carries the sol rates and limit (GitHub table, 2026-11-06)
+    assert limited - {"copilot-sol-medium"} == set(_key()["context_too_long_configs"])
+    assert PRICES["copilot-sol-medium"].max_input_tokens == PRICES["sol-medium"].max_input_tokens
+    assert PRICES["copilot-opus-medium"].max_input_tokens is None
 
 
 def _padded_sol_request(size: int) -> TurnRequest:
@@ -123,7 +134,9 @@ def test_the_boundary_request_at_the_runs_openai_bound_is_accepted_and_one_byte_
 
 
 def _reasoning(cipher: int) -> ProviderBlock:
-    return ProviderBlock("openai", {"item": {"type": "reasoning", "encrypted_content": "A" * cipher}})
+    return ProviderBlock(
+        "openai", {"item": {"type": "reasoning", "encrypted_content": "A" * cipher}}
+    )
 
 
 def _with_block(block: ProviderBlock, padding: int = 0) -> TurnRequest:

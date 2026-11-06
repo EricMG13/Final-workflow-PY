@@ -3,7 +3,7 @@ name = "deploy-workflow"
 version = "0.1.0"
 description = "Tool-assisted analytical modules and rendered deliverables"
 requires-python = ">=3.13,<3.14"
-dependencies = ["pydantic==2.14.1", "pypdf==6.21.2", "openpyxl==3.1.5"]
+dependencies = ["pydantic==2.14.1", "pypdf==6.21.2", "openpyxl==3.1.5", "github-copilot-sdk==1.0.28"]
 
 [tool.uv]
 package = false

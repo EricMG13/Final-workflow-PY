@@ -7,10 +7,15 @@ import json
 import os
 import sys
 import tempfile
+import warnings
 from datetime import date
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
+COMPLETE_MESSAGE = (
+    "Report written. Automated checks only: review the handoffs against the "
+    "sources before relying on this."
+)
 HERE = Path(__file__).resolve().parent
 ENGINE_SRC = HERE / "src" if (HERE / "src").is_dir() else HERE.parents[2] / "src"
 sys.path.insert(0, str(ENGINE_SRC))
@@ -21,7 +26,7 @@ from deploy_workflow.model.budget import Budget
 from deploy_workflow.model.pricing import PRICES_AS_OF
 from deploy_workflow.model.redact import Redactor
 from deploy_workflow.model_testing.configs import CONFIGS
-from deploy_workflow.owners.cpos import run_live_handoffs
+from deploy_workflow.owners.cpos import run_live_handoffs, with_notes
 from deploy_workflow.owners.cpos_launch import MAX_OUTPUT_TOKENS, Prepared, checker, prepare
 from deploy_workflow.platform_io import replace
 
@@ -199,20 +204,24 @@ def start(directory: Path) -> None:
         )
 
     try:
-        run_live_handoffs(
-            prepared.manifest,
-            run_dir,
-            ruling=ruling,
-            rulings_root=directory.resolve(),
-            check=checker(prepared.layout),
-            max_turns=job["max_turns"],
-            max_output_tokens=MAX_OUTPUT_TOKENS,
-            on_handoff=progress,
-            on_start=started,
-            config=job["config"],
-        )
+        # The app discards stderr: a release failure after a finished run is a RuntimeWarning,
+        # recorded here and shown in the status message.
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always", RuntimeWarning)
+            run_live_handoffs(
+                prepared.manifest,
+                run_dir,
+                ruling=ruling,
+                rulings_root=directory.resolve(),
+                check=checker(prepared.layout),
+                max_turns=job["max_turns"],
+                max_output_tokens=MAX_OUTPUT_TOKENS,
+                on_handoff=progress,
+                on_start=started,
+                config=job["config"],
+            )
     except (ValueError, RuntimeError) as error:
-        message = f"{error} Retained work is in the run folder; no automatic paid retry was made."
+        message = f"{with_notes(error)} Retained work is in the run folder; no automatic paid retry was made."
         write_json(
             directory / "status.json",
             {
@@ -226,8 +235,12 @@ def start(directory: Path) -> None:
         directory / "status.json",
         {
             "state": "complete",
-            "message": "Report written. Automated checks only: review the handoffs against the "
-            "sources before relying on this.",
+            "message": "; ".join(
+                [
+                    COMPLETE_MESSAGE,
+                    *(str(w.message) for w in caught if issubclass(w.category, RuntimeWarning)),
+                ]
+            ),
             "spent_usd": spent(),
             "run_id": job["id"],
         },
@@ -245,7 +258,7 @@ def main() -> None:
         else:
             raise ValueError("unknown CP-OS operation")
     except Exception as error:  # noqa: BLE001 -- isolate/redact the worker process boundary
-        problems = list(getattr(error, "problems", (str(error),)))
+        problems = list(getattr(error, "problems", (with_notes(error),)))
         # Never return arbitrary provider response bodies or environment values.
         cleaned = [redactor.text(str(problem)) for problem in problems]
         for key in KEY_VARIABLES.values():
