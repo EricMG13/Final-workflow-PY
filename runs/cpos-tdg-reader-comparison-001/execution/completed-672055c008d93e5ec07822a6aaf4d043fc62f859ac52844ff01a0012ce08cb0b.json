@@ -1,0 +1,26 @@
+{
+  "kind": "cpos-deliverable-comparison/1",
+  "execution": "live-provider",
+  "scope": "Checked CP-8 comparison of selected delivery bundles; not decision calibration or full pathway acceptance",
+  "provider_cap_usd": "12",
+  "response": "requests/CP-8/e7ef32565602562b5783a70c9c22757566701ad6fadd73d43eb0914258803e2c/1.response.md",
+  "response_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+  "input_files": {
+    "prior/CP-0.md": "1bd907de98c4ddf470c43d588cb1b6dba6a1f3f61c57024f3f7486852f0393c5",
+    "prior/CP-1.md": "89b8b460f4114ffc268a661d76e9c2fc9256e19dc970681b9c2b4da2363e9c3d",
+    "prior/CP-1A.md": "bc532f0ebb526608d9adad5b0c02dfcad68006015221085a4139260be2a96545",
+    "prior/view.json": "a28ca20f494e4294d2d4577f870cefb665ece02b732d2a20a9e09451f31460f6",
+    "prior/report-view.json": "46386b89ca957e5ade9c1dd3de4002eb31359d568c083189c0d1365b9fdeb26a",
+    "prior/report.html": "083e0cd57236b9280d25c674650715007dcecdb1ff321b75297b4dc03aa0972e",
+    "prior/delivery.json": "398084699b4951e5178d2e7aba474bb8e5ffd8c9f8cc0c4cfcf9964a3d7772cc",
+    "current/CP-0.md": "4367ec1f426c3c318e6a1b01fb769e6f0458fb6817db5026a8b205f48060aab3",
+    "current/CP-1.md": "7f0578c02be6bce6849863c7105d17f6d09674ed595b86626286e57d61268e3a",
+    "current/CP-1A.md": "07ccccb4746145afa4449b1b450050463782c3069199127ef051670bfceea5b2",
+    "current/view.json": "d734ada35c827a7191aec220fb8272c945903853031eb92197328e4324514f60",
+    "current/report-view.json": "1840764292409f49b00ae1858bf2971bf6c4541e76f730cf52c1e12154e63368",
+    "current/report.html": "7bf8a4821cec15071c9ecd72e2191bfdfca28b060d1747b1b4ac004d53bd3c54",
+    "current/delivery.json": "4d7b57b64fa80d1949fcb6087511599e428a609e36d30795d99a4c36b780db8c"
+  },
+  "delivery_id": "ae46523f59b23a05eb9c13ea8217975b529934bbedfa9ea60e0c34f6d023b080",
+  "report_sha256": "4e56a33b81bddfce375f1f926ead2b8781fa389a5caa0d60e2853371f4105d50"
+}
