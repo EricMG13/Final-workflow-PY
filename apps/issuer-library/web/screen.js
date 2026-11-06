@@ -367,7 +367,7 @@ function renderRoute() {
     if(cancelReportFrame)cancelReportFrame();
     cancelReportFrame=null;
     const frame=$('report-preview');
-    if(frame)cancelReportFrame=watchFrame(frame,$('content').querySelector('.frame-status'),'Loading report…','The report did not load.',()=>{const link=document.createElement('a');link.setAttribute('href',window.DESIGN_WORKSPACE.reports.find(r=>r.id===next.section).download);link.download='';link.textContent='Download original HTML';return link;});
+    if(frame)cancelReportFrame=watchFrame(frame,$('content').querySelector('.frame-status'),'Loading report…','The report did not load.',()=>{const link=document.createElement('a');link.setAttribute('href',window.DESIGN_WORKSPACE.reports.find(r=>r.id===next.section).download);link.download='';link.textContent='Download original HTML';return link;},'This report\'s file could not be found. Reload the library to refresh the list.');
     if(!showsCodes(next))nameCodes($('content'));
     $('content').scrollTop=readingPositions.get(`${next.context}:${next.output||next.module}:${next.section}`)||0;
     showNavigator(false);

@@ -81,3 +81,10 @@ test('border radii use only the DESIGN.md scale', () => {
   assert.deepEqual(bad, []);
   assert.match(screen, /:root\{[^}]*--radius-inline:4px/);
 });
+
+test('forced colours keep pills, buttons and the active rail item visible; the case link does not wrap', () => {
+  const block = /@media\(forced-colors:active\)\{(.*)\}\s*$/m.exec(screen);
+  assert.ok(block, 'no forced-colors block');
+  assert.ok(block[1].includes('.rail a[aria-current]') && block[1].includes('.badge'));
+  assert.ok(rule('.issuer-meta a').some((b) => b.includes('white-space:nowrap')));
+});

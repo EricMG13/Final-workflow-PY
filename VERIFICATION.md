@@ -8,6 +8,38 @@ contains the settled CP-6 timeout cost, the corrected TDG annual publication, th
 live CP-8 comparison and checks of the five broader report bundles. The older
 entries below retain their historical case scope.
 
+## 2026-11-06 — Issuer Library: harden pass
+
+Scope: `apps/issuer-library` web UI after the polish pass (`/impeccable harden`): error, edge and
+concurrency states only; no new features, copy and look unchanged.
+Changed: Settings sends one request at a time (Save, Refresh and Quit disable while one is in flight,
+status reads "Refreshing the library…" / "Saving the workspace…" / "Stopping the library…", buttons
+re-enable on error); a service-down line (`#service-down`, `role="alert"`) appears after two consecutive
+failed discovery checks and hides after a successful one, suppressed after a deliberate Quit; both reload
+controls ask "Reload now? The run you are preparing will be cleared." while an accepted run context has
+not been started (`body[data-draft]`, cleared on Start, on Start another run and on the lost-response
+reconnect); a report frame asks for its file with a HEAD request first and shows "This report's file could
+not be found. Reload the library to refresh the list." with a Reload control on 404 or a rejected fetch,
+and keeps that state when the 404 page's own `load` fires afterwards; the Evidence tab shows "No retained
+files for this run" with a Choose another case link when a run has no module files; forced-colors mode
+keeps pill and button borders and outlines the active rail item and tab; "Change case" no longer wraps.
+Checked and left: long names, ids and labels wrap without overflow at 1100px; review/start/status/recent-run
+error paths already show text with recovery; i18n out of scope (English-only Windows tool, retained strings
+shown exactly).
+Checks: `node --test` over the six NODE_TESTS 172 pass, exit 0; `go vet` and `go test ./...` exit 0;
+reviewer probes (HEAD-before-load race, 23 mutants) exit 0, with two surviving mutants recorded as
+equivalent or outside the answer key (`cache:'no-store'`, the busy flag that disabled buttons already
+enforce in jsdom); rendered checks in the in-app browser at 1100px: double-click on Refresh library sent one
+request with all three buttons disabled and re-enabled after a failed response; the service-down line
+appeared after the server was stopped for two discovery ticks and cleared on restart; the race with a 404
+HEAD and a real frame load kept the missing-file state; the Evidence empty state and the nowrap rule.
+Ledger: harden agent=mx-feature fix-rounds=1 gates-first-pass=y (round 1: HEAD-before-load race, High;
+two Lows rode with it). Review: mx-precise, one High, three Low, two Info; scoped re-review of the High fix
+by mx-precise: pass (eight-order probe `harden-f1-orders.cjs` exit 0; the revert fails the race test).
+Not verified: the Playwright browser gate; Windows rendering and Edge's forced-colors mode; the banner after
+a real Quit on Windows; the native confirm dialog (stubbed in tests); a report file actually deleted on disk
+(the 404 was simulated at the HEAD call); nothing committed.
+
 ## 2026-11-06 — Issuer Library: polish pass
 
 Scope: `apps/issuer-library` web UI after the critique fix pass and the main merge (`/impeccable polish`).

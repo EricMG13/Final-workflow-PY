@@ -153,3 +153,153 @@ test('Settings lists workspace issues as path and message and quits as a tertiar
   assert.equal(items[0].children[1].textContent,'Delivery manifest requires report.html: and view.json');
   assert.equal(items[1].querySelector('.code'),null);
 });
+
+function emptyPage(hash,t){
+  const errors=[],virtualConsole=new VirtualConsole();virtualConsole.on('jsdomError',e=>errors.push(e));
+  const dom=new JSDOM(html,{url:`http://127.0.0.1:54321/#${hash}`,runScripts:'outside-only',virtualConsole}),w=dom.window;
+  t.after(()=>w.close());w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};
+  w.eval("window.DESIGN_DATA={runs:{},outputs:{},inputs:{},pins:{}};window.DESIGN_WORKSPACE={reports:[],visuals:[]};window.DESIGN_APP={workspace:'/research',policy_locked:false,issues:[],problem:''};");
+  return {dom,w,errors,load:()=>{for(const name of ['views.js','actions.js','screen.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,name),'utf8'),dom.getInternalVMContext());}};
+}
+async function settingsPage(t,fail){
+  const p=emptyPage('W-Settings/workspace',t),calls=[];
+  p.w.fetch=url=>{calls.push(url);return new Promise((resolve,reject)=>setTimeout(()=>fail?reject(new Error('down')):resolve({ok:true,json:async()=>({})}),30));};
+  p.load();await settle();return {...p,calls,d:p.w.document};
+}
+const SETTINGS_BUTTONS=['save-workspace','refresh-library','quit-library'];
+test('H1 Settings sends one request at a time and shows what is happening',async t=>{
+  const p=await settingsPage(t,false);
+  p.d.getElementById('refresh-library').click();await settle(2);p.d.getElementById('refresh-library').click();
+  assert.deepEqual(SETTINGS_BUTTONS.map(id=>p.d.getElementById(id).disabled),[true,true,true]);
+  for(const id of SETTINGS_BUTTONS)assert.equal(p.d.getElementById(id).disabled,true,id);
+  assert.match(p.d.getElementById('settings-status').textContent,/^Refreshing/);
+  await settle(60);
+  assert.equal(p.calls.filter(u=>u==='/api/refresh').length,1);
+});
+test('H1 a failed Settings request re-enables the buttons and says why',async t=>{
+  const p=await settingsPage(t,true);
+  p.d.getElementById('save-workspace').click();await settle(60);
+  assert.deepEqual(SETTINGS_BUTTONS.map(id=>p.d.getElementById(id).disabled),[false,false,false]);
+  assert.match(p.d.getElementById('settings-status').textContent,/^Could not update the library/);
+});
+test('H1 Quit locks the buttons while stopping and is ignored during another request',async t=>{
+  const p=await settingsPage(t,false);
+  p.d.getElementById('quit-library').click();await settle(2);
+  for(const id of SETTINGS_BUTTONS)assert.equal(p.d.getElementById(id).disabled,true,id);
+  await settle(60);
+  const q=await settingsPage(t,false);
+  q.d.getElementById('refresh-library').click();await settle(2);
+  q.d.getElementById('quit-library').disabled=false;q.d.getElementById('quit-library').click();await settle(2);
+  assert.equal(q.calls.includes('/api/quit'),false);await settle(60);
+});
+test('H2 Quit marks the library stopped',async t=>{
+  const p=await settingsPage(t,false);
+  p.d.getElementById('quit-library').click();await settle(60);
+  assert.equal(p.d.body.dataset.quit,'1');
+});
+// Runs boot.js itself: fetch is stubbed, its discovery interval is captured, and each script load fires onload.
+async function bootPage(t,hash,reply){
+  const errors=[],virtualConsole=new VirtualConsole();virtualConsole.on('jsdomError',e=>errors.push(e.message));
+  const dom=new JSDOM(html,{url:`http://127.0.0.1:54321/#${hash}`,runScripts:'outside-only',virtualConsole}),w=dom.window;t.after(()=>w.close());
+  let tick=null;w.setInterval=fn=>{tick=fn;return 1;};w.console.warn=()=>{};
+  w.fetch=async()=>reply();
+  const real=w.document.createElement.bind(w.document);
+  w.document.createElement=name=>{const el=real(name);if(name==='script')setTimeout(()=>el.onload&&el.onload(),0);return el;};
+  vm.runInContext(fs.readFileSync(path.join(__dirname,'boot.js'),'utf8'),dom.getInternalVMContext());await settle(30);
+  return {w,d:w.document,errors,tick:async()=>{await tick();}};
+}
+const GOOD={real:[],runs:{},outputs:{},inputs:{},pins:{},reports:[],visuals:[],issues:[],workspace:'/r'};
+test('H2 the service banner appears after two failed checks and clears on success',async t=>{
+  let mode='ok';
+  const reply=()=>{if(mode==='down')throw new Error('down');return{ok:true,json:async()=>GOOD};};
+  const p=await bootPage(t,'W-Library/cases',reply),banner=()=>p.d.getElementById('service-down').hidden;
+  mode='down';
+  await p.tick();assert.equal(banner(),true);
+  await p.tick();assert.equal(banner(),false);
+  mode='ok';await p.tick();assert.equal(banner(),true);
+  mode='down';p.d.body.dataset.quit='1';
+  await p.tick();await p.tick();await p.tick();assert.equal(banner(),true);
+});
+test('H2 a success between failures resets the count',async t=>{
+  let mode='down';
+  const reply=()=>{if(mode==='down')throw new Error('down');return{ok:true,json:async()=>GOOD};};
+  const p=await bootPage(t,'W-Library/cases',reply),banner=()=>p.d.getElementById('service-down').hidden;
+  await p.tick();mode='ok';await p.tick();mode='down';await p.tick();
+  assert.equal(banner(),true);
+});
+test('H3 Reload service honours the unsaved-run confirm',async t=>{
+  const b=await bootPage(t,'W-NewRun/run',()=>({ok:true,json:async()=>GOOD}));
+  b.d.body.dataset.draft='1';b.d.getElementById('new-run').hidden=false;
+  b.w.confirm=()=>false;b.d.getElementById('reload-service').click();await settle();
+  assert.deepEqual(b.errors.filter(m=>/navigation/i.test(m)),[]);
+});
+test('H3 Start clears the unsaved-run flag',async t=>{
+  const p=emptyPage('W-NewRun/run',t),w=p.w,ID='run-1';
+  w.setInterval=()=>1;w.clearInterval=()=>{};
+  const review={ok:true,id:ID,review_id:'b'.repeat(64),issuer:'N',pathway:'covenant_refinancing',as_of:'2025-03-31',modules:[],module_details:[],config:'c',provider:'p',model:'m',effort:'e',cap_usd:'1',hold_usd:'1',max_turns:1,prices_as_of:'x',provider_ready:true,provider_key:'K',sources:[],ignored:[],report_sections:[],omitted:[],scope:'s'};
+  w.fetch=async url=>({ok:true,json:async()=>url==='/api/runs/review'?review:url==='/api/runs/start'?{state:'running',id:ID}:url.startsWith('/api/runs/status')?{state:'running',message:'w',run_available:true}:[]});
+  p.load();await settle();
+  const d=w.document,ctx=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../../cases/context/research-minimal.json'),'utf8'));
+  w.dispatchEvent(new w.MessageEvent('message',{source:d.getElementById('context-editor').contentWindow,data:{type:'cpos:context',context:ctx,problems:[]}}));
+  const input=d.getElementById('run-sources'),file=new w.File(['x'],'a.txt');
+  Object.defineProperty(input,'files',{configurable:true,value:[file]});
+  d.getElementById('review-run').click();await settle();
+  assert.equal(d.body.dataset.draft,'1');
+  const box=d.getElementById('run-confirm');box.checked=true;box.dispatchEvent(new w.Event('change'));
+  d.getElementById('start-run').click();await settle();
+  assert.equal(d.body.dataset.draft,undefined);
+});
+test('H3 reloading with an unsaved New run asks first',async t=>{
+  const p=emptyPage('W-NewRun/run',t),w=p.w;
+  w.fetch=async()=>({ok:true,json:async()=>[]});w.setInterval=()=>1;w.clearInterval=()=>{};
+  p.load();await settle();
+  const d=w.document,editor=d.getElementById('context-editor');
+  const ctx=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../../cases/context/research-minimal.json'),'utf8'));
+  w.dispatchEvent(new w.MessageEvent('message',{source:editor.contentWindow,data:{type:'cpos:context',context:ctx,problems:[]}}));
+  assert.equal(d.body.dataset.draft,'1');
+  d.getElementById('another-run').hidden=false;d.getElementById('another-run').click();
+  assert.equal(d.body.dataset.draft,undefined);
+  const b=await bootPage(t,'W-NewRun/run',()=>({ok:true,json:async()=>GOOD}));
+  b.d.body.dataset.draft='1';b.d.getElementById('new-run').hidden=false;
+  b.w.confirm=()=>false;b.d.getElementById('reload-workspace').click();await settle();
+  assert.deepEqual(b.errors.filter(m=>/navigation/i.test(m)),[]);
+  b.w.confirm=()=>true;b.d.getElementById('reload-workspace').click();await settle();
+  assert.equal(b.errors.filter(m=>/navigation/i.test(m)).length,1);
+});
+test('H4 a report whose file has gone says so at once, with Reload',async t=>{
+  const dom=fixture('W-Calendar/events?c=tdg-002',500),w=dom.window,d=w.document;t.after(()=>w.close());
+  const heads=[];w.fetch=async(url,o)=>{heads.push(o.method);return{ok:false,status:404};};
+  const report=w.eval('window.DESIGN_WORKSPACE.reports[0]');
+  await go(w,`W-Reports/${report.id}`);
+  const s=d.querySelector('.frame-status');
+  assert.match(text(s),/could not be found/);assert.ok(s.querySelector('button'));assert.equal(s.querySelector('.frame-retry'),null);
+  assert.equal(heads[0],'HEAD');
+});
+test('H4 a 404 page loading after the missing answer does not hide it',async t=>{
+  const dom=fixture('W-Calendar/events?c=tdg-002',500),w=dom.window,d=w.document;t.after(()=>w.close());
+  w.fetch=async()=>({ok:false,status:404});
+  await go(w,`W-Reports/${w.eval('window.DESIGN_WORKSPACE.reports[0].id')}`);
+  d.getElementById('report-preview').dispatchEvent(new w.Event('load'));
+  const s=d.querySelector('.frame-status');
+  assert.equal(s.hidden,false);assert.match(text(s),/could not be found/);
+});
+test('H4 a failed request for the file also says it could not be found',async t=>{
+  const dom=fixture('W-Calendar/events?c=tdg-002',500),w=dom.window,d=w.document;t.after(()=>w.close());
+  w.fetch=async()=>{throw new Error('down');};
+  await go(w,`W-Reports/${w.eval('window.DESIGN_WORKSPACE.reports[0].id')}`);
+  assert.match(text(d.querySelector('.frame-status')),/could not be found/);
+});
+test('H4 a present file keeps the loading state until the frame loads',async t=>{
+  const dom=fixture('W-Calendar/events?c=tdg-002',500),w=dom.window,d=w.document;t.after(()=>w.close());
+  w.fetch=async()=>({ok:true,status:200});
+  const report=w.eval('window.DESIGN_WORKSPACE.reports[0]');
+  await go(w,`W-Reports/${report.id}`);
+  assert.equal(text(d.querySelector('.frame-status')),'Loading report…');
+});
+test('H5 an Evidence tab with no retained files says so',async t=>{
+  const w=fixture('W-Overview/overview?c=tdg-002').window,d=w.document;t.after(()=>w.close());
+  w.eval('contexts["tdg-002"].modules={}');
+  await go(w,'W-Evidence/sources?c=tdg-002');
+  assert.match(text(d.getElementById('content')),/No retained files for this run/);
+  assert.ok(d.querySelector('#content a[href="#W-Library/cases"]'));
+});

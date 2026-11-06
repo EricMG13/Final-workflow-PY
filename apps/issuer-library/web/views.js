@@ -54,7 +54,7 @@ const reportName=report=>report.build?`Build ${report.build} · ${report.label.t
 const byBuild=(a,b)=>(b.build||0)-(a.build||0)||a.label.trim().localeCompare(b.label.trim());
 // A frame has no error event for a page that never arrives, so a missing load within the timeout is the failure.
 const frameTimeout=()=>Number.isFinite(window.DESIGN_FRAME_TIMEOUT_MS)?window.DESIGN_FRAME_TIMEOUT_MS:6000;
-function watchFrame(frame,status,loadingText,failedText,link) {
+function watchFrame(frame,status,loadingText,failedText,link,missingText) {
   let timer=null;
   const loaded=()=>{clearTimeout(timer);status.hidden=true;};
   const wait=()=>{clearTimeout(timer);status.hidden=false;status.textContent=loadingText;timer=setTimeout(fail,frameTimeout());};
@@ -66,8 +66,18 @@ function watchFrame(frame,status,loadingText,failedText,link) {
     if(link)status.append(link(),' ');
     status.append(retry);
   }
+  // A frame fires load for a 404 page too, so a deliverable that has gone is found by asking for it first.
+  function missing() {
+    if(!frame.isConnected)return;
+    clearTimeout(timer);frame.removeEventListener('load',loaded);
+    const reload=document.createElement('button');
+    reload.type='button';reload.className='text-button';reload.textContent='Reload';
+    reload.addEventListener('click',()=>location.reload());
+    status.hidden=false;status.textContent=missingText+' ';status.append(reload);
+  }
   frame.addEventListener('load',loaded);
   wait();
+  if(missingText)fetch(frame.getAttribute('src'),{method:'HEAD',cache:'no-store'}).then(response=>{if(!response.ok)missing();},missing);
   return loaded;
 }
 const isReportRoute=(module,section)=>module==='W-Reports'&&window.DESIGN_WORKSPACE.reports.some(r=>r.id===section);
@@ -258,6 +268,7 @@ function sourceInventory(context) {
     ...entry.outputs.map(id=>{const out=data[id];return `<section><div><h3>${module} · ${esc(moduleNames[module])}</h3><p>${esc(out.label)}</p>${out.scope==='Retained module output'?'':`<span class="badge badge-gray">${esc(out.scope)}</span>`}</div><div>${iconAction('Open output',`${module} ${moduleNames[module]}, ${out.label}`,routeHref(module,modules[id].first,null,context,out.source),'arrow-right')}${iconAction('Download original handoff',`${module} ${moduleNames[module]}, ${out.label}`,out.href,'download',true)}</div>${identity(out)}</section>`;}),
     ...entry.inputs.map(id=>{const f=store.inputs[id];return `<section><div><h3>${module} · ${esc(moduleNames[module])}</h3><p>${esc(f.source)}</p><span class="badge badge-gray">Input</span></div><div>${iconAction('Download original file',`${module} ${moduleNames[module]}, ${f.source}`,f.href,'download',true)}</div>${identity(f)}</section>`;})
   ]);
+  if(!rows.length)return `<div class="missing-state"><div class="empty-symbol">${icon('file-text')}</div><h2>No retained files for this run</h2><p>No module outputs or inputs were found in this run’s folder.</p></div><a class="text-action switch-case" href="#W-Library/cases">Choose another case</a>`;
   return `<div class="source-inventory">${rows.join('')}</div>`;
 }
 function libraryRecords() {
