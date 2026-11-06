@@ -639,6 +639,10 @@ def parse(
             result = _parse_openai(status, text, seen, cut_as_turn)
         elif provider == "anthropic":
             result = _parse_anthropic(status, text, redactor, seen, cut_as_turn)
+        elif provider == "copilot":
+            from deploy_workflow.model.copilot import parse_events  # copilot imports this module
+
+            result = parse_events(text, redactor, seen, cut_as_turn)
         else:
             result = _parse_openrouter(status, text, seen, cut_as_turn)
     except (_BadReply, RecursionError) as error:
