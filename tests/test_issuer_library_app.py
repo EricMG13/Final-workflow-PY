@@ -5,6 +5,7 @@ Synthetic API replies only; no network, server or provider. Marked browser: real
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -396,7 +397,12 @@ def test_only_an_explicitly_confirmed_start_launches_once(new_run: Any) -> None:
         "JSON.parse(window.__calls.find(c=>c.url==='/api/runs/start').options.body)"
     )
     assert body == {"id": ID, "review_id": "b" * 64, "confirm": True}
-    assert re.search(r"running: Working · last accepted CP-0", run.text("run-progress"))
+    assert re.search(r"running: Working · last accepted Source readiness", run.text("run-progress"))
+    reviewed = run.page.evaluate(
+        "(()=>{const li=document.querySelector('#run-review ol li');"
+        "return [li.textContent,li.title];})()"
+    )
+    assert reviewed == ["Source readiness", "CP-0: Check issuer files"], "no codes in the review"
     assert "USD 0.42" in run.text("run-spend")
     assert run.hidden("open-run") is True
 
@@ -581,9 +587,7 @@ def test_an_uncurated_workspace_works_unnamed_modules_unstructured_handoffs_no_c
     assert screen.eval("current.module") == "CP-4A"
     body = screen.text("body")
     assert not re.search(r"Historical evidence|not current issuer", body)
-    assert re.search(r"Retained evidence · not updated since this run", screen.text(".issuer"))
-    screen.eval("document.querySelector('.module-catalogue').open=true")
-    assert "Other modules" in screen.texts(".nav-group summary")
+    assert re.sub(r"\s+", " ", screen.text(".issuer .scope")).strip() == "As of 2025-03-31"
     assert re.search(r"Shown unstructured: Body before first heading", screen.text("#module-head"))
     assert "Body <b>raw</b>" in screen.content(), "raw text is shown, escaped"
     assert not screen.exists("#content b")
@@ -725,7 +729,6 @@ def test_settings_shows_the_workspace_and_its_issues_and_respects_the_policy_loc
     assert re.search(r"managed by your IT configuration", screen.text(".settings"))
     assert not screen.exists(".settings ul b")
     assert "<b>changed</b>" in screen.text(".settings ul")
-    assert screen.text("#workspace-name") == 'Workspace · /research "main"'
     screen.click("#quit-library")
     screen.page.wait_for_function("document.getElementById('settings-status').textContent!==''")
     assert len(quits) == 1 and quits[0].get("x-issuer-library") == "1"
@@ -884,6 +887,15 @@ def open_report(browser: Any, folder: str, query: str = "?embedded=1") -> tuple[
     return page, errors
 
 
+def open_destination(page: Any, destination: str) -> None:
+    """Click a report destination and resolve after the report's own hashchange handler ran."""
+    page.evaluate(
+        "d=>new Promise(resolve=>{window.addEventListener('hashchange',resolve,{once:true});"
+        'document.querySelector(`#rail-dests [data-dest="${d}"]`).click();})',
+        destination,
+    )
+
+
 @pytest.mark.parametrize("folder", RETAINED)
 def test_retained_native_sections_and_evidence_inspector_remain_functional(
     browser: Any, folder: str
@@ -894,8 +906,7 @@ def test_retained_native_sections_and_evidence_inspector_remain_functional(
     ]
     assert issuer in page.evaluate("document.getElementById('nav-issuer').textContent")
     assert page.evaluate("document.querySelectorAll('#rail-dests a').length") == 6
-    page.evaluate("document.querySelector('#rail-dests [data-dest=\"model\"]').click()")
-    page.wait_for_timeout(50)
+    open_destination(page, "model")
     figure = page.evaluate("Boolean(document.querySelector('.fact-value'))")
     # Only these reports carry a financial model; the others have no figures to inspect.
     assert figure == bool(re.match(r"^(tdg-fy2024-snapshot|erste-source-intake)", folder))
@@ -904,8 +915,7 @@ def test_retained_native_sections_and_evidence_inspector_remain_functional(
         assert re.search(
             r"SHA-256", page.evaluate("document.getElementById('inspector-content').textContent")
         )
-    page.evaluate("document.querySelector('#rail-dests [data-dest=\"evidence\"]').click()")
-    page.wait_for_timeout(50)
+    open_destination(page, "evidence")
     assert re.search(
         r"Source|Evidence", page.evaluate("document.getElementById('view-root').textContent")
     )
@@ -938,8 +948,7 @@ def test_embedded_presentation_opens_evidence_on_demand_and_restores_the_trigger
     )
     assert page.evaluate(evidence_open) is False
     assert page.evaluate(f"document.activeElement==={cite}")
-    page.evaluate("document.querySelector('#rail-dests [data-dest=\"model\"]').click()")
-    page.wait_for_timeout(50)
+    open_destination(page, "model")
     assert page.evaluate(evidence_open) is False
     assert page.evaluate("document.querySelector('.page-head>.eyebrow')") is None
     assert not re.search(
@@ -952,3 +961,52 @@ def test_embedded_presentation_opens_evidence_on_demand_and_restores_the_trigger
     page.wait_for_function(f"!{evidence_open}")
     assert errors == []
     page.context.close()
+
+
+MODULE_CODE = re.compile(r"\bCP-[A-Z0-9]+\b(?![-.][A-Za-z0-9])")
+
+
+def test_the_report_preview_shows_module_names_keeps_figures_and_leaves_the_inspector_and_original_exact(
+    browser: Any,
+) -> None:
+    original = DELIVERIES / "tdg-fy2024-snapshot-7" / "report.html"
+    before = hashlib.sha256(original.read_bytes()).hexdigest()
+    page, errors = open_report(browser, "tdg-fy2024-snapshot-7", "")
+    root = "document.getElementById('view-root').textContent"
+    assert re.search(r"\bCP-\d", page.evaluate(root)), "the retained report does name modules"
+    page.add_script_tag(path=str(WEB / "report-adapter.js"))
+    text = page.evaluate(root)
+    assert not MODULE_CODE.search(text)
+    assert not MODULE_CODE.search(page.evaluate("document.querySelector('.navigator').textContent"))
+    assert "Business & governance" in text and "3.14x" in text
+    assert "Analyst Interpretation" in text
+    open_destination(page, "model")
+    assert not MODULE_CODE.search(page.evaluate(root)), "a later destination is named too"
+    page.evaluate("document.querySelector('.fact-value').click()")
+    page.wait_for_function(
+        "/CP-1 \\/ evidence-trace/.test(document.getElementById('inspector-content').textContent)"
+    )
+    assert hashlib.sha256(original.read_bytes()).hexdigest() == before
+    assert errors == []
+    page.context.close()
+
+
+def test_the_preview_names_every_module_the_app_names_including_absorbed_codes(
+    browser: Any,
+) -> None:
+    adapter = (WEB / "report-adapter.js").read_text(encoding="utf-8")
+    match = re.search(r"const MODULE_NAMES=(\{[^}]*\});", adapter)
+    assert match
+    names: dict[str, str] = json.loads(match.group(1))
+    screen = open_app(browser, "W-Library/cases", NORTHBRIDGE, NORTHBRIDGE_REPORTS)
+    app: dict[str, str] = screen.eval("Object.fromEntries(groups.flatMap(group=>group[1]))")
+    screen.close()
+    for code, name in app.items():
+        assert names[code] == name, code
+    rows = (ROOT / "docs/visualisations/catalogue.csv").read_text(encoding="utf-8").split("\n")[1:]
+    for row in filter(None, rows):
+        found = re.match(r'^[^,]*,([^,]*),(?:"([^"]*)"|([^,]*))', row)
+        assert found
+        module, quoted, bare = found.groups()
+        for alias in filter(None, re.split(r"[;,\s]+", quoted if quoted is not None else bare)):
+            assert names[alias] == app.get(alias, app.get(module)), alias

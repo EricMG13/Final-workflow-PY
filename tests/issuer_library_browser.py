@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import mimetypes
+import re
 import subprocess
 import sys
 from collections.abc import Callable
@@ -245,3 +246,28 @@ def design_store() -> tuple[dict[str, Any], dict[str, Any]]:
         return json.loads(text[text.index("=") + 1 :].strip().rstrip(";"))
 
     return script_value("data.js"), script_value("workspace-data.js")
+
+
+def norm(text: str) -> str:
+    return re.sub(r"\s+", " ", text.replace("**", "").replace("`", "")).strip()
+
+
+RETAINED = (
+    "(sel)=>{const copy=document.querySelector(sel).cloneNode(true);"
+    "copy.querySelectorAll('abbr.module-ref').forEach(a=>a.replaceWith(a.title));"
+    "return copy.textContent.replace(/\\*\\*|`/g,'').replace(/\\s+/g,' ').trim();}"
+)
+
+
+def retained_text(screen: Screen, selector: str) -> str:
+    """A reader page's text with each shown module name turned back into the retained code."""
+    text: str = screen.page.evaluate(RETAINED, selector)
+    return text
+
+
+def js(screen: Screen, body: str) -> Any:
+    """Run a function body in the page with `d` and `norm` defined, returning what it returns."""
+    return screen.eval(
+        "()=>{const norm=s=>s.replace(/\\*\\*|`/g,'').replace(/\\s+/g,' ').trim();"
+        "const d=document;" + body + "}"
+    )

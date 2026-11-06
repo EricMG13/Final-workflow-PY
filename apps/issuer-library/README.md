@@ -218,15 +218,21 @@ writes their fixture from the curated retained runs and fails if a curated pin g
 stale; the tests build it themselves:
 
 ```sh
-uv run pytest -m browser tests/test_issuer_library_app.py tests/test_issuer_library_design.py tests/test_issuer_library_example.py
+uv run pytest -m browser tests/test_issuer_library_app.py tests/test_issuer_library_design.py tests/test_issuer_library_example.py tests/test_issuer_library_reader.py
 ```
+
+`validate.py quick | full | browser | suite` runs these gates in one command with provider keys
+removed. `browser` serves the repository with a fake provider through `designs/browser_check.py`.
+It needs `FW_PYTHON` and, for a Chromium that Playwright did not download,
+`ISSUER_LIBRARY_CHROMIUM`.
 
 These checks execute the page's scripts in a real browser with synthetic API replies,
 but do not establish visual layout or Windows launcher acceptance. See the single
 repository `VERIFICATION.md` record for actual scope.
 
 The server finds the engine beside itself: `apps/issuer-library/engine` in the
-repository, `engine/` in a package. The CP-OS worker runs under the same interpreter as
+repository, `engine/` in a package. Only an offline check sets `ISSUER_LIBRARY_ENGINE_ROOT`,
+to serve a fake engine. The CP-OS worker runs under the same interpreter as
 the server. Do not turn the loopback application into a remotely exposed multi-user
 service.
 

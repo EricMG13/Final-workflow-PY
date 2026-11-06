@@ -8,6 +8,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location(
     "library_store", ROOT / "apps/issuer-library/engine/store.py"
@@ -269,6 +271,15 @@ def test_a_link_out_of_the_run_is_not_read(tmp_path):
     assert list(result["outputs"]) == ["linked/CP-0.md"]
 
 
+def test_runs_carry_the_recorded_workflow_and_as_of_and_none_when_unrecorded(tmp_path):
+    runs = store.workspace_store(tmp_path, workspace(tmp_path))["runs"]
+    assert (runs["launched"]["pathway"], runs["launched"]["asOf"]) == (
+        "credit_snapshot",
+        "2025-06-30",
+    )
+    assert (runs["alpha-001"]["pathway"], runs["alpha-001"]["asOf"]) == (None, None)
+
+
 def test_a_malformed_run_manifest_falls_back_to_the_catalogue(tmp_path):
     for number, manifest in enumerate(
         ('{"run": null}', '{"run": "x"}', "[]", '{"run": {"issuer_name": 7}}')
@@ -277,6 +288,7 @@ def test_a_malformed_run_manifest_falls_back_to_the_catalogue(tmp_path):
         put(tmp_path, f"runs/{folder}/workflow.json", manifest)
         run = store.workspace_store(tmp_path, plain_run(folder))["runs"][folder]
         assert run["issuer"] == folder and run["period"] == "Period not recorded"
+        assert run["pathway"] is None and run["asOf"] is None
 
 
 def test_two_different_deliveries_of_a_module_can_be_told_apart(tmp_path):
@@ -341,3 +353,97 @@ def test_windows_case_blind_matching_adds_no_odd_handoffs(tmp_path, monkeypatch)
     monkeypatch.setattr(Path, "glob", case_blind)
     result = store.workspace_store(tmp_path, plain_run("case"))
     assert list(result["outputs"]) == ["case/CP-0.md"] and result["issues"] == []
+
+
+READER_FIXTURE = ROOT / "apps/issuer-library/designs/reader-fixture/CP-1.md"
+
+
+def reader_sections(text=None):
+    return store.parse_source(READER_FIXTURE.read_text() if text is None else text)
+
+
+def test_reader_fields_read_the_synthetic_handoff():
+    fields = store.reader_fields(reader_sections())
+    summary = fields["summary"]
+    assert summary["bottomLine"] == (
+        "Total debt / EBITDA fell from 4.20x to 3.60x while liquidity held above 275."
+    )
+    assert summary["confidence"] == "Medium"
+    assert summary["limitation"] == "The maturity schedule has no FY2027 figure."
+    assert summary["line"] == 17
+    assert [(f["finding"], f["impact"], f["confidence"]) for f in summary["findings"]] == [
+        (
+            "Leverage fell over the two years.",
+            "More debt capacity before a covenant test.",
+            "Medium",
+        ),
+        (
+            "Liquidity held. <img src=x onerror=alert(document.domain)>",
+            "No near-term funding gap is shown.",
+            "Low",
+        ),
+    ]
+    assert [f["line"] for f in summary["findings"]] == [21, 22]
+    assert fields["charts"] == [
+        {"title": "Leverage", "unit": "x", "table": 26, "columns": [1, 2]},
+        {"title": "Interest cover", "unit": "x", "table": 33, "columns": [1]},
+        {"title": "Liquidity", "unit": "US$m", "table": 40, "columns": [1, 2]},
+        {"title": "Debt maturities", "unit": "US$m", "table": 47, "columns": [1]},
+    ]
+    assert fields["issue"] is None
+
+
+def test_the_fixture_passes_the_launcher_reader_check():
+    sys.path.insert(0, str(ROOT / "src"))
+    from deploy_workflow.reader_summary import reader_issues
+
+    assert reader_issues(READER_FIXTURE.read_text()) == ()
+
+
+def test_a_handoff_without_a_reader_section_has_no_issue():
+    assert store.reader_fields(reader_sections(CP1)) == {
+        "summary": None,
+        "charts": [],
+        "issue": None,
+    }
+
+
+@pytest.mark.parametrize(
+    ("old", "new", "named"),
+    [
+        (
+            "| Bottom line | Confidence | Main limitation |",
+            "| Conclusion | Confidence | Limit |",
+            "Reader summary",
+        ),
+        (
+            "| Finding | Creditor impact | Confidence |",
+            "| Item | Effect | Confidence |",
+            "Reader summary",
+        ),
+        ("| Period | Debt maturing |", "| Year | Debt maturing |", "Chart data: debt maturities"),
+    ],
+)
+def test_a_malformed_section_is_named_and_the_handoff_still_parses(old, new, named):
+    fields = store.reader_fields(reader_sections(READER_FIXTURE.read_text().replace(old, new)))
+    assert named in fields["issue"]
+    if "Chart" in named:
+        assert fields["summary"] is not None and len(fields["charts"]) == 3
+    else:
+        assert fields["summary"] is None and len(fields["charts"]) == 4
+
+
+def test_a_malformed_reader_section_reaches_the_workspace_issues(tmp_path):
+    folder = tmp_path / "runs/web-1"
+    folder.mkdir(parents=True)
+    broken = READER_FIXTURE.read_text().replace("| Bottom line |", "| Conclusion |")
+    (folder / "CP-1.md").write_text(broken)
+    catalogue = {
+        "issues": [],
+        "real": [{"id": "web-1", "name": "web-1", "sector": "", "period": "", "artifacts": []}],
+    }
+    result = store.workspace_store(tmp_path, catalogue)
+    assert any("web-1/CP-1.md" in issue and "Reader summary" in issue for issue in result["issues"])
+    output = result["outputs"]["web-1/CP-1.md"]
+    assert output["summary"] is None
+    assert any(s["heading"] == "Chart data: leverage" for s in output["sections"])

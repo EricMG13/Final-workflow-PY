@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from issuer_library_browser import FIXTURE, ROOT, WEB, Screen, design_store, open_app
+from issuer_library_browser import FIXTURE, ROOT, WEB, Screen, js, norm, retained_text
 
 pytestmark = pytest.mark.browser
 
@@ -217,34 +217,8 @@ KEY_D = [
 NORM = "s=>s.replace(/\\*\\*|`/g,'').replace(/\\s+/g,' ').trim()"
 
 
-def norm(text: str) -> str:
-    return re.sub(r"\s+", " ", text.replace("**", "").replace("`", "")).strip()
-
-
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-@pytest.fixture(scope="module")
-def design() -> tuple[dict[str, Any], dict[str, Any]]:
-    return design_store()
-
-
-@pytest.fixture
-def fixture(browser: Any, design: tuple[dict[str, Any], dict[str, Any]]) -> Any:
-    opened: list[Screen] = []
-
-    def factory(
-        hash_route: str = "CP-1/performance", viewport: tuple[int, int] = (1280, 600)
-    ) -> Screen:
-        screen = open_app(browser, hash_route, design[0], design[1], viewport=viewport)
-        opened.append(screen)
-        return screen
-
-    yield factory
-    for screen in opened:
-        assert screen.errors == []
-        screen.close()
 
 
 def search_groups(screen: Screen) -> list[dict[str, Any]]:
@@ -371,10 +345,10 @@ def test_retained_text_is_escaped_before_formatting_and_nothing_is_remote(fixtur
 def test_every_module_primary_view_renders_without_fictitious_values(fixture: Any) -> None:
     screen = fixture()
     ids: list[str] = screen.eval("groups.flatMap(g=>g[1].map(m=>m[0]))")
-    assert len(ids) == 22
+    assert len(ids) == 25
     for module in ids:
         screen.go(module)
-        assert len(screen.content()) > 200, module
+        assert len(screen.content()) > 200 or screen.exists("#content .missing-state"), module
         assert "NaN" not in screen.inner_html("#content"), module
         assert "undefined" not in screen.text("#module-head"), module
     for module, issuer in [
@@ -458,7 +432,7 @@ def test_evidence_cases_are_isolated_and_report_selection_changes_preview_and_or
     )
     assert screen.attr("#report-preview", "sandbox") == "allow-scripts allow-downloads"
     screen.go("W-Library/cases")
-    assert screen.count(".case-list>section") == 3
+    assert screen.count(".case-list tbody.run-list") == 3
 
 
 def test_malformed_and_inherited_object_route_keys_cannot_break_navigation(fixture: Any) -> None:
@@ -476,10 +450,10 @@ def test_an_analytical_verdict_is_not_promoted_to_a_provenance_classification(fi
     assert "Insufficient Information" in last
     assert (
         screen.eval(
-            "document.querySelectorAll('.debate')[2].querySelector('.source-footer .tag').textContent"
+            "document.querySelectorAll('.debate')[2].querySelector('.source-footer .badge')"
         )
-        == "Not classified"
-    )
+        is None
+    ), "an unclassified row shows no tag"
     assert (
         screen.eval(
             "classification({fields:[['Evidence classification','Insufficient Information']]})"
@@ -494,7 +468,7 @@ def test_workspace_tabs_preserve_issuer_and_run_and_never_substitute_another_cas
     fixture: Any,
 ) -> None:
     screen = fixture("CP-2H")
-    for name in ["Calendar", "Deliverables", "Evidence", "Overview", "Modules"]:
+    for name in ["Calendar", "Deliverables", "Evidence", "Summary", "Analysis"]:
         href = screen.eval(
             f"[...document.querySelectorAll('.workspace-tabs a')].find(a=>a.textContent==='{name}').getAttribute('href')"
         )
@@ -502,8 +476,10 @@ def test_workspace_tabs_preserve_issuer_and_run_and_never_substitute_another_cas
         assert screen.text(".issuer h1") == "Ford Otosan", name
         assert screen.eval("current.context") == "ford-otosan-2024", name
         assert not screen.exists("#content iframe"), name
-        if name in ("Calendar", "Deliverables"):
-            assert "remains selected" in screen.content()
+        if name == "Calendar":
+            assert "No dates are inferred from other cases." in screen.content()
+        if name == "Deliverables":
+            assert "No report was built from this run’s files" in screen.content()
     screen.go("CP-1/performance?c=ford-otosan-2024")
     assert screen.exists(".missing-state") and screen.count(".bar-column") == 0
     assert "Inputs only" in screen.text(".missing-state")
@@ -539,7 +515,8 @@ def test_narrative_claims_expose_exact_retained_evidence_without_hard_wrapping(
         "()=>{const b=document.querySelector('.finding .source-link');b.focus();b.click();renderRoute();}"
     )
     assert "2.0" in screen.text("#inspector")
-    assert "Not classified" in screen.text(".finding .tag")
+    assert screen.eval("document.querySelector('.finding .badge')") is None
+    assert screen.text("#inspector .badge.badge-gray.classification") == "Not classified"
     screen.eval("()=>{document.getElementById('back-analysis').click();renderRoute();}")
     assert screen.eval("document.activeElement===document.querySelector('.finding .source-link')")
 
@@ -783,7 +760,7 @@ def test_a_module_with_no_output_shows_no_other_case_and_offers_only_the_same_is
 ) -> None:
     screen = fixture("CP-2H?c=tdg-002")
     assert "No output found" in screen.text("#content .missing-state")
-    screen.eval("document.querySelector('#content .visual-plan').remove()")
+    assert not screen.exists("#content .visual-plan")
     combined = (
         screen.content() + " " + screen.text("#module-list") + " " + screen.text("#section-nav")
     )
@@ -844,7 +821,7 @@ def test_a_render_failure_names_the_new_module_and_shows_an_explicit_gap(fixture
     assert "Couldn’t present this output" in screen.content()
     assert screen.count(".bar-column") == 0
     assert "Forward credit model" in screen.text("#module-head")
-    assert "CP-2G" in screen.eval("document.title")
+    assert "Forward credit model" in screen.eval("document.title")
     assert "CP-2G" in str(screen.attr("#content a[download]", "href"))
     assert screen.eval("window.__logged") == 1
 
@@ -879,9 +856,7 @@ def test_key_c_reports_trace_to_their_source_files_by_hash(fixture: Any) -> None
         numbers = sorted(int(re.search(r"Build (\d)", text).group(1)) for text in built)  # type: ignore[union-attr]
         assert numbers == builds, run
         if not builds:
-            assert (
-                "No report was built from this run’s files (checked by SHA-256)" in screen.content()
-            ), run
+            assert "No report was built from this run’s files" in screen.content(), run
     for route in [
         "W-Reports/list?c=tdg-002",
         "W-Reports/tdg-fy2024-snapshot-3?c=tdg-002",
@@ -938,7 +913,7 @@ def test_cp8_is_the_deliverable_comparison_with_all_retained_rows(fixture: Any) 
     assert screen.eval("current.output") == PIN["CP-8"]
     assert "Deliverable comparison" in screen.text("#module-head")
     assert screen.eval("document.getElementById('output-select').value") == "CP-8.md"
-    text = norm(screen.content())
+    text = retained_text(screen, "#content")
     lines = (ROOT / "runs" / PIN["CP-8"]).read_text(encoding="utf-8").split("\n")
     sections = handoff_rows(lines, "All five report sections")[:5]
     material = handoff_rows(lines, "Material analytical changes")[:9]
@@ -976,10 +951,10 @@ def test_cp8_is_the_deliverable_comparison_with_all_retained_rows(fixture: Any) 
     screen.go("CP-8/gaps")
     assert "Native integration and assurance" in screen.content()
     old = re.compile(r"decision review|attribution|calibration|hit-rate|post-mortem", re.IGNORECASE)
-    plan = screen.eval("visualPlan('CP-8')")
     assert not old.search(text) and not old.search(screen.text("#module-head"))
-    assert not old.search(screen.text("#module-list")) and not old.search(plan)
-    assert screen.page.evaluate("h=>window.__fragment(h,'section').length", plan) == 3
+    assert not old.search(screen.text("#module-list"))
+    cp8 = screen.eval("window.DESIGN_WORKSPACE.visuals.filter(v=>v.module==='CP-8')")
+    assert len(cp8) == 3 and not old.search(json.dumps(cp8))
     assert screen.eval("window.DESIGN_WORKSPACE.visuals.length") == 91
     screen.go("CP-8?c=tdg-run-comparison&o=CP-8-recheck.md")
     assert "RC-3 Critical labels" in screen.content() and screen.count("#content .change-row") == 0
@@ -1063,7 +1038,7 @@ def test_navigation_links_keep_module_identity_and_tabs_keep_the_selected_output
     screen.go(f"CP-1/{section}?c=tdg-003&o=CP-1-attempt-1.md")
     screen.go("W-Evidence/sources?c=tdg-003")
     modules_href = screen.eval(
-        "[...document.querySelectorAll('.workspace-tabs a')].find(a=>a.textContent==='Modules').getAttribute('href')"
+        "[...document.querySelectorAll('.workspace-tabs a')].find(a=>a.textContent==='Analysis').getAttribute('href')"
     )
     assert modules_href.startswith(f"#CP-1/{section}?") and "o=CP-1-attempt-1.md" in modules_href
 
@@ -1181,7 +1156,7 @@ def test_search_finds_figures_and_sources_of_this_run_and_opens_them(fixture: An
     assert groups[0]["hits"][0]["href"] == "#CP-1/performance?c=tdg-002"
     assert (
         groups[0]["hits"][0]["label"]
-        == "Figure: CP-1 · Attempt 2 of 2 T4.10 — Source-supported dashboard"
+        == "Figure: Financial foundation · Attempt 2 of 2 T4.10 — Source-supported dashboard"
     )
     assert "o=CP-1-attempt-1.md" in groups[0]["hits"][1]["href"]
     screen.go(groups[0]["hits"][0]["href"][1:])
@@ -1226,7 +1201,7 @@ def test_search_finds_figures_and_sources_of_this_run_and_opens_them(fixture: An
         for hit in group["hits"]:
             assert "&amp;" not in hit["text"], hit["text"]
     screen.set_value("#module-search", "no output found")
-    assert any("CP-2H" in text for text in screen.texts(".module-item")), "status word"
+    assert any(title == "CP-2H" for title in screen.attrs(".module-item", "title")), "status word"
     screen.go("CP-1?c=ford-otosan-2024")
     screen.set_value("#module-search", "Source-supported dashboard")
     assert search_groups(screen) == [], "another run"
@@ -1236,13 +1211,15 @@ def test_search_finds_figures_and_sources_of_this_run_and_opens_them(fixture: An
     screen.set_value("#module-search", "net sales")
     sources = next(g for g in search_groups(screen) if g["title"].startswith("Sources"))
     assert any(
-        h["label"] == "Reference: CP-1 · Attempt 2 of 2 3 · NET SALES" for h in sources["hits"]
+        h["label"] == "Reference: Financial foundation · Attempt 2 of 2 3 · NET SALES"
+        for h in sources["hits"]
     )
     screen.go("CP-1B?c=tdg-003")
     screen.set_value("#module-search", "Quarterly comparison")
     plotted = search_groups(screen)[0]["hits"][0]
     assert (
-        plotted["label"].startswith("Figure: CP-1B") and "Quarterly comparison" in plotted["text"]
+        plotted["label"].startswith("Figure: Earnings changes")
+        and "Quarterly comparison" in plotted["text"]
     )
     screen.go(plotted["href"][1:])
     assert screen.exists("#content #module-visual")
@@ -1320,3 +1297,393 @@ def test_no_destination_still_calls_itself_a_gallery_or_a_prototype(fixture: Any
         assert not re.search(
             r"screen.design|prototype|gallery|working app", combined, re.IGNORECASE
         ), route
+
+
+REBUILD = "location.hash='W-Settings/workspace';renderRoute();location.hash='W-Library/cases';renderRoute();"
+
+
+def pick(screen: Screen, name: str, value: str) -> None:
+    screen.set_value(f'[data-library-filter="{name}"]', value, "change")
+
+
+def shown(screen: Screen) -> list[str]:
+    return sorted(context_of(str(href)) or "" for href in screen.attrs(".run-list a", "href"))
+
+
+def test_evidence_rows_act_through_labelled_icons_instead_of_repeating_link_words(
+    fixture: Any,
+) -> None:
+    screen = fixture("W-Evidence/sources?c=tdg-002")
+    actions = js(
+        screen,
+        "return [...d.querySelectorAll('.source-inventory>section>div:nth-child(2) a')].map(a=>"
+        "({text:a.textContent.trim(),image:Boolean(a.querySelector('img')),"
+        "label:a.getAttribute('aria-label'),title:a.title}));",
+    )
+    assert len(actions) > 4
+    for action in actions:
+        assert action["text"] == "" and action["image"], action
+        assert re.match(
+            r"^(Open output|Download original handoff|Download original file): CP-",
+            action["label"],
+        )
+        assert action["title"] == action["label"].split(":")[0]
+    labels = [action["label"] for action in actions]
+    assert len(set(labels)) == len(labels), "each icon names its own file"
+
+
+def test_the_white_card_starts_at_the_top_with_no_strip_of_text_above_it(fixture: Any) -> None:
+    screen = fixture("W-Library/cases")
+    assert not screen.exists(".topbar") and not screen.exists("#workspace-name")
+    assert "no model call until you start a run" not in screen.text("body")
+
+
+def test_library_filters_by_recorded_workflow_and_as_of_year_and_keeps_unrecorded_runs_findable(
+    fixture: Any,
+) -> None:
+    screen = fixture("W-Library/cases")
+    screen.eval(
+        "()=>{Object.assign(contexts['tdg-003'],{pathway:'earnings_update',asOf:'2024-12-28'});"
+        "Object.assign(contexts['ford-otosan-2024'],{pathway:'credit_snapshot',asOf:'2021-04-11'});"
+        + REBUILD
+        + "}"
+    )
+    assert screen.texts('[data-library-filter="workflow"] option') == [
+        "Any workflow",
+        "Credit Snapshot",
+        "Earnings Update",
+        "Not recorded",
+    ]
+    assert screen.texts('[data-library-filter="year"] option') == [
+        "Any year",
+        "2024",
+        "2021",
+        "Not recorded",
+    ]
+    pick(screen, "workflow", "earnings_update")
+    assert shown(screen) == ["tdg-003"]
+    assert (
+        js(
+            screen,
+            "return norm(d.querySelector('.run-list a').closest('tr').children[2].textContent);",
+        )
+        == "Earnings Update"
+    )
+    assert screen.eval("document.getElementById('library-clear').disabled") is False
+    pick(screen, "workflow", "none")
+    assert len(shown(screen)) == 6
+    assert "tdg-003" not in shown(screen) and "ford-otosan-2024" not in shown(screen)
+    pick(screen, "workflow", "all")
+    pick(screen, "year", "2021")
+    assert shown(screen) == ["ford-otosan-2024"]
+    pick(screen, "year", "none")
+    assert len(shown(screen)) == 6
+    screen.click("#library-clear")
+    assert len(shown(screen)) == 8
+    assert screen.eval("document.querySelector('[data-library-filter=\"year\"]').value") == "all"
+    screen.set_value("#library-query", "earnings update")
+    assert shown(screen) == ["tdg-003"]
+
+
+def test_the_module_filter_groups_modules_under_the_credit_question_each_one_answers(
+    fixture: Any,
+) -> None:
+    screen = fixture("W-Library/cases")
+    facts = js(
+        screen,
+        "const s=d.querySelector('[data-library-filter=\"module\"]');"
+        "return {groups:s.querySelectorAll('optgroup').length,"
+        "outlook:s.querySelector('option[value=\"CP-2G\"]').parentElement.label,"
+        "financial:s.querySelector('option[value=\"CP-1\"]').parentElement.label};",
+    )
+    assert facts["groups"] > 2
+    assert facts["outlook"] == "Outlook and downside"
+    assert facts["financial"] == "Financial performance"
+
+
+def test_grey_text_app_pages_carry_no_subtitle_run_headers_no_freshness_line(
+    fixture: Any,
+) -> None:
+    screen = fixture("W-Library/cases")
+    assert not screen.exists(".issuer-meta")
+    assert not screen.exists(".nav-help") and not screen.exists(".nav-key")
+    screen.go("CP-1?c=tdg-002")
+    assert (
+        norm(screen.text(".issuer .scope"))
+        == "FY2024 historical evidence · later events separately dated"
+    )
+    assert norm(screen.text("#context-step .intro")) == "Load a saved context or enter the issuer."
+
+
+def test_library_shows_one_row_per_issuer_and_an_issuer_with_several_runs_opens_a_drop_down(
+    fixture: Any,
+) -> None:
+    screen = fixture("W-Library/cases")
+    assert js(
+        screen,
+        "return [...d.querySelectorAll('table.case-list thead th')].map(th=>norm(th.textContent));",
+    ) == ["Issuer", "Run", "Workflow", "Period", "Reports", "Open"]
+    helpers = (
+        "const groups=()=>[...d.querySelectorAll('table.case-list tbody.run-list')];"
+        "const group=name=>groups().find(g=>g.querySelector('h2').textContent===name);"
+        "const cells=row=>[...row.children].slice(1,5).map(c=>norm(c.textContent));"
+    )
+    facts = js(
+        screen,
+        helpers + "const tdg=group('TransDigm Group'),head=tdg.querySelector('tr'),"
+        "toggle=head.querySelector('button.run-toggle'),rows=[...tdg.querySelectorAll('tr.run-row')];"
+        "return {groups:groups().length,ford:cells(group('Ford Otosan').querySelector('tr')),"
+        "badge:head.querySelector('th[scope=\"rowgroup\"] .badge').textContent,head:cells(head),"
+        "expanded:toggle.getAttribute('aria-expanded'),rows:rows.length,allHidden:rows.every(r=>r.hidden),"
+        "controls:toggle.getAttribute('aria-controls').split(' ').sort(),ids:rows.map(r=>r.id).sort()};",
+    )
+    assert facts["groups"] == 3
+    assert facts["ford"] == ["FORD-OTOSAN-2024", "Not recorded", "11 April 2024", "No report"]
+    assert facts["badge"] == "Aerospace & defense"
+    assert facts["head"] == ["6 runs", "Not recorded", "Varies", "7 reports"]
+    assert facts["expanded"] == "false" and facts["rows"] == 6 and facts["allHidden"]
+    assert facts["controls"] == facts["ids"]
+    opened = js(
+        screen,
+        helpers
+        + "const tdg=group('TransDigm Group'),toggle=tdg.querySelector('button.run-toggle');"
+        "toggle.focus();toggle.click();const rows=[...tdg.querySelectorAll('tr.run-row')];"
+        "return {expanded:toggle.getAttribute('aria-expanded'),open:rows.every(r=>!r.hidden),"
+        "focus:d.activeElement===toggle,"
+        "run:cells(d.querySelector('.run-list a[href*=\"c=tdg-002\"]').closest('tr')),"
+        "links:d.querySelectorAll('.run-list a').length};",
+    )
+    assert opened["expanded"] == "true" and opened["open"] and opened["focus"]
+    assert opened["run"] == ["TDG-002", "Not recorded", "FY2024 historical evidence", "7 reports"]
+    assert opened["links"] == 8, "one link per run"
+    screen.eval("()=>{" + REBUILD + "}")
+    assert (
+        js(
+            screen,
+            helpers
+            + "return group('TransDigm Group').querySelector('button.run-toggle').getAttribute('aria-expanded');",
+        )
+        == "true"
+    ), "the drop-down stays open on return"
+    screen.eval("()=>{contexts['frontier-2020'].sector='Unclassified';" + REBUILD + "}")
+    sector = js(
+        screen,
+        helpers + "return {badge:group('Frontier').querySelector('.badge').textContent,"
+        "option:[...d.querySelectorAll('[data-library-filter=\"sector\"] option')]"
+        ".some(o=>o.value==='Unclassified'&&o.textContent==='Not recorded')};",
+    )
+    assert sector == {"badge": "Sector not recorded", "option": True}
+
+
+def test_active_library_filters_show_as_removable_chips_and_clear_all_appears_only_when_filtered(
+    fixture: Any,
+) -> None:
+    screen = fixture("W-Library/cases")
+    assert screen.hidden("library-clear") is True and screen.count("#library-chips .chip") == 0
+    pick(screen, "sector", "Automotive")
+    assert screen.hidden("library-clear") is False
+    assert screen.eval(
+        "document.querySelector('[data-library-filter=\"sector\"]').classList.contains('active')"
+    )
+    assert norm(screen.text("#library-chips .chip")) == "Sector: Automotive"
+    assert screen.attr("#library-chips .chip button", "aria-label") == "Remove Sector filter"
+    screen.click("#library-chips .chip button")
+    after = js(
+        screen,
+        "const s=d.querySelector('[data-library-filter=\"sector\"]');"
+        "return {value:s.value,links:d.querySelectorAll('.run-list a').length,"
+        "chips:d.querySelectorAll('#library-chips .chip').length,focus:d.activeElement===s,"
+        "clear:d.getElementById('library-clear').hidden,active:s.classList.contains('active')};",
+    )
+    assert after == {
+        "value": "all",
+        "links": 8,
+        "chips": 0,
+        "focus": True,
+        "clear": True,
+        "active": False,
+    }
+
+
+def test_new_run_and_settings_use_the_shared_secondary_button_for_their_other_actions(
+    fixture: Any,
+) -> None:
+    screen = fixture("W-NewRun/run")
+    ids = ["edit-context", "revise-run", "another-run"]
+    screen.eval("()=>{location.hash='W-Settings/workspace';renderRoute();}")
+    ids += ["refresh-library", "quit-library"]
+    for element in ids:
+        classes = screen.eval(f"[...document.getElementById('{element}').classList]")
+        assert "secondary-action" in classes and "text-button" not in classes, element
+
+
+def test_review_w1_a_run_folder_with_a_space_still_opens_its_issuer_drop_down(
+    fixture: Any,
+) -> None:
+    screen = fixture("W-Library/cases")
+    screen.eval(
+        "()=>{contexts['tdg 005']={...contexts['tdg-002'],folder:'tdg 005',run:'TDG 005'};"
+        + REBUILD
+        + "}"
+    )
+    facts = js(
+        screen,
+        "const tdg=[...d.querySelectorAll('tbody.run-list')].find(g=>g.querySelector('h2').textContent==='TransDigm Group');"
+        "const toggle=tdg.querySelector('button.run-toggle'),rows=[...tdg.querySelectorAll('tr.run-row')];"
+        "let threw=false;try{toggle.click();}catch(e){threw=true;}"
+        "return {rows:rows.length,spaces:rows.some(r=>/\\s/.test(r.id)),threw,"
+        "expanded:toggle.getAttribute('aria-expanded'),open:rows.every(r=>!r.hidden)};",
+    )
+    assert facts == {"rows": 7, "spaces": False, "threw": False, "expanded": "true", "open": True}
+
+
+def test_review_w2_a_recorded_as_of_that_is_not_a_full_date_still_gives_its_year(
+    fixture: Any,
+) -> None:
+    screen = fixture("W-Library/cases")
+    screen.eval("()=>{contexts['tdg-003'].asOf='2024-12';" + REBUILD + "}")
+    assert "2024" in screen.eval(
+        "[...document.querySelector('select[data-library-filter=\"year\"]').options].map(o=>o.value)"
+    )
+    screen.eval(
+        "()=>{document.querySelector('select[data-library-filter=\"year\"]').value='2024';updateLibraryResults();}"
+    )
+    assert screen.texts(".run-list a.run-link") == ["TDG-003"]
+
+
+def test_review_w3_icon_action_escapes_the_link_it_is_given(fixture: Any) -> None:
+    screen = fixture("W-Library/cases")
+    facts = js(
+        screen,
+        "d.body.insertAdjacentHTML('beforeend',iconAction('Open','x','a\"b<c','arrow-right'));"
+        "const a=d.body.lastElementChild;const first={href:a.getAttribute('href'),"
+        "label:a.getAttribute('aria-label'),download:a.hasAttribute('download')};"
+        "d.body.insertAdjacentHTML('beforeend',iconAction('Save','y','f.md','download',true));"
+        "return {first,second:d.body.lastElementChild.hasAttribute('download')};",
+    )
+    assert facts == {
+        "first": {"href": 'a"b<c', "label": "Open: x", "download": False},
+        "second": True,
+    }
+
+
+def test_content_labels_use_the_shared_grey_badge_not_a_separate_tag_style(fixture: Any) -> None:
+    screen = fixture()
+    for route in [
+        "W-Overview/overview?c=tdg-002",
+        "W-Evidence/sources?c=tdg-002",
+        "W-Reports/list",
+        "CP-4/s75",
+        "CP-6",
+    ]:
+        screen.go(route)
+        assert screen.count(".tag") == 0, route
+    screen.go("W-Evidence/sources?c=ford-otosan-2024")
+    assert screen.count(".tag") == 0
+    assert "Input" in screen.texts(".source-inventory .badge.badge-gray"), (
+        "input files carry a badge"
+    )
+
+
+def test_grey_text_evidence_rows_name_only_the_attempt_and_the_intro_states_the_pdf_limit(
+    fixture: Any,
+) -> None:
+    screen = fixture("W-Evidence/sources?c=tdg-002")
+    assert (
+        norm(screen.text("#content .intro"))
+        == "Source PDFs aren’t included; page references point to the originals."
+    )
+    assert norm(screen.text("#content .source-inventory>section p")) == "Attempt 1 of 2"
+    assert "Saved output" not in screen.texts("#content .source-inventory .badge")
+
+
+def test_grey_text_run_pages_drop_state_narration_hash_notes_design_specs_and_empty_classes(
+    fixture: Any,
+) -> None:
+    screen = fixture("W-Reports/list?c=tdg-002")
+    assert norm(screen.text("#content .intro")) == "7 reports built from TDG-002’s files."
+    assert not screen.exists("#content .report-row small")
+    screen.go("W-Reports/tdg-fy2024-snapshot-3?c=tdg-002")
+    assert "remains selected" not in screen.content()
+    screen.go("CP-OS/activity?c=tdg-002")
+    content = screen.content()
+    assert "No live progress or cost recorded for this run." in content
+    assert "9 saved outputs" in content
+    assert not re.search(r"source identity|SHA-256|historical selection", content)
+    screen.go("W-Calendar/unavailable?c=tdg-003")
+    assert not screen.exists("#content .context-note") and not screen.exists(
+        "#content .matrix-note"
+    )
+    screen.go("CP-1?c=tdg-002")
+    assert "Source order preserved" not in screen.content()
+    screen.go("W-Overview/overview?c=tdg-002")
+    assert "Not classified" not in screen.content()
+    assert [norm(t) for t in screen.texts("#content .matrix-note")] == [
+        "Missing values have no bar."
+    ]
+    assert not screen.exists("#content .chart-legend")
+    labels = js(
+        screen,
+        "return [...d.querySelectorAll('#content .horizontal-chart .chart-label')].map(l=>norm("
+        "[...l.childNodes].filter(n=>!n.classList?.contains('sr-only')&&n.tagName!=='SMALL')"
+        ".map(n=>n.textContent).join('')));",
+    )
+    assert labels[:4] == ["Base", "", "", "Demand and margin pressure"]
+    screen.go("CP-MODEL/publication?c=tdg-002")
+    assert not screen.exists("#content .visual-plan")
+    assert "delivery metadata" not in screen.content()
+    screen.go("CP-2H?c=tdg-002")
+    assert not screen.exists("#content .visual-plan")
+    screen.go("CP-2?c=tdg-003")
+    assert (
+        norm(screen.text("#content .missing-state p"))
+        == "3 versions of this analysis. Choose one to read."
+    )
+    screen.go("W-Help/help")
+    assert "Visualisation coverage" not in screen.content()
+
+
+def test_the_run_header_names_the_issuer_its_run_and_period_on_one_line_and_tabs_mark_the_current(
+    fixture: Any,
+) -> None:
+    screen = fixture("W-Overview/overview?c=tdg-002")
+    assert screen.text(".issuer h1") == "TransDigm Group"
+    assert screen.text(".issuer .issuer-meta .code") == "TDG-002"
+    assert screen.attr(".issuer .issuer-meta a", "href") == "#W-Library/cases"
+    assert screen.exists('.issuer .scope img[src$="calendar-days.svg"]'), "the period has an icon"
+    assert screen.texts('.workspace-tabs a[aria-current="page"]') == ["Summary"]
+
+
+def test_the_library_says_what_it_is_once_and_puts_new_run_beside_its_title(fixture: Any) -> None:
+    screen = fixture("W-Library/cases")
+    assert not screen.exists(".issuer-meta"), "the title stands alone"
+    assert not screen.exists("#content .intro"), "no second introduction"
+    assert screen.eval("Boolean(document.getElementById('library-new-run').closest('.issuer'))")
+    assert screen.attr(".issuer .secondary-action", "href") == "#W-Reports/list"
+    assert norm(screen.text(".issuer .secondary-action")) == "All deliverables"
+    assert not screen.exists(".library-result-meta")
+    assert screen.attr("#library-new-run", "href") == "#W-NewRun/run"
+    assert "separate runs" not in screen.text("#library-results")
+    assert not screen.exists("#content .matrix-note"), "no footnote under the list"
+
+
+def test_the_module_filter_names_each_module_once(fixture: Any) -> None:
+    screen = fixture("W-Library/cases")
+    options = js(
+        screen,
+        "return [...d.querySelectorAll('[data-library-filter=\"module\"] option')].slice(1)"
+        ".map(o=>({value:o.value,text:o.textContent,label:moduleLabel(o.value)}));",
+    )
+    assert len(options) > 5
+    for option in options:
+        assert option["text"] == option["label"], option["value"]
+
+
+def test_a_source_footer_leaves_the_line_number_to_the_inspector(fixture: Any) -> None:
+    screen = fixture("CP-2/assessment")
+    footers = screen.texts("#content .source-footer")
+    assert footers and not any(re.search(r"Line \d", text) for text in footers)
+    screen.eval(
+        "()=>{document.querySelector('#content .source-footer .source-link').click();renderRoute();}"
+    )
+    assert re.search(r"Line \d+", screen.text(".evidence-context"))

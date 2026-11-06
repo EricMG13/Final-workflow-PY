@@ -8,6 +8,39 @@ contains the settled CP-6 timeout cost, the corrected TDG annual publication, th
 live CP-8 comparison and checks of the five broader report bundles. The older
 entries below retain their historical case scope.
 
+## 2026-11-06 — Python variant: sync with the Go original, `40edb62` to `579b55b`
+
+Scope: the Issuer Library of this variant after merging `final-workflow` `main` (35 commits:
+the reader layer, the Library redesign, the validation command, one CP-8 live comparison). No
+Go server file changed upstream, so the server API is unchanged. No predecessor folder or
+retained run was edited; upstream's new run folders came in as they are.
+
+- Taken as they are: the web files, `engine/store.py`, `reader_summary.py`, the launcher change and
+  their tests. The three Node suites that this variant removed changed upstream. Their new
+  checks are ported: 17 design checks in `tests/test_issuer_library_design.py`, 22 reader and
+  Summary checks in `tests/test_issuer_library_reader.py`, two report preview checks and the new
+  Review step names in `tests/test_issuer_library_app.py`, and the changed expected values in
+  existing checks. Against the old web files, 31 of 33 sampled new checks fail, so they test the
+  new behaviour. The two that pass test unchanged behaviour.
+- Adapted for this variant: `validate.py` runs the Python and browser gates instead of Node and Go
+  (the `full` gate has no mypy step: eight existing errors in `platform_io.py` would fail it);
+  `designs/browser_check.py` starts `python -m issuer_library` and takes a Chromium path from
+  `ISSUER_LIBRARY_CHROMIUM`; `designs/fake_engine/store.py` is loaded in process.
+- Upstream defect found and repaired in this variant only: `designs/fake_engine/bridge.py` lacked the
+  opening view that the launcher began to require on 2026-11-06, so the fake-provider run stopped at
+  CP-0. The bridge now inserts the view from the launcher's own table. The original repository has
+  the same stale bridge. This was found with the Python server, not caused by it.
+
+Verification on this Linux host:
+
+- `validate.py quick`: browser tests 145 passed; Python gate 333 passed and 1 failed. The failure is
+  `test_one_unreadable_run_or_report_does_not_take_the_library_down`, which uses `chmod 0` and
+  fails the same way on `main` because this session runs as root.
+- `designs/browser_check.py chromium`, offline fake provider, all 44 retained run folders: 64 passed,
+  0 failed. Firefox was not run. This is not layout or visual acceptance.
+- `ruff check` and `ruff format --check`: clean on the changed files.
+- Not verified: Windows launch, the packaged runtime, paid execution, Firefox.
+
 ## 2026-11-05 — Issuer Library: Python/FastAPI server replaces Go; browser checks replace Node
 
 Scope: `apps/issuer-library`, `src/issuer_library`, `tests/test_issuer_library_*.py`, the
@@ -21,8 +54,8 @@ packaging scripts and the two READMEs. No run, deliverable or predecessor folder
   load; `bridge.py` and `store.py` are otherwise unchanged. Windows known folders come from
   `SHGetKnownFolderPath` through ctypes, the browser from `webbrowser`, launch errors from a
   message box; none of these Windows paths has been exercised on this Linux host.
-- Deliberate differences: `ISSUER_LIBRARY_PYTHON` and `ISSUER_LIBRARY_ENGINE_ROOT` are gone (the
-  engine is found beside the package and the worker uses the server's interpreter); an empty
+- Deliberate differences: `ISSUER_LIBRARY_PYTHON` is gone (the worker uses the server's
+  interpreter) and `ISSUER_LIBRARY_ENGINE_ROOT` is read only to serve an offline fake engine; an empty
   metric `provenance` is emitted as `""` instead of omitted; one byte range per request; a POST
   to an unknown `/api/runs/` path answers 405 instead of 404; the report presentation lowercases
   ASCII only when it looks for `</body>`, so a non-ASCII report cannot shift the insertion point.
@@ -5205,3 +5238,75 @@ passed. Exact prior earnings, quality/debt and assurance publications also verif
 unchanged. The actual changed definitions are limited to dependencies/plan,
 run_handoffs, MarkdownLayout and markdown_files. Older run/source directories and
 predecessors were not edited. Overall modules/aliases/pathways goal remains active.
+
+## Issuer Library reader layer, 2026-11-05 (macOS only)
+
+Plan: `docs/superpowers/plans/2026-11-05-issuer-library-reader-update.md`, Checkpoint A.
+Reader pages now show module names and open each run on a Summary. No method, prompt,
+retained run or deliverable changed; no provider was called. `validate.py full` and
+`validate.py browser` passed on Chromium and Firefox with synthetic and retained data.
+Windows behaviour and the owner's screen acceptance are not yet checked: the rebuilt
+zips reused the pinned engines and have not been run on Windows.
+
+## Issuer Library reader layer, live check, 2026-11-06 (macOS only)
+
+Plan Task 10, Checkpoint C. Owner approved the paid run in chat (USD 12 cap). Run
+`runs/web-04cd5a5d02ea7d1dea714a8a6632cd21`: TransDigm Group Incorporated, as of
+2024-09-30, `credit_snapshot`, modules CP-0, CP-1, CP-1A, config `sol-medium`
+(openai gpt-6.1-sol, medium), context `runs/cpos-launch-live-002/context.json`,
+issuer folder `data/public-corpus/v1/TDG` (5 SEC filings). Driven through the app's
+New run with Playwright on the PR #8 build, started 00:16, complete 00:25.
+Spend USD 0.8792 (31 calls); 0 repair rounds in every module; USD 12 cap and USD 5.73
+hold per call shown on the review. Report written; Summary shows the Reader summary
+bottom line and four chart cards; every handoff opens `## Findings` with
+`### Reader summary` then the module's view, as ruled on 2026-11-06.
+
+Chart marks against `cases/reader/tdg-expected.json` (frozen before the call):
+- S.4 debt maturities: all six periods equal the key (93, 92, 92, 6,637, 4,768, 12,637).
+- S.3 liquidity: cash 6,261 / 3,472 and FY2024 undrawn 843 equal the key. FY2023
+  undrawn 755 where the key has a gap: the 10-K states it ("$810 million in revolving
+  commitments, of which $755 million was available", page 152). The key omitted a
+  stated value; the key file is left as frozen and this is recorded instead.
+- S.1 leverage and S.2 interest cover: on another stated basis, so compared with that
+  basis's own inputs, as the pass rule says. Chart: gross contractual debt incl.
+  securitization and finance leases (25,068 / 19,913) over reported EBITDA (3,813 /
+  3,148): 6.5744x, 6.3256x; net 4.9323x, 5.2227x; coverage 3.2927x, 2.7138x. Arithmetic
+  verified. The key's basis (carrying debt 24,880 / 19,750 over EBITDA As Defined
+  4,173 / 3,395) also appears in the handoff's calculation table: 6.0072x gross,
+  4.5068x net, 3.6036x / 2.9267x coverage; the key's 5.96x / 4.46x / 3.60x / 2.93x use
+  carrying debt, so they differ from the handoff's gross-debt rows by the stated
+  188 / 163 of issuance costs and discount. No value is wrong; the chart selector does
+  not name a debt or EBITDA basis, so the model chose one and stated it.
+- Reader summary numbers: accepted by the checker, which refuses a number absent
+  from the handoff.
+
+CP-8 comparison (Step 6), owner approved in chat ("Yes, run CP-8"), ruling
+`docs/rulings/2026-11-06-reader-cp8-comparison.md`. Run
+`runs/cpos-tdg-reader-comparison-001` through `cpos.run_live_comparison` (sol-medium,
+USD 12 cap, one outer attempt): prior = `runs/cpos-launch-live-002` delivery
+`ce11d9e8…` (launcher run of 2026-11-05, before the reader layer), current = the web run's
+delivery `278856a3…`. Both bundles passed the receipt, hash and HTML/view binding
+checks; the answer passed the seven-dimension check and both receipt-hash anchors with
+no repair (`1.review.json` issues: []). Spend USD 0.4073 (4 calls). Report
+`execution/deliveries/ae46523f…/report.html`, handoff sha256 `103ba95e…`.
+CP-8's answer: Values unchanged (revenue 7,940 / 6,585, EBITDA 3,813 / 3,148, As
+Defined 4,173 / 3,395, cash 6,261 / 3,472, gross debt 25,068 / 19,913, maturities
+24,319 all equal); ratio differences are basis choices and display precision, not
+corrections (current foregrounds ordinary EBITDA and cash interest; prior's F3 already
+showed 6.57x / 6.33x on that basis). Periods and the subsequent-event boundary
+unchanged. Assumptions: same debt/cash perimeter; liquidity chart uses revolver
+availability 843 / 755 only. Conclusions: core interpretation unchanged; current adds
+a qualitative governance "High" label and more caution (analytical judgment, not a new
+event). Sources: same five issuer files and hashes; only the context file changed.
+Limitations: the prior 30 / 16 cash-flow classification difference is not shown
+resolved by the current "no unresolved CFO reconciliation" wording (unresolved, carried
+to the owner). Output scope: presentation and scope expansion (CP-0 refreshed, Reader
+summaries, chart strip, title "Issuer report"); neither bundle publishes a Model,
+charts file or calculation JSON. CP-8 sampled the large view/report/HTML files; it
+read all six handoffs and both receipts in full.
+
+Decision table: spend USD 0.8792 + 0.4073 below USD 1.86, no repair round, and CP-8
+reports no lost value, so Checkpoint C closes. This proves one dated TDG scope only.
+Not verified: Windows; the three scenario-path, hedge and revenue-mix chart kinds (no
+run holds them); the 30 / 16 classification wording in the current CP-1 (an analytical
+point, not a reader-layer defect).

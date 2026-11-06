@@ -7,6 +7,7 @@ from collections.abc import Iterator
 from typing import Any
 
 import pytest
+from issuer_library_browser import Screen, design_store, open_app
 
 
 @pytest.fixture(scope="session")
@@ -22,3 +23,26 @@ def browser() -> Iterator[Any]:
             pytest.skip(f"Chromium is unavailable: {error}")
         yield instance
         instance.close()
+
+
+@pytest.fixture(scope="module")
+def design() -> tuple[dict[str, Any], dict[str, Any]]:
+    return design_store()
+
+
+@pytest.fixture
+def fixture(browser: Any, design: tuple[dict[str, Any], dict[str, Any]]) -> Iterator[Any]:
+    """Open the curated design fixture at a route; every page must end without errors."""
+    opened: list[Screen] = []
+
+    def factory(
+        hash_route: str = "CP-1/performance", viewport: tuple[int, int] = (1280, 600)
+    ) -> Screen:
+        screen = open_app(browser, hash_route, design[0], design[1], viewport=viewport)
+        opened.append(screen)
+        return screen
+
+    yield factory
+    for screen in opened:
+        assert screen.errors == []
+        screen.close()

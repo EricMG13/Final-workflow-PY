@@ -116,7 +116,9 @@ class Engine:
 
 
 def local_engine() -> Engine:
-    return Engine(root=engine_root())
+    # ISSUER_LIBRARY_ENGINE_ROOT lets an offline check serve a fake engine; the launcher sets it.
+    override = os.environ.get("ISSUER_LIBRARY_ENGINE_ROOT")
+    return Engine(root=Path(override) if override else engine_root())
 
 
 def json_response(value: Any, status: int = 200) -> Response:

@@ -1,0 +1,120 @@
+{
+  "scope": "Historical TDG FY2024 10-K, as of 2024-09-30. Frozen before any paid call. Read from the filing's visible text, not from any handoff. This key proves one dated TDG case only.",
+  "source": "TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm.jsonl",
+  "source_sha256": "fe8e1ae9f3fa8c44445b21396c0423153ae9cf80ef6e8c908574d84a63e14121",
+  "pass_rule": "A chart mark passes when it equals this key for its period, or is a stated gap. A ratio on another stated basis, such as principal debt, is compared with that basis's own inputs and reported, not silently accepted.",
+  "inputs": {
+    "total_debt": {
+      "label": "Total debt (carrying; includes issuance costs, discount and premium)",
+      "FY2024": "24,880",
+      "FY2023": "19,750",
+      "unit": "USD millions",
+      "page": 52,
+      "stated": true
+    },
+    "cash": {
+      "label": "Cash and cash equivalents",
+      "FY2024": "6,261",
+      "FY2023": "3,472",
+      "unit": "USD millions",
+      "page": 52,
+      "stated": true
+    },
+    "ebitda": {
+      "label": "EBITDA As Defined",
+      "FY2024": "4,173",
+      "FY2023": "3,395",
+      "unit": "USD millions",
+      "page": 71,
+      "stated": true
+    },
+    "cash_interest": {
+      "label": "Cash paid during the period for interest, net",
+      "FY2024": "1,158",
+      "FY2023": "1,160",
+      "unit": "USD millions",
+      "page": 123,
+      "stated": true
+    },
+    "undrawn": {
+      "label": "Borrowings available under the revolving commitments",
+      "FY2024": "843",
+      "FY2023": null,
+      "unit": "USD millions",
+      "page": 59,
+      "stated": true,
+      "note": "FY2023 availability is not stated in this filing."
+    }
+  },
+  "figures": {
+    "S.1": {
+      "title": "Leverage",
+      "unit": "x",
+      "basis": "Hand-calculated to 2 decimals from stated inputs: total debt / EBITDA As Defined; (total debt - cash) / EBITDA As Defined.",
+      "rows": {
+        "FY2023": {
+          "Total debt / EBITDA": "5.82",
+          "Net debt / EBITDA": "4.79"
+        },
+        "FY2024": {
+          "Total debt / EBITDA": "5.96",
+          "Net debt / EBITDA": "4.46"
+        }
+      }
+    },
+    "S.2": {
+      "title": "Interest cover",
+      "unit": "x",
+      "basis": "Hand-calculated to 2 decimals from stated inputs: EBITDA As Defined / cash interest paid.",
+      "rows": {
+        "FY2023": {
+          "EBITDA / cash interest": "2.93"
+        },
+        "FY2024": {
+          "EBITDA / cash interest": "3.60"
+        }
+      }
+    },
+    "S.3": {
+      "title": "Liquidity",
+      "unit": "US$m",
+      "basis": "Stated.",
+      "rows": {
+        "FY2023": {
+          "Cash": "3,472",
+          "Undrawn committed facilities": null
+        },
+        "FY2024": {
+          "Cash": "6,261",
+          "Undrawn committed facilities": "843"
+        }
+      }
+    },
+    "S.4": {
+      "title": "Debt maturities",
+      "unit": "US$m",
+      "basis": "Stated, page 153: future maturities of long-term debt, excluding finance leases.",
+      "page": 153,
+      "rows": {
+        "FY2025": {
+          "Debt maturing": "93"
+        },
+        "FY2026": {
+          "Debt maturing": "92"
+        },
+        "FY2027": {
+          "Debt maturing": "92"
+        },
+        "FY2028": {
+          "Debt maturing": "6,637"
+        },
+        "FY2029": {
+          "Debt maturing": "4,768"
+        },
+        "Thereafter": {
+          "Debt maturing": "12,637"
+        }
+      }
+    }
+  }
+}

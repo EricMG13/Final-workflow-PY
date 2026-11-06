@@ -1,0 +1,1557 @@
+{
+  "schema_version": "view/4",
+  "run": {
+    "schema_version": "run/2",
+    "run_id": "tdg-reader-cp8-comparison-20261106",
+    "issuer_id": "tdg",
+    "issuer_name": "TransDigm Group Incorporated",
+    "as_of": "2024-09-30",
+    "method_version": "deploy-v-r14",
+    "case_kind": "public",
+    "pathway": "credit_snapshot",
+    "requested_modules": [
+      "CP-8"
+    ]
+  },
+  "mode": "candidate",
+  "modules": [
+    {
+      "module_id": "CP-8",
+      "title": "Run deliverable comparison",
+      "aliases": [],
+      "status": "candidate",
+      "artifact_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+      "facts": [
+        {
+          "fact_id": "raw-CP-8-0.r0.c0",
+          "label": "Values",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r0",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-1 chunks 1–2, “Financials and credit metrics”: FY2024/FY2023 revenue 7,940/6,585; EBITDA 3,813/3,148; EBITDA As Defined 4,173/3,395; cash 6,261/3,472; gross debt 25,068/19,913; gross-basis net debt 18,807/16,441, all USD millions. Primary displayed adjusted gross/net leverage 6.01x/4.51x for FY2024; adjusted EBITDA/net accrual interest 3.24x.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 36",
+              "quote": "| Values | CP-1 chunks 1–2, “Financials and credit metrics”: FY2024/FY2023 revenue 7,940/6,585; EBITDA 3,813/3,148; EBITDA As Defined 4,173/3,395; cash 6,261/3,472; gross debt 25,068/19,913; gross-basis net debt 18,807/16,441, all USD millions. Primary displayed adjusted gross/net leverage 6.01x/4.51x for FY2024; adjusted EBITDA/net accrual interest 3.24x. | CP-1 chunks 1–2, same financial heading, repeats those annual amounts. “Reader summary” and “Chart data: leverage/interest cover” emphasize ordinary issuer EBITDA: FY2024 gross/net leverage 6.5744x/4.9323x and EBITDA/net cash interest 3.2927x. Adjusted leverage remains 6.0072x/4.5068x. | Accounting values are **unchanged**. Ratio differences are principally **basis choices/analytical judgment**, with two- versus four-decimal **presentation** precision, not numerical corrections. Coverage changes both earnings and interest definitions. Detailed operands below prevent false like-for-like comparisons. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r0.c1",
+          "label": "Values",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r0",
+          "field": "c1",
+          "amount": null,
+          "text": "CP-1 chunks 1–2, same financial heading, repeats those annual amounts. “Reader summary” and “Chart data: leverage/interest cover” emphasize ordinary issuer EBITDA: FY2024 gross/net leverage 6.5744x/4.9323x and EBITDA/net cash interest 3.2927x. Adjusted leverage remains 6.0072x/4.5068x.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 36",
+              "quote": "| Values | CP-1 chunks 1–2, “Financials and credit metrics”: FY2024/FY2023 revenue 7,940/6,585; EBITDA 3,813/3,148; EBITDA As Defined 4,173/3,395; cash 6,261/3,472; gross debt 25,068/19,913; gross-basis net debt 18,807/16,441, all USD millions. Primary displayed adjusted gross/net leverage 6.01x/4.51x for FY2024; adjusted EBITDA/net accrual interest 3.24x. | CP-1 chunks 1–2, same financial heading, repeats those annual amounts. “Reader summary” and “Chart data: leverage/interest cover” emphasize ordinary issuer EBITDA: FY2024 gross/net leverage 6.5744x/4.9323x and EBITDA/net cash interest 3.2927x. Adjusted leverage remains 6.0072x/4.5068x. | Accounting values are **unchanged**. Ratio differences are principally **basis choices/analytical judgment**, with two- versus four-decimal **presentation** precision, not numerical corrections. Coverage changes both earnings and interest definitions. Detailed operands below prevent false like-for-like comparisons. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r0.c2",
+          "label": "Values",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r0",
+          "field": "c2",
+          "amount": null,
+          "text": "Accounting values are unchanged. Ratio differences are principally basis choices/analytical judgment, with two- versus four-decimal presentation precision, not numerical corrections. Coverage changes both earnings and interest definitions. Detailed operands below prevent false like-for-like comparisons.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 36",
+              "quote": "| Values | CP-1 chunks 1–2, “Financials and credit metrics”: FY2024/FY2023 revenue 7,940/6,585; EBITDA 3,813/3,148; EBITDA As Defined 4,173/3,395; cash 6,261/3,472; gross debt 25,068/19,913; gross-basis net debt 18,807/16,441, all USD millions. Primary displayed adjusted gross/net leverage 6.01x/4.51x for FY2024; adjusted EBITDA/net accrual interest 3.24x. | CP-1 chunks 1–2, same financial heading, repeats those annual amounts. “Reader summary” and “Chart data: leverage/interest cover” emphasize ordinary issuer EBITDA: FY2024 gross/net leverage 6.5744x/4.9323x and EBITDA/net cash interest 3.2927x. Adjusted leverage remains 6.0072x/4.5068x. | Accounting values are **unchanged**. Ratio differences are principally **basis choices/analytical judgment**, with two- versus four-decimal **presentation** precision, not numerical corrections. Coverage changes both earnings and interest definitions. Detailed operands below prevent false like-for-like comparisons. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r1.c0",
+          "label": "Periods",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r1",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-1 chunk 1, “Source context and extraction boundaries”: FY2024 2023-10-01–2024-09-30; FY2023 2022-10-01–2023-09-30; September 30 balance-sheet instants. CP-1A chunk 2 dates October 16 drawing and October 18 payment as subsequent events, and November 7, 2024 audit date.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 37",
+              "quote": "| Periods | CP-1 chunk 1, “Source context and extraction boundaries”: FY2024 2023-10-01–2024-09-30; FY2023 2022-10-01–2023-09-30; September 30 balance-sheet instants. CP-1A chunk 2 dates October 16 drawing and October 18 payment as subsequent events, and November 7, 2024 audit date. | CP-1 chunk 1, “Common financial scope,” retains the same durations/instants; CP-1A chunk 2 retains October 2024 payment/drawing as subsequent, with less day-level specificity. CP-0 chunk 1 retains the November 7, 2024 audit signature. | **Unchanged financial periods and subsequent-event boundary**; reduced day-level detail is a **presentation change**, not changed event timing. The one-day execution-date difference in November 2026 is not a new accounting observation. December 2024 operations remain outside the annual base on both sides. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r1.c1",
+          "label": "Periods",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r1",
+          "field": "c1",
+          "amount": null,
+          "text": "CP-1 chunk 1, “Common financial scope,” retains the same durations/instants; CP-1A chunk 2 retains October 2024 payment/drawing as subsequent, with less day-level specificity. CP-0 chunk 1 retains the November 7, 2024 audit signature.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 37",
+              "quote": "| Periods | CP-1 chunk 1, “Source context and extraction boundaries”: FY2024 2023-10-01–2024-09-30; FY2023 2022-10-01–2023-09-30; September 30 balance-sheet instants. CP-1A chunk 2 dates October 16 drawing and October 18 payment as subsequent events, and November 7, 2024 audit date. | CP-1 chunk 1, “Common financial scope,” retains the same durations/instants; CP-1A chunk 2 retains October 2024 payment/drawing as subsequent, with less day-level specificity. CP-0 chunk 1 retains the November 7, 2024 audit signature. | **Unchanged financial periods and subsequent-event boundary**; reduced day-level detail is a **presentation change**, not changed event timing. The one-day execution-date difference in November 2026 is not a new accounting observation. December 2024 operations remain outside the annual base on both sides. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r1.c2",
+          "label": "Periods",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r1",
+          "field": "c2",
+          "amount": null,
+          "text": "Unchanged financial periods and subsequent-event boundary; reduced day-level detail is a presentation change, not changed event timing. The one-day execution-date difference in November 2026 is not a new accounting observation. December 2024 operations remain outside the annual base on both sides.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 37",
+              "quote": "| Periods | CP-1 chunk 1, “Source context and extraction boundaries”: FY2024 2023-10-01–2024-09-30; FY2023 2022-10-01–2023-09-30; September 30 balance-sheet instants. CP-1A chunk 2 dates October 16 drawing and October 18 payment as subsequent events, and November 7, 2024 audit date. | CP-1 chunk 1, “Common financial scope,” retains the same durations/instants; CP-1A chunk 2 retains October 2024 payment/drawing as subsequent, with less day-level specificity. CP-0 chunk 1 retains the November 7, 2024 audit signature. | **Unchanged financial periods and subsequent-event boundary**; reduced day-level detail is a **presentation change**, not changed event timing. The one-day execution-date difference in November 2026 is not a new accounting observation. December 2024 operations remain outside the annual base on both sides. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r2.c0",
+          "label": "Assumptions",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r2",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-1 chunks 2–4, bridges E/F/G: gross debt includes finance leases, refundable advances and securitization; excludes operating leases; all reported consolidated cash is netted without access certification; actual annual earnings, no acquisition annualization. Adjusted earnings receive greater display prominence.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 38",
+              "quote": "| Assumptions | CP-1 chunks 2–4, bridges E/F/G: gross debt includes finance leases, refundable advances and securitization; excludes operating leases; all reported consolidated cash is netted without access certification; actual annual earnings, no acquisition annualization. Adjusted earnings receive greater display prominence. | CP-1 chunks 1–4, “Financial base view,” chart tables and ratio bridges: same debt/cash perimeter; ordinary net-income-based issuer EBITDA becomes primary. Liquidity chart uses revolving availability only, 843/755, excluding conditional securitization capacity. | **Analytical judgment and presentation/basis expansion**, not new source facts. Neither run proves unrestricted cash, covenant EBITDA, normalized earnings or a borrower-only perimeter. Revolver-only chart headroom is not the prior total liquidity metric. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r2.c1",
+          "label": "Assumptions",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r2",
+          "field": "c1",
+          "amount": null,
+          "text": "CP-1 chunks 1–4, “Financial base view,” chart tables and ratio bridges: same debt/cash perimeter; ordinary net-income-based issuer EBITDA becomes primary. Liquidity chart uses revolving availability only, 843/755, excluding conditional securitization capacity.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 38",
+              "quote": "| Assumptions | CP-1 chunks 2–4, bridges E/F/G: gross debt includes finance leases, refundable advances and securitization; excludes operating leases; all reported consolidated cash is netted without access certification; actual annual earnings, no acquisition annualization. Adjusted earnings receive greater display prominence. | CP-1 chunks 1–4, “Financial base view,” chart tables and ratio bridges: same debt/cash perimeter; ordinary net-income-based issuer EBITDA becomes primary. Liquidity chart uses revolving availability only, 843/755, excluding conditional securitization capacity. | **Analytical judgment and presentation/basis expansion**, not new source facts. Neither run proves unrestricted cash, covenant EBITDA, normalized earnings or a borrower-only perimeter. Revolver-only chart headroom is not the prior total liquidity metric. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r2.c2",
+          "label": "Assumptions",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r2",
+          "field": "c2",
+          "amount": null,
+          "text": "Analytical judgment and presentation/basis expansion, not new source facts. Neither run proves unrestricted cash, covenant EBITDA, normalized earnings or a borrower-only perimeter. Revolver-only chart headroom is not the prior total liquidity metric.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 38",
+              "quote": "| Assumptions | CP-1 chunks 2–4, bridges E/F/G: gross debt includes finance leases, refundable advances and securitization; excludes operating leases; all reported consolidated cash is netted without access certification; actual annual earnings, no acquisition annualization. Adjusted earnings receive greater display prominence. | CP-1 chunks 1–4, “Financial base view,” chart tables and ratio bridges: same debt/cash perimeter; ordinary net-income-based issuer EBITDA becomes primary. Liquidity chart uses revolving availability only, 843/755, excluding conditional securitization capacity. | **Analytical judgment and presentation/basis expansion**, not new source facts. Neither run proves unrestricted cash, covenant EBITDA, normalized earnings or a borrower-only perimeter. Revolver-only chart headroom is not the prior total liquidity metric. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r3.c0",
+          "label": "Conclusions",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r3",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-1 chunk 3, “Evidence-based credit interpretation”: gross leverage rises, cash-netted leverage falls, coverage improves, declared distribution qualifies cash. CP-1A chunk 3: supportive reporting-quality topic, Neutral creditor-treatment topic; no governance score or risk level stated.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 39",
+              "quote": "| Conclusions | CP-1 chunk 3, “Evidence-based credit interpretation”: gross leverage rises, cash-netted leverage falls, coverage improves, declared distribution qualifies cash. CP-1A chunk 3: supportive reporting-quality topic, Neutral creditor-treatment topic; no governance score or risk level stated. | CP-1 chunk 1 summary repeats the gross/net tension and improves cash-cover narrative. CP-1A chunks 2–3: Mixed disclosure transparency, reporting quality and creditor-treatment topics, additional acquisition/amendment flags; publishes qualitative governance risk “High,” driven by extraction. | Core credit interpretation is **unchanged**. More explicit caution and qualitative governance labeling are **analytical judgment/scope expansion**. Current adds acquisition-pro-forma nondisclosure and control-evaluation exclusions as counterweights, not evidence of a new deterioration, breach or control deficiency. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r3.c1",
+          "label": "Conclusions",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r3",
+          "field": "c1",
+          "amount": null,
+          "text": "CP-1 chunk 1 summary repeats the gross/net tension and improves cash-cover narrative. CP-1A chunks 2–3: Mixed disclosure transparency, reporting quality and creditor-treatment topics, additional acquisition/amendment flags; publishes qualitative governance risk “High,” driven by extraction.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 39",
+              "quote": "| Conclusions | CP-1 chunk 3, “Evidence-based credit interpretation”: gross leverage rises, cash-netted leverage falls, coverage improves, declared distribution qualifies cash. CP-1A chunk 3: supportive reporting-quality topic, Neutral creditor-treatment topic; no governance score or risk level stated. | CP-1 chunk 1 summary repeats the gross/net tension and improves cash-cover narrative. CP-1A chunks 2–3: Mixed disclosure transparency, reporting quality and creditor-treatment topics, additional acquisition/amendment flags; publishes qualitative governance risk “High,” driven by extraction. | Core credit interpretation is **unchanged**. More explicit caution and qualitative governance labeling are **analytical judgment/scope expansion**. Current adds acquisition-pro-forma nondisclosure and control-evaluation exclusions as counterweights, not evidence of a new deterioration, breach or control deficiency. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r3.c2",
+          "label": "Conclusions",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r3",
+          "field": "c2",
+          "amount": null,
+          "text": "Core credit interpretation is unchanged. More explicit caution and qualitative governance labeling are analytical judgment/scope expansion. Current adds acquisition-pro-forma nondisclosure and control-evaluation exclusions as counterweights, not evidence of a new deterioration, breach or control deficiency.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 39",
+              "quote": "| Conclusions | CP-1 chunk 3, “Evidence-based credit interpretation”: gross leverage rises, cash-netted leverage falls, coverage improves, declared distribution qualifies cash. CP-1A chunk 3: supportive reporting-quality topic, Neutral creditor-treatment topic; no governance score or risk level stated. | CP-1 chunk 1 summary repeats the gross/net tension and improves cash-cover narrative. CP-1A chunks 2–3: Mixed disclosure transparency, reporting quality and creditor-treatment topics, additional acquisition/amendment flags; publishes qualitative governance risk “High,” driven by extraction. | Core credit interpretation is **unchanged**. More explicit caution and qualitative governance labeling are **analytical judgment/scope expansion**. Current adds acquisition-pro-forma nondisclosure and control-evaluation exclusions as counterweights, not evidence of a new deterioration, breach or control deficiency. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r4.c0",
+          "label": "Sources",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r4",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-0 chunk 1 inventory and CP-1 chunk 1 source table retain the annual filing plus four supplemental issuer renditions/interims. CP-1 segment binding uses K pages 49–50. CP-1A chunks 1–2 leaves geographic split absent and SEI funding breakdown unestablished in that summary.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 40",
+              "quote": "| Sources | CP-0 chunk 1 inventory and CP-1 chunk 1 source table retain the annual filing plus four supplemental issuer renditions/interims. CP-1 segment binding uses K pages 49–50. CP-1A chunks 1–2 leaves geographic split absent and SEI funding breakdown unestablished in that summary. | CP-0 chunk 1 retains the same issuer hashes; CP-1 chunk 2 uses Annual page 164 for identical segment totals plus channel detail. CP-1A chunks 1–2 adds top-ten customer share approximately 42%, domestic/foreign sales 5,032/2,908, FPT and individual acquisition funding/prices from Annual pages 9, 165 and 131–137. | **No issuer-source version change**; settings change and broader located coverage. Added facts close parts of prior fact-pack coverage gaps; they are **scope expansion**, not newly occurring events. Shift from MD&A segment pages to note page 164 preserves the same totals and adds granularity. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r4.c1",
+          "label": "Sources",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r4",
+          "field": "c1",
+          "amount": null,
+          "text": "CP-0 chunk 1 retains the same issuer hashes; CP-1 chunk 2 uses Annual page 164 for identical segment totals plus channel detail. CP-1A chunks 1–2 adds top-ten customer share approximately 42%, domestic/foreign sales 5,032/2,908, FPT and individual acquisition funding/prices from Annual pages 9, 165 and 131–137.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 40",
+              "quote": "| Sources | CP-0 chunk 1 inventory and CP-1 chunk 1 source table retain the annual filing plus four supplemental issuer renditions/interims. CP-1 segment binding uses K pages 49–50. CP-1A chunks 1–2 leaves geographic split absent and SEI funding breakdown unestablished in that summary. | CP-0 chunk 1 retains the same issuer hashes; CP-1 chunk 2 uses Annual page 164 for identical segment totals plus channel detail. CP-1A chunks 1–2 adds top-ten customer share approximately 42%, domestic/foreign sales 5,032/2,908, FPT and individual acquisition funding/prices from Annual pages 9, 165 and 131–137. | **No issuer-source version change**; settings change and broader located coverage. Added facts close parts of prior fact-pack coverage gaps; they are **scope expansion**, not newly occurring events. Shift from MD&A segment pages to note page 164 preserves the same totals and adds granularity. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r4.c2",
+          "label": "Sources",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r4",
+          "field": "c2",
+          "amount": null,
+          "text": "No issuer-source version change; settings change and broader located coverage. Added facts close parts of prior fact-pack coverage gaps; they are scope expansion, not newly occurring events. Shift from MD&A segment pages to note page 164 preserves the same totals and adds granularity.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 40",
+              "quote": "| Sources | CP-0 chunk 1 inventory and CP-1 chunk 1 source table retain the annual filing plus four supplemental issuer renditions/interims. CP-1 segment binding uses K pages 49–50. CP-1A chunks 1–2 leaves geographic split absent and SEI funding breakdown unestablished in that summary. | CP-0 chunk 1 retains the same issuer hashes; CP-1 chunk 2 uses Annual page 164 for identical segment totals plus channel detail. CP-1A chunks 1–2 adds top-ten customer share approximately 42%, domestic/foreign sales 5,032/2,908, FPT and individual acquisition funding/prices from Annual pages 9, 165 and 131–137. | **No issuer-source version change**; settings change and broader located coverage. Added facts close parts of prior fact-pack coverage gaps; they are **scope expansion**, not newly occurring events. Shift from MD&A segment pages to note page 164 preserves the same totals and adds granularity. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r5.c0",
+          "label": "Limitations",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r5",
+          "field": "c0",
+          "amount": null,
+          "text": "CP-1 chunk 3 bridges C2/C3 and chunk 4 Gaps explicitly retain asset/liability cash-use magnitudes 302/431 versus issuer bridge 272/415, differences 30/16 unresolved. CP-1A chunk 3 carries that limitation. Both preserve missing legal documents, cutoff, preparation assurance and facility precision.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 41",
+              "quote": "| Limitations | CP-1 chunk 3 bridges C2/C3 and chunk 4 Gaps explicitly retain asset/liability cash-use magnitudes 302/431 versus issuer bridge 272/415, differences 30/16 unresolved. CP-1A chunk 3 carries that limitation. Both preserve missing legal documents, cutoff, preparation assurance and facility precision. | CP-1 chunk 4, full CFO bridge, says no unresolved CFO reconciliation difference remains but does not explain the prior 30/16 classification difference; CP-1A chunk 3 conflicts register instead emphasizes 487 versus 487.5 drawn and 163 versus 162.5 available. Cutoff, legal, preparation and settlement gaps persist. | The full CFO tie is **not a demonstrated correction/resolution** of the separate classification comparison: **unresolved**. Facility precision and payable-to-payment reconciliation remain open. Current adds clearer all-funding maturity exclusions and acquisition-control qualifications; these are **scope/qualification expansion**, not removal of core limitations. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r5.c1",
+          "label": "Limitations",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r5",
+          "field": "c1",
+          "amount": null,
+          "text": "CP-1 chunk 4, full CFO bridge, says no unresolved CFO reconciliation difference remains but does not explain the prior 30/16 classification difference; CP-1A chunk 3 conflicts register instead emphasizes 487 versus 487.5 drawn and 163 versus 162.5 available. Cutoff, legal, preparation and settlement gaps persist.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 41",
+              "quote": "| Limitations | CP-1 chunk 3 bridges C2/C3 and chunk 4 Gaps explicitly retain asset/liability cash-use magnitudes 302/431 versus issuer bridge 272/415, differences 30/16 unresolved. CP-1A chunk 3 carries that limitation. Both preserve missing legal documents, cutoff, preparation assurance and facility precision. | CP-1 chunk 4, full CFO bridge, says no unresolved CFO reconciliation difference remains but does not explain the prior 30/16 classification difference; CP-1A chunk 3 conflicts register instead emphasizes 487 versus 487.5 drawn and 163 versus 162.5 available. Cutoff, legal, preparation and settlement gaps persist. | The full CFO tie is **not a demonstrated correction/resolution** of the separate classification comparison: **unresolved**. Facility precision and payable-to-payment reconciliation remain open. Current adds clearer all-funding maturity exclusions and acquisition-control qualifications; these are **scope/qualification expansion**, not removal of core limitations. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r5.c2",
+          "label": "Limitations",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r5",
+          "field": "c2",
+          "amount": null,
+          "text": "The full CFO tie is not a demonstrated correction/resolution of the separate classification comparison: unresolved. Facility precision and payable-to-payment reconciliation remain open. Current adds clearer all-funding maturity exclusions and acquisition-control qualifications; these are scope/qualification expansion, not removal of core limitations.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 41",
+              "quote": "| Limitations | CP-1 chunk 3 bridges C2/C3 and chunk 4 Gaps explicitly retain asset/liability cash-use magnitudes 302/431 versus issuer bridge 272/415, differences 30/16 unresolved. CP-1A chunk 3 carries that limitation. Both preserve missing legal documents, cutoff, preparation assurance and facility precision. | CP-1 chunk 4, full CFO bridge, says no unresolved CFO reconciliation difference remains but does not explain the prior 30/16 classification difference; CP-1A chunk 3 conflicts register instead emphasizes 487 versus 487.5 drawn and 163 versus 162.5 available. Cutoff, legal, preparation and settlement gaps persist. | The full CFO tie is **not a demonstrated correction/resolution** of the separate classification comparison: **unresolved**. Facility precision and payable-to-payment reconciliation remain open. Current adds clearer all-funding maturity exclusions and acquisition-control qualifications; these are **scope/qualification expansion**, not removal of core limitations. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r6.c0",
+          "label": "Output scope",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r6",
+          "field": "c0",
+          "amount": null,
+          "text": "Receipt chunk 1: literal handoff delivery, CP-MODEL not published, analytical runtime not executed, no Excel output. view.json chunk 1 requests CP-1/CP-1A with copied CP-0 included. report-view.json chunk 1 has four pathway blocks: company-operating-model, financials-credit-metrics, company-profile, transaction-summary.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 42",
+              "quote": "| Output scope | Receipt chunk 1: literal handoff delivery, CP-MODEL not published, analytical runtime not executed, no Excel output. `view.json` chunk 1 requests CP-1/CP-1A with copied CP-0 included. `report-view.json` chunk 1 has four pathway blocks: company-operating-model, financials-credit-metrics, company-profile, transaction-summary. | Receipt chunk 1 retains the same publication/runtime flags and six-file map. `view.json` chunk 1 requests CP-0/CP-1/CP-1A. `report-view.json` chunk 1 inserts model-chart-strip after operating model; selector searches locate its four chart/table-twin bindings in chunks 2–3 and 49. All three handoffs add reader summaries. | **Presentation and scope expansion**: refreshed CP-0, summaries, richer registers and embedded report charts. Neither bundle publishes a standalone HTML Model, charts file or calculation JSON. Both publish CP-0.md, CP-1.md, CP-1A.md, view.json, report-view.json and report.html. A Model navigation label does not establish model publication. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r6.c1",
+          "label": "Output scope",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r6",
+          "field": "c1",
+          "amount": null,
+          "text": "Receipt chunk 1 retains the same publication/runtime flags and six-file map. view.json chunk 1 requests CP-0/CP-1/CP-1A. report-view.json chunk 1 inserts model-chart-strip after operating model; selector searches locate its four chart/table-twin bindings in chunks 2–3 and 49. All three handoffs add reader summaries.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 42",
+              "quote": "| Output scope | Receipt chunk 1: literal handoff delivery, CP-MODEL not published, analytical runtime not executed, no Excel output. `view.json` chunk 1 requests CP-1/CP-1A with copied CP-0 included. `report-view.json` chunk 1 has four pathway blocks: company-operating-model, financials-credit-metrics, company-profile, transaction-summary. | Receipt chunk 1 retains the same publication/runtime flags and six-file map. `view.json` chunk 1 requests CP-0/CP-1/CP-1A. `report-view.json` chunk 1 inserts model-chart-strip after operating model; selector searches locate its four chart/table-twin bindings in chunks 2–3 and 49. All three handoffs add reader summaries. | **Presentation and scope expansion**: refreshed CP-0, summaries, richer registers and embedded report charts. Neither bundle publishes a standalone HTML Model, charts file or calculation JSON. Both publish CP-0.md, CP-1.md, CP-1A.md, view.json, report-view.json and report.html. A Model navigation label does not establish model publication. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        },
+        {
+          "fact_id": "raw-CP-8-0.r6.c2",
+          "label": "Output scope",
+          "table_id": "raw-CP-8-0",
+          "row_id": "r6",
+          "field": "c2",
+          "amount": null,
+          "text": "Presentation and scope expansion: refreshed CP-0, summaries, richer registers and embedded report charts. Neither bundle publishes a standalone HTML Model, charts file or calculation JSON. Both publish CP-0.md, CP-1.md, CP-1A.md, view.json, report-view.json and report.html. A Model navigation label does not establish model publication.",
+          "status": "known",
+          "unit": null,
+          "currency": null,
+          "scale": "1",
+          "decimals": null,
+          "period": null,
+          "basis": "Literal handoff table; no financial reinterpretation.",
+          "denominator": null,
+          "citations": [
+            {
+              "source_id": "CP-8",
+              "source_sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+              "locator": "line 42",
+              "quote": "| Output scope | Receipt chunk 1: literal handoff delivery, CP-MODEL not published, analytical runtime not executed, no Excel output. `view.json` chunk 1 requests CP-1/CP-1A with copied CP-0 included. `report-view.json` chunk 1 has four pathway blocks: company-operating-model, financials-credit-metrics, company-profile, transaction-summary. | Receipt chunk 1 retains the same publication/runtime flags and six-file map. `view.json` chunk 1 requests CP-0/CP-1/CP-1A. `report-view.json` chunk 1 inserts model-chart-strip after operating model; selector searches locate its four chart/table-twin bindings in chunks 2–3 and 49. All three handoffs add reader summaries. | **Presentation and scope expansion**: refreshed CP-0, summaries, richer registers and embedded report charts. Neither bundle publishes a standalone HTML Model, charts file or calculation JSON. Both publish CP-0.md, CP-1.md, CP-1A.md, view.json, report-view.json and report.html. A Model navigation label does not establish model publication. |"
+            }
+          ],
+          "calculation_id": null,
+          "value_class": "source",
+          "source_amount": null,
+          "stated_amount": null,
+          "calculation_status": null,
+          "formula": null,
+          "limitation": null
+        }
+      ],
+      "tables": [
+        {
+          "table_id": "raw-CP-8-0",
+          "title": "Seven requested comparison dimensions",
+          "columns": [
+            {
+              "field": "c0",
+              "label": "Prior deliverable"
+            },
+            {
+              "field": "c1",
+              "label": "Current deliverable"
+            },
+            {
+              "field": "c2",
+              "label": "Explanation"
+            }
+          ],
+          "rows": [
+            {
+              "row_id": "r0",
+              "label": "Values",
+              "fact_ids": [
+                "raw-CP-8-0.r0.c0",
+                "raw-CP-8-0.r0.c1",
+                "raw-CP-8-0.r0.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r1",
+              "label": "Periods",
+              "fact_ids": [
+                "raw-CP-8-0.r1.c0",
+                "raw-CP-8-0.r1.c1",
+                "raw-CP-8-0.r1.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r2",
+              "label": "Assumptions",
+              "fact_ids": [
+                "raw-CP-8-0.r2.c0",
+                "raw-CP-8-0.r2.c1",
+                "raw-CP-8-0.r2.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r3",
+              "label": "Conclusions",
+              "fact_ids": [
+                "raw-CP-8-0.r3.c0",
+                "raw-CP-8-0.r3.c1",
+                "raw-CP-8-0.r3.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r4",
+              "label": "Sources",
+              "fact_ids": [
+                "raw-CP-8-0.r4.c0",
+                "raw-CP-8-0.r4.c1",
+                "raw-CP-8-0.r4.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r5",
+              "label": "Limitations",
+              "fact_ids": [
+                "raw-CP-8-0.r5.c0",
+                "raw-CP-8-0.r5.c1",
+                "raw-CP-8-0.r5.c2"
+              ],
+              "row_kind": "row"
+            },
+            {
+              "row_id": "r6",
+              "label": "Output scope",
+              "fact_ids": [
+                "raw-CP-8-0.r6.c0",
+                "raw-CP-8-0.r6.c1",
+                "raw-CP-8-0.r6.c2"
+              ],
+              "row_kind": "row"
+            }
+          ],
+          "row_header": "Dimension",
+          "interface_id": null,
+          "limitation": null
+        }
+      ],
+      "claims": [],
+      "limitations": [
+        "Checked deliverable comparison, not investment-decision calibration or fresh issuer underwriting."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "schema_version": "source/1",
+      "source_id": "CP-8",
+      "name": "CP-8.md",
+      "status": "ready",
+      "sha256": "103ba95e924eada902416584db5172fb99ef104b16d51d4af2624b5b12439bd9",
+      "media_type": "text/markdown",
+      "spans": [
+        {
+          "locator": "line 1",
+          "text": "## Request",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 3",
+          "text": "Compare the actual prior and current published TDG Credit Snapshot bundles, not a past investment decision or approval gate. Execution date: **November 6, 2026**; comparison run: `tdg-reader-cp8-comparison-20261106`, method `deploy-v-r14`.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 5",
+          "text": "Prior is the November 5, 2026 sol-medium launcher run, publishing CP-1 and CP-1A with a copied CP-0. Current is the November 6, 2026 run of the same launcher through the Issuer Library app under revised module instructions, publishing CP-0, CP-1 and CP-1A. These execution/channel descriptions are supplied comparison context. Both embedded `view.json` files, chunk 1, `run.run_id`, use **`tdg-2024-09-30-credit_snapshot-sol-medium`**; that shared ID alone does not distinguish the publications. Exact hashes below do.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 7",
+          "text": "**Bottom line:** The important annual accounting amounts are unchanged. Current expands historical business/transaction coverage, adds reader summaries and an embedded four-chart strip, and changes the primary leverage/coverage conventions. Those changes must not be read as changed issuer conditions or a new reporting period. A previously logged cash-flow classification difference is not demonstrably resolved by the current reconciliation language.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 9",
+          "text": "## Sources",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 11",
+          "text": "### Publication identity and exact hashes",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 13",
+          "text": "All hashes below are pinned SHA-256 identities returned by `list_sources`, not independently recomputed integrity certificates. Receipt file maps were read in full in chunk 1 on each side.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 15",
+          "text": "- Prior `delivery.json`: `398084699b4951e5178d2e7aba474bb8e5ffd8c9f8cc0c4cfcf9964a3d7772cc`.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 16",
+          "text": "- Current `delivery.json`: `4d7b57b64fa80d1949fcb6087511599e428a609e36d30795d99a4c36b780db8c`.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 17",
+          "text": "- Prior CP-0: `1bd907de98c4ddf470c43d588cb1b6dba6a1f3f61c57024f3f7486852f0393c5`; current CP-0: `4367ec1f426c3c318e6a1b01fb769e6f0458fb6817db5026a8b205f48060aab3`.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 18",
+          "text": "- Prior CP-1: `89b8b460f4114ffc268a661d76e9c2fc9256e19dc970681b9c2b4da2363e9c3d`; current CP-1: `7f0578c02be6bce6849863c7105d17f6d09674ed595b86626286e57d61268e3a`.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 19",
+          "text": "- Prior CP-1A: `bc532f0ebb526608d9adad5b0c02dfcad68006015221085a4139260be2a96545`; current CP-1A: `07ccccb4746145afa4449b1b450050463782c3069199127ef051670bfceea5b2`.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 20",
+          "text": "- Prior `view.json`: `a28ca20f494e4294d2d4577f870cefb665ece02b732d2a20a9e09451f31460f6`; current: `d734ada35c827a7191aec220fb8272c945903853031eb92197328e4324514f60`.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 21",
+          "text": "- Prior `report-view.json`: `46386b89ca957e5ade9c1dd3de4002eb31359d568c083189c0d1365b9fdeb26a`; current: `1840764292409f49b00ae1858bf2971bf6c4541e76f730cf52c1e12154e63368`.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 22",
+          "text": "- Prior `report.html`: `083e0cd57236b9280d25c674650715007dcecdb1ff321b75297b4dc03aa0972e`; current: `7bf8a4821cec15071c9ecd72e2191bfdfca28b060d1747b1b4ac004d53bd3c54`.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 24",
+          "text": "### Coverage and locator convention",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 26",
+          "text": "“Chunk” means a tool page of up to 12,000 characters, **not a physical report page**. I read both receipts completely and all six original handoffs: prior CP-0 chunks 1–2, CP-1 chunks 1–4, CP-1A chunks 1–4; current CP-0 chunks 1–2, CP-1 chunks 1–5, CP-1A chunks 1–4. Larger publication files were sampled and searched, not exhaustively compared: prior/current `view.json` chunk 1 and chunks 125–126/147–148; `report-view.json` chunk 1 and chunks 46–47/52–53, plus targeted current chart-selector searches; HTML chunk 1 and chunks 168–171/186–189, plus destination and embedded-report searches. Searches also targeted margin references in both views.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 28",
+          "text": "The host has already checked the complete bundles and their HTML/view bindings, as supplied in the task context. That host validation is separate from my sampled text inspection. Neither is represented here as my independent browser or visual assurance. Underlying issuer filings are not separately pinned in this comparison pack: source-page references below are the **handoffs' retained lineage**, not claims that CP-8 re-read the original SEC pages.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 30",
+          "text": "Both CP-0 inventories, chunk 1, identify the same five issuer-source versions: annual 10-K, March and June 2024 interims, December 2024 later interim, and annual PDF. The controlling annual source is `TDG_2024-09-30_10-K_0001260221-24-000083_tdg-20240930.htm.jsonl`, hash `d75c469fdb1966dd895c0f6faa6d5179b380d3ed95aa00aca99aa258059edab6`, called K in prior and Annual in current. The other four issuer hashes also match across the inventories. Settings differ: prior context hash `f7b95e1ff471b47547a3ac86cb68e7e7144a06231f6e94de0eee48e0c6828449`; current `ec0a711fe74781d81973060c2e34ae47b1129e9ff5aea9f5ef6218a082b4f984`. Context is run configuration, not new issuer evidence.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 32",
+          "text": "## Findings",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 34",
+          "text": "| Dimension | Prior deliverable | Current deliverable | Explanation |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 35",
+          "text": "| --- | --- | --- | --- |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 36",
+          "text": "| Values | CP-1 chunks 1–2, “Financials and credit metrics”: FY2024/FY2023 revenue 7,940/6,585; EBITDA 3,813/3,148; EBITDA As Defined 4,173/3,395; cash 6,261/3,472; gross debt 25,068/19,913; gross-basis net debt 18,807/16,441, all USD millions. Primary displayed adjusted gross/net leverage 6.01x/4.51x for FY2024; adjusted EBITDA/net accrual interest 3.24x. | CP-1 chunks 1–2, same financial heading, repeats those annual amounts. “Reader summary” and “Chart data: leverage/interest cover” emphasize ordinary issuer EBITDA: FY2024 gross/net leverage 6.5744x/4.9323x and EBITDA/net cash interest 3.2927x. Adjusted leverage remains 6.0072x/4.5068x. | Accounting values are **unchanged**. Ratio differences are principally **basis choices/analytical judgment**, with two- versus four-decimal **presentation** precision, not numerical corrections. Coverage changes both earnings and interest definitions. Detailed operands below prevent false like-for-like comparisons. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 37",
+          "text": "| Periods | CP-1 chunk 1, “Source context and extraction boundaries”: FY2024 2023-10-01–2024-09-30; FY2023 2022-10-01–2023-09-30; September 30 balance-sheet instants. CP-1A chunk 2 dates October 16 drawing and October 18 payment as subsequent events, and November 7, 2024 audit date. | CP-1 chunk 1, “Common financial scope,” retains the same durations/instants; CP-1A chunk 2 retains October 2024 payment/drawing as subsequent, with less day-level specificity. CP-0 chunk 1 retains the November 7, 2024 audit signature. | **Unchanged financial periods and subsequent-event boundary**; reduced day-level detail is a **presentation change**, not changed event timing. The one-day execution-date difference in November 2026 is not a new accounting observation. December 2024 operations remain outside the annual base on both sides. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 38",
+          "text": "| Assumptions | CP-1 chunks 2–4, bridges E/F/G: gross debt includes finance leases, refundable advances and securitization; excludes operating leases; all reported consolidated cash is netted without access certification; actual annual earnings, no acquisition annualization. Adjusted earnings receive greater display prominence. | CP-1 chunks 1–4, “Financial base view,” chart tables and ratio bridges: same debt/cash perimeter; ordinary net-income-based issuer EBITDA becomes primary. Liquidity chart uses revolving availability only, 843/755, excluding conditional securitization capacity. | **Analytical judgment and presentation/basis expansion**, not new source facts. Neither run proves unrestricted cash, covenant EBITDA, normalized earnings or a borrower-only perimeter. Revolver-only chart headroom is not the prior total liquidity metric. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 39",
+          "text": "| Conclusions | CP-1 chunk 3, “Evidence-based credit interpretation”: gross leverage rises, cash-netted leverage falls, coverage improves, declared distribution qualifies cash. CP-1A chunk 3: supportive reporting-quality topic, Neutral creditor-treatment topic; no governance score or risk level stated. | CP-1 chunk 1 summary repeats the gross/net tension and improves cash-cover narrative. CP-1A chunks 2–3: Mixed disclosure transparency, reporting quality and creditor-treatment topics, additional acquisition/amendment flags; publishes qualitative governance risk “High,” driven by extraction. | Core credit interpretation is **unchanged**. More explicit caution and qualitative governance labeling are **analytical judgment/scope expansion**. Current adds acquisition-pro-forma nondisclosure and control-evaluation exclusions as counterweights, not evidence of a new deterioration, breach or control deficiency. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 40",
+          "text": "| Sources | CP-0 chunk 1 inventory and CP-1 chunk 1 source table retain the annual filing plus four supplemental issuer renditions/interims. CP-1 segment binding uses K pages 49–50. CP-1A chunks 1–2 leaves geographic split absent and SEI funding breakdown unestablished in that summary. | CP-0 chunk 1 retains the same issuer hashes; CP-1 chunk 2 uses Annual page 164 for identical segment totals plus channel detail. CP-1A chunks 1–2 adds top-ten customer share approximately 42%, domestic/foreign sales 5,032/2,908, FPT and individual acquisition funding/prices from Annual pages 9, 165 and 131–137. | **No issuer-source version change**; settings change and broader located coverage. Added facts close parts of prior fact-pack coverage gaps; they are **scope expansion**, not newly occurring events. Shift from MD&A segment pages to note page 164 preserves the same totals and adds granularity. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 41",
+          "text": "| Limitations | CP-1 chunk 3 bridges C2/C3 and chunk 4 Gaps explicitly retain asset/liability cash-use magnitudes 302/431 versus issuer bridge 272/415, differences 30/16 unresolved. CP-1A chunk 3 carries that limitation. Both preserve missing legal documents, cutoff, preparation assurance and facility precision. | CP-1 chunk 4, full CFO bridge, says no unresolved CFO reconciliation difference remains but does not explain the prior 30/16 classification difference; CP-1A chunk 3 conflicts register instead emphasizes 487 versus 487.5 drawn and 163 versus 162.5 available. Cutoff, legal, preparation and settlement gaps persist. | The full CFO tie is **not a demonstrated correction/resolution** of the separate classification comparison: **unresolved**. Facility precision and payable-to-payment reconciliation remain open. Current adds clearer all-funding maturity exclusions and acquisition-control qualifications; these are **scope/qualification expansion**, not removal of core limitations. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 42",
+          "text": "| Output scope | Receipt chunk 1: literal handoff delivery, CP-MODEL not published, analytical runtime not executed, no Excel output. `view.json` chunk 1 requests CP-1/CP-1A with copied CP-0 included. `report-view.json` chunk 1 has four pathway blocks: company-operating-model, financials-credit-metrics, company-profile, transaction-summary. | Receipt chunk 1 retains the same publication/runtime flags and six-file map. `view.json` chunk 1 requests CP-0/CP-1/CP-1A. `report-view.json` chunk 1 inserts model-chart-strip after operating model; selector searches locate its four chart/table-twin bindings in chunks 2–3 and 49. All three handoffs add reader summaries. | **Presentation and scope expansion**: refreshed CP-0, summaries, richer registers and embedded report charts. Neither bundle publishes a standalone HTML Model, charts file or calculation JSON. Both publish CP-0.md, CP-1.md, CP-1A.md, view.json, report-view.json and report.html. A Model navigation label does not establish model publication. |",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 44",
+          "text": "### Changed / unchanged / unresolved register",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 46",
+          "text": "- **Unchanged:** Annual statements and core earnings/debt/cash-flow quantities; consolidated U.S. GAAP base; actual ownership-period earnings; distinction between parent and TransDigm Inc.; post-year-end dividend/draw treatment; no prospective deal, forecast or instrument recommendation. Both CP-1A conclusions remain historical fact packs with limitations.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 47",
+          "text": "- **Changed:** Primary denominator and interest-cover convention; richer channel, customer, geography, acquisition and financing detail; qualitative High governance-risk output; reader summaries; four embedded charts; CP-0 explicitly selected and refreshed. These are analytical or presentation/coverage changes on the same evidence, not current issuer-condition changes.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 48",
+          "text": "- **Unresolved:** Prior 30/16 cash-flow classification comparison, receivables precision, distribution settlement roll-forward, legal cash/covenant/guarantor perimeter, sustainable add-backs, preparation fidelity and strict contemporaneous information eligibility. Neither publication settles these by being later.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 50",
+          "text": "### Substantive coverage expansion and judgment",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 52",
+          "text": "Prior CP-1A chunk 2, “Transaction summary,” covers SEI, CPI and Raptor without a full deal-price schedule and says SEI's funding breakdown is not established by that summary. Current CP-1A chunk 2 adds FPT (March 1, 2024, approximately 57), SEI (May 21, approximately 171), CPI (June 6, approximately 1,385) and Raptor (July 31, approximately 647), USD millions, with retained source lineage Annual pages 137, 135, 133 and 131. CPI cash includes earlier debt proceeds; other named acquisitions are described as cash-on-hand funded. This fills historical detail rather than correcting annual acquisition cash paid of 2,347/762, which is unchanged and is not a sum of selected headline prices. Current also locates Calspan's prior-year acquisition and FY2024 settlement in chunk 3, Annual page 137, helping explain timing/perimeter differences without forcing a reconciliation.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 54",
+          "text": "Current CP-1A chunks 1–2 explicitly states management's approximately 55% aftermarket and 90% proprietary-product estimates (Annual page 4), approximate end-market shares 31% commercial aftermarket, 27% commercial OEM, 40% defense, 2% non-aerospace (page 9), and 93 acquisitions since 1993 (page 5). Prior CP-0 chunk 1 already locates the 55% estimate, while prior CP-1A chunk 1 refers to it rather than adopting a new number. The current report's greater numerical specificity is not a changed business mix. Defense contains OEM and aftermarket activity: those classifications cannot be added to the separate aftermarket estimate as mutually exclusive shares. Domestic/foreign sales are sales geography, not currency or cash-access evidence.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 56",
+          "text": "Governance differs materially in expression. Prior CP-1A chunks 2–3 combines topics and two distribution flags, with supportive transparency based on disclosed non-GAAP bridges and Neutral amendment treatment. Current separates nine topics and four behavior flags, adds CPI acquisition and June repricing/extension, and highlights withheld acquisition-pro-forma results (Annual page 132) and permitted acquired-company control-evaluation exclusions (page 75). Its published qualitative High assessment is the current handoff's rubric output, not a CP-8 rescoring or evidence certification. Both runs document extraction; current's stronger label does not establish a newly adverse event. Current expressly disclaims a control deficiency and coercive/priming inference.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 58",
+          "text": "### Published destinations and bindings",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 60",
+          "text": "Both receipts, chunk 1, say automated checks cover handoff structure, issuer/date anchors, references and report selectors, while analytical accuracy is not independently reviewed. Their `analytical_runtime_executed=false`, `cp_model_published=false` and `excel_output=false` apply to the publication process; they do not mean the supplied handoff files are absent. Both views begin in candidate mode and end with `analytical_qualification=partial`, `native_host_qualification=unrun` (prior chunk 126; current chunk 148). Literal handoff extraction marked complete is not native analytical-contract acceptance.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 62",
+          "text": "`report-view.json` chunk 1 on both sides retains “Assessment pending” and `call_withheld=not_requested`, despite the generic pathway question about owning the issuer. No current investment call follows. Current's added model-chart-strip is an embedded report display sourced from CP-1's “Chart data” tables, not a separately published CP-MODEL artifact or charts file.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 64",
+          "text": "HTML text inspection confirms the same destination logic in prior chunks 170–171 and current chunks 187–188: Front Page → `#front`, Analysis → `#analysis`, Model → `#CP-1`, Portfolio Fit → `#FIT`, Evidence → `#evidence`, Limitations → `#limitations`; module links route by module ID/alias. The Model renderer checks for CP-MODEL publication provenance and otherwise displays that the Model has not run. Portfolio Fit explicitly displays not run. Module fact inspection binds module/table/row/field coordinates, citations and artifact hashes (prior chunk 169; current chunk 186), and front-page rendering follows the report's selected blocks. These are inspected source-code bindings, not exercised click tests.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 66",
+          "text": "Prior HTML chunk 1 title is “Deploy VII · Credit Workbench”; current is “Issuer report.” Current chunk 188 removes the prior chunk 171 “DEPLOY VII / CREDIT WORKBENCH” page eyebrow. These are display-name/presentation changes. Both retain the candidate-preview banner in renderer logic. The host's complete HTML/view validation is broader than my sampled reads, but neither that supplied validation nor extracted HTML text is claimed here as independent visual/browser assurance.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 68",
+          "text": "Publication evidence controls completion: intermediate handoff remarks about confirming cutoff or readiness for downstream work do not negate the actual files and receipt maps. Conversely, publication does not convert their qualified facts into accepted native model inputs.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 70",
+          "text": "## Calculations",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 72",
+          "text": "No new arithmetic was needed or performed by CP-8. The following compares the **published operands, definitions and results**, preserving USD millions, fiscal durations and year-end instants. It does not regenerate financial analysis or invent deltas between incomparable ratios.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 74",
+          "text": "### Annual amounts and margin definitions",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 76",
+          "text": "Both CP-1 “Financials and credit metrics” tables, prior chunks 1–2 and current chunks 1–2, retain revenue 7,940/6,585, gross profit 4,672/3,842 and operating EBIT 3,531/2,923, FY2024/FY2023; source lineage Annual page 121. Total D&A remains 312/268, not the income-statement intangible amortization line 161/139 (page 71 versus pages 121–122). Ordinary **issuer** EBITDA is net-income-based: 1,715 + 312 + 1,286 + 500 = 3,813; comparative 1,299 + 268 + 1,164 + 417 = 3,148. Both retain adjustments 70/18 acquisition, 217/157 compensation, 58/56 refinancing and 15/16 other, totaling 360/247 and producing EBITDA As Defined 4,173/3,395 (prior bridge B, chunk 3; current earnings bridges, chunk 4; Annual page 71).",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 78",
+          "text": "Current separately displays operating EBIT plus D&A of 3,843/3,191 (CP-1 chunks 2 and 4, Annual pages 121–122). These are **alternative definitions**, not corrections to issuer EBITDA of 3,813/3,148. Refinancing and other non-operating results explain why the definitions cannot be interchanged.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 80",
+          "text": "Explicit consolidated gross, operating, ordinary EBITDA and As Defined EBITDA margin percentages are **Not supplied as standalone calculated rows in either original CP-1 handoff**. Their respective numerator/revenue pairs are unchanged, so no margin restatement is established. This comparison does not create a new margin series. Margin commentary is qualitatively expanded: prior CP-1A chunk 1 discusses pricing/productivity and missing price-volume support; current chunk 1 adds mix-sensitive aftermarket-versus-OEM margin language, Annual page 12. Neither quantifies price realization or establishes automatic pass-through. Segment sales/adjusted earnings are unchanged: Power & Control 3,941/3,316 and 2,236/1,866; Airframe 3,809/3,094 and 1,962/1,547; Non-aviation 190/175 and 81/71; corporate deduction 106/89. Prior CP-1 chunk 2 cites Annual pages 49–50; current chunk 2 cites page 164 and adds channel rows.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 82",
+          "text": "### Debt and leverage bases",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 84",
+          "text": "Prior CP-1 bridge E (chunk 3) and current debt bridges (chunk 4) agree:",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 86",
+          "text": "- Gross debt: 24,581 + 487 = 25,068 for September 30, 2024; 19,563 + 350 = 19,913 for September 30, 2023; Annual pages 144–145. Finance leases and refundable advances included; operating leases excluded.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 87",
+          "text": "- Carrying debt: prior 24,296 + 98 + 486 = 24,880 and 19,330 + 71 + 349 = 19,750, Annual page 120; current 24,394 + 486 and 19,401 + 349 reaches the same results using the debt-note current-inclusive subtotal. This is an **equivalent aggregation**, not a correction.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 88",
+          "text": "- Gross-basis net debt: 25,068 − 6,261 = 18,807; 19,913 − 3,472 = 16,441. Prior also supplies carrying-basis net debt 18,619/16,278 in bridge E5, which is not its base leverage numerator. No cash-access certification is supplied.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 89",
+          "text": "- Prior F1/F2 (chunks 3–4) uses adjusted EBITDA: 25,068/4,173 = displayed 6.01x; 19,913/3,395 = 5.87x; 18,807/4,173 = 4.51x; 16,441/3,395 = 4.84x. Current chunk 4 retains these at 6.0072x/5.8654x and 4.5068x/4.8427x. **Same basis, greater display precision.**",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 90",
+          "text": "- Current primary/chart basis uses ordinary issuer EBITDA: gross 25,068/3,813 = 6.5744x and 19,913/3,148 = 6.3256x; net 18,807/3,813 = 4.9323x and 16,441/3,148 = 5.2227x. Prior F3 already displayed gross ordinary EBITDA leverage at 6.57x/6.33x; current adds the ordinary net series and foregrounds it. **Basis prominence/coverage expansion**, not increased debt between publications.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 92",
+          "text": "### Coverage and cash conversion",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 94",
+          "text": "Prior CP-1 F4/F5 (chunk 4, Annual pages 71 and 121) displays adjusted EBITDA/net accrual interest: 4,173/1,286 = 3.24x; 3,395/1,164 = 2.92x, and EBIT/net accrual interest 3,531/1,286 = 2.75x; 2,923/1,164 = 2.51x. Current CP-1 chunks 2 and 4 instead foregrounds ordinary EBITDA/**cash paid interest, net**, Annual page 123: 3,813/1,158 = 3.2927x; 3,148/1,160 = 2.7138x. Its supplementary adjusted cash cover is 4,173/1,158 = 3.6036x and 3,395/1,160 = 2.9267x. The approximately similar prior/current FY2023 adjusted displays do not imply the same denominator. These are **different bases**, not corrections; none is gross cash-interest or legal fixed-charge coverage.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 96",
+          "text": "CFO remains 2,045/1,375, capex signed outflows 165/139, and levered FCF 1,880/1,236 before acquisitions/distributions; cash taxes 539/260, cash interest net 1,158/1,160; Annual page 123. Both publish FCF after acquisitions and distributions of −2,505/436, distinct from net cash change 2,789/471 (prior D3/D4, chunk 3; current cash-flow bridges, chunk 4). Prior F7 uses FCF/adjusted EBITDA 1,880/4,173 = 0.4505 and 1,236/3,395 = 0.3641; current uses FCF/ordinary EBITDA 1,880/3,813 = 0.4931 and 1,236/3,148 = 0.3926. These are fractions, not percentages: **denominator choice**, not improved conversion between runs. Prior also publishes CFO/adjusted EBITDA 0.4901/0.4050; current's headline FCF fraction is not its replacement on a like-for-like basis.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 98",
+          "text": "Prior C2/C3 (chunk 3) sums the seven signed asset/liability cash movements to −302/−431, versus management's positive 272/415 adjustment, retaining differences 30/16; Annual pages 71 and 123. Current chunk 4 preserves both the full CFO reconciliation and management's bridge operands but does not compare/reconcile those two movement definitions. Both runs already tie total CFO to 2,045/1,375. Thus current's “no unresolved CFO reconciliation difference remains” establishes a total tie, **not resolution of that separate classification difference**.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 100",
+          "text": "### Liquidity, maturities, missing values and units",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 102",
+          "text": "Prior G1–G3 (chunk 4) and current CP-1 chunk 3 retain year-end total liquidity 7,267, issuer dividend-adjusted pro forma 2,919, and mechanical cash-only illustration 6,261 − 4,348 = 1,913; Annual pages 54–56 and 120. Current's chart (chunk 2) instead displays **cash and revolver availability separately**, 6,261 and 843 for 2024, 3,472 and 755 for 2023, Annual pages 120 and 152. It excludes 163 conditional receivables availability. Prior's same-basis comparative total liquidity was Not supplied in its reviewed table; adding a prior revolver observation is a coverage expansion, not turning that missing total into zero or a fully comparable total liquidity series.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 104",
+          "text": "Both retain dividends payable 4,216 plus current equivalents 180 versus the subsequent payment 4,348; Annual pages 120, 144 and 56. Their differing components/timing do not support an exact settlement reconciliation. Annual FY2024 cash distributions 2,038 are distinct from the November event approximately 2,020 and the subsequent October 4,348. Current does not correct any of these by making them equal.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 106",
+          "text": "The six long-term maturity buckets remain FY2025 93, FY2026 92, FY2027 92, FY2028 6,637, FY2029 4,768, thereafter 12,637, total 24,319; Annual page 153 (prior CP-1 chunks 2 and 4; current chunks 2–4). Current explicitly explains that calendar November 2027 falls in FY2028 and adds published FY2025 long-term principal plus separate securitization exposure 93 + 487 = 580, before leases. This is **scope clarification/expansion**, not a changed maturity schedule. Finance-lease payments include interest and cannot simply be added as principal.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 108",
+          "text": "Both handoffs distinguish USD millions from million shares (57.8/57.2), USD per share (EPS 25.62/22.03; declared dividend 110.00/source dash), rates, dates, dimensionless x and fractional conversion. Negative parentheses in current versus signed negatives in prior are presentation, not changed quantities. Source dashes for FY2023 dividends payable or cash-flow repayment/repurchase rows are preserved source presentation; absent user deal terms are **Not supplied**, not zero. Covenant headroom is **Not calculable on an independently validated legal basis**, because operative definitions and tested operands are absent. Sampled view records retain JSON missing fields and literal table text rather than establishing typed financial-contract acceptance (`view.json` chunk 1, `facts`, `basis`, `amount`, `period`, `unit` fields).",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 110",
+          "text": "## Gaps",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 112",
+          "text": "1. **Comparison assurance boundary:** All original handoffs and receipts were read, but large view/report records and HTML were sampled. No exhaustive field-by-field comparison, whole-filing re-audit, browser execution, screenshot or visual-layout assurance is claimed. Complete host bundle/binding validation is supplied context, not a substitute for independent analytical accuracy or visual assurance.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 113",
+          "text": "2. **Unresolved prior issue:** The 30/16 asset/liability classification comparison remains open for readers who would compare management's bridge with cash-flow statement movements. Current's omission/total-tie language cannot be treated as a proven correction. No new balancing item is invented.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 114",
+          "text": "3. **Unchanged precision and settlement issues:** Drawn receivables 487/487.5 and availability 163/162.5 remain separately quoted; payment/payable/equivalent roll-forwards remain absent. More forceful conflict labeling is not an agent-certified balance. Current's all-funding maturity caveats improve readability but do not supply a full lease-principal calendar.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 115",
+          "text": "4. **Unchanged analytical restrictions:** Both rely retrospectively on a subsequently audited annual filing. Publication cutoff, full extraction/preparation assurance, operative legal agreements, exact obligor/guarantor/cash-access perimeter, covenant inputs, independent normalization, acquired-business annualized earnings and ownership/support detail remain restricted. Acquisition allocations remain preliminary; permitted acquisition control-evaluation exclusions are not evidence of deficient controls. These gaps qualify dependent uses, not completion of this comparison.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 116",
+          "text": "5. **Historical function proof only:** The receipts and supplied host checks show the launcher could publish the bounded historical handoffs and report bindings. `native_host_qualification=unrun`, candidate mode and partial analytical qualification prevent equating that historical function proof with native analytical-contract acceptance. Neither publication is current November 2026 underwriting or independent assurance of issuer conditions then.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 118",
+          "text": "## Next module",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 120",
+          "text": "Return **CP-8** to the existing delivery process for comparison-report assembly, retaining exact identities, ratio definitions, changed/unchanged/unresolved register and assurance boundaries. The material reader instruction is to compare like-for-like earnings, interest and liquidity bases before inferring change: current is broader and differently emphasized, not a later financial observation.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        },
+        {
+          "locator": "line 122",
+          "text": "No second analytical execution or additional module is requested. No new forecast, current recommendation, Excel requirement, CP-MEMO, calibration exercise or missing-input approval gate is introduced. Preserve the original published bundles; any later correction of the unresolved classification issue would require its own located evidence and versioned handoff rather than silent selection by this comparison.",
+          "formula": null,
+          "cached_value": null,
+          "hidden": false,
+          "data_type": null,
+          "number_format": null,
+          "note": null
+        }
+      ],
+      "limitation": "Actual analytical handoff; underlying source qualifications and scope remain.",
+      "extractor": "literal-markdown-lines",
+      "extraction_status": "complete",
+      "coverage": []
+    }
+  ],
+  "analytical_qualification": "partial",
+  "native_host_qualification": "unrun"
+}

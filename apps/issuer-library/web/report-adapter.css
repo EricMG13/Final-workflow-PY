@@ -40,3 +40,6 @@
 @media(max-width:720px){.library-report .app-shell,.library-report.evidence-open .app-shell{display:block}.library-report .navigator,.library-report .navigator.open{height:auto;max-height:220px;overflow:auto}.library-report .workbench{height:auto}.library-report .view-root{padding:12px}.library-report .delivery-disclosure{margin:8px 12px}}
 
 .library-report .nav-tally{flex-wrap:wrap;gap:4px}.library-report .chips{flex-wrap:wrap}.library-report .page-head h1{font-size:19px}
+.library-report .module-link .code{display:none}
+/* A module name in a block head is reader text, not a code. */
+.library-report .block-head .meta.num{font-family:inherit}

@@ -28,11 +28,13 @@ const modules = {
     ['gaps','Gaps & limitations',['Gaps']],['sources','Sources',['Sources']],['audit','Technical audit',['Request','Calculations','Next module']]]}
 };
 const groups = [
-  ['Issuer & evidence',[['CP-0','Source readiness'],['CP-1A','Business & governance'],['CP-DR','Research questions']]],
+  ['Business and evidence',[['CP-0','Source readiness'],['CP-1A','Business & governance'],['CP-DR','Research questions']]],
   ['Financial performance',[['CP-1','Financial foundation'],['CP-1B','Earnings changes'],['CP-L10','Financial change screen'],['CP-1D','Earnings quality'],['CP-1C','Peer benchmark']]],
-  ['Credit outlook & liquidity',[['CP-2','Fundamental credit'],['CP-2D','Liquidity'],['CP-2A','Downside'],['CP-2E','Rates, FX & hedging'],['CP-2G','Forward credit model'],['CP-2H','Ratings & triggers']]],
-  ['Capital structure & securities',[['CP-3','Security selection'],['CP-3D','Market-implied risk'],['CP-3C','Refinancing & LME'],['CP-4','Legal & covenants'],['CP-4C','Recovery & fulcrum']]],
-  ['Decision & review',[['CP-5','Evidence validation'],['CP-6','Committee decision'],['CP-8','Deliverable comparison']]]
+  ['Liquidity and refinancing',[['CP-2D','Liquidity'],['CP-3C','Refinancing & LME']]],
+  ['Outlook and downside',[['CP-2','Fundamental credit'],['CP-2A','Downside'],['CP-2G','Forward credit model'],['CP-2E','Rates, FX & hedging'],['CP-2H','Ratings & triggers']]],
+  ['Capital structure and legal',[['CP-4','Legal & covenants'],['CP-4A','Covenant capacity'],['CP-4B','Structural priority'],['CP-4D','Intercreditor control'],['CP-4C','Recovery & fulcrum']]],
+  ['Relative value',[['CP-3','Security selection'],['CP-3D','Market-implied risk']]],
+  ['Decision and review',[['CP-6','Committee decision'],['CP-5','Evidence validation'],['CP-8','Deliverable comparison']]]
 ];
 // A module the reading groups do not name still gets a place, under its code.
 const unnamed=[...new Set(Object.values(data).map(output=>output.module))].filter(id=>id!=='CP-MODEL'&&!groups.some(group=>group[1].some(item=>item[0]===id))).sort();
@@ -49,11 +51,50 @@ const matchesHeading = (heading,prefix) => prefix.startsWith('=') ? heading===pr
 const evidence = new Map();
 const lastSection = new Map(), lastFile = new Map();
 const readingPositions = new Map(), expandedGroups = new Map();
-const libraryFilters = {query:'',sector:'all',content:'all',module:'all'};
+const LIBRARY_DEFAULTS = {query:'',sector:'all',workflow:'all',year:'all',content:'all',module:'all'};
+const libraryFilters = {...LIBRARY_DEFAULTS};
+const expandedIssuers = new Set(); // Issuers whose run list is open; kept for the page session.
 let current = null, returnTrigger = null, returnScroll = 0, returnContentScroll = 0;
 installDestinations();
 const appDestinations=new Set(['W-Library','W-NewRun','W-Settings','W-Help']); // These need no selected run.
 const aliases = {'CP-2F':'CP-2E','CP-2C':'CP-1A','CP-1E':'CP-1D','CP-5A':'CP-5','CP-6A':'CP-6'};
+for(const visual of window.DESIGN_WORKSPACE.visuals)for(const alias of String(visual.aliases||'').split(/[;,\s]+/).filter(Boolean))aliases[alias]??=visual.module;
+// Reader pages show names; the audit, inspector and evidence pages keep exact codes. Text only, so
+// downloads, links and the retained files are untouched, and each name carries its code as a title.
+const MODULE_CODE=/\bCP-[A-Z0-9]+\b(?![-.][A-Za-z0-9])/,REFERENCE=/\bT\d+[A-Z]?\.\d+\b|\b[FKCS]\d{1,4}\b/;
+const READER_TOKEN=new RegExp(`${MODULE_CODE.source}|${REFERENCE.source}`,'g');
+// A module's own name wins; a code standing in for its own label takes its parent's name when it has one.
+const moduleLabel=code=>{
+  const own=moduleNames[code];
+  return (own!==code&&own)||moduleNames[aliases[code]]||own||(code==='CP-MEMO'?'Credit memo':null);
+};
+const namedText=text=>text.replace(new RegExp(MODULE_CODE,'g'),code=>moduleLabel(code)||code);
+const showsCodes=({module,section})=>section==='audit'||['W-Evidence','CP-OS','W-Help','W-Settings','W-NewRun'].includes(module);
+function readerMark(token) {
+  if(!MODULE_CODE.test(token))return Object.assign(document.createElement('small'),{className:'ref',textContent:token});
+  const label=moduleLabel(token);
+  return label?Object.assign(document.createElement('abbr'),{className:'module-ref',textContent:label,title:token}):token;
+}
+function nameCodes(root) {
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),nodes=[];
+  while(walker.nextNode())nodes.push(walker.currentNode);
+  for(const node of nodes) {
+    const parent=node.parentElement;
+    if(parent.closest('.ref,.module-ref,.built-from,.hash'))continue;
+    const parts=[...node.data.matchAll(READER_TOKEN)];
+    if(!parts.length)continue;
+    // A chart or a select cannot hold markup, so these only take the name.
+    if(parent.closest('svg,option')){node.data=namedText(node.data);continue;}
+    const fragment=document.createDocumentFragment();
+    let at=0;
+    for(const part of parts) {
+      fragment.append(node.data.slice(at,part.index),readerMark(part[0]));
+      at=part.index+part[0].length;
+    }
+    fragment.append(node.data.slice(at));
+    node.replaceWith(fragment);
+  }
+}
 
 for (const [id, output] of Object.entries(data)) {
   const located={module:output.module,output:id,run:output.run};
@@ -115,9 +156,11 @@ function classification(item) {
   });
   return [...new Set(classes)].join(' · ') || 'Not classified';
 }
+// Lists show a class only when the handoff declared one; the inspector still says Not classified.
+const classTag=(item,cls)=>{const c=classification(item);return c==='Not classified'?'':`<span class="${cls}">${esc(c)}</span>`;};
 function sourceFooter(key) {
   const item=evidence.get(key);
-  return `<div class="source-footer">${sourceLink(key)}<span class="tag">${esc(classification(item))}</span><span>Line ${item.line}</span></div>`;
+  return `<div class="source-footer">${sourceLink(key)}${classTag(item,'badge badge-gray')}</div>`;
 }
 function tableMarkup(module, block) {
   const financial=block.financial||block.headers.some(h=>/^(FY\d{4}|Sep 30|Own FY)/.test(h))||block.rows.some(r=>r.cells.slice(1).filter(c=>chartNumber(c)!==null).length>=2);
@@ -125,7 +168,7 @@ function tableMarkup(module, block) {
     const key=`${module}:${row.line}`;
     return `<section class="record"><h3>${rich(row.cells[0])}</h3>${block.headers.slice(1).map((h,i)=>`<div class="record-field"><h4>${esc(h)}</h4><div>${rich(row.cells[i+1])}</div></div>`).join('')}${sourceFooter(key)}</section>`;
   }).join('')}</div>`;
-  return `<div class="table-scroll" tabindex="0" role="region" aria-label="Exact source values"><table><thead><tr>${block.headers.map(h=>`<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${block.rows.map(row=>`<tr><th scope="row">${sourceLink(`${module}:${row.line}`,plain(row.cells[0]))}<span class="row-classification">${esc(classification(evidence.get(`${module}:${row.line}`)))}</span></th>${row.cells.slice(1).map(c=>`<td>${rich(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  return `<div class="table-scroll" tabindex="0" role="region" aria-label="Exact source values"><table><thead><tr>${block.headers.map(h=>`<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${block.rows.map(row=>`<tr><th scope="row">${sourceLink(`${module}:${row.line}`,plain(row.cells[0]))}${classTag(evidence.get(`${module}:${row.line}`),'row-classification')}</th>${row.cells.slice(1).map(c=>`<td>${rich(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
 function sectionsMarkup(module, sections, omitPresentedTable=false) {
   return sections.map(section=>{
@@ -147,7 +190,7 @@ function trendChart(module, metric) {
 function performanceView() {
   const id=pins['CP-1'],{table}=findRow(id,'T4.10','Net sales');
   const retainedNotes=sectionData(id,'performance').flatMap(s=>s.blocks.filter(b=>b.type==='text')).map(b=>narrativeMarkup(id,b)).join('');
-  return `<div class="section-heading"><h2>Performance</h2><span>${esc(table.headers[3])}–${esc(table.headers[1])}</span></div>${trendChart(id,'Net sales')}<div class="section-heading compact"><h3>Exact financial measures</h3><span>Source order preserved</span></div>${tableMarkup(id,table)}${retainedNotes}`;
+  return `<div class="section-heading"><h2>Performance</h2><span>${esc(table.headers[3])}–${esc(table.headers[1])}</span></div>${trendChart(id,'Net sales')}<div class="section-heading compact"><h3>Exact financial measures</h3></div>${tableMarkup(id,table)}${retainedNotes}`;
 }
 function eventTimeline() {
   const id=pins['CP-1A'],section=sectionData(id,'events')[0], block=section.blocks.find(b=>b.type==='table');
@@ -180,10 +223,12 @@ function assessment() {
   const id=pins['CP-2'];
   return `${factorMatrix()}${downside()}${sectionsMarkup(id,sectionData(id,'assessment'))}`;
 }
+const readerFacts=({confidence,limitation})=>`<dl class="summary-facts"><div><dt>Confidence</dt><dd>${esc(confidence)}</dd></div><div><dt>Main limitation</dt><dd>${rich(limitation)}</dd></div></dl>`;
 function callBand(id,section) {
-  const call=data[id].call;
-  if(!call||section!==modules[id].first)return '';
-  return `<div class="analysis-call"><p class="call-quote">${rich(call.text.replace(/\n/g,' '))}</p></div>${sourceFooter(`${id}:${call.line}`)}`;
+  const {summary,call}=data[id];
+  if(section!==modules[id].first||!(summary||call))return '';
+  const {text,line}=summary?{text:summary.bottomLine,line:summary.line}:call;
+  return `<div class="analysis-call"><p class="call-quote">${rich(text.replace(/\n/g,' '))}</p>${summary?readerFacts(summary):''}</div>${sourceFooter(`${id}:${line}`)}`;
 }
 function renderContent(id,section) {
   if(!isAnalytical(id))return workspaceView(id,section);
@@ -193,9 +238,9 @@ function renderContent(id,section) {
   if(id===pins['CP-2']&&section==='assessment')return band+assessment();
   if(id===pins['CP-8']&&section==='comparison')return band+comparisonView();
   let visual=band+(id===pins['CP-1A']&&section==='business'?businessVisual():id===pins['CP-1']&&section==='cash'?trendChart(id,'Net cash provided by operating activities'):id===pins['CP-2']&&section==='outlook'?downside():'');
-  visual+=galleryVisual(id,section);
+  visual+=galleryVisual(id,section)+readerCharts(id,section);
   if(section==='audit')visual+=`<div class="audit-intro"><h2>Original output & technical audit</h2><p>The retained output is available alongside its designed presentation. Analytical acceptance has not been verified by this library.</p><a href="${esc(data[id].href)}" download>Download original handoff</a><p class="hash">SHA-256 ${data[id].sha256}</p></div>`;
-  return visual+sectionsMarkup(id,sectionData(id,section),true)+(section==='audit'?visualPlan(data[id].module):'');
+  return visual+sectionsMarkup(id,sectionData(id,section),true);
 }
 function renderSearch(query) {
   if(!query){$('search-results').replaceChildren();return;}
@@ -203,7 +248,7 @@ function renderSearch(query) {
   // Default outputs first, so the first hit opens what the module itself opens.
   const isDefault=id=>defaultOutput(data[id].module,context)===id;
   const outputs=Object.keys(data).filter(id=>data[id].run===context).sort((a,b)=>isDefault(b)-isDefault(a));
-  const code=id=>data[id].label===data[id].module?data[id].module:`${data[id].module} · ${data[id].label}`;
+  const code=id=>data[id].label===data[id].module?moduleNames[data[id].module]:`${moduleNames[data[id].module]} · ${data[id].label}`;
   const sectionOf=(id,heading)=>modules[id].sections.find(s=>s[2].some(p=>matchesHeading(heading,p)))?.[0];
   const href=(id,section,key=null)=>routeHref(data[id].module,section,key,context,data[id].source);
   const hit=(kind,owner,label,target)=>`<a class="search-hit" href="${esc(target)}" aria-label="${esc(`${kind}: ${owner} ${label}`)}"><span class="code">${esc(owner)}</span><span>${esc(label)}</span></a>`;
@@ -220,7 +265,7 @@ function renderSearch(query) {
   }).filter(([id,label])=>has(label,data[id].module));
   const files=[
     ...outputs.filter(id=>has(data[id].source,data[id].label)).map(id=>hit('Source',code(id),data[id].source,href(id,modules[id].first))),
-    ...Object.values(store.inputs).filter(input=>input.run===context&&has(input.source)).map(input=>hit('Source',input.module,input.source,routeHref('W-Evidence','sources',null,context))),
+    ...Object.values(store.inputs).filter(input=>input.run===context&&has(input.source)).map(input=>hit('Source',moduleNames[input.module]||input.module,input.source,routeHref('W-Evidence','sources',null,context))),
   ];
   const items=[...evidence.entries()].filter(([,item])=>item.run===context&&has(item.title,...item.fields.map(field=>field[1]))).sort((a,b)=>outputs.indexOf(a[1].output)-outputs.indexOf(b[1].output));
   $('search-results').innerHTML=group('Figures',figures.length,figures.slice(0,6).map(([id,label,heading])=>hit('Figure',code(id),label,href(id,sectionOf(id,heading)))))
@@ -237,12 +282,13 @@ function renderNavigator(module) {
     const open=query||matches.some(([id])=>id===module)||(expandedGroups.get(title)??false);
     return `<details class="nav-group" data-group="${esc(title)}" ${open?'open':''}><summary>${esc(title)}</summary>${matches.map(([id,name])=>{
       const section=query&&sectionsOf(id).find(s=>s[1].toLowerCase().includes(query));
-      return `<a href="${routeHref(id,section?.[0]||lastSection.get(context+':'+id)||firstSection(id,context))}" class="module-item ${id===module?'selected':''}" ${id===module?'aria-current="page"':''}><span class="module-label">${esc(name)}</span><span class="module-code">${id}<span>${isAnalytical(id)?availability(id,context):'Run record'}</span></span>${section?`<small>${esc(section[1])}</small>`:''}</a>`;
+      return `<a href="${routeHref(id,section?.[0]||lastSection.get(context+':'+id)||firstSection(id,context))}" title="${esc(id)}" class="module-item ${id===module?'selected':''}" ${id===module?'aria-current="page"':''}><span class="module-label">${esc(name)}</span><span class="module-code"><span>${isAnalytical(id)?availability(id,context):'Run record'}</span></span>${section?`<small>${esc(section[1])}</small>`:''}</a>`;
     }).join('')}</details>`;
-  }).join('')+(!count?'<p class="empty">No matching module. Try a CP code or analytical topic.</p>':'');
+  }).join('')+(!count?'<p class="empty">No match. Try another name or topic.</p>':'');
   const analytical=!module.startsWith('W-'),outline=current.output||(Object.hasOwn(modules,module)&&module);
-  $('module-list').innerHTML=`<details class="module-catalogue" data-group="catalogue" ${query||!analytical||expandedGroups.get('catalogue')?'open':''}><summary>Browse modules & tools</summary>${catalogue}</details>${analytical&&!query&&outline?`<div class="outline-heading">${esc(module)} · Section outline</div>${outlineMarkup(outline)}`:''}`;
-  document.querySelector('.nav-filter').innerHTML=`${query?'Matching modules':'Modules & tools'} <span>${count}</span>`;
+  $('module-list').innerHTML=`<details class="module-catalogue" data-group="catalogue" ${query||!analytical||expandedGroups.get('catalogue')?'open':''}><summary>Browse analysis & tools</summary>${catalogue}</details>${analytical&&!query&&outline?`<div class="outline-heading">${esc(moduleNames[module])} · Section outline</div>${outlineMarkup(outline)}`:''}`;
+  nameCodes($('module-list'));
+  document.querySelector('.nav-filter').innerHTML=`${query?'Matches':'Analysis & tools'} <span>${count}</span>`;
   renderSearch(query);
 }
 function parseRoute() {
@@ -263,7 +309,7 @@ function parseRoute() {
   const sections=navigationSections(module,context,output),first=output?modules[output].first:modules[module]?.first;
   const selected=sections.find(s=>s[0]===requestedSection)||sections.find(s=>s[0]===first)||sections[0];
   const e=params.get('e'),key=e&&(e.includes(':')?e:`${output}:${e}`),item=evidence.get(key);
-  const permitted=item&&item.run===context&&(item.output===output||module==='W-Calendar');
+  const permitted=item&&item.run===context&&(item.output===output||module==='W-Calendar'||module==='W-Overview');
   const file=output&&output!==defaultOutput(module,context)?data[output].source:null;
   return {module,output,file,section:selected[0],context,evidence:permitted?key:null};
 }
@@ -271,7 +317,7 @@ function go(module,section,key=null,file) {location.hash=file===undefined?routeH
 function showInspector(key) {
   const item=evidence.get(key), output=data[item.output];
   $('inspector').hidden=false; $('workbench').classList.add('has-evidence');
-  $('inspector').innerHTML=`<div class="inspector-bar"><button id="back-analysis">${icon('arrow-left')}Back to analysis</button><span>Esc</span></div><div class="inspector-body"><h2>Evidence inspector</h2><div class="evidence-context">${esc(item.module)}${output.label===item.module?'':` · ${esc(output.label)}`} · Line ${item.line}</div><h3>${esc(item.title)}</h3><span class="tag classification">${esc(classification(item))}</span><div class="evidence-fields">${item.fields.map(([label,value])=>`<div><h4>${esc(label)}</h4><div>${rich(value)}</div></div>`).join('')}</div>${item.basis?`<div class="evidence-basis"><h3>Basis & context</h3><p>${rich(item.basis)}</p></div>`:''}<div class="source-location"><h3>Source location</h3><p>${esc(item.section)}</p><a href="${esc(output.href)}" download>${icon('file-text')}Download retained handoff</a><p class="small">${esc(output.file)}<br>${esc(output.case)} · saved output</p></div><div class="inspector-note"><strong>Reading boundary</strong><p>These are exact retained fields from this historical case. Source and PDF locators remain attributed to the original handoff. The library does not authenticate the underlying PDFs.</p></div></div>`;
+  $('inspector').innerHTML=`<div class="inspector-bar"><button id="back-analysis">${icon('arrow-left')}Back to analysis</button><span>Esc</span></div><div class="inspector-body"><h2>Evidence inspector</h2><div class="evidence-context">${esc(item.module)}${output.label===item.module?'':` · ${esc(output.label)}`} · Line ${item.line}</div><h3>${esc(item.title)}</h3><span class="badge badge-gray classification">${esc(classification(item))}</span><div class="evidence-fields">${item.fields.map(([label,value])=>`<div><h4>${esc(label)}</h4><div>${rich(value)}</div></div>`).join('')}</div>${item.basis?`<div class="evidence-basis"><h3>Basis & context</h3><p>${rich(item.basis)}</p></div>`:''}<div class="source-location"><h3>Source location</h3><p>${esc(item.section)}</p><a href="${esc(output.href)}" download>${icon('file-text')}Download retained handoff</a><p class="small">${esc(output.file)}<br>${esc(output.case)} · saved output</p></div><div class="inspector-note"><strong>Reading boundary</strong><p>These are exact retained fields from this historical case. Source and PDF locators remain attributed to the original handoff. The library does not authenticate the underlying PDFs.</p></div></div>`;
   document.querySelectorAll('[data-evidence]').forEach(el=>el.classList.toggle('source-selected',el.dataset.evidence===key));
   if(returnTrigger) {
     if(window.innerWidth<=1050) $('inspector').scrollIntoView({block:'start'});
@@ -308,14 +354,18 @@ function renderRoute() {
   if(changed) {
     const sections=navigationSections(next.module,next.context,next.output),index=sections.findIndex(s=>s[0]===next.section);
     $('module-head').innerHTML=moduleHead(next);
-    const title=`<h3 id="section-title" tabindex="-1">${esc(sections[index][1])}</h3>`;
-    $('section-nav').innerHTML=isAnalytical(next.module)&&!next.output?title:`${title}<span>${index+1} / ${sections.length}</span><button id="previous-section" ${index===0?'disabled':''} aria-label="Previous section">${icon('arrow-left')}</button><button id="next-section" ${index===sections.length-1?'disabled':''} aria-label="Next section">${icon('arrow-right')}</button>`;
+    // A page with one section already says its name in the heading above.
+    const only=sections.length===1&&!isAnalytical(next.module);
+    const title=`<h3 id="section-title" tabindex="-1" ${only?'class="sr-only"':''}>${esc(sections[index][1])}</h3>`;
+    $('section-nav').innerHTML=only||(isAnalytical(next.module)&&!next.output)?title:`${title}<span>${index+1} / ${sections.length}</span><button id="previous-section" ${index===0?'disabled':''} aria-label="Previous section">${icon('arrow-left')}</button><button id="next-section" ${index===sections.length-1?'disabled':''} aria-label="Next section">${icon('arrow-right')}</button>`;
+    if(!showsCodes(next))nameCodes($('section-nav'));
     updateWorkspaceChrome(next.module);
     $('content').innerHTML=moduleBody(next);
+    if(!showsCodes(next))nameCodes($('content'));
     $('content').scrollTop=readingPositions.get(`${next.context}:${next.output||next.module}:${next.section}`)||0;
     showNavigator(false);
     renderNavigator(next.module);
-    document.title=`${next.module.startsWith('W-')?'':`${next.module} · `}${moduleNames[next.module]} · Issuer Library`;
+    document.title=`${moduleNames[next.module]} · Issuer Library`;
     const creating=next.module==='W-NewRun';
     $('content').hidden=creating;
     $('new-run').hidden=!creating;
@@ -340,7 +390,7 @@ function renderRoute() {
     }
   }
   const named=contexts[next.context]?`${contexts[next.context].title}, ${contexts[next.context].run}, `:'';
-  $('announcement').textContent=`${named}${moduleNames[next.module]}, ${navigationSections(next.module,next.context,next.output).find(s=>s[0]===next.section)[1]}${next.evidence?', evidence open':''}`;
+  $('announcement').textContent=`${named}${moduleNames[next.module]}, ${namedText(navigationSections(next.module,next.context,next.output).find(s=>s[0]===next.section)[1])}${next.evidence?', evidence open':''}`;
 }
 document.addEventListener('change',event=>{
   if(event.target.matches('[data-library-filter]'))updateLibraryResults();
@@ -348,6 +398,7 @@ document.addEventListener('change',event=>{
   if(event.target.id==='output-select')go(current.module,current.section,null,event.target.value);
   if(event.target.id==='chart-metric') {
     $('module-visual').innerHTML=comparisonChart(current.output,data[current.output].visual,Number(event.target.value));
+    nameCodes($('module-visual'));
     $('chart-metric').focus({preventScroll:true});
   }
 });
@@ -357,8 +408,16 @@ document.addEventListener('click',event=>{
   if(searchHit){returnTrigger=$('module-search');showNavigator(false);if(searchHit.hash===location.hash)$('analysis').focus();}
   const summary=event.target.closest('summary');
   if(summary?.parentElement.dataset.group)expandedGroups.set(summary.parentElement.dataset.group,!summary.parentElement.open);
+  const toggle=event.target.closest('.run-toggle');
+  if(toggle){
+    const open=toggle.getAttribute('aria-expanded')!=='true',issuer=toggle.closest('tbody').querySelector('h2').textContent;
+    if(open)expandedIssuers.add(issuer);else expandedIssuers.delete(issuer);
+    toggle.setAttribute('aria-expanded',String(open));toggle.getAttribute('aria-controls').split(' ').forEach(id=>{$(id).hidden=!open;});return;
+  }
+  const unset=event.target.closest('[data-library-unset]');
+  if(unset){const control=$('library-filters').querySelector(`[data-library-filter="${unset.dataset.libraryUnset}"]`);control.value='all';updateLibraryResults();control.focus();return;}
   if(event.target.closest('#library-clear')){
-    Object.assign(libraryFilters,{query:'',sector:'all',content:'all',module:'all'});
+    Object.assign(libraryFilters,LIBRARY_DEFAULTS);
     $('library-filters').querySelectorAll('[data-library-filter]').forEach(control=>{control.value=libraryFilters[control.dataset.libraryFilter];});
     updateLibraryResults();$('library-query').focus();return;
   }
