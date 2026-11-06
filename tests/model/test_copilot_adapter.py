@@ -335,6 +335,14 @@ def test_effort_not_supported_is_not_sent(rig: Rig) -> None:
     assert rig.client.sessions == []
 
 
+def test_invalid_reservation_id_is_not_sent(rig: Rig) -> None:
+    reply = rig.make(text_script()).complete(
+        request(), invocation_digest=DIGEST, call_index=0, reservation_id="../x"
+    )
+    assert reply.kind == "not_sent" and reply.error_class == "InvalidDigest"
+    assert rig.options == [] and not (rig.home_root / ".copilot-home").exists()
+
+
 def test_max_output_tokens_out_of_range_is_not_sent(rig: Rig) -> None:
     big = TurnRequest((SYSTEM, USER), (TOOL,), 10**9, "medium")
     reply = call(rig.make(text_script()), big)

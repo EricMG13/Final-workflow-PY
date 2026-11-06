@@ -13,13 +13,22 @@ entries below retain their historical case scope.
 Dependency decision: the standard library cannot speak the runtime's JSON-RPC in a few lines and
 no already-pinned dependency does; `github-copilot-sdk==1.0.28` (MIT, runtime 1.0.105) is locked.
 Scope: `copilot-sol-medium` and `copilot-opus-medium`; `live_adapter_for` in `owners/cpos.py`
-builds `CopilotAdapter` for them (else `LiveAdapter`) at all three sites, and closes it after the
-executor finishes. Setup and the seat check are in `docs/COPILOT.md`. Follow-ons: `export_recording`
+builds `CopilotAdapter` for them (else `LiveAdapter`) at its two construction sites, both in
+`owners/cpos.py` (the launcher reaches the first through `run_live_handoffs`), and closes it after
+the executor finishes. Setup and the seat check are in `docs/COPILOT.md`. Follow-ons: `export_recording`
 infers `sent_unknown` for the adapter's classes; `_Creds` hides the token and environment in its
 repr; the call home is `.copilot-home/<digest>/<reservation>`; the Windows allowlist gains
 `PATHEXT`, `WINDIR`, `USERNAME`.
-Checks: see `.superpowers/sdd/2026-11-06-copilot-sdk-adapter/task-5-report.md` for the counts of
-the whole-suite run and the gates (all with fake clients: no runtime or provider was started).
+Checks (fake clients only: no runtime or provider was started). Selection `uv run pytest
+tests/test_cpos_handoffs.py tests/test_cpos_launch.py tests/model/test_record.py
+tests/model/test_copilot_adapter.py -q -k "copilot or sent_unknown"` (the adapter-selection tests
+are in `tests/test_cpos_handoffs.py`): 8 failed before the change, 63 passed after. Affected set
+(`tests/model`, `test_cpos_app.py`, `test_cpos_comparison.py`, `test_cpos_handoffs.py`,
+`test_cpos_launch.py`, `test_handoff_delivery.py`, `test_handoff_loop.py`): 937 passed, 4 failed,
+3 skipped (both live seat tests and the existing paid test); the 4 failures are
+`tests/model/test_gate.py` x2 and `tests/model/test_o5_done_when.py` x2 and also fail at base
+0a8fc50. The whole suite is run by the controller; its line is appended separately. `ruff check`
+and `ruff format --check` exit 0 on the changed files; mypy reports nothing new on them.
 Not verified: pinned model ids; `numToolCalls` and event order on a real seat; `cost`
 (`totalNanoAiu`) presence and the 1 AI unit = $0.01 conversion; `max_output_tokens` not
 enforceable; Windows runtime path handling; `stop()`/`force_stop()` timing. The seat check

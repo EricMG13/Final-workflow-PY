@@ -57,7 +57,8 @@ uv run python -m deploy_workflow.owners.cpos_launch --context ... --sources ... 
 ```
 
 Without `--live` nothing is sent. The launcher reports `COPILOT_GITHUB_TOKEN` as the key variable.
-Each call creates a working directory `.copilot-home/<invocation>/<reservation>` (git-ignored).
+Each exchange creates one working directory, `.copilot-home/<invocation>/<reservation>` (git-ignored),
+at its first call, named after that call's reservation; later calls of the exchange reuse it.
 
 ## Not verified
 

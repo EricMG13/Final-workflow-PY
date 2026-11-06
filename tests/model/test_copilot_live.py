@@ -15,7 +15,12 @@ from typing import Any
 
 import pytest
 
-from deploy_workflow.model.copilot_adapter import ClientOptions, CopilotAdapter, real_client
+from deploy_workflow.model.copilot_adapter import (
+    ClientOptions,
+    CopilotAdapter,
+    real_client,
+    runtime_environment,
+)
 from deploy_workflow.model.turn import Message, ModelSpec, ToolSpec, TurnRequest
 
 pytestmark = [
@@ -40,7 +45,7 @@ USER = Message("user", "Call the tool echo with text 'ok', then reply with the t
 
 
 async def listed_models(runtime: str, token: str, home: Path) -> list[dict[str, Any]]:
-    client = real_client(ClientOptions(runtime, token, str(home)))
+    client = real_client(ClientOptions(runtime, token, str(home), runtime_environment(os.environ)))
     try:
         await client.start()
         return await client.list_models()
