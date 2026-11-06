@@ -754,7 +754,7 @@ def test_cp2_instructions_place_the_credit_view_after_the_reader_summary(tmp_pat
         config="sol-medium",
         cap="50",
     )
-    read = lambda m: (tmp_path / "out" / prepared.plan.instructions[m].path).read_text()  # noqa: E731
+    read = lambda m: (tmp_path / "out" / prepared.plan.instructions[m].path).read_text()
     assert "place `### Credit view` directly after `### Reader summary`" in read("CP-2")
     assert "first under `## Findings`" in read("CP-2") and "first under `## Findings`" in read(
         "CP-4"
