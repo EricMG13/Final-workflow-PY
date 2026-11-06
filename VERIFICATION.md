@@ -27,7 +27,7 @@ are in `tests/test_cpos_handoffs.py`): 8 failed before the change, 63 passed aft
 `test_cpos_launch.py`, `test_handoff_delivery.py`, `test_handoff_loop.py`): 937 passed, 4 failed,
 3 skipped (both live seat tests and the existing paid test); the 4 failures are
 `tests/model/test_gate.py` x2 and `tests/model/test_o5_done_when.py` x2 and also fail at base
-0a8fc50. The whole suite is run by the controller; its line is appended separately. Ruff
+0a8fc50. Whole suite: see the "Whole suite" paragraph below. Ruff
 baseline: `ruff check` exits 1 on `src/deploy_workflow/model_testing/run.py` (I001) and
 `ruff format --check` exits 1 on `src/deploy_workflow/model/adapter.py`,
 `src/deploy_workflow/model_testing/run.py`, `src/deploy_workflow/run_pathway.py`,
@@ -38,6 +38,31 @@ exercises two calls in one turn); pinned model ids; `numToolCalls` and event ord
 (`totalNanoAiu`) presence and the 1 AI unit = $0.01 conversion; `max_output_tokens` not
 enforceable; Windows runtime path handling; `stop()`/`force_stop()` timing. The seat check
 (`tests/model/test_copilot_live.py`) has not been run.
+Review rounds after the task reviews (all with fake clients; no runtime started). Whole-branch
+review (3 Medium) → 1701461 and 2956abf; adversarial review of those edits found that the
+replay reader then accepted null-status `sent_usage` lines the exporter never writes and that a
+re-export could turn a charged record into `not_sent` → root-cause round 0ecb229: one vocabulary
+of null-status reply classes (`model/reply_classes.py`) imported by the exporter, the reader and
+the adapter; the export/replay round trip holds for every writer shape (61 shapes probed); a
+billed zero stays `billed` in `handoff.py`; a release failure is noted on the propagating stop
+instead of masking it; the catch-all message is bounded and path-scrubbed. Owner-authorized
+batch a8c7d95 + 0050571: the release failure is shown by the launcher and the app bridge (also
+after a successful run, as a RuntimeWarning appended to the complete message), Windows paths
+with spaces are scrubbed (exact profile/runtime values first, then a drive-rooted pattern), the
+reader accepts only shapes the exporter writes, writers use the shared constants. Final scoped
+adversarial re-review: PASS. The ten committed `runs/**/live/calls.jsonl` re-export
+byte-identical before and after these rounds and replay. Checks at 0050571: `tests/model` 746
+passed + the 4 pre-existing failures; `test_cpos_app.py`, `test_cpos_handoffs.py`,
+`test_cpos_launch.py`, `test_handoff_loop.py` and the copilot/record/adapter files 568 passed,
+1 skipped (paid). Parked for the owner (Low/Info): the bridge's complete message is written to
+`status.json` without redaction (its text is exception type names only); `CopilotAdapter`
+holds one runtime process per exchange until `close()`; `tests/test_o2_done_when.py::
+test_a_line_citation_naming_the_range_key_is_not_coverage` and `tests/test_model_testing_run.py`
+(14) fail at origin/main as well; upstream `on_start` fires for resumed modules.
+Whole suite: a run at 0050571 (ignoring `tests/product`, `tests/prompts`, `tests/research`
+collection errors) stalled for over 30 minutes inside `tests/test_earnings_workflow.py`
+(untouched by this branch, last changed in the initial import); the run was restarted without
+that file and its result line is appended below when it completes.
 
 ## 2026-11-05 — The M365 custom instruction applies to every module
 
