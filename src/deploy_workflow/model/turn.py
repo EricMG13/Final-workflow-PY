@@ -12,7 +12,7 @@ from decimal import Decimal, InvalidOperation
 from types import MappingProxyType
 from typing import Any, Literal, cast
 
-Provider = Literal["openai", "anthropic", "openrouter"]
+Provider = Literal["openai", "anthropic", "openrouter", "copilot"]
 Role = Literal["system", "user", "assistant", "tool"]
 StopReason = Literal["end", "tool_use", "max_tokens", "other"]
 
@@ -23,6 +23,8 @@ CONFIG_PROVIDERS: Mapping[str, str] = MappingProxyType(
         "sol-high": "openai",
         "opus-medium": "anthropic",
         "deepseek-max": "openrouter",
+        "copilot-sol-medium": "copilot",
+        "copilot-opus-medium": "copilot",
     }
 )
 
@@ -33,6 +35,8 @@ CONFIG_MODELS: Mapping[str, str] = MappingProxyType(
         "sol-high": "gpt-6.1-sol",
         "opus-medium": "claude-opus-5-5",
         "deepseek-max": "deepseek/deepseek-v4.1-flash-1017",
+        "copilot-sol-medium": "gpt-6.1-sol",
+        "copilot-opus-medium": "claude-opus-5.5",
     }
 )
 
@@ -40,6 +44,7 @@ CONFIG_MODELS: Mapping[str, str] = MappingProxyType(
 MODEL_EFFORTS: Mapping[str, frozenset[str]] = {
     "gpt-6.1-sol": frozenset({"medium", "high"}),
     "claude-opus-5-5": frozenset({"medium"}),
+    "claude-opus-5.5": frozenset({"medium"}),
     "deepseek/deepseek-v4.1-flash-1017": frozenset({"max"}),
 }
 
@@ -122,7 +127,7 @@ class ModelSpec:
             raise TurnError(
                 f"config {self.config_id!r} belongs to {expected!r}, not {self.provider!r}"
             )
-        if self.provider not in ("openai", "anthropic", "openrouter"):
+        if self.provider not in ("openai", "anthropic", "openrouter", "copilot"):
             raise TurnError(f"unknown provider {self.provider!r}")
         if self.config_id in CONFIG_MODELS and CONFIG_MODELS[self.config_id] != self.model:
             raise TurnError(f"config {self.config_id!r} runs {CONFIG_MODELS[self.config_id]!r}")

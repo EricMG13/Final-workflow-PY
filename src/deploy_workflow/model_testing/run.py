@@ -430,7 +430,9 @@ def current_stops(
 ) -> dict[str, str]:
     """The configurations that cannot run now, derived from the runs and settlements as they are."""
     stops: dict[str, str] = {}
-    for config_id in CONFIGS:
+    for config_id, config in CONFIGS.items():
+        if config.provider not in ACCOUNTS:
+            continue  # Copilot holds no model-testing account and no stage plans it
         try:
             check_budget(config_id, runs, Decimal(0), settlements)
         except AccountExhausted as error:

@@ -36,6 +36,7 @@ from typing import Literal
 from deploy_workflow.model.turn import CONFIG_PROVIDERS, Usage
 
 PRICES_AS_OF = date(2026, 10, 31)  # provider-docs fetch date
+COPILOT_PRICES_AS_OF = date(2026, 11, 6)  # GitHub "Models and pricing" fetch date
 CostStatus = Literal["computed", "billed", "unknown"]
 
 
@@ -157,6 +158,28 @@ PRICES: Mapping[str, ModelPrice] = MappingProxyType(
             cached_read=Decimal("0.009"),
             cache_write=Decimal("0.45"),  # none listed: reserved at input
             output=Decimal("1.80"),
+        ),
+        # GitHub "Models and pricing", fetched 2026-11-06 (COPILOT_PRICES_AS_OF); USD per 1M tokens
+        "copilot-sol-medium": ModelPrice(
+            input=Decimal("2.00"),
+            cached_read=Decimal("0.10"),
+            cache_write=Decimal("2.50"),
+            output=Decimal("10.00"),
+            max_input_tokens=272_000,
+            long_context_after=272_000,
+            long_input=Decimal(4),
+            long_cached_read=Decimal("0.20"),
+            long_cache_write=Decimal(5),
+            long_output=Decimal(15),
+            max_context_tokens=1_050_000,
+            reservation_context_tokens=1_050_000,
+        ),
+        # same source; Copilot lists one write rate, no 5 m / 1 h split
+        "copilot-opus-medium": ModelPrice(
+            input=Decimal(4),
+            cached_read=Decimal("0.20"),
+            cache_write=Decimal(5),
+            output=Decimal(20),
         ),
     }
 )
@@ -289,7 +312,7 @@ def price_usage(
     price = price_of(config_id)
     if billed_usd is not None and not offline:
         return Priced(_money("billed_usd", billed_usd), "billed")
-    if provider == "openrouter" and not offline:
+    if provider in ("openrouter", "copilot") and not offline:
         return _UNKNOWN  # the charge is usage.cost only
     usd = computed_usd(provider, price, usage)
     return _UNKNOWN if usd is None else Priced(usd, "computed")
@@ -303,6 +326,8 @@ def computed_usd(provider: str | None, price: ModelPrice, usage: Usage) -> Decim
     )
     if usage.input_tokens is not None and limit is not None and usage.input_tokens > limit:
         return None
+    if provider == "copilot":
+        return None  # the charge is the runtime's reported cost (billed_usd) only
     if provider == "anthropic":
         return _anthropic(price, usage)
     if provider == "openrouter" and usage.cache_write_tokens:

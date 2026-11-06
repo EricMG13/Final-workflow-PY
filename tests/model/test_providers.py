@@ -15,6 +15,7 @@ from deploy_workflow.model.providers import (
     ErrorKind,
     KeyMissing,
     MaxOutputTooLarge,
+    ProviderConfigError,
     ProviderError,
     UnknownEffort,
     _openrouter_body,
@@ -35,6 +36,7 @@ from deploy_workflow.model.turn import (
     ToolCall,
     ToolSpec,
     Turn,
+    TurnError,
     TurnRequest,
     Usage,
 )
@@ -173,6 +175,21 @@ def test_max_output_over_cap_refused() -> None:
     build(SOL, _request(max_tokens=131072), KEY)
     with pytest.raises(MaxOutputTooLarge):
         build(SOL, _request(max_tokens=131073), KEY)
+
+
+def test_copilot_configs_admit_medium_only() -> None:
+    opus = ModelSpec("copilot-opus-medium", "copilot", "claude-opus-5.5", "medium")
+    assert effort_for(opus) == "medium"
+    with pytest.raises(UnknownEffort):
+        effort_for(opus, "high")
+    with pytest.raises(TurnError):
+        ModelSpec("copilot-sol-medium", "copilot", "claude-opus-5.5", "medium")
+
+
+def test_copilot_cannot_be_built_as_an_https_request() -> None:
+    spec = ModelSpec("copilot-sol-medium", "copilot", "gpt-6.1-sol", "medium")
+    with pytest.raises(ProviderConfigError):
+        build(spec, TurnRequest((Message("user", "hi"),), (), 100, "medium"), "tok")
 
 
 def test_unknown_effort_refused() -> None:

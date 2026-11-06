@@ -62,7 +62,7 @@ _MAPPER_SHAPE_ERRORS = (
     ValueError,
     ArithmeticError,
 )
-_PROVIDERS: tuple[Any, ...] = ("openai", "anthropic", "openrouter")
+_PROVIDERS: tuple[Any, ...] = ("openai", "anthropic", "openrouter", "copilot")
 _PREIMAGE_KEYS = frozenset(
     {
         "run_id",

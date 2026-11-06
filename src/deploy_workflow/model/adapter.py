@@ -62,6 +62,7 @@ KEY_VARIABLES: Mapping[str, str] = {
     "openai": "OPENAI_API_KEY",
     "anthropic": "ANTHROPIC_API_KEY",
     "openrouter": "OPENROUTER_API_KEY",
+    "copilot": "COPILOT_GITHUB_TOKEN",
 }
 LIVE_RULINGS_ROOT = Path(__file__).resolve().parents[3] / "docs" / "rulings"
 _REFLECTED_RAW = b'"[redacted]"'

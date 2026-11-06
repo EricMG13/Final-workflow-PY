@@ -10,7 +10,7 @@ from typing import Literal
 
 from deploy_vii.contracts import PathwayId
 
-Provider = Literal["openai", "anthropic", "openrouter"]
+Provider = Literal["openai", "anthropic", "openrouter", "copilot"]
 Role = Literal["repair", "comparison"]
 
 
@@ -51,6 +51,13 @@ CONFIGS: Mapping[str, ModelConfig] = MappingProxyType(
             "deepseek/deepseek-v4.1-flash-1017",
             "max",
             frozenset(),  # defined for its recorded spend; no stage plans it (user, 2026-11-02)
+        ),
+        # no model-testing stage plans a Copilot run; selected explicitly by CP-OS (plan 2026-11-06)
+        "copilot-sol-medium": ModelConfig(
+            "copilot-sol-medium", "copilot", "gpt-6.1-sol", "medium", frozenset()
+        ),
+        "copilot-opus-medium": ModelConfig(
+            "copilot-opus-medium", "copilot", "claude-opus-5.5", "medium", frozenset()
         ),
     }
 )
