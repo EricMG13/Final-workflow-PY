@@ -254,7 +254,6 @@ def test_an_escaped_slash_a_doubled_escape_or_a_path_like_id_cannot_make_a_secon
 
     assert parse("#W-Reports/a%2Fb") == ("W-Reports", "a/b")
     assert parse("#W-Reports/a%252Fb") == ("W-Reports", "a%2Fb")
-    # R6 N/A for the key's parse('W-Library%2Fcases') == ['W-Library/cases', undefined]: an unknown
-    # module falls back to W-Library, whose only section is 'cases', so parseRoute cannot show it.
+    assert parse("#W-Reports%2Flist") == ("W-Library", "cases")
     assert parse("#W-Reports/a%3Fc=1") == ("W-Reports", "a?c=1")
     assert parse("#W-Reports/..%2F..") == ("W-Reports", "../..")

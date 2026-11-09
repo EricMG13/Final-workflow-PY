@@ -34,8 +34,8 @@ from issuer_library.server import Application
 
 WINDOWS = sys.platform == "win32"
 SRC = Path(quit_module.__file__).resolve().parents[1]
-GUARD = "deferred: needs Task 1.5 guard; the later of 1-D4 and S3's PR un-skips"
-A07 = "deferred: needs Task 1.5 A07; the later of 1-D4 and S3's PR un-skips"
+GUARD = "deferred: needs Task 1.5 guard; S3's PR #14 un-skips"
+A07 = "deferred: needs Task 1.5 A07; S3's PR #14 un-skips"
 BUSY = "Issuer Library is busy ({}); wait for it to finish, then start it again."
 
 

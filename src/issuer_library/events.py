@@ -11,8 +11,8 @@ import logging
 import os
 import re
 import stat
-from dataclasses import dataclass, field
 from collections.abc import Callable
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, BinaryIO
 

@@ -12,6 +12,7 @@ import socket
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -95,7 +96,14 @@ with tempfile.TemporaryDirectory(prefix="issuer-library-smoke-") as temporary:
         else:
             raise AssertionError("Launcher did not become ready")
         assert process.stdout is not None
-        line = process.stdout.readline().decode().strip()
+        stdout = process.stdout
+        lines: list[bytes] = []
+        reader = threading.Thread(target=lambda: lines.append(stdout.readline()), daemon=True)
+        reader.start()
+        reader.join(10)
+        if not lines:
+            raise AssertionError("Launcher printed no launch link")
+        line = lines[0].decode().strip()
         if not line.startswith(f"Issuer Library: {address}/launch?ticket="):
             raise AssertionError("Launcher printed no launch link")
         path = line.removeprefix(f"Issuer Library: {address}")

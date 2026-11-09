@@ -120,7 +120,10 @@ def ask_to_quit(state: Path, port: int) -> socket.socket:
     """Ask this user's running instance to quit and wait, quit_wait at most, for its port.
 
     Returns the port's listener once the instance has gone. Otherwise raises ValueError with the
-    instance's busy answer, or AlreadyRunning when the instance neither quits nor answers."""
+    instance's busy answer, or AlreadyRunning when the instance neither quits nor answers.
+
+    The caller must first confirm that this user's library answers on the port
+    (`__main__.running_instance`, the state-folder digest guard); this function does not check."""
     try:
         private_folder(state)
     except OSError as error:
