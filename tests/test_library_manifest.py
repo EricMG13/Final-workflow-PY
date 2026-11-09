@@ -564,3 +564,50 @@ def test_published_library_json_is_owner_only(tmp_path):
     root, run_id = workspace("synthetic", tmp_path)
     target = lm.write(root, run_id)
     assert stat.S_IMODE(os.stat(target).st_mode) == 0o600
+
+
+def test_write_keeps_the_original_error_when_fdopen_already_closed_the_descriptor(
+    tmp_path, monkeypatch
+):
+    root, run_id = workspace("synthetic", tmp_path)
+    real_fdopen = os.fdopen
+
+    def fails_after_the_file_layer_owns_the_fd(fd, mode="r", *args, **kwargs):
+        if "w" in mode:
+            kwargs["encoding"] = "no-such-codec"
+        return real_fdopen(fd, mode, *args, **kwargs)
+
+    monkeypatch.setattr(lm.os, "fdopen", fails_after_the_file_layer_owns_the_fd)
+    with pytest.raises(LookupError, match="no-such-codec"):
+        lm.write(root, run_id)
+    assert [p.name for p in run_dir(root, run_id).glob(".library-*")] == []
+
+
+def test_a_failed_cleanup_keeps_the_original_error_and_names_the_temp_file(tmp_path, monkeypatch):
+    root, run_id = workspace("synthetic", tmp_path)
+    real_unlink = os.unlink
+
+    def replace_fails(*_, **__):
+        raise OSError("replace failed")
+
+    def unlink_fails(path, *args, **kwargs):
+        if str(path).startswith(".library-"):
+            raise OSError("unlink failed")
+        return real_unlink(path, *args, **kwargs)
+
+    monkeypatch.setattr(lm.os, "replace", replace_fails)
+    monkeypatch.setattr(lm.os, "unlink", unlink_fails)
+    with pytest.raises(OSError, match="replace failed") as raised:
+        lm.write(root, run_id)
+    (left,) = [p.name for p in run_dir(root, run_id).glob(".library-*")]
+    assert raised.value.__notes__ == [f"temp file {left} was not removed: unlink failed"]
+
+
+def test_replacing_os_open_selects_the_by_path_walk(tmp_path, monkeypatch):
+    # `_read` and `write` choose the dir_fd walk by `os.open in os.supports_dir_fd`.
+    root, run_id = workspace("synthetic", tmp_path)
+    monkeypatch.setattr(lm, "_read_pinned", lambda *_: pytest.fail("pinned walk used"))
+    real_open = os.open
+    monkeypatch.setattr(lm.os, "open", lambda *a, **k: real_open(*a, **k))
+    assert lm.os.open not in os.supports_dir_fd
+    assert lm._read(root, f"runs/{run_id}/context.json") is not None

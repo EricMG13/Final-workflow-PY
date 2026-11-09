@@ -261,6 +261,17 @@ def test_a_register_without_a_separator_row_is_missing_not_short_a_row(tmp_path)
     assert categories_for(tmp_path, register) == {"register_missing"}
 
 
+def test_a_register_row_with_no_document_and_no_source_is_malformed(tmp_path):
+    register = f"{HEADER_ROW}\n| --- | --- | --- | --- | --- |\n|  | {CA} | executed | 1 |  |"
+    assert categories_for(tmp_path, register) == {"register_malformed"}
+
+
+def test_a_register_row_with_no_source_is_malformed(tmp_path):
+    row = f"| Credit agreement | {CA} | executed | 1 |  |"
+    register = f"{HEADER_ROW}\n| --- | --- | --- | --- | --- |\n{row}"
+    assert categories_for(tmp_path, register) == {"register_malformed"}
+
+
 def test_in_scope_a_register_of_only_other_rows_needs_the_blocked_line(tmp_path):
     register = (
         f"{HEADER_ROW}\n| --- | --- | --- | --- | --- |\n"
