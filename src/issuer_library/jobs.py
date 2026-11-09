@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import errno
 import functools
+import hashlib
 import importlib.util
 import json
 import logging
@@ -16,7 +17,8 @@ import subprocess
 import sys
 import threading
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from types import ModuleType
@@ -56,6 +58,8 @@ WINDOWS_RESERVED = {"CON", "PRN", "AUX", "NUL"} | {
 PACKAGE = Path(__file__).resolve().parent
 LIBRARY_QUITTING = "Issuer Library is quitting for a new launch; use the window that launch opens."
 WORKER_POLL = 5.0  # Seconds between checks of a worker this instance did not start.
+REVIEW_TIMEOUT = 600.0  # Seconds a review may take; the launcher reads every file in the folder.
+COPY_CHUNK = 1 << 20
 NOT_STARTED = "no run was started and no model call was made. Start can be tried again."
 
 
@@ -96,12 +100,11 @@ class Engine:
     def review(self, folder: Path) -> bytes:
         failure = "CP-OS validation could not complete; check the runtime installation"
         try:
-            # The launcher reads every file in the folder, so a large one takes minutes.
             done = subprocess.run(
                 self.command("review", folder),
                 stdout=subprocess.PIPE,
                 stderr=subprocess.DEVNULL,
-                timeout=600,
+                timeout=REVIEW_TIMEOUT,
                 creationflags=WORKER_FLAGS,
                 check=False,
             )
@@ -373,31 +376,50 @@ def review_form(form: FormData) -> tuple[list[str], list[UploadFile], str, list[
     return paths, files, context, modules, max_turns
 
 
+def retain_source(upload: UploadFile, target: Path, name: str) -> str:
+    """Copy the upload into a new file and a sha256 together, reading at most SOURCE_LIMIT + 1
+    bytes in bounded chunks; the partial file of a refusal goes with the intake folder."""
+    try:
+        os.makedirs(target.parent, mode=0o700, exist_ok=True)
+    except OSError as error:
+        raise HTTPException(500, "Could not retain source") from error
+    try:
+        handle = os.open(target, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    except FileExistsError as error:
+        raise HTTPException(400, f"Could not retain source: {name}") from error
+    except OSError as error:
+        raise HTTPException(500, "Could not retain source") from error
+    hasher = hashlib.sha256()
+    size = 0
+    try:
+        with os.fdopen(handle, "wb") as stream:
+            try:
+                upload.file.seek(0)
+            except OSError as error:
+                raise HTTPException(400, "Source upload could not be read") from error
+            while size <= SOURCE_LIMIT:
+                chunk = upload.file.read(min(COPY_CHUNK, SOURCE_LIMIT + 1 - size))
+                if not chunk:
+                    break
+                stream.write(chunk)
+                hasher.update(chunk)
+                size += len(chunk)
+    except OSError as error:
+        raise HTTPException(500, "Could not retain source") from error
+    if size > SOURCE_LIMIT:
+        raise HTTPException(400, f"Source upload is too large or unreadable: {name}")
+    return hasher.hexdigest()
+
+
 def stage_sources(folder: Path, paths: list[str], files: list[UploadFile]) -> list[dict[str, str]]:
     """Keep every chosen file under sources/, so the launcher itself reports unreadable ones."""
     sources: list[dict[str, str]] = []
     for name, upload in zip(paths, files, strict=True):
         if (upload.size or 0) > SOURCE_LIMIT:
             raise HTTPException(400, f"Files must be up to 64 MiB each: {name}")
-        try:
-            upload.file.seek(0)
-            raw = upload.file.read(SOURCE_LIMIT + 1)
-        except OSError as error:
-            raise HTTPException(400, "Source upload could not be read") from error
-        if len(raw) > SOURCE_LIMIT:
-            raise HTTPException(400, f"Source upload is too large or unreadable: {name}")
-        target = folder / "sources" / name
-        try:
-            os.makedirs(target.parent, mode=0o700, exist_ok=True)
-        except OSError as error:
-            raise HTTPException(500, "Could not retain source") from error
-        try:
-            create(target, raw)
-        except FileExistsError as error:
-            raise HTTPException(400, f"Could not retain source: {name}") from error
-        except OSError as error:
-            raise HTTPException(500, "Could not retain source") from error
-        sources.append({"path": name, "sha256": digest(raw)})
+        sources.append(
+            {"path": name, "sha256": retain_source(upload, folder / "sources" / name, name)}
+        )
     return sources
 
 
@@ -432,41 +454,56 @@ def review_staged(lib: Application, folder: Path, job: dict[str, Any]) -> tuple[
     return result, True
 
 
+@contextmanager
+def enter_review(lib: Application) -> Iterator[str]:
+    """Count a review in flight and give the workspace it reads. The review writes into that
+    workspace until it ends, however it ends, so a switch is refused until then."""
+    with lib.lock:
+        if lib.quitting:
+            raise HTTPException(503, LIBRARY_QUITTING)
+        lib.reviews += 1
+        workspace = lib.config.workspace
+    try:
+        yield workspace
+    finally:
+        with lib.lock:
+            lib.reviews -= 1
+
+
 def review_run(lib: Application, form: FormData) -> Response:
     """Stage the upload under intake/<id>, then ask the engine to review it offline."""
     paths, files, context, modules, max_turns = review_form(form)
-    with lib.lock:
-        workspace = lib.config.workspace
-    job: dict[str, Any] = {
-        "id": f"web-{secrets.token_hex(16)}",
-        "workspace": workspace,
-        "config": text(form, "config"),
-        "cap_usd": text(form, "cap_usd"),
-        "modules": modules,
-        "max_turns": max_turns,
-        "sources": [],
-    }
-    root = Path(workspace)
-    if not root.is_dir():
-        raise HTTPException(400, "Choose an available workspace folder first")
-    try:
-        for name in ("intake", "runs", "deliverables"):
-            os.makedirs(root / name, mode=0o700, exist_ok=True)
-        folder = root / "intake" / job["id"]
-        folder.mkdir(mode=0o700)
-    except OSError as error:
-        raise HTTPException(400, "The workspace is not writable") from error
-    valid = False
-    try:
+    with enter_review(lib) as workspace:
+        job: dict[str, Any] = {
+            "id": f"web-{secrets.token_hex(16)}",
+            "workspace": workspace,
+            "config": text(form, "config"),
+            "cap_usd": text(form, "cap_usd"),
+            "modules": modules,
+            "max_turns": max_turns,
+            "sources": [],
+        }
+        root = Path(workspace)
+        if not root.is_dir():
+            raise HTTPException(400, "Choose an available workspace folder first")
         try:
-            create(folder / "context.json", context.encode())
+            for name in ("intake", "runs", "deliverables"):
+                os.makedirs(root / name, mode=0o700, exist_ok=True)
+            folder = root / "intake" / job["id"]
+            folder.mkdir(mode=0o700)
         except OSError as error:
-            raise HTTPException(500, "Could not retain context") from error
-        job["sources"] = stage_sources(folder, paths, files)
-        result, valid = review_staged(lib, folder, job)
-    finally:
-        if not valid:
-            shutil.rmtree(folder, ignore_errors=True)
+            raise HTTPException(400, "The workspace is not writable") from error
+        valid = False
+        try:
+            try:
+                create(folder / "context.json", context.encode())
+            except OSError as error:
+                raise HTTPException(500, "Could not retain context") from error
+            job["sources"] = stage_sources(folder, paths, files)
+            result, valid = review_staged(lib, folder, job)
+        finally:
+            if not valid:
+                shutil.rmtree(folder, ignore_errors=True)
     return Response(result, media_type="application/json")
 
 
@@ -736,8 +773,11 @@ def copy_resume_inputs(root: Path, old_id: str, job: dict[str, Any]) -> None:
 def resume_run(lib: Application, raw: bytes) -> Response:
     """Review a copy of a stopped run's inputs as a new job; never starts a worker."""
     request = resume_request(raw)
-    with lib.lock:
-        workspace = lib.config.workspace
+    with enter_review(lib) as workspace:
+        return resume_in(lib, request, workspace)
+
+
+def resume_in(lib: Application, request: dict[str, Any], workspace: str) -> Response:
     root = Path(workspace)
     old = root / "intake" / request["id"]
     try:

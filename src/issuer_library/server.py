@@ -258,6 +258,14 @@ class Application:
     def catalogue_locked(self) -> Response:
         return Response(self.catalogue.model_dump_json(), media_type=JSON)
 
+    def refuse_switch_during_review_locked(self, workspace: str) -> None:
+        """A review writes into the workspace until it ends; saving the same one is no switch."""
+        if self.reviews > 0 and workspace != os.path.normpath(self.config.workspace):
+            raise HTTPException(
+                409,
+                "A run review is in progress; wait for it to finish before changing the workspace",
+            )
+
     def apply_settings(self, raw: bytes) -> Response:
         with self.lock:
             if self.active_jobs:
@@ -277,8 +285,11 @@ class Application:
             if not os.path.isabs(config.workspace):
                 raise HTTPException(400, "Enter an absolute workspace folder")
             config.workspace = os.path.normpath(config.workspace)
+            self.refuse_switch_during_review_locked(config.workspace)
             if not os.path.isdir(config.workspace):
                 raise HTTPException(400, "The workspace folder is unavailable")
+            # Re-checked at the commit: discovery may stop holding the lock (Task 1.6, C11).
+            self.refuse_switch_during_review_locked(config.workspace)
             try:
                 save_json(self.loc.state / "settings.json", config)
             except OSError as error:

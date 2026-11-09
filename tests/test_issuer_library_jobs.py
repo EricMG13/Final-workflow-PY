@@ -2,35 +2,50 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
 import os
 import shutil
+import socket
 import sys
+import tempfile
 import threading
 import time
+import tracemalloc
+from collections.abc import Callable, Iterator
+from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor
+from concurrent.futures import wait as futures_wait
 from pathlib import Path
 from typing import Any
 
+import httpx
 import pytest
+import uvicorn
+from fastapi import HTTPException
 from fastapi.testclient import TestClient
 from issuer_library_support import (
+    FAKE_STORE,
     HOST,
     ORIGIN,
     POST_HEADERS,
+    add_delivery,
     call,
     client_of,
     fake_engine,
+    fixture,
     locations,
     make_app,
     put,
 )
+from starlette.datastructures import FormData, UploadFile
 
 import issuer_library.events as events_module
 import issuer_library.jobs as jobs_module
 import issuer_library.server as server_module
 from issuer_library.events import progress
 from issuer_library.jobs import Engine, job_view, mkdir_all_in, recorded_job
+from issuer_library.launch import cookie_name
 from issuer_library.server import Application
 from issuer_library.settings import save_json
 
@@ -1345,3 +1360,510 @@ def test_watch_worker_logs_an_uncheckable_lock_once(
     with caplog.at_level(logging.WARNING, logger="issuer_library"):
         jobs_module.watch_worker(app, "web-" + "a" * 32, tmp_path)
     assert calls["n"] == 50 and len(caplog.records) == 1
+
+
+# --- 5D: the review bound, slow reviews, streamed uploads and reviews in flight -------------------
+
+REVIEW_IN_FLIGHT = (
+    "A run review is in progress; wait for it to finish before changing the workspace"
+)
+SLOW_BRIDGE = """import json,sys,pathlib,time
+folder=pathlib.Path(sys.argv[2])
+job=json.loads((folder/'job.json').read_text())
+if sys.argv[1]=='review':
+ time.sleep(SECONDS)
+ print(json.dumps({'ok':True,'review_id':'rid','id':job['id'],'provider_ready':True}))
+"""
+HELD_REVIEW_BRIDGE = """import json,sys,pathlib,time
+folder=pathlib.Path(sys.argv[2])
+job=json.loads((folder/'job.json').read_text())
+if sys.argv[1]=='review':
+ deadline=time.time()+60
+ while not (folder/'release').exists() and time.time()<deadline: time.sleep(.01)
+ print(json.dumps({'ok':True,'review_id':'review-fingerprint','id':job['id'],'provider_ready':True}))
+else:
+ (folder/'synthetic-starts.txt').write_text('one\\n')
+ (folder/'status.json').write_text(json.dumps({'state':'stopped','message':'Synthetic only'}))
+"""
+REFUSING_BRIDGE = "import json\nprint(json.dumps({'ok':False,'problems':['synthetic refusal']}))\n"
+
+
+def engine_with(tmp_path: Path, name: str, bridge: str) -> Engine:
+    root = tmp_path / name
+    root.mkdir()
+    (root / "bridge.py").write_text(bridge)
+    (root / "store.py").write_text(FAKE_STORE)
+    return Engine(root=root, python=sys.executable)
+
+
+def slow_review_engine(tmp_path: Path, seconds: str, name: str = "slow") -> Engine:
+    return engine_with(tmp_path, name, SLOW_BRIDGE.replace("SECONDS", seconds))
+
+
+def held_review_engine(tmp_path: Path) -> Engine:
+    return engine_with(tmp_path, "held-review", HELD_REVIEW_BRIDGE)
+
+
+POOL = ThreadPoolExecutor(max_workers=8)
+
+
+def background(work: Callable[[], Any]) -> Future[Any]:
+    return POOL.submit(work)
+
+
+def review_in_thread(app: Application) -> Future[Any]:
+    return background(lambda: review_request(client_of(app), '["annual.txt"]'))
+
+
+def in_flight(app: Application) -> int:
+    with app.lock:
+        return app.reviews
+
+
+def wait_reviews(app: Application, want: int) -> None:
+    deadline = time.time() + 5
+    while in_flight(app) != want:
+        assert time.time() < deadline, f"{in_flight(app)} reviews in flight, want {want}"
+        time.sleep(0.005)
+
+
+def held_jobs(root: Path, want: int) -> list[Path]:
+    deadline = time.time() + 5
+    while True:
+        jobs = sorted((root / "intake").glob("web-*/job.json"))
+        if len(jobs) >= want:
+            return [job.parent for job in jobs]
+        assert time.time() < deadline, f"{len(jobs)} held reviews, want {want}"
+        time.sleep(0.005)
+
+
+def release_reviews(root: Path, want: int) -> None:
+    for folder in held_jobs(root, want):
+        (folder / "release").write_bytes(b"")
+
+
+def switch_to(client: TestClient, workspace: str) -> Any:
+    return call(client, "POST", "/api/settings", json.dumps({"workspace": workspace}))
+
+
+def block_discovery(
+    monkeypatch: pytest.MonkeyPatch, workspace: str
+) -> tuple[threading.Event, threading.Event]:
+    entered, release = threading.Event(), threading.Event()
+    real = server_module.discover
+
+    def hold(folder: str, seeds: Any) -> Any:
+        if folder == workspace:
+            entered.set()
+            assert release.wait(10)
+        return real(folder, seeds)
+
+    monkeypatch.setattr(server_module, "discover", hold)
+    return entered, release
+
+
+class Live:
+    """The app under a real uvicorn server on a loopback socket, as `__main__` runs it."""
+
+    def __init__(self, base: Path, engine_of: Callable[[Path], Engine]) -> None:
+        base.mkdir()
+        listener = socket.socket()
+        listener.bind(("127.0.0.1", 0))
+        listener.listen(16)
+        self.port = listener.getsockname()[1]
+        self.root = base / "workspace"
+        fixture(self.root)
+        add_delivery(self.root, "report", "case-a", "EX")
+        self.app = Application(locations(base), str(self.root), f"127.0.0.1:{self.port}")
+        self.app.engine = engine_of(base)
+        self.server = uvicorn.Server(
+            uvicorn.Config(
+                self.app.asgi, log_config=None, access_log=False, lifespan="off",
+                timeout_graceful_shutdown=10,
+            )
+        )  # fmt: skip
+        self.thread = threading.Thread(
+            target=self.server.run, kwargs={"sockets": [listener]}, daemon=True
+        )
+        self.thread.start()
+        deadline = time.time() + 10
+        while not self.server.started:
+            assert time.time() < deadline, "the server did not start"
+            time.sleep(0.01)
+
+    def client(self, timeout: float | None) -> httpx.Client:
+        origin = f"http://127.0.0.1:{self.port}"
+        cookie = f"{cookie_name(self.app.host)}={self.app.session.cookie}"
+        headers = {"Cookie": cookie, "X-Issuer-Library": "1", "Origin": origin}
+        return httpx.Client(base_url=origin, headers=headers, timeout=timeout, trust_env=False)
+
+    def review(self, timeout: float | None = 30) -> httpx.Response:
+        data = {
+            "context": "{}",
+            "config": "c",
+            "cap_usd": "1",
+            "source_paths": '["a.txt"]',
+            "modules": "CP-4",
+        }
+        with self.client(timeout) as client:
+            return client.post("/api/runs/review", data=data, files=[("sources", ("a.txt", b"x"))])
+
+    def switch(self, workspace: str) -> httpx.Response:
+        with self.client(10) as client:
+            return client.post(
+                "/api/settings",
+                content=json.dumps({"workspace": workspace}),
+                headers={"Content-Type": "application/json"},
+            )
+
+    def stop(self, bound: float = 10) -> bool:
+        """Whether the server ended within the bound, which waits for every running handler."""
+        self.server.should_exit = True
+        self.thread.join(bound)
+        return not self.thread.is_alive()
+
+
+@pytest.fixture
+def live(tmp_path: Path) -> Iterator[Callable[[Callable[[Path], Engine]], Live]]:
+    started: list[Live] = []
+
+    def start(engine_of: Callable[[Path], Engine]) -> Live:
+        server = Live(tmp_path / f"live{len(started)}", engine_of)
+        started.append(server)
+        return server
+
+    yield start
+    for server in started:
+        server.stop()
+
+
+def test_slow_review_response_outlives_a_short_server_deadline(
+    live: Callable[[Callable[[Path], Engine]], Live],
+) -> None:
+    server = live(lambda base: slow_review_engine(base, "2.5"))
+    results = [background(server.review) for _ in range(2)]
+    ids = set()
+    for result in results:
+        response = result.result(30)
+        review = response.json()
+        assert response.status_code == 200 and review["review_id"] == "rid" and review["id"]
+        ids.add(review["id"])
+    assert len(ids) == 2, f"reviews shared an id: {ids}"
+
+
+def test_review_past_the_bound_is_reported_not_dropped(
+    monkeypatch: pytest.MonkeyPatch, live: Callable[[Callable[[Path], Engine]], Live]
+) -> None:
+    monkeypatch.setattr(jobs_module, "REVIEW_TIMEOUT", 1.0)
+    server = live(lambda base: slow_review_engine(base, "30"))
+    started = time.time()
+    response = server.review()
+    assert response.status_code == 503 and time.time() - started < 10
+    assert "CP-OS validation could not complete" in response.text
+    assert intake_entries(server.root) == []
+
+
+@pytest.mark.parametrize(("sleep", "status"), [("1.4", 200), ("4", 503)])
+def test_review_just_under_and_just_over_the_bound(
+    monkeypatch: pytest.MonkeyPatch,
+    live: Callable[[Callable[[Path], Engine]], Live],
+    sleep: str,
+    status: int,
+) -> None:
+    monkeypatch.setattr(jobs_module, "REVIEW_TIMEOUT", 2.0)
+    server = live(lambda base: slow_review_engine(base, sleep))
+    started = time.time()
+    response = server.review()
+    elapsed = time.time() - started
+    assert response.status_code == status, response.text
+    assert server.stop()
+    entries = intake_entries(server.root)
+    if status == 200:
+        assert response.json()["review_id"] == "rid" and len(entries) == 1
+    else:
+        assert elapsed <= 3.5 and entries == [], f"503 after {elapsed}s; intake {entries}"
+        assert not list((server.root / "intake").glob("*/start.claim"))
+
+
+def test_client_disconnect_mid_review(live: Callable[[Callable[[Path], Engine]], Live]) -> None:
+    server = live(lambda base: slow_review_engine(base, "1.5"))
+    with pytest.raises(httpx.TimeoutException):
+        server.review(timeout=0.3)
+    assert server.review().status_code == 200, "the server stopped serving after a disconnect"
+    assert server.stop(10), "a handler is still running after the review bound"
+    assert len(intake_entries(server.root)) == 2, "the abandoned draft and the completed one"
+
+
+@pytest.mark.skip(
+    reason="not applicable: asserts Go's per-response write-deadline extension on a keep-alive "
+    "connection (http.Server WriteTimeout); uvicorn has no write timeout and this server extends "
+    "no per-response deadline, so there is no deadline to keep or lose"
+)
+def test_other_endpoints_keep_the_server_write_timeout() -> None:
+    raise AssertionError("not applicable")
+
+
+def upload_of_size(tmp_path: Path, size: int, name: str = "big.pdf") -> tuple[FormData, str]:
+    """A parsed review form whose one source is a file object of `size` bytes, and its sha256."""
+    stream = tempfile.TemporaryFile()  # noqa: SIM115 (closed with the form's upload by the test)
+    chunk = b"0123456789abcdef" * (1 << 16)  # 1 MiB
+    hasher = hashlib.sha256()
+    written = 0
+    while written < size:
+        part = chunk[: min(len(chunk), size - written)]
+        stream.write(part)
+        hasher.update(part)
+        written += len(part)
+    stream.seek(0)
+    upload = UploadFile(file=stream, size=size, filename=name)
+    form = FormData(
+        [
+            ("context", "{}"),
+            ("config", "sol-medium"),
+            ("cap_usd", "10.00"),
+            ("source_paths", json.dumps([name])),
+            ("sources", upload),
+        ]
+    )
+    return form, hasher.hexdigest()
+
+
+def test_upload_streams_each_source_within_the_exact_limit(tmp_path: Path) -> None:
+    # The handler is called with the parsed form, so the transport's copy of the 64 MiB body is
+    # outside the measurement; the file object is built before tracemalloc starts.
+    app, root = make_app(tmp_path)
+    app.engine = fake_engine(tmp_path)
+    form, want = upload_of_size(tmp_path, 64 << 20)
+    tracemalloc.start()
+    try:
+        response = jobs_module.review_run(app, form)
+        peak = tracemalloc.get_traced_memory()[1]
+    finally:
+        tracemalloc.stop()
+    assert response.status_code == 200, response.body
+    folder = root / "intake" / json.loads(response.body)["id"]
+    job = json.loads((folder / "job.json").read_bytes())
+    assert [source["sha256"] for source in job["sources"]] == [want]
+    assert (folder / "sources" / "big.pdf").stat().st_size == 64 << 20
+    assert peak <= 16 << 20, f"handling a 64 MiB upload allocated {peak >> 20} MiB"
+    before = intake_entries(root)
+    form, _ = upload_of_size(tmp_path, (64 << 20) + 1)
+    with pytest.raises(HTTPException) as refused:
+        jobs_module.review_run(app, form)
+    assert refused.value.status_code == 400 and "up to 64 MiB each" in refused.value.detail
+    assert intake_entries(root) == before, "a refused upload left a folder"
+
+
+def test_upload_larger_than_its_declared_size_is_refused_after_a_bounded_read(
+    tmp_path: Path,
+) -> None:
+    app, root = make_app(tmp_path)
+    app.engine = fake_engine(tmp_path)
+    form, _ = upload_of_size(tmp_path, (64 << 20) + 1)
+    upload = form.getlist("sources")[0]
+    assert isinstance(upload, UploadFile)
+    upload.size = None
+    with pytest.raises(HTTPException) as refused:
+        jobs_module.review_run(app, form)
+    assert refused.value.status_code == 400
+    assert refused.value.detail == "Source upload is too large or unreadable: big.pdf"
+    assert intake_entries(root) == []
+
+
+def test_workspace_switch_is_refused_while_a_review_is_in_flight(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    app, root = make_app(tmp_path)
+    app.engine = held_review_engine(tmp_path)
+    client = client_of(app)
+    other = tmp_path / "other"
+    other.mkdir()
+    discovered: list[str] = []
+    real = server_module.discover
+
+    def count(folder: str, seeds: Any) -> Any:
+        if folder == str(other):
+            discovered.append(folder)
+        return real(folder, seeds)
+
+    monkeypatch.setattr(server_module, "discover", count)
+    try:
+        done = review_in_thread(app)
+        wait_reviews(app, 1)
+        refused = switch_to(client, str(other))
+        assert refused.status_code == 409 and refused.text == REVIEW_IN_FLIGHT + "\n"
+        assert discovered == [], "a switch refused for the review still discovered it"
+        for same in (str(root), f"{root}{os.sep}", str(root / ".")):
+            response = switch_to(client, same)
+            assert response.status_code == 200, f"{same!r}: {response.text}"
+        assert app.config.workspace == str(root)
+        release_reviews(root, 1)
+        review = done.result(30)
+        assert review.status_code == 200 and review.json()["ok"] is True
+        wait_reviews(app, 0)
+        started = start_job(client, review.json()["id"])
+        assert started.status_code == 202, started.text
+        wait_idle(app)
+        assert switch_to(client, str(other)).status_code == 200
+        assert app.config.workspace == str(other)
+    finally:
+        release_reviews(root, 0)
+
+
+def test_a_review_past_the_bound_releases_the_workspace(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(jobs_module, "REVIEW_TIMEOUT", 1.0)
+    app, root = make_app(tmp_path)
+    app.engine = held_review_engine(tmp_path)
+    client = client_of(app)
+    other = tmp_path / "other"
+    other.mkdir()
+    try:
+        done = review_in_thread(app)
+        wait_reviews(app, 1)
+        assert switch_to(client, str(other)).status_code == 409
+        assert done.result(30).status_code == 503
+        assert in_flight(app) == 0
+        assert switch_to(client, str(other)).status_code == 200
+    finally:
+        release_reviews(root, 0)
+
+
+def test_a_review_whose_client_went_away_holds_the_workspace_until_it_ends(
+    tmp_path: Path, live: Callable[[Callable[[Path], Engine]], Live]
+) -> None:
+    server = live(lambda base: held_review_engine(base))
+    other = tmp_path / "other"
+    other.mkdir()
+    try:
+        with pytest.raises(httpx.TimeoutException):
+            server.review(timeout=1.0)
+        wait_reviews(server.app, 1)
+        assert server.switch(str(other)).status_code == 409
+        release_reviews(server.root, 1)
+        wait_reviews(server.app, 0)
+        response = server.switch(str(other))
+        assert response.status_code == 200, response.text
+    finally:
+        release_reviews(server.root, 0)
+
+
+def test_review_errors_leave_no_review_in_flight(tmp_path: Path) -> None:
+    app, _ = make_app(tmp_path)
+    good = fake_engine(tmp_path)
+    client = client_of(app)
+    cases = [
+        ("missing runtime", missing_python(tmp_path, good), '["annual.txt"]', 503),
+        (
+            "validator refusal",
+            engine_with(tmp_path, "refusing", REFUSING_BRIDGE),
+            '["annual.txt"]',
+            200,
+        ),
+        ("refused upload", good, '["../outside.txt"]', 400),
+    ]
+    for label, engine, paths, status in cases:
+        app.engine = engine
+        response = review_request(client, paths)
+        assert response.status_code == status, f"{label}: {response.text}"
+        assert in_flight(app) == 0, f"{label}: reviews in flight"
+    assert switch_to(client, str(tmp_path)).status_code == 200
+
+
+def test_two_reviews_in_flight_refuse_the_switch_until_both_end(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    app.engine = held_review_engine(tmp_path)
+    client = client_of(app)
+    other = tmp_path / "other"
+    other.mkdir()
+    try:
+        done = [review_in_thread(app) for _ in range(2)]
+        wait_reviews(app, 2)
+        assert switch_to(client, str(other)).status_code == 409
+        (held_jobs(root, 2)[0] / "release").write_bytes(b"")
+        finished, pending = futures_wait(done, timeout=30, return_when=FIRST_COMPLETED)
+        assert len(finished) == 1 and next(iter(finished)).result().status_code == 200
+        wait_reviews(app, 1)
+        assert switch_to(client, str(other)).status_code == 409
+        release_reviews(root, 1)
+        assert next(iter(pending)).result(30).status_code == 200
+        wait_reviews(app, 0)
+        assert switch_to(client, str(other)).status_code == 200
+    finally:
+        release_reviews(root, 0)
+
+
+@pytest.mark.skip(
+    reason="deferred: needs Task 1.6 C11 (discovery outside Application.lock); S4 un-skips"
+)
+def test_a_review_started_during_a_switch_refuses_it_at_commit(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    app, root = make_app(tmp_path)
+    app.engine = held_review_engine(tmp_path)
+    other = tmp_path / "other"
+    other.mkdir()
+    entered, release = block_discovery(monkeypatch, str(other))
+    try:
+        switched = background(lambda: switch_to(client_of(app), str(other)))
+        assert entered.wait(10)
+        done = review_in_thread(app)
+        wait_reviews(app, 1)
+        release.set()
+        response = switched.result(30)
+        assert response.status_code == 409 and response.text == REVIEW_IN_FLIGHT + "\n"
+        with app.lock:
+            workspace, catalogue = app.config.workspace, app.catalogue.workspace
+        assert workspace == str(root) and catalogue == str(root)
+        release_reviews(root, 1)
+        review = done.result(30)
+        assert review.status_code == 200
+        assert (root / "intake" / review.json()["id"] / "review.json").exists()
+    finally:
+        release.set()
+        release_reviews(root, 0)
+
+
+@pytest.mark.skip(
+    reason="deferred: needs Task 1.6 C11 (discovery outside Application.lock); S4 un-skips"
+)
+def test_start_during_a_workspace_switch_refuses_the_switch(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    app, root, client, job_id = reviewed(tmp_path)
+    other = tmp_path / "other"
+    other.mkdir()
+    entered, release = block_discovery(monkeypatch, str(other))
+    try:
+        switched = background(lambda: switch_to(client_of(app), str(other)))
+        assert entered.wait(10)
+        assert start_job(client, job_id).status_code == 202
+        release.set()
+        response = switched.result(30)
+        assert response.status_code == 409
+        assert "Wait for the active run" in response.text
+        wait_idle(app)
+        with app.lock:
+            workspace, catalogue = app.config.workspace, app.catalogue.workspace
+        assert workspace == str(root) and catalogue == str(root)
+    finally:
+        release.set()
+
+
+def test_a_quitting_app_refuses_review_before_counting_or_staging(tmp_path: Path) -> None:
+    app, root = make_app(tmp_path)
+    app.engine = fake_engine(tmp_path)
+    app.quitting = True
+    response = review_request(client_of(app), '["annual.txt"]')
+    assert response.status_code == 503 and QUITTING in response.text
+    assert in_flight(app) == 0 and not (root / "intake").exists()
+
+
+def test_a_quitting_app_refuses_resume_before_counting_or_copying(tmp_path: Path) -> None:
+    app, root, client, job_id = stopped_run(tmp_path)
+    before = intake_entries(root)
+    app.quitting = True
+    response = call(client, "POST", "/api/runs/resume", resume_body(job_id))
+    assert response.status_code == 503 and QUITTING in response.text
+    assert in_flight(app) == 0 and intake_entries(root) == before
