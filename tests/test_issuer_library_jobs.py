@@ -41,6 +41,7 @@ from issuer_library_support import (
 )
 from starlette.datastructures import FormData, UploadFile
 
+import issuer_library.__main__ as main_module
 import issuer_library.events as events_module
 import issuer_library.jobs as jobs_module
 import issuer_library.server as server_module
@@ -2270,3 +2271,146 @@ def test_adoption_logs_an_intake_folder_that_cannot_be_listed(
         jobs_module.adopt_jobs_locked(app, str(tmp_path / "file" / "x"))
     messages = adoption_warnings(caplog)
     assert len(messages) == 1 and "intake" in messages[0]
+
+
+# C11 call sites: every rediscovery runs through Application.refresh(), outside the lock.
+
+
+def finish_on_thread(app: Application, folder: Path, job_id: str) -> threading.Thread:
+    app.active_jobs.add(job_id)
+    thread = threading.Thread(
+        target=jobs_module.finish_job, args=(app, folder, job_id), daemon=True
+    )
+    thread.start()
+    return thread
+
+
+def counted_discovery(monkeypatch: pytest.MonkeyPatch) -> dict[str, int]:
+    """Wrap discover to count entries and the most that ran at once."""
+    seen = {"now": 0, "max": 0, "total": 0}
+    guard = threading.Lock()
+    real = server_module.discover
+
+    def counting(folder: str, seeds: Any) -> Any:
+        with guard:
+            seen["now"] += 1
+            seen["total"] += 1
+            seen["max"] = max(seen["max"], seen["now"])
+        try:
+            time.sleep(0.01)
+            return real(folder, seeds)
+        finally:
+            with guard:
+                seen["now"] -= 1
+
+    monkeypatch.setattr(server_module, "discover", counting)
+    return seen
+
+
+def test_a_finishing_run_does_not_hold_the_lock_while_it_discovers(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(notify, "tab_watching", lambda lib: True)
+    job_id = "web-" + "f1" * 16
+    app, root, _, _ = clocked_app(tmp_path)
+    folder = finished_folder(root, job_id)
+    finished: list[str] = []
+    app.on_finished = finished.append
+    entered, release = block_discovery(monkeypatch, str(root))
+    thread = finish_on_thread(app, folder, job_id)
+    try:
+        assert entered.wait(10), "finish_job never discovered"
+        assert app.lock.acquire(timeout=2), "finish_job holds the catalogue lock while it discovers"
+        app.lock.release()
+        started = time.time()
+        assert client_of(app).get("/api/runs/list").status_code == 200
+        assert time.time() - started < 5
+    finally:
+        release.set()
+        thread.join(10)
+    assert not thread.is_alive()
+    assert finished == [job_id]
+
+
+def test_discoveries_never_overlap(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(notify, "tab_watching", lambda lib: True)
+    app, root, _, _ = clocked_app(tmp_path)
+    seen = counted_discovery(monkeypatch)
+    ids = ["web-" + f"{n:02x}" * 16 for n in range(1, 5)]
+    folders = [finished_folder(root, job_id) for job_id in ids]
+    threads = [finish_on_thread(app, f, i) for f, i in zip(folders, ids, strict=True)]
+    ticking = threading.Thread(
+        target=main_module.rediscover, args=(app, lambda: seen["total"] >= 12, 0.01), daemon=True
+    )
+    ticking.start()
+    posts = [
+        threading.Thread(
+            target=call, args=(client_of(app), "POST", "/api/refresh", "{}"), daemon=True
+        )
+        for _ in range(3)
+    ]
+    for post in posts:
+        post.start()
+    for thread in [*threads, ticking, *posts]:
+        thread.join(30)
+        assert not thread.is_alive()
+    assert seen["total"] > 1
+    assert seen["max"] == 1, f"{seen['max']} discoveries ran at once"
+
+
+def prime_store_cache(app: Application) -> None:
+    app.engine = fake_engine(app.loc.state.parent)
+    assert client_of(app).get("/api/workspace").status_code == 200
+    assert app.store_cache.body is not None, "the workspace body was not cached"
+
+
+def test_a_finishing_run_clears_the_store_cache(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(notify, "tab_watching", lambda lib: True)
+    job_id = "web-" + "f2" * 16
+    app, root, _, _ = clocked_app(tmp_path)
+    folder = finished_folder(root, job_id)
+    prime_store_cache(app)
+    app.active_jobs.add(job_id)
+    jobs_module.finish_job(app, folder, job_id)
+    assert app.store_cache.body is None and app.store_cache.key == ""
+
+
+def test_a_rediscovery_tick_clears_the_store_cache(tmp_path: Path) -> None:
+    app, _ = make_app(tmp_path)
+    prime_store_cache(app)
+    ticks = iter([False, True])
+    main_module.rediscover(app, lambda: next(ticks), 0)
+    assert app.store_cache.body is None and app.store_cache.key == ""
+
+
+def test_a_quitting_library_discovers_nothing_but_still_notices_a_finish(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(notify, "tab_watching", lambda lib: False)
+    job_id = "web-" + "f3" * 16
+    app, root, _, notices = clocked_app(tmp_path)
+    folder = finished_folder(root, job_id)
+    seen = counted_discovery(monkeypatch)
+    finished: list[str] = []
+    app.on_finished = finished.append
+    app.active_jobs.add(job_id)
+    app.quitting = True
+    assert app.refreshing.acquire(timeout=1)  # An idle quit leaves it held for good.
+    thread = threading.Thread(
+        target=jobs_module.finish_job, args=(app, folder, job_id), daemon=True
+    )
+    thread.start()
+    thread.join(10)
+    assert not thread.is_alive(), "finish_job waits on a quitting library"
+    assert len(notices) == 1 and finished == [job_id]
+    ticking = threading.Thread(
+        target=main_module.rediscover, args=(app, lambda: False, 0.01), daemon=True
+    )
+    ticking.start()
+    ticking.join(5)
+    assert not ticking.is_alive(), "rediscover keeps waiting on a quitting library"
+    refused = call(client_of(app), "POST", "/api/refresh", "{}")
+    assert refused.status_code == 503 and refused.text == server_module.LIBRARY_QUITTING + "\n"
+    assert seen["total"] == 0, "a quitting library discovered"
