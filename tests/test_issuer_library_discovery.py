@@ -340,7 +340,7 @@ METRIC_CASES = [
     ("Revenue 1 234,5", "1", False),
     ("Revenue 1 234 567", "234", False),
     ("Revenue 1 234 567", "1", False),
-    ("Umsatz 1 234,5", "1", False),
+    ("Umsatz 1\u00a0234,5", "1", False),
     ("Revenue 1'234.5", "234.5", False),
     ("Yield: .5%", ".5", False),
     # Exponents and a parenthesis opened before the quote also hide scale or sign.
