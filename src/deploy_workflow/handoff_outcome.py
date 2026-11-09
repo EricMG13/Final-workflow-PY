@@ -3,16 +3,21 @@
 Standard library only: live_check loads this file by path, tools/expectations_backtest imports it.
 
 1. The module's own handoff is read first. Its evidence is exact `key: value` lines in the
-   handoff's leading `---` front-matter block (prose never counts), plus a status word after the
-   module id (below). The most severe value wins: will_refuse > limited > ready.
+   handoff's leading `---` front-matter block (prose never counts), a line that starts with the
+   label `Module Status:` (optionally bold; a table column of that name never counts), plus a
+   status word after the module id (below). The most severe value wins:
+   will_refuse > limited > ready.
 
 | Own handoff value                                              | Actual class |
 | -------------------------------------------------------------- | ------------ |
 | qa_status or committee_status: Blocked; status word BLOCKED    | will_refuse  |
 | qa_status or committee_status: Restricted; review_status:      | limited      |
 |   Provisional; status word READY_WITH_LIMITATIONS              |              |
-| committee_status: Committee Ready; status word READY           | ready, only  |
-|   (only when no limited or will_refuse value is present)       | then         |
+| Module Status: Blocked                                         | will_refuse  |
+| Module Status: Completed with Limitations                      | limited      |
+| committee_status: Committee Ready; Module Status: Completed;   | ready, only  |
+|   status word READY (only when no limited or will_refuse       | then         |
+|   value is present)                                            |              |
 | committee_status: Draft Only, Requires More Work or            | no result    |
 |   Insufficient Information                                     | (go to 2)    |
 
@@ -65,6 +70,16 @@ def front_matter(text: str) -> list[tuple[str, str]]:
     return []
 
 
+MODULE_STATUS = {
+    "Blocked": "will_refuse",
+    "Completed with Limitations": "limited",
+    "Completed": "ready",
+}
+MODULE_STATUS_LINE = re.compile(
+    r"^[ \t]*(?:\*\*)?Module Status:(?:\*\*)?[ \t]*(.*?)[ \t*]*$", re.MULTILINE
+)
+
+
 def status_word(module: str, text: str, words: tuple[str, ...]) -> str | None:
     """The first of `words` within 70 characters after the module id, no other module id between."""
     pattern = rf"\b{re.escape(module)}\b(?:(?!CP-)[^\n]){{0,70}}?\b({'|'.join(words)})\b"
@@ -79,6 +94,11 @@ def own_status(module: str, own: str) -> tuple[str, str] | None:
         (FIELDS[pair], f"{pair[0]}: {pair[1]} in {name}")
         for pair in front_matter(own)
         if pair in FIELDS
+    ]
+    found += [
+        (MODULE_STATUS[m[1]], f"Module Status: {m[1]} in {name}")
+        for m in MODULE_STATUS_LINE.finditer(own)
+        if m[1] in MODULE_STATUS
     ]
     if word := status_word(module, own, tuple(STATUS)):
         found.append((STATUS[word], f"{word} in {name}"))
